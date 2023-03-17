@@ -3,6 +3,7 @@
 /**
  * Composer autoloader from municipio
  */
+
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
     require_once MUNICIPIO_PATH . 'vendor/autoload.php';
 }
@@ -42,7 +43,8 @@ add_action('init', function () {
         'block-margin'                              => 'group_61bc6134601a0',
         'block-container'                           => 'group_63cfdba21f7fc',
         'options-activate-gutenberg'                => 'group_60b496c06687c',
-
+        // Terms
+        'term-icon-and-colour'                      => 'group_63e6002cc129c',
         // Options
         'options-page-display'                      => 'group_56c33cf1470dc',
         'options-page-navigation'                   => 'group_56d83cff12bb3',
@@ -89,6 +91,8 @@ add_action('init', function () {
         'options-customize-header'                  => 'group_5afa93c0a25e1',
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
+        // Purposes
+        'purpose-place'                             => 'group_63eb4a0aa476e',
     ));
 
     $acfExportManager->import();

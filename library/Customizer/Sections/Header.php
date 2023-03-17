@@ -7,22 +7,13 @@ use Kirki\Field\Radio as RadioField;
 
 class Header
 {
-    public const SECTION_ID = "municipio_customizer_section_header";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Header', 'municipio'),
-            'description' => esc_html__('Header settings.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'header_apperance',
             'label'       => esc_html__('Apperance', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'casual',
             'priority'    => 10,
             'choices'     => [
@@ -36,14 +27,42 @@ class Header
 
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'header_alignment',
+            'settings'    => 'casual_header_alignment',
             'label'       => esc_html__('Menu alignment', 'municipio'),
-            'section'     => self::SECTION_ID,
-            'default'     => 'gap',
+            'section'     => $sectionID,
+            'default'     => 'casual-right',
             'priority'    => 10,
             'choices'     => [
-                'gap' => esc_html__('Gap between', 'municipio'),
-                'left' => esc_html__('Left', 'municipio'),
+                'casual-left' => esc_html__('Left', 'municipio'),
+                'casual-center' => esc_html__('Center', 'municipio'),
+                'casual-right' => esc_html__('Right', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'header_apperance',
+                    'operator' => '==',
+                    'value'    => 'casual',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.header.nav'],
+                ]
+            ],
+        ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'business_header_alignment',
+            'label'       => esc_html__('Menu alignment', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'business-gap',
+            'priority'    => 10,
+            'choices'     => [
+                'business-gap' => esc_html__('Gap between', 'municipio'),
+                'business-left' => esc_html__('Left', 'municipio'),
+                'business-right' => esc_html__('Right', 'municipio'),
             ],
             'active_callback' => [
                 [
@@ -65,7 +84,7 @@ class Header
             'settings'    => 'header_sticky',
             'label'       => esc_html__('Sticky', 'municipio'),
             'description' => esc_html__('Adjust how the header section should behave when the user scrolls trough the page.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
@@ -88,7 +107,7 @@ class Header
             'settings'    => 'header_background',
             'label'       => esc_html__('Background color', 'municipio'),
             'description' => esc_html__('Choose a background color for the header section of the page.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
@@ -109,7 +128,7 @@ class Header
             'settings'    => 'header_color',
             'label'       => esc_html__('Text color', 'municipio'),
             'description' => esc_html__('Select a font/text color to use in the header.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
@@ -132,7 +151,7 @@ class Header
             'settings'    => 'header_modifier',
             'label'       => esc_html__('Style', 'municipio'),
             'description' => esc_html__('Select a alternative style of this header.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
@@ -151,7 +170,7 @@ class Header
             'type'        => 'slider',
             'settings'    => 'header_logotype_height',
             'label'       => esc_html__('Logotype height', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport' => 'auto',
             'default'     => 6,
             'choices'     => [
@@ -170,7 +189,7 @@ class Header
         Kirki::add_field(new RadioField([
             'settings'    => 'header_logotype',
             'label'       => esc_html__('Header logotype', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 'standard',
             'priority'    => 10,
             'choices'     => array(

@@ -85,7 +85,7 @@ module.exports = {
             {
                 test: /\.ts?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!(@helsingborg-stad\/styleguide\/source)\/).*/,
             },
             /**
              * Styles
@@ -274,5 +274,5 @@ module.exports = {
         }))
     ]).filter(Boolean),
     devtool: 'source-map',
-    stats: { children: false }
+    stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
 };

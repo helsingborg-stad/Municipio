@@ -3,10 +3,11 @@
 @section('primary-navigation')
 
     <div class="c-header__menu c-header__menu--primary">
+
         <div class="c-header__flex-content o-container o-container--wide">
             
             {{-- Header logo --}}
-            @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
+            @link(['href' => $homeUrl, 'classList' => ['u-display--flex']])
                 @logotype([
                     'src'=> $logotype,
                     'alt' => $lang->goToHomepage,
@@ -27,10 +28,12 @@
                     ],
                     'classList' => [
                         'u-flex-wrap--no-wrap', 
-                        'u-justify-content--end'
                     ]
                 ]
             )
+
+            {{-- Siteselector menu items --}}
+            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
 
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')

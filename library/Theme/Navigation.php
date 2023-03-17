@@ -16,6 +16,7 @@ class Navigation
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
+        add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
     }
 
     public static function getMenuLocations() {
@@ -23,14 +24,33 @@ class Navigation
             'help-menu' => __('Help menu', 'municipio'),
             'header-tabs-menu' => __('Header tabs menu', 'municipio'),
             'main-menu' => __('Primary menu', 'municipio'),
-            'secondary-menu' => __('Secondary menu & mobile menu', 'municipio'),
+            'secondary-menu' => __('Secondary menu & drawer menu', 'municipio'),
             'hamburger-menu' => __('Hamburger menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
             'floating-menu' => __('Floating menu', 'municipio'),
             'language-menu' => __('Language menu', 'municipio'),
             'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
-            'mobile-drawer' => __('Mobile drawer (bottom)', 'municipio'),
+            'mobile-drawer' => __('Drawer (bottom)', 'municipio'),
+            'siteselector-menu' => __('Siteselector', 'municipio'),
         );
+    }
+
+    /**
+     * Force the item style to "tiles" on selected menus
+     */
+    public function forceItemStyleTiles($item, $identifier)
+    {
+        $targetMenuIdentifiers = ['language', 'floating'];
+
+        if (!in_array($identifier, $targetMenuIdentifiers)) {
+            return $item;
+        }
+
+        if(isset($item['style'])) {
+            $item['style'] = 'tiles';
+        }
+
+        return $item; 
     }
 
     /**

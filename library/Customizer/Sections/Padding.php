@@ -4,23 +4,14 @@ namespace Municipio\Customizer\Sections;
 
 class Padding
 {
-    public const SECTION_ID = "municipio_customizer_section_padding";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Padding', 'municipio'),
-            'description' => esc_html__('Padding settings.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'main_content_padding',
             'label'       => esc_html__('Amount of padding around columns.', 'municipio'),
             'description' => esc_html__('Padding will be applied in 8px increments.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 0,
             'choices'     => [
                 'min'  => 0,
@@ -37,7 +28,7 @@ class Padding
             'settings'    => 'organism_grid_gap',
             'label'       => esc_html__('Amount of padding in grids.', 'municipio'),
             'description' => esc_html__('Padding will be applied in 8px increments.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => 4,
             'transport' => 'auto',
             'choices'     => [
@@ -58,7 +49,7 @@ class Padding
             'settings'    => 'flat_ui_design',
             'label'       => esc_html__('Air in cards', 'municipio'),
             'description' => esc_html__('Enable to remove space between content and the edge of cards.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [

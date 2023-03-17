@@ -4,23 +4,14 @@ namespace Municipio\Customizer\Sections;
 
 class Shadow
 {
-    public const SECTION_ID = "municipio_customizer_section_shadow";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Drop Shadows', 'municipio'),
-            'description' => esc_html__('Adjust general drop shadows. ', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'drop_shadow_amount',
             'label'       => esc_html__('Amount of shadows', 'municipio'),
             'description' => esc_html__('The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport' => 'auto',
             'default'     => 1,
             'choices'     => [
@@ -37,11 +28,32 @@ class Shadow
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
+            'settings'    => 'detail_shadow_amount',
+            'label'       => esc_html__('Amount of detail shadow', 'municipio'),
+            'description' => esc_html__('The detail shadow size will affect smaller components. A value of 0 will turn of the shadow completely.', 'municipio'),
+            'section'     => $sectionID,
+            'transport' => 'auto',
+            'default'     => 0.5,
+            'choices'     => [
+                'min'  => 0,
+                'max'  => 1,
+                'step' => 0.1,
+            ],
+            'output' => [
+                [
+                    'element'   => ':root',
+                    'property'  => '--detail-shadow-amount',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'color',
             'settings'    => 'drop_shadow_color',
             'label'       => esc_html__('Color of shadows', 'municipio'),
             'description' => esc_html__('What color to use for shadows.', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'transport'   => 'auto',
             'default'     => 'rgba(0,0,0,0.3)',
             'choices'     => [

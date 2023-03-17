@@ -2,6 +2,9 @@
 
 namespace Municipio;
 
+use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\PanelsRegistry;
+
 class Customizer
 {
     public const KIRKI_CONFIG = "municipio_config";
@@ -27,28 +30,7 @@ class Customizer
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
-        }, 10);
-
-        /**
-         * Fixes issue when using :root selector in
-         * output args for Gutenberg editor.
-         *
-         * Issue adressed here: https://github.com/kirki-framework/kirki/issues/2461.
-         * When resolved, this can be removed.
-         */
-        add_filter('kirki_municipio_config_dynamic_css', function ($styles) {
-            $isEditor = (isset($_GET['editor']) && $_GET['editor'] == '1');
-            $isStyles = (isset($_GET['action']) && $_GET['action'] == 'kirki-styles');
-
-            if ($isEditor && $isStyles) {
-                return str_replace(
-                    '.editor-styles-wrapper :root',
-                    '.editor-styles-wrapper',
-                    $styles
-                );
-            }
-            return $styles;
-        }, 20);
+        }, 11);
 
         /**
          * Loads functionality to load a certain page
@@ -115,7 +97,7 @@ class Customizer
             define("WEB_FONT_DISABLE_INLINE", true);
         }
 
-        \Kirki::add_config(self::KIRKI_CONFIG, array(
+        Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
             'gutenberg_support' => false
@@ -130,17 +112,9 @@ class Customizer
         new \Municipio\Customizer\Applicators\ControllerVariables();
         new \Municipio\Customizer\Applicators\Css();
 
-        //Define panels
-        new \Municipio\Customizer\Panels\Design();
-        new \Municipio\Customizer\Panels\Component();
-        new \Municipio\Customizer\Panels\Module();
-        new \Municipio\Customizer\Panels\Archive();
-        new \Municipio\Customizer\Panels\Menu();
-
-        //Define panels with logic
-        new \Municipio\Customizer\Panels\DesignLibrary();
-
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
+
+        PanelsRegistry::getInstance()->build();
     }
 }

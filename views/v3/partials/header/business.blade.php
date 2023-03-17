@@ -17,6 +17,9 @@
 
             {{-- Tab menu items --}}
             @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+
+            {{-- Siteselector menu items --}}
+            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
@@ -59,7 +62,7 @@
 @section('secondary-navigation')
     {{-- Primary menu --}}
     @if (!empty($primaryMenuItems))
-        <div class="c-header__menu c-header__menu--secondary u-padding--05 u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
+        <div class="c-header__menu c-header__menu--secondary u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
             <div class="o-container">
                 @includeIf(
                     'partials.navigation.primary', 

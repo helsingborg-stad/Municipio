@@ -75,7 +75,7 @@ class FormatObject
         }
         return $return;
     }
-    
+
     /**
      * It takes a string of HTML, creates a new DOMDocument, loads the HTML into the DOMDocument, and
      * then imports the root node of the DOMDocument into the DOMDocument that was passed in

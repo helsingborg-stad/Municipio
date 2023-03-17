@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2022-12-20 08:02+0100\n"
+"POT-Creation-Date: 2023-02-13 18:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,17 +49,16 @@ msgstr ""
 #: library/AcfFields/php/block-button.php:51
 #: library/Customizer/Sections/Card.php:99
 #: library/Customizer/Sections/Collection.php:99
-#: library/Customizer/Sections/Field.php:48
 msgid "Color"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:63
-#: library/AcfFields/php/options-theme-header-logotype.php:22
 #: library/Customizer/Sections/Button.php:73
 #: library/Customizer/Sections/Footer.php:85
 #: library/Customizer/Sections/Footer.php:374
-#: library/Customizer/Sections/Header.php:67
-#: library/Customizer/Sections/Header.php:90
+#: library/Customizer/Sections/Header.php:96
+#: library/Customizer/Sections/Header.php:119
+#: library/Customizer/Sections/Header.php:177
 #: library/Customizer/Sections/Quicklinks.php:61
 #: library/Customizer/Sections/Quicklinks.php:111
 #: library/Customizer/Sections/Slider.php:207
@@ -67,12 +66,12 @@ msgid "Primary"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:64
-#: library/AcfFields/php/options-theme-header-logotype.php:23
 #: library/Customizer/Sections/Colors.php:180
 #: library/Customizer/Sections/Footer.php:86
 #: library/Customizer/Sections/Footer.php:375
-#: library/Customizer/Sections/Header.php:68
-#: library/Customizer/Sections/Header.php:91
+#: library/Customizer/Sections/Header.php:97
+#: library/Customizer/Sections/Header.php:120
+#: library/Customizer/Sections/Header.php:178
 #: library/Customizer/Sections/Quicklinks.php:62
 #: library/Customizer/Sections/Quicklinks.php:112
 #: library/Customizer/Sections/Slider.php:208
@@ -84,9 +83,10 @@ msgstr ""
 #: library/AcfFields/php/options-menu-style.php:22
 #: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/widget-header-menu.php:48
-#: library/Customizer/Sections/Header.php:43
-#: library/Customizer/Sections/Header.php:66
-#: library/Customizer/Sections/Header.php:87
+#: library/Customizer/Sections/Field.php:27
+#: library/Customizer/Sections/Header.php:72
+#: library/Customizer/Sections/Header.php:95
+#: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Quicklinks.php:60
 #: library/Customizer/Sections/Quicklinks.php:88
 #: library/Customizer/Sections/Quicklinks.php:108
@@ -104,8 +104,7 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:53
 #: library/Customizer/Sections/Card.php:112
 #: library/Customizer/Sections/Collection.php:112
-#: library/Customizer/Sections/Field.php:61
-#: library/Customizer/Sections/Header.php:104
+#: library/Customizer/Sections/Header.php:133
 msgid "Style"
 msgstr ""
 
@@ -162,6 +161,22 @@ msgstr ""
 
 #: library/AcfFields/php/block-button.php:131
 msgid "md"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:6
+msgid "Container Block"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:10
+msgid "Amount of padding"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:30
+#: library/Customizer/Sections/Card.php:29
+#: library/Customizer/Sections/Collection.php:29
+#: library/Customizer/Sections/Divider.php:205
+#: library/Customizer/Sections/Header.php:89
+msgid "Background color"
 msgstr ""
 
 #: library/AcfFields/php/block-margin.php:6
@@ -257,6 +272,7 @@ msgstr ""
 #: library/Customizer/Sections/Menu.php:43
 #: library/Customizer/Sections/Menu.php:59
 #: library/Customizer/Sections/Menu.php:75
+#: library/Customizer/Sections/Menu.php:91
 msgid "Disabled"
 msgstr ""
 
@@ -311,7 +327,7 @@ msgid "Add section"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-floating.php:6
-#: library/Theme/Navigation.php:28
+#: library/Theme/Navigation.php:29
 msgid "Floating menu"
 msgstr ""
 
@@ -348,6 +364,7 @@ msgstr ""
 #: library/AcfFields/php/options-menu-icon.php:13
 #: library/AcfFields/php/options-theme-favicon.php:153
 #: library/AcfFields/php/options-theme-google-translate.php:73
+#: library/AcfFields/php/term-icon-and-colour.php:10
 #: library/AcfFields/php/widget-header-links.php:33
 #: library/AcfFields/php/widget-header-links.php:120
 msgid "Icon"
@@ -4656,8 +4673,8 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:125 library/Customizer/Panels/Archive.php:60
-#: library/Upgrade.php:493
+#: library/Controller/Singular.php:128 library/Customizer/Panels/Archive.php:62
+#: library/Upgrade.php:526
 msgid "Author"
 msgstr ""
 
@@ -4719,6 +4736,8 @@ msgid ""
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-js.php:69
+#: library/AcfFields/php/purpose-place.php:6
+#: library/AcfFields/php/purpose-place.php:10
 #: library/Customizer/Sections/Quicklinks.php:125
 msgid "Location"
 msgstr ""
@@ -4928,7 +4947,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:204
 msgid "days"
 msgstr ""
 
@@ -5222,46 +5241,6 @@ msgid ""
 "Analytics (to the account specified under the Google Analytics settings)"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-header-logotype.php:6
-#: library/AcfFields/php/options-theme-header-logotype.php:10
-msgid "Header logotype"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:6
-#: library/Customizer/Sections/Footer.php:79
-#: library/Customizer/Sections/Footer.php:368
-msgid "Logotype"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:10
-msgid "Primary logotype"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:13
-msgid "Only accepts .svg-files (Scalable Vector Graphics)."
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:36
-msgid "Secondary logotype"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:39
-msgid ""
-"Upload your secondary logotype in .svg format (Scalable Vector Graphics). "
-"The secondary logotype is usually 100% white and can be used on dark or "
-"colored backgrounds."
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:62
-msgid "Emblem"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-logotype.php:65
-msgid ""
-"Upload an emblem in .svg format (Scalable Vector Graphics). The emblem will "
-"be used to strengthen the website brand, when a sub brand is used."
-msgstr ""
-
 #: library/AcfFields/php/options-theme-post-timestamps.php:9
 msgid ""
 "Check boxes to enable timestamps for post types. Will be displayed after the "
@@ -5302,39 +5281,16 @@ msgstr ""
 msgid "Yes, disable pages."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:8
-msgid "Display settings"
+#: library/AcfFields/php/purpose-place.php:14
+msgid "Area or street address of the location."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:12
-msgid "Show search"
+#: library/AcfFields/php/term-icon-and-colour.php:6
+msgid "Advanced term settings"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-search-display.php:27
-msgid "Hero on frontpage"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-display.php:28
-msgid "Header on sub pages"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-display.php:29
-msgid "Header on frontpage"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-display.php:30
-msgid "Option in main menu"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-display.php:31
-msgid "Option in mobile menu"
-msgstr ""
-
-#: library/AcfFields/php/options-theme-search-display.php:32
-#: library/Controller/BaseController.php:215
-#: library/Customizer/Sections/HamburgerMenu.php:12
-#: library/Theme/Navigation.php:26
-msgid "Hamburger menu"
+#: library/AcfFields/php/term-icon-and-colour.php:37
+msgid "Colour"
 msgstr ""
 
 #: library/AcfFields/php/user-author-image.php:10
@@ -5434,6 +5390,7 @@ msgstr ""
 #: library/Customizer/Sections/Footer.php:168
 #: library/Customizer/Sections/Footer.php:480
 #: library/Customizer/Sections/General.php:26
+#: library/Customizer/Sections/Header.php:46
 #: library/Customizer/Sections/Slider.php:118
 #: library/Customizer/Sections/Slider.php:290
 #: library/Customizer/Sections/Width.php:87
@@ -5469,11 +5426,10 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/Collection.php:124
-#: library/Customizer/Sections/Field.php:73
 #: library/Customizer/Sections/Footer.php:84
 #: library/Customizer/Sections/Footer.php:373
 #: library/Customizer/Sections/HamburgerMenu.php:59
-#: library/Customizer/Sections/Header.php:110
+#: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Module/Contacts.php:28
 #: library/Customizer/Sections/Module/Contacts.php:47
 #: library/Customizer/Sections/Module/Index.php:29
@@ -5596,6 +5552,11 @@ msgstr ""
 msgid "Media link"
 msgstr ""
 
+#: library/Admin/Acf/LocationRulesPurpose.php:8
+#: library/Admin/Options/Purpose.php:67
+msgid "Purpose"
+msgstr ""
+
 #: library/Admin/General.php:106
 msgid "Only for logged in users"
 msgstr ""
@@ -5625,7 +5586,15 @@ msgstr ""
 msgid "A margin block"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:104
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:91
+msgid "Container"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:92
+msgid "A container block"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:120
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -5645,6 +5614,52 @@ msgstr ""
 msgid "None (link to #translate to show)"
 msgstr ""
 
+#: library/Admin/Options/Purpose.php:19
+msgid "Purpose templates"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:20
+msgid "Purposes"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:86
+msgid "Select purpose"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
+#: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:98
+#: library/Controller/BaseController.php:212
+#: library/Customizer/Sections/Search.php:15 library/Search/General.php:53
+#: library/Widget/Navigation/Navigation.php:66
+#: views/v1/partials/archive-filters.blade.php:40
+#: views/v1/partials/archive-filters.blade.php:43
+#: views/v1/partials/archive-filters.blade.php:79
+#: views/v2/partials/archive-filters.blade.php:40
+#: views/v2/partials/archive-filters.blade.php:43
+#: views/v2/partials/archive-filters.blade.php:79
+msgid "Search"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:92
+msgid "Template"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:96
+msgid "Check to <u>not</u> use the custom template for this post type."
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:104
+msgid "Do not use purpose template"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:107
+msgid "Use"
+msgstr ""
+
+#: library/Admin/Options/Purpose.php:108
+msgid "Do not use"
+msgstr ""
+
 #: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
 msgstr ""
@@ -5659,18 +5674,6 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:93 library/Controller/BaseController.php:211
-#: library/Search/General.php:53 library/Widget/Navigation/Navigation.php:66
-#: views/v1/partials/archive-filters.blade.php:40
-#: views/v1/partials/archive-filters.blade.php:43
-#: views/v1/partials/archive-filters.blade.php:79
-#: views/v2/partials/archive-filters.blade.php:40
-#: views/v2/partials/archive-filters.blade.php:43
-#: views/v2/partials/archive-filters.blade.php:79
-msgid "Search"
-msgstr ""
-
 #: library/Admin/Options/Theme.php:75
 msgid "Custom Post Types"
 msgstr ""
@@ -5679,23 +5682,19 @@ msgstr ""
 msgid "Post Types"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:82 library/Admin/Options/Theme.php:83
-msgid "Post Types Purpose"
-msgstr ""
-
-#: library/Admin/Options/Theme.php:90
+#: library/Admin/Options/Theme.php:83
 msgid "Custom Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:91
+#: library/Admin/Options/Theme.php:84
 msgid "Taxonomies"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:98
+#: library/Admin/Options/Theme.php:91
 msgid "Custom CSS/JS Editor"
 msgstr ""
 
-#: library/Admin/Options/Theme.php:99
+#: library/Admin/Options/Theme.php:92
 msgid "Custom CSS/JS"
 msgstr ""
 
@@ -5729,6 +5728,22 @@ msgid ""
 "This it the beta-environment. All functionality is not guaranteed. Possibly, "
 "the web page content will be restored and synchronized with the live site on "
 "Monday."
+msgstr ""
+
+#: library/Api/Media/Sideload.php:31
+msgid "Remote URL from which to sideload image."
+msgstr ""
+
+#: library/Api/Media/Sideload.php:37
+msgid "Description."
+msgstr ""
+
+#: library/Api/Media/Sideload.php:43
+msgid "Return type from sideloaded image."
+msgstr ""
+
+#: library/Api/View/Render.php:37
+msgid "View data."
 msgstr ""
 
 #: library/Comment/Form.php:36 library/Theme/Icon.php:65
@@ -5766,11 +5781,11 @@ msgstr ""
 msgid "Could not verify that you are human."
 msgstr ""
 
-#: library/Comment/Likes.php:86
+#: library/Comment/Likes.php:85
 msgid "Dislike "
 msgstr ""
 
-#: library/Comment/Likes.php:87
+#: library/Comment/Likes.php:86
 msgid "Like "
 msgstr ""
 
@@ -5827,174 +5842,182 @@ msgstr ""
 msgid "Auto generated cpt from user iterface."
 msgstr ""
 
-#: library/Content/PostTypePurpose.php:22
-msgid "Event"
+#: library/Content/RelatedPosts.php:40
+#, php-format
+msgctxt "Default title for related posts, %s being the name of the post type."
+msgid "More %s"
 msgstr ""
 
-#: library/Content/PostTypePurpose.php:23
-msgid "Job Listing"
+#: library/Controller/Archive.php:88
+msgid "No items found at this query."
 msgstr ""
 
-#: library/Content/PostTypePurpose.php:24
-msgid "Place"
-msgstr ""
-
-#: library/Content/PostTypePurpose.php:42
-msgid "Post Type Purpose"
-msgstr ""
-
-#: library/Controller/Archive.php:84 library/Controller/Singular.php:31
+#: library/Controller/Archive.php:89 library/Controller/Singular.php:34
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr ""
 
-#: library/Controller/Archive.php:85 library/Controller/Singular.php:30
+#: library/Controller/Archive.php:90 library/Controller/Singular.php:33
 msgid "Updated"
 msgstr ""
 
-#: library/Controller/Archive.php:86
+#: library/Controller/Archive.php:91
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/Archive.php:89
+#: library/Controller/Archive.php:94
 msgid "Choose a from date"
 msgstr ""
 
-#: library/Controller/Archive.php:90
+#: library/Controller/Archive.php:95
 msgid "Choose a to date"
 msgstr ""
 
-#: library/Controller/Archive.php:91
+#: library/Controller/Archive.php:96
 msgid "Select a valid date"
 msgstr ""
 
-#: library/Controller/Archive.php:94
+#: library/Controller/Archive.php:99
+msgid "Filter"
+msgstr ""
+
+#: library/Controller/Archive.php:100
+msgid "Reset search"
+msgstr ""
+
+#: library/Controller/Archive.php:101
 msgid "Reset filter"
 msgstr ""
 
-#: library/Controller/Archive.php:95
+#: library/Controller/Archive.php:102
 msgid "Archive navigation"
 msgstr ""
 
-#: library/Controller/Archive.php:96
+#: library/Controller/Archive.php:103
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/Archive.php:474
+#: library/Controller/Archive.php:514
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr ""
 
-#: library/Controller/BaseController.php:189 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:190 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
-#: library/Controller/BaseController.php:190
+#: library/Controller/BaseController.php:191
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:191
+#: library/Controller/BaseController.php:192
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:192
+#: library/Controller/BaseController.php:193
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:193
+#: library/Controller/BaseController.php:194
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:195
 msgid "Skip to the side menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:196
 msgid "ago"
 msgstr ""
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:197
 msgid "since"
 msgstr ""
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:198
 msgid "years"
 msgstr ""
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:199
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:200
 msgid "months"
 msgstr ""
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:201
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:202
 msgid "weeks"
 msgstr ""
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:203
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:205
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:206
 msgid "hours"
 msgstr ""
 
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:207
 msgid "hour"
 msgstr ""
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:208
 msgid "minutes"
 msgstr ""
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:209
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:210
 msgid "seconds"
 msgstr ""
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:211
 msgid "second"
 msgstr ""
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:213
 msgid "Search on"
 msgstr ""
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:214
 msgid "What are you searching for?"
 msgstr ""
 
-#: library/Controller/BaseController.php:214
+#: library/Controller/BaseController.php:215
 msgid "Primary navigation"
 msgstr ""
 
 #: library/Controller/BaseController.php:216
-msgid "Useful links"
+#: library/Customizer/Sections/HamburgerMenu.php:12
+#: library/Customizer/Sections/Search.php:30 library/Theme/Navigation.php:27
+msgid "Hamburger menu"
 msgstr ""
 
 #: library/Controller/BaseController.php:217
+msgid "Useful links"
+msgstr ""
+
+#: library/Controller/BaseController.php:218
 msgid "Related links"
 msgstr ""
 
-#: library/Controller/BaseController.php:218 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:219 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -6002,15 +6025,15 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:220
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:221
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:221
+#: library/Controller/BaseController.php:222
 msgid "More Languages"
 msgstr ""
 
@@ -6036,6 +6059,18 @@ msgstr ""
 msgid "post"
 msgstr ""
 
+#: library/Controller/Purpose/Event.php:24
+msgid "Event"
+msgstr ""
+
+#: library/Controller/Purpose/Place.php:18
+msgid "Place"
+msgstr ""
+
+#: library/Controller/Purpose/Project.php:27
+msgid "Project"
+msgstr ""
+
 #: library/Controller/Search.php:14
 msgid "The searchquery did not match any content."
 msgstr ""
@@ -6056,30 +6091,30 @@ msgstr ""
 msgid "View page"
 msgstr ""
 
-#: library/Controller/Singular.php:32
+#: library/Controller/Singular.php:35
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr ""
 
-#: library/Controller/Singular.php:33
+#: library/Controller/Singular.php:36
 msgid "on"
 msgstr ""
 
-#: library/Controller/Singular.php:38
+#: library/Controller/Singular.php:41
 msgid "Reading time"
 msgstr ""
 
-#: library/Controller/Singular.php:56
+#: library/Controller/Singular.php:59
 msgid "Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:57
+#: library/Controller/Singular.php:60
 msgid "Log in to Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:269
+#: library/Controller/Singular.php:272
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -6098,11 +6133,11 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
-#: library/Customizer/Panels/Archive.php:13
+#: library/Customizer/Panels/Archive.php:14
 msgid "Archive Apperance"
 msgstr ""
 
-#: library/Customizer/Panels/Archive.php:14
+#: library/Customizer/Panels/Archive.php:15
 msgid "Manage apperance options on archives."
 msgstr ""
 
@@ -6216,72 +6251,90 @@ msgstr ""
 msgid "Add filters to let the user browse partial content."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:148
+#: library/Customizer/Sections/Archive.php:150
 msgid "Text search"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:149
+#: library/Customizer/Sections/Archive.php:151
 msgid "Date range"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:165
+#: library/Customizer/Sections/Archive.php:166
+msgid "Facetting type"
+msgstr ""
+
+#: library/Customizer/Sections/Archive.php:167
+msgid ""
+"Wheter to broaden/search (or/off) OR taper/filter (and/on) search result "
+"when adding multiple selections for facetting."
+msgstr ""
+
+#: library/Customizer/Sections/Archive.php:171
+msgid "OR"
+msgstr ""
+
+#: library/Customizer/Sections/Archive.php:172
+msgid "AND"
+msgstr ""
+
+#: library/Customizer/Sections/Archive.php:186
 msgid "Taxonomy display"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:166
+#: library/Customizer/Sections/Archive.php:187
 msgid "What taxonomies should be displayed?"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:183
+#: library/Customizer/Sections/Archive.php:206
 msgid "Order By"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:184
+#: library/Customizer/Sections/Archive.php:207
 msgid "Select a key/value to order by."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:199
+#: library/Customizer/Sections/Archive.php:222
 msgid "Order direction"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:200
+#: library/Customizer/Sections/Archive.php:223
 msgid "Select decending or ascending order."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:204
+#: library/Customizer/Sections/Archive.php:227
 msgid "Ascending"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:205
+#: library/Customizer/Sections/Archive.php:228
 msgid "Decending"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:220
-#: library/Customizer/Sections/Archive.php:251
+#: library/Customizer/Sections/Archive.php:243
+#: library/Customizer/Sections/Archive.php:274
 msgid "Date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:221
+#: library/Customizer/Sections/Archive.php:244
 msgid "Select source of timestamp for post"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:225
+#: library/Customizer/Sections/Archive.php:248
 msgid "Hide date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:246
+#: library/Customizer/Sections/Archive.php:269
 msgid "Date format"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:247
+#: library/Customizer/Sections/Archive.php:270
 msgid "In what format to display date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:252
+#: library/Customizer/Sections/Archive.php:275
 msgid "Date, Time"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:253
+#: library/Customizer/Sections/Archive.php:276
 msgid "Date badge"
 msgstr ""
 
@@ -6360,14 +6413,6 @@ msgid ""
 "user. Therefore they share settings."
 msgstr ""
 
-#: library/Customizer/Sections/Card.php:29
-#: library/Customizer/Sections/Collection.php:29
-#: library/Customizer/Sections/Divider.php:205
-#: library/Customizer/Sections/Field.php:91
-#: library/Customizer/Sections/Header.php:60
-msgid "Background color"
-msgstr ""
-
 #: library/Customizer/Sections/Card.php:42
 msgid "Background card - Hover"
 msgstr ""
@@ -6391,77 +6436,65 @@ msgstr ""
 
 #: library/Customizer/Sections/Card.php:80
 #: library/Customizer/Sections/Collection.php:80
-#: library/Customizer/Sections/Field.php:29
 msgid "Width"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:116
 #: library/Customizer/Sections/Collection.php:116
 #: library/Customizer/Sections/Divider.php:48
-#: library/Customizer/Sections/Field.php:65
 msgid "Dotted"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:117
 #: library/Customizer/Sections/Collection.php:117
 #: library/Customizer/Sections/Divider.php:49
-#: library/Customizer/Sections/Field.php:66
 msgid "Dashed"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:118
 #: library/Customizer/Sections/Collection.php:118
 #: library/Customizer/Sections/Divider.php:47
-#: library/Customizer/Sections/Field.php:67
 msgid "Solid"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:119
 #: library/Customizer/Sections/Collection.php:119
-#: library/Customizer/Sections/Field.php:68
 msgid "Double"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:120
 #: library/Customizer/Sections/Collection.php:120
-#: library/Customizer/Sections/Field.php:69
 msgid "Groove"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:121
 #: library/Customizer/Sections/Collection.php:121
-#: library/Customizer/Sections/Field.php:70
 msgid "Ridge"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:122
 #: library/Customizer/Sections/Collection.php:122
-#: library/Customizer/Sections/Field.php:71
 msgid "Inset"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:123
 #: library/Customizer/Sections/Collection.php:123
-#: library/Customizer/Sections/Field.php:72
 msgid "Outset"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:125
 #: library/Customizer/Sections/Collection.php:125
-#: library/Customizer/Sections/Field.php:74
 #: library/Customizer/Sections/General.php:28
 msgid "Hidden"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:134
 #: library/Customizer/Sections/Collection.php:134
-#: library/Customizer/Sections/Field.php:83
 msgid "Tailor border apperance"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:143
 #: library/Customizer/Sections/Collection.php:143
-#: library/Customizer/Sections/Field.php:146
 msgid "Border radius"
 msgstr ""
 
@@ -6663,7 +6696,7 @@ msgid "Monotone colors"
 msgstr ""
 
 #: library/Customizer/Sections/Colors.php:570
-#: library/Customizer/Sections/Header.php:89
+#: library/Customizer/Sections/Header.php:118
 #: library/Customizer/Sections/Quicklinks.php:110
 msgid "Black"
 msgstr ""
@@ -6681,7 +6714,7 @@ msgid "Lighther"
 msgstr ""
 
 #: library/Customizer/Sections/Colors.php:577
-#: library/Customizer/Sections/Header.php:88
+#: library/Customizer/Sections/Header.php:117
 #: library/Customizer/Sections/Quicklinks.php:109
 msgid "White"
 msgstr ""
@@ -6709,12 +6742,13 @@ msgstr ""
 #: library/Customizer/Sections/Menu.php:42
 #: library/Customizer/Sections/Menu.php:58
 #: library/Customizer/Sections/Menu.php:74
+#: library/Customizer/Sections/Menu.php:90
 msgid "Enabled"
 msgstr ""
 
 #: library/Customizer/Sections/Divider.php:116
 #: library/Customizer/Sections/Footer.php:290
-#: library/Customizer/Sections/Header.php:81
+#: library/Customizer/Sections/Header.php:110
 #: library/Customizer/Sections/Quicklinks.php:102
 msgid "Text color"
 msgstr ""
@@ -6796,32 +6830,24 @@ msgstr ""
 msgid "Example controller variable"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:16
+#: library/Customizer/Sections/Field.php:12
 msgid "Field"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:17
-msgid "Field appeance settings."
+#: library/Customizer/Sections/Field.php:13
+msgid "Field settings."
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:92
-msgid "Choose a background color for the field component."
+#: library/Customizer/Sections/Field.php:21
+msgid "Field style"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:109
-msgid "Focus color"
+#: library/Customizer/Sections/Field.php:22
+msgid "Which styling the input field use."
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:110
-msgid "Choose a focus color for the field component."
-msgstr ""
-
-#: library/Customizer/Sections/Field.php:127
-msgid "Custom field font color"
-msgstr ""
-
-#: library/Customizer/Sections/Field.php:128
-msgid "Choose a font color for the field component."
+#: library/Customizer/Sections/Field.php:28
+msgid "Rounded"
 msgstr ""
 
 #: library/Customizer/Sections/Footer.php:15
@@ -6863,9 +6889,14 @@ msgstr ""
 msgid "Padding"
 msgstr ""
 
+#: library/Customizer/Sections/Footer.php:79
+#: library/Customizer/Sections/Footer.php:368
+msgid "Logotype"
+msgstr ""
+
 #: library/Customizer/Sections/Footer.php:96
 #: library/Customizer/Sections/Footer.php:406
-#: library/Customizer/Sections/Header.php:124
+#: library/Customizer/Sections/Header.php:153
 msgid "Logotype height"
 msgstr ""
 
@@ -7028,55 +7059,63 @@ msgstr ""
 msgid "Select a color for the background"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:12
+#: library/Customizer/Sections/Header.php:15
 msgid "Header"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:13
+#: library/Customizer/Sections/Header.php:16
 msgid "Header settings."
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:21
+#: library/Customizer/Sections/Header.php:24
 msgid "Apperance"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:26
+#: library/Customizer/Sections/Header.php:29
 msgid "Casual (Small sites)"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:27
+#: library/Customizer/Sections/Header.php:30
 msgid "Business (large sites)"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:37
+#: library/Customizer/Sections/Header.php:40
+msgid "Menu alignment"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:45
+msgid "Gap between"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:66
 #: library/Customizer/Sections/Quicklinks.php:82
 msgid "Sticky"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:38
+#: library/Customizer/Sections/Header.php:67
 msgid ""
 "Adjust how the header section should behave when the user scrolls trough the "
 "page."
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:44
+#: library/Customizer/Sections/Header.php:73
 #: library/Customizer/Sections/Quicklinks.php:89
 msgid "Stick to top"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:61
+#: library/Customizer/Sections/Header.php:90
 msgid "Choose a background color for the header section of the page."
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:82
+#: library/Customizer/Sections/Header.php:111
 msgid "Select a font/text color to use in the header."
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:105
+#: library/Customizer/Sections/Header.php:134
 msgid "Select a alternative style of this header."
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:111
+#: library/Customizer/Sections/Header.php:140
 #: library/Customizer/Sections/Module/Contacts.php:49
 #: library/Customizer/Sections/Module/Inlay.php:30
 #: library/Customizer/Sections/Module/LocalEvent.php:30
@@ -7090,7 +7129,11 @@ msgstr ""
 msgid "Accented"
 msgstr ""
 
-#: library/Customizer/Sections/Hero.php:12 library/Theme/Sidebars.php:115
+#: library/Customizer/Sections/Header.php:172
+msgid "Header logotype"
+msgstr ""
+
+#: library/Customizer/Sections/Hero.php:12 library/Theme/Sidebars.php:123
 msgid "Hero"
 msgstr ""
 
@@ -7133,6 +7176,44 @@ msgstr ""
 msgid "Error loading options"
 msgstr ""
 
+#: library/Customizer/Sections/Logo.php:14
+msgid "Only accepts .svg-files (Scalable Vector Graphics)."
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:16
+msgid ""
+"Upload your secondary logotype in .svg format (Scalable Vector Graphics).\n"
+"            The secondary logotype is usually 100% white and can be used on "
+"dark or colored backgrounds."
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:21
+msgid ""
+"Upload an emblem in .svg format (Scalable Vector Graphics).\n"
+"            The emblem will be used to strengthen the website brand, when a "
+"sub brand is used."
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:29
+msgid "Primary logo"
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:36
+msgid "Secondary logo"
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:43
+msgid "Emblem"
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:57
+msgid "Logo"
+msgstr ""
+
+#: library/Customizer/Sections/Logo.php:58
+msgid "Logo settings."
+msgstr ""
+
 #: library/Customizer/Sections/Menu.php:12
 msgid "Menu behaviour"
 msgstr ""
@@ -7155,6 +7236,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Menu.php:69
 msgid "Use page tree as fallback for hamburger menu"
+msgstr ""
+
+#: library/Customizer/Sections/Menu.php:85
+msgid "Show subitems as dropdown in main menu"
 msgstr ""
 
 #: library/Customizer/Sections/Module/Contacts.php:12
@@ -7323,6 +7408,30 @@ msgstr ""
 msgid "Extra small"
 msgstr ""
 
+#: library/Customizer/Sections/Search.php:22
+msgid "Show search"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:25
+msgid "Hero on frontpage"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:26
+msgid "Header on sub pages"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:27
+msgid "Header on frontpage"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:28
+msgid "Option in main menu"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:29
+msgid "Option in mobile menu"
+msgstr ""
+
 #: library/Customizer/Sections/Shadow.php:12
 msgid "Drop Shadows"
 msgstr ""
@@ -7464,6 +7573,14 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
+#: library/Helper/Image.php:112
+msgid "File not found when setting sideloaded identifier."
+msgstr ""
+
+#: library/Helper/Image.php:118
+msgid "Could not generate sideloaded identifier for file."
+msgstr ""
+
 #: library/Helper/KirkiCondidional.php:35
 msgid "Tailor"
 msgstr ""
@@ -7476,7 +7593,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: library/Helper/Post.php:69
+#: library/Helper/Post.php:72
 msgid "Item is missing content"
 msgstr ""
 
@@ -7518,99 +7635,118 @@ msgstr ""
 msgid "One Page"
 msgstr ""
 
-#: library/Theme/Enqueue.php:119
+#: library/Theme/Enqueue.php:141
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: library/Theme/Enqueue.php:122
+#: library/Theme/Enqueue.php:144
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:123
+#: library/Theme/Enqueue.php:145
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: library/Theme/Enqueue.php:135
+#: library/Theme/Enqueue.php:157
 msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:136
+#: library/Theme/Enqueue.php:158
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:137
+#: library/Theme/Enqueue.php:159
 msgid "March"
 msgstr ""
 
-#: library/Theme/Enqueue.php:138
+#: library/Theme/Enqueue.php:160
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:139
+#: library/Theme/Enqueue.php:161
 msgid "May"
 msgstr ""
 
-#: library/Theme/Enqueue.php:140
+#: library/Theme/Enqueue.php:162
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:141
+#: library/Theme/Enqueue.php:163
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:142
+#: library/Theme/Enqueue.php:164
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:143
+#: library/Theme/Enqueue.php:165
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:144
+#: library/Theme/Enqueue.php:166
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:145
+#: library/Theme/Enqueue.php:167
 msgid "November"
 msgstr ""
 
-#: library/Theme/Enqueue.php:146
+#: library/Theme/Enqueue.php:168
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:150
+#: library/Theme/Enqueue.php:172
 msgid "Su"
 msgstr ""
 
-#: library/Theme/Enqueue.php:151
+#: library/Theme/Enqueue.php:173
 msgid "Mo"
 msgstr ""
 
-#: library/Theme/Enqueue.php:152
+#: library/Theme/Enqueue.php:174
 msgid "Tu"
 msgstr ""
 
-#: library/Theme/Enqueue.php:153
+#: library/Theme/Enqueue.php:175
 msgid "We"
 msgstr ""
 
-#: library/Theme/Enqueue.php:154
+#: library/Theme/Enqueue.php:176
 msgid "Th"
 msgstr ""
 
-#: library/Theme/Enqueue.php:155
+#: library/Theme/Enqueue.php:177
 msgid "Fr"
 msgstr ""
 
-#: library/Theme/Enqueue.php:156
+#: library/Theme/Enqueue.php:178
 msgid "Sa"
 msgstr ""
 
-#: library/Theme/General.php:404
+#: library/Theme/Forms.php:19
+msgid ""
+"This content is password protected. To view it please enter your password "
+"below:"
+msgstr ""
+
+#: library/Theme/Forms.php:20
+msgid "Password"
+msgstr ""
+
+#: library/Theme/Forms.php:21
+msgctxt "post password form"
+msgid "Enter"
+msgstr ""
+
+#: library/Theme/Forms.php:43
+msgid "The password entered is not correct."
+msgstr ""
+
+#: library/Theme/General.php:275
 msgid "Print"
 msgstr ""
 
-#: library/Theme/General.php:405
+#: library/Theme/General.php:276
 msgid "Print this page"
 msgstr ""
 
@@ -7877,153 +8013,151 @@ msgstr ""
 msgid "Undefined"
 msgstr ""
 
-#: library/Theme/Navigation.php:22
+#: library/Theme/Navigation.php:23
 msgid "Help menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:23
+#: library/Theme/Navigation.php:24
 msgid "Header tabs menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:24
+#: library/Theme/Navigation.php:25
 msgid "Primary menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:25
+#: library/Theme/Navigation.php:26
 msgid "Secondary menu & mobile menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:27
+#: library/Theme/Navigation.php:28
 msgid "Dropdown menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:29
+#: library/Theme/Navigation.php:30
 msgid "Language menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:30
+#: library/Theme/Navigation.php:31
 msgid "Quicklinks menu"
 msgstr ""
 
-#: library/Theme/Navigation.php:31
+#: library/Theme/Navigation.php:32
 msgid "Mobile drawer (bottom)"
 msgstr ""
 
-#: library/Theme/Navigation.php:70
+#: library/Theme/Navigation.php:72
 msgid "(above archive posts)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:71
+#: library/Theme/Sidebars.php:79
 msgid "Footer top"
 msgstr ""
 
-#: library/Theme/Sidebars.php:72
+#: library/Theme/Sidebars.php:80
 msgid "The top of footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:88
+#: library/Theme/Sidebars.php:96
 msgid "Footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:89
+#: library/Theme/Sidebars.php:97
 msgid "The footer area "
 msgstr ""
 
-#: library/Theme/Sidebars.php:102
+#: library/Theme/Sidebars.php:110
 msgid "Footer bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:103
+#: library/Theme/Sidebars.php:111
 msgid "The bottom of footer area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:116
+#: library/Theme/Sidebars.php:124
 msgid "The hero area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:128
+#: library/Theme/Sidebars.php:136
 msgid "Content area (above article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:129
+#: library/Theme/Sidebars.php:137
 msgid "The area above the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:141
+#: library/Theme/Sidebars.php:149
 msgid "Content area (below article)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:142
+#: library/Theme/Sidebars.php:150
 msgid "The area below the content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:154
+#: library/Theme/Sidebars.php:162
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:155
+#: library/Theme/Sidebars.php:163
 msgid "The area below the main container"
 msgstr ""
 
-#: library/Theme/Sidebars.php:167
+#: library/Theme/Sidebars.php:175
 msgid "Right sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:168
+#: library/Theme/Sidebars.php:176
 msgid "The right sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:180
+#: library/Theme/Sidebars.php:190
 msgid "Left sidebar"
 msgstr ""
 
-#: library/Theme/Sidebars.php:181
+#: library/Theme/Sidebars.php:191
 msgid "The left sidebar area"
 msgstr ""
 
-#: library/Theme/Sidebars.php:193
+#: library/Theme/Sidebars.php:205
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Theme/Sidebars.php:194
+#: library/Theme/Sidebars.php:206
 msgid "The area below the left sidebar content"
 msgstr ""
 
-#: library/Theme/Sidebars.php:206
+#: library/Theme/Sidebars.php:220
 msgid "Top sidebar (full-width)"
 msgstr ""
 
-#: library/Theme/Sidebars.php:207
-#, php-format
-msgid "Sidebar that sits below the hero, takes up 100% of the widht."
-msgstr ""
-
-#: library/Theme/Sidebars.php:219
-msgid "Bottom sidebar (full-width)"
-msgstr ""
-
-#: library/Theme/Sidebars.php:220
-#, php-format
-msgid "Sidebar that sits just before the footer, takes up 100% of the widht."
-msgstr ""
-
-#: library/Theme/Sidebars.php:232
-msgid "Above columns sidebar"
+#: library/Theme/Sidebars.php:221
+msgid "Sidebar that sits below the hero."
 msgstr ""
 
 #: library/Theme/Sidebars.php:233
+msgid "Bottom sidebar (full-width)"
+msgstr ""
+
+#: library/Theme/Sidebars.php:234
+msgid "Sidebar that sits just before the footer."
+msgstr ""
+
+#: library/Theme/Sidebars.php:246
+msgid "Above columns sidebar"
+msgstr ""
+
+#: library/Theme/Sidebars.php:247
 msgid "Sidebar that sits just before the columns grid."
 msgstr ""
 
-#: library/Upgrade.php:628
+#: library/Upgrade.php:731
 msgid "To be installed database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:632
+#: library/Upgrade.php:735
 msgid "Current database version must be a number."
 msgstr ""
 
-#: library/Upgrade.php:636
+#: library/Upgrade.php:741
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 

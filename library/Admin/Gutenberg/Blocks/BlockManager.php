@@ -1,15 +1,17 @@
 <?php
+
 namespace Municipio\Admin\Gutenberg\Blocks;
 
-class BlockManager {
-
+class BlockManager
+{
     /* These block works fine without validation */
     private $noValidationRequired = [
         'acf/button',
         'acf/innerbutton',
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         add_filter('Municipio/blade/view_paths', array($this, 'getViewPath'), 10);
         add_action('init', array($this, 'registerBlocks'), 10);
     }
@@ -19,7 +21,8 @@ class BlockManager {
      *
      * @return void
      */
-    public function registerBlocks() {
+    public function registerBlocks()
+    {
         // Check function exists.
         if (function_exists('acf_register_block_type')) {
             // register a button block.
@@ -90,7 +93,7 @@ class BlockManager {
                 'name'              => 'container',
                 'title'             => __('Container', 'municipio'),
                 'description'       => __('A container block', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
+                'render_callback'   => array($this, 'renderContainerCallback'),
                 'category'          => 'design',
                 'icon'              => 'archive',
                 'keywords'          => array('container', 'wrapper', 'background'),
@@ -109,7 +112,8 @@ class BlockManager {
      * @param array $block
      * @return void
      */
-    public function renderCallback($block) {
+    public function renderCallback($block)
+    {
         $data = $this->buildData($block['data']);
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
@@ -120,6 +124,47 @@ class BlockManager {
             echo render_blade_view('default', ['blockTitle' => $block['title'], 'message' => __('Please fill in all required fields.', 'municipio')]);
         }
     }
+    public function renderContainerCallback($block)
+    {
+        $data = $this->buildData($block['data']);
+        $data['blockType'] = $block['name'];
+        $data['classList'] = $this->buildBlockClassList($block);
+
+        if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
+            $data['style'] = [];
+
+            if (!empty($data['color'])) {
+                $data['style'][] = "background-color:{$data['color']}";
+            }
+            if (!empty($data['backgroundImage'])) {
+                $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
+                if ($image) {
+                    $data['style'][] = "background-image:url($image)";
+                    $data['style'][] = "background-size:cover";
+                    $data['style'][] = "background-position:center center";
+                }
+            }
+
+            if (!empty($data['style'])) {
+                $data['style'] = implode(';', $data['style']);
+            } else {
+                $data['style'] = '';
+            }
+
+            echo render_blade_view(
+                $block['view'],
+                $data
+            );
+        } else {
+            echo render_blade_view(
+                'default',
+                [
+                    'blockTitle' => $block['title'],
+                    'message' => __('Please fill in all required fields.', 'municipio')
+                ]
+            );
+        }
+    }
 
     /**
      * Return the general view path
@@ -127,7 +172,8 @@ class BlockManager {
      * @param array $paths
      * @return array
      */
-    public function getViewPath($paths) {
+    public function getViewPath($paths)
+    {
         $paths[] = plugin_dir_path(__FILE__) . 'views';
         return $paths;
     }
@@ -138,11 +184,11 @@ class BlockManager {
      * @param array $data
      * @return array
      */
-    public function buildData($data) {
+    public function buildData($data)
+    {
         $newData = [];
         foreach ($data as $key => $value) {
             $key = ltrim($key, '_');
-            $newValue = get_field($value);
 
             if (str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
@@ -165,7 +211,7 @@ class BlockManager {
         $classList = ['t-block-container'];
 
         if (in_array($block['name'], ['acf/button'])) {
-            $classList[] = "t-block-button"; 
+            $classList[] = "t-block-button";
         }
 
         if (isset($block['align']) && !empty($block['align'])) {
@@ -179,12 +225,12 @@ class BlockManager {
      * Validates the required fields
      * @return boolean
      */
-    private function validateFields($fields) {
+    private function validateFields($fields)
+    {
 
         $valid = true;
 
         foreach ($fields as $key => $value) {
-
             //Must validate as a field_key
             if (!str_contains($value, 'field_')) {
                 continue;

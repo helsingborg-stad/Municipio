@@ -23,13 +23,13 @@
     color: $color-primary;
 
     @include mq(md) {
-      font-size: 3em;
+      font-size: 3rem;
     }
   }
 
   .c-typhography--404-subheading {
     z-index: $level-2;
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 
   .t-404__buttons {

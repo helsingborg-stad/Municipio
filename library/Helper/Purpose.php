@@ -2,65 +2,156 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Helper\Controller as ControllerHelper;
+
 class Purpose
 {
     /**
-     * Return an array containing key and label of all the purpose classes available in the templates folder.
+     * Returns an array of all the purposes that are registered in the system.
      *
-     * @return array An array of all the classes in the templates folder.
+     * @param bool $includeExtras Include additional information about the registered purposes in the returned array.
+     *
+     * @return array Array of registered purposes.
+     * If $includeExtras is true, each item in the array will be an array containing
+     * the purpose class instance, the class name with namespace and the file path of the purpose class.
+     * If $includeExtras is false, each item in the array will be the label of the purpose instance.
      */
-    public static function getPurposes(): array
+    public static function getRegisteredPurposes(bool $includeExtras = false): array
     {
+        $purposes = [];
 
-        $purposes    = [];
+        foreach (ControllerHelper::getControllerPaths() as $path) {
+            if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'Purpose')) {
+                foreach (glob("$dir/*.php") as $filename) {
+                    // Skip files with Factory or Interface in the filename
+                    if (preg_match('[Factory|Interface]', $filename)) {
+                        continue;
+                    }
 
-        $purposePath = MUNICIPIO_PATH . 'templates';
-        $recurse     = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($purposePath));
-        $recurse->setMaxDepth(1);
+                    $namespace = ControllerHelper::getNamespace($filename);
+                    $className = basename($filename, '.php');
+                    $classNameWithNamespace = $namespace . '\\' . $className;
 
-        foreach ($recurse as $item) {
-            if (1 !== $recurse->getDepth() || $recurse->isDot() || !$item->isFile()) {
-                continue;
-            }
+                    $instance = new $classNameWithNamespace();
 
-            $className = '\Municipio\Controller\\' . pathinfo($item->getFilename(), PATHINFO_FILENAME);
-            if (!class_exists($className)) {
-                require_once $item->getPathname();
-            }
-            if ('singular' === $className::getType()) {
-                $purposes[$className::getKey()] = $className::getLabel();
+                    if ($includeExtras) {
+                        $purposes[$instance->getKey()] = [
+                            'class'     => $instance,
+                            'className' => $classNameWithNamespace,
+                            'path'      => $filename
+                        ];
+                    } else {
+                        $purposes[$instance->getKey()] = $instance->getLabel();
+                    }
+                }
             }
         }
-        return $purposes;
+
+        return apply_filters('Municipio/Purpose/getRegisteredPurposes', $purposes);
+    }
+
+    /**
+     * It returns an array of objects that represent the purpose of the current page
+     *
+     * @param string type The type of purpose to get. Defaults to the current type.
+     * @param bool includeSecondary If you want to include secondary purposes.
+     *
+     * @return array An array of objects.
+     */
+    public static function getPurpose(string $type = '', bool $includeSecondary = false): array
+    {
+        if ('' === $type) {
+            $type = self::getCurrentType();
+        }
+
+        $purpose = [];
+        $purposeStr = get_option("options_purpose_{$type}", '');
+
+        if ('' !== $purposeStr) {
+            $instance = self::getPurposeInstance($purposeStr);
+            $purpose[] = $instance;
+
+            if ($includeSecondary && !empty($instance->secondaryPurpose)) {
+                foreach ($instance->secondaryPurpose as $key => $className) {
+                    $secondaryInstance = self::getPurposeInstance($key, false);
+                    $purpose[] = $secondaryInstance;
+                }
+            }
+        }
+
+        return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
     /**
-     * `getPurpose()` returns the value of the `options_purpose_X` option, where X is the type (most commonly a post type)
+     * > Get the instance of a registered purpose
      *
-     * @param string|WP_Post_Type type The type you want to get the purpose for.
+     * @param string purpose The purpose you want to get the instance of.
+     * @param bool init If true, the purpose will be initialized via it's init() method.
      *
-     * @return string|bool The value of the option with the key 'options_purpose_X'. Returns false if option is missing.
+     * @return The class instance of the purpose.
      */
-    public static function getPurpose($type = null)
+    public static function getPurposeInstance(string $purpose, bool $init = false)
     {
-        if (empty($type)) {
-            $type = get_queried_object();
-        }
-
-
-        if (!is_string($type) && !is_a($type, 'WP_Post') && !is_a($type, 'WP_Post_Type')) {
-            return false;
-        }
-
-        if (!is_string($type)) {
-            if (is_a($type, 'WP_Post_Type')) {
-                $type = $type->name;
-            } elseif (is_a($type, 'WP_Post')) {
-                $type = $type->post_type;
+        $registeredPurposes = self::getRegisteredPurposes(true);
+        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['class'])) {
+            $instance = $registeredPurposes[$purpose]['class'];
+            if (true === $init) {
+                $instance->init();
             }
+            return $instance;
         }
 
-        $purpose = get_option('options_purpose_' . $type, false);
+        return false;
+    }
 
-        return $purpose;
+    /**
+     * It checks if the purpose is empty or not.
+     *
+     * @param string type The type of the purpose.
+     */
+    public static function hasPurpose(string $type = ''): bool
+    {
+        $purpose = self::getPurpose();
+        if (!empty($purpose)) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Get the current type.
+     *
+     * @param string $current The current type.
+     *
+     * @return string The current type.
+     */
+    private static function getCurrentType(string $current = ''): string
+    {
+        if ('' === $current) {
+            $current = get_queried_object();
+        }
+
+        if (is_a($current, 'WP_Post_Type')) {
+            $type = $current->name;
+        } elseif (is_a($current, 'WP_Post')) {
+            $type = $current->post_type;
+        } elseif (is_a($current, 'WP_Term')) {
+            $type = $current->taxonomy;
+        } else {
+            return '';
+        }
+
+        return $type;
+    }
+
+
+    /**
+     * If the user has opted to skip the purpose template, return true. Otherwise, return false.
+     *
+     * @param string type The type of template to check.
+     *
+     * @return bool A boolean value.
+     */
+    public static function skipPurposeTemplate(string $type = ''): bool
+    {
+        return (bool) get_option("skip_purpose_template_{$type}", false);
     }
 }

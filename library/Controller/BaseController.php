@@ -65,8 +65,6 @@ class BaseController
         $this->data['pageID']               = $this->getPageID();
         $this->data['pageParentID']         = $this->getPageParentID();
 
-        $this->data['purpose']              = $this->getPurpose();
-
         //Customization data
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
@@ -85,16 +83,17 @@ class BaseController
         $this->data['footerTextAlignment'] = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
         //Init class for menus
-        $breadcrumb     = new \Municipio\Helper\Navigation('breadcrumb');
-        $primary        = new \Municipio\Helper\Navigation('primary');
-        $secondary      = new \Municipio\Helper\Navigation('sidebar');
-        $hamburgerMenu  = new \Municipio\Helper\Navigation('hamburger-menu');
-        $quicklinks     = new \Municipio\Helper\Navigation('single');
-        $tabMenu        = new \Municipio\Helper\Navigation('tab');
-        $helpMenu       = new \Municipio\Helper\Navigation('help');
-        $dropDownMenu   = new \Municipio\Helper\Navigation('dropdown');
-        $floatingMenu   = new \Municipio\Helper\Navigation('floating');
-        $languageMenu   = new \Municipio\Helper\Navigation('language');
+        $breadcrumb         = new \Municipio\Helper\Navigation('breadcrumb');
+        $primary            = new \Municipio\Helper\Navigation('primary');
+        $secondary          = new \Municipio\Helper\Navigation('sidebar');
+        $hamburgerMenu      = new \Municipio\Helper\Navigation('hamburger-menu');
+        $quicklinks         = new \Municipio\Helper\Navigation('single');
+        $tabMenu            = new \Municipio\Helper\Navigation('tab');
+        $helpMenu           = new \Municipio\Helper\Navigation('help');
+        $dropDownMenu       = new \Municipio\Helper\Navigation('dropdown');
+        $floatingMenu       = new \Municipio\Helper\Navigation('floating');
+        $languageMenu       = new \Municipio\Helper\Navigation('language');
+        $siteselectorMenu   = new \Municipio\Helper\Navigation('siteselector');
 
         $mobileMenu             = new \Municipio\Helper\Navigation('mobile');
         $mobileMenuSeconday     = new \Municipio\Helper\Navigation('mobile-secondary');
@@ -125,6 +124,8 @@ class BaseController
         $this->data['dropdownMenuItems']            = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID(), false, true, false);
         $this->data['floatingMenuItems']            = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
         $this->data['languageMenuItems']            = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
+        $this->data['siteselectorMenuItems']        = $siteselectorMenu->getMenuItems('siteselector-menu', $this->getPageID(), false, true, true);
+
 
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
@@ -222,6 +223,8 @@ class BaseController
             'emblem'                => __("Site emblem", 'municipio'),
             'close'                 => __("Close", 'municipio'),
             'moreLanguages'         => __("More Languages", 'municipio'),
+            'expand'                => __("Expand", 'municipio'),
+            'breadcrumbPrefix'      => __("You are here: ", 'municipio')
         );
 
         //Wordpress hooks
@@ -622,10 +625,6 @@ class BaseController
         return apply_filters('Municipio/postModified', get_the_modified_time('Y-m-d'));
     }
 
-    protected function getPurpose()
-    {
-        return apply_filters('Municipio/postTypePurpose', \Municipio\Helper\Purpose::getPurpose(get_post_type()));
-    }
     /**
      * Get language attributes
      * @return string
@@ -764,7 +763,6 @@ class BaseController
 
         return $this->getLogotype($variant) ?? false;
     }
-
     /**
      * Runs after construct
      * @return void
