@@ -60,12 +60,12 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
 
         $postId = $this->data['post']->id;
-        $this->data['relatedPosts'] = $this->getPosts($postId); 
+        $this->data['relatedPosts'] = $this->getRelatedPosts($postId); 
 
         return $this->data;
     }
 
-    private function getPosts($postId) {
+    private function getRelatedPosts($postId) {
         $taxonomies = get_post_taxonomies($postId);
         $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
