@@ -43,6 +43,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
+
+        $this->data['displayFeaturedImage']     = $this->displayFeaturedImage($this->data['archiveProps']);
         $this->data['displayReadingTime']       = $this->displayReadingTime($this->data['archiveProps']);
 
         // Current term meta
@@ -351,9 +353,9 @@ class Archive extends \Municipio\Controller\BaseController
     protected function setQueryParameters()
     {
         $queryParameters = [
-            'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
-            'from' =>  isset($_GET['from']) ? $_GET['from'] : '',
-            'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
+        'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
+        'from' =>  isset($_GET['from']) ? $_GET['from'] : '',
+        'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
         //Include taxonomies (dynamic)
@@ -382,10 +384,13 @@ class Archive extends \Municipio\Controller\BaseController
         return \Municipio\Helper\Archive::getFacettingType($args);
     }
 
-
     public function displayReadingTime($args)
     {
         return \Municipio\Helper\Archive::displayReadingTime($args);
+    }
+    public function displayFeaturedImage($args)
+    {
+        return \Municipio\Helper\Archive::displayFeaturedImage($args);
     }
 
     /**
@@ -422,8 +427,8 @@ class Archive extends \Municipio\Controller\BaseController
                 //Get terms
                 $terms = get_terms(
                     array(
-                        'taxonomy' => $taxonomy->name,
-                        'hide_empty' => true
+                    'taxonomy' => $taxonomy->name,
+                    'hide_empty' => true
                     )
                 );
 
@@ -446,13 +451,13 @@ class Archive extends \Municipio\Controller\BaseController
 
                 //Data
                 $taxonomyObject = [
-                    'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                    'required' => false,
-                    'attributeList' => [
-                        'type' => 'text',
-                        'name' => $taxonomy->name
-                    ],
-                    'options' => $options
+                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                'required' => false,
+                'attributeList' => [
+                    'type' => 'text',
+                    'name' => $taxonomy->name
+                ],
+                'options' => $options
                 ];
 
                 if (isset($_GET[$taxonomy->name])) {
@@ -608,8 +613,8 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $dateFormat = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
-            'items' => [],
-            'headings' => ['Title', 'Published', 'Updated']
+        'items' => [],
+        'headings' => ['Title', 'Published', 'Updated']
         ];
 
         if (is_array($posts) && !empty($posts)) {
@@ -619,15 +624,15 @@ class Archive extends \Municipio\Controller\BaseController
                 $postModified   = \date($dateFormat, strtotime($post->postModified));
 
                 $preparedPosts['items'][] =
-                    [
-                        'id' => $post->id,
-                        'href' => get_permalink($post->id),
-                        'columns' => [
-                            $post->postTitle,
-                            $post->post_date = $postDate,
-                            $post->post_modified = $postModified
-                        ]
-                    ];
+                [
+                    'id' => $post->id,
+                    'href' => get_permalink($post->id),
+                    'columns' => [
+                        $post->postTitle,
+                        $post->post_date = $postDate,
+                        $post->post_modified = $postModified
+                    ]
+                ];
             }
         }
 

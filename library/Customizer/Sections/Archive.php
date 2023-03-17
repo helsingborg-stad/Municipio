@@ -47,7 +47,8 @@ class Archive
                 'cards' => esc_html__('Cards', 'municipio'),
                 'newsitem' => esc_html__('News', 'municipio'),
                 'list' => esc_html__('List', 'municipio'),
-                'grid' => esc_html__('Blocks', 'municipio')
+                'grid' => esc_html__('Blocks', 'municipio'),
+                'collection' => esc_html__('Collection', 'municipio')
             ],
             'output' => [
                 [
@@ -81,7 +82,30 @@ class Archive
                 ]
             ],
         ]);
-
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_featured_image',
+            'label'    => esc_html__('Display featured image', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 1,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_style',
+                    'operator' => '==',
+                    'value'    => 'collection',
+                ]
+            ],
+        ]);
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'archive_' . $archive->name . '_post_count',
