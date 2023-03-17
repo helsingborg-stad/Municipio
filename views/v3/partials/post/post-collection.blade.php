@@ -13,7 +13,10 @@
                     @image([
                         'src' => $post->thumbnail['src'],
                         'alt' => $post->thumbnail['alt'],
-                        'classList' => ['o-grid-4@sm', 'o-grid-12']
+                        'placeholderIconSize' => 'sm',
+                        'placeholderIcon' => 'image',
+                        'placeholderText' => '',
+                        'classList' => ['o-grid-4@sm', 'o-grid-12', 'u-height--100']
                     ])
                     @endimage
                     @group(['direction' => 'vertical', 'classList' => ['o-grid-8@sm', 'o-grid-12']])
