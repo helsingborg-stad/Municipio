@@ -2,11 +2,15 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer as Customizer;
+use Kirki as Kirki;
+use Municipio\Helper\KirkiSwatches as KirkiSwatches;
+
 class Quicklinks
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'radio',
           'settings'    => 'quicklinks_background_type',
           'label'       => esc_html__('Select background type', 'municipio'),
@@ -16,7 +20,7 @@ class Quicklinks
           'priority'    => 5,
           'choices'     => [
             'default' => esc_html__( 'Predefined colors', 'municipio'),
-            'hex' => esc_html__('Custom color', 'municipio'),
+            'hex' => esc_html__('Custom colors', 'municipio'),
           ],
           'active_callback'  => [
             [
@@ -27,40 +31,81 @@ class Quicklinks
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'color',
-          'settings'    => 'quicklinks_custom_background',
-          'label'       => esc_html__('Custom background color', 'municipio'),
-          'description' => esc_html__('Choose a background color for the quicklinks section of the page.', 'municipio'),
+          Kirki::add_field(Customizer::KIRKI_CONFIG, [
+          'type'        => 'multicolor',
+          'settings'    => 'quicklinks_custom_colors',
+          'label'       => esc_html__('Custom colors', 'municipio'),
           'section'     => $sectionID,
-          'default'     => '#ffffff',
-          'output' => [
-            ['type' => 'controller']
+          'priority'    => 10,
+          'transport' => 'auto',
+          'choices'     => [
+            'background'    => esc_html__('Background', 'municipio'),
+            'sticky-background'    => esc_html__('Sticky background', 'municipio'),
+            'text-color'    => esc_html__('Text background', 'municipio'),
+            'icon-color'    => esc_html__('Sticky background', 'municipio'),
+            'icon-background-color'    => esc_html__('Sticky background', 'municipio'),
           ],
-          'alpha' => 1,
+          'default' => [
+            'background'            => '#fff',
+            'sticky-background'     => '#fff',
+            'text-color'            => '#000',
+            'icon-color'            => '#000',
+            'icon-background-color' => '#fff',
+          ],
+          'palettes' => KirkiSwatches::get_colors(),
+          'output' => [
+            [
+                'choice'    => 'background',
+                'element'   => '.s-nav-fixed',
+                'property'  => '--c-quicklinks-background-color'
+            ],
+            [
+                'choice'    => 'sticky-background',
+                'element'   => '.s-nav-fixed',
+                'property'  => '--c-quicklinks-sticky-background-color'
+            ],
+            [
+                'choice'    => 'text-color',
+                'element'   => '.s-nav-fixed',
+                'property'  => '--c-quicklinks-text-color'
+            ],
+            [
+                'choice'    => 'icon-color',
+                'element'   => '.s-nav-fixed',
+                'property'  => '--c-quicklinks-icon-color'
+            ],
+            [
+                'choice'    => 'icon-background-color',
+                'element'   => '.s-nav-fixed',
+                'property'  => '--c-quicklinks-icon-background-color'
+            ],
+          ],
           'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_background_type',
+              'operator' => '===',
+              'value'    => 'custom',
+            ]
+            ],
+            'active_callback'  => [
             [
               'setting'  => 'quicklinks_background_type',
               'operator' => '===',
               'value'    => 'hex',
             ]
           ],
-        ]);
+      ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
-          'settings'    => 'quicklinks_background',
-          'label'       => esc_html__('Predefined background color', 'municipio'),
-          'description' => esc_html__('Choose a background color for the quicklinks section of the page.', 'municipio'),
+          'settings'    => 'quicklinks_color_scheme',
+          'label'       => esc_html__('Color scheme', 'municipio'),
           'section'     => $sectionID,
-          'default'     => '',
+          'default'     => 'primary',
           'priority'    => 10,
           'choices'     => [
-              '' => esc_html__('Default', 'municipio'),
               'primary' => esc_html__('Primary', 'municipio'),
               'secondary' => esc_html__('Secondary', 'municipio'),
-              'transparent' => esc_html__('Transparent', 'municipio')
-
           ],
           'output' => [
               [
@@ -77,46 +122,7 @@ class Quicklinks
           ],
         ]);
 
-        
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'quicklinks_transparent_sticky_color',
-          'label'       => esc_html__('Background color sticky scroll', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => '',
-          'choices'     => [
-              '' => esc_html__('None', 'municipio'),
-              'primary-scroll-background' => esc_html__('Primary', 'municipio'),
-              'secondary-scroll-background' => esc_html__('Secondary', 'municipio'),
-              'white-scroll-background' => esc_html__('White', 'municipio'),
-              'black-scroll-background' => esc_html__('Black', 'municipio'),
-          ],
-          'output' => [
-              [
-                'type' => 'modifier',
-                'context' => ['site.quicklinks']
-              ]
-          ],
-          'active_callback'  => [
-            [
-              'setting'  => 'quicklinks_sticky',
-              'operator' => '===',
-              'value'    => 'sticky',
-            ],
-            [
-              'setting'  => 'quicklinks_background',
-              'operator' => '===',
-              'value'    => 'transparent',
-            ],
-            [
-              'setting'  => 'quicklinks_background_type',
-              'operator' => '===',
-              'value'    => 'default',
-            ]
-          ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_sticky',
           'label'       => esc_html__('Sticky', 'municipio'),
@@ -136,30 +142,7 @@ class Quicklinks
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'quicklinks_color',
-          'label'       => esc_html__('Text color', 'municipio'),
-          'description' => esc_html__('Select a font/text color to use.', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => '',
-          'priority'    => 10,
-          'choices'     => [
-              '' => esc_html__('Default', 'municipio'),
-              'text-white' => esc_html__('White', 'municipio'),
-              'text-black' => esc_html__('Black', 'municipio'),
-              'text-primary' => esc_html__('Primary', 'municipio'),
-              'text-secondary' => esc_html__('Secondary', 'municipio')
-          ],
-          'output' => [
-              [
-                'type' => 'modifier',
-                'context' => ['site.quicklinks']
-              ]
-          ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_location',
           'label'       => esc_html__('Location', 'municipio'),
@@ -176,7 +159,7 @@ class Quicklinks
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_direction',
           'label'       => esc_html__('Quicklinks item direction', 'municipio'),
@@ -193,51 +176,8 @@ class Quicklinks
               ]
           ],
         ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'quicklinks_icon_color',
-          'label'       => esc_html__('Icon color', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => '',
-          'choices'     => [
-              '' => esc_html__('Default', 'municipio'),
-              'primary-icon' => esc_html__('Primary', 'municipio'),
-              'secondary-icon' => esc_html__('Secondary', 'municipio'),
-              'white-icon' => esc_html__('White', 'municipio'),
-              'black-icon' => esc_html__('Black', 'municipio'),
-          ],
-          'output' => [
-              [
-                'type' => 'modifier',
-                'context' => ['site.quicklinks']
-              ]
-          ],
-        ]);
         
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'quicklinks_icon_background_color',
-          'label'       => esc_html__('Icon background color', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => '',
-          'choices'     => [
-              '' => esc_html__('None', 'municipio'),
-              'primary-icon-background' => esc_html__('Primary', 'municipio'),
-              'secondary-icon-background' => esc_html__('Secondary', 'municipio'),
-              'white-icon-background' => esc_html__('White', 'municipio'),
-              'black-icon-background' => esc_html__('Black', 'municipio'),
-          ],
-          'output' => [
-              [
-                'type' => 'modifier',
-                'context' => ['site.quicklinks']
-              ]
-          ],
-        ]);
-
-        
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_overflow',
           'label'       => esc_html__('Overflow top', 'municipio'),

@@ -4,12 +4,10 @@
         @header([
             'id'                => 'quicklinks-header',
             'classList' => [
-                'site-header'
+                'site-header',
+                's-nav-fixed'
             ],
             'context' => ['site.quicklinks'],
-            'attributeList' => [
-                'style' => 'background-color: ' . $customizer->quicklinksCustomBackground . ';' //Allows broken css (will be sanitized)
-            ]
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05 u-print-display--none">
                 <div class="o-container">
@@ -22,8 +20,7 @@
                                 'u-justify-content--space-evenly@md',
                                 'u-justify-content--space-evenly@lg',
                                 'u-flex-wrap@sm',
-                                'u-flex-wrap@xs',
-                                's-nav-fixed'
+                                'u-flex-wrap@xs'
                             ],
                             'context' => ['site.quicklinks.nav'],
                             'height' => 'md',
