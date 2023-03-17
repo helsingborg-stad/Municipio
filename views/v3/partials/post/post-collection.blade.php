@@ -9,6 +9,7 @@
                 'classList' => [$gridColumnClass]
             ])
                 @group(['direction' => 'horizontal', 'classList' => ['o-grid', 'u-padding--0']])
+                @if ($displayFeaturedImage)
                     @image([
                         'src' => $post->thumbnail['src'],
                         'alt' => $post->thumbnail['alt'],
@@ -16,6 +17,9 @@
                     ])
                     @endimage
                     @group(['direction' => 'vertical', 'classList' => ['o-grid-8@sm', 'o-grid-12']])
+                    @else
+                        @group(['direction' => 'vertical', 'classList' => ['o-grid-12']])
+                        @endif
                         @typography([
                             'element' => 'h3',
                             'classList' => ['c-collection__content__title']

@@ -147,7 +147,6 @@ class Archive
         return (bool) $args->filterType;
     }
 
-
     public static function displayReadingTime($args)
     {
         if (!isset($args->readingTime)) {
@@ -155,6 +154,14 @@ class Archive
         }
 
         return (bool) $args->readingTime;
+    }
+    public static function displayFeaturedImage($args)
+    {
+        if (!isset($args->displayFeaturedImage)) {
+            return false;
+        }
+
+        return (bool) $args->displayFeaturedImage;
     }
     /**
      * Create a grid column size

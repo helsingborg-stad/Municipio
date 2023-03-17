@@ -43,6 +43,8 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
+
+        $this->data['displayFeaturedImage']     = $this->displayFeaturedImage($this->data['archiveProps']);
         $this->data['displayReadingTime']       = $this->displayReadingTime($this->data['archiveProps']);
 
         // Current term meta
@@ -382,10 +384,13 @@ class Archive extends \Municipio\Controller\BaseController
         return \Municipio\Helper\Archive::getFacettingType($args);
     }
 
-
     public function displayReadingTime($args)
     {
         return \Municipio\Helper\Archive::displayReadingTime($args);
+    }
+    public function displayFeaturedImage($args)
+    {
+        return \Municipio\Helper\Archive::displayFeaturedImage($args);
     }
 
     /**
