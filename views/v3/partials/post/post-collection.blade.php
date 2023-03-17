@@ -1,12 +1,10 @@
 @if ($posts)
+
     @collection([
         'unbox' => true,
         'classList' => ['o-grid']
     ])
         @foreach ($posts as $post)
-            @php
-                echo '<pre>' . print_r($post, true) . '</pre>';
-            @endphp
             @collection__item([
                 'link' => $post->permalink,
                 'classList' => [$gridColumnClass]
@@ -38,19 +36,18 @@
                                 'variant' => 'meta',
                                 'classList' => ['c-collection__content__terms']
                             ])
-                                {{ $post->termsUnlinked }}
+                                @foreach ($post->termsUnlinked as $term)
+                                    @typography([
+                                        'element' => 'span',
+                                        'variant' => 'meta',
+                                        'classList' => ['c-collection__content__term', 'u-margin__right--1']
+                                    ])
+                                        {{ $term['label'] }}
+                                    @endtypography
+                                @endforeach
                             @endtypography
                         @endif
-                        @if ($post->meta)
-                            @typography([
-                                'element' => 'p',
-                                'variant' => 'meta',
-                                'classList' => ['c-collection__content__meta']
-                            ])
-                                {{ $post->meta }}
-                            @endtypography
-                        @endif
-                        @if ($post->displayReadingTime)
+                        @if ($displayReadingTime && $post->readingTime)
                             @typography([
                                 'element' => 'p',
                                 'variant' => 'meta',
