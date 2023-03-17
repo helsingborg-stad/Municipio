@@ -6,6 +6,7 @@
             "key": "field_63cfdba39a6d2",
             "label": "Amount of padding",
             "name": "amount",
+            "aria-label": "",
             "type": "range",
             "instructions": "",
             "required": 0,
@@ -26,9 +27,10 @@
             "key": "field_63cfdc219a6d3",
             "label": "Background color",
             "name": "color",
+            "aria-label": "",
             "type": "color_picker",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -38,6 +40,33 @@
             "default_value": "rgba(238, 238, 238, 1)",
             "enable_opacity": 1,
             "return_format": "string"
+        },
+        {
+            "key": "field_6405fea65cc8f",
+            "label": "Background image",
+            "name": "backgroundImage",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "return_format": "id",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium",
+            "library": "all"
         }
     ],
     "location": [

@@ -1,7 +1,10 @@
 @if (!empty($mobileMenuItems))
 @drawer([
     'id' => 'drawer',
-    'classList' => ['c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'), ' u-display--none@lg'],
+    'classList' => [
+        'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
+        !$customizer->showMobileMenuOnAllScreens ? ' u-display--none@lg' : ''
+    ],
     'label' => $lang->close
 ])
 
@@ -21,8 +24,9 @@
                     'menuItems' => $mobileMenuItems, 
                     'classList' => [
                         'c-nav--drawer',
-                        'c-nav--dark',
                         'site-nav-mobile__primary',
+                        's-nav-drawer',
+                        's-nav-drawer-primary'
                     ]
                 ]
             )  
@@ -33,15 +37,18 @@
                     'id' => 'drawer-menu',
                     'classList' => [
                         'c-nav--drawer',
-                        'c-nav--dark',
-                        'site-nav-mobile__secondary'
+                        'site-nav-mobile__secondary',
+                        's-nav-drawer',
+                        's-nav-drawer-secondary'
                     ],
                     'items' => $mobileMenuSecondaryItems,
                     'direction' => 'vertical',
-                    'includeToggle' => true
+                    'includeToggle' => true,
+                    'height' => 'sm',
+                    'expandLabel' => $lang->expand
                 ])
             @endnav  
-    @endslot
+        @endslot
       @else
       {{-- No menu items found --}}
       @endif

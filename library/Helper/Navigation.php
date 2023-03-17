@@ -22,7 +22,7 @@ class Navigation
     private $cacheGroup = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
-    public function __construct($identifier = '', $context = 'municipio')
+    public function __construct(string $identifier = '', string $context = 'municipio')
     {
         $this->identifier = $identifier;
         $this->context = $context;
@@ -674,7 +674,7 @@ class Navigation
                         'icon' => [
                           'icon' => get_field('menu_item_icon', $item->ID),
                           'size' => 'md',
-                          'classList' => ['u-margin__right--1'],
+                          'classList' => ['c-nav__icon']
                         ],
                         'style' => get_field('menu_item_style', $item->ID) ?? 'default'
                     ], $this->identifier, true);

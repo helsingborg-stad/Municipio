@@ -4,8 +4,9 @@
         'items' => $menuItems,
         'direction' => 'vertical',
         'includeToggle' => true,
-        'classList' => ($classList ? $classList : null),
-        'depth' => $depth ?? 0,
+        'classList' => $classList,
+        'depth' => $depth ?? 1,
+        'expandLabel' => $lang->expand
     ])
     @endnav
 @else

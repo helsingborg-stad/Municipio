@@ -1,3 +1,68 @@
+$icon-colors: (
+  primary: $color-primary,
+  secondary: $color-secondary,
+  white: $color-white,
+  black: $color-black,
+);
+
 #quicklinks-header {
     z-index: $level-5;
+    padding-top: calc($base * 2);
+    padding-bottom: calc($base * 2);
+
+    &.c-header--transparent {
+        background-color: transparent;
+
+        &.c-header--sticky {
+            top: -1px;
+        }
+    }
+
+    &.c-header--column {
+        .c-nav__link {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    &.c-header--overflow-top {
+        transform: translateY(0px);
+        
+        @include mq('md') {
+             transform: translateY(-50%);
+
+            &.c-header--sticky {
+                top: calc($base * 6.5); 
+            }
+        }
+    }
+
+    @each $class, $color in $icon-colors {
+        &.c-header--#{$class}-icon-background {
+            .c-nav__link::after {
+                display: none;
+            }
+            .c-icon {
+            background-color: $color;
+            padding: calc($base * 1.5);
+            border-radius: 50%;
+            filter: $drop-shadow-2;
+            aspect-ratio: 1/1;
+            }
+        }
+
+        &.c-header--#{$class}-icon {
+            .c-icon {
+                color: $color;
+            }
+        }
+        &.c-header--sticky.c-header--transparent.c-header--#{$class}-scroll-background.is-stuck {
+            background-color: $color;
+        }
+    }
 }

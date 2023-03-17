@@ -9,8 +9,10 @@
                 'items' => $archiveMenuItems,
                 'direction' => 'horizontal',
                 'allowStyle' => false,
-                'classList' => ['u-flex-wrap'],
-                'context' => ['site.archive.nav']
+                'classList' => ['u-flex-wrap', 's-nav-archive'],
+                'context' => ['site.archive.nav'],
+                'height' => 'md',
+                'expandLabel' => $lang->expand
             ])
             @endnav
           </nav>

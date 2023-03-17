@@ -7,11 +7,22 @@ $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 #hero-search-form {
     position: absolute;
     width:clamp(min(100%, 600px), 30%, max(30%, 600px));
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3000;
     color: $color-darker;
+    left: 50%;
+
+    &.c-form--centered {
+      top: 50%;
+    }
+
+    &.c-form--bottom {
+      top: 80%;
+    }
+
+    &.c-form--top {
+      top: 20%;
+    }
 
     #hero-search-form__wrapper {
       padding: 0 1.5rem;

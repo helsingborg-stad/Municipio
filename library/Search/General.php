@@ -25,7 +25,7 @@ class General
     {
 
         if ($identifier == "primary") {
-            $enabledLocations = (array) get_field('search_display', 'option');
+            $enabledLocations = (array) get_theme_mod('search_display');
 
             if (is_search()) {
                 return $data;
@@ -49,6 +49,7 @@ class General
                     'icon' => 'search',
                     'size' => 'md'
                 ],
+                "isSearch" => true,
                 "attributeList" => [
                     'aria-label' => __("Search", 'municipio'),
                     'data-open' => 'm-search-modal__trigger'

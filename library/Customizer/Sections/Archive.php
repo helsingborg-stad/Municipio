@@ -6,24 +6,13 @@ class Archive
 {
     public $sectionId;
 
-    public function __construct($panelID, $archive)
+    public function __construct(string $sectionID, object $archive)
     {
-        //Create section_id
-        $this->sectionId = $panelID . "_" . $archive->name;
-
-        //Panel
-        \Kirki::add_section($this->sectionId, array(
-            'title'         => $archive->label,
-            'panel'         => $panelID,
-            'priority'      => 160,
-            'preview_url'   => get_post_type_archive_link($archive->name)
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'text',
             'settings' => 'archive_' . $archive->name . '_heading',
             'label'    => esc_html__('Archive heading', 'municipio'),
-            'section'  => $this->sectionId,
+            'section'  => $sectionID,
             'default'  => '',
             'output' => [
                 [
@@ -37,7 +26,7 @@ class Archive
             'type'     => 'textarea',
             'settings' => 'archive_' . $archive->name . '_body',
             'label'    => esc_html__('Archive lead text', 'municipio'),
-            'section'  => $this->sectionId,
+            'section'  => $sectionID,
             'default'  => '',
             'output' => [
                 [
@@ -51,7 +40,7 @@ class Archive
             'type'     => 'select',
             'settings' => 'archive_' . $archive->name . '_style',
             'label'    => esc_html__('Style', 'municipio'),
-            'section'  => $this->sectionId,
+            'section'  => $sectionID,
             'default'  => 'cards',
             'choices'  => [
                 'compressed' => esc_html__('Compressed', 'municipio'),
@@ -72,7 +61,7 @@ class Archive
             'type'     => 'select',
             'settings' => 'archive_' . $archive->name . '_format',
             'label'    => esc_html__('Format', 'municipio'),
-            'section'  => $this->sectionId,
+            'section'  => $sectionID,
             'default'  => 'tall',
             'choices'  => [
                 'tall'      => esc_html__('Tall', 'municipio'),
@@ -98,7 +87,7 @@ class Archive
             'settings'    => 'archive_' . $archive->name . '_post_count',
             'label'       => esc_html__('Number of posts to display', 'municipio'),
             'description' => esc_html__('How many posts that should be displayed on each page.', 'municipio'),
-            'section'     => $this->sectionId,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => 9,
             'choices'     => [
@@ -113,7 +102,7 @@ class Archive
             'settings'    => 'archive_' . $archive->name . '_number_of_columns',
             'label'       => esc_html__('Number of columns to display', 'municipio'),
             'description' => esc_html__('How many columns that the posts should be divided in.', 'municipio'),
-            'section'     => $this->sectionId,
+            'section'     => $sectionID,
             'transport'   => 'refresh',
             'default'     => 4,
             'choices'     => [
@@ -142,7 +131,7 @@ class Archive
             'label'       => esc_html__('Filters', 'municipio'),
             'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
             'multiple'    => 6,
-            'section'     => $this->sectionId,
+            'section'     => $sectionID,
             // Below prevents Kirki bugg from using faulty default sanitize_callback.
             'sanitize_callback' => fn($values) => $values,
             'choices'     => array_merge(
@@ -163,9 +152,9 @@ class Archive
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_filter_type',
-            'label'       => esc_html__( 'Facetting type', 'municipio'),
-            'description' => esc_html__( 'Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'municipio'),
-            'section'     => $this->sectionId,
+            'label'       => esc_html__('Facetting type', 'municipio'),
+            'description' => esc_html__('Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting.', 'municipio'),
+            'section'     => $sectionID,
             'default'     => 'or',
             'choices'     => [
                 'or' => esc_html__('OR', 'municipio'),
@@ -186,7 +175,7 @@ class Archive
                 'label'       => esc_html__('Taxonomy display', 'municipio'),
                 'description' => esc_html__('What taxonomies should be displayed?', 'municipio'),
                 'multiple'    => 4,
-                'section'     => $this->sectionId,
+                'section'     => $sectionID,
                 'choices'     => $archive->taxonomies,
                 // Below prevents Kirki bugg from using faulty default sanitize_callback.
                 'sanitize_callback' => fn($values) => $values,
@@ -205,7 +194,7 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_order_by',
                 'label'       => esc_html__('Order By', 'municipio'),
                 'description' => esc_html__('Select a key/value to order by.', 'municipio'),
-                'section'     => $this->sectionId,
+                'section'     => $sectionID,
                 'choices'     => $archive->orderBy,
                 'default'     => 'post_date',
                 'output' => [
@@ -221,7 +210,7 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_order_direction',
                 'label'       => esc_html__('Order direction', 'municipio'),
                 'description' => esc_html__('Select decending or ascending order.', 'municipio'),
-                'section'     => $this->sectionId,
+                'section'     => $sectionID,
                 'default'     => 'desc',
                 'choices'     => [
                     'asc' => __("Ascending", 'municipio'),
@@ -242,7 +231,7 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_date_field',
                 'label'       => esc_html__('Date', 'municipio'),
                 'description' => esc_html__('Select source of timestamp for post', 'municipio'),
-                'section'     => $this->sectionId,
+                'section'     => $sectionID,
                 'default'     => 'none',
                 'choices'     => array_merge(
                     ['none' => esc_html__('Hide date', 'municipio')],
@@ -268,7 +257,7 @@ class Archive
                 'settings'    => 'archive_' . $archive->name . '_date_format',
                 'label'       => esc_html__('Date format', 'municipio'),
                 'description' => esc_html__('In what format to display date', 'municipio'),
-                'section'     => $this->sectionId,
+                'section'     => $sectionID,
                 'default'     => 'date',
                 'choices'     => [
                     'date' => esc_html__('Date', 'municipio'),
@@ -295,5 +284,23 @@ class Archive
                 ],
             ]);
         }
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'archive_' . $archive->name . '_reading_time',
+            'label'       => esc_html__('Display reading time', 'municipio'),
+            'description' => esc_html__('Wether to display the estimated reading time for each post', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ]
+        ]);
     }
 }

@@ -2,7 +2,8 @@
     'id'        => 'hero-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none']
+    'classList' => ['c-form--hidden', 'u-box-shadow--5', 'u-print-display--none'],
+    'context' => ['hero.search.form']
     ])
     @group([
         'id' => 'hero-search-form__wrapper',

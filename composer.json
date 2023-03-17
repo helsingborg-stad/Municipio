@@ -26,7 +26,7 @@
     ],
     "require": {
         "composer/installers": "^1.0",
-        "helsingborg-stad/global-blade-engine": "^1.2",
+        "helsingborg-stad/global-blade-engine": "1.3.0",
         "symfony/debug": "^4.2",
         "symfony/finder": "4.4.8",
         "symfony/polyfill-mbstring": "1.17.0",
@@ -58,6 +58,11 @@
     },
 
     "scripts": {
+        "test": "phpunit --bootstrap tests/bootstrap.php",
+        "test:setup": "tests/install-wp-tests.sh",
+        "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
+        "test:watch": "phpunit-watcher watch --bootstrap tests/bootstrap.php",
+        "test:coverage:watch": "XDEBUG_MODE=coverage phpunit-watcher watch --bootstrap tests/bootstrap.php --coverage-html .coverage",
         "post-update-cmd": [
 
         ]
@@ -66,5 +71,10 @@
         "allow-plugins": {
             "composer/installers": true
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.6.x-dev",
+        "yoast/phpunit-polyfills": "^1.0.4",
+        "spatie/phpunit-watcher": "*"
     }
 }

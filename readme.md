@@ -38,6 +38,14 @@ or just for a single build:
 $ npm run build
 ```
 
+## NPM scripts
+
+* **watch**: Run webpack in watch mode. To be used when working on client side code like scss,js,ts...
+* **build:dev**: Build assets with the development flag.
+* **build**: Build assets for production.
+* **i18n:update**: Updates languages/municipio.pot and languages/sv_SE.po from source files. Run this when translatable strings have been added/updated. **Requires wp-cli**.
+* **i18n:build**: Updates languages/municipio.mo .po file. Run this when changes have been made to the corresponding .po file. **Requires wp-cli**.
+
 ## Composer
 You can install composer dependencies with.
 ```
@@ -421,7 +429,7 @@ Version 2.0 will introduce some warnings aboute the removal of some prevoius fun
 
 ## Filters
 
-### Depricated filters
+### Deprecated filters
 - HbgBlade/data replaced with Municipio/viewData
 - Municipio/ajax_url_in_head replaced with Municipio/ajaxUrl
 - Modularity/CoreTemplatesSearchPaths
@@ -466,6 +474,37 @@ bem-views
 
 ```
 
+## Tests
+
+### PHP Tests
+Municipio comes with support and setup for WordPress integration testing based on the WordPress test suite. Since the test suite uses PHPUnit to write tests, unit tests are supported as well as integration tests.
+
+#### Prerequesites
+* PHP >=7.4
+* MySQL
+* SVN cli, The `subversion` package is required to check out specified versions of WordPress for testing.
+
+#### Set up test suite
+1. Make sure you have run ```composer install`` to get all the packages required.
+1. Run `composer run test:setup` and pass along the parameters that are required. You will be informed about which parameters are required when running the command without passing any parameters.
+1. Run `composer run test`.
+
+#### Organizing tests
+Different from the PHPUnit standard way of organizing test files Municipio looks for test files in the `/library` folder and expect a suffix of `.Test.php`. This is to improve readability of the file structure and make it faster to identify if a corresponding test file exists for any given source file.
+
+##### Example test file organization
+```
+├── libraru
+│   ├── SomeClass.php
+│   ├── SomeClass.Test.php
+```
+
+#### Test commands
+A number of scripts are available from the composer.json as shorthands for running tests. These are:
+1. `test`. Runs the test suite as is.
+1. `test:coverage`. Runs the test suite and generates coverage reports in html and clover format which are then stored in the `.coverage` folder.
+1. `test:watch`. Runs phpunit-watcher which in turn runs the test suite as is but in "watch-mode".
+1. `test:watch:coverage`. Runs phpunit-watcher which in turn runs the test suite and generates coverage report files, but in "watch-mode".
 
 ## Image compression
 Municipio supports image compression with shortpixel. This will enque a cronjob with a slight delay to compress newly uploaded images. Simpley define SHORTPIXEL_API_KEY constant in your config file and that's it! 

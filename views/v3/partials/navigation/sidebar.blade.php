@@ -4,12 +4,16 @@
         'classList' => [
             'c-nav--sidebar',            
             'c-nav--bordered',
-            'u-print-display--none'
+            'u-print-display--none',
+            's-nav-sidebar'
         ],
         'items' => $menuItems,
         'direction' => 'vertical',
         'includeToggle' => true,
-        'depth' => $depth ?? 0,
+        'depth' => $depth ?? 1,
+        'context' => ['sidebar', 'municipio.sidebar'],
+        'height' => 'sm',
+        'expandLabel' => $lang->expand
     ])
     @endnav
 @else

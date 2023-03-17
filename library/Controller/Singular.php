@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Archive;
+
 /**
  * Class Singular
  * @package Municipio\Controller
@@ -14,12 +16,11 @@ class Singular extends \Municipio\Controller\BaseController
     public function init()
     {
         parent::init();
-        
+
         //Get post data
         $originalPostData = get_post($this->getPageID());
-        
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
 
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
@@ -75,7 +76,57 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
+        //Secondary Query
+        $this->data = $this->setupSecondaryQueryData($this->data);
+
         return $this->data;
+    }
+
+    protected function setupSecondaryQueryData($data)
+    {
+        $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+
+        if (empty($data['secondaryQuery'])) {
+            $data['secondaryQuery'] = false;
+            return $data;
+        }
+
+        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+
+        $data['secondaryPostType']       = $secondaryPostType;
+        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+        $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
+            $secondaryPostType,
+            $data['customizer']
+        );
+        $data['secondaryPaginationList'] = Archive::getPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+        $data['showSecondaryPagination'] = Archive::showPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+
+        $data['anyPostHasImage']    = $this->anyPostHasImage($data['secondaryQuery']->posts);
+        $data['currentPage']        = get_query_var('paged') ?? 1;
+        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
+        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
+
+        return $data;
+    }
+    public function prepareQuery($query)
+    {
+        if (is_string($query) || !$query->have_posts()) {
+            return false;
+        }
+
+        foreach ($query->posts as &$post) {
+            $post = \Municipio\Helper\Post::preparePostObject($post);
+        }
+
+        return $query;
     }
 
     /**
@@ -173,7 +224,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $id
      * @return mixed
      */
-    private function getPostDates($id) : object
+    private function getPostDates($id): object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
             'published' => get_the_date(),
@@ -220,7 +271,7 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getReadingTime($postContent, $factor = 200)
     {
-        return (int) ceil((str_word_count(strip_tags($postContent)) / $factor));
+        return \Municipio\Helper\ReadingTime::getReadingTime($postContent, $factor);
     }
 
     /**
@@ -261,15 +312,27 @@ class Singular extends \Municipio\Controller\BaseController
 
             if (is_array($postTypes) && !empty($postTypes)) {
                 foreach ($postTypes as $type) {
-                    if ($type['slug'] !== (get_post_type_object($post->postType)->rewrite['slug'] ?? '')) {
+                    $thisType = get_post_type_object($post->postType)->rewrite['slug'] ?? '';
+                    if (isset($type['slug']) && $type['slug'] !== $thisType) {
                         continue;
                     }
 
                     $type = (object) \Municipio\Helper\FormatObject::camelCase($type);
-                    if ($type->displayAgeNotificationOnPosts === (bool) true) {
+                    if (
+                        isset($type->displayAgeNotificationOnPosts)
+                        && $type->displayAgeNotificationOnPosts === (bool) true
+                    ) {
                         $postAge = $this->getPostAge($post->postDate);
                         if ($postAge > $type->postAgeDays) {
-                            return sprintf(_n('This content was published more than %s day ago.', 'This content was published more than %s days ago.', $type->postAgeDays, 'municipio'), $type->postAgeDays);
+                            return sprintf(
+                                _n(
+                                    'This content was published more than %s day ago.',
+                                    'This content was published more than %s days ago.',
+                                    $type->postAgeDays,
+                                    'municipio'
+                                ),
+                                $type->postAgeDays
+                            );
                         }
                     }
                 }

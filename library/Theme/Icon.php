@@ -140,6 +140,8 @@ class Icon
           'map' => __('Map', 'municipio'),
           'schedule' => __('Clock', 'municipio'),
           'content_copy' => __('Copy', 'municipio'),
+          'support_agent' => __('Support', 'municipio'),
+          'home' => __('House', 'municipio'),
         ];
     }
 

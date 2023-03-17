@@ -7,18 +7,11 @@ use Kirki\Field\Multicheck;
 
 class Search
 {
-    public const SECTION_ID = "municipio_customizer_section_search";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        Kirki::add_section(self::SECTION_ID, array(
-            'title'         => esc_html__('Search', 'municipio'),
-            'panel'          => $panelID,
-        ));
-
         Kirki::add_field(new Multicheck(array(
             'settings'  => 'search_display',
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'label' => __('Show search', 'municipio'),
             'default' => [],
             'choices' => [
@@ -35,5 +28,34 @@ class Search
             ]
             ]
         )));
+
+        
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hero_search_position',
+            'label'       => esc_html__('Hero search position', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'centered',
+            'priority'    => 10,
+            'choices'     => [
+                'top' => esc_html__('Top', 'municipio'),
+                'centered' => esc_html__('Centered', 'municipio'),
+                'bottom' => esc_html__('Bottom', 'municipio'),
+
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'search_display',
+                    'operator' => 'in',
+                    'value'    => 'hero',
+                ]
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['hero.search.form'],
+                ]
+            ],
+        ]);
     }
 }

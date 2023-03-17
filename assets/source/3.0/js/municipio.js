@@ -1,7 +1,6 @@
 import cssVars from 'css-vars-ponyfill';
 import Fab from './fab';
 import Comments from './comments';
-import ArchiveFilter from './archiveFilter';
 import './nav';
 import './hide';
 
@@ -21,7 +20,6 @@ cssVars({
 });
 
 const fab = new Fab();
-const archiveFilter = new ArchiveFilter();
 
 fab.showOnScroll();
 

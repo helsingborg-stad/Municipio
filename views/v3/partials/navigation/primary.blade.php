@@ -4,8 +4,14 @@
         'items' => $primaryMenuItems,
         'allowStyle' => true,
         'direction' => 'horizontal',
-        'classList' => $classList,
-        'context' => ['site.header.nav', 'site.header.casual.nav']
+        'classList' => array_merge(
+            (array) $classList,
+            ['s-nav-primary']
+        ),
+        'context' => ['site.header.nav', 'site.header.casual.nav'],
+        'height' => 'lg',
+        'expandLabel' => $lang->expand,
+        'includeToggle' => $customizer->primaryMenuDropdown ?? false
     ])
     @endnav
 </nav>

@@ -41,7 +41,7 @@ class Css
   }
 
   /**
-   * Make font sizes in pixels, to rm.
+   * Make font sizes in pixels, to rem.
    *
    * @param array $styles
    * @return array $styles
@@ -51,7 +51,7 @@ class Css
     $baseSize = $this->getBaseFontSize($styles['global'][':root']); 
     foreach($styles['global'][':root'] as $key => &$item) {
       if($this->canTransformValue($key, $item)) {
-        $item = $this->makePxValueNumeric($item) / $baseSize . 'em';
+        $item = $this->makePxValueNumeric($item) / $baseSize . 'rem';
       }
     }
     return $styles;

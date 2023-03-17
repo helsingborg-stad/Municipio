@@ -4,23 +4,14 @@ namespace Municipio\Customizer\Sections;
 
 class Hero
 {
-    public const SECTION_ID = "municipio_customizer_section_hero";
-
-    public function __construct($panelID)
+    public function __construct(string $sectionID)
     {
-        \Kirki::add_section(self::SECTION_ID, array(
-            'title'       => esc_html__('Hero', 'municipio'),
-            'description' => esc_html__('Hero settings.', 'municipio'),
-            'panel'          => $panelID,
-            'priority'       => 160,
-        ));
-
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'hero_animation',
             'label'       => esc_html__('Choose animation type', 'municipio'),
             'description' => esc_html__('Choose an animation for your hero', 'municipio'),
-            'section'     => self::SECTION_ID,
+            'section'     => $sectionID,
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
@@ -40,5 +31,184 @@ class Hero
                 ],
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'radio_buttonset',
+            'settings'    => 'hero_text_align',
+            'label'       => esc_html__('Text alignment', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'left',
+            'priority'    => 10,
+            'choices'     => [
+                'left' => esc_html__('Left', 'municipio'),
+                'center' => esc_html__('Center', 'municipio'),
+                'right' => esc_html__('Right', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'textAlignment',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'radio_buttonset',
+            'settings'    => 'hero_content_align_vertical',
+            'label'       => esc_html__('Content vertical alignment', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'bottom',
+            'priority'    => 10,
+            'choices'     => [
+                'top' => esc_html__('Top', 'municipio'),
+                'center' => esc_html__('Center', 'municipio'),
+                'bottom' => esc_html__('Bottom', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'contentAlignmentVertical',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'radio_buttonset',
+            'settings'    => 'hero_content_align_horizontal',
+            'label'       => esc_html__('Content horizontal alignment', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'left',
+            'priority'    => 10,
+            'choices'     => [
+                'left' => esc_html__('Left', 'municipio'),
+                'center' => esc_html__('Center', 'municipio'),
+                'right' => esc_html__('Right', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'contentAlignmentHorizontal',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'hero_content_bg_color',
+            'label'       => esc_html__('Content background', 'municipio'),
+            'description' => esc_html__('Choose a background color for hero content.', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices'     => [
+                'alpha' => true,
+            ],
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'contentBackgroundColor',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'color',
+            'settings'    => 'hero_contrast_color',
+            'label'       => esc_html__('Contrast color', 'municipio'),
+            'description' => esc_html__('Choose a contrast color that will be applied to all elements in the content area.', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'active_callback' => $this->getActiveCallbackForFieldDependentOnContentBackground(),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'textColor',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'hero_content_apply_shadows',
+            'label'       => esc_html__('Apply shadows to content', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => true,
+            'priority'    => 10,
+            'active_callback' => $this->getActiveCallbackForFieldDependentOnContentBackground(),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'contentApplyShadows',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+        
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'switch',
+            'settings'    => 'hero_content_apply_rounded_corners',
+            'label'       => esc_html__('Apply rounded corners to content', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => true,
+            'priority'    => 10,
+            'active_callback' => $this->getActiveCallbackForFieldDependentOnContentBackground(),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'contentApplyRoundedCorners',
+                    'context' => [
+                        [
+                            'context' => 'component.hero',
+                            'operator' => '=='
+                        ],   
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    private function getActiveCallbackForFieldDependentOnContentBackground(): array
+    {
+        return [[
+            'setting'  => 'hero_content_bg_color',
+            'operator' => '!=',
+            'value'    => "",
+        ]];
     }
 }

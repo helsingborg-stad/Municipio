@@ -1,6 +1,6 @@
 import { viewRender } from "./restApi/endpoints/viewRender";
 
-const SELECTOR_TOGGLE_BUTTON = '.js-toggle-children';
+const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 let placeholderMarkup:HTMLElement|null = null
 
@@ -53,8 +53,8 @@ const removePlaceholder = (parentElement:Element) => {
 const subscribeOnClick = (element:Element) => {
     const handleClick = () => {
         // Parent of toggle has all states
-        const parentElement = element.parentElement;
-        
+        const parentElement = element.closest(".js-async-children-data");
+
         if( parentElement === null ) {
             return
         }
@@ -64,20 +64,14 @@ const subscribeOnClick = (element:Element) => {
         // States
         const hasFetched = parentClassNames.includes('has-fetched');
         const isFetching = parentClassNames.includes('is-fetching');
+
+        // Bye
+        if (isFetching || hasFetched) {
+            return;
+        }
         
         // Input from attributes
         const fetchUrl = parentElement.getAttribute(ATTRIBUTE_FETCH_URL);
-        
-        // Bye
-        if (isFetching) {
-            return;
-        }
-        
-        // Lets just toggle
-        if (hasFetched) {
-            parentElement.classList.toggle('is-open');
-            return;
-        }
         
         if (!fetchUrl) {
             console.error('Fetch URL is not defined.')
@@ -86,10 +80,9 @@ const subscribeOnClick = (element:Element) => {
         
         // Set states before fetching
         appendPlaceholder(parentElement)
-        parentElement.classList.toggle('is-fetching');
-        parentElement.classList.toggle('is-loading');
-        parentElement.classList.toggle('is-open');
-        
+        parentElement.classList.add('is-fetching');
+        parentElement.classList.add('is-loading');
+
         fetchMarkup(fetchUrl)
         .then(markup => {
             // Remove placeholder
@@ -97,11 +90,11 @@ const subscribeOnClick = (element:Element) => {
             
             // Render sub-menu
             parentElement.insertAdjacentHTML('beforeend', markup);
-            
+
             // Set states
-            parentElement.classList.toggle('is-fetching');
-            parentElement.classList.toggle('is-loading');
-            parentElement.classList.toggle('has-fetched');
+            parentElement.classList.remove('is-fetching');
+            parentElement.classList.remove('is-loading');
+            parentElement.classList.add('has-fetched');
             
             // Subscribe new toggles found in sub-menu recursively
             const newSubMenu = parentElement.lastElementChild;
@@ -115,8 +108,8 @@ const subscribeOnClick = (element:Element) => {
         .catch(e => {
             console.error(e);
             // Reset states
-            parentElement.classList.toggle('is-fetching');
-            parentElement.classList.toggle('is-loading');
+            parentElement.classList.remove('is-fetching');
+            parentElement.classList.remove('is-loading');
         });
     }
     
