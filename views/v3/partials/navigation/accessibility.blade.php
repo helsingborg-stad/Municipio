@@ -16,8 +16,8 @@
 						'icon' => $item['icon'],
 						'size' => $item['size'] ?? 'md',
 						'filled' => $item['filled'] ?? true,
-						'attributeList' => $item['attributes'] ?? [],
-						'classList' => $item['classes']
+						'attributeList' => $item['attributeList'] ?? [],
+						'classList' => $item['classList']
 					])
 					@endicon
 					{{$item['text']}}
