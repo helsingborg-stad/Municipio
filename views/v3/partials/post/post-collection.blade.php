@@ -1,7 +1,4 @@
 @if ($posts)
-    @php
-        var_dump($displayFeaturedImage);
-    @endphp
     @collection([
         'unbox' => true,
         'classList' => ['o-grid']
