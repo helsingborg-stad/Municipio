@@ -84,41 +84,41 @@ class Singular extends \Municipio\Controller\BaseController
 
     protected function setupSecondaryQueryData($data)
     {
-        $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+        $secondaryQuery = $this->prepareQuery(get_query_var('secondaryQuery'));
 
-        if (empty($data['secondaryQuery'])) {
+        if (!$secondaryQuery) {
             $data['secondaryQuery'] = false;
-            return $data;
+        } else {
+            $data['secondaryQuery'] = $secondaryQuery;
+
+            $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+
+            $data['secondaryPostType']       = $secondaryPostType;
+            $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
+                $secondaryPostType,
+                $data['customizer']
+            );
+            $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+            $data['secondaryPaginationList'] = Archive::getPagination(
+                $currentPath,
+                $data['secondaryQuery']
+            );
+            $data['showSecondaryPagination'] = Archive::showPagination(
+                $currentPath,
+                $data['secondaryQuery']
+            );
+
+            $data['currentPage']        = get_query_var('paged') ?? 1;
+            $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
+            $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
+            $data['displayFeaturedImage'] = Archive::displayFeaturedImage($data['secondaryArchiveProps']);
         }
-
-        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
-
-        $data['secondaryPostType']       = $secondaryPostType;
-        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
-        $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
-            $secondaryPostType,
-            $data['customizer']
-        );
-        $data['secondaryPaginationList'] = Archive::getPagination(
-            $currentPath,
-            $data['secondaryQuery']
-        );
-        $data['showSecondaryPagination'] = Archive::showPagination(
-            $currentPath,
-            $data['secondaryQuery']
-        );
-
-        $data['anyPostHasImage']    = $this->anyPostHasImage($data['secondaryQuery']->posts);
-        $data['currentPage']        = get_query_var('paged') ?? 1;
-        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
-        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
-
         return $data;
     }
     public function prepareQuery($query)
     {
-        if (is_string($query) || !$query->have_posts()) {
+        if (is_string($query) || !$query->have_posts() || !isset($query->posts)) {
             return false;
         }
 
@@ -128,7 +128,6 @@ class Singular extends \Municipio\Controller\BaseController
 
         return $query;
     }
-
     /**
      * Get main content padder size
      */
