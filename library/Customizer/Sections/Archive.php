@@ -87,7 +87,7 @@ class Archive
             'settings' => 'archive_' . $archive->name . '_display_featured_image',
             'label'    => esc_html__('Display featured image', 'municipio'),
             'section'  => $sectionID,
-            'default'     => 0,
+            'default'     => 1,
             'choices' => [
                 1  => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),

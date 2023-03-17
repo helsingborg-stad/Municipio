@@ -95,11 +95,11 @@ class Singular extends \Municipio\Controller\BaseController
         $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
 
         $data['secondaryPostType']       = $secondaryPostType;
-        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
         $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
             $secondaryPostType,
             $data['customizer']
         );
+        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
         $data['secondaryPaginationList'] = Archive::getPagination(
             $currentPath,
             $data['secondaryQuery']
@@ -109,10 +109,10 @@ class Singular extends \Municipio\Controller\BaseController
             $data['secondaryQuery']
         );
 
-        $data['anyPostHasImage']    = $this->anyPostHasImage($data['secondaryQuery']->posts);
         $data['currentPage']        = get_query_var('paged') ?? 1;
         $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
         $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
+        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($data['secondaryArchiveProps']);
 
         return $data;
     }
