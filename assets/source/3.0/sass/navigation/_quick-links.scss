@@ -1,9 +1,15 @@
-
+/* Colors */
 $c-quicklinks-background-color: var(--c-quicklinks-background-color);
 $c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color);
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
 $c-quicklinks-text-color: var(--c-quicklinks-text-color);
+
+/* Gap */
+$c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
+
+/* Alignment */
+$c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
 
 
 #quicklinks-header {
@@ -29,6 +35,9 @@ $c-quicklinks-text-color: var(--c-quicklinks-text-color);
     }
 
     .c-nav {
+        justify-content: $c-quicklinks-alignment;
+        gap: calc($base * $c-quicklinks-gap);
+
         .c-nav__link {
             color: #{$c-quicklinks-text-color};
         }

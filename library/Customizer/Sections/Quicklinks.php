@@ -13,14 +13,14 @@ class Quicklinks
         Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'radio',
           'settings'    => 'quicklinks_background_type',
-          'label'       => esc_html__('Select background type', 'municipio'),
-          'description' => esc_html__('Select if you want to use one of the predefined colors, or select one freely.', 'municipio'),
+          'label'       => esc_html__('Appearance', 'municipio'),
+          'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
           'section'     => $sectionID,
           'default'     => 'default',
           'priority'    => 5,
           'choices'     => [
-            'default' => esc_html__( 'Predefined colors', 'municipio'),
-            'hex' => esc_html__('Custom colors', 'municipio'),
+            'default' => esc_html__( 'Predefined appearance', 'municipio'),
+            'custom' => esc_html__('Custom appearance', 'municipio'),
           ],
           'active_callback'  => [
             [
@@ -91,7 +91,59 @@ class Quicklinks
             [
               'setting'  => 'quicklinks_background_type',
               'operator' => '===',
-              'value'    => 'hex',
+              'value'    => 'custom',
+            ]
+          ],
+      ]);
+
+      Kirki::add_field(Customizer::KIRKI_CONFIG, [
+        'type'        => 'slider',
+        'settings'    => 'quicklinks_gap',
+        'label'       => esc_html__('Amount of gap between', 'municipio'),
+        'section'     => $sectionID,
+        'transport'   => 'auto',
+        'default'     => 2,
+        'choices'     => [
+            'min'  => 1,
+            'max'  => 10,
+            'step' => 1,
+        ],
+        'output' => [
+            [
+              'element' => '.s-nav-fixed',
+              'property' => '--c-quicklinks-gap'
+            ]
+        ],
+         'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_background_type',
+              'operator' => '===',
+              'value'    => 'custom',
+            ]
+          ],
+      ]);
+
+      Kirki::add_field(Customizer::KIRKI_CONFIG, [
+          'type'        => 'select',
+          'settings'    => 'quicklinks_alignment',
+          'label'       => esc_html__('Alignment', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => 'space-evenly',
+          'choices'     => [
+              'space-evenly' => esc_html__('Gap between', 'municipio'),
+              'center' => esc_html__('Center', 'municipio'),
+          ],
+          'output' => [
+              [
+                  'property' => '--c-quicklinks-alignment',
+                  'element' => '.s-nav-fixed'
+              ],
+          ],
+           'active_callback'  => [
+            [
+              'setting'  => 'quicklinks_background_type',
+              'operator' => '===',
+              'value'    => 'custom',
             ]
           ],
       ]);
