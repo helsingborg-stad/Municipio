@@ -19,7 +19,7 @@ class Quicklinks
           'default'     => 'default',
           'priority'    => 5,
           'choices'     => [
-            'default' => esc_html__( 'Predefined appearance', 'municipio'),
+            'default' => esc_html__('Predefined appearance', 'municipio'),
             'custom' => esc_html__('Custom appearance', 'municipio'),
           ],
           'active_callback'  => [
