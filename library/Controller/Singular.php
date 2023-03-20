@@ -98,7 +98,9 @@ class Singular extends \Municipio\Controller\BaseController
             $secondaryPostType,
             $data['customizer']
         );
-        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+        $secondaryArchiveProps = $data['secondaryArchiveProps'];
+
+        $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
             $currentPath,
             $data['secondaryQuery']
@@ -108,11 +110,27 @@ class Singular extends \Municipio\Controller\BaseController
             $data['secondaryQuery']
         );
 
-        $data['currentPage']        = get_query_var('paged') ?? 1;
-        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
-        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
-        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($data['secondaryArchiveProps']);
+        //Set default values to query parameters
+        $data['queryParameters'] = Archive::setQueryParameters($data);
+        echo '<pre>' . print_r($data['queryParameters'], true) . '</pre>';
 
+        $data['currentPage']          = get_query_var('paged') ?? 1;
+        $data['gridColumnClass']      = Archive::getGridClass($secondaryArchiveProps);
+        $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
+        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($secondaryArchiveProps);
+        $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
+        $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
+
+        $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryPostType, $secondaryArchiveProps);
+
+        $data['searchBtn']        = __('Search', 'municipio');
+        $data['filterBtn']        = __('Filter', 'municipio');
+        $data['resetSearchBtn']   = __('Reset search', 'municipio');
+        $data['resetFilterBtn']   = __('Reset filter', 'municipio');
+        $data['resetFacetting']   = __('Reset', 'municipio');
+
+        $data['archiveResetUrl'] = home_url($currentPath);
+        $data['showFilterReset'] = Archive::showFilterReset($data['queryParameters']);
 
         return $data;
     }
@@ -127,6 +145,86 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return $query;
+    }
+    /**
+     * Get taxonomy filters to show for secondary query
+     *
+     * @param   string $postType           The current post type
+     *
+     * @return  array   $taxonomyObjects    Array containing selects with options
+     */
+    protected function getTaxonomyFilters($postType, $args)
+    {
+        if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
+            return [];
+        }
+
+        //Define storage point
+        $taxonomyObjects = [];
+        $taxonomies = $args->enabledFilters;
+
+        // ! TODO - Fix this for secondary queries
+        //Get active taxonomy filters
+        // $taxonomies = array_diff(
+        //     $args->enabledFilters,
+        //     [$this->currentTaxonomy()]
+        // );
+
+        if (is_array($taxonomies) && !empty($taxonomies)) {
+            foreach ($taxonomies as $taxonomy) {
+                //Fetch full object
+                $taxonomy = get_taxonomy($taxonomy);
+
+                //Bail if not found
+                if ($taxonomy === false) {
+                    continue;
+                }
+
+                //Get terms
+                $terms = get_terms(
+                    array(
+                    'taxonomy' => $taxonomy->name,
+                    'hide_empty' => true
+                    )
+                );
+
+                //Bail early if there isen't any options
+                if (empty($terms)) {
+                    continue;
+                }
+
+                //Reset options
+                $options = [];
+
+                //Fill options
+                if (is_array($terms) && !empty($terms)) {
+                    foreach ($terms as $option) {
+                        if (!empty($option->name)) {
+                            $options[$option->slug] = html_entity_decode(ucfirst($option->name));
+                        }
+                    }
+                }
+
+                //Data
+                $taxonomyObject = [
+                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                'required' => false,
+                'attributeList' => [
+                    'type' => 'text',
+                    'name' => $taxonomy->name
+                ],
+                'options' => $options
+                ];
+
+                if (isset($_GET[$taxonomy->name])) {
+                    $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
+                }
+
+                $taxonomyObjects[] = $taxonomyObject;
+            }
+        }
+
+        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
     /**

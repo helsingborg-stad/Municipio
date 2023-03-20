@@ -4,8 +4,8 @@
 
     @if (!empty($posts))
         @includeFirst([
-            'partials.archive.archive-' . sanitize_title($secondaryTemplate) . '-filters',
-            'partials.archive.archive-filters',
+            'partials.archive.archive-filters-' . $secondaryPostType . '-secondary',
+            'partials.archive.archive-filters-secondary',
         ])
         @includeIf("partials.post.post-{$secondaryTemplate}")
 
