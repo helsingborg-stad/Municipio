@@ -12,7 +12,7 @@ class Quicklinks
     {
         Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'radio',
-          'settings'    => 'quicklinks_background_type',
+          'settings'    => 'quicklinks_appearance_type',
           'label'       => esc_html__('Appearance', 'municipio'),
           'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
           'section'     => $sectionID,
@@ -82,14 +82,14 @@ class Quicklinks
           ],
           'active_callback'  => [
             [
-              'setting'  => 'quicklinks_background_type',
+              'setting'  => 'quicklinks_appearance_type',
               'operator' => '===',
               'value'    => 'custom',
             ]
             ],
             'active_callback'  => [
             [
-              'setting'  => 'quicklinks_background_type',
+              'setting'  => 'quicklinks_appearance_type',
               'operator' => '===',
               'value'    => 'custom',
             ]
@@ -116,7 +116,7 @@ class Quicklinks
         ],
          'active_callback'  => [
             [
-              'setting'  => 'quicklinks_background_type',
+              'setting'  => 'quicklinks_appearance_type',
               'operator' => '===',
               'value'    => 'custom',
             ]
@@ -141,7 +141,7 @@ class Quicklinks
           ],
            'active_callback'  => [
             [
-              'setting'  => 'quicklinks_background_type',
+              'setting'  => 'quicklinks_appearance_type',
               'operator' => '===',
               'value'    => 'custom',
             ]
@@ -167,7 +167,7 @@ class Quicklinks
           ],
           'active_callback'  => [
             [
-              'setting'  => 'quicklinks_background_type',
+              'setting'  => 'quicklinks_appearance_type',
               'operator' => '===',
               'value'    => 'default',
             ]
