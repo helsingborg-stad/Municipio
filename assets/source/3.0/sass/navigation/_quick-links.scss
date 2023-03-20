@@ -1,6 +1,6 @@
 /* Colors */
 $c-quicklinks-background-color: var(--c-quicklinks-background-color);
-$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color);
+$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, $color-white) !default;
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
 $c-quicklinks-text-color: var(--c-quicklinks-text-color);
