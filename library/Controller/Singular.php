@@ -164,34 +164,27 @@ class Singular extends \Municipio\Controller\BaseController
         $taxonomies = $args->enabledFilters;
         $taxonomyObjects = [];
 
-        foreach ($taxonomies as $taxonomy) {
-            $taxonomy = get_taxonomy($taxonomy);
+        foreach ($taxonomies as $tax) {
+            $taxonomy = get_taxonomy($tax);
 
-            if ($taxonomy !== false) {
-                $terms = get_terms(array(
-                'taxonomy' => $taxonomy->name,
-                'hide_empty' => true
-                ));
+            if ($taxonomy) {
+                $terms = get_terms(['taxonomy' => $taxonomy->name]);
 
-                if (!empty($terms)) {
+                if (!empty($terms) && !is_wp_error($terms)) {
                     $options = [];
 
-                    foreach ($terms as $option) {
-                        if (!empty($option->name)) {
-                            $options[$option->slug] = html_entity_decode(ucfirst($option->name));
-                        }
+                    foreach ($terms as $term) {
+                        $options[$term->slug] = ucfirst($term->name);
                     }
 
-                    $taxonomyObject = [
-                    'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
-                    'attributeList' => [
-                        'name' => "{$taxonomy->name}[]"
-                    ],
-                    'options' => $options,
-                    'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
+                    $taxonomyObjects[] = [
+                        'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
+                        'attributeList' => [
+                           'name' => "{$taxonomy->name}[]"
+                        ],
+                        'options' => $options,
+                        'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
                     ];
-
-                    $taxonomyObjects[] = $taxonomyObject;
                 }
             }
         }
