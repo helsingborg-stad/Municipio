@@ -128,6 +128,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['lang']->filterBtn        = __('Filter', 'municipio');
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
+        $data['lang']->noResult         = __('No items found.', 'municipio');
 
         $data['archiveResetUrl'] = home_url($currentPath);
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
