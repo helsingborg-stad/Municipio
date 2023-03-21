@@ -148,9 +148,11 @@ class Singular extends \Municipio\Controller\BaseController
         return $query;
     }
     /**
-     * Get taxonomy filters to show for secondary query
+     * Retrieve an array of taxonomy objects based on the given arguments.
      *
-     * @return  array   $taxonomyObjects    Array containing selects with options
+     * @param object $args The arguments for the function.
+     * @param array $data An optional array of data.
+     * @return array An array of taxonomy objects.
      */
     protected function getTaxonomyFilters($args, array $data = [])
     {
@@ -161,57 +163,45 @@ class Singular extends \Municipio\Controller\BaseController
         $taxonomyObjects = [];
         $taxonomies = $args->enabledFilters;
 
-        if (is_array($taxonomies) && !empty($taxonomies)) {
-            foreach ($taxonomies as $taxonomy) {
-                //Fetch full object
-                $taxonomy = get_taxonomy($taxonomy);
+        if (!is_array($taxonomies) || empty($taxonomies)) {
+            return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
+        }
 
-                //Bail if not found
-                if ($taxonomy === false) {
-                    continue;
-                }
+        foreach ($taxonomies as $taxonomy) {
+            $taxonomy = get_taxonomy($taxonomy);
 
-                //Get terms
-                $terms = get_terms(
-                    array(
-                    'taxonomy' => $taxonomy->name,
-                    'hide_empty' => true
-                    )
-                );
+            if ($taxonomy !== false) {
+                $terms = get_terms(array(
+                'taxonomy' => $taxonomy->name,
+                'hide_empty' => true
+                ));
 
-                //Bail early if there isen't any options
-                if (empty($terms)) {
-                    continue;
-                }
+                if (!empty($terms)) {
+                    $options = [];
 
-                //Reset options
-                $options = [];
-
-                //Fill options
-                if (is_array($terms) && !empty($terms)) {
                     foreach ($terms as $option) {
                         if (!empty($option->name)) {
                             $options[$option->slug] = html_entity_decode(ucfirst($option->name));
                         }
                     }
-                }
 
-                //Data
-                $taxonomyObject = [
+                    $taxonomyObject = [
                     'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
                     'attributeList' => [
                         'name' => "{$taxonomy->name}[]"
                     ],
                     'options' => $options,
                     'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
-                ];
+                    ];
 
-                $taxonomyObjects[] = $taxonomyObject;
+                    $taxonomyObjects[] = $taxonomyObject;
+                }
             }
         }
 
         return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', $taxonomyObjects);
     }
+
 
     /**
      * Get main content padder size
