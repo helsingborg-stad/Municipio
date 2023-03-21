@@ -39,7 +39,6 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Reading time
         $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent);
-        $this->data['lang']->readingTime    = __('Reading time', 'municipio');
 
         //Comments
         if (get_option('comment_moderation') === '1') {
@@ -79,6 +78,12 @@ class Singular extends \Municipio\Controller\BaseController
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
 
+        if (!isset($this->data['lang'])) {
+            $this->data['lang'] = (object) [];
+        }
+        $this->data['lang']->readingTime = __('Reading time', 'municipio');
+        $this->data['lang']->noResult    = __('No items found at this query.', 'municipio');
+
         return $this->data;
     }
 
@@ -93,7 +98,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+        $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 
         $data['secondaryPostType']       = $secondaryPostType;
         $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
@@ -134,20 +139,19 @@ class Singular extends \Municipio\Controller\BaseController
     }
     public function prepareQuery($query)
     {
-        if (is_string($query) || empty($query) || empty($query->posts)) {
+        if (is_string($query) || empty($query)) {
             return false;
         }
 
-        foreach ($query->posts as &$post) {
-            $post = \Municipio\Helper\Post::preparePostObject($post);
+        if ($query->have_posts()) {
+            foreach ($query->posts as &$post) {
+                $post = \Municipio\Helper\Post::preparePostObject($post);
+            }
         }
-
         return $query;
     }
     /**
      * Get taxonomy filters to show for secondary query
-     *
-     * @param   string $postType           The current post type
      *
      * @return  array   $taxonomyObjects    Array containing selects with options
      */
