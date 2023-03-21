@@ -311,7 +311,9 @@ class General
     public static function htmlEntityDecodeTermNames(array $terms): array
     {
         foreach ($terms as &$term) {
-            $term->name = html_entity_decode($term->name);
+            if (is_a($term, 'WP_Term')) {
+                $term->name = html_entity_decode($term->name);
+            }
         }
         return $terms;
     }
