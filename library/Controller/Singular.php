@@ -157,16 +157,12 @@ class Singular extends \Municipio\Controller\BaseController
      */
     protected function getTaxonomyFilters($args, array $data = [])
     {
-        if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
+        if (empty($args->enabledFilters)) {
             return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
         }
 
-        $taxonomyObjects = [];
         $taxonomies = $args->enabledFilters;
-
-        if (!is_array($taxonomies) || empty($taxonomies)) {
-            return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
-        }
+        $taxonomyObjects = [];
 
         foreach ($taxonomies as $taxonomy) {
             $taxonomy = get_taxonomy($taxonomy);
