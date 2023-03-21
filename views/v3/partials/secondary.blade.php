@@ -2,12 +2,12 @@
 
     {!! $hook->secondaryLoopStart !!}
 
-    @if (!empty($posts))
-        @includeFirst([
-            'partials.archive.archive-filters-' . $secondaryPostType . '-secondary',
-            'partials.archive.archive-filters-secondary',
-        ])
-        @includeIf("partials.post.post-{$secondaryTemplate}")
+    @includeFirst([
+        'partials.archive.archive-filters-' . $secondaryPostType . '-secondary',
+        'partials.archive.archive-filters-secondary',
+    ])
+    @if (!empty($secondaryQuery->posts))
+        @includeIf("partials.post.post-{$secondaryTemplate}", ['posts' => $secondaryQuery->posts])
 
         @if ($showSecondaryPagination)
             @pagination([
@@ -18,7 +18,19 @@
             ])
             @endpagination
         @endif
-
+    @else
+        <div class="o-grid">
+            <div class="o-grid-12">
+                @notice([
+                    'type' => 'info',
+                    'message' => [
+                        'text' => $lang->noResult,
+                        'size' => 'md'
+                    ]
+                ])
+                @endnotice
+            </div>
+        </div>
     @endif
 
     {!! $hook->secondaryLoopEnd !!}

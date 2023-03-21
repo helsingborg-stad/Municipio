@@ -200,35 +200,6 @@ class Archive
 
         return implode(' ', $stack);
     }
-     /**
-     * Set default values for query parameters
-     *
-     * @return void
-     */
-    public static function setQueryParameters(array $data = [])
-    {
-        $queryParameters = [
-        'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
-        'from' =>  isset($_GET['from']) ? $_GET['from'] : '',
-        'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
-        ];
-
-        if (!empty($data) && !empty($data['postType'])) {
-            //Include taxonomies (dynamic)
-            $taxonomies = get_object_taxonomies($data['postType']);
-
-            if (is_array($taxonomies) && !empty($taxonomies)) {
-                foreach ($taxonomies as $taxonomy) {
-                    $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
-                }
-            }
-        }
-
-        return \apply_filters(
-            'Municipio/Controller/Archive/setQueryParameters',
-            (object) $queryParameters
-        );
-    }
 
     /**
      * Determines if the reset button should show or not.

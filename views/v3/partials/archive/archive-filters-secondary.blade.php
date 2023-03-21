@@ -25,15 +25,15 @@
         'method' => 'GET',
         'action' => '?q=form_component'
         ])
-
         <div class="o-grid u-align-content--end">
             @foreach ($enabledFilters as $filterType)
                 <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md">
                     @filterSelect([
                         'label' => $filterType['label'],
+                        'name' => $filterType['attributeList']['name'] ?? '',
                         'required' => $filterType['required'],
                         'options' => $filterType['options'],
-                        'attributeList' => $filterType['attributeList']
+                        'preselected' => $filterType['preselected']
                     ])
                     @endfilterSelect
                 </div>

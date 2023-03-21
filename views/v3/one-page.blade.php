@@ -30,8 +30,8 @@
 
         {!! $hook->innerLoopEnd !!}
 
-        @includeWhen(!empty($secondaryQuery), 'partials.secondary', [
-            'posts' => $secondaryQuery->posts,
+        @include('partials.secondary', [
+            'secondaryQuery' => $secondaryQuery,
             'postType' => $secondaryPostType,
         ])
 

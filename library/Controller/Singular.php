@@ -85,8 +85,10 @@ class Singular extends \Municipio\Controller\BaseController
     protected function setupSecondaryQueryData($data)
     {
         $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+        if ('' === $data['secondaryQuery'] || !$data['secondaryQuery']) {
+            $data['secondaryQuery']    = false;
+            $data['secondaryPostType'] = false;
 
-        if (!$data['secondaryQuery']) {
             return $data;
         }
 
@@ -110,18 +112,14 @@ class Singular extends \Municipio\Controller\BaseController
             $data['secondaryQuery']
         );
 
-        //Set default values to query parameters
-        $data['queryParameters'] = Archive::setQueryParameters($data);
-        echo '<pre>' . print_r($data['queryParameters'], true) . '</pre>';
-
         $data['currentPage']          = get_query_var('paged') ?? 1;
         $data['gridColumnClass']      = Archive::getGridClass($secondaryArchiveProps);
         $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
         $data['displayFeaturedImage'] = Archive::displayFeaturedImage($secondaryArchiveProps);
         $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
         $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
-
-        $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryPostType, $secondaryArchiveProps);
+        $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
+        $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryArchiveProps, $data);
 
         $data['searchBtn']        = __('Search', 'municipio');
         $data['filterBtn']        = __('Filter', 'municipio');
@@ -153,22 +151,14 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return  array   $taxonomyObjects    Array containing selects with options
      */
-    protected function getTaxonomyFilters($postType, $args)
+    protected function getTaxonomyFilters($args, array $data = [])
     {
         if (!isset($args->enabledFilters) || empty($args->enabledFilters)) {
-            return [];
+            return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
         }
 
-        //Define storage point
         $taxonomyObjects = [];
         $taxonomies = $args->enabledFilters;
-
-        // ! TODO - Fix this for secondary queries
-        //Get active taxonomy filters
-        // $taxonomies = array_diff(
-        //     $args->enabledFilters,
-        //     [$this->currentTaxonomy()]
-        // );
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
@@ -207,24 +197,19 @@ class Singular extends \Municipio\Controller\BaseController
 
                 //Data
                 $taxonomyObject = [
-                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                'required' => false,
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => $taxonomy->name
-                ],
-                'options' => $options
+                    'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
+                    'attributeList' => [
+                        'name' => "{$taxonomy->name}[]"
+                    ],
+                    'options' => $options,
+                    'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
                 ];
-
-                if (isset($_GET[$taxonomy->name])) {
-                    $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
-                }
 
                 $taxonomyObjects[] = $taxonomyObject;
             }
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
+        return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', $taxonomyObjects);
     }
 
     /**
