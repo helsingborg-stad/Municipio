@@ -75,14 +75,14 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        //Secondary Query
-        $this->data = $this->setupSecondaryQueryData($this->data);
-
         if (!isset($this->data['lang'])) {
             $this->data['lang'] = (object) [];
         }
+
+        //Secondary Query
+        $this->data = $this->setupSecondaryQueryData($this->data);
+
         $this->data['lang']->readingTime = __('Reading time', 'municipio');
-        $this->data['lang']->noResult    = __('No items found at this query.', 'municipio');
 
         return $this->data;
     }
@@ -126,14 +126,11 @@ class Singular extends \Municipio\Controller\BaseController
         $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
         $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryArchiveProps, $data);
 
-        $data['searchBtn']        = __('Search', 'municipio');
-        $data['filterBtn']        = __('Filter', 'municipio');
-        $data['resetSearchBtn']   = __('Reset search', 'municipio');
-        $data['resetFilterBtn']   = __('Reset filter', 'municipio');
-        $data['resetFacetting']   = __('Reset', 'municipio');
+        $data['lang']->filterBtn        = __('Filter', 'municipio');
+        $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
 
         $data['archiveResetUrl'] = home_url($currentPath);
-        $data['showFilterReset'] = Archive::showFilterReset($data['queryParameters']);
+        $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
         return $data;
     }

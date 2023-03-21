@@ -40,11 +40,11 @@
             @endforeach
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
-                    'text' => $facettingType ? $lang->filterBtn : $lang->searchBtn,
+                    'text' => $lang->filterBtn,
                     'color' => 'primary',
                     'type' => 'submit',
                     'classList' => ['u-display--block@xs', 'u-width--100@xs'],
-                    'icon' => $facettingType ? 'filter_list' : 'search',
+                    'icon' => 'filter_list',
                 ])
                 @endbutton
             </div>
@@ -53,7 +53,7 @@
                 <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                     @button([
                         'href' => $archiveResetUrl,
-                        'text' => $facettingType ? $lang->resetFilterBtn : $lang->resetSearchBtn,
+                        'text' => $lang->resetFilterBtn,
                         'type' => 'basic',
                         'classList' => ['u-display--block@xs', 'u-width--100@xs'],
                     ])
