@@ -37,6 +37,12 @@
     @endpaper
 @stop
 
+@section('helper-navigation')
+@stop
+
+@section('content')
+@stop
+
 @section('below')
     @foreach($relatedPosts as $postType => $posts) 
         <div class="o-grid">
