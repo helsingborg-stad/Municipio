@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\Data as DataHelper;
 use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\Term as TermHelper;
 
 /**
  * Class SingularPurpose
@@ -46,12 +47,17 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::init();
         $fields = get_fields($this->getPageID());
 
-        $this->data['phone'] = $fields['phone'];
-        $this->data['website'] = $fields['website'];
-        $this->data['location'] = $fields['location'];
-        $this->data['cuisine'] = $this->getTermNames($fields['cuisine']);
-        $this->data['other'] = $this->getTermNames($fields['other']);
-        $this->data['activities'] = $this->getTermNames($fields['activities']);
+        $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on');
+        $this->data['list'][] = $this->createListItem($fields['phone'], 'call');
+        $this->data['list'][] = $this->createListItem($fields['website'], 'language', $fields['website']);
+
+        $other = $this->getTermNames($fields['other']);
+        if (!empty($other)) {
+            foreach ($other as $item) {
+                $this->data['list'][] = $this->createListItem($item->name, $item->icon['src']);
+            }
+        }        
+
 
         $this->data['labels'] = [
             'related' => __('Related', 'municipio'),
@@ -116,6 +122,10 @@ class SingularPurpose extends \Municipio\Controller\Singular
         return $posts;
     }
 
+    private function createListItem ($label, $icon, $href = false) {
+        return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
+    }
+
     private function getTermNames ($termIds) {
         if (empty($termIds)) {
             return false;
@@ -123,7 +133,12 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
         $terms = array();
         foreach ($termIds as $termId) {
-            $terms[] = get_term($termId);
+            $term = get_term($termId);
+            if(!$term || is_wp_error($term)) { 
+                continue; 
+            }
+            $term->icon = TermHelper::getTermIcon($term);
+            $terms[] = $term;
         }
         return $terms;
     }
