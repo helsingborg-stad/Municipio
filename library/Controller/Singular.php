@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Archive;
+
 /**
  * Class Singular
  * @package Municipio\Controller
@@ -19,8 +21,6 @@ class Singular extends \Municipio\Controller\BaseController
         $originalPostData = get_post($this->getPageID());
 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
-
-        $this->data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
 
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
@@ -76,18 +76,57 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
+        //Secondary Query
+        $this->data = $this->setupSecondaryQueryData($this->data);
+
         return $this->data;
     }
 
+    protected function setupSecondaryQueryData($data)
+    {
+        $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+
+        if (!$data['secondaryQuery']) {
+            return $data;
+        }
+
+        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+
+        $data['secondaryPostType']       = $secondaryPostType;
+        $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
+            $secondaryPostType,
+            $data['customizer']
+        );
+        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+        $data['secondaryPaginationList'] = Archive::getPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+        $data['showSecondaryPagination'] = Archive::showPagination(
+            $currentPath,
+            $data['secondaryQuery']
+        );
+
+        $data['currentPage']        = get_query_var('paged') ?? 1;
+        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
+        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
+        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($data['secondaryArchiveProps']);
+
+
+        return $data;
+    }
     public function prepareQuery($query)
     {
-        if (is_string($query) || !$query->have_posts()) {
+        if (is_string($query) || empty($query) || empty($query->posts)) {
             return false;
         }
+
         foreach ($query->posts as &$post) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
-        return $query->posts;
+
+        return $query;
     }
 
     /**
@@ -102,15 +141,15 @@ class Singular extends \Municipio\Controller\BaseController
         if (!empty($padding) && is_numeric($padding) && ($padding % 2 == 0)) {
             //Make md span half the size of padding
             return [
-                'md' => ($padding / 2),
-                'lg' => $padding
+            'md' => ($padding / 2),
+            'lg' => $padding
             ];
         }
 
         //Return default values
         return [
-            'md' => 0,
-            'lg' => 0
+        'md' => 0,
+        'lg' => 0
         ];
     }
 
@@ -136,12 +175,12 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return (object) [
-            'avatar'    => ($displayAvatar ? $this->getAuthor($postId)->avatar : ""),
-            'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-            'name'      => ($displayAuthor ? $this->getAuthor($postId)->name : ""),
-            'link'      => ($linkAuthor ? $this->getAuthor($postId)->link : ""),
-            'published' => ($displayPublish ? $published : false),
-            'updated'   => ($displayUpdated ? $updated : false),
+        'avatar'    => ($displayAvatar ? $this->getAuthor($postId)->avatar : ""),
+        'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
+        'name'      => ($displayAuthor ? $this->getAuthor($postId)->name : ""),
+        'link'      => ($linkAuthor ? $this->getAuthor($postId)->link : ""),
+        'published' => ($displayPublish ? $published : false),
+        'updated'   => ($displayUpdated ? $updated : false),
         ];
     }
 
@@ -152,10 +191,10 @@ class Singular extends \Municipio\Controller\BaseController
     private function getAuthor($id): object
     {
         $author = array(
-            'id' => $this->data['post']->postAuthor,
-            'link' => get_author_posts_url($this->data['post']->postAuthor),
-            'name' => null,
-            'avatar' => null
+        'id' => $this->data['post']->postAuthor,
+        'link' => get_author_posts_url($this->data['post']->postAuthor),
+        'name' => null,
+        'avatar' => null
         );
 
         //Get setting for username
@@ -163,8 +202,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         //List of less-fancy displaynames
         $prohoboitedUserNames = [
-            get_the_author_meta('user_login', $this->data['post']->postAuthor),
-            get_the_author_meta('nickname', $this->data['post']->postAuthor)
+        get_the_author_meta('user_login', $this->data['post']->postAuthor),
+        get_the_author_meta('nickname', $this->data['post']->postAuthor)
         ];
 
         //Assign only if fancy variant of name
@@ -188,8 +227,8 @@ class Singular extends \Municipio\Controller\BaseController
     private function getPostDates($id): object
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
-            'published' => get_the_date(),
-            'updated' => get_the_modified_date()
+        'published' => get_the_date(),
+        'updated' => get_the_modified_date()
         ]);
     }
 
@@ -214,10 +253,10 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         $featuredImageObject = (object) [
-            'id'    => $featuredImageId,
-            'src'   => wp_get_attachment_image_src($featuredImageId, $size),
-            'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
-            'title' => get_the_title($featuredImageId)
+        'id'    => $featuredImageId,
+        'src'   => wp_get_attachment_image_src($featuredImageId, $size),
+        'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
+        'title' => get_the_title($featuredImageId)
         ];
 
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);

@@ -1,0 +1,62 @@
+name: Test:PHP
+
+on:
+  pull_request:
+
+jobs:
+  
+  test:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:10.4
+        ports:
+          - '3306:3306'
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+          
+
+    steps: 
+      
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          php-version: '7.4'
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer i
+
+      - name: Download ACF Prop plugin
+        uses: actions/checkout@v3
+        with: 
+          repository: ${{ secrets.PAID_PLUGINS_REPO }}
+          token: ${{ secrets.HBG_GH_TOKEN }}
+          path: wp-paid-plugins
+
+      - name: Place ACF plugin in /tmp folder
+        run: unzip wp-paid-plugins/acf.zip -d /tmp && rm -rf /tmp/wp-paid-plugins
+        shell: bash
+
+      - name: Verify MariaDB connection
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done
+
+      - name: Set up test environment
+        run: composer run test:setup test root root 127.0.0.1 latest true true
+
+      - name: Run tests
+        run: composer run test

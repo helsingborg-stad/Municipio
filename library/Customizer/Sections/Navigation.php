@@ -18,7 +18,7 @@ class Navigation
                 ],
                 'default' => [
                     'contrasting'           => '#000000',
-                    'background_active'     => '#000000',
+                    'background_active'     => 'rgba(0,0,0,.04)',
                     'contrasting_active'    => '#000000',
                     'background_expanded'   => 'rgba(0,0,0,.04)',
                     'divider_color'         => '#eeeeee'
@@ -32,10 +32,10 @@ class Navigation
                 ],
                 'default' => [
                     'contrasting'           => '#ffffff',
-                    'background_active'     => 'rgba(255, 255, 255, 0.05)',
+                    'background_active'     => 'rgba(255, 255, 255, 0.04)',
                     'contrasting_active'    => '#ffffff',
                     'background_expanded'   => 'rgba(0,0,0,.04)',
-                    'divider_color'         => 'rgba(255, 255, 255, 0.3)'
+                    'divider_color'         => 'rgba(255, 255, 255, 0.05)'
                 ]
             ],
             'drawer_secondary' => (object) [
@@ -64,7 +64,29 @@ class Navigation
                     'background_active'     => 'rgba(255, 255, 255, 0)',
                     'contrasting_active'    => '#090909'
                 ]
-            ]
+            ],
+            'language' => (object) [
+                'label' => esc_html__('Language', 'municipio'),
+                'scopeClass' => '.s-nav-language',
+                'types' => [
+                    'tiles'
+                ],
+                'default' => [
+                    'contrasting'           => '#000000',
+                    'contrasting_active'    => '#000000'
+                ]
+            ],
+            'floating' => (object) [
+                'label' => esc_html__('Floating', 'municipio'),
+                'scopeClass' => '.s-nav-floating',
+                'types' => [
+                    'tiles'
+                ],
+                'default' => [
+                    'contrasting'           => '#000000',
+                    'contrasting_active'    => '#000000'
+                ]
+            ],    
         ];
     }
 
@@ -120,8 +142,48 @@ class Navigation
                     );
                 }
 
+                if(in_array('tiles', $scope->types)) {
+                    $this->addTilesColorConfiguration(
+                        $key,
+                        $scope,
+                        $sectionID,
+                        $this->getOrientationLabel('vertical')
+                    );
+                }
+
             }
         }
+    }
+
+    private function addTilesColorConfiguration($key, $scope, $sectionID, $orientationLabel) {
+        Kirki::add_field(
+            Customizer::KIRKI_CONFIG, [
+                'type'        => 'multicolor',
+                'settings'    => 'nav_v_color_' . $key,
+                'label'       => $scope->label . " " . esc_html__('colors', 'municipio') . $orientationLabel,
+                'section'     => $sectionID,
+                'priority'    => 10,
+                'transport'   => 'auto',
+                'alpha'       => true,
+                'choices'     => [
+                    'contrasting' => esc_html__('Default Contrast', 'municipio'),
+                    'contrasting_active' => esc_html__('Contrasting (Active)', 'municipio')
+                ],
+                'default'     => (array) $scope->default,
+                'output' => [
+                    [
+                        'choice'    => 'contrasting',
+                        'element'   => $scope->scopeClass,
+                        'property'  => '--c-nav-v-color-contrasting',
+                    ],
+                    [
+                        'choice'    => 'contrasting_active',
+                        'element'   => $scope->scopeClass,
+                        'property'  => '--c-nav-v-color-contrasting-active',
+                    ]
+                ]
+            ]
+        );
     }
 
     private function addVerticalColorConfiguration($key, $scope, $sectionID, $orientationLabel) {

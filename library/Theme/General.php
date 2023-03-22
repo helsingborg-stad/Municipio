@@ -22,6 +22,7 @@ class General
         add_filter('the_content', array($this, 'removeEmptyPTag'));
 
         add_filter('the_title', array($this, 'htmlEntityDecodeTitle'), 999);
+        add_filter('get_object_terms', array($this, 'htmlEntityDecodeTermNames'), 999, 1);
 
         add_filter('img_caption_shortcode_width', array($this, 'normalizeImageCaptionSize'));
         add_filter('img_caption_shortcode_height', array($this, 'normalizeImageCaptionSize'));
@@ -306,5 +307,14 @@ class General
     public static function htmlEntityDecodeTitle($title): string
     {
         return html_entity_decode($title);
+    }
+    public static function htmlEntityDecodeTermNames(array $terms): array
+    {
+        foreach ($terms as &$term) {
+            if (is_a($term, 'WP_Term')) {
+                $term->name = html_entity_decode($term->name);
+            }
+        }
+        return $terms;
     }
 }
