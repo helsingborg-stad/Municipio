@@ -47,15 +47,14 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::init();
         $fields = get_fields($this->getPageID());
 
-        
-        $this->data['list'][] = ['label' => $fields['phone'], 'icon' => ['icon' => 'call', 'size' => 'md']];
-        $this->data['list'][] = ['label' => $fields['website'], 'icon' => ['icon' => 'language', 'size' => 'md'], 'href' => $fields['website']];
+        $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on');
+        $this->data['list'][] = $this->createListItem($fields['phone'], 'call');
+        $this->data['list'][] = $this->createListItem($fields['website'], 'language', $fields['website']);
 
         $other = $this->getTermNames($fields['other']);
-
         if (!empty($other)) {
             foreach ($other as $item) {
-                $this->data['list'][] = ['label' => $item->name, 'icon' => ['icon' => $item->icon['src'], 'size' => 'md']];
+                $this->data['list'][] = $this->createListItem($item->name, $item->icon['src']);
             }
         }        
 
@@ -121,6 +120,10 @@ class SingularPurpose extends \Municipio\Controller\Singular
         }
 
         return $posts;
+    }
+
+    private function createListItem ($label, $icon, $href = false) {
+        return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
     }
 
     private function getTermNames ($termIds) {
