@@ -252,7 +252,10 @@ class General
                 $classes[] = "purpose-{$purpose->key} purpose-primary-{$purpose->key}";
                 if (!empty($purpose->secondaryPurpose)) {
                     foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
-                        $classes[] = "purpose-secondary-{$secondaryPurpose->key}";
+                        if (class_exists($secondaryPurpose)) {
+                            $instance = new $secondaryPurpose();
+                            $classes[] = "purpose-secondary-{$instance->getKey()}";
+                        }
                     }
                 }
             }
