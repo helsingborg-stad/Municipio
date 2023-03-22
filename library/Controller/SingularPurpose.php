@@ -134,7 +134,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $terms = array();
         foreach ($termIds as $termId) {
             $term = get_term($termId);
-            if(!$term && !is_wp_error($term)) { 
+            if(!$term || is_wp_error($term)) { 
                 continue; 
             }
             $term->icon = TermHelper::getTermIcon($term);
