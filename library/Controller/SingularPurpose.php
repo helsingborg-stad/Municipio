@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\Data as DataHelper;
 use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\Term as TermHelper;
 
 /**
  * Class SingularPurpose
@@ -46,12 +47,18 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::init();
         $fields = get_fields($this->getPageID());
 
-        $this->data['phone'] = $fields['phone'];
-        $this->data['website'] = $fields['website'];
-        $this->data['location'] = $fields['location'];
-        $this->data['cuisine'] = $this->getTermNames($fields['cuisine']);
-        $this->data['other'] = $this->getTermNames($fields['other']);
-        $this->data['activities'] = $this->getTermNames($fields['activities']);
+        
+        $this->data['list']['phone'] = ['label' => $fields['phone'], 'icon' => ['icon' => 'call', 'size' => 'md']];
+        $this->data['list']['website'] = ['label' => $fields['website'], 'icon' => ['icon' => 'language', 'size' => 'md'], 'href' => $fields['website']];
+
+        $other = $this->getTermNames($fields['other']);
+
+        if (!empty($other)) {
+            foreach ($other as $item) {
+                $this->data['list'][$item->slug] = ['label' => $item->name, 'icon' => ['icon' => $item->icon['src'], 'size' => 'md']];
+            }
+        }        
+
 
         $this->data['labels'] = [
             'related' => __('Related', 'municipio'),
@@ -123,7 +130,12 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
         $terms = array();
         foreach ($termIds as $termId) {
-            $terms[] = get_term($termId);
+            $term = get_term($termId);
+            if(!$term && !is_wp_error($term)) { 
+                continue; 
+            }
+            $term->icon = TermHelper::getTermIcon($term);
+            $terms[] = $term;
         }
         return $terms;
     }

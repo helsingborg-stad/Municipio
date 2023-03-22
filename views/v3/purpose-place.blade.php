@@ -30,7 +30,8 @@
                 @endtypography
             @endgroup
             @listing([
-                'list' => [['label' => '1'], ['label' => '2'], ['label' => '3']]
+                'list' => $list,
+                'icon' => false
             ])
             @endlisting
         @endgroup
