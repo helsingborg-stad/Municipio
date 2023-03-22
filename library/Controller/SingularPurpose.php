@@ -48,14 +48,14 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $fields = get_fields($this->getPageID());
 
         
-        $this->data['list']['phone'] = ['label' => $fields['phone'], 'icon' => ['icon' => 'call', 'size' => 'md']];
-        $this->data['list']['website'] = ['label' => $fields['website'], 'icon' => ['icon' => 'language', 'size' => 'md'], 'href' => $fields['website']];
+        $this->data['list'][] = ['label' => $fields['phone'], 'icon' => ['icon' => 'call', 'size' => 'md']];
+        $this->data['list'][] = ['label' => $fields['website'], 'icon' => ['icon' => 'language', 'size' => 'md'], 'href' => $fields['website']];
 
         $other = $this->getTermNames($fields['other']);
 
         if (!empty($other)) {
             foreach ($other as $item) {
-                $this->data['list'][$item->slug] = ['label' => $item->name, 'icon' => ['icon' => $item->icon['src'], 'size' => 'md']];
+                $this->data['list'][] = ['label' => $item->name, 'icon' => ['icon' => $item->icon['src'], 'size' => 'md']];
             }
         }        
 

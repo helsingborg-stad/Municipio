@@ -31,7 +31,8 @@
             @endgroup
             @listing([
                 'list' => $list,
-                'icon' => false
+                'icon' => false,
+                'classList' => ['unlist']
             ])
             @endlisting
         @endgroup
