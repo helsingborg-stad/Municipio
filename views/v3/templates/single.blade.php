@@ -52,12 +52,12 @@
     @includeIf('partials.loop')
 @show
 
-@include('partials.secondary', [
-    'secondaryQuery' => $secondaryQuery,
+@includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
+
+@includeWhen(!empty($secondaryQuery), 'partials.secondary', [
+    'posts' => $secondaryQuery->posts,
     'postType' => $secondaryPostType,
 ])
-
-@includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
 {!! $hook->loopEnd !!}
 

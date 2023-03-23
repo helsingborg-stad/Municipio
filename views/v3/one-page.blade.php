@@ -30,14 +30,14 @@
 
         {!! $hook->innerLoopEnd !!}
 
-        @include('partials.secondary', [
-            'secondaryQuery' => $secondaryQuery,
-            'postType' => $secondaryPostType,
-        ])
-
         @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
         @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
         @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
+
+        @includeWhen(!empty($secondaryQuery), 'partials.secondary', [
+            'posts' => $secondaryQuery->posts,
+            'postType' => $secondaryPostType,
+        ])
 
     </div>
 @stop

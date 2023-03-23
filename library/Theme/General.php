@@ -252,7 +252,10 @@ class General
                 $classes[] = "purpose-{$purpose->key} purpose-primary-{$purpose->key}";
                 if (!empty($purpose->secondaryPurpose)) {
                     foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
-                        $classes[] = "purpose-secondary-{$secondaryPurpose->key}";
+                        if (class_exists($secondaryPurpose)) {
+                            $instance = new $secondaryPurpose();
+                            $classes[] = "purpose-secondary-{$instance->getKey()}";
+                        }
                     }
                 }
             }
@@ -311,7 +314,9 @@ class General
     public static function htmlEntityDecodeTermNames(array $terms): array
     {
         foreach ($terms as &$term) {
-            $term->name = html_entity_decode($term->name);
+            if (is_a($term, 'WP_Term')) {
+                $term->name = html_entity_decode($term->name);
+            }
         }
         return $terms;
     }
