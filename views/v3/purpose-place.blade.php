@@ -24,7 +24,7 @@
                 {{$post->postTitle}}
                 @endtypography
                 @typography([
-
+                    'classList' => ['u-padding__top--4']
                 ])
                 {!! $post->postContent !!}
                 @endtypography
