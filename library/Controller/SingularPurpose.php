@@ -64,7 +64,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
             'showAll' => __('Show all', 'municipio'),
         ];
 
-
         $postId = $this->data['post']->id;
         $this->data['relatedPosts'] = $this->getRelatedPosts($postId); 
 

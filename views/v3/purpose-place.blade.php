@@ -2,42 +2,45 @@
 
 
 @section('hero-top-sidebar')
-    @hero([
-        'image' => $featuredImage->src[0],
-    ])
-    @endhero
-    @paper([
-        'classList' => ['u-width--75@md', 'u-width--75@lg', 'u-margin__x--auto@md', 'u-margin__x--auto@lg'],
-        'attributeList' => ['style' => 'transform:translateY(calc(max(-50%, -50px)))'],
-    ])
-        @group([
-            'justifyContent' => 'space-between',
-            'classList' => ['u-padding--6']
+    @if(!empty($featuredImage->src[0]))
+        @hero([
+            'image' => $featuredImage->src[0],
+        ])
+        @endhero
+    @endif
+    <div class="o-container">
+        @paper([
+            'attributeList' => ['style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'],
         ])
             @group([
-                'direction' => 'vertical'
+                'justifyContent' => 'space-between',
+                'classList' => ['u-padding--6', 'u-flex-direction--column@sm', 'u-flex-direction--column@xs']
             ])
-                @typography([
-                    'element' => 'h1',
-                    'variant' => 'h1',
+                @group([
+                    'direction' => 'vertical'
                 ])
-                {{$post->postTitle}}
-                @endtypography
-                @typography([
-                    'classList' => ['u-padding__top--4']
+                    @typography([
+                        'element' => 'h1',
+                        'variant' => 'h1',
+                    ])
+                    {{$post->postTitle}}
+                    @endtypography
+                    @typography([
+                        'classList' => ['u-padding__top--4']
+                    ])
+                    {!! $post->postContent !!}
+                    @endtypography
+                @endgroup
+                @listing([
+                    'list' => $list,
+                    'icon' => false,
+                    'classList' => ['unlist', 'u-padding__top--4@xs', 'u-padding__top--4@sm'],
+                    'padding' => 4,
                 ])
-                {!! $post->postContent !!}
-                @endtypography
+                @endlisting
             @endgroup
-            @listing([
-                'list' => $list,
-                'icon' => false,
-                'classList' => ['unlist'],
-                'padding' => 4,
-            ])
-            @endlisting
-        @endgroup
-    @endpaper
+        @endpaper
+    </div>
 @stop
 
 @section('helper-navigation')
