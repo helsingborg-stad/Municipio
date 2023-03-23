@@ -32,7 +32,8 @@
             @listing([
                 'list' => $list,
                 'icon' => false,
-                'classList' => ['unlist']
+                'classList' => ['unlist'],
+                'padding' => 4,
             ])
             @endlisting
         @endgroup
