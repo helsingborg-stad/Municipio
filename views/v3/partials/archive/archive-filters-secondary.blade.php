@@ -1,29 +1,9 @@
 @if ($showFilter && !empty($enabledFilters))
-    <!-- Makes filtering a more pleasant expreience by keeping scrollstate -->
-    <script>
-        const scrollStateUrl = new URL(document.referrer);
-        if (scrollStateUrl.pathname == window.location.pathname) {
-            document.addEventListener("DOMContentLoaded", function(event) {
-                var scrollpos = localStorage.getItem('municipioScrollState-{{ $secondaryPostType }}');
-                if (scrollpos) {
-                    window.scrollTo(0, scrollpos);
-                }
-            });
-        }
-        window.onbeforeunload = function(e) {
-            localStorage.setItem('municipioScrollState-{{ $secondaryPostType }}', window.scrollY || window.pageYOffset);
-        };
-    </script>
-    <style>
-        html {
-            scroll-behavior: unset !important;
-        }
-    </style>
-
     <div class="s-archive-filter o-grid u-position--relative u-level-top">
         @form([
         'method' => 'GET',
-        'action' => '?q=form_component'
+        'id' => 'filter',
+        'action' => "#filter"
         ])
         <div class="o-grid u-align-content--end">
             @foreach ($enabledFilters as $filterType)
