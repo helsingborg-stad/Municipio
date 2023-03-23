@@ -123,7 +123,11 @@ class SingularPurpose extends \Municipio\Controller\Singular
     }
 
     private function createListItem ($label, $icon, $href = false) {
-        return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
+        if (!empty($label) && $label != " ") {
+            return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
+        }
+        
+        return false;
     }
 
     private function getTermNames ($termIds) {
