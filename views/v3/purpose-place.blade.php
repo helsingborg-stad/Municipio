@@ -57,11 +57,13 @@
                 ])
                     {{$labels['related']}} {{$postType}}
                 @endtypography
-                @link([
-                    'href' => get_post_type_archive_link($postType),
-                ])
-                {{$labels['showAll']}}
-                @endlink
+                @if (!empty(get_post_type_archive_link($postType)))
+                    @link([
+                        'href' => get_post_type_archive_link($postType),
+                    ])
+                        {{$labels['showAll']}}
+                    @endlink
+                @endif
             @endgroup
             @foreach($posts as $post) 
                 <div class="o-grid-4@md u-margin__bottom--8">
