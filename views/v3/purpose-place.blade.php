@@ -73,7 +73,7 @@
                     @segment([
                         'layout' => 'card',
                         'title' => $post->postTitle,
-                        'content' => $post->excerpt,
+                        'content' => $post->excerptShort,
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => 'Read more', 'href' => $post->permalink]],
                         'tags' => $post->terms,
