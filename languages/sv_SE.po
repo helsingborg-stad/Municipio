@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 11:39+0100\n"
-"PO-Revision-Date: 2023-03-23 11:40+0100\n"
+"POT-Creation-Date: 2023-03-23 12:35+0100\n"
+"PO-Revision-Date: 2023-03-23 12:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -27525,6 +27525,10 @@ msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] "Detta innehåll är äldre än %s dag."
 msgstr[1] "Detta innehåll är äldre än %s dagar."
+
+#: library/Controller/SingularPurpose.php:52
+msgid "Visit website"
+msgstr "Gå till webbplats"
 
 #: library/Controller/SingularPurpose.php:63
 msgid "Related"

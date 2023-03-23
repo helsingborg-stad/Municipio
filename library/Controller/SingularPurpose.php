@@ -49,7 +49,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
         $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on');
         $this->data['list'][] = $this->createListItem($fields['phone'], 'call');
-        $this->data['list'][] = $this->createListItem($fields['website'], 'language', $fields['website']);
+        $this->data['list'][] = $this->createListItem(__('Visit website', 'municipio'), 'language', $fields['website']);
 
         $other = $this->getTermNames($fields['other']);
         if (!empty($other)) {
