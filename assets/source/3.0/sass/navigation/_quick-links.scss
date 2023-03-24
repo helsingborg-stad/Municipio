@@ -1,18 +1,51 @@
-$icon-colors: (
-  primary: $color-primary,
-  secondary: $color-secondary,
-  white: $color-white,
-  black: $color-black,
-);
+/* Colors */
+$c-quicklinks-background-color: var(--c-quicklinks-background-color);
+$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, $color-white) !default;
+$c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
+$c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
+$c-quicklinks-text-color: var(--c-quicklinks-text-color);
+
+/* Gap */
+$c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
+
+/* Alignment */
+$c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
+
 
 #quicklinks-header {
     z-index: $level-5;
 
-    &.c-header--transparent {
-        background-color: transparent;
+    background-color: #{$c-quicklinks-background-color};
 
-        &.c-header--sticky {
-            top: -1px;
+    &.c-header--primary {
+        --c-quicklinks-background-color: #{$color-white};
+    }
+
+    &.c-header--secondary {
+        --c-quicklinks-background-color: #{$color-secondary};
+    }
+
+    &.c-header--sticky {
+        top: -1px;
+        &.is-stuck {
+            background-color: #{$c-quicklinks-background-sticky-color};
+        }
+    }
+
+    .c-nav {
+        justify-content: $c-quicklinks-alignment;
+        gap: calc($base * $c-quicklinks-gap);
+
+        .c-nav__link {
+            color: #{$c-quicklinks-text-color};
+        }
+        .c-icon {
+            color: #{$c-quicklinks-icon-color};
+            background-color: #{$c-quicklinks-icon-background-color};
+            padding: calc($base * 1.5);
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            filter: $drop-shadow-2;
         }
     }
 
@@ -37,30 +70,6 @@ $icon-colors: (
             &.c-header--sticky {
                 top: calc($base * 6.5); 
             }
-        }
-    }
-
-    @each $class, $color in $icon-colors {
-        &.c-header--#{$class}-icon-background {
-            .c-nav__link::after {
-                display: none;
-            }
-            .c-icon {
-            background-color: $color;
-            padding: calc($base * 1.5);
-            border-radius: 50%;
-            filter: $drop-shadow-2;
-            aspect-ratio: 1/1;
-            }
-        }
-
-        &.c-header--#{$class}-icon {
-            .c-icon {
-                color: $color;
-            }
-        }
-        &.c-header--sticky.c-header--transparent.c-header--#{$class}-scroll-background.is-stuck {
-            background-color: $color;
         }
     }
 }
