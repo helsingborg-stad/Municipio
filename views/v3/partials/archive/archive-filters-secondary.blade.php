@@ -13,7 +13,8 @@
                         'name' => $filterType['attributeList']['name'] ?? '',
                         'required' => $filterType['required'],
                         'options' => $filterType['options'],
-                        'preselected' => $filterType['preselected']
+                        'preselected' => $filterType['preselected'],
+                        'placeholder' => $filterType['label']
                     ])
                     @endfilterSelect
                 </div>
