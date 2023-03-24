@@ -93,6 +93,6 @@ class Modifiers extends AbstractApplicator
                 }
             }
         } else { $conditional[] = true;}
-        return in_array($false, $conditional);
+        return in_array(false, $conditional);
     }
 }
