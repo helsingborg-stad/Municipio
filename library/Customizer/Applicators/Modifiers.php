@@ -82,6 +82,9 @@ class Modifiers extends AbstractApplicator
             foreach ($field['active_callback'] as $callback) {
                 $operator = $callback['operator'];
                 if ($this->isValidOperator($operator)) {
+                    if (!preg_match('/^[a-z\d_-]+$/i', $callback['setting']) || !preg_match('/^[a-z\d_-]+$/i', $callback['value'])) {
+                        return;
+                    }
                     $expression =  "\Kirki::get_option(\$callback['setting']) $operator \$callback['value'];";
                     $result = eval("return $expression;");
                     $conditional[] = $result;
