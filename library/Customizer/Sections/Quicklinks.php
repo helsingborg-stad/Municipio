@@ -41,7 +41,7 @@ class Quicklinks
           'choices'     => [
             'background'    => esc_html__('Background color', 'municipio'),
             'sticky-background'    => esc_html__('Sticky background', 'municipio'),
-            'text-color'    => esc_html__('Text background', 'municipio'),
+            'text-color'    => esc_html__('Text color', 'municipio'),
             'icon-color'    => esc_html__('Icon color', 'municipio'),
             'icon-background-color'    => esc_html__('Icon background color', 'municipio'),
           ],
