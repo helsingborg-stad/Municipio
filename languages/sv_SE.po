@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 12:35+0100\n"
-"PO-Revision-Date: 2023-03-23 12:46+0100\n"
+"POT-Creation-Date: 2023-03-24 16:33+0100\n"
+"PO-Revision-Date: 2023-03-24 16:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -60,11 +60,7 @@ msgstr "Färg"
 #: library/Customizer/Sections/Header.php:115
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
-#: library/Customizer/Sections/Quicklinks.php:60
-#: library/Customizer/Sections/Quicklinks.php:89
-#: library/Customizer/Sections/Quicklinks.php:151
-#: library/Customizer/Sections/Quicklinks.php:205
-#: library/Customizer/Sections/Quicklinks.php:226
+#: library/Customizer/Sections/Quicklinks.php:159
 #: library/Customizer/Sections/Siteselector.php:82
 #: library/Customizer/Sections/SliderDefault.php:187
 msgid "Primary"
@@ -77,11 +73,7 @@ msgstr "Primär"
 #: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
-#: library/Customizer/Sections/Quicklinks.php:61
-#: library/Customizer/Sections/Quicklinks.php:90
-#: library/Customizer/Sections/Quicklinks.php:152
-#: library/Customizer/Sections/Quicklinks.php:206
-#: library/Customizer/Sections/Quicklinks.php:227
+#: library/Customizer/Sections/Quicklinks.php:160
 #: library/Customizer/Sections/Siteselector.php:83
 #: library/Customizer/Sections/SliderDefault.php:188
 msgid "Secondary"
@@ -96,11 +88,8 @@ msgstr "Sekundär"
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
-#: library/Customizer/Sections/Quicklinks.php:59
-#: library/Customizer/Sections/Quicklinks.php:128
-#: library/Customizer/Sections/Quicklinks.php:148
-#: library/Customizer/Sections/Quicklinks.php:204
-#: library/Customizer/Sections/Quicklinks.php:247
+#: library/Customizer/Sections/Quicklinks.php:186
+#: library/Customizer/Sections/Quicklinks.php:239
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Width.php:15
@@ -196,6 +185,7 @@ msgstr "Storlek på marginal"
 #: library/Customizer/Sections/Collection.php:29
 #: library/Customizer/Sections/Divider.php:196
 #: library/Customizer/Sections/Header.php:108
+#: library/Customizer/Sections/Quicklinks.php:42
 msgid "Background color"
 msgstr "Bakgrundsfärg"
 
@@ -307,7 +297,7 @@ msgstr "Inaktiverad"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:23
 #: library/Controller/Search.php:13
-#: library/Customizer/Sections/Quicklinks.php:172
+#: library/Customizer/Sections/Quicklinks.php:207
 msgid "All pages"
 msgstr "Alla sidor"
 
@@ -4712,7 +4702,7 @@ msgstr ""
 "titel här. Lämna fältet tomt om du vill använda originaltiteln."
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:179
+#: library/Controller/Singular.php:243
 #: library/Customizer/PanelsRegistry.php:402 library/Upgrade.php:526
 msgid "Author"
 msgstr "Författare"
@@ -4785,7 +4775,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-custom-js.php:69
 #: library/AcfFields/php/purpose-place.php:6
 #: library/AcfFields/php/purpose-place.php:10
-#: library/Customizer/Sections/Quicklinks.php:165
+#: library/Customizer/Sections/Quicklinks.php:200
 msgid "Location"
 msgstr "Plats"
 
@@ -26826,8 +26816,6 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/Module/SectionsSplit.php:17
 #: library/Customizer/Sections/Module/Text.php:17
 #: library/Customizer/Sections/Module/Video.php:19
-#: library/Customizer/Sections/Quicklinks.php:88
-#: library/Customizer/Sections/Quicklinks.php:225
 #: library/Customizer/Sections/SliderDefault.php:67
 #: library/Customizer/Sections/SliderDefault.php:129
 #: library/Customizer/Sections/SliderHero.php:47
@@ -27273,7 +27261,7 @@ msgstr "Välj ett \"till\" datum"
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:102
+#: library/Controller/Archive.php:102 library/Controller/Singular.php:129
 msgid "Filter"
 msgstr "Filtrera"
 
@@ -27281,7 +27269,7 @@ msgstr "Filtrera"
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Controller/Archive.php:104
+#: library/Controller/Archive.php:104 library/Controller/Singular.php:130
 msgid "Reset filter"
 msgstr "Återställ filter"
 
@@ -27293,7 +27281,7 @@ msgstr "Arkivnavigering"
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/Archive.php:454
+#: library/Controller/Archive.php:454 library/Controller/Singular.php:181
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
@@ -27507,19 +27495,25 @@ msgstr "Publicerad av"
 msgid "on"
 msgstr "på"
 
-#: library/Controller/Singular.php:42
-msgid "Reading time"
-msgstr "Lästid"
-
-#: library/Controller/Singular.php:60
+#: library/Controller/Singular.php:59
 msgid "Reply"
 msgstr "Svara"
 
-#: library/Controller/Singular.php:61
+#: library/Controller/Singular.php:60
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Controller/Singular.php:329
+#: library/Controller/Singular.php:85
+msgid "Reading time"
+msgstr "Lästid"
+
+#: library/Controller/Singular.php:131
+#, fuzzy
+#| msgid "No %s found"
+msgid "No items found."
+msgstr "Inga %s hittades"
+
+#: library/Controller/Singular.php:393
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -28303,10 +28297,6 @@ msgstr "Monotona färger"
 
 #: library/Customizer/Sections/Colors.php:562
 #: library/Customizer/Sections/Header.php:137
-#: library/Customizer/Sections/Quicklinks.php:92
-#: library/Customizer/Sections/Quicklinks.php:150
-#: library/Customizer/Sections/Quicklinks.php:208
-#: library/Customizer/Sections/Quicklinks.php:229
 msgid "Black"
 msgstr "Svart"
 
@@ -28324,10 +28314,6 @@ msgstr "Ljusare"
 
 #: library/Customizer/Sections/Colors.php:569
 #: library/Customizer/Sections/Header.php:136
-#: library/Customizer/Sections/Quicklinks.php:91
-#: library/Customizer/Sections/Quicklinks.php:149
-#: library/Customizer/Sections/Quicklinks.php:207
-#: library/Customizer/Sections/Quicklinks.php:228
 msgid "White"
 msgstr "Vit"
 
@@ -28358,7 +28344,6 @@ msgstr "Aktiverad"
 #: library/Customizer/Sections/Divider.php:107
 #: library/Customizer/Sections/FooterMain.php:265
 #: library/Customizer/Sections/Header.php:129
-#: library/Customizer/Sections/Quicklinks.php:142
 msgid "Text color"
 msgstr "Textfärg"
 
@@ -28379,6 +28364,7 @@ msgstr "Textjustering"
 #: library/Customizer/Sections/Hero.php:44
 #: library/Customizer/Sections/Hero.php:70
 #: library/Customizer/Sections/Hero.php:96
+#: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/SliderDefault.php:99
 #: library/Customizer/Sections/SliderHero.php:70
 #: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:69
@@ -28604,11 +28590,12 @@ msgid "Menu alignment"
 msgstr "Meny justering"
 
 #: library/Customizer/Sections/Header.php:63
+#: library/Customizer/Sections/Quicklinks.php:133
 msgid "Gap between"
 msgstr "Luft mellan"
 
 #: library/Customizer/Sections/Header.php:85
-#: library/Customizer/Sections/Quicklinks.php:122
+#: library/Customizer/Sections/Quicklinks.php:180
 msgid "Sticky"
 msgstr "Klibbig"
 
@@ -28619,7 +28606,7 @@ msgid ""
 msgstr "Justera hur sidhuvudet ska bete sig när användaren scrollar på sidan."
 
 #: library/Customizer/Sections/Header.php:92
-#: library/Customizer/Sections/Quicklinks.php:129
+#: library/Customizer/Sections/Quicklinks.php:187
 msgid "Stick to top"
 msgstr "Klibba fast i toppen"
 
@@ -28899,50 +28886,59 @@ msgstr "Luft"
 msgid "Remove air"
 msgstr "Ingen luft"
 
-#: library/Customizer/Sections/Quicklinks.php:12
-msgid "Select background type"
-msgstr "Välj typ av bakgrund"
+#: library/Customizer/Sections/Quicklinks.php:16
+msgid "Appearance"
+msgstr "Utseende"
 
-#: library/Customizer/Sections/Quicklinks.php:13
-#: library/Customizer/Sections/Siteselector.php:15
+#: library/Customizer/Sections/Quicklinks.php:17
 msgid ""
-"Select if you want to use one of the predefined colors, or select one freely."
-msgstr "Välj mellan fördefinierade färger, eller välj en helt fritt."
+"Select if you want to use one of the predefined appearance, or customize "
+"freely."
+msgstr "Välj mellan fördefinierat utseende eller anpassa fritt."
 
-#: library/Customizer/Sections/Quicklinks.php:18
-#: library/Customizer/Sections/Siteselector.php:20
-msgid "Predefined colors"
-msgstr "Fördefinierade färger"
+#: library/Customizer/Sections/Quicklinks.php:22
+msgid "Predefined appearance"
+msgstr "Fördefinierade utseende"
 
-#: library/Customizer/Sections/Quicklinks.php:19
-#: library/Customizer/Sections/Siteselector.php:21
-msgid "Custom color"
-msgstr "Anpassad färg"
+#: library/Customizer/Sections/Quicklinks.php:23
+msgid "Custom appearance"
+msgstr "Anpassat utseende"
 
-#: library/Customizer/Sections/Quicklinks.php:33
-msgid "Custom background color"
-msgstr "Anpassad färg"
+#: library/Customizer/Sections/Quicklinks.php:37
+#: library/Customizer/Sections/Siteselector.php:40
+msgid "Custom colors"
+msgstr "Anpassade färger"
 
-#: library/Customizer/Sections/Quicklinks.php:34
-#: library/Customizer/Sections/Quicklinks.php:54
-msgid "Choose a background color for the quicklinks section of the page."
-msgstr "Välj en bakgrunds färg för sektionen snabblänkar, på sidan."
+#: library/Customizer/Sections/Quicklinks.php:43
+msgid "Sticky background"
+msgstr "Klibbig bakgrundsfärg"
 
-#: library/Customizer/Sections/Quicklinks.php:53
-msgid "Predefined background color"
-msgstr "Fördefinierad färg"
+#: library/Customizer/Sections/Quicklinks.php:44
+msgid "Text background"
+msgstr "Textens bakgrund"
 
-#: library/Customizer/Sections/Quicklinks.php:62
-#: library/Customizer/Sections/SliderDefault.php:68
-#: library/Customizer/Sections/SliderHero.php:48
-msgid "Transparent"
-msgstr "Genomskinlig"
+#: library/Customizer/Sections/Quicklinks.php:45
+msgid "Icon color"
+msgstr "Ikonfärg"
 
-#: library/Customizer/Sections/Quicklinks.php:84
-msgid "Background color sticky scroll"
-msgstr "Bakgrundsfärg vid klibbig scroll"
+#: library/Customizer/Sections/Quicklinks.php:46
+msgid "Icon background color"
+msgstr "Bakgrundsfärg för ikon"
 
-#: library/Customizer/Sections/Quicklinks.php:123
+#: library/Customizer/Sections/Quicklinks.php:102
+msgid "Amount of gap between"
+msgstr "Avstånd mellan"
+
+#: library/Customizer/Sections/Quicklinks.php:129
+msgid "Alignment"
+msgstr "Riktning"
+
+#: library/Customizer/Sections/Quicklinks.php:154
+#: library/Customizer/Sections/Siteselector.php:76
+msgid "Color scheme"
+msgstr "Färgschema"
+
+#: library/Customizer/Sections/Quicklinks.php:181
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
@@ -28951,40 +28947,28 @@ msgstr ""
 "Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
 "sidhuvud."
 
-#: library/Customizer/Sections/Quicklinks.php:143
-msgid "Select a font/text color to use."
-msgstr "Välj en typsnittsfärg."
-
-#: library/Customizer/Sections/Quicklinks.php:166
+#: library/Customizer/Sections/Quicklinks.php:201
 msgid "Quicklinks location."
 msgstr "Position för snabblänkar."
 
-#: library/Customizer/Sections/Quicklinks.php:171
+#: library/Customizer/Sections/Quicklinks.php:206
 msgid "Front page"
 msgstr "Startsidan"
 
-#: library/Customizer/Sections/Quicklinks.php:182
+#: library/Customizer/Sections/Quicklinks.php:217
 msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
-#: library/Customizer/Sections/Quicklinks.php:186
+#: library/Customizer/Sections/Quicklinks.php:221
 msgid "Row"
 msgstr "Rad"
 
-#: library/Customizer/Sections/Quicklinks.php:187
+#: library/Customizer/Sections/Quicklinks.php:222
 msgid "Column"
 msgstr "Kolumn"
 
-#: library/Customizer/Sections/Quicklinks.php:200
-msgid "Icon color"
-msgstr "Ikonfärg"
-
-#: library/Customizer/Sections/Quicklinks.php:221
-msgid "Icon background color"
-msgstr "Bakgrundsfärg för ikon"
-
-#: library/Customizer/Sections/Quicklinks.php:243
-#: library/Customizer/Sections/Quicklinks.php:248
+#: library/Customizer/Sections/Quicklinks.php:235
+#: library/Customizer/Sections/Quicklinks.php:240
 msgid "Overflow top"
 msgstr "Svämma över uppåt"
 
@@ -29059,17 +29043,22 @@ msgstr "Välj färg för skuggor."
 msgid "Select color source"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:40
-msgid "Custom colors"
-msgstr ""
+#: library/Customizer/Sections/Siteselector.php:15
+msgid ""
+"Select if you want to use one of the predefined colors, or select one freely."
+msgstr "Välj mellan fördefinierade färger, eller välj en helt fritt."
+
+#: library/Customizer/Sections/Siteselector.php:20
+msgid "Predefined colors"
+msgstr "Fördefinierade färger"
+
+#: library/Customizer/Sections/Siteselector.php:21
+msgid "Custom color"
+msgstr "Anpassad färg"
 
 #: library/Customizer/Sections/Siteselector.php:46
 msgid "Contrasting"
 msgstr ""
-
-#: library/Customizer/Sections/Siteselector.php:76
-msgid "Color scheme"
-msgstr "Färgschema"
 
 #: library/Customizer/Sections/Siteselector.php:77
 msgid "Select color scheme to use for this component."
@@ -29102,6 +29091,11 @@ msgstr "Luft mellan slides"
 #: library/Customizer/Sections/SliderHero.php:43
 msgid "Container colour"
 msgstr "Färg för behållare"
+
+#: library/Customizer/Sections/SliderDefault.php:68
+#: library/Customizer/Sections/SliderHero.php:48
+msgid "Transparent"
+msgstr "Genomskinlig"
 
 #: library/Customizer/Sections/SliderDefault.php:69
 #: library/Customizer/Sections/SliderHero.php:49
@@ -31449,3 +31443,21 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Select background type"
+#~ msgstr "Välj typ av bakgrund"
+
+#~ msgid "Custom background color"
+#~ msgstr "Anpassad färg"
+
+#~ msgid "Choose a background color for the quicklinks section of the page."
+#~ msgstr "Välj en bakgrunds färg för sektionen snabblänkar, på sidan."
+
+#~ msgid "Predefined background color"
+#~ msgstr "Fördefinierad färg"
+
+#~ msgid "Background color sticky scroll"
+#~ msgstr "Bakgrundsfärg vid klibbig scroll"
+
+#~ msgid "Select a font/text color to use."
+#~ msgstr "Välj en typsnittsfärg."
