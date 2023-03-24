@@ -263,9 +263,7 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function showFilterReset($queryParams): bool
     {
-        return !empty(array_filter(
-            (array) $queryParams
-        ));
+        return \Municipio\Helper\Archive::showFilterReset($queryParams);
     }
 
     /**
@@ -345,12 +343,12 @@ class Archive extends \Municipio\Controller\BaseController
         return \Municipio\Helper\Archive::setQueryString($number);
     }
 
-    /**
+     /**
      * Set default values for query parameters
      *
      * @return void
      */
-    protected function setQueryParameters()
+    public function setQueryParameters(array $data = [])
     {
         $queryParameters = [
         'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
@@ -358,12 +356,14 @@ class Archive extends \Municipio\Controller\BaseController
         'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
-        //Include taxonomies (dynamic)
-        $taxonomies = get_object_taxonomies($this->data['postType']);
+        if (!empty($data) && !empty($data['postType'])) {
+            //Include taxonomies (dynamic)
+            $taxonomies = get_object_taxonomies($data['postType']);
 
-        if (is_array($taxonomies) && !empty($taxonomies)) {
-            foreach ($taxonomies as $taxonomy) {
-                $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+            if (is_array($taxonomies) && !empty($taxonomies)) {
+                foreach ($taxonomies as $taxonomy) {
+                    $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+                }
             }
         }
 

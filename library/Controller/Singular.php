@@ -39,7 +39,6 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Reading time
         $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent);
-        $this->data['lang']->readingTime    = __('Reading time', 'municipio');
 
         //Comments
         if (get_option('comment_moderation') === '1') {
@@ -76,8 +75,14 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
+        if (!isset($this->data['lang'])) {
+            $this->data['lang'] = (object) [];
+        }
+
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
+
+        $this->data['lang']->readingTime = __('Reading time', 'municipio');
 
         return $this->data;
     }
@@ -85,20 +90,24 @@ class Singular extends \Municipio\Controller\BaseController
     protected function setupSecondaryQueryData($data)
     {
         $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
+        if ('' === $data['secondaryQuery'] || !$data['secondaryQuery']) {
+            $data['secondaryQuery']    = false;
+            $data['secondaryPostType'] = false;
 
-        if (!$data['secondaryQuery']) {
             return $data;
         }
 
         $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $secondaryPostType = $data['secondaryQuery']->posts[0]->postType;
+        $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 
         $data['secondaryPostType']       = $secondaryPostType;
         $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
             $secondaryPostType,
             $data['customizer']
         );
-        $data['secondaryTemplate']       = Archive::getTemplate($data['secondaryArchiveProps']);
+        $secondaryArchiveProps = $data['secondaryArchiveProps'];
+
+        $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
             $currentPath,
             $data['secondaryQuery']
@@ -108,26 +117,81 @@ class Singular extends \Municipio\Controller\BaseController
             $data['secondaryQuery']
         );
 
-        $data['currentPage']        = get_query_var('paged') ?? 1;
-        $data['gridColumnClass']    = Archive::getGridClass($data['secondaryArchiveProps']);
-        $data['displayReadingTime'] = Archive::displayReadingTime($data['secondaryArchiveProps']);
-        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($data['secondaryArchiveProps']);
+        $data['currentPage']          = get_query_var('paged') ?? 1;
+        $data['gridColumnClass']      = Archive::getGridClass($secondaryArchiveProps);
+        $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
+        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($secondaryArchiveProps);
+        $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
+        $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
+        $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
+        $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryArchiveProps, $data);
 
+        $data['lang']->filterBtn        = __('Filter', 'municipio');
+        $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
+        $data['lang']->noResult         = __('No items found.', 'municipio');
+
+        $data['archiveResetUrl'] = home_url($currentPath);
+        $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
         return $data;
     }
     public function prepareQuery($query)
     {
-        if (is_string($query) || empty($query) || empty($query->posts)) {
+        if (is_string($query) || empty($query)) {
             return false;
         }
 
-        foreach ($query->posts as &$post) {
-            $post = \Municipio\Helper\Post::preparePostObject($post);
+        if ($query->have_posts()) {
+            foreach ($query->posts as &$post) {
+                $post = \Municipio\Helper\Post::preparePostObject($post);
+            }
         }
-
         return $query;
     }
+    /**
+     * Retrieve an array of taxonomy objects based on the given arguments.
+     *
+     * @param object $args The arguments for the function.
+     * @param array $data An optional array of data.
+     * @return array An array of taxonomy objects.
+     */
+    protected function getTaxonomyFilters($args, array $data = [])
+    {
+        if (empty($args->enabledFilters)) {
+            return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
+        }
+
+        $taxonomies = $args->enabledFilters;
+        $taxonomyObjects = [];
+
+        foreach ($taxonomies as $tax) {
+            $taxonomy = get_taxonomy($tax);
+
+            if ($taxonomy) {
+                $terms = get_terms(['taxonomy' => $taxonomy->name]);
+
+                if (!empty($terms) && !is_wp_error($terms)) {
+                    $options = [];
+
+                    foreach ($terms as $term) {
+                        $options[$term->slug] = ucfirst($term->name);
+                    }
+
+                    $taxonomyObjects[] = [
+                        'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
+                        'attributeList' => [
+                           'name' => "{$taxonomy->name}[]"
+                        ],
+                        'options' => $options,
+                        'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
+                    ];
+                }
+            }
+        }
+
+        return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', $taxonomyObjects);
+    }
+
 
     /**
      * Get main content padder size
