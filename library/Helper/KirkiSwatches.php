@@ -4,7 +4,7 @@ namespace Municipio\Helper;
 
 class KirkiSwatches
 {
-    public static function get_colors()
+    public static function getColors()
     {
         if(function_exists('get_theme_mod')) {
             return [

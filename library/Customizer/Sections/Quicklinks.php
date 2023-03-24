@@ -52,7 +52,7 @@ class Quicklinks
             'icon-color'            => '#000',
             'icon-background-color' => '#fff',
           ],
-          'palettes' => KirkiSwatches::get_colors(),
+          'palettes' => KirkiSwatches::getColors(),
           'output' => [
             [
                 'choice'    => 'background',
