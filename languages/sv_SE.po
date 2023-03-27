@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-24 16:33+0100\n"
-"PO-Revision-Date: 2023-03-24 16:49+0100\n"
+"POT-Creation-Date: 2023-03-27 10:08+0200\n"
+"PO-Revision-Date: 2023-03-27 10:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -60,7 +60,7 @@ msgstr "Färg"
 #: library/Customizer/Sections/Header.php:115
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
-#: library/Customizer/Sections/Quicklinks.php:159
+#: library/Customizer/Sections/Quicklinks.php:184
 #: library/Customizer/Sections/Siteselector.php:82
 #: library/Customizer/Sections/SliderDefault.php:187
 msgid "Primary"
@@ -73,7 +73,7 @@ msgstr "Primär"
 #: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
-#: library/Customizer/Sections/Quicklinks.php:160
+#: library/Customizer/Sections/Quicklinks.php:185
 #: library/Customizer/Sections/Siteselector.php:83
 #: library/Customizer/Sections/SliderDefault.php:188
 msgid "Secondary"
@@ -88,8 +88,8 @@ msgstr "Sekundär"
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
-#: library/Customizer/Sections/Quicklinks.php:186
-#: library/Customizer/Sections/Quicklinks.php:239
+#: library/Customizer/Sections/Quicklinks.php:211
+#: library/Customizer/Sections/Quicklinks.php:264
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Width.php:15
@@ -297,7 +297,7 @@ msgstr "Inaktiverad"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:23
 #: library/Controller/Search.php:13
-#: library/Customizer/Sections/Quicklinks.php:207
+#: library/Customizer/Sections/Quicklinks.php:232
 msgid "All pages"
 msgstr "Alla sidor"
 
@@ -4775,7 +4775,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-custom-js.php:69
 #: library/AcfFields/php/purpose-place.php:6
 #: library/AcfFields/php/purpose-place.php:10
-#: library/Customizer/Sections/Quicklinks.php:200
+#: library/Customizer/Sections/Quicklinks.php:225
 msgid "Location"
 msgstr "Plats"
 
@@ -28344,6 +28344,7 @@ msgstr "Aktiverad"
 #: library/Customizer/Sections/Divider.php:107
 #: library/Customizer/Sections/FooterMain.php:265
 #: library/Customizer/Sections/Header.php:129
+#: library/Customizer/Sections/Quicklinks.php:44
 msgid "Text color"
 msgstr "Textfärg"
 
@@ -28551,6 +28552,7 @@ msgstr "Välj stil för menyföräldrar"
 
 #: library/Customizer/Sections/HamburgerMenu.php:65
 #: library/Customizer/Sections/HamburgerMenu.php:71
+#: library/Customizer/Sections/Quicklinks.php:159
 #: library/Customizer/Sections/SliderHero.php:133
 msgid "Heading"
 msgstr "Rubrik"
@@ -28595,7 +28597,7 @@ msgid "Gap between"
 msgstr "Luft mellan"
 
 #: library/Customizer/Sections/Header.php:85
-#: library/Customizer/Sections/Quicklinks.php:180
+#: library/Customizer/Sections/Quicklinks.php:205
 msgid "Sticky"
 msgstr "Klibbig"
 
@@ -28606,7 +28608,7 @@ msgid ""
 msgstr "Justera hur sidhuvudet ska bete sig när användaren scrollar på sidan."
 
 #: library/Customizer/Sections/Header.php:92
-#: library/Customizer/Sections/Quicklinks.php:187
+#: library/Customizer/Sections/Quicklinks.php:212
 msgid "Stick to top"
 msgstr "Klibba fast i toppen"
 
@@ -28913,10 +28915,6 @@ msgstr "Anpassade färger"
 msgid "Sticky background"
 msgstr "Klibbig bakgrundsfärg"
 
-#: library/Customizer/Sections/Quicklinks.php:44
-msgid "Text background"
-msgstr "Textens bakgrund"
-
 #: library/Customizer/Sections/Quicklinks.php:45
 msgid "Icon color"
 msgstr "Ikonfärg"
@@ -28934,11 +28932,19 @@ msgid "Alignment"
 msgstr "Riktning"
 
 #: library/Customizer/Sections/Quicklinks.php:154
+msgid "Select font"
+msgstr "Välj typsnitt"
+
+#: library/Customizer/Sections/Quicklinks.php:158
+msgid "Body"
+msgstr "Brödtext"
+
+#: library/Customizer/Sections/Quicklinks.php:179
 #: library/Customizer/Sections/Siteselector.php:76
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: library/Customizer/Sections/Quicklinks.php:181
+#: library/Customizer/Sections/Quicklinks.php:206
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
@@ -28947,28 +28953,28 @@ msgstr ""
 "Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
 "sidhuvud."
 
-#: library/Customizer/Sections/Quicklinks.php:201
+#: library/Customizer/Sections/Quicklinks.php:226
 msgid "Quicklinks location."
 msgstr "Position för snabblänkar."
 
-#: library/Customizer/Sections/Quicklinks.php:206
+#: library/Customizer/Sections/Quicklinks.php:231
 msgid "Front page"
 msgstr "Startsidan"
 
-#: library/Customizer/Sections/Quicklinks.php:217
+#: library/Customizer/Sections/Quicklinks.php:242
 msgid "Quicklinks item direction"
 msgstr "Snabblänkar länk riktning"
 
-#: library/Customizer/Sections/Quicklinks.php:221
+#: library/Customizer/Sections/Quicklinks.php:246
 msgid "Row"
 msgstr "Rad"
 
-#: library/Customizer/Sections/Quicklinks.php:222
+#: library/Customizer/Sections/Quicklinks.php:247
 msgid "Column"
 msgstr "Kolumn"
 
-#: library/Customizer/Sections/Quicklinks.php:235
-#: library/Customizer/Sections/Quicklinks.php:240
+#: library/Customizer/Sections/Quicklinks.php:260
+#: library/Customizer/Sections/Quicklinks.php:265
 msgid "Overflow top"
 msgstr "Svämma över uppåt"
 
@@ -31443,6 +31449,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Text background"
+#~ msgstr "Textens bakgrund"
 
 #~ msgid "Select background type"
 #~ msgstr "Välj typ av bakgrund"

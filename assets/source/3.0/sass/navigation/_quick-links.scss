@@ -4,6 +4,7 @@ $c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-colo
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
 $c-quicklinks-text-color: var(--c-quicklinks-text-color);
+$c-quicklinks-font: var(--c-quicklinks-font, $font-family-base) !default;
 
 /* Gap */
 $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
@@ -14,8 +15,8 @@ $c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
 
 #quicklinks-header {
     z-index: $level-5;
-
     background-color: #{$c-quicklinks-background-color};
+    font-family: $c-quicklinks-font;
 
     &.c-header--primary {
         --c-quicklinks-background-color: #{$color-white};
@@ -23,6 +24,10 @@ $c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
 
     &.c-header--secondary {
         --c-quicklinks-background-color: #{$color-secondary};
+    }
+
+    &.c-header--font-heading {
+        --c-quicklinks-font: #{$font-family-heading};
     }
 
     &.c-header--sticky {

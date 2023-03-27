@@ -148,6 +148,31 @@ class Quicklinks
           ],
       ]);
 
+      Kirki::add_field(Customizer::KIRKI_CONFIG, [
+        'type'        => 'select',
+        'settings'    => 'quicklinks_font',
+        'label'       => esc_html__('Select font', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => 'body',
+        'choices'     => [
+            '' => esc_html__('Body', 'municipio'),
+            'font-heading' => esc_html__('Heading', 'municipio'),
+        ],
+        'output' => [
+          [
+            'type' => 'modifier',
+            'context' => ['site.quicklinks']
+          ]
+        ],
+        'active_callback'  => [
+          [
+            'setting'  => 'quicklinks_appearance_type',
+            'operator' => '===',
+            'value'    => 'custom',
+          ]
+        ],
+      ]);
+
         Kirki::add_field(Customizer::KIRKI_CONFIG, [
           'type'        => 'select',
           'settings'    => 'quicklinks_color_scheme',
