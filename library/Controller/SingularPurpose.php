@@ -47,7 +47,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::init();
         $fields = get_fields($this->getPageID());
 
-        $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on');
+        $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on', $this->buildMapsLink($fields['location']));
         $this->data['list'][] = $this->createListItem($fields['phone'], 'call');
         $this->data['list'][] = $this->createListItem(__('Visit website', 'municipio'), 'language', $fields['website']);
 
@@ -58,7 +58,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
             }
         }        
 
-
         $this->data['labels'] = [
             'related' => __('Related', 'municipio'),
             'showAll' => __('Show all', 'municipio'),
@@ -68,6 +67,13 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $this->data['relatedPosts'] = $this->getRelatedPosts($postId); 
 
         return $this->data;
+    }
+
+    private function buildMapsLink($locations) {
+        if (empty($locations) || empty($locations['lng']) || empty($locations['lat'])) {
+            return false;
+        }
+        return 'https://www.google.com/maps/dir/?api=1&destination=' . $locations['lat'] . ',' . $locations['lng'] . '&travelmode=transit';
     }
 
     private function getRelatedPosts($postId) {
