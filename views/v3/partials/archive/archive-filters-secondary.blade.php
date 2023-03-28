@@ -1,5 +1,5 @@
 @if ($showFilter && !empty($enabledFilters))
-    <div class="s-archive-filter o-grid u-position--relative u-level-top">
+    <div class="s-archive-filter o-grid u-position--relative u-level-4">
         @form([
         'method' => 'GET',
         'id' => 'filter',
