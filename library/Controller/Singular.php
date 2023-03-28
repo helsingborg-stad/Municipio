@@ -78,6 +78,8 @@ class Singular extends \Municipio\Controller\BaseController
             $this->data['lang'] = (object) [];
         }
 
+        $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
+
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
 
@@ -403,5 +405,10 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return false;
+    }
+
+    public function displayQuicklinksAfterContent($postId)
+    {
+        return (bool) get_field('quicklinks_after_content', $postId);
     }
 }
