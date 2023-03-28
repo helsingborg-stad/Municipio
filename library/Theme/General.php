@@ -16,8 +16,6 @@ class General
         add_filter('private_title_format', array($this, 'titleFormat'));
         add_filter('protected_title_format', array($this, 'titleFormat'));
 
-        add_filter('accessibility_items', array($this, 'accessibilityItems'), 10, 1);
-
         add_filter('the_lead', array($this, 'theLead'));
         add_filter('the_content', array($this, 'removeEmptyPTag'));
 
@@ -281,30 +279,16 @@ class General
 
     /**
      * Filter for adding accessibility items
+     * @deprecated version 3.0.0
      *
      * @param array $items Default item array
      *
      * @return array        Modified item array
      */
-
-    /**
-     * Filter for adding accessibility items
-     * @param $items  Default item array
-     * @return array
-     */
-    public function accessibilityItems($items)
+    public function accessibilityItems(array $items = [])
     {
-        if (is_single() || is_page()) {
-            $items[] =  array(
-                'icon' => 'print',
-                'href' => '#',
-                'script' => 'window.print();return false;',
-                'text' => __('Print', 'municipio'),
-                'label' => __('Print this page', 'municipio')
-            );
-
-            return $items;
-        }
+        $accessibility = new \Municipio\Helper\Navigation('accessibility');
+        return $accessibility->getAccessibilityItems();
     }
 
     public static function htmlEntityDecodeTitle($title): string

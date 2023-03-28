@@ -845,7 +845,28 @@ class Navigation
         }
         return $result;
     }
+    /**
+     * It returns an array of items that are used in the accessibility menu.
+     *
+     * @return An array of items.
+     */
+    public function getAccessibilityItems()
+    {
+        $items = [];
+        if (is_single() || is_page()) {
+            $items[] =  array(
+            'icon' => 'print',
+            'href' => '#',
+            'script' => 'window.print();return false;',
+            'text' => __('Print', 'municipio'),
+            'label' => __('Print this page', 'municipio')
+            );
+        }
 
+        $items = apply_filters_deprecated('accessibility_items', [$items], '3.0.0', 'Municipio/Accessibility/Items');
+
+        return apply_filters('Municipio/Accessibility/Items', $items);
+    }
     /**
      * BreadCrumbData
      * Fetching data for breadcrumbs
@@ -902,7 +923,7 @@ class Navigation
                 //Add items
                 foreach ($ancestors as $id) {
                     if (!in_array($id, $pageForPostTypeIds)) {
-                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id): __("Untitled page", 'municipio');
+                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
                         $pageData[$id]['href']    = get_permalink($id);
                         $pageData[$id]['current'] = false;
                         $pageData[$id]['icon']    = 'chevron_right';
