@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
-"POT-Creation-Date: 2023-03-17 16:52+0100\n"
+"POT-Creation-Date: 2023-03-28 07:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -59,11 +59,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:115
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
-#: library/Customizer/Sections/Quicklinks.php:60
-#: library/Customizer/Sections/Quicklinks.php:89
-#: library/Customizer/Sections/Quicklinks.php:151
-#: library/Customizer/Sections/Quicklinks.php:205
-#: library/Customizer/Sections/Quicklinks.php:226
+#: library/Customizer/Sections/Quicklinks.php:184
 #: library/Customizer/Sections/Siteselector.php:82
 #: library/Customizer/Sections/SliderDefault.php:187
 msgid "Primary"
@@ -76,11 +72,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
-#: library/Customizer/Sections/Quicklinks.php:61
-#: library/Customizer/Sections/Quicklinks.php:90
-#: library/Customizer/Sections/Quicklinks.php:152
-#: library/Customizer/Sections/Quicklinks.php:206
-#: library/Customizer/Sections/Quicklinks.php:227
+#: library/Customizer/Sections/Quicklinks.php:185
 #: library/Customizer/Sections/Siteselector.php:83
 #: library/Customizer/Sections/SliderDefault.php:188
 msgid "Secondary"
@@ -95,11 +87,8 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
-#: library/Customizer/Sections/Quicklinks.php:59
-#: library/Customizer/Sections/Quicklinks.php:128
-#: library/Customizer/Sections/Quicklinks.php:148
-#: library/Customizer/Sections/Quicklinks.php:204
-#: library/Customizer/Sections/Quicklinks.php:247
+#: library/Customizer/Sections/Quicklinks.php:211
+#: library/Customizer/Sections/Quicklinks.php:264
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Width.php:15
@@ -191,6 +180,7 @@ msgstr ""
 #: library/Customizer/Sections/Collection.php:29
 #: library/Customizer/Sections/Divider.php:196
 #: library/Customizer/Sections/Header.php:108
+#: library/Customizer/Sections/Quicklinks.php:42
 msgid "Background color"
 msgstr ""
 
@@ -302,7 +292,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-activate-gutenberg.php:23
 #: library/Controller/Search.php:13
-#: library/Customizer/Sections/Quicklinks.php:172
+#: library/Customizer/Sections/Quicklinks.php:232
 msgid "All pages"
 msgstr ""
 
@@ -4675,21 +4665,21 @@ msgstr ""
 msgid "Featured image"
 msgstr ""
 
-#: library/AcfFields/php/options-page-navigation.php:8
+#: library/AcfFields/php/options-page-navigation.php:6
 msgid "Navigation settings"
 msgstr ""
 
-#: library/AcfFields/php/options-page-navigation.php:12
+#: library/AcfFields/php/options-page-navigation.php:10
 msgid "Hide in menu"
 msgstr ""
 
-#: library/AcfFields/php/options-page-navigation.php:23
+#: library/AcfFields/php/options-page-navigation.php:22
 #: library/Customizer/Sections/Archive.php:93
 #: library/Customizer/Sections/Archive.php:320
 msgid "Hide"
 msgstr ""
 
-#: library/AcfFields/php/options-page-navigation.php:31
+#: library/AcfFields/php/options-page-navigation.php:30
 msgid "Menu title"
 msgstr ""
 
@@ -4700,8 +4690,24 @@ msgid ""
 "title."
 msgstr ""
 
+#: library/AcfFields/php/options-page-quicklinks-placement.php:6
+#: library/AcfFields/php/options-page-quicklinks-placement.php:10
+msgid "Quicklinks placement"
+msgstr ""
+
+#: library/AcfFields/php/options-page-quicklinks-placement.php:14
+msgid ""
+"If quicklinks are active on the site they are by default shown directly "
+"under the site header. Check this box to move them below the page content on "
+"this specific page."
+msgstr ""
+
+#: library/AcfFields/php/options-page-quicklinks-placement.php:22
+msgid "Display after page content"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:179
+#: library/Controller/Singular.php:242
 #: library/Customizer/PanelsRegistry.php:402 library/Upgrade.php:526
 msgid "Author"
 msgstr ""
@@ -4766,7 +4772,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-custom-js.php:69
 #: library/AcfFields/php/purpose-place.php:6
 #: library/AcfFields/php/purpose-place.php:10
-#: library/Customizer/Sections/Quicklinks.php:165
+#: library/Customizer/Sections/Quicklinks.php:225
 msgid "Location"
 msgstr ""
 
@@ -4975,7 +4981,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:209
 msgid "days"
 msgstr ""
 
@@ -20384,8 +20390,6 @@ msgstr ""
 #: library/Customizer/Sections/Module/SectionsSplit.php:17
 #: library/Customizer/Sections/Module/Text.php:17
 #: library/Customizer/Sections/Module/Video.php:19
-#: library/Customizer/Sections/Quicklinks.php:88
-#: library/Customizer/Sections/Quicklinks.php:225
 #: library/Customizer/Sections/SliderDefault.php:67
 #: library/Customizer/Sections/SliderDefault.php:129
 #: library/Customizer/Sections/SliderHero.php:47
@@ -20572,7 +20576,7 @@ msgstr ""
 
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:101
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:217
 #: library/Customizer/PanelsRegistry.php:235 library/Search/General.php:54
 #: library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
@@ -20796,13 +20800,13 @@ msgstr ""
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/Archive.php:92 library/Controller/Singular.php:35
+#: library/Controller/Archive.php:92 library/Controller/Singular.php:34
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr ""
 
-#: library/Controller/Archive.php:93 library/Controller/Singular.php:34
+#: library/Controller/Archive.php:93 library/Controller/Singular.php:33
 msgid "Updated"
 msgstr ""
 
@@ -20822,7 +20826,7 @@ msgstr ""
 msgid "Select a valid date"
 msgstr ""
 
-#: library/Controller/Archive.php:102
+#: library/Controller/Archive.php:102 library/Controller/Singular.php:128
 msgid "Filter"
 msgstr ""
 
@@ -20830,7 +20834,7 @@ msgstr ""
 msgid "Reset search"
 msgstr ""
 
-#: library/Controller/Archive.php:104
+#: library/Controller/Archive.php:104 library/Controller/Singular.php:129
 msgid "Reset filter"
 msgstr ""
 
@@ -20842,127 +20846,127 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/Archive.php:454
+#: library/Controller/Archive.php:454 library/Controller/Singular.php:180
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr ""
 
-#: library/Controller/BaseController.php:193 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:195 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:196
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:197
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:198
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:199
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:200
 msgid "Skip to the side menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:201
 msgid "ago"
 msgstr ""
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:202
 msgid "since"
 msgstr ""
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:203
 msgid "years"
 msgstr ""
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:204
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:205
 msgid "months"
 msgstr ""
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:206
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:207
 msgid "weeks"
 msgstr ""
 
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:208
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:210
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:211
 msgid "hours"
 msgstr ""
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:212
 msgid "hour"
 msgstr ""
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:213
 msgid "minutes"
 msgstr ""
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:214
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:215
 msgid "seconds"
 msgstr ""
 
-#: library/Controller/BaseController.php:214
+#: library/Controller/BaseController.php:216
 msgid "second"
 msgstr ""
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:218
 msgid "Search on"
 msgstr ""
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:219
 msgid "What are you searching for?"
 msgstr ""
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:220
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr ""
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:221
 #: library/Customizer/PanelsRegistry.php:276
 #: library/Customizer/Sections/Search.php:23 library/Theme/Navigation.php:28
 msgid "Hamburger menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:222
 msgid "Useful links"
 msgstr ""
 
-#: library/Controller/BaseController.php:221
+#: library/Controller/BaseController.php:223
 msgid "Related links"
 msgstr ""
 
-#: library/Controller/BaseController.php:222 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:224 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -20970,23 +20974,23 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:225
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:226
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:225
+#: library/Controller/BaseController.php:227
 msgid "More Languages"
 msgstr ""
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:228
 msgid "Expand"
 msgstr ""
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:229
 msgid "You are here: "
 msgstr ""
 
@@ -20994,7 +20998,7 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: library/Controller/E404.php:47
+#: library/Controller/E404.php:47 library/Controller/SingularPurpose.php:64
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 msgid "Show all"
 msgstr ""
@@ -21044,35 +21048,47 @@ msgstr ""
 msgid "View page"
 msgstr ""
 
-#: library/Controller/Singular.php:36
+#: library/Controller/Singular.php:35
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr ""
 
-#: library/Controller/Singular.php:37
+#: library/Controller/Singular.php:36
 msgid "on"
 msgstr ""
 
-#: library/Controller/Singular.php:42
-msgid "Reading time"
-msgstr ""
-
-#: library/Controller/Singular.php:60
+#: library/Controller/Singular.php:58
 msgid "Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:61
+#: library/Controller/Singular.php:59
 msgid "Log in to Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:329
+#: library/Controller/Singular.php:84
+msgid "Reading time"
+msgstr ""
+
+#: library/Controller/Singular.php:130
+msgid "No items found."
+msgstr ""
+
+#: library/Controller/Singular.php:392
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
+
+#: library/Controller/SingularPurpose.php:52
+msgid "Visit website"
+msgstr ""
+
+#: library/Controller/SingularPurpose.php:63
+msgid "Related"
+msgstr ""
 
 #: library/Customizer.php:26
 msgid "Kirki Customizer framework is required"
@@ -21824,10 +21840,6 @@ msgstr ""
 
 #: library/Customizer/Sections/Colors.php:562
 #: library/Customizer/Sections/Header.php:137
-#: library/Customizer/Sections/Quicklinks.php:92
-#: library/Customizer/Sections/Quicklinks.php:150
-#: library/Customizer/Sections/Quicklinks.php:208
-#: library/Customizer/Sections/Quicklinks.php:229
 msgid "Black"
 msgstr ""
 
@@ -21845,10 +21857,6 @@ msgstr ""
 
 #: library/Customizer/Sections/Colors.php:569
 #: library/Customizer/Sections/Header.php:136
-#: library/Customizer/Sections/Quicklinks.php:91
-#: library/Customizer/Sections/Quicklinks.php:149
-#: library/Customizer/Sections/Quicklinks.php:207
-#: library/Customizer/Sections/Quicklinks.php:228
 msgid "White"
 msgstr ""
 
@@ -21879,7 +21887,7 @@ msgstr ""
 #: library/Customizer/Sections/Divider.php:107
 #: library/Customizer/Sections/FooterMain.php:265
 #: library/Customizer/Sections/Header.php:129
-#: library/Customizer/Sections/Quicklinks.php:142
+#: library/Customizer/Sections/Quicklinks.php:44
 msgid "Text color"
 msgstr ""
 
@@ -21900,6 +21908,7 @@ msgstr ""
 #: library/Customizer/Sections/Hero.php:44
 #: library/Customizer/Sections/Hero.php:70
 #: library/Customizer/Sections/Hero.php:96
+#: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/SliderDefault.php:99
 #: library/Customizer/Sections/SliderHero.php:70
 msgid "Center"
@@ -22084,6 +22093,7 @@ msgstr ""
 
 #: library/Customizer/Sections/HamburgerMenu.php:65
 #: library/Customizer/Sections/HamburgerMenu.php:71
+#: library/Customizer/Sections/Quicklinks.php:159
 #: library/Customizer/Sections/SliderHero.php:133
 msgid "Heading"
 msgstr ""
@@ -22123,11 +22133,12 @@ msgid "Menu alignment"
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:63
+#: library/Customizer/Sections/Quicklinks.php:133
 msgid "Gap between"
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:85
-#: library/Customizer/Sections/Quicklinks.php:122
+#: library/Customizer/Sections/Quicklinks.php:205
 msgid "Sticky"
 msgstr ""
 
@@ -22138,7 +22149,7 @@ msgid ""
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:92
-#: library/Customizer/Sections/Quicklinks.php:129
+#: library/Customizer/Sections/Quicklinks.php:212
 msgid "Stick to top"
 msgstr ""
 
@@ -22408,89 +22419,90 @@ msgstr ""
 msgid "Remove air"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:12
-msgid "Select background type"
+#: library/Customizer/Sections/Quicklinks.php:16
+msgid "Appearance"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:13
-#: library/Customizer/Sections/Siteselector.php:15
+#: library/Customizer/Sections/Quicklinks.php:17
 msgid ""
-"Select if you want to use one of the predefined colors, or select one freely."
+"Select if you want to use one of the predefined appearance, or customize "
+"freely."
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:18
-#: library/Customizer/Sections/Siteselector.php:20
-msgid "Predefined colors"
+#: library/Customizer/Sections/Quicklinks.php:22
+msgid "Predefined appearance"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:19
-#: library/Customizer/Sections/Siteselector.php:21
-msgid "Custom color"
+#: library/Customizer/Sections/Quicklinks.php:23
+msgid "Custom appearance"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:33
-msgid "Custom background color"
+#: library/Customizer/Sections/Quicklinks.php:37
+#: library/Customizer/Sections/Siteselector.php:40
+msgid "Custom colors"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:34
-#: library/Customizer/Sections/Quicklinks.php:54
-msgid "Choose a background color for the quicklinks section of the page."
+#: library/Customizer/Sections/Quicklinks.php:43
+msgid "Sticky background"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:53
-msgid "Predefined background color"
+#: library/Customizer/Sections/Quicklinks.php:45
+msgid "Icon color"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:62
-#: library/Customizer/Sections/SliderDefault.php:68
-#: library/Customizer/Sections/SliderHero.php:48
-msgid "Transparent"
+#: library/Customizer/Sections/Quicklinks.php:46
+msgid "Icon background color"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:84
-msgid "Background color sticky scroll"
+#: library/Customizer/Sections/Quicklinks.php:102
+msgid "Amount of gap between"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:123
+#: library/Customizer/Sections/Quicklinks.php:129
+msgid "Alignment"
+msgstr ""
+
+#: library/Customizer/Sections/Quicklinks.php:154
+msgid "Select font"
+msgstr ""
+
+#: library/Customizer/Sections/Quicklinks.php:158
+msgid "Body"
+msgstr ""
+
+#: library/Customizer/Sections/Quicklinks.php:179
+#: library/Customizer/Sections/Siteselector.php:76
+msgid "Color scheme"
+msgstr ""
+
+#: library/Customizer/Sections/Quicklinks.php:206
 msgid ""
 "Adjust how the quicklinks menu should behave when the user scrolls trough "
 "the page. This option should not be used in combination with a sticky header."
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:143
-msgid "Select a font/text color to use."
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:166
+#: library/Customizer/Sections/Quicklinks.php:226
 msgid "Quicklinks location."
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:171
+#: library/Customizer/Sections/Quicklinks.php:231
 msgid "Front page"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:182
+#: library/Customizer/Sections/Quicklinks.php:242
 msgid "Quicklinks item direction"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:186
+#: library/Customizer/Sections/Quicklinks.php:246
 msgid "Row"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:187
+#: library/Customizer/Sections/Quicklinks.php:247
 msgid "Column"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:200
-msgid "Icon color"
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:221
-msgid "Icon background color"
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:243
-#: library/Customizer/Sections/Quicklinks.php:248
+#: library/Customizer/Sections/Quicklinks.php:260
+#: library/Customizer/Sections/Quicklinks.php:265
 msgid "Overflow top"
 msgstr ""
 
@@ -22563,16 +22575,21 @@ msgstr ""
 msgid "Select color source"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:40
-msgid "Custom colors"
+#: library/Customizer/Sections/Siteselector.php:15
+msgid ""
+"Select if you want to use one of the predefined colors, or select one freely."
+msgstr ""
+
+#: library/Customizer/Sections/Siteselector.php:20
+msgid "Predefined colors"
+msgstr ""
+
+#: library/Customizer/Sections/Siteselector.php:21
+msgid "Custom color"
 msgstr ""
 
 #: library/Customizer/Sections/Siteselector.php:46
 msgid "Contrasting"
-msgstr ""
-
-#: library/Customizer/Sections/Siteselector.php:76
-msgid "Color scheme"
 msgstr ""
 
 #: library/Customizer/Sections/Siteselector.php:77
@@ -22603,6 +22620,11 @@ msgstr ""
 #: library/Customizer/Sections/SliderDefault.php:63
 #: library/Customizer/Sections/SliderHero.php:43
 msgid "Container colour"
+msgstr ""
+
+#: library/Customizer/Sections/SliderDefault.php:68
+#: library/Customizer/Sections/SliderHero.php:48
+msgid "Transparent"
 msgstr ""
 
 #: library/Customizer/Sections/SliderDefault.php:69
@@ -22866,11 +22888,11 @@ msgstr ""
 msgid "The password entered is not correct."
 msgstr ""
 
-#: library/Theme/General.php:299
+#: library/Theme/General.php:302
 msgid "Print"
 msgstr ""
 
-#: library/Theme/General.php:300
+#: library/Theme/General.php:303
 msgid "Print this page"
 msgstr ""
 

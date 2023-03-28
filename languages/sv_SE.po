@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-27 10:08+0200\n"
-"PO-Revision-Date: 2023-03-27 10:09+0200\n"
+"POT-Creation-Date: 2023-03-28 07:42+0200\n"
+"PO-Revision-Date: 2023-03-28 07:46+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -93,15 +93,12 @@ msgstr "Sekundär"
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Width.php:15
-#: vendor/kirki/kirki-packages/control-image/src/Control/Image.php:87
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:113
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:852
 msgid "Default"
 msgstr "Standard"
 
 #: library/AcfFields/php/block-button.php:69
 msgid "deafult"
-msgstr "Specialanpassad textfärg för kort"
+msgstr "standard"
 
 #: library/AcfFields/php/block-button.php:82
 #: library/AcfFields/php/navigation-widget.php:314
@@ -130,11 +127,10 @@ msgstr "Ifylld"
 
 #: library/AcfFields/php/block-button.php:100
 msgid "filled"
-msgstr "Ifylld"
+msgstr "ifylld"
 
 #: library/AcfFields/php/block-button.php:113
 #: library/AcfFields/php/navigation-widget.php:338
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:70
 msgid "Size"
 msgstr "Storlek"
 
@@ -4674,21 +4670,21 @@ msgstr "Visa utvald bild i singel-template"
 msgid "Featured image"
 msgstr "Utvald bild"
 
-#: library/AcfFields/php/options-page-navigation.php:8
+#: library/AcfFields/php/options-page-navigation.php:6
 msgid "Navigation settings"
 msgstr "Navigationsinställningar"
 
-#: library/AcfFields/php/options-page-navigation.php:12
+#: library/AcfFields/php/options-page-navigation.php:10
 msgid "Hide in menu"
 msgstr "Dölj i meny"
 
-#: library/AcfFields/php/options-page-navigation.php:23
+#: library/AcfFields/php/options-page-navigation.php:22
 #: library/Customizer/Sections/Archive.php:93
 #: library/Customizer/Sections/Archive.php:320
 msgid "Hide"
 msgstr "Dölj"
 
-#: library/AcfFields/php/options-page-navigation.php:31
+#: library/AcfFields/php/options-page-navigation.php:30
 msgid "Menu title"
 msgstr "Menytitel"
 
@@ -4701,8 +4697,27 @@ msgstr ""
 "Om du vill anpassa titeln för den här sidan i menyn kan du skriva din egen "
 "titel här. Lämna fältet tomt om du vill använda originaltiteln."
 
+#: library/AcfFields/php/options-page-quicklinks-placement.php:6
+#: library/AcfFields/php/options-page-quicklinks-placement.php:10
+msgid "Quicklinks placement"
+msgstr "Placering av snabblänksmeny"
+
+#: library/AcfFields/php/options-page-quicklinks-placement.php:14
+msgid ""
+"If quicklinks are active on the site they are by default shown directly "
+"under the site header. Check this box to move them below the page content on "
+"this specific page."
+msgstr ""
+"Om snabblänkar är aktiva på webbplatsen visas de som standard direkt efter "
+"sidhuvudet. Bocka i den här rutan för att flytta dem till under "
+"sidinnehållet på den här sidan."
+
+#: library/AcfFields/php/options-page-quicklinks-placement.php:22
+msgid "Display after page content"
+msgstr "Visa efter sidinnehållet"
+
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:243
+#: library/Controller/Singular.php:242
 #: library/Customizer/PanelsRegistry.php:402 library/Upgrade.php:526
 msgid "Author"
 msgstr "Författare"
@@ -4968,7 +4983,6 @@ msgid "Page Attributes"
 msgstr "Sidattribut"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:287
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:104
 msgid "Post Formats"
 msgstr "Inläggsformat"
 
@@ -4991,7 +5005,7 @@ msgid "Display the notice after this many days"
 msgstr "Visa notisen på inlägg äldre än så här många dagar"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:345
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:209
 msgid "days"
 msgstr "dagar"
 
@@ -5012,17 +5026,14 @@ msgid "Extra large"
 msgstr "Extra stor"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:26
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:364
 msgid "Uppercase"
 msgstr "Versaler"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:365
 msgid "Lowercase"
 msgstr "Gemener"
 
 #: library/AcfFields/php/options-theme-editor-formats.php:28
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:363
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
@@ -5194,7 +5205,6 @@ msgstr "Lägg till rad"
 
 #: library/AcfFields/php/options-theme-favicon.php:31
 #: library/AcfFields/php/term-icon-and-colour.php:45
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2697
 msgid "Type"
 msgstr "Typ"
 
@@ -26758,8 +26768,6 @@ msgstr "Riktning"
 #: library/Customizer/Sections/SliderDefault.php:98
 #: library/Customizer/Sections/SliderHero.php:69
 #: library/Customizer/Sections/Width.php:78
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:67
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:351
 msgid "Left"
 msgstr "Vänster"
 
@@ -26777,8 +26785,6 @@ msgstr "Vänster"
 #: library/Customizer/Sections/SliderDefault.php:100
 #: library/Customizer/Sections/SliderHero.php:71
 #: library/Customizer/Sections/Width.php:94
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:68
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:353
 msgid "Right"
 msgstr "Höger"
 
@@ -26792,7 +26798,6 @@ msgid "Margin"
 msgstr "Marginal"
 
 #: library/AcfFields/php/widget-header-common.php:129
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:196
 msgid "Auto"
 msgstr "Automatisk"
 
@@ -26820,8 +26825,6 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/SliderDefault.php:129
 #: library/Customizer/Sections/SliderHero.php:47
 #: library/Customizer/Sections/SliderHero.php:91
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:362
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:382
 msgid "None"
 msgstr "Ingen"
 
@@ -27004,7 +27007,7 @@ msgstr "Välj syfte"
 
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:101
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:217
 #: library/Customizer/PanelsRegistry.php:235 library/Search/General.php:54
 #: library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
@@ -27065,7 +27068,6 @@ msgid "Custom Taxonomies"
 msgstr "Egna taxonomies"
 
 #: library/Admin/Options/Theme.php:84
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:113
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
@@ -27126,7 +27128,7 @@ msgstr "Returtyp från nedladdad bild."
 
 #: library/Api/View/Render.php:37
 msgid "View data."
-msgstr "Visa data"
+msgstr "Visa data."
 
 #: library/Comment/Form.php:36 library/Theme/Icon.php:65
 msgid "Comment"
@@ -27176,7 +27178,6 @@ msgid "Add new"
 msgstr "Skapa ny"
 
 #: library/Content/CustomPostType.php:59
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:104
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
@@ -27235,13 +27236,13 @@ msgstr "Fler %s"
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/Archive.php:92 library/Controller/Singular.php:35
+#: library/Controller/Archive.php:92 library/Controller/Singular.php:34
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:93 library/Controller/Singular.php:34
+#: library/Controller/Archive.php:93 library/Controller/Singular.php:33
 msgid "Updated"
 msgstr "Uppdaterad"
 
@@ -27261,7 +27262,7 @@ msgstr "Välj ett \"till\" datum"
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:102 library/Controller/Singular.php:129
+#: library/Controller/Archive.php:102 library/Controller/Singular.php:128
 msgid "Filter"
 msgstr "Filtrera"
 
@@ -27269,7 +27270,7 @@ msgstr "Filtrera"
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Controller/Archive.php:104 library/Controller/Singular.php:130
+#: library/Controller/Archive.php:104 library/Controller/Singular.php:129
 msgid "Reset filter"
 msgstr "Återställ filter"
 
@@ -27281,127 +27282,127 @@ msgstr "Arkivnavigering"
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/Archive.php:454 library/Controller/Singular.php:181
+#: library/Controller/Archive.php:454 library/Controller/Singular.php:180
 #: views/v1/partials/archive-filters/button-dropdown.blade.php:3
 #: views/v1/partials/archive-filters/select.blade.php:9
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:193 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:195 library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/BaseController.php:194
+#: library/Controller/BaseController.php:196
 #: views/v1/templates/master.blade.php:27
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: library/Controller/BaseController.php:195
+#: library/Controller/BaseController.php:197
 #: views/v1/templates/master.blade.php:29
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:196
+#: library/Controller/BaseController.php:198
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: library/Controller/BaseController.php:197
+#: library/Controller/BaseController.php:199
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:200
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:201
 msgid "ago"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:202
 msgid "since"
 msgstr "sedan"
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:203
 msgid "years"
 msgstr "år"
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:204
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:205
 msgid "months"
 msgstr "månader"
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:206
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:207
 msgid "weeks"
 msgstr "veckor"
 
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:208
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:210
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:211
 msgid "hours"
 msgstr "timmar"
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:212
 msgid "hour"
 msgstr "timme"
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:213
 msgid "minutes"
 msgstr "minuter"
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:214
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:215
 msgid "seconds"
 msgstr "sekunder"
 
-#: library/Controller/BaseController.php:214
+#: library/Controller/BaseController.php:216
 msgid "second"
 msgstr "sekund"
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:218
 msgid "Search on"
 msgstr "Sök på"
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:219
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:220
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:221
 #: library/Customizer/PanelsRegistry.php:276
 #: library/Customizer/Sections/Search.php:23 library/Theme/Navigation.php:28
 msgid "Hamburger menu"
 msgstr "Hamburgermeny"
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:222
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Controller/BaseController.php:221
+#: library/Controller/BaseController.php:223
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:222 library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:224 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -27409,23 +27410,23 @@ msgstr "Relaterade länkar"
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:225
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:226
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:225
+#: library/Controller/BaseController.php:227
 msgid "More Languages"
 msgstr "Fler språk"
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:228
 msgid "Expand"
 msgstr "Expandera"
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:229
 msgid "You are here: "
 msgstr "Du är här: "
 
@@ -27484,36 +27485,36 @@ msgstr "Sök efter"
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:36
+#: library/Controller/Singular.php:35
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: library/Controller/Singular.php:37
+#: library/Controller/Singular.php:36
 msgid "on"
 msgstr "på"
 
-#: library/Controller/Singular.php:59
+#: library/Controller/Singular.php:58
 msgid "Reply"
 msgstr "Svara"
 
-#: library/Controller/Singular.php:60
+#: library/Controller/Singular.php:59
 msgid "Log in to Reply"
 msgstr "Logga in för att svara"
 
-#: library/Controller/Singular.php:85
+#: library/Controller/Singular.php:84
 msgid "Reading time"
 msgstr "Lästid"
 
-#: library/Controller/Singular.php:131
+#: library/Controller/Singular.php:130
 #, fuzzy
 #| msgid "No %s found"
 msgid "No items found."
 msgstr "Inga %s hittades"
 
-#: library/Controller/Singular.php:393
+#: library/Controller/Singular.php:392
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -27599,7 +27600,6 @@ msgid "Maps"
 msgstr "Kartor"
 
 #: library/Customizer/PanelsRegistry.php:151
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:108
 msgid "Posts"
 msgstr "Inlägg"
 
@@ -28000,7 +28000,7 @@ msgstr "Standardfärger på knappar"
 
 #: library/Customizer/Sections/Button.php:88
 msgid "Default "
-msgstr "Standard"
+msgstr "Standard "
 
 #: library/Customizer/Sections/Button.php:89
 msgid "Default Contrasting"
@@ -28046,7 +28046,6 @@ msgstr "Välj en typsnittsfärg för kort."
 
 #: library/Customizer/Sections/Card.php:80
 #: library/Customizer/Sections/Collection.php:80
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:72
 msgid "Width"
 msgstr "Bredd"
 
@@ -28065,7 +28064,6 @@ msgstr "Streckad"
 #: library/Customizer/Sections/Card.php:118
 #: library/Customizer/Sections/Collection.php:118
 #: library/Customizer/Sections/Divider.php:38
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:386
 msgid "Solid"
 msgstr "Solid"
 
@@ -28237,7 +28235,6 @@ msgid "Hover"
 msgstr "Hovra"
 
 #: library/Customizer/Sections/Colors.php:268
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2469
 msgid "Active"
 msgstr "Aktivera"
 
@@ -28368,8 +28365,6 @@ msgstr "Textjustering"
 #: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/SliderDefault.php:99
 #: library/Customizer/Sections/SliderHero.php:70
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:69
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:352
 msgid "Center"
 msgstr "Centrerad"
 
@@ -28664,13 +28659,11 @@ msgstr "Innehållsjustering vertikalt"
 
 #: library/Customizer/Sections/Hero.php:69
 #: library/Customizer/Sections/Search.php:41
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:65
 msgid "Top"
 msgstr "Topp"
 
 #: library/Customizer/Sections/Hero.php:71
 #: library/Customizer/Sections/Search.php:43
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:66
 msgid "Bottom"
 msgstr "Botten"
 
@@ -28699,11 +28692,11 @@ msgstr ""
 
 #: library/Customizer/Sections/Hero.php:164
 msgid "Apply shadows to content"
-msgstr "Lägg till skuggning på innehåll."
+msgstr "Lägg till skuggning på innehåll"
 
 #: library/Customizer/Sections/Hero.php:186
 msgid "Apply rounded corners to content"
-msgstr "Lägg till rundade kanter på innehåll."
+msgstr "Lägg till rundade kanter på innehåll"
 
 #: library/Customizer/Sections/LoadDesign.php:30
 #: library/Customizer/Sections/LoadDesign.php:121
@@ -28833,7 +28826,7 @@ msgstr "Dropdown navigation"
 #: library/Customizer/Sections/Navigation.php:194
 #: library/Customizer/Sections/Navigation.php:243
 msgid "colors"
-msgstr "Färger"
+msgstr "färger"
 
 #: library/Customizer/Sections/Navigation.php:169
 #: library/Customizer/Sections/Navigation.php:200
@@ -29154,8 +29147,6 @@ msgid "Use the same font as base but preferably with a higher font weight"
 msgstr "Använd samma typsnitt som bas men mer fetstilad"
 
 #: library/Customizer/Sections/Typography.php:131
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:116
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:135
 msgid "Italic"
 msgstr "Kursiv"
 
@@ -29358,7 +29349,7 @@ msgid ""
 "This content is password protected. To view it please enter your password "
 "below:"
 msgstr ""
-"Det här innehållet är lösenordsskyddat. Ange lösenordet, för att visa sidan. "
+"Det här innehållet är lösenordsskyddat. Ange lösenordet för att visa sidan:"
 
 #: library/Theme/Forms.php:20
 msgid "Password"
@@ -29702,7 +29693,7 @@ msgstr "Sidfot"
 
 #: library/Theme/Sidebars.php:97
 msgid "The footer area "
-msgstr "Sidfotsyta"
+msgstr "Sidfotsyta "
 
 #: library/Theme/Sidebars.php:110
 msgid "Footer bottom"
@@ -29710,7 +29701,7 @@ msgstr "Botten av sidfot"
 
 #: library/Theme/Sidebars.php:111
 msgid "The bottom of footer area"
-msgstr "Nedersta delen av sidfoten."
+msgstr "Nedersta delen av sidfoten"
 
 #: library/Theme/Sidebars.php:124
 msgid "The hero area"
@@ -29816,1428 +29807,6 @@ msgstr "Ny titel"
 msgid "Title:"
 msgstr "Titel:"
 
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
-msgid "Export with AcfExportManager"
-msgstr ""
-
-#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
-#, php-format
-msgid "Exported %d fieldgroup(s)."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Field.php:261
-#, php-format
-msgid "Typo found in field %s - setting instead of settings."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Field.php:272
-#, php-format
-msgid ""
-"Config not defined for field %1$s - See %2$s for details on how to properly "
-"add fields."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Field.php:388
-#, php-format
-msgid "\"partial_refresh\" invalid entry in field %s"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Field.php:514
-#: vendor/kirki/kirki-packages/compatibility/src/Field.php:525
-#: vendor/kirki/kirki-packages/module-css/src/CSS.php:133
-#: vendor/kirki/kirki-packages/module-css/src/CSS.php:144
-#: vendor/kirki/kirki-packages/module-postmessage/src/Postmessage.php:69
-#, php-format
-msgid ""
-"\"output\" invalid format in field %s. The \"output\" argument should be "
-"defined as an array of arrays."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Init.php:206
-msgid ""
-"We detected you're using Kirki\\Compatibility\\Init::get_variables(). Please "
-"use \\Kirki\\Util\\Util::get_variables() instead."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Init.php:257
-msgid ""
-"Your theme uses a Font Awesome field for icons. To avoid issues with missing "
-"icons on your frontend we recommend you install the official Font Awesome "
-"plugin."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Init.php:260
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Install Plugin"
-msgstr "Installera tillägg"
-
-#: vendor/kirki/kirki-packages/compatibility/src/Init.php:261
-msgid "Don't show this again"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/Kirki.php:191
-msgid ""
-"Kirki fields should not be added on customize_register. Please add them "
-"directly, or on init."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/compatibility/src/deprecated/functions.php:20
-#, php-format
-msgid "%1$s or %2$s"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-checkbox/src/Control/Checkbox_Switch.php:79
-#, fuzzy
-#| msgid "Open"
-msgid "On"
-msgstr "Öppna"
-
-#: vendor/kirki/kirki-packages/control-checkbox/src/Control/Checkbox_Switch.php:80
-msgid "Off"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:102
-msgid "Admin Menu"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:103
-msgid "Welcome Screen"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:105
-#, fuzzy
-#| msgid "Medium"
-msgid "Media"
-msgstr "Mellan"
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:106
-msgid "Image Editing"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:109
-#, fuzzy
-#| msgid "Floating"
-msgid "Sorting"
-msgstr "Flytande"
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:110
-msgid "Social"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:112
-msgid "Products"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:114
-#, fuzzy
-#| msgid "widgets"
-msgid "Widgets"
-msgstr "widgets"
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:115
-#, fuzzy
-#| msgid "notifications"
-msgid "Notifications"
-msgstr "notifications"
-
-#: vendor/kirki/kirki-packages/control-dashicons/src/Control/Dashicons.php:116
-msgid "Miscelaneous"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-dimension/src/Control/Dimension.php:67
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:74
-msgid "Invalid Value"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-image/src/Control/Image.php:82
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:115
-msgid "No image selected"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-image/src/Control/Image.php:85
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:114
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:453
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:485
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:510
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
-msgstr "Ta bort"
-
-#: vendor/kirki/kirki-packages/control-image/src/Control/Image.php:89
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:111
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:116
-#, fuzzy
-#| msgid "Select WP menu"
-msgid "Select image"
-msgstr "Välj WordPress meny"
-
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:112
-#, fuzzy
-#| msgid "Featured image"
-msgid "Change image"
-msgstr "Utvald bild"
-
-#: vendor/kirki/kirki-packages/control-image/src/Field/Image.php:117
-#, fuzzy
-#| msgid "Choose a from date"
-msgid "Choose image"
-msgstr "Välj ett \"från\" datum"
-
-#: vendor/kirki/kirki-packages/control-react-select/src/Control/ReactSelect.php:162
-#, fuzzy
-#| msgid "Select"
-msgid "Select..."
-msgstr "Välj"
-
-#: vendor/kirki/kirki-packages/control-react-select/src/Control/ReactSelect.php:169
-#, php-format
-msgid "You can only select %s items"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:95
-#, fuzzy
-#| msgid "Row"
-msgid "row"
-msgstr "Rad"
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:139
-#, fuzzy
-#| msgid "Select a design"
-msgid "Select a Page"
-msgstr "Välj en design"
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:275
-#, php-format
-msgid "Limit: %s rows"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:443
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:448
-msgid "No Image Selected"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:454
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:458
-#, fuzzy
-#| msgid "Add new"
-msgid "Add Image"
-msgstr "Skapa ny"
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:454
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:456
-#, fuzzy
-#| msgid "Featured Image"
-msgid "Change Image"
-msgstr "Utvald bild"
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:475
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:480
-msgid "No File Selected"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:486
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:490
-#, fuzzy
-#| msgid "Add new"
-msgid "Add File"
-msgstr "Skapa ny"
-
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:486
-#: vendor/kirki/kirki-packages/control-repeater/src/Control/Repeater.php:488
-msgid "Change File"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:84
-#, fuzzy
-#| msgid "Background color"
-msgid "Background Color"
-msgstr "Bakgrundsfärg"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:103
-#, fuzzy
-#| msgid "Background image"
-msgid "Background Image"
-msgstr "Bakgrundsbild"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:119
-#, fuzzy
-#| msgid "Background"
-msgid "Background Repeat"
-msgstr "Bakgrund"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:123
-#, fuzzy
-#| msgid "repeat"
-msgid "No Repeat"
-msgstr "repeat"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:124
-#, fuzzy
-#| msgid "repeat"
-msgid "Repeat All"
-msgstr "repeat"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:125
-#, fuzzy
-#| msgid "Horizontal"
-msgid "Repeat Horizontally"
-msgstr "Horisontell"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:126
-#, fuzzy
-#| msgid "Vertical"
-msgid "Repeat Vertically"
-msgstr "Vertikal"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:152
-#, fuzzy
-#| msgid "Background color"
-msgid "Background Position"
-msgstr "Bakgrundsfärg"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:156
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:50
-#, fuzzy
-#| msgid "Left"
-msgid "Left Top"
-msgstr "Vänster"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:157
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:51
-#, fuzzy
-#| msgid "Center"
-msgid "Left Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:158
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:52
-#, fuzzy
-#| msgid "Bottom"
-msgid "Left Bottom"
-msgstr "Botten"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:159
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:56
-#, fuzzy
-#| msgid "Center"
-msgid "Center Top"
-msgstr "Centrerad"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:160
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:57
-#, fuzzy
-#| msgid "Centered"
-msgid "Center Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:161
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:58
-#, fuzzy
-#| msgid "Footer bottom"
-msgid "Center Bottom"
-msgstr "Botten av sidfot"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:162
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:53
-#, fuzzy
-#| msgid "Right"
-msgid "Right Top"
-msgstr "Höger"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:163
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:54
-#, fuzzy
-#| msgid "Center"
-msgid "Right Center"
-msgstr "Centrerad"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:164
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:55
-#, fuzzy
-#| msgid "Bottom"
-msgid "Right Bottom"
-msgstr "Botten"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:190
-#, fuzzy
-#| msgid "Background image"
-msgid "Background Size"
-msgstr "Bakgrundsbild"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:194
-#, fuzzy
-#| msgid "Hover"
-msgid "Cover"
-msgstr "Hovra"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:195
-#, fuzzy
-#| msgid "Container"
-msgid "Contain"
-msgstr "Behållare"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:222
-#, fuzzy
-#| msgid "Background image"
-msgid "Background Attachment"
-msgstr "Bakgrundsbild"
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:227
-msgid "Scroll"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-background/src/Background.php:228
-msgid "Fixed"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:59
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:323
-#, fuzzy
-#| msgid "Front page"
-msgid "Font Size"
-msgstr "Startsidan"
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:60
-#, fuzzy
-#| msgid "Logotype height"
-msgid "Font Weight"
-msgstr "Storlek på logotyp (höjd)"
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:61
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:402
-#, fuzzy
-#| msgid "line_weight"
-msgid "Line Height"
-msgstr "line_weight"
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:62
-#, fuzzy
-#| msgid "Footer style"
-msgid "Font Style"
-msgstr "Stil för sidfot"
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:63
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:407
-#, fuzzy
-#| msgid "Letter"
-msgid "Letter Spacing"
-msgstr "Brev"
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:64
-msgid "Word Spacing"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:71
-msgid "Spacing"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-dimensions/src/Dimensions.php:73
-#, fuzzy
-#| msgid "height"
-msgid "Height"
-msgstr "height"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:112
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:131
-#, fuzzy
-#| msgid "Regular (400)"
-msgid "Regular"
-msgstr "Normal (400)"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:120
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:179
-msgid "700"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:124
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:183
-#, fuzzy
-#| msgid "Italic"
-msgid "700 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:139
-msgid "100"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:143
-#, fuzzy
-#| msgid "Italic"
-msgid "100 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:147
-msgid "200"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:151
-#, fuzzy
-#| msgid "Italic"
-msgid "200 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:155
-#, fuzzy
-#| msgid "360"
-msgid "300"
-msgstr "360"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:159
-#, fuzzy
-#| msgid "Italic"
-msgid "300 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:163
-msgid "500"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:167
-#, fuzzy
-#| msgid "Italic"
-msgid "500 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:171
-#, fuzzy
-#| msgid "360"
-msgid "600"
-msgstr "360"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:175
-#, fuzzy
-#| msgid "Italic"
-msgid "600 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:187
-msgid "800"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:191
-#, fuzzy
-#| msgid "Italic"
-msgid "800 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:195
-msgid "900"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:199
-#, fuzzy
-#| msgid "Italic"
-msgid "900 Italic"
-msgstr "Kursiv"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:274
-msgid "Font Family"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:301
-msgid "Font Variant"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:328
-#, fuzzy
-#| msgid "Icon color"
-msgid "Font Color"
-msgstr "Ikonfärg"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:347
-#, fuzzy
-#| msgid "Text alignment"
-msgid "Text Align"
-msgstr "Textjustering"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:350
-msgid "Initial"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:354
-msgid "Justify"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:359
-#, fuzzy
-#| msgid "transform"
-msgid "Text Transform"
-msgstr "transform"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:379
-#, fuzzy
-#| msgid "Text separator"
-msgid "Text Decoration"
-msgstr "Textavdelare"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:383
-#, fuzzy
-#| msgid "Undefined"
-msgid "Underline"
-msgstr "Ej beskriven"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:384
-msgid "Line Through"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:385
-#, fuzzy
-#| msgid "Outline"
-msgid "Overline"
-msgstr "Ramlinje"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:387
-msgid "Wavy"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:422
-#, fuzzy
-#| msgid "Margin options"
-msgid "Margin Top"
-msgstr "Marginalinställningar"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:427
-#, fuzzy
-#| msgid "Margin options"
-msgid "Margin Bottom"
-msgstr "Marginalinställningar"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:850
-#, fuzzy
-#| msgid "Default"
-msgid "Defaults"
-msgstr "Standard"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:877
-#, fuzzy
-#| msgid "Standard"
-msgid "Standard Fonts"
-msgstr "Standard"
-
-#: vendor/kirki/kirki-packages/field-typography/src/Field/Typography.php:882
-msgid "Google Fonts"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-sections/src/Section_Types/Nested.php:62
-#, fuzzy
-#| msgid "Customizer"
-msgid "Customizing"
-msgstr "Anpassning"
-
-#: vendor/kirki/kirki-packages/module-sections/src/Section_Types/Nested.php:65
-#, php-format
-msgid "Customizing &#9656; %s"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:162
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:163
-#, fuzzy
-#| msgid "Light (300)"
-msgid "Ultra-Light 100"
-msgstr "Lätt (300)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:164
-msgid "Ultra-Light 100 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:165
-#, fuzzy
-#| msgid "Light (300)"
-msgid "Light 200"
-msgstr "Lätt (300)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:166
-msgid "Light 200 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:167
-msgid "Book 300"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:168
-msgid "Book 300 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:169
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:170
-#, fuzzy
-#| msgid "Normal"
-msgid "Normal 400"
-msgstr "Normal"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:171
-#, fuzzy
-#| msgid "format_italic"
-msgid "Normal 400 Italic"
-msgstr "format_italic"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:172
-#, fuzzy
-#| msgid "Medium (500)"
-msgid "Medium 500"
-msgstr "Medel (500)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:173
-#, fuzzy
-#| msgid "Medium (500)"
-msgid "Medium 500 Italic"
-msgstr "Medel (500)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:174
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:175
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Semi-Bold 600"
-msgstr "Fet (700)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:176
-msgid "Semi-Bold 600 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:177
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Bold 700"
-msgstr "Fet (700)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:178
-#, fuzzy
-#| msgid "Bold (700)"
-msgid "Bold 700 Italic"
-msgstr "Fet (700)"
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:179
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:180
-msgid "Extra-Bold 800"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:181
-msgid "Extra-Bold 800 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:182
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:183
-msgid "Ultra-Bold 900"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/module-webfonts/src/Webfonts/Fonts.php:184
-msgid "Ultra-Bold 900 Italic"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/Notice.php:132
-msgid "Invalid nonce"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/Notice.php:136
-msgid "You don't have capability to run this action"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/Notice.php:144
-msgid "Discount notice has been dismissed"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/SetupSettings.php:54
-#: vendor/kirki/kirki-packages/settings/templates/settings-template.php:23
-#, fuzzy
-#| msgid "Kirki Customizer framework is required"
-msgid "Kirki Customizer Framework"
-msgstr "Kirki Customizer-ramverket krävs"
-
-#: vendor/kirki/kirki-packages/settings/src/SetupSettings.php:55
-msgid "Kirki"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/SetupSettings.php:215
-msgid "Ultimate Dashboard has already been active."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/SetupSettings.php:225
-msgid "Ultimate Dashboard has been activated successfully."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/src/SetupSettings.php:233
-msgid "Installation has been prepared successfully."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/clear-font-cache.php:12
-msgid "Clear Font Cache"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/clear-font-cache.php:15
-msgid ""
-"In order to achieve GDPR-compliance, Kirki stores Google Fonts locally on "
-"your server."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/clear-font-cache.php:16
-msgid ""
-"If Google Fonts selected in the Customizer are not displayed correctly, "
-"please try clearing the font cache."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/clear-font-cache.php:19
-msgid "This is safe to do on production sites."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/clear-font-cache.php:26
-msgid "Clear Cache"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:13
-msgid "Why do I see this?"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:17
-msgid "Kirki is a key component of the WordPress theme you have installed."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:20
-msgid ""
-"It provides advanced customization options within the WordPress Customizer, "
-"allowing you to easily modify the appearance of your site."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:27
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:37
-#, fuzzy
-#| msgid "Location"
-msgid "Documentation"
-msgstr "Plats"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:31
-msgid "For more information, please refer to your theme's documentation."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/documentation.php:34
-msgid ""
-"The following article provides a detailed explanation of the Clear Font "
-"Cache option in Kirki."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:19
-msgid "Customizer Reset - Export & Import"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:20
-msgid ""
-"Reset, Export & Import your WordPress customizer settings with a simple "
-"click of a button."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:27
-msgid "Ultimate Dashboard"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:28
-msgid ""
-"Ultimate Dashboard is the #1 plugin to customize your WordPress Dashboard."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:35
-msgid "Better Admin Bar"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:36
-msgid ""
-"Quickly access all important areas of your WordPress website & provide your "
-"clients with the user experience they deserve."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:43
-msgid "WP Video Popup"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:44
-msgid ""
-"Add beautiful WordPress video lightbox popups to your website without "
-"sacrificing performance."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:71
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:74
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Installed"
-msgstr "Installera tillägg"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:81
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2867
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Install"
-msgstr "Installera tillägg"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:83
-msgid "Learn More"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/recommended-plugins.php:89
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2463
-msgid "Not Installed"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:14
-msgid "Ultimate Dashboard - Features"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:16
-#, fuzzy
-#| msgid "Read more"
-msgid "Learn more"
-msgstr "Läs mer"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:26
-msgid "Custom Dashboard Widgets"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:27
-msgid ""
-"Replace the default WordPress widgets with your own to give the WordPress "
-"dashboard a more meaningful use."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:31
-#, fuzzy
-#| msgid "Customize text color"
-msgid "Customize the WordPress Login"
-msgstr "Anpassa kontrastfärg"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:32
-msgid ""
-"Customize & rebrand the WordPress login screen with full control directly "
-"within the WordPress customizer."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:36
-msgid "Login Redirects"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:37
-msgid ""
-"Change the WordPress login URL, redirect non-logged in users trying to "
-"access the wp-admin URL & set up redirects after login for all user roles."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:41
-#, fuzzy
-#| msgid "Custom Taxonomies"
-msgid "Custom Admin Pages"
-msgstr "Egna taxonomies"
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:42
-msgid "Create Custom Admin Pages (Top-Level & Sub-Menu) with HTML & CSS."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:46
-msgid "Admin Menu & Admin Bar Editor"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:47
-msgid ""
-"Rearrange & hide menu & sub menu items from the WordPress admin area & admin "
-"bar."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:51
-msgid "White Label WordPress"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:52
-msgid "Fully white label the WordPress admin area and apply your own branding."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:56
-msgid "Page Builder Support"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:57
-msgid ""
-"Replace the entire WordPress dashboard with your saved Elementor, Beaver "
-"Builder or Brizy Layout or use it along with our Ultimate Dashboard widgets."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:91
-msgid "And much more!"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:94
-msgid ""
-"Install Ultimate Dashboard or <a href=\"https://ultimatedashboard.io/?"
-"utm_source=repository&utm_medium=settings_page&utm_campaign=kirki\" target="
-"\"_blank\">learn more</a>."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/metaboxes/ultimate-dashboard.php:99
-msgid "Install Ultimate Dashboard (FREE)"
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/settings-template.php:26
-msgid "The #1 Customizer Toolkit for WordPress Theme Developers."
-msgstr ""
-
-#: vendor/kirki/kirki-packages/settings/templates/settings-template.php:38
-#, fuzzy
-#| msgid "Below Settings"
-msgid "Settings"
-msgstr "Under inställningar"
-
-#: vendor/kirki/kirki-packages/settings/templates/settings-template.php:41
-#, fuzzy
-#| msgid "Below Plugins"
-msgid "Recommended Plugins"
-msgstr "Under plugin"
-
-#: vendor/kirki/upgrade-notifications.php:30
-#, fuzzy
-#| msgid "important_devices"
-msgid "Important Upgrade Notice:"
-msgstr "important_devices"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:340
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Install Required Plugins"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:341
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Install Plugins"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:343
-#, fuzzy, php-format
-#| msgid "Install plugin"
-msgid "Installing Plugin: %s"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:345
-#, php-format
-msgid "Updating Plugin: %s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:346
-#, fuzzy
-#| msgid "Something went wrong, please try again later"
-msgid "Something went wrong with the plugin API."
-msgstr "Något gick fel, vänligen försök igen senare"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:349
-#, php-format
-msgid "This theme requires the following plugin: %1$s."
-msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:355
-#, php-format
-msgid "This theme recommends the following plugin: %1$s."
-msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:361
-#, php-format
-msgid ""
-"The following plugin needs to be updated to its latest version to ensure "
-"maximum compatibility with this theme: %1$s."
-msgid_plural ""
-"The following plugins need to be updated to their latest version to ensure "
-"maximum compatibility with this theme: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:367
-#, php-format
-msgid "There is an update available for: %1$s."
-msgid_plural "There are updates available for the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:373
-#, php-format
-msgid "The following required plugin is currently inactive: %1$s."
-msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:379
-#, php-format
-msgid "The following recommended plugin is currently inactive: %1$s."
-msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:384
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Begin installing plugin"
-msgid_plural "Begin installing plugins"
-msgstr[0] "Installera tillägg"
-msgstr[1] "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:389
-msgid "Begin updating plugin"
-msgid_plural "Begin updating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:394
-msgid "Begin activating plugin"
-msgid_plural "Begin activating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:398
-msgid "Return to Required Plugins Installer"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:399
-msgid "Return to the Dashboard"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:400
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3311
-msgid "Plugin activated successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:401
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3103
-msgid "The following plugin was activated successfully:"
-msgid_plural "The following plugins were activated successfully:"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:403
-#, php-format
-msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:405
-#, php-format
-msgid ""
-"Plugin not activated. A higher version of %s is needed for this theme. "
-"Please update the plugin."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:407
-#, php-format
-msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:408
-msgid "Dismiss this notice"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:409
-msgid ""
-"There are one or more required or recommended plugins to install, update or "
-"activate."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:410
-msgid "Please contact the administrator of this site for help."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:616
-msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:617
-#, fuzzy
-#| msgid "Updated"
-msgid "Update Required"
-msgstr "Uppdaterad"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:735
-msgid "Set the parent_slug config variable instead."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
-msgid ""
-"The remote plugin package does not contain a folder with the desired slug "
-"and renaming did not work."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1042
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
-msgid ""
-"Please contact the plugin provider and ask them to package their plugin "
-"according to the WordPress guidelines."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1052
-msgid ""
-"The remote plugin package consists of more than one file, but the files are "
-"not packaged in a folder."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:1243
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3099
-#, fuzzy
-#| msgid "adb"
-msgctxt "plugin A *and* plugin B"
-msgid "and"
-msgstr "adb"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2112
-#, php-format
-msgid "TGMPA v%s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2421
-msgid "Required"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2424
-#, fuzzy
-#| msgid "comment"
-msgid "Recommended"
-msgstr "kommentar"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2440
-msgid "WordPress Repository"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2443
-#, fuzzy
-#| msgid "External link"
-msgid "External Source"
-msgstr "Externa länkar"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2446
-msgid "Pre-Packaged"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2467
-msgid "Installed But Not Activated"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2475
-msgid "Required Update not Available"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2478
-msgid "Requires Update"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
-msgid "Update recommended"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2490
-#, php-format
-msgctxt "Install/Update Status"
-msgid "%1$s, %2$s"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2536
-#, php-format
-msgctxt "plugins"
-msgid "All <span class=\"count\">(%s)</span>"
-msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2540
-#, php-format
-msgid "To Install <span class=\"count\">(%s)</span>"
-msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2544
-#, php-format
-msgid "Update Available <span class=\"count\">(%s)</span>"
-msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2548
-#, php-format
-msgid "To Activate <span class=\"count\">(%s)</span>"
-msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2630
-#, fuzzy
-#| msgid "device_unknown"
-msgctxt "as in: \"version nr unknown\""
-msgid "unknown"
-msgstr "device_unknown"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2638
-#, fuzzy
-#| msgid "Install plugin"
-msgid "Installed version:"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
-msgid "Minimum required version:"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2658
-#, fuzzy
-#| msgid "Available post types"
-msgid "Available version:"
-msgstr "Tillgängliga inläggstyper"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2681
-msgid "No plugins to install, update or activate."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2695
-#, fuzzy
-#| msgid "Plugins"
-msgid "Plugin"
-msgstr "Plugin"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
-msgid "Source"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
-#, fuzzy
-#| msgid "extension"
-msgid "Version"
-msgstr "extension"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2702
-msgid "Status"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2751
-#, fuzzy, php-format
-#| msgid "Install plugin"
-msgid "Install %2$s"
-msgstr "Installera tillägg"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2756
-#, fuzzy, php-format
-#| msgid "Updated"
-msgid "Update %2$s"
-msgstr "Uppdaterad"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2762
-#, fuzzy, php-format
-#| msgid "Active"
-msgid "Activate %2$s"
-msgstr "Aktivera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2834
-msgid "Upgrade message from the plugin author:"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2873
-#, fuzzy
-#| msgid "Updated"
-msgid "Update"
-msgstr "Uppdaterad"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2876
-#, fuzzy
-#| msgid "Active"
-msgid "Activate"
-msgstr "Aktivera"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2907
-msgid "No plugins were selected to be installed. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2909
-msgid "No plugins were selected to be updated. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2950
-msgid "No plugins are available to be installed at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:2952
-msgid "No plugins are available to be updated at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3059
-msgid "No plugins were selected to be activated. No action taken."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3085
-msgid "No plugins are available to be activated at this time."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3310
-msgid "Plugin activation failed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3655
-#, php-format
-msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3658
-#, php-format
-msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3660
-#, php-format
-msgid "The installation of %1$s failed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3664
-msgid ""
-"The installation and activation process is starting. This process may take a "
-"while on some hosts, so please be patient."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3666
-#, php-format
-msgid "%1$s installed and activated successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3667
-msgid "All installations and activations have been completed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3669
-#, php-format
-msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3672
-msgid ""
-"The installation process is starting. This process may take a while on some "
-"hosts, so please be patient."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3674
-#, php-format
-msgid "%1$s installed successfully."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3675
-msgid "All installations have been completed."
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3677
-#, php-format
-msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
-#, fuzzy
-#| msgid "Show as"
-msgid "Show Details"
-msgstr "Visa som"
-
-#: vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php:3682
-#, fuzzy
-#| msgid "details"
-msgid "Hide Details"
-msgstr "details"
-
 #: views/v1/archive-event.blade.php:70
 msgctxt "Event archive"
 msgid "Date"
@@ -31327,6 +29896,11 @@ msgstr "Min profil på"
 #: views/v1/partials/blog/comments.blade.php:123
 msgid "Edit"
 msgstr "Redigera"
+
+#: views/v1/partials/blog/comments.blade.php:62
+#: views/v1/partials/blog/comments.blade.php:126
+msgid "Remove"
+msgstr "Ta bort"
 
 #: views/v1/partials/blog/post-categories.blade.php:2
 msgid "Categories"
@@ -31427,28 +30001,529 @@ msgstr "Pris"
 msgid "Attached files"
 msgstr "Bifogade filer"
 
-#. Theme Name of the plugin/theme
-msgid "Municipio"
-msgstr ""
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Install Plugin"
+#~ msgstr "Installera tillägg"
 
-#. Theme URI of the plugin/theme
-msgid "https://github.com/helsingborg-stad/Municipio"
-msgstr ""
+#, fuzzy
+#~| msgid "Open"
+#~ msgid "On"
+#~ msgstr "Öppna"
 
-#. Description of the plugin/theme
-msgid ""
-"A bootstrap theme for creating municipality sites. Works veary webb with "
-"Modularity Plugin."
-msgstr ""
+#, fuzzy
+#~| msgid "Medium"
+#~ msgid "Media"
+#~ msgstr "Mellan"
 
-#. Author of the plugin/theme
-msgid ""
-"Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
-msgstr ""
+#, fuzzy
+#~| msgid "Floating"
+#~ msgid "Sorting"
+#~ msgstr "Flytande"
 
-#. Author URI of the plugin/theme
-msgid "http://www.helsingborg.se"
-msgstr ""
+#, fuzzy
+#~| msgid "widgets"
+#~ msgid "Widgets"
+#~ msgstr "widgets"
+
+#, fuzzy
+#~| msgid "notifications"
+#~ msgid "Notifications"
+#~ msgstr "notifications"
+
+#, fuzzy
+#~| msgid "Select WP menu"
+#~ msgid "Select image"
+#~ msgstr "Välj WordPress meny"
+
+#, fuzzy
+#~| msgid "Featured image"
+#~ msgid "Change image"
+#~ msgstr "Utvald bild"
+
+#, fuzzy
+#~| msgid "Choose a from date"
+#~ msgid "Choose image"
+#~ msgstr "Välj ett \"från\" datum"
+
+#, fuzzy
+#~| msgid "Select"
+#~ msgid "Select..."
+#~ msgstr "Välj"
+
+#, fuzzy
+#~| msgid "Row"
+#~ msgid "row"
+#~ msgstr "Rad"
+
+#, fuzzy
+#~| msgid "Select a design"
+#~ msgid "Select a Page"
+#~ msgstr "Välj en design"
+
+#, fuzzy
+#~| msgid "Add new"
+#~ msgid "Add Image"
+#~ msgstr "Skapa ny"
+
+#, fuzzy
+#~| msgid "Featured Image"
+#~ msgid "Change Image"
+#~ msgstr "Utvald bild"
+
+#, fuzzy
+#~| msgid "Add new"
+#~ msgid "Add File"
+#~ msgstr "Skapa ny"
+
+#, fuzzy
+#~| msgid "Background color"
+#~ msgid "Background Color"
+#~ msgstr "Bakgrundsfärg"
+
+#, fuzzy
+#~| msgid "Background image"
+#~ msgid "Background Image"
+#~ msgstr "Bakgrundsbild"
+
+#, fuzzy
+#~| msgid "Background"
+#~ msgid "Background Repeat"
+#~ msgstr "Bakgrund"
+
+#, fuzzy
+#~| msgid "repeat"
+#~ msgid "No Repeat"
+#~ msgstr "repeat"
+
+#, fuzzy
+#~| msgid "repeat"
+#~ msgid "Repeat All"
+#~ msgstr "repeat"
+
+#, fuzzy
+#~| msgid "Horizontal"
+#~ msgid "Repeat Horizontally"
+#~ msgstr "Horisontell"
+
+#, fuzzy
+#~| msgid "Vertical"
+#~ msgid "Repeat Vertically"
+#~ msgstr "Vertikal"
+
+#, fuzzy
+#~| msgid "Background color"
+#~ msgid "Background Position"
+#~ msgstr "Bakgrundsfärg"
+
+#, fuzzy
+#~| msgid "Left"
+#~ msgid "Left Top"
+#~ msgstr "Vänster"
+
+#, fuzzy
+#~| msgid "Center"
+#~ msgid "Left Center"
+#~ msgstr "Centrerad"
+
+#, fuzzy
+#~| msgid "Bottom"
+#~ msgid "Left Bottom"
+#~ msgstr "Botten"
+
+#, fuzzy
+#~| msgid "Center"
+#~ msgid "Center Top"
+#~ msgstr "Centrerad"
+
+#, fuzzy
+#~| msgid "Centered"
+#~ msgid "Center Center"
+#~ msgstr "Centrerad"
+
+#, fuzzy
+#~| msgid "Footer bottom"
+#~ msgid "Center Bottom"
+#~ msgstr "Botten av sidfot"
+
+#, fuzzy
+#~| msgid "Right"
+#~ msgid "Right Top"
+#~ msgstr "Höger"
+
+#, fuzzy
+#~| msgid "Center"
+#~ msgid "Right Center"
+#~ msgstr "Centrerad"
+
+#, fuzzy
+#~| msgid "Bottom"
+#~ msgid "Right Bottom"
+#~ msgstr "Botten"
+
+#, fuzzy
+#~| msgid "Background image"
+#~ msgid "Background Size"
+#~ msgstr "Bakgrundsbild"
+
+#, fuzzy
+#~| msgid "Hover"
+#~ msgid "Cover"
+#~ msgstr "Hovra"
+
+#, fuzzy
+#~| msgid "Container"
+#~ msgid "Contain"
+#~ msgstr "Behållare"
+
+#, fuzzy
+#~| msgid "Background image"
+#~ msgid "Background Attachment"
+#~ msgstr "Bakgrundsbild"
+
+#, fuzzy
+#~| msgid "Front page"
+#~ msgid "Font Size"
+#~ msgstr "Startsidan"
+
+#, fuzzy
+#~| msgid "Logotype height"
+#~ msgid "Font Weight"
+#~ msgstr "Storlek på logotyp (höjd)"
+
+#, fuzzy
+#~| msgid "line_weight"
+#~ msgid "Line Height"
+#~ msgstr "line_weight"
+
+#, fuzzy
+#~| msgid "Footer style"
+#~ msgid "Font Style"
+#~ msgstr "Stil för sidfot"
+
+#, fuzzy
+#~| msgid "Letter"
+#~ msgid "Letter Spacing"
+#~ msgstr "Brev"
+
+#, fuzzy
+#~| msgid "height"
+#~ msgid "Height"
+#~ msgstr "height"
+
+#, fuzzy
+#~| msgid "Regular (400)"
+#~ msgid "Regular"
+#~ msgstr "Normal (400)"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "700 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "100 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "200 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "360"
+#~ msgid "300"
+#~ msgstr "360"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "300 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "500 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "360"
+#~ msgid "600"
+#~ msgstr "360"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "600 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "800 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Italic"
+#~ msgid "900 Italic"
+#~ msgstr "Kursiv"
+
+#, fuzzy
+#~| msgid "Icon color"
+#~ msgid "Font Color"
+#~ msgstr "Ikonfärg"
+
+#, fuzzy
+#~| msgid "Text alignment"
+#~ msgid "Text Align"
+#~ msgstr "Textjustering"
+
+#, fuzzy
+#~| msgid "transform"
+#~ msgid "Text Transform"
+#~ msgstr "transform"
+
+#, fuzzy
+#~| msgid "Text separator"
+#~ msgid "Text Decoration"
+#~ msgstr "Textavdelare"
+
+#, fuzzy
+#~| msgid "Undefined"
+#~ msgid "Underline"
+#~ msgstr "Ej beskriven"
+
+#, fuzzy
+#~| msgid "Outline"
+#~ msgid "Overline"
+#~ msgstr "Ramlinje"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Margin Top"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Margin options"
+#~ msgid "Margin Bottom"
+#~ msgstr "Marginalinställningar"
+
+#, fuzzy
+#~| msgid "Default"
+#~ msgid "Defaults"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Standard"
+#~ msgid "Standard Fonts"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~| msgid "Customizer"
+#~ msgid "Customizing"
+#~ msgstr "Anpassning"
+
+#, fuzzy
+#~| msgid "Light (300)"
+#~ msgid "Ultra-Light 100"
+#~ msgstr "Lätt (300)"
+
+#, fuzzy
+#~| msgid "Light (300)"
+#~ msgid "Light 200"
+#~ msgstr "Lätt (300)"
+
+#, fuzzy
+#~| msgid "Normal"
+#~ msgid "Normal 400"
+#~ msgstr "Normal"
+
+#, fuzzy
+#~| msgid "format_italic"
+#~ msgid "Normal 400 Italic"
+#~ msgstr "format_italic"
+
+#, fuzzy
+#~| msgid "Medium (500)"
+#~ msgid "Medium 500"
+#~ msgstr "Medel (500)"
+
+#, fuzzy
+#~| msgid "Medium (500)"
+#~ msgid "Medium 500 Italic"
+#~ msgstr "Medel (500)"
+
+#, fuzzy
+#~| msgid "Bold (700)"
+#~ msgid "Semi-Bold 600"
+#~ msgstr "Fet (700)"
+
+#, fuzzy
+#~| msgid "Bold (700)"
+#~ msgid "Bold 700"
+#~ msgstr "Fet (700)"
+
+#, fuzzy
+#~| msgid "Bold (700)"
+#~ msgid "Bold 700 Italic"
+#~ msgstr "Fet (700)"
+
+#, fuzzy
+#~| msgid "Kirki Customizer framework is required"
+#~ msgid "Kirki Customizer Framework"
+#~ msgstr "Kirki Customizer-ramverket krävs"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Documentation"
+#~ msgstr "Plats"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Installed"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Install"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Read more"
+#~ msgid "Learn more"
+#~ msgstr "Läs mer"
+
+#, fuzzy
+#~| msgid "Customize text color"
+#~ msgid "Customize the WordPress Login"
+#~ msgstr "Anpassa kontrastfärg"
+
+#, fuzzy
+#~| msgid "Custom Taxonomies"
+#~ msgid "Custom Admin Pages"
+#~ msgstr "Egna taxonomies"
+
+#, fuzzy
+#~| msgid "Below Settings"
+#~ msgid "Settings"
+#~ msgstr "Under inställningar"
+
+#, fuzzy
+#~| msgid "Below Plugins"
+#~ msgid "Recommended Plugins"
+#~ msgstr "Under plugin"
+
+#, fuzzy
+#~| msgid "important_devices"
+#~ msgid "Important Upgrade Notice:"
+#~ msgstr "important_devices"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Install Required Plugins"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Install Plugins"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy, php-format
+#~| msgid "Install plugin"
+#~ msgid "Installing Plugin: %s"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Something went wrong, please try again later"
+#~ msgid "Something went wrong with the plugin API."
+#~ msgstr "Något gick fel, vänligen försök igen senare"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Begin installing plugin"
+#~ msgid_plural "Begin installing plugins"
+#~ msgstr[0] "Installera tillägg"
+#~ msgstr[1] "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Updated"
+#~ msgid "Update Required"
+#~ msgstr "Uppdaterad"
+
+#, fuzzy
+#~| msgid "adb"
+#~ msgctxt "plugin A *and* plugin B"
+#~ msgid "and"
+#~ msgstr "adb"
+
+#, fuzzy
+#~| msgid "comment"
+#~ msgid "Recommended"
+#~ msgstr "kommentar"
+
+#, fuzzy
+#~| msgid "External link"
+#~ msgid "External Source"
+#~ msgstr "Externa länkar"
+
+#, fuzzy
+#~| msgid "device_unknown"
+#~ msgctxt "as in: \"version nr unknown\""
+#~ msgid "unknown"
+#~ msgstr "device_unknown"
+
+#, fuzzy
+#~| msgid "Install plugin"
+#~ msgid "Installed version:"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy
+#~| msgid "Available post types"
+#~ msgid "Available version:"
+#~ msgstr "Tillgängliga inläggstyper"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Plugin"
+#~ msgstr "Plugin"
+
+#, fuzzy
+#~| msgid "extension"
+#~ msgid "Version"
+#~ msgstr "extension"
+
+#, fuzzy, php-format
+#~| msgid "Install plugin"
+#~ msgid "Install %2$s"
+#~ msgstr "Installera tillägg"
+
+#, fuzzy, php-format
+#~| msgid "Updated"
+#~ msgid "Update %2$s"
+#~ msgstr "Uppdaterad"
+
+#, fuzzy, php-format
+#~| msgid "Active"
+#~ msgid "Activate %2$s"
+#~ msgstr "Aktivera"
+
+#, fuzzy
+#~| msgid "Updated"
+#~ msgid "Update"
+#~ msgstr "Uppdaterad"
+
+#, fuzzy
+#~| msgid "Active"
+#~ msgid "Activate"
+#~ msgstr "Aktivera"
+
+#, fuzzy
+#~| msgid "Show as"
+#~ msgid "Show Details"
+#~ msgstr "Visa som"
+
+#, fuzzy
+#~| msgid "details"
+#~ msgid "Hide Details"
+#~ msgstr "details"
 
 #~ msgid "Text background"
 #~ msgstr "Textens bakgrund"

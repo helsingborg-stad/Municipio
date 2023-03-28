@@ -1,0 +1,50 @@
+[{
+    "key": "group_64227d79a7f57",
+    "title": "Quicklinks",
+    "fields": [
+        {
+            "key": "field_64227ca019e18",
+            "label": "Quicklinks placement",
+            "name": "quicklinks_after_content",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "If quicklinks are active on the site they are by default shown directly under the site header. Check this box to move them below the page content on this specific page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Display after page content",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
