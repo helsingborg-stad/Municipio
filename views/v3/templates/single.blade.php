@@ -52,11 +52,11 @@
     @includeIf('partials.loop')
 @show
 
-@includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
-
 @if ($placeQuicklinksAfterContent)
     @include('partials.navigation.fixed')
 @endif
+
+@includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
 @includeWhen(!empty($secondaryQuery), 'partials.secondary', [
     'posts' => $secondaryQuery->posts,
