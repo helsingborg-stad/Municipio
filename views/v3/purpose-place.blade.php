@@ -8,6 +8,9 @@
         ])
         @endhero
     @endif
+    @if (!$placeQuicklinksAfterContent)
+        @include('partials.navigation.fixed')
+    @endif
     <div class="o-container">
         @paper([
             'attributeList' => [
@@ -43,8 +46,11 @@
             @endgroup
         @endpaper
     </div>
-    @include('partials.navigation.fixed')
 @stop
+
+@if ($placeQuicklinksAfterContent)
+    @include('partials.navigation.fixed')
+@endif
 
 @section('helper-navigation')
 @stop
