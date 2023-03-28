@@ -126,10 +126,12 @@ class BaseController
         $this->data['languageMenuItems']            = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
         $this->data['siteselectorMenuItems']        = $siteselectorMenu->getMenuItems('siteselector-menu', $this->getPageID(), false, true, true);
 
-
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
+
+        //Quicklinks placement
+        $this->data['placeQuicklinksAfterContent'] = false;
 
         //Get language menu options
         $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();

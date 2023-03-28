@@ -4,7 +4,7 @@
 @stop
 
 @section('helper-navigation')
-@includeIf('partials.navigation.helper')
+    @includeIf('partials.navigation.helper')
 @stop
 
 @section('hero-top-sidebar')
@@ -54,6 +54,9 @@
 
 @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
+@if ($placeQuicklinksAfterContent)
+    @include('partials.navigation.fixed')
+@endif
 @includeWhen(!empty($secondaryQuery), 'partials.secondary', [
     'posts' => $secondaryQuery->posts,
     'postType' => $secondaryPostType,

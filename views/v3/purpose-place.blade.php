@@ -2,15 +2,20 @@
 
 
 @section('hero-top-sidebar')
-    @if(!empty($featuredImage->src[0]))
+    @if (!empty($featuredImage->src[0]))
         @hero([
-            'image' => $featuredImage->src[0],
+            'image' => $featuredImage->src[0]
         ])
         @endhero
     @endif
+    @if (!$placeQuicklinksAfterContent)
+        @include('partials.navigation.fixed')
+    @endif
     <div class="o-container">
         @paper([
-            'attributeList' => ['style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'],
+            'attributeList' => [
+                'style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'
+            ]
         ])
             @group([
                 'justifyContent' => 'space-between',
@@ -21,27 +26,31 @@
                 ])
                     @typography([
                         'element' => 'h1',
-                        'variant' => 'h1',
+                        'variant' => 'h1'
                     ])
-                    {{$post->postTitle}}
+                        {{ $post->postTitle }}
                     @endtypography
                     @typography([
                         'classList' => ['u-padding__top--4']
                     ])
-                    {!! $post->postContent !!}
+                        {!! $post->postContent !!}
                     @endtypography
                 @endgroup
                 @listing([
                     'list' => $list,
                     'icon' => false,
                     'classList' => ['unlist', 'u-padding__top--4@xs', 'u-padding__top--4@sm'],
-                    'padding' => 4,
+                    'padding' => 4
                 ])
                 @endlisting
             @endgroup
         @endpaper
     </div>
 @stop
+
+@if ($placeQuicklinksAfterContent)
+    @include('partials.navigation.fixed')
+@endif
 
 @section('helper-navigation')
 @stop
@@ -50,25 +59,25 @@
 @stop
 
 @section('below')
-    @foreach($relatedPosts as $postType => $posts) 
+    @foreach ($relatedPosts as $postType => $posts)
         <div class="o-grid">
             @group([
-                    'justifyContent' => 'space-between',
-                ])
+                'justifyContent' => 'space-between'
+            ])
                 @typography([
-                    'element' => 'h2',
+                    'element' => 'h2'
                 ])
-                    {{$labels['related']}} {{$postType}}
+                    {{ $labels['related'] }} {{ $postType }}
                 @endtypography
                 @if (!empty(get_post_type_archive_link($postType)))
                     @link([
-                        'href' => get_post_type_archive_link($postType),
+                        'href' => get_post_type_archive_link($postType)
                     ])
-                        {{$labels['showAll']}}
+                        {{ $labels['showAll'] }}
                     @endlink
                 @endif
             @endgroup
-            @foreach($posts as $post) 
+            @foreach ($posts as $post)
                 <div class="o-grid-4@md u-margin__bottom--8">
                     @segment([
                         'layout' => 'card',
@@ -77,7 +86,7 @@
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => 'Read more', 'href' => $post->permalink]],
                         'tags' => $post->terms,
-                        'meta' => $post->readingTime,
+                        'meta' => $post->readingTime
                     ])
                     @endsegment
                 </div>
