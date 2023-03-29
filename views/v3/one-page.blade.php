@@ -39,7 +39,7 @@
     @if ($placeQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
-    @includeWhen(!empty($secondaryQuery), 'partials.secondary', [
+    @includeWhen($displaySecondaryQuery, 'partials.secondary', [
         'posts' => $secondaryQuery->posts,
         'postType' => $secondaryPostType,
     ])
