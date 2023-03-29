@@ -33,7 +33,7 @@
 <body class="{{ $bodyClass }}" js-page-id="{{ $pageID }}"
     @if ($customizer->headerSticky === 'sticky') data-js-toggle-item="hamburger-menu"
             data-js-toggle-class="hamburger-menu-open" @endif>
-    <div class="site-wrapper u-display--grid">
+    <div class="site-wrapper">
 
         {{-- Site header --}}
         @section('site-header')
