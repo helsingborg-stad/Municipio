@@ -10,17 +10,19 @@ p.form-submit {
     max-width: unset;
 }
 
-.g-divider{
-    
+.g-divider {
+
     border-style: solid;
-    
-    &--lg{
+
+    &--lg {
         width: 100%;
-        margin-top:24px;
-        margin-bottom:24px;
+        margin-top: 24px;
+        margin-bottom: 24px;
     }
 
 }
 
 // Hides the google captcha badge.
-.grecaptcha-badge { visibility: hidden; }
+.grecaptcha-badge {
+    visibility: hidden;
+}

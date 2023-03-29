@@ -4,7 +4,7 @@
 @stop
 
 @section('helper-navigation')
-    @includeIf('partials.navigation.helper')
+    @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
 
 @section('hero-top-sidebar')

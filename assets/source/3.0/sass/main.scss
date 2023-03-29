@@ -1,4 +1,3 @@
-
 // ***************************************************************
 // *** Settings
 // ***************************************************************
@@ -78,6 +77,7 @@
 .u-mr-auto {
     margin-right: auto;
 }
+
 .u-ml-auto {
     margin-left: auto;
 }
@@ -92,6 +92,6 @@ main .c-sidebar .c-sidebar__subcontainer--top {
     margin-top: calc(#{$base} * 3);
 }
 
-div:first-child > .module-title {
+div:first-child>.module-title {
     margin-top: 0;
 }

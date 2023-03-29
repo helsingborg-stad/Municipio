@@ -99,11 +99,12 @@ class BaseController
         $mobileMenu             = new \Municipio\Helper\Navigation('mobile');
         $mobileMenuSeconday     = new \Municipio\Helper\Navigation('mobile-secondary');
 
+        //Helper nav placement
+        $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
+        //Breadcrumb items
+        $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         // Accessibility items
         $this->data['accessibilityItems']   = $accessibility->getAccessibilityItems($this->getPageID());
-
-        //Breadcrumb location helper
-        $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
 
         /* Navigation parameters
         string $menu,
