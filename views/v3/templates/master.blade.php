@@ -21,8 +21,8 @@
 
     @if ($structuredData)
         <script type="application/ld+json">
-                {!! $structuredData !!}
-            </script>
+        {!! $structuredData !!}
+        </script>
     @endif
 
     {{-- Wordpress required call to wp_header() --}}
@@ -43,7 +43,7 @@
         @show
 
         @includeWhen(!$helperNavBeforeContent, 'partials.navigation.helper', [
-            'classList' => ['u-order--9'],
+            'classList' => ['screen-reader-text'],
         ])
         {{-- Hero area and top sidebar --}}
         @hasSection('hero-top-sidebar')
