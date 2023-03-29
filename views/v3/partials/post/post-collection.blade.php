@@ -4,7 +4,6 @@
         'classList' => ['c-collection--posts', 'o-grid']
     ])
         @foreach ($posts as $post)
-        @php var_dump($post) @endphp
             @collection__item([
                 'link' => $post->permalink,
                 'classList' => [$gridColumnClass, 'c-collection__item--post'],
