@@ -192,56 +192,73 @@ class BaseController
 
         //Language
         $this->data['lang'] = (object) array(
-            'goToHomepage'          => __("Go to homepage", 'municipio'),
-            'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
-            'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
-            'skipToMainContent'     => __("Skip to the main content", 'municipio'),
-            'skipToMainMenu'        => __("Skip to the main menu", 'municipio'),
-            'skipToSideMenu'        => __("Skip to the side menu", 'municipio'),
-            'ago'                   => __("ago", 'municipio'),
-            'since'                 => __("since", 'municipio'),
-            'years'                 => __("years", 'municipio'),
-            'year'                  => __("year", 'municipio'),
-            'months'                => __("months", 'municipio'),
-            'month'                 => __("month", 'municipio'),
-            'weeks'                 => __("weeks", 'municipio'),
-            'week'                  => __("week", 'municipio'),
-            'days'                  => __("days", 'municipio'),
-            'day'                   => __("day", 'municipio'),
-            'hours'                 => __("hours", 'municipio'),
-            'hour'                  => __("hour", 'municipio'),
-            'minutes'               => __("minutes", 'municipio'),
-            'minute'                => __("minute", 'municipio'),
-            'seconds'               => __("seconds", 'municipio'),
-            'second'                => __("second", 'municipio'),
-            'search'                => __("Search", 'municipio'),
-            'searchOn'              => __("Search on", 'municipio'),
-            'searchQuestion'        => __("What are you searching for?", 'municipio'),
-            'primaryNavigation'     => __("Primary navigation", 'municipio'),
-            'hamburgerNavigation'   => __("Hamburger menu", 'municipio'),
-            'quicklinksNavigation'  => __("Useful links", 'municipio'),
-            'relatedLinks'          => __("Related links", 'municipio'),
-            'menu'                  => __("Menu", 'municipio'),
-            'emblem'                => __("Site emblem", 'municipio'),
-            'close'                 => __("Close", 'municipio'),
-            'moreLanguages'         => __("More Languages", 'municipio'),
-            'expand'                => __("Expand", 'municipio'),
-            'breadcrumbPrefix'      => __("You are here: ", 'municipio')
+        'goToHomepage'          => __("Go to homepage", 'municipio'),
+        'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
+        'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
+        'skipToMainContent'     => __("Skip to the main content", 'municipio'),
+        'skipToMainMenu'        => __("Skip to the main menu", 'municipio'),
+        'skipToSideMenu'        => __("Skip to the side menu", 'municipio'),
+        'ago'                   => __("ago", 'municipio'),
+        'since'                 => __("since", 'municipio'),
+        'years'                 => __("years", 'municipio'),
+        'year'                  => __("year", 'municipio'),
+        'months'                => __("months", 'municipio'),
+        'month'                 => __("month", 'municipio'),
+        'weeks'                 => __("weeks", 'municipio'),
+        'week'                  => __("week", 'municipio'),
+        'days'                  => __("days", 'municipio'),
+        'day'                   => __("day", 'municipio'),
+        'hours'                 => __("hours", 'municipio'),
+        'hour'                  => __("hour", 'municipio'),
+        'minutes'               => __("minutes", 'municipio'),
+        'minute'                => __("minute", 'municipio'),
+        'seconds'               => __("seconds", 'municipio'),
+        'second'                => __("second", 'municipio'),
+        'search'                => __("Search", 'municipio'),
+        'searchOn'              => __("Search on", 'municipio'),
+        'searchQuestion'        => __("What are you searching for?", 'municipio'),
+        'primaryNavigation'     => __("Primary navigation", 'municipio'),
+        'hamburgerNavigation'   => __("Hamburger menu", 'municipio'),
+        'quicklinksNavigation'  => __("Useful links", 'municipio'),
+        'relatedLinks'          => __("Related links", 'municipio'),
+        'menu'                  => __("Menu", 'municipio'),
+        'emblem'                => __("Site emblem", 'municipio'),
+        'close'                 => __("Close", 'municipio'),
+        'moreLanguages'         => __("More Languages", 'municipio'),
+        'expand'                => __("Expand", 'municipio'),
+        'breadcrumbPrefix'      => __("You are here: ", 'municipio')
         );
 
         //Wordpress hooks
         $this->data['hook'] = (object) array(
-            'innerLoopStart' => $this->hook('inner_loop_start'),
-            'innerLoopEnd' => $this->hook('inner_loop_end'),
-            'loopStart' => $this->hook('loop_start'),
-            'loopEnd' => $this->hook('loop_end')
+        'innerLoopStart' => $this->hook('inner_loop_start'),
+        'innerLoopEnd' => $this->hook('inner_loop_end'),
+        'loopStart' => $this->hook('loop_start'),
+        'loopEnd' => $this->hook('loop_end')
         );
 
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
 
+        add_filter('post_thumbnail_id', [$this, 'fallbackFeaturedImageToEmblem'], 10, 2);
+
         $this->init();
+    }
+    /**
+     * Fallback to emblem on archives if no featured image is set
+     *
+     * @param int $attachmentId
+     * @param object $post
+     * @return int
+     */
+    public function fallbackFeaturedImageToEmblem($attachmentId, $post)
+    {
+        if (0 == $attachmentId && ( is_home() || is_archive() )) {
+            $attachmentId = attachment_url_to_postid($this->getEmblem());
+        }
+
+        return $attachmentId;
     }
 
     /**
@@ -253,7 +270,7 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
-            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . ' / assets / images / broken_image . svg';
         }
         return $data;
     }
@@ -269,7 +286,7 @@ class BaseController
     {
         ob_start();
         do_action($hookKey);
-        return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
+        return apply_filters('Municipio / Hook / ' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
     }
 
     /**
@@ -279,7 +296,7 @@ class BaseController
      */
     public function getSiteName(): string
     {
-        return apply_filters('Municipio/SiteName', get_bloginfo('name'));
+        return apply_filters('Municipio / SiteName', get_bloginfo('name'));
     }
 
     /**
@@ -291,7 +308,7 @@ class BaseController
     {
         ob_start();
         wp_head();
-        return apply_filters('Municipio/HeaderHTML', ob_get_clean());
+        return apply_filters('Municipio / HeaderHTML', ob_get_clean());
     }
 
     /**
@@ -303,7 +320,7 @@ class BaseController
     {
         ob_start();
         wp_footer();
-        return apply_filters('Municipio/FooterHTML', ob_get_clean());
+        return apply_filters('Municipio / FooterHTML', ob_get_clean());
     }
 
     /**
@@ -377,10 +394,10 @@ class BaseController
      */
     public function getFloatingMenuLabels(): object
     {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating - menu'] ?? '');
 
         return (object) apply_filters(
-            'Municipio/FloatingMenuLabels',
+            'Municipio / FloatingMenuLabels',
             [
                 'heading' => get_field('floating_popup_heading', $menuObject),
                 'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
@@ -396,7 +413,7 @@ class BaseController
      */
     public function getLanguageMenuOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language - menu'] ?? '');
 
         $options = [
             'disclaimer'        => get_field('language_menu_disclaimer', $options),
@@ -413,7 +430,7 @@ class BaseController
      */
     public function getQuicklinksOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks - menu'] ?? '');
 
         $options = [
             'backgroundColor'   => get_field('quicklinks_background_color', $options),
@@ -461,8 +478,8 @@ class BaseController
       */
     protected function setSkipLinkValue()
     {
-        if ($this->data['pageTemplate'] === 'one-page.blade.php') {
-            return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
+        if ($this->data['pageTemplate'] === 'one - page . blade . php') {
+            return apply_filters('Municipio / Controller / SkipToMainContentLinkOnePage', '#main-content');
         }
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
     }
@@ -736,8 +753,8 @@ class BaseController
 
         //Get the logo, ensure url is defined.
         $logotypeUrl = isset($this->data['customizer']->$variantKey)
-            ? $this->data['customizer']->{$variantKey}
-            : '';
+        ? $this->data['customizer']->{$variantKey}
+        : '';
 
         if (empty($logotypeUrl) && $variantKey == "logotype") {
             $logotypeUrl = get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
