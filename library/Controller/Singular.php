@@ -320,9 +320,13 @@ class Singular extends \Municipio\Controller\BaseController
             return false;
         }
 
+        if (is_singular() && get_queried_object_id() == $postId) {
+            $size = 'full';
+        }
+
         $featuredImageObject = (object) [
         'id'    => $featuredImageId,
-        'src'   => wp_get_attachment_image_src($featuredImageId, $size),
+        'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
         'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
         'title' => get_the_title($featuredImageId)
         ];
