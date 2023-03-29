@@ -412,6 +412,7 @@ class Singular extends \Municipio\Controller\BaseController
 
     public function displayQuicklinksAfterContent($postId)
     {
-        return (bool) get_field('quicklinks_after_content', $postId);
+        $displayAfterContent = (bool) get_field('quicklinks_after_content', $postId);
+        return apply_filters('Municipio/Controller/Singular/displayQuicklinksAfterContent', $displayAfterContent, $postId);
     }
 }

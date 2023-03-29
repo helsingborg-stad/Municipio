@@ -46,11 +46,12 @@
             @endgroup
         @endpaper
     </div>
-@stop
 
-@if ($placeQuicklinksAfterContent)
-    @include('partials.navigation.fixed')
-@endif
+    @if ($placeQuicklinksAfterContent)
+        @include('partials.navigation.fixed')
+    @endif
+
+@stop
 
 @section('helper-navigation')
 @stop
