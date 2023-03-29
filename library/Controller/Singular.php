@@ -81,6 +81,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
 
         //Secondary Query
+
         $this->data = $this->setupSecondaryQueryData($this->data);
 
         $this->data['lang']->readingTime = __('Reading time', 'municipio');
@@ -92,9 +93,9 @@ class Singular extends \Municipio\Controller\BaseController
     {
         $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
         if ('' === $data['secondaryQuery'] || !$data['secondaryQuery']) {
-            $data['secondaryQuery']    = false;
-            $data['secondaryPostType'] = false;
-
+            $data['secondaryQuery']        = false;
+            $data['secondaryPostType']     = false;
+            $data['displaySecondaryQuery'] = false;
             return $data;
         }
 
@@ -133,6 +134,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['archiveResetUrl'] = home_url($currentPath);
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
+
+        $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', !empty($data['secondaryQuery']->posts));
 
         return $data;
     }
