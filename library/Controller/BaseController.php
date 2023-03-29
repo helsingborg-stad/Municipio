@@ -84,6 +84,7 @@ class BaseController
 
         //Init class for menus
         $breadcrumb         = new \Municipio\Helper\Navigation('breadcrumb');
+        $accessibility      = new \Municipio\Helper\Navigation('accessibility');
         $primary            = new \Municipio\Helper\Navigation('primary');
         $secondary          = new \Municipio\Helper\Navigation('sidebar');
         $hamburgerMenu      = new \Municipio\Helper\Navigation('hamburger-menu');
@@ -97,6 +98,9 @@ class BaseController
 
         $mobileMenu             = new \Municipio\Helper\Navigation('mobile');
         $mobileMenuSeconday     = new \Municipio\Helper\Navigation('mobile-secondary');
+
+        // Accessibility items
+        $this->data['accessibilityItems']   = $accessibility->getAccessibilityItems($this->getPageID());
 
         //Breadcrumb location helper
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
