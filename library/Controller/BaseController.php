@@ -135,9 +135,6 @@ class BaseController
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
 
-        //Quicklinks placement
-        $this->data['placeQuicklinksAfterContent'] = false;
-
         //Get language menu options
         $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();
 
@@ -242,6 +239,9 @@ class BaseController
         'loopEnd' => $this->hook('loop_end')
         );
 
+        //Quicklinks placement is set in Singular
+        $this->data['placeQuicklinksAfterContent'] = false;
+
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
@@ -275,7 +275,7 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
-            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . ' / assets / images / broken_image . svg';
+            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image . svg';
         }
         return $data;
     }
@@ -291,7 +291,7 @@ class BaseController
     {
         ob_start();
         do_action($hookKey);
-        return apply_filters('Municipio / Hook / ' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
+        return apply_filters('Municipio/Hook/' . \Municipio\Helper\FormatObject::camelCase($hookKey), ob_get_clean());
     }
 
     /**
@@ -301,7 +301,7 @@ class BaseController
      */
     public function getSiteName(): string
     {
-        return apply_filters('Municipio / SiteName', get_bloginfo('name'));
+        return apply_filters('Municipio/SiteName', get_bloginfo('name'));
     }
 
     /**
@@ -313,7 +313,7 @@ class BaseController
     {
         ob_start();
         wp_head();
-        return apply_filters('Municipio / HeaderHTML', ob_get_clean());
+        return apply_filters('Municipio/HeaderHTML', ob_get_clean());
     }
 
     /**
@@ -325,7 +325,7 @@ class BaseController
     {
         ob_start();
         wp_footer();
-        return apply_filters('Municipio / FooterHTML', ob_get_clean());
+        return apply_filters('Municipio/FooterHTML', ob_get_clean());
     }
 
     /**
@@ -402,7 +402,7 @@ class BaseController
         $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating - menu'] ?? '');
 
         return (object) apply_filters(
-            'Municipio / FloatingMenuLabels',
+            'Municipio/FloatingMenuLabels',
             [
             'heading' => get_field('floating_popup_heading', $menuObject),
             'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
@@ -484,7 +484,7 @@ class BaseController
     protected function setSkipLinkValue()
     {
         if ($this->data['pageTemplate'] === 'one - page . blade . php') {
-            return apply_filters('Municipio / Controller / SkipToMainContentLinkOnePage', '#main-content');
+            return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
         }
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');
     }
