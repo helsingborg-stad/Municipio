@@ -29,5 +29,34 @@ class Field
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'field_style_rounded_border_setting',
+            'label'       => esc_html__('Border', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices'     => [
+                ''   => esc_html__('No border', 'municipio'),
+                'rounded-border' => esc_html__('Border', 'municipio')
+            ],
+            'output' => [
+                [
+                  'type' => 'modifier',
+                  'context' => [
+                    'component.field',
+                    'component.select',
+                  ]
+                ]
+            ],
+            'active_callback'  => [
+                [
+                    'setting'  => 'field_style_settings',
+                    'operator' => '===',
+                    'value'    => 'rounded',
+                ]
+            ],
+        ]);
     }
 }
