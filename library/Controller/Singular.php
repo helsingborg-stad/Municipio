@@ -162,17 +162,23 @@ class Singular extends \Municipio\Controller\BaseController
     protected function getSecondaryTaxonomyFilters($args, array $data = [])
     {
         if (empty($args->enabledFilters)) {
-            return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', []);
+            return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', [], $data);
         }
 
-        $taxonomies = $args->enabledFilters;
+        $taxonomies = apply_filters('Municipio/secondaryQuery/enabledFilters', $args->enabledFilters, $data);
         $taxonomyObjects = [];
 
         foreach ($taxonomies as $tax) {
             $taxonomy = get_taxonomy($tax);
 
             if ($taxonomy) {
-                $terms = get_terms(['taxonomy' => $taxonomy->name]);
+                $terms = get_terms(
+                    apply_filters(
+                        'Municipio/secondaryQuery/getTermsArgs',
+                        ['taxonomy' => $taxonomy->name],
+                        $data
+                    )
+                );
 
                 if (!empty($terms) && !is_wp_error($terms)) {
                     $options = [];
@@ -193,7 +199,7 @@ class Singular extends \Municipio\Controller\BaseController
             }
         }
 
-        return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', $taxonomyObjects);
+        return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', $taxonomyObjects, $data);
     }
 
 
