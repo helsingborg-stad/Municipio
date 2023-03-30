@@ -1,4 +1,4 @@
-<div class="archive s-archive s-archive-secondary s-archive-template-{{ sanitize_title($secondaryTemplate) }}">
+<div class="o-container s-archive s-archive-secondary s-archive-template-{{ sanitize_title($secondaryTemplate) }}">
 
     {!! $hook->secondaryLoopStart !!}
 
