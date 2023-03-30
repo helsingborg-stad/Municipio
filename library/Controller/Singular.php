@@ -126,7 +126,7 @@ class Singular extends \Municipio\Controller\BaseController
         $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
         $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
         $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
-        $data['enabledFilters'] = $this->getTaxonomyFilters($secondaryArchiveProps, $data);
+        $data['enabledFilters'] = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
 
         $data['lang']->filterBtn        = __('Filter', 'municipio');
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
@@ -159,10 +159,10 @@ class Singular extends \Municipio\Controller\BaseController
      * @param array $data An optional array of data.
      * @return array An array of taxonomy objects.
      */
-    protected function getTaxonomyFilters($args, array $data = [])
+    protected function getSecondaryTaxonomyFilters($args, array $data = [])
     {
         if (empty($args->enabledFilters)) {
-            return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', []);
+            return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', []);
         }
 
         $taxonomies = $args->enabledFilters;
@@ -193,7 +193,7 @@ class Singular extends \Municipio\Controller\BaseController
             }
         }
 
-        return \apply_filters('Municipio/secondaryQuery/getTaxonomyFilters', $taxonomyObjects);
+        return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', $taxonomyObjects);
     }
 
 
