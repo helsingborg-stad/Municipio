@@ -124,31 +124,6 @@ class Quicklinks
       ]);
 
       Kirki::add_field(Customizer::KIRKI_CONFIG, [
-          'type'        => 'select',
-          'settings'    => 'quicklinks_alignment',
-          'label'       => esc_html__('Alignment', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => 'space-evenly',
-          'choices'     => [
-              'space-evenly' => esc_html__('Gap between', 'municipio'),
-              'center' => esc_html__('Center', 'municipio'),
-          ],
-          'output' => [
-              [
-                  'property' => '--c-quicklinks-alignment',
-                  'element' => '.s-nav-fixed'
-              ],
-          ],
-           'active_callback'  => [
-            [
-              'setting'  => 'quicklinks_appearance_type',
-              'operator' => '===',
-              'value'    => 'custom',
-            ]
-          ],
-      ]);
-
-      Kirki::add_field(Customizer::KIRKI_CONFIG, [
         'type'        => 'select',
         'settings'    => 'quicklinks_font',
         'label'       => esc_html__('Select font', 'municipio'),

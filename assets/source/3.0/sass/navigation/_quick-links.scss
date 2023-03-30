@@ -9,9 +9,6 @@ $c-quicklinks-font: var(--c-quicklinks-font, $font-family-base) !default;
 /* Gap */
 $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
-/* Alignment */
-$c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
-
 
 #quicklinks-header {
     z-index: $level-5;
@@ -38,7 +35,7 @@ $c-quicklinks-alignment: var(--c-quicklinks-alignment, space-evenly) !default;
     }
 
     .c-nav {
-        justify-content: $c-quicklinks-alignment;
+        justify-content: space-evenly;
         gap: calc($base * $c-quicklinks-gap);
 
         .c-nav__link {
