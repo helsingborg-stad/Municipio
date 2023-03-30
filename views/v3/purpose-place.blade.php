@@ -19,7 +19,8 @@
         ])
             @group([
                 'justifyContent' => 'space-between',
-                'classList' => ['u-padding--6', 'u-flex-direction--column@sm', 'u-flex-direction--column@xs']
+                'classList' => ['u-padding--6', 'u-flex-direction--column@sm', 'u-flex-direction--column@xs'],
+                'gap' => 8,
             ])
                 @group([
                     'direction' => 'vertical'
@@ -33,14 +34,15 @@
                     @typography([
                         'classList' => ['u-padding__top--4']
                     ])
-                        {!! $post->postContent !!}
+                        {!! $post->postContentFiltered !!}
                     @endtypography
                 @endgroup
                 @listing([
                     'list' => $list,
                     'icon' => false,
                     'classList' => ['unlist', 'u-padding__top--4@xs', 'u-padding__top--4@sm'],
-                    'padding' => 4
+                    'padding' => 4,
+                    'attributeList' => ['style' => 'flex:1 1 20%;']
                 ])
                 @endlisting
             @endgroup
