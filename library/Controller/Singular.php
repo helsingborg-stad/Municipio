@@ -111,7 +111,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
-            $currentPath,
+            '',
             $data['secondaryQuery']
         );
         $data['showSecondaryPagination'] = Archive::showPagination(
