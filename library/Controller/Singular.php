@@ -132,7 +132,7 @@ class Singular extends \Municipio\Controller\BaseController
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
         $data['lang']->noResult         = __('No items found.', 'municipio');
 
-        $data['archiveResetUrl'] = home_url($currentPath);
+        $data['archiveResetUrl'] = home_url(add_query_arg(array(), $currentPath));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
         $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', !empty($data['secondaryQuery']->posts));

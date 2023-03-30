@@ -33,7 +33,7 @@
             @if ($showFilterReset && $archiveResetUrl)
                 <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                     @button([
-                        'href' => $archiveResetUrl,
+                        'href' => "{$archiveResetUrl}#filter",
                         'text' => $lang->resetFilterBtn,
                         'type' => 'basic',
                         'classList' => ['u-display--block@xs', 'u-width--100@xs'],
