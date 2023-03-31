@@ -182,6 +182,8 @@ class Post
                             $item['href'] = get_term_link($term->term_id);
                         }
 
+                        $item['color'] = get_field('colour', $taxonomy . '_' . $term->term_id);
+
                         $termsList[] = $item;
                     }
                 }
