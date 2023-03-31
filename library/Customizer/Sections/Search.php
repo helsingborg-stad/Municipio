@@ -21,6 +21,7 @@ class Search
                 'mainmenu' => __('Option in main menu', 'municipio'),
                 'mobile' => __('Option in mobile menu', 'municipio'),
                 'hamburger_menu' => __('Hamburger menu', 'municipio'),
+                'quicklinks' => __('Quicklinks menu', 'municipio'),
             ],
             'output' => [[
                 'type' => 'controller',
@@ -29,7 +30,7 @@ class Search
             ]
         )));
 
-        
+
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'hero_search_position',
