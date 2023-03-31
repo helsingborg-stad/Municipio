@@ -158,6 +158,7 @@ class BaseController
         //Search
         $this->data['showHeaderSearch']         = $this->showSearchForm('header');
         $this->data['showNavigationSearch']     = $this->showSearchForm('navigation');
+        $this->data['showQuicklinksSearch']     = $this->showSearchForm('quicklinks');
         $this->data['showHamburgerMenuSearch']  = $this->showSearchForm('hamburger-menu');
         $this->data['showHeroSearch']           = $this->showSearchForm('hero');
         $this->data['showMobileSearch']         = $this->showSearchForm('mobile');
@@ -599,6 +600,10 @@ class BaseController
 
         if ($location == "hamburger-menu") {
             return in_array('hamburger_menu', $enabledLocations);
+        }
+
+        if ($location == "quicklinks") {
+            return in_array('quicklinks', $enabledLocations);
         }
 
         return false;
