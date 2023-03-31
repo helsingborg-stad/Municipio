@@ -36,7 +36,8 @@ class Post
             'permalink',
             'terms',
             'post_language',
-            'reading_time'
+            'reading_time',
+            'excerpt_shorter',
         )
     ) {
         //Check that a post object is entered
@@ -68,7 +69,7 @@ class Post
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
-                $postObject->excerpt_shorter = 
+                $postObject->excerpt_shorter =
                 wp_trim_words(
                     $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),

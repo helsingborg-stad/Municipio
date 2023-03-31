@@ -6,7 +6,7 @@
         'partials.archive.archive-filters-' . $secondaryPostType . '-secondary',
         'partials.archive.archive-filters-secondary',
     ])
-    @if (!empty($secondaryQuery->posts))
+    @if ($displaySecondaryQuery && !empty($secondaryQuery->posts))
         @includeIf("partials.post.post-{$secondaryTemplate}", ['posts' => $secondaryQuery->posts])
 
         @if ($showSecondaryPagination)
