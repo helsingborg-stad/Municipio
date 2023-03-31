@@ -12,7 +12,7 @@
 
     {{-- Search Form --}}
     @section('search-form')
-        @includeWhen($showNavigationSearch, 'partials.search.search-modal')
+        @includeWhen($showNavigationSearch || $showQuicklinksSearch, 'partials.search.search-modal')
     @show
 
     {{-- Navbars --}}
