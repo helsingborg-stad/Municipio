@@ -4,9 +4,10 @@
         'classList' => ['c-collection--posts', 'o-grid']
     ])
         @foreach ($posts as $post)
+        <div class="{{$gridColumnClass}}">
             @collection__item([
                 'link' => $post->permalink,
-                'classList' => [$gridColumnClass, 'c-collection__item--post'],
+                'classList' => ['c-collection__item--post'],
                 'containerAware' => true,
             ])
                @slot('before')
@@ -38,14 +39,16 @@
             @endgroup
                 @tags([
                     'tags' => $post->termsUnlinked,
-                    'classList' => ['u-padding__y--2']
+                    'classList' => ['u-padding__y--2'],
+                    'format' => false,
                 ])
                 @endtags
                 @typography([])
-                    {{ $post->excerptShort }}
+                    {{ $post->excerptShorter }}
                 @endtypography
             @endgroup
         @endcollection__item
+        </div>
         @endforeach
     @endcollection
 @endif
