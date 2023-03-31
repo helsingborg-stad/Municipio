@@ -68,6 +68,13 @@ class Post
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
+                $postObject->excerpt_shorter = 
+                wp_trim_words(
+                    $postObject->post_content,
+                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
+                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
+                );
+
                 //No content in post
                 if (empty($postObject->excerpt)) {
                     $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
