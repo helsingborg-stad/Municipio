@@ -184,7 +184,7 @@ class Singular extends \Municipio\Controller\BaseController
                     $options = [];
 
                     foreach ($terms as $term) {
-                        $options[$term->slug] = ucfirst($term->name);
+                        $options[$term->slug] = htmlspecialchars_decode(ucfirst($term->name));
                     }
 
                     $taxonomyObjects[] = [
