@@ -52,6 +52,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     }
 
     &.c-header--column {
+        padding: calc($base * .5) 0;
         .c-nav__link {
             padding: 0;
             display: flex;
