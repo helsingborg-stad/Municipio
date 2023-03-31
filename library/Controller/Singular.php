@@ -132,7 +132,7 @@ class Singular extends \Municipio\Controller\BaseController
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
         $data['lang']->noResult         = __('No items found.', 'municipio');
 
-        $data['archiveResetUrl'] = home_url(add_query_arg(array(), $currentPath));
+        $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
         $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', !empty($data['secondaryQuery']->posts));
@@ -184,7 +184,7 @@ class Singular extends \Municipio\Controller\BaseController
                     $options = [];
 
                     foreach ($terms as $term) {
-                        $options[$term->slug] = ucfirst($term->name);
+                        $options[$term->slug] = htmlspecialchars_decode(ucfirst($term->name));
                     }
 
                     $taxonomyObjects[] = [
