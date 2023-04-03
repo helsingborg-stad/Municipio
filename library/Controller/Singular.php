@@ -327,7 +327,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         if (is_singular() && get_queried_object_id() == $postId) {
-            $size = 'full';
+            $size = [2048, false];
         }
 
         $featuredImageObject = (object) [
