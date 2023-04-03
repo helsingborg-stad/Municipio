@@ -16,34 +16,32 @@
             'attributeList' => [
                 'style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'
             ],
-            'classList' => ['o-grid', 'u-padding--6']
+            'classList' => ['u-padding--6']
 
         ])
-            @group([
-                'direction' => 'vertical',
-                'classList' => ['o-grid-12@sm', 'o-grid-9@md', 'o-grid-9@lg']
-            ])
-                @typography([
-                    'element' => 'h1',
-                    'variant' => 'h1'
+            @typography([
+                'element' => 'h1',
+                'variant' => 'h1'
                 ])
-                    {{ $post->postTitle }}
-                @endtypography
-                @typography([
-                    'classList' => ['u-padding__top--4']
-                ])
+                {{ $post->postTitle }}
+            @endtypography
+            <div class="o-grid">
+            <div class="o-grid-12@sm o-grid-9@md o-grid-9@lg">
+                    @typography([
+                    ])
                     {!! $post->postContentFiltered !!}
-                @endtypography
-            @endgroup
+                    @endtypography
+                </div>
             <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
                 @listing([
                     'list' => $list,
                     'icon' => false,
-                    'classList' => ['unlist', 'u-padding__top--4@xs', 'u-padding__top--4@sm'],
+                    'classList' => ['unlist', 'u-padding__top--2@xs', 'u-padding__top--2@sm', 'u-margin__top--2'],
                     'padding' => 4,
                     ])
                 @endlisting
             </div>
+        </div>
         @endpaper
     </div>
 
