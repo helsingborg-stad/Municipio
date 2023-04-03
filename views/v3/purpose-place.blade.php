@@ -15,37 +15,35 @@
         @paper([
             'attributeList' => [
                 'style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'
-            ]
+            ],
+            'classList' => ['o-grid', 'u-padding--6']
+
         ])
             @group([
-                'justifyContent' => 'space-between',
-                'classList' => ['u-padding--6', 'u-flex-direction--column@sm', 'u-flex-direction--column@xs'],
-                'gap' => 8,
+                'direction' => 'vertical',
+                'classList' => ['o-grid-12@sm', 'o-grid-9@md', 'o-grid-9@lg']
             ])
-                @group([
-                    'direction' => 'vertical'
+                @typography([
+                    'element' => 'h1',
+                    'variant' => 'h1'
                 ])
-                    @typography([
-                        'element' => 'h1',
-                        'variant' => 'h1'
-                    ])
-                        {{ $post->postTitle }}
-                    @endtypography
-                    @typography([
-                        'classList' => ['u-padding__top--4']
-                    ])
-                        {!! $post->postContentFiltered !!}
-                    @endtypography
-                @endgroup
+                    {{ $post->postTitle }}
+                @endtypography
+                @typography([
+                    'classList' => ['u-padding__top--4']
+                ])
+                    {!! $post->postContentFiltered !!}
+                @endtypography
+            @endgroup
+            <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
                 @listing([
                     'list' => $list,
                     'icon' => false,
                     'classList' => ['unlist', 'u-padding__top--4@xs', 'u-padding__top--4@sm'],
                     'padding' => 4,
-                    'attributeList' => ['style' => 'flex:1 1 20%;']
-                ])
+                    ])
                 @endlisting
-            @endgroup
+            </div>
         @endpaper
     </div>
 
