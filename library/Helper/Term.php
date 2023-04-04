@@ -1,18 +1,21 @@
 <?php
 
-    namespace Municipio\Helper;
+namespace Municipio\Helper;
 
 class Term
 {
     /**
-     * `getTermColour` returns the colour of a term
+     * `getTermColour` returns the colour of a term.
+     * If no colour is set, it will return the colour of the first ancestor that has a colour set.
      *
-     * @param object term The term to get the colour for. Can be a term object, term ID or term slug.
+     * @param int|string|WP_Term $term The term to get the colour for. Can be a term object, term ID or term slug.
+     * @param string $taxonomy The taxonomy of the term. Default is an empty string.
      *
      * @return bool|string A string of the colour of the term in HEX format.
      */
     public static function getTermColour($term, string $taxonomy = '')
     {
+        // If no taxonomy is set $term must be a complete term object
         if ('' === $taxonomy && !is_a($term, 'WP_Term')) {
             return false;
         }
@@ -26,12 +29,24 @@ class Term
         }
 
         $colour = get_field('colour', $term);
-        if (is_string($colour) && !str_starts_with($colour, '#')) {
+        if ("" !== $colour && !str_starts_with($colour, '#')) {
             $colour = "#{$colour}";
+        } elseif ("" === $colour || !$colour) {
+            // Use the color and exit the foreach loop when a color is found on an ancestor term
+            $ancestors = get_ancestors($term->term_id, $term->taxonomy);
+            if (!empty($ancestors)) {
+                foreach ($ancestors as $ancestorId) {
+                    $colour = get_field('colour', 'term_' . $ancestorId);
+                    if ($colour) {
+                        return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
+                    }
+                }
+            }
         }
 
         return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
     }
+
     /**
      * Alias with American English spelling for getTermColour()
      */
