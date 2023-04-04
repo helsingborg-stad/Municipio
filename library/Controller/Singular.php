@@ -135,9 +135,21 @@ class Singular extends \Municipio\Controller\BaseController
         $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
-        $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', !empty($data['secondaryQuery']->posts));
+        $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', $this->displaySecondaryQuery($data['secondaryQuery']));
 
         return $data;
+    }
+    public function displaySecondaryQuery($secondaryQuery)
+    {
+        $display = false;
+
+        if (
+            !empty($secondaryQuery->posts)
+            || (class_exists('\wpPageForTerm\Helper\Post') && \wpPageForTerm\Helper\Post::isPageForTerm())
+        ) {
+            $display = true;
+        }
+        return $display;
     }
     public function prepareQuery($query)
     {
