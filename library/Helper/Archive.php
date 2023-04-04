@@ -102,6 +102,10 @@ class Archive
      */
     public static function showFilter($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         $arrayWithoutEmptyValues = isset($args->enabledFilters)
             ? array_filter($args->enabledFilters, fn($element) => !empty($element))
             : [];
@@ -121,6 +125,10 @@ class Archive
      */
     public static function enableTextSearch($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         return (bool) in_array(
             'text_search',
             isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
@@ -134,6 +142,10 @@ class Archive
      */
     public static function enableDateFilter($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         return (bool) in_array(
             'date_range',
             isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
@@ -141,6 +153,10 @@ class Archive
     }
     public static function getFacettingType($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         if (!isset($args->filterType) || is_null($args->filterType)) {
             $args->filterType = false;
         }
@@ -149,6 +165,10 @@ class Archive
 
     public static function displayReadingTime($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         if (!isset($args->readingTime)) {
             return false;
         }
@@ -157,6 +177,10 @@ class Archive
     }
     public static function displayFeaturedImage($args)
     {
+        if (!is_object($args)) {
+            $args = (object) [];
+        }
+
         if (!isset($args->displayFeaturedImage)) {
             return false;
         }
