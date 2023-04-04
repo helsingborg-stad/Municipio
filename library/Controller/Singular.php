@@ -24,7 +24,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         //Get feature image data
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [2048, 1024]);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1080, false]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
@@ -318,7 +318,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $size Name or array for size of image
      * @return array An array of data related to the image
      */
-    private function getFeaturedImage($postId, $size = [1920,1080])
+    private function getFeaturedImage($postId, $size = [1920,false])
     {
         //Check option if it should be displayed
         if (get_field('post_single_show_featured_image', $postId) == false) {
@@ -332,6 +332,7 @@ class Singular extends \Municipio\Controller\BaseController
         if (!is_numeric($featuredImageId)) {
             return false;
         }
+        var_dump(apply_filters('Municipio/Controller/Singular/featuredImageSize', $size));
 
         $featuredImageObject = (object) [
         'id'    => $featuredImageId,
