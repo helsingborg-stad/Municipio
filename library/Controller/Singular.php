@@ -24,7 +24,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         //Get feature image data
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [4096, false]);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [2048, 1024]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
@@ -99,7 +99,14 @@ class Singular extends \Municipio\Controller\BaseController
             return $data;
         }
 
-        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $queryStr = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        parse_str($queryStr, $queries);
+        if (isset($queries['paged'])) {
+            unset($queries['paged']);
+        }
+        $queryStr = build_query($queries);
+        $data['secondaryPaginationLinkPrefix'] = $queryStr . '&paged=' ?? 'paged=';
+
         $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 
         $data['secondaryPostType']       = $secondaryPostType;
@@ -111,11 +118,11 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
-            '',
+            "",
             $data['secondaryQuery']
         );
         $data['showSecondaryPagination'] = Archive::showPagination(
-            $currentPath,
+            "",
             $data['secondaryQuery']
         );
 
