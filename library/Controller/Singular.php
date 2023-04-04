@@ -332,13 +332,12 @@ class Singular extends \Municipio\Controller\BaseController
         if (!is_numeric($featuredImageId)) {
             return false;
         }
-        var_dump(apply_filters('Municipio/Controller/Singular/featuredImageSize', $size));
 
         $featuredImageObject = (object) [
-        'id'    => $featuredImageId,
-        'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
-        'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
-        'title' => get_the_title($featuredImageId)
+            'id'    => $featuredImageId,
+            'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
+            'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
+            'title' => get_the_title($featuredImageId)
         ];
 
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
