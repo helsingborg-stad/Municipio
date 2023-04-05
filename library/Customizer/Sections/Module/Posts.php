@@ -68,5 +68,31 @@ class Posts
               ]
           ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'switch',
+          'settings'    => 'mod_posts_display_post_icon',
+          'label'       => esc_html__('Display term icon', 'municipio'),
+          'description' => esc_html__('Display an icon on the post if the post has a term with an icon set', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => 'off',
+          'priority'    => 10,
+          'choices'     => [
+            'on' => __('On', 'municipio'),
+            'off' => __('Off', 'municipio'),
+          ],
+          'output' => [
+              [
+                'type' => 'component_data',
+                'dataKey' => 'displayIcon',
+                'context' => [
+                  'module.posts.index',
+                  'module.posts.segment',
+                  'module.posts.block',
+                  'module.posts.collection'
+                ]
+              ]
+          ],
+        ]);
     }
 }
