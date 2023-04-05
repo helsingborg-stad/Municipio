@@ -89,9 +89,9 @@ class Posts
                   'module.posts.index',
                   'module.posts.segment',
                   'module.posts.block',
-                  'module.posts.collection'
+                  'module.posts.collection__item'
                 ]
-              ]
+              ],
           ],
         ]);
     }
