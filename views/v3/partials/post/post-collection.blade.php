@@ -17,7 +17,8 @@
                                 'alt' => $post->thumbnail['alt'],
                                 'placeholderIconSize' => 'sm',
                                 'placeholderIcon' => 'image',
-                                'placeholderText' => ''
+                                'placeholderText' => '',
+                                'classList' => ['u-width--100'],
                             ])
                             @endimage
                         @endif
