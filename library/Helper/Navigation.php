@@ -308,6 +308,10 @@ class Navigation
 
         if (is_array($elements) && !empty($elements)) {
             foreach ($elements as $element) {
+                if (!isset($element['post_parent']) || !isset($element['id'])) {
+                    continue;
+                }
+
                 if ($element['post_parent'] == $parentId) {
                     $children = $this->buildTree($elements, $element['id']);
 
