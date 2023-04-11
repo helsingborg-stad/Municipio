@@ -1,11 +1,21 @@
 @if (!empty($mobileMenuItems))
 @drawer([
+    'toggleButtonData' => [
+        'id' => 'mobile-menu-trigger-open',
+        'color' => 'default',
+        'style' => 'basic',
+        'icon' => 'menu',
+        'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
+        'classList' => ['mobile-menu-trigger'],
+        'attributeList' => ['aria-label' => $lang->menu],
+    ],
     'id' => 'drawer',
+    'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
-        !$customizer->showMobileMenuOnAllScreens ? ' u-display--none@lg' : ''
     ],
-    'label' => $lang->close
+    'label' => $lang->close,
+    'screenSizes' => $customizer->drawerScreenSizes
 ])
 
     @slot('search')

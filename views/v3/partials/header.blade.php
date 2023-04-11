@@ -8,8 +8,6 @@
 
 @endheader
 
-@includeIf('partials.navigation.drawer')
-
 @includeIf('partials.hero')
 
 @includeIf('partials.sidebar', ['id' => 'top-sidebar'])
