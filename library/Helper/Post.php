@@ -176,7 +176,7 @@ class Post
                     foreach ($terms as $term) {
                         $item = [];
 
-                        $item['label'] = strtolower($term->name);
+                        $item['label'] = $term->name ?? '';
 
                         if ($includeLink) {
                             $item['href'] = get_term_link($term->term_id);
