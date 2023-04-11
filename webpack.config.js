@@ -84,8 +84,8 @@ module.exports = {
              */
             {
                 test: /\.ts?$/,
-                use: 'ts-loader',
-                exclude: /node_modules\/(?!(@helsingborg-stad\/styleguide\/source)\/).*/,
+                loader: 'ts-loader',
+                options: { allowTsInNodeModules: true }
             },
             /**
              * Styles

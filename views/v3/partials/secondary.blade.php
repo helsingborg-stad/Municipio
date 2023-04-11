@@ -14,7 +14,7 @@
                 'list' => $secondaryPaginationList,
                 'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
                 'current' => $currentPage,
-                'linkPrefix' => '?paged=',
+                'linkPrefix' => "?$secondaryPaginationLinkPrefix",
                 'anchorTag' => '#filter'
             ])
             @endpagination
