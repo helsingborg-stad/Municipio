@@ -237,7 +237,9 @@ class BaseController
         'innerLoopStart' => $this->hook('inner_loop_start'),
         'innerLoopEnd' => $this->hook('inner_loop_end'),
         'loopStart' => $this->hook('loop_start'),
-        'loopEnd' => $this->hook('loop_end')
+        'loopEnd' => $this->hook('loop_end'),
+        'secondaryLoopStart' => $this->hook('secondary_loop_start'),
+        'secondaryLoopEnd' => $this->hook('secondary_loop_end')
         );
 
         //Quicklinks placement is set in Singular
