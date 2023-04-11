@@ -15,7 +15,6 @@ class Archive extends \Municipio\Controller\BaseController
     private static $gridRow = array();
     private static $gridColumns = array();
 
-
     public function init()
     {
         parent::init();
@@ -73,11 +72,6 @@ class Archive extends \Municipio\Controller\BaseController
         //Show filter?
         $this->data['showFilter']               = $this->showFilter($this->data['archiveProps']);
 
-        //Language
-        if (!isset($this->data['lang'])) {
-            $this->data['lang'] = (object) [];
-        }
-
         //Archive menu
         $archiveMenu = new \Municipio\Helper\Navigation('archive-menu');
         $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
@@ -87,6 +81,11 @@ class Archive extends \Municipio\Controller\BaseController
             true,
             true
         );
+        
+        //Language
+        if (!isset($this->data['lang'])) {
+            $this->data['lang'] = (object) [];
+        }
 
         $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio');
         $this->data['lang']->publish          = __('Published', 'municipio');
@@ -106,7 +105,9 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
     }
 
-
+    /**
+     * Get the current therm colour
+     */
     public function getCurrentTermColour()
     {
         if (!is_tax()) {
@@ -115,6 +116,10 @@ class Archive extends \Municipio\Controller\BaseController
         $term = get_queried_object();
         return \Municipio\Helper\Term::getTermColour($term->term_id, $term->taxonomy);
     }
+
+    /**
+     * Get the current term icon
+     */
     public function getCurrentTermIcon()
     {
         if (!is_tax()) {
@@ -137,6 +142,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         return \Municipio\Helper\Archive::getArchiveProperties($postType, $customize);
     }
+
     /**
      * Camel case post type name
      *
