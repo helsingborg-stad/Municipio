@@ -24,7 +24,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         //Get feature image data
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1080, false]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
@@ -99,7 +99,14 @@ class Singular extends \Municipio\Controller\BaseController
             return $data;
         }
 
-        $currentPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $queryStr = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+        parse_str($queryStr, $queries);
+        if (isset($queries['paged'])) {
+            unset($queries['paged']);
+        }
+        $queryStr = build_query($queries);
+        $data['secondaryPaginationLinkPrefix'] = $queryStr . '&paged=' ?? 'paged=';
+
         $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 
         $data['secondaryPostType']       = $secondaryPostType;
@@ -111,11 +118,11 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
-            '',
+            "",
             $data['secondaryQuery']
         );
         $data['showSecondaryPagination'] = Archive::showPagination(
-            $currentPath,
+            "",
             $data['secondaryQuery']
         );
 
@@ -311,7 +318,7 @@ class Singular extends \Municipio\Controller\BaseController
      * @param $size Name or array for size of image
      * @return array An array of data related to the image
      */
-    private function getFeaturedImage($postId, $size = [1920,1080])
+    private function getFeaturedImage($postId, $size = [1920,false])
     {
         //Check option if it should be displayed
         if (get_field('post_single_show_featured_image', $postId) == false) {
@@ -326,15 +333,11 @@ class Singular extends \Municipio\Controller\BaseController
             return false;
         }
 
-        if (is_singular() && get_queried_object_id() == $postId) {
-            $size = 'full';
-        }
-
         $featuredImageObject = (object) [
-        'id'    => $featuredImageId,
-        'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
-        'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
-        'title' => get_the_title($featuredImageId)
+            'id'    => $featuredImageId,
+            'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
+            'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
+            'title' => get_the_title($featuredImageId)
         ];
 
         return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
