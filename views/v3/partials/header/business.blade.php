@@ -38,8 +38,8 @@
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
             
-            {{-- Mobile menu trigger --}}
-            @includeWhen(!empty($mobileMenuItems), 'partials.navigation.trigger.mobile')
+            {{-- Drawer menu --}}
+            @includeIf('partials.navigation.drawer')
 
         </div>
     </div>
@@ -82,6 +82,5 @@
 
     {{-- Hamburger menu --}}
     @includeIf('partials.navigation.hamburgermenu')
+    
 @stop
-
-@includeIf('partials.navigation.drawer')
