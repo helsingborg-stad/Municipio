@@ -247,26 +247,8 @@ class BaseController
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 2);
 
-        add_filter('post_thumbnail_id', [$this, 'fallbackFeaturedImageToEmblem'], 10, 2);
-
         $this->init();
     }
-    /**
-     * Fallback to emblem on archives if no featured image is set
-     *
-     * @param int $attachmentId
-     * @param object $post
-     * @return int
-     */
-    public function fallbackFeaturedImageToEmblem($attachmentId, $post)
-    {
-        if (0 == $attachmentId && (is_home() || is_archive())) {
-            $attachmentId = attachment_url_to_postid($this->getEmblem());
-        }
-
-        return $attachmentId;
-    }
-
     /**
      * Get the emblem to use
      *
