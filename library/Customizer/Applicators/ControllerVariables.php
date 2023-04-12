@@ -58,7 +58,7 @@ class ControllerVariables
                                 $cb->value = '"' . $cb->value . '"';
                             }
 
-                            if (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
+                            if ('contains' !== $cb->operator && eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
                                 $shouldReturn = true;
                             }
                         }
@@ -87,7 +87,7 @@ class ControllerVariables
    */
     private function isValidOperator($operator): bool
     {
-        if (in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
+        if (in_array((string) $operator, ['contains', '==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
             return true;
         }
         return false;
@@ -178,7 +178,7 @@ class ControllerVariables
      * @param string $santizationString
      * @return string
      */
-    private function sanitizeStackItemName($name, $santizationString) 
+    private function sanitizeStackItemName($name, $santizationString)
     {
         return str_replace($santizationString, '', $name);
     }
