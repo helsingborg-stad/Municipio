@@ -6,17 +6,23 @@
         'action' => "#filter"
         ])
         <div class="o-grid u-align-content--end">
-            @foreach ($enabledFilters as $filterType)
+            @foreach ($enabledFilters as $filter)
                 <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md">
-                    @filterSelect([
-                        'label' => $filterType['label'],
-                        'name' => $filterType['attributeList']['name'] ?? '',
-                        'required' => $filterType['required'],
-                        'options' => $filterType['options'],
-                        'preselected' => $filterType['preselected'],
-                        'placeholder' => $filterType['label']
-                    ])
-                    @endfilterSelect
+                    @if ('multi' === $filter['fieldType'])
+                        @filterSelect([
+                            'label' => $filter['label'],
+                            'name' => $filter['attributeList']['name'] ?? '',
+                            'required' => $filter['required'],
+                            'options' => $filter['options'],
+                            'preselected' => $filter['preselected'],
+                            'placeholder' => $filter['label']
+                        ])
+                        @endfilterSelect
+                    @else
+                        @select($filter)
+                        @endselect
+                    @endif
+
                 </div>
             @endforeach
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">

@@ -206,11 +206,14 @@ class Singular extends \Municipio\Controller\BaseController
                         $options[$term->slug] = htmlspecialchars_decode(ucfirst($term->name));
                     }
 
+                    $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
+
                     $taxonomyObjects[] = [
                         'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
                         'attributeList' => [
                            'name' => "{$taxonomy->name}[]"
                         ],
+                        'fieldType' => $args->{$tax . "FilterFieldType"} ?? 'single',
                         'options' => $options,
                         'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
                     ];
