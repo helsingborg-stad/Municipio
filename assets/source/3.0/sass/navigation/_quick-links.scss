@@ -14,6 +14,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     z-index: $level-5;
     background-color: #{$c-quicklinks-background-color};
     font-family: $c-quicklinks-font;
+    margin-bottom: calc($base * 5);
 
     &.c-header--primary {
         --c-quicklinks-background-color: #{$color-white};
