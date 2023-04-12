@@ -176,7 +176,7 @@ class Archive
             foreach ($archive->taxonomies as $key => $label) :
                 \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'select',
-                'settings'    => 'archive_' . $archive->name . '_' . $key . '_enabled_filter_field_type',
+                'settings'    => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
                 'label'       => esc_html__('Filter field type', 'municipio') . ' (' . $label . ')',
                 'description' => sprintf(esc_html__('What field type to use for the "%s" filter.', 'municipio'), $label),
                 'section'     => $sectionID,

@@ -53,18 +53,20 @@ class ControllerVariables
                                 trigger_error("Provided value in active callback for is not valid, should be a string matching (a-z _ - digits).", E_USER_ERROR);
                             }
 
-                            //Create compare string
-                            if (is_string($cb->value)) {
-                                $cb->value = '"' . $cb->value . '"';
-                            }
-
+                            // Handle "contains" operator
                             if ('contains' == $cb->operator) {
-                                $value = (array) \Kirki::get_option("' . $cb->setting . '");
+                                $value = (array) \Kirki::get_option($cb->setting);
                                 if (in_array($cb->value, $value)) {
                                     $shouldReturn = true;
                                 }
-                            } elseif (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
-                                $shouldReturn = true;
+                            } else {
+                                //Create compare string
+                                if (is_string($cb->value)) {
+                                    $cb->value = '"' . $cb->value . '"';
+                                }
+                                if (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
+                                    $shouldReturn = true;
+                                }
                             }
                         }
 
