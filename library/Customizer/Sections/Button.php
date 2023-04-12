@@ -4,7 +4,7 @@ namespace Municipio\Customizer\Sections;
 
 use Municipio\Helper\KirkiConditional as KirkiConditional;
 use Municipio\Customizer as Customizer;
-use Kirki as Kirki;
+use Kirki\Compatibility\Kirki;
 
 class Button
 {
@@ -105,5 +105,45 @@ class Button
                 ]
             ],
         ], ['label' => esc_html__('Tailor Color: Default', 'municipio'), 'settings' => 'button_default_color_active']);
+
+        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, $this->getShapeFieldAttributes($sectionID));
+    }
+
+    public function getShapeFieldAttributes(string $sectionID)
+    {
+        return [
+            'type' => 'select',
+            'settings' => 'button_shape',
+            'label' => esc_html__('Button shape', 'municipio'),
+            'description' => esc_html__('Choose the shape of the buttons.', 'municipio'),
+            'choices' => $this->getShapeOptions(),
+            'default' => $this->getShapeDefaultValue(),
+            'section' => $sectionID,
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'shape',
+                    'context' => [
+                        [
+                            'context' => 'component.button',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    public function getShapeDefaultValue()
+    {
+        return 'default';
+    }
+
+    public function getShapeOptions()
+    {
+        return [
+            'default' => esc_html__('Standard', 'municipio'),
+            'pill' => esc_html__('Pill', 'municipio')
+        ];
     }
 }
