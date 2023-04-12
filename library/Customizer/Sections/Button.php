@@ -106,7 +106,7 @@ class Button
             ],
         ], ['label' => esc_html__('Tailor Color: Default', 'municipio'), 'settings' => 'button_default_color_active']);
 
-        KirkiConditional::add_field(Customizer::KIRKI_CONFIG, $this->getShapeFieldAttributes($sectionID));
+        Kirki::add_field(Customizer::KIRKI_CONFIG, $this->getShapeFieldAttributes($sectionID));
     }
 
     public function getShapeFieldAttributes(string $sectionID)
