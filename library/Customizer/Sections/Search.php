@@ -58,5 +58,38 @@ class Search
                 ]
             ],
         ]);
+
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->getSearchFormShapeFieldAttributes($sectionID));
+    }
+
+    public function getSearchFormShapeFieldAttributes(string $sectionID) {
+        return [
+            'type'        => 'select',
+            'settings'    => 'search_form_shape',
+            'label'       => esc_html__('Search form shape', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => $this->getSearchFormShapeDefaultValue(),
+            'priority'    => 10,
+            'choices'     => $this->getSearchFormShapeOptions(),
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['search.form'],
+                ]
+            ],
+        ];
+    }
+
+    public function getSearchFormShapeDefaultValue(): string
+    {
+        return 'default';
+    }
+
+    public function getSearchFormShapeOptions(): array
+    {
+        return [
+            'default' => __('Default', 'municipio'),
+            'pill' => __('Pill', 'municipio'),
+        ];
     }
 }
