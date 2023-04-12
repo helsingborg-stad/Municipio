@@ -58,7 +58,12 @@ class ControllerVariables
                                 $cb->value = '"' . $cb->value . '"';
                             }
 
-                            if ('contains' !== $cb->operator && eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
+                            if ('contains' == $cb->operator) {
+                                $value = (array) \Kirki::get_option("' . $cb->setting . '");
+                                if (in_array($cb->value, $value)) {
+                                    $shouldReturn = true;
+                                }
+                            } elseif (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
                                 $shouldReturn = true;
                             }
                         }
