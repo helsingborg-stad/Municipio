@@ -17,6 +17,7 @@ class Navigation
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
+        add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleButtons'), 10, 2);
     }
 
     public static function getMenuLocations() {
@@ -48,6 +49,24 @@ class Navigation
 
         if(isset($item['style'])) {
             $item['style'] = 'tiles';
+        }
+
+        return $item; 
+    }
+
+    /**
+     * Force the item style to "tiles" on selected menus
+     */
+    public function forceItemStyleButtons($item, $identifier)
+    {
+        $targetMenuIdentifiers = ['tab'];
+
+        if (!in_array($identifier, $targetMenuIdentifiers)) {
+            return $item;
+        }
+
+        if(isset($item['style'])) {
+            $item['style'] = 'button';
         }
 
         return $item; 
