@@ -11,7 +11,7 @@
         ])
             <div class="o-grid-12">
                 @if($showHamburgerMenuSearch)
-                    @form(['method' => 'get', 'action' => '/'])
+                    @form(['method' => 'get', 'action' => '/', 'classList' => ['search-form']])
                         <label for="hamburger-menu-search" class="u-sr__only">
                             {{ $lang->searchOn . " " . $siteName }}
                         </label>

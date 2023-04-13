@@ -9,7 +9,7 @@
     @form([
         'method' => 'get',
         'action' => $homeUrl,
-        'classList' => ['c-form--hidden'],
+        'classList' => ['search-form', 'c-form--hidden'],
         'id' => 'modal-search-form'
     ])
 

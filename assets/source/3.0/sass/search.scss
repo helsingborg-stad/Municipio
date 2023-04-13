@@ -1,4 +1,5 @@
-$search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
+$search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-radius, $border-radius-xs)) !default;
+// $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
   
 #sidebar-slider-area--container {
   position: relative;
@@ -29,7 +30,6 @@ $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 
       .c-field__inner {
         border:none;
-        border-radius: $search-border-radius 0 0 $search-border-radius;
       }
 
       #hero-search-form__field {
@@ -91,6 +91,25 @@ $search-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 #mobile-search-form .c-field__inner {
   border-radius: inherit;
   border: none;
+}
+
+#modal-search-form,
+#hero-search-form,
+#header-search-form,
+#menu-hamburger,
+#mobile-search-form {
+  
+  &.c-form.search-form,
+  .c-form {
+    .c-field__inner,
+    .c-field__inner input:focus + .c-field_focus-styler {
+      border-radius: $search-border-radius 0 0 $search-border-radius; 
+    }
+  
+    .c-button {
+      border-radius: 0 $search-border-radius $search-border-radius 0;
+    }
+  }
 }
 
 @media print {
