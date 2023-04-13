@@ -39,6 +39,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         //Filter options
         $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
+
         $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
         $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
         $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
@@ -81,7 +82,7 @@ class Archive extends \Municipio\Controller\BaseController
             true,
             true
         );
-        
+
         //Language
         if (!isset($this->data['lang'])) {
             $this->data['lang'] = (object) [];
@@ -455,15 +456,18 @@ class Archive extends \Municipio\Controller\BaseController
                     }
                 }
 
+                $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
+
                 //Data
                 $taxonomyObject = [
-                'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                'required' => false,
-                'attributeList' => [
-                    'type' => 'text',
-                    'name' => $taxonomy->name
-                ],
-                'options' => $options
+                    'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                    'required' => false,
+                    'attributeList' => [
+                        'type' => 'text',
+                        'name' => $taxonomy->name
+                    ],
+                    'fieldType' => $args->{$tax . "FilterFieldType"} ?? 'single',
+                    'options' => $options
                 ];
 
                 if (isset($_GET[$taxonomy->name])) {

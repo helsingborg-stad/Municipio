@@ -53,13 +53,20 @@ class ControllerVariables
                                 trigger_error("Provided value in active callback for is not valid, should be a string matching (a-z _ - digits).", E_USER_ERROR);
                             }
 
-                            //Create compare string
-                            if (is_string($cb->value)) {
-                                $cb->value = '"' . $cb->value . '"';
-                            }
-
-                            if (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
-                                $shouldReturn = true;
+                            // Handle "contains" operator
+                            if ('contains' == $cb->operator) {
+                                $value = (array) \Kirki::get_option($cb->setting);
+                                if (in_array($cb->value, $value)) {
+                                    $shouldReturn = true;
+                                }
+                            } else {
+                                //Create compare string
+                                if (is_string($cb->value)) {
+                                    $cb->value = '"' . $cb->value . '"';
+                                }
+                                if (eval('return \Kirki::get_option("' . $cb->setting . '") ' . $cb->operator . ' ' . $cb->value . ';')) {
+                                    $shouldReturn = true;
+                                }
                             }
                         }
 
@@ -87,7 +94,7 @@ class ControllerVariables
    */
     private function isValidOperator($operator): bool
     {
-        if (in_array((string) $operator, ['==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
+        if (in_array((string) $operator, ['contains', '==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
             return true;
         }
         return false;
@@ -178,7 +185,7 @@ class ControllerVariables
      * @param string $santizationString
      * @return string
      */
-    private function sanitizeStackItemName($name, $santizationString) 
+    private function sanitizeStackItemName($name, $santizationString)
     {
         return str_replace($santizationString, '', $name);
     }

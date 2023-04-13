@@ -172,7 +172,35 @@ class Archive
                 ]
             ],
         ]);
-
+        if (!empty($archive->taxonomies)) {
+            foreach ($archive->taxonomies as $key => $label) :
+                \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                'type'        => 'select',
+                'settings'    => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
+                'label'       => esc_html__('Filter field type', 'municipio') . ' (' . $label . ')',
+                'description' => sprintf(esc_html__('What field type to use for the "%s" filter.', 'municipio'), $label),
+                'section'     => $sectionID,
+                'choices'     => [
+                    'multi' => esc_html__('Multiselect', 'kirki'),
+                    'single' => esc_html__('Single select', 'municipio'),
+                ],
+                'default'     => 'multi',
+                'output' => [
+                    [
+                        'type' => 'controller',
+                        'as_object' => true,
+                    ]
+                ],
+                'active_callback' => [
+                    [
+                        'setting'  => 'archive_' . $archive->name . '_enabled_filters',
+                        'operator' => 'contains',
+                        'value'    => $key,
+                    ]
+                ],
+                ]);
+            endforeach;
+        }
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_filter_type',
