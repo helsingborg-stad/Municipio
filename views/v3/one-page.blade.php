@@ -40,7 +40,7 @@
         @include('partials.navigation.fixed')
     @endif
     @includeWhen($displaySecondaryQuery, 'partials.secondary', [
-        'posts' => $secondaryQuery->posts,
-        'postType' => $secondaryPostType,
+        'posts' => $secondaryQuery->posts ?? [],
+        'postType' => $secondaryPostType ?? null,
     ])
 @stop
