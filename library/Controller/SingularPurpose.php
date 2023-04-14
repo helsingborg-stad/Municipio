@@ -56,27 +56,30 @@ class SingularPurpose extends \Municipio\Controller\Singular
             foreach ($other as $item) {
                 $this->data['list'][] = $this->createListItem($item->name, $item->icon['src']);
             }
-        }        
+        }
 
         $this->data['labels'] = [
             'related' => __('Related', 'municipio'),
             'showAll' => __('Show all', 'municipio'),
+            'readMore' => __('Read more', 'municipio'),
         ];
 
         $postId = $this->data['post']->id;
-        $this->data['relatedPosts'] = $this->getRelatedPosts($postId); 
+        $this->data['relatedPosts'] = $this->getRelatedPosts($postId);
 
         return $this->data;
     }
 
-    private function buildMapsLink($locations) {
+    private function buildMapsLink($locations)
+    {
         if (empty($locations) || empty($locations['lng']) || empty($locations['lat'])) {
             return false;
         }
         return 'https://www.google.com/maps/dir/?api=1&destination=' . $locations['lat'] . ',' . $locations['lng'] . '&travelmode=transit';
     }
 
-    private function getRelatedPosts($postId) {
+    private function getRelatedPosts($postId)
+    {
         $taxonomies = get_post_taxonomies($postId);
         $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
@@ -85,7 +88,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    $arr[$taxonomy][] = $term->term_id;                 
+                    $arr[$taxonomy][] = $term->term_id;
                 }
             }
         }
@@ -93,7 +96,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
         if (empty($arr)) {
             return false;
         }
-        
+
         $posts = [];
         foreach ($postTypes as $postType) {
             $args = array(
@@ -115,7 +118,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
             }
 
             $result = get_posts($args);
-            
+
             if (!empty($result)) {
                 foreach ($result as &$post) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
@@ -127,15 +130,17 @@ class SingularPurpose extends \Municipio\Controller\Singular
         return $posts;
     }
 
-    private function createListItem ($label, $icon, $href = false) {
+    private function createListItem($label, $icon, $href = false)
+    {
         if (!empty($label) && $label != " ") {
             return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
         }
-        
+
         return false;
     }
 
-    private function getTermNames ($termIds) {
+    private function getTermNames($termIds)
+    {
         if (empty($termIds)) {
             return false;
         }
@@ -143,8 +148,8 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $terms = array();
         foreach ($termIds as $termId) {
             $term = get_term($termId);
-            if(!$term || is_wp_error($term)) { 
-                continue; 
+            if (!$term || is_wp_error($term)) {
+                continue;
             }
             $term->icon = TermHelper::getTermIcon($term);
             $terms[] = $term;
