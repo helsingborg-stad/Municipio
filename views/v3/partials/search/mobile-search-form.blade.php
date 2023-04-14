@@ -2,7 +2,7 @@
   'id'        => 'mobile-search-form',
   'method'    => 'get',
   'action'    => $homeUrl,
-  'classList' => $classList
+  'classList' => ['search-form']
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([
@@ -19,7 +19,6 @@
             'classList'     => [
                 'u-flex-grow--1',
                 'u-box-shadow--1',
-                'u-rounded__left--8'
             ]
         ])
         @endfield
@@ -33,7 +32,6 @@
             'attributeList' => [
                 'aria-label' => $lang->search,
             ],
-            'classList'     => ['u-rounded__right--8']
         ])
         @endbutton
     @endgroup
