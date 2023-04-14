@@ -211,9 +211,6 @@ class Singular extends \Municipio\Controller\BaseController
 
                     $parent = get_term($term->parent, $taxonomy->name);
                     $label = get_field('term_filter_placeholder', $parent) ?? $defaultLabel;
-
-                    error_log('label <pre>' . print_r($label, true) . '</pre>');
-
                     $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
 
                     $taxonomyObjects[] = [
