@@ -81,7 +81,6 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
 
         //Secondary Query
-
         $this->data = $this->setupSecondaryQueryData($this->data);
 
         $this->data['lang']->readingTime = __('Reading time', 'municipio');
@@ -130,10 +129,12 @@ class Singular extends \Municipio\Controller\BaseController
         $data['gridColumnClass']      = Archive::getGridClass($secondaryArchiveProps);
         $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
         $data['displayFeaturedImage'] = Archive::displayFeaturedImage($secondaryArchiveProps);
+
         $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
         $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
-        $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
-        $data['enabledFilters'] = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
+        $data['selectedFilters']      = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
+
+        $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
 
         $data['lang']->filterBtn        = __('Filter', 'municipio');
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
@@ -206,10 +207,14 @@ class Singular extends \Municipio\Controller\BaseController
                         $options[$term->slug] = htmlspecialchars_decode(ucfirst($term->name));
                     }
 
+                    $defaultLabel = __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name);
+
+                    $parent = get_term($term->parent, $taxonomy->name);
+                    $label = get_field('term_filter_placeholder', $parent) ?? $defaultLabel;
                     $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
 
                     $taxonomyObjects[] = [
-                        'label' => __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name),
+                        'label' => $label,
                         'attributeList' => [
                            'name' => "{$taxonomy->name}[]"
                         ],
