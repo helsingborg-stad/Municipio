@@ -130,9 +130,8 @@ class SingularPurpose extends \Municipio\Controller\Singular
         return $posts;
     }
 
-    private function createListItem($label, $icon, $href = false)
-    {
-        if (!empty($label) && $label != " ") {
+    private function createListItem ($label, $icon, $href = false) {
+        if (!empty($label) && $label != " " && $href != "") {
             return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
         }
 
