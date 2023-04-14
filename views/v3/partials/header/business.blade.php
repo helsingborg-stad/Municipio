@@ -48,6 +48,7 @@
         $showMobileSearch, 
         'partials.search.mobile-search-form',[
             'classList' => [
+                'search-form',
                 'u-padding__y--2', 
                 'u-padding__x--3', 
                 'u-width--auto',

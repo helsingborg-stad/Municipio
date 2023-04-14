@@ -22,7 +22,7 @@
         @includeWhen(
                 $showMobileSearchDrawer,
                 'partials.search.mobile-search-form',
-                ['classList' => ['u-margin__top--2', 'u-width--100']]
+                ['classList' => ['search-form', 'u-margin__top--2', 'u-width--100']]
             )
     @endslot
 
