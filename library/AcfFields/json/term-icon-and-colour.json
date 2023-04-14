@@ -2289,6 +2289,26 @@
             "acfe_group_modal_close": 0,
             "acfe_group_modal_button": "",
             "acfe_group_modal_size": "large"
+        },
+        {
+            "key": "field_643910d165acf",
+            "label": "Placeholder text for filter dropdown",
+            "name": "term_filter_placeholder",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Will default to \"Select <name of taxonomy>\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
