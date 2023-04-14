@@ -3,6 +3,7 @@
         'id' => 'hamburger-menu-trigger-open',
         'color' => 'default',
         'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
+        'reversePositions' => true,
         'icon' => 'menu',
         'text' => $lang->menu,
         'classList' => 
