@@ -7,7 +7,8 @@
         'icon' => 'menu',
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
         'classList' => ['mobile-menu-trigger'],
-        'attributeList' => ['aria-label' => $lang->menu],
+        'text' => $lang->menu,
+        'reversePositions' => true
     ],
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
