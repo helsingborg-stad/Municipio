@@ -7,7 +7,7 @@
     'fields' => array(
         0 => array(
             'key' => 'field_64227ca019e18',
-            'label' => __('Quicklinks placement', 'municipio'),
+            'label' => __('Placement', 'municipio'),
             'name' => 'quicklinks_placement',
             'aria-label' => '',
             'type' => 'select',

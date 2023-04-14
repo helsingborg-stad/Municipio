@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_64227ca019e18",
-            "label": "Quicklinks placement",
+            "label": "Placement",
             "name": "quicklinks_placement",
             "aria-label": "",
             "type": "select",

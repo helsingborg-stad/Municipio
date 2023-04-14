@@ -443,9 +443,20 @@ class Singular extends \Municipio\Controller\BaseController
         return false;
     }
 
+    /**
+     * Returns a boolean value based on whether the quicklinks should be displayed
+     * below the content or not.
+     *
+     * @param postId The ID of the post on which the quicklinks are being displayed.
+     *
+     * @return boolean
+     */
     public function displayQuicklinksAfterContent($postId)
     {
-        $displayAfterContent = (bool) get_field('quicklinks_after_content', $postId);
-        return apply_filters('Municipio/Controller/Singular/displayQuicklinksAfterContent', $displayAfterContent, $postId);
+        return apply_filters(
+            'Municipio/Controller/Singular/displayQuicklinksAfterContent',
+            get_field('quicklinks_placement', $postId) === 'below_content' ? true : false,
+            $postId
+        );
     }
 }
