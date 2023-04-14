@@ -9,7 +9,10 @@
         'buttonStyle' => $customizer->tabmenuButtonType,
         'height' => 'sm',
         'classList' => [
-            'u-width--auto'
+            'u-width--auto',
+            'u-display--none@xs',
+            'u-display--none@sm',
+            'u-display--none@md'
         ]
     ])
     @endnav

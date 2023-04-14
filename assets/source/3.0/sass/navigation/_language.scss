@@ -39,14 +39,6 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
-    .site-language-menu {
-        display: flex;
-        align-items: center;
-        margin-top: -3px;
-    }
-}
-
 @keyframes site-language-menu-popout {
     0% {
         transform: translateY(20%);
