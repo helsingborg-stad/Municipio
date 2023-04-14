@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-14 13:22+0200\n"
-"PO-Revision-Date: 2023-04-14 13:23+0200\n"
+"PO-Revision-Date: 2023-04-14 13:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -29344,32 +29344,24 @@ msgid "Arrow button color"
 msgstr "Färg för navigeringsknapp"
 
 #: library/Customizer/Sections/Tags.php:12
-#, fuzzy
-#| msgid "Tags styling"
 msgid "Tag styling"
-msgstr "Styling av taggar"
+msgstr "Stilsättning av taggar"
 
 #: library/Customizer/Sections/Tags.php:13
-#, fuzzy
-#| msgid "Which styling the input field use."
 msgid "Which styling to use for tags."
-msgstr "Styling för input-fält."
+msgstr "Utseende för taggar."
 
 #: library/Customizer/Sections/Tags.php:38
-#, fuzzy
-#| msgid "Favicon"
 msgid "Tag icon"
-msgstr "Favicon"
+msgstr "Taggikon"
 
 #: library/Customizer/Sections/Tags.php:39
 msgid "Icon to prepend tags with."
-msgstr ""
+msgstr "Ikon som ska adderas efter taggen."
 
 #: library/Customizer/Sections/Tags.php:45
-#, fuzzy
-#| msgid "Dotted"
 msgid "Dot"
-msgstr "Prickad"
+msgstr "Prick"
 
 #: library/Customizer/Sections/Typography.php:74
 msgid "Headings"
@@ -29424,11 +29416,11 @@ msgstr "Normal"
 
 #: library/Helper/Image.php:112
 msgid "File not found when setting sideloaded identifier."
-msgstr ""
+msgstr "Filen kunde inte hittas med hjälp av den angivna identifieraren."
 
 #: library/Helper/Image.php:118
 msgid "Could not generate sideloaded identifier for file."
-msgstr ""
+msgstr "Kunde inte skapa identifierare för fil."
 
 #: library/Helper/KirkiConditional.php:35
 msgid "Tailor"
@@ -29905,7 +29897,7 @@ msgstr "Primär menu"
 
 #: library/Theme/Navigation.php:28
 msgid "Secondary menu & drawer menu"
-msgstr ""
+msgstr "Sekundär meny & lådmeny"
 
 #: library/Theme/Navigation.php:30
 msgid "Dropdown menu"
@@ -29917,7 +29909,7 @@ msgstr "Språkmeny"
 
 #: library/Theme/Navigation.php:34
 msgid "Drawer (bottom)"
-msgstr ""
+msgstr "Låda (Nedre del)"
 
 #: library/Theme/Navigation.php:111
 msgid "(above archive posts)"
@@ -30053,31 +30045,27 @@ msgstr "Titel:"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:21
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:19
-#, fuzzy
-#| msgid "Post Types"
 msgid "Post Type Select"
 msgstr "Inläggstyper"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:22
 msgid "Choice"
-msgstr ""
+msgstr "Alternativ"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:61
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:65
-#, fuzzy
-#| msgid "Default "
 msgid "Default Value"
-msgstr "Standard "
+msgstr "Standardvärde"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:62
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:66
 msgid "Enter each default value on a new line"
-msgstr ""
+msgstr "Ange varje standardvärde som en ny rad"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:78
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:73
 msgid "Allow Null?"
-msgstr ""
+msgstr "Tillåt tomt värde"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:87
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:106
@@ -30183,7 +30171,7 @@ msgstr ""
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:179
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:211
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:88
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:107
@@ -30288,17 +30276,13 @@ msgstr ""
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:146
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:178
 #: vendor/modularity/modules/source/php/AcfFields/php/mod-wpwidget.php:210
-#, fuzzy
-#| msgid "None"
 msgid "No"
-msgstr "Ingen"
+msgstr "Nej"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v4.php:97
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:86
-#, fuzzy
-#| msgid "Select menu trigger style"
 msgid "Select multiple values?"
-msgstr "Välj stil för menyöppnare"
+msgstr "Välj flera värden"
 
 #: vendor/clark-nikdel-powell/post-type-select-for-acf/acf-posttype-select-v5.php:30
 #: vendor/johannheyne/advanced-custom-fields-table-field/advanced-custom-fields-table-field/tags/1.2.5/acf-table-v5.php:60
@@ -30318,17 +30302,13 @@ msgstr ""
 
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:24
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:26
-#, fuzzy
-#| msgid "Disable"
 msgid "Dynamic Table"
-msgstr "Inaktivera"
+msgstr "Dynamisk tabell"
 
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:79
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:208
-#, fuzzy
-#| msgid "CSS Class"
 msgid "Table Class"
-msgstr "Css klass"
+msgstr "Tabellklass"
 
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v4.php:80
 #: vendor/jeradin/acf-dynamic-table-field/acf-dynamic_table_field-v5.php:209
