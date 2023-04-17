@@ -36,52 +36,49 @@ class Template
      *
      * @return the rendered view.
      */
-    public function loadViewData(string $originalTemplate = '', $data = array())
+  public function loadViewData($view, $data = array())
     {
-        $controller = $this->loadController($originalTemplate);
-        $viewData   = $this->accessProtected($controller['data'], 'data');
 
-        // Set view based on controller instructions, if any.
-        // First checks $controller['data']->view, then $controller['view']
-        $view = $controller['data']->view ?? $controller['view'] ?? null;
-        if (empty(TemplateHelper::locateView($view))) {
-            // If set view doesn't exist, fall back to original template.
-            $view = $originalTemplate;
-        }
+        $viewData = $this->accessProtected(
+            $this->loadController(
+                $this->getControllerNameFromView($view)
+            ),
+            'data'
+        );
 
         $isArchive = fn() => is_archive() || is_home();
         $postType = get_post_type();
         $template = $viewData['template'] ?? '';
 
         $filters = [
-        // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
-        ['Municipio/Template/viewData', [], true, false],
-        ['Municipio/Template/single/viewData', [$postType], is_single(), false],
-        ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
-        ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
-        ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
-        ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
+            // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
+            ['Municipio/Template/viewData', [], true, false],
+            ['Municipio/Template/single/viewData', [$postType], is_single(), false],
+            ['Municipio/Template/archive/viewData', [$postType, $template], $isArchive(), false],
+            ["Municipio/Template/{$postType}/viewData", [], !empty($postType), false],
+            ["Municipio/Template/{$postType}/single/viewData", [], is_single() && !empty($postType), false],
+            ["Municipio/Template/{$postType}/archive/viewData", [$template], $isArchive() && !empty($postType), false],
         ];
 
         $deprecated = [
-        [
-            'Municipio/controller/base/view_data', [], true, true,
-            '2.0', 'Municipio/Template/viewData'
-        ],
-        [
-            'Municipio/blade/data', [], true, true,
-            '3.0', 'Municipio/Template/viewData'
-        ],
+            [
+                'Municipio/controller/base/view_data', [], true, true,
+                '2.0', 'Municipio/Template/viewData'
+            ],
+            [
+                'Municipio/blade/data', [], true, true,
+                '3.0', 'Municipio/Template/viewData'
+            ],
 
-        // To be deprecated next
-        [
-            'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
-            '3.0', 'Municipio/Template/archive/viewData'
-        ],
-        [
-            'Municipio/viewData', [], true, false,
-            '3.0', 'Municipio/Template/viewData'
-        ],
+            // To be deprecated next
+            [
+                'Municipio/Controller/Archive/Data', [$postType, $template], $isArchive(), false,
+                '3.0', 'Municipio/Template/archive/viewData'
+            ],
+            [
+                'Municipio/viewData', [], true, false,
+                '3.0', 'Municipio/Template/viewData'
+            ],
         ];
 
         $tryApplyFilters = fn (array $viewData, array $maybeFilters): array => array_reduce(
@@ -120,7 +117,7 @@ class Template
     *
     * @return object A new instance of the controller class.
     */
-    public function loadController(string $template = ''): array
+    public function loadController(string $template = ''): ?object
     {
         //Do something before controller creation
         do_action_deprecated(
@@ -130,69 +127,62 @@ class Template
             'Municipio/blade/beforeLoadController'
         );
 
-        // Controller conditions
-        $isSingular = fn() => is_singular();
+        //Handle 404 renaming
+        if ($template === '404') {
+            $template = 'E404';
+        }
+
+        /**
+         * Controllers will be applied in ascending order of priority: 0 first, 1 second, 2 third, etc.
+         * This means that a controller that has a priority of 0 will be applied first.
+         * Only one controller can be applied at a time and the method will exit once it's been applied.
+         */
+        // TODO Rename PurposeController to just Purpose (currently in use)
+        // Controller terms
         $isArchive = fn() => is_archive() || is_home();
+        $templateControllerPath = \Municipio\Helper\Controller::locateController($template);
 
-        $hasPurpose = fn() => PurposeHelper::hasPurpose();
-
-        $templateController = fn() => ControllerHelper::camelCase($template);
-        $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
-        $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
-
-        $controllers  = [
-            [
-                'condition'       => ('404' === $template),
-                'controllerClass' => \Municipio\Controller\E404::class,
-                'controllerPath'  => ControllerHelper::locateController('E404'),
-            ],
-            [
-                'condition'       => $hasPurpose() && $isSingular(),
-                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularPurpose'),
-            ],
-            [
-                // If a controller for this specific WordPress template exists, use it.
-                // @see https://developer.wordpress.org/themes/basics/template-hierarchy/ or naming conventions
-                'condition'       => (bool) $templateControllerPath(),
-                'controllerClass' => $templateControllerNamespace() . $templateController(),
-                'controllerPath'  => $templateControllerPath(),
-            ],
-            [
-                'condition'       => $isSingular(),
-                'controllerClass' => \Municipio\Controller\Singular::class,
-                'controllerPath'  => ControllerHelper::locateController('Singular')
-            ],
-            [
-                'condition'       => $isArchive(),
-                'controllerClass' => \Municipio\Controller\Archive::class,
-                'controllerPath'  => ControllerHelper::locateController('Archive')
-            ],
-            [
-                'condition'       => true,
-                'controllerClass' => \Municipio\Controller\BaseController::class,
-                'controllerPath'  => ControllerHelper::locateController('BaseController')
-            ]
+        $controllers = [
+            // <string> controller, <bool> return method when true, <string> file path to controller
+            ['PurposeController', PurposeHelper::hasPurpose()],
+            [basename($templateControllerPath, '.php'), is_file($templateControllerPath), $templateControllerPath],
+            ['Singular', is_singular()],
+            ['Archive', $isArchive],
         ];
 
         foreach ($controllers as $controller) {
-            if ((bool) $controller['condition']) {
-                $instance = self::createController($controller, $template);
-                if (!empty($controller['view'])) {
-                    $template = $controller['view'];
-                } elseif (!empty($instance->view)) {
-                    $template = $instance->view;
-                }
+            if ((bool) $controller[1]) {
+                /* If the controller file path is not included try to locate it. */
+                $controllerFile = $controller[2] ?? \Municipio\Helper\Controller::locateController($controller[0]);
 
-                return [
-                    'data' => $instance,
-                    'view' => $template
-                ];
+                if (is_file($controllerFile)) {
+                    return self::returnController($controller[0], $controllerFile, $template);
+                }
             }
         }
-
-        return [];
+        // If no controller is found we'll return the base controller
+        return self::returnController(
+            'BaseController',
+            \Municipio\Helper\Controller::locateController('BaseController'),
+            $template
+        );
     }
+    private static function returnController(string $controllerName, string $controllerFile, string $template = ''): object
+    {
+            require_once apply_filters('Municipio/blade/controller', $controllerFile);
+
+            $class = \Municipio\Helper\Controller::getNamespace($controllerFile) . '\\' . $controllerName;
+
+            do_action_deprecated(
+                'Municipio/blade/after_load_controller',
+                $template,
+                '3.0',
+                'Municipio/blade/afterLoadController'
+            );
+            return new $class();
+    }
+
+
     /**
      * It loads a controller class and returns an instance of it
      *
