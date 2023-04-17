@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper;
 
+use Municipio\Helper\Navigation;
+
 class Post
 {
     /**
@@ -12,9 +14,9 @@ class Post
      *
      * @return  object   $post    Transformed WP_Post object
      */
-    public static function preparePostObject($post)
+    public static function preparePostObject($post, $data = null)
     {
-        $post = self::complementObject($post);
+        $post = self::complementObject($post, [], $data);
         $post = \Municipio\Helper\FormatObject::camelCase($post);
         return $post;
     }
@@ -27,29 +29,59 @@ class Post
      *
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function complementObject(
-        $postObject,
-        $appendFields = array(
-            'excerpt',
-            'post_content_filtered',
-            'post_title_filtered',
-            'permalink',
-            'terms',
-            'post_language',
-            'reading_time'
-        )
-    ) {
+    public static function complementObject($postObject, $appendFields = [], $data = null)
+    {
         //Check that a post object is entered
         if (!is_a($postObject, 'WP_Post')) {
             return $postObject;
             throw new WP_Error("Complement object must recive a WP_Post class");
         }
 
-        //More? Less?
-        $appendFields = apply_filters('Municipio/Helper/Post/complementPostObject', $appendFields);
+        $defaultAppendFields = array(
+            'excerpt',
+            'post_content_filtered',
+            'post_title_filtered',
+            'permalink',
+            'terms',
+            'post_language',
+            'reading_time',
+            'quicklinks'
+        );
+
+        $appendFields = apply_filters(
+            'Municipio/Helper/Post/complementPostObject',
+            array_merge($defaultAppendFields, $appendFields)
+        );
 
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
+
+        $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
+
+        if ($postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
+            $postObject->displayQuicklinksAfterContent = false;
+
+            // Add quicklinks after first block
+            foreach (parse_blocks($postObject->post_content) as $key => $block) {
+                if (0 == $key) {
+                    $postObject->post_content =
+                        render_block($block) .
+                        render_blade_view(
+                            'partials.navigation.fixed-after-block',
+                            [
+                                'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                                'quicklinksPlacement' => $postObject->quicklinksPlacement,
+                                'customizer'          => $data['customizer'],
+                                'lang'                => $data['lang'],
+                            ]
+                        );
+                } else {
+                    $postObject->post_content .= render_block($block);
+                }
+            }
+        } else {
+            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
+        }
 
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
@@ -68,7 +100,7 @@ class Post
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
-                $postObject->excerpt_shorter = 
+                $postObject->excerpt_shorter =
                 wp_trim_words(
                     $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
@@ -126,8 +158,8 @@ class Post
         }
 
         //Get post tumbnail image
-        $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->thumbnail_tall  = self::getFeaturedImage($postObject->ID, [390, 520]);
+            $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
+            $postObject->thumbnail_tall  = self::getFeaturedImage($postObject->ID, [390, 520]);
 
         //Append post terms
         if (in_array('terms', $appendFields)) {
@@ -150,7 +182,7 @@ class Post
             $postObject->excerpt_short         = get_the_password_form($postObject);
         }
 
-        return apply_filters('Municipio/Helper/Post/postObject', $postObject);
+            return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
     /**
      * Get a list of terms to display on each inlay

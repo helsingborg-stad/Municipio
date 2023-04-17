@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 
 /**
@@ -20,11 +21,11 @@ class Singular extends \Municipio\Controller\BaseController
         //Get post data
         $originalPostData = get_post($this->getPageID());
 
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
-        // $this->data['quicklinksPlacement'] = $this->getQuicklinksPlacement($this->data['post']->id);
+        $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
+        $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
 
         //Get feature image data
         $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1080, false]);
