@@ -123,11 +123,37 @@ class SingularPurpose extends \Municipio\Controller\Singular
                 foreach ($result as &$post) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                     $posts[$postType->label] = $result;
+                    $post->termIcon = $this->getTermIcon($post->id, $post->postType);;
                 }
             }
         }
 
         return $posts;
+    }
+
+    private function getTermIcon($postId, $postType) {
+        $taxonomies = get_object_taxonomies($postType);
+        
+        $termIcon = [];
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    if (empty($termIcon)) {
+                        $icon = TermHelper::getTermIcon($term, $taxonomy);
+                        $color = TermHelper::getTermColor($term, $taxonomy);
+                        if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
+                            $termIcon['icon'] = $icon['src'];
+                            $termIcon['size'] = 'md';
+                            $termIcon['color'] = 'white';
+                            $termIcon['backgroundColor'] = $color;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $termIcon;
     }
 
     private function createListItem ($label, $icon, $href = false) {

@@ -83,8 +83,9 @@
                         'content' => $post->excerptShort,
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
-                        'tags' => $post->terms,
-                        'meta' => $post->readingTime
+                        'tags' => $post->termsUnlinked,
+                        'meta' => $post->readingTime,
+                        'icon' => $post->termIcon
                     ])
                     @endsegment
                 </div>
