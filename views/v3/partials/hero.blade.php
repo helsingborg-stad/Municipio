@@ -13,7 +13,7 @@
             @includeWhen($emblem && $showEmblemInHero, 'partials.emblem')
         @endif
     </div>
-    @if (!$placeQuicklinksAfterContent)
+    @if (!$displayQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
 @show

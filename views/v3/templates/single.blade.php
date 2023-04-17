@@ -54,7 +54,7 @@
 
 @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
-@if ($placeQuicklinksAfterContent)
+@if ($displayQuicklinksAfterContent)
     @include('partials.navigation.fixed')
 @endif
 @includeWhen($displaySecondaryQuery, 'partials.secondary', [

@@ -244,7 +244,7 @@ class BaseController
         );
 
         //Quicklinks placement is set in Singular
-        $this->data['placeQuicklinksAfterContent'] = false;
+        $this->data['displayQuicklinksAfterContent'] = false;
 
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataUsePlaceholder'], 9, 1);

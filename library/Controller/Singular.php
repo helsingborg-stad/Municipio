@@ -78,7 +78,8 @@ class Singular extends \Municipio\Controller\BaseController
             $this->data['lang'] = (object) [];
         }
 
-        $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
+        $this->data['displayQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
+        $this->data['quicklinksPlacement'] = $this->getQuicklinksPlacement($this->data['post']);
 
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
@@ -444,18 +445,37 @@ class Singular extends \Municipio\Controller\BaseController
     }
 
     /**
+     * Returns the placement of quicklinks for a given post.
+     *
+     * @param int $postId A WP post ID.
+     *
+     * @return bool|string The value of the 'quicklinks_placement' field for the given post.
+     */
+    public function getQuicklinksPlacement($postId)
+    {
+        if (!is_numeric($postId)) {
+            return false;
+        }
+
+        return apply_filters(
+            'Municipio/Controller/Singular/getQuicklinksPlacement',
+            get_field('quicklinks_placement', $postId),
+            $postId
+        );
+    }
+    /**
      * Returns a boolean value based on whether the quicklinks should be displayed
      * below the content or not.
      *
-     * @param postId The ID of the post on which the quicklinks are being displayed.
+     * @param int $postId A WP post ID.
      *
-     * @return boolean
+     * @return boolean True if the quicklinks should be displayed below the content.
      */
     public function displayQuicklinksAfterContent($postId)
     {
         return apply_filters(
             'Municipio/Controller/Singular/displayQuicklinksAfterContent',
-            get_field('quicklinks_placement', $postId) === 'below_content' ? true : false,
+            $this->getQuicklinksPlacement($postId) === 'below_content' ? true : false,
             $postId
         );
     }

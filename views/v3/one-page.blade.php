@@ -36,7 +36,7 @@
 
     </div>
 
-    @if ($placeQuicklinksAfterContent)
+    @if ($displayQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
     @includeWhen($displaySecondaryQuery, 'partials.secondary', [

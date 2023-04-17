@@ -8,7 +8,7 @@
         ])
         @endhero
     @endif
-    @if (!$placeQuicklinksAfterContent)
+    @if (!$displayQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
     <div class="o-container">
@@ -44,7 +44,7 @@
         @endpaper
     </div>
 
-    @if ($placeQuicklinksAfterContent)
+    @if ($displayQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
 
