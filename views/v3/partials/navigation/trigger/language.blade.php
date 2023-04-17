@@ -5,6 +5,7 @@
     'style' => 'basic',
     'icon' => 'language',
     'reversePositions' => true,
+    'toggle' => true,
     'classList' => [
         'site-language-menu-button'
     ],

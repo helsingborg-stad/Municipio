@@ -4,6 +4,7 @@
         'color' => 'default',
         'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
         'reversePositions' => true,
+        'toggle' => true,
         'icon' => 'menu',
         'text' => $lang->menu,
         'classList' => 

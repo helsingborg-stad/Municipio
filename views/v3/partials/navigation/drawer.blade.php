@@ -8,7 +8,8 @@
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
         'classList' => ['mobile-menu-trigger'],
         'text' => $lang->menu,
-        'reversePositions' => true
+        'reversePositions' => true,
+        'toggle' => true,
     ],
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
