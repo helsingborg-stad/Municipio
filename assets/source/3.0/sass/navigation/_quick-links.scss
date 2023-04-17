@@ -30,6 +30,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
     &.c-header--sticky {
         top: -1px;
+        position: relative;
         &.is-stuck {
             background-color: #{$c-quicklinks-background-sticky-color};
         }
@@ -74,6 +75,12 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
             &.c-header--sticky {
                 top: calc($base * 6.5); 
             }
+        }
+    }
+
+    @include mq('sm') {
+        &.c-header.c-header--sticky {
+            position: sticky
         }
     }
 }
