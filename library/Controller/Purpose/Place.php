@@ -26,12 +26,21 @@ class Place extends PurposeFactory
     {
         // Street name linked to Google Maps
         if (!empty($fields['location'])) {
-            $locationLabel = $fields['location']['street_name'] . ' ' . $fields['location']['street_number'];
-            $listing['location'] = \Municipio\Helper\Listing::createListingItem(
-                $locationLabel,
-                'location_on',
-                $this->buildGoogleMapsLink($fields['location'])
-            );
+            if (!empty($fields['location']['street_name']) && !empty($fields['location']['street_number'])) {
+                $locationLabel = $fields['location']['street_name'] . ' ' . $fields['location']['street_number'];
+            } elseif (!empty($fields['location']['name'])) {
+                $locationLabel = $fields['location']['name'];
+            } else {
+                $locationLabel = $fields['location']['address'];
+            }
+            $locationLink = $this->buildGoogleMapsLink($fields['location']);
+            if ($locationLink) {
+                $listing['location'] = \Municipio\Helper\Listing::createListingItem(
+                    $locationLabel,
+                    'location_on',
+                    $this->buildGoogleMapsLink($fields['location'])
+                );
+            }
         }
         return $listing;
     }
