@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-18T11:20:16+00:00\n"
+"POT-Creation-Date: 2023-04-18T13:10:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: municipio\n"
@@ -4711,7 +4711,7 @@ msgid "Display after page content"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:8
-#: library/Controller/Singular.php:288
+#: library/Controller/Singular.php:278
 msgid "Author"
 msgstr ""
 
@@ -14395,7 +14395,7 @@ msgid "Updated"
 msgstr ""
 
 #: library/Controller/Archive.php:94
-#: library/Controller/Singular.php:91
+#: library/Controller/BaseController.php:237
 msgid "Read more"
 msgstr ""
 
@@ -14412,7 +14412,7 @@ msgid "Select a valid date"
 msgstr ""
 
 #: library/Controller/Archive.php:102
-#: library/Controller/Singular.php:147
+#: library/Controller/Singular.php:137
 msgid "Filter"
 msgstr ""
 
@@ -14421,7 +14421,7 @@ msgid "Reset search"
 msgstr ""
 
 #: library/Controller/Archive.php:104
-#: library/Controller/Singular.php:148
+#: library/Controller/Singular.php:138
 msgid "Reset filter"
 msgstr ""
 
@@ -14434,7 +14434,7 @@ msgid "Reset"
 msgstr ""
 
 #: library/Controller/Archive.php:463
-#: library/Controller/Singular.php:218
+#: library/Controller/Singular.php:208
 msgid "Select"
 msgstr ""
 
@@ -14594,15 +14594,28 @@ msgstr ""
 msgid "You are here: "
 msgstr ""
 
-#: library/Controller/E404.php:30
-msgid "Go back"
+#: library/Controller/BaseController.php:234
+msgid "Reading time"
 msgstr ""
 
+#: library/Controller/BaseController.php:235
+msgctxt "Related (name of posttype)"
+msgid "Related"
+msgstr ""
+
+#: library/Controller/BaseController.php:236
 #: library/Controller/E404.php:47
-#: library/Controller/Singular.php:90
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 #: views/v1/partials/blog/taxonomy-filters.blade.php:11
 msgid "Show all"
+msgstr ""
+
+#: library/Controller/BaseController.php:238
+msgid "Book here"
+msgstr ""
+
+#: library/Controller/E404.php:30
+msgid "Go back"
 msgstr ""
 
 #: library/Controller/E404.php:59
@@ -14658,23 +14671,11 @@ msgstr ""
 msgid "on"
 msgstr ""
 
-#: library/Controller/Singular.php:88
-msgid "Reading time"
-msgstr ""
-
-#: library/Controller/Singular.php:89
-msgid "Related"
-msgstr ""
-
-#: library/Controller/Singular.php:92
-msgid "Book here"
-msgstr ""
-
-#: library/Controller/Singular.php:149
+#: library/Controller/Singular.php:139
 msgid "No items found."
 msgstr ""
 
-#: library/Controller/Singular.php:437
+#: library/Controller/Singular.php:427
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
