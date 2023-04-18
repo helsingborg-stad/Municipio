@@ -30,16 +30,18 @@
                         {!! $post->postContentFiltered !!}
                     @endtypography
                 </div>
-                <div
-                    class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
-                    @listing([
-                        'list' => $list,
-                        'icon' => false,
-                        'classList' => ['unlist', 'u-padding__top--2@xs', 'u-padding__top--2@sm', 'u-margin__top--2'],
-                        'padding' => 4
-                    ])
-                    @endlisting
-                </div>
+                @if (!empty($listing))
+                    <div
+                        class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
+                        @listing([
+                            'list' => $listing,
+                            'icon' => false,
+                            'classList' => ['unlist', 'u-padding__top--2@xs', 'u-padding__top--2@sm', 'u-margin__top--2'],
+                            'padding' => 4
+                        ])
+                        @endlisting
+                    </div>
+                @endif
             </div>
         @endpaper
     </div>
