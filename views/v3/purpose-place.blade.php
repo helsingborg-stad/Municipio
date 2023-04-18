@@ -82,7 +82,7 @@
                 @typography([
                     'element' => 'h2'
                 ])
-                    {{ $lang->relatedPlural }} {{ $postType }}
+                    {{ $lang->related }} {{ $postType }}
                 @endtypography
                 @if (!empty(get_post_type_archive_link($postType)))
                     @link([
