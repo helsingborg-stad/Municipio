@@ -10,6 +10,10 @@
         'text' => $lang->menu,
         'reversePositions' => true,
         'toggle' => true,
+        'attributeList' => [
+            'data-toggle-icon' => 'close',
+            'data-toggle-label' => $lang->close,
+        ]
     ],
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],

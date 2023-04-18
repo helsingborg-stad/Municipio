@@ -10,7 +10,9 @@
         'site-language-menu-button'
     ],
     'attributeList' => [
-        'js-toggle-trigger' => 'language-menu-toggle'
+        'js-toggle-trigger' => 'language-menu-toggle',
+        'data-toggle-icon' => 'close',
+        'data-toggle-label' => $lang->close,
     ]
 ])
 @endbutton
