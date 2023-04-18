@@ -1,6 +1,4 @@
 @extends('templates.single')
-
-
 @section('hero-top-sidebar')
     @if (!empty($featuredImage->src[0]))
         @hero([
@@ -8,9 +6,7 @@
         ])
         @endhero
     @endif
-    @if (!$placeQuicklinksAfterContent)
-        @include('partials.navigation.fixed')
-    @endif
+    @includeWhen(!$placeQuicklinksAfterContent, 'partials.navigation.fixed')
     <div class="o-container">
         @paper([
             'attributeList' => [
