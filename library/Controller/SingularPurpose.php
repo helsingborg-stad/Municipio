@@ -5,6 +5,7 @@ namespace Municipio\Controller;
 use Municipio\Helper\Data as DataHelper;
 use Municipio\Helper\Purpose as PurposeHelper;
 use Municipio\Helper\Term as TermHelper;
+use Municipio\Helper\Listing as ListingHelper;
 
 /**
  * Class SingularPurpose
@@ -47,35 +48,37 @@ class SingularPurpose extends \Municipio\Controller\Singular
         parent::init();
         $fields = get_fields($this->getPageID());
 
-        $this->data['list'][] = $this->createListItem($fields['location']['street_name'] . ' ' . $fields['location']['street_number'], 'location_on', $this->buildMapsLink($fields['location']));
-        $this->data['list'][] = $this->createListItem($fields['phone'], 'call');
-        $this->data['list'][] = $this->createListItem(__('Visit website', 'municipio'), 'language', $fields['website']);
+        $this->data['listing'] = [];
 
-        $other = $this->getTermNames($fields['other']);
-        if (!empty($other)) {
-            foreach ($other as $item) {
-                $this->data['list'][] = $this->createListItem($item->name, $item->icon['src']);
-            }
+        // Listing items aviailable for all purposes:
+
+        // Phone number
+        if (!empty($fields['phone'])) {
+            $this->data['listing']['phone'] = ListingHelper::createListingItem($fields['phone'], 'call');
         }
 
-        $this->data['labels'] = [
-            'related' => __('Related', 'municipio'),
-            'showAll' => __('Show all', 'municipio'),
-            'readMore' => __('Read more', 'municipio'),
-        ];
+        // Website link (with fixed label)
+        if (!empty($fields['website'])) {
+            $this->data['listing']['website'] = ListingHelper::createListingItem(
+                __('Visit website', 'municipio'),
+                'language',
+                $fields['website']
+            );
+        }
 
-        $postId = $this->data['post']->id;
-        $this->data['relatedPosts'] = $this->getRelatedPosts($postId);
+        // Apply filters to listing items
+        $this->data['listing'] = apply_filters(
+            'Municipio/Controller/SingularPurpose/listing',
+            $this->data['listing'],
+            $fields
+        );
+
+        $this->data['bookingLink'] = $fields['booking_link'] ?? false;
+
+        $this->data['labels'] = (array) $this->data['lang'];
+        $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;
-    }
-
-    private function buildMapsLink($locations)
-    {
-        if (empty($locations) || empty($locations['lng']) || empty($locations['lat'])) {
-            return false;
-        }
-        return 'https://www.google.com/maps/dir/?api=1&destination=' . $locations['lat'] . ',' . $locations['lng'] . '&travelmode=transit';
     }
 
     private function getRelatedPosts($postId)
@@ -128,31 +131,5 @@ class SingularPurpose extends \Municipio\Controller\Singular
         }
 
         return $posts;
-    }
-
-    private function createListItem ($label, $icon, $href = false) {
-        if (!empty($label) && $label != " " && $href != "") {
-            return ['label' => $label, 'icon' => ['icon' => $icon, 'size' => 'md'], 'href' => $href];
-        }
-
-        return false;
-    }
-
-    private function getTermNames($termIds)
-    {
-        if (empty($termIds)) {
-            return false;
-        }
-
-        $terms = array();
-        foreach ($termIds as $termId) {
-            $term = get_term($termId);
-            if (!$term || is_wp_error($term)) {
-                continue;
-            }
-            $term->icon = TermHelper::getTermIcon($term);
-            $terms[] = $term;
-        }
-        return $terms;
     }
 }

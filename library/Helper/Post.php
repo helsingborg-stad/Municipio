@@ -68,7 +68,7 @@ class Post
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
 
-                $postObject->excerpt_shorter = 
+                $postObject->excerpt_shorter =
                 wp_trim_words(
                     $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),

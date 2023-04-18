@@ -19,6 +19,28 @@ class Place extends PurposeFactory
     {
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // Append location link to listing items
+        add_filter('Municipio/Controller/SingularPurpose/listing', [$this, 'appendListItems'], 10, 2);
+    }
+    public function appendListItems($listing, $fields)
+    {
+        // Street name linked to Google Maps
+        if (!empty($fields['location'])) {
+            $locationLabel = $fields['location']['street_name'] . ' ' . $fields['location']['street_number'];
+            $listing['location'] = \Municipio\Helper\Listing::createListingItem(
+                $locationLabel,
+                'location_on',
+                $this->buildGoogleMapsLink($fields['location'])
+            );
+        }
+        return $listing;
+    }
+    public function buildGoogleMapsLink(array $location = [])
+    {
+        if (empty($location) || empty($location['lng']) || empty($location['lat'])) {
+            return false;
+        }
+        return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
     }
     /**
     * Appends the structured data array (used for schema.org markup) with additional data
