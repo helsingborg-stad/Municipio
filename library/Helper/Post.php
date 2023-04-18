@@ -36,7 +36,8 @@ class Post
             'permalink',
             'terms',
             'post_language',
-            'reading_time'
+            'reading_time',
+            'termIcon'
         )
     ) {
         //Check that a post object is entered
@@ -133,6 +134,10 @@ class Post
         if (in_array('terms', $appendFields)) {
             $postObject->terms            = self::getPostTerms($postObject->ID);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
+
+            if (!empty($postObject->terms) && in_array('termIcon', $appendFields)) {
+                $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
+            }
         }
 
         if (in_array('post_language', $appendFields)) {
@@ -152,6 +157,34 @@ class Post
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
+
+    private static function getPostTermIcon($postId, $postType)
+    {
+        $taxonomies = get_object_taxonomies($postType);
+
+        $termIcon = [];
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    if (empty($termIcon)) {
+                        $icon = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
+                        $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
+                        $icon['src'] = 'all_out';
+                        if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
+                            $termIcon['icon'] = $icon['src'];
+                            $termIcon['size'] = 'md';
+                            $termIcon['color'] = 'white';
+                            $termIcon['backgroundColor'] = $color;
+                        }
+                    }
+                }
+            }
+        }  
+            
+        return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
+    }
+
     /**
      * Get a list of terms to display on each inlay
      *
