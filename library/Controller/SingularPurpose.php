@@ -74,8 +74,6 @@ class SingularPurpose extends \Municipio\Controller\Singular
         );
 
         $this->data['bookingLink'] = $fields['booking_link'] ?? false;
-
-        $this->data['labels'] = (array) $this->data['lang'];
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;

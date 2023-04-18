@@ -82,13 +82,13 @@
                 @typography([
                     'element' => 'h2'
                 ])
-                    {{ $labels['related'] }} {{ $postType }}
+                    {{ $lang->relatedPlural }} {{ $postType }}
                 @endtypography
                 @if (!empty(get_post_type_archive_link($postType)))
                     @link([
                         'href' => get_post_type_archive_link($postType)
                     ])
-                        {{ $labels['showAll'] }}
+                        {{ $lang->showAll }}
                     @endlink
                 @endif
             @endgroup

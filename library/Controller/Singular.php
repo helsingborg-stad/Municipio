@@ -74,24 +74,10 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        if (!isset($this->data['lang'])) {
-            $this->data['lang'] = (object) [];
-        }
-
         $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
 
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
-
-        // $this->data['lang']->readingTime = __('Reading time', 'municipio');
-        $this->data['lang'] = (object) [
-            'readingTime' => __('Reading time', 'municipio'),
-            'related' => __('Related', 'municipio'),
-            'showAll' => __('Show all', 'municipio'),
-            'readMore' => __('Read more', 'municipio'),
-            'bookHere' => __('Book here', 'municipio'),
-        ];
-
 
         return $this->data;
     }
@@ -143,6 +129,10 @@ class Singular extends \Municipio\Controller\BaseController
         $data['selectedFilters']      = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
 
         $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
+
+        if (!isset($data['lang'])) {
+            $data['lang'] = (object) [];
+        }
 
         $data['lang']->filterBtn        = __('Filter', 'municipio');
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
