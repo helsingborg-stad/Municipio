@@ -56,32 +56,6 @@ class Post
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
 
-        $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
-
-        if ($postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
-            $postObject->displayQuicklinksAfterContent = false;
-
-            // Add quicklinks after first block
-            foreach (parse_blocks($postObject->post_content) as $key => $block) {
-                if (0 == $key) {
-                    $postObject->post_content =
-                        render_block($block) .
-                        render_blade_view(
-                            'partials.navigation.fixed-after-block',
-                            [
-                                'quicklinksMenuItems' => $data['quicklinksMenuItems'],
-                                'quicklinksPlacement' => $postObject->quicklinksPlacement,
-                                'customizer'          => $data['customizer'],
-                                'lang'                => $data['lang'],
-                            ]
-                        );
-                } else {
-                    $postObject->post_content .= render_block($block);
-                }
-            }
-        } else {
-            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
-        }
 
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
@@ -142,6 +116,54 @@ class Post
             $postObject->post_content_filtered = $excerpt . apply_filters('the_content', $content);
         }
 
+        $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
+        foreach (parse_blocks($postObject->post_content) as $key => $block) {
+            error_log('<pre>' . print_r($block, true) . '</pre>');
+        }
+
+        if ($postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
+            $postObject->displayQuicklinksAfterContent = false;
+
+            // Add quicklinks after first block
+            $quicklinks = render_blade_view(
+                'partials.navigation.fixed-after-block',
+                [
+                'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                'quicklinksPlacement' => $postObject->quicklinksPlacement,
+                'customizer'          => $data['customizer'],
+                'lang'                => $data['lang'],
+                ]
+            );
+
+            // $pos = strpos($postObject->post_content, "-->");
+            // if ($pos !== false) {
+            //     $pos += strlen("-->");
+            //     $postObject->post_content = substr($postObject->post_content, 0, $pos) . "foobar" . substr($postObject->post_content, $pos);
+
+            //     // $postObject->post_content_filtered = substr($postObject->post_content_filtered, 0, $pos) . $quicklinks . substr($postObject->post_content_filtered, $pos);
+            // }
+            // foreach (parse_blocks($postObject->post_content) as $key => $block) {
+            //     if (0 == $key) {
+            //         $postObject->post_content =
+            //             render_block($block) .
+            //             // ! Find out where line breaks and paragraphs are added to the content
+            //             render_blade_view(
+            //                 'partials.navigation.fixed-after-block',
+            //                 [
+            //                     'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+            //                     'quicklinksPlacement' => $postObject->quicklinksPlacement,
+            //                     'customizer'          => $data['customizer'],
+            //                     'lang'                => $data['lang'],
+            //                 ]
+            //             );
+            //     } else {
+            //         $postObject->post_content .= render_block($block);
+            //     }
+            // }
+        } else {
+            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
+        }
+
         //Get permalink
         if (in_array('permalink', $appendFields)) {
             $postObject->permalink              = get_permalink($postObject);
@@ -182,7 +204,8 @@ class Post
             $postObject->excerpt_short         = get_the_password_form($postObject);
         }
 
-            return apply_filters('Municipio/Helper/Post/postObject', $postObject);
+
+        return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
     /**
      * Get a list of terms to display on each inlay
