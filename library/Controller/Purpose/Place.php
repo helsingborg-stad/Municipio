@@ -19,7 +19,7 @@ class Place extends PurposeFactory
     {
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
-
+        // Append location link to listing items
         add_filter('Municipio/Controller/SingularPurpose/listing', [$this, 'appendListItems'], 10, 2);
     }
     public function appendListItems($listing, $fields)

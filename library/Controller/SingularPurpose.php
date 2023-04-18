@@ -73,18 +73,13 @@ class SingularPurpose extends \Municipio\Controller\Singular
             $fields
         );
 
-        $this->data['labels'] = [
-            'related' => __('Related', 'municipio'),
-            'showAll' => __('Show all', 'municipio'),
-            'readMore' => __('Read more', 'municipio'),
-        ];
+        $this->data['bookingLink'] = $fields['booking_link'] ?? false;
 
+        $this->data['labels'] = (array) $this->data['lang'];
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;
     }
-
-
 
     private function getRelatedPosts($postId)
     {

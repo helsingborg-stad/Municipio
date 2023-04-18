@@ -30,25 +30,40 @@
                         {!! $post->postContentFiltered !!}
                     @endtypography
                 </div>
-                @if (!empty($listing))
-                    <div
-                        class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
+                <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
+                    @if (!empty($listing))
                         @listing([
                             'list' => $listing,
                             'icon' => false,
-                            'classList' => ['unlist', 'u-padding__top--2@xs', 'u-padding__top--2@sm', 'u-margin__top--2'],
+                            'classList' => [
+                                'unlist',
+                                'u-padding__top--2@xs',
+                                'u-padding__top--2@sm',
+                                'u-padding__bottom--3',
+                                'u-margin__top--2'
+                            ],
                             'padding' => 4
                         ])
                         @endlisting
-                    </div>
-                @endif
+                    @endif
+
+                    @if (!empty($bookingLink))
+                        @button([
+                            'text' => $lang->bookHere,
+                            'color' => 'primary',
+                            'style' => 'filled',
+                            'href' => $bookingLink,
+                            'classList' => ['u-width--100'],
+                        ])
+                        @endbutton
+                    @endif
+
+                </div>
             </div>
         @endpaper
     </div>
 
-    @if ($placeQuicklinksAfterContent)
-        @include('partials.navigation.fixed')
-    @endif
+    @includeWhen($placeQuicklinksAfterContent, 'partials.navigation.fixed')
 
 @stop
 

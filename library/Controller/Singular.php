@@ -83,7 +83,15 @@ class Singular extends \Municipio\Controller\BaseController
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
 
-        $this->data['lang']->readingTime = __('Reading time', 'municipio');
+        // $this->data['lang']->readingTime = __('Reading time', 'municipio');
+        $this->data['lang'] = (object) [
+            'readingTime' => __('Reading time', 'municipio'),
+            'related' => __('Related', 'municipio'),
+            'showAll' => __('Show all', 'municipio'),
+            'readMore' => __('Read more', 'municipio'),
+            'bookHere' => __('Book here', 'municipio'),
+        ];
+
 
         return $this->data;
     }
