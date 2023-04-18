@@ -181,7 +181,6 @@ class Post
                 }
             }
         }  
-            
         return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
     }
 
