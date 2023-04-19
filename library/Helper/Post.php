@@ -135,9 +135,10 @@ class Post
             $postObject->terms            = self::getPostTerms($postObject->ID);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
 
-            if (!empty($postObject->terms) && in_array('termIcon', $appendFields)) {
-                $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
-            }
+        }
+        
+        if (!empty($postObject->terms) && in_array('termIcon', $appendFields)) {
+            $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
         }
 
         if (in_array('post_language', $appendFields)) {
