@@ -84,13 +84,21 @@ class Term
             $attachment = wp_get_attachment_image_url($termIcon['svg']['ID'], 'full');
             $result = apply_filters(
                 'Municipio/getTermIconSvg',
-                ['src' => $attachment, 'type' => $type, 'description' => $termIcon['svg']['description']],
+                [
+                    'src'         => $attachment,
+                    'type'        => $type,
+                    'description' => $termIcon['svg']['description'],
+                    'alt'         => $termIcon['svg']['description']
+                ],
                 $term
             );
         } elseif ($type === 'icon') {
             $result = apply_filters(
                 'Municipio/getTermIcon',
-                ['src' => $termIcon['material_icon'], 'type' => $type],
+                [
+                    'src'  => $termIcon['material_icon'],
+                    'type' => $type
+                ],
                 $term
             );
         } else {
