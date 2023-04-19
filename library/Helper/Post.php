@@ -163,6 +163,7 @@ class Post
         $taxonomies = get_object_taxonomies($postType);
 
         $termIcon = [];
+        $termColor = false;
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
@@ -177,10 +178,17 @@ class Post
                             $termIcon['color'] = 'white';
                             $termIcon['backgroundColor'] = $color;
                         }
+
+                        if (!empty($color)) {
+                            $termColor = $color;
+                        }
                     }
                 }
             }
         }  
+        if (empty($termIcon) && !empty($termColor)) {
+            $termIcon['backgroundColor'] = $color;
+        }
         return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
     }
 
