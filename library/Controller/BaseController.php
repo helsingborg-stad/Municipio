@@ -24,12 +24,16 @@ class BaseController
      */
     protected $posts = null;
 
+    private \Municipio\Helper\TranslationRegistry $lang;
+
     /**
      * Init data fetching
      * @var object
      */
     public function __construct()
     {
+        $this->lang = new \Municipio\Helper\TranslationRegistry();
+
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
@@ -194,6 +198,7 @@ class BaseController
         $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
 
         //Language
+        $this->setDefaultTranslations();
         $this->data['lang'] = (object) array(
             'goToHomepage'         => __("Go to homepage", 'municipio'),
             'jumpToMainMenu'       => __("Jump to the main menu", 'municipio'),
@@ -261,6 +266,67 @@ class BaseController
 
         $this->init();
     }
+
+    private function setDefaultTranslations()
+    {
+        $this->addTranslation('goToHomepage', __('Go to homepage', 'municipio'));
+        $this->addTranslation('jumpToMainMenu', __("Jump to the main menu", 'municipio'));
+        $this->addTranslation('jumpToMainContent', __("Jump to the main content", 'municipio'));
+        $this->addTranslation('skipToMainContent', __("Skip to the main content", 'municipio'));
+        $this->addTranslation('skipToMainMenu', __("Skip to the main menu", 'municipio'));
+        $this->addTranslation('skipToSideMenu', __("Skip to the side menu", 'municipio'));
+        $this->addTranslation('ago', __("ago", 'municipio'));
+        $this->addTranslation('since', __("since", 'municipio'));
+        $this->addTranslation('years', __("years", 'municipio'));
+        $this->addTranslation('year', __("year", 'municipio'));
+        $this->addTranslation('months', __("months", 'municipio'));
+        $this->addTranslation('month', __("month", 'municipio'));
+        $this->addTranslation('weeks', __("weeks", 'municipio'));
+        $this->addTranslation('week', __("week", 'municipio'));
+        $this->addTranslation('days', __("days", 'municipio'));
+        $this->addTranslation('day', __("day", 'municipio'));
+        $this->addTranslation('hours', __("hours", 'municipio'));
+        $this->addTranslation('hour', __("hour", 'municipio'));
+        $this->addTranslation('minutes', __("minutes", 'municipio'));
+        $this->addTranslation('minute', __("minute", 'municipio'));
+        $this->addTranslation('seconds', __("seconds", 'municipio'));
+        $this->addTranslation('second', __("second", 'municipio'));
+        $this->addTranslation('search', __("Search", 'municipio'));
+        $this->addTranslation('searchOn', __("Search on", 'municipio'));
+        $this->addTranslation('searchQuestion', __("What are you searching for?", 'municipio'));
+        $this->addTranslation('primaryNavigation', __("Primary navigation", 'municipio'));
+        $this->addTranslation('hamburgerNavigation', __("Hamburger menu", 'municipio'));
+        $this->addTranslation('quicklinksNavigation', __("Useful links", 'municipio'));
+        $this->addTranslation('relatedLinks', __("Related links", 'municipio'));
+        $this->addTranslation('menu', __("Menu", 'municipio'));
+        $this->addTranslation('emblem', __("Site emblem", 'municipio'));
+        $this->addTranslation('close', __("Close", 'municipio'));
+        $this->addTranslation('moreLanguages', __("More Languages", 'municipio'));
+        $this->addTranslation('changeLanguage', __("Language", 'municipio'));
+        $this->addTranslation('expand', __("Expand", 'municipio'));
+        $this->addTranslation('breadcrumbPrefix', __("You are here: ", 'municipio'));
+        $this->addTranslation('readingTime', __('Reading time', 'municipio'));
+        $this->addTranslation('related', _x('Related', 'Related (name of posttype)', 'municipio'));
+        $this->addTranslation('showAll', __('Show all', 'municipio'));
+        $this->addTranslation('readMore', __('Read more', 'municipio'));
+        $this->addTranslation('bookHere', __('Book here', 'municipio'));
+    }
+
+    public function getLangCollection()
+    {
+        return $this->lang->getCollection();
+    }
+
+    public function addTranslation(string $key, string $value)
+    {
+        return $this->lang->add($key, $value);
+    }
+
+    public function updateTranslation(string $key, string $newValue)
+    {
+        return $this->lang->add($key, $newValue);
+    }
+
     public function componentDataUsePlaceholder($data)
     {
         if (empty($data['image']['src'])) {
