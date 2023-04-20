@@ -2,7 +2,7 @@
   'id'        => 'mobile-search-form',
   'method'    => 'get',
   'action'    => $homeUrl,
-  'classList' => ['search-form']
+  'classList' => $classList
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([

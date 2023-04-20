@@ -29,8 +29,9 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
     &.c-header--sticky {
         top: -1px;
+        <<<<<<< HEAD=======position: relative;
 
-        &.is-stuck {
+        >>>>>>>3.0/develop &.is-stuck {
             background-color: #{$c-quicklinks-background-sticky-color};
         }
     }
@@ -78,8 +79,13 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
             }
         }
     }
-}
 
+    @include mq('sm') {
+        &.c-header.c-header--sticky {
+            position: sticky
+        }
+    }
+}
 
 #main-content {
     #quicklinks-header {

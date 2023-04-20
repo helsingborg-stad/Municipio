@@ -2,12 +2,18 @@
 @drawer([
     'toggleButtonData' => [
         'id' => 'mobile-menu-trigger-open',
-        'color' => 'default',
-        'style' => 'basic',
+        'color' => $customizer->headerTriggerButtonColor,
+        'style' => $customizer->headerTriggerButtonType,
+        'size' => $customizer->headerTriggerButtonSize,
         'icon' => 'menu',
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
         'classList' => ['mobile-menu-trigger'],
-        'attributeList' => ['aria-label' => $lang->menu],
+        'text' => $lang->menu,
+        'reversePositions' => true,
+        'toggle' => true,
+        'attributeList' => [
+            'data-toggle-icon' => 'close'
+        ]
     ],
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
@@ -22,7 +28,7 @@
         @includeWhen(
                 $showMobileSearchDrawer,
                 'partials.search.mobile-search-form',
-                ['classList' => ['u-margin__top--2', 'u-width--100']]
+                ['classList' => ['search-form', 'u-margin__top--2', 'u-width--100']]
             )
     @endslot
 

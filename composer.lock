@@ -2786,12 +2786,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b754747169d4d5854ea71c7ffce16bcde0be9b59"
+                "reference": "c993f0d3b0489ffc42ee2fe0bd645af1538a63b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b754747169d4d5854ea71c7ffce16bcde0be9b59",
-                "reference": "b754747169d4d5854ea71c7ffce16bcde0be9b59",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c993f0d3b0489ffc42ee2fe0bd645af1538a63b2",
+                "reference": "c993f0d3b0489ffc42ee2fe0bd645af1538a63b2",
                 "shasum": ""
             },
             "require": {
@@ -2865,7 +2865,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.7"
             },
             "funding": [
                 {
@@ -2881,7 +2881,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-04T09:12:50+00:00"
+            "time": "2023-04-14T08:58:40+00:00"
         },
         {
             "name": "react/event-loop",
@@ -2889,12 +2889,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "747a470340345bb47d29ae5af563754c1d64309a"
+                "reference": "21914ff1db4260ca4c81e338c7e235a4df4ef94b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/747a470340345bb47d29ae5af563754c1d64309a",
-                "reference": "747a470340345bb47d29ae5af563754c1d64309a",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/21914ff1db4260ca4c81e338c7e235a4df4ef94b",
+                "reference": "21914ff1db4260ca4c81e338c7e235a4df4ef94b",
                 "shasum": ""
             },
             "require": {
@@ -2954,7 +2954,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-03-02T11:28:19+00:00"
+            "time": "2023-04-13T18:10:14+00:00"
         },
         {
             "name": "react/stream",
@@ -4067,12 +4067,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "3cd51fd2e6c461ca678f84d419461281bd87a0a8"
+                "reference": "3105944c52330eb286938ba481ff33fa7be15c3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/3cd51fd2e6c461ca678f84d419461281bd87a0a8",
-                "reference": "3cd51fd2e6c461ca678f84d419461281bd87a0a8",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3105944c52330eb286938ba481ff33fa7be15c3b",
+                "reference": "3105944c52330eb286938ba481ff33fa7be15c3b",
                 "shasum": ""
             },
             "require": {
@@ -4158,7 +4158,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-25T09:27:28+00:00"
+            "time": "2023-04-12T06:43:40+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5044,5 +5044,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
