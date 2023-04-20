@@ -2,14 +2,7 @@
     @if (($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || $customizer->quicklinksLocation == 'everywhere')
         @header([
             'id' => 'quicklinks-header',
-            'classList' => [
-                'site-header',
-                's-nav-fixed',
-                't-block-container',
-                't-block-align-full',
-                'u-padding-0',
-                'u-print-display--none'
-            ],
+            'classList' => ['site-header', 's-nav-fixed', 'u-padding-0', 'u-print-display--none'],
             'context' => ['site.quicklinks']
         ])
             <div class="c-header__menu c-header__menu--secondary u-padding--05">

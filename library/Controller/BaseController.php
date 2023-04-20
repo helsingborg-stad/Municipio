@@ -134,7 +134,6 @@ class BaseController
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
-
         //Get language menu options
         $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();
 
@@ -395,7 +394,7 @@ class BaseController
      */
     public function getFloatingMenuLabels(): object
     {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating - menu'] ?? '');
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
 
         return (object) apply_filters(
             'Municipio/FloatingMenuLabels',
@@ -414,7 +413,7 @@ class BaseController
      */
     public function getLanguageMenuOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language - menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
         'disclaimer'        => get_field('language_menu_disclaimer', $options),
@@ -431,7 +430,7 @@ class BaseController
      */
     public function getQuicklinksOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks - menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? '');
 
         $options = [
         'backgroundColor'   => get_field('quicklinks_background_color', $options),
@@ -479,7 +478,7 @@ class BaseController
       */
     protected function setSkipLinkValue()
     {
-        if ($this->data['pageTemplate'] === 'one - page . blade . php') {
+        if ($this->data['pageTemplate'] === 'one-page.blade.php') {
             return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
         }
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');

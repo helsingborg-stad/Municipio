@@ -72,7 +72,7 @@ class Post
                             'lang'                => $data['lang'],
                             ]
                         );
-                        $postObject->hasQuicklinksAfterFirstBlock = true;
+                            $postObject->hasQuicklinksAfterFirstBlock = true;
                 } else {
                     $postObject->post_content .= render_block($block);
                 }
