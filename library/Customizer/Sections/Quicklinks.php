@@ -87,13 +87,6 @@ class Quicklinks
               'value'    => 'custom',
             ]
             ],
-            'active_callback'  => [
-            [
-              'setting'  => 'quicklinks_appearance_type',
-              'operator' => '===',
-              'value'    => 'custom',
-            ]
-          ],
       ]);
 
       Kirki::add_field(Customizer::KIRKI_CONFIG, [
