@@ -98,18 +98,18 @@ class Field
             'section'     => $sectionID,
             'default'     => '0',
             'choices'     => [
-                '0' => 'None',
-                '0.25' => 'XS',
-                '0.5' => 'SM',
-                '1' => 'MD',
-                '1.5' => 'LG',
-                '3' => 'Full',
+                '0' => '0',
+                '0.25' => '2',
+                '0.5' => '4',
+                '1' => '8',
+                '1.5' => '12',
+                '3' => '24',
             ],
             'output' => [
                 [
                 'element' => ':root',
                 'property'  => '--c-field-border-radius',
-                'value' => '{{value}}'
+                'value' => '$'
                 ]
             ],
             'active_callback'  => [
