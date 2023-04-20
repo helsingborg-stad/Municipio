@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
+"POT-Creation-Date: 2023-04-18T13:10:49+00:00\n"
+"PO-Revision-Date: 2023-04-20 16:35+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-18T13:10:49+00:00\n"
-"PO-Revision-Date: 2023-04-18 15:13+0200\n"
-"Language: sv_SE\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
 "X-Generator: Poedit 3.1.1\n"
@@ -4938,8 +4938,7 @@ msgid "Post type functions"
 msgstr "Funktioner för inläggstypen"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:282
-#: library/Admin/Options/Theme.php:67
-#: library/Admin/Options/Theme.php:68
+#: library/Admin/Options/Theme.php:67 library/Admin/Options/Theme.php:68
 msgid "Content editor"
 msgstr "Innehållsförfattare"
 
@@ -13216,13 +13215,10 @@ msgstr "Innehållssyften"
 msgid "Select purpose"
 msgstr "Välj syfte"
 
-#: library/Admin/Options/Purpose.php:88
-#: library/Admin/Options/Theme.php:51
-#: library/Admin/Options/Theme.php:52
-#: library/Controller/Archive.php:101
+#: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
+#: library/Admin/Options/Theme.php:52 library/Controller/Archive.php:101
 #: library/Controller/BaseController.php:219
-#: library/Customizer/PanelsRegistry.php:235
-#: library/Search/General.php:54
+#: library/Customizer/PanelsRegistry.php:235 library/Search/General.php:54
 #: library/Widget/Navigation/Navigation.php:66
 #: views/v1/partials/archive-filters.blade.php:40
 #: views/v1/partials/archive-filters.blade.php:43
@@ -13235,8 +13231,7 @@ msgstr "Välj syfte"
 #: views/v1/partials/archive-filters.blade.php:82
 #: views/v1/partials/search/top-search.blade.php:6
 #: views/v1/partials/search/top-search.blade.php:10
-#: views/v1/searchform.blade.php:12
-#: views/v1/searchform.blade.php:14
+#: views/v1/searchform.blade.php:12 views/v1/searchform.blade.php:14
 #: views/v1/searchform.blade.php:20
 #: views/v2/partials/archive-filters.blade.php:42
 #: views/v2/partials/archive-filters.blade.php:45
@@ -13264,18 +13259,15 @@ msgstr "Använd"
 msgid "Do not use"
 msgstr "Använd inte"
 
-#: library/Admin/Options/Theme.php:19
-#: library/Admin/Options/Theme.php:20
+#: library/Admin/Options/Theme.php:19 library/Admin/Options/Theme.php:20
 msgid "Theme Options"
 msgstr "Temainställningar"
 
-#: library/Admin/Options/Theme.php:32
-#: library/Admin/Options/Theme.php:33
+#: library/Admin/Options/Theme.php:32 library/Admin/Options/Theme.php:33
 msgid "Customizer"
 msgstr "Anpassning"
 
-#: library/Admin/Options/Theme.php:43
-#: library/Admin/Options/Theme.php:44
+#: library/Admin/Options/Theme.php:43 library/Admin/Options/Theme.php:44
 #: library/Customizer/Sections/FooterSub.php:186
 #: library/Customizer/Sections/Width.php:36
 msgid "Content"
@@ -13317,8 +13309,7 @@ msgstr "Test"
 msgid "Beta"
 msgstr "Beta"
 
-#: library/Admin/UI/BackEnd.php:41
-#: library/Admin/UI/BackEnd.php:46
+#: library/Admin/UI/BackEnd.php:41 library/Admin/UI/BackEnd.php:46
 #: library/Admin/UI/BackEnd.php:51
 msgid "Notice"
 msgstr "Notis"
@@ -13351,19 +13342,16 @@ msgstr "Returtyp från nedladdad bild."
 msgid "View data."
 msgstr "Visa data."
 
-#: library/Comment/Form.php:36
-#: library/Theme/Icon.php:65
+#: library/Comment/Form.php:36 library/Theme/Icon.php:65
 msgid "Comment"
 msgstr "Kommentar"
 
-#: library/Comment/Form.php:37
-#: views/v1/partials/share-email-form.blade.php:16
+#: library/Comment/Form.php:37 views/v1/partials/share-email-form.blade.php:16
 #: views/v1/partials/share-email-form.blade.php:17
 msgid "Your name"
 msgstr "Ditt namn"
 
-#: library/Comment/Form.php:38
-#: views/v1/partials/share-email-form.blade.php:20
+#: library/Comment/Form.php:38 views/v1/partials/share-email-form.blade.php:20
 #: views/v1/partials/share-email-form.blade.php:21
 msgid "Your email"
 msgstr "Din e-postadress"
@@ -13384,8 +13372,7 @@ msgstr "Avbryt"
 msgid "Could not verify that you are human (some form fields are missing)."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
-#: library/Comment/HoneyPot.php:138
-#: library/Comment/HoneyPot.php:143
+#: library/Comment/HoneyPot.php:138 library/Comment/HoneyPot.php:143
 #: library/Comment/HoneyPot.php:148
 msgid "Could not verify that you are human."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
@@ -13457,20 +13444,17 @@ msgstr "Fler %s"
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/Archive.php:92
-#: library/Controller/Singular.php:38
+#: library/Controller/Archive.php:92 library/Controller/Singular.php:38
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/Archive.php:93
-#: library/Controller/Singular.php:37
+#: library/Controller/Archive.php:93 library/Controller/Singular.php:37
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Controller/Archive.php:94
-#: library/Controller/BaseController.php:236
+#: library/Controller/Archive.php:94 library/Controller/BaseController.php:236
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -13486,8 +13470,7 @@ msgstr "Välj ett \"till\" datum"
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Controller/Archive.php:102
-#: library/Controller/Singular.php:141
+#: library/Controller/Archive.php:102 library/Controller/Singular.php:141
 msgid "Filter"
 msgstr "Filtrera"
 
@@ -13495,8 +13478,7 @@ msgstr "Filtrera"
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Controller/Archive.php:104
-#: library/Controller/Singular.php:142
+#: library/Controller/Archive.php:104 library/Controller/Singular.php:142
 msgid "Reset filter"
 msgstr "Återställ filter"
 
@@ -13508,15 +13490,12 @@ msgstr "Arkivnavigering"
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/Archive.php:463
-#: library/Controller/Singular.php:212
+#: library/Controller/Archive.php:463 library/Controller/Singular.php:212
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/BaseController.php:197
-#: library/Controller/E404.php:37
-#: library/Widget/Brand/Brand.php:47
-#: library/Widget/Header/Logo.php:46
+#: library/Controller/BaseController.php:197 library/Controller/E404.php:37
+#: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
@@ -13619,8 +13598,7 @@ msgstr "Huvudmeny"
 
 #: library/Controller/BaseController.php:223
 #: library/Customizer/PanelsRegistry.php:276
-#: library/Customizer/Sections/Search.php:107
-#: library/Theme/Navigation.php:29
+#: library/Customizer/Sections/Search.php:107 library/Theme/Navigation.php:29
 msgid "Hamburger menu"
 msgstr "Hamburgermeny"
 
@@ -13632,8 +13610,7 @@ msgstr "Användbara länkar"
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Controller/BaseController.php:226
-#: library/Theme/Icon.php:44
+#: library/Controller/BaseController.php:226 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 #: views/v1/partials/header/default.blade.php:42
@@ -13678,8 +13655,7 @@ msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr "Relaterade"
 
-#: library/Controller/BaseController.php:235
-#: library/Controller/E404.php:47
+#: library/Controller/BaseController.php:235 library/Controller/E404.php:47
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 #: views/v1/partials/blog/taxonomy-filters.blade.php:11
 msgid "Show all"
@@ -13905,8 +13881,7 @@ msgstr "Hantera design på komponentnivå."
 msgid "Header"
 msgstr "Sidhuvud"
 
-#: library/Customizer/PanelsRegistry.php:256
-#: library/Theme/Navigation.php:35
+#: library/Customizer/PanelsRegistry.php:256 library/Theme/Navigation.php:35
 msgid "Siteselector"
 msgstr "Välj"
 
@@ -13954,8 +13929,7 @@ msgstr "Sekundär sidfot"
 msgid "Divider"
 msgstr "Avdelare"
 
-#: library/Customizer/PanelsRegistry.php:319
-#: library/Theme/Sidebars.php:123
+#: library/Customizer/PanelsRegistry.php:319 library/Theme/Sidebars.php:123
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
@@ -15207,8 +15181,7 @@ msgstr "Inställning i huvudmeny"
 msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
-#: library/Customizer/Sections/Search.php:108
-#: library/Theme/Navigation.php:33
+#: library/Customizer/Sections/Search.php:108 library/Theme/Navigation.php:33
 msgid "Quicklinks menu"
 msgstr "Snabblänksmeny"
 
@@ -15363,8 +15336,7 @@ msgstr "Specialanpassa"
 msgid "Disable"
 msgstr "Inaktivera"
 
-#: library/Helper/Navigation.php:640
-#: library/Helper/Navigation.php:930
+#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:930
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
@@ -15390,8 +15362,7 @@ msgid_plural "%d minutes"
 msgstr[0] "1 minut"
 msgstr[1] "%d minuter"
 
-#: library/Oembed/OembedFilters.php:17
-#: library/Oembed/OembedFilters.php:23
+#: library/Oembed/OembedFilters.php:17 library/Oembed/OembedFilters.php:23
 msgid "We need your consent to continue"
 msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 
@@ -15399,8 +15370,7 @@ msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 msgid "This part of the website shows content from %s. By continuing, <a href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
 
-#: library/Oembed/OembedFilters.php:19
-#: library/Oembed/OembedFilters.php:25
+#: library/Oembed/OembedFilters.php:19 library/Oembed/OembedFilters.php:25
 msgid "I understand, continue."
 msgstr "Jag förstår, fortsätt."
 
@@ -15476,8 +15446,7 @@ msgstr "Ikon: "
 msgid "Globe"
 msgstr "Jordglob"
 
-#: library/Theme/Icon.php:45
-#: library/Theme/Icon.php:126
+#: library/Theme/Icon.php:45 library/Theme/Icon.php:126
 #: library/Theme/Icon.php:139
 msgid "Calendar"
 msgstr "Kalender"
@@ -15490,14 +15459,12 @@ msgstr "Förstoringsglas"
 msgid "Printer"
 msgstr "Skrivare"
 
-#: library/Theme/Icon.php:48
-#: library/Theme/Icon.php:49
+#: library/Theme/Icon.php:48 library/Theme/Icon.php:49
 #: library/Theme/Icon.php:52
 msgid "Thumb up"
 msgstr "Tumme upp"
 
-#: library/Theme/Icon.php:50
-#: library/Theme/Icon.php:51
+#: library/Theme/Icon.php:50 library/Theme/Icon.php:51
 #: library/Theme/Icon.php:53
 msgid "Thumb down"
 msgstr "Tumme ner"
@@ -15506,8 +15473,7 @@ msgstr "Tumme ner"
 msgid "Letter"
 msgstr "Brev"
 
-#: library/Theme/Icon.php:55
-#: library/Theme/Icon.php:56
+#: library/Theme/Icon.php:55 library/Theme/Icon.php:56
 #: library/Theme/Icon.php:57
 msgid "Phone"
 msgstr "Telefon"
@@ -15516,14 +15482,12 @@ msgstr "Telefon"
 msgid "Facebook emblem"
 msgstr "Facebookemblem"
 
-#: library/Theme/Icon.php:59
-#: library/Theme/Icon.php:60
+#: library/Theme/Icon.php:59 library/Theme/Icon.php:60
 #: library/Theme/Icon.php:61
 msgid "Chat bubble"
 msgstr "Chattbubbla"
 
-#: library/Theme/Icon.php:62
-#: library/Theme/Icon.php:63
+#: library/Theme/Icon.php:62 library/Theme/Icon.php:63
 msgid "Close cross"
 msgstr "Kryss"
 
@@ -15531,8 +15495,7 @@ msgstr "Kryss"
 msgid "Information"
 msgstr "Information"
 
-#: library/Theme/Icon.php:66
-#: views/v1/partials/share-email-form.blade.php:30
+#: library/Theme/Icon.php:66 views/v1/partials/share-email-form.blade.php:30
 #: views/v1/partials/share-email-form.blade.php:31
 msgid "Message"
 msgstr "Meddelande"
@@ -15545,10 +15508,8 @@ msgstr "Filuppladdning"
 msgid "Apps"
 msgstr "Appar"
 
-#: library/Theme/Icon.php:69
-#: library/Theme/Icon.php:70
-#: library/Theme/Icon.php:71
-#: library/Theme/Icon.php:72
+#: library/Theme/Icon.php:69 library/Theme/Icon.php:70
+#: library/Theme/Icon.php:71 library/Theme/Icon.php:72
 msgid "Play"
 msgstr "Spela"
 
@@ -15576,38 +15537,31 @@ msgstr "Personer"
 msgid "Mail"
 msgstr "E-post"
 
-#: library/Theme/Icon.php:79
-#: library/Theme/Icon.php:81
+#: library/Theme/Icon.php:79 library/Theme/Icon.php:81
 msgid "Arrow forward"
 msgstr "Gå framåt"
 
-#: library/Theme/Icon.php:80
-#: library/Theme/Icon.php:82
+#: library/Theme/Icon.php:80 library/Theme/Icon.php:82
 msgid "Arrow back"
 msgstr "Gå bakåt"
 
-#: library/Theme/Icon.php:83
-#: library/Theme/Icon.php:87
+#: library/Theme/Icon.php:83 library/Theme/Icon.php:87
 #: library/Theme/Icon.php:92
 msgid "Arrow right"
 msgstr "Pil till höger"
 
-#: library/Theme/Icon.php:84
-#: library/Theme/Icon.php:88
+#: library/Theme/Icon.php:84 library/Theme/Icon.php:88
 #: library/Theme/Icon.php:93
 msgid "Arrow left"
 msgstr "Pil till vänster"
 
-#: library/Theme/Icon.php:85
-#: library/Theme/Icon.php:90
+#: library/Theme/Icon.php:85 library/Theme/Icon.php:90
 #: library/Theme/Icon.php:95
 msgid "Arrow down"
 msgstr "Pil neråt"
 
-#: library/Theme/Icon.php:86
-#: library/Theme/Icon.php:89
-#: library/Theme/Icon.php:91
-#: library/Theme/Icon.php:94
+#: library/Theme/Icon.php:86 library/Theme/Icon.php:89
+#: library/Theme/Icon.php:91 library/Theme/Icon.php:94
 msgid "Arrow up"
 msgstr "Pil upp"
 
@@ -15619,13 +15573,11 @@ msgstr "Ladda ner fil"
 msgid "Lock"
 msgstr "Lås"
 
-#: library/Theme/Icon.php:98
-#: library/Theme/Icon.php:99
+#: library/Theme/Icon.php:98 library/Theme/Icon.php:99
 msgid "Open"
 msgstr "Öppna"
 
-#: library/Theme/Icon.php:100
-#: library/Theme/Icon.php:101
+#: library/Theme/Icon.php:100 library/Theme/Icon.php:101
 msgid "Location point"
 msgstr "Platspunkt"
 
@@ -15653,19 +15605,16 @@ msgstr "Expandera sektion"
 msgid "Shrink section"
 msgstr "Krymp sektion"
 
-#: library/Theme/Icon.php:108
-#: library/Theme/Icon.php:109
+#: library/Theme/Icon.php:108 library/Theme/Icon.php:109
 #: library/Theme/Icon.php:110
 msgid "Warning"
 msgstr "Varning"
 
-#: library/Theme/Icon.php:111
-#: library/Theme/Icon.php:112
+#: library/Theme/Icon.php:111 library/Theme/Icon.php:112
 msgid "Checked"
 msgstr "Checkad"
 
-#: library/Theme/Icon.php:113
-#: library/Theme/Icon.php:114
+#: library/Theme/Icon.php:113 library/Theme/Icon.php:114
 msgid "Error"
 msgstr "Fel"
 
@@ -15673,8 +15622,7 @@ msgstr "Fel"
 msgid "Check mark"
 msgstr "Bockad"
 
-#: library/Theme/Icon.php:116
-#: library/Theme/Icon.php:117
+#: library/Theme/Icon.php:116 library/Theme/Icon.php:117
 #: library/Theme/Icon.php:118
 msgid "Increase"
 msgstr "Öka"
@@ -15683,13 +15631,11 @@ msgstr "Öka"
 msgid "Plus"
 msgstr "Plus"
 
-#: library/Theme/Icon.php:120
-#: library/Theme/Icon.php:121
+#: library/Theme/Icon.php:120 library/Theme/Icon.php:121
 msgid "Decrease"
 msgstr "Minska"
 
-#: library/Theme/Icon.php:122
-#: library/Theme/Icon.php:123
+#: library/Theme/Icon.php:122 library/Theme/Icon.php:123
 #: library/Theme/Icon.php:124
 msgid "Pause"
 msgstr "Pausa"
@@ -15734,8 +15680,7 @@ msgstr "Pilar höger"
 msgid "Arrows left"
 msgstr "Pilar vänster"
 
-#: library/Theme/Icon.php:136
-#: library/Theme/Icon.php:137
+#: library/Theme/Icon.php:136 library/Theme/Icon.php:137
 #: library/Theme/Icon.php:141
 msgid "Clock"
 msgstr "Klocka"
@@ -15917,43 +15862,33 @@ msgstr "Översätt"
 msgid "New title"
 msgstr "Ny titel"
 
-#: views/v1/archive-event.blade.php:70
-#: views/v1/archive-event.blade.php:73
+#: views/v1/archive-event.blade.php:70 views/v1/archive-event.blade.php:73
 msgctxt "Event archive"
 msgid "Date"
 msgstr "Datum"
 
-#: views/v1/archive-event.blade.php:83
-#: views/v1/archive-event.blade.php:87
+#: views/v1/archive-event.blade.php:83 views/v1/archive-event.blade.php:87
 msgctxt "Event archive"
 msgid "Location"
 msgstr "Plats"
 
-#: views/v1/archive-event.blade.php:91
-#: views/v1/single-event.blade.php:68
-#: views/v1/archive-event.blade.php:96
-#: views/v1/single-event.blade.php:69
+#: views/v1/archive-event.blade.php:91 views/v1/single-event.blade.php:68
+#: views/v1/archive-event.blade.php:96 views/v1/single-event.blade.php:69
 msgid "Cancelled"
 msgstr "Inställt"
 
-#: views/v1/archive-event.blade.php:96
-#: views/v1/single-event.blade.php:70
-#: views/v1/archive-event.blade.php:102
-#: views/v1/single-event.blade.php:71
+#: views/v1/archive-event.blade.php:96 views/v1/single-event.blade.php:70
+#: views/v1/archive-event.blade.php:102 views/v1/single-event.blade.php:71
 msgid "Rescheduled"
 msgstr "Omplanerat"
 
-#: views/v1/archive-event.blade.php:118
-#: views/v1/archive.blade.php:96
-#: views/v2/templates/archive.blade.php:49
-#: views/v1/archive-event.blade.php:126
-#: views/v1/archive.blade.php:99
-#: views/v2/templates/archive.blade.php:51
+#: views/v1/archive-event.blade.php:118 views/v1/archive.blade.php:96
+#: views/v2/templates/archive.blade.php:49 views/v1/archive-event.blade.php:126
+#: views/v1/archive.blade.php:99 views/v2/templates/archive.blade.php:51
 msgid "No posts to show"
 msgstr "Inga inlägg att visa"
 
-#: views/v1/author.blade.php:34
-#: views/v3/author.blade.php:14
+#: views/v1/author.blade.php:34 views/v3/author.blade.php:14
 msgid "Posts by"
 msgstr "Inlägg av"
 
@@ -16136,19 +16071,13 @@ msgstr "Dela med e-post"
 msgid "Last updated"
 msgstr "Senast uppdaterad"
 
-#: views/v1/single-listing.blade.php:48
-#: views/v1/single-listing.blade.php:51
+#: views/v1/single-listing.blade.php:48 views/v1/single-listing.blade.php:51
 msgid "Price"
 msgstr "Pris"
 
-#: views/v1/single-listing.blade.php:61
-#: views/v1/single-listing.blade.php:66
+#: views/v1/single-listing.blade.php:61 views/v1/single-listing.blade.php:66
 msgid "Attached files"
 msgstr "Bifogade filer"
-
-#: views/v1/partials/timestamps.blade.php:55
-#~ msgid "at"
-#~ msgstr "på"
 
 #: library/AcfFields/php/options-page-quicklinks-placement.php:12
 msgid "Placement"
@@ -16156,951 +16085,951 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:105
 msgid "<i class=\"material-icons\" style=\"float: left;\">17mp</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">17mp</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">17mp</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">17mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:123
 msgid "<i class=\"material-icons\" style=\"float: left;\">3d_rotation</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">3d_rotation</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">3d_rotation</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">3d_rotation</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:129
 msgid "<i class=\"material-icons\" style=\"float: left;\">4g_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">4g_mobiledata</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">4g_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">4g_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:139
 msgid "<i class=\"material-icons\" style=\"float: left;\">60fps_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">60fps_select</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">60fps_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">60fps_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:166
 msgid "<i class=\"material-icons\" style=\"float: left;\">account_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">account_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">account_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">account_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:179
 msgid "<i class=\"material-icons\" style=\"float: left;\">add_circle_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_circle_outline</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">add_circle_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_circle_outline</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:182
 msgid "<i class=\"material-icons\" style=\"float: left;\">add_home_work</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_home_work</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">add_home_work</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_home_work</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:188
 msgid "<i class=\"material-icons\" style=\"float: left;\">add_photo_alternate</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_photo_alternate</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">add_photo_alternate</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_photo_alternate</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:195
 msgid "<i class=\"material-icons\" style=\"float: left;\">add_to_photos</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_to_photos</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">add_to_photos</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">add_to_photos</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:211
 msgid "<i class=\"material-icons\" style=\"float: left;\">airline_seat_recline_normal</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">airline_seat_recline_normal</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">airline_seat_recline_normal</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">airline_seat_recline_normal</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:215
 msgid "<i class=\"material-icons\" style=\"float: left;\">airplanemode_active</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">airplanemode_active</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">airplanemode_active</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">airplanemode_active</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:228
 msgid "<i class=\"material-icons\" style=\"float: left;\">align_vertical_center</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">align_vertical_center</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">align_vertical_center</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">align_vertical_center</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:245
 msgid "<i class=\"material-icons\" style=\"float: left;\">app_settings_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">app_settings_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">app_settings_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">app_settings_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:249
 msgid "<i class=\"material-icons\" style=\"float: left;\">apps_outage</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">apps_outage</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">apps_outage</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">apps_outage</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:269
 msgid "<i class=\"material-icons\" style=\"float: left;\">arrow_right_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">arrow_right_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">arrow_right_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">arrow_right_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:280
 msgid "<i class=\"material-icons\" style=\"float: left;\">assignment_turned_in</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">assignment_turned_in</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">assignment_turned_in</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">assignment_turned_in</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:284
 msgid "<i class=\"material-icons\" style=\"float: left;\">assistant_photo</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">assistant_photo</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">assistant_photo</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">assistant_photo</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:301
 msgid "<i class=\"material-icons\" style=\"float: left;\">auto_fix_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">auto_fix_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">auto_fix_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">auto_fix_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:304
 msgid "<i class=\"material-icons\" style=\"float: left;\">auto_stories</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">auto_stories</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">auto_stories</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">auto_stories</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:335
 msgid "<i class=\"material-icons\" style=\"float: left;\">battery_unknown</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">battery_unknown</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">battery_unknown</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">battery_unknown</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:339
 msgid "<i class=\"material-icons\" style=\"float: left;\">bedroom_child</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bedroom_child</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">bedroom_child</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bedroom_child</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:359
 msgid "<i class=\"material-icons\" style=\"float: left;\">blur_circular</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">blur_circular</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">blur_circular</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">blur_circular</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:369
 msgid "<i class=\"material-icons\" style=\"float: left;\">bookmark_border</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bookmark_border</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">bookmark_border</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bookmark_border</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:382
 msgid "<i class=\"material-icons\" style=\"float: left;\">border_top</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">border_top</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">border_top</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">border_top</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:403
 msgid "<i class=\"material-icons\" style=\"float: left;\">browser_updated</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">browser_updated</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">browser_updated</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">browser_updated</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:406
 msgid "<i class=\"material-icons\" style=\"float: left;\">bubble_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bubble_chart</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">bubble_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">bubble_chart</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:423
 msgid "<i class=\"material-icons\" style=\"float: left;\">calendar_view_month</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">calendar_view_month</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">calendar_view_month</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">calendar_view_month</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:432
 msgid "<i class=\"material-icons\" style=\"float: left;\">call_split</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">call_split</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">call_split</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">call_split</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:441
 msgid "<i class=\"material-icons\" style=\"float: left;\">camera_roll</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">camera_roll</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">camera_roll</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">camera_roll</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:446
 msgid "<i class=\"material-icons\" style=\"float: left;\">cancel_schedule_send</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cancel_schedule_send</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">cancel_schedule_send</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cancel_schedule_send</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:452
 msgid "<i class=\"material-icons\" style=\"float: left;\">card_membership</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">card_membership</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">card_membership</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">card_membership</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:458
 msgid "<i class=\"material-icons\" style=\"float: left;\">cast_connected</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cast_connected</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">cast_connected</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cast_connected</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:463
 msgid "<i class=\"material-icons\" style=\"float: left;\">celebration</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">celebration</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">celebration</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">celebration</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:466
 msgid "<i class=\"material-icons\" style=\"float: left;\">center_focus_strong</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">center_focus_strong</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">center_focus_strong</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">center_focus_strong</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:472
 msgid "<i class=\"material-icons\" style=\"float: left;\">change_history</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">change_history</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">change_history</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">change_history</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:475
 msgid "<i class=\"material-icons\" style=\"float: left;\">chat_bubble</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">chat_bubble</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">chat_bubble</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">chat_bubble</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:480
 msgid "<i class=\"material-icons\" style=\"float: left;\">check_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">check_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">check_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">check_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:488
 msgid "<i class=\"material-icons\" style=\"float: left;\">child_friendly</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">child_friendly</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">child_friendly</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">child_friendly</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:494
 msgid "<i class=\"material-icons\" style=\"float: left;\">clean_hands</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">clean_hands</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">clean_hands</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">clean_hands</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:501
 msgid "<i class=\"material-icons\" style=\"float: left;\">closed_caption_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">closed_caption_disabled</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">closed_caption_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">closed_caption_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:505
 msgid "<i class=\"material-icons\" style=\"float: left;\">cloud_done</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cloud_done</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">cloud_done</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cloud_done</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:509
 msgid "<i class=\"material-icons\" style=\"float: left;\">cloud_sync</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cloud_sync</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">cloud_sync</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">cloud_sync</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:518
 msgid "<i class=\"material-icons\" style=\"float: left;\">collections_bookmark</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">collections_bookmark</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">collections_bookmark</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">collections_bookmark</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:522
 msgid "<i class=\"material-icons\" style=\"float: left;\">comment_bank</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">comment_bank</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">comment_bank</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">comment_bank</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:527
 msgid "<i class=\"material-icons\" style=\"float: left;\">compare_arrows</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">compare_arrows</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">compare_arrows</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">compare_arrows</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:541
 msgid "<i class=\"material-icons\" style=\"float: left;\">contact_support</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">contact_support</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">contact_support</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">contact_support</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:548
 msgid "<i class=\"material-icons\" style=\"float: left;\">content_paste_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">content_paste_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">content_paste_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">content_paste_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:552
 msgid "<i class=\"material-icons\" style=\"float: left;\">control_point</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">control_point</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">control_point</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">control_point</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:557
 msgid "<i class=\"material-icons\" style=\"float: left;\">coronavirus</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">coronavirus</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">coronavirus</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">coronavirus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:564
 msgid "<i class=\"material-icons\" style=\"float: left;\">credit_card_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">credit_card_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">credit_card_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">credit_card_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:579
 msgid "<i class=\"material-icons\" style=\"float: left;\">crop_square</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">crop_square</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">crop_square</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">crop_square</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:589
 msgid "<i class=\"material-icons\" style=\"float: left;\">currency_yen</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">currency_yen</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">currency_yen</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">currency_yen</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:603
 msgid "<i class=\"material-icons\" style=\"float: left;\">data_thresholding</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">data_thresholding</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">data_thresholding</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">data_thresholding</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:606
 msgid "<i class=\"material-icons\" style=\"float: left;\">dataset_linked</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">dataset_linked</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">dataset_linked</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">dataset_linked</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:619
 msgid "<i class=\"material-icons\" style=\"float: left;\">departure_board</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">departure_board</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">departure_board</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">departure_board</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:625
 msgid "<i class=\"material-icons\" style=\"float: left;\">desktop_mac</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">desktop_mac</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">desktop_mac</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">desktop_mac</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:632
 msgid "<i class=\"material-icons\" style=\"float: left;\">device_thermostat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">device_thermostat</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">device_thermostat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">device_thermostat</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:636
 msgid "<i class=\"material-icons\" style=\"float: left;\">devices_other</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">devices_other</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">devices_other</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">devices_other</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:661
 msgid "<i class=\"material-icons\" style=\"float: left;\">disabled_by_default</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">disabled_by_default</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">disabled_by_default</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">disabled_by_default</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:667
 msgid "<i class=\"material-icons\" style=\"float: left;\">diversity_2</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">diversity_2</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">diversity_2</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">diversity_2</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:679
 msgid "<i class=\"material-icons\" style=\"float: left;\">do_not_step</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">do_not_step</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">do_not_step</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">do_not_step</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:685
 msgid "<i class=\"material-icons\" style=\"float: left;\">domain_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">domain_disabled</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">domain_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">domain_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:690
 msgid "<i class=\"material-icons\" style=\"float: left;\">donut_large</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">donut_large</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">donut_large</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">donut_large</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:693
 msgid "<i class=\"material-icons\" style=\"float: left;\">door_front</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">door_front</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">door_front</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">door_front</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:696
 msgid "<i class=\"material-icons\" style=\"float: left;\">double_arrow</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">double_arrow</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">double_arrow</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">double_arrow</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:700
 msgid "<i class=\"material-icons\" style=\"float: left;\">download_for_offline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">download_for_offline</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">download_for_offline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">download_for_offline</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:703
 msgid "<i class=\"material-icons\" style=\"float: left;\">drag_handle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">drag_handle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">drag_handle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">drag_handle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:709
 msgid "<i class=\"material-icons\" style=\"float: left;\">drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">drive_file_rename_outline</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">drive_file_rename_outline</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:716
 msgid "<i class=\"material-icons\" style=\"float: left;\">dynamic_form</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">dynamic_form</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">dynamic_form</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">dynamic_form</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:721
 msgid "<i class=\"material-icons\" style=\"float: left;\">edgesensor_high</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">edgesensor_high</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">edgesensor_high</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">edgesensor_high</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:726
 msgid "<i class=\"material-icons\" style=\"float: left;\">edit_location</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">edit_location</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">edit_location</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">edit_location</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:743
 msgid "<i class=\"material-icons\" style=\"float: left;\">electric_scooter</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">electric_scooter</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">electric_scooter</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">electric_scooter</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:759
 msgid "<i class=\"material-icons\" style=\"float: left;\">engineering</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">engineering</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">engineering</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">engineering</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:767
 msgid "<i class=\"material-icons\" style=\"float: left;\">euro_symbol</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">euro_symbol</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">euro_symbol</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">euro_symbol</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:774
 msgid "<i class=\"material-icons\" style=\"float: left;\">event_seat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">event_seat</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">event_seat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">event_seat</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:778
 msgid "<i class=\"material-icons\" style=\"float: left;\">expand_less</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">expand_less</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">expand_less</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">expand_less</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:787
 msgid "<i class=\"material-icons\" style=\"float: left;\">exposure_plus_2</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">exposure_plus_2</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">exposure_plus_2</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">exposure_plus_2</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:798
 msgid "<i class=\"material-icons\" style=\"float: left;\">face_retouching_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">face_retouching_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">face_retouching_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">face_retouching_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:802
 msgid "<i class=\"material-icons\" style=\"float: left;\">fast_forward</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fast_forward</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">fast_forward</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fast_forward</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:808
 msgid "<i class=\"material-icons\" style=\"float: left;\">featured_play_list</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">featured_play_list</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">featured_play_list</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">featured_play_list</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:822
 msgid "<i class=\"material-icons\" style=\"float: left;\">file_download_done</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">file_download_done</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">file_download_done</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">file_download_done</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:825
 msgid "<i class=\"material-icons\" style=\"float: left;\">file_present</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">file_present</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">file_present</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">file_present</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:854
 msgid "<i class=\"material-icons\" style=\"float: left;\">fire_hydrant_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fire_hydrant_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">fire_hydrant_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fire_hydrant_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:857
 msgid "<i class=\"material-icons\" style=\"float: left;\">first_page</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">first_page</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">first_page</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">first_page</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:868
 msgid "<i class=\"material-icons\" style=\"float: left;\">flashlight_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flashlight_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">flashlight_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flashlight_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:873
 msgid "<i class=\"material-icons\" style=\"float: left;\">flight_land</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flight_land</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">flight_land</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flight_land</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:878
 msgid "<i class=\"material-icons\" style=\"float: left;\">flip_to_back</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flip_to_back</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">flip_to_back</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">flip_to_back</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:881
 msgid "<i class=\"material-icons\" style=\"float: left;\">fluorescent</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fluorescent</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">fluorescent</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fluorescent</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:894
 msgid "<i class=\"material-icons\" style=\"float: left;\">font_download</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">font_download</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">font_download</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">font_download</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:923
 msgid "<i class=\"material-icons\" style=\"float: left;\">format_textdirection_r_to_l</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">format_textdirection_r_to_l</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">format_textdirection_r_to_l</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">format_textdirection_r_to_l</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:928
 msgid "<i class=\"material-icons\" style=\"float: left;\">forward_10</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">forward_10</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">forward_10</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">forward_10</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:936
 msgid "<i class=\"material-icons\" style=\"float: left;\">fullscreen</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fullscreen</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">fullscreen</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">fullscreen</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:939
 msgid "<i class=\"material-icons\" style=\"float: left;\">g_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">g_mobiledata</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">g_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">g_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:975
 msgid "<i class=\"material-icons\" style=\"float: left;\">group_remove</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">group_remove</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">group_remove</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">group_remove</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:980
 msgid "<i class=\"material-icons\" style=\"float: left;\">h_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">h_mobiledata</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">h_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">h_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:988
 msgid "<i class=\"material-icons\" style=\"float: left;\">hdr_auto_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hdr_auto_select</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">hdr_auto_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hdr_auto_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:997
 msgid "<i class=\"material-icons\" style=\"float: left;\">headphones</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">headphones</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">headphones</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">headphones</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1000
 msgid "<i class=\"material-icons\" style=\"float: left;\">headset_mic</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">headset_mic</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">headset_mic</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">headset_mic</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1005
 msgid "<i class=\"material-icons\" style=\"float: left;\">hearing_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hearing_disabled</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">hearing_disabled</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hearing_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1010
 msgid "<i class=\"material-icons\" style=\"float: left;\">help_center</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">help_center</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">help_center</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">help_center</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1015
 msgid "<i class=\"material-icons\" style=\"float: left;\">hide_source</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hide_source</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">hide_source</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hide_source</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1018
 msgid "<i class=\"material-icons\" style=\"float: left;\">highlight_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">highlight_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">highlight_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">highlight_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1022
 msgid "<i class=\"material-icons\" style=\"float: left;\">history_edu</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">history_edu</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">history_edu</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">history_edu</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1034
 msgid "<i class=\"material-icons\" style=\"float: left;\">horizontal_rule</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">horizontal_rule</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">horizontal_rule</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">horizontal_rule</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1042
 msgid "<i class=\"material-icons\" style=\"float: left;\">hourglass_full</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hourglass_full</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">hourglass_full</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">hourglass_full</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1047
 msgid "<i class=\"material-icons\" style=\"float: left;\">how_to_reg</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">how_to_reg</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">how_to_reg</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">how_to_reg</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1062
 msgid "<i class=\"material-icons\" style=\"float: left;\">import_export</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">import_export</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">import_export</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">import_export</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1065
 msgid "<i class=\"material-icons\" style=\"float: left;\">incomplete_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">incomplete_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">incomplete_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">incomplete_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1076
 msgid "<i class=\"material-icons\" style=\"float: left;\">insert_page_break</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">insert_page_break</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">insert_page_break</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">insert_page_break</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1080
 msgid "<i class=\"material-icons\" style=\"float: left;\">install_mobile</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">install_mobile</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">install_mobile</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">install_mobile</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1086
 msgid "<i class=\"material-icons\" style=\"float: left;\">invert_colors</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">invert_colors</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">invert_colors</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">invert_colors</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1117
 msgid "<i class=\"material-icons\" style=\"float: left;\">keyboard_tab</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">keyboard_tab</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">keyboard_tab</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">keyboard_tab</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1131
 msgid "<i class=\"material-icons\" style=\"float: left;\">laptop_mac</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">laptop_mac</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">laptop_mac</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">laptop_mac</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1136
 msgid "<i class=\"material-icons\" style=\"float: left;\">layers_clear</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">layers_clear</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">layers_clear</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">layers_clear</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1139
 msgid "<i class=\"material-icons\" style=\"float: left;\">leak_remove</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">leak_remove</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">leak_remove</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">leak_remove</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1145
 msgid "<i class=\"material-icons\" style=\"float: left;\">library_books</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">library_books</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">library_books</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">library_books</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1153
 msgid "<i class=\"material-icons\" style=\"float: left;\">line_weight</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">line_weight</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">line_weight</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">line_weight</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1164
 msgid "<i class=\"material-icons\" style=\"float: left;\">local_activity</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">local_activity</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">local_activity</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">local_activity</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1190
 msgid "<i class=\"material-icons\" style=\"float: left;\">local_post_office</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">local_post_office</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">local_post_office</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">local_post_office</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1198
 msgid "<i class=\"material-icons\" style=\"float: left;\">location_on</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">location_on</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">location_on</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">location_on</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1203
 msgid "<i class=\"material-icons\" style=\"float: left;\">lock_person</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">lock_person</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">lock_person</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">lock_person</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1219
 msgid "<i class=\"material-icons\" style=\"float: left;\">lte_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">lte_mobiledata</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">lte_mobiledata</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">lte_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1234
 msgid "<i class=\"material-icons\" style=\"float: left;\">manage_history</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">manage_history</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">manage_history</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">manage_history</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1246
 msgid "<i class=\"material-icons\" style=\"float: left;\">markunread</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">markunread</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">markunread</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">markunread</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1250
 msgid "<i class=\"material-icons\" style=\"float: left;\">media_bluetooth_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">media_bluetooth_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">media_bluetooth_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">media_bluetooth_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1256
 msgid "<i class=\"material-icons\" style=\"float: left;\">medication_liquid</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">medication_liquid</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">medication_liquid</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">medication_liquid</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1266
 msgid "<i class=\"material-icons\" style=\"float: left;\">mic_external_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">mic_external_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">mic_external_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">mic_external_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1274
 msgid "<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">miscellaneous_services</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">miscellaneous_services</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1279
 msgid "<i class=\"material-icons\" style=\"float: left;\">mobile_screen_share</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">mobile_screen_share</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">mobile_screen_share</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">mobile_screen_share</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1289
 msgid "<i class=\"material-icons\" style=\"float: left;\">model_training</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">model_training</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">model_training</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">model_training</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1296
 msgid "<i class=\"material-icons\" style=\"float: left;\">monitor_weight</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">monitor_weight</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">monitor_weight</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">monitor_weight</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1309
 msgid "<i class=\"material-icons\" style=\"float: left;\">motion_photos_pause</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">motion_photos_pause</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">motion_photos_pause</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">motion_photos_pause</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1316
 msgid "<i class=\"material-icons\" style=\"float: left;\">movie_creation</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">movie_creation</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">movie_creation</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">movie_creation</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1320
 msgid "<i class=\"material-icons\" style=\"float: left;\">multiline_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">multiline_chart</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">multiline_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">multiline_chart</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1325
 msgid "<i class=\"material-icons\" style=\"float: left;\">music_video</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">music_video</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">music_video</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">music_video</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1331
 msgid "<i class=\"material-icons\" style=\"float: left;\">navigate_next</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">navigate_next</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">navigate_next</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">navigate_next</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1344
 msgid "<i class=\"material-icons\" style=\"float: left;\">network_wifi_2_bar</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">network_wifi_2_bar</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">network_wifi_2_bar</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">network_wifi_2_bar</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1358
 msgid "<i class=\"material-icons\" style=\"float: left;\">no_adult_content</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_adult_content</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">no_adult_content</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_adult_content</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1363
 msgid "<i class=\"material-icons\" style=\"float: left;\">no_encryption</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_encryption</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">no_encryption</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_encryption</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1369
 msgid "<i class=\"material-icons\" style=\"float: left;\">no_meeting_room</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_meeting_room</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">no_meeting_room</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">no_meeting_room</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1375
 msgid "<i class=\"material-icons\" style=\"float: left;\">noise_control_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">noise_control_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">noise_control_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">noise_control_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1382
 msgid "<i class=\"material-icons\" style=\"float: left;\">not_listed_location</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">not_listed_location</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">not_listed_location</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">not_listed_location</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1393
 msgid "<i class=\"material-icons\" style=\"float: left;\">notifications_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">notifications_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">notifications_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">notifications_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1401
 msgid "<i class=\"material-icons\" style=\"float: left;\">ondemand_video</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">ondemand_video</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">ondemand_video</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">ondemand_video</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1406
 msgid "<i class=\"material-icons\" style=\"float: left;\">open_in_new</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">open_in_new</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">open_in_new</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">open_in_new</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1432
 msgid "<i class=\"material-icons\" style=\"float: left;\">panorama_wide_angle_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">panorama_wide_angle_select</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">panorama_wide_angle_select</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">panorama_wide_angle_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1441
 msgid "<i class=\"material-icons\" style=\"float: left;\">pause_circle_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pause_circle_outline</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">pause_circle_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pause_circle_outline</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1450
 msgid "<i class=\"material-icons\" style=\"float: left;\">people_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">people_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">people_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">people_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1459
 msgid "<i class=\"material-icons\" style=\"float: left;\">perm_phone_msg</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">perm_phone_msg</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">perm_phone_msg</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">perm_phone_msg</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1478
 msgid "<i class=\"material-icons\" style=\"float: left;\">pest_control</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pest_control</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">pest_control</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pest_control</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1491
 msgid "<i class=\"material-icons\" style=\"float: left;\">phone_missed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">phone_missed</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">phone_missed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">phone_missed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1497
 msgid "<i class=\"material-icons\" style=\"float: left;\">phonelink_ring</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">phonelink_ring</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">phonelink_ring</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">phonelink_ring</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1507
 msgid "<i class=\"material-icons\" style=\"float: left;\">photo_size_select_large</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">photo_size_select_large</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">photo_size_select_large</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">photo_size_select_large</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1513
 msgid "<i class=\"material-icons\" style=\"float: left;\">picture_in_picture</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">picture_in_picture</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">picture_in_picture</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">picture_in_picture</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1537
 msgid "<i class=\"material-icons\" style=\"float: left;\">playlist_play</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">playlist_play</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">playlist_play</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">playlist_play</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1556
 msgid "<i class=\"material-icons\" style=\"float: left;\">pregnant_woman</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pregnant_woman</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">pregnant_woman</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">pregnant_woman</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1559
 msgid "<i class=\"material-icons\" style=\"float: left;\">price_change</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">price_change</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">price_change</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">price_change</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1565
 msgid "<i class=\"material-icons\" style=\"float: left;\">private_connectivity</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">private_connectivity</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">private_connectivity</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">private_connectivity</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1569
 msgid "<i class=\"material-icons\" style=\"float: left;\">psychology</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">psychology</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">psychology</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">psychology</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1574
 msgid "<i class=\"material-icons\" style=\"float: left;\">published_with_changes</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">published_with_changes</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">published_with_changes</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">published_with_changes</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1582
 msgid "<i class=\"material-icons\" style=\"float: left;\">question_answer</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">question_answer</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">question_answer</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">question_answer</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1586
 msgid "<i class=\"material-icons\" style=\"float: left;\">queue_play_next</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">queue_play_next</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">queue_play_next</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">queue_play_next</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1594
 msgid "<i class=\"material-icons\" style=\"float: left;\">railway_alert</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">railway_alert</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">railway_alert</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">railway_alert</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1597
 msgid "<i class=\"material-icons\" style=\"float: left;\">ramp_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">ramp_right</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">ramp_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">ramp_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1604
 msgid "<i class=\"material-icons\" style=\"float: left;\">receipt_long</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">receipt_long</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">receipt_long</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">receipt_long</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1622
 msgid "<i class=\"material-icons\" style=\"float: left;\">remove_road</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">remove_road</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">remove_road</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">remove_road</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1628
 msgid "<i class=\"material-icons\" style=\"float: left;\">repeat_one</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">repeat_one</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">repeat_one</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">repeat_one</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1641
 msgid "<i class=\"material-icons\" style=\"float: left;\">request_page</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">request_page</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">request_page</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">request_page</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1645
 msgid "<i class=\"material-icons\" style=\"float: left;\">restaurant</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">restaurant</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">restaurant</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">restaurant</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1648
 msgid "<i class=\"material-icons\" style=\"float: left;\">restore_from_trash</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">restore_from_trash</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">restore_from_trash</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">restore_from_trash</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1656
 msgid "<i class=\"material-icons\" style=\"float: left;\">roller_shades_closed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">roller_shades_closed</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">roller_shades_closed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">roller_shades_closed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1667
 msgid "<i class=\"material-icons\" style=\"float: left;\">roundabout_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">roundabout_right</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">roundabout_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">roundabout_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1677
 msgid "<i class=\"material-icons\" style=\"float: left;\">run_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">run_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">run_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">run_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1680
 msgid "<i class=\"material-icons\" style=\"float: left;\">safety_check</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">safety_check</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">safety_check</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">safety_check</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1709
 msgid "<i class=\"material-icons\" style=\"float: left;\">screenshot_monitor</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">screenshot_monitor</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">screenshot_monitor</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">screenshot_monitor</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1713
 msgid "<i class=\"material-icons\" style=\"float: left;\">sd_card_alert</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sd_card_alert</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sd_card_alert</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sd_card_alert</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1719
 msgid "<i class=\"material-icons\" style=\"float: left;\">security_update_good</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">security_update_good</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">security_update_good</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">security_update_good</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1722
 msgid "<i class=\"material-icons\" style=\"float: left;\">select_all</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">select_all</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">select_all</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">select_all</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1730
 msgid "<i class=\"material-icons\" style=\"float: left;\">sensor_occupied</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sensor_occupied</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sensor_occupied</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sensor_occupied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1738
 msgid "<i class=\"material-icons\" style=\"float: left;\">sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sentiment_very_dissatisfied</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sentiment_very_dissatisfied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1761
 msgid "<i class=\"material-icons\" style=\"float: left;\">severe_cold</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">severe_cold</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">severe_cold</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">severe_cold</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1773
 msgid "<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">shopping_cart_checkout</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">shopping_cart_checkout</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1779
 msgid "<i class=\"material-icons\" style=\"float: left;\">shuffle_on</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">shuffle_on</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">shuffle_on</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">shuffle_on</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1801
 msgid "<i class=\"material-icons\" style=\"float: left;\">signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">signal_wifi_statusbar_connected_no_internet_4</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">signal_wifi_statusbar_connected_no_internet_4</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1806
 msgid "<i class=\"material-icons\" style=\"float: left;\">sim_card_download</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sim_card_download</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sim_card_download</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sim_card_download</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1816
 msgid "<i class=\"material-icons\" style=\"float: left;\">smart_display</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">smart_display</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">smart_display</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">smart_display</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1820
 msgid "<i class=\"material-icons\" style=\"float: left;\">smoke_free</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">smoke_free</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">smoke_free</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">smoke_free</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1823
 msgid "<i class=\"material-icons\" style=\"float: left;\">sms_failed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sms_failed</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sms_failed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sms_failed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1827
 msgid "<i class=\"material-icons\" style=\"float: left;\">snowmobile</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">snowmobile</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">snowmobile</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">snowmobile</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1830
 msgid "<i class=\"material-icons\" style=\"float: left;\">social_distance</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">social_distance</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">social_distance</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">social_distance</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1839
 msgid "<i class=\"material-icons\" style=\"float: left;\">south_east</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">south_east</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">south_east</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">south_east</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1845
 msgid "<i class=\"material-icons\" style=\"float: left;\">spatial_audio_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">spatial_audio_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">spatial_audio_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">spatial_audio_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1850
 msgid "<i class=\"material-icons\" style=\"float: left;\">speaker_notes_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">speaker_notes_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">speaker_notes_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">speaker_notes_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1853
 msgid "<i class=\"material-icons\" style=\"float: left;\">spellcheck</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">spellcheck</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">spellcheck</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">spellcheck</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1874
 msgid "<i class=\"material-icons\" style=\"float: left;\">sports_tennis</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sports_tennis</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">sports_tennis</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">sports_tennis</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1879
 msgid "<i class=\"material-icons\" style=\"float: left;\">stacked_bar_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stacked_bar_chart</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">stacked_bar_chart</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stacked_bar_chart</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1884
 msgid "<i class=\"material-icons\" style=\"float: left;\">star_border</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">star_border</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">star_border</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">star_border</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1887
 msgid "<i class=\"material-icons\" style=\"float: left;\">star_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">star_outline</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">star_outline</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">star_outline</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1895
 msgid "<i class=\"material-icons\" style=\"float: left;\">stay_primary_portrait</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stay_primary_portrait</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">stay_primary_portrait</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stay_primary_portrait</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1898
 msgid "<i class=\"material-icons\" style=\"float: left;\">stop_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stop_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">stop_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">stop_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1902
 msgid "<i class=\"material-icons\" style=\"float: left;\">store_mall_directory</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">store_mall_directory</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">store_mall_directory</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">store_mall_directory</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1908
 msgid "<i class=\"material-icons\" style=\"float: left;\">streetview</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">streetview</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">streetview</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">streetview</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1912
 msgid "<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_left</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1922
 msgid "<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">supervised_user_circle</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">supervised_user_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1929
 msgid "<i class=\"material-icons\" style=\"float: left;\">swap_horiz</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">swap_horiz</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">swap_horiz</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">swap_horiz</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1938
 msgid "<i class=\"material-icons\" style=\"float: left;\">swipe_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">swipe_right</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">swipe_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">swipe_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1948
 msgid "<i class=\"material-icons\" style=\"float: left;\">switch_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">switch_right</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">switch_right</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">switch_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1959
 msgid "<i class=\"material-icons\" style=\"float: left;\">system_update</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">system_update</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">system_update</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">system_update</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1966
 msgid "<i class=\"material-icons\" style=\"float: left;\">table_rows</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">table_rows</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">table_rows</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">table_rows</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1969
 msgid "<i class=\"material-icons\" style=\"float: left;\">tablet_android</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">tablet_android</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">tablet_android</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">tablet_android</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1973
 msgid "<i class=\"material-icons\" style=\"float: left;\">takeout_dining</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">takeout_dining</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">takeout_dining</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">takeout_dining</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1979
 msgid "<i class=\"material-icons\" style=\"float: left;\">temple_buddhist</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">temple_buddhist</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">temple_buddhist</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">temple_buddhist</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1992
 msgid "<i class=\"material-icons\" style=\"float: left;\">text_rotation_none</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">text_rotation_none</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">text_rotation_none</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">text_rotation_none</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2001
 msgid "<i class=\"material-icons\" style=\"float: left;\">thumb_down_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">thumb_down_alt</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">thumb_down_alt</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">thumb_down_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2007
 msgid "<i class=\"material-icons\" style=\"float: left;\">thunderstorm</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">thunderstorm</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">thunderstorm</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">thunderstorm</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2017
 msgid "<i class=\"material-icons\" style=\"float: left;\">tips_and_updates</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">tips_and_updates</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">tips_and_updates</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">tips_and_updates</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2036
 msgid "<i class=\"material-icons\" style=\"float: left;\">transcribe</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">transcribe</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">transcribe</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">transcribe</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2039
 msgid "<i class=\"material-icons\" style=\"float: left;\">transgender</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">transgender</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">transgender</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">transgender</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2046
 msgid "<i class=\"material-icons\" style=\"float: left;\">trip_origin</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">trip_origin</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">trip_origin</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">trip_origin</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2057
 msgid "<i class=\"material-icons\" style=\"float: left;\">turn_slight_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">turn_slight_left</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">turn_slight_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">turn_slight_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2065
 msgid "<i class=\"material-icons\" style=\"float: left;\">u_turn_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">u_turn_left</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">u_turn_left</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">u_turn_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2074
 msgid "<i class=\"material-icons\" style=\"float: left;\">unpublished</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">unpublished</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">unpublished</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">unpublished</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2094
 msgid "<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">vertical_shades_closed</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">vertical_shades_closed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2104
 msgid "<i class=\"material-icons\" style=\"float: left;\">video_settings</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">video_settings</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">video_settings</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">video_settings</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2116
 msgid "<i class=\"material-icons\" style=\"float: left;\">view_compact</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_compact</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">view_compact</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_compact</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2121
 msgid "<i class=\"material-icons\" style=\"float: left;\">view_in_ar</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_in_ar</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">view_in_ar</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_in_ar</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2127
 msgid "<i class=\"material-icons\" style=\"float: left;\">view_stream</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_stream</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">view_stream</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">view_stream</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2134
 msgid "<i class=\"material-icons\" style=\"float: left;\">voice_chat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">voice_chat</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">voice_chat</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">voice_chat</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2139
 msgid "<i class=\"material-icons\" style=\"float: left;\">volume_mute</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">volume_mute</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">volume_mute</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">volume_mute</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2158
 msgid "<i class=\"material-icons\" style=\"float: left;\">water_drop</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">water_drop</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">water_drop</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">water_drop</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2164
 msgid "<i class=\"material-icons\" style=\"float: left;\">wb_incandescent</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wb_incandescent</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">wb_incandescent</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wb_incandescent</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2172
 msgid "<i class=\"material-icons\" style=\"float: left;\">web_asset_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">web_asset_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">web_asset_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">web_asset_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2178
 msgid "<i class=\"material-icons\" style=\"float: left;\">wheelchair_pickup</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wheelchair_pickup</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">wheelchair_pickup</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wheelchair_pickup</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2182
 msgid "<i class=\"material-icons\" style=\"float: left;\">width_normal</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">width_normal</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">width_normal</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">width_normal</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2188
 msgid "<i class=\"material-icons\" style=\"float: left;\">wifi_calling_3</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wifi_calling_3</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">wifi_calling_3</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wifi_calling_3</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2197
 msgid "<i class=\"material-icons\" style=\"float: left;\">wifi_tethering_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wifi_tethering_off</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">wifi_tethering_off</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">wifi_tethering_off</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2207
 msgid "<i class=\"material-icons\" style=\"float: left;\">workspace_premium</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">workspace_premium</span>"
-msgstr ""
+msgstr "<i class=\"material-icons\" style=\"float: left;\">workspace_premium</i> <span style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;\">workspace_premium</span>"
 
 #: library/Customizer/Sections/Header.php:238
 msgid "Trigger button color"
@@ -17113,3 +17042,6 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:272
 msgid "Trigger button size"
 msgstr ""
+
+#~ msgid "at"
+#~ msgstr "på"
