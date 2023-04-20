@@ -44,9 +44,7 @@
         @endpaper
     </div>
 
-    @if ($displayQuicklinksAfterContent)
-        @include('partials.navigation.fixed')
-    @endif
+    @includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
 
 @stop
 
