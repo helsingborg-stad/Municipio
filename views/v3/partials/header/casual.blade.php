@@ -41,9 +41,6 @@
             {{-- User account --}}
             @includeIf('user.account')
 
-            {{-- Drawer menu --}}
-            @include('partials.navigation.drawer')
-
             {{-- Language selector --}}
             @if (!empty($languageMenuItems))
                 <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
@@ -54,11 +51,12 @@
 
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
+
+            {{-- Drawer menu --}}
+            @includeIf('partials.navigation.drawer')
             
         </div>
     </div>
 
     @includeIf('partials.navigation.hamburgermenu')
 @stop
-
-@includeIf('partials.navigation.drawer')
