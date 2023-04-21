@@ -91,34 +91,6 @@ class Field
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'field_custom_radius',
-            'label'       => esc_html__('Select radius', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => '0',
-            'choices'     => [
-                '0' => '0',
-                '0.25' => '2',
-                '0.5' => '4',
-                '1' => '8',
-                '1.5' => '12',
-                '3' => '24',
-            ],
-            'output' => [
-                [
-                'element' => ':root',
-                'property'  => '--c-field-border-radius',
-                'value' => '$'
-                ]
-            ],
-            'active_callback'  => [
-                [
-                    'setting'  => 'field_appearance_type',
-                    'operator' => '===',
-                    'value'    => 'custom',
-                ]
-            ],
-        ]);
+    
     }
 }
