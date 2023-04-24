@@ -1,6 +1,7 @@
 @section('hero')
-    <div class="o-container o-container--fullwidth u-print-display--none" id="sidebar-slider-area--container">
-        @if (is_active_sidebar('slider-area') === true)
+    @if (is_active_sidebar('slider-area'))
+        <div class="o-container o-container--fullwidth u-print-display--none" id="sidebar-slider-area--container">
+
             @includeIf('partials.sidebar', [
                 'id' => 'slider-area',
                 'classes' => ['o-grid', 'o-grid--no-margin', 'o-grid--no-gutter'],
@@ -11,8 +12,9 @@
 
             {{-- Emblem in hero --}}
             @includeWhen($emblem && $showEmblemInHero, 'partials.emblem')
-        @endif
-    </div>
+
+        </div>
+    @endif
     @if (!$displayQuicklinksAfterContent)
         @include('partials.navigation.fixed')
     @endif
