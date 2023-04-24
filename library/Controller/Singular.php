@@ -78,7 +78,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
+        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
