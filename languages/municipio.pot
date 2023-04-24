@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-18T13:10:49+00:00\n"
+"POT-Creation-Date: 2023-04-20T14:32:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: municipio\n"
@@ -69,6 +69,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
 #: library/Customizer/Sections/Header.php:210
+#: library/Customizer/Sections/Header.php:244
 #: library/Customizer/Sections/Quicklinks.php:159
 #: library/Customizer/Sections/Siteselector.php:82
 msgid "Primary"
@@ -82,6 +83,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
 #: library/Customizer/Sections/Header.php:211
+#: library/Customizer/Sections/Header.php:245
 #: library/Customizer/Sections/Quicklinks.php:160
 #: library/Customizer/Sections/Siteselector.php:83
 msgid "Secondary"
@@ -90,6 +92,7 @@ msgstr ""
 #: library/AcfFields/php/block-button.php:67
 #: library/AcfFields/php/navigation-widget.php:352
 #: library/AcfFields/php/options-menu-style.php:24
+#: library/AcfFields/php/options-page-quicklinks-placement.php:25
 #: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/widget-header-menu.php:50
 #: library/Customizer/Sections/Field.php:18
@@ -97,6 +100,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
 #: library/Customizer/Sections/Header.php:209
+#: library/Customizer/Sections/Header.php:243
 #: library/Customizer/Sections/Quicklinks.php:186
 #: library/Customizer/Sections/Quicklinks.php:239
 #: library/Customizer/Sections/Search.php:115
@@ -123,16 +127,19 @@ msgstr ""
 #: library/AcfFields/php/block-button.php:96
 #: library/Customizer/Sections/FooterMain.php:20
 #: library/Customizer/Sections/Header.php:226
+#: library/Customizer/Sections/Header.php:260
 msgid "Basic"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:97
 #: library/Customizer/Sections/Header.php:227
+#: library/Customizer/Sections/Header.php:261
 msgid "Outlined"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:98
 #: library/Customizer/Sections/Header.php:228
+#: library/Customizer/Sections/Header.php:262
 msgid "Filled"
 msgstr ""
 
@@ -151,6 +158,7 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/widget-header-menu.php:51
+#: library/Customizer/Sections/Header.php:277
 #: library/Customizer/Sections/Menu.php:118
 #: library/Customizer/Sections/Radius.php:33
 #: library/Customizer/Sections/Siteselector.php:116
@@ -158,6 +166,7 @@ msgid "Small"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:128
+#: library/Customizer/Sections/Header.php:278
 #: library/Customizer/Sections/Menu.php:119
 #: library/Customizer/Sections/Radius.php:54
 #: library/Customizer/Sections/Siteselector.php:117
@@ -170,6 +179,7 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:133
 #: library/AcfFields/php/widget-header-links.php:362
 #: library/AcfFields/php/widget-header-menu.php:52
+#: library/Customizer/Sections/Header.php:279
 #: library/Customizer/Sections/Menu.php:120
 #: library/Customizer/Sections/Radius.php:75
 #: library/Customizer/Sections/Siteselector.php:118
@@ -4699,19 +4709,23 @@ msgid "Quicklinks"
 msgstr ""
 
 #: library/AcfFields/php/options-page-quicklinks-placement.php:12
-msgid "Quicklinks placement"
+msgid "Placement"
 msgstr ""
 
-#: library/AcfFields/php/options-page-quicklinks-placement.php:16
-msgid "If quicklinks are active on the site they are by default shown directly under the site header. Check this box to move them below the page content on this specific page."
+#: library/AcfFields/php/options-page-quicklinks-placement.php:26
+msgid "After first block"
 msgstr ""
 
-#: library/AcfFields/php/options-page-quicklinks-placement.php:24
-msgid "Display after page content"
+#: library/AcfFields/php/options-page-quicklinks-placement.php:27
+msgid "Below page content"
+msgstr ""
+
+#: library/AcfFields/php/options-page-quicklinks-placement.php:29
+msgid "default"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-author.php:8
-#: library/Controller/Singular.php:278
+#: library/Controller/Singular.php:282
 msgid "Author"
 msgstr ""
 
@@ -4970,7 +4984,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:347
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:211
 msgid "days"
 msgstr ""
 
@@ -13956,7 +13970,6 @@ msgstr ""
 #: library/Customizer/Sections/Collection.php:124
 #: library/Customizer/Sections/FooterMain.php:59
 #: library/Customizer/Sections/FooterSub.php:54
-#: library/Customizer/Sections/HamburgerMenu.php:52
 #: library/Customizer/Sections/Header.php:158
 #: library/Customizer/Sections/Module/Contacts.php:17
 #: library/Customizer/Sections/Module/Contacts.php:36
@@ -14151,7 +14164,7 @@ msgstr ""
 #: library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
 #: library/Controller/Archive.php:101
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:219
 #: library/Customizer/PanelsRegistry.php:235
 #: library/Search/General.php:54
 #: library/Widget/Navigation/Navigation.php:66
@@ -14383,19 +14396,19 @@ msgid "No items found at this query."
 msgstr ""
 
 #: library/Controller/Archive.php:92
-#: library/Controller/Singular.php:34
+#: library/Controller/Singular.php:38
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr ""
 
 #: library/Controller/Archive.php:93
-#: library/Controller/Singular.php:33
+#: library/Controller/Singular.php:37
 msgid "Updated"
 msgstr ""
 
 #: library/Controller/Archive.php:94
-#: library/Controller/BaseController.php:237
+#: library/Controller/BaseController.php:236
 msgid "Read more"
 msgstr ""
 
@@ -14412,7 +14425,7 @@ msgid "Select a valid date"
 msgstr ""
 
 #: library/Controller/Archive.php:102
-#: library/Controller/Singular.php:137
+#: library/Controller/Singular.php:141
 msgid "Filter"
 msgstr ""
 
@@ -14421,7 +14434,7 @@ msgid "Reset search"
 msgstr ""
 
 #: library/Controller/Archive.php:104
-#: library/Controller/Singular.php:138
+#: library/Controller/Singular.php:142
 msgid "Reset filter"
 msgstr ""
 
@@ -14434,130 +14447,130 @@ msgid "Reset"
 msgstr ""
 
 #: library/Controller/Archive.php:463
-#: library/Controller/Singular.php:208
+#: library/Controller/Singular.php:212
 msgid "Select"
 msgstr ""
 
-#: library/Controller/BaseController.php:198
+#: library/Controller/BaseController.php:197
 #: library/Controller/E404.php:37
 #: library/Widget/Brand/Brand.php:47
 #: library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
-#: library/Controller/BaseController.php:199
+#: library/Controller/BaseController.php:198
 #: views/v1/templates/master.blade.php:27
 #: views/v1/templates/master.blade.php:28
 msgid "Jump to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:199
 #: views/v1/templates/master.blade.php:29
 #: views/v1/templates/master.blade.php:30
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:200
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:201
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:202
 msgid "Skip to the side menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:203
 msgid "ago"
 msgstr ""
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:204
 msgid "since"
 msgstr ""
 
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:205
 msgid "years"
 msgstr ""
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:206
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:207
 msgid "months"
 msgstr ""
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:208
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:209
 msgid "weeks"
 msgstr ""
 
-#: library/Controller/BaseController.php:211
+#: library/Controller/BaseController.php:210
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:212
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:214
+#: library/Controller/BaseController.php:213
 msgid "hours"
 msgstr ""
 
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:214
 msgid "hour"
 msgstr ""
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:215
 msgid "minutes"
 msgstr ""
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:216
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:217
 msgid "seconds"
 msgstr ""
 
-#: library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:218
 msgid "second"
 msgstr ""
 
-#: library/Controller/BaseController.php:221
+#: library/Controller/BaseController.php:220
 msgid "Search on"
 msgstr ""
 
-#: library/Controller/BaseController.php:222
+#: library/Controller/BaseController.php:221
 msgid "What are you searching for?"
 msgstr ""
 
-#: library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:222
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr ""
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:223
 #: library/Customizer/PanelsRegistry.php:276
 #: library/Customizer/Sections/Search.php:107
 #: library/Theme/Navigation.php:29
 msgid "Hamburger menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:225
+#: library/Controller/BaseController.php:224
 msgid "Useful links"
 msgstr ""
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:225
 msgid "Related links"
 msgstr ""
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:226
 #: library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
@@ -14568,49 +14581,49 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:228
+#: library/Controller/BaseController.php:227
 msgid "Site emblem"
 msgstr ""
 
-#: library/Controller/BaseController.php:229
+#: library/Controller/BaseController.php:228
 msgid "Close"
 msgstr ""
 
-#: library/Controller/BaseController.php:230
+#: library/Controller/BaseController.php:229
 #: views/v3/partials/navigation/language.blade.php:39
 msgid "More Languages"
 msgstr ""
 
-#: library/Controller/BaseController.php:231
+#: library/Controller/BaseController.php:230
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr ""
 
-#: library/Controller/BaseController.php:232
+#: library/Controller/BaseController.php:231
 msgid "Expand"
 msgstr ""
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/BaseController.php:232
 msgid "You are here: "
 msgstr ""
 
-#: library/Controller/BaseController.php:234
+#: library/Controller/BaseController.php:233
 msgid "Reading time"
 msgstr ""
 
-#: library/Controller/BaseController.php:235
+#: library/Controller/BaseController.php:234
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
-#: library/Controller/BaseController.php:236
+#: library/Controller/BaseController.php:235
 #: library/Controller/E404.php:47
 #: views/v1/partials/blog/taxonomy-filters.blade.php:10
 #: views/v1/partials/blog/taxonomy-filters.blade.php:11
 msgid "Show all"
 msgstr ""
 
-#: library/Controller/BaseController.php:238
+#: library/Controller/BaseController.php:237
 msgid "Book here"
 msgstr ""
 
@@ -14658,7 +14671,7 @@ msgstr ""
 msgid "View page"
 msgstr ""
 
-#: library/Controller/Singular.php:35
+#: library/Controller/Singular.php:39
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v1/partials/timestamps.blade.php:4
 #: views/v2/partials/archive/post-footer.blade.php:34
@@ -14667,15 +14680,15 @@ msgstr ""
 msgid "Published by"
 msgstr ""
 
-#: library/Controller/Singular.php:36
+#: library/Controller/Singular.php:40
 msgid "on"
 msgstr ""
 
-#: library/Controller/Singular.php:139
+#: library/Controller/Singular.php:143
 msgid "No items found."
 msgstr ""
 
-#: library/Controller/Singular.php:427
+#: library/Controller/Singular.php:431
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
@@ -15342,8 +15355,8 @@ msgstr ""
 #: library/Customizer/Sections/Colors.php:109
 #: library/Customizer/Sections/Colors.php:141
 #: library/Customizer/Sections/FooterSub.php:18
-#: library/Customizer/Sections/HamburgerMenu.php:111
-#: library/Customizer/Sections/HamburgerMenu.php:117
+#: library/Customizer/Sections/HamburgerMenu.php:93
+#: library/Customizer/Sections/HamburgerMenu.php:99
 #: library/Customizer/Sections/Siteselector.php:45
 msgid "Background"
 msgstr ""
@@ -15656,45 +15669,38 @@ msgid "Select menu trigger style"
 msgstr ""
 
 #: library/Customizer/Sections/HamburgerMenu.php:35
-#: library/Customizer/Sections/HamburgerMenu.php:53
 msgid "Basic button"
 msgstr ""
 
 #: library/Customizer/Sections/HamburgerMenu.php:36
-#: library/Customizer/Sections/HamburgerMenu.php:54
 msgid "Filled button"
 msgstr ""
 
 #: library/Customizer/Sections/HamburgerMenu.php:37
-#: library/Customizer/Sections/HamburgerMenu.php:55
 msgid "Outlined button"
 msgstr ""
 
 #: library/Customizer/Sections/HamburgerMenu.php:47
-msgid "Select menu parent style"
-msgstr ""
-
-#: library/Customizer/Sections/HamburgerMenu.php:65
-#: library/Customizer/Sections/HamburgerMenu.php:71
+#: library/Customizer/Sections/HamburgerMenu.php:53
 #: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/SliderHero.php:133
 msgid "Heading"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:66
+#: library/Customizer/Sections/HamburgerMenu.php:48
 msgid "Select a color for the headings"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:88
-#: library/Customizer/Sections/HamburgerMenu.php:94
+#: library/Customizer/Sections/HamburgerMenu.php:70
+#: library/Customizer/Sections/HamburgerMenu.php:76
 msgid "Subitem"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:89
+#: library/Customizer/Sections/HamburgerMenu.php:71
 msgid "Select a color for the subitems"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:112
+#: library/Customizer/Sections/HamburgerMenu.php:94
 msgid "Select a color for the background"
 msgstr ""
 
@@ -15769,6 +15775,18 @@ msgstr ""
 
 #: library/Customizer/Sections/Header.php:221
 msgid "Tabmenu - Type"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:238
+msgid "Trigger button color"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:255
+msgid "Trigger button type"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:272
+msgid "Trigger button size"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:12
@@ -16305,7 +16323,7 @@ msgstr ""
 msgid "Print this page"
 msgstr ""
 
-#: library/Helper/Post.php:80
+#: library/Helper/Post.php:113
 msgid "Item is missing content"
 msgstr ""
 
