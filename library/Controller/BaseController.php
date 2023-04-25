@@ -134,7 +134,6 @@ class BaseController
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
-
         //Get language menu options
         $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();
 
@@ -195,43 +194,49 @@ class BaseController
 
         //Language
         $this->data['lang'] = (object) array(
-        'goToHomepage'          => __("Go to homepage", 'municipio'),
-        'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
-        'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
-        'skipToMainContent'     => __("Skip to the main content", 'municipio'),
-        'skipToMainMenu'        => __("Skip to the main menu", 'municipio'),
-        'skipToSideMenu'        => __("Skip to the side menu", 'municipio'),
-        'ago'                   => __("ago", 'municipio'),
-        'since'                 => __("since", 'municipio'),
-        'years'                 => __("years", 'municipio'),
-        'year'                  => __("year", 'municipio'),
-        'months'                => __("months", 'municipio'),
-        'month'                 => __("month", 'municipio'),
-        'weeks'                 => __("weeks", 'municipio'),
-        'week'                  => __("week", 'municipio'),
-        'days'                  => __("days", 'municipio'),
-        'day'                   => __("day", 'municipio'),
-        'hours'                 => __("hours", 'municipio'),
-        'hour'                  => __("hour", 'municipio'),
-        'minutes'               => __("minutes", 'municipio'),
-        'minute'                => __("minute", 'municipio'),
-        'seconds'               => __("seconds", 'municipio'),
-        'second'                => __("second", 'municipio'),
-        'search'                => __("Search", 'municipio'),
-        'searchOn'              => __("Search on", 'municipio'),
-        'searchQuestion'        => __("What are you searching for?", 'municipio'),
-        'primaryNavigation'     => __("Primary navigation", 'municipio'),
-        'hamburgerNavigation'   => __("Hamburger menu", 'municipio'),
-        'quicklinksNavigation'  => __("Useful links", 'municipio'),
-        'relatedLinks'          => __("Related links", 'municipio'),
-        'menu'                  => __("Menu", 'municipio'),
-        'emblem'                => __("Site emblem", 'municipio'),
-        'close'                 => __("Close", 'municipio'),
-        'moreLanguages'         => __("More Languages", 'municipio'),
-        'changeLanguage'        => __("Language", 'municipio'),
-        'expand'                => __("Expand", 'municipio'),
-        'breadcrumbPrefix'      => __("You are here: ", 'municipio')
+            'goToHomepage'         => __("Go to homepage", 'municipio'),
+            'jumpToMainMenu'       => __("Jump to the main menu", 'municipio'),
+            'jumpToMainContent'    => __("Jump to the main content", 'municipio'),
+            'skipToMainContent'    => __("Skip to the main content", 'municipio'),
+            'skipToMainMenu'       => __("Skip to the main menu", 'municipio'),
+            'skipToSideMenu'       => __("Skip to the side menu", 'municipio'),
+            'ago'                  => __("ago", 'municipio'),
+            'since'                => __("since", 'municipio'),
+            'years'                => __("years", 'municipio'),
+            'year'                 => __("year", 'municipio'),
+            'months'               => __("months", 'municipio'),
+            'month'                => __("month", 'municipio'),
+            'weeks'                => __("weeks", 'municipio'),
+            'week'                 => __("week", 'municipio'),
+            'days'                 => __("days", 'municipio'),
+            'day'                  => __("day", 'municipio'),
+            'hours'                => __("hours", 'municipio'),
+            'hour'                 => __("hour", 'municipio'),
+            'minutes'              => __("minutes", 'municipio'),
+            'minute'               => __("minute", 'municipio'),
+            'seconds'              => __("seconds", 'municipio'),
+            'second'               => __("second", 'municipio'),
+            'search'               => __("Search", 'municipio'),
+            'searchOn'             => __("Search on", 'municipio'),
+            'searchQuestion'       => __("What are you searching for?", 'municipio'),
+            'primaryNavigation'    => __("Primary navigation", 'municipio'),
+            'hamburgerNavigation'  => __("Hamburger menu", 'municipio'),
+            'quicklinksNavigation' => __("Useful links", 'municipio'),
+            'relatedLinks'         => __("Related links", 'municipio'),
+            'menu'                 => __("Menu", 'municipio'),
+            'emblem'               => __("Site emblem", 'municipio'),
+            'close'                => __("Close", 'municipio'),
+            'moreLanguages'        => __("More Languages", 'municipio'),
+            'changeLanguage'       => __("Language", 'municipio'),
+            'expand'               => __("Expand", 'municipio'),
+            'breadcrumbPrefix'     => __("You are here: ", 'municipio'),
+            'readingTime'          => __('Reading time', 'municipio'),
+            'related'              => _x('Related', 'Related (name of posttype)', 'municipio'),
+            'showAll'              => __('Show all', 'municipio'),
+            'readMore'             => __('Read more', 'municipio'),
+            'bookHere'             => __('Book here', 'municipio'),
         );
+        $this->data['labels'] = (array) $this->data['lang'];
 
         //Wordpress hooks
         $this->data['hook'] = (object) array(
@@ -244,7 +249,7 @@ class BaseController
         );
 
         //Quicklinks placement is set in Singular
-        $this->data['placeQuicklinksAfterContent'] = false;
+        $this->data['displayQuicklinksAfterContent'] = false;
 
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataUsePlaceholder'], 9, 1);
@@ -395,7 +400,7 @@ class BaseController
      */
     public function getFloatingMenuLabels(): object
     {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating - menu'] ?? '');
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['floating-menu'] ?? '');
 
         return (object) apply_filters(
             'Municipio/FloatingMenuLabels',
@@ -414,7 +419,7 @@ class BaseController
      */
     public function getLanguageMenuOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language - menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
         'disclaimer'        => get_field('language_menu_disclaimer', $options),
@@ -431,7 +436,7 @@ class BaseController
      */
     public function getQuicklinksOptions(): object
     {
-        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks - menu'] ?? '');
+        $options = wp_get_nav_menu_object(get_nav_menu_locations()['quicklinks-menu'] ?? '');
 
         $options = [
         'backgroundColor'   => get_field('quicklinks_background_color', $options),
@@ -479,7 +484,7 @@ class BaseController
       */
     protected function setSkipLinkValue()
     {
-        if ($this->data['pageTemplate'] === 'one - page . blade . php') {
+        if ($this->data['pageTemplate'] === 'one-page.blade.php') {
             return apply_filters('Municipio/Controller/SkipToMainContentLinkOnePage', '#main-content');
         }
         return apply_filters('Municipio/Controller/SkipToMainContentLinkDefaultValue', '#article');

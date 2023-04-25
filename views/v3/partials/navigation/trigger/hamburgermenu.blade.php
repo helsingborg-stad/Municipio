@@ -1,8 +1,9 @@
 @if (!empty($hamburgerMenuItems))
     @button([
         'id' => 'hamburger-menu-trigger-open',
-        'color' => 'default',
-        'style' => $customizer->hamburgerMenuTriggerStyle ?? 'basic',
+        'color' => $customizer->headerTriggerButtonColor,
+        'style' => $customizer->headerTriggerButtonType,
+        'size' => $customizer->headerTriggerButtonSize,
         'reversePositions' => true,
         'toggle' => true,
         'icon' => 'menu',
@@ -20,8 +21,7 @@
             'aria-label' => $lang->primaryNavigation,
             'aria-controls' => "navigation",
             'data-js-toggle-trigger' => 'hamburger-menu',
-            'data-toggle-icon' => 'close',
-            'data-toggle-label' => $lang->close,
+            'data-toggle-icon' => 'close'
         ],
         'context' => $context
     ])

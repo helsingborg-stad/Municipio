@@ -1,6 +1,4 @@
 @extends('templates.single')
-
-
 @section('hero-top-sidebar')
     @if (!empty($featuredImage->src[0]))
         @hero([
@@ -8,9 +6,7 @@
         ])
         @endhero
     @endif
-    @if (!$placeQuicklinksAfterContent)
-        @include('partials.navigation.fixed')
-    @endif
+    @includeWhen(!$placeQuicklinksAfterContent, 'partials.navigation.fixed')
     <div class="o-container">
         @paper([
             'attributeList' => [
@@ -30,23 +26,40 @@
                         {!! $post->postContentFiltered !!}
                     @endtypography
                 </div>
-                <div
-                    class="o-grid-12@sm o-grid-3@md o-grid-3@lg u-display--flex u-width--100 u-justify-content--end@md u-justify-content--end@lg">
-                    @listing([
-                        'list' => $list,
-                        'icon' => false,
-                        'classList' => ['unlist', 'u-padding__top--2@xs', 'u-padding__top--2@sm', 'u-margin__top--2'],
-                        'padding' => 4
-                    ])
-                    @endlisting
+                <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
+                    @if (!empty($listing))
+                        @listing([
+                            'list' => $listing,
+                            'icon' => false,
+                            'classList' => [
+                                'unlist',
+                                'u-padding__top--2@xs',
+                                'u-padding__top--2@sm',
+                                'u-padding__bottom--3',
+                                'u-margin__top--2'
+                            ],
+                            'padding' => 4
+                        ])
+                        @endlisting
+                    @endif
+
+                    @if (!empty($bookingLink))
+                        @button([
+                            'text' => $lang->bookHere,
+                            'color' => 'primary',
+                            'style' => 'filled',
+                            'href' => $bookingLink,
+                            'classList' => ['u-width--100'],
+                        ])
+                        @endbutton
+                    @endif
+
                 </div>
             </div>
         @endpaper
     </div>
 
-    @if ($placeQuicklinksAfterContent)
-        @include('partials.navigation.fixed')
-    @endif
+    @includeWhen($placeQuicklinksAfterContent, 'partials.navigation.fixed')
 
 @stop
 
@@ -65,13 +78,13 @@
                 @typography([
                     'element' => 'h2'
                 ])
-                    {{ $labels['related'] }} {{ $postType }}
+                    {{ $lang->related }} {{ $postType }}
                 @endtypography
                 @if (!empty(get_post_type_archive_link($postType)))
                     @link([
                         'href' => get_post_type_archive_link($postType)
                     ])
-                        {{ $labels['showAll'] }}
+                        {{ $lang->showAll }}
                     @endlink
                 @endif
             @endgroup

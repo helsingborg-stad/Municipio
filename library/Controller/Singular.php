@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 
 /**
@@ -20,8 +21,11 @@ class Singular extends \Municipio\Controller\BaseController
         //Get post data
         $originalPostData = get_post($this->getPageID());
 
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData);
+        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
+
+        $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
+        $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
 
         //Get feature image data
         $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1080, false]);
@@ -74,16 +78,10 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        if (!isset($this->data['lang'])) {
-            $this->data['lang'] = (object) [];
-        }
-
-        $this->data['placeQuicklinksAfterContent'] = $this->displayQuicklinksAfterContent($this->data['post']->id);
+        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
-
-        $this->data['lang']->readingTime = __('Reading time', 'municipio');
 
         return $this->data;
     }
@@ -135,6 +133,10 @@ class Singular extends \Municipio\Controller\BaseController
         $data['selectedFilters']      = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
 
         $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
+
+        if (!isset($data['lang'])) {
+            $data['lang'] = (object) [];
+        }
 
         $data['lang']->filterBtn        = __('Filter', 'municipio');
         $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
@@ -441,11 +443,5 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return false;
-    }
-
-    public function displayQuicklinksAfterContent($postId)
-    {
-        $displayAfterContent = (bool) get_field('quicklinks_after_content', $postId);
-        return apply_filters('Municipio/Controller/Singular/displayQuicklinksAfterContent', $displayAfterContent, $postId);
     }
 }
