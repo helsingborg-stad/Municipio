@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin;
 
+// use Kirki as Kirki;
+
 class General
 {
     public static $url2text = false;
@@ -15,7 +17,7 @@ class General
 
         add_action('profile_update', function ($userId) {
             // Make sure its a form submission and nothing else
-            if (!isset($_POST['_wpnonce'])||!wp_verify_nonce($_POST['_wpnonce'], 'update-user_' . $userId)) {
+            if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'], 'update-user_' . $userId)) {
                 return;
             }
 
@@ -48,15 +50,19 @@ class General
 
     public function setIrisDefaultColorPalette()
     {
+        $palettesToGet = ['color_palette_primary','color_palette_secondary'];
+        $colorPalettes = \Municipio\Helper\Color::getPalettes($palettesToGet);
 
-        $colorPalette = get_option('color_scheme_palette');
-
-        if (is_array($colorPalette) && !empty($colorPalette)) {
+        if (!empty($colorPalettes)) {
+            $colorsStr = '';
+            foreach ($colorPalettes as $colors) {
+                $colorsStr .= '"' . implode('","', $colors) . '",';
+            }
             echo "
             <script>
             if (typeof(acf) != 'undefined') {
                 acf.add_filter('color_picker_args', function( args, \$field ){
-                    args.palettes = ['". implode("', '", $colorPalette) ."']
+                    args.palettes = [" . $colorsStr . "]
                     return args;
                 });
             }
