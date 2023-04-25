@@ -45,7 +45,8 @@ class Post
             'terms',
             'post_language',
             'reading_time',
-            'quicklinks'
+            'quicklinks',
+            'call_to_action_items'
         );
 
         $appendFields = apply_filters(
@@ -196,6 +197,10 @@ class Post
             $postObject->post_excerpt          = get_the_password_form($postObject);
             $postObject->excerpt               = get_the_password_form($postObject);
             $postObject->excerpt_short         = get_the_password_form($postObject);
+        }
+
+        if (in_array('call_to_action_items', $appendFields)) {
+            $postObject->call_to_action_items = apply_filters('Municipio/Helper/Post/CallToActionItems', [], $postObject);
         }
 
 
