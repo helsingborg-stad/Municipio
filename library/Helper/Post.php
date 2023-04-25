@@ -13,7 +13,7 @@ class Post
      * @return  object   $post    Transformed WP_Post object
      */
     public static function preparePostObject($post)
-    {
+    {   
         $post = self::complementObject($post);
         $post = \Municipio\Helper\FormatObject::camelCase($post);
         return $post;
@@ -37,7 +37,7 @@ class Post
             'terms',
             'post_language',
             'reading_time',
-            'termIcon'
+            'term_icon'
         )
     ) {
         //Check that a post object is entered
@@ -134,10 +134,9 @@ class Post
         if (in_array('terms', $appendFields)) {
             $postObject->terms            = self::getPostTerms($postObject->ID);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
-
         }
         
-        if (!empty($postObject->terms) && in_array('termIcon', $appendFields)) {
+        if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
             $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
         }
 
@@ -172,7 +171,6 @@ class Post
                     if (empty($termIcon)) {
                         $icon = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
                         $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
-                        $icon['src'] = 'all_out';
                         if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
                             $termIcon['icon'] = $icon['src'];
                             $termIcon['size'] = 'md';
@@ -208,7 +206,6 @@ class Post
         );
 
         $termsList = [];
-
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $terms = wp_get_post_terms($postId, $taxonomy);
