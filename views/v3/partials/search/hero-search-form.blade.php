@@ -26,7 +26,7 @@
         @button([
             'id' => 'hero-search-form__submit',
             'text' => $lang->search,
-            'color' => 'default',
+            'context' => ['hero.search.button'],
             'type' => 'submit',
             'size' => 'lg',
             'attributeList' => [
