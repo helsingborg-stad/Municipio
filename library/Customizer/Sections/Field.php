@@ -2,10 +2,26 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Helper\KirkiSwatches as KirkiSwatches;
+
 class Field
 {
     public function __construct(string $sectionID)
     {
+         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'radio',
+          'settings'    => 'field_appearance_type',
+          'label'       => esc_html__('Appearance', 'municipio'),
+          'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => 'default',
+          'priority'    => 5,
+          'choices'     => [
+            'default' => esc_html__('Predefined appearance', 'municipio'),
+            'custom' => esc_html__('Custom appearance', 'municipio'),
+          ],
+        ]);
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'field_style_settings',
@@ -24,39 +40,87 @@ class Field
                   'context' => [
                     'component.field',
                     'component.select',
-                    'component.form'
-                  ]
-                ]
-            ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'field_style_rounded_border_setting',
-            'label'       => esc_html__('Border', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => '',
-            'priority'    => 10,
-            'choices'     => [
-                ''   => esc_html__('No border', 'municipio'),
-                'rounded-border' => esc_html__('Border', 'municipio')
-            ],
-            'output' => [
-                [
-                  'type' => 'modifier',
-                  'context' => [
-                    'component.field',
-                    'component.select',
+                    'component.form',
+                    'component.filterselect'
                   ]
                 ]
             ],
             'active_callback'  => [
                 [
-                    'setting'  => 'field_style_settings',
+                    'setting'  => 'field_appearance_type',
                     'operator' => '===',
-                    'value'    => 'rounded',
+                    'value'    => 'default',
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+          'type'        => 'multicolor',
+          'settings'    => 'field_custom_colors',
+          'label'       => esc_html__('Custom colors', 'municipio'),
+          'section'     => $sectionID,
+          'priority'    => 10,
+          'transport' => 'auto',
+          'choices'     => [
+            'background'    => esc_html__('Background color', 'municipio'),
+            'border-color'  => esc_html__('Border color', 'municipio'),
+          ],
+          'default' => [
+            'background'        => '#f5f5f5',
+            'border-color'      => '#a3a3a3',
+          ],
+          'palettes' => KirkiSwatches::getColors(),
+          'output' => [
+            [
+                'choice'    => 'background',
+                'element'   => ':root',
+                'property'  => '--c-field-background-color'
+            ],
+            [
+                'choice'    => 'border-color',
+                'element'   => ':root',
+                'property'  => '--c-field-border-color'
+            ],
+          ],
+          'active_callback'  => [
+                [
+                    'setting'  => 'field_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'custom',
+                ]
+            ],
+        ]);
+
+
+    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'select',
+        'settings'    => 'field_border_radius',
+        'label'       => esc_html__('Select border radius', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => '0',
+        'choices'     =>  [
+            '0' => 'None',
+            '1' => 'Extra small',
+            '2' => 'Small',
+            '4' => 'Medium',
+            '6' => 'Large',
+            '12' => 'Rounded',
+        ],
+        'output' => [
+          [
+            'element'   => ':root',
+            'property'  => '--c-field-border-radius',
+            'value_pattern' => 'calc($ / 4)'
+            
+          ],
+        ],
+        'active_callback'  => [
+          [
+            'setting'  => 'field_appearance_type',
+            'operator' => '===',
+            'value'    => 'custom',
+          ]
+        ],
+      ]);
     }
 }
