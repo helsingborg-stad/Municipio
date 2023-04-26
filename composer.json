@@ -16,8 +16,8 @@
     ],
     "repositories": [
         {
-            "type":"composer",
-            "url":"https://wpackagist.org"
+            "type": "composer",
+            "url": "https://wpackagist.org"
         },
         {
             "type": "vcs",
@@ -48,24 +48,24 @@
         "helsingborg-stad/blade-engine-wrapper": "dev-master",
         "tgmpa/tgm-plugin-activation": "dev-develop",
         "pragmarx/ia-arr": "^7.3",
-        "wpackagist-plugin/kirki":"^4.0",
-        "ouun/kirki-module-fonts_upload": "dev-master"
+        "wpackagist-plugin/kirki": "^4.0",
+        "ouun/kirki-module-fonts_upload": "dev-master",
+        "symfony/polyfill-php80": "^1.28@dev"
     },
-    "extra" : {
-        "installer-paths" : {
-            "vendor/{$name}/": ["type:wordpress-plugin"]
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": [
+                "type:wordpress-plugin"
+            ]
         }
     },
-
     "scripts": {
         "test": "phpunit --bootstrap tests/bootstrap.php",
         "test:setup": "tests/install-wp-tests.sh",
         "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
         "test:watch": "phpunit-watcher watch --bootstrap tests/bootstrap.php",
         "test:coverage:watch": "XDEBUG_MODE=coverage phpunit-watcher watch --bootstrap tests/bootstrap.php --coverage-html .coverage",
-        "post-update-cmd": [
-
-        ]
+        "post-update-cmd": []
     },
     "config": {
         "allow-plugins": {
