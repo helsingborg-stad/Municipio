@@ -158,6 +158,7 @@ class Archive
             'section'     => $sectionID,
             // Below prevents Kirki bugg from using faulty default sanitize_callback.
             'sanitize_callback' => fn($values) => $values,
+            'default' => [],
             'choices'     => array_merge(
                 [
                     'text_search' => esc_html__('Text search', 'municipio'),

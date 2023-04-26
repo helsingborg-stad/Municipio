@@ -34,5 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   const observer = new MutationObserver(callback);
-  observer.observe(document.querySelector("#widgets-editor"), config);
+  const widgetsEditor = document.querySelector("#widgets-editor");
+  if (widgetsEditor !== null) {
+    observer.observe(widgetsEditor, config);
+  }
+  
 });
