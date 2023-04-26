@@ -12,7 +12,8 @@
         'reversePositions' => true,
         'toggle' => true,
         'attributeList' => [
-            'data-toggle-icon' => 'close'
+            'data-toggle-icon' => 'close',
+            'data-js-toggle-group' => 'drawer'
         ]
     ],
     'id' => 'drawer',
