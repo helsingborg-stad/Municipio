@@ -37,8 +37,8 @@ class Place extends PurposeFactory
             if ($locationLink) {
                 $listing['location'] = \Municipio\Helper\Listing::createListingItem(
                     $locationLabel,
-                    'location_on',
-                    $this->buildGoogleMapsLink($fields['location'])
+                    $locationLink,
+                    ['src' => 'location_on']
                 );
             }
         }

@@ -27,6 +27,7 @@
                     @endtypography
                 </div>
                 <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
+
                     @if (!empty($listing))
                         @listing([
                             'list' => $listing,

@@ -4,15 +4,16 @@ namespace Municipio\Helper;
 
 class Listing
 {
-    public static function createListingItem(string $label, string $icon, string $href = '')
+    public static function createListingItem(string $label, string $href = '', array $icon = [])
     {
         if (!empty($label)) {
+            $icon['size'] = 'md';
             return apply_filters(
                 'Municipio/Helper/Listing/createListingItem',
                 [
-                'label' => $label,
-                'icon' => ['icon' => $icon, 'size' => 'md'],
-                'href' => $href
+                    'label' => $label,
+                    'icon' => $icon,
+                    'href' => $href
                 ]
             );
         }
