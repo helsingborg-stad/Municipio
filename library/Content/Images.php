@@ -7,6 +7,7 @@ class Images
     public function __construct()
     {
         add_filter('the_content', array($this, 'normalizeImages'), 11);
+        add_filter('Municipio/Content/ImageNormalized', array($this, 'imageHasBeenNormalized'), 10, 2);
     }
     /**
      * It takes a string of HTML, finds all images and links containing images, and replaces them with
@@ -100,10 +101,19 @@ class Images
             }
 
             foreach ($images as $image) {
-                /* This image has already been processed so we'll skip it. */
-                if ($image->getAttribute('parsed')) {
+
+                /**
+                 * Filter to check if the image has already been normalized.
+                 * @param bool $imageHasBeenNormalized True if the image has already been normalized, false otherwise.
+                 * @param DOMElement $image The image element.
+                 * @return bool
+                 */
+                $imageHasBeenNormalized = apply_filters('Municipio/Content/ImageNormalized', false, $image);
+
+                if ($imageHasBeenNormalized) {
                     continue;
                 }
+
                 $captionText = '';
                 if (0 < $image->parentNode->getElementsByTagName('figcaption')->length) {
                     foreach ($image->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
@@ -152,5 +162,18 @@ class Images
         }
 
         return $content;
+    }
+
+    public static function imageHasBeenNormalized($normalized, $image): bool
+    {
+        if ($image->getAttribute('parsed')) {
+            return true;
+        }
+
+        if (strpos($image->getAttribute('class'), 'c-image__image') !== false) {
+            return true;
+        }
+
+        return $normalized;
     }
 }
