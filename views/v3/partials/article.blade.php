@@ -2,10 +2,20 @@
     
     <!-- Title -->
     @section('article.title.before')@show
+    @if($postTitleFiltered || $callToActionItems['floating'])
+    @group([
+        'justifyContent' => 'space-between',
+    ])
     @if($postTitleFiltered)
         @typography(["element" => "h1", "variant" => "h1"])
             {!! $postTitleFiltered !!}
         @endtypography
+    @endif
+    @if ($callToActionItems['floating'])
+        @icon($callToActionItems['floating'])
+        @endicon
+    @endif
+    @endgroup
     @endif
     @section('article.title.after')@show
 

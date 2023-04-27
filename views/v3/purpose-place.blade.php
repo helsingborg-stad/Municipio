@@ -14,12 +14,20 @@
             ],
             'classList' => ['u-padding--6']
         ])
-            @typography([
-                'element' => 'h1',
-                'variant' => 'h1'
+            @group([
+                'justifyContent'=> 'space-between',
             ])
-                {{ $post->postTitle }}
-            @endtypography
+                @typography([
+                    'element' => 'h1',
+                    'variant' => 'h1'
+                ])
+                    {{ $post->postTitleFiltered }}
+                @endtypography
+                @if ($post->callToActionItems['floating'])
+                    @icon($post->callToActionItems['floating'])
+                    @endicon
+                @endif
+            @endgroup
             <div class="o-grid">
                 <div class="o-grid-12@sm o-grid-9@md o-grid-9@lg">
                     @typography([])
@@ -93,7 +101,7 @@
                 <div class="o-grid-4@md u-margin__bottom--8">
                     @segment([
                         'layout' => 'card',
-                        'title' => $post->postTitle,
+                        'title' => $post->postTitleFiltered,
                         'content' => $post->excerptShort,
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
@@ -101,6 +109,12 @@
                         'meta' => $post->readingTime,
                         'icon' => $post->termIcon['icon'] ? $post->termIcon : false
                     ])
+                    @if ($post->callToActionItems['floating'])
+                        @slot('floating')
+                            @icon($post->callToActionItems['floating'])
+                            @endicon
+                        @endslot
+                    @endif
                     @endsegment
                 </div>
             @endforeach
