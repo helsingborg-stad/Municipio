@@ -54,15 +54,15 @@ class SingularPurpose extends \Municipio\Controller\Singular
 
         // Phone number
         if (!empty($fields['phone'])) {
-            $this->data['listing']['phone'] = ListingHelper::createListingItem($fields['phone'], 'call');
+            $this->data['listing']['phone'] = ListingHelper::createListingItem($fields['phone'], '', ['src' => 'call']);
         }
 
         // Website link (with fixed label)
         if (!empty($fields['website'])) {
             $this->data['listing']['website'] = ListingHelper::createListingItem(
                 __('Visit website', 'municipio'),
-                'language',
-                $fields['website']
+                $fields['website'],
+                ['src' => 'language'],
             );
         }
 

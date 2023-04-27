@@ -35,6 +35,7 @@
                     @endtypography
                 </div>
                 <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
+
                     @if (!empty($listing))
                         @listing([
                             'list' => $listing,
@@ -104,8 +105,9 @@
                         'content' => $post->excerptShort,
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
-                        'tags' => $post->terms,
-                        'meta' => $post->readingTime
+                        'tags' => $post->termsUnlinked,
+                        'meta' => $post->readingTime,
+                        'icon' => $post->termIcon['icon'] ? $post->termIcon : false
                     ])
                     @if ($post->callToActionItems['floating'])
                         @slot('floating')

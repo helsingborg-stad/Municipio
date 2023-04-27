@@ -2,12 +2,16 @@
 
 namespace Municipio\Theme;
 
+use Throwable;
+
 /**
  * Class Enqueue
  * @package Municipio\Theme
  */
 class Enqueue
 {
+    private $scriptsExcludedFromDefer = ['wp-i18n'];
+
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -229,6 +233,10 @@ class Enqueue
      */
     public function deferedLoadingJavascript($tag, $handle)
     {
+        if (in_array($handle, $this->getAllScriptsToBeExcludedFromDefer())) {
+            return $tag;
+        }
+
         if (is_admin()) {
             return $tag;
         }
@@ -253,6 +261,48 @@ class Enqueue
         }
 
         return str_replace(' src', ' defer="defer" src', $tag);
+    }
+
+    private function getAllScriptsToBeExcludedFromDefer():array {
+        $excluded = $this->scriptsExcludedFromDefer;
+        foreach($excluded as $script) {
+            try {
+                $excluded = array_merge($excluded, $this->getScriptDependencies($script));
+            } catch (\Exception $e) {
+                // Do nothing
+            }
+        }
+
+        return $excluded;
+    }
+
+    /**
+     * Get script all dependencies recusively.
+     * 
+     * @param string $script The script handle
+     * @return array         The script dependencies
+     */
+    public function getScriptDependencies($script): array
+    {
+        global $wp_scripts;
+
+        if (!isset($wp_scripts->registered[$script])) {
+            trigger_error("Script \"$script\" is not registered.", E_USER_WARNING);
+        }
+
+        $dependencies = $wp_scripts->registered[$script]->deps;
+
+        foreach ($dependencies as $dependency) {
+            if (!empty($wp_scripts->registered[$dependency]->deps)) {
+                try {
+                    $dependencies = array_merge($dependencies, $this->getScriptDependencies($dependency));
+                } catch(\Exception $e) {
+                    // Do nothing
+                }
+            }
+        }
+
+        return array_unique($dependencies);
     }
 
     /**

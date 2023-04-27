@@ -46,7 +46,8 @@ class Post
             'post_language',
             'reading_time',
             'quicklinks',
-            'call_to_action_items'
+            'call_to_action_items',
+            'term_icon'
         );
 
         $appendFields = apply_filters(
@@ -183,6 +184,10 @@ class Post
             $postObject->terms            = self::getPostTerms($postObject->ID);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
         }
+        
+        if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
+            $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
+        }
 
         if (in_array('post_language', $appendFields)) {
             $siteLang   = strtolower(get_bloginfo('language'));
@@ -206,6 +211,40 @@ class Post
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
+
+    private static function getPostTermIcon($postId, $postType)
+    {
+        $taxonomies = get_object_taxonomies($postType);
+
+        $termIcon = [];
+        $termColor = false;
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    if (empty($termIcon)) {
+                        $icon = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
+                        $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
+                        if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
+                            $termIcon['icon'] = $icon['src'];
+                            $termIcon['size'] = 'md';
+                            $termIcon['color'] = 'white';
+                            $termIcon['backgroundColor'] = $color;
+                        }
+
+                        if (!empty($color)) {
+                            $termColor = $color;
+                        }
+                    }
+                }
+            }
+        }  
+        if (empty($termIcon) && !empty($termColor)) {
+            $termIcon['backgroundColor'] = $color;
+        }
+        return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
+    }
+
     /**
      * Get a list of terms to display on each inlay
      *
@@ -221,7 +260,6 @@ class Post
         );
 
         $termsList = [];
-
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
                 $terms = wp_get_post_terms($postId, $taxonomy);

@@ -11,6 +11,7 @@ class Search
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->getSearchDisplayFieldAttributes($sectionID));
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->getHeroSearchPositionFieldAttributes($sectionID));
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->getSearchFormShapeFieldAttributes($sectionID));
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->heroSearchButtonColor($sectionID));
     }
 
     public function getHeroSearchPositionFieldAttributes(string $sectionID)
@@ -34,6 +35,34 @@ class Search
                 [
                     'type' => 'modifier',
                     'context' => ['hero.search.form'],
+                ]
+            ],
+        ];
+    }
+
+       public function heroSearchButtonColor(string $sectionID) {
+        return [
+            'type'        => 'select',
+            'settings'    => 'hero_search_button_style',
+            'label'       => esc_html__('Hero search button styling', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'default',
+            'priority'    => 10,
+            'choices'     => $this->getHeroSearchButtonOptions(),
+            'output' => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'color',
+                    'context' => [
+                        'hero.search.button',
+                    ]
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'search_display',
+                    'operator' => 'in',
+                    'value'    => 'hero',
                 ]
             ],
         ];
@@ -106,6 +135,14 @@ class Search
             'mobile' => __('Option in mobile menu', 'municipio'),
             'hamburger_menu' => __('Hamburger menu', 'municipio'),
             'quicklinks' => __('Quicklinks menu', 'municipio'),
+        ];
+    }
+
+    public function getHeroSearchButtonOptions(): array {
+        return [
+            'default' => __('Default', 'municipio'),
+            'primary' => __('Primary', 'municipio'),
+            'secondary' => __('Secondary', 'municipio'),
         ];
     }
 
