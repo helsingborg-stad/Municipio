@@ -26,12 +26,14 @@
         @button([
             'id' => 'hero-search-form__submit',
             'text' => $lang->search,
-            'context' => ['hero.search.button'],
             'type' => 'submit',
             'size' => 'lg',
             'attributeList' => [
                 'aria-label' => $lang->search,
-            ]
+            ],
+            'disableColor' => false,
+            'context' => ['hero.search.button'],
+
         ])
         @endbutton
     @endgroup
