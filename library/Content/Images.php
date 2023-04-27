@@ -104,7 +104,6 @@ class Images
 
                 /**
                  * Filter to check if the image has already been normalized.
-                 * 
                  * @param bool $imageHasBeenNormalized True if the image has already been normalized, false otherwise.
                  * @param DOMElement $image The image element.
                  * @return bool
@@ -167,8 +166,13 @@ class Images
 
     public static function imageHasBeenNormalized($normalized, $image): bool
     {
-        if ($image->getAttribute('parsed')) return true;
-        if (strpos($image->getAttribute('class'), 'c-image__image') !== false) return true;
+        if ($image->getAttribute('parsed')) {
+            return true;
+        }
+
+        if (strpos($image->getAttribute('class'), 'c-image__image') !== false) {
+            return true;
+        }
 
         return $normalized;
     }
