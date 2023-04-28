@@ -127,14 +127,23 @@ class BlockManager
     public function renderContainerCallback($block)
     {
         $data = $this->buildData($block['data']);
+
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
+
+        $data['contentClassList'] = 'o-container';
+        if ($data['content_width'] == 'article') {
+            $data['contentClassList'] .= ' c-article c-article--readable-width';
+        }
 
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
             if (!empty($data['color'])) {
                 $data['style'][] = "background-color:{$data['color']}";
+            }
+            if (!empty($data['text_color'])) {
+                $data['style'][] = "color:{$data['text_color']}";
             }
             if (!empty($data['backgroundImage'])) {
                 $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');

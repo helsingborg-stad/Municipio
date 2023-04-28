@@ -24,11 +24,11 @@
             "append": ""
         },
         {
-            "key": "field_63cfdc219a6d3",
-            "label": "Background color",
-            "name": "color",
+            "key": "field_644b6d221b7a4",
+            "label": "Content width",
+            "name": "content_width",
             "aria-label": "",
-            "type": "color_picker",
+            "type": "select",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -37,9 +37,19 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "rgba(238, 238, 238, 1)",
-            "enable_opacity": 1,
-            "return_format": "string"
+            "choices": {
+                "standard": "Standard",
+                "article": "Article"
+            },
+            "default_value": "standard",
+            "return_format": "",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
         },
         {
             "key": "field_6405fea65cc8f",
@@ -67,6 +77,42 @@
             "mime_types": "",
             "preview_size": "medium",
             "library": "all"
+        },
+        {
+            "key": "field_63cfdc219a6d3",
+            "label": "Background color",
+            "name": "color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 1,
+            "return_format": "string"
+        },
+        {
+            "key": "field_644b77128c900",
+            "label": "Text color",
+            "name": "text_color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 0,
+            "return_format": "string"
         }
     ],
     "location": [
