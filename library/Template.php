@@ -134,7 +134,7 @@ class Template
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
-        $hasPurpose = fn() => PurposeHelper::hasPurpose();
+        $hasPurpose = fn() => PurposeHelper::hasPurpose(get_post_type());
 
         $templateController = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
@@ -150,6 +150,11 @@ class Template
                 'condition'       => $hasPurpose() && $isSingular(),
                 'controllerClass' => \Municipio\Controller\SingularPurpose::class,
                 'controllerPath'  => ControllerHelper::locateController('SingularPurpose'),
+            ],
+            [
+                'condition'       => $hasPurpose() && $isArchive(),
+                'controllerClass' => \Municipio\Controller\ArchivePurpose::class,
+                'controllerPath'  => ControllerHelper::locateController('ArchivePurpose'),
             ],
             [
                 // If a controller for this specific WordPress template exists, use it.
