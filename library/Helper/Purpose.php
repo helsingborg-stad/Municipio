@@ -104,9 +104,9 @@ class Purpose
     }
 
     /**
-     * It checks if the purpose is empty or not.
+     * Checks if a $type has any purpose set.
      *
-     * @param string type The type of the purpose.
+     * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
      */
     public static function hasPurpose(string $type = ''): bool
     {
