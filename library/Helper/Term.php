@@ -29,11 +29,11 @@ class Term
         }
 
         $colour = get_field('colour', $term);
-        if ("" !== $colour && !str_starts_with($colour, '#')) {
+        if (is_string($colour) && "" !== $colour && !str_starts_with($colour, '#')) {
             $colour = "#{$colour}";
         } elseif ("" === $colour || !$colour) {
             // Use the color and exit the foreach loop when a color is found on an ancestor term
-            $ancestors = get_ancestors($term->term_id, $term->taxonomy);
+            $ancestors = get_ancestors($term->term_id, $term->taxonomy, 'taxonomy');
             if (!empty($ancestors)) {
                 foreach ($ancestors as $ancestorId) {
                     $colour = get_field('colour', 'term_' . $ancestorId);
