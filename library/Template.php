@@ -134,7 +134,7 @@ class Template
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
-        $hasPurpose = fn() => PurposeHelper::hasPurpose(get_post_type());
+        $hasPurpose = fn() => PurposeHelper::hasPurpose(get_post_type() ?? '');
 
         $templateController = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
