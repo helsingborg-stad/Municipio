@@ -110,7 +110,7 @@ class Purpose
      */
     public static function hasPurpose(string $type = ''): bool
     {
-        $purpose = self::getPurpose();
+        $purpose = self::getPurpose($type);
         if (!empty($purpose)) {
             return true;
         }
