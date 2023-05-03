@@ -178,11 +178,11 @@ class Archive
                 \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'select',
                 'settings'    => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
-                'label'       => esc_html__('Filter field type', 'municipio') . ' (' . $label . ')',
-                'description' => sprintf(esc_html__('What field type to use for the "%s" filter.', 'municipio'), $label),
+                'label'       => $label,
+                'description' => sprintf(esc_html__('What field type to use for the %s filter.', 'municipio'), $label),
                 'section'     => $sectionID,
                 'choices'     => [
-                    'multi' => esc_html__('Multiselect', 'kirki'),
+                    'multi' => esc_html__('Multiselect', 'municipio'),
                     'single' => esc_html__('Single select', 'municipio'),
                 ],
                 'default'     => 'multi',
