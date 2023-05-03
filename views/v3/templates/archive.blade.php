@@ -51,15 +51,15 @@
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
                     ['posts' => $posts]
                 )
-            @endif
-            @if ($showPagination)
-                @pagination([
-                    'list' => $paginationList,
-                    'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
-                    'current' => $currentPage,
-                    'linkPrefix' => '?paged='
-                ])
-                @endpagination
+                @if ($showPagination)
+                    @pagination([
+                        'list' => $paginationList,
+                        'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
+                        'current' => $currentPage,
+                        'linkPrefix' => '?paged='
+                    ])
+                    @endpagination
+                @endif
             @endif
         @else
             <div class="o-grid">
