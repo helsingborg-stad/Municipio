@@ -44,12 +44,14 @@
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
-
-            @includefirst(
-                ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
-                ['posts' => $posts]
-            )
-
+            @if ($displayOpenStreetMap)
+                @includeIf('partials.openstreetmap.map', ['posts' => $posts])
+            @else
+                @includefirst(
+                    ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
+                    ['posts' => $posts]
+                )
+            @endif
             @if ($showPagination)
                 @pagination([
                     'list' => $paginationList,

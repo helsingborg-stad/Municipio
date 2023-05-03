@@ -82,6 +82,43 @@ class Purpose
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
     /**
+     * hasPurpose
+     *
+     * @param string $purposeToCheckFor The purpose to check for.
+     * @param string $typeToCheck The type of purpose to check. Defaults to the current type.
+     * @param boolean $includeSecondary If you want to include secondary purposes in the check.
+     *
+     * @return boolean
+     */
+    public static function hasPurpose(
+        string $purposeToCheckFor,
+        string $typeToCheck,
+        bool $includeSecondary = false
+    ): bool {
+        $purpose = self::getPurpose($typeToCheck, $includeSecondary);
+        if (!empty($purpose)) {
+            foreach ($purpose as $key => $value) {
+                if ($purposeToCheckFor === $value->key) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if a $type has any purpose set.
+     *
+     * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
+     */
+    public static function hasAnyPurpose(string $type = ''): bool
+    {
+        $purpose = self::getPurpose($type);
+        if (!empty($purpose)) {
+            return true;
+        }
+        return false;
+    }
+    /**
      * > Get the instance of a registered purpose
      *
      * @param string purpose The purpose you want to get the instance of.
@@ -103,19 +140,6 @@ class Purpose
         return false;
     }
 
-    /**
-     * Checks if a $type has any purpose set.
-     *
-     * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
-     */
-    public static function hasPurpose(string $type = ''): bool
-    {
-        $purpose = self::getPurpose($type);
-        if (!empty($purpose)) {
-            return true;
-        }
-        return false;
-    }
     /**
      * Get the current type.
      *
