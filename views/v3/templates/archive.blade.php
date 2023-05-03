@@ -45,7 +45,7 @@
 
         @if (!empty($posts))
             @if ($displayOpenStreetMap)
-                @includeIf('partials.openstreetmap.map', ['posts' => $posts])
+                @includeIf('partials.openstreetmap.map')
             @else
                 @includefirst(
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],

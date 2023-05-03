@@ -85,14 +85,14 @@ class Purpose
      * hasPurpose
      *
      * @param string $purposeToCheckFor The purpose to check for.
-     * @param string $typeToCheck The type of purpose to check. Defaults to the current type.
+     * @param string $typeToCheck The type of purpose to check.
      * @param boolean $includeSecondary If you want to include secondary purposes in the check.
      *
      * @return boolean
      */
     public static function hasPurpose(
-        string $purposeToCheckFor,
-        string $typeToCheck,
+        string $purposeToCheckFor = '',
+        string $typeToCheck = '',
         bool $includeSecondary = false
     ): bool {
         $purpose = self::getPurpose($typeToCheck, $includeSecondary);

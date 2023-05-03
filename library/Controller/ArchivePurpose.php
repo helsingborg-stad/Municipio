@@ -12,26 +12,39 @@ class ArchivePurpose extends \Municipio\Controller\Archive
      */
     public function init()
     {
-        $postType = get_post_type();
-        $purpose = \Municipio\Helper\Purpose::getPurpose($postType, true);
-
-        if (!empty($purpose) && !empty($postType)) {
-            if ("place" === $purpose[0]->key || in_array("place", $purpose[0]->secondaryPurpose)) {
-                // ! TODO Fetch displayOpenStreetMap value from the customizer for the current post types archive settings
-                // $this->data["displayOpenStreetMap"] = true;
-                // $this->data["mapStyle"] = "default";
-                // $this->data["startPosition"] = \json_encode(["lat" => "56.046029","lng" => "12.693904","zoom" => 14], JSON_UNESCAPED_UNICODE);
-
-                add_filter(
-                    "Municipio/Controller/Archive/getArchivePosts",
-                    [$this, "addLocationToArchivePosts"],
-                    2,
-                    1
-                );
-            }
-        }
 
         parent::init();
+
+        if (\Municipio\Helper\Purpose::hasPurpose("place", get_post_type(), true)) {
+            // ! TODO Fetch "displayOpenStreetMap" value from the customizer for the current post types archive settings
+            $this->data["displayOpenStreetMap"] = true;
+            // ! TODO Fetch "mapStyle" value from the customizer for the site
+            $this->data["mapStyle"] = "default";
+            // ! TODO Fetch "startPosition" value from the customizer for the site
+            $this->data["startPosition"] = ["lat" => "56.046029","lng" => "12.693904","zoom" => 14];
+
+            // Setup pins for the map
+            $this->data['pins'] = [];
+
+            foreach ($this->data['posts'] as $_post) {
+                $location = get_field("location", $_post->id);
+                if (!empty($location) && !empty($location["lat"]) && !empty($location["lng"])) {
+                    $this->data["pins"][] = [
+                        "lat" => $location["lat"],
+                        "lng" => $location["lng"],
+
+                    ];
+                }
+            }
+
+
+            // add_filter(
+            //     "Municipio/Controller/Archive/getArchivePosts",
+            //     [$this, "addLocationToArchivePosts"],
+            //     2,
+            //     1
+            // );
+        }
     }
 
     /**
