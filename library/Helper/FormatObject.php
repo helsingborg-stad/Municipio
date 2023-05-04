@@ -70,8 +70,9 @@ class FormatObject
     public static function mapArrayKeys(callable $func, array $array)
     {
         $return = array();
+        $keysToSkip = ['classList', 'attributeList'];
         foreach ($array as $key => $value) {
-            $return[$func($key)] = is_array($value) ? self::mapArrayKeys($func, $value) : $value;
+            $return[$func($key)] = is_array($value) &&  !in_array($key, $keysToSkip) ? self::mapArrayKeys($func, $value) : $value;
         }
         return $return;
     }
