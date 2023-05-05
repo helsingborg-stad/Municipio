@@ -12,51 +12,68 @@ class ArchivePurpose extends \Municipio\Controller\Archive
      */
     public function init()
     {
-        parent::init();
 
         add_filter('Municipio/Controller/Archive/getArchivePosts', [$this, 'addLocationToArchivePosts'], 10, 1);
 
-        // TODO: Add setting for this in the customizer:
+        parent::init();
+
         $this->data['displayArchiveLoop'] = (bool) ($this->data['archiveProps']->displayArchiveLoop ?? true);
 
         if (\Municipio\Helper\Purpose::hasPurpose('place', get_post_type(), true)) {
             $this->data['displayOpenstreetmap'] = (bool) ($this->data['archiveProps']->displayOpenstreetmap ?? false);
 
-            // TODO: Add setting for this in the customizer:
-            $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink ?? true);
-
             if ($this->data['displayOpenstreetmap']) {
-                $this->setupMapPins();
+                $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink
+                ?? true);
+                $this->data['pins'] = $this->setupPins($this->data['posts']);
+                $this->data['postsWithLocation'] = $this->setupPostsWithLocation($this->data['posts']);
             }
         }
     }
-
-    private function setupMapPins()
+    private function setupPins(array $posts = []): array
     {
-        $this->data['pins'] = [];
-        $this->data['postsWithLocation'] = [];
+        $pins = [];
 
-        $i = 0;
-
-        foreach ($this->data['posts'] as $key => $post) {
-            if (!empty($post->location) && !empty($post->location['lat']) && !empty($post->location['lng'])) {
-                $i++;
-                $this->data['postsWithLocation'][] = $post;
-                $this->data['pins'][$i] = [
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
+                    $pin = [
                     'lat' => $post->location['lat'],
                     'lng' => $post->location['lng'],
                     'tooltip' => [
-                        'title' => $post->postTitle,
-                        'content' => $post->postExcerpt,
-                    ],
-                ];
-                if ($this->data['displayGoogleMapsLink']) {
-                    // TODO: Update this to 'directions' when the new version of the OpenStreetMap component is pushed. Also check for 'displayGoogleMapsLink' before adding it.
-                    $this->data['pins'][$i]['tooltip']['direction']['url'] = '#';
-                    $this->data['pins'][$i]['tooltip']['direction']['label'] = __('Get directions on Google Maps', 'municipio');
+                        'title' => $post->postTitle ?? '',
+                        'content' => $post->postExcerpt ?? '',
+                        ],
+                    ];
+
+                    if ($this->data['displayGoogleMapsLink']) {
+                    // TODO Change "direction" to "directions" once the component has been updated
+                        $pin['tooltip']['direction'] = [
+                            'url' => '#',
+                            'label' => __('Get directions on Google Maps', 'municipio'),
+                        ];
+                    }
+
+                    $pins[] = $pin;
                 }
             }
         }
+
+        return $pins;
+    }
+    private function setupPostsWithLocation(array $posts = []): array
+    {
+        $postsWithLocation = [];
+
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
+                    $postsWithLocation[] = $post;
+                }
+            }
+        }
+
+        return $postsWithLocation;
     }
 
 

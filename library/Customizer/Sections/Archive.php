@@ -168,7 +168,56 @@ class Archive
                 ]
             ],
         ]);
-
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_archive_loop',
+            'label'    => esc_html__('Keep the regular loop', 'municipio'),
+            'description' => esc_html__('Keep the regular loop of posts on the archive?', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
+                    'operator' => 'contains',
+                    'value'    => 1,
+                ]
+            ],
+        ]);
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_google_maps_link',
+            'label'    => esc_html__('Display Google Maps-link', 'municipio'),
+            'description' => esc_html__('Display a link to Google Maps on each marker on the map?', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
+                    'operator' => 'contains',
+                    'value'    => 1,
+                ]
+            ],
+        ]);
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'archive_' . $archive->name . '_enabled_filters',

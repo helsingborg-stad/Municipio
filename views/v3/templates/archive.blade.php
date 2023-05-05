@@ -46,7 +46,8 @@
         @if (!empty($posts))
             @if ($displayOpenstreetmap && !empty($pins))
                 @openStreetMap([
-                    'pins' => $pins
+                    'pins' => $pins,
+                    'classList' => ['u-margin__bottom--2']
                 ])
                     @if ($postsWithLocation)
                         @slot('sidebarContent')
@@ -60,7 +61,8 @@
                         @endslot
                     @endif
                 @endopenStreetMap
-            @elseif($displayArchiveLoop)
+            @endif
+            @if ($displayArchiveLoop)
                 @includefirst(
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
                     ['posts' => $posts]
