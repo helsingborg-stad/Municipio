@@ -47,7 +47,8 @@
             @if ($displayOpenstreetmap && !empty($pins))
                 @openStreetMap([
                     'pins' => $pins,
-                    'classList' => ['u-margin__bottom--2']
+                    'classList' => ['u-margin__bottom--2'],
+                    'containerAware' => true
                 ])
                     @if ($postsWithLocation)
                         @slot('sidebarContent')
