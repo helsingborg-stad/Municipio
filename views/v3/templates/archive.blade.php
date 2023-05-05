@@ -44,8 +44,8 @@
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
-            @if ($displayOpenStreetMap)
-                @includeIf('partials.openstreetmap.map')
+            @if ($displayOpenstreetmap)
+                @includeIf('partials.openstreetmap.map', ['posts' => $posts])
             @else
                 @includefirst(
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],

@@ -12,38 +12,37 @@ class ArchivePurpose extends \Municipio\Controller\Archive
      */
     public function init()
     {
+        add_filter('Municipio/Controller/Archive/getArchivePosts', [$this, 'addLocationToArchivePosts'], 10, 1);
 
         parent::init();
 
         if (\Municipio\Helper\Purpose::hasPurpose("place", get_post_type(), true)) {
-            // ! TODO Fetch "displayOpenStreetMap" value from the customizer for the current post types archive settings
-            $this->data["displayOpenStreetMap"] = true;
-            // ! TODO Fetch "mapStyle" value from the customizer for the site
-            $this->data["mapStyle"] = "default";
-            // ! TODO Fetch "startPosition" value from the customizer for the site
-            $this->data["startPosition"] = ["lat" => "56.046029","lng" => "12.693904","zoom" => 14];
+            $this->data["displayOpenstreetmap"] = (bool) $this->data['archiveProps']->displayOpenstreetmap ?? false;
+            // TODO Add setting for this in the customizer:
+            $this->data["displayGoogleMapsLink"] = (bool) $this->data['archiveProps']->displayGoogleMapsLink ?? true;
 
-            // Setup pins for the map
-            $this->data['pins'] = [];
+            if ($this->data["displayOpenstreetmap"] == true) {
+                // Setup pins for the map
+                $this->data['pins'] = [];
 
-            foreach ($this->data['posts'] as $_post) {
-                $location = get_field("location", $_post->id);
-                if (!empty($location) && !empty($location["lat"]) && !empty($location["lng"])) {
-                    $this->data["pins"][] = [
-                        "lat" => $location["lat"],
-                        "lng" => $location["lng"],
-
-                    ];
+                foreach ($this->data['posts'] as $_post) {
+                    if (!empty($_post->location) && !empty($_post->location["lat"]) && !empty($_post->location["lng"])) {
+                        $this->data["pins"][] = [
+                            "lat" => $_post->location["lat"],
+                            "lng" => $_post->location["lng"],
+                            "tooltip" => [
+                                "title" => $_post->postTitle,
+                                "content" => $_post->postExcerpt,
+                                // TODO Update this to "directions" when the new version of the OpenStreetMap component is pushed. Also check for "displayGoogleMapsLink" before adding it.
+                                "direction" => [
+                                    "url" => "#",
+                                    "label" => __("Get directions on Google Maps", "municipio"),
+                                ]
+                            ]
+                        ];
+                    }
                 }
             }
-
-
-            // add_filter(
-            //     "Municipio/Controller/Archive/getArchivePosts",
-            //     [$this, "addLocationToArchivePosts"],
-            //     2,
-            //     1
-            // );
         }
     }
 

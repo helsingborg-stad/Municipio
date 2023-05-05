@@ -1,3 +1,4 @@
+<!-- partials.openstreetmap.partials.collection -->
 @collection__item([
     'classList' => ['c-collection__item--post', 'c-openstreetmap__collection__item'],
     'containerAware' => true,

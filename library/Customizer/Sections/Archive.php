@@ -82,6 +82,7 @@ class Archive
                 ]
             ],
         ]);
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_featured_image',
@@ -145,6 +146,25 @@ class Archive
                     'setting'  => 'archive_' . $archive->name . '_style',
                     'operator' => '!=',
                     'value'    => 'list',
+                ]
+            ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_openstreetmap',
+            'label'    => esc_html__('Display map', 'municipio'),
+            'description' => esc_html__('Display an Open Street Map on the archive if applicable.', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
                 ]
             ],
         ]);
