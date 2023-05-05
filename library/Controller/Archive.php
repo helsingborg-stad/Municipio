@@ -22,6 +22,8 @@ class Archive extends \Municipio\Controller\BaseController
         //Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
 
+        $this->data['displayArchiveLoop'] = true;
+
         //Get archive properties
         $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
 

@@ -60,7 +60,7 @@
                         @endslot
                     @endif
                 @endopenStreetMap
-            @else
+            @elseif($displayArchiveLoop)
                 @includefirst(
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
                     ['posts' => $posts]
