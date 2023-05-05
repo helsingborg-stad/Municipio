@@ -4,7 +4,6 @@
         'classList' => ['o-grid', 'o-grid--horizontal']
     ])
         @foreach ($posts as $post)
-        @php echo '<pre>' . print_r( $post->callToActionItems['floating'], true ) . '</pre>'; @endphp
             @collection__item([
                 'link' => $post->permalink,
                 'classList' => [$gridColumnClass],
