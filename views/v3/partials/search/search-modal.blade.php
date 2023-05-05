@@ -2,6 +2,7 @@
 @modal([
     'id' => 'm-search-modal__trigger', 
     'classList' => ['search-modal'], 
+    'closeButtonText' => __('Cancel', 'municipio'),
     'size' => 'xl', 
     'isPanel' => true,
     'transparent' => true
