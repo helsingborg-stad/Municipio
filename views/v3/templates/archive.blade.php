@@ -44,22 +44,36 @@
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
-            @if ($displayOpenstreetmap)
-                @includeIf('partials.openstreetmap.map', ['posts' => $posts])
+            @if ($displayOpenstreetmap && !empty($pins))
+                @openStreetMap([
+                    'pins' => $pins
+                ])
+                    @if ($postsWithLocation)
+                        @slot('sidebarContent')
+                            @includefirst(
+                                [
+                                    'partials.post.' . $postType . '-' . $template,
+                                    'partials.post.post-' . $template,
+                                ],
+                                ['posts' => $postsWithLocation]
+                            )
+                        @endslot
+                    @endif
+                @endopenStreetMap
             @else
                 @includefirst(
                     ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
                     ['posts' => $posts]
                 )
-                @if ($showPagination)
-                    @pagination([
-                        'list' => $paginationList,
-                        'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
-                        'current' => $currentPage,
-                        'linkPrefix' => '?paged='
-                    ])
-                    @endpagination
-                @endif
+            @endif
+            @if ($showPagination && $paginationList)
+                @pagination([
+                    'list' => $paginationList,
+                    'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],
+                    'current' => $currentPage,
+                    'linkPrefix' => '?paged='
+                ])
+                @endpagination
             @endif
         @else
             <div class="o-grid">

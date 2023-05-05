@@ -20,13 +20,24 @@ class ArchivePurpose extends \Municipio\Controller\Archive
             $this->data["displayOpenstreetmap"] = (bool) $this->data['archiveProps']->displayOpenstreetmap ?? false;
             // TODO Add setting for this in the customizer:
             $this->data["displayGoogleMapsLink"] = (bool) $this->data['archiveProps']->displayGoogleMapsLink ?? true;
-
+// Setup pagination for posts with location
+            add_filter('Municipio/Controller/Archive/getPagination', function ($pagesArray) {
+                echo '<pre>' . print_r($pagesArray, true) . '</pre>';
+                wp_die();
+                return $pagesArray;
+            });
             if ($this->data["displayOpenstreetmap"] == true) {
                 // Setup pins for the map
                 $this->data['pins'] = [];
+                $this->data['postsWithLocation'] = [];
 
                 foreach ($this->data['posts'] as $_post) {
-                    if (!empty($_post->location) && !empty($_post->location["lat"]) && !empty($_post->location["lng"])) {
+                    if (
+                        !empty($_post->location)
+                        && !empty($_post->location["lat"])
+                        && !empty($_post->location["lng"])
+                    ) {
+                        $this->data['postsWithLocation'][] = $_post;
                         $this->data["pins"][] = [
                             "lat" => $_post->location["lat"],
                             "lng" => $_post->location["lng"],
