@@ -15,15 +15,23 @@ class ArchivePurpose extends \Municipio\Controller\Archive
 
         $this->data['displayArchiveLoop'] = (bool) ($this->data['archiveProps']->displayArchiveLoop ?? true);
 
-        if (Purpose::hasPurpose('place', get_post_type(), true)) {
-            $this->data['displayOpenstreetmap'] = (bool) ($this->data['archiveProps']->displayOpenstreetmap ?? false);
-
-            if ($this->data['displayOpenstreetmap']) {
-                $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink
-                ?? true);
-                $this->data['pins'] = Location::createPinDataForPosts($this->data['posts'], $this->data['displayGoogleMapsLink']);
-                $this->data['postsWithLocation'] = Location::filterPostsWithLocationData($this->data['posts']);
-            }
+        if (!Purpose::hasPurpose('place', get_post_type(), true)) {
+            return;
         }
+
+        $this->setupOpenStreetMap();
+    }
+
+    private function setupOpenStreetMap()
+    {
+        $this->data['displayOpenstreetmap'] = (bool) ($this->data['archiveProps']->displayOpenstreetmap ?? false);
+
+        if (!$this->data['displayOpenstreetmap']) {
+            return;
+        }
+
+        $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink ?? true);
+        $this->data['pins'] = Location::createPinDataForPosts($this->data['posts'], $this->data['displayGoogleMapsLink']);
+        $this->data['postsWithLocation'] = Location::filterPostsWithLocationData($this->data['posts']);
     }
 }
