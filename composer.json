@@ -75,6 +75,7 @@
     "require-dev": {
         "phpunit/phpunit": "9.6.x-dev",
         "yoast/phpunit-polyfills": "^1.0.4",
-        "spatie/phpunit-watcher": "*"
+        "spatie/phpunit-watcher": "*",
+        "php-stubs/acf-pro-stubs": "dev-master"
     }
 }

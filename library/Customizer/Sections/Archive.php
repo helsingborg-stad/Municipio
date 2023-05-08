@@ -82,6 +82,7 @@ class Archive
                 ]
             ],
         ]);
+
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'switch',
             'settings' => 'archive_' . $archive->name . '_display_featured_image',
@@ -150,6 +151,74 @@ class Archive
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_openstreetmap',
+            'label'    => esc_html__('Display map', 'municipio'),
+            'description' => esc_html__('Display an Open Street Map on the archive if applicable.', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+        ]);
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_archive_loop',
+            'label'    => esc_html__('Keep the regular loop', 'municipio'),
+            'description' => esc_html__('Keep the regular loop of posts on the archive?', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
+                    'operator' => 'contains',
+                    'value'    => 1,
+                ]
+            ],
+        ]);
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'     => 'switch',
+            'settings' => 'archive_' . $archive->name . '_display_google_maps_link',
+            'label'    => esc_html__('Display Google Maps-link', 'municipio'),
+            'description' => esc_html__('Display a link to Google Maps on each marker on the map?', 'municipio'),
+            'section'  => $sectionID,
+            'default'     => 0,
+            'choices' => [
+                1  => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'controller',
+                    'as_object' => true,
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
+                    'operator' => 'contains',
+                    'value'    => 1,
+                ]
+            ],
+        ]);
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
             'settings'    => 'archive_' . $archive->name . '_enabled_filters',
             'label'       => esc_html__('Filters', 'municipio'),
@@ -178,11 +247,11 @@ class Archive
                 \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                 'type'        => 'select',
                 'settings'    => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
-                'label'       => esc_html__('Filter field type', 'municipio') . ' (' . $label . ')',
-                'description' => sprintf(esc_html__('What field type to use for the "%s" filter.', 'municipio'), $label),
+                'label'       => $label,
+                'description' => sprintf(esc_html__('What field type to use for the %s filter.', 'municipio'), $label),
                 'section'     => $sectionID,
                 'choices'     => [
-                    'multi' => esc_html__('Multiselect', 'kirki'),
+                    'multi' => esc_html__('Multiselect', 'municipio'),
                     'single' => esc_html__('Single select', 'municipio'),
                 ],
                 'default'     => 'multi',

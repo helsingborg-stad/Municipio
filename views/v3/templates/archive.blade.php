@@ -44,13 +44,32 @@
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
-
-            @includefirst(
-                ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
-                ['posts' => $posts]
-            )
-
-            @if ($showPagination)
+            @if ($displayOpenstreetmap && !empty($pins))
+                @openStreetMap([
+                    'pins' => $pins,
+                    'classList' => ['u-margin__bottom--2'],
+                    'containerAware' => true
+                ])
+                    @if ($postsWithLocation)
+                        @slot('sidebarContent')
+                            @includefirst(
+                                [
+                                    'partials.post.' . $postType . '-' . $template,
+                                    'partials.post.post-' . $template,
+                                ],
+                                ['posts' => $postsWithLocation]
+                            )
+                        @endslot
+                    @endif
+                @endopenStreetMap
+            @endif
+            @if ($displayArchiveLoop)
+                @includefirst(
+                    ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
+                    ['posts' => $posts]
+                )
+            @endif
+            @if ($showPagination && $paginationList)
                 @pagination([
                     'list' => $paginationList,
                     'classList' => ['u-margin__top--8', 'u-display--flex', 'u-justify-content--center'],

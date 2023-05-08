@@ -22,6 +22,8 @@ class Archive extends \Municipio\Controller\BaseController
         //Get current post type
         $postType = !empty($this->data['postType']) ? $this->data['postType'] : 'page';
 
+        $this->data['displayArchiveLoop'] = true;
+
         //Get archive properties
         $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
 
@@ -59,9 +61,19 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['gridColumnClass']          = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
-        $this->data['currentPage']              = $this->getCurrentPage();
-        $this->data['paginationList']           = $this->getPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
-        $this->data['showPagination']           = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
+        $this->data['currentPage']                     = $this->getCurrentPage();
+        $this->data['paginationList']                  = $this->getPagination(
+            $postType,
+            $this->data['archiveBaseUrl'],
+            $this->wpQuery
+        );
+        $this->data['paginationListPostsWithLocation'] = $this->getPagination(
+            $postType,
+            $this->data['archiveBaseUrl'],
+            $this->wpQuery
+        );
+
+        $this->data['showPagination']                  = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
 
         //Display functions
         $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']);

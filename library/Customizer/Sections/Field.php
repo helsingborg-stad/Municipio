@@ -6,24 +6,24 @@ use Municipio\Helper\KirkiSwatches as KirkiSwatches;
 
 class Field
 {
-  public function __construct(string $sectionID)
-  {
+    public function __construct(string $sectionID)
+    {
 
-    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-      'type'        => 'radio',
-      'settings'    => 'field_appearance_type',
-      'label'       => esc_html__('Appearance', 'municipio'),
-      'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
-      'section'     => $sectionID,
-      'default'     => 'default',
-      'priority'    => 5,
-      'choices'     => [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'radio',
+        'settings'    => 'field_appearance_type',
+        'label'       => esc_html__('Appearance', 'municipio'),
+        'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => 'default',
+        'priority'    => 5,
+        'choices'     => [
         'default' => esc_html__('Predefined appearance', 'municipio'),
         'custom' => esc_html__('Custom appearance', 'municipio'),
-      ],
-    ]);
+        ],
+        ]);
 
-    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
         'type'        => 'select',
         'settings'    => 'field_style_settings',
         'label'       => esc_html__('Field style', 'municipio'),
@@ -53,25 +53,25 @@ class Field
                 'value'    => 'default',
             ]
         ],
-    ]);
+        ]);
 
-    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-      'type'        => 'multicolor',
-      'settings'    => 'field_custom_colors',
-      'label'       => esc_html__('Custom colors', 'municipio'),
-      'section'     => $sectionID,
-      'priority'    => 10,
-      'transport' => 'auto',
-      'choices'     => [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'multicolor',
+        'settings'    => 'field_custom_colors',
+        'label'       => esc_html__('Custom colors', 'municipio'),
+        'section'     => $sectionID,
+        'priority'    => 10,
+        'transport' => 'auto',
+        'choices'     => [
         'background'    => esc_html__('Background color', 'municipio'),
         'border-color'  => esc_html__('Border color', 'municipio'),
-      ],
-      'default' => [
+        ],
+        'default' => [
         'background'        => '#f5f5f5',
         'border-color'      => '#a3a3a3',
-      ],
-      'palettes' => KirkiSwatches::getColors(),
-      'output' => [
+        ],
+        'palettes' => KirkiSwatches::getColors(),
+        'output' => [
         [
             'choice'    => 'background',
             'element'   => ':root',
@@ -82,66 +82,67 @@ class Field
             'element'   => ':root',
             'property'  => '--c-field-border-color'
         ],
-      ],
-      'active_callback'  => [
+        ],
+        'active_callback'  => [
             [
                 'setting'  => 'field_appearance_type',
                 'operator' => '===',
                 'value'    => 'custom',
             ]
         ],
-    ]);
+        ]);
 
-    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-      'type'        => 'select',
-      'settings'    => 'field_border_radius',
-      'label'       => esc_html__('Select border radius', 'municipio'),
-      'section'     => $sectionID,
-      'default'     => '0',
-      'choices'     =>  [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'select',
+        'settings'    => 'field_border_radius',
+        'label'       => esc_html__('Select border radius', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => '0',
+        'choices'     =>  [
           '0' => 'None',
           '1' => 'Extra small',
           '2' => 'Small',
           '4' => 'Medium',
           '6' => 'Large',
           '12' => 'Rounded',
-      ],
-      'output' => [
+        ],
+        'output' => [
         [
           'element'   => ':root',
           'property'  => '--c-field-border-radius',
           'value_pattern' => 'calc($ / 4)'
-          
+
         ],
-      ],
-      'active_callback'  => [
+        ],
+        'active_callback'  => [
         [
           'setting'  => 'field_appearance_type',
           'operator' => '===',
           'value'    => 'custom',
         ]
-      ],
-    ]);
+        ],
+        ]);
 
-    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-      'type'        => 'checkbox',
-      'settings'    => 'field_shadow',
-      'label'       => esc_html__('Field shadow', 'municipio'),
-      'description' => esc_html__('If fields should apply shadows', 'municipio'),
-      'section'     => $sectionID,
-      'default'     => false,
-      'priority'    => 10,
-      'output' => [
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'checkbox',
+        'settings'    => 'field_shadow',
+        'label'       => esc_html__('Field shadow', 'municipio'),
+        'description' => esc_html__('If fields should apply shadows', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => false,
+        'priority'    => 10,
+        'output' => [
         [
           'type' => 'component_data',
           'dataKey' => 'shadow',
           'context' => [
             'component.field',
             'component.select',
-            'component.filterselect'
+            'component.filterselect',
+            'component.openStreetMap'
           ]
         ],
-      ],
-    ]);
-  }
+        ],
+        ]);
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75c26e8698f5b949252c1f0dd97877bf",
+    "content-hash": "c350f4798e9c244b650811af6470483c",
     "packages": [
         {
             "name": "composer/installers",
@@ -2460,6 +2460,95 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "php-stubs/acf-pro-stubs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/acf-pro-stubs.git",
+                "reference": "3301f61c975ee6078fc89c1f6ba70358349ea137"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/acf-pro-stubs/zipball/3301f61c975ee6078fc89c1f6ba70358349ea137",
+                "reference": "3301f61c975ee6078fc89c1f6ba70358349ea137",
+                "shasum": ""
+            },
+            "require": {
+                "php-stubs/wordpress-stubs": "^4.7 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "php": "~7.1",
+                "php-stubs/generator": "^0.8"
+            },
+            "suggest": {
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Advanced Custom Fields PRO stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/acf-pro-stubs",
+            "keywords": [
+                "PHPStan",
+                "acf",
+                "static analysis",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/acf-pro-stubs/issues",
+                "source": "https://github.com/php-stubs/acf-pro-stubs/tree/v6.0.6"
+            },
+            "time": "2022-12-25T22:14:41+00:00"
+        },
+        {
+            "name": "php-stubs/wordpress-stubs",
+            "version": "v6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/wordpress-stubs.git",
+                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/b73fe99eadf9fb56363619dac0343b6d19907dce",
+                "reference": "b73fe99eadf9fb56363619dac0343b6d19907dce",
+                "shasum": ""
+            },
+            "require-dev": {
+                "nikic/php-parser": "< 4.12.0",
+                "php": "~7.3 || ~8.0",
+                "php-stubs/generator": "^0.8.3",
+                "phpdocumentor/reflection-docblock": "^5.3",
+                "phpstan/phpstan": "^1.9"
+            },
+            "suggest": {
+                "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WordPress function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/wordpress-stubs",
+            "keywords": [
+                "PHPStan",
+                "static analysis",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.2.0"
+            },
+            "time": "2023-03-31T09:48:52+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5043,5 +5132,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

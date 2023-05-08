@@ -4,7 +4,6 @@ namespace Municipio\Customizer;
 
 class PanelsRegistry
 {
-
     private static $instance = null;
     private static bool $registerInvoked = false;
     private array $panels = [];
@@ -29,7 +28,7 @@ class PanelsRegistry
     /**
      * @return Panel[]
      */
-    public function getRegisteredPanels():array
+    public function getRegisteredPanels(): array
     {
         return $this->panels;
     }
@@ -37,12 +36,12 @@ class PanelsRegistry
     /**
      * @return PanelSection[]
      */
-    public function getRegisteredSections():array
+    public function getRegisteredSections(): array
     {
         return $this->sections;
     }
 
-    public static function getInstance():PanelsRegistry
+    public static function getInstance(): PanelsRegistry
     {
         if (self::$instance === null) {
             self::$instance = new PanelsRegistry();
@@ -51,7 +50,7 @@ class PanelsRegistry
         return self::$instance;
     }
 
-    public function build():void
+    public function build(): void
     {
 
         if (self::$registerInvoked) {
@@ -90,13 +89,13 @@ class PanelsRegistry
     {
         $panelID = 'municipio_customizer_panel_archive';
         $archives = self::getArchives();
-        $sections = array_map(function($archive) use ($panelID) {
+        $sections = array_map(function ($archive) use ($panelID) {
             $id = "{$panelID}_{$archive->name}";
             return KirkiPanelSection::create()
                 ->setID($id)
                 ->setPanel($panelID)
                 ->setTitle($archive->label)
-                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Archive($id,$archive))
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Archive($id, $archive))
                 ->setPreviewUrl(get_post_type_archive_link($archive->name));
         }, $archives);
 
@@ -171,7 +170,7 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Text('municipio_customizer_section_mod_text'))
             )->register();
     }
-    
+
     /* General panel */
     public static function registerGeneralAppearancePanel()
     {
@@ -236,7 +235,7 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Search('municipio_customizer_section_search'))
             )->register();
     }
-    
+
     /* Component panel */
     public static function registerComponentAppearancePanel()
     {
@@ -250,32 +249,46 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_header')
                     ->setTitle(esc_html__('Header', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header('municipio_customizer_section_header'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_siteselector')
                     ->setTitle(esc_html__('Siteselector', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Siteselector('municipio_customizer_section_siteselector'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_quicklinks')
                     ->setTitle(esc_html__('Quicklinks', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Quicklinks('municipio_customizer_section_quicklinks'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_component_button')
                     ->setTitle(esc_html__('Buttons', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Button('municipio_customizer_section_component_button'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_navigation')
                     ->setTitle(esc_html__('Navigations', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Navigation('municipio_customizer_section_navigation'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hamburger_menu')
                     ->setTitle(esc_html__('Hamburger menu', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\HamburgerMenu('municipio_customizer_section_hamburger_menu'))
-            )->addSubPanel(
+            )
+
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_component_openstreetmap')
+                    ->setTitle(esc_html__('Open Street Map', 'municipio'))
+                    ->setDescription(esc_html__('Settings for Open Street Maps.', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\OpenStreetMap('municipio_customizer_section_component_openstreetmap'))
+            )
+            ->addSubPanel(
                 KirkiPanel::create()
                     ->setID('municipio_customizer_section_component_slider')
                     ->setTitle(esc_html__('Slider', 'municipio'))
@@ -292,7 +305,8 @@ class PanelsRegistry
                         ->setDescription(esc_html__('Settings for the slider in the hero area.', 'municipio'))
                         ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\SliderHero('municipio_customizer_section_hero_component_slider'))
                     )
-            )->addSubPanel(
+            )
+            ->addSubPanel(
                 KirkiPanel::create()
                     ->setID('municipio_customizer_panel_component_footer')
                     ->setTitle(esc_html__('Footer', 'municipio'))
@@ -308,22 +322,26 @@ class PanelsRegistry
                             ->setTitle(esc_html__('Sub footer', 'municipio'))
                             ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\FooterSub('municipio_customizer_section_component_footer_subfooter'))
                     )
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_divider')
                     ->setTitle(esc_html__('Divider', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Divider('municipio_customizer_section_divider'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hero')
                     ->setTitle(esc_html__('Hero', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Hero('municipio_customizer_section_hero'))
-            )->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_field')
                     ->setTitle(esc_html__('Field', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Field('municipio_customizer_section_field'))
-            )->register()->addSection(
+            )
+            ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_tags')
                     ->setTitle(esc_html__('Tags', 'municipio'))
@@ -345,18 +363,18 @@ class PanelsRegistry
             )->register();
     }
 
-    public static function getArchivePanelSectionsConfiguaration(string $parentPanelID):array
+    public static function getArchivePanelSectionsConfiguaration(string $parentPanelID): array
     {
         $archives = self::getArchives();
         $archiveSections = [];
-        
+
         if (is_array($archives) && !empty($archives)) {
             foreach ($archives as $archive) {
                 $panelID = $parentPanelID . "_" . $archive->name;
                 $archiveSections[] =
                 [
                     'id' => $panelID,
-                    'initFields' => fn() => new \Municipio\Customizer\Sections\Archive($panelID,$archive),
+                    'initFields' => fn() => new \Municipio\Customizer\Sections\Archive($panelID, $archive),
                     'args' => [
                         'title' => $archive->label,
                         'preview_url'   => get_post_type_archive_link($archive->name)

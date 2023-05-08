@@ -11,7 +11,7 @@
   },
   "include": [
     "assets/source/**/*",
-    "node_modules/@helsingborg-stad/styleguide/**/*",
+    "node_modules/@helsingborg-stad/styleguide/source/js/**/*",
   ],
   "exclude": [
     "node_modules/@helsingborg-stad/styleguide/**/*.test.ts",
