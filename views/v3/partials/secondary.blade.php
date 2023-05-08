@@ -6,9 +6,18 @@
         'partials.archive.archive-filters-' . $secondaryPostType . '-secondary',
         'partials.archive.archive-filters-secondary',
     ])
-    @if (!empty($secondaryQuery->posts))
-        @includeIf("partials.post.post-{$secondaryTemplate}", ['posts' => $secondaryQuery->posts])
 
+    @if (!empty($secondaryQuery->posts))
+
+        @if ($displaySecondaryMap && !empty($secondaryQuery->pins))
+            @openStreetMap([
+                'pins' => $secondaryQuery->pins,
+                'classList' => ['u-margin__top--4']
+            ])
+            @endopenStreetMap
+        @else
+            @includeIf("partials.post.post-{$secondaryTemplate}", ['posts' => $secondaryQuery->posts])
+        @endif
         @if ($showSecondaryPagination)
             @pagination([
                 'list' => $secondaryPaginationList,

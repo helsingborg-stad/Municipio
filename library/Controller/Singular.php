@@ -89,12 +89,17 @@ class Singular extends \Municipio\Controller\BaseController
     protected function setupSecondaryQueryData($data)
     {
         $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
-        if ('' === $data['secondaryQuery'] || !$data['secondaryQuery']) {
+
+        if (!is_a($data['secondaryQuery'], 'WP_Query')) {
             $data['secondaryQuery']        = false;
             $data['secondaryPostType']     = false;
             $data['displaySecondaryQuery'] = false;
+            $data['showSecondaryMap']      = false;
             return $data;
         }
+
+        $data['displaySecondaryMap'] = get_field('display_secondary_map', $this->data['post']->id);
+        $data['secondaryQuery']->pins = $this->getSecondaryQueryPins($data['secondaryQuery']);
 
         $queryStr = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
         parse_str($queryStr, $queries);
@@ -145,7 +150,10 @@ class Singular extends \Municipio\Controller\BaseController
         $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
-        $data['displaySecondaryQuery'] = apply_filters('Municipio/Controller/Singular/displaySecondaryQuery', $this->displaySecondaryQuery($data['secondaryQuery']));
+        $data['displaySecondaryQuery'] = apply_filters(
+            'Municipio/Controller/Singular/displaySecondaryQuery',
+            $this->displaySecondaryQuery($data['secondaryQuery'])
+        );
 
         return $data;
     }
@@ -173,6 +181,33 @@ class Singular extends \Municipio\Controller\BaseController
             }
         }
         return $query;
+    }
+    /**
+     * getSecondaryQueryPins
+     * Get the pins for map
+     *
+     * @param WP_Query $query
+     * @return array
+     */
+    public function getSecondaryQueryPins($query)
+    {
+        $pins = array();
+
+        if (empty($query->posts)) {
+            return $pins;
+        }
+
+        foreach ($query->posts as $post) {
+            $location = get_field('location', $post->id);
+            if (!empty($location['lat']) && !empty($location['lng'])) {
+                $pins[] = array(
+                    'lat' => $location['lat'],
+                    'lng' => $location['lng'],
+                );
+            }
+        }
+
+        return $pins;
     }
     /**
      * Retrieve an array of taxonomy objects based on the given arguments.
