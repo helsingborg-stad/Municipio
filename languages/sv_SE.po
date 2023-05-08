@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-04-18T13:10:49+00:00\n"
-"PO-Revision-Date: 2023-05-08 05:38+0000\n"
+"PO-Revision-Date: 2023-05-08 05:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -28333,7 +28333,7 @@ msgstr "Webbplatsens emblem"
 
 #: library/Theme/Navigation.php:35 library/Customizer/PanelsRegistry.php:256
 msgid "Siteselector"
-msgstr "Välj"
+msgstr "Site-väljare"
 
 #: library/AcfFields/php/block-button.php:115
 #: library/AcfFields/php/navigation-widget.php:340
