@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-04-20T14:32:36+00:00\n"
+"POT-Creation-Date: 2023-05-05T06:00:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: municipio\n"
@@ -71,6 +71,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:210
 #: library/Customizer/Sections/Header.php:244
 #: library/Customizer/Sections/Quicklinks.php:159
+#: library/Customizer/Sections/Search.php:144
 #: library/Customizer/Sections/Siteselector.php:82
 msgid "Primary"
 msgstr ""
@@ -85,6 +86,7 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:211
 #: library/Customizer/Sections/Header.php:245
 #: library/Customizer/Sections/Quicklinks.php:160
+#: library/Customizer/Sections/Search.php:145
 #: library/Customizer/Sections/Siteselector.php:83
 msgid "Secondary"
 msgstr ""
@@ -95,7 +97,7 @@ msgstr ""
 #: library/AcfFields/php/options-page-quicklinks-placement.php:25
 #: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/widget-header-menu.php:50
-#: library/Customizer/Sections/Field.php:18
+#: library/Customizer/Sections/Field.php:35
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
@@ -103,7 +105,8 @@ msgstr ""
 #: library/Customizer/Sections/Header.php:243
 #: library/Customizer/Sections/Quicklinks.php:186
 #: library/Customizer/Sections/Quicklinks.php:239
-#: library/Customizer/Sections/Search.php:115
+#: library/Customizer/Sections/Search.php:143
+#: library/Customizer/Sections/Search.php:152
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Width.php:15
@@ -201,20 +204,43 @@ msgid "Amount of padding"
 msgstr ""
 
 #: library/AcfFields/php/block-container.php:33
+msgid "Content width"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:46
+#: library/Customizer/Sections/Button.php:145
+#: library/Customizer/Sections/Colors.php:519
+msgid "Standard"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:47
+msgid "Article"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:49
+msgid "standard"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:61
+msgid "Background image"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:88
 #: library/Customizer/Sections/Card.php:29
 #: library/Customizer/Sections/Collection.php:29
 #: library/Customizer/Sections/Divider.php:196
+#: library/Customizer/Sections/Field.php:66
 #: library/Customizer/Sections/Header.php:108
 #: library/Customizer/Sections/Quicklinks.php:42
 msgid "Background color"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:45
-msgid "rgba(238, 238, 238, 1)"
-msgstr ""
-
-#: library/AcfFields/php/block-container.php:51
-msgid "Background image"
+#: library/AcfFields/php/block-container.php:106
+#: library/Customizer/Sections/Divider.php:107
+#: library/Customizer/Sections/FooterMain.php:265
+#: library/Customizer/Sections/Header.php:129
+#: library/Customizer/Sections/Quicklinks.php:44
+msgid "Text color"
 msgstr ""
 
 #: library/AcfFields/php/block-margin.php:8
@@ -4691,7 +4717,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-page-navigation.php:23
 #: library/Customizer/Sections/Archive.php:93
-#: library/Customizer/Sections/Archive.php:348
+#: library/Customizer/Sections/Archive.php:349
 msgid "Hide"
 msgstr ""
 
@@ -14094,7 +14120,7 @@ msgstr ""
 msgid "Purpose"
 msgstr ""
 
-#: library/Admin/General.php:106
+#: library/Admin/General.php:112
 msgid "Only for logged in users"
 msgstr ""
 
@@ -14128,7 +14154,7 @@ msgid "A container block"
 msgstr ""
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:124
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:163
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:172
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -14557,7 +14583,7 @@ msgstr ""
 
 #: library/Controller/BaseController.php:223
 #: library/Customizer/PanelsRegistry.php:276
-#: library/Customizer/Sections/Search.php:107
+#: library/Customizer/Sections/Search.php:136
 #: library/Theme/Navigation.php:29
 msgid "Hamburger menu"
 msgstr ""
@@ -14969,7 +14995,7 @@ msgid "Display featured image"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:92
-#: library/Customizer/Sections/Archive.php:347
+#: library/Customizer/Sections/Archive.php:348
 msgid "Show"
 msgstr ""
 
@@ -14998,108 +15024,108 @@ msgstr ""
 msgid "Add filters to let the user browse partial content."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:163
+#: library/Customizer/Sections/Archive.php:164
 msgid "Text search"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:164
+#: library/Customizer/Sections/Archive.php:165
 msgid "Date range"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:180
+#: library/Customizer/Sections/Archive.php:181
 msgid "Filter field type"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:181
+#: library/Customizer/Sections/Archive.php:182
 msgid "What field type to use for the \"%s\" filter."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:185
+#: library/Customizer/Sections/Archive.php:186
 msgid "Single select"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:207
+#: library/Customizer/Sections/Archive.php:208
 msgid "Facetting type"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:208
+#: library/Customizer/Sections/Archive.php:209
 msgid "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:212
+#: library/Customizer/Sections/Archive.php:213
 msgid "OR"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:213
+#: library/Customizer/Sections/Archive.php:214
 msgid "AND"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:227
+#: library/Customizer/Sections/Archive.php:228
 msgid "Taxonomy display"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:228
+#: library/Customizer/Sections/Archive.php:229
 msgid "What taxonomies should be displayed?"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:247
+#: library/Customizer/Sections/Archive.php:248
 msgid "Order By"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:248
+#: library/Customizer/Sections/Archive.php:249
 msgid "Select a key/value to order by."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:263
+#: library/Customizer/Sections/Archive.php:264
 msgid "Order direction"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:264
+#: library/Customizer/Sections/Archive.php:265
 msgid "Select decending or ascending order."
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:268
+#: library/Customizer/Sections/Archive.php:269
 msgid "Ascending"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:269
+#: library/Customizer/Sections/Archive.php:270
 msgid "Decending"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:284
-#: library/Customizer/Sections/Archive.php:315
+#: library/Customizer/Sections/Archive.php:285
+#: library/Customizer/Sections/Archive.php:316
 msgid "Date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:285
+#: library/Customizer/Sections/Archive.php:286
 msgid "Select source of timestamp for post"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:289
+#: library/Customizer/Sections/Archive.php:290
 msgid "Hide date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:310
+#: library/Customizer/Sections/Archive.php:311
 msgid "Date format"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:311
+#: library/Customizer/Sections/Archive.php:312
 msgid "In what format to display date"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:316
+#: library/Customizer/Sections/Archive.php:317
 msgid "Date, Time"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:317
+#: library/Customizer/Sections/Archive.php:318
 msgid "Date badge"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:342
+#: library/Customizer/Sections/Archive.php:343
 msgid "Display reading time"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:343
+#: library/Customizer/Sections/Archive.php:344
 msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
@@ -15169,13 +15195,8 @@ msgstr ""
 msgid "Choose the shape of the buttons."
 msgstr ""
 
-#: library/Customizer/Sections/Button.php:145
-#: library/Customizer/Sections/Colors.php:519
-msgid "Standard"
-msgstr ""
-
 #: library/Customizer/Sections/Button.php:146
-#: library/Customizer/Sections/Search.php:116
+#: library/Customizer/Sections/Search.php:153
 #: library/Customizer/Sections/Siteselector.php:119
 #: library/Customizer/Sections/Tags.php:19
 msgid "Pill"
@@ -15371,8 +15392,6 @@ msgstr ""
 
 #: library/Customizer/Sections/Colors.php:142
 #: library/Customizer/Sections/Colors.php:241
-#: library/Customizer/Sections/Field.php:36
-#: library/Customizer/Sections/Field.php:42
 msgid "Border"
 msgstr ""
 
@@ -15491,13 +15510,6 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:107
-#: library/Customizer/Sections/FooterMain.php:265
-#: library/Customizer/Sections/Header.php:129
-#: library/Customizer/Sections/Quicklinks.php:44
-msgid "Text color"
-msgstr ""
-
 #: library/Customizer/Sections/Divider.php:132
 #: library/Customizer/Sections/FooterMain.php:111
 #: library/Customizer/Sections/Hero.php:38
@@ -15524,6 +15536,7 @@ msgid "Frame colors"
 msgstr ""
 
 #: library/Customizer/Sections/Divider.php:197
+#: library/Customizer/Sections/Field.php:67
 msgid "Border color"
 msgstr ""
 
@@ -15535,20 +15548,54 @@ msgstr ""
 msgid "Frame border width"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:12
+#: library/Customizer/Sections/Field.php:15
+#: library/Customizer/Sections/Quicklinks.php:16
+msgid "Appearance"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:16
+#: library/Customizer/Sections/Quicklinks.php:17
+msgid "Select if you want to use one of the predefined appearance, or customize freely."
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:21
+#: library/Customizer/Sections/Quicklinks.php:22
+msgid "Predefined appearance"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:22
+#: library/Customizer/Sections/Quicklinks.php:23
+msgid "Custom appearance"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:29
 msgid "Field style"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:13
+#: library/Customizer/Sections/Field.php:30
 msgid "Which styling the input field use."
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:19
+#: library/Customizer/Sections/Field.php:36
 msgid "Rounded"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:41
-msgid "No border"
+#: library/Customizer/Sections/Field.php:61
+#: library/Customizer/Sections/Quicklinks.php:37
+#: library/Customizer/Sections/Siteselector.php:40
+msgid "Custom colors"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:98
+msgid "Select border radius"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:129
+msgid "Field shadow"
+msgstr ""
+
+#: library/Customizer/Sections/Field.php:130
+msgid "If fields should apply shadows"
 msgstr ""
 
 #: library/Customizer/Sections/FooterMain.php:15
@@ -15810,12 +15857,12 @@ msgid "Content vertical alignment"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:69
-#: library/Customizer/Sections/Search.php:93
+#: library/Customizer/Sections/Search.php:122
 msgid "Top"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:71
-#: library/Customizer/Sections/Search.php:95
+#: library/Customizer/Sections/Search.php:124
 msgid "Bottom"
 msgstr ""
 
@@ -16039,27 +16086,6 @@ msgstr ""
 msgid "Remove air"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:16
-msgid "Appearance"
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:17
-msgid "Select if you want to use one of the predefined appearance, or customize freely."
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:22
-msgid "Predefined appearance"
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:23
-msgid "Custom appearance"
-msgstr ""
-
-#: library/Customizer/Sections/Quicklinks.php:37
-#: library/Customizer/Sections/Siteselector.php:40
-msgid "Custom colors"
-msgstr ""
-
 #: library/Customizer/Sections/Quicklinks.php:43
 msgid "Sticky background"
 msgstr ""
@@ -16118,43 +16144,47 @@ msgstr ""
 msgid "Overflow top"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:21
+#: library/Customizer/Sections/Search.php:22
 msgid "Hero search position"
 msgstr ""
 
 #: library/Customizer/Sections/Search.php:47
+msgid "Hero search button styling"
+msgstr ""
+
+#: library/Customizer/Sections/Search.php:76
 msgid "Show search"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:66
+#: library/Customizer/Sections/Search.php:95
 msgid "Search form shape"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:94
+#: library/Customizer/Sections/Search.php:123
 msgid "Centered"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:102
+#: library/Customizer/Sections/Search.php:131
 msgid "Hero on frontpage"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:103
+#: library/Customizer/Sections/Search.php:132
 msgid "Header on sub pages"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:104
+#: library/Customizer/Sections/Search.php:133
 msgid "Header on frontpage"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:105
+#: library/Customizer/Sections/Search.php:134
 msgid "Option in main menu"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:106
+#: library/Customizer/Sections/Search.php:135
 msgid "Option in mobile menu"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:108
+#: library/Customizer/Sections/Search.php:137
 #: library/Theme/Navigation.php:33
 msgid "Quicklinks menu"
 msgstr ""
@@ -16323,7 +16353,7 @@ msgstr ""
 msgid "Print this page"
 msgstr ""
 
-#: library/Helper/Post.php:113
+#: library/Helper/Post.php:115
 msgid "Item is missing content"
 msgstr ""
 
@@ -16371,43 +16401,43 @@ msgstr ""
 msgid "One Page"
 msgstr ""
 
-#: library/Theme/Enqueue.php:129
+#: library/Theme/Enqueue.php:133
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: library/Theme/Enqueue.php:132
+#: library/Theme/Enqueue.php:136
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/Theme/Enqueue.php:133
+#: library/Theme/Enqueue.php:137
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: library/Theme/Enqueue.php:160
+#: library/Theme/Enqueue.php:164
 msgid "Su"
 msgstr ""
 
-#: library/Theme/Enqueue.php:161
+#: library/Theme/Enqueue.php:165
 msgid "Mo"
 msgstr ""
 
-#: library/Theme/Enqueue.php:162
+#: library/Theme/Enqueue.php:166
 msgid "Tu"
 msgstr ""
 
-#: library/Theme/Enqueue.php:163
+#: library/Theme/Enqueue.php:167
 msgid "We"
 msgstr ""
 
-#: library/Theme/Enqueue.php:164
+#: library/Theme/Enqueue.php:168
 msgid "Th"
 msgstr ""
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:169
 msgid "Fr"
 msgstr ""
 
-#: library/Theme/Enqueue.php:166
+#: library/Theme/Enqueue.php:170
 msgid "Sa"
 msgstr ""
 
@@ -17091,6 +17121,10 @@ msgstr ""
 #: views/v1/single-listing.blade.php:61
 #: views/v1/single-listing.blade.php:66
 msgid "Attached files"
+msgstr ""
+
+#: views/v3/partials/search/search-modal.blade.php:3
+msgid "Cancel"
 msgstr ""
 
 #: views/v1/partials/timestamps.blade.php:55
