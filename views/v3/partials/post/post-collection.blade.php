@@ -1,38 +1,29 @@
 @if ($posts)
     @collection([
         'unbox' => true,
-        'classList' => ['o-grid', 'o-grid--horizontal']
+        'classList' => ['c-collection--posts', 'o-grid', 'o-grid--horizontal']
     ])
         @foreach ($posts as $post)
-            @collection__item([
-                'link' => $post->permalink,
-                'classList' => [$gridColumnClass],
-                'containerAware' => true,
-                'bordered' => true,
-            ])
-
-            @if (!empty($post->callToActionItems['floating']))
-                @slot('floating')
-                        @icon($post->callToActionItems['floating'])
-                        @endicon
-                @endslot
-            @endif
-                @slot('before')
-                    @if ($displayFeaturedImage)
+                @collection__item([
+                    'link' => $post->permalink,
+                    'classList' => ['c-collection__item--post', $gridColumnClass],
+                    'containerAware' => true,
+                    'bordered' => true,
+                ])
+                @if ($displayFeaturedImage && !empty($post->thumbnail['src']))
+                    @slot('before')
                         @image([
                             'src' => $post->thumbnail['src'],
                             'alt' => $post->thumbnail['alt'],
                             'placeholderIconSize' => 'sm',
                             'placeholderIcon' => 'image',
                             'placeholderText' => '',
+                            'classList' => ['u-width--100'],
                         ])
                         @endimage
-                    @endif
-                @endslot
+                    @endslot
+                @endif
 
-                @group([
-                    'direction' => 'vertical'
-                ])
                     @group([
                         'justifyContent' => 'space-between'
                     ])
@@ -44,17 +35,7 @@
                         @endtypography
                         {{-- TODO: Add icon --}}
                     @endgroup
-                    @tags([
-                        'tags' => $post->termsUnlinked,
-                        'classList' => ['u-padding__y--2'],
-                        'format' => false
-                    ])
-                    @endtags
-                    @typography([])
-                        {{ $post->excerptShorter }}
-                    @endtypography
-                @endgroup
-            @endcollection__item
+                @endcollection__item
         @endforeach
     @endcollection
 @endif
