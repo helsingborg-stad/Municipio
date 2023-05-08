@@ -76,7 +76,7 @@
                                 ])
                                 @endtags
                                 @typography([])
-                                    {{$place->postExcerpt}}
+                                    {{$place->excerptShorter}}
                                 @endtypography
                             @endgroup
                         @endcollection__item

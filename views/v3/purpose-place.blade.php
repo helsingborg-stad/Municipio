@@ -36,9 +36,9 @@
                 </div>
                 <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
 
-                    @if (!empty($listing))
+                    @if (!empty($post->placeInfo))
                         @listing([
-                            'list' => $listing,
+                            'list' => $post->placeInfo,
                             'icon' => false,
                             'classList' => [
                                 'unlist',
@@ -52,12 +52,12 @@
                         @endlisting
                     @endif
 
-                    @if (!empty($bookingLink))
+                    @if (!empty($post->bookingLink))
                         @button([
                             'text' => $lang->bookHere,
                             'color' => 'primary',
                             'style' => 'filled',
-                            'href' => $bookingLink,
+                            'href' => $post->bookingLink,
                             'classList' => ['u-width--100'],
                         ])
                         @endbutton
