@@ -47,7 +47,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $post = \Municipio\Helper\PurposePlace::complimentPlacePosts($this->data['post'], false);
+        $post = \Municipio\Helper\PurposePlace::complementPlacePost($this->data['post'], false);
 
         $fields = get_fields($this->getPageID());
 

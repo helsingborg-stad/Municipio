@@ -6,8 +6,8 @@ use Municipio\Helper\Listing as ListingHelper;
 
 class PurposePlace
 {
-    public function complimentPlacePosts($post, $complimentPost = true) {
-        if ($complimentPost) {
+    public function complementPlacePost($post, $complementPost = true) {
+        if ($complement) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
 
