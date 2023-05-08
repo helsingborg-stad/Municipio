@@ -220,7 +220,7 @@ class Header
             'settings'    => 'tabmenu_button_type',
             'label'       => esc_html__('Tabmenu - Type', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 'filled',
+            'default'     => 'basic',
             'priority'    => 10,
             'choices'     => [
                 'basic' => esc_html__('Basic', 'municipio'),
