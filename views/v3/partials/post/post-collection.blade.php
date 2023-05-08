@@ -17,8 +17,8 @@
                         @endicon
                 @endslot
             @endif
+            @if ($displayFeaturedImage && !empty($post->thumbnail['src']))
                 @slot('before')
-                    @if ($displayFeaturedImage)
                         @image([
                             'src' => $post->thumbnail['src'],
                             'alt' => $post->thumbnail['alt'],
@@ -27,8 +27,8 @@
                             'placeholderText' => '',
                         ])
                         @endimage
-                    @endif
-                @endslot
+                    @endslot
+                @endif
 
                 @group([
                     'direction' => 'vertical'
