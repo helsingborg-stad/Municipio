@@ -1,20 +1,4 @@
 @if ($showFilter)
-
-    <!-- Makes filtering a more pleasant expreience by keeping scrollstate -->
-    {{-- <script>
-        const scrollStateUrl = new URL(document.referrer);
-        if (scrollStateUrl.pathname == window.location.pathname) {
-            document.addEventListener("DOMContentLoaded", function(event) {
-                var scrollpos = localStorage.getItem('municipioScrollState-{{ $postType }}');
-                if (scrollpos) {
-                    window.scrollTo(0, scrollpos);
-                }
-            });
-        }
-        window.onbeforeunload = function(e) {
-            localStorage.setItem('municipioScrollState-{{ $postType }}', window.scrollY || window.pageYOffset);
-        };
-    </script> --}}
     <style>
         html {
             scroll-behavior: unset !important;
