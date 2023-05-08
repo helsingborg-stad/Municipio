@@ -252,20 +252,10 @@ class BaseController
         $this->data['displayQuicklinksAfterContent'] = false;
 
         // Add filters to add emblem on blocks and cards with placeholders
-        add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataUsePlaceholder'], 9, 1);
-        add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataUsePlaceholder'], 9, 1);
-
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
 
         $this->init();
-    }
-    public function componentDataUsePlaceholder($data)
-    {
-        if (empty($data['image']['src'])) {
-            $data['hasPlaceholder'] = true;
-        }
-        return $data;
     }
     /**
      * Get the emblem to use
