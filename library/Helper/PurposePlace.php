@@ -7,7 +7,7 @@ use Municipio\Helper\Listing as ListingHelper;
 class PurposePlace
 {
     public function complementPlacePost($post, $complementPost = true) {
-        if ($complement) {
+        if ($complementPost) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
 
@@ -22,8 +22,13 @@ class PurposePlace
 
         $post->bookingLink = $fields['booking_link'] ?? false;
         $post->placeInfo = self::createPlaceInfoList($fields);
+        $post->pin = self::createPin($post);
 
         return $post;
+    }
+
+    private function createPin($post) {
+        return ['lat' => $post->location['lat'], 'lng' => $post->location['lng'], 'tooltip' => ['title' => $post->postTitle, 'excerpt' => $post->postExcerpt, 'link' => $post->permalink, 'directions' => ['url' => $direction, 'label' => $post->location['street_name'] . ' ' . $post->location['street_number']]], 'icon' => $post->termIcon];
     }
 
     private function createPlaceInfoList($fields) {
