@@ -176,15 +176,16 @@ class Post
         }
 
         //Get post tumbnail image
-            $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
-            $postObject->thumbnail_tall  = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
+        $postObject->thumbnail_tall = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->featuredImage  = self::getFeaturedImage($postObject->ID, [1080, false]);
 
         //Append post terms
         if (in_array('terms', $appendFields)) {
             $postObject->terms            = self::getPostTerms($postObject->ID);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
         }
-        
+
         if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
             $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
         }
@@ -238,7 +239,7 @@ class Post
                     }
                 }
             }
-        }  
+        }
         if (empty($termIcon) && !empty($termColor)) {
             $termIcon['backgroundColor'] = $color;
         }
