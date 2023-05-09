@@ -6,7 +6,7 @@ use Kirki\Compatibility\Kirki;
 
 class Menu
 {
-    private $defaultDrawerScreenSizes = ['xs', 'sm'];
+    private $defaultDrawerScreenSizes = ['xs', 'sm', 'md'];
 
     public function __construct(string $sectionID)
     {
