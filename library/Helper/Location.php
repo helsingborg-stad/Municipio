@@ -43,6 +43,7 @@ class Location
                             'title' => $post->postTitle ?? '',
                             'content' => $post->postExcerpt ?? '',
                         ],
+                        'url' => get_permalink($post->id),
                     ];
 
                     if ($displayGoogleMapsLink) {
