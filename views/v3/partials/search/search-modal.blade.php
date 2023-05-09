@@ -37,7 +37,7 @@
                 'classList' => ['u-flex-grow--1'],
                 'size' => 'lg',
                 'radius' => 'md',
-                'icon' => ['icon' => 'search']
+                'icon' => ['icon' => 'search'],
                 'attributeList' => ['autofocus' => '1'],
             ])
             @endfield
