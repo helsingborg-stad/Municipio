@@ -46,34 +46,11 @@ class SingularPurpose extends \Municipio\Controller\Singular
     public function init()
     {
         parent::init();
+
+        $post = \Municipio\Helper\PurposePlace::complementPlacePost($this->data['post'], false);
+
         $fields = get_fields($this->getPageID());
 
-        $this->data['listing'] = [];
-
-        // Listing items aviailable for all purposes:
-
-        // Phone number
-        if (!empty($fields['phone'])) {
-            $this->data['listing']['phone'] = ListingHelper::createListingItem($fields['phone'], '', ['src' => 'call']);
-        }
-
-        // Website link (with fixed label)
-        if (!empty($fields['website'])) {
-            $this->data['listing']['website'] = ListingHelper::createListingItem(
-                __('Visit website', 'municipio'),
-                $fields['website'],
-                ['src' => 'language'],
-            );
-        }
-
-        // Apply filters to listing items
-        $this->data['listing'] = apply_filters(
-            'Municipio/Controller/SingularPurpose/listing',
-            $this->data['listing'],
-            $fields
-        );
-
-        $this->data['bookingLink'] = $fields['booking_link'] ?? false;
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;

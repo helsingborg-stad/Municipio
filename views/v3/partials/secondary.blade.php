@@ -84,7 +84,7 @@
                                         @endtypography
                                     @endgroup
                                 @endcollection__item
-
+                                
                                 {{-- Post (full content) --}}
                                 @group([
                                     'classList' => ['c-openstreetmap__post'],
