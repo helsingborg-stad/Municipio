@@ -88,12 +88,14 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #main-content {
     #quicklinks-header {
-        @include stretch();
-        left: 0;
-        right: 0;
-
-        &.c-header--sticky {
-            position: sticky;
+        @include mq('sm') {
+            border-radius: 0;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            left: 0;
+            right: 0;
+            right: 0;
+            width: calc(100vw - var(--scrollbar, 15px));
         }
     }
 }
