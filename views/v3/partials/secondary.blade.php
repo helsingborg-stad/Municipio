@@ -36,6 +36,12 @@
                                         'js-map-lng' => $place->location['lng']
                                     ]
                                 ])
+                                    @if ($place->callToActionItems['floating'])
+                                        @slot('floating')
+                                            @icon($place->callToActionItems['floating'])
+                                            @endicon
+                                        @endslot
+                                    @endif
                                     @slot('before')
                                         @if (!empty($place->thumbnail['src']))
                                             @image([
@@ -59,11 +65,6 @@
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
-
-                                            @if ($place->callToActionItems['floating'])
-                                                @icon($place->callToActionItems['floating'])
-                                                @endicon
-                                            @endif
                                         @endgroup
                                         @tags([
                                             'tags' => $place->termsUnlinked,
