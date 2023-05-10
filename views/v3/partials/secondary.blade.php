@@ -36,6 +36,12 @@
                                         'js-map-lng' => $place->location['lng']
                                     ]
                                 ])
+                                    @if ($place->callToActionItems['floating'])
+                                        @slot('floating')
+                                            @icon($place->callToActionItems['floating'])
+                                            @endicon
+                                        @endslot
+                                    @endif
                                     @slot('before')
                                         @if (!empty($place->thumbnail['src']))
                                             @image([
@@ -59,19 +65,6 @@
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
-                                            @if ($place->termIcon['icon'])
-                                                @inlineCssWrapper([
-                                                    'styles' => ['background-color' => $place->termIcon['backgroundColor'], 'display' => 'flex'],
-                                                    'classList' => [
-                                                        $place->termIcon['backgroundColor'] ? '' : 'u-color__bg--primary',
-                                                        'u-rounded--full',
-                                                        'u-detail-shadow-3'
-                                                    ]
-                                                ])
-                                                    @icon($place->termIcon)
-                                                    @endicon
-                                                @endinlineCssWrapper
-                                            @endif
                                         @endgroup
                                         @tags([
                                             'tags' => $place->termsUnlinked,
@@ -81,7 +74,7 @@
                                         @endtags
                                     @endgroup
                                 @endcollection__item
-                                
+
                                 {{-- Post (full content) --}}
                                 @group([
                                     'classList' => ['c-openstreetmap__post'],
@@ -110,12 +103,19 @@
                                             'containerAware' => true,
                                             'classList' => ['u-padding--6', 'o-container']
                                         ])
+                                        @group([
+                                            'justifyContent' => 'space-between',
+                                            'alignItems' => 'flex-start'
+                                        ])
                                             @typography([
-                                                'element' => 'h1',
+                                                'element' => 'h2',
                                                 'variant' => 'h1'
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
+                                            @icon($place->callToActionItems['floating'])
+                                            @endicon
+                                        @endgroup
                                             <div class="o-grid c-openstreetmap__post-container">
                                                 <div class="c-openstreetmap__post-content">
                                                     @typography([])
@@ -123,15 +123,15 @@
                                                     @endtypography
                                                 </div>
                                                 @if (!empty($place->placeInfo))
-                                                <div class="c-openstreetmap__post-list">
-                                                    @listing([
-                                                        'list' => $place->placeInfo,
-                                                        'icon' => false,
-                                                        'classList' => ['unlist'],
-                                                        'padding' => 4
-                                                    ])
-                                                    @endlisting
-                                                </div>
+                                                    <div class="c-openstreetmap__post-list">
+                                                        @listing([
+                                                            'list' => $place->placeInfo,
+                                                            'icon' => false,
+                                                            'classList' => ['unlist'],
+                                                            'padding' => 4
+                                                        ])
+                                                        @endlisting
+                                                    </div>
                                                 @endif
                                                 @if (!empty($place->bookingLink))
                                                     @button([
