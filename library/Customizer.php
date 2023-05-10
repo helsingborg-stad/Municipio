@@ -49,6 +49,33 @@ class Customizer
                 self::$panels[$id] = $args['preview_url'];
             }
         }, 10, 2);
+
+        add_filter('kirki_get_value', [$this, 'kirkiGetValue'], 11, 3);
+        add_filter('kirki_values_get_value', [$this, 'kirkiValuesGetValue'], 11, 2);
+    }
+
+    public function kirkiGetValue($value, $option, $default)
+    {
+        return $this->sanitizeKirkiDefaultArrayValue($value, $default);
+    }
+
+    public function kirkiValuesGetValue($value, $field_id)
+    {
+        if (!isset(Kirki::$all_fields[$field_id])) {
+            return $value;
+        }
+
+        $field = Kirki::$all_fields[$field_id];
+        return $this->sanitizeKirkiDefaultArrayValue($value, $field['default'] ?? '');
+    }
+
+    public function sanitizeKirkiDefaultArrayValue($value, $default)
+    {
+        if ($value === '' && is_array($default)) {
+            return $default;
+        }
+
+        return $value;
     }
 
     /**
