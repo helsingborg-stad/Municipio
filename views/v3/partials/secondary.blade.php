@@ -135,6 +135,7 @@
                                                 @endif
                                                 @if (!empty($place->bookingLink))
                                                     @button([
+                                                        'classList' => ['c-openstreetmap__post-button'],
                                                         'text' => $lang->bookHere ?? 'Book here',
                                                         'color' => 'primary',
                                                         'style' => 'filled',
