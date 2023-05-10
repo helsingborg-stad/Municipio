@@ -122,6 +122,7 @@
                                                         {!! $place->postContentFiltered !!}
                                                     @endtypography
                                                 </div>
+                                                @if (!empty($place->placeInfo))
                                                 <div class="c-openstreetmap__post-list">
                                                     @listing([
                                                         'list' => $place->placeInfo,
@@ -131,6 +132,16 @@
                                                     ])
                                                     @endlisting
                                                 </div>
+                                                @endif
+                                                @if (!empty($place->bookingLink))
+                                                    @button([
+                                                        'text' => $lang->bookHere ?? 'Book here',
+                                                        'color' => 'primary',
+                                                        'style' => 'filled',
+                                                        'href' => $place->bookingLink,
+                                                    ])
+                                                    @endbutton
+                                                @endif
                                             </div>
                                         @endpaper
                                     </div>
