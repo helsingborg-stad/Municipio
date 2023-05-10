@@ -124,7 +124,7 @@
                                                 </div>
                                                 <div class="c-openstreetmap__post-list">
                                                     @listing([
-                                                        'list' => $place->list,
+                                                        'list' => $place->placeInfo,
                                                         'icon' => false,
                                                         'classList' => ['unlist'],
                                                         'padding' => 4

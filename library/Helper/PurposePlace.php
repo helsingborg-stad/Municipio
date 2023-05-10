@@ -35,7 +35,10 @@ class PurposePlace
         // Phone number
         $list = [];
         if (!empty($fields['phone'])) {
-            $list['phone'] = ListingHelper::createListingItem($fields['phone'], '', ['src' => 'call']);
+            $list['phone'] = ListingHelper::createListingItem(
+                $fields['phone'], 
+                '', 
+                ['src' => 'call']);
         }
 
         // Website link (with fixed label)
