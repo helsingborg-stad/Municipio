@@ -187,6 +187,10 @@ class Archive
 
         return (bool) $args->displayFeaturedImage;
     }
+    public static function displayFeaturedImageOnArchive($args)
+    {
+        return self::displayFeaturedImage($args);
+    }
     /**
      * Create a grid column size
      * @param  array $archiveProps
