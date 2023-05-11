@@ -125,35 +125,6 @@ class Field
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
         'type'        => 'checkbox',
-        'settings'    => 'field_label',
-        'label'       => esc_html__('Hide label', 'municipio'),
-        'description' => esc_html__('Choose if you want to show the label or not', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => false,
-        'priority'    => 10,
-        'output' => [
-            [
-              'type' => 'component_data',
-              'dataKey' => 'hideLabel',
-              'context' => [
-                'component.field',
-                'component.select',
-                'component.form',
-                'component.filterselect'
-              ]
-            ]
-        ],
-        'active_callback'  => [
-            [
-                'setting'  => 'field_appearance_type',
-                'operator' => '===',
-                'value'    => 'custom',
-            ]
-        ],
-        ]);
-
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-        'type'        => 'checkbox',
         'settings'    => 'field_shadow',
         'label'       => esc_html__('Field shadow', 'municipio'),
         'description' => esc_html__('If fields should apply shadows', 'municipio'),
