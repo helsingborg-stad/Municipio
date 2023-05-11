@@ -127,7 +127,7 @@ class Field
         'type'        => 'checkbox',
         'settings'    => 'field_label',
         'label'       => esc_html__('Hide label', 'municipio'),
-        'description' => esc_html__('Chose if you want to show the label or not', 'municipio'),
+        'description' => esc_html__('Choose if you want to show the label or not', 'municipio'),
         'section'     => $sectionID,
         'default'     => false,
         'priority'    => 10,
