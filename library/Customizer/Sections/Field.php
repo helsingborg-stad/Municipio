@@ -93,33 +93,62 @@ class Field
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-        'type'        => 'select',
-        'settings'    => 'field_border_radius',
-        'label'       => esc_html__('Select border radius', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => '0',
-        'choices'     =>  [
-          '0' => 'None',
-          '1' => 'Extra small',
-          '2' => 'Small',
-          '4' => 'Medium',
-          '6' => 'Large',
-          '12' => 'Rounded',
-        ],
-        'output' => [
-        [
-          'element'   => ':root',
-          'property'  => '--c-field-border-radius',
-          'value_pattern' => 'calc($ / 4)'
+          'type'        => 'select',
+          'settings'    => 'field_border_radius',
+          'label'       => esc_html__('Select border radius', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => '0',
+          'choices'     =>  [
+            '0' => 'None',
+            '1' => 'Extra small',
+            '2' => 'Small',
+            '4' => 'Medium',
+            '6' => 'Large',
+            '12' => 'Rounded',
+          ],
+          'output' => [
+            [
+              'element'   => ':root',
+              'property'  => '--c-field-border-radius',
+              'value_pattern' => 'calc($ / 4)'
 
-        ],
+            ],
+          ],
+          'active_callback'  => [
+            [
+            'setting'  => 'field_appearance_type',
+            'operator' => '===',
+            'value'    => 'custom',
+            ]
+          ],
+        ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        'type'        => 'checkbox',
+        'settings'    => 'field_label',
+        'label'       => esc_html__('Hide label', 'municipio'),
+        'description' => esc_html__('Choose if you want to show the label or not', 'municipio'),
+        'section'     => $sectionID,
+        'default'     => false,
+        'priority'    => 10,
+        'output' => [
+            [
+              'type' => 'component_data',
+              'dataKey' => 'hideLabel',
+              'context' => [
+                'component.field',
+                'component.select',
+                'component.form',
+                'component.filterselect'
+              ]
+            ]
         ],
         'active_callback'  => [
-        [
-          'setting'  => 'field_appearance_type',
-          'operator' => '===',
-          'value'    => 'custom',
-        ]
+            [
+                'setting'  => 'field_appearance_type',
+                'operator' => '===',
+                'value'    => 'custom',
+            ]
         ],
         ]);
 
