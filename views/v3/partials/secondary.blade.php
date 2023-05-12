@@ -68,8 +68,7 @@
                                         @endgroup
                                         @tags([
                                             'tags' => $place->termsUnlinked,
-                                            'classList' => ['u-padding__y--2'],
-                                            'format' => true
+                                            'classList' => ['u-padding__y--2']
                                         ])
                                         @endtags
                                     @endgroup
@@ -103,19 +102,19 @@
                                             'containerAware' => true,
                                             'classList' => ['u-padding--6', 'o-container']
                                         ])
-                                        @group([
-                                            'justifyContent' => 'space-between',
-                                            'alignItems' => 'flex-start'
-                                        ])
-                                            @typography([
-                                                'element' => 'h2',
-                                                'variant' => 'h1'
+                                            @group([
+                                                'justifyContent' => 'space-between',
+                                                'alignItems' => 'flex-start'
                                             ])
-                                                {{ $place->postTitle }}
-                                            @endtypography
-                                            @icon($place->callToActionItems['floating'])
-                                            @endicon
-                                        @endgroup
+                                                @typography([
+                                                    'element' => 'h2',
+                                                    'variant' => 'h1'
+                                                ])
+                                                    {{ $place->postTitle }}
+                                                @endtypography
+                                                @icon($place->callToActionItems['floating'])
+                                                @endicon
+                                            @endgroup
                                             <div class="o-grid c-openstreetmap__post-container">
                                                 <div class="c-openstreetmap__post-content">
                                                     @typography([])
