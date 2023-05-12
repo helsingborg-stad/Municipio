@@ -24,11 +24,10 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
+        $this->data['displayFeaturedImage'] = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
+
         $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
-
-        //Get feature image data
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1080, false]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
@@ -131,7 +130,7 @@ class Singular extends \Municipio\Controller\BaseController
         $data['currentPage']          = get_query_var('paged') ?? 1;
         $data['gridColumnClass']      = Archive::getGridClass($secondaryArchiveProps);
         $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
-        $data['displayFeaturedImage'] = Archive::displayFeaturedImage($secondaryArchiveProps);
+        $data['displayFeaturedImage'] = Archive::displayFeaturedImageOnArchive($secondaryArchiveProps);
 
         $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
         $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
@@ -200,7 +199,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         foreach ($query->posts as $post) {
                 $pins[] = $post->pin;
-            }
+        }
 
         return $pins;
     }
@@ -377,22 +376,9 @@ class Singular extends \Municipio\Controller\BaseController
             return false;
         }
 
-        //Get the image id
-        $featuredImageId = get_post_thumbnail_id($postId);
+        $featuredImage = \Municipio\Helper\Post::getFeaturedImage($postId, $size);
 
-        //Bail out if not found
-        if (!is_numeric($featuredImageId)) {
-            return false;
-        }
-
-        $featuredImageObject = (object) [
-            'id'    => $featuredImageId,
-            'src'   => wp_get_attachment_image_src($featuredImageId, apply_filters('Municipio/Controller/Singular/featuredImageSize', $size)),
-            'alt'   => get_post_meta($featuredImageId, '_wp_attachment_image_alt', true),
-            'title' => get_the_title($featuredImageId)
-        ];
-
-        return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImageObject);
+        return apply_filters('Municipio/Controller/Singular/featureImage', $featuredImage);
     }
 
     /**
@@ -473,5 +459,13 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return false;
+    }
+    private function displayFeaturedImageOnSinglePost(int $postId = 0)
+    {
+        return (bool) apply_filters(
+            'Municipio/Controller/Singular/displayFeaturedImageOnSinglePost',
+            get_field('post_single_show_featured_image', $postId),
+            $postId
+        );
     }
 }
