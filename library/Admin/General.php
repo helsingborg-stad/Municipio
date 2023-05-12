@@ -52,10 +52,11 @@ class General
     {
         $palettesToGet = ['color_palette_primary','color_palette_secondary'];
         $colorPalettes = \Municipio\Helper\Color::getPalettes($palettesToGet);
+        $colorPalettesSanitized = array_filter($colorPalettes, fn ($value) => is_array($value) && !empty($value));
 
-        if (!empty($colorPalettes)) {
+        if (!empty($colorPalettesSanitized)) {
             $colorsStr = '';
-            foreach ($colorPalettes as $colors) {
+            foreach ($colorPalettesSanitized as $colors) {
                 $colorsStr .= '"' . implode('","', $colors) . '",';
             }
             echo "
