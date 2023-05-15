@@ -38,7 +38,7 @@ class Place extends PurposeFactory
                 $listing['location'] = \Municipio\Helper\Listing::createListingItem(
                     $locationLabel,
                     $locationLink,
-                    ['src' => 'location_on']
+                    ['src' => 'directions_bus']
                 );
             }
         }
