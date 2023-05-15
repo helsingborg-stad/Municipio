@@ -79,8 +79,9 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     @include mq('sm') {
         &.c-header.c-header--sticky {
             position: sticky;
-            &.is-stuck {
-                background-color: #{$c-quicklinks-background-sticky-color};
+            background-color: #{$c-quicklinks-background-sticky-color};
+            &.not-stuck {
+                background-color: #{$c-quicklinks-background-color};
             }
         }
     }
