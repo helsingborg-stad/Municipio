@@ -6,25 +6,24 @@
         @foreach ($posts as $post)
             @collection__item([
                 'link' => $post->permalink,
-                'classList' => [$gridColumnClass],
+                'classList' => [$gridColumnClass, 'u-level-2'],
                 'containerAware' => true,
-                'bordered' => true,
+                'bordered' => true
             ])
-
-            @if (!empty($post->callToActionItems['floating']))
-                @slot('floating')
+                @if (!empty($post->callToActionItems['floating']))
+                    @slot('floating')
                         @icon($post->callToActionItems['floating'])
                         @endicon
-                @endslot
-            @endif
-            @if ($displayFeaturedImage && !empty($post->thumbnail['src']))
-                @slot('before')
+                    @endslot
+                @endif
+                @if ($displayFeaturedImage && !empty($post->thumbnail['src']))
+                    @slot('before')
                         @image([
                             'src' => $post->thumbnail['src'],
                             'alt' => $post->thumbnail['alt'],
                             'placeholderIconSize' => 'sm',
                             'placeholderIcon' => 'image',
-                            'placeholderText' => '',
+                            'placeholderText' => ''
                         ])
                         @endimage
                     @endslot
