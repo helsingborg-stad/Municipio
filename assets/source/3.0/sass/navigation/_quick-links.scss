@@ -38,6 +38,16 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
         .c-nav__link {
             color: #{$c-quicklinks-text-color};
+
+            .c-nav__icon {
+                backface-visibility: hidden;
+                transition: outline 100ms;
+                outline: 0px solid;
+            }
+
+            &:hover .c-nav__icon {
+                outline: 4px solid;
+            }
         }
 
         .c-icon {
@@ -51,7 +61,17 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     }
 
     &.c-header--column {
-        padding: calc($base * .5) 0;
+        padding: calc($base * 2) 0 calc($base * .5) 0;
+
+        .c-nav > li {
+            flex: 1 0;
+        }
+
+        .c-nav {
+            max-width: calc($base * 100);
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         .c-nav__link {
             padding: 0;
