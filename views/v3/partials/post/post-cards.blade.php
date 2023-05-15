@@ -7,7 +7,7 @@
                     'imageFirst' => true,
                     'image' => $post->thumbnail,
                     'heading' => $post->postTitle,
-                    'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex', 'u-level-2'],
+                    'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex'],
                     'content' => $post->excerptShort,
                     'tags' => $post->termsUnlinked,
                     'meta' => $displayReadingTime ? $post->readingTime : '',
