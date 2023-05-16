@@ -61,7 +61,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     }
 
     &.c-header--column {
-        padding: calc($base * 2) 0 calc($base * .5) 0;
+        padding: calc($base * .5) 0;
 
         .c-nav > li {
             flex: 1 0;
@@ -99,6 +99,11 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     @include mq('sm') {
         &.c-header.c-header--sticky {
             position: sticky;
+
+            &.c-header--column {
+                padding: calc($base * 2) 0 calc($base * .5) 0;
+            }
+            
             &.is-stuck {
                 background-color: #{$c-quicklinks-background-sticky-color};
             }
