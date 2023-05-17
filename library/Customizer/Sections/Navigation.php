@@ -211,6 +211,11 @@ class Navigation
                         'property'  => '--c-nav-v-color-contrasting',
                     ],
                     [
+                        'choice'    => 'contrasting',
+                        'context'   => 'drawer.closeButton',
+                        'property'  => '--c-button-default-color',
+                    ],
+                    [
                         'choice'    => 'background_active',
                         'element'   => $scope->scopeClass,
                         'property'  => '--c-nav-v-background-active',
