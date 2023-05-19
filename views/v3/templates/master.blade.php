@@ -97,6 +97,7 @@
                             <div
                                 class="o-grid-12 o-grid-auto@lg o-order-1 o-order-2@lg u-display--flex u-flex--gridgap  u-flex-direction--column">
                                 @yield('content')
+                                @yield('content.below')
                             </div>
 
                             @hasSection('sidebar-right')

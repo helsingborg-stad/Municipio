@@ -32,13 +32,6 @@ class Singular extends \Municipio\Controller\BaseController
         //Signature options
         $this->data['signature'] = $this->getSignature();
 
-        $this->data['publishTranslations'] = (object) array(
-            'updated'   => __('Updated', 'municipio'),
-            'publish'   => __('Published', 'municipio'),
-            'by'        => __('Published by', 'municipio'),
-            'on'        => __('on', 'municipio'),
-        );
-
         //Reading time
         $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent);
 

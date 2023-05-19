@@ -235,6 +235,10 @@ class BaseController
             'showAll'              => __('Show all', 'municipio'),
             'readMore'             => __('Read more', 'municipio'),
             'bookHere'             => __('Book here', 'municipio'),
+            'updated'              => __('Updated', 'municipio'),
+            'publish'              => __('Published', 'municipio'),
+            'by'                   => __('Published by', 'municipio'),
+            'on'                   => __('on', 'municipio'),
         );
         $this->data['labels'] = (array) $this->data['lang'];
 

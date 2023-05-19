@@ -48,20 +48,20 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
 
-@section('loop')
-    @includeIf('partials.loop')
-@show
+    @section('loop')
+        @includeIf('partials.loop')
+    @show
 
-@includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
+    @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
-@includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
+    @includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
 
-@includeWhen($displaySecondaryQuery, 'partials.secondary', [
-    'posts' => $secondaryQuery->posts ?? [],
-    'postType' => $secondaryPostType ?? null,
-])
+    @includeWhen($displaySecondaryQuery, 'partials.secondary', [
+        'posts' => $secondaryQuery->posts ?? [],
+        'postType' => $secondaryPostType ?? null,
+    ])
 
-{!! $hook->loopEnd !!}
+    {!! $hook->loopEnd !!}
 
 @stop
 
@@ -83,9 +83,6 @@
 
 @section('below')
 @includeIf('partials.sidebar', ['id' => 'content-area-bottom', 'classes' => ['o-grid']])
-@includeWhen(empty($isBlogStyle), 'partials.signature', [
-    'classList' => ['u-margin__y--2'],
-])
 
 <!-- Comments -->
 @section('article.comments.before')@show

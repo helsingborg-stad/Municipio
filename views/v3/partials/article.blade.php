@@ -20,22 +20,14 @@
     @section('article.title.after')@show
 
     <!-- Blog style author signature -->
-    @if (!$postTypeDetails->hierarchical && $isBlogStyle)
-        @section('article.signature.after')@show
-        @signature([
-            'author' => $signature->name,
-            'avatar_size' => 'sm',
-            'avatar' => $signature->avatar,
-            'authorRole' => $signature->role,
-            'link' => $signature->link,
-            'published' => $signature->published,
-            'updated' => $signature->updated,
-            'updatedLabel' => $publishTranslations->updated,
-            'publishedLabel' => $publishTranslations->publish
-        ])
-        @endsignature
-        @section('article.signature.after')@show
-    @endif
+    @includeWhen(
+        (!$postTypeDetails->hierarchical && $isBlogStyle), 
+        'partials.signature',
+        array_merge(
+            (array) $signature, 
+            (array) ['classList' => []]
+        )
+    )
 
     <!-- Featured image -->
     @if ($displayFeaturedImage && $featuredImage['src'])
@@ -77,5 +69,17 @@
         @endtags
     @endif
     @section('article.terms.after')@show
+
+    <!-- Blog style author signature -->
+    @section('content.below')
+        @includeWhen(
+            ($postTypeDetails->hierarchical && !$isBlogStyle), 
+            'partials.signature',
+            array_merge(
+                (array) $signature, 
+                (array) ['classList' => []]
+            )
+        )
+    @endsection
 
 </article>
