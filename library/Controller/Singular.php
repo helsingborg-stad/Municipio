@@ -28,6 +28,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
