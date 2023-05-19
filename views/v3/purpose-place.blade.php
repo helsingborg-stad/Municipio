@@ -1,8 +1,8 @@
 @extends('templates.single')
 @section('hero-top-sidebar')
-    @if (!empty($featuredImage->src[0]))
+    @if (!empty($featuredImage['src']))
         @hero([
-            'image' => $featuredImage->src[0]
+            'image' => $featuredImage['src'],
         ])
         @endhero
     @endif
@@ -10,7 +10,7 @@
     <div class="o-container">
         @paper([
             'attributeList' => [
-                'style' => !empty($featuredImage->src[0]) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'
+                'style' => !empty($featuredImage['src']) ? 'transform:translateY(calc(max(-50%, -50px)))' : 'margin-top: 32px'
             ],
             'classList' => ['u-padding--6']
         ])
