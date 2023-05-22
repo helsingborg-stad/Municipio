@@ -31,7 +31,7 @@ class ArchivePurpose extends \Municipio\Controller\Archive
         }
 
         $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink ?? true);
-        $this->data['pins'] = Location::createPinDataForPosts($this->data['posts'], $this->data['displayGoogleMapsLink']);
+        $this->data['pins'] = Location::createPins($this->data['posts'], $this->data['displayGoogleMapsLink']);
         $this->data['postsWithLocation'] = Location::filterPostsWithLocationData($this->data['posts']);
     }
 }
