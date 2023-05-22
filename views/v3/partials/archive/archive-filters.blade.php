@@ -86,7 +86,7 @@
         {{-- Select dropdowns for filtering --}}
         <div class="o-grid u-align-content--end">
             @foreach ($taxonomyFilters as $key => $select)
-                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md">
+                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                     @if ('multi' === $select['fieldType'])
                         @filterSelect([
                             'label' => $select['label'] ?? '',
