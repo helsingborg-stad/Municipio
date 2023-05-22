@@ -21,11 +21,6 @@
     max-width: 50vw;
 }
 
-.c-header.c-header--business .mobile-menu-trigger,
-.c-header.c-header--casual .mobile-menu-trigger {
-    margin-right: calc((#{$base} * 2) / -1);
-}
-
 .hamburger-menu-trigger__close {
     display: none;
 }
