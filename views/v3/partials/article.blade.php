@@ -21,7 +21,7 @@
 
     <!-- Blog style author signature -->
     @includeWhen(
-        (!$postTypeDetails->hierarchical && $isBlogStyle), 
+        (!$postTypeDetails->hierarchical || $isBlogStyle), 
         'partials.signature',
         array_merge(
             (array) $signature, 
