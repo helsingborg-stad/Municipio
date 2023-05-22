@@ -37,7 +37,8 @@
                                     'bordered' => true,
                                     'attributeList' => [
                                         'js-map-lat' => $place->location['lat'],
-                                        'js-map-lng' => $place->location['lng']
+                                        'js-map-lng' => $place->location['lng'],
+                                        'js-data-url' => $place->permalink
                                     ]
                                 ])
                                     @if ($place->callToActionItems['floating'])
@@ -80,7 +81,7 @@
 
                                 {{-- Post (full content) --}}
                                 @group([
-                                    'classList' => ['c-openstreetmap__post'],
+                                    'classList' => ['c-openstreetmap__post', 'u-margin__top--0'],
                                     'containerAware' => true
                                 ])
                                     @icon([
