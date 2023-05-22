@@ -24,7 +24,7 @@
                     ])
 
                     @collection([
-                        'classList' => ['o-grid', 'o-grid--horizontal'],
+                        'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
                         'attributeList' => [
                             'js-pagination-container' => ''
                         ]
@@ -81,7 +81,7 @@
 
                                 {{-- Post (full content) --}}
                                 @group([
-                                    'classList' => ['c-openstreetmap__post', 'u-margin__top--0'],
+                                    'classList' => ['c-openstreetmap__post'],
                                     'containerAware' => true
                                 ])
                                     @icon([
