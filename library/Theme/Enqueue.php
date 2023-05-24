@@ -54,6 +54,9 @@ class Enqueue
                 );
             }
         });
+
+        // Do not load Gravity Forms scripts in the footer
+        add_filter('gform_init_scripts_footer', '__return_false');
     }
 
     /**
@@ -263,9 +266,10 @@ class Enqueue
         return str_replace(' src', ' defer="defer" src', $tag);
     }
 
-    private function getAllScriptsToBeExcludedFromDefer():array {
+    private function getAllScriptsToBeExcludedFromDefer(): array
+    {
         $excluded = $this->scriptsExcludedFromDefer;
-        foreach($excluded as $script) {
+        foreach ($excluded as $script) {
             try {
                 $excluded = array_merge($excluded, $this->getScriptDependencies($script));
             } catch (\Exception $e) {
@@ -278,7 +282,7 @@ class Enqueue
 
     /**
      * Get script all dependencies recusively.
-     * 
+     *
      * @param string $script The script handle
      * @return array         The script dependencies
      */
@@ -296,7 +300,7 @@ class Enqueue
             if (!empty($wp_scripts->registered[$dependency]->deps)) {
                 try {
                     $dependencies = array_merge($dependencies, $this->getScriptDependencies($dependency));
-                } catch(\Exception $e) {
+                } catch (\Exception $e) {
                     // Do nothing
                 }
             }
