@@ -55,7 +55,7 @@ class Enqueue
             }
         });
 
-        // Do not load Gravity Forms scripts in the footer
+        // Do not load Gravity Forms scripts in the footer unless you want to work the weekend
         add_filter('gform_init_scripts_footer', '__return_false');
     }
 
