@@ -4,77 +4,68 @@ namespace Municipio;
 
 class Language
 {
+    /**
+     * Initialize filters.
+     */
     public function __construct()
     {
         add_filter('Municipio/Navigation/Item', array($this, 'addSourceUrl'), 10, 3);
-
-        add_filter('the_title', [$this, 'excludeTitleFromGoogleTranslate'], 10, 1);
-        add_filter('the_content', [$this, 'exludeStringFromGoogleTranslate'], 10, 1);
+        add_filter('the_title', [$this, 'excludeTitleFromGoogleTranslate'], 10, 2);
+        add_filter('the_content', [$this, 'excludeTitleFromGoogleTranslate']);
     }
-
-    /**
- * Exclude the title from Google Translate if a certain field is set.
- *
- * @param string $title The title to process.
- * @return string The processed title.
- */
-    public function excludeTitleFromGoogleTranslate($title)
-    {
-        if (!get_field('exclude_from_google_translate')) {
-            return $title;
-        }
-
-        return \Municipio\Helper\General::wrapStringInSpan($title, ['translate' => 'no']);
-    }
-
 /**
- * Exclude a string from Google Translate if a certain field is set.
+ * Exclude the title of the current post from Google Translate.
  *
- * @param string $content The content to process.
- * @return string The processed content.
+ * @param string $filteredString The post title or content.
+ * @return string The modified title/content or the original string.
  */
-    public function exludeStringFromGoogleTranslate($content)
+    public function excludeTitleFromGoogleTranslate($filteredString, $isTitle = false)
     {
-        if (!get_field('exclude_from_google_translate')) {
-            return $content;
+        global $post;
+
+        if (is_admin() || !is_a($post, 'WP_Post')) {
+            return $filteredString;
         }
 
-        $matches = [];
-        // Find all instances of $string in $content and return as an array
-        preg_match_all("/$content/", $content, $matches);
+        $currentPostId      = $post->ID;
+        $currentPostTitle   = $post->post_title;
+        $currentPostContent = $post->post_content;
 
-        // Wrap each match in a <span> tag with the "translate" attribute set to "no"
-        $wrappedMatches = array_map(fn($match) =>
-        \Municipio\Helper\General::wrapStringInSpan($match, ['translate' => 'no']), $matches[0]);
+        $excludeTranslate = get_field('exclude_from_google_translate', $currentPostId);
 
-        // Replace each match in $content with its wrapped version
-        $content = str_replace($matches[0], $wrappedMatches, $content);
+        if ($excludeTranslate && $filteredString === $currentPostTitle && $isTitle) {
+            return \Municipio\Helper\General::wrapStringInSpan($filteredString, ['translate' => 'no']);
+        }
 
-        return $content;
+        // If this content is the content of the current post
+        if ($excludeTranslate) {
+            // in $currentPostContent, wrap all occurrences of $currentPostTitle with a span
+            $pattern = '/(?<!\w)' . preg_quote($currentPostTitle, '/') . '(?!\w)/u';
+            $replacement = \Municipio\Helper\General::wrapStringInSpan($currentPostTitle, ['translate' => 'no']);
+            return preg_replace($pattern, $replacement, $filteredString);
+        }
+
+        return $filteredString;
     }
+
 
     /**
      * Adds the source url to language service menu items
      *
-     * @param [type] $item
-     * @param [type] $identifier
-     * @param [type] $bool
-     * @return void
+     * @param array $item The menu item.
+     * @param string $identifier The identifier for the menu.
+     * @param bool $bool A boolean flag.
+     * @return array The modified menu item.
      */
     public function addSourceUrl($item, $identifier, $bool)
     {
-
-        //Check that we are in context of lang menu(s)
         if ($identifier != 'language') {
             return $item;
         }
 
-        //Check that url is valid
         if (isset($item['href']) && filter_var($item['href'], FILTER_VALIDATE_URL) !== false) {
-            //Get suitable param
             $queryParam = $this->getServiceQueryString($item['href']);
 
-            //Add source url to query string
             if ($queryParam !== false) {
                 $item['href'] = add_query_arg(
                     $queryParam,
@@ -90,8 +81,8 @@ class Language
     /**
      * Provides query string param for language service
      *
-     * @param string $href
-     * @return string|false
+     * @param string $href The URL.
+     * @return string|false The query string parameter or false.
      */
     private function getServiceQueryString($href)
     {
@@ -102,9 +93,9 @@ class Language
     }
 
     /**
-     * Get the current pages url
+     * Get the current page's URL.
      *
-     * @return string
+     * @return string The current URL.
      */
     private function getCurrentUrl()
     {
