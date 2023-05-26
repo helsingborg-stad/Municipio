@@ -37,27 +37,30 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
         gap: calc($base * $c-quicklinks-gap);
 
         .c-nav__link {
-            color: #{$c-quicklinks-text-color};
 
-            .c-nav__icon {
-                backface-visibility: hidden;
-                transition: outline 100ms;
-                outline: 0px solid;
-            }
-
-            &:hover .c-nav__icon {
-                outline: 4px solid;
+            &:hover {
+                .c-nav__text {
+                    text-decoration: underline;
+                }
+                
+                .c-nav__icon {
+                    outline: unset;
+                }
             }
         }
+    }
 
-        .c-icon {
-            color: #{$c-quicklinks-icon-color};
-            background-color: #{$c-quicklinks-icon-background-color};
-            padding: calc($base * 1.5);
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            filter: $drop-shadow-2;
-        }
+    .c-icon {
+        color: #{$c-quicklinks-icon-color};
+        background-color: #{$c-quicklinks-icon-background-color};
+        padding: calc($base * 1.5);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        filter: $drop-shadow-2;
+    }
+    
+    .c-nav__link {
+        color: #{$c-quicklinks-text-color};
     }
 
     &.c-header--column {
@@ -80,6 +83,22 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
             &::after {
                 display: none;
+            }
+
+            .c-nav__icon {
+                backface-visibility: hidden;
+                transition: outline 100ms;
+                outline: 0px solid;
+            }
+
+            &:hover {
+                .c-nav__text {
+                    text-decoration: none;
+                }
+
+                .c-nav__icon {
+                    outline: 4px solid;
+                }
             }
         }
     }
