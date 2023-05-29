@@ -67,7 +67,7 @@ class SliderDefault
                     'dataKey' => "padding",
                     'context' => [
                         [
-                            'context' => 'component.slider',
+                            'context' => 'module.slider',
                             'operator' => '==',
                         ],
                     ]
