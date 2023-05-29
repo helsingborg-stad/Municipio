@@ -27,6 +27,16 @@ class SliderDefault
                     'element'   => ':root',
                     'property'  => '--c-slider-gap',
                     'unit'      => ''
+                ],
+                [
+                    'type' => 'component_data',
+                    'dataKey' => 'gap',
+                    'context' => [
+                        [
+                            'context' => 'component.slider',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
@@ -37,12 +47,13 @@ class SliderDefault
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'slider',
             'settings'    => 'slider_padding',
-            'label'       => esc_html__('Padding', 'municipio'),
+            'label'       => esc_html__('Amount of preview', 'municipio'),
+            'description' => esc_html__('If set to 0, no preview will be show. If preview of previous and next slide is wanted. Choose a value higher than the gap.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 7,
+            'default'     => 4,
             'choices'     => [
-                'min'  => 6,
-                'max'  => 12,
+                'min'  => 0,
+                'max'  => 18,
                 'step' => 1,
             ],
             'output'      => [
@@ -50,6 +61,16 @@ class SliderDefault
                     'element'   => ':root',
                     'property'  => '--c-slider-padding',
                     'unit'      => ''
+                ],
+                [
+                    'type' => 'component_data',
+                    'dataKey' => "padding",
+                    'context' => [
+                        [
+                            'context' => 'component.slider',
+                            'operator' => '==',
+                        ],
+                    ]
                 ]
             ],
         ]);
