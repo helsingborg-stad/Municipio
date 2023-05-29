@@ -53,7 +53,7 @@ class SliderDefault
             'default'     => 4,
             'choices'     => [
                 'min'  => 0,
-                'max'  => 18,
+                'max'  => 24,
                 'step' => 1,
             ],
             'output'      => [
