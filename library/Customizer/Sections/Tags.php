@@ -57,5 +57,31 @@ class Tags
                 ]
             ],
         ]);
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'slider',
+            'settings'    => 'tags_compress',
+            'label'       => esc_html__('Compress tags', 'municipio'),
+            'description' => esc_html__('If set to 0, no compression will take place. Any other value will only show selected amount of tags.', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 0,
+            'choices'     => [
+                'min'  => 0,
+                'max'  => 12,
+                'step' => 1,
+            ],
+            'output'      => [
+                [
+                    'type' => 'component_data',
+                    'dataKey' => "compress",
+                    'context' => [
+                        [
+                            'context' => 'component.tags',
+                            'operator' => '==',
+                        ],
+                    ]
+                ]
+            ],
+        ]);
     }
 }
