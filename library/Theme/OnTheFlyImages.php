@@ -19,18 +19,10 @@ namespace Municipio\Theme;
 class OnTheFlyImages
 {
     private $imageQuality = 92;
-    private $shortpixelImageQuality = 2; // Compression level, 1 for lossy, 2 for glossy and 0 for lossless.
-
     public function __construct()
     {
         //Respect image quality
         $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
-
-        //Modify image quality if shortpixel
-        if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
-            $this->imageQuality = 100;
-            add_filter('jpeg_quality', function ($arg) {return 100;}, 15); // Other filter in ImageSize Filter is set at priority 10
-        }
 
         //Resizing
         add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
@@ -38,55 +30,6 @@ class OnTheFlyImages
 
         //Quality enchacements
         add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
-
-        //Shortpixel queue adder (adding crons)
-        add_filter('image_make_intermediate_size', array($this, 'shortpixelOptimizationQueue'), 1500);
-
-        //Shortpixel queueworker (executing crons)
-        add_action('municipio_shortpixel_compress_image', array($this, 'shortpixelOptimization'), 10, 1);
-    }
-
-    /* Queue to compress image with shortpixel
-     *
-     * @param string $resizedFile   The image file
-     * @return string $resizedFile  The image file
-     */
-    public function shortpixelOptimizationQueue($resizedFile)
-    {
-        //Detect if shortpixel should be run
-        if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
-
-            //Schedule a compression of the file to be done
-            if (!wp_next_scheduled('municipio_shortpixel_compress_image', array($resizedFile))) {
-                wp_schedule_single_event(time() + 10, 'municipio_shortpixel_compress_image', array($resizedFile));
-            }
-        }
-        return $resizedFile;
-    }
-
-    /* Do the actual compress image with shortpixel api
-     *
-     * @param string $resizedFile   The image file
-     * @return void
-     */
-    public function shortpixelOptimization($resizedFile)
-    {
-
-        //Check if file exists
-        if (!file_exists($resizedFile)) {
-            error_log("Shortpixel: Could not find or open file " . $resizedFile);
-            return false;
-        }
-
-        //Run shortpixel
-        if (defined('SHORTPIXEL_API_KEY') && !empty('SHORTPIXEL_API_KEY')) {
-            try {
-                \ShortPixel\setKey(SHORTPIXEL_API_KEY);
-                \ShortPixel\fromFile($resizedFile)->optimize($this->shortpixelImageQuality)->toFiles(pathinfo($resizedFile)['dirname']);
-            } catch (Exception $e) {
-                error_log("Municipio shortpixel integration: " . $e);
-            }
-        }
     }
 
     /* Hook to image resize function
