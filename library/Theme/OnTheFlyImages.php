@@ -104,6 +104,7 @@ class OnTheFlyImages
         // Get file path info
         $path      = get_attached_file($attachment_id);
         $path_info = pathinfo($path);
+
         $ext       = isset($path_info['extension']) && !empty($path_info['extension']) ? $path_info['extension'] : '';
         $rel_path  = str_replace(array( $upload_dir, ".$ext" ), '', $path);
         $suffix    = "{$width}x{$height}";
@@ -116,8 +117,16 @@ class OnTheFlyImages
         }
 
         // Generate thumbnail
-        if (image_make_intermediate_size($path, $width, $height, $crop)) {
-            return $url;
+        try {
+            if (image_make_intermediate_size($path, $width, $height, $crop)) {
+                return $url;
+            }
+        } catch (\Exception $e) {
+            if(isset($_GET['debug'])) {
+                throw $e; 
+            } else {
+                error_log($e);
+            }
         }
 
         // Fallback to full size
