@@ -26,10 +26,12 @@ class OnTheFlyImages
 
         //Resizing
         add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
-        add_filter('image_resize_dimensions', array($this, 'upscaleThumbnail'), 10, 6);
-
-        //Quality enchacements
-        add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
+        
+        //Quality enhancements
+        if(!defined('S3_UPLOADS_BUCKET')) {
+            add_filter('image_resize_dimensions', array($this, 'upscaleThumbnail'), 10, 6);
+            add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
+        }
     }
 
     /* Hook to image resize function
