@@ -7,7 +7,7 @@
         ])
         <div class="o-grid u-align-content--end">
             @foreach ($enabledFilters as $filter)
-                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md">
+                <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                     @if ('multi' === $filter['fieldType'])
                         @filterSelect([
                             'label' => $filter['label'],
