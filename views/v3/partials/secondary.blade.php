@@ -24,7 +24,7 @@
                     ])
 
                     @collection([
-                        'classList' => ['o-grid', 'o-grid--horizontal'],
+                        'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
                         'attributeList' => [
                             'js-pagination-container' => ''
                         ]
@@ -37,7 +37,8 @@
                                     'bordered' => true,
                                     'attributeList' => [
                                         'js-map-lat' => $place->location['lat'],
-                                        'js-map-lng' => $place->location['lng']
+                                        'js-map-lng' => $place->location['lng'],
+                                        'js-data-url' => $place->permalink
                                     ]
                                 ])
                                     @if ($place->callToActionItems['floating'])

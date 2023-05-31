@@ -6,7 +6,8 @@ use Municipio\Helper\Listing as ListingHelper;
 
 class PurposePlace
 {
-    public function complementPlacePost($post, $complementPost = true) {
+    public function complementPlacePost($post, $complementPost = true)
+    {
         if ($complementPost) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
         }
@@ -16,29 +17,33 @@ class PurposePlace
 
         $post->location = $fields['location'] ?? [];
 
+        $directions = false;
         if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
-            $direction = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';
+            $directions = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';
         }
 
         $post->bookingLink = $fields['booking_link'] ?? false;
         $post->placeInfo = self::createPlaceInfoList($fields);
-        $post->pin = self::createPin($post);
+        $post->pin = self::createPin($post, $directions);
 
         return $post;
     }
 
-    private function createPin($post) {
-        return ['lat' => $post->location['lat'], 'lng' => $post->location['lng'], 'tooltip' => ['title' => $post->postTitle, 'excerpt' => $post->postExcerpt, 'link' => $post->permalink, 'directions' => ['url' => $direction, 'label' => $post->location['street_name'] . ' ' . $post->location['street_number']]], 'icon' => $post->termIcon];
+    private function createPin($post, $directions = false)
+    {
+        return \Municipio\Helper\Location::createPin($post, $directions);
     }
 
-    private function createPlaceInfoList($fields) {
+    private function createPlaceInfoList($fields)
+    {
         // Phone number
         $list = [];
         if (!empty($fields['phone'])) {
             $list['phone'] = ListingHelper::createListingItem(
-                $fields['phone'], 
-                '', 
-                ['src' => 'call']);
+                $fields['phone'],
+                '',
+                ['src' => 'call']
+            );
         }
 
         // Website link (with fixed label)
