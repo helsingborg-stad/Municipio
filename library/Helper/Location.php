@@ -56,14 +56,16 @@ class Location
         $pin = [];
 
         if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
+            $permalink = get_permalink($post->id);
             $pin = [
                 'lat' => $post->location['lat'],
                 'lng' => $post->location['lng'],
                 'tooltip' => [
                     'title' => $post->postTitle ?? '',
                     'excerpt' => $post->postExcerpt ?? '',
+                    'url' => $permalink,
                 ],
-                'url' => get_permalink($post->id),
+                'url' => $permalink,
             ];
             // Add directions link to tooltip
             if ($displayGoogleMapsLink) {
