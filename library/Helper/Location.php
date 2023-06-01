@@ -67,7 +67,7 @@ class Location
             ];
             // Add directions link to tooltip
             if ($displayGoogleMapsLink) {
-                $pin['tooltip']['direction'] = [
+                $pin['tooltip']['directions'] = [
                 'url' => '#',
                 'label' => __('Get directions on Google Maps', 'municipio'),
                 ];
