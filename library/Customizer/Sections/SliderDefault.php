@@ -50,7 +50,7 @@ class SliderDefault
             'label'       => esc_html__('Amount of preview', 'municipio'),
             'description' => esc_html__('If set to 0, no preview will be show. If preview of previous and next slide is wanted. Choose a value higher than the gap.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 4,
+            'default'     => 6,
             'choices'     => [
                 'min'  => 0,
                 'max'  => 24,
