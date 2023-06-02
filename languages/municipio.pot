@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-05-17 13:15+0000\n"
+"POT-Creation-Date: 2023-06-02 15:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -15316,6 +15316,10 @@ msgstr ""
 msgid "Amount of padding in grids."
 msgstr ""
 
+#: library/Customizer/Sections/SliderDefault.php:50
+msgid "Amount of preview"
+msgstr ""
+
 #: library/Customizer/Sections/Shadow.php:12
 msgid "Amount of shadows"
 msgstr ""
@@ -15398,7 +15402,7 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: library/Theme/Enqueue.php:136
+#: library/Theme/Enqueue.php:139
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
@@ -15410,11 +15414,11 @@ msgstr ""
 msgid "Arrow back"
 msgstr ""
 
-#: library/Customizer/Sections/SliderDefault.php:183
+#: library/Customizer/Sections/SliderDefault.php:204
 msgid "Arrow button color"
 msgstr ""
 
-#: library/Customizer/Sections/SliderDefault.php:156
+#: library/Customizer/Sections/SliderDefault.php:177
 msgid "Arrow button style"
 msgstr ""
 
@@ -15578,7 +15582,7 @@ msgstr ""
 msgid "audiotrack"
 msgstr ""
 
-#: library/Controller/Singular.php:311
+#: library/Controller/Singular.php:305
 #: library/AcfFields/php/options-theme-author.php:8
 msgid "Author"
 msgstr ""
@@ -16646,6 +16650,10 @@ msgstr ""
 msgid "Component Apperance"
 msgstr ""
 
+#: library/Customizer/Sections/Tags.php:64
+msgid "Compress tags"
+msgstr ""
+
 #: library/Customizer/Sections/Archive.php:46
 msgid "Compressed"
 msgstr ""
@@ -16703,7 +16711,7 @@ msgid "Container Block"
 msgstr ""
 
 #: library/Customizer/Sections/SliderHero.php:43
-#: library/Customizer/Sections/SliderDefault.php:63
+#: library/Customizer/Sections/SliderDefault.php:84
 msgid "Container colour"
 msgstr ""
 
@@ -17052,8 +17060,6 @@ msgstr ""
 #: library/Customizer/Sections/Width.php:15
 #: library/Customizer/Sections/Quicklinks.php:186
 #: library/Customizer/Sections/Quicklinks.php:239
-#: library/Customizer/Sections/Tags.php:18
-#: library/Customizer/Sections/Tags.php:44
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
@@ -17063,6 +17069,8 @@ msgstr ""
 #: library/Customizer/Sections/Search.php:152
 #: library/Customizer/Sections/OpenStreetMap.php:20
 #: library/Customizer/Sections/Field.php:35
+#: library/Customizer/Sections/Tags.php:18
+#: library/Customizer/Sections/Tags.php:44
 msgid "Default"
 msgstr ""
 
@@ -17672,6 +17680,17 @@ msgstr ""
 msgid "Exclude from search?"
 msgstr ""
 
+#: library/AcfFields/php/options-page-exclude-from-google-translate.php:16
+msgid ""
+"Exclude the title of this post from being automatically translated by Google "
+"Translate."
+msgstr ""
+
+#: library/AcfFields/php/options-page-exclude-from-google-translate.php:8
+#: library/AcfFields/php/options-page-exclude-from-google-translate.php:12
+msgid "Exclude title from Google Translate"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:337
 msgid "exit_to_app"
 msgstr ""
@@ -17890,7 +17909,7 @@ msgstr ""
 msgid "Filled button"
 msgstr ""
 
-#: library/Controller/Archive.php:114 library/Controller/Singular.php:145
+#: library/Controller/Singular.php:139 library/Controller/Archive.php:114
 msgid "Filter"
 msgstr ""
 
@@ -18260,7 +18279,7 @@ msgstr ""
 msgid "Found no matching results on your search…"
 msgstr ""
 
-#: library/Theme/Enqueue.php:169
+#: library/Theme/Enqueue.php:172
 msgid "Fr"
 msgstr ""
 
@@ -18354,7 +18373,7 @@ msgstr ""
 msgid "gesture"
 msgstr ""
 
-#: library/Helper/Location.php:52
+#: library/Helper/Location.php:74
 msgid "Get directions on Google Maps"
 msgstr ""
 
@@ -18825,6 +18844,18 @@ msgstr ""
 msgid "If fields should apply shadows"
 msgstr ""
 
+#: library/Customizer/Sections/Tags.php:65
+msgid ""
+"If set to 0, no compression will take place. Any other value will only show "
+"selected amount of tags."
+msgstr ""
+
+#: library/Customizer/Sections/SliderDefault.php:51
+msgid ""
+"If set to 0, no preview will be show. If preview of previous and next slide "
+"is wanted. Choose a value higher than the gap."
+msgstr ""
+
 #: library/AcfFields/php/options-theme-google-translate.php:106
 msgid ""
 "If set to enabled, Google Translate usage will be tracked in Google "
@@ -18922,7 +18953,7 @@ msgstr ""
 msgid "Input colors"
 msgstr ""
 
-#: library/Theme/Enqueue.php:133
+#: library/Theme/Enqueue.php:136
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -19870,7 +19901,7 @@ msgstr ""
 msgid "mms"
 msgstr ""
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:168
 msgid "Mo"
 msgstr ""
 
@@ -20144,7 +20175,7 @@ msgstr ""
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/Singular.php:147
+#: library/Controller/Singular.php:141
 msgid "No items found."
 msgstr ""
 
@@ -20278,7 +20309,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: library/Controller/Singular.php:39
+#: library/Controller/BaseController.php:241
 msgid "on"
 msgstr ""
 
@@ -20401,7 +20432,6 @@ msgstr ""
 #: library/Customizer/PanelsRegistry.php:224
 #: library/Customizer/Sections/FooterMain.php:34
 #: library/Customizer/Sections/FooterSub.php:107
-#: library/Customizer/Sections/SliderDefault.php:40
 msgid "Padding"
 msgstr ""
 
@@ -20722,9 +20752,9 @@ msgid "pie_chart"
 msgstr ""
 
 #: library/Customizer/Sections/Siteselector.php:119
-#: library/Customizer/Sections/Tags.php:19
 #: library/Customizer/Sections/Button.php:146
 #: library/Customizer/Sections/Search.php:153
+#: library/Customizer/Sections/Tags.php:19
 msgid "Pill"
 msgstr ""
 
@@ -20987,13 +21017,14 @@ msgstr ""
 msgid "publish"
 msgstr ""
 
-#: library/Controller/Archive.php:104 library/Controller/Singular.php:37
+#: library/Controller/BaseController.php:239 library/Controller/Archive.php:104
 #: views/v1/partials/timestamps.blade.php:33
 #: views/v1/partials/timestamps.blade.php:53
 msgid "Published"
 msgstr ""
 
-#: library/Controller/Singular.php:38 views/v1/partials/timestamps.blade.php:4
+#: library/Controller/BaseController.php:240
+#: views/v1/partials/timestamps.blade.php:4
 #: views/v1/partials/blog/post-footer.blade.php:34
 #: views/v2/partials/archive/post-footer.blade.php:34
 msgid "Published by"
@@ -21077,7 +21108,7 @@ msgstr ""
 msgid "rate_review"
 msgstr ""
 
-#: library/Controller/Archive.php:106 library/Controller/BaseController.php:236
+#: library/Controller/BaseController.php:236 library/Controller/Archive.php:106
 msgid "Read more"
 msgstr ""
 
@@ -21224,7 +21255,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/Archive.php:116 library/Controller/Singular.php:146
+#: library/Controller/Singular.php:140 library/Controller/Archive.php:116
 msgid "Reset filter"
 msgstr ""
 
@@ -21349,7 +21380,7 @@ msgstr ""
 msgid "rv_hookup"
 msgstr ""
 
-#: library/Theme/Enqueue.php:170
+#: library/Theme/Enqueue.php:173
 msgid "Sa"
 msgstr ""
 
@@ -21422,7 +21453,7 @@ msgstr ""
 msgid "sd_storage"
 msgstr ""
 
-#: library/Controller/Archive.php:113 library/Controller/BaseController.php:219
+#: library/Controller/BaseController.php:219 library/Controller/Archive.php:113
 #: library/Search/General.php:54 library/Customizer/PanelsRegistry.php:234
 #: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
@@ -21528,7 +21559,7 @@ msgstr ""
 msgid "security"
 msgstr ""
 
-#: library/Controller/Archive.php:475 library/Controller/Singular.php:241
+#: library/Controller/Singular.php:235 library/Controller/Archive.php:475
 msgid "Select"
 msgstr ""
 
@@ -21973,7 +22004,7 @@ msgid ""
 msgstr ""
 
 #: library/Customizer/Sections/SliderHero.php:87
-#: library/Customizer/Sections/SliderDefault.php:125
+#: library/Customizer/Sections/SliderDefault.php:146
 msgid "Slide overlay"
 msgstr ""
 
@@ -22036,7 +22067,7 @@ msgstr ""
 msgid "Solid"
 msgstr ""
 
-#: library/Theme/Enqueue.php:137
+#: library/Theme/Enqueue.php:140
 msgid "Something went wrong, please try again later"
 msgstr ""
 
@@ -22262,7 +22293,7 @@ msgstr ""
 msgid "style"
 msgstr ""
 
-#: library/Theme/Enqueue.php:164
+#: library/Theme/Enqueue.php:167
 msgid "Su"
 msgstr ""
 
@@ -22498,8 +22529,8 @@ msgstr ""
 #: library/Customizer/Sections/Divider.php:132
 #: library/Customizer/Sections/FooterMain.php:111
 #: library/Customizer/Sections/SliderHero.php:65
-#: library/Customizer/Sections/SliderDefault.php:94
 #: library/Customizer/Sections/Hero.php:38
+#: library/Customizer/Sections/SliderDefault.php:115
 msgid "Text alignment"
 msgstr ""
 
@@ -22563,7 +22594,7 @@ msgstr ""
 msgid "texture"
 msgstr ""
 
-#: library/Theme/Enqueue.php:168
+#: library/Theme/Enqueue.php:171
 msgid "Th"
 msgstr ""
 
@@ -22655,7 +22686,7 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: library/Controller/Singular.php:447
+#: library/Controller/Singular.php:441
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
@@ -22891,7 +22922,7 @@ msgstr ""
 msgid "trip_origin"
 msgstr ""
 
-#: library/Theme/Enqueue.php:166
+#: library/Theme/Enqueue.php:169
 msgid "Tu"
 msgstr ""
 
@@ -22960,7 +22991,7 @@ msgstr ""
 msgid "update"
 msgstr ""
 
-#: library/Controller/Archive.php:105 library/Controller/Singular.php:36
+#: library/Controller/BaseController.php:238 library/Controller/Archive.php:105
 msgid "Updated"
 msgstr ""
 
@@ -23176,7 +23207,7 @@ msgstr ""
 msgid "visibility_off"
 msgstr ""
 
-#: library/Helper/PurposePlace.php:47
+#: library/Helper/PurposePlace.php:52
 msgid "Visit website"
 msgstr ""
 
@@ -23299,7 +23330,7 @@ msgstr ""
 msgid "wc"
 msgstr ""
 
-#: library/Theme/Enqueue.php:167
+#: library/Theme/Enqueue.php:170
 msgid "We"
 msgstr ""
 
