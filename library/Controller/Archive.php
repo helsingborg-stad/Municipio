@@ -587,12 +587,13 @@ class Archive extends \Municipio\Controller\BaseController
                     }
                 }
 
+                $post->archiveDate = apply_filters('Municipio/Controller/Archive/getDate', $post->archiveDate, $post);
                 if (!isset($post->archiveDate)) {
                     $post->archiveDate = false;
                 } else {
                     $post->archiveDate = wp_date(
                         $this->getDateFormatString($archiveProps->dateFormat),
-                        strtotime($post->archiveDate)
+                        strtotime($post->archiveDate),
                     );
                 }
 
@@ -601,7 +602,6 @@ class Archive extends \Municipio\Controller\BaseController
                 $preparedPosts[] = $post;
             }
         }
-
         return $preparedPosts;
     }
 
