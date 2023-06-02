@@ -49,6 +49,7 @@ add_action('init', function () {
         'options-page-display'                      => 'group_56c33cf1470dc',
         'options-page-navigation'                   => 'group_56d83cff12bb3',
         'options-page-quicklinks-placement'         => 'group_64227d79a7f57',
+        'options-page-exclude-from-google-translate' => 'group_646c5d26e3359',
         'options-theme-404'                         => 'group_56d41dbd7e501',
         'options-theme-author'                      => 'group_56caee123c53f',
         'options-theme-color-scheme'                => 'group_56a0a7dcb5c09',

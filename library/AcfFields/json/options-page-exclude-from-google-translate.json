@@ -1,0 +1,50 @@
+[{
+    "key": "group_646c5d26e3359",
+    "title": "Exclude title from Google Translate",
+    "fields": [
+        {
+            "key": "field_646c5d27c7ebf",
+            "label": "Exclude title from Google Translate",
+            "name": "exclude_from_google_translate",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Exclude the title of this post from being automatically translated by Google Translate.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
