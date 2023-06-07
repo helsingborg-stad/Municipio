@@ -66,7 +66,34 @@ class PanelsRegistry
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
+        self::registerPurposePanel();
         self::registerDesignLibraryPanel();
+    }
+
+
+
+    public static function registerPurposePanel()
+    {
+        $panelID = 'municipio_customizer_panel_purpose';
+        $archives = self::getArchives();
+
+        $sections = array_map(function ($archive) use ($panelID) {
+            $id = "{$panelID}_{$archive->name}";
+            return KirkiPanelSection::create()
+                ->setID($id)
+                ->setPanel($panelID)
+                ->setTitle($archive->label)
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Purpose($id, $archive))
+                ->setPreviewUrl(get_post_type_archive_link($archive->name));
+        }, $archives);
+
+        KirkiPanel::create()
+            ->setID($panelID)
+            ->setTitle(esc_html__('Purpose Templates 2', 'municipio'))
+            ->setDescription(esc_html__('Manage post types purpose.', 'municipio'))
+            ->setPriority(119)
+            ->addSections($sections)
+            ->register();
     }
 
     public static function registerDesignLibraryPanel()
@@ -363,6 +390,13 @@ class PanelsRegistry
             )->register();
     }
 
+/**
+ * Returns an array of archive panel sections configuration.
+ *
+ * @param string $parentPanelID The ID of the parent panel.
+ *
+ * @return array An array of archive panel sections configuration.
+ */
     public static function getArchivePanelSectionsConfiguaration(string $parentPanelID): array
     {
         $archives = self::getArchives();

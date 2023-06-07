@@ -65,10 +65,10 @@ class Purpose
         }
 
         $purpose = [];
-        $purposeStr = get_option("options_purpose_{$type}", '');
+        $purposeString = get_theme_mod("purpose_{$type}", '');
 
-        if ('' !== $purposeStr) {
-            $instance = self::getPurposeInstance($purposeStr);
+        if ('' !== $purposeString) {
+            $instance = self::getPurposeInstance($purposeString);
             $purpose[] = $instance;
 
             if ($includeSecondary && !empty($instance->secondaryPurpose)) {
@@ -176,6 +176,6 @@ class Purpose
      */
     public static function skipPurposeTemplate(string $type = ''): bool
     {
-        return (bool) get_option("skip_purpose_template_{$type}", false);
+        return (bool) get_theme_mod("purpose_{$type}_skip_template", false);
     }
 }
