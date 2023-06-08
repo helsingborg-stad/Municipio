@@ -26,19 +26,18 @@
                     @collection([
                         'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
                         'attributeList' => [
-                            'js-pagination-container' => ''
+                            'data-js-pagination-container' => ''
                         ]
                     ])
                         @foreach ($secondaryQuery->posts as $place)
-                            <div class="c-openstreetmap__posts" js-pagination-item tabindex="0">
+                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0">
                                 @collection__item([
                                     'classList' => ['c-openstreetmap__collection__item'],
                                     'containerAware' => true,
                                     'bordered' => true,
                                     'attributeList' => [
-                                        'js-map-lat' => $place->location['lat'],
-                                        'js-map-lng' => $place->location['lng'],
-                                        'js-data-url' => $place->permalink
+                                        'data-js-map-lat' => $place->location['lat'],
+                                        'data-js-map-lng' => $place->location['lng'],
                                     ]
                                 ])
                                     @if ($place->callToActionItems['floating'])
