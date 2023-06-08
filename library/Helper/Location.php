@@ -54,7 +54,6 @@ class Location
     public static function createPin($post, $displayGoogleMapsLink = false): array
     {
         $pin = [];
-
         if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
             $permalink = get_permalink($post->id);
             $pin = [
@@ -70,7 +69,7 @@ class Location
             // Add directions link to tooltip
             if ($displayGoogleMapsLink) {
                 $pin['tooltip']['directions'] = [
-                'url' => '#',
+                'url' => $displayGoogleMapsLink,
                 'label' => __('Get directions on Google Maps', 'municipio'),
                 ];
             }
