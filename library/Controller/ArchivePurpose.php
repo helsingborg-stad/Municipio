@@ -2,36 +2,55 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\Location;
-use Municipio\Helper\Purpose;
+use Municipio\Helper\Location as LocationHelper;
+use Municipio\Helper\Purpose as PurposeHelper;
 
 class ArchivePurpose extends \Municipio\Controller\Archive
 {
-    public function init()
+    public $type;
+
+    public function __construct()
     {
-        add_filter('Municipio/Controller/Archive/getArchivePosts', [Location::class, 'addLocationDataToPosts'], 10, 1);
+        parent::__construct();
 
-        parent::init();
+        add_filter(
+            'Municipio/Controller/Archive/getArchivePosts',
+            [LocationHelper::class, 'addLocationDataToPosts'],
+            10,
+            1
+        );
 
-        $this->data['displayArchiveLoop'] = (bool) ($this->data['archiveProps']->displayArchiveLoop ?? true);
-
-        if (!Purpose::hasPurpose('place', get_post_type(), true)) {
-            return;
-        }
+        $this->type = is_home() ? 'post' : get_post_type(get_queried_object_id());
 
         $this->setupOpenStreetMap();
     }
 
+    /**
+     * Legacy constructor method
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+    }
+    /**
+     * Setup OpenStreetMap-related data
+     * @return void
+     *
+     */
     private function setupOpenStreetMap()
     {
-        $this->data['displayOpenstreetmap'] = (bool) ($this->data['archiveProps']->displayOpenstreetmap ?? false);
+        $this->data['displayMap'] = in_array('archives', PurposeHelper::purposeMapLocation($this->type), true);
 
-        if (!$this->data['displayOpenstreetmap']) {
-            return;
+        if ($this->data['displayMap'] && !empty($this->data['posts'])) {
+            $displayGoogleMapsLink = PurposeHelper::purposeMapDisplayGoogleMapsLink($this->type);
+
+            $this->data['pins'] = LocationHelper::createPins($this->data['posts'], $displayGoogleMapsLink);
+            $this->data['postsWithLocation'] = LocationHelper::filterPostsWithLocationData($this->data['posts']);
+        } else {
+            $this->data['pins'] = [];
+            $this->data['postsWithLocation'] = [];
         }
-
-        $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink ?? true);
-        $this->data['pins'] = Location::createPins($this->data['posts'], $this->data['displayGoogleMapsLink']);
-        $this->data['postsWithLocation'] = Location::filterPostsWithLocationData($this->data['posts']);
     }
 }

@@ -178,4 +178,42 @@ class Purpose
     {
         return (bool) get_theme_mod("purpose_{$type}_skip_template", false);
     }
+
+    /**
+     * Get the value of the purpose_{$type}_display_map_location theme mod.
+     *
+     * @param string $type The type of purpose to get the value for.
+     *
+     * @return bool The value of the purpose_{$type}_display_map_location theme mod.
+     */
+    public static function purposeMapLocation(string $type = ''): array
+    {
+        return get_theme_mod("purpose_{$type}_display_map_location", []);
+    }
+    public static function purposeMapDisplayGoogleMapsLink(string $type = ''): bool
+    {
+        return get_theme_mod("purpose_{$type}_display_google_maps_link", false);
+    }
+
+
+    public static function hasPlaceData(string $type = '')
+    {
+        $purpose = self::getPurpose($type, true);
+        if (!empty($purpose)) {
+            foreach ($purpose as $currentPurpose) {
+                if ('place' === $currentPurpose->key) {
+                    return true;
+                }
+                if (!empty($currentPurpose->secondaryPurpose)) {
+                    foreach ($currentPurpose->secondaryPurpose as $key => $value) {
+                        if ('place' === $key) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }

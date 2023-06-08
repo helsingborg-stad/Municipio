@@ -2,58 +2,42 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\Data as DataHelper;
-use Municipio\Helper\Purpose as PurposeHelper;
-use Municipio\Helper\Term as TermHelper;
-use Municipio\Helper\Listing as ListingHelper;
+use Municipio\Helper\Location;
+use Municipio\Helper\PurposeHelper;
 
-/**
- * Class SingularPurpose
- * @package Municipio\Controller
- */
 class SingularPurpose extends \Municipio\Controller\Singular
 {
-    public $view;
-    public function __construct()
-    {
-        parent::__construct();
+    public $type;
 
-        $type = $this->data['post']->postType;
-
-        /**
-         * Instantiate the current main purpose
-         */
-        $purpose = PurposeHelper::getPurpose($type);
-        if (!empty($purpose)) {
-            // Run initialisation on the main purpose
-            $instance = PurposeHelper::getPurposeInstance($purpose[0]->key, true);
-            // Set view if allowed
-            if (!PurposeHelper::skipPurposeTemplate($type)) {
-                $this->view = $instance->getView();
-            }
-        }
-
-        // STRUCTURED DATA (SCHEMA.ORG)
-        $this->data['structuredData'] = DataHelper::getStructuredData(
-            $this->data['postType'],
-            $this->getPageID()
-        );
-    }
-
-      /**
-     * @return array|void
-     */
     public function init()
     {
+        add_filter(
+            'Municipio/Controller/Singular/getSingularPosts',
+            [Location::class, 'addLocationDataToPosts'],
+            10,
+            1
+        );
+
         parent::init();
 
-        $post = \Municipio\Helper\PurposePlace::complementPlacePost($this->data['post'], false);
+        $this->type = get_post_type(get_queried_object_id());
 
-        $fields = get_fields($this->getPageID());
+        $this->setupOpenStreetMap();
+    }
 
-        $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
+    private function setupOpenStreetMap()
+    {
+        $this->data['displayMap'] = in_array('singular', PurposeHelper::purposeMapLocation($this->type), true);
 
-        return $this->data;
+        if ($this->data['displayMap']) {
+            $displayGoogleMapsLink = PurposeHelper::purposeMapDisplayGoogleMapsLink($this->type);
+
+            $this->data['pins'] = Location::createPins([$this->data['post']], $displayGoogleMapsLink);
+            $this->data['postsWithLocation'] = Location::filterPostsWithLocationData([$this->data['post']]);
+        } else {
+            $this->data['pins'] = [];
+            $this->data['postsWithLocation'] = [];
+        }
     }
 
     private function getRelatedPosts($postId)

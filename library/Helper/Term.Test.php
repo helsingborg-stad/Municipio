@@ -2,7 +2,6 @@
 
 class TermTest extends WP_UnitTestCase
 {
-
     protected $taxonomy = 'tests_tax';
 
     public function set_up()

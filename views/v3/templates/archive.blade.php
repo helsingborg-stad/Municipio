@@ -44,7 +44,7 @@
         @includeWhen($archiveMenuItems, 'partials.archive.archive-menu')
 
         @if (!empty($posts))
-            @if ($displayOpenstreetmap && !empty($pins))
+            @if ($displayMap && !empty($pins))
                 @openStreetMap([
                     'pins' => $pins,
                     'classList' => ['u-margin__bottom--2'],
@@ -64,8 +64,8 @@
                 @endopenStreetMap
             @endif
             @if ($displayArchiveLoop)
-                @includefirst(
-                    ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
+                @includeFirst(
+                    ["partials.post.{$postType}-{$template}", "partials.post.post-{$template}"],
                     ['posts' => $posts]
                 )
             @endif
