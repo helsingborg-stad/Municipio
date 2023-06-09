@@ -139,12 +139,34 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            if (!empty($data['color'])) {
+            if (!empty($data['color']) && $data['background_color_type'] != 'gradient') {
                 $data['style'][] = "background-color:{$data['color']}";
             }
             if (!empty($data['text_color'])) {
                 $data['style'][] = "color:{$data['text_color']}";
             }
+
+            if (!empty($data['background_gradient']) && $data['background_color_type'] == 'gradient')  {
+                $gradientArr = $data['background_gradient'];
+                $angle = $data['background_gradient_angle'] ?? '0';
+                usort($gradientArr, function ($a, $b) {
+                    return $a['stop'] - $b['stop'];
+                });
+
+                $string = "";
+                foreach ($gradientArr as $key => $gradient) {
+                    $string .= $gradient['color'] . ' ' . $gradient['stop'] . '%';
+
+                    if ($key !== array_key_last($gradientArr)) {
+                        $string .= ', ';
+                    } 
+                }
+                
+                if (!empty($string)) {
+                    $data['style'][] = "background: linear-gradient({$angle}deg, $string);";
+                }
+            }
+
             if (!empty($data['backgroundImage'])) {
                 $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
                 if ($image) {

@@ -6,7 +6,6 @@
             "key": "field_63cfdba39a6d2",
             "label": "Amount of padding",
             "name": "amount",
-            "aria-label": "",
             "type": "range",
             "instructions": "",
             "required": 0,
@@ -16,6 +15,7 @@
                 "class": "",
                 "id": ""
             },
+            "aria-label": "",
             "default_value": 4,
             "min": 0,
             "max": 24,
@@ -27,7 +27,6 @@
             "key": "field_644b6d221b7a4",
             "label": "Content width",
             "name": "content_width",
-            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -37,6 +36,7 @@
                 "class": "",
                 "id": ""
             },
+            "aria-label": "",
             "choices": {
                 "standard": "Standard",
                 "article": "Article"
@@ -55,7 +55,6 @@
             "key": "field_6405fea65cc8f",
             "label": "Background image",
             "name": "backgroundImage",
-            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -65,6 +64,7 @@
                 "class": "",
                 "id": ""
             },
+            "aria-label": "",
             "uploader": "",
             "acfe_thumbnail": 0,
             "return_format": "id",
@@ -79,14 +79,45 @@
             "library": "all"
         },
         {
-            "key": "field_63cfdc219a6d3",
-            "label": "Background color",
-            "name": "color",
-            "aria-label": "",
-            "type": "color_picker",
+            "key": "field_64831fa89c119",
+            "label": "Background color type",
+            "name": "background_color_type",
+            "type": "radio",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Default",
+                "gradient": "Gradient"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "layout": "vertical"
+        },
+        {
+            "key": "field_63cfdc219a6d3",
+            "label": "Background color",
+            "name": "color",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "default"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "50",
                 "class": "",
@@ -97,10 +128,108 @@
             "return_format": "string"
         },
         {
+            "key": "field_64832f14f941f",
+            "label": "Gradient angle",
+            "name": "background_gradient_angle",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "min": "",
+            "max": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_648329b62db2e",
+            "label": "Gradient background color",
+            "name": "background_gradient",
+            "type": "repeater",
+            "instructions": "The color with the lowest stop will always be shown first.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "acfe_repeater_stylised_button": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_64832a1b2db2f",
+                    "label": "color",
+                    "name": "color",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string",
+                    "parent_repeater": "field_648329b62db2e"
+                },
+                {
+                    "key": "field_64832a342db30",
+                    "label": "Stop",
+                    "name": "stop",
+                    "type": "range",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "min": 0,
+                    "max": 100,
+                    "step": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_648329b62db2e"
+                }
+            ]
+        },
+        {
             "key": "field_644b77128c900",
             "label": "Text color",
             "name": "text_color",
-            "aria-label": "",
             "type": "color_picker",
             "instructions": "",
             "required": 0,
@@ -110,6 +239,7 @@
                 "class": "",
                 "id": ""
             },
+            "aria-label": "",
             "default_value": "",
             "enable_opacity": 0,
             "return_format": "string"
