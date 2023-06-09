@@ -187,7 +187,7 @@
             "sub_fields": [
                 {
                     "key": "field_64832a1b2db2f",
-                    "label": "color",
+                    "label": "Color",
                     "name": "color",
                     "type": "color_picker",
                     "instructions": "",

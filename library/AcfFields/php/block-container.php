@@ -190,7 +190,7 @@
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_64832a1b2db2f',
-                    'label' => __('color', 'municipio'),
+                    'label' => __('Color', 'municipio'),
                     'name' => 'color',
                     'type' => 'color_picker',
                     'instructions' => '',
