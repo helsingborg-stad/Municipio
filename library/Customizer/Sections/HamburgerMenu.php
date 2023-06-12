@@ -231,23 +231,5 @@ class HamburgerMenu
                 ['type' => 'controller']
             ]
         ]);
-        
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'hamburger_menu_trigger_style',
-            'label'       => esc_html__('Select menu trigger style', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'basic',
-            'priority'    => 10,
-            'choices' => [
-                'basic' => esc_html__('Basic button', 'municipio'),
-                'filled' => esc_html__('Filled button', 'municipio'),
-                'outlined' => esc_html__('Outlined button', 'municipio'),
-            ],
-            'output' => [
-                ['type' => 'controller']
-            ]
-        ]);
-
     }
 }
