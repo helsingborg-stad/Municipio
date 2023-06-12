@@ -39,7 +39,7 @@ class ComponentData extends AbstractApplicator
                 }
 
 
-                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output'])) {
+                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output']) && !$this->activeCallbackHandler($field)) {
                     foreach ($field['output'] as $output) {
 
                         if (isset($output['context'])) {
