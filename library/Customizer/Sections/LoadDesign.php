@@ -8,7 +8,7 @@ use Municipio\Customizer\PanelsRegistry;
 
 class LoadDesign
 {
-    private const API_URL                   = 'https://customizer.helsingborg.io/';
+    private const API_URL                   = 'https://customizer.municipio.tech/';
     private const LOAD_DESIGN_KEY           = 'load_design';
     private const EXCLUDE_LOAD_DESIGN_KEY   = 'exclude_load_design';
     private $uniqueId               = null;
