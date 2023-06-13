@@ -131,7 +131,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 }
 
 #main-content {
-    #quicklinks-header {
+    #quicklinks-header.c-header--sticky {
         @include mq('sm') {
             border-radius: 0;
             margin-left: -50vw;
