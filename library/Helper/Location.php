@@ -51,7 +51,7 @@ class Location
      * @param boolean $displayGoogleMapsLink Whether to include a Google Maps link in the tooltip.
      * @return array $pin The pin data.
      */
-    public static function createPin($post): array
+    public static function createMapMarker($post): array
     {
         $pin = [];
         if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
@@ -69,7 +69,7 @@ class Location
                 /* Maybe not needed? */
                 'url' => $permalink,
             ];
-            
+
             // Add directions link to tooltip
             if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
                 $directions = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';

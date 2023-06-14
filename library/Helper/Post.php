@@ -212,7 +212,7 @@ class Post
         /* Get location data */
         $postObject->location = get_field('location', $postObject->ID);
         if (!empty($postObject->location)) {
-            $postObject->location['pin'] = \Municipio\Helper\Location::createPin($postObject);
+            $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
         } 
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);

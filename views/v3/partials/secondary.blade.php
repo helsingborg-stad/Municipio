@@ -36,8 +36,7 @@
                                     'containerAware' => true,
                                     'bordered' => true,
                                     'attributeList' => [
-                                        'data-js-map-lat' => $place->location['lat'],
-                                        'data-js-map-lng' => $place->location['lng'],
+                                        'data-js-map-location' => json_encode($place->location['pin']),
                                     ]
                                 ])
                                     @if ($place->callToActionItems['floating'])
