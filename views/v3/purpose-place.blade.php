@@ -102,7 +102,7 @@
                     @segment([
                         'layout' => 'card',
                         'title' => $post->postTitleFiltered,
-                        'content' => $post->excerptShort,
+                        'content' => $post->excerptShorter,
                         'image' => $post->thumbnail['src'],
                         'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
                         'tags' => $post->termsUnlinked,

@@ -51,25 +51,33 @@ class Location
      * @param boolean $displayGoogleMapsLink Whether to include a Google Maps link in the tooltip.
      * @return array $pin The pin data.
      */
-    public static function createPin($post, $displayGoogleMapsLink = false): array
+    public static function createPin($post): array
     {
         $pin = [];
         if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
             $permalink = get_permalink($post->id);
+            $directions = "";
+
             $pin = [
                 'lat' => $post->location['lat'],
                 'lng' => $post->location['lng'],
                 'tooltip' => [
-                    'title' => $post->postTitle ?? '',
-                    'excerpt' => $post->postExcerpt ?? '',
+                    'title' => $post->post_title ?? '',
+                    'excerpt' => $post->post_excerpt ?? '',
                     'url' => $permalink,
                 ],
+                /* Maybe not needed? */
                 'url' => $permalink,
             ];
+            
             // Add directions link to tooltip
-            if ($displayGoogleMapsLink) {
+            if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
+                $directions = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';
+            }
+            
+            if ($directions) {
                 $pin['tooltip']['directions'] = [
-                'url' => $displayGoogleMapsLink,
+                'url' => $directions,
                 'label' => __('Get directions on Google Maps', 'municipio'),
                 ];
             }
