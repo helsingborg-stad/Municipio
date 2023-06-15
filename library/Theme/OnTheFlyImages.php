@@ -111,10 +111,11 @@ class OnTheFlyImages
         $rel_path  = str_replace(array( $upload_dir, ".$ext" ), '', $path);
         $suffix    = "{$width}x{$height}";
         $dest_path = "{$upload_dir}{$rel_path}-{$suffix}.{$ext}";
+        $uniqueId  = "file_exists_" . md5($dest_path); 
         $url       = "{$upload_url}{$rel_path}-{$suffix}.{$ext}";
 
         // If file exists: do nothing
-        if (file_exists($dest_path)) {
+        if ($this->fileExists($dest_path, $uniqueId)) {
             return $url;
         }
 
@@ -133,6 +134,22 @@ class OnTheFlyImages
 
         // Fallback to full size
         return "{$upload_url}{$rel_path}.{$ext}";
+    }
+
+    /**
+     * Look for cached value, otherwise check on disk and store result. 
+     */
+    private function fileExists($destinationPath, $uniqueId) {
+        if(wp_cache_get($uniqueId)) {
+            return true;
+        }
+
+        if(file_exists($destinationPath)) {
+            wp_cache_set($uniqueId, true);
+            return true;
+        }
+
+        return false;
     }
 
     /* Upscale images when they are to small
