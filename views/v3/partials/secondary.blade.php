@@ -11,7 +11,6 @@
         @if ($displaySecondaryMap && !empty($secondaryQuery->pins))
 
             @openStreetMap([
-                'pins' => $secondaryQuery->pins,
                 'classList' => ['u-margin__top--4'],
                 'height' => '100vh',
                 'containerAware' => true,
