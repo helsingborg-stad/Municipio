@@ -21,7 +21,7 @@
                     'element' => 'h1',
                     'variant' => 'h1'
                 ])
-                    {{ $post->postTitleFiltered }}
+                    {!! $post->postTitleFiltered !!}
                 @endtypography
                 @if ($post->callToActionItems['floating'])
                     @icon($post->callToActionItems['floating'])
