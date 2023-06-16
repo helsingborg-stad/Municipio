@@ -146,25 +146,8 @@ class BlockManager
                 $data['style'][] = "color:{$data['text_color']}";
             }
 
-            if (!empty($data['background_gradient']) && $data['background_color_type'] == 'gradient')  {
-                $gradientArr = $data['background_gradient'];
-                $angle = $data['background_gradient_angle'] ?? '0';
-                usort($gradientArr, function ($a, $b) {
-                    return $a['stop'] - $b['stop'];
-                });
-
-                $string = "";
-                foreach ($gradientArr as $key => $gradient) {
-                    $string .= $gradient['color'] . ' ' . $gradient['stop'] . '%';
-
-                    if ($key !== array_key_last($gradientArr)) {
-                        $string .= ', ';
-                    } 
-                }
-                
-                if (!empty($string)) {
-                    $data['style'][] = "background: linear-gradient({$angle}deg, $string);";
-                }
+            if ($this->blockHasBackgroundGradient($data))  {
+                $data['style'][] = $this->getBlockBackgroundGradientStyles($data);
             }
 
             if (!empty($data['backgroundImage'])) {
@@ -195,6 +178,35 @@ class BlockManager
                 ]
             );
         }
+    }
+
+    private function blockHasBackgroundGradient($data):bool {
+        return !empty($data['background_gradient']) && $data['background_color_type'] == 'gradient';
+    }
+
+    private function getBlockBackgroundGradientStyles($data):string {
+        $styles = "";
+        $gradientValues = "";
+        $gradientArr = $data['background_gradient'];
+        $angle = $data['background_gradient_angle'] ?? '0';
+        
+        usort($gradientArr, function ($a, $b) {
+            return $a['stop'] - $b['stop'];
+        });
+
+        foreach ($gradientArr as $key => $gradient) {
+            $gradientValues .= $gradient['color'] . ' ' . $gradient['stop'] . '%';
+
+            if ($key !== array_key_last($gradientArr)) {
+                $gradientValues .= ', ';
+            } 
+        }
+        
+        if (!empty($gradientValues)) {
+            $styles = "background: linear-gradient({$angle}deg, $gradientValues);";
+        }
+
+        return $styles;
     }
 
     /**
