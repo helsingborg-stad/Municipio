@@ -94,7 +94,7 @@ class CustomPostType
                     if (isset($type_definition['menu_icon']) && isset($type_definition['menu_icon']['id']) && is_numeric($type_definition['menu_icon']['id'])) {
                         $image_filepath = get_attached_file($type_definition['menu_icon']['id']);
 
-                        if (file_exists($image_filepath)) {
+                        if (is_admin() && file_exists($image_filepath)) {
                             $args['menu_icon'] = 'data:image/svg+xml;base64,'. base64_encode(
                                 file_get_contents($image_filepath)
                             );
