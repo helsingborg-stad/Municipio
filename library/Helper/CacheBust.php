@@ -12,19 +12,26 @@ class CacheBust
     {
         static $revManifest;
         if (!isset($revManifest)) {
-            $revManifestPath =
-                get_stylesheet_directory() . '/assets/dist/manifest.json';
-            if (file_exists($revManifestPath)) {
-                $revManifest = json_decode(
-                    file_get_contents($revManifestPath),
-                    true
-                );
-            } elseif (WP_DEBUG) {
-                echo '<div style="color:red">Error: Assets not built. Go to ' .
-                    get_stylesheet_directory() .
-                    ' and run "npm run build". See ' .
-                    get_stylesheet_directory() .
-                    '/README.md for more info.</div>';
+
+            //Ty to get cached value
+            $revManifest = wp_cache_get('municipio-rev-manifest', false);
+            
+            //If not found, get rev manifest from file
+            if($revManifest !== false) {
+                $revManifestPath = get_stylesheet_directory() . '/assets/dist/manifest.json';
+                if (file_exists($revManifestPath)) {
+                    $revManifest = json_decode(
+                        file_get_contents($revManifestPath),
+                        true
+                    );
+                    wp_cache_set('municipio-rev-manifest', $revManifest);
+                } elseif (WP_DEBUG) {
+                    echo '<div style="color:red">Error: Assets not built. Go to ' .
+                        get_stylesheet_directory() .
+                        ' and run "npm run build". See ' .
+                        get_stylesheet_directory() .
+                        '/README.md for more info.</div>';
+                }
             }
         }
         return $revManifest[$name];

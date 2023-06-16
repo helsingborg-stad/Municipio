@@ -1,6 +1,8 @@
 <?php
 namespace Municipio\Helper;
 
+use Municipio\Helper\File as FileHelper;
+
 class VideoService
 {
     protected $url;
@@ -44,7 +46,7 @@ class VideoService
     }
     private function maybeDownloadCoverArt()
     {
-        if (!file_exists($this->filePath)) {
+        if (!FileHelper::fileExists($this->filePath)) {
             $this->downloadCoverImage();
         }
         
@@ -190,7 +192,7 @@ class VideoService
             $fileSystem->mkdir($this->uploadsSubDir, FS_CHMOD_DIR);
         }
         
-        if (!file_exists($this->filePath)) {
+        if (!FileHelper::fileExists($this->filePath)) {
             return $fileSystem->put_contents(
                 $this->filePath,
                 $fileContent,

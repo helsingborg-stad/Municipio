@@ -27,4 +27,31 @@ class File
         }
         return null;
     }
+
+    /**
+     * Check if a file exists, cache in redis. 
+     *
+     * @param   string  The file path
+     *
+     * @return  bool    If the file exists or not.
+     */
+    public static function fileExists($filePath)
+    {
+        //Unique cache value
+        $uid = "municipio_file_exists_cache_" . md5($filePath); 
+
+        //If in cahce, found
+        if(wp_cache_get($uid)) {
+            return true;
+        }
+
+        //If not in cache, look for it, if found cache. 
+        if(file_exists($filePath)) {
+            wp_cache_set($uid, true);
+            return true;
+        }
+
+        //Opsie, file not found
+        return false; 
+    }
 }

@@ -5,7 +5,7 @@ namespace Municipio\Helper;
 use WP_Error;
 use WP_Post;
 use WP_Query;
-
+use Municipio\Helper\File as FileHelper;
 class Image
 {
     public const SIDELOADED_IDENTIFIER_KEY = "sideloaded_identifier";
@@ -35,7 +35,7 @@ class Image
 
         $imagePath = self::removeImageSize($imagePath);
 
-        if (!file_exists($imagePath)) {
+        if (!FileHelper::fileExists($imagePath)) {
             return false;
         }
 
@@ -45,7 +45,7 @@ class Image
         $suffix    = "{$width}x{$height}";
         $destPath = "{$imagePathInfo['dirname']}/{$imagePathInfo['filename']}-{$suffix}.{$ext}";
 
-        if (file_exists($destPath)) {
+        if (FileHelper::fileExists($destPath)) {
             return self::pathToUrl($destPath);
         }
 
