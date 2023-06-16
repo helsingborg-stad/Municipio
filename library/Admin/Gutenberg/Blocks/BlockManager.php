@@ -139,12 +139,17 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            if (!empty($data['color'])) {
+            if (!empty($data['color']) && $data['background_color_type'] != 'gradient') {
                 $data['style'][] = "background-color:{$data['color']}";
             }
             if (!empty($data['text_color'])) {
                 $data['style'][] = "color:{$data['text_color']}";
             }
+
+            if ($this->blockHasBackgroundGradient($data))  {
+                $data['style'][] = $this->getBlockBackgroundGradientStyles($data);
+            }
+
             if (!empty($data['backgroundImage'])) {
                 $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
                 if ($image) {
@@ -173,6 +178,35 @@ class BlockManager
                 ]
             );
         }
+    }
+
+    private function blockHasBackgroundGradient($data):bool {
+        return !empty($data['background_gradient']) && $data['background_color_type'] == 'gradient';
+    }
+
+    private function getBlockBackgroundGradientStyles($data):string {
+        $styles = "";
+        $gradientValues = "";
+        $gradientArr = $data['background_gradient'];
+        $angle = $data['background_gradient_angle'] ?? '0';
+        
+        usort($gradientArr, function ($a, $b) {
+            return $a['stop'] - $b['stop'];
+        });
+
+        foreach ($gradientArr as $key => $gradient) {
+            $gradientValues .= $gradient['color'] . ' ' . $gradient['stop'] . '%';
+
+            if ($key !== array_key_last($gradientArr)) {
+                $gradientValues .= ', ';
+            } 
+        }
+        
+        if (!empty($gradientValues)) {
+            $styles = "background: linear-gradient({$angle}deg, $gradientValues);";
+        }
+
+        return $styles;
     }
 
     /**
