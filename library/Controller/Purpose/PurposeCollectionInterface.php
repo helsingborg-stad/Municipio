@@ -3,28 +3,28 @@
 namespace Municipio\Controller\Purpose;
 
 /**
- * The 'PurposeCollection' Interface
+ * The 'PurposeCollectionInterface' Interface
  *
  * This interface is designed to be used by classes that
- * manage a collection of 'PurposeComponent' instances (ie simple purposes).
+ * manage a collection of 'PurposeComponentInterface' instances (ie simple purposes).
  *
  * This is particularly useful for complex purpose classes that are composed of other
  * purposes, allowing them to aggregate the functionalities of their components.
  *
  * It's important to note that not all purposes require to implement this interface.
  * Simpler purposes such as 'Place' which are not composed of other purposes do not need
- * to manage a collection and therefor doesn't need to implement 'PurposeCollection'.
+ * to manage a collection and therefor doesn't need to implement 'PurposeCollectionInterface'.
  *
  * @package Municipio\Controller\Purpose
  */
 
-interface PurposeCollection
+interface PurposeCollectionInterface
 {
     /**
-     * Adds a PurposeComponent instance to the collection.
+     * Adds a PurposeComponentInterface instance to the collection.
      *
-     * @param PurposeComponent $purpose The PurposeComponent instance to add.
+     * @param PurposeComponentInterface $purpose The PurposeComponentInterface instance to add.
      * @return void
      */
-    public function addPurpose(PurposeComponent $purpose): void;
+    public function addPurpose(PurposeComponentInterface $purpose): void;
 }

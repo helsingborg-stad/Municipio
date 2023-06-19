@@ -3,7 +3,7 @@
 namespace Municipio\Controller\Purpose;
 
 /**
- * The 'PurposeComponent' Interface
+ * The 'PurposeComponentInterface' Interface
  *
  * This interface defines the standard functionality that
  * every purpose, both simple and complex, should implement.
@@ -13,7 +13,7 @@ namespace Municipio\Controller\Purpose;
  * and it is implemented by the 'PurposeFactory' class that all purposes should inherit.
  */
 
-interface PurposeComponent
+interface PurposeComponentInterface
 {
     /**
      * Initializes the purpose component.

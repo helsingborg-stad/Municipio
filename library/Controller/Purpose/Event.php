@@ -9,7 +9,7 @@ namespace Municipio\Controller\Purpose;
  *
  * @package Municipio\Controller\Purpose
  */
-class Event extends PurposeFactory implements PurposeCollection
+class Event extends PurposeFactory implements PurposeCollectionInterface
 {
     public function __construct()
     {
@@ -29,10 +29,10 @@ class Event extends PurposeFactory implements PurposeCollection
     /**
      * addPurpose
      *
-     * @param PurposeComponent $purpose
+     * @param PurposeComponentInterface $purpose
      * @return void
      */
-    public function addPurpose(PurposeComponent $purpose): void
+    public function addPurpose(PurposeComponentInterface $purpose): void
     {
         $this->purposes[] = $purpose;
     }
