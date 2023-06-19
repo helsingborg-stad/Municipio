@@ -2,7 +2,21 @@
 
 namespace Municipio\Controller\Purpose;
 
-class PurposeFactory
+/**
+ * The PurposeFactory Class
+ *
+ * This class is a basic implementation of the 'PurposeComponent' interface. It provides
+ * default methods and properties for a purpose. Designed to be a base class for all
+ * purpose classes in the project.
+ *
+ * A simple purpose class that doesn't need to manage/load other purposes should extend
+ * this class to gain basic functionalities. An example of a simple purpose is 'Place'.
+ *
+ * A complex purpose is a class that needs to manage/load other purposes and it should extend
+ * this class and also implement the 'PurposeCollection' interface. An example of a complex
+ * purpose is 'Event',
+ */
+class PurposeFactory implements PurposeComponent
 {
     public string $key;
     public string $label;
@@ -13,26 +27,16 @@ class PurposeFactory
     {
         $this->key              = $key;
         $this->label            = $label;
-        $this->secondaryPurpose = $secondaryPurpose;
         $this->view             = "purpose-{$key}";
 
         self::initSecondaryPurposes();
     }
     /**
-     * This method is empty by default and can be overridden by subclasses to add their own initialization logic.
+     * This method is empty by default and can be overridden by subclasses
+     * to add their own initialization logic.
      */
     public function init(): void
     {
-    }
-
-    protected function initSecondaryPurposes()
-    {
-        if (!empty($this->getSecondaryPurpose())) {
-            foreach ($this->getSecondaryPurpose() as $className) {
-                $instance = new $className();
-                $instance->init();
-            }
-        }
     }
     public function getLabel(): string
     {
@@ -45,9 +49,5 @@ class PurposeFactory
     public function getView(): string
     {
         return $this->view;
-    }
-    public function getSecondaryPurpose(): array
-    {
-        return $this->secondaryPurpose;
     }
 }

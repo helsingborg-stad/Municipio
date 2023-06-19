@@ -4,6 +4,9 @@ namespace Municipio\Controller\Purpose;
 
 /**
  * Class Place
+ *
+ * Used to represent physical places such as buildings, parks, etc.
+ *
  * @package Municipio\Controller\Purpose
  */
 class Place extends PurposeFactory
