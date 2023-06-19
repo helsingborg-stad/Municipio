@@ -71,9 +71,7 @@ class Location
             ];
 
             // Add directions link to tooltip
-            if (!empty($post->location['lat']) && !empty($post->location['lng'])) {
-                $directions = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';
-            }
+            $directions = 'https://www.google.com/maps/dir/?api=1&destination=' . $post->location['lat'] . ',' . $post->location['lng'] . '&travelmode=transit';
             
             if ($directions) {
                 $pin['tooltip']['directions'] = [
