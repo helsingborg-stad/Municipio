@@ -3,9 +3,7 @@
 namespace Municipio\Controller\Purpose;
 
 /**
- * The 'PurposeComponentInterface' Interface
- *
- * This interface defines the standard functionality that
+ * 'PurposeComponentInterface' defines the standard functionality that
  * every purpose, both simple and complex, should implement.
  *
  * It's the core contract that all purpose types in the project adhere to, ensuring
