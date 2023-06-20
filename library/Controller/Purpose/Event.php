@@ -49,16 +49,17 @@ class Event extends PurposeFactory implements PurposeCollectionInterface
             return $structuredData;
         }
 
-       // Retrieve the event post meta data
-        $eventMeta = get_post_meta($postId);
+        $post = \Municipio\Helper\Post::preparePostObject(get_post($postId));
 
        // Build the schema.org event data
         $eventData = [
         '@type'       => 'Event',
-        'name'        => get_the_title($postId),
-        'description' => get_the_excerpt($postId),
+        'name'        => $post->postTitle,
+        'description' => $post->postExcerpt,
         'offers'      => [],
         ];
+
+        $eventMeta = get_post_meta($postId);
 
        // Event dates
         $occasions = $eventMeta['occasions_complete'][0] ?? null;

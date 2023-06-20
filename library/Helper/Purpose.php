@@ -51,36 +51,42 @@ class Purpose
     }
 
     /**
-     * Returns an array of purpose objects for the specified post type.
+     * Get the purpose instance for a given type.
      *
-     * @param string $type The post type for which to get the purpose. Defaults to the current type.
+     * @param string $type The type of purpose to get.
      *
-     * @return array An array of purpose objects.
+     * @return mixed The purpose instance for the given type, or false if no purpose is set.
      */
-    public static function getPurpose(string $type = ''): array
+    public static function getPurpose(string $type = '')
     {
         if (!$type) {
             $type = self::getCurrentType();
         }
 
-        $purpose = [];
+        $purpose = false;
         $purposeStr = get_option("options_purpose_{$type}", false);
 
         if ($purposeStr) {
-            $instance = self::getPurposeInstance($purposeStr);
-            $purpose[] = $instance;
-
-            if (!empty($instance->secondaryPurpose)) {
-                foreach ($instance->secondaryPurpose as $key => $className) {
-                    $secondaryInstance = self::getPurposeInstance($key);
-                    if ($secondaryInstance) {
-                        $purpose[] = $secondaryInstance;
-                    }
-                }
-            }
+            $purpose = self::getPurposeInstance($purposeStr);
         }
 
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
+    }
+
+    /**
+     * Get an instance of a purpose
+     *
+     * @param string purpose The purpose you want to get the instance of.
+     *
+     * @return The class instance of the purpose.
+     */
+    private static function getPurposeInstance(string $purpose)
+    {
+        $registeredPurposes = self::getRegisteredPurposes(true);
+
+        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['instance'])) {
+            return $registeredPurposes[$purpose]['instance'];
+        }
     }
     /**
      * Checks if a $type has a specific purpose set.
@@ -127,23 +133,6 @@ class Purpose
             return true;
         }
         return false;
-    }
-    /**
-     * Get an instance of a purpose
-     *
-     * @param string purpose The purpose you want to get the instance of.
-     *
-     * @return The class instance of the purpose.
-     */
-    public static function getPurposeInstance(string $purpose)
-    {
-        $registeredPurposes = self::getRegisteredPurposes(true);
-
-        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['instance'])) {
-            $instance = $registeredPurposes[$purpose]['instance'];
-
-            return $instance;
-        }
     }
 
     /**
