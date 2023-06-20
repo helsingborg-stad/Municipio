@@ -51,12 +51,11 @@ class Purpose
     }
 
     /**
-     * It returns an array of objects that represent the purpose of the current page
+     * Returns an array of purpose objects for the specified post type.
      *
-     * @param string type The type of purpose to get. Defaults to the current type.
-     * @param bool includeSecondary If you want to include secondary purposes.
+     * @param string $type The post type for which to get the purpose. Defaults to the current type.
      *
-     * @return array An array of objects.
+     * @return array An array of purpose objects.
      */
     public static function getPurpose(string $type = ''): array
     {
@@ -84,7 +83,6 @@ class Purpose
         return apply_filters('Municipio/Purpose/getPurpose', $purpose, $type);
     }
     /**
-     * hasPurpose
      * Checks if a $type has a specific purpose set.
      *
      * @param string $purposeToCheckFor The purpose to check for.
@@ -93,6 +91,7 @@ class Purpose
      *
      * @return boolean
      */
+
     public static function hasPurpose(
         string $purposeToCheckFor = '',
         string $typeToCheck = ''
@@ -117,7 +116,6 @@ class Purpose
         return false;
     }
     /**
-     * hasAnyPurpose
      * Checks if a $type has any purpose set.
      *
      * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
@@ -131,8 +129,7 @@ class Purpose
         return false;
     }
     /**
-     * getPurposeInstance
-     * Get an instance of a specific purpose
+     * Get an instance of a purpose
      *
      * @param string purpose The purpose you want to get the instance of.
      *
@@ -150,11 +147,11 @@ class Purpose
     }
 
     /**
-     * Get the current type.
+     * Get the current type based on the queried object.
      *
-     * @param string $current The current type.
+     * @param string $current The current queried object. Defaults to an empty string.
      *
-     * @return string The current type.
+     * @return string The current type (post type or taxonomy).
      */
     private static function getCurrentType(string $current = ''): string
     {
@@ -176,11 +173,11 @@ class Purpose
     }
 
     /**
-     * If the user has opted to skip the purpose template, return true. Otherwise, return false.
+     * Checks if the user has opted to skip the purpose template for a specific type.
      *
-     * @param string type The type of template to check.
+     * @param string $type The type of template to check (post type or taxonomy). Defaults to an empty string.
      *
-     * @return bool A boolean value.
+     * @return bool A boolean value indicating whether the user has opted to skip the purpose template.
      */
     public static function skipPurposeTemplate(string $type = ''): bool
     {
