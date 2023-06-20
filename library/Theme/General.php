@@ -245,14 +245,16 @@ class General
 
     public function appendPurposeCssClass($classes)
     {
-        if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
-            foreach ($purposes as $purpose) {
-                $classes[] = "purpose-{$purpose->getKey()} primary-purpose-{$purpose->getKey()}";
+        if (\Municipio\Helper\Purpose::hasAnyPurpose()) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose();
+            $classes = [
+                "purpose-{$purpose->getKey()}",
+                "primary-purpose-{$purpose->getKey()}"
+            ];
 
-                if (!empty($purpose->secondaryPurpose)) {
-                    foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
-                            $classes[] = "secondary-purpose-{$secondaryPurpose->getKey()}";
-                    }
+            if (!empty($purpose->secondaryPurpose)) {
+                foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
+                        $classes[] = "secondary-purpose-{$secondaryPurpose->getKey()}";
                 }
             }
         }
