@@ -20,21 +20,13 @@ class PurposeFactory implements PurposeComponentInterface
 {
     protected string $key;
     protected string $label;
-    protected string $view;
 
     public function __construct(string $key, string $label)
     {
         $this->key              = $key;
         $this->label            = $label;
-        $this->view             = "purpose-{$key}";
     }
-    /**
-     * This method is empty by default and can be overridden by subclasses
-     * to add their own initialization logic.
-     */
-    public function init(): void
-    {
-    }
+
     public function getLabel(): string
     {
         return $this->label;
@@ -45,6 +37,6 @@ class PurposeFactory implements PurposeComponentInterface
     }
     public function getView(): string
     {
-        return $this->view;
+        return "purpose-{$this->getKey()}";
     }
 }

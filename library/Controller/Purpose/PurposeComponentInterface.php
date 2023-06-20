@@ -14,13 +14,6 @@ namespace Municipio\Controller\Purpose;
 interface PurposeComponentInterface
 {
     /**
-     * Initializes the purpose component.
-     *
-     * @return void
-     */
-    public function init(): void;
-
-    /**
      * Gets the label for the purpose component.
      *
      * @return string The label.

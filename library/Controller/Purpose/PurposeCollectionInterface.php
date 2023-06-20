@@ -25,5 +25,5 @@ interface PurposeCollectionInterface
      * @param PurposeComponentInterface $purpose The PurposeComponentInterface instance to add.
      * @return void
      */
-    public function addPurpose(PurposeComponentInterface $purpose): void;
+    public function addSecondaryPurpose(PurposeComponentInterface $purpose): void;
 }

@@ -13,13 +13,23 @@ class Project extends PurposeFactory
         $this->key = 'project';
         $this->label = __('Project', 'municipio');
 
-        parent::__construct($this->key, $this->label, ['place' => Place::class]);
-    }
+        parent::__construct($this->key, $this->label);
 
-    public function init(): void
-    {
+        $this->addSecondaryPurpose(new Place());
+
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+    }
+
+    /**
+     * addSecondaryPurpose
+     *
+     * @param PurposeComponentInterface $purpose
+     * @return void
+     */
+    public function addSecondaryPurpose(PurposeComponentInterface $purpose): void
+    {
+        $this->secondaryPurpose[] = $purpose;
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data

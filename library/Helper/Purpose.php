@@ -36,7 +36,7 @@ class Purpose
 
                     if ($includeExtras) {
                         $purposes[$instance->getKey()] = [
-                            'class'     => $instance,
+                            'instance'  => $instance,
                             'className' => $classNameWithNamespace,
                             'path'      => $filename
                         ];
@@ -58,23 +58,25 @@ class Purpose
      *
      * @return array An array of objects.
      */
-    public static function getPurpose(string $type = '', bool $includeSecondary = false): array
+    public static function getPurpose(string $type = ''): array
     {
-        if ('' === $type) {
+        if (!$type) {
             $type = self::getCurrentType();
         }
 
         $purpose = [];
-        $purposeStr = get_option("options_purpose_{$type}", '');
+        $purposeStr = get_option("options_purpose_{$type}", false);
 
-        if ('' !== $purposeStr) {
+        if ($purposeStr) {
             $instance = self::getPurposeInstance($purposeStr);
             $purpose[] = $instance;
 
-            if ($includeSecondary && !empty($instance->secondaryPurpose)) {
+            if (!empty($instance->secondaryPurpose)) {
                 foreach ($instance->secondaryPurpose as $key => $className) {
-                    $secondaryInstance = self::getPurposeInstance($key, false);
-                    $purpose[] = $secondaryInstance;
+                    $secondaryInstance = self::getPurposeInstance($key);
+                    if ($secondaryInstance) {
+                        $purpose[] = $secondaryInstance;
+                    }
                 }
             }
         }
@@ -83,6 +85,7 @@ class Purpose
     }
     /**
      * hasPurpose
+     * Checks if a $type has a specific purpose set.
      *
      * @param string $purposeToCheckFor The purpose to check for.
      * @param string $typeToCheck The type of purpose to check.
@@ -92,20 +95,29 @@ class Purpose
      */
     public static function hasPurpose(
         string $purposeToCheckFor = '',
-        string $typeToCheck = '',
-        bool $includeSecondary = false
+        string $typeToCheck = ''
     ): bool {
-        $purpose = self::getPurpose($typeToCheck, $includeSecondary);
+        $purpose = self::getPurpose($typeToCheck);
         if (!empty($purpose)) {
             foreach ($purpose as $key => $value) {
+                // Check if the main purpose matches the purpose we're checking for.
                 if ($purposeToCheckFor === $value->key) {
                     return true;
+                }
+                // Check if any of the secondary purposes matches the purpose we're checking for.
+                if (!empty($value->secondaryPurpose)) {
+                    foreach ($value->secondaryPurpose as $secondaryPurpose) {
+                        if ($purposeToCheckFor === $secondaryPurpose->key) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
     /**
+     * hasAnyPurpose
      * Checks if a $type has any purpose set.
      *
      * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
@@ -119,25 +131,22 @@ class Purpose
         return false;
     }
     /**
-     * > Get the instance of a registered purpose
+     * getPurposeInstance
+     * Get an instance of a specific purpose
      *
      * @param string purpose The purpose you want to get the instance of.
-     * @param bool init If true, the purpose will be initialized via it's init() method.
      *
      * @return The class instance of the purpose.
      */
-    public static function getPurposeInstance(string $purpose, bool $init = false)
+    public static function getPurposeInstance(string $purpose)
     {
         $registeredPurposes = self::getRegisteredPurposes(true);
-        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['class'])) {
-            $instance = $registeredPurposes[$purpose]['class'];
-            if (true === $init) {
-                $instance->init();
-            }
+
+        if (isset($registeredPurposes[$purpose]) && isset($registeredPurposes[$purpose]['instance'])) {
+            $instance = $registeredPurposes[$purpose]['instance'];
+
             return $instance;
         }
-
-        return false;
     }
 
     /**
@@ -149,7 +158,7 @@ class Purpose
      */
     private static function getCurrentType(string $current = ''): string
     {
-        if ('' === $current) {
+        if (!$current) {
             $current = get_queried_object();
         }
 
@@ -165,7 +174,6 @@ class Purpose
 
         return $type;
     }
-
 
     /**
      * If the user has opted to skip the purpose template, return true. Otherwise, return false.

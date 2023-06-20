@@ -18,23 +18,20 @@ class Event extends PurposeFactory implements PurposeCollectionInterface
 
         parent::__construct($this->key, $this->label);
 
-        $this->addPurpose(new Place());
-    }
+        $this->addSecondaryPurpose(new Place());
 
-    public function init(): void
-    {
         // Append structured data to use for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
-     * addPurpose
+     * addSecondaryPurpose
      *
      * @param PurposeComponentInterface $purpose
      * @return void
      */
-    public function addPurpose(PurposeComponentInterface $purpose): void
+    public function addSecondaryPurpose(PurposeComponentInterface $purpose): void
     {
-        $this->purposes[] = $purpose;
+        $this->secondaryPurpose[] = $purpose;
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data for events.
