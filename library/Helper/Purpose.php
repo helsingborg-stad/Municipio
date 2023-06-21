@@ -115,8 +115,8 @@ class Purpose
 
     private static function checkMainPurpose(array $purpose, string $purposeToCheckFor): bool
     {
-        foreach ($purpose as $key => $value) {
-            if ($purposeToCheckFor === $value->key) {
+        foreach ($purpose as $item) {
+            if ($purposeToCheckFor === $item->key) {
                 return true;
             }
         }
@@ -125,9 +125,9 @@ class Purpose
 
     private static function checkSecondaryPurpose(array $purpose, string $purposeToCheckFor): bool
     {
-        foreach ($purpose as $key => $value) {
-            if (!empty($value->secondaryPurpose)) {
-                foreach ($value->secondaryPurpose as $secondaryPurpose) {
+        foreach ($purpose as $item) {
+            if (!empty($item->secondaryPurpose)) {
+                foreach ($item->secondaryPurpose as $secondaryPurpose) {
                     if ($purposeToCheckFor === $secondaryPurpose->key) {
                         return true;
                     }
