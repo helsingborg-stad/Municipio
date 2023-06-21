@@ -102,19 +102,34 @@ class Purpose
         string $purposeToCheckFor = '',
         string $typeToCheck = ''
     ): bool {
-        $purpose = self::getPurpose($typeToCheck);
-        if (!empty($purpose)) {
-            foreach ($purpose as $key => $value) {
-                // Check if the main purpose matches the purpose we're checking for.
-                if ($purposeToCheckFor === $value->key) {
-                    return true;
-                }
-                // Check if any of the secondary purposes matches the purpose we're checking for.
-                if (!empty($value->secondaryPurpose)) {
-                    foreach ($value->secondaryPurpose as $secondaryPurpose) {
-                        if ($purposeToCheckFor === $secondaryPurpose->key) {
-                            return true;
-                        }
+        if ($purpose = self::getPurpose($typeToCheck)) {
+            if (self::checkMainPurpose($purpose, $purposeToCheckFor)) {
+                return true;
+            }
+            if (self::checkSecondaryPurpose($purpose, $purposeToCheckFor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static function checkMainPurpose(array $purpose, string $purposeToCheckFor): bool
+    {
+        foreach ($purpose as $key => $value) {
+            if ($purposeToCheckFor === $value->key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static function checkSecondaryPurpose(array $purpose, string $purposeToCheckFor): bool
+    {
+        foreach ($purpose as $key => $value) {
+            if (!empty($value->secondaryPurpose)) {
+                foreach ($value->secondaryPurpose as $secondaryPurpose) {
+                    if ($purposeToCheckFor === $secondaryPurpose->key) {
+                        return true;
                     }
                 }
             }
