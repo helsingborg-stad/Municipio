@@ -10,7 +10,8 @@
     "skipLibCheck": true,
     "lib": [
       "ES2021.String",
-      "DOM"
+      "DOM",
+      "DOM.Iterable",
     ]
   },
   "include": [
