@@ -12,7 +12,7 @@ class PostFilters
 
         add_action('posts_where', array($this, 'doPostDateFiltering'));
 
-        add_action('pre_get_posts', array($this, 'excludeFontAttachmentsFromFilters'));
+        add_action('pre_get_posts', array($this, 'suppressFiltersOnFontAttachments'));
 
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_action('pre_get_posts', array($this, 'doPostOrderBy'));
@@ -355,11 +355,23 @@ class PostFilters
         }
         return true;
     }
-    public function excludeFontAttachmentsFromFilters($query)
+    public function suppressFiltersOnFontAttachments($query)
     {
-        if ($query->get('post_type') == 'attachment') {
-            $query->set('suppress_filters', true);
+        /**
+         * Suppress filters for font attachments in queries
+         *
+         * @param WP_Query $query
+         * @return void
+         */
+        if (
+            $query->get('post_type') == 'attachment' &&
+                !empty(array_filter($query->get('post_mime_type'), function ($item) {
+                    return strpos($item, 'font') !== false;
+                }))
+        ) {
+                $query->set('suppress_filters', true);
         }
+
         return $query;
     }
 }
