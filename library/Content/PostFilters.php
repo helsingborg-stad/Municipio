@@ -11,6 +11,9 @@ class PostFilters
         add_filter('query_vars', array($this, 'addQueryVars'));
 
         add_action('posts_where', array($this, 'doPostDateFiltering'));
+
+        add_action('pre_get_posts', array($this, 'excludeFontAttachmentsFromFilters'));
+
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_action('pre_get_posts', array($this, 'doPostOrderBy'));
         add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
@@ -157,7 +160,7 @@ class PostFilters
             return $query;
         }
 
-        if(get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
+        if (get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
             $taxQuery = array('relation' => 'AND');
         } else {
             $taxQuery = array('relation' => 'OR');
@@ -351,5 +354,12 @@ class PostFilters
             return false;
         }
         return true;
+    }
+    public function excludeFontAttachmentsFromFilters($query)
+    {
+        if ($query->get('post_type') == 'attachment') {
+            $query->set('suppress_filters', true);
+        }
+        return $query;
     }
 }
