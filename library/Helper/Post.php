@@ -215,6 +215,13 @@ class Post
             $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
         } 
 
+        if (!empty($postObject->post_type)) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose($postObject->post_type);
+            if (!empty($purpose)) {
+                $postObject->purpose = $purpose[0]->key;
+            }
+        }
+
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
