@@ -267,7 +267,7 @@ class Post
      */
     protected static function getPostTerms($postId, $includeLink = true, $taxonomies = false)
     {
-        if (!$taxonomies) {
+        if (empty($taxonomies) && !is_array($taxonomies)) {
             $taxonomies = get_theme_mod(
                 'archive_' . get_post_type($postId) . '_taxonomies_to_display',
                 false
