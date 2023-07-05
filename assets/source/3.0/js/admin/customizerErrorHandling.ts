@@ -7,7 +7,7 @@ export default (() => {
         if (publishButton) {
             publishButton.addEventListener('click', (e) => {
                 const controls = wp.customize.control._value;
-
+                console.log("Settings: ", wp.customize.settings);
                 Object.keys(controls).forEach(key => {
                     const control = controls[key];
 
