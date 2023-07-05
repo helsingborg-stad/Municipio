@@ -85,6 +85,7 @@
 
         {{-- Select dropdowns for filtering --}}
         <div class="o-grid u-align-content--end">
+          
             @foreach ($taxonomyFilters as $key => $select)
                 <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                     @if ('multi' === $select['fieldType'])
@@ -103,7 +104,8 @@
                     @endif
                 </div>
             @endforeach
-
+        
+            {{-- Facetting --}}
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
                     'text' => $facettingType ? $lang->filterBtn : $lang->searchBtn,

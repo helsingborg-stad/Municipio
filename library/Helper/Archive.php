@@ -116,6 +116,11 @@ class Archive
             $enabledFilters = $args->enabledFilters;
         }
 
+        $current = get_queried_object();
+        if (is_a($current, 'WP_Term') && ('event_categories' === $current->taxonomy || 'event_tags' === $current->taxonomy)) {
+            return true;
+        }
+
         return apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
     }
 
