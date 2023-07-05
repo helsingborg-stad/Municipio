@@ -428,10 +428,10 @@ class Archive extends \Municipio\Controller\BaseController
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = array_diff(
+        $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
             $args->enabledFilters,
             [$this->currentTaxonomy()]
-        );
+        ), $this->currentTaxonomy());
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
