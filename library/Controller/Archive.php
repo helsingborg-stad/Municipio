@@ -428,14 +428,10 @@ class Archive extends \Municipio\Controller\BaseController
         $taxonomyObjects = [];
 
         //Get active taxonomy filters
-        $taxonomies = $args->enabledFilters;
-
-        if ('event_categories' !== $this->currentTaxonomy() && 'event_tags' !== $this->currentTaxonomy()) {
-            $taxonomies = array_diff(
-                $args->enabledFilters,
-                [$this->currentTaxonomy()]
-            );
-        }
+        $taxonomies = apply_filters('Municipio/Archive/getTaxonomyFilters/taxonomies', array_diff(
+            $args->enabledFilters,
+            [$this->currentTaxonomy()]
+        ), $this->currentTaxonomy());
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
             foreach ($taxonomies as $taxonomy) {
