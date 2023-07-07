@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Sections;
 
 use Kirki\Compatibility\Kirki;
 use Kirki\Field\Upload as UploadField;
+use Kirki\Field\TextArea as TextareaField;
 
 class Logo
 {
@@ -26,6 +27,13 @@ class Logo
             'logotype',
             esc_html__('Primary logo', 'municipio'),
             $primaryDescription
+        );
+
+        $primaryLogoField = $this->getTextAreaField(
+            $sectionID,
+            'brand_text',
+            esc_html__('Brand Text', 'municipio'),
+            ""
         );
 
         $secondaryLogoField = $this->getImageField(
@@ -62,5 +70,22 @@ class Logo
                 'as_object' => false,
             ]
         ]]);
+    }
+
+    private function getTextAreaField(string $sectionID, string $setting, string $label, string $description): TextareaField
+    {
+        return new TextareaField([
+            'settings'          => $setting,
+            'label'             => $label,
+            'description'       => $description,
+            'section'           => $sectionID,
+            'default'           => '',
+            'output'            => [
+                [
+                    'type' => 'controller',
+                    'as_object' => false,
+                ]
+            ]
+        ]);
     }
 }

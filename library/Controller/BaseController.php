@@ -74,6 +74,7 @@ class BaseController
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
         $this->data['showEmblemInHero']     = $this->data['customizer']->showEmblemInHero ?? true;
+        $this->data['brandText']            = $this->getMultilineTextAsArray($this->data['customizer']->brandText ?? '');
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
@@ -766,6 +767,17 @@ class BaseController
 
         //Return
         return $logotypeUrl;
+    }
+
+    public function getMultilineTextAsArray(string $text)
+    {
+        $trimmed = trim($text);
+        
+        if( empty($trimmed) ) {
+            return null;
+        }
+
+        return explode("\n", $trimmed);
     }
 
     /**

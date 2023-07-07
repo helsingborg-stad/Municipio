@@ -13,8 +13,8 @@
 }
 
 // Logo
-.c-header.c-header--business .c-logotype,
-.c-header.c-header--casual .c-logotype {
+.c-header.c-header--business .c-logotype:not(.c-brand .c-logotype),
+.c-header.c-header--casual .c-logotype:not(.c-brand .c-logotype) {
     display: block;
     width: auto;
     margin: auto;
