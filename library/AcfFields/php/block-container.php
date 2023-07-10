@@ -1,5 +1,5 @@
 <?php 
-
+
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_63cfdba21f7fc',
@@ -137,7 +137,15 @@
             'type' => 'radio',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_64831fa89c119',
+                        'operator' => '==',
+                        'value' => 'gradient',
+                    ),
+                ),
+            ),
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
