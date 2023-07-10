@@ -189,13 +189,16 @@ class BlockManager
         $gradientValues = "";
         $gradientArr = $data['background_gradient'];
         $angle = $data['background_gradient_angle'] ?? '0';
-        
-        usort($gradientArr, function ($a, $b) {
-            return $a['stop'] - $b['stop'];
-        });
+        $type = $data['background_gradient_type'];
+
+        if ($type == 'advanced') {
+            usort($gradientArr, function ($a, $b) {
+                return $a['stop'] - $b['stop'];
+            });
+        }
 
         foreach ($gradientArr as $key => $gradient) {
-            $gradientValues .= $gradient['color'] . ' ' . $gradient['stop'] . '%';
+            $gradientValues .= $gradient['color'] . $this->handleGradientStopValues($gradient, $type);
 
             if ($key !== array_key_last($gradientArr)) {
                 $gradientValues .= ', ';
@@ -207,6 +210,14 @@ class BlockManager
         }
 
         return $styles;
+    }
+
+    private function handleGradientStopValues($gradient, $type) {
+        if ($type == 'advanced') {
+            return ' ' . $gradient['stop'] . '%';
+        }
+
+        return '';
     }
 
     /**

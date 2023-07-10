@@ -1,5 +1,5 @@
 <?php 
-
+
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_63cfdba21f7fc',
@@ -131,6 +131,30 @@
             'return_format' => 'string',
         ),
         5 => array(
+            'key' => 'field_6492ca98d635f',
+            'label' => __('Gradient settings', 'municipio'),
+            'name' => 'background_gradient_type',
+            'type' => 'radio',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'basic' => __('Basic', 'municipio'),
+                'advanced' => __('Advanced', 'municipio'),
+            ),
+            'default_value' => __('basic', 'municipio'),
+            'return_format' => 'value',
+            'allow_null' => 0,
+            'other_choice' => 0,
+            'layout' => 'vertical',
+            'save_other_choice' => 0,
+        ),
+        6 => array(
             'key' => 'field_64832f14f941f',
             'label' => __('Gradient angle', 'municipio'),
             'name' => 'background_gradient_angle',
@@ -158,7 +182,7 @@
             'prepend' => '',
             'append' => '',
         ),
-        6 => array(
+        7 => array(
             'key' => 'field_648329b62db2e',
             'label' => __('Gradient background color', 'municipio'),
             'name' => 'background_gradient',
@@ -213,7 +237,15 @@
                     'type' => 'range',
                     'instructions' => '',
                     'required' => 0,
-                    'conditional_logic' => 0,
+                    'conditional_logic' => array(
+                        0 => array(
+                            0 => array(
+                                'field' => 'field_6492ca98d635f',
+                                'operator' => '==',
+                                'value' => 'advanced',
+                            ),
+                        ),
+                    ),
                     'wrapper' => array(
                         'width' => '',
                         'class' => '',
@@ -229,7 +261,7 @@
                 ),
             ),
         ),
-        7 => array(
+        8 => array(
             'key' => 'field_644b77128c900',
             'label' => __('Text color', 'municipio'),
             'name' => 'text_color',
