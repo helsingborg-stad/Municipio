@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-07-10 14:51+0200\n"
-"PO-Revision-Date: 2023-07-10 16:56+0200\n"
+"PO-Revision-Date: 2023-07-10 17:00+0200\n"
 "Last-Translator: Anna Johansson\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
@@ -275,7 +275,7 @@ msgstr "Gradient bakgrundsfärg"
 
 #: library/AcfFields/php/block-container.php:190
 msgid "The color with the lowest stop will always be shown first."
-msgstr "Den "
+msgstr "Färgen med lägst stopp visas alltid först."
 
 #: library/AcfFields/php/block-container.php:212
 msgid "Add Row"
