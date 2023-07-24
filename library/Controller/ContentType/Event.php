@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\ContentType;
 
+use Municipio\Helper\ContentType as ContentTypeHelper;
+
 /**
  * Class Event
  *
@@ -19,6 +21,7 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         parent::__construct($this->key, $this->label);
 
         $this->addSecondaryContentType(new Place());
+        $this->addSecondaryContentType(new Project());
 
         // Append structured data to use for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
@@ -31,7 +34,9 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
     {
-        $this->secondaryContentType[] = $contentType;
+        if (ContentTypeHelper::validateSimpleContentType($contentType, $this)) {
+            $this->secondaryContentType[] = $contentType;
+        }
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data for events.

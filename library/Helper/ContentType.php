@@ -3,6 +3,8 @@
 namespace Municipio\Helper;
 
 use Municipio\Helper\Controller as ControllerHelper;
+use Municipio\Controller\ContentType\ContentTypeFactory as ContentTypeFactory;
+use Municipio\Controller\ContentType\ContentTypeComplexInterface as ContentTypeComplexInterface;
 
 class ContentType
 {
@@ -186,5 +188,44 @@ class ContentType
     public static function skipContentTypeTemplate(string $postType = ''): bool
     {
         return (bool) get_option("skip_content_type_template_{$postType}", false);
+    }
+
+    /**
+     *
+     * @param ContentTypeFactory $contentType
+     * @return boolean
+     *
+     */
+    public static function isComplexContentType(ContentTypeFactory $contentType): bool
+    {
+        return in_array(
+            'Municipio\\Controller\\ContentType\\ContentTypeComplexInterface',
+            class_implements($contentType)
+        );
+    }
+
+    /**
+     *
+     * Ensure that the content type is not complex.
+     *
+     * @param ContentTypeFactory $contentType
+     * @return boolean
+     *
+     */
+    public static function validateSimpleContentType(ContentTypeFactory $contentType, $parent): bool
+    {
+        if (self::isComplexContentType($contentType)) {
+            $error = new \WP_Error(
+                'invalid_content_type',
+                sprintf(
+                    __('%s tried to add %s as a secondary content type. Complex content types cannot add other complex content types.', 'municipio'),
+                    get_class($parent),
+                    get_class($contentType)
+                )
+            );
+            error_log($error->get_error_message());
+            return false;
+        }
+        return true;
     }
 }

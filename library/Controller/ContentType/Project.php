@@ -6,7 +6,7 @@ namespace Municipio\Controller\ContentType;
  * Class Project
  * @package Municipio\Controller\ContentType
  */
-class Project extends ContentTypeFactory
+class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
     public function __construct()
     {
