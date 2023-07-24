@@ -13,7 +13,7 @@ namespace Municipio\Controller\Purpose;
  * this class to gain basic functionalities. An example of a simple purpose is 'Place'.
  *
  * A complex purpose is a class that needs to manage/load other purposes and it should extend
- * this class and also implement the 'PurposeCollectionInterface' interface. An example of a complex
+ * this class and also implement the 'PurposeComplexInterface' interface. An example of a complex
  * purpose is 'Event',
  */
 class PurposeFactory implements PurposeComponentInterface

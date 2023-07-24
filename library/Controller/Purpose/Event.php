@@ -9,7 +9,7 @@ namespace Municipio\Controller\Purpose;
  *
  * @package Municipio\Controller\Purpose
  */
-class Event extends PurposeFactory implements PurposeCollectionInterface
+class Event extends PurposeFactory implements PurposeComplexInterface
 {
     public function __construct()
     {

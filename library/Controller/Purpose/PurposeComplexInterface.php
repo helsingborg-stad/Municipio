@@ -4,7 +4,7 @@ namespace Municipio\Controller\Purpose;
 
 /**
  *
- * 'PurposeCollectionInterface' is designed to be used by classes that
+ * 'PurposeComplexInterface' is designed to be used by classes that
  * manage a collection of simple purposes.
  *
  * This is useful for complex purpose classes that are composed of other
@@ -12,12 +12,12 @@ namespace Municipio\Controller\Purpose;
  *
  * It's important to note that not all purposes require to implement this interface.
  * Simpler purposes, such as 'Place', which are not composed of other purposes do not need
- * to manage a collection and therefor doesn't need to implement 'PurposeCollectionInterface'.
+ * to manage a collection and therefor doesn't need to implement 'PurposeComplexInterface'.
  *
  * @package Municipio\Controller\Purpose
  */
 
-interface PurposeCollectionInterface
+interface PurposeComplexInterface
 {
     /**
      * Adds a PurposeComponentInterface instance to the collection.
