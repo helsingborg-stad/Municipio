@@ -3,15 +3,15 @@
 namespace Municipio\Controller;
 
 use Municipio\Helper\Data as DataHelper;
-use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Term as TermHelper;
 use Municipio\Helper\Listing as ListingHelper;
 
 /**
- * Class SingularPurpose
+ * Class SingularContentType
  * @package Municipio\Controller
  */
-class SingularPurpose extends \Municipio\Controller\Singular
+class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
     protected $purpose;
@@ -20,10 +20,10 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
-        $this->purpose = PurposeHelper::getPurpose($this->data['post']->postType);
+        $this->purpose = ContentTypeHelper::getContentType($this->data['post']->postType);
 
         // Set view if allowed
-        if (!PurposeHelper::skipPurposeTemplate($this->data['post']->postType)) {
+        if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
             $this->view = $this->purpose->getView();
         }
 
@@ -41,7 +41,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $post = \Municipio\Helper\PurposePlace::complementPlacePost($this->data['post'], false);
+        $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($this->data['post'], false);
 
         $fields = get_fields($this->getPageID());
 

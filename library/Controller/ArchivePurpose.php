@@ -3,9 +3,9 @@
 namespace Municipio\Controller;
 
 use Municipio\Helper\Location;
-use Municipio\Helper\Purpose;
+use Municipio\Helper\ContentType;
 
-class ArchivePurpose extends \Municipio\Controller\Archive
+class ArchiveContentType extends \Municipio\Controller\Archive
 {
     public function init()
     {
@@ -15,7 +15,7 @@ class ArchivePurpose extends \Municipio\Controller\Archive
 
         $this->data['displayArchiveLoop'] = (bool) ($this->data['archiveProps']->displayArchiveLoop ?? true);
 
-        if (!Purpose::hasPurpose('place', get_post_type(), true)) {
+        if (!ContentType::hasContentType('place', get_post_type(), true)) {
             return;
         }
 

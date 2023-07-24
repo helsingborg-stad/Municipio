@@ -8,8 +8,8 @@ class LocationRules
     {
         add_action('acf/init', function () {
             if (function_exists('acf_register_location_type')) {
-                include_once('LocationRulesPurpose.php');
-                acf_register_location_type('LocationRulesPurpose');
+                include_once('LocationRulesContentType.php');
+                acf_register_location_type('LocationRulesContentType');
             }
         });
     }

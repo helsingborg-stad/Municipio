@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\Controller\Purpose;
+namespace Municipio\Controller\ContentType;
 
 /**
  * Class Project
- * @package Municipio\Controller\Purpose
+ * @package Municipio\Controller\ContentType
  */
-class Project extends PurposeFactory
+class Project extends ContentTypeFactory
 {
     public function __construct()
     {
@@ -15,21 +15,21 @@ class Project extends PurposeFactory
 
         parent::__construct($this->key, $this->label);
 
-        $this->addSecondaryPurpose(new Place());
+        $this->addSecondaryContentType(new Place());
 
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
 
     /**
-     * addSecondaryPurpose
+     * addSecondaryContentType
      *
-     * @param PurposeComponentInterface $purpose
+     * @param ContentTypeComponentInterface $contentType
      * @return void
      */
-    public function addSecondaryPurpose(PurposeComponentInterface $purpose): void
+    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
     {
-        $this->secondaryPurpose[] = $purpose;
+        $this->secondaryContentType[] = $contentType;
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data

@@ -1,18 +1,18 @@
 <?php
 
-class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
+class LocationRulesContentType extends \ACF_Location // @codingStandardsIgnoreLine
 {
     public function initialize()
     {
-        $this->name = 'purpose';
-        $this->label = __("Purpose", 'municipio');
+        $this->name = 'content_type';
+        $this->label = __("ContentType", 'municipio');
         $this->category = 'post';
         $this->object_type = 'post';
     }
 
     public function get_values($rule) // @codingStandardsIgnoreLine
     {
-        return \Municipio\Helper\Purpose::getRegisteredPurposes(false);
+        return \Municipio\Helper\ContentType::getRegisteredContentTypes(false);
     }
 
     public function match($rule, $screen, $field_group)
@@ -31,10 +31,10 @@ class LocationRulesPurpose extends \ACF_Location // @codingStandardsIgnoreLine
             return false;
         }
         // Compare the post attribute to rule value.
-        $purposes = \Municipio\Helper\Purpose::getPurpose($type, true);
-        if (!empty($purposes)) {
-            foreach ($purposes as $purpose) {
-                $result = ($purpose->key === $rule['value']);
+        $contentTypes = \Municipio\Helper\ContentType::getContentType($type, true);
+        if (!empty($contentTypes)) {
+            foreach ($contentTypes as $contentType) {
+                $result = ($contentType->key === $rule['value']);
                 $returnResult = $result;
                 // Return result taking into account the operator type.
                 if ($rule['operator'] == '!=') {

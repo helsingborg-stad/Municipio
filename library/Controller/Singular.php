@@ -170,9 +170,9 @@ class Singular extends \Municipio\Controller\BaseController
 
         if ($query->have_posts()) {
             foreach ($query->posts as &$post) {
-                $purpose = \Municipio\Helper\Purpose::getPurpose($post->post_type, true);
-                if ($purpose[0]->key == 'place' || isset($purpose[0]->secondaryPurpose['place'])) {
-                    $post = \Municipio\Helper\PurposePlace::complementPlacePost($post, true);
+                $purpose = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
+                if ($purpose[0]->key == 'place' || isset($purpose[0]->secondaryContentType['place'])) {
+                    $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($post, true);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
