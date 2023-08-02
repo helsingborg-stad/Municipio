@@ -21,6 +21,23 @@
                         'id' => 'right-sidebar',
                         'classes' => ['o-grid', 'openstreetmap-right-sidebar'],
                     ])
+                    @select([
+                        'label' => 'Sort order',
+                        'required' => true,
+                        'preselected' => 'random',
+                        'options' => [
+                            'alphabetical' => 'Alphabetical',
+                            'random' => 'Random',
+                        ],
+                        'attributeList' => [
+                            'data-js-pagination-sort' => '',
+                        ],
+                        'classList' => [
+                            'u-margin__bottom--4',
+                            'u-margin__left--auto',
+                        ],
+                    ])
+                    @endselect
 
                     @collection([
                         'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
@@ -63,7 +80,10 @@
                                         ])
                                             @typography([
                                                 'element' => 'h2',
-                                                'variant' => 'h3'
+                                                'variant' => 'h3',
+                                                'attributeList' => [
+                                                    'data-js-pagination-item-title' => '',
+                                                ]
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
