@@ -23,6 +23,7 @@
                     ])
                     @select([
                         'label' => 'Sort order',
+                        'hidePlaceholder' => true,
                         'required' => true,
                         'preselected' => 'random',
                         'options' => [
