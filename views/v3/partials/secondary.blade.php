@@ -46,7 +46,7 @@
                         ]
                     ])
                         @foreach ($secondaryQuery->posts as $place)
-                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0">
+                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0" data-js-pagination-item-title="{{$place->postTitle}}">
                                 @collection__item([
                                     'classList' => ['c-openstreetmap__collection__item'],
                                     'containerAware' => true,
@@ -81,9 +81,6 @@
                                             @typography([
                                                 'element' => 'h2',
                                                 'variant' => 'h3',
-                                                'attributeList' => [
-                                                    'data-js-pagination-item-title' => '',
-                                                ]
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
