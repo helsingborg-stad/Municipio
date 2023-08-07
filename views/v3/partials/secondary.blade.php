@@ -22,13 +22,16 @@
                         'classes' => ['o-grid', 'openstreetmap-right-sidebar'],
                     ])
                     @select([
-                        'label' => 'Sort order',
+                        'label' => $lang->sortBy,
                         'hidePlaceholder' => true,
                         'required' => true,
                         'preselected' => 'random',
+                        'size' => 'sm',
+                        'limitWidth' => true,
                         'options' => [
-                            'alphabetical' => 'Alphabetical',
-                            'random' => 'Random',
+                            'default' => $lang->sortPublishDate,
+                            'alphabetical' => $lang->sortName,
+                            'random' => $lang->sortRandom,
                         ],
                         'attributeList' => [
                             'data-js-pagination-sort' => '',
