@@ -21,6 +21,27 @@
                         'id' => 'right-sidebar',
                         'classes' => ['o-grid', 'openstreetmap-right-sidebar'],
                     ])
+                    @select([
+                        'label' => $lang->sortBy,
+                        'hidePlaceholder' => true,
+                        'required' => true,
+                        'preselected' => 'random',
+                        'size' => 'sm',
+                        'limitWidth' => true,
+                        'options' => [
+                            'default' => $lang->sortPublishDate,
+                            'alphabetical' => $lang->sortName,
+                            'random' => $lang->sortRandom,
+                        ],
+                        'attributeList' => [
+                            'data-js-pagination-sort' => '',
+                        ],
+                        'classList' => [
+                            'u-margin__bottom--4',
+                            'u-margin__left--auto',
+                        ],
+                    ])
+                    @endselect
 
                     @collection([
                         'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
@@ -29,7 +50,7 @@
                         ]
                     ])
                         @foreach ($secondaryQuery->posts as $place)
-                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0">
+                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0" data-js-pagination-item-title="{{$place->postTitle}}">
                                 @collection__item([
                                     'classList' => ['c-openstreetmap__collection__item'],
                                     'containerAware' => true,
@@ -63,7 +84,7 @@
                                         ])
                                             @typography([
                                                 'element' => 'h2',
-                                                'variant' => 'h3'
+                                                'variant' => 'h3',
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
