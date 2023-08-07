@@ -7,7 +7,9 @@
             'mobile' => $customizer->hamburgerMenuMobile,
             'attributeList' => [
                 'aria-hidden' => 'true'
-            ]
+            ],
+            'context' => ['site.hamburgermenu.nav']
+
         ])
             <div class="o-grid-12">
                 @if($showHamburgerMenuSearch)
