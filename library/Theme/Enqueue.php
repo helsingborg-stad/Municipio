@@ -80,6 +80,14 @@ class Enqueue
             false,
             true
         );
+
+        wp_enqueue_script(
+            'customizer-error-handling',
+            self::getAssetWithCacheBust('js/customizer-error-handling.js'),
+            array('jquery', 'customize-controls'),
+            false,
+            true
+        );
     }
 
     /**
