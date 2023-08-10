@@ -144,7 +144,7 @@ class LoadDesign
         $response = wp_remote_post(
             self::API_URL .
                 $this->apiActions['post'] .
-                '?cacheBust=' . $this->uniqid,
+                '?cacheBust=' . uniqid(),
             [
                 'method' => 'POST',
                 'timeout' => 5,
