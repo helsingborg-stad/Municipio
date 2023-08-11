@@ -18,6 +18,8 @@ class PostFilters
         add_action('pre_get_posts', array($this, 'doPostOrderBy'));
         add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
 
+        add_filter('option_posts_per_page', array($this, 'postsPerPage'), 999, 2);
+
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
         remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
@@ -299,6 +301,18 @@ class PostFilters
         return $query;
     }
 
+    /**
+     * Retrieves the number of posts to display per page for the "post" post type.
+     *
+     * @param int $value The default number of posts to display per page.
+     * @param string $name The name of the customizer value.
+     *
+     * @return int The number of posts to display per page for the "post" post type.
+     */
+    public function postsPerPage($value, $name)
+    {
+        return get_theme_mod('archive_post_post_count', $value);
+    }
     /**
      * Get current post type
      * @param  object $query Query object
