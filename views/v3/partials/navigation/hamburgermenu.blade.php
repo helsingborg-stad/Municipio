@@ -3,7 +3,6 @@
             'id' => 'menu-hamburger',
             'menuItems' => $hamburgerMenuItems,
             'showSearch' => $showHamburgerMenuSearch,
-            'parentStyle' => $customizer->hamburgerMenuParentStyle,
             'mobile' => $customizer->hamburgerMenuMobile,
             'attributeList' => [
                 'aria-hidden' => 'true'
