@@ -132,14 +132,14 @@ class BlockManager
         $data['classList'] = $this->buildBlockClassList($block);
 
         $data['contentClassList'] = 'o-container';
-        if ($data['content_width'] == 'article') {
+        if (isset($data['content_width']) && $data['content_width'] == 'article') {
             $data['contentClassList'] .= ' c-article c-article--readable-width';
         }
 
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            if (!empty($data['color']) && $data['background_color_type'] != 'gradient') {
+            if (!empty($data['color']) && isset ($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
                 $data['style'][] = "background-color:{$data['color']}";
             }
             if (!empty($data['text_color'])) {
