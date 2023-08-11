@@ -188,7 +188,7 @@ class Archive
             'active_callback' => [
                 [
                     'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
-                    'operator' => 'contains',
+                    'operator' => '==',
                     'value'    => 1,
                 ]
             ],
@@ -213,7 +213,7 @@ class Archive
             'active_callback' => [
                 [
                     'setting'  => 'archive_' . $archive->name . '_display_openstreetmap',
-                    'operator' => 'contains',
+                    'operator' => '==',
                     'value'    => 1,
                 ]
             ],
