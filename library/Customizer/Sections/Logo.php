@@ -29,12 +29,12 @@ class Logo
             $primaryDescription
         );
 
-        $primaryLogoField = $this->getTextAreaField(
-            $sectionID,
-            'brand_text',
-            esc_html__('Brand Text', 'municipio'),
-            ""
-        );
+        $brandTextField = $this->getTextAreaField([
+            'settings' => 'brand_text',
+            'section' => $sectionID,
+            'label' => esc_html__('Brand Text', 'municipio'),
+            'option_type' => 'option'
+        ]);
 
         $secondaryLogoField = $this->getImageField(
             $sectionID,
@@ -51,8 +51,8 @@ class Logo
         );
 
         Kirki::add_field($primaryLogoField);
+        Kirki::add_field($brandTextField);
         Kirki::add_field($secondaryLogoField);
-
         Kirki::add_field($emblemField);
     }
 
@@ -72,13 +72,9 @@ class Logo
         ]]);
     }
 
-    private function getTextAreaField(string $sectionID, string $setting, string $label, string $description): TextareaField
+    private function getTextAreaField(array $args): TextareaField
     {
-        return new TextareaField([
-            'settings'          => $setting,
-            'label'             => $label,
-            'description'       => $description,
-            'section'           => $sectionID,
+        $mergedArgs = array_merge([
             'default'           => '',
             'output'            => [
                 [
@@ -86,6 +82,8 @@ class Logo
                     'as_object' => false,
                 ]
             ]
-        ]);
+        ], $args);
+
+        return new TextareaField($mergedArgs);
     }
 }

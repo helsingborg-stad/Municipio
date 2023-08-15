@@ -74,7 +74,7 @@ class BaseController
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
         $this->data['showEmblemInHero']     = $this->data['customizer']->showEmblemInHero ?? true;
-        $this->data['brandText']            = $this->getMultilineTextAsArray($this->data['customizer']->brandText ?? '');
+        $this->data['brandText']            = $this->getMultilineTextAsArray(get_option('brand_text', ''));
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
