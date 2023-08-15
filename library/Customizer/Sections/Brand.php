@@ -6,6 +6,8 @@ use Kirki\Compatibility\Kirki;
 
 class Brand
 {
+    const BRAND_TEXT_SELECTOR = '.c-brand .c-brand__text';
+
     public function __construct(string $sectionID)
     {
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
@@ -52,27 +54,27 @@ class Brand
                 ],
                 [
                     'choice'    => 'font-family',
-                    'element'   => '.c-brand .c-brand__text',
+                    'element'   => self::BRAND_TEXT_SELECTOR,
                     'property'  => 'font-family',
                 ],
                 [
                     'choice'    => 'variant',
-                    'element'   => '.c-brand .c-brand__text',
+                    'element'   => self::BRAND_TEXT_SELECTOR,
                     'property'  => 'font-variant',
                 ],
                 [
                     'choice'    => 'line-height',
-                    'element'   => '.c-brand .c-brand__text',
+                    'element'   => self::BRAND_TEXT_SELECTOR,
                     'property'  => 'line-height',
                 ],
                 [
                     'choice'    => 'letter-spacing',
-                    'element'   => '.c-brand .c-brand__text',
+                    'element'   => self::BRAND_TEXT_SELECTOR,
                     'property'  => 'letter-spacing',
                 ],
                 [
                     'choice'    => 'text-transform',
-                    'element'   => '.c-brand .c-brand__text',
+                    'element'   => self::BRAND_TEXT_SELECTOR,
                     'property'  => 'text-transform',
                 ],
             ]
