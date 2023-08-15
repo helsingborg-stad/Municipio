@@ -744,7 +744,7 @@ class BaseController
     public function getLogotype($variant = "standard"): string
     {
         //Cache, early bailout
-        if (isset($this->data['customizer']->logotype) && empty($this->data['customizer']->logotype)) {
+        if (isset($this->data['customizer']->logotype) && !empty($this->data['customizer']->logotype)) {
             return $this->data['customizer']->logotype;
         }
 

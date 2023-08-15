@@ -128,6 +128,38 @@
             "return_format": "string"
         },
         {
+            "key": "field_6492ca98d635f",
+            "label": "Gradient settings",
+            "name": "background_gradient_type",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_64831fa89c119",
+                        "operator": "==",
+                        "value": "gradient"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "basic": "Basic",
+                "advanced": "Advanced"
+            },
+            "default_value": "basic",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_64832f14f941f",
             "label": "Gradient angle",
             "name": "background_gradient_angle",
@@ -210,7 +242,15 @@
                     "type": "range",
                     "instructions": "",
                     "required": 0,
-                    "conditional_logic": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6492ca98d635f",
+                                "operator": "==",
+                                "value": "advanced"
+                            }
+                        ]
+                    ],
                     "wrapper": {
                         "width": "",
                         "class": "",
