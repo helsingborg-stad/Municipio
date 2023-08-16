@@ -26,7 +26,7 @@ class ContentType
             if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'ContentType')) {
                 foreach (glob("$dir/*.php") as $filename) {
                     // Skip files with Factory or Interface in the filename
-                    if (preg_match('[Factory|Interface]', $filename)) {
+                    if (preg_match('[Factory|Interface|Test]', $filename)) {
                         continue;
                     }
 
