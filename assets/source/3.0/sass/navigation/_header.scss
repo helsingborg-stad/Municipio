@@ -1,4 +1,5 @@
-$brand-height: var(--c-brand-height, 48);
+$brand-height: calc(var(--c-header-logotype-height, 6) * #{$base});
+$brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
 
 //Spacing
 .c-header .c-header__flex-content {
@@ -26,6 +27,10 @@ $brand-height: var(--c-brand-height, 48);
 // Brand
 .c-header .c-brand {
     line-height: 0; // Prevents space below svg.
+
+    &__text {
+        color: $brand-text-color;
+    }
 
     &__viewbox {
         height: $brand-height;
