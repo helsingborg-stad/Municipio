@@ -8,7 +8,7 @@
             
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
-                @if($brandText)
+                @if($headerBrandEnabled)
                     @brand([
                         'logotype' => [
                             'src'=> $logotype,

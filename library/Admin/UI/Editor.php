@@ -75,6 +75,13 @@ class Editor
      */
     public function blockEditorStyle()
     {
+        global $wp_customize;
+
+        if( isset($wp_customize) ) {
+            // If in customizer, do not enqueue styles which might affect editor appearance.
+            return;
+        }
+
         wp_enqueue_style(
             'block-editor-adjustments',
             apply_filters(

@@ -252,12 +252,6 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_brand')
-                    ->setTitle(esc_html__('Brand', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Brand('municipio_customizer_section_brand'))
-            )
-            ->addSection(
-                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_siteselector')
                     ->setTitle(esc_html__('Siteselector', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Siteselector('municipio_customizer_section_siteselector'))
