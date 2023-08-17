@@ -69,7 +69,7 @@ class BaseController
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard');
+        $this->data['logotype']             = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
         $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
@@ -742,7 +742,7 @@ class BaseController
      * @param string $variant
      * @return string Logotype file url, defaults to the theme logo if not found.
      */
-    public function getLogotype($variant = "standard"): string
+    public function getLogotype($variant = "standard", $fallback = false): string
     {
         $variantKey = "logotype";
 
@@ -754,7 +754,7 @@ class BaseController
             ? $this->data['customizer']->{$variantKey}
             : '';
 
-        if (empty($logotypeUrl) && $variantKey == "logotype") {
+        if (empty($logotypeUrl) && $fallback) {
             return $this->getDefaultLogotype();
         }
 
