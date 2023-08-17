@@ -52,7 +52,9 @@ function _register_theme()
 
 function _manually_load_plugins()
 {
+	$theme_dir = dirname(__DIR__);
 	require sys_get_temp_dir() . '/advanced-custom-fields-pro/acf.php';
+	require $theme_dir . '/vendor/kirki/kirki.php';
 }
 
 tests_add_filter('muplugins_loaded', '_register_theme');

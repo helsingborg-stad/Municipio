@@ -195,7 +195,11 @@ class Header
             'choices'     => array(
                 'standard'  => esc_html__('Primary', 'municipio'),
                 'negative'  => esc_html__('Secondary', 'municipio'),
+                'emblem'    => esc_html__('Emblem', 'municipio'),
             ),
+            'output' => [
+                ['type' => 'controller']
+            ]
         ]));
 
         $this->addBrandFields($sectionID);
