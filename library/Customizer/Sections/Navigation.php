@@ -210,11 +210,7 @@ class Navigation
                         'element'   => $scope->scopeClass,
                         'property'  => '--c-nav-v-color-contrasting',
                     ],
-                    [
-                        'choice'    => 'contrasting',
-                        'context'   => 'drawer.closeButton',
-                        'property'  => '--c-button-default-color',
-                    ],
+                    $this->drawerCloseColor($scope->scopeClass),
                     [
                         'choice'    => 'background_active',
                         'element'   => $scope->scopeClass,
@@ -276,4 +272,17 @@ class Navigation
             ]
         );
     }
+
+    private function drawerCloseColor($scopeClass) {
+        if ($scopeClass == '.s-nav-drawer') {
+            return [
+                    'choice'    => 'contrasting',
+                    'element'   => '.s-drawer__close-button',
+                    'property'  => '--c-button-default-color',
+            ];
+        } else {
+            return [];
+        }
+    }
 }
+
