@@ -89,6 +89,10 @@ class Customizer
         if (file_exists($kirkiFilePath)) {
             include_once($kirkiFilePath);
         }
+
+        if(function_exists('kirki_pro_load_controls')) {
+            kirki_pro_load_controls(); 
+        }
     }
 
     /**
