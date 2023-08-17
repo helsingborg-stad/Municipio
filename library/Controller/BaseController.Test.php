@@ -1,4 +1,4 @@
-<?
+<?php
 
 class BaseControllerTest extends \WP_UnitTestCase
 {
