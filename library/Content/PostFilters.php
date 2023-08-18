@@ -78,7 +78,11 @@ class PostFilters
         }
 
         foreach ($taxonomies as $key => $item) {
-            $tax = get_taxonomy($item);
+           
+            if(!$tax = get_taxonomy($item)) {
+                continue;
+            }
+
             $terms = get_terms($item, array(
                 'hide_empty' => false
             ));
