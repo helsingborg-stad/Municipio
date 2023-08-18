@@ -561,6 +561,17 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $preparedPosts = [];
 
+        //Set defaults
+        if (is_array($posts) && !empty($posts)) {
+            foreach ($posts as $post) {
+                if (!is_object($post)) {
+                    continue;
+                }
+                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
+                $post->archiveDate = false;
+            }
+        }
+
         if (!isset($archiveProps->dateField) || is_null($archiveProps->dateField) || $archiveProps->dateField === 'none') {
             return $posts;
         }
@@ -578,6 +589,10 @@ class Archive extends \Municipio\Controller\BaseController
                 if (!is_object($post)) {
                     continue;
                 }
+
+                //Defaults 
+                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
+                $post->archiveDate = false;
 
                 if (!is_null($archiveProps->dateField)) {
                     if ($isMetaKey === true) {
