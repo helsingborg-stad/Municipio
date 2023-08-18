@@ -76,7 +76,7 @@ class Archive
             }
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination);
+        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination ?? null);
     }
 
     /**
