@@ -15,7 +15,8 @@
                         'preselected' => $filter['preselected'] ?? false,
                         'multiple' => (bool) ('multi' === $filter['fieldType']),
                         'options' => $filter['options'] ?? [],
-                        'size' => 'md'
+                        'size' => 'md',
+                        'name' => $filter['attributeList']['name'] ?? '',
                     ])
                     @endselect
                 </div>
