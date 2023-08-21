@@ -496,15 +496,16 @@ class Archive extends \Municipio\Controller\BaseController
     private function preselectAllTaxonomiesInUrl($taxonomyName) {
         $query  = explode('&', $_SERVER['QUERY_STRING']);
         $params = [];
-        
-        foreach( $query as $param )
-        {
-            // prevent notice on explode() if $param has no '='
-            if (strpos($param, '=') === false) $param += '=';
-            
-            list($name, $value) = explode('=', $param, 2);
-            if ($name === $taxonomyName) {
-                $params[urldecode($name)][] = urldecode($value);
+        if (is_array($query) && !empty($query)) {
+            foreach( $query as $param ) {
+                if (strpos($param, '=') === false) { 
+                    $param .= '='; 
+                }
+
+                list($name, $value) = explode('=', $param, 2);
+                if ($name === $taxonomyName) {
+                    $params[urldecode($name)][] = urldecode($value);
+                }
             }
         }
         return !empty($params[$taxonomyName]) ? $params[$taxonomyName] : $_GET[$taxonomy->name];
