@@ -88,7 +88,6 @@ class Archive
     public static function setQueryString($number)
     {
         parse_str($_SERVER['QUERY_STRING'], $queryArgList);
-        // echo '<pre>' . print_r( $queryArgList, true ) . '</pre>';
         $queryArgList['paged'] = $number;
         $queryString = http_build_query($queryArgList) . "\n";
 
