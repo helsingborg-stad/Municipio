@@ -56,10 +56,10 @@
                                     'containerAware' => true,
                                     'bordered' => true,
                                     'attributeList' => [
-                                        'data-js-map-location' => json_encode($place->location['pin']),
+                                        'data-js-map-location' => json_encode(!empty($place->location) ? $place->location['pin'] : []),
                                     ]
                                 ])
-                                    @if ($place->callToActionItems['floating'])
+                                    @if (!empty($place->callToActionItems['floating']))
                                         @slot('floating')
                                             @icon($place->callToActionItems['floating'])
                                             @endicon
