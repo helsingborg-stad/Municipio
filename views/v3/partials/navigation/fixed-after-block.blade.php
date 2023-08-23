@@ -1,4 +1,4 @@
-@if (!empty($quicklinksMenuItems) && $quicklinksPlacement === 'after_first_block')
+@if (!empty($quicklinksMenuItems) && !empty($quicklinksPlacement) && $quicklinksPlacement === 'after_first_block')
     @if (($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || $customizer->quicklinksLocation == 'everywhere')
         @header([
             'id' => 'quicklinks-header',
