@@ -171,10 +171,11 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         if ($query->have_posts()) {
+            $purposePlaceHelper = new \Municipio\Helper\PurposePlace();
             foreach ($query->posts as &$post) {
                 $purpose = \Municipio\Helper\Purpose::getPurpose($post->post_type, true);
                 if ($purpose[0]->key == 'place' || isset($purpose[0]->secondaryPurpose['place'])) {
-                    $post = \Municipio\Helper\PurposePlace::complementPlacePost($post, true);
+                    $post = $purposePlaceHelper->complementPlacePost($post, true);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
@@ -194,7 +195,7 @@ class Singular extends \Municipio\Controller\BaseController
         $pins = array();
 
         foreach ($query->posts as $post) {
-                $pins[] = $post->pin;
+            $pins[] = isset($post->pin) ? $post->pin  : [];
         }
 
         return $pins;
