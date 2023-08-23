@@ -20,6 +20,7 @@
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
+        's-drawer-menu'
     ],
     'label' => $lang->close,
     'screenSizes' => $customizer->drawerScreenSizes
