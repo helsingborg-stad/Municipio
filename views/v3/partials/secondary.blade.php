@@ -135,8 +135,10 @@
                                                 ])
                                                     {{ $place->postTitle }}
                                                 @endtypography
-                                                @icon($place->callToActionItems['floating'])
-                                                @endicon
+                                                @if(is_array($place->callToActionItems['floating']))
+                                                    @icon($place->callToActionItems['floating'])
+                                                    @endicon
+                                                @endif
                                             @endgroup
                                             <div class="o-grid c-openstreetmap__post-container">
                                                 <div class="c-openstreetmap__post-content">
