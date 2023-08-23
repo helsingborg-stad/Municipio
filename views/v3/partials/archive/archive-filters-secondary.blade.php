@@ -8,23 +8,20 @@
         <div class="o-grid u-align-content--end">
             @foreach ($enabledFilters as $filter)
                 <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
-                    @if ('multi' === $filter['fieldType'])
-                        @filterSelect([
-                            'label' => $filter['label'],
-                            'name' => $filter['attributeList']['name'] ?? '',
-                            'required' => $filter['required'],
-                            'options' => $filter['options'],
-                            'preselected' => $filter['preselected'],
-                            'placeholder' => $filter['label']
-                        ])
-                        @endfilterSelect
-                    @else
-                        @select($filter)
-                        @endselect
-                    @endif
-
+                    @select([
+                        'label' => $filter['label'] ?? '',
+                        'required' => $filter['required'] ?? false,
+                        'placeholder' => $filter['label'] ?? '',
+                        'preselected' => $filter['preselected'] ?? false,
+                        'multiple' => (bool) ('multi' === $filter['fieldType']),
+                        'options' => $filter['options'] ?? [],
+                        'size' => 'md',
+                        'name' => $filter['attributeList']['name'] ?? '',
+                    ])
+                    @endselect
                 </div>
             @endforeach
+
             <div class="o-grid-fit@xs o-grid-fit@sm o-grid-fit@md u-margin__top--auto">
                 @button([
                     'text' => $lang->filterBtn,
