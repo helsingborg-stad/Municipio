@@ -56,6 +56,29 @@ abstract class AbstractApplicator
         return in_array((string) $operator, $validOperators);
     }
 
+    /**
+     * Checks whether the field is hidden based on the active callbacks.
+     */
+    protected function activeCallbackHandler($field) {
+        $conditional = [];
+        if (!empty($field['active_callback']) && is_array($field['active_callback'])) {
+            foreach ($field['active_callback'] as $callback) {
+                $operator = $callback['operator'];
+                if ($this->isValidOperator($operator)) {
+                    if (!preg_match('/^[a-z\d_-]+$/i', $callback['setting']) || !preg_match('/^[a-z\d_-]+$/i', $callback['value'])) {
+                        return;
+                    }
+                    $expression =  "\Kirki::get_option(\$callback['setting']) $operator \$callback['value'];";
+                    $result = eval("return $expression;");
+                    $conditional[] = $result;
+                } else {
+                    $conditional[] = true;
+                }
+            }
+        } else { $conditional[] = true;}
+        return in_array(false, $conditional);
+    }
+
     protected function hasFilterContexts(array $contexts, array $filterContexts): bool
     {
         $hasContext = [];

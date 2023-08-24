@@ -128,7 +128,7 @@ class Navigation
         if (isset($item['id']) && is_numeric($item['id'])) {
             $depth = $this->getPageDepth($item['id']) + 1;
         } else {
-            $depth = 0;
+            $depth = 1;
         }
 
         $dataFetchUrl = apply_filters(
@@ -152,7 +152,7 @@ class Navigation
 
      * @return int The depth of the page
      */
-    private function getPageDepth($postId, $depth = 0)
+    private function getPageDepth($postId, $depth = 1)
     {
         $object = get_post($postId);
 

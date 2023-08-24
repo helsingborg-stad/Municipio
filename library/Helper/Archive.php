@@ -76,7 +76,7 @@ class Archive
             }
         }
 
-        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination);
+        return \apply_filters('Municipio/Controller/Archive/getPagination', $pagination ?? null);
     }
 
     /**
@@ -102,6 +102,8 @@ class Archive
      */
     public static function showFilter($args)
     {
+        $enabledFilters = false;
+
         if (!is_object($args)) {
             $args = (object) [];
         }
@@ -111,10 +113,10 @@ class Archive
             : [];
 
         if (!empty($arrayWithoutEmptyValues)) {
-            return $args->enabledFilters;
+            $enabledFilters = $args->enabledFilters;
         }
 
-        return false;
+        return apply_filters('Municipio/Archive/showFilter', $enabledFilters, $args);
     }
 
     /**

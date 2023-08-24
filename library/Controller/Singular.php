@@ -132,13 +132,15 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
 
-        if (!isset($data['lang'])) {
-            $data['lang'] = (object) [];
-        }
-
-        $data['lang']->filterBtn        = __('Filter', 'municipio');
-        $data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
-        $data['lang']->noResult         = __('No items found.', 'municipio');
+        $data['lang'] = (object) [
+            'filterBtn'        => __('Filter', 'municipio'),
+            'resetFilterBtn'   => __('Reset filter', 'municipio'),
+            'noResult'         => __('No items found.', 'municipio'),
+            'sortBy'           => __('Sort by', 'municipio'),
+            'sortRandom'       => __('Random', 'municipio'),
+            'sortName'         => __('Name (A-Z)', 'municipio'),
+            'sortPublishDate'  => __('Publish Date', 'municipio'),
+        ];
 
         $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
@@ -169,6 +171,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         if ($query->have_posts()) {
+            $purposePlaceHelper = new \Municipio\Helper\PurposePlace();
             foreach ($query->posts as &$post) {
                 $purpose = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
                 if ($purpose[0]->key == 'place' || isset($purpose[0]->secondaryContentType['place'])) {
@@ -192,7 +195,7 @@ class Singular extends \Municipio\Controller\BaseController
         $pins = array();
 
         foreach ($query->posts as $post) {
-                $pins[] = $post->pin;
+            $pins[] = isset($post->pin) ? $post->pin  : [];
         }
 
         return $pins;

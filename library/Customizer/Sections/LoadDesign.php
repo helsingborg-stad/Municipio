@@ -144,7 +144,7 @@ class LoadDesign
         $response = wp_remote_post(
             self::API_URL .
                 $this->apiActions['post'] .
-                '?cacheBust=' . $this->uniqid,
+                '?cacheBust=' . uniqid(),
             [
                 'method' => 'POST',
                 'timeout' => 5,
@@ -157,7 +157,7 @@ class LoadDesign
             return new \WP_Error($response->get_error_message());
         } else {
             if (wp_remote_retrieve_response_code($response) == 200) {
-                return true;
+                return $response;
             }
         }
 

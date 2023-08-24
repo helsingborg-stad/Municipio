@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Applicators;
 
+
 class Modifiers extends AbstractApplicator
 {
     public function __construct()
@@ -28,7 +29,7 @@ class Modifiers extends AbstractApplicator
                     continue;
                 }
 
-                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output']) && !$this->callBackHandler($field)) {
+                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output']) && !$this->activeCallbackHandler($field)) {
                     
                     foreach ($field['output'] as $output) {
                         if (isset($output['context'])) {
@@ -74,25 +75,5 @@ class Modifiers extends AbstractApplicator
                 }, 10, 2);
             }
         }
-    }
-
-    private function callBackHandler($field) {
-        $conditional = [];
-        if (!empty($field['active_callback'])) {
-            foreach ($field['active_callback'] as $callback) {
-                $operator = $callback['operator'];
-                if ($this->isValidOperator($operator)) {
-                    if (!preg_match('/^[a-z\d_-]+$/i', $callback['setting']) || !preg_match('/^[a-z\d_-]+$/i', $callback['value'])) {
-                        return;
-                    }
-                    $expression =  "\Kirki::get_option(\$callback['setting']) $operator \$callback['value'];";
-                    $result = eval("return $expression;");
-                    $conditional[] = $result;
-                } else {
-                    $conditional[] = true;
-                }
-            }
-        } else { $conditional[] = true;}
-        return in_array(false, $conditional);
     }
 }

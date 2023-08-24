@@ -2,12 +2,17 @@
   "compilerOptions": {
     "allowJs": true,
     "checkJs": false,
-    "target": "es2016",
+    "target": "es6",
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": [
+      "ES2021",
+      "DOM",
+      "DOM.Iterable",
+    ]
   },
   "include": [
     "assets/source/**/*",

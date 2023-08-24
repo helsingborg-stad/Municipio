@@ -86,7 +86,7 @@ abstract class Panel
 
     public function getType(): string
     {
-        return $this->type;
+        return !empty($this->type) ? $this->type : 'default';
     }
 
     public function setActiveCallback(callable $activeCallback): Panel

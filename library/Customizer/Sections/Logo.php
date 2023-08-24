@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Sections;
 
 use Kirki\Compatibility\Kirki;
 use Kirki\Field\Upload as UploadField;
+use Kirki\Field\TextArea as TextareaField;
 
 class Logo
 {
@@ -44,7 +45,6 @@ class Logo
 
         Kirki::add_field($primaryLogoField);
         Kirki::add_field($secondaryLogoField);
-
         Kirki::add_field($emblemField);
     }
 

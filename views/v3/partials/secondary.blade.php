@@ -11,7 +11,6 @@
         @if ($displaySecondaryMap && !empty($secondaryQuery->pins))
 
             @openStreetMap([
-                'pins' => $secondaryQuery->pins,
                 'classList' => ['u-margin__top--4'],
                 'height' => '100vh',
                 'containerAware' => true,
@@ -22,6 +21,27 @@
                         'id' => 'right-sidebar',
                         'classes' => ['o-grid', 'openstreetmap-right-sidebar'],
                     ])
+                    @select([
+                        'label' => $lang->sortBy,
+                        'hidePlaceholder' => true,
+                        'required' => true,
+                        'preselected' => 'random',
+                        'size' => 'sm',
+                        'limitWidth' => true,
+                        'options' => [
+                            'default' => $lang->sortPublishDate,
+                            'alphabetical' => $lang->sortName,
+                            'random' => $lang->sortRandom,
+                        ],
+                        'attributeList' => [
+                            'data-js-pagination-sort' => '',
+                        ],
+                        'classList' => [
+                            'u-margin__bottom--4',
+                            'u-margin__left--auto',
+                        ],
+                    ])
+                    @endselect
 
                     @collection([
                         'classList' => ['o-grid', 'o-grid--horizontal', 'u-margin__top--0'],
@@ -30,17 +50,16 @@
                         ]
                     ])
                         @foreach ($secondaryQuery->posts as $place)
-                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0">
+                            <div class="c-openstreetmap__posts" data-js-pagination-item tabindex="0" data-js-pagination-item-title="{{$place->postTitle}}">
                                 @collection__item([
                                     'classList' => ['c-openstreetmap__collection__item'],
                                     'containerAware' => true,
                                     'bordered' => true,
                                     'attributeList' => [
-                                        'data-js-map-lat' => $place->location['lat'],
-                                        'data-js-map-lng' => $place->location['lng'],
+                                        'data-js-map-location' => json_encode(!empty($place->location) ? $place->location['pin'] : []),
                                     ]
                                 ])
-                                    @if ($place->callToActionItems['floating'])
+                                    @if (!empty($place->callToActionItems['floating']))
                                         @slot('floating')
                                             @icon($place->callToActionItems['floating'])
                                             @endicon
@@ -65,7 +84,7 @@
                                         ])
                                             @typography([
                                                 'element' => 'h2',
-                                                'variant' => 'h3'
+                                                'variant' => 'h3',
                                             ])
                                                 {{ $place->postTitle }}
                                             @endtypography
@@ -116,8 +135,10 @@
                                                 ])
                                                     {{ $place->postTitle }}
                                                 @endtypography
-                                                @icon($place->callToActionItems['floating'])
-                                                @endicon
+                                                @if(is_array($place->callToActionItems['floating']))
+                                                    @icon($place->callToActionItems['floating'])
+                                                    @endicon
+                                                @endif
                                             @endgroup
                                             <div class="o-grid c-openstreetmap__post-container">
                                                 <div class="c-openstreetmap__post-content">

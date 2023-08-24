@@ -2,7 +2,7 @@
 
     <!-- Title -->
     @section('article.title.before')@show
-    @if ($postTitleFiltered || $callToActionItems['floating'])
+    @if ($postTitleFiltered || isset($callToActionItems['floating']))
         @group([
             'justifyContent' => 'space-between'
         ])
@@ -11,7 +11,7 @@
                     {!! $postTitleFiltered !!}
                 @endtypography
             @endif
-            @if ($callToActionItems['floating'])
+            @if (!empty($callToActionItems['floating']))
                 @icon($callToActionItems['floating'])
                 @endicon
             @endif

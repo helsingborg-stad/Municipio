@@ -69,11 +69,13 @@ class BaseController
         $this->data['customizer']           = apply_filters('Municipio/Controller/Customizer', []);
 
         //Logotypes
-        $this->data['logotype']             = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard');
+        $this->data['logotype']             = $this->getLogotype($this->data['customizer']->headerLogotype ?? 'standard', true);
         $this->data['footerLogotype']       = $this->getLogotype($this->data['customizer']->footerLogotype ?? 'negative');
         $this->data['subfooterLogotype']    = $this->getSubfooterLogotype($this->data['customizer']->footerSubfooterLogotype ?? false);
         $this->data['emblem']               = $this->getEmblem();
         $this->data['showEmblemInHero']     = $this->data['customizer']->showEmblemInHero ?? true;
+        $this->data['brandText']            = $this->getMultilineTextAsArray(get_option('brand_text', ''));
+        $this->data['headerBrandEnabled']   = $this->data['customizer']->headerBrandEnabled && !empty($this->data['brandText']); 
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
@@ -740,32 +742,39 @@ class BaseController
      * @param string $variant
      * @return string Logotype file url, defaults to the theme logo if not found.
      */
-    public function getLogotype($variant = "standard"): string
+    public function getLogotype($variant = "standard", $fallback = false): string
     {
-        //Cache, early bailout
-        if (isset($this->data['customizer']->logotype) && empty($this->data['customizer']->logotype)) {
-            return $this->data['customizer']->logotype;
-        }
-
-        //Get fresh logotypes
         $variantKey = "logotype";
 
-        //Builds acf-field name
         if ($variant !== "standard" && !is_null($variant)) {
-            $variantKey = FormatObject::camelCaseString("${variantKey}_${variant}");
+            $variantKey = FormatObject::camelCaseString("{$variantKey}_{$variant}");
         }
 
-        //Get the logo, ensure url is defined.
         $logotypeUrl = isset($this->data['customizer']->$variantKey)
-        ? $this->data['customizer']->{$variantKey}
-        : '';
+            ? $this->data['customizer']->{$variantKey}
+            : '';
 
-        if (empty($logotypeUrl) && $variantKey == "logotype") {
-            $logotypeUrl = get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
+        if (empty($logotypeUrl) && $fallback) {
+            return $this->getDefaultLogotype();
         }
 
-        //Return
         return $logotypeUrl;
+    }
+
+    public function getDefaultLogotype(): string
+    {
+        return get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
+    }
+
+    public function getMultilineTextAsArray(string $text)
+    {
+        $trimmed = trim($text);
+        
+        if( empty($trimmed) ) {
+            return null;
+        }
+
+        return explode("\n", $trimmed);
     }
 
     /**

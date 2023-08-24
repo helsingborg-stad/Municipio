@@ -41,8 +41,7 @@ class Field
               'context' => [
                 'component.field',
                 'component.select',
-                'component.form',
-                'component.filterselect'
+                'component.form'
               ]
             ]
         ],
@@ -124,25 +123,24 @@ class Field
         ]);
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-        'type'        => 'checkbox',
-        'settings'    => 'field_shadow',
-        'label'       => esc_html__('Field shadow', 'municipio'),
-        'description' => esc_html__('If fields should apply shadows', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => false,
-        'priority'    => 10,
-        'output' => [
-        [
-          'type' => 'component_data',
-          'dataKey' => 'shadow',
-          'context' => [
-            'component.field',
-            'component.select',
-            'component.filterselect',
-            'component.openStreetMap'
-          ]
+          'type'        => 'checkbox',
+          'settings'    => 'field_shadow',
+          'label'       => esc_html__('Field shadow', 'municipio'),
+          'description' => esc_html__('If fields should apply shadows', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => false,
+          'priority'    => 10,
+          'output' => [
+          [
+            'type' => 'component_data',
+            'dataKey' => 'shadow',
+            'context' => [
+              'component.field',
+              'component.select',
+              'component.openStreetMap'
+            ]
+          ],
         ],
-        ],
-        ]);
+      ]);
     }
 }

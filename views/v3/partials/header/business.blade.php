@@ -6,13 +6,24 @@
 
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
-                @logotype([
-                    'src'=> $logotype,
-                    'alt' => $lang->goToHomepage,
-                    'classList' => ['c-nav__logo', 'c-header__logotype'],
-                    'context' => ['site.header.logo', 'site.header.business.logo']
-                ])
-                @endlogotype
+                @if($headerBrandEnabled)
+                    @brand([
+                        'logotype' => [
+                            'src'=> $logotype,
+                            'alt' => $lang->goToHomepage
+                        ],
+                        'text' => $brandText,
+                    ])
+                    @endbrand
+                @else
+                    @logotype([
+                        'src'=> $logotype,
+                        'alt' => $lang->goToHomepage,
+                        'classList' => ['c-nav__logo', 'c-header__logotype'],
+                        'context' => ['site.header.logo', 'site.header.business.logo']
+                    ])
+                    @endlogotype
+                @endif
             @endlink
 
             {{-- Tab menu items --}}

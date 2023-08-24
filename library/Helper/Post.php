@@ -209,6 +209,11 @@ class Post
             $postObject->call_to_action_items = apply_filters('Municipio/Helper/Post/CallToActionItems', [], $postObject);
         }
 
+        /* Get location data */
+        $postObject->location = get_field('location', $postObject->ID);
+        if (!empty($postObject->location)) {
+            $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
+        } 
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }

@@ -9,8 +9,15 @@ class PrefillIconChoice
    */
     public function __construct()
     {
-        add_filter('acf/load_field/name=menu_item_icon', array($this, 'addIconsList'));
-        add_filter('acf/load_field/name=material_icon', array($this, 'addIconsList'));
+        add_filter(
+            'acf/load_field/name=menu_item_icon',
+            array($this, 'addIconsList')
+        );
+
+        add_filter(
+            'acf/load_field/name=material_icon',
+            array($this, 'addIconsList')
+        );
     }
 
   /**

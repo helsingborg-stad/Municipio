@@ -11,9 +11,14 @@ class PostFilters
         add_filter('query_vars', array($this, 'addQueryVars'));
 
         add_action('posts_where', array($this, 'doPostDateFiltering'));
+
+        add_action('pre_get_posts', array($this, 'suppressFiltersOnFontAttachments'));
+
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_action('pre_get_posts', array($this, 'doPostOrderBy'));
         add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
+
+        add_filter('option_posts_per_page', array($this, 'postsPerPage'), 999, 2);
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
@@ -73,7 +78,11 @@ class PostFilters
         }
 
         foreach ($taxonomies as $key => $item) {
-            $tax = get_taxonomy($item);
+           
+            if(!$tax = get_taxonomy($item)) {
+                continue;
+            }
+
             $terms = get_terms($item, array(
                 'hide_empty' => false
             ));
@@ -157,7 +166,7 @@ class PostFilters
             return $query;
         }
 
-        if(get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
+        if (get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
             $taxQuery = array('relation' => 'AND');
         } else {
             $taxQuery = array('relation' => 'OR');
@@ -297,6 +306,18 @@ class PostFilters
     }
 
     /**
+     * Retrieves the number of posts to display per page for the "post" post type.
+     *
+     * @param int $value The default number of posts to display per page.
+     * @param string $name The name of the customizer value.
+     *
+     * @return int The number of posts to display per page for the "post" post type.
+     */
+    public function postsPerPage($value, $name)
+    {
+        return get_theme_mod('archive_post_post_count', $value);
+    }
+    /**
      * Get current post type
      * @param  object $query Query object
      * @return string        Post type
@@ -351,5 +372,24 @@ class PostFilters
             return false;
         }
         return true;
+    }
+    public function suppressFiltersOnFontAttachments($query)
+    {
+        /**
+         * Suppress filters for font attachments in queries
+         *
+         * @param WP_Query $query
+         * @return void
+         */
+        if (
+            $query->get('post_type') == 'attachment' &&
+                !empty(array_filter($query->get('post_mime_type'), function ($item) {
+                    return strpos($item, 'font') !== false;
+                }))
+        ) {
+                $query->set('suppress_filters', true);
+        }
+
+        return $query;
     }
 }

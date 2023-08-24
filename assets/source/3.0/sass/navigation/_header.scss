@@ -1,3 +1,6 @@
+$brand-height: calc(var(--c-header-logotype-height, 6) * #{$base});
+$brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
+
 //Spacing
 .c-header .c-header__flex-content {
     display: flex;
@@ -13,12 +16,42 @@
 }
 
 // Logo
-.c-header.c-header--business .c-logotype,
-.c-header.c-header--casual .c-logotype {
+.c-header.c-header--business .c-logotype:not(.c-brand .c-logotype),
+.c-header.c-header--casual .c-logotype:not(.c-brand .c-logotype) {
     display: block;
     width: auto;
     margin: auto;
     max-width: 50vw;
+}
+
+// Brand
+.c-header .c-brand {
+    line-height: 0; // Prevents space below svg.
+
+    &__text {
+        color: $brand-text-color;
+    }
+
+    &__viewbox {
+        height: $brand-height;
+
+        @include mq('xs') {
+            height: clamp(calc(#{$base} * 3), calc($brand-height * 0.65), $brand-height);
+        }
+    
+        @include mq('md') {
+            height: clamp(calc(#{$base} * 3), calc($brand-height * 0.75), $brand-height);
+        } 
+    
+        @include mq('lg') {
+            height: $brand-height;
+        }
+    }
+
+    .c-brand__container,
+    .c-brand__logotype {
+        height: 100%;
+    }
 }
 
 .hamburger-menu-trigger__close {
