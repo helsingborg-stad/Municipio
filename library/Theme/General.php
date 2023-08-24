@@ -9,7 +9,7 @@ class General
         add_action('init', array($this, 'bemItClassDefinition'));
 
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
-        add_filter('body_class', array($this, 'appendPurposeCssClass'));
+        add_filter('body_class', array($this, 'appendContentTypeCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
 
@@ -236,25 +236,25 @@ class General
         return $classes;
     }
     /**
-     * It adds a CSS class to the body tag for each purpose that is set in the admin
+     * It adds a CSS class to the body tag for each content type that is set in the admin
      *
      * @param classes The array of classes to be appended to.
      *
      * @return An array of classes.
      */
 
-    public function appendPurposeCssClass($classes)
+    public function appendContentTypeCssClass($classes)
     {
-        if ($purposes = \Municipio\Helper\Purpose::getPurpose()) {
-            foreach ($purposes as $purpose) {
-                $classes[] = "purpose-{$purpose->key} purpose-primary-{$purpose->key}";
-                if (!empty($purpose->secondaryPurpose)) {
-                    foreach ($purpose->secondaryPurpose as $secondaryPurpose) {
-                        if (class_exists($secondaryPurpose)) {
-                            $instance = new $secondaryPurpose();
-                            $classes[] = "purpose-secondary-{$instance->getKey()}";
-                        }
-                    }
+        if (\Municipio\Helper\ContentType::hasAnyContentType()) {
+            $contentType = \Municipio\Helper\ContentType::getContentType();
+            $classes = [
+                "content-type-{$contentType->getKey()}",
+                "primary-content-type-{$contentType->getKey()}"
+            ];
+
+            if (!empty($contentType->secondaryContentType)) {
+                foreach ($contentType->secondaryContentType as $secondaryContentType) {
+                        $classes[] = "secondary-content-type-{$secondaryContentType->getKey()}";
                 }
             }
         }

@@ -4,7 +4,7 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Listing as ListingHelper;
 
-class PurposePlace
+class ContentTypePlace
 {
     public function complementPlacePost($post, $complementPost = true)
     {
@@ -43,7 +43,7 @@ class PurposePlace
 
         // Apply filters to listing items
         $list = apply_filters(
-            'Municipio/Controller/SingularPurpose/listing',
+            'Municipio/Controller/SingularContentType/listing',
             $list,
             $fields
         );

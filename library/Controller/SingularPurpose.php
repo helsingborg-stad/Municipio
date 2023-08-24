@@ -3,39 +3,33 @@
 namespace Municipio\Controller;
 
 use Municipio\Helper\Data as DataHelper;
-use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Term as TermHelper;
 use Municipio\Helper\Listing as ListingHelper;
 
 /**
- * Class SingularPurpose
+ * Class SingularContentType
  * @package Municipio\Controller
  */
-class SingularPurpose extends \Municipio\Controller\Singular
+class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
+    protected $purpose;
+
     public function __construct()
     {
         parent::__construct();
 
-        $type = $this->data['post']->postType;
+        $this->purpose = ContentTypeHelper::getContentType($this->data['post']->postType);
 
-        /**
-         * Instantiate the current main purpose
-         */
-        $purpose = PurposeHelper::getPurpose($type);
-        if (!empty($purpose)) {
-            // Run initialisation on the main purpose
-            $instance = PurposeHelper::getPurposeInstance($purpose[0]->key, true);
-            // Set view if allowed
-            if (!PurposeHelper::skipPurposeTemplate($type)) {
-                $this->view = $instance->getView();
-            }
+        // Set view if allowed
+        if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
+            $this->view = $this->purpose->getView();
         }
 
         // STRUCTURED DATA (SCHEMA.ORG)
         $this->data['structuredData'] = DataHelper::getStructuredData(
-            $this->data['postType'],
+            $this->data['post']->postType,
             $this->getPageID()
         );
     }
@@ -47,7 +41,7 @@ class SingularPurpose extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $post = \Municipio\Helper\PurposePlace::complementPlacePost($this->data['post'], false);
+        $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($this->data['post'], false);
 
         $fields = get_fields($this->getPageID());
 
@@ -78,20 +72,20 @@ class SingularPurpose extends \Municipio\Controller\Singular
         $posts = [];
         foreach ($postTypes as $postType) {
             $args = array(
-                'numberposts' => 3,
-                'post_type' => $postType->name,
-                'post__not_in' => array($postId),
-                'tax_query' => array(
-                    'relation' => 'OR',
-                ),
+            'numberposts' => 3,
+            'post_type' => $postType->name,
+            'post__not_in' => array($postId),
+            'tax_query' => array(
+                'relation' => 'OR',
+            ),
             );
 
             foreach ($arr as $tax => $ids) {
                 $args['tax_query'][] = array(
-                    'taxonomy' => $tax,
-                    'field' => 'term_id',
-                    'terms' => $ids,
-                    'operator' => 'IN',
+                'taxonomy' => $tax,
+                'field' => 'term_id',
+                'terms' => $ids,
+                'operator' => 'IN',
                 );
             }
 

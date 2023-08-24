@@ -2,7 +2,7 @@
 
 namespace Municipio\Admin\Options;
 
-class Purpose
+class ContentType
 {
     public function __construct()
     {
@@ -16,11 +16,11 @@ class Purpose
 
             if ($this->renderFieldGroups($postTypes)) {
                 acf_add_options_sub_page(array(
-                    'page_title' => __('Purpose templates', 'municipio'),
-                    'menu_title' => __('Purposes', 'municipio'),
+                    'page_title' => __('ContentType templates', 'municipio'),
+                    'menu_title' => __('ContentTypes', 'municipio'),
                     'parent_slug' => 'themes.php',
                     'capability' => 'administrator',
-                    'menu_slug' => 'acf-options-purpose'
+                    'menu_slug' => 'acf-options-content-type'
                 ));
             }
         }
@@ -59,13 +59,13 @@ class Purpose
     public function getFieldGroupArgs(array $type): array
     {
         return array(
-            'key'    => 'group_purpose_' . $type['key'],
+            'key'    => 'group_contentType_' . $type['key'],
             'title'  => $type['label'],
             'fields' => array(
                 0 => array(
-                    'key'               => 'field_purpose_' . $type['key'],
-                    'label'             => __('Purpose', 'municipio'),
-                    'name'              => 'purpose_' . $type['key'],
+                    'key'               => 'field_contentType_' . $type['key'],
+                    'label'             => __('Content Type', 'municipio'),
+                    'name'              => 'contentType_' . $type['key'],
                     'aria-label'        => '',
                     'type'              => 'select',
                     'instructions'      => '',
@@ -76,24 +76,24 @@ class Purpose
                         'class'         => '',
                         'id'            => '',
                     ),
-                    'choices'            => \Municipio\Helper\Purpose::getRegisteredPurposes(),
+                    'choices'            => \Municipio\Helper\ContentType::getRegisteredContentTypes(),
                     'default_value'      => false,
                     'return_format'      => 'value',
                     'multiple'           => 0,
                     'allow_null'         => 1,
                     'ui'                 => 1,
                     'ajax'               => 0,
-                    'placeholder'        => __('Select purpose', 'municipio'),
+                    'placeholder'        => __('Select content type', 'municipio'),
                     'allow_custom'       => 0,
                     'search_placeholder' => __('Search', 'municipio') . '...',
                 ),
                 1 => array(
-                    'key'               => 'field_skip_purpose_template_' . $type['key'],
+                    'key'               => 'field_skip_contentType_template_' . $type['key'],
                     'label'             => __('Template', 'municipio'),
-                    'name'              => 'skip_purpose_template_' . $type['key'],
+                    'name'              => 'skip_contentType_template_' . $type['key'],
                     'aria-label'        => '',
                     'type'              => 'true_false',
-                    'instructions'      => __('Check to <u>not</u> use the custom template for this post type.', 'municipio'),
+                    'instructions'      => __('Check to <u>not</u> use the custom content type template for this post type.', 'municipio'),
                     'required'          => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -101,7 +101,7 @@ class Purpose
                         'class' => '',
                         'id' => '',
                     ),
-                    'message'       => __('Do not use purpose template', 'municipio'),
+                    'message'       => __('Do not use content type template', 'municipio'),
                     'default_value' => false,
                     'ui'            => 0,
                     'ui_on_text'    => __('Use', 'municipio'),
@@ -113,7 +113,7 @@ class Purpose
                         0 => array(
                             'param' => 'options_page',
                             'operator' => '==',
-                            'value' => 'acf-options-purpose',
+                            'value' => 'acf-options-content-type',
                         ),
                     ),
                 ),

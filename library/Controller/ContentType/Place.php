@@ -1,12 +1,15 @@
 <?php
 
-namespace Municipio\Controller\Purpose;
+namespace Municipio\Controller\ContentType;
 
 /**
  * Class Place
- * @package Municipio\Controller\Purpose
+ *
+ * Used to represent physical places such as buildings, parks, etc.
+ *
+ * @package Municipio\Controller\ContentType
  */
-class Place extends PurposeFactory
+class Place extends ContentTypeFactory
 {
     public function __construct()
     {
@@ -14,14 +17,13 @@ class Place extends PurposeFactory
         $this->label = __('Place', 'municipio');
 
         parent::__construct($this->key, $this->label);
-    }
-    public function init(): void
-    {
+
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
         // Append location link to listing items
-        add_filter('Municipio/Controller/SingularPurpose/listing', [$this, 'appendListItems'], 10, 2);
+        add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
+
     public function appendListItems($listing, $fields)
     {
         // Street name linked to Google Maps

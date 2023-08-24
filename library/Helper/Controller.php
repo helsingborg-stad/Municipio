@@ -51,10 +51,10 @@ class Controller
                 DIRECTORY_SEPARATOR
             );
         }
-        // Check all registered controller paths for subdirectory "Purpose"
+        // Check all registered controller paths for subdirectory "ContentType"
         foreach ($controllerPaths as $controllerPath) {
-            if (is_dir($controllerPath . DIRECTORY_SEPARATOR . "Purpose")) {
-                $controllerPaths[] = $controllerPath . DIRECTORY_SEPARATOR . "Purpose";
+            if (is_dir($controllerPath . DIRECTORY_SEPARATOR . "ContentType")) {
+                $controllerPaths[] = $controllerPath . DIRECTORY_SEPARATOR . "ContentType";
             }
         }
 

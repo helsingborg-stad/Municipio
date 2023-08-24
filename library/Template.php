@@ -4,7 +4,7 @@ namespace Municipio;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 use Municipio\Helper\Controller as ControllerHelper;
-use Municipio\Helper\Purpose as PurposeHelper;
+use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
 class Template
@@ -134,7 +134,7 @@ class Template
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
 
-        $hasPurpose = fn() => PurposeHelper::hasAnyPurpose(get_post_type() ?? '');
+        $hasContentType = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
 
         $templateController = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
@@ -147,14 +147,14 @@ class Template
                 'controllerPath'  => ControllerHelper::locateController('E404'),
             ],
             [
-                'condition'       => $hasPurpose() && $isSingular(),
-                'controllerClass' => \Municipio\Controller\SingularPurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularPurpose'),
+                'condition'       => $hasContentType() && $isSingular(),
+                'controllerClass' => \Municipio\Controller\SingularContentType::class,
+                'controllerPath'  => ControllerHelper::locateController('SingularContentType'),
             ],
             [
-                'condition'       => $hasPurpose() && $isArchive(),
-                'controllerClass' => \Municipio\Controller\ArchivePurpose::class,
-                'controllerPath'  => ControllerHelper::locateController('ArchivePurpose'),
+                'condition'       => $hasContentType() && $isArchive(),
+                'controllerClass' => \Municipio\Controller\ArchiveContentType::class,
+                'controllerPath'  => ControllerHelper::locateController('ArchiveContentType'),
             ],
             [
                 // If a controller for this specific WordPress template exists, use it.
