@@ -90,7 +90,7 @@
                 <div class="o-grid-12@xs o-grid-6@sm o-grid-auto@md u-level-3">
                     @select([
                         'label' => $select['label'] ?? '',
-                        'name' => $select['attributeList']['name']?? '',
+                        'name' => $select['attributeList']['name'] ?? '',
                         'required' => $select['required'] ?? false,
                         'placeholder' => $select['label'] ?? '',
                         'preselected' => $select['preselected'] ?? false,

@@ -483,7 +483,7 @@ class Archive extends \Municipio\Controller\BaseController
                 ];
 
                 if (isset($_GET[$taxonomy->name])) {
-                    $taxonomyObject['preselected'] = $_GET[$taxonomy->name];
+                    $taxonomyObject['preselected'] = $this->preselectAllTaxonomiesInUrl($taxonomy->name);
                 }
 
                 $taxonomyObjects[] = $taxonomyObject;
@@ -491,6 +491,11 @@ class Archive extends \Municipio\Controller\BaseController
         }
 
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
+    }
+
+    private function preselectAllTaxonomiesInUrl($taxonomyName) {
+        $preselected = $_GET[$taxonomyName];
+        return !empty($preselected) ? $preselected : [];
     }
 
     /**
