@@ -16,6 +16,21 @@ if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
 }
 
 /**
+ * Load kirki source
+ */
+$kirkiFilePaths = [
+    rtrim(ABSPATH, '/') . '/../vendor/kirki/kirki.php',
+    rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php'
+];
+
+foreach($kirkiFilePaths as $kirkiFilePath) {
+    if (file_exists($kirkiFilePath)) {
+        include_once($kirkiFilePath);
+        break;
+    }
+}
+
+/**
  * Psr4ClassLoader
  */
 require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';

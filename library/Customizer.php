@@ -13,8 +13,8 @@ class Customizer
 
     public function __construct()
     {
-        //Load embedded kirki
-        $this->loadEmbeddedKirki();
+        //Load embedded kirki PRO
+        $this->loadEmbeddedKirkiPro();
 
         //Kirki failed to load, handle
         add_action('init', function () {
@@ -83,13 +83,8 @@ class Customizer
      *
      * @return void
      */
-    public function loadEmbeddedKirki()
+    public function loadEmbeddedKirkiPro()
     {
-        $kirkiFilePath = rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php';
-        if (file_exists($kirkiFilePath)) {
-            include_once($kirkiFilePath);
-        }
-
         if(function_exists('kirki_pro_load_controls')) {
             kirki_pro_load_controls(); 
         }
