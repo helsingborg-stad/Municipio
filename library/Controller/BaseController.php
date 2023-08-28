@@ -241,6 +241,13 @@ class BaseController
             'publish'              => __('Published', 'municipio'),
             'by'                   => __('Published by', 'municipio'),
             'on'                   => __('on', 'municipio'),
+            'filterBtn'            => __('Filter', 'municipio'),
+            'resetFilterBtn'       => __('Reset filter', 'municipio'),
+            'noResult'             => __('No items found.', 'municipio'),
+            'sortBy'               => __('Sort by', 'municipio'),
+            'sortRandom'           => __('Random', 'municipio'),
+            'sortName'             => __('Name (A-Z)', 'municipio'),
+            'sortPublishDate'      => __('Publish Date', 'municipio'),
         );
         $this->data['labels'] = (array) $this->data['lang'];
 
