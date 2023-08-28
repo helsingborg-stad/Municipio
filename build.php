@@ -14,7 +14,7 @@ $buildCommands = [
 ];
 
 //Add composer build, if flag --no-composer is undefined.
-if(is_array($argv) && !in_array('--no-composer', $argv) ? '--no-composer' : '') {
+if(is_array($argv) && !in_array('--no-composer', $argv)) {
     $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev'; 
 }
 
