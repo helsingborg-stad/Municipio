@@ -3,15 +3,15 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_63eb4a0aa476e',
-    'title' => __('Location', 'municipio'),
+    'title' => __('Location', 'visit'),
     'fields' => array(
         0 => array(
             'key' => 'field_63eb4a0b11678',
-            'label' => __('Location', 'municipio'),
+            'label' => __('Location', 'visit'),
             'name' => 'location',
             'aria-label' => '',
             'type' => 'google_map',
-            'instructions' => __('Area or street address of the location.', 'municipio'),
+            'instructions' => __('Area or street address of the location.', 'visit'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -27,13 +27,6 @@
     ),
     'location' => array(
         0 => array(
-            0 => array(
-                'param' => 'purpose',
-                'operator' => '==',
-                'value' => 'place',
-            ),
-        ),
-        1 => array(
             0 => array(
                 'param' => 'post_type',
                 'operator' => '==',

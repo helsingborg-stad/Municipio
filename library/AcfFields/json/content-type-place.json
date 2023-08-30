@@ -1,14 +1,14 @@
 [{
     "key": "group_63eb4a0aa476e",
-    "title": "Location",
+    "title": "Location!!', !!'visit!!')!!",
     "fields": [
         {
             "key": "field_63eb4a0b11678",
-            "label": "Location",
+            "label": "Location!!', !!'visit!!')!!",
             "name": "location",
             "aria-label": "",
             "type": "google_map",
-            "instructions": "Area or street address of the location.",
+            "instructions": "Area or street address of the location.!!', !!'visit!!')!!",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -23,13 +23,6 @@
         }
     ],
     "location": [
-        [
-            {
-                "param": "purpose",
-                "operator": "==",
-                "value": "place"
-            }
-        ],
         [
             {
                 "param": "post_type",

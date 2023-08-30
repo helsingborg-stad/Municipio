@@ -14,17 +14,17 @@ use Municipio\Helper\Listing as ListingHelper;
 class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
-    protected $purpose;
+    protected $contentType;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->purpose = ContentTypeHelper::getContentType($this->data['post']->postType);
+        $this->contentType = ContentTypeHelper::getContentType($this->data['post']->postType);
 
         // Set view if allowed
         if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
-            $this->view = $this->purpose->getView();
+            $this->view = $this->contentType->getView();
         }
 
         // STRUCTURED DATA (SCHEMA.ORG)
