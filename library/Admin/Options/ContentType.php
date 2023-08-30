@@ -16,8 +16,8 @@ class ContentType
 
             if ($this->renderFieldGroups($postTypes)) {
                 acf_add_options_sub_page(array(
-                    'page_title' => __('ContentType templates', 'municipio'),
-                    'menu_title' => __('ContentTypes', 'municipio'),
+                    'page_title' => __('Content types', 'municipio'),
+                    'menu_title' => __('Content types', 'municipio'),
                     'parent_slug' => 'themes.php',
                     'capability' => 'administrator',
                     'menu_slug' => 'acf-options-content-type'

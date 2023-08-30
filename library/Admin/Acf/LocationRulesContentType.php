@@ -5,7 +5,7 @@ class LocationRulesContentType extends \ACF_Location // @codingStandardsIgnoreLi
     public function initialize()
     {
         $this->name = 'content_type';
-        $this->label = __("ContentType", 'municipio');
+        $this->label = __("Content type", 'municipio');
         $this->category = 'post';
         $this->object_type = 'post';
     }
