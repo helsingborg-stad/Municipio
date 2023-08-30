@@ -19,8 +19,9 @@
                 'class' => '',
                 'id' => '',
             ),
+            'acfe_save_meta' => 0,
             'center_lat' => '56.042834',
-            'center_lng' => '12.7009283,17',
+            'center_lng' => '12.7009283',
             'zoom' => 11,
             'height' => 300,
         ),
@@ -28,7 +29,7 @@
     'location' => array(
         0 => array(
             0 => array(
-                'param' => 'post_type',
+                'param' => 'content_type',
                 'operator' => '==',
                 'value' => 'place',
             ),
