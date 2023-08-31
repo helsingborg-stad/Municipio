@@ -188,7 +188,6 @@ class Template
                 } elseif (!empty($instance->view)) {
                     $template = $instance->view;
                 }
-                echo '<pre>' . print_r($template, true) . '</pre>';
                 return [
                     'data' => $instance,
                     'view' => $template
