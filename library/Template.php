@@ -188,7 +188,6 @@ class Template
                 } elseif (!empty($instance->view)) {
                     $template = $instance->view;
                 }
-
                 return [
                     'data' => $instance,
                     'view' => $template
