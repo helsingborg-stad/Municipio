@@ -60,5 +60,10 @@
         "yoast/phpunit-polyfills": "^1.0.4",
         "spatie/phpunit-watcher": "*",
         "php-stubs/acf-pro-stubs": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+          "Municipio\\": "library/"
+        }
     }
 }

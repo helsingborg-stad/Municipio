@@ -9,13 +9,6 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
 }
 
 /**
- * Composer autoloader from abspath
- */
-if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
-    require_once dirname(ABSPATH) . '/vendor/autoload.php';
-}
-
-/**
  * Load kirki source
  */
 $kirkiFilePaths = [
@@ -31,18 +24,9 @@ foreach($kirkiFilePaths as $kirkiFilePath) {
 }
 
 /**
- * Psr4ClassLoader
+ * Public include
  */
-require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';
 require_once MUNICIPIO_PATH . 'library/Public.php';
-
-/**
- * Initialize autoloader (psr4)
- */
-$loader = new Municipio\Vendor\Psr4ClassLoader();
-$loader->addPrefix('Municipio', MUNICIPIO_PATH . 'library');
-$loader->addPrefix('Municipio', MUNICIPIO_PATH . 'source/php/');
-$loader->register();
 
 /**
  * Acf auto import and export
