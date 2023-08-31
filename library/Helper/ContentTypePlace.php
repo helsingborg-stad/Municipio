@@ -6,7 +6,7 @@ use Municipio\Helper\Listing as ListingHelper;
 
 class ContentTypePlace
 {
-    public function complementPlacePost($post, $complementPost = true)
+    public static function complementPlacePost($post, $complementPost = true)
     {
         if ($complementPost) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
