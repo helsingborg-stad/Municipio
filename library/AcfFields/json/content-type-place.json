@@ -29,6 +29,11 @@
                 "param": "content_type",
                 "operator": "==",
                 "value": "place"
+            },
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "all"
             }
         ]
     ],

@@ -33,6 +33,11 @@
                 'operator' => '==',
                 'value' => 'place',
             ),
+            1 => array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'all',
+            ),
         ),
     ),
     'menu_order' => 0,
