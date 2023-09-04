@@ -18,9 +18,9 @@ $buildCommands = [];
 //Dump autloader. 
 //Only if composer.json exists.
 if(file_exists('composer.json')) {
-    if(is_array($argv) && !in_array('--no-composer', $argv)) {
+    //if(is_array($argv) && !in_array('--no-composer', $argv)) {
         $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev'; 
-    }
+    //}
     $buildCommands[] = 'composer dump-autoload';
 }
 
