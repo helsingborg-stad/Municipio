@@ -34,6 +34,7 @@ $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
 
     &__viewbox {
         height: $brand-height;
+        max-width: 100%;
 
         @include mq('xs') {
             height: clamp(calc(#{$base} * 3), calc($brand-height * 0.65), $brand-height);
