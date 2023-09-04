@@ -36,6 +36,10 @@ $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
         height: $brand-height;
         max-width: 100%;
 
+        .c-brand__container {
+            height: 100px;
+        }
+
         @include mq('xs') {
             height: clamp(calc(#{$base} * 3), calc($brand-height * 0.65), $brand-height);
         }
@@ -49,7 +53,6 @@ $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
         }
     }
 
-    .c-brand__container,
     .c-brand__logotype {
         height: 100%;
     }
