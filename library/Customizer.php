@@ -2,8 +2,10 @@
 
 namespace Municipio;
 
+use Error;
 use Kirki\Compatibility\Kirki;
 use Municipio\Customizer\PanelsRegistry;
+use \Kirki\Module\FontUploads as FontUploads;
 
 class Customizer
 {
@@ -130,7 +132,11 @@ class Customizer
         ));
 
         // Custom fonts support (parse uploaded fonts)
-        new \Kirki\Module\FontUploads();
+        if(class_exists('FontUploads')) {
+            new FontUploads();
+        } else {
+            error_log("Custom web font addon could not be loaded in Municipio. Please install KirkiFontUploads addon.");
+        }
 
         //Applicators [Stuff that make effect on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
