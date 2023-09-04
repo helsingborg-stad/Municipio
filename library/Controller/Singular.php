@@ -174,7 +174,7 @@ class Singular extends \Municipio\Controller\BaseController
             $contentTypePlaceHelper = new \Municipio\Helper\ContentTypePlace();
             foreach ($query->posts as &$post) {
                 $contentType = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
-                if ($contentType[0]->key == 'place' || isset($contentType[0]->secondaryContentType['place'])) {
+                if (is_object($contentType) && $contentType->getKey() == 'place') {
                     $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($post, true);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
