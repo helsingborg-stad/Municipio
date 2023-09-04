@@ -20,10 +20,10 @@ class ContentTypePlace
         return $post;
     }
 
-    private function createPlaceInfoList($fields)
+    public static function createPlaceInfoList($fields)
     {
-        // Phone number
         $list = [];
+        // Phone number
         if (!empty($fields['phone'])) {
             $list['phone'] = ListingHelper::createListingItem(
                 $fields['phone'],
