@@ -47,7 +47,8 @@ class General
                 "href" => "#search",
                 "icon" => [
                     'icon' => 'search',
-                    'size' => 'md'
+                    'size' => 'md',
+                    'classList' => ['c-nav__icon']
                 ],
                 "isSearch" => true,
                 "attributeList" => [
