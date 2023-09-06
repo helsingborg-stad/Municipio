@@ -25,6 +25,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
         $this->data['displayFeaturedImage'] = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
+        $this->data['showPageTitleOnOnePage'] = $this->showPageTitleOnOnePage($this->data['post']->id);
 
         $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
@@ -462,6 +463,14 @@ class Singular extends \Municipio\Controller\BaseController
         return (bool) apply_filters(
             'Municipio/Controller/Singular/displayFeaturedImageOnSinglePost',
             get_field('post_single_show_featured_image', $postId),
+            $postId
+        );
+    }
+
+    private function showPageTitleOnOnePage(int $postId = 0) {
+        return (bool) apply_filters(
+            'Municipio/Controller/Singular/showTitleOnOnePage',
+            get_field('post_one_page_show_title', $postId),
             $postId
         );
     }
