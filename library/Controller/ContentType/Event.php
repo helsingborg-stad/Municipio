@@ -21,7 +21,6 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         parent::__construct($this->key, $this->label);
 
         $this->addSecondaryContentType(new Place());
-        $this->addSecondaryContentType(new Project());
 
         // Append structured data to use for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
