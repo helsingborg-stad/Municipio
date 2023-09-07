@@ -23,7 +23,7 @@
                 ])
                     {!! $post->postTitleFiltered !!}
                 @endtypography
-                @if ($post->callToActionItems['floating'])
+                @if (!empty($post->callToActionItems['floating']))
                     @icon($post->callToActionItems['floating'])
                     @endicon
                 @endif
@@ -102,12 +102,12 @@
                     @segment([
                         'layout' => 'card',
                         'title' => $post->postTitleFiltered,
-                        'content' => $post->excerptShorter,
-                        'image' => $post->thumbnail['src'],
+                        'content' => !empty($post->excerptShorter) ? $post->excerptShorter : false,
+                        'image' => !empty($post->thumbnail['src']) ? $post->thumbnail['src'] : false,
                         'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
-                        'tags' => $post->termsUnlinked,
-                        'meta' => $post->readingTime,
-                        'icon' => $post->termIcon['icon'] ? $post->termIcon : false
+                        'tags' => !empty($post->termsUnlinked) ? $post->termsUnlinked : false,
+                        'meta' => !empty($post->readingTime) ? $post->readingTime : false,
+                        'icon' => !empty($post->termIcon['icon']) ? $post->termIcon : false
                     ])
                     @if ($post->callToActionItems['floating'])
                         @slot('floating')
