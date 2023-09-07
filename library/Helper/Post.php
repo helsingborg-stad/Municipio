@@ -182,8 +182,8 @@ class Post
 
         //Append post terms
         if (in_array('terms', $appendFields)) {
-            $postObject->terms            = self::getPostTerms($postObject->ID);
-            $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false);
+            $postObject->terms            = self::getPostTerms($postObject->ID, true, $data['taxonomiesToDisplay']);
+            $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false, $data['taxonomiesToDisplay']);
         }
 
         if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
@@ -214,6 +214,13 @@ class Post
         if (!empty($postObject->location)) {
             $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
         } 
+
+        if (!empty($postObject->post_type)) {
+            $purpose = \Municipio\Helper\Purpose::getPurpose($postObject->post_type);
+            if (!empty($purpose)) {
+                $postObject->purpose = $purpose[0]->key;
+            }
+        }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
@@ -258,12 +265,14 @@ class Post
      * @param boolean $includeLink      If a link should be included or not
      * @return array                    A array of terms to display
      */
-    protected static function getPostTerms($postId, $includeLink = true)
+    protected static function getPostTerms($postId, $includeLink = true, $taxonomies = false)
     {
-        $taxonomies = get_theme_mod(
-            'archive_' . get_post_type($postId) . '_taxonomies_to_display',
-            false
-        );
+        if (empty($taxonomies) && !is_array($taxonomies)) {
+            $taxonomies = get_theme_mod(
+                'archive_' . get_post_type($postId) . '_taxonomies_to_display',
+                false
+            );
+        } 
 
         $termsList = [];
         if (is_array($taxonomies) && !empty($taxonomies)) {
