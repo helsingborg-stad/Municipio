@@ -181,7 +181,7 @@ class Post
         $postObject->featuredImage  = self::getFeaturedImage($postObject->ID, [1080, false]);
 
         //Append post terms
-        if (in_array('terms', $appendFields)) {
+        if (in_array('terms', $appendFields) && !empty($data['taxonomiesToDisplay'])) {
             $postObject->terms            = self::getPostTerms($postObject->ID, true, $data['taxonomiesToDisplay']);
             $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false, $data['taxonomiesToDisplay']);
         }
@@ -216,10 +216,7 @@ class Post
         } 
 
         if (!empty($postObject->post_type)) {
-            $purpose = \Municipio\Helper\Purpose::getPurpose($postObject->post_type);
-            if (!empty($purpose)) {
-                $postObject->purpose = $purpose[0]->key;
-            }
+            $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType($postObject->post_type);
         }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
