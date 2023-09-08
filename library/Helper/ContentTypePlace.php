@@ -6,7 +6,7 @@ use Municipio\Helper\Listing as ListingHelper;
 
 class ContentTypePlace
 {
-    public function complementPlacePost($post, $complementPost = true)
+    public static function complementPlacePost($post, $complementPost = true)
     {
         if ($complementPost) {
             $post = \Municipio\Helper\Post::preparePostObject($post);
@@ -20,10 +20,10 @@ class ContentTypePlace
         return $post;
     }
 
-    private function createPlaceInfoList($fields)
+    public static function createPlaceInfoList($fields)
     {
-        // Phone number
         $list = [];
+        // Phone number
         if (!empty($fields['phone'])) {
             $list['phone'] = ListingHelper::createListingItem(
                 $fields['phone'],

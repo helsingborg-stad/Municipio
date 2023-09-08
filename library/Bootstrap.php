@@ -9,13 +9,6 @@ if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
 }
 
 /**
- * Composer autoloader from abspath
- */
-if (file_exists(dirname(ABSPATH) . '/vendor/autoload.php')) {
-    require_once dirname(ABSPATH) . '/vendor/autoload.php';
-}
-
-/**
  * Load kirki source
  */
 $kirkiFilePaths = [
@@ -23,7 +16,7 @@ $kirkiFilePaths = [
     rtrim(MUNICIPIO_PATH, '/') . '/vendor/kirki/kirki.php'
 ];
 
-foreach($kirkiFilePaths as $kirkiFilePath) {
+foreach ($kirkiFilePaths as $kirkiFilePath) {
     if (file_exists($kirkiFilePath)) {
         include_once($kirkiFilePath);
         break;
@@ -31,18 +24,9 @@ foreach($kirkiFilePaths as $kirkiFilePath) {
 }
 
 /**
- * Psr4ClassLoader
+ * Public include
  */
-require_once MUNICIPIO_PATH . 'library/Vendor/Psr4ClassLoader.php';
 require_once MUNICIPIO_PATH . 'library/Public.php';
-
-/**
- * Initialize autoloader (psr4)
- */
-$loader = new Municipio\Vendor\Psr4ClassLoader();
-$loader->addPrefix('Municipio', MUNICIPIO_PATH . 'library');
-$loader->addPrefix('Municipio', MUNICIPIO_PATH . 'source/php/');
-$loader->register();
 
 /**
  * Acf auto import and export
@@ -109,7 +93,8 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
         // Content Types (formerly Purposes)
-        'content-type-place'                        => 'group_63eb4a0aa476e',
+        'content-type-place'    => 'group_63eb4a0aa476e',
+        'options-content-types' => 'group_63e3852d91646'
     ));
 
     $acfExportManager->import();

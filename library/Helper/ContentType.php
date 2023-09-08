@@ -66,7 +66,7 @@ class ContentType
         }
 
         $contentType = false;
-        $contentTypeStr = get_option("options_content_type_{$type}", false);
+        $contentTypeStr = get_option("options_contentType_{$type}", false);
 
         if ($contentTypeStr) {
             $contentType = self::getContentTypeInstance($contentTypeStr);

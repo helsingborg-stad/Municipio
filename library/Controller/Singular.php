@@ -162,10 +162,10 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         if ($query->have_posts()) {
-            $purposePlaceHelper = new \Municipio\Helper\ContentTypePlace();
+            $contentTypePlaceHelper = new \Municipio\Helper\ContentTypePlace();
             foreach ($query->posts as &$post) {
-                $purpose = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
-                if (!is_object($purpose) && $purpose->getKey() == 'place') {
+                $contentType = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
+                if (is_object($contentType) && $contentType->getKey() == 'place') {
                     $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($post, true);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
