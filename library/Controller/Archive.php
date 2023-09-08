@@ -94,28 +94,6 @@ class Archive extends \Municipio\Controller\BaseController
             true,
             true
         );
-
-        //Language
-        if (!isset($this->data['lang'])) {
-            $this->data['lang'] = (object) [];
-        }
-
-        $this->data['lang']->noResult         = $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio');
-        $this->data['lang']->publish          = __('Published', 'municipio');
-        $this->data['lang']->updated          = __('Updated', 'municipio');
-        $this->data['lang']->readMore         = __('Read more', 'municipio');
-        $this->data['lang']->searchFor        = ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items));
-
-        $this->data['lang']->fromDate         = __('Choose a from date', 'municipio');
-        $this->data['lang']->toDate           = __('Choose a to date', 'municipio');
-        $this->data['lang']->dateInvalid      = __('Select a valid date', 'municipio');
-
-        $this->data['lang']->searchBtn        = __('Search', 'municipio');
-        $this->data['lang']->filterBtn        = __('Filter', 'municipio');
-        $this->data['lang']->resetSearchBtn   = __('Reset search', 'municipio');
-        $this->data['lang']->resetFilterBtn   = __('Reset filter', 'municipio');
-        $this->data['lang']->archiveNav       = __('Archive navigation', 'municipio');
-        $this->data['lang']->resetFacetting   = __('Reset', 'municipio');
     }
 
     /**

@@ -132,16 +132,6 @@ class Singular extends \Municipio\Controller\BaseController
 
         $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
 
-        $data['lang'] = (object) [
-            'filterBtn'        => __('Filter', 'municipio'),
-            'resetFilterBtn'   => __('Reset filter', 'municipio'),
-            'noResult'         => __('No items found.', 'municipio'),
-            'sortBy'           => __('Sort by', 'municipio'),
-            'sortRandom'       => __('Random', 'municipio'),
-            'sortName'         => __('Name (A-Z)', 'municipio'),
-            'sortPublishDate'  => __('Publish Date', 'municipio'),
-        ];
-
         $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
 
@@ -166,6 +156,7 @@ class Singular extends \Municipio\Controller\BaseController
     }
     public function prepareQuery($query)
     {
+
         if (is_string($query) || empty($query)) {
             return false;
         }
