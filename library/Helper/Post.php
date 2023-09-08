@@ -58,7 +58,7 @@ class Post
         $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
         $postObject->hasQuicklinksAfterFirstBlock = false;
         $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
-        if ($postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
+        if (!empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
             $postObject->displayQuicklinksAfterContent = false;
             // Add quicklinks after first block
             foreach (parse_blocks($postObject->post_content) as $key => $block) {
