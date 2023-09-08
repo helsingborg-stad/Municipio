@@ -382,7 +382,7 @@ class PostFilters
          * @return void
          */
         if (
-            $query->get('post_type') == 'attachment' &&
+            $query->get('post_type') == 'attachment' && is_array($query->get('post_mime_type')) &&
                 !empty(array_filter($query->get('post_mime_type'), function ($item) {
                     return strpos($item, 'font') !== false;
                 }))
