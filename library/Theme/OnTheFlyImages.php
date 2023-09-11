@@ -17,6 +17,7 @@
 namespace Municipio\Theme;
 
 use Municipio\Helper\File as FileHelper;
+use WP_Error;
 
 class OnTheFlyImages
 {
@@ -44,49 +45,157 @@ class OnTheFlyImages
      *
      * @return string|bool            URL of resized image, false if error
      */
-    public function runResizeImage($downsize, $id, $size)
+    public function runResizeImage($downsize, $id, $requestedSize)
     {
-        if (is_array($size) && count($size) == 2 && !empty($id)) {
 
-            //Check for image
-            if (!in_array(get_post_mime_type($id), array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
-                return false;
-            }
+        //This is not a request for resize
+        if(is_string($requestedSize)) {
+            return $downsize;
+        }
 
-            //Check that we have the needed data to make calculations
-            if (count(array_filter($size)) == 1 && $attachmentMetaData = wp_get_attachment_metadata($id)) {
-                //Calc height (from width)
-                if (!is_numeric($size[0])) {
-                    $scale = $size[1] / $attachmentMetaData['height'];
-                    $size[0] = floor($attachmentMetaData['width'] * $scale);
+        if (!in_array(get_post_mime_type($id), array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
+            return $downsize;
+        }
+        
+        //Get image size
+        $sourceImageDimensions = $this->getSourceImageDimensions($id);
+
+        if(!is_wp_error($sourceImageDimensions)) {
+            if($this->isMissingSizeArguments($requestedSize)) {
+
+                // Calculate the missing dimension
+                $calculatedSize = $this->calculateMissingDimension($requestedSize[0], $requestedSize[1], $sourceImageDimensions);
+
+                if ($calculatedSize !== false) {
+
+                    //Normalize values, if to large
+                    $calculatedSize = $this->normalizeSize($calculatedSize); 
+
+                    // Resize the image with the calculated dimensions
+                    return [
+                        $this->resizeImage(
+                            $id, 
+                            $calculatedSize[0], 
+                            $calculatedSize[1], 
+                            true
+                        ),
+                        $calculatedSize[0],
+                        $calculatedSize[1],
+                        true
+                    ];
                 }
+            }
+        }
 
-                //Calc width (from height)
-                if (!is_numeric($size[1])) {
-                    $scale = $size[0] / $attachmentMetaData['width'];
-                    $size[1] = floor($attachmentMetaData['height'] * $scale);
-                }
+        return $downsize;
+    }
+
+        
+    /**
+     * Calculate the missing dimension based on available values.
+     *
+     * @param int|false $width  The width dimension (or false if missing).
+     * @param int|false $height The height dimension (or false if missing).
+     * @param array     $sourceImageDimensions An array containing source image dimensions.
+     *
+     * @return array|false An array containing width and height, or false if both dimensions are missing.
+     */
+    private function calculateMissingDimension($width, $height, $sourceImageDimensions) {
+        list($srcWidth, $srcHeight) = array_values($sourceImageDimensions);
+
+        if ($width === false && $height !== false) {
+            // Width is missing, calculate it
+            $width = round(($height / $srcHeight) * $srcWidth);
+        } elseif ($width !== false && $height === false) {
+            // Height is missing, calculate it
+            $height = round(($width / $srcWidth) * $srcHeight);
+        } elseif ($width === false && $height === false) {
+            // Both dimensions are missing, handle this case as needed
+            // You can set default values or raise an error
+            return false;
+        }
+
+        return [
+            (int) $width, 
+            (int) $height
+        ];
+    }
+
+    /**
+     * Retrieve the dimensions of the source image.
+     *
+     * This method takes an attachment ID, retrieves the file path associated with that ID, and then
+     * attempts to obtain the dimensions (width and height) of the image file. If successful, it returns
+     * an array containing the width and height. If the image size cannot be determined, it returns a
+     * WP_Error object with appropriate error messages.
+     *
+     * @param int $id The attachment ID of the source image.
+     *
+     * @return array|WP_Error An array containing 'width' and 'height' keys if dimensions are found,
+     *                        or a WP_Error object if there was an issue retrieving the dimensions.
+     */
+    private function getSourceImageDimensions($id) {
+
+        $filePath = get_attached_file($id); 
+
+        if(FileHelper::fileExists($filePath)) {
+            $imageMeta = getimagesize($filePath); 
+            if(is_array($imageMeta) && !empty($imageMeta)) {
+                return [
+                    'width' => $imageMeta[0] ?? false,
+                    'height' => $imageMeta[1] ?? false
+                ];
             }
 
-            //Normalize size (do not create humungous images)
-            if ($size[0] > 2500) {
-                $size[0] = 2500;
-            }
-
-            //Normalize size (do not create humungous images)
-            if ($size[1] > 2500) {
-                $size[1] = 2500;
-            }
-
-            return array(
-                $this->resizeImage($id, $size[0], $size[1], true),
-                $size[0],
-                $size[1],
-                true
+            //Cold not get image size, not an image? 
+            return new WP_Error(
+                'imagesize_not_found', 
+                __('Original image size could not be found.'), 
+                $imageMeta
             );
         }
 
-        return false;
+        return new WP_Error(
+            'image_not_found', 
+            __('Could not find image.'), 
+            $filePath
+        );
+    }
+
+    /**
+     * Check if all required size arguments are provided.
+     *
+     * This method checks if an array contains exactly two non-empty elements. It is typically used to
+     * determine if both width and height dimensions are provided for an image size.
+     *
+     * @param array $size An array containing size-related arguments.
+     *
+     * @return bool Returns true if both width and height are provided, false otherwise.
+     */
+    private function isMissingSizeArguments($size) {
+        if(count(array_filter($size)) == 2) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Normalize image dimensions to prevent them from exceeding a specified limit.
+     *
+     * This method takes an array of image dimensions (width and height) and ensures
+     * that neither dimension exceeds the specified limit. If a dimension is greater
+     * than the limit, it will be set to the limit.
+     *
+     * @param array $size An array containing the width and height of the image.
+     * @param int   $limit The maximum allowed dimension (both width and height).
+     *
+     * @return array The normalized image dimensions.
+     */
+    private function normalizeSize(array $size, int $limit = 2500) : array {
+        array_walk($size, function(&$value) use ($limit) {
+            $value = (int) ((int) $value > $limit) ? $limit : $value;
+        });
+        return $size;
     }
 
     /* Resize image on the fly
@@ -122,7 +231,8 @@ class OnTheFlyImages
 
         // Generate thumbnail
         try {
-            if (image_make_intermediate_size($path, $width, $height, $crop)) {
+            if ($meta = image_make_intermediate_size($path, $width, $height, $crop)) {
+                error_log("Image not found. Creating: " . $path . print_r($meta, true)); 
                 return $url;
             }
         } catch (\Exception $e) {
