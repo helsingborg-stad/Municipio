@@ -130,4 +130,21 @@ class CustomPostType
 
         return($template_path);
     }
+
+        public function showInMenu($type_definition) {
+         if (!empty($this->hasNestedPagesMenu()) && !empty($type_definition['show_in_nav_menus']) && !empty($type_definition['place_under_pages_menu'])) {
+            return 'nestedpages';
+        }
+        return true;
+    }
+
+    public function hasNestedPagesMenu() {
+        global $menu;
+        foreach ($menu as $menuItem) {
+            if (!empty($menuItem[2]) && $menuItem[2] === 'nestedpages') {
+                return true;
+            }
+        }
+        return false;
+    }
 }
