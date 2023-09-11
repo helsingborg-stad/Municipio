@@ -22,7 +22,8 @@ use WP_Error;
 class OnTheFlyImages
 {
     private $imageQuality = 92;
-    public function __construct()
+    
+    public function __construct() 
     {
         //Respect image quality
         $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
@@ -51,20 +52,27 @@ class OnTheFlyImages
         //This is not a request for resize
         if(is_string($requestedSize)) {
             return $downsize;
+        } else {
+            $requestedSize = $this->normalizeSizeFalsy($requestedSize);
         }
 
-        if (!in_array(get_post_mime_type($id), array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
+        if(!$this->isImageMime($id)) {
             return $downsize;
         }
-        
-        //Get image size
-        $sourceImageDimensions = $this->getSourceImageDimensions($id);
 
-        if(!is_wp_error($sourceImageDimensions)) {
-            if($this->isMissingSizeArguments($requestedSize)) {
+        //Get image size, if request is incomplete
+        if($this->isMissingSizeArguments($requestedSize)) {
 
+            $sourceImageDimensions = $this->getSourceImageDimensions($id);
+
+            if(!is_wp_error($sourceImageDimensions)) {
+            
                 // Calculate the missing dimension
-                $calculatedSize = $this->calculateMissingDimension($requestedSize[0], $requestedSize[1], $sourceImageDimensions);
+                $calculatedSize = $this->calculateMissingDimension(
+                    $requestedSize[0], 
+                    0, 
+                    $sourceImageDimensions
+                );
 
                 if ($calculatedSize !== false) {
 
@@ -74,7 +82,7 @@ class OnTheFlyImages
                     // Resize the image with the calculated dimensions
                     return [
                         $this->resizeImage(
-                            $id, 
+                            $id,
                             $calculatedSize[0], 
                             $calculatedSize[1], 
                             true
@@ -87,7 +95,44 @@ class OnTheFlyImages
             }
         }
 
-        return $downsize;
+        //Has fixed width & height
+        return [
+            $this->resizeImage(
+                $id, 
+                $requestedSize[0], 
+                $requestedSize[1], 
+                true
+            ),
+            $requestedSize[0],
+            $requestedSize[1],
+            true
+        ];
+    }
+
+    /**
+     * Check if a given post or attachment has an image MIME type.
+     *
+     * This function retrieves the MIME type of the provided post or attachment ID
+     * and checks if it belongs to the allowed image MIME types, including JPEG,
+     * PNG, GIF, BMP, TIFF, and ICO.
+     *
+     * @param int $id The ID of the post or attachment to check.
+     *
+     * @return bool Returns true if the provided attachment is an image with an
+     *              allowed MIME type, or false otherwise.
+     */
+    private function isImageMime($id) {
+        if(!$mime = get_post_mime_type($id)) {
+            $mime = FileHelper::getMimeType(
+                get_attached_file($id)
+            );
+        }
+
+        if (!in_array($mime, array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
+            return false;
+        }
+
+        return true;
     }
 
         
@@ -102,6 +147,14 @@ class OnTheFlyImages
      */
     private function calculateMissingDimension($width, $height, $sourceImageDimensions) {
         list($srcWidth, $srcHeight) = array_values($sourceImageDimensions);
+
+        if(empty($width)) {
+            $width = false;
+        }
+
+        if(empty($height)) {
+            $height = false;
+        }
 
         if ($width === false && $height !== false) {
             // Width is missing, calculate it
@@ -136,29 +189,27 @@ class OnTheFlyImages
      */
     private function getSourceImageDimensions($id) {
 
-        $filePath = get_attached_file($id); 
-
-        if(FileHelper::fileExists($filePath)) {
-            $imageMeta = getimagesize($filePath); 
-            if(is_array($imageMeta) && !empty($imageMeta)) {
-                return [
-                    'width' => $imageMeta[0] ?? false,
-                    'height' => $imageMeta[1] ?? false
-                ];
+        //Get image sizes
+        if(!$imageMeta = wp_get_attachment_metadata($id)) {
+            $filePath = get_attached_file($id); 
+            if(FileHelper::fileExists($filePath)) {
+                $imageMeta = FileHelper::getImageSize($filePath); 
             }
-
-            //Cold not get image size, not an image? 
-            return new WP_Error(
-                'imagesize_not_found', 
-                __('Original image size could not be found.'), 
-                $imageMeta
-            );
         }
 
+        //Return array with image dimensions
+        if(is_array($imageMeta) && !empty($imageMeta)) {
+            return $this->normalizeSizeFalsy([
+                'width' => $imageMeta[0] ?? false,
+                'height' => $imageMeta[1] ?? false
+            ]);
+        }
+
+        //Cold not get image size, not an image? 
         return new WP_Error(
-            'image_not_found', 
-            __('Could not find image.'), 
-            $filePath
+            'imagesize_not_found', 
+            __('Original image size could not be found, or its metadata could not be retrieved from the database.'), 
+            $imageMeta
         );
     }
 
@@ -194,6 +245,37 @@ class OnTheFlyImages
     private function normalizeSize(array $size, int $limit = 2500) : array {
         array_walk($size, function(&$value) use ($limit) {
             $value = (int) ((int) $value > $limit) ? $limit : $value;
+        });
+        return $size;
+    }
+
+    /**
+     * Normalize an array of size values by converting non-numeric and empty values to false and casting the rest to integers.
+     *
+     * This function takes an array of size values, typically representing width and height,
+     * and normalizes them by performing the following operations:
+     *
+     * - If a value is not numeric, it is set to false.
+     * - If a value is 0 (considered as falsy), it is set to false.
+     * - Numeric values are typecasted to integers.
+     *
+     * @param array $size An array of size values to normalize.
+     *
+     * @return array The normalized array where non-numeric and empty values are replaced with false.
+     */
+    private function normalizeSizeFalsy(array $size) : array {
+        array_walk($size, function(&$value) {
+
+            if(!is_numeric($value)) {
+                $value = false;
+            }
+
+            if(is_numeric($value) && $value == 0) {
+                $value = false;
+            }
+
+            $value = $value; 
+
         });
         return $size;
     }
