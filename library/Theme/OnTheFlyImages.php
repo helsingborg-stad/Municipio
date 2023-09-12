@@ -21,7 +21,6 @@ use WP_Error;
 
 class OnTheFlyImages
 {
-    private $imageQuality = 92;
     private $mimes = [
         'image/jpeg', 
         'image/png', 
@@ -30,16 +29,13 @@ class OnTheFlyImages
 
     public function __construct() 
     {
-        //Respect image quality
-        $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
-
         //Resizing
         add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
-        
-        //Quality enhancements
-        if(!defined('S3_UPLOADS_BUCKET')) {
-            add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
-        }
+
+        add_action('loop_start', function() {
+            print_r( wp_get_attachment_image_src(989, [rand(500, 600), rand(500, 600)]) );
+            die;
+        }); 
     }
 
     /**
@@ -97,7 +93,7 @@ class OnTheFlyImages
                 );
 
                 if ($requestedSize !== false) {
-                    $requestedSize = $this->normalizeSize($requestedSize); 
+                    $requestedSize = $this->normalizeSizeCap($requestedSize); 
                 }
             }
         }
@@ -310,7 +306,7 @@ class OnTheFlyImages
      *
      * @return array The normalized image dimensions.
      */
-    private function normalizeSize(array $size, int $limit = 2500) : array {
+    private function normalizeSizeCap(array $size, int $limit = 2500) : array {
         array_walk($size, function(&$value) use ($limit) {
             $value = (int) ((int) $value > $limit) ? $limit : $value;
         });
@@ -366,19 +362,22 @@ class OnTheFlyImages
         if (FileHelper::fileExists($requestedImageName['path'])) {
             return $requestedImageName['url'];
         }
+       
 
         // Generate thumbnail
         try {
 
             $intermidiateSize = image_make_intermediate_size(
-                $requestedImageName['path'], 
+                $requestedImageName['sourceUrl'], 
                 $requestedSize[0],
                 $requestedSize[1],
                 $crop
             );
 
+            var_dump($requestedImageName['sourceUrl'], $intermidiateSize, $requestedSize);
+
             if ($intermidiateSize) {
-                error_log("Image not found. Created: " . $requestedImageName['path'] . print_r($intermidiateSize, true) . print_r($_SERVER)); 
+                error_log("On The Fly Images: Created " . $requestedImageName['path']); 
                 return $requestedImageName['url'];
             }
 
@@ -390,53 +389,10 @@ class OnTheFlyImages
             }
         }
 
+        //Error
+        error_log("On The Fly Images: Could not create " . $requestedImageName['path']); 
+
         // Fallback to full size
         return $requestedImageName['sourceUrl'];
-    }
-
-    /* Increase the sharpness of images to make them look crispier
-     *
-     * @param string $resizedFile   The image file
-     * @return string $resizedFile  The new image file as sharpened variant.
-     */
-
-    public function sharpenThumbnail($resizedFile)
-    {
-
-        //Bail if imagic is missing
-        if (!class_exists('Imagick')) {
-            return $resizedFile;
-        }
-
-        //Create image
-        $image = new \Imagick($resizedFile);
-
-        //Get image size
-        $imageSize = @getimagesize($resizedFile);
-        if (!$imageSize) {
-            return $resizedFile;
-        }
-
-        list($originalWidth, $originalHeight, $originalType) = $imageSize;
-
-        //Check if JPEG
-        if ($originalType != IMAGETYPE_JPEG) {
-            return $resizedFile;
-        }
-
-        // Sharpen the image (the default is via the Lanczos algorithm) [Radius, Sigma, Sharpening, Threshold]
-        $image->unsharpMaskImage(0, 0.5, 1.5, 0);
-
-        // Store the JPG file, with as default a compression quality of 92 (default WordPress = 90, default ImageMagick = 85...)
-        $image->setImageFormat("jpg");
-        $image->setImageCompression(\Imagick::COMPRESSION_JPEG);
-        $image->setImageCompressionQuality($this->imageQuality);
-        $image->writeImage($resizedFile);
-
-        // Remove the JPG from memory
-        $image->destroy();
-
-        //Return sharpened image
-        return $resizedFile;
     }
 }
