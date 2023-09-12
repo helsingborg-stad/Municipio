@@ -22,7 +22,12 @@ use WP_Error;
 class OnTheFlyImages
 {
     private $imageQuality = 92;
-    
+    private $mimes = [
+        'image/jpeg', 
+        'image/png', 
+        'image/tiff'
+    ];
+
     public function __construct() 
     {
         //Respect image quality
@@ -38,6 +43,20 @@ class OnTheFlyImages
         }
     }
 
+    /**
+     * Checks if the requested size should trigger a resize operation.
+     *
+     * @param mixed $requestedSize The size to be checked, can be an integer, array, or other types.
+     *
+     * @return bool Returns true if the requested size should trigger a resize, false otherwise.
+     */
+    private function shouldResize($requestedSize) : bool {
+        if(is_array($requestedSize)) {
+            return true;
+        }
+        return false;
+    }
+
     /* Hook to image resize function
      *
      * @param  int     $downsize      Always false (do not try to find an alternative).
@@ -48,17 +67,23 @@ class OnTheFlyImages
      */
     public function runResizeImage($downsize, $id, $requestedSize)
     {
-
-        //This is not a request for resize
-        if(is_string($requestedSize)) {
+        //Is valid id?
+        if(!is_numeric($id)) {
             return $downsize;
-        } else {
-            $requestedSize = $this->normalizeSizeFalsy($requestedSize);
         }
 
+        //This is not a request for resize
+        if(!$this->shouldResize($requestedSize)) {
+            return $downsize;
+        }
+
+        //Verify that this is an valid image type
         if(!$this->isImageMime($id)) {
             return $downsize;
         }
+        
+        //Normalize requested size
+        $requestedSize = $this->normalizeSizeFalsy($requestedSize);
 
         //Get image size, if request is incomplete
         if($this->isMissingSizeArguments($requestedSize)) {
@@ -66,69 +91,122 @@ class OnTheFlyImages
             $sourceImageDimensions = $this->getSourceImageDimensions($id);
 
             if(!is_wp_error($sourceImageDimensions)) {
-            
-                // Calculate the missing dimension
-                $calculatedSize = $this->calculateMissingDimension(
+                $requestedSize = $this->calculateMissingDimension(
                     $requestedSize[0], 
-                    0, 
+                    $requestedSize[1], 
                     $sourceImageDimensions
                 );
 
-                if ($calculatedSize !== false) {
-
-                    //Normalize values, if to large
-                    $calculatedSize = $this->normalizeSize($calculatedSize); 
-
-                    // Resize the image with the calculated dimensions
-                    return [
-                        $this->resizeImage(
-                            $id,
-                            $calculatedSize[0], 
-                            $calculatedSize[1], 
-                            true
-                        ),
-                        $calculatedSize[0],
-                        $calculatedSize[1],
-                        true
-                    ];
+                if ($requestedSize !== false) {
+                    $requestedSize = $this->normalizeSize($requestedSize); 
                 }
             }
         }
 
         //Has fixed width & height
-        return [
-            $this->resizeImage(
-                $id, 
-                $requestedSize[0], 
-                $requestedSize[1], 
+        if($this->hasSufficientSizeDetails($requestedSize)) {
+            return [
+                $this->resizeImage(
+                    $id, 
+                    $requestedSize, 
+                    true
+                ),
+                $requestedSize[0],
+                $requestedSize[1],
                 true
-            ),
-            $requestedSize[0],
-            $requestedSize[1],
-            true
+            ];
+        }
+
+        return $downsize; //Could not resolve requested size
+    }
+
+    /**
+     * Create a unique image name for a requested size based on the given image ID.
+     *
+     * This function generates unique image file names for resized versions of the original image
+     * based on the requested width and height dimensions.
+     *
+     * @param int $id The ID of the original image.
+     * @param array $requestedSize An array containing the requested width and height dimensions.
+     *
+     * @return array An associative array containing the following keys:
+     *               - 'url': The URL of the resized image.
+     *               - 'path': The server file path of the resized image.
+     *               - 'sourceUrl': The URL of the original image.
+     */
+    private function createRequestedImageName($id, $requestedSize) {
+
+        //Get size
+        list($width, $height) = array_values($requestedSize);
+
+        // Get upload directory info
+        $uploadInfo = wp_upload_dir();
+        $uploadDir  = $uploadInfo['basedir'];
+        $uploadUrl  = $uploadInfo['baseurl'];
+
+        // Get file path info
+        $path       = get_attached_file($id);
+        $pathInfo   = pathinfo($path);
+
+        //Create variants
+        $ext            = isset($pathInfo['extension']) && !empty($pathInfo['extension']) ? $pathInfo['extension'] : '';
+        $pathRelative   = str_replace(array($uploadDir, ".$ext" ), '', $path);
+        $suffix         = "{$width}x{$height}";
+        $path           = "{$uploadDir}{$pathRelative}-{$suffix}.{$ext}";
+        $url            = "{$uploadUrl}{$pathRelative}-{$suffix}.{$ext}";
+        $source         = "{$uploadUrl}{$pathRelative}.{$ext}";
+
+        //Return details
+        return [
+            'url' => $url,
+            'path' => $path,
+            'sourceUrl' => $source
         ];
+
+    }
+
+    /**
+     * Checks if the provided requested size details are sufficient for resizing.
+     *
+     * This function verifies whether the requested size details, provided as an array containing
+     * width and height dimensions, are both set, numeric, and non-empty. It determines if the
+     * dimensions are sufficient for resizing operations.
+     *
+     * @param array $requestedSize An array containing the requested width and height dimensions.
+     *
+     * @return bool Returns true if both width and height dimensions are set, numeric, and non-empty;
+     *              otherwise, returns false.
+     */
+    private function hasSufficientSizeDetails(array $requestedSize) : bool {
+        for($i = 0; $i < 2; $i++) {
+            if(!isset($requestedSize[$i]) || !is_numeric($requestedSize[$i]) || empty($requestedSize[$i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
      * Check if a given post or attachment has an image MIME type.
      *
      * This function retrieves the MIME type of the provided post or attachment ID
-     * and checks if it belongs to the allowed image MIME types, including JPEG,
-     * PNG, GIF, BMP, TIFF, and ICO.
+     * and checks if it belongs to the allowed image MIME types.
      *
      * @param int $id The ID of the post or attachment to check.
      *
      * @return bool Returns true if the provided attachment is an image with an
      *              allowed MIME type, or false otherwise.
      */
-    private function isImageMime($id) {
-        if(!$mime = get_post_mime_type($id)) {
-            $mime = FileHelper::getMimeType(
-                get_attached_file($id)
-            );
+    private function isImageMime(int $id) : bool {
+
+        $mime = get_post_mime_type($id);
+
+        if(!is_string($mime)) {
+            return false;
         }
 
-        if (!in_array($mime, array('image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff', 'image/x-icon'))) {
+        if (!in_array($mime, $this->mimes)) {
             return false;
         }
 
@@ -163,9 +241,8 @@ class OnTheFlyImages
             // Height is missing, calculate it
             $height = round(($width / $srcWidth) * $srcHeight);
         } elseif ($width === false && $height === false) {
-            // Both dimensions are missing, handle this case as needed
-            // You can set default values or raise an error
-            return false;
+            $height = 500;
+            $width = 500;
         }
 
         return [
@@ -187,22 +264,14 @@ class OnTheFlyImages
      * @return array|WP_Error An array containing 'width' and 'height' keys if dimensions are found,
      *                        or a WP_Error object if there was an issue retrieving the dimensions.
      */
-    private function getSourceImageDimensions($id) {
-
-        //Get image sizes
-        if(!$imageMeta = wp_get_attachment_metadata($id)) {
-            $filePath = get_attached_file($id); 
-            if(FileHelper::fileExists($filePath)) {
-                $imageMeta = FileHelper::getImageSize($filePath); 
+    private function getSourceImageDimensions(int $id) {
+        if($imageMeta = wp_get_attachment_metadata($id)) {
+            if(is_array($imageMeta) && !empty($imageMeta)) {
+                return $this->normalizeSizeFalsy([
+                    'width' => $imageMeta['width']?? false,
+                    'height' => $imageMeta['height']?? false
+                ]);
             }
-        }
-
-        //Return array with image dimensions
-        if(is_array($imageMeta) && !empty($imageMeta)) {
-            return $this->normalizeSizeFalsy([
-                'width' => $imageMeta[0] ?? false,
-                'height' => $imageMeta[1] ?? false
-            ]);
         }
 
         //Cold not get image size, not an image? 
@@ -257,7 +326,6 @@ class OnTheFlyImages
      *
      * - If a value is not numeric, it is set to false.
      * - If a value is 0 (considered as falsy), it is set to false.
-     * - Numeric values are typecasted to integers.
      *
      * @param array $size An array of size values to normalize.
      *
@@ -265,7 +333,6 @@ class OnTheFlyImages
      */
     private function normalizeSizeFalsy(array $size) : array {
         array_walk($size, function(&$value) {
-
             if(!is_numeric($value)) {
                 $value = false;
             }
@@ -274,9 +341,11 @@ class OnTheFlyImages
                 $value = false;
             }
 
-            $value = $value; 
-
+            if($value !== false) {
+                $value = (int) $value;
+            }
         });
+
         return $size;
     }
 
@@ -289,34 +358,31 @@ class OnTheFlyImages
      *
      * @return string|bool            URL of resized image, false if error
      */
-    public function resizeImage($attachment_id, $width, $height, $crop = true)
+    public function resizeImage($id, $requestedSize, $crop = true)
     {
-        // Get upload directory info
-        $upload_info = wp_upload_dir();
-        $upload_dir  = $upload_info['basedir'];
-        $upload_url  = $upload_info['baseurl'];
-
-        // Get file path info
-        $path      = get_attached_file($attachment_id);
-        $path_info = pathinfo($path);
-
-        $ext       = isset($path_info['extension']) && !empty($path_info['extension']) ? $path_info['extension'] : '';
-        $rel_path  = str_replace(array( $upload_dir, ".$ext" ), '', $path);
-        $suffix    = "{$width}x{$height}";
-        $dest_path = "{$upload_dir}{$rel_path}-{$suffix}.{$ext}";
-        $url       = "{$upload_url}{$rel_path}-{$suffix}.{$ext}";
+        //Create name
+        $requestedImageName = $this->createRequestedImageName($id, $requestedSize); 
 
         // If file exists: do nothing
-        if (FileHelper::fileExists($dest_path)) {
-            return $url;
+        if (FileHelper::fileExists($requestedImageName['path'])) {
+            return $requestedImageName['url'];
         }
 
         // Generate thumbnail
         try {
-            if ($meta = image_make_intermediate_size($path, $width, $height, $crop)) {
-                error_log("Image not found. Creating: " . $path . print_r($meta, true)); 
-                return $url;
+
+            $intermidiateSize = image_make_intermediate_size(
+                $requestedImageName['path'], 
+                $requestedSize[0],
+                $requestedSize[1],
+                $crop
+            );
+
+            if ($intermidiateSize) {
+                error_log("Image not found. Created: " . $requestedImageName['path'] . print_r($intermidiateSize, true) . print_r($_SERVER)); 
+                return $requestedImageName['url'];
             }
+
         } catch (\Exception $e) {
             if(isset($_GET['debug'])) {
                 throw $e; 
@@ -326,7 +392,7 @@ class OnTheFlyImages
         }
 
         // Fallback to full size
-        return "{$upload_url}{$rel_path}.{$ext}";
+        return $requestedImageName['sourceUrl'];
     }
 
     /* Upscale images when they are to small
