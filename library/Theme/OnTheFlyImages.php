@@ -38,7 +38,6 @@ class OnTheFlyImages
         
         //Quality enhancements
         if(!defined('S3_UPLOADS_BUCKET')) {
-            add_filter('image_resize_dimensions', array($this, 'upscaleThumbnail'), 10, 6);
             add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
         }
     }
@@ -393,51 +392,6 @@ class OnTheFlyImages
 
         // Fallback to full size
         return $requestedImageName['sourceUrl'];
-    }
-
-    /* Upscale images when they are to small
-     * Fixes issues where images get skewed due to forced ratio
-     *
-     * @param  int     $originalWidth        Original width
-     * @param  int     $originalHeight        Original height
-     * @param  int     $newWidth         New width
-     * @param  int     $newHeight         New height
-     * @param  bool    $crop          Crop or not
-     *
-     * @return Array                  Array with new dimension
-     */
-    public function upscaleThumbnail($default, $originalWidth, $originalHeight, $newWidth, $newHeight, $crop)
-    {
-        if (!$crop) {
-            return null;
-        } // let the wordpress default function handle this
-
-        $sizeRatio = max($newWidth / $originalWidth, $newHeight / $originalHeight);
-
-        $cropWidth = round($newWidth / $sizeRatio);
-        $cropHeight = round($newHeight / $sizeRatio);
-
-        $s_x = floor(($originalWidth - $cropWidth) / 2);
-        $s_y = floor(($originalHeight - $cropHeight) / 2);
-
-        if (is_array($crop)) {
-
-            //Handles left, right and center (no change)
-            if ($crop[ 0 ] === 'left') {
-                $s_x = 0;
-            } elseif ($crop[ 0 ] === 'right') {
-                $s_x = $originalWidth - $cropWidth;
-            }
-
-            //Handles top, bottom and center (no change)
-            if ($crop[ 1 ] === 'top') {
-                $s_y = 0;
-            } elseif ($crop[ 1 ] === 'bottom') {
-                $s_y = $originalHeight - $cropHeight;
-            }
-        }
-
-        return array( 0, 0, (int) $s_x, (int) $s_y, (int) $newWidth, (int) $newHeight, (int) $cropWidth, (int) $cropHeight );
     }
 
     /* Increase the sharpness of images to make them look crispier
