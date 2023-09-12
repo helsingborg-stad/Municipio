@@ -8,6 +8,7 @@ class CustomPostType
     {
         //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
+        add_action('admin_init', array($this, 'test'));
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
@@ -76,7 +77,7 @@ class CustomPostType
                         'labels'             => $labels,
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
                         'public'             => $type_definition['public'],
-                        'show_in_menu'       => $type_definition['show_in_nav_menus'],
+                        'show_in_menu'       => $this->showInMenu($type_definition),
                         'rewrite'            => array(
                                                     'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
                                                     'slug' => sanitize_title($type_definition['slug'])
@@ -131,20 +132,25 @@ class CustomPostType
         return($template_path);
     }
 
-        public function showInMenu($type_definition) {
-         if (!empty($this->hasNestedPagesMenu()) && !empty($type_definition['show_in_nav_menus']) && !empty($type_definition['place_under_pages_menu'])) {
-            return 'nestedpages';
-        }
+    public function test () {
+        global $menu;
+
+        // echo '<pre>' . print_r( $menu, true ) . '</pre>';
+    }
+
+    public function showInMenu($type_definition) {
+        if (!empty($type_definition['show_in_nav_menus']) && !empty($type_definition['place_under_pages_menu'])) {
+            if (!empty($this->hasNestedPagesMenu())) {
+                return 'nestedpages';
+            }
+            
+            return 'edit.php?post_type=page';
+        } 
+
         return true;
     }
 
     public function hasNestedPagesMenu() {
-        global $menu;
-        foreach ($menu as $menuItem) {
-            if (!empty($menuItem[2]) && $menuItem[2] === 'nestedpages') {
-                return true;
-            }
-        }
-        return false;
+        return class_exists('NestedPages');
     }
 }
