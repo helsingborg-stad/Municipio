@@ -149,13 +149,15 @@ class OnTheFlyImages
         $suffix         = "{$width}x{$height}";
         $path           = "{$uploadDir}{$pathRelative}-{$suffix}.{$ext}";
         $url            = "{$uploadUrl}{$pathRelative}-{$suffix}.{$ext}";
-        $source         = "{$uploadUrl}{$pathRelative}.{$ext}";
+        $sourcePath     = "{$uploadDir}{$pathRelative}.{$ext}";
+        $sourceUrl      = "{$uploadUrl}{$pathRelative}.{$ext}";
 
         //Return details
         return [
             'url' => $url,
             'path' => $path,
-            'sourceUrl' => $source
+            'sourceUrl' => $sourceUrl,
+            'sourcePath' => $sourcePath,
         ];
 
     }
@@ -362,19 +364,16 @@ class OnTheFlyImages
         if (FileHelper::fileExists($requestedImageName['path'])) {
             return $requestedImageName['url'];
         }
-       
 
         // Generate thumbnail
         try {
 
             $intermidiateSize = image_make_intermediate_size(
-                $requestedImageName['sourceUrl'], 
+                $requestedImageName['sourcePath'], 
                 $requestedSize[0],
                 $requestedSize[1],
                 $crop
             );
-
-            var_dump($requestedImageName['sourceUrl'], $intermidiateSize, $requestedSize);
 
             if ($intermidiateSize) {
                 error_log("On The Fly Images: Created " . $requestedImageName['path']); 
