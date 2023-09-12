@@ -57,19 +57,19 @@ class Place extends ContentTypeFactory
     * Appends the structured data array (used for schema.org markup) with additional data
     *
     * @param array $structuredData The structured data to append location data to.
-    * @param string $postType The post type of the post.
     * @param int $postId The ID of the post to retrieve location data for.
     *
     * @return array The updated structured data.
     *
     */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function appendStructuredData(array $structuredData, int $postId): array
     {
         if (empty($postId)) {
             return $structuredData;
         }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
+        
         $additionalData = ['location' => []];
 
         foreach ($locationMetaKeys as $key) {
