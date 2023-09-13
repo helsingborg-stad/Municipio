@@ -3,21 +3,6 @@
     "title": "Google Translate",
     "fields": [
         {
-            "multiple": 0,
-            "allow_null": 0,
-            "choices": {
-                "false": "Do not show",
-                "header": "Above header",
-                "footer": "Below footer",
-                "fold": "Fixed to right edge"
-            },
-            "default_value": [
-                0
-            ],
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "return_format": "value",
             "key": "field_56cc6f9bd36e2",
             "label": "Where to show Google Translate",
             "name": "show_google_translate",
@@ -30,23 +15,23 @@
                 "class": "",
                 "id": ""
             },
-            "disabled": 0,
-            "readonly": 0
-        },
-        {
             "multiple": 0,
             "allow_null": 0,
             "choices": {
-                "help-menu": "Help menu",
-                "header-tabs-menu": "Header tabs menu",
-                "main-menu": "Main menu",
-                "sidebar-menu": "Sidebar menu"
+                "false": "Do not show",
+                "header": "Above header",
+                "footer": "Below footer",
+                "fold": "Fixed to right edge"
             },
-            "default_value": [],
+            "default_value": 0,
             "ui": 0,
             "ajax": 0,
             "placeholder": "",
             "return_format": "value",
+            "disabled": 0,
+            "readonly": 0
+        },
+        {
             "key": "field_56e6750855442",
             "label": "Menu to show translate link in",
             "name": "google_translate_menu",
@@ -59,21 +44,35 @@
                 "class": "",
                 "id": ""
             },
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "help-menu": "Hj\u00e4lpmeny",
+                "header-tabs-menu": "Header-tabbar",
+                "main-menu": "Prim\u00e4r menu",
+                "secondary-menu": "Sekund\u00e4rmeny och panelmeny",
+                "hamburger-menu": "Hamburgermeny",
+                "dropdown-links-menu": "Rullgardinsmeny",
+                "floating-menu": "Flytande meny",
+                "language-menu": "Spr\u00e5kmeny",
+                "quicklinks-menu": "Snabbl\u00e4nksmeny",
+                "mobile-drawer": "Panelmeny (nedre del)",
+                "siteselector-menu": "Webbplatsv\u00e4ljare",
+                "post-menu": "Inl\u00e4gg (ovanf\u00f6r arkivinl\u00e4gg)",
+                "event-menu": "Evenemang (ovanf\u00f6r arkivinl\u00e4gg)",
+                "local-events-menu": "Lokalt evenemang (ovanf\u00f6r arkivinl\u00e4gg)",
+                "news-menu": "News (ovanf\u00f6r arkivinl\u00e4gg)",
+                "none": "Ingen, l\u00e4nka till #translate f\u00f6r att visa"
+            },
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
             "disabled": 0,
             "readonly": 0
         },
         {
-            "layout": "horizontal",
-            "choices": {
-                "text": "Text",
-                "icon": "Icon",
-                "combined": "Icon and text"
-            },
-            "default_value": "text",
-            "other_choice": 0,
-            "save_other_choice": 0,
-            "allow_null": 0,
-            "return_format": "value",
             "key": "field_56e67f82e4f5e",
             "label": "Show as",
             "name": "google_translate_show_as",
@@ -85,14 +84,20 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "layout": "horizontal",
+            "choices": {
+                "text": "Text",
+                "icon": "Icon",
+                "combined": "Icon and text"
+            },
+            "default_value": "text",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value"
         },
         {
-            "default_value": 1,
-            "message": "Enable",
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": "",
             "key": "field_56cc7592fcc40",
             "label": "Track usage with Google Analytics",
             "name": "google_translate_ga_track",
@@ -104,7 +109,31 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": 1,
+            "message": "Enable",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_64f9757fc2270",
+            "label": "Exclude words from being translated",
+            "name": "google_exclude_words_from_translate",
+            "type": "text",
+            "instructions": "Seperate the words with a comma",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -122,8 +151,13 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "local": "php"
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 
