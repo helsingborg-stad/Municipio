@@ -151,6 +151,13 @@ class CustomPostType
     }
 
     public function hasNestedPagesMenu() {
-        return class_exists('NestedPages');
+        $nestedPagesOptions = get_option('nestedpages_posttypes');
+        
+        if (!empty($nestedPagesOptions) && is_array($nestedPagesOptions) && array_key_exists('page', $nestedPagesOptions)) {
+            if (!empty($nestedPagesOptions['page']['replace_menu'])) {
+                return true;
+            }
+        }
+        return false;
     }
 }
