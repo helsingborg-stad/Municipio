@@ -35,12 +35,10 @@ class Person extends ContentTypeFactory
         }
 
         $additionalData = [
-            '@context' => 'http://schema.org',
+            '@context' => 'https://schema.org',
             '@type' => 'Person',
         ];
 
-
-        // TODO - Update the ACF field names in the API to match the schema.org property names (in the api-school-manager plugin)
         // Define the available properties for the Person schema
         $properties = apply_filters(
             'Municipio/ContentType/structuredDataProperties',
@@ -55,11 +53,17 @@ class Person extends ContentTypeFactory
 
         // Iterate over each property and try to fetch the corresponding meta data from the post
         foreach ($properties as $property) {
-            $metaValue = get_post_meta($postId, $property, true);
+            switch ($property) {
+                case 'name':
+                    $propertyValue = get_the_title($postId);
+                    break;
+                default:
+                    $propertyValue = get_field($property, $postId);
+                    break;
+            }
 
-            // If a value is returned, add it to the Person schema
-            if (!empty($metaValue)) {
-                $additionalData[$property] = $metaValue;
+            if (!empty($propertyValue)) {
+                $additionalData[$property] = $propertyValue;
             }
         }
 
