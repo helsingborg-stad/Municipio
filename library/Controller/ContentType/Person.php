@@ -53,17 +53,24 @@ class Person extends ContentTypeFactory
 
         // Iterate over each property and try to fetch the corresponding meta data from the post
         foreach ($properties as $property) {
-            switch ($property) {
-                case 'name':
-                    $propertyValue = get_the_title($postId);
-                    break;
-                default:
-                    $propertyValue = get_field($property, $postId);
-                    break;
+            $propertyValue =
+            apply_filters(
+                "Municipio/ContentType/structuredDataProperty/{$property}",
+                null,
+                $postId
+            );
+
+            if (is_null($propertyValue)) {
+                $propertyValue = get_field($property, $postId);
             }
 
-            if (!empty($propertyValue)) {
-                $additionalData[$property] = $propertyValue;
+            if (!is_null($propertyValue)) {
+                $additionalData[$property] =
+                apply_filters(
+                    "Municipio/ContentType/structuredDataProperty/{$property}/value",
+                    $propertyValue,
+                    $postId
+                );
             }
         }
 
