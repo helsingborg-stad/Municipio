@@ -120,9 +120,6 @@ class OnTheFlyImages
             $requestedSize[1],
             true
         ];
-        
-
-        return $downsize; //Could not resolve requested size
     }
 
     /**
