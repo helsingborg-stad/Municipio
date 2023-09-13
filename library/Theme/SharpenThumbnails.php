@@ -10,7 +10,6 @@
 namespace Municipio\Theme;
 
 use Municipio\Helper\File as FileHelper;
-use WP_Error;
 
 class SharpenThumbnails
 {
@@ -21,7 +20,9 @@ class SharpenThumbnails
       //Respect image quality
       $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
 
-      add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
+      if(!defined('S3_UPLOADS_BUCKET')) {
+          add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
+      }
     }
 
     /* Increase the sharpness of images to make them look crispier
@@ -32,20 +33,16 @@ class SharpenThumbnails
 
     public function sharpenThumbnail($resizedFile)
     {
-
-      
       //Bail if imagic is missing
       if (!class_exists('Imagick')) {
-          return $resizedFile;
+        return $resizedFile;
       }
-
-      echo "TEST"; 
 
       //Create image
       $image = new \Imagick($resizedFile);
 
       //Get image size
-      $imageSize = @getimagesize($resizedFile);
+      $imageSize = FileHelper::getImageSize($resizedFile);
       if (!$imageSize) {
           return $resizedFile;
       }
