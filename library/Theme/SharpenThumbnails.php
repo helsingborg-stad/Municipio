@@ -12,7 +12,7 @@ namespace Municipio\Theme;
 use Municipio\Helper\File as FileHelper;
 use WP_Error;
 
-class OnTheFlyImages
+class SharpenThumbnails
 {
     private $imageQuality = 92;
 
@@ -22,7 +22,7 @@ class OnTheFlyImages
       $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
 
       //if(!defined('S3_UPLOADS_BUCKET')) {
-          //add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
+          add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
       //}
     }
 
@@ -35,10 +35,13 @@ class OnTheFlyImages
     public function sharpenThumbnail($resizedFile)
     {
 
+      
       //Bail if imagic is missing
       if (!class_exists('Imagick')) {
           return $resizedFile;
       }
+
+      echo "TEST"; 
 
       //Create image
       $image = new \Imagick($resizedFile);
@@ -57,7 +60,7 @@ class OnTheFlyImages
       }
 
       // Sharpen the image (the default is via the Lanczos algorithm) [Radius, Sigma, Sharpening, Threshold]
-      $image->unsharpMaskImage(0, 0.5, 1.5, 0);
+      $image->unsharpMaskImage(0, 0.5, 200.5, 0);
 
       // Store the JPG file, with as default a compression quality of 92 (default WordPress = 90, default ImageMagick = 85...)
       $image->setImageFormat("jpg");

@@ -31,11 +31,6 @@ class OnTheFlyImages
     {
         //Resizing
         add_filter('image_downsize', array($this, 'runResizeImage'), 5, 3);
-
-        add_action('loop_start', function() {
-            print_r( wp_get_attachment_image_src(989, [rand(500, 600), rand(500, 600)]) );
-            die;
-        }); 
     }
 
     /**
@@ -80,10 +75,17 @@ class OnTheFlyImages
         //Normalize requested size
         $requestedSize = $this->normalizeSizeFalsy($requestedSize);
 
+        //Get the source image dimensions
+        $sourceImageDimensions = $this->getSourceImageDimensions($id);
+
+        //Source image is large enough
+        if(!is_wp_error($sourceImageDimensions) && !$this->isSourceImageSufficientSize($sourceImageDimensions, $requestedSize)) {
+            $this->debug("The source image is not large enough to resize to the requested size (". implode("x", $requestedSize) ." from " . implode("x", $sourceImageDimensions)  . ")");
+            return $downsize;
+        }
+
         //Get image size, if request is incomplete
         if($this->isMissingSizeArguments($requestedSize)) {
-
-            $sourceImageDimensions = $this->getSourceImageDimensions($id);
 
             if(!is_wp_error($sourceImageDimensions)) {
                 $requestedSize = $this->calculateMissingDimension(
@@ -99,18 +101,26 @@ class OnTheFlyImages
         }
 
         //Has fixed width & height
-        if($this->hasSufficientSizeDetails($requestedSize)) {
-            return [
-                $this->resizeImage(
-                    $id, 
-                    $requestedSize, 
-                    true
-                ),
-                $requestedSize[0],
-                $requestedSize[1],
-                true
-            ];
+        if(!$this->hasSufficientSizeDetails($requestedSize)) {
+            if(is_wp_error($sourceImageDimensions)) {
+                $this->debug("Could not calculate the requested size " . implode('x', $requestedSize));
+            } else {
+                $this->debug("Could not calculate the requested size " . implode('x', $requestedSize) . " from . implode('x', $sourceImageDimensions) ");
+            }
+            return $downsize;
         }
+
+        return [
+            $this->resizeImage(
+                $id, 
+                $requestedSize, 
+                true
+            ),
+            $requestedSize[0],
+            $requestedSize[1],
+            true
+        ];
+        
 
         return $downsize; //Could not resolve requested size
     }
@@ -262,8 +272,18 @@ class OnTheFlyImages
      *                        or a WP_Error object if there was an issue retrieving the dimensions.
      */
     private function getSourceImageDimensions(int $id) {
-        if($imageMeta = wp_get_attachment_metadata($id)) {
+        if($imageMeta = wp_get_attachment_metadata($id, true)) {
             if(is_array($imageMeta) && !empty($imageMeta)) {
+                return $this->normalizeSizeFalsy([
+                    'width' => $imageMeta['width']?? false,
+                    'height' => $imageMeta['height']?? false
+                ]);
+            }
+        }
+
+        //If not image meta is found, try to repair it.
+        if(empty($imageMeta)) {
+            if($imageMeta = $this->createImageMeta($id)) {
                 return $this->normalizeSizeFalsy([
                     'width' => $imageMeta['width']?? false,
                     'height' => $imageMeta['height']?? false
@@ -274,9 +294,67 @@ class OnTheFlyImages
         //Cold not get image size, not an image? 
         return new WP_Error(
             'imagesize_not_found', 
-            __('Original image size could not be found, or its metadata could not be retrieved from the database.'), 
+            __('Original image size could not be found in this images metarecords.'), 
             $imageMeta
         );
+    }
+
+    /**
+     * Create image metadata for the specified attachment ID.
+     *
+     * This function retrieves the image file associated with the given attachment ID and attempts to
+     * extract its dimensions to update the attachment's metadata. If successful, it returns an array
+     * with the image's width and height; otherwise, it returns false.
+     *
+     * @param int $id The attachment ID for which to create image metadata.
+     *
+     * @return array|false An array containing 'width' and 'height' keys with image dimensions if successful, or false if unsuccessful.
+     */
+    private function createImageMeta($id) {
+
+        if($image = get_attached_file($id, true)) {
+            if($size = FileHelper::getImageSize($image)) {
+                $this->debug("Original image size could not be found, creating new metarecords.");
+
+                wp_update_attachment_metadata($id, [
+                    'width' => $size[0],
+                    'height' => $size[1],
+                ]);
+
+                return [
+                    'width' => $size[0],
+                    'height' => $size[1],
+                ]; 
+            }
+        }
+
+        $this->debug("Original image size could not be found in this images metarecords. We tried to create them, but failed. This may be due to a missing file.");
+
+        return false;
+    }
+
+    /**
+     * Check if the source image's dimensions are sufficient for the requested size.
+     *
+     * This function compares the dimensions of a source image with the requested size
+     * and returns true if both the width and height of the source image are greater than
+     * the corresponding dimensions in the requested size.
+     *
+     * @param array $sourceImageDimensions An array containing the dimensions of the source image, where
+     *                                    the first element is the width and the second element is the height.
+     * @param array $requestedSize An array containing the requested dimensions, where the first element is
+     *                            the requested width and the second element is the requested height.
+     *
+     * @return bool Returns true if the source image is large enough for the requested size, otherwise false.
+     */
+    private function isSourceImageSufficientSize($sourceImageDimensions, $requestedSize) {
+        if($sourceImageDimensions['width'] < $requestedSize[0]) {
+            return false; 
+        }
+        if($sourceImageDimensions['height'] < $requestedSize[1]) {
+            return false; 
+        }
+        return true;
     }
 
     /**
@@ -376,7 +454,7 @@ class OnTheFlyImages
             );
 
             if ($intermidiateSize) {
-                error_log("On The Fly Images: Created " . $requestedImageName['path']); 
+                $this->debug("Created " . $requestedImageName['path']);
                 return $requestedImageName['url'];
             }
 
@@ -384,14 +462,37 @@ class OnTheFlyImages
             if(isset($_GET['debug'])) {
                 throw $e; 
             } else {
-                error_log($e);
+                $this->debug($e);
             }
         }
 
         //Error
-        error_log("On The Fly Images: Could not create " . $requestedImageName['path']); 
+        $this->debug("Could not create " . $requestedImageName['path']);
 
         // Fallback to full size
         return $requestedImageName['sourceUrl'];
     }
+
+    /**
+     * Log debugging information to the error log.
+     *
+     * This function is used to log debugging messages and optional metadata to the error log.
+     * Debugging messages will only be logged if the 'MUNUCIPIO_DEBUG_OTFI' constant is defined.
+     *
+     * @param string $message The main debugging message to log.
+     *
+     * @return void
+     */
+    private function debug($message) {
+        if(!defined('MUNUCIPIO_DEBUG_OTFI')) {
+            return; 
+        }
+        
+        $messageParts = [
+            'Municipio On The Fly Images:',
+            $message
+        ];
+
+        error_log(str_replace("\n", "", implode(" ", $messageParts)));
+    } 
 }
