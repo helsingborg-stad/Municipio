@@ -42,7 +42,7 @@ class Person extends ContentTypeFactory
 
         // TODO - Update the ACF field names in the API to match the schema.org property names (in the api-school-manager plugin)
         // Define the available properties for the Person schema
-        apply_filters(
+        $properties = apply_filters(
             'Municipio/ContentType/structuredDataProperties',
             [
                 'name',
