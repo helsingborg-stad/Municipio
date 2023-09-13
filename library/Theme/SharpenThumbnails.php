@@ -21,9 +21,7 @@ class SharpenThumbnails
       //Respect image quality
       $this->imageQuality = apply_filters('jpeg_quality', $this->imageQuality, 'image_resize');
 
-      //if(!defined('S3_UPLOADS_BUCKET')) {
-          add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
-      //}
+      add_filter('image_make_intermediate_size', array($this, 'sharpenThumbnail'), 900);
     }
 
     /* Increase the sharpness of images to make them look crispier
