@@ -160,12 +160,12 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": 1,
                     "message": "Controls how the type is visible to authors",
+                    "default_value": 1,
                     "ui": 0,
                     "ui_on_text": "",
                     "ui_off_text": "",
@@ -180,12 +180,12 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": 0,
                     "message": "Whether to exclude posts with this post type from front end search results.",
+                    "default_value": 0,
                     "ui": 0,
                     "ui_on_text": "",
                     "ui_off_text": "",
@@ -200,12 +200,12 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": 1,
                     "message": "Make post type available for selection in navigation menus.",
+                    "default_value": 1,
                     "ui": 0,
                     "ui_on_text": "",
                     "ui_off_text": "",
@@ -220,12 +220,32 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": 1,
                     "message": "Whether the post type is hierarchical (e.g. page). Allows Parent to be specified.",
+                    "default_value": 1,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
+                    "key": "field_64fef9ff25f70",
+                    "label": "Place under pages menu?",
+                    "name": "place_under_pages_menu",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Place this post type under \"Pages\" in the admin panel?",
+                    "default_value": 1,
                     "ui": 0,
                     "ui_on_text": "",
                     "ui_off_text": "",

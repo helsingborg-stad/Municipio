@@ -8,6 +8,7 @@ class CustomPostType
     {
         //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
+        add_action('admin_init', array($this, 'test'));
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
@@ -76,7 +77,7 @@ class CustomPostType
                         'labels'             => $labels,
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
                         'public'             => $type_definition['public'],
-                        'show_in_menu'       => $type_definition['show_in_nav_menus'],
+                        'show_in_menu'       => $this->showInMenu($type_definition),
                         'rewrite'            => array(
                                                     'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
                                                     'slug' => sanitize_title($type_definition['slug'])
@@ -87,7 +88,7 @@ class CustomPostType
                         'menu_position'      => (int) $type_definition['menu_position'],
                         'has_archive'        => true,
                         'show_in_rest'       => true,
-                        'rest_base'          => sanitize_title($type_definition['slug'])
+                        'rest_base'          => sanitize_title($type_definition['slug']),
                     );
 
                     //Get custom menu icon
@@ -129,5 +130,37 @@ class CustomPostType
         }
 
         return($template_path);
+    }
+
+    /**
+     * Place custom post types under specific menu
+     * @param  string $type_definition Array of post type settings
+     * @return boolean|string  
+     */
+    public function showInMenu($type_definition) {
+        if (!empty($type_definition['show_in_nav_menus']) && !empty($type_definition['place_under_pages_menu'])) {
+            if (!empty($this->hasNestedPagesMenu())) {
+                return 'nestedpages';
+            }
+            
+            return 'edit.php?post_type=page';
+        } 
+
+        return true;
+    }
+
+    /**
+     * Returns a boolean based on Nested Pages options
+     * @return boolean
+     */
+    public function hasNestedPagesMenu() {
+        $nestedPagesOptions = get_option('nestedpages_posttypes');
+
+        if (!empty($nestedPagesOptions) && is_array($nestedPagesOptions) && array_key_exists('page', $nestedPagesOptions)) {
+            if (!empty($nestedPagesOptions['page']['replace_menu'])) {
+                return true;
+            }
+        }
+        return false;
     }
 }
