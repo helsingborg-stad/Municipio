@@ -18,6 +18,11 @@ class PrefillIconChoice
             'acf/load_field/name=material_icon',
             array($this, 'addIconsList')
         );
+
+        add_filter(
+            'acf/load_field/name=mega_menu_button_icon',
+            array($this, 'addIconsList')
+        );
     }
 
   /**
