@@ -61,7 +61,7 @@ class Person extends ContentTypeFactory
             );
 
             if (is_null($propertyValue)) {
-                $propertyValue = get_field($property, $postId);
+                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
             }
 
             if (!is_null($propertyValue)) {

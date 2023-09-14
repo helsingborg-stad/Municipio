@@ -27,6 +27,24 @@ class WP
         return !empty($terms) && !is_wp_error($terms) ? $terms : [];
     }
 
+    /**
+     * Get the value of a custom field for a given post.
+     *
+     * @param string $fieldName The name of the custom field.
+     * @param int $postId The ID of the post to get the custom field value from.
+     * @return mixed The value of the custom field.
+     */
+    public static function getField(string $fieldName = '', int $postId = 0)
+    {
+        if (function_exists('get_field')) {
+            $fieldValue = get_field($fieldName, $postId);
+        } else {
+            $fieldValue = get_post_meta($postId, $fieldName, true);
+        }
+
+        return $fieldValue;
+    }
+
     public static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
     {
         $postMeta = self::queryPostMeta($postId);
