@@ -1,5 +1,6 @@
 @extends('templates.header', ['classList' => ['c-header', 'c-header--business']])
 
+
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container c-header__flex-content">
@@ -55,6 +56,9 @@
         </div>
     </div>
 
+    {{-- Hamburger menu --}}
+    @includeIf('partials.navigation.hamburgermenu')
+
     @includeWhen(
         $showMobileSearch, 
         'partials.search.mobile-search-form',[
@@ -91,8 +95,4 @@
             </div>
         </div>
     @endif
-
-    {{-- Hamburger menu --}}
-    @includeIf('partials.navigation.hamburgermenu')
-    
 @stop
