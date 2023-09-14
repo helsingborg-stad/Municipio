@@ -215,6 +215,26 @@ class HamburgerMenu
                 ]
             ],
         ]);
+
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hamburger_cover_page',
+            'label'       => esc_html__('Cover full page', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices' => [
+                '' => esc_html__('No cover', 'municipio'),
+                'cover'  => esc_html__('Cover', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.hamburgermenu.nav']
+                ]
+            ],
+        ]);
         
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
