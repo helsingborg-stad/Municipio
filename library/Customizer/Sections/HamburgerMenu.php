@@ -74,7 +74,7 @@ class HamburgerMenu
             'label'       => esc_html__('Select font', 'municipio'),
             'description' => esc_html__('Sets the font for the main items.'),
             'section'     => $sectionID,
-            'default'     => 'body',
+            'default'     => '',
             'choices'     => [
                 '' => esc_html__('Body', 'municipio'),
                 'font-heading' => esc_html__('Heading', 'municipio'),
