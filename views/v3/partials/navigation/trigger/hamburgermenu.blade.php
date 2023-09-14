@@ -6,8 +6,8 @@
         'size' => $customizer->headerTriggerButtonSize,
         'reversePositions' => true,
         'toggle' => true,
-        'icon' => 'menu',
-        'text' => $lang->menu,
+        'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',
+        'text' => !empty($megaMenuLabels->buttonLabel) ? $megaMenuLabels->buttonLabel : $lang->menu,
         'classList' => 
             !$customizer->hamburgerMenuMobile ? 
             ['hamburger-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] 
