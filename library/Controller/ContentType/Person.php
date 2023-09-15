@@ -64,14 +64,12 @@ class Person extends ContentTypeFactory
                 $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
             }
 
-            if (!is_null($propertyValue)) {
-                $additionalData[$property] =
-                apply_filters(
-                    "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                    $propertyValue,
-                    $postId
-                );
-            }
+            $additionalData[$property] =
+            apply_filters(
+                "Municipio/ContentType/structuredDataProperty/{$property}/value",
+                $propertyValue,
+                $postId
+            );
         }
 
         return array_merge($structuredData, $additionalData);
