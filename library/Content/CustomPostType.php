@@ -8,7 +8,6 @@ class CustomPostType
     {
         //Registration of Custom Post Types
         add_action('init', array($this, 'registerCustomPostTypes'));
-        add_action('admin_init', array($this, 'test'));
 
         //Flush rewrite-rules on data update & sanitize post type name
         add_filter('acf/update_value/key=field_56b347f3ffb6c', function ($value, $post_id, $field) {
