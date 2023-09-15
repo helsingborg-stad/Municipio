@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 24; //The db version we want to achive
+    private $dbVersion = 25; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -520,6 +520,8 @@ class Upgrade
         $menuLocations = get_theme_mod('nav_menu_locations');
         if (!empty($menuLocations) && isset($menuLocations['hamburger-menu'])) {
             $menuLocations['mega-menu'] = $menuLocations['hamburger-menu'];
+            unset($menuLocations['hamburger-menu']);
+            set_theme_mod('nav_menu_locations', $menuLocations);
         }
         
         return true;
