@@ -508,7 +508,20 @@ class Upgrade
      */
     private function v_25($db): bool
     {
-        do_action('municipio_store_theme_mod');
+        $this->migrateThemeMod('hamburger_menu_appearance_type', 'mega_menu_appearance_type');
+        $this->migrateThemeMod('hamburger_menu_custom_colors', 'mega_menu_custom_colors');
+        $this->migrateThemeMod('hamburger_menu_font', 'mega_menu_font');
+        $this->migrateThemeMod('hamburger_menu_item_style', 'mega_menu_item_style');
+        $this->migrateThemeMod('hamburger_menu_item_button_style', 'mega_menu_item_button_style');
+        $this->migrateThemeMod('hamburger_menu_item_button_color', 'mega_menu_item_button_color');
+        $this->migrateThemeMod('hamburger_menu_color_scheme', 'mega_menu_color_scheme');
+        $this->migrateThemeMod('hamburger_menu_mobile', 'mega_menu_mobile');
+
+        $menuLocations = get_theme_mod('nav_menu_locations');
+        if (!empty($menuLocations) && isset($menuLocations['hamburger-menu'])) {
+            $menuLocations['mega-menu'] = $menuLocations['hamburger-menu'];
+        }
+        
         return true;
     }
 
