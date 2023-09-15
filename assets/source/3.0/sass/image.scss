@@ -1,0 +1,9 @@
+ .c-image {
+    
+     /* Gutenberg fixes to center image */
+     &.u-margin__x--auto img,
+     .u-margin__x--auto img {
+         margin-left: auto;
+         margin-right: auto;
+     }
+ }
