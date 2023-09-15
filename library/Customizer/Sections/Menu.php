@@ -60,8 +60,8 @@ class Menu
 
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
-            'settings'    => 'hamburger_menu_pagetree_fallback',
-            'label'       => esc_html__('Use page tree as fallback for hamburger menu', 'municipio'),
+            'settings'    => 'mega_menu_pagetree_fallback',
+            'label'       => esc_html__('Use page tree as fallback for mega menu', 'municipio'),
             'section'     => $sectionID,
             'default'     => false,
             'priority'    => 10,

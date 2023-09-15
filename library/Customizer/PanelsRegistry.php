@@ -276,9 +276,9 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_hamburger_menu')
-                    ->setTitle(esc_html__('Hamburger menu', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\HamburgerMenu('municipio_customizer_section_hamburger_menu'))
+                    ->setID('municipio_customizer_section_mega_menu')
+                    ->setTitle(esc_html__('Mega menu', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\MegaMenu('municipio_customizer_section_mega_menu'))
             )
 
             ->addSection(

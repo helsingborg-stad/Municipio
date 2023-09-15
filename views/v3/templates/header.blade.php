@@ -1,7 +1,7 @@
 @header([
     'id' => 'site-header',
     'classList' => array_merge(
-        ['site-header', $customizer->hamburgerMenuMobile ? 'hamburger-menu-mobile' : ''],
+        ['site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
         (array) isset($classList) ? $classList : []
     ),
     'context' => 'site.header'

@@ -504,6 +504,15 @@ class Upgrade
     }
 
     /**
+     * Publish migrated logotypes (v_22) to the design API.
+     */
+    private function v_25($db): bool
+    {
+        do_action('municipio_store_theme_mod');
+        return true;
+    }
+
+    /**
      * Get all post types
      *
      * @return array
