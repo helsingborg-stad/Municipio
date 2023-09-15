@@ -80,7 +80,8 @@ class OnTheFlyImages
 
         //Source image is large enough
         if(!is_wp_error($sourceImageDimensions) && !$this->isSourceImageSufficientSize($sourceImageDimensions, $requestedSize)) {
-            $this->debug("The source image is not large enough to resize to the requested size (". implode("x", $requestedSize) ." from " . implode("x", $sourceImageDimensions)  . ") [" . wp_get_attachment_image_src($id, 'full')[0] . " on " . $_SERVER['SCRIPT_URI'] . "]");
+            $scriptUri = isset($_SERVER['SCRIPT_URI']) ? $_SERVER['SCRIPT_URI'] : "unknown url.";  
+            $this->debug("The source image is not large enough to resize to the requested size (". implode("x", $requestedSize) ." from " . implode("x", $sourceImageDimensions)  . ") [" . wp_get_attachment_image_src($id, 'full')[0] . " on " . $scriptUri . "]");
             return $downsize;
         }
 
