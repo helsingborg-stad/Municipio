@@ -7,7 +7,11 @@
             'justifyContent' => 'space-between'
         ])
             @if ($postTitleFiltered)
-                @typography(['element' => 'h1', 'variant' => 'h1'])
+                @typography([
+                    'element' => 'h1', 
+                    'variant' => 'h1', 
+                    'id' => 'page-title',
+                ])
                     {!! $postTitleFiltered !!}
                 @endtypography
             @endif

@@ -54,4 +54,72 @@ class File
         //Opsie, file not found
         return false; 
     }
+
+    /**
+     * Get the dimensions of an image file and cache the result for future use.
+     *
+     * This function retrieves the dimensions (width and height) of the specified
+     * image file located at the given file path. It first checks if the result is
+     * already cached to improve performance. If the dimensions are not cached,
+     * it attempts to retrieve them using the PHP built-in function `getimagesize`,
+     * and then caches the result for future use.
+     *
+     * @param string $filePath The file path of the image for which to retrieve dimensions.
+     *
+     * @return array|false Returns an array containing the image dimensions (width and height)
+     *                    if the image file is found and dimensions are successfully
+     *                    retrieved. Returns false if the file is not found or if
+     *                    dimensions cannot be determined.
+     */
+    public static function getImageSize($filePath) {
+        //Unique cache value
+        $uid = "municipio_get_image_size_cache_" . md5($filePath); 
+
+        //If in cahce, found
+        if($cachedValue = wp_cache_get($uid)) {
+            return $cachedValue;
+        }
+
+        //If not in cache, look for it, if found cache. 
+        if($imageSize = getimagesize($filePath)) {
+            wp_cache_set($uid, $imageSize);
+            return $imageSize;
+        }
+
+        //Opsie, file not found
+        return false; 
+    }
+
+    /**
+     * Get the MIME type of a file and cache the result for future use.
+     *
+     * This function retrieves the MIME type of the specified file located at the given
+     * file path. It first checks if the result is already cached to improve performance.
+     * If the MIME type is not cached, it attempts to retrieve it using the `mime_content_type`
+     * function and then caches the result for future use.
+     *
+     * @param string $filePath The file path for which to retrieve the MIME type.
+     *
+     * @return string|false Returns the MIME type of the file if it is found and the MIME
+     *                     type is successfully determined. Returns false if the file is
+     *                     not found or if the MIME type cannot be determined.
+     */
+    public static function getMimeType($filePath) {
+        //Unique cache value
+        $uid = "municipio_get_mime_cache_" . md5($filePath); 
+
+        //If in cahce, found
+        if($cachedValue = wp_cache_get($uid)) {
+            return $cachedValue;
+        }
+
+        //If not in cache, look for it, if found cache. 
+        if($mime = mime_content_type($filePath)) {
+            wp_cache_set($uid, $mime);
+            return $mime;
+        }
+
+        //Opsie, file not found
+        return false; 
+    }
 }
