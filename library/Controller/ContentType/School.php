@@ -63,30 +63,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
         ], $postId);
 
-        // TODO Move the foreach loop to a separate helper method
-        // TODO Implement custom logic for name (post title) and slogan
-
-        // Iterate over each property and try to fetch the corresponding meta data from the post
-        foreach ($properties as $property) {
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
-
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
-            }
-
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
-            );
-        }
-
-        return array_merge($structuredData, $additionalData);
+        return Helper::appendStructuredData($properties, $postId, $structuredData);
     }
 }
