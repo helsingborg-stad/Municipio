@@ -78,12 +78,9 @@ class Term
         }
 
         
+        $termIcon = get_field('icon', $term);
         $type = !empty($termIcon['type']) ? $termIcon['type'] : false;
-        if($type !== false) {
-            $termIcon = get_field('icon', $term);
-        }
-
-        if ($type === 'svg' && !empty($termIcon)) {
+        if ($type === 'svg') {
             $attachment = wp_get_attachment_image_url($termIcon['svg']['ID'], 'full');
             $result = apply_filters(
                 'Municipio/getTermIconSvg',
@@ -95,7 +92,7 @@ class Term
                 ],
                 $term
             );
-        } elseif ($type === 'icon' && !empty($termIcon)) {
+        } elseif ($type === 'icon') {
             $result = apply_filters(
                 'Municipio/getTermIcon',
                 [
