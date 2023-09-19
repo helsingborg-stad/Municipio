@@ -32,10 +32,12 @@ class File
      * Check if a file exists, cache in redis. 
      *
      * @param   string  The file path
+     * @param   integer Time to store positive result
+     * @param   integer Time to store negative result
      *
      * @return  bool    If the file exists or not.
      */
-    public static function fileExists($filePath)
+    public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
     {
         //Unique cache value
         $uid = "municipio_file_exists_cache_" . md5($filePath); 
@@ -47,11 +49,12 @@ class File
 
         //If not in cache, look for it, if found cache. 
         if(file_exists($filePath)) {
-            wp_cache_set($uid, true);
+            wp_cache_set($uid, true, '', $expireFound);
             return true;
         }
 
         //Opsie, file not found
+        wp_cache_set($uid, false, '', $expireNotFound); 
         return false; 
     }
 
@@ -65,13 +68,15 @@ class File
      * and then caches the result for future use.
      *
      * @param string $filePath The file path of the image for which to retrieve dimensions.
+     * @param   integer Time to store positive result
+     * @param   integer Time to store negative result
      *
      * @return array|false Returns an array containing the image dimensions (width and height)
      *                    if the image file is found and dimensions are successfully
      *                    retrieved. Returns false if the file is not found or if
      *                    dimensions cannot be determined.
      */
-    public static function getImageSize($filePath) {
+    public static function getImageSize($filePath, $expireFound = 0, $expireNotFound = 86400) {
         //Unique cache value
         $uid = "municipio_get_image_size_cache_" . md5($filePath); 
 
@@ -82,11 +87,12 @@ class File
 
         //If not in cache, look for it, if found cache. 
         if($imageSize = getimagesize($filePath)) {
-            wp_cache_set($uid, $imageSize);
+            wp_cache_set($uid, $imageSize, '', $expireFound);
             return $imageSize;
         }
 
         //Opsie, file not found
+        wp_cache_set($uid, false, '', $expireNotFound);
         return false; 
     }
 

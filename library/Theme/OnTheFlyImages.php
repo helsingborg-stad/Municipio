@@ -311,7 +311,7 @@ class OnTheFlyImages
     private function createImageMeta($id) {
 
         if($image = get_attached_file($id, true)) {
-            if($size = FileHelper::getImageSize($image)) {
+            if(FileHelper::fileExists($image) && $size = FileHelper::getImageSize($image)) {
                 $this->debug("Original image size could not be found, creating new metarecords.");
 
                 wp_update_attachment_metadata($id, [
