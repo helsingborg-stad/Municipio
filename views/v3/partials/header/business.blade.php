@@ -5,7 +5,7 @@
         <div class="o-container c-header__flex-content">
 
             {{-- Header logo --}}
-            @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex']])
+            @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
                 @if($headerBrandEnabled)
                     @brand([
                         'logotype' => [
