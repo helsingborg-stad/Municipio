@@ -1,7 +1,7 @@
 @extends('templates.single')
 
 @section('content')
-<div class="content u-margin__left--auto u-margin__right--auto">
+<div class="content u-margin__left--auto@md u-margin__right--auto@md">
     {!! $hook->loopStart !!}
 
     @includeIf('partials.sidebar', ['id' => 'content-area-top', 'classes' => ['o-grid']])
