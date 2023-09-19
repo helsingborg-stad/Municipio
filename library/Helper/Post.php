@@ -181,9 +181,10 @@ class Post
         $postObject->featuredImage  = self::getFeaturedImage($postObject->ID, [1080, false]);
 
         //Append post terms
-        if (in_array('terms', $appendFields) && !empty($data['taxonomiesToDisplay'])) {
-            $postObject->terms            = self::getPostTerms($postObject->ID, true, $data['taxonomiesToDisplay']);
-            $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false, $data['taxonomiesToDisplay']);
+        if (in_array('terms', $appendFields)) {
+            $taxonomiesToDisplay        = $data['taxonomiesToDisplay'] ?? null;
+            $postObject->terms          = self::getPostTerms($postObject->ID, true, $taxonomiesToDisplay);
+            $postObject->termsUnlinked  = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
         }
 
         if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
