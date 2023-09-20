@@ -35,10 +35,16 @@ class Columns
             return $content;
         }
 
-        //Get number of columns
-        $gridClass = (string) $this->getGridClass(
-            $this->countColumns($block['innerBlocks'])
-        );
+        $gridClasses = [];
+        $columnsCount = $this->countColumns($block['innerBlocks']);
+        foreach ($block['innerBlocks'] as $block) {
+            if (!empty($block['attrs']['width'])) {
+                $number = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
+                $gridClasses[] = $this->getGridClass($number);
+            } else {
+                $gridClasses[] = $this->getGridClass($columnsCount);
+            }
+        }
 
         //Load doc as string
         $doc = new \DOMDocument();
@@ -46,7 +52,7 @@ class Columns
 
         //Get the columns and its contents
         $result = [];
-
+        $index = 0;
         foreach ($doc->getElementsByTagName('*') as $child) {
             $class = $child->getAttribute('class');
             if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
@@ -55,18 +61,39 @@ class Columns
                     implode(
                         ' ',
                         [
-                            $gridClass,
+                            $gridClasses[$index],
                             'o-grid-column-block',
                             str_replace('wp-block-column', '', $class),
                         ]
                     )
                 );
-
                 $result[] = $child->c14n();
+                $index++;
             }
         }
 
         return '<div class="o-grid">' . "\n" . implode("\n", $result) . "\n" . '</div>';
+    }
+
+
+    /**
+     * Calculate column size for specific column
+     *
+     * @param string $width Width of a column
+     * @param int $columnsCount Amount of columns
+     * @return int
+     */
+    private function blockWidthToNumber($width, $columnsCount) {
+        if (is_string($width)) {
+            $number = floatval($width);
+
+            if (!empty($number) && is_numeric($number) && $number <= 100) {
+                $number = round(($number / 100) * 12);
+                $number = 12 / $number;
+            }
+        }
+
+        return isset($number) && $number <= 12 ? $number : $columnsCount;
     }
 
     /**
@@ -88,15 +115,19 @@ class Columns
      * @param  array $numberOfColumns
      * @return string
      */
-    private function getGridClass(int $numberOfColumns): string
+    private function getGridClass(float $numberOfColumns): string
     {
         $stack = [];
-
         if (!isset($numberOfColumns) || !is_numeric($numberOfColumns)) {
             $numberOfColumns = 4;
         }
-
+        
         $stack[] = \Municipio\Helper\Html::createGridClass(1);
+
+        if ($numberOfColumns == 1.5) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(1.5, 'lg');
+        }
 
         if ($numberOfColumns == 2) {
             $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
