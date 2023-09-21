@@ -236,7 +236,7 @@ class Singular extends \Municipio\Controller\BaseController
                     $taxonomyObjects[] = [
                         'label' => $label,
                         'attributeList' => [
-                           'name' => "{$taxonomy->name}[]"
+                           'name' => "{$taxonomy->name}"
                         ],
                         'fieldType' => $args->{$tax . "FilterFieldType"} ?? 'single',
                         'options' => $options,
