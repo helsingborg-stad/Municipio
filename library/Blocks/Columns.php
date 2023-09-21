@@ -35,23 +35,25 @@ class Columns
             return $content;
         }
 
-        $gridClasses = [];
-        $columnsCount = $this->countColumns($block['innerBlocks']);
-        foreach ($block['innerBlocks'] as $block) {
-            if (!empty($block['attrs']['width'])) {
-                $number = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
-                $gridClasses[] = $this->getGridClass($number);
-            } else {
-                $gridClasses[] = $this->getGridClass($columnsCount);
-            }
-        }
+        $gridClasses = $this->createGridClassesArray($block['innerBlocks']);        
+        $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
 
+        return '<div class="o-grid">' . "\n" . implode("\n", $modifiedColumns) . "\n" . '</div>';
+    }
+
+    /**
+     * Modify the column elements
+     * @param string $content string
+     * @param array $gridClasses Array of columns classes strings
+     * @return array
+     */
+    private function processBlockColumns($content, $gridClasses) {
         //Load doc as string
         $doc = new \DOMDocument();
         $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
 
         //Get the columns and its contents
-        $result = [];
+        $modifiedColumns = [];
         $index = 0;
         foreach ($doc->getElementsByTagName('*') as $child) {
             $class = $child->getAttribute('class');
@@ -67,12 +69,33 @@ class Columns
                         ]
                     )
                 );
-                $result[] = $child->c14n();
+                $modifiedColumns[] = $child->c14n();
                 $index++;
             }
         }
 
-        return '<div class="o-grid">' . "\n" . implode("\n", $result) . "\n" . '</div>';
+        return $modifiedColumns;
+    }
+
+    /**
+     * Creates an array of column classes
+     *
+     * @param string $innerBlocks Width of a column
+     * @return array
+     */
+    private function createGridClassesArray($innerBlocks) {
+        $columnsCount = $this->countColumns($innerBlocks);
+        $gridClasses = [];
+        foreach ($innerBlocks as $block) {
+            if (!empty($block['attrs']['width'])) {
+                $number = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
+                $gridClasses[] = $this->getGridClass($number);
+            } else {
+                $gridClasses[] = $this->getGridClass($columnsCount);
+            }
+        }
+
+        return $gridClasses;
     }
 
 
