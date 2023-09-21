@@ -27,7 +27,10 @@ class Columns
     }
 
     /**
-     * Renders the block columns (wrapper)
+     * Modify the column elements
+     * @param string $content The blocks content as a string
+     * @param array $block The blocks settings and its contents
+     * @return string Returns the modified content as a string
      */
     public function renderBlockColumns(string $content, array $block): string
     {
@@ -43,11 +46,11 @@ class Columns
 
     /**
      * Modify the column elements
-     * @param string $content string
+     * @param string $content The blocks content as a string
      * @param array $gridClasses Array of columns classes strings
      * @return array
      */
-    private function processBlockColumns($content, $gridClasses) {
+    private function processBlockColumns(string $content, array $gridClasses) {
         //Load doc as string
         $doc = new \DOMDocument();
         $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
@@ -79,11 +82,10 @@ class Columns
 
     /**
      * Creates an array of column classes
-     *
-     * @param string $innerBlocks Width of a column
+     * @param array $innerBlocks Array of gutenberg blocks
      * @return array
      */
-    private function createGridClassesArray($innerBlocks) {
+    private function createGridClassesArray(array $innerBlocks): array {
         $columnsCount = $this->countColumns($innerBlocks);
         $gridClasses = [];
         foreach ($innerBlocks as $block) {
@@ -101,12 +103,11 @@ class Columns
 
     /**
      * Calculate column size for specific column
-     *
      * @param string $width Width of a column
      * @param int $columnsCount Amount of columns
-     * @return int
+     * @return float
      */
-    private function blockWidthToNumber($width, $columnsCount) {
+    private function blockWidthToNumber(string $width, int $columnsCount): float {
         if (is_string($width)) {
             $number = floatval($width);
 
@@ -115,14 +116,12 @@ class Columns
                 $number = 12 / $number;
             }
         }
-
         return isset($number) && $number <= 12 ? $number : $columnsCount;
     }
 
     /**
      * Counts the number of items in inner blocks
-     *
-     * @param array $innerBlocks
+     * @param array $innerBlocks Array of gutenberg blocks
      * @return int
      */
     private function countColumns(array $innerBlocks): int
@@ -135,7 +134,7 @@ class Columns
 
     /**
      * Create a grid column size
-     * @param  array $numberOfColumns
+     * @param  float $numberOfColumns Number to calculate a columns size
      * @return string
      */
     private function getGridClass(float $numberOfColumns): string
