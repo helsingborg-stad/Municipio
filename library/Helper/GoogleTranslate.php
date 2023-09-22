@@ -31,17 +31,8 @@ class GoogleTranslate
             $words = explode(', ', $words);
         
             foreach ($words as $word) {
-                // Wraps in two spans
-                // $pattern = "/(?<=>)([^<]*?)(\b" . preg_quote($word) . "\b)([^<]*?)(?=<)/i";
-                // $content = preg_replace($pattern, '$1<span translate="no">$2</span>$3', $content); 
-
-                // Only replaces first instance in a element
-                // $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(?<=\s|^)(\b" . preg_quote($word) . "\b)(?=\s|$)/i";
-                // $content = preg_replace($pattern, '<span translate="no">$1</span>', $content);
-
                 $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(\b" . preg_quote($word) . "\b)/i";
                 $content = preg_replace($pattern, '<span translate="no">$1</span>', $content);
-
             }
         }
         
