@@ -26,7 +26,9 @@
         @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating'])))
             @group([
                 'justifyContent' => 'space-between',
-                'u-margin__y--4'
+                'classList' => [
+                    'u-margin__y--4'
+                ]
             ])
                 @if (!empty($post->postTitle))
                     @typography([
