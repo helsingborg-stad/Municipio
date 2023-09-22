@@ -28,16 +28,18 @@
                 'justifyContent' => 'space-between',
                 'u-margin__y--4'
             ])
-                @typography([
-                    'element' => 'h1', 
-                    'variant' => 'h1',
-                    'id' => 'page-title',
-                    'classList' => [
-                        'u-margin__bottom--0'
-                    ]
-                    ])
-                    {!! $post->postTitle !!}
-                @endtypography
+                @if (!empty($post->postTitle))
+                    @typography([
+                        'element' => 'h1', 
+                        'variant' => 'h1',
+                        'id' => 'page-title',
+                        'classList' => [
+                            'u-margin__bottom--0'
+                        ]
+                        ])
+                        {!! $post->postTitle !!}
+                    @endtypography
+                @endif
                 @if (!empty($post->callToActionItems['floating']))
                     @icon($post->callToActionItems['floating'])
                     @endicon
