@@ -16,8 +16,8 @@ class GoogleTranslate
                 return $this->excludeWordsFromGoogleTranslate($excerpt, $words);
             });
             
-            add_filter('the_title', function ($excerpt) use ($words) {
-                return $this->excludeWordsFromGoogleTranslate($excerpt, $words);
+            add_filter('the_title', function ($title) use ($words) {
+                return $this->excludeWordsFromGoogleTranslate($title, $words);
             });
         }
     }
@@ -29,12 +29,26 @@ class GoogleTranslate
     public function excludeWordsFromGoogleTranslate($content, $words) {
         if (!empty($words)) {
             $words = explode(', ', $words);
-
+        
             foreach ($words as $word) {
-                $content = str_replace($word, '<span translate="no">' . $word . '</span>', $content);
+                // Wraps in two spans
+                // $pattern = "/(?<=>)([^<]*?)(\b" . preg_quote($word) . "\b)([^<]*?)(?=<)/i";
+                // $content = preg_replace($pattern, '$1<span translate="no">$2</span>$3', $content); 
+
+                // Only replaces first instance in a element
+                // $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(?<=\s|^)(\b" . preg_quote($word) . "\b)(?=\s|$)/i";
+                // $content = preg_replace($pattern, '<span translate="no">$1</span>', $content);
+
+                $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(\b" . preg_quote($word) . "\b)/i";
+                $content = preg_replace($pattern, '<span translate="no">$1</span>', $content);
+
             }
         }
+        
+        
+        
 
         return $content;
     }
 }
+
