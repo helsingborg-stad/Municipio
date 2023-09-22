@@ -35,9 +35,6 @@ class GoogleTranslate
                 $content = preg_replace($pattern, '<span translate="no">$1</span>', $content);
             }
         }
-        
-        
-        
 
         return $content;
     }
