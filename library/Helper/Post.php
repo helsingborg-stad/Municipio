@@ -3,6 +3,7 @@
 namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation;
+use Municipio\Helper\Image;
 
 class Post
 {
@@ -375,19 +376,7 @@ class Post
     public static function getFeaturedImage($postId, $size = 'full')
     {
         $featuredImageID = get_post_thumbnail_id($postId);
-
-        $featuredImageSRC = \get_the_post_thumbnail_url(
-            $postId,
-            apply_filters('Municipio/Helper/Post/FeaturedImageSize', $size)
-        );
-        $featuredImageAlt   = get_post_meta($featuredImageID, '_wp_attachment_image_alt', true);
-        $featuredImageTitle = get_the_title($featuredImageID);
-
-        $featuredImage = [
-            'src' => $featuredImageSRC ? $featuredImageSRC : null,
-            'alt' => $featuredImageAlt ? $featuredImageAlt : null,
-            'title' => $featuredImageTitle ? $featuredImageTitle : null
-        ];
+        $featuredImage = Image::getImageAttachmentData($featuredImageID, $size);
 
         return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
