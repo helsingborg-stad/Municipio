@@ -25,17 +25,19 @@
         {!! $hook->innerLoopStart !!}
         @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating'])))
             @group([
-                'justifyContent' => 'space-between'
+                'justifyContent' => 'space-between',
+                'u-margin__y--4'
             ])
-                @if ($post->postTitle)
-                    @typography([
-                        'element' => 'h1', 
-                        'variant' => 'h1',
-                        'id' => 'page-title',
-                        ])
-                        {!! $post->postTitle !!}
-                    @endtypography
-                @endif
+                @typography([
+                    'element' => 'h1', 
+                    'variant' => 'h1',
+                    'id' => 'page-title',
+                    'classList' => [
+                        'u-margin__bottom--0'
+                    ]
+                    ])
+                    {!! $post->postTitle !!}
+                @endtypography
                 @if (!empty($post->callToActionItems['floating']))
                     @icon($post->callToActionItems['floating'])
                     @endicon
