@@ -208,9 +208,10 @@ class Post
         }
 
         //Get post tumbnail image
-        $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->thumbnail_tall = self::getFeaturedImage($postObject->ID, [390, 520]);
-        $postObject->featuredImage  = self::getFeaturedImage($postObject->ID, [1080, false]);
+        $postObject->thumbnail          = self::getFeaturedImage($postObject->ID, [400, 225]);
+        $postObject->thumbnail_tall     = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->thumbnail_square   = self::getFeaturedImage($postObject->ID, [500, 500]);
+        $postObject->featuredImage      = self::getFeaturedImage($postObject->ID, [1080, false]);
 
         //Append post terms
         if (in_array('terms', $appendFields)) {

@@ -10,7 +10,7 @@
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
                     'filled' => true,
                     'image' => [
-                        'src' => $archiveProps->format == 'tall' ? $post->thumbnailTall['src'] : $post->thumbnail['src'],
+                        'src' => $archiveProps->format == 'tall' ? $post->thumbnailTall['src'] : $post->thumbnailSquare['src'],
                         'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary'
                     ],
