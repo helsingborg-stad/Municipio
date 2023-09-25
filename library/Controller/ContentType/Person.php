@@ -17,7 +17,7 @@ class Person extends ContentTypeFactory
         parent::__construct($this->key, $this->label);
 
         // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 2);
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
 
     /**
@@ -28,7 +28,7 @@ class Person extends ContentTypeFactory
      *
      * @return array The updated array with the Person structured data appended.
      */
-    public function appendStructuredData(array $structuredData, int $postId): array
+    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
         if (empty($postId)) {
             return $structuredData;

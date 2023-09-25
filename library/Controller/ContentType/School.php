@@ -44,7 +44,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      * @return array The modified structured data array.
      */
 
-    public function appendStructuredData(array $structuredData, int $postId): array
+    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
         if (empty($postId)) {
             return $structuredData;

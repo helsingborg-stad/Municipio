@@ -24,6 +24,7 @@ class Place extends ContentTypeFactory
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
 
+    // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
         // Street name linked to Google Maps
@@ -62,7 +63,7 @@ class Place extends ContentTypeFactory
     * @return array The updated structured data.
     *
     */
-    public function appendStructuredData(array $structuredData, int $postId): array
+    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
         if (empty($postId)) {
             return $structuredData;
