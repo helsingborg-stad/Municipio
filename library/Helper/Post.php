@@ -8,7 +8,7 @@ class Post
 {
     /**
      * Prepare post object before sending to view
-     * Appends useful variables for views (generic).
+     * Appends useful variables for views (Singular).
      *
      * @param   object   $post    WP_Post object
      *
@@ -16,9 +16,54 @@ class Post
      */
     public static function preparePostObject($post, $data = null)
     {
-        $post = self::complementObject($post, [], $data);
-        $post = \Municipio\Helper\FormatObject::camelCase($post);
-        return $post;
+        $post = self::complementObject(
+            $post, 
+            [
+                'excerpt',
+                'post_content_filtered',
+                'post_title_filtered',
+                'permalink',
+                'terms',
+                'post_language',
+                'reading_time',
+                'quicklinks',
+                'call_to_action_items',
+                'term_icon'
+            ], 
+            $data
+        ); 
+        return \Municipio\Helper\FormatObject::camelCase($post);
+    }
+
+    //Alias
+    public static function preparePostObjectSingular($post, $data = null) {
+        self::preparePostObject($post, $data); 
+    }
+
+    /**
+     * Prepare post object before sending to view
+     * Appends useful variables for views (Archive).
+     *
+     * @param   object   $post    WP_Post object
+     *
+     * @return  object   $post    Transformed WP_Post object
+     */
+    public static function preparePostObjectArchive($post, $data = null)
+    {
+        $post = self::complementObject(
+            $post, 
+            [
+                'excerpt',
+                'post_title_filtered',
+                'permalink',
+                'terms',
+                'reading_time',
+                'call_to_action_items',
+                'term_icon'
+            ], 
+            $data
+        ); 
+        return \Municipio\Helper\FormatObject::camelCase($post);
     }
 
     /**
@@ -37,22 +82,9 @@ class Post
             throw new WP_Error("Complement object must recive a WP_Post class");
         }
 
-        $defaultAppendFields = array(
-            'excerpt',
-            'post_content_filtered',
-            'post_title_filtered',
-            'permalink',
-            'terms',
-            'post_language',
-            'reading_time',
-            'quicklinks',
-            'call_to_action_items',
-            'term_icon'
-        );
-
         $appendFields = apply_filters(
             'Municipio/Helper/Post/complementPostObject',
-            array_merge($defaultAppendFields, $appendFields)
+            array_merge([], $appendFields) //Ability to add default
         );
 
         $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
@@ -176,14 +208,16 @@ class Post
         }
 
         //Get post tumbnail image
-        $postObject->thumbnail      = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->thumbnail_tall = self::getFeaturedImage($postObject->ID, [390, 520]);
-        $postObject->featuredImage  = self::getFeaturedImage($postObject->ID, [1080, false]);
+        $postObject->thumbnail          = self::getFeaturedImage($postObject->ID, [400, 225]);
+        $postObject->thumbnail_tall     = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->thumbnail_square   = self::getFeaturedImage($postObject->ID, [500, 500]);
+        $postObject->featuredImage      = self::getFeaturedImage($postObject->ID, [1080, false]);
 
         //Append post terms
-        if (in_array('terms', $appendFields) && !empty($data['taxonomiesToDisplay'])) {
-            $postObject->terms            = self::getPostTerms($postObject->ID, true, $data['taxonomiesToDisplay']);
-            $postObject->termsUnlinked    = self::getPostTerms($postObject->ID, false, $data['taxonomiesToDisplay']);
+        if (in_array('terms', $appendFields)) {
+            $taxonomiesToDisplay        = $data['taxonomiesToDisplay'] ?? null;
+            $postObject->terms          = self::getPostTerms($postObject->ID, true, $taxonomiesToDisplay);
+            $postObject->termsUnlinked  = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
         }
 
         if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {

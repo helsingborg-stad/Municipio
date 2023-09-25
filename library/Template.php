@@ -122,6 +122,10 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
+        if (is_archive() && $template === 'one-page') {
+            $template = 'archive';
+        }
+
         //Do something before controller creation
         do_action_deprecated(
             'Municipio/blade/before_load_controller',
