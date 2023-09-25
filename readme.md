@@ -1,4 +1,4 @@
-# Municipio 1.0 (for Helsingborg stad)
+# Municipio 3
 
 ## Download theme.
 To download a complete out of the box working plugin without the need to compile or fetch dependencies.  
