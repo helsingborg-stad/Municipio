@@ -1,23 +1,23 @@
 {
     "name": "municipio",
-    "version": "3.1.0",
+    "version": "3.1.2",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "cross-env NODE_ENV=development webpack --watch",
-        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json",
-        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json",
-        "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
-        "i18n:build": "wp i18n make-mo languages/sv_SE.po"
+        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p .\/assets\/dist\/data\/ && cp .\/node_modules\/@helsingborg-stad\/styleguide\/assets\/data\/icons.json .\/assets\/dist\/data\/ico.json",
+        "build": "cross-env NODE_ENV=production webpack && mkdir -p .\/assets\/dist\/data\/ && cp .\/node_modules\/@helsingborg-stad\/styleguide\/assets\/data\/icons.json .\/assets\/dist\/data\/ico.json",
+        "i18n:update": "wp i18n make-pot . languages\/municipio.pot --domain=municipio --location=false && wp i18n update-po languages\/municipio.pot languages\/sv_SE.po",
+        "i18n:build": "wp i18n make-mo languages\/sv_SE.po"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/helsingborg-stad/Municipio.git"
+        "url": "git+https:\/\/github.com\/helsingborg-stad\/Municipio.git"
     },
     "files": [
-        "assets/3.0/js/*",
-        "source/3.0/sass/*",
-        "assets/*",
+        "assets\/3.0\/js\/*",
+        "source\/3.0\/sass\/*",
+        "assets\/*",
         "webpack.config.js",
         "LICENSE"
     ],
@@ -25,20 +25,20 @@
     "author": "HBG Works, Helsingborg Stad",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/helsingborg-stad/Municipio/issues"
+        "url": "https:\/\/github.com\/helsingborg-stad\/Municipio\/issues"
     },
     "browserslist": [
         "> 1%",
         "not dead"
     ],
-    "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
+    "homepage": "https:\/\/github.com\/helsingborg-stad\/Municipio#readme",
     "devDependencies": {
-        "@babel/core": "^7.17.2",
-        "@babel/plugin-proposal-class-properties": "^7.16.7",
-        "@babel/plugin-proposal-export-default-from": "^7.16.7",
-        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-        "@babel/preset-env": "^7.16.11",
-        "@helsingborg-stad/styleguide": "^0.11.333",
+        "@babel\/core": "^7.17.2",
+        "@babel\/plugin-proposal-class-properties": "^7.16.7",
+        "@babel\/plugin-proposal-export-default-from": "^7.16.7",
+        "@babel\/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel\/preset-env": "^7.16.11",
+        "@helsingborg-stad\/styleguide": "^0.11.333",
         "autoprefixer": "^10.4.2",
         "babel-loader": "^8.2.3",
         "body-parser": "^1.19.1",
@@ -69,7 +69,7 @@
         "webpack-remove-empty-scripts": "^0.7.3"
     },
     "dependencies": {
-        "@babel/plugin-transform-runtime": "^7.17.0",
+        "@babel\/plugin-transform-runtime": "^7.17.0",
         "css-vars-ponyfill": "^2.4.7",
         "instant.page": "^5.1.0",
         "process": "^0.11.10"
@@ -79,11 +79,11 @@
     },
     "babel": {
         "presets": [
-            "@babel/preset-env"
+            "@babel\/preset-env"
         ],
         "plugins": [
-            "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime"
+            "@babel\/plugin-proposal-class-properties",
+            "@babel\/plugin-transform-runtime"
         ]
     }
 }
