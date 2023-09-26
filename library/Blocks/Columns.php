@@ -57,7 +57,7 @@ class Columns
 
         //Get the columns and its contents
         $modifiedColumns = [];
-        foreach ($doc->getElementsByTagName('*') as $child) {
+        foreach ($doc->getElementsByTagName('*') as $index =>  $child) {
             $class = $child->getAttribute('class');
             if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
                 $child->setAttribute(
