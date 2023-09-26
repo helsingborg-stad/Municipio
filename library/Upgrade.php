@@ -597,6 +597,8 @@ class Upgrade
     {
         $errorMessage = "Failed to migrate ACF option \"$option\" to theme mod \"$themeMod\"";
 
+        die;
+
         if (!function_exists('get_field')) {
             $this->logError($errorMessage);
             return;
