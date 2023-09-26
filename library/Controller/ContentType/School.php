@@ -63,6 +63,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
         ], $postId);
 
-        return Helper::appendStructuredData($properties, $postId, $structuredData);
+        return Helper::appendStructuredData($properties, $postId, $structuredData, $additionalData);
     }
 }

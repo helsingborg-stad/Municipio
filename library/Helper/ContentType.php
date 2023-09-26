@@ -250,9 +250,8 @@ class ContentType
      * @param array $structuredData An array of structured data to append to.
      * @return array The merged array of structured data and additional data.
      */
-    public function appendStructuredData(array $properties, int $postId, array $structuredData = []): array
+    public static function appendStructuredData(array $properties, int $postId, array $structuredData = [], array $additionalData = []): array
     {
-        $additionalData = [];
         foreach ($properties as $property) {
             // propertyValue will always return null unless a filter hook is defined for it.
             $propertyValue =
