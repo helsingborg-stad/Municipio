@@ -57,22 +57,27 @@ class Columns
 
         //Get the columns and its contents
         $modifiedColumns = [];
-        foreach ($doc->getElementsByTagName('*') as $index =>  $child) {
-            $class = $child->getAttribute('class');
-            if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
-                $child->setAttribute(
-                    'class',
-                    implode(
-                        ' ',
-                        [
-                            $gridClasses[$index],
-                            'o-grid-column-block',
-                            str_replace('wp-block-column', '', $class),
-                        ]
-                    )
-                );
-                $modifiedColumns[] = $child->c14n();
-                 }
+        $index = 0;
+        $elements = $doc->getElementsByTagName('*');
+
+        if (!empty($elements)) {
+            foreach ($elements as $child) {
+                $class = $child->getAttribute('class');
+                if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
+                    $child->setAttribute(
+                        'class',
+                        implode(
+                            ' ',
+                            [
+                                $gridClasses[$index],
+                                'o-grid-column-block',
+                                str_replace('wp-block-column', '', $class),
+                            ]
+                        )
+                    );
+                    $modifiedColumns[] = $child->c14n();
+                    $index++;
+                }
             }
         }
 

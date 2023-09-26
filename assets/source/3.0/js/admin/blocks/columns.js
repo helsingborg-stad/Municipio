@@ -1,8 +1,6 @@
 wp.domReady(() => {
 
   //Remove assymetric grids
-  // wp.blocks.unregisterBlockVariation('core/columns', 'two-columns-one-third-two-thirds');
-  // wp.blocks.unregisterBlockVariation('core/columns', 'two-columns-two-thirds-one-third');
   wp.blocks.unregisterBlockVariation('core/columns', 'three-columns-wider-center');
 
   wp.blocks.registerBlockVariation(
