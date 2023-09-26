@@ -72,7 +72,6 @@ class Columns
                     )
                 );
                 $modifiedColumns[] = $child->c14n();
-                $index++;
             }
         }
 
