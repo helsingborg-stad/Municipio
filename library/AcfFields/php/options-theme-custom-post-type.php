@@ -248,7 +248,7 @@
                         'id' => '',
                     ),
                     'message' => __('Place this post type under "Pages" in the admin panel?', 'municipio'),
-                    'default_value' => 1,
+                    'default_value' => 0,
                     'ui' => 0,
                     'ui_on_text' => '',
                     'ui_off_text' => '',
