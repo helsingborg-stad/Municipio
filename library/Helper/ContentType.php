@@ -105,7 +105,7 @@ class ContentType
         string $typeToCheck = ''
     ): bool {
         if ($contentType = self::getContentType($typeToCheck)) {
-            if (self::checkMainContentType($contentType, $contentTypeToCheckFor)) {
+            if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
                 return true;
             }
             if (self::checkSecondaryContentType($contentType, $contentTypeToCheckFor)) {
