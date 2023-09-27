@@ -4,8 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\Data;
 use Municipio\Helper\ContentType;
-// use Municipio\Helper\Term;
-// use Municipio\Helper\Listing;
 use Municipio\Helper\Controller;
 
 /**
