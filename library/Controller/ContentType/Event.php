@@ -13,6 +13,9 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+
+    protected $secondaryContentType = [];
+    
     public function __construct()
     {
         $this->key = 'event';

@@ -10,6 +10,9 @@ use Municipio\Helper\ContentType as Helper;
  */
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+
+    protected $secondaryContentType = [];
+    
     public function __construct()
     {
         $this->key = 'school';

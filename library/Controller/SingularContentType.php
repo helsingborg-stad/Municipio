@@ -2,10 +2,7 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\Data as DataHelper;
 use Municipio\Helper\ContentType as ContentTypeHelper;
-use Municipio\Helper\Term as TermHelper;
-use Municipio\Helper\Listing as ListingHelper;
 
 /**
  * Class SingularContentType
@@ -19,7 +16,7 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
-        $contentType = ContentTypeHelper::getContentType($this->data['post']->postType);
+        $contentType = $this->getContentType($this->data['post']->postType);
 
         /**
          * Initiate hooks for the current content type.
@@ -48,29 +45,42 @@ class SingularContentType extends \Municipio\Controller\Singular
             $this->view = $contentType->getView();
         }
 
-        // STRUCTURED DATA (SCHEMA.ORG)
-        $this->data['structuredData'] = DataHelper::getStructuredData(
-            $this->data['post']->postType,
-            $this->getPageID()
-        );
     }
 
-      /**
-     * @return array|void
+    /**
+     * Initiate the controller.
+     *
+     * @return array The data to send to the view.
      */
     public function init()
     {
         parent::init();
 
-        $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($this->data['post'], false);
-
-        $fields = get_fields($this->getPageID());
-
+        // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;
     }
 
+    /**
+     * Get the content type object for the current post type.
+     *
+     * @return object The content type object.
+     */
+    public function getContentType(): object
+    {
+        return ContentTypeHelper::getContentType($this->data['post']->postType);
+    }
+
+    
+    /**
+     * Get related posts based on the taxonomies of the current post.
+     *
+     * @param int $postId The ID of the current post.
+     *
+     * @return array|bool An array of related posts or false if no related posts are found.
+     */
+    // TODO Move this to a helper class
     private function getRelatedPosts($postId)
     {
         $taxonomies = get_post_taxonomies($postId);
