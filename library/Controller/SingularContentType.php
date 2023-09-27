@@ -14,17 +14,38 @@ use Municipio\Helper\Listing as ListingHelper;
 class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
-    protected $contentType;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->contentType = ContentTypeHelper::getContentType($this->data['post']->postType);
+        $contentType = ContentTypeHelper::getContentType($this->data['post']->postType);
+
+        /**
+         * Initiate hooks for the current content type.
+         *
+         * @param object $contentType The content type object.
+         * @return void
+         *
+         * @since 1.0.0
+         * @author Your Name
+         */
+        $contentType->addHooks();
+        /**
+         * If the content type has secondary content types, initate hooks for each of them.
+         * 
+         * @param object $contentType The content type object.
+         * @return void
+         */
+        if(!empty($contentType->secondaryContentType)) {
+            foreach ($contentType->secondaryContentType as $secondaryContentType) {
+                $secondaryContentType->addHooks();
+            }
+        }
 
         // Set view if allowed
         if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
-            $this->view = $this->contentType->getView();
+            $this->view = $contentType->getView();
         }
 
         // STRUCTURED DATA (SCHEMA.ORG)

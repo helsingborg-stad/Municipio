@@ -20,10 +20,12 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->addSecondaryContentType(new Place());
         $this->addSecondaryContentType(new Person());
 
+    }
+
+    public function addHooks(): void {
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
-
     /**
      * addSecondaryContentType
      *

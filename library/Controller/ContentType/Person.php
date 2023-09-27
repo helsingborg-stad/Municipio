@@ -16,10 +16,13 @@ class Person extends ContentTypeFactory
 
         parent::__construct($this->key, $this->label);
 
-        // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
 
+    public function addHooks(): void {
+        // Append structured data for schema.org markup
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+
+    }
     /**
      * Appends structured data for a Person to the given array.
      *
