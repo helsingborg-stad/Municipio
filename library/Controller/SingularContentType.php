@@ -2,10 +2,11 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\Data as DataHelper;
-use Municipio\Helper\ContentType as ContentTypeHelper;
-use Municipio\Helper\Term as TermHelper;
-use Municipio\Helper\Listing as ListingHelper;
+use Municipio\Helper\Data;
+use Municipio\Helper\ContentType;
+// use Municipio\Helper\Term;
+// use Municipio\Helper\Listing;
+use Municipio\Helper\Controller;
 
 /**
  * Class SingularContentType
@@ -14,24 +15,31 @@ use Municipio\Helper\Listing as ListingHelper;
 class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
-    protected $contentType;
-
     public function __construct()
     {
         parent::__construct();
 
-        $this->contentType = ContentTypeHelper::getContentType($this->data['post']->postType);
+        $contentType = ContentType::getContentType($this->data['post']->postType);
+        $this->data['contentType'] = $contentType;
+
+        // Load controller specific to the content type
+        $contentTypeController = Controller::locateController(Controller::camelCase($contentType->getKey()));
+        $contentTypeControllerClass = Controller::getNamespace($contentTypeController) . '\\' . Controller::camelCase($contentType->getKey());
+        
+        require_once $contentTypeController;
+        new $contentTypeControllerClass;
 
         // Set view if allowed
-        if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
-            $this->view = $this->contentType->getView();
+        if (!ContentType::skipContentTypeTemplate($this->data['post']->postType)) {
+            $this->view = $contentType->getView();
         }
 
         // STRUCTURED DATA (SCHEMA.ORG)
-        $this->data['structuredData'] = DataHelper::getStructuredData(
+        $this->data['structuredData'] = Data::getStructuredData(
             $this->data['post']->postType,
             $this->getPageID()
         );
+
     }
 
       /**
@@ -41,10 +49,12 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         parent::init();
 
+        // TODO: This should only happen if the content type is in fact Place
         $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($this->data['post'], false);
 
         $fields = get_fields($this->getPageID());
 
+        // TODO: Should this be called on _all_ content types?
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;
