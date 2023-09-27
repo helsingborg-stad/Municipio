@@ -27,11 +27,6 @@ class SingularContentType extends \Municipio\Controller\Singular
             $this->view = $this->contentType->getView();
         }
 
-        // STRUCTURED DATA (SCHEMA.ORG)
-        $this->data['structuredData'] = DataHelper::getStructuredData(
-            $this->data['post']->postType,
-            $this->getPageID()
-        );
     }
 
       /**
