@@ -9,15 +9,15 @@ class GoogleTranslate
         $words = get_field('google_exclude_words_from_translate', 'option');
         if (!empty($words)) {
             add_filter('the_content', function ($content) use ($words) {
-                return $this->excludeWordsFromGoogleTranslate($content, $words);
+                return $this->shouldReplaceWords($content, $words);
             });
             
             add_filter('the_excerpt', function ($excerpt) use ($words) {
-                return $this->excludeWordsFromGoogleTranslate($excerpt, $words);
+                return $this->shouldReplaceWords($excerpt, $words);
             });
             
             add_filter('the_title', function ($title) use ($words) {
-                return $this->excludeWordsFromGoogleTranslate($title, $words);
+                return $this->shouldReplaceWords($title, $words);
             });
         }
     }
@@ -28,7 +28,7 @@ class GoogleTranslate
      * @param array $words contains the words that should not be translated
      * @return string
      */
-    public function excludeWordsFromGoogleTranslate($content, $words) {
+    public function shouldReplaceWords($content, $words) {
         if (!empty($words)) {
             $words = explode(', ', $words);
             $content = $this->replaceWordsInContent($content, $words);
@@ -47,16 +47,18 @@ class GoogleTranslate
         preg_match_all("/<[^>]+>|[^<]+/", $content, $matches);
     
         $output = '';
-    
-        foreach ($matches[0] as $match) {
-            if (strpos($match, '<') === 0) {
-                $output .= $match;
-            } else {
-                foreach ($words as $word) {
-                    $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(\b" . preg_quote($word) . "\b)/i";
-                    $match = preg_replace($pattern, ' <span translate="no">$1</span>', $match);
+        
+        if (!empty($matches[0]) && is_array($matches[0])) {
+            foreach ($matches[0] as $match) {
+                if (strpos($match, '<') === 0) {
+                    $output .= $match;
+                } else {
+                    foreach ($words as $word) {
+                        $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(\b" . preg_quote($word) . "\b)/i";
+                        $match = preg_replace($pattern, ' <span translate="no">$1</span>', $match);
+                    }
+                    $output .= $match;
                 }
-                $output .= $match;
             }
         }
     
