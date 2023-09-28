@@ -17,6 +17,24 @@
             @endif
         @endgroup
     @endif
+
+    @slider([
+        'showStepper' => true,
+        'autoSlide' => false,
+    ])
+        @foreach ($facadeImages as $facadeImage)
+            @slider__item([
+                'title' => '',
+                'layout' => 'center',
+                'containerColor' => 'transparent',
+                'textColor' => 'white',
+                'desktop_image' => $facadeImage['src'],
+                'heroStyle' => true
+            ])
+            @endslider__item
+        @endforeach
+
+    @endslider
     
     @if ($quickFacts)
         @paper(['classList' => ['u-color__bg--default', 'u-padding--4'] ])
@@ -105,6 +123,24 @@
         {{$aboutUs}}
         
     @endif
+
+    @slider([
+        'showStepper' => true,
+        'autoSlide' => false,
+    ])
+        @foreach ($images as $image)
+            @slider__item([
+                'title' => '',
+                'layout' => 'center',
+                'containerColor' => 'transparent',
+                'textColor' => 'white',
+                'desktop_image' => $image['src'],
+                'heroStyle' => true
+            ])
+            @endslider__item
+        @endforeach
+
+    @endslider
 
     @accordion(['list'=> $accordionData])
     @endaccordion

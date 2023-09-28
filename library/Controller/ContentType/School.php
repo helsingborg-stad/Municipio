@@ -36,6 +36,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewPagesData'), 11, 1);
+        add_filter('Municipio/viewData', array($this, 'appendAttachmentsData'), 11, 1);
     }
 
     public function appendViewData($data) {
@@ -245,6 +246,35 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
                 ];
             }, $pages);
         }
+
+        return $data;
+    }
+
+    public function appendAttachmentsData(array $data) {
+        
+        $facadeImageAttachments = WP::getPosts([
+            'post_type' => 'school_api_attachment',
+            'post__in' => $data['schoolData']['facadeImages'],
+            'suppress_filters' => false
+        ]);
+        
+        $imageAttachments = WP::getPosts([
+            'post_type' => 'school_api_attachment',
+            'post__in' => $data['schoolData']['images'],
+            'suppress_filters' => false
+        ]);
+
+        $data['facadeImages'] = array_map(function($attachment) {
+            return [
+                'src' => $attachment->guid
+            ];
+        }, $facadeImageAttachments);
+        
+        $data['images'] = array_map(function($attachment) {
+            return [
+                'src' => $attachment->guid
+            ];
+        }, $imageAttachments);
 
         return $data;
     }
