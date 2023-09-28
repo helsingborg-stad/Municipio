@@ -35,6 +35,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', array($this, 'appendAboutUsData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 11, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewPagesData'), 11, 1);
     }
 
     public function appendViewData($data) {
@@ -218,6 +219,33 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         }
         
         
+        return $data;
+    }
+
+    public function appendViewPagesData(array $data) {
+        $pageIds = $data['schoolData']['pages'];
+
+        if( !isset($pageIds) || empty($pageIds) ) {
+            return $data;
+        }
+
+        $pages = WP::getPosts([
+            'post_type' => 'school_page',
+            'post__in' => $pageIds,
+            'suppress_filters' => false
+        ]);
+
+        if (!empty($pages)) {
+            $data['pages'] = array_map(function ($page) {
+                return [
+                    'title' => $page->postTitle,
+                    'content' => $page->postExcerpt,
+                    'link' => $page->permalink,
+                    'linkText' => __('Read more', 'municipio')
+                ];
+            }, $pages);
+        }
+
         return $data;
     }
 

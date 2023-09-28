@@ -109,6 +109,34 @@
     @accordion(['list'=> $accordionData])
     @endaccordion
 
+    @if($pages)
+
+        <div class="o-grid">
+            @foreach ($pages as $page)
+
+                @card(['classList' => ['o-grid-4@md', 'u-color__bg--default', 'u-padding--4']])
+
+                    @typography(['element' => 'h3', 'variant' => 'h3'])
+                        {{$page['title']}}
+                    @endtypography
+
+                    {!!$page['content']!!}
+
+                    @button([
+                        'text' => $page['linkText'],
+                        'color' => 'primary',
+                        'style' => 'filled',
+                        'href' => $page['link'],
+                        'classList' => ['u-margin__top--2']
+                    ])@endbutton
+
+                @endcard
+
+            @endforeach
+        </div>
+    
+    @endif
+
     @if($visitingDataTitle)
 
         @openStreetMap([
