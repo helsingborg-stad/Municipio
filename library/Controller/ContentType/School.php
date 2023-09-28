@@ -66,18 +66,35 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     public function appendViewContactData(array $data)
     {
         if (isset($data['schoolData']['contacts'])) {
-            
+
+            $contacts = $data['schoolData']['contacts'];
             $personIds = array_map(function ($contact) {
                 return $contact->person;
             }, $data['schoolData']['contacts']);
 
             $persons = WP::getPosts(array('post_type' => 'person', 'post__in' => $personIds, 'suppress_filters' => false));
+            $professionalTitleTermIds = array_map(fn($contact) => $contact->professional_title, $data['schoolData']['contacts']);
+            $professionalTitleTerms = get_terms([
+                'taxonomy' => 'professional_title',
+                'include' => $professionalTitleTermIds,
+                'hide_empty' => false
+            ]);
+
+            foreach($contacts as $contact) {
+                $person = array_filter($persons, fn($person) => $person->id === $contact->person);
+                $professionalTitleTerm = array_filter($professionalTitleTerms, fn($term) => $term->term_id === $contact->professional_title);
+
+                if( $professionalTitleTerm ) {
+                    $person[0]->professionalTitle = array_shift($professionalTitleTerm)->name ?? '';
+                }
+
+            }
 
             $data['contacts'] = !empty($persons) ? array_map(function ($person) {
                 $email = WP::getField('e-mail', $person->id);
                 $phone = WP::getField('phone-number', $person->id);
                 $contact = (object)[
-                    'professionalTitle' => 'Rektor', // TODO: Populate with real data.
+                    'professionalTitle' => $person->professionalTitle, // TODO: Populate with real data.
                     'email'             => $email,
                     'phone'             => $phone,
                     'name'              => $person->postTitle
@@ -85,6 +102,10 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
                 return $contact;
             }, $persons) : null;
             
+        }
+
+        if( !empty($data['contacts']) ) {
+            $data['contactTitle'] = __('Contact us', 'municipio');
         }
 
         return $data;

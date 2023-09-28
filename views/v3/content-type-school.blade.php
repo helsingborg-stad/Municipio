@@ -21,51 +21,55 @@
     @if ($quickFacts)
         @paper(['classList' => ['u-color__bg--default', 'u-padding--4'] ])
             
-            @typography(['element' => 'h3', 'variant' => 'h3'])
+            @typography(['element' => 'h2', 'variant' => 'h2'])
                 {{$quickFactsTitle}}
             @endtypography
 
-            @listing([
-                'list' => $quickFacts,
-                'elementType' => 'ul'
-            ])
+            <ul class="o-grid">
+                @foreach($quickFacts as $quickFact)
+                    <li class="o-grid-3@md">{{$quickFact['label']}}</li>
+                @endforeach
+            </ul>
 
-            @endlisting
         @endpaper
     @endif
 
     @if ($contacts)
-        @foreach ($contacts as $contact)
 
-            @card([])
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{$contactTitle}}
+        @endtypography
 
-                @typography(['element' => 'h3', 'variant' => 'h3'])
-                    {{$contact->name}}
-                @endtypography
+        <div class="o-grid">
+            @foreach ($contacts as $contact)
 
-                @typography(['element' => 'p', 'variant' => 'p'])
-                    {{$contact->professionalTitle}}
-                @endtypography
+                @card(['classList' => ['o-grid-3@md']])
 
-                @link(['href' => "tel:{$contact->phone}"])
-                    {{$contact->phone}}
-                @endlink
-                
-                @link(['href' => "mailto:{$contact->email}"])
-                    {{$contact->email}}
-                @endlink
+                    @typography(['element' => 'h3', 'variant' => 'h3'])
+                        {{$contact->name}}
+                    @endtypography
 
-            @endcard
+                    @typography(['element' => 'p', 'variant' => 'p'])
+                        {{$contact->professionalTitle}}
+                    @endtypography
 
-        @endforeach
+                    @link(['href' => "tel:{$contact->phone}"])
+                        {{$contact->phone}}
+                    @endlink
+                    
+                    @link(['href' => "mailto:{$contact->email}"])
+                        {{$contact->email}}
+                    @endlink
+
+                @endcard
+
+            @endforeach
+        </div>
     @endif
-
-    @accordion(['list'=> $accordionData])
-    @endaccordion
 
     @if($visitingDataTitle)
 
-        @typography(['element' => 'h3', 'variant' => 'h3'])
+        @typography(['element' => 'h2', 'variant' => 'h2'])
             {{$visitingDataTitle}}
         @endtypography
 
@@ -80,7 +84,7 @@
             <div class="o-grid">
 
                 @foreach ($visitingAddresses as $visitingAddress)
-                    <div class="o-grid-4@md">
+                    <div class="o-grid-3@md">
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                             {{$visitingAddress->name}}<br/>
                             {{$visitingAddress->post_code}} {{$visitingAddress->city}}
@@ -90,6 +94,12 @@
 
             </div>
         @endif
+    @endif
+
+    @accordion(['list'=> $accordionData])
+    @endaccordion
+
+    @if($visitingDataTitle)
 
         @openStreetMap([
             'startPosition' => $visitingAddressMapStartPosition,
