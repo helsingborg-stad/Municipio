@@ -8,6 +8,9 @@ namespace Municipio\Controller\ContentType;
  */
 class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+
+    protected $secondaryContentType = [];
+
     public function __construct()
     {
         $this->key = 'project';

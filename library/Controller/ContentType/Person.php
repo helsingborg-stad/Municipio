@@ -9,6 +9,9 @@ namespace Municipio\Controller\ContentType;
  */
 class Person extends ContentTypeFactory
 {
+
+    protected $secondaryContentType = [];
+    
     public function __construct()
     {
         $this->key = 'person';

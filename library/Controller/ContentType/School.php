@@ -11,6 +11,9 @@ use Municipio\Helper\WP;
  */
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+
+    protected $secondaryContentType = [];
+    
     public function __construct()
     {
         $this->key = 'school';

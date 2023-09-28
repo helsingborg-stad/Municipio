@@ -11,6 +11,9 @@ namespace Municipio\Controller\ContentType;
  */
 class Place extends ContentTypeFactory
 {
+
+    protected $secondaryContentType = [];
+    
     public function __construct()
     {
         $this->key = 'place';
