@@ -2,8 +2,6 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
-
 /**
  * Class SingularContentType
  * @package Municipio\Controller
@@ -16,7 +14,12 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         parent::__construct();
 
-        $contentType = $this->getContentType($this->data['post']->postType);
+        /**
+         * Retrieves the content type of the current post typr.
+         *
+         * @return string The content type of the current post.
+         */
+        $contentType = \Municipio\Helper\ContentType::getContentType($this->data['post']->postType);
 
         /**
          * Initiate hooks for the current content type.
@@ -28,6 +31,7 @@ class SingularContentType extends \Municipio\Controller\Singular
          * @author Your Name
          */
         $contentType->addHooks();
+        
         /**
          * If the content type has secondary content types, initate hooks for each of them.
          * 
@@ -40,8 +44,10 @@ class SingularContentType extends \Municipio\Controller\Singular
             }
         }
 
-        // Set view if allowed
-        if (!ContentTypeHelper::skipContentTypeTemplate($this->data['post']->postType)) {
+        /**
+         * Check if the content type template should be skipped and set the view accordingly if not.
+         */
+        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($this->data['post']->postType)) {
             $this->view = $contentType->getView();
         }
 
@@ -60,16 +66,6 @@ class SingularContentType extends \Municipio\Controller\Singular
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         return $this->data;
-    }
-
-    /**
-     * Get the content type object for the current post type.
-     *
-     * @return object The content type object.
-     */
-    public function getContentType(): object
-    {
-        return ContentTypeHelper::getContentType($this->data['post']->postType);
     }
 
     
