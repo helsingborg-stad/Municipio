@@ -22,6 +22,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 
     }
     public function addHooks(): void {
+        
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }

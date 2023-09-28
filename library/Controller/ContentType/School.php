@@ -2,8 +2,6 @@
 
 namespace Municipio\Controller\ContentType;
 
-use Municipio\Helper\ContentType as Helper;
-
 /**
  * Class School
  * @package Municipio\Controller\ContentType
@@ -60,7 +58,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             '@type' => 'School',
         ];
 
-        $properties = Helper::getStructuredDataProperties([
+        $properties = \Municipio\Helper\ContentType::getStructuredDataProperties([
             'name',
             'description', // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
             'numberOfStudents',
@@ -68,6 +66,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
         ], $postId);
 
-        return Helper::appendStructuredData($properties, $postId, $structuredData, $additionalData);
+        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId, $structuredData, $additionalData);
     }
 }

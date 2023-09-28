@@ -273,6 +273,7 @@ class ContentType
                 $postId
             );
         }
+        
         return array_merge($structuredData, $additionalData);
     }
 }
