@@ -32,6 +32,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', array($this, 'appendViewData'), 10, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewContactData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewQuickFactsData'), 11, 1);
+        add_filter('Municipio/viewData', array($this, 'appendAboutUsData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 11, 1);
     }
@@ -135,17 +136,21 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
+    public function appendAboutUsData($data)
+    {
+        $information = $data['schoolData']['information'];
+        if (isset($information->about_us) && !empty($information->about_us)) {
+            $data['aboutUs'] = $information->about_us;
+            $data['aboutUsTitle'] = __('About the school', 'municipio');
+        }
+
+        return $data;
+    }
+
     public function appendViewAccordionData(array $data)
     {
         $accordionData = null;
         $information = $data['schoolData']['information'];
-
-        if(isset($information->about_us) && !empty($information->about_us)) {
-            $accordionData[] = [
-                'heading' => __('About the school', 'municipio'),
-                'content' => $information->about_us
-            ];
-        }
         
         if(isset($information->how_we_work) && !empty($information->how_we_work)) {
             $accordionData[] = [

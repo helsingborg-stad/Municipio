@@ -95,6 +95,16 @@
             </div>
         @endif
     @endif
+    
+    @if($aboutUsTitle)
+
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{$aboutUsTitle}}
+        @endtypography
+
+        {{$aboutUs}}
+        
+    @endif
 
     @accordion(['list'=> $accordionData])
     @endaccordion
