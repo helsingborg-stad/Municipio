@@ -33,6 +33,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', array($this, 'appendViewContactData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewQuickFactsData'), 11, 1);
         add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 11, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 11, 1);
     }
 
     public function appendViewData($data) {
@@ -62,7 +63,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewContactData($data)
+    public function appendViewContactData(array $data)
     {
         if (isset($data['schoolData']['contacts'])) {
             
@@ -89,7 +90,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewQuickFactsData($data)
+    public function appendViewQuickFactsData(array $data)
     {
 
         $quickFacts = [];
@@ -113,7 +114,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewAccordionData($data)
+    public function appendViewAccordionData(array $data)
     {
         $accordionData = null;
         $information = $data['schoolData']['information'];
@@ -142,6 +143,55 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         }
 
         $data['accordionData'] = $accordionData;
+        return $data;
+    }
+
+    public function appendViewVisitingData(array $data) {
+        $visitingAddresses = $data['schoolData']['visitingAddress'];
+        $visitingData = [];
+        $mapPins = [];
+
+        if( !isset($visitingAddresses) || empty($visitingAddresses) ) {
+            return $data;
+        }
+
+        foreach( $visitingAddresses as $visitingAddress ) {
+            $visitingData[] = $visitingAddress->address;
+            $mapPins[] = [
+                'lat' => $visitingAddress->address->lat,
+                'lng' => $visitingAddress->address->lng,
+                'tooltip' => ['title' => $visitingAddress->address->address]
+            ];
+        }
+
+        if(isset($visitingAddresses->address) && !empty($visitingAddresses->address)) {
+            $visitingData[] = [
+                'heading' => __('Visiting address', 'municipio'),
+                'content' => $visitingAddress->address
+            ];
+        }
+
+        if( !empty($visitingData) ) {;
+            
+            $lats = array_map(fn($pin) => $pin['lat'], $mapPins);
+            $lngs = array_map(fn($pin) => $pin['lng'], $mapPins);
+            $maxLat = max($lats);
+            $minLat = min($lats);
+            $maxLng = max($lngs);
+            $minLng = min($lngs);
+            
+            $startLat = $minLat + (($maxLat - $minLat)/2);
+            $startLng = $minLng + (($maxLng - $minLng)/2);
+
+            $data['visitingAddresses'] = $visitingData;
+            $data['visitingAddressMapPins'] = $mapPins;
+            $data['visitingAddressMapStartPosition'] = ['lat' => $startLat, 'lng' => $startLng, 'zoom' => 13];
+            $data['visitingDataTitle'] = sizeof($visitingData) === 1
+                ? __('Visiting address', 'municipio')
+                : __('Visiting addresses', 'municipio');
+        }
+        
+        
         return $data;
     }
 

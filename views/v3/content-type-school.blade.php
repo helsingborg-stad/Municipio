@@ -17,10 +17,10 @@
             @endif
         @endgroup
     @endif
-
+    
     @if ($quickFacts)
-        @card([
-        ])
+        @paper(['classList' => ['u-color__bg--default', 'u-padding--4'] ])
+            
             @typography(['element' => 'h3', 'variant' => 'h3'])
                 {{$quickFactsTitle}}
             @endtypography
@@ -31,7 +31,7 @@
             ])
 
             @endlisting
-        @endcard
+        @endpaper
     @endif
 
     @if ($contacts)
@@ -60,11 +60,46 @@
         @endforeach
     @endif
 
-    @accordion(
-    [
-        'list'=> $accordionData
-    ]
-)
-@endaccordion
+    @accordion(['list'=> $accordionData])
+    @endaccordion
+
+    @if($visitingDataTitle)
+
+        @typography(['element' => 'h3', 'variant' => 'h3'])
+            {{$visitingDataTitle}}
+        @endtypography
+
+        @if(sizeof($visitingAddresses) === 1)
+            @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                {{$visitingAddresses[0]->name}}<br/>
+                {{$visitingAddresses[0]->post_code}} {{$visitingAddresses[0]->city}}
+            @endtypography
+        @endif
+        
+        @if(sizeof($visitingAddresses) > 1)
+            <div class="o-grid">
+
+                @foreach ($visitingAddresses as $visitingAddress)
+                    <div class="o-grid-4@md">
+                        @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                            {{$visitingAddress->name}}<br/>
+                            {{$visitingAddress->post_code}} {{$visitingAddress->city}}
+                        @endtypography
+                    </div>
+                @endforeach
+
+            </div>
+        @endif
+
+        @openStreetMap([
+            'startPosition' => $visitingAddressMapStartPosition,
+            'pins' => $visitingAddressMapPins,
+            'height' => '60vh',
+        ])
+        @endopenStreetMap
+
+    @endif
+
+
 
 @stop
