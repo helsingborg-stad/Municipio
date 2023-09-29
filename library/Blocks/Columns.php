@@ -27,7 +27,10 @@ class Columns
     }
 
     /**
-     * Renders the block columns (wrapper)
+     * Modify the column elements
+     * @param string $content The blocks content as a string
+     * @param array $block The blocks settings and its contents
+     * @return string Returns the modified content as a string
      */
     public function renderBlockColumns(string $content, array $block): string
     {
@@ -35,44 +38,94 @@ class Columns
             return $content;
         }
 
-        //Get number of columns
-        $gridClass = (string) $this->getGridClass(
-            $this->countColumns($block['innerBlocks'])
-        );
+        $gridClasses = $this->createGridClassesArray($block['innerBlocks']);        
+        $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
 
+        return '<div class="o-grid">' . "\n" . implode("\n", $modifiedColumns) . "\n" . '</div>';
+    }
+
+    /**
+     * Modify the column elements
+     * @param string $content The blocks content as a string
+     * @param array $gridClasses Array of columns classes strings
+     * @return array
+     */
+    private function processBlockColumns(string $content, array $gridClasses) {
         //Load doc as string
         $doc = new \DOMDocument();
         $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
 
         //Get the columns and its contents
-        $result = [];
+        $modifiedColumns = [];
+        $index = 0;
+        $elements = $doc->getElementsByTagName('*');
 
-        foreach ($doc->getElementsByTagName('*') as $child) {
-            $class = $child->getAttribute('class');
-            if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
-                $child->setAttribute(
-                    'class',
-                    implode(
-                        ' ',
-                        [
-                            $gridClass,
-                            'o-grid-column-block',
-                            str_replace('wp-block-column', '', $class),
-                        ]
-                    )
-                );
-
-                $result[] = $child->c14n();
+        if (!empty($elements) && is_array($elements)) {
+            foreach ($elements as $child) {
+                $class = $child->getAttribute('class');
+                if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
+                    $child->setAttribute(
+                        'class',
+                        implode(
+                            ' ',
+                            [
+                                $gridClasses[$index],
+                                'o-grid-column-block',
+                                str_replace('wp-block-column', '', $class),
+                            ]
+                        )
+                    );
+                    $modifiedColumns[] = $child->c14n();
+                    $index++;
+                }
             }
         }
 
-        return '<div class="o-grid">' . "\n" . implode("\n", $result) . "\n" . '</div>';
+        return $modifiedColumns;
+    }
+
+    /**
+     * Creates an array of column classes
+     * @param array $innerBlocks Array of gutenberg blocks
+     * @return array
+     */
+    private function createGridClassesArray(array $innerBlocks): array {
+        $columnsCount = $this->countColumns($innerBlocks);
+        $gridClasses = [];
+        foreach ($innerBlocks as $block) {
+            if (!empty($block['attrs']['width'])) {
+                $number = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
+                $gridClasses[] = $this->getGridClass($number);
+            } else {
+                $gridClasses[] = $this->getGridClass($columnsCount);
+            }
+        }
+
+        return $gridClasses;
+    }
+
+
+    /**
+     * Calculate column size for specific column
+     * @param string $width Width of a column
+     * @param int $columnsCount Amount of columns
+     * @return float
+     */
+    private function blockWidthToNumber(string $width, int $columnsCount): float {
+        if (is_string($width)) {
+            $number = floatval($width);
+
+            if (!empty($number) && is_numeric($number) && $number <= 100) {
+                $number = round(($number / 100) * 12);
+                $number = 12 / $number;
+            }
+        }
+        return isset($number) && $number <= 12 ? $number : $columnsCount;
     }
 
     /**
      * Counts the number of items in inner blocks
-     *
-     * @param array $innerBlocks
+     * @param array $innerBlocks Array of gutenberg blocks
      * @return int
      */
     private function countColumns(array $innerBlocks): int
@@ -85,18 +138,22 @@ class Columns
 
     /**
      * Create a grid column size
-     * @param  array $numberOfColumns
+     * @param  float $numberOfColumns Number to calculate a columns size
      * @return string
      */
-    private function getGridClass(int $numberOfColumns): string
+    private function getGridClass(float $numberOfColumns): string
     {
         $stack = [];
-
         if (!isset($numberOfColumns) || !is_numeric($numberOfColumns)) {
             $numberOfColumns = 4;
         }
-
+        
         $stack[] = \Municipio\Helper\Html::createGridClass(1);
+
+        if ($numberOfColumns == 1.5) {
+            $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
+            $stack[] = \Municipio\Helper\Html::createGridClass(1.5, 'lg');
+        }
 
         if ($numberOfColumns == 2) {
             $stack[] = \Municipio\Helper\Html::createGridClass(2, 'md');
