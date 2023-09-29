@@ -54,8 +54,8 @@ class GoogleTranslate
                     $output .= $match;
                 } else {
                     foreach ($words as $word) {
-                        $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)(\b" . preg_quote($word) . "\b)/i";
-                        $match = preg_replace($pattern, ' <span translate="no">$1</span>', $match);
+                        $pattern = "/(?<!<span translate=\"no\">)(?<!<\/span>)\b" . preg_quote($word) . "\b(?![^<>]*>)/i";
+                        $match = preg_replace($pattern, ' <span translate="no">$0</span>', $match);
                     }
                     $output .= $match;
                 }
