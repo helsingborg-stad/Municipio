@@ -148,7 +148,7 @@ class Post
                 }
             } else {
                 $postObject->excerpt_short = wp_trim_words(
-                    $postObject->content,
+                    $postObject->post_content,
                     apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
                     apply_filters('Municipio/Helper/Post/MoreTag', "...")
                 );
