@@ -193,6 +193,7 @@ class UtilityFields
                                 '@sm' => 'SM screen',
                                 '@md' => 'MD screen',
                                 '@lg' => 'LG screen',
+                                '@xl' => 'XL screen',
                             ),
                             'default_value' => array(
                             ),

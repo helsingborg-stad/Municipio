@@ -68,6 +68,7 @@
                 'u-padding__x--3', 
                 'u-width--auto',
                 'u-display--none@lg',
+                'u-display--none@xl',
                 'u-print-display--none'
             ]
         ]
