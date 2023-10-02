@@ -11,9 +11,13 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #quicklinks-header {
     z-index: $level-5;
-    background-color: #{$c-quicklinks-background-color};
     font-family: $c-quicklinks-font;
     margin-bottom: calc($base * 5);
+    background-color: transparent;
+    
+    .c-header {
+        background-color: #{$c-quicklinks-background-color};
+    }
 
     &.c-header--primary {
         --c-quicklinks-background-color: #{$color-white};
@@ -123,7 +127,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
                 padding: calc($base * 2) 0 calc($base * .5) 0;
             }
             
-            &.is-stuck {
+            &.is-stuck .c-header__menu {
                 background-color: #{$c-quicklinks-background-sticky-color};
             }
         }
@@ -131,14 +135,13 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 }
 
 #main-content {
-    #quicklinks-header.c-header--sticky {
+    #quicklinks-header.c-header--sticky .c-header__menu {
         @include mq('sm') {
             border-radius: 0;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            left: 0;
-            right: 0;
-            right: 0;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            transform: translateX(-50%);
             width: calc(100vw - var(--scrollbar, 15px));
         }
     }
