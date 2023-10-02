@@ -31,8 +31,8 @@
 </head>
 
 <body class="{{ $bodyClass }}" js-page-id="{{ $pageID }}"
-    @if ($customizer->headerSticky === 'sticky') data-js-toggle-item="hamburger-menu"
-            data-js-toggle-class="hamburger-menu-open" @endif>
+    @if ($customizer->headerSticky === 'sticky') data-js-toggle-item="mega-menu"
+            data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
 
         {{-- Site header --}}

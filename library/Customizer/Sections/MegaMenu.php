@@ -4,15 +4,15 @@ namespace Municipio\Customizer\Sections;
 
 use Municipio\Helper\KirkiSwatches as KirkiSwatches;
 
-class HamburgerMenu
+class MegaMenu
 {
-    public const SECTION_ID = "municipio_customizer_section_hamburger_menu";
+    public const SECTION_ID = "municipio_customizer_section_mega_menu";
 
     public function __construct(string $sectionID)
     {
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'radio',
-            'settings'    => 'hamburger_menu_appearance_type',
+            'settings'    => 'mega_menu_appearance_type',
             'label'       => esc_html__('Appearance', 'municipio'),
             'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
             'section'     => $sectionID,
@@ -26,7 +26,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'multicolor',
-            'settings'    => 'hamburger_menu_custom_colors',
+            'settings'    => 'mega_menu_custom_colors',
             'label'       => esc_html__('Custom colors', 'municipio'),
             'section'     => $sectionID,
             'priority'    => 10,
@@ -46,22 +46,22 @@ class HamburgerMenu
                 [
                     'choice'    => 'heading',
                     'element'   => ':root',
-                    'property'  => '--c-hamburger-menu-heading-color'
+                    'property'  => '--c-mega-menu-heading-color'
                 ],
                 [
                     'choice'    => 'subitem',
                     'element'   => ':root',
-                    'property'  => '--c-hamburger-menu-subitem-color'
+                    'property'  => '--c-mega-menu-subitem-color'
                 ],
                 [
                     'choice'    => 'background',
                     'element'   => ':root',
-                    'property'  => '--c-hamburger-menu-background-color'
+                    'property'  => '--c-mega-menu-background-color'
                 ],
             ],
             'active_callback'  => [
                     [
-                    'setting'  => 'hamburger_menu_appearance_type',
+                    'setting'  => 'mega_menu_appearance_type',
                     'operator' => '===',
                     'value'    => 'custom',
                     ]
@@ -70,7 +70,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_menu_font',
+            'settings'    => 'mega_menu_font',
             'label'       => esc_html__('Select font', 'municipio'),
             'description' => esc_html__('Sets the font for the main items.'),
             'section'     => $sectionID,
@@ -82,12 +82,12 @@ class HamburgerMenu
             'output' => [
             [
                 'type' => 'modifier',
-                'context' => ['site.hamburgermenu.nav']
+                'context' => ['site.megamenu.nav']
             ]
             ],
             'active_callback'  => [
             [
-                'setting'  => 'hamburger_menu_appearance_type',
+                'setting'  => 'mega_menu_appearance_type',
                 'operator' => '===',
                 'value'    => 'custom',
             ]
@@ -96,7 +96,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_menu_item_style',
+            'settings'    => 'mega_menu_item_style',
             'label'       => esc_html__('Sets the style of the main items', 'municipio'),
             'section'     => $sectionID,
             'default'     => 'default',
@@ -106,7 +106,7 @@ class HamburgerMenu
             ],
             'active_callback'  => [
                 [
-                    'setting'  => 'hamburger_menu_appearance_type',
+                    'setting'  => 'mega_menu_appearance_type',
                     'operator' => '===',
                     'value'    => 'custom',
                 ]
@@ -115,7 +115,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_menu_item_button_style',
+            'settings'    => 'mega_menu_item_button_style',
             'label'       => esc_html__('Sets the style of the main items', 'municipio'),
             'section'     => $sectionID,
             'default'     => 'filled',
@@ -131,7 +131,7 @@ class HamburgerMenu
                     'dataKey' => 'parentStyle',
                     'context' => [
                         [
-                            'context' => 'component.hamburgermenu',
+                            'context' => 'component.megamenu',
                             'operator' => '=='
                         ],
                     ],
@@ -139,12 +139,12 @@ class HamburgerMenu
             ],
             'active_callback'  => [
             [
-                'setting'  => 'hamburger_menu_appearance_type',
+                'setting'  => 'mega_menu_appearance_type',
                 'operator' => '===',
                 'value'    => 'custom',
             ],
             [
-                'setting'  => 'hamburger_menu_item_style',
+                'setting'  => 'mega_menu_item_style',
                 'operator' => '===',
                 'value'    => 'button',
             ],
@@ -153,7 +153,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_menu_item_button_color',
+            'settings'    => 'mega_menu_item_button_color',
             'label'       => esc_html__('Color of the button', 'municipio'),
             'description' => esc_html__('Sets the color of the button. The custom color will be ignored.', 'municipio'),
             'section'     => $sectionID,
@@ -170,7 +170,7 @@ class HamburgerMenu
                     'dataKey' => 'parentStyleColor',
                     'context' => [
                         [
-                            'context' => 'component.hamburgermenu',
+                            'context' => 'component.megamenu',
                             'operator' => '=='
                         ],
                     ],
@@ -178,12 +178,12 @@ class HamburgerMenu
             ],
             'active_callback'  => [
             [
-                'setting'  => 'hamburger_menu_appearance_type',
+                'setting'  => 'mega_menu_appearance_type',
                 'operator' => '===',
                 'value'    => 'custom',
             ],
             [
-                'setting'  => 'hamburger_menu_item_style',
+                'setting'  => 'mega_menu_item_style',
                 'operator' => '===',
                 'value'    => 'button',
             ],
@@ -192,7 +192,7 @@ class HamburgerMenu
         
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_menu_color_scheme',
+            'settings'    => 'mega_menu_color_scheme',
             'label'       => esc_html__('Color scheme', 'municipio'),
             'section'     => $sectionID,
             'default'     => 'primary',
@@ -204,12 +204,12 @@ class HamburgerMenu
             'output' => [
                 [
                     'type' => 'modifier',
-                    'context' => ['site.hamburgermenu.nav']
+                    'context' => ['site.megamenu.nav']
                 ]
             ],
             'active_callback'  => [
                 [
-                    'setting'  => 'hamburger_menu_appearance_type',
+                    'setting'  => 'mega_menu_appearance_type',
                     'operator' => '===',
                     'value'    => 'default',
                 ]
@@ -219,7 +219,7 @@ class HamburgerMenu
 
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'select',
-            'settings'    => 'hamburger_cover_page',
+            'settings'    => 'mega_cover_page',
             'label'       => esc_html__('Cover full page', 'municipio'),
             'section'     => $sectionID,
             'default'     => '',
@@ -231,14 +231,14 @@ class HamburgerMenu
             'output' => [
                 [
                     'type' => 'modifier',
-                    'context' => ['site.hamburgermenu.nav']
+                    'context' => ['site.megamenu.nav']
                 ]
             ],
         ]);
         
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'switch',
-            'settings'    => 'hamburger_menu_mobile',
+            'settings'    => 'mega_menu_mobile',
             'label'       => esc_html__('Show on mobile', 'municipio'),
             'section'     => $sectionID,
             'default'     => false,

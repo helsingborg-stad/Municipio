@@ -89,7 +89,7 @@ class BaseController
         $accessibility      = new \Municipio\Helper\Navigation('accessibility');
         $primary            = new \Municipio\Helper\Navigation('primary');
         $secondary          = new \Municipio\Helper\Navigation('sidebar');
-        $hamburgerMenu      = new \Municipio\Helper\Navigation('hamburger-menu');
+        $megaMenu           = new \Municipio\Helper\Navigation('mega-menu');
         $quicklinks         = new \Municipio\Helper\Navigation('single');
         $tabMenu            = new \Municipio\Helper\Navigation('tab');
         $helpMenu           = new \Municipio\Helper\Navigation('help');
@@ -121,7 +121,8 @@ class BaseController
         $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
 
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-        $this->data['hamburgerMenuItems']           = $hamburgerMenu->getMenuItems('hamburger-menu', $this->getPageID(), \Kirki::get_option('hamburger_menu_pagetree_fallback'), true, false);
+        $this->data['megaMenuItems']           = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
+
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems']     = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
@@ -161,7 +162,7 @@ class BaseController
         $this->data['showHeaderSearch']         = $this->showSearchForm('header');
         $this->data['showNavigationSearch']     = $this->showSearchForm('navigation');
         $this->data['showQuicklinksSearch']     = $this->showSearchForm('quicklinks');
-        $this->data['showHamburgerMenuSearch']  = $this->showSearchForm('hamburger-menu');
+        $this->data['showMegaMenuSearch']  = $this->showSearchForm('mega-menu');
         $this->data['showHeroSearch']           = $this->showSearchForm('hero');
         $this->data['showMobileSearch']         = $this->showSearchForm('mobile');
         $this->data['showMobileSearchDrawer']   = $this->showSearchForm('mobile-drawer');
@@ -223,7 +224,7 @@ class BaseController
             'searchOn'              => __("Search on", 'municipio'),
             'searchQuestion'        => __("What are you searching for?", 'municipio'),
             'primaryNavigation'     => __("Primary navigation", 'municipio'),
-            'hamburgerNavigation'   => __("Hamburger menu", 'municipio'),
+            'megaNavigation'        => __("Mega menu", 'municipio'),
             'quicklinksNavigation'  => __("Useful links", 'municipio'),
             'relatedLinks'          => __("Related links", 'municipio'),
             'menu'                  => __("Menu", 'municipio'),
@@ -440,7 +441,7 @@ class BaseController
      */
     public function getmegaMenuLabels(): object 
     {
-        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['hamburger-menu'] ?? '');
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['mega-menu'] ?? '');
 
         return (object) apply_filters(
             'Municipio/MegaMenuLabels',
@@ -638,8 +639,8 @@ class BaseController
             return in_array('mainmenu', $enabledLocations);
         }
 
-        if ($location == "hamburger-menu") {
-            return in_array('hamburger_menu', $enabledLocations);
+        if ($location == "mega-menu") {
+            return in_array('mega_menu', $enabledLocations);
         }
 
         if ($location == "quicklinks") {

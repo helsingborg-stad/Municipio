@@ -48,7 +48,7 @@
             @endif
             
             {{-- Hambuger menu trigger --}}
-            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
+            @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
             
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
@@ -56,8 +56,8 @@
         </div>
     </div>
 
-    {{-- Hamburger menu --}}
-    @includeIf('partials.navigation.hamburgermenu')
+    {{-- Mega menu --}}
+    @includeIf('partials.navigation.megamenu')
 
     @includeWhen(
         $showMobileSearch, 
