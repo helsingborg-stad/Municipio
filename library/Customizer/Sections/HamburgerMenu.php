@@ -74,7 +74,7 @@ class HamburgerMenu
             'label'       => esc_html__('Select font', 'municipio'),
             'description' => esc_html__('Sets the font for the main items.'),
             'section'     => $sectionID,
-            'default'     => 'body',
+            'default'     => '',
             'choices'     => [
                 '' => esc_html__('Body', 'municipio'),
                 'font-heading' => esc_html__('Heading', 'municipio'),
@@ -212,6 +212,26 @@ class HamburgerMenu
                     'setting'  => 'hamburger_menu_appearance_type',
                     'operator' => '===',
                     'value'    => 'default',
+                ]
+            ],
+        ]);
+
+
+        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'select',
+            'settings'    => 'hamburger_cover_page',
+            'label'       => esc_html__('Cover full page', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices' => [
+                '' => esc_html__('No cover', 'municipio'),
+                'cover'  => esc_html__('Cover', 'municipio'),
+            ],
+            'output' => [
+                [
+                    'type' => 'modifier',
+                    'context' => ['site.hamburgermenu.nav']
                 ]
             ],
         ]);

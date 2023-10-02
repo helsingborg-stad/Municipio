@@ -136,6 +136,7 @@ class BaseController
         //Get labels for menu
         $this->data['floatingMenuLabels']   = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']    = $this->getQuicklinksOptions();
+        $this->data['megaMenuLabels']       = $this->getmegaMenuLabels();
         //Get language menu options
         $this->data['languageMenuOptions']    = $this->getLanguageMenuOptions();
 
@@ -428,6 +429,24 @@ class BaseController
             'heading' => get_field('floating_popup_heading', $menuObject),
             'buttonLabel' => get_field('floating_toggle_button_label', $menuObject),
             'buttonIcon' => get_field('toggle_button_icon', $menuObject)
+            ]
+        );
+    }
+ 
+    /**
+     * Get mega menu labels
+     *
+     * @return object
+     */
+    public function getmegaMenuLabels(): object 
+    {
+        $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['hamburger-menu'] ?? '');
+
+        return (object) apply_filters(
+            'Municipio/MegaMenuLabels',
+            [
+                'buttonLabel' => get_field('mega_menu_button_label', $menuObject),
+                'buttonIcon' => get_field('mega_menu_button_icon', $menuObject)
             ]
         );
     }

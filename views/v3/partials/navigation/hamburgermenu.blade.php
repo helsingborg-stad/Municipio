@@ -10,8 +10,8 @@
             'context' => ['site.hamburgermenu.nav']
 
         ])
-            <div class="o-grid-12">
-                @if($showHamburgerMenuSearch)
+            @if($showHamburgerMenuSearch)
+                <div class="o-grid-12">
                     @form(['method' => 'get', 'action' => '/', 'classList' => ['search-form']])
                         <label for="hamburger-menu-search" class="u-sr__only">
                             {{ $lang->searchOn . " " . $siteName }}
@@ -36,7 +36,7 @@
                             @endbutton
                         @endgroup
                     @endform
-                @endif
-            </div>
+                </div>
+            @endif
         @endhamburgerMenu
 @endif
