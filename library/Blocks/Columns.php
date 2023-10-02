@@ -59,8 +59,7 @@ class Columns
         $modifiedColumns = [];
         $index = 0;
         $elements = $doc->getElementsByTagName('*');
-
-        if (!empty($elements) && is_array($elements)) {
+        if (!empty($elements) && is_object($elements)) {
             foreach ($elements as $child) {
                 $class = $child->getAttribute('class');
                 if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
