@@ -30,40 +30,60 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
 
         add_filter('Municipio/viewData', array($this, 'appendViewData'), 10, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewContactData'), 11, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewQuickFactsData'), 11, 1);
-        add_filter('Municipio/viewData', array($this, 'appendAboutUsData'), 11, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 11, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 11, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewPagesData'), 11, 1);
+
         add_filter('Municipio/viewData', array($this, 'appendAttachmentsData'), 11, 1);
+
+        add_filter('Municipio/viewData', array($this, 'appendImagesData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewContactData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewQuickFactsData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendAboutUsData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 12, 1);
+        add_filter('Municipio/viewData', array($this, 'appendViewPagesData'), 12, 1);
     }
 
-    public function appendViewData($data) {
+    public function appendViewData($data)
+    {
         $postId = $data['post']->id;
+        $metaKeys = $this->getMetaKeys();
 
-        $data['schoolData']['pages'] = WP::getField('pages', $postId, false);
-        $data['schoolData']['typeOfSchool'] = WP::getField('type_of_school', $postId);
-        $data['schoolData']['facadeImages'] = WP::getField('facade_images', $postId);
-        $data['schoolData']['images'] = WP::getField('images', $postId);
-        $data['schoolData']['videos'] = WP::getField('videos', $postId);
-        $data['schoolData']['numberOfStudents'] = WP::getField('number_of_students', $postId);
-        $data['schoolData']['numberOfUnits'] = WP::getField('number_of_units', $postId);
-        $data['schoolData']['grades'] = WP::getField('grades', $postId);
-        $data['schoolData']['openHours'] = WP::getField('open_hours', $postId);
-        $data['schoolData']['openHoursLeisureCenter'] = WP::getField('open_hours_leisure_center', $postId);
-        $data['schoolData']['specialization'] = WP::getField('specialization', $postId);
-        $data['schoolData']['profile'] = WP::getField('profile', $postId);
-        $data['schoolData']['ownChef'] = WP::getField('own_chef', $postId);
-        $data['schoolData']['linkInstagram'] = WP::getField('link_instagram', $postId);
-        $data['schoolData']['linkFacebook'] = WP::getField('link_facebook', $postId);
-        $data['schoolData']['customExcerpt'] = WP::getField('custom_excerpt', $postId);
-        $data['schoolData']['information'] = WP::getField('information', $postId);
-        $data['schoolData']['visitingAddress'] = WP::getField('visiting_address', $postId);
-        $data['schoolData']['contacts'] = WP::getField('contacts', $postId);
-        $data['schoolData']['ctaApplication'] = WP::getField('cta_application', $postId);
+        foreach ($metaKeys as $metaKey) {
+            $snakeCaseField = $this->fromCamelCaseToSnakeCase($metaKey);
+            $data['schoolData'][$metaKey] = WP::getField($snakeCaseField, $postId);
+        }
 
         return $data;
+    }
+
+    private function fromCamelCaseToSnakeCase(string $string): string
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
+    }
+
+    private function getMetaKeys(): array
+    {
+        return [
+            'contacts',
+            'ctaApplication',
+            'customExcerpt',
+            'facadeImages',
+            'grades',
+            'images',
+            'information',
+            'linkFacebook',
+            'linkInstagram',
+            'numberOfStudents',
+            'numberOfUnits',
+            'openHours',
+            'openHoursLeisureCenter',
+            'ownChef',
+            'pages',
+            'profile',
+            'specialization',
+            'typeOfSchool',
+            'videos',
+            'visitingAddress',
+        ];
     }
 
     public function appendViewContactData(array $data)
@@ -94,9 +114,18 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             }
 
             $data['contacts'] = !empty($persons) ? array_map(function ($person) {
+                $featuredMediaID = WP::getField('featured_media', $person->id);
                 $email = WP::getField('e-mail', $person->id);
                 $phone = WP::getField('phone-number', $person->id);
+
+                $featuredMedia = $featuredMediaID ? WP::getPosts([
+                    'post_type' => 'school_api_attachment',
+                    'post__in' => [$featuredMediaID],
+                    'suppress_filters' => false
+                ]) : null;
+
                 $contact = (object)[
+                    'attachment'        => !empty($featuredMedia) ? $featuredMedia[0] : null,
                     'professionalTitle' => $person->professionalTitle, // TODO: Populate with real data.
                     'email'             => $email,
                     'phone'             => $phone,
@@ -252,29 +281,40 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
     public function appendAttachmentsData(array $data) {
         
-        $facadeImageAttachments = WP::getPosts([
+        $attachmentIds = array_merge(
+            $data['schoolData']['facadeImages'],
+            $data['schoolData']['images']
+        );
+
+        $attachments = WP::getPosts([
             'post_type' => 'school_api_attachment',
-            'post__in' => $data['schoolData']['facadeImages'],
-            'suppress_filters' => false
-        ]);
-        
-        $imageAttachments = WP::getPosts([
-            'post_type' => 'school_api_attachment',
-            'post__in' => $data['schoolData']['images'],
+            'post__in' => $attachmentIds,
             'suppress_filters' => false
         ]);
 
-        $data['facadeImages'] = array_map(function($attachment) {
-            return [
-                'src' => $attachment->guid
-            ];
-        }, $facadeImageAttachments);
+        $attachmentsById = [];
+        foreach ($attachments as $attachment) {
+            $attachmentsById[$attachment->id] = $attachment;
+        }
+
+        $data['schoolData']['attachments'] = $attachmentsById;
+
+        return $data;
+    }
+
+    public function appendImagesData($data) {
+
+        if( !isset($data['schoolData']['attachments']) ) {
+            return $data;
+        }
+
+        $data['facadeImages'] = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
+            return in_array($attachmentId, $data['schoolData']['facadeImages']);
+        }, ARRAY_FILTER_USE_KEY);
         
-        $data['images'] = array_map(function($attachment) {
-            return [
-                'src' => $attachment->guid
-            ];
-        }, $imageAttachments);
+        $data['images'] = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
+            return in_array($attachmentId, $data['schoolData']['images']);
+        }, ARRAY_FILTER_USE_KEY);
 
         return $data;
     }

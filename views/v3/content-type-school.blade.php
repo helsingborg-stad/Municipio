@@ -28,7 +28,7 @@
                 'layout' => 'center',
                 'containerColor' => 'transparent',
                 'textColor' => 'white',
-                'desktop_image' => $facadeImage['src'],
+                'desktop_image' => $facadeImage->guid,
                 'heroStyle' => true
             ])
             @endslider__item
@@ -62,6 +62,13 @@
             @foreach ($contacts as $contact)
 
                 @card(['classList' => ['o-grid-3@md']])
+
+                    @if($contact->attachment)
+                        @image([
+                            'src'=> $contact->attachment->guid
+                        ])
+                        @endimage
+                    @endif
 
                     @typography(['element' => 'h3', 'variant' => 'h3'])
                         {{$contact->name}}
@@ -134,7 +141,7 @@
                 'layout' => 'center',
                 'containerColor' => 'transparent',
                 'textColor' => 'white',
-                'desktop_image' => $image['src'],
+                'desktop_image' => $image->guid,
                 'heroStyle' => true
             ])
             @endslider__item
