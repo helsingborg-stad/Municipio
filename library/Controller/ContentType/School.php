@@ -3,6 +3,7 @@
 namespace Municipio\Controller\ContentType;
 
 use Municipio\Helper\ContentType as Helper;
+use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
 
 /**
@@ -28,18 +29,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     public function addHooks(): void {
         // Append structured data for schema.org markup
         add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
-
-        add_filter('Municipio/viewData', array($this, 'appendViewData'), 10, 1);
-
-        add_filter('Municipio/viewData', array($this, 'appendAttachmentsData'), 11, 1);
-
-        add_filter('Municipio/viewData', array($this, 'appendImagesData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewContactData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewQuickFactsData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendAboutUsData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewAccordionData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewVisitingData'), 12, 1);
-        add_filter('Municipio/viewData', array($this, 'appendViewPagesData'), 12, 1);
+        add_filter('Municipio/viewData', [$this, 'appendViewData'], 10, 1);
     }
 
     public function appendViewData($data)
@@ -48,9 +38,19 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $metaKeys = $this->getMetaKeys();
 
         foreach ($metaKeys as $metaKey) {
-            $snakeCaseField = $this->fromCamelCaseToSnakeCase($metaKey);
-            $data['schoolData'][$metaKey] = WP::getField($snakeCaseField, $postId);
+            $camelCaseField = lcfirst(Controller::camelCase($metaKey));
+            // $snakeCaseField = $this->fromCamelCaseToSnakeCase($metaKey);
+            $data['schoolData'][$camelCaseField] = WP::getField($metaKey, $postId);
         }
+
+        $data = $this->appendAttachmentsData($data);
+        $data = $this->appendImagesData($data);
+        $data = $this->appendViewContactData($data);
+        $data = $this->appendViewQuickFactsData($data);
+        $data = $this->appendAboutUsData($data);
+        $data = $this->appendViewAccordionData($data);
+        $data = $this->appendViewVisitingData($data);
+        $data = $this->appendViewPagesData($data);
 
         return $data;
     }
@@ -64,29 +64,29 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     {
         return [
             'contacts',
-            'ctaApplication',
-            'customExcerpt',
-            'facadeImages',
+            'cta_application',
+            'custom_excerpt',
+            'facade_images',
             'grades',
             'images',
             'information',
-            'linkFacebook',
-            'linkInstagram',
-            'numberOfStudents',
-            'numberOfUnits',
-            'openHours',
-            'openHoursLeisureCenter',
-            'ownChef',
+            'link_facebook',
+            'link_instagram',
+            'number_of_students',
+            'number_of_units',
+            'open_hours',
+            'open_hours_leisure_center',
+            'own_chef',
             'pages',
             'profile',
             'specialization',
-            'typeOfSchool',
+            'type_of_school',
             'videos',
-            'visitingAddress',
+            'visiting_address',
         ];
     }
 
-    public function appendViewContactData(array $data)
+    private function appendViewContactData(array $data)
     {
         if (isset($data['schoolData']['contacts'])) {
 
@@ -126,7 +126,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
                 $contact = (object)[
                     'attachment'        => !empty($featuredMedia) ? $featuredMedia[0] : null,
-                    'professionalTitle' => $person->professionalTitle, // TODO: Populate with real data.
+                    'professionalTitle' => $person->professionalTitle,
                     'email'             => $email,
                     'phone'             => $phone,
                     'name'              => $person->postTitle
@@ -143,7 +143,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewQuickFactsData(array $data)
+    private function appendViewQuickFactsData(array $data)
     {
 
         $quickFacts = [];
@@ -167,7 +167,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendAboutUsData($data)
+    private function appendAboutUsData($data)
     {
         $information = $data['schoolData']['information'];
         if (isset($information->about_us) && !empty($information->about_us)) {
@@ -178,7 +178,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewAccordionData(array $data)
+    private function appendViewAccordionData(array $data)
     {
         $accordionData = null;
         $information = $data['schoolData']['information'];
@@ -203,7 +203,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewVisitingData(array $data) {
+    private function appendViewVisitingData(array $data) {
         $visitingAddresses = $data['schoolData']['visitingAddress'];
         $visitingData = [];
         $mapPins = [];
@@ -252,7 +252,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendViewPagesData(array $data) {
+    private function appendViewPagesData(array $data) {
         $pageIds = $data['schoolData']['pages'];
 
         if( !isset($pageIds) || empty($pageIds) ) {
@@ -279,7 +279,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendAttachmentsData(array $data) {
+    private function appendAttachmentsData(array $data) {
         
         $attachmentIds = array_merge(
             $data['schoolData']['facadeImages'],
@@ -302,21 +302,43 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $data;
     }
 
-    public function appendImagesData($data) {
+    private function appendImagesData($data) {
 
         if( !isset($data['schoolData']['attachments']) ) {
             return $data;
         }
 
-        $data['facadeImages'] = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
+        $facadeAttachments = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
             return in_array($attachmentId, $data['schoolData']['facadeImages']);
         }, ARRAY_FILTER_USE_KEY);
         
-        $data['images'] = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
+        $environmentAttachments = array_filter($data['schoolData']['attachments'], function($attachmentId) use ($data) {
             return in_array($attachmentId, $data['schoolData']['images']);
         }, ARRAY_FILTER_USE_KEY);
 
+        $data['facadeSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $facadeAttachments);
+        $data['environmentSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $environmentAttachments);
+
         return $data;
+    }
+
+    private function attachmentToSliderItem($attachment) {
+        
+        $sliderItem = [
+            'title' => '',
+            'layout' => 'center',
+            'containerColor' => 'transparent',
+            'textColor' => 'white',
+            'heroStyle' => true
+        ];
+
+        if( str_contains($attachment->postMimeType, 'video') ) {
+            $sliderItem['background_video'] = $attachment->guid;
+        } else {
+            $sliderItem['desktop_image'] = $attachment->guid;
+        }
+
+        return $sliderItem;
     }
 
     /**

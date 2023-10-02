@@ -22,15 +22,8 @@
         'showStepper' => true,
         'autoSlide' => false,
     ])
-        @foreach ($facadeImages as $facadeImage)
-            @slider__item([
-                'title' => '',
-                'layout' => 'center',
-                'containerColor' => 'transparent',
-                'textColor' => 'white',
-                'desktop_image' => $facadeImage->guid,
-                'heroStyle' => true
-            ])
+        @foreach ($facadeSliderItems as $sliderItem)
+            @slider__item($sliderItem)
             @endslider__item
         @endforeach
 
@@ -135,15 +128,8 @@
         'showStepper' => true,
         'autoSlide' => false,
     ])
-        @foreach ($images as $image)
-            @slider__item([
-                'title' => '',
-                'layout' => 'center',
-                'containerColor' => 'transparent',
-                'textColor' => 'white',
-                'desktop_image' => $image->guid,
-                'heroStyle' => true
-            ])
+        @foreach ($environmentSliderItems as $sliderItem)
+            @slider__item($sliderItem)
             @endslider__item
         @endforeach
 
