@@ -38,8 +38,10 @@
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
             "allow_null": 0,
-            "ui": 0,
+            "ui": 1,
             "ajax": 0,
             "placeholder": ""
         },
@@ -58,9 +60,9 @@
             },
             "message": "Show icon after label",
             "default_value": 0,
-            "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": ""
+            "ui_off_text": "",
+            "ui": 1
         }
     ],
     "location": [
