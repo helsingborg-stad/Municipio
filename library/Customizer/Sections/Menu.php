@@ -118,6 +118,7 @@ class Menu
             'sm' => esc_html__('Small', 'municipio'),
             'md' => esc_html__('Medium', 'municipio'),
             'lg' => esc_html__('Large', 'municipio'),
+            'xl' => esc_html__('Extra large', 'municipio'),
         ];
     }
 
