@@ -447,7 +447,8 @@ class BaseController
             'Municipio/MegaMenuLabels',
             [
                 'buttonLabel' => get_field('mega_menu_button_label', $menuObject),
-                'buttonIcon' => get_field('mega_menu_button_icon', $menuObject)
+                'buttonIcon' => get_field('mega_menu_button_icon', $menuObject),
+                'iconAfterLabel' => get_field('mega_menu_icon_after_label', $menuObject)
             ]
         );
     }

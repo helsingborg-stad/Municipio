@@ -4,7 +4,7 @@
         'color' => $customizer->headerTriggerButtonColor,
         'style' => $customizer->headerTriggerButtonType,
         'size' => $customizer->headerTriggerButtonSize,
-        'reversePositions' => true,
+        'reversePositions' => empty($megaMenuLabels->iconAfterLabel),
         'toggle' => true,
         'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',
         'text' => !empty($megaMenuLabels->buttonLabel) ? $megaMenuLabels->buttonLabel : $lang->menu,
