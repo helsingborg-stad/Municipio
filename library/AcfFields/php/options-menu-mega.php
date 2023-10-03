@@ -53,7 +53,7 @@
             0 => array(
                 'param' => 'nav_menu',
                 'operator' => '==',
-                'value' => 'location/hamburger-menu',
+                'value' => 'location/mega-menu',
             ),
         ),
     ),
