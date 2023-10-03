@@ -7,7 +7,7 @@
     'fields' => array(
         0 => array(
             'key' => 'field_6502be0a752a8',
-            'label' => __('Mega menu button label', 'municipio'),
+            'label' => __('Button label', 'municipio'),
             'name' => 'mega_menu_button_label',
             'type' => 'text',
             'instructions' => '',
@@ -26,7 +26,7 @@
         ),
         1 => array(
             'key' => 'field_6502be35752a9',
-            'label' => __('Mega menu button icon', 'municipio'),
+            'label' => __('Button icon', 'municipio'),
             'name' => 'mega_menu_button_icon',
             'type' => 'select',
             'instructions' => '',
@@ -46,6 +46,25 @@
             'ui' => 0,
             'ajax' => 0,
             'placeholder' => '',
+        ),
+        2 => array(
+            'key' => 'field_651bcec5c166e',
+            'label' => __('Icon position', 'municipio'),
+            'name' => 'mega_menu_icon_after_label',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('Show icon after label', 'municipio'),
+            'default_value' => 0,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
         ),
     ),
     'location' => array(

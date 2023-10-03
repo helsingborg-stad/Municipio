@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_6502be0a752a8",
-            "label": "Mega menu button label",
+            "label": "Button label",
             "name": "mega_menu_button_label",
             "type": "text",
             "instructions": "",
@@ -23,7 +23,7 @@
         },
         {
             "key": "field_6502be35752a9",
-            "label": "Mega menu button icon",
+            "label": "Button icon",
             "name": "mega_menu_button_icon",
             "type": "select",
             "instructions": "",
@@ -42,6 +42,25 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_651bcec5c166e",
+            "label": "Icon position",
+            "name": "mega_menu_icon_after_label",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Show icon after label",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
