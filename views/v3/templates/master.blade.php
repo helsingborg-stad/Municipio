@@ -84,25 +84,25 @@
 
                     <!--  Main content padder -->
                     <div
-                        class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-margin__bottom--12">
-                        <div class="o-grid o-grid--nowrap@lg">
+                        class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
+                        <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
 
                             @hasSection('sidebar-left')
                                 <div
-                                    class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-order-2 o-order-1@lg u-print-display--none">
+                                    class="o-grid-12 o-grid-{{ $leftColumnSize }}@lg o-grid-{{ $leftColumnSize }}@xl o-order-2 o-order-1@lg o-order-1@xl u-print-display--none">
                                     @yield('sidebar-left')
                                 </div>
                             @endif
 
                             <div
-                                class="o-grid-12 o-grid-auto@lg o-order-1 o-order-2@lg u-display--flex u-flex--gridgap  u-flex-direction--column">
+                                class="o-grid-12 o-grid-auto@lg o-grid-auto@xl o-order-1 o-order-2@lg o-order-2@xl u-display--flex u-flex--gridgap  u-flex-direction--column">
                                 @yield('content')
                                 @yield('content.below')
                             </div>
 
                             @hasSection('sidebar-right')
                                 <div
-                                    class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-order-3 o-order-3@lg u-print-display--none">
+                                    class="o-grid-12 o-grid-{{ $rightColumnSize }}@lg o-grid-{{ $rightColumnSize }}@xl o-order-3 o-order-3@lg o-order-3@xl u-print-display--none">
                                     @yield('sidebar-right')
                                 </div>
                             @endif
