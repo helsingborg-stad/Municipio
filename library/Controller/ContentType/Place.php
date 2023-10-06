@@ -75,14 +75,12 @@ class Place extends ContentTypeFactory
             return $structuredData;
         }
 
-        $locationMetaKeys = ['map', 'location']; // Post meta keys we'll check for location data.
+        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
         
         $additionalData = ['location' => []];
 
         foreach ($locationMetaKeys as $key) {
-
-            $location = \Municipio\Helper\WP::getField($key, $postId);
-
+            $location = get_post_meta($postId, $key, true);
             if (empty($location)) {
                 continue;
             }
@@ -118,7 +116,6 @@ class Place extends ContentTypeFactory
             }
         }
 
-        // return \Municipio\Helper\ContentType::appendStructuredData([], $postId, $structuredData, $additionalData);
+        return array_merge($structuredData, $additionalData);
     }
-    
 }

@@ -179,16 +179,11 @@ class BaseController
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
         //Structured data
-        add_filter('template_include', function ($template) {
+        $this->data['structuredData']       = \Municipio\Helper\Data::getStructuredData(
+            $this->data['postType'],
+            $this->getPageID()
+        );
 
-            $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData(
-                $this->data['postType'],
-                $this->getPageID()
-            );
-
-            return $template;
-        }, 999, 1);
-            
         //Notice storage
         $this->data['notice']               = [];
 

@@ -9,7 +9,7 @@ namespace Municipio\Controller\ContentType;
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    public $secondaryContentType = [];
+    protected $secondaryContentType = [];
     
     public function __construct()
     {
@@ -23,9 +23,9 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
     }
 
-    public function addHooks() {
+    public function addHooks(): void {
         // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 4);
+        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * addSecondaryContentType
@@ -47,24 +47,25 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      * @return array The modified structured data array.
      */
 
-     
     public function appendStructuredData(array $structuredData, string $postType, int $postId): array
     {
-
         if (empty($postId)) {
             return $structuredData;
         }
 
-        $properties = \Municipio\Helper\ContentType::filteredStructuredDataProperties(
-            [
-                'name',
-                'description', // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
-                'numberOfStudents',
-                'openingHours',
-                'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
-            ], 
-            $postId);
+        $additionalData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'School',
+        ];
 
-        return \Municipio\Helper\ContentType::prepareStructuredData($structuredData, 'School', $properties, $postId );
+        $properties = \Municipio\Helper\ContentType::getStructuredDataProperties([
+            'name',
+            'description', // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
+            'numberOfStudents',
+            'openingHours',
+            'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
+        ], $postId);
+
+        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId, $structuredData, $additionalData);
     }
 }

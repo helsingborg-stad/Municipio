@@ -9,7 +9,7 @@ namespace Municipio\Controller\ContentType;
 class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    public $secondaryContentType = [];
+    protected $secondaryContentType = [];
 
     public function __construct()
     {
@@ -36,7 +36,6 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
     {
         $this->secondaryContentType[] = $contentType;
     }
-    
     /**
      * Appends the structured data array (used for schema.org markup) with additional data
      *

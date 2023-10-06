@@ -43,6 +43,7 @@ class SingularContentType extends \Municipio\Controller\Singular
                 $secondaryContentType->addHooks();
             }
         }
+
         /**
          * Check if the content type template should be skipped and set the view accordingly if not.
          */
@@ -60,7 +61,7 @@ class SingularContentType extends \Municipio\Controller\Singular
     public function init()
     {
         parent::init();
-      
+
         // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
