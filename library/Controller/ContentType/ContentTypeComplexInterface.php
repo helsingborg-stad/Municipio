@@ -26,4 +26,5 @@ interface ContentTypeComplexInterface
      * @return void
      */
     public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void;
+    
 }

@@ -33,4 +33,5 @@ interface ContentTypeComponentInterface
      * @return string The view.
      */
     public function getView(): string;
+
 }

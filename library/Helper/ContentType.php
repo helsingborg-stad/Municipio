@@ -230,50 +230,66 @@ class ContentType
     }
 
     /**
-     * Gets the available properties for a structured data schema.
+     * Applies filter ob the available properties for a structured data schema.
      *
      * @param array $properties The properties to include in the schema.
      * @param int|null $postId The ID of the post to get the properties for.
      *
      * @return array The available properties for the structured data schema.
      */
-    public static function getStructuredDataProperties(array $properties, int $postId): array
+    public static function filteredStructuredDataProperties(array $properties, int $postId): array
     {
         return apply_filters('Municipio/ContentType/structuredDataProperties', $properties, $postId);
     }
 
-    /**
-     * Appends structured data to an array of properties for a given post ID.
-     *
-     * @param array $properties An array of properties to append to the structured data.
-     * @param int $postId The ID of the post to append the structured data to.
-     * @param array $structuredData An array of structured data to append to.
-     * @return array The merged array of structured data and additional data.
-     */
-    public static function appendStructuredData(array $properties, int $postId, array $structuredData = [], array $additionalData = []): array
+    public function appendStructuredData($properties = [], $postId = 0, $structuredData = [], $additionalData = []): array
     {
-        foreach ($properties as $property) {
-            // propertyValue will always return null unless a filter hook is defined for it.
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
+        return $structuredData;
+    }
+    /**
+     * prepareStructuredData
+     * Appends the structured data array (used for schema.org markup) with additional data
+     */
+    public static function prepareStructuredData(array $structuredData = [], string $type, array $properties = [], int $postId): array
+    {
+        if(!empty($properties)){
 
-            // if no value is returned from the filter hook, try to get the value from the post meta
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
+            $structuredData[$type] = [];
+            
+            foreach ($properties as $key => $property) {
+
+                // propertyValue will always return null unless a filter hook is defined for it.
+                $propertyValue =
+                apply_filters(
+                    "Municipio/ContentType/structuredDataProperty/{$property}",
+                    null,
+                    $postId
+                );
+
+                // if no value is returned from the filter hook, try to get the value from the post meta
+                if (is_null($propertyValue)) {
+                    $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
+                }
+
+                $structuredData[$type][$property] =
+                apply_filters(
+                    "Municipio/ContentType/structuredDataProperty/{$property}/value",
+                    $propertyValue,
+                    $postId
+                );
+
+                // If the property value is empty even after filters, remove it from the structured data array.
+                if(empty($structuredData[$type][$property])) {
+                    unset($structuredData[$type][$property]);
+                }
+                
             }
 
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
-            );
+            // If the structured data array is empty after all filters, remove it.
+            if(empty($structuredData[$type])) {
+                unset($structuredData[$type]);
+            }
         }
-        
-        return array_merge($structuredData, $additionalData);
+        return $structuredData;
     }
 }

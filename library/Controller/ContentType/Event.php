@@ -14,7 +14,7 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -44,6 +44,7 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
             $this->secondaryContentType[] = $contentType;
         }
     }
+    
     /**
      * Appends the structured data array (used for schema.org markup) with additional data for events.
      * Will be printed in the head of the html document.

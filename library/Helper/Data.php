@@ -15,6 +15,7 @@ class Data
         if (empty($schema)) {
             return false;
         }
+        
 
         //Default common schema
         $schema = array_merge(

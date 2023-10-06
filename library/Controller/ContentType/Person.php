@@ -40,44 +40,15 @@ class Person extends ContentTypeFactory
             return $structuredData;
         }
 
-        $additionalData = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Person',
-        ];
-
-        // Define the available properties for the Person schema
-        $properties = apply_filters(
-            'Municipio/ContentType/structuredDataProperties',
+        $properties = \Municipio\Helper\ContentType::filteredStructuredDataProperties(
             [
                 'name',
                 'jobTitle',
                 'email',
                 'telephone'
-            ],
-            $postId
-        );
+            ], 
+            $postId);
 
-        // Iterate over each property and try to fetch the corresponding meta data from the post
-        foreach ($properties as $property) {
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
-
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
-            }
-
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
-            );
-        }
-
-        return array_merge($structuredData, $additionalData);
+        return \Municipio\Helper\ContentType::prepareStructuredData($structuredData, 'Person', $properties, $postId);
     }
 }
