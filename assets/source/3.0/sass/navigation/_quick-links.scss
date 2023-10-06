@@ -13,9 +13,8 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     z-index: $level-5;
     font-family: $c-quicklinks-font;
     margin-bottom: calc($base * 5);
-    background-color: transparent;
     
-    &.c-header {
+    &.c-header, .c-header__menu {
         background-color: #{$c-quicklinks-background-color};
     }
 
