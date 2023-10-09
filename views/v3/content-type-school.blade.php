@@ -1,44 +1,27 @@
 @extends('templates.single')
 
-@section('content')
+    @section('article.title.after')
     
-    @if ($post->postTitleFiltered)
-        @group([
-            'justifyContent' => 'space-between'
-        ])
-            @if ($post->postTitleFiltered)
-                @typography([
-                    'element' => 'h1', 
-                    'variant' => 'h1', 
-                    'id' => 'page-title',
-                ])
-                    {!! $post->postTitleFiltered !!}
-                @endtypography
-            @endif
-        @endgroup
+    @if ($post->postExcerpt)
+        {!! $post->postExcerpt !!}
     @endif
 
-    @slider([
-        'showStepper' => true,
-        'autoSlide' => false,
-    ])
+    @slider(['showStepper' => true,'autoSlide' => false])
         @foreach ($facadeSliderItems as $sliderItem)
-            @slider__item($sliderItem)
-            @endslider__item
+            @slider__item($sliderItem)@endslider__item
         @endforeach
-
     @endslider
     
     @if ($quickFacts)
-        @paper(['classList' => ['u-color__bg--default', 'u-padding--4'] ])
+        @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
             
             @typography(['element' => 'h2', 'variant' => 'h2'])
                 {{$quickFactsTitle}}
             @endtypography
 
-            <ul class="o-grid">
+            <ul class="o-grid o-grid--half-gutter">
                 @foreach($quickFacts as $quickFact)
-                    <li class="o-grid-3@md">{{$quickFact['label']}}</li>
+                    <li class="o-grid-4@md">{{$quickFact['label']}}</li>
                 @endforeach
             </ul>
 
@@ -54,7 +37,7 @@
         <div class="o-grid">
             @foreach ($contacts as $contact)
 
-                @card(['classList' => ['o-grid-3@md']])
+                @card(['classList' => ['o-grid-4@md', 'u-color__bg--transparent']])
 
                     @if($contact->attachment)
                         @image([
@@ -63,11 +46,11 @@
                         @endimage
                     @endif
 
-                    @typography(['element' => 'h3', 'variant' => 'h3'])
+                    @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--1', 'u-margin__bottom--0']])
                         {{$contact->name}}
                     @endtypography
 
-                    @typography(['element' => 'p', 'variant' => 'p'])
+                    @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                         {{$contact->professionalTitle}}
                     @endtypography
 
@@ -82,7 +65,7 @@
                 @endcard
 
             @endforeach
-        </div>
+
     @endif
 
     @if($visitingDataTitle)
@@ -113,57 +96,61 @@
             </div>
         @endif
     @endif
-    
-    @if($aboutUsTitle)
 
-        @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{$aboutUsTitle}}
-        @endtypography
-
-        {{$aboutUs}}
-        
-    @endif
-
-    @slider([
-        'showStepper' => true,
-        'autoSlide' => false,
-    ])
-        @foreach ($environmentSliderItems as $sliderItem)
-            @slider__item($sliderItem)
-            @endslider__item
+    <div class="o-grid o-grid--half-gutter">
+        @foreach ($accordions as $accordion)
+            @accordion([
+                'list'=> $accordion['list'], 'classList' => ['u-color__bg--lightest', 'u-box-shadow--3']])
+            @endaccordion
         @endforeach
+    </div>
+    
+    @if( $socialMediaLinks )
 
-    @endslider
+        <div>
+        
+            @typography(['element' => 'h2', 'variant' => 'h2'])
+                {{$socialMediaLinksTitle}}
+            @endtypography
 
-    @accordion(['list'=> $accordionData])
-    @endaccordion
-
-    @if($pages)
-
-        <div class="o-grid">
-            @foreach ($pages as $page)
-
-                @card(['classList' => ['o-grid-4@md', 'u-color__bg--default', 'u-padding--4']])
-
-                    @typography(['element' => 'h3', 'variant' => 'h3'])
-                        {{$page['title']}}
-                    @endtypography
-
-                    {!!$page['content']!!}
-
-                    @button([
-                        'text' => $page['linkText'],
-                        'color' => 'primary',
-                        'style' => 'filled',
-                        'href' => $page['link'],
-                        'classList' => ['u-margin__top--2']
-                    ])@endbutton
-
-                @endcard
-
+            @foreach ($socialMediaLinks as $socialMediaLink)
+                @button([
+                    'text' => $socialMediaLink['text'],
+                    'color' => 'primary',
+                    'style' => 'basic',
+                    'size' => 'lg',
+                    'href' => $socialMediaLink['href'],
+                    'icon' => $socialMediaLink['icon'],
+                    'reversePositions' => 'true',
+                    'classList' => ['u-margin__right--3']
+                ])
+                @endbutton
             @endforeach
         </div>
+    @endif
     
+
+    @slider(['showStepper' => true,'autoSlide' => false])
+        @foreach ($environmentSliderItems as $sliderItem)
+            @slider__item($sliderItem)@endslider__item
+        @endforeach
+    @endslider
+
+    @if($pages)
+        @collection(['classList' => ['o-grid']])
+            @foreach ($pages as $page)
+                @collection__item([
+                    'containerAware' => true,
+                    'link' => $page['link'],
+                    'classList' => [ 'o-grid-6@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--4']
+                ])
+                    @typography(['element' => 'h4'])
+                    {{$page['title']}}
+                    @endtypography
+                    {!!$page['content']!!}
+                @endcollection__item
+            @endforeach
+        @endcollection
     @endif
 
     @if($visitingDataTitle)
@@ -176,7 +163,5 @@
         @endopenStreetMap
 
     @endif
-
-
 
 @stop

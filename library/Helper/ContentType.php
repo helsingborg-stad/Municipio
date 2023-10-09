@@ -108,7 +108,7 @@ class ContentType
             if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
                 return true;
             }
-            if (self::checkSecondaryContentType($contentType, $contentTypeToCheckFor)) {
+            if (self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
                 return true;
             }
         }
