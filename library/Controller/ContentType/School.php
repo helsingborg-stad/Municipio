@@ -14,7 +14,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
     protected $secondaryContentType = [];
     protected object $postMeta;
-    
+
     public function __construct()
     {
         $this->key = 'school';
@@ -64,7 +64,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             '@type' => 'School',
         ];
 
-        $properties = Helper::getStructuredDataProperties([
+        $properties = \Municipio\Helper\ContentType::getStructuredDataProperties([
             'name',
             'description', // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
             'numberOfStudents',
@@ -72,6 +72,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
         ], $postId);
 
-        return Helper::appendStructuredData($properties, $postId, $structuredData, $additionalData);
+        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId, $structuredData, $additionalData);
     }
 }
