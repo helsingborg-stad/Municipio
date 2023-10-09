@@ -483,7 +483,7 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $queriedObject = get_queried_object();
 
-        if (!empty($queriedObject->taxonomy)) {
+        if (!empty($queriedObject->taxonomy) && !is_search()) {
             return $queriedObject->taxonomy;
         }
         return false;
