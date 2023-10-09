@@ -482,9 +482,13 @@ class Archive extends \Municipio\Controller\BaseController
     private function currentTaxonomy()
     {
         $queriedObject = get_queried_object();
-
-        if (!empty($queriedObject->taxonomy) && !is_search()) {
-            return $queriedObject->taxonomy;
+        if (!empty($queriedObject->taxonomy)) {
+            $pathParts = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+            $trimmedPath = end($pathParts);
+            if ($queriedObject->slug == $trimmedPath) {
+                return $queriedObject->taxonomy;
+            }
+            return false;
         }
         return false;
     }
