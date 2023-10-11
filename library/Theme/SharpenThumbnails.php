@@ -55,7 +55,7 @@ class SharpenThumbnails
       }
 
       // Sharpen the image (the default is via the Lanczos algorithm) [Radius, Sigma, Sharpening, Threshold]
-      $image->unsharpMaskImage(0, 0.5, 200.5, 0);
+      $image->unsharpMaskImage(0, 0.5, 1.5, 0);
 
       // Store the JPG file, with as default a compression quality of 92 (default WordPress = 90, default ImageMagick = 85...)
       $image->setImageFormat("jpg");
