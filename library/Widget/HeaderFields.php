@@ -192,6 +192,7 @@ class HeaderFields
                                 '@sm' => 'SM and up',
                                 '@md' => 'MD and up',
                                 '@lg' => 'LG and up',
+                                '@xl' => 'XL and up',
                             ),
                             'default_value' => array(
                             ),

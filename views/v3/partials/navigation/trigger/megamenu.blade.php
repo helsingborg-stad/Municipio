@@ -1,18 +1,18 @@
-@if (!empty($hamburgerMenuItems))
+@if (!empty($megaMenuItems))
     @button([
-        'id' => 'hamburger-menu-trigger-open',
+        'id' => 'mega-menu-trigger-open',
         'color' => $customizer->headerTriggerButtonColor,
         'style' => $customizer->headerTriggerButtonType,
         'size' => $customizer->headerTriggerButtonSize,
-        'reversePositions' => true,
+        'reversePositions' => empty($megaMenuLabels->iconAfterLabel),
         'toggle' => true,
-        'icon' => 'menu',
-        'text' => $lang->menu,
+        'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',
+        'text' => !empty($megaMenuLabels->buttonLabel) ? $megaMenuLabels->buttonLabel : $lang->menu,
         'classList' => 
-            !$customizer->hamburgerMenuMobile ? 
-            ['hamburger-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] 
+            !$customizer->megaMenuMobile ? 
+            ['mega-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] 
             : 
-            ['hamburger-menu-trigger'] 
+            ['mega-menu-trigger'] 
         ,
         'classListText' => [
             'u-display--none@xs',
@@ -21,7 +21,7 @@
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
             'aria-controls' => "navigation",
-            'data-js-toggle-trigger' => 'hamburger-menu',
+            'data-js-toggle-trigger' => 'mega-menu',
             'data-toggle-icon' => 'close'
         ],
         'context' => $context

@@ -61,7 +61,7 @@
             @endif
 
             {{-- Hambuger menu trigger --}}
-            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.casual.hamburgermenu-trigger']])
+            @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.casual.megamenu-trigger']])
 
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
@@ -69,5 +69,5 @@
         </div>
     </div>
 
-    @includeIf('partials.navigation.hamburgermenu')
+    @includeIf('partials.navigation.megamenu')
 @stop

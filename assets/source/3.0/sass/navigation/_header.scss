@@ -58,11 +58,7 @@ $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
     }
 }
 
-.hamburger-menu-trigger__close {
-    display: none;
-}
-
-body.hamburger-menu-open.hamburger-menu-mobile {
+body.mega-menu-open.mega-menu-mobile {
     .c-header--sticky {
         height: 100%;
         width: 100%;
@@ -101,14 +97,14 @@ body.hamburger-menu-open.hamburger-menu-mobile {
 }
 
 @include mq(lg) {
-    body.hamburger-menu-open {
+    body.mega-menu-open {
         .c-header--sticky {
             height: 100%;
             width: 100%;
             overflow: auto;
             position: fixed;
 
-            .c-hamburgermenu {
+            .c-megamenu {
                 height: 100%;
                 width: 100%;
                 overflow: auto;
