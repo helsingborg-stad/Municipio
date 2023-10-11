@@ -122,6 +122,10 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
+        if (is_archive() && ($template === 'one-page' || $template === 'page-centered')) {
+            $template = 'archive';
+        }
+
         //Do something before controller creation
         do_action_deprecated(
             'Municipio/blade/before_load_controller',
@@ -133,10 +137,6 @@ class Template
         // Controller conditions
         $isSingular = fn() => is_singular();
         $isArchive = fn() => is_archive() || is_home();
-
-        if ($isArchive()) {
-            $template = 'archive';
-        }
 
         $hasContentType = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
 
