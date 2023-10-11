@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 26; //The db version we want to achive
+    private $dbVersion = 27; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -534,6 +534,17 @@ class Upgrade
             array_push($drawerSizes, 'xl');
             set_theme_mod('drawer_screen_sizes', $drawerSizes);
         }
+        return true;
+    }
+
+    private function v_27($db): bool
+    {  
+        $searchLocations = get_theme_mod('search_display');
+        if (!empty($searchLocations) && is_array($searchLocations) && in_array('hamburger_menu', $searchLocations) && !in_array('mega_menu', $searchLocations)) {
+            array_push($searchLocations, 'mega_menu');
+            set_theme_mod('search_display', $searchLocations);
+        }
+
         return true;
     }
 
