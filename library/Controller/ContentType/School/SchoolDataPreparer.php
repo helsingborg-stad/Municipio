@@ -26,6 +26,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendImagesData();
         $this->appendViewContactData();
         $this->appendViewQuickFactsData();
+        $this->appendViewApplicationData();
         $this->appendViewAccordionData();
         $this->appendViewVisitingData();
         $this->appendViewPagesData();
@@ -174,6 +175,54 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
     }
 
+    private function appendViewApplicationData(): void
+    {
+        
+        $defaultApplicationData = $this->getDefaultApplicationData($this->data['post']->postType);
+
+        $this->data['application'] = [
+            'title' => __('Are you interested in applying?', 'municipio'),
+            'description' => $this->postMeta->ctaApplication->description ?: $defaultApplicationData['description'],
+            'apply' => [
+                'text' => $this->postMeta->ctaApplication->cta_apply_here->title ?: $defaultApplicationData['apply']['text'],
+                'url' => $this->postMeta->ctaApplication->cta_apply_here->url ?: $defaultApplicationData['apply']['url']
+            ],
+            'howToApply' => [
+                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title ?: $defaultApplicationData['howToApply']['text'],
+                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url ?: $defaultApplicationData['howToApply']['url']
+            ],
+        ];
+    }
+
+    private function getDefaultApplicationData(string $postType):array
+    {
+        if( $postType === 'pre-school' ) {
+            return [
+                'description' => __('If you want to apply for a place in preschool, you can do so by filling in the form below. You can also apply for a place in preschool by contacting the preschool directly.', 'municipio'),
+                'apply' => [
+                    'text' => __('Apply here', 'municipio'),
+                    'url' => '#'
+                ],
+                'howToApply' => [
+                    'text' => __('How to apply', 'municipio'),
+                    'url' => '#'
+                ],
+            ];
+        }
+
+        return [
+            'description' => __('If you want to apply for a place in school, you can do so by filling in the form below. You can also apply for a place in school by contacting the school directly.', 'municipio'),
+            'apply' => [
+                'text' => __('Apply here', 'municipio'),
+                'url' => '#'
+            ],
+            'howToApply' => [
+                'text' => __('How to apply', 'municipio'),
+                'url' => '#'
+            ],
+        ];
+    }
+
     private function appendViewAccordionData(): void
     {
         $accordions = [];
@@ -271,7 +320,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $pages = WP::getPosts([
-            'post_type' => 'school_gpage',
+            'post_type' => 'school_page',
             'post__in' => $pageIds,
             'suppress_filters' => false
         ]);

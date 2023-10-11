@@ -28,6 +28,37 @@
         @endpaper
     @endif
 
+
+    @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
+        
+        @typography(['element' => 'h2'])
+            {{$application['title']}}
+        @endtypography
+
+        @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
+            {{$application['description']}}
+        @endtypography
+
+        @button([
+            'text' => $application['apply']['text'],
+            'href' => $application['apply']['url'],
+            'color' => 'primary',
+            'style' => 'filled',
+            'size' => 'lg'
+        ])
+        @endbutton
+        
+        @button([
+            'text' => $application['howToApply']['text'],
+            'href' => $application['howToApply']['url'],
+            'color' => 'secondary',
+            'style' => 'filled',
+            'size' => 'lg',
+        ])
+        @endbutton
+
+    @endpaper
+
     @if ($contacts)
 
         @typography(['element' => 'h2', 'variant' => 'h2'])
