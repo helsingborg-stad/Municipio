@@ -1,5 +1,5 @@
 /* Colors */
-$c-quicklinks-background-color: var(--c-quicklinks-background-color);
+$c-quicklinks-background-color: var(--c-quicklinks-background-color, transparent) !default;
 $c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, $color-white) !default;
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
@@ -13,9 +13,8 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     z-index: $level-5;
     font-family: $c-quicklinks-font;
     margin-bottom: calc($base * 5);
-    background-color: transparent;
     
-    .c-header {
+    &.c-header, .c-header__menu {
         background-color: #{$c-quicklinks-background-color};
     }
 
