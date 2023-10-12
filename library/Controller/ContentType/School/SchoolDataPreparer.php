@@ -54,7 +54,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'custom_excerpt',
             'facade_images',
             'grades',
-            'images',
+            'gallery',
             'information',
             'link_facebook',
             'link_instagram',
@@ -83,48 +83,37 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }, $this->postMeta->contacts);
 
         $persons = WP::getPosts(array('post_type' => 'person', 'post__in' => $personIds, 'suppress_filters' => false));
-        $professionalTitleTermIds = array_map(fn ($contact) => $contact->professional_title, $this->postMeta->contacts);
-        $professionalTitleTerms = get_terms([
-            'taxonomy' => 'professional_title',
-            'include' => $professionalTitleTermIds,
-            'hide_empty' => false
-        ]);
 
-        foreach ($this->postMeta->contacts as $contact) {
-            $person = array_filter($persons, fn ($person) => $person->id === $contact->person);
+        $this->data['contacts'] = !empty($persons) ? array_map(function ($contact) use ($persons) {
 
-            if (is_wp_error($professionalTitleTerms)) {
-                continue;
+            $person = array_filter($persons, fn ($p) => $p->id === $contact->person);
+            $person = reset($person);
+
+            if (!$person) {
+                return null;
             }
 
-            $professionalTitleTerm = array_filter($professionalTitleTerms, fn ($term) => $term->term_id === $contact->professional_title);
-
-            if ($professionalTitleTerm) {
-                reset($person)->professionalTitle = array_shift($professionalTitleTerm)->name ?? '';
-            }
-        }
-
-        $this->data['contacts'] = !empty($persons) ? array_map(function ($person) {
             $featuredMediaID = WP::getField('featured_media', $person->id);
             $email = WP::getField('e-mail', $person->id);
             $phone = WP::getField('phone-number', $person->id);
 
             $featuredMedia = $featuredMediaID ? WP::getPosts([
-                'post_type' => 'school_api_attachment',
+                'post_type' => 'school_media',
                 'post__in' => [$featuredMediaID],
                 'suppress_filters' => false
             ]) : null;
 
             $contact = (object)[
                 'attachment'        => !empty($featuredMedia) ? $featuredMedia[0] : null,
-                'professionalTitle' => $person->professionalTitle,
+                'professionalTitle' => $contact->professional_title ?? '',
                 'email'             => $email,
                 'phone'             => $phone,
                 'name'              => $person->postTitle
             ];
             return $contact;
-        }, $persons) : null;
+        }, $this->postMeta->contacts) : null;
 
+        $this->data['contacts'] = array_filter($this->data['contacts']);
 
         if (!empty($this->data['contacts'])) {
             $this->data['contactTitle'] = __('Contact us', 'municipio');
@@ -367,13 +356,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendAttachmentsData(): void
     {
 
-        $attachmentIds = array_merge(
+        $attachmentIds = array_map(fn($attachment) => $attachment->image->id, array_merge(
             $this->postMeta->facadeImages ?: [],
-            $this->postMeta->images ?: []
-        );
+            $this->postMeta->gallery ?: []
+        ));
 
         $attachments = WP::getPosts([
-            'post_type' => 'school_api_attachment',
+            'post_type' => 'school_media',
             'post__in' => $attachmentIds,
             'suppress_filters' => false
         ]);
@@ -394,15 +383,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $facadeAttachments = array_filter($this->postMeta->attachments, function ($attachmentId) {
-            return in_array($attachmentId, $this->postMeta->facadeImages ?: []);
+            $facadeImageIds = array_map(fn($attachment) => $attachment->image->id, $this->postMeta->facadeImages ?: []);
+            return in_array($attachmentId, $facadeImageIds ?: []);
         }, ARRAY_FILTER_USE_KEY);
-
-        $environmentAttachments = array_filter($this->postMeta->attachments, function ($attachmentId) {
-            return in_array($attachmentId, $this->postMeta->images ?: []);
+        
+        $galleryAttachments = array_filter($this->postMeta->attachments, function ($attachmentId) {
+            $galleryImageIds = array_map(fn($attachment) => $attachment->image->id, $this->postMeta->gallery ?: []);
+            return in_array($attachmentId, $galleryImageIds ?: []);
         }, ARRAY_FILTER_USE_KEY);
 
         $this->data['facadeSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $facadeAttachments);
-        $this->data['environmentSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $environmentAttachments);
+        $this->data['environmentSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $galleryAttachments);
     }
 
     private function attachmentToSliderItem($attachment): array

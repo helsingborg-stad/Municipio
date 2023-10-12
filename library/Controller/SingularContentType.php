@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use WP_Term;
+
 /**
  * Class SingularContentType
  * @package Municipio\Controller
@@ -87,7 +89,9 @@ class SingularContentType extends \Municipio\Controller\Singular
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    $arr[$taxonomy][] = $term->term_id;
+                    if( $term instanceof WP_Term ) {
+                        $arr[$taxonomy][] = $term->term_id;
+                    }
                 }
             }
         }
