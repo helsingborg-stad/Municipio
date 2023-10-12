@@ -86,8 +86,8 @@ abstract class AbstractApplicator
 
         $cacheKey = md5(serialize($contexts) . serialize($filterContexts));
 
-        if (isset($this->contextCache[$cacheKey])) {
-            return $this->contextCache[$cacheKey];
+        if (isset(self::$contextCache[$cacheKey])) {
+            return self::$contextCache[$cacheKey];
         }
 
         $hasContext = [];
@@ -108,6 +108,6 @@ abstract class AbstractApplicator
             $hasContext[] = (bool) eval('return in_array(' . $context['context'] . ', $contexts) ' . $context['operator'] . ' true;');
         }
 
-        return (bool) $this->contextCache[$cacheKey] = array_product($hasContext);
+        return (bool) self::$contextCache[$cacheKey] = array_product($hasContext);
     }
 }
