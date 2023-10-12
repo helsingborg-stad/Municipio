@@ -167,6 +167,11 @@ class Image
      */
     public static function getImageAttachmentData(int $id, $size = 'full') { 
         $imageSrc           = wp_get_attachment_image_src($id, $size);
+
+        if (empty($imageSrc[0])) {
+            return false;
+        }
+
         $imageAlt           = get_post_meta($id, '_wp_attachment_image_alt', true);
         $imageTitle         = get_the_title($id);
         $imageCaption       = get_post_field('post_excerpt', $id);
@@ -174,7 +179,7 @@ class Image
         $imagePhotographer  = get_post_meta($id, 'photographer', true);
 
         $image = [
-            'src'           => !empty($imageSrc[0]) ? $imageSrc[0] : null,
+            'src'           => $imageSrc[0],
             'alt'           => $imageAlt ? $imageAlt : null,
             'title'         => $imageTitle ? $imageTitle : null,
             'caption'       => $imageCaption ? $imageCaption : null,
