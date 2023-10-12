@@ -179,7 +179,7 @@ class Image
         $imagePhotographer  = get_post_meta($id, 'photographer', true);
 
         $image = [
-            'src'           => !empty($imageSrc[0]) ? $imageSrc[0] : null,
+            'src'           => $imageSrc[0],
             'alt'           => $imageAlt ? $imageAlt : null,
             'title'         => $imageTitle ? $imageTitle : null,
             'caption'       => $imageCaption ? $imageCaption : null,
