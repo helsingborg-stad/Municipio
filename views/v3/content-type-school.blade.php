@@ -1,6 +1,17 @@
 @extends('templates.single')
 
     @section('article.title.after')
+
+    @if($notification)
+        @notice([
+            'type' => 'info',
+            'message' => [
+                'title' => $notification['title'] ?? '',
+                'text' => $notification['text'] ?? ''
+            ]
+        ])
+        @endnotice
+    @endif
     
     @if ($post->postExcerpt)
         {!! $post->postExcerpt !!}

@@ -24,6 +24,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->appendAttachmentsData();
         $this->appendImagesData();
+        $this->appendViewNotificationData();
         $this->appendViewContactData();
         $this->appendViewQuickFactsData();
         $this->appendViewApplicationData();
@@ -65,7 +66,24 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'usp',
             'videos',
             'visiting_address',
+            'notice_heading',
+            'notice_content',
         ];
+    }
+
+    private function appendViewNotificationData(): void
+    {
+        $notification = [];
+
+        if (isset($this->postMeta->noticeHeading) && !empty($this->postMeta->noticeHeading)) {
+            $notification['title'] = $this->postMeta->noticeHeading;
+        }
+
+        if (isset($this->postMeta->noticeContent) && !empty($this->postMeta->noticeContent)) {
+            $notification['text'] = $this->postMeta->noticeContent;
+        }
+
+        $this->data['notification'] = empty($notification) ? null : $notification;
     }
 
     private function appendViewContactData(): void
@@ -127,7 +145,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'hide_empty' => false
             ]);
 
-            if( !empty($gradeTerms) ) {
+            if (!empty($gradeTerms)) {
                 $quickFacts[] = ['label' => $gradeTerms[0]->name];
             }
         }
@@ -137,13 +155,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $label = sprintf(__('%d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
-        
+
         if (!empty($this->postMeta->numberOfUnits)) {
             $value = absint($this->postMeta->numberOfUnits);
             $label = sprintf(__('%d units', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
-        
+
         if (!empty($this->postMeta->area)) {
             $areaTerms = get_terms([
                 'taxonomy' => 'area',
@@ -151,7 +169,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'hide_empty' => false
             ]);
 
-            if( !empty($areaTerms) ) {
+            if (!empty($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
             }
         }
@@ -161,17 +179,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $quickFacts[] = ['label' => $label];
         }
 
-        if( !empty($this->postMeta->usp) ) {
+        if (!empty($this->postMeta->usp)) {
             // Get usp taxonomy terms
             $uspTerms = get_terms([
                 'taxonomy' => 'usp',
                 'include' => $this->postMeta->usp,
                 'hide_empty' => false
             ]);
-            
+
             // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
             $uspTerms = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));
-            $quickFacts = array_merge($quickFacts, array_map(function($uspTerm) {
+            $quickFacts = array_merge($quickFacts, array_map(function ($uspTerm) {
                 return ['label' => $uspTerm->name];
             }, $uspTerms));
         }
@@ -187,7 +205,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewApplicationData(): void
     {
-        
+
         $defaultApplicationData = $this->getDefaultApplicationData($this->data['post']->postType);
 
         $this->data['application'] = [
@@ -204,9 +222,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ];
     }
 
-    private function getDefaultApplicationData(string $postType):array
+    private function getDefaultApplicationData(string $postType): array
     {
-        if( $postType === 'pre-school' ) {
+        if ($postType === 'pre-school') {
             return [
                 'description' => __('If you want to apply for a place in preschool, you can do so by filling in the form below. You can also apply for a place in preschool by contacting the preschool directly.', 'municipio'),
                 'apply' => [
@@ -244,7 +262,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     'heading' => __('About the school', 'municipio'),
                     'content' => $information->about_us
                 ]
-            ]];   
+            ]];
         }
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
@@ -338,11 +356,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['pages'] = array_map(function ($page) {
             return [
-                    'title' => $page->postTitle,
-                    'content' => $page->postExcerpt,
-                    'link' => $page->permalink,
-                    'linkText' => __('Read more', 'municipio')
-                ];
+                'title' => $page->postTitle,
+                'content' => $page->postExcerpt,
+                'link' => $page->permalink,
+                'linkText' => __('Read more', 'municipio')
+            ];
         }, $pages);
     }
 
@@ -350,7 +368,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $socialMediaLinks = [];
 
-        if( !empty($this->postMeta->linkFacebook) ) {
+        if (!empty($this->postMeta->linkFacebook)) {
             $socialMediaLinks[] = [
                 'href' => $this->postMeta->linkFacebook,
                 'text' => 'Facebook',
@@ -358,7 +376,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }
 
-        if( !empty($this->postMeta->linkInstagram) ) {
+        if (!empty($this->postMeta->linkInstagram)) {
             $socialMediaLinks[] = [
                 'href' => $this->postMeta->linkInstagram,
                 'text' => 'Instagram',
@@ -366,7 +384,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }
 
-        if( !empty($socialMediaLinks) ) {
+        if (!empty($socialMediaLinks)) {
             $this->data['socialMediaLinksTitle'] = __('Follow us in social media', 'municipio');
         }
 
@@ -376,7 +394,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendAttachmentsData(): void
     {
 
-        $attachmentIds = array_map(fn($attachment) => $attachment->image->id, array_merge(
+        $attachmentIds = array_map(fn ($attachment) => $attachment->image->id, array_merge(
             $this->postMeta->facadeImages ?: [],
             $this->postMeta->gallery ?: []
         ));
@@ -403,12 +421,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $facadeAttachments = array_filter($this->postMeta->attachments, function ($attachmentId) {
-            $facadeImageIds = array_map(fn($attachment) => $attachment->image->id, $this->postMeta->facadeImages ?: []);
+            $facadeImageIds = array_map(fn ($attachment) => $attachment->image->id, $this->postMeta->facadeImages ?: []);
             return in_array($attachmentId, $facadeImageIds ?: []);
         }, ARRAY_FILTER_USE_KEY);
-        
+
         $galleryAttachments = array_filter($this->postMeta->attachments, function ($attachmentId) {
-            $galleryImageIds = array_map(fn($attachment) => $attachment->image->id, $this->postMeta->gallery ?: []);
+            $galleryImageIds = array_map(fn ($attachment) => $attachment->image->id, $this->postMeta->gallery ?: []);
             return in_array($attachmentId, $galleryImageIds ?: []);
         }, ARRAY_FILTER_USE_KEY);
 
