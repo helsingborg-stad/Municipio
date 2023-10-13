@@ -9,6 +9,7 @@ class PrefillIconChoice
    */
     public function __construct()
     {
+        /* TODO: Remove when removing manual input from post module */
         add_filter(
             'acf/load_field/name=menu_item_icon',
             array($this, 'addIconsList')
@@ -21,6 +22,11 @@ class PrefillIconChoice
 
         add_filter(
             'acf/load_field/name=mega_menu_button_icon',
+            array($this, 'addIconsList')
+        );
+
+        add_filter(
+            'acf/load_field/name=box_icon',
             array($this, 'addIconsList')
         );
     }
