@@ -60,8 +60,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'link_facebook',
             'link_instagram',
             'number_of_children',
+            'number_of_students',
             'number_of_units',
             'open_hours',
+            'open_hours_leisure_center',
             'pages',
             'usp',
             'videos',
@@ -155,6 +157,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $label = sprintf(__('%d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
+        
+        if (!empty($this->postMeta->numberOfStudents)) {
+            $value = absint($this->postMeta->numberOfStudents);
+            $label = sprintf(__('%d students', 'municipio'), $value);
+            $quickFacts[] = ['label' => $label];
+        }
 
         if (!empty($this->postMeta->numberOfUnits)) {
             $value = absint($this->postMeta->numberOfUnits);
@@ -176,6 +184,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
             $label = sprintf(__('Opening hours: %s', 'municipio'), $this->postMeta->openHours);
+            $quickFacts[] = ['label' => $label];
+        }
+        
+        if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
+            $label = sprintf(__('Leisure center: %s', 'municipio'), $this->postMeta->openHoursLeisureCenter);
             $quickFacts[] = ['label' => $label];
         }
 
