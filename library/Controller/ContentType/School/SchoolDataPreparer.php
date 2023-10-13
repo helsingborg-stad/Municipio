@@ -326,6 +326,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $pageIds = $this->postMeta->pages;
 
         if (!isset($pageIds) || empty($pageIds)) {
+            $this->data['pages'] = null;
             return;
         }
 
@@ -335,16 +336,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'suppress_filters' => false
         ]);
 
-        if (!empty($pages)) {
-            $this->data['pages'] = array_map(function ($page) {
-                return [
+        $this->data['pages'] = array_map(function ($page) {
+            return [
                     'title' => $page->postTitle,
                     'content' => $page->postExcerpt,
                     'link' => $page->permalink,
                     'linkText' => __('Read more', 'municipio')
                 ];
-            }, $pages);
-        }
+        }, $pages);
     }
 
     private function appendSocialMediaLinksData(): void
