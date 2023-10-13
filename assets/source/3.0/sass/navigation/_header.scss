@@ -74,6 +74,27 @@ body.mega-menu-open.mega-menu-mobile {
     z-index: $level-6;
 }
 
+/* Remove body scroll */
+body.mega-menu-open {
+    .c-header--sticky {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        position: fixed;
+
+        .c-megamenu {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+    }
+
+    &.sticky-header {
+        overflow: hidden;
+    }
+}
+
 @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
     #sticky-header {
         .c-nav {
@@ -94,26 +115,4 @@ body.mega-menu-open.mega-menu-mobile {
             top: 32px; 
         }
     } 
-}
-
-@include mq(lg) {
-    body.mega-menu-open {
-        .c-header--sticky {
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-            position: fixed;
-
-            .c-megamenu {
-                height: 100%;
-                width: 100%;
-                overflow: auto;
-                position: fixed;
-            }
-        }
-
-        &.sticky-header {
-            overflow: hidden;
-        }
-    }
 }

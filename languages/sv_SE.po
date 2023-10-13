@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2023-10-06 17:03+0200\n"
-"PO-Revision-Date: 2023-10-06 17:08+0200\n"
+"POT-Creation-Date: 2023-10-11 14:03+0200\n"
+"PO-Revision-Date: 2023-10-11 14:06+0200\n"
 "Last-Translator: Anna Johansson\n"
 "Language-Team: Swedish\n"
 "Language: sv_SE\n"
@@ -4937,7 +4937,7 @@ msgstr "Efter sidinnehållet"
 
 #: library/AcfFields/php/options-theme-author.php:6
 #: library/Controller/Singular.php:300
-#: library/Customizer/PanelsRegistry.php:420 library/Upgrade.php:560
+#: library/Customizer/PanelsRegistry.php:420 library/Upgrade.php:571
 msgid "Author"
 msgstr "Författare"
 
@@ -27757,21 +27757,19 @@ msgstr "Inga hittades."
 
 #: library/Controller/BaseController.php:249
 msgid "Sort by"
-msgstr ""
+msgstr "Sortera efter"
 
 #: library/Controller/BaseController.php:250
 msgid "Random"
-msgstr ""
+msgstr "Slumpmässig"
 
 #: library/Controller/BaseController.php:251
 msgid "Name (A-Z)"
-msgstr ""
+msgstr "Namn (A-Ö)"
 
 #: library/Controller/BaseController.php:252
-#, fuzzy
-#| msgid "Published"
 msgid "Publish Date"
-msgstr "Publicerad"
+msgstr "Publiceringsdatum"
 
 #: library/Controller/BaseController.php:255
 msgid "No items found at this query."
@@ -30345,15 +30343,15 @@ msgstr "Ovanför innehållskolumner"
 msgid "Sidebar that sits just before the columns grid."
 msgstr "Yta som befinner sig precis kolumnytan vilken håller huvudinnehållet."
 
-#: library/Upgrade.php:765
+#: library/Upgrade.php:776
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:769
+#: library/Upgrade.php:780
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:775
+#: library/Upgrade.php:786
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 "Databasversionen som ska uppnås, kan inte vara lägre än den version som är "
