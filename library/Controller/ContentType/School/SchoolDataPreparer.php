@@ -430,8 +430,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return in_array($attachmentId, $galleryImageIds ?: []);
         }, ARRAY_FILTER_USE_KEY);
 
-        $this->data['facadeSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $facadeAttachments);
-        $this->data['environmentSliderItems'] = array_map([$this, 'attachmentToSliderItem'], $galleryAttachments);
+        $this->data['facadeSliderItems'] = !empty($facadeAttachments)
+            ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
+            : null;
+
+        $this->data['gallerySliderItems'] = !empty($galleryAttachments)
+            ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
+            : null;
     }
 
     private function attachmentToSliderItem($attachment): array

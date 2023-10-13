@@ -17,11 +17,13 @@
         {!! $post->postExcerpt !!}
     @endif
 
-    @slider(['showStepper' => true,'autoSlide' => false])
-        @foreach ($facadeSliderItems as $sliderItem)
-            @slider__item($sliderItem)@endslider__item
-        @endforeach
-    @endslider
+    @if($facadeSliderItems)
+        @slider(['showStepper' => true,'autoSlide' => false])
+            @foreach ($facadeSliderItems as $sliderItem)
+                @slider__item($sliderItem)@endslider__item
+            @endforeach
+        @endslider
+    @endif
     
     @if ($quickFacts)
         @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
@@ -176,11 +178,13 @@
     @endif
     
 
-    @slider(['showStepper' => true,'autoSlide' => false])
-        @foreach ($environmentSliderItems as $sliderItem)
-            @slider__item($sliderItem)@endslider__item
-        @endforeach
-    @endslider
+    @if($gallerySliderItems)
+        @slider(['showStepper' => true,'autoSlide' => false])
+            @foreach ($gallerySliderItems as $sliderItem)
+                @slider__item($sliderItem)@endslider__item
+            @endforeach
+        @endslider
+    @endif
 
     @if($pages)
         @collection(['classList' => ['o-grid']])
