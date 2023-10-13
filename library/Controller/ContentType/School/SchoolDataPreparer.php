@@ -53,20 +53,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'cta_application',
             'custom_excerpt',
             'facade_images',
-            'grades',
             'gallery',
+            'grades',
             'information',
             'link_facebook',
             'link_instagram',
-            'number_of_students',
+            'number_of_children',
             'number_of_units',
             'open_hours',
-            'open_hours_leisure_center',
-            'own_chef',
             'pages',
-            'profile',
-            'specialization',
-            'type_of_school',
+            'usp',
             'videos',
             'visiting_address',
         ];
@@ -135,6 +131,18 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 $quickFacts[] = ['label' => $gradeTerms[0]->name];
             }
         }
+
+        if (!empty($this->postMeta->numberOfChildren)) {
+            $value = absint($this->postMeta->numberOfChildren);
+            $label = sprintf(__('%d children', 'municipio'), $value);
+            $quickFacts[] = ['label' => $label];
+        }
+        
+        if (!empty($this->postMeta->numberOfUnits)) {
+            $value = absint($this->postMeta->numberOfUnits);
+            $label = sprintf(__('%d units', 'municipio'), $value);
+            $quickFacts[] = ['label' => $label];
+        }
         
         if (!empty($this->postMeta->area)) {
             $areaTerms = get_terms([
@@ -148,15 +156,28 @@ class SchoolDataPreparer implements DataPrepearerInterface
             }
         }
 
-        if (isset($this->postMeta->ownChef) && $this->postMeta->ownChef === true) {
-            $quickFacts[] = ['label' => __('Own chef', 'municipio')];
-        }
-
-        if (!empty($this->postMeta->numberOfStudents)) {
-            $value = absint($this->postMeta->numberOfStudents);
-            $label = sprintf(__('Number of students: %d', 'municipio'), $value);
+        if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
+            $label = sprintf(__('Opening hours: %s', 'municipio'), $this->postMeta->openHours);
             $quickFacts[] = ['label' => $label];
         }
+
+        if( !empty($this->postMeta->usp) ) {
+            // Get usp taxonomy terms
+            $uspTerms = get_terms([
+                'taxonomy' => 'usp',
+                'include' => $this->postMeta->usp,
+                'hide_empty' => false
+            ]);
+            
+            // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
+            $uspTerms = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));
+            $quickFacts = array_merge($quickFacts, array_map(function($uspTerm) {
+                return ['label' => $uspTerm->name];
+            }, $uspTerms));
+        }
+
+        // Split quickFacts into 3 columns
+        $quickFacts = array_chunk($quickFacts, ceil(sizeof($quickFacts) / 3));
 
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Facts', 'municipio');
@@ -171,14 +192,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['application'] = [
             'title' => __('Are you interested in applying?', 'municipio'),
-            'description' => $this->postMeta->ctaApplication->description ?: $defaultApplicationData['description'],
+            'description' => $this->postMeta->ctaApplication->description ?? $defaultApplicationData['description'],
             'apply' => [
-                'text' => $this->postMeta->ctaApplication->cta_apply_here->title ?: $defaultApplicationData['apply']['text'],
-                'url' => $this->postMeta->ctaApplication->cta_apply_here->url ?: $defaultApplicationData['apply']['url']
+                'text' => $this->postMeta->ctaApplication->cta_apply_here->title ?? $defaultApplicationData['apply']['text'],
+                'url' => $this->postMeta->ctaApplication->cta_apply_here->url ?? $defaultApplicationData['apply']['url']
             ],
             'howToApply' => [
-                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title ?: $defaultApplicationData['howToApply']['text'],
-                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url ?: $defaultApplicationData['howToApply']['url']
+                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title ?? $defaultApplicationData['howToApply']['text'],
+                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url ?? $defaultApplicationData['howToApply']['url']
             ],
         ];
     }

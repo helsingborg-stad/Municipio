@@ -15,15 +15,19 @@
     @if ($quickFacts)
         @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
             
-            @typography(['element' => 'h2', 'variant' => 'h2'])
+            @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
                 {{$quickFactsTitle}}
             @endtypography
 
-            <ul class="o-grid o-grid--half-gutter">
-                @foreach($quickFacts as $quickFact)
-                    <li class="o-grid-4@md">{{$quickFact['label']}}</li>
+            <div class="o-grid o-grid--no-gutter">
+                @foreach($quickFacts as $column)
+                    <ul class="o-grid-4@md u-margin__top--0">
+                        @foreach($column as $listItem)
+                            <li class="u-margin__top--1">{{$listItem['label']}}</li>
+                        @endforeach
+                    </ul>
                 @endforeach
-            </ul>
+            </div>
 
         @endpaper
     @endif
