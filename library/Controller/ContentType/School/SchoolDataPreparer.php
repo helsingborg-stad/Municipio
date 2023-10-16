@@ -66,10 +66,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'open_hours_leisure_center',
             'pages',
             'usp',
-            'videos',
             'visiting_address',
             'notice_heading',
             'notice_content',
+            'video',
         ];
     }
 
@@ -183,12 +183,27 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $label = sprintf(__('Opening hours: %s', 'municipio'), $this->postMeta->openHours);
-            $quickFacts[] = ['label' => $label];
+            $open = substr($this->postMeta->openHours->open, 0, -3);
+            $close = substr($this->postMeta->openHours->close, 0, -3);
+
+            if (!empty($open) && !empty($close)) {
+                $timeString = "$open - $close";
+                $label = sprintf(__('Opening hours: %s', 'municipio'), $timeString);
+                $quickFacts[] = ['label' => $label];
+            }
         }
-        
+
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
-            $label = sprintf(__('Leisure center: %s', 'municipio'), $this->postMeta->openHoursLeisureCenter);
+            $open = substr($this->postMeta->openHoursLeisureCenter->open, 0, -3);
+            $close = substr($this->postMeta->openHoursLeisureCenter->close, 0, -3);
+
+            if (!empty($open) && !empty($close)) {
+                $timeString = "$open - $close";
+                $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
+            } else {
+                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->openHoursLeisureCenter);
+            }
+
             $quickFacts[] = ['label' => $label];
         }
 
@@ -422,6 +437,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $attachmentsById = [];
         foreach ($attachments as $attachment) {
+            
             $attachmentsById[$attachment->id] = $attachment;
         }
 
@@ -449,26 +465,31 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
 
-        $this->data['gallerySliderItems'] = !empty($galleryAttachments)
-            ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
-            : null;
+        if (!empty($galleryAttachments)) {
+            $this->data['gallerySliderItems'] = !empty($galleryAttachments)
+                ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
+                : null;
+        } elseif (!empty($this->postMeta->video)) {
+            $this->data['video'] = $this->postMeta->video;
+        }
     }
 
     private function attachmentToSliderItem($attachment): array
     {
         $sliderItem = [
             'title' => '',
-            'layout' => 'center',
+            'layout' => 'bottom',
             'containerColor' => 'transparent',
             'textColor' => 'white',
             'heroStyle' => true
         ];
 
-        if (str_contains($attachment->postMimeType, 'video')) {
-            $sliderItem['background_video'] = $attachment->guid;
-        } else {
-            $sliderItem['desktop_image'] = $attachment->guid;
+        $caption = WP::getField('caption', $attachment->id);
+        if( $caption && !empty($caption->rendered) ) {
+            $sliderItem['text'] = $caption->rendered;
         }
+        
+        $sliderItem['desktop_image'] = $attachment->guid;
 
         return $sliderItem;
     }

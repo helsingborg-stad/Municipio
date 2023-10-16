@@ -178,12 +178,20 @@
     @endif
     
 
+
     @if($gallerySliderItems)
         @slider(['showStepper' => true,'autoSlide' => false])
             @foreach ($gallerySliderItems as $sliderItem)
                 @slider__item($sliderItem)@endslider__item
             @endforeach
         @endslider
+    @elseif($video)
+        @iframe([
+            'src' => $video,
+            'height' => 600,
+            'labels' => (object)['knownLabels' => (object)['button' => '', 'title' => '', 'info' => '']],
+        ])
+        @endiframe
     @endif
 
     @if($pages)
