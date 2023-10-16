@@ -283,6 +283,7 @@ class BaseController
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
+        add_filter('ComponentLibrary/Component/Segment/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         
         $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
