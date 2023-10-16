@@ -304,7 +304,6 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewVisitingData(): void
     {
         $visitingAddresses = $this->postMeta->visitingAddress;
-        $visitingData = [];
         $mapPins = [];
 
         if (!isset($visitingAddresses) || empty($visitingAddresses)) {
@@ -320,12 +319,15 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }
 
-        if (isset($visitingAddresses->address) && !empty($visitingAddresses->address)) {
-            $visitingData[] = [
-                'heading' => __('Visiting address', 'municipio'),
-                'content' => $visitingAddress->address
+        $visitingData = array_map(function ($address) {
+            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            
+            return [
+                'address' => $address->address,
+                'description' => $address->description ?? null,
+                'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
-        }
+        }, $visitingAddresses);
 
         if (!empty($visitingData)) {
             $this->data['visitingAddresses'] = $visitingData;

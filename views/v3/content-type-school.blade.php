@@ -121,22 +121,22 @@
         @typography(['element' => 'h2', 'variant' => 'h2'])
             {{$visitingDataTitle}}
         @endtypography
-
-        @if(sizeof($visitingAddresses) === 1)
-            @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
-                {{$visitingAddresses[0]->name}}<br/>
-                {{$visitingAddresses[0]->post_code}} {{$visitingAddresses[0]->city}}
-            @endtypography
-        @endif
         
-        @if(sizeof($visitingAddresses) > 1)
+        @if($visitingAddresses)
             <div class="o-grid">
 
                 @foreach ($visitingAddresses as $visitingAddress)
                     <div class="o-grid-3@md">
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
-                            {{$visitingAddress->name}}<br/>
-                            {{$visitingAddress->post_code}} {{$visitingAddress->city}}
+                            {{$visitingAddress['description']}}<br/>
+                            {{$visitingAddress['address']->name}}<br/>
+                            {{$visitingAddress['address']->post_code}} {{$visitingAddress['address']->city}}<br><br>
+                            @link([
+                                'href' => $visitingAddress['mapsLink']['href'],
+                                'target' => '_blank'
+                            ])
+                                {{$visitingAddress['mapsLink']['text']}}
+                            @endlink
                         @endtypography
                     </div>
                 @endforeach
