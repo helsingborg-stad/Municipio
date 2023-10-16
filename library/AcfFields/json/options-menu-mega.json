@@ -35,7 +35,7 @@
                 "id": ""
             },
             "choices": [],
-            "default_value": false,
+            "default_value": "menu",
             "return_format": "value",
             "multiple": 0,
             "allow_custom": 0,
