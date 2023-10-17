@@ -12,7 +12,7 @@ class OembedFilters
     public static function oembed_dataparse($output, $data, $url)
     {
         if (str_contains($output, '<iframe')) {
-            $data->lang = (object) [
+            $data->lang = [
                 'knownLabels' => [
                      'title'  => __('We need your consent to continue', 'municipio'),
                      'info'   => sprintf(__('This part of the website shows content from %s. By continuing, <a href="%s"> you are accepting GDPR and privacy policy</a>.', 'municipio'), '{SUPPLIER_WEBSITE}', '{SUPPLIER_POLICY}'),
