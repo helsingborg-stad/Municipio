@@ -10,6 +10,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private object $postMeta;
     private array $data;
+    private const PERSON_POST_TYPE = 'person';
+    private const MEDIA_POST_TYPE = 'school-media';
+    private const USP_TAXONOMY = 'usp';
+    private const AREA_TAXONOMY = 'area';
+    private const GRADE_TAXONOMY = 'grade';
 
     public function prepareData(array $data): array
     {
@@ -90,7 +95,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewContactData(): void
     {
-        if (!isset($this->postMeta->contacts)) {
+        if (!isset($this->postMeta->contacts) || !post_type_exists(self::PERSON_POST_TYPE)) {
             return;
         }
 
@@ -98,7 +103,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return $contact->person;
         }, $this->postMeta->contacts);
 
-        $persons = WP::getPosts(array('post_type' => 'person', 'post__in' => $personIds, 'suppress_filters' => false));
+        $persons = WP::getPosts(array('post_type' => self::PERSON_POST_TYPE, 'post__in' => $personIds, 'suppress_filters' => false));
 
         $this->data['contacts'] = !empty($persons) ? array_map(function ($contact) use ($persons) {
 
@@ -114,7 +119,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $phone = WP::getField('phone-number', $person->id);
 
             $featuredMedia = $featuredMediaID ? WP::getPosts([
-                'post_type' => 'school_media',
+                'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => [$featuredMediaID],
                 'suppress_filters' => false
             ]) : null;
@@ -129,7 +134,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return $contact;
         }, $this->postMeta->contacts) : null;
 
-        $this->data['contacts'] = array_filter($this->data['contacts']);
+        $this->data['contacts'] = array_filter($this->data['contacts'] ?? []);
 
         if (!empty($this->data['contacts'])) {
             $this->data['contactTitle'] = __('Contact us', 'municipio');
@@ -140,9 +145,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $quickFacts = [];
 
-        if (!empty($this->postMeta->grades)) {
+        if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
             $gradeTerms = get_terms([
-                'taxonomy' => 'grade',
+                'taxonomy' => self::GRADE_TAXONOMY,
                 'include' => $this->postMeta->grades,
                 'hide_empty' => false
             ]);
@@ -170,14 +175,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $quickFacts[] = ['label' => $label];
         }
 
-        if (!empty($this->postMeta->area)) {
+        if (!empty($this->postMeta->area) && taxonomy_exists(self::AREA_TAXONOMY)) {
             $areaTerms = get_terms([
-                'taxonomy' => 'area',
+                'taxonomy' => self::AREA_TAXONOMY,
                 'include' => $this->postMeta->area,
                 'hide_empty' => false
             ]);
 
-            if (!empty($areaTerms)) {
+            if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
             }
         }
@@ -207,10 +212,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $quickFacts[] = ['label' => $label];
         }
 
-        if (!empty($this->postMeta->usp)) {
+        if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
+
             // Get usp taxonomy terms
             $uspTerms = get_terms([
-                'taxonomy' => 'usp',
+                'taxonomy' => self::USP_TAXONOMY,
                 'include' => $this->postMeta->usp,
                 'hide_empty' => false
             ]);
@@ -424,13 +430,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendAttachmentsData(): void
     {
 
+        if( !post_type_exists(self::MEDIA_POST_TYPE) ) {
+            return;
+        }
+
         $attachmentIds = array_map(fn ($attachment) => $attachment->image->id, array_merge(
             $this->postMeta->facadeImages ?: [],
             $this->postMeta->gallery ?: []
         ));
 
         $attachments = WP::getPosts([
-            'post_type' => 'school_media',
+            'post_type' => self::MEDIA_POST_TYPE,
             'post__in' => $attachmentIds,
             'suppress_filters' => false
         ]);

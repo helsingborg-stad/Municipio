@@ -50,6 +50,9 @@ class CustomPostType
 
             if (is_array($type_definitions) && !empty($type_definitions)) {
                 foreach ($type_definitions as $type_definition_key => $type_definition) {
+
+                    $postTypeFromAPI = $this->isPostTypeFromAPI($type_definition);
+
                     $labels = array(
                         'name'               => $type_definition['post_type_name'],
                         'singular_name'      => $type_definition['post_type_name'],
@@ -67,27 +70,34 @@ class CustomPostType
                         'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $type_definition['post_type_name'])
                     );
 
-                    $supports = array('title', 'editor');
-                    if (!empty($type_definition['supports'])) {
+                    $supports = $postTypeFromAPI ? [] : array('title', 'editor');
+
+                    if (!$postTypeFromAPI && !empty($type_definition['supports'])) {
                         $supports = array_merge($type_definition['supports'], $supports);
                     }
+
+                    $rewrite = !empty($type_definition['slug']) ? array(
+                        'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
+                        'slug' => sanitize_title($type_definition['slug'])
+                    ) : [];
+
+                    $restBase = !empty($type_definition['slug'])
+                        ? sanitize_title($type_definition['slug'])
+                        : sanitize_title($type_definition['post_type_name']);
 
                     $args = array(
                         'labels'             => $labels,
                         'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
                         'public'             => $type_definition['public'],
                         'show_in_menu'       => $this->showInMenu($type_definition),
-                        'rewrite'            => array(
-                                                    'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
-                                                    'slug' => sanitize_title($type_definition['slug'])
-                                                ),
+                        'rewrite'            => $rewrite,
                         'capability_type'    => 'post',
                         'hierarchical'       => $type_definition['hierarchical'],
                         'supports'           => $supports,
                         'menu_position'      => (int) $type_definition['menu_position'],
                         'has_archive'        => true,
                         'show_in_rest'       => true,
-                        'rest_base'          => sanitize_title($type_definition['slug']),
+                        'rest_base'          => $restBase,
                     );
 
                     //Get custom menu icon
@@ -101,10 +111,17 @@ class CustomPostType
                         }
                     }
 
-                    register_post_type(sanitize_title(substr($type_definition['post_type_name'], 0, 19)), $args);
+                    $postType = sanitize_title(substr($type_definition['post_type_name'], 0, 19));
+
+                    register_post_type($postType, $args);
                 }
             }
         }
+    }
+
+    private function isPostTypeFromAPI(array $type_definition): bool
+    {
+        return isset($type_definition['api_source_url']) && $type_definition['api_source_url'] === true;
     }
 
     /**

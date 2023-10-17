@@ -51,12 +51,17 @@ class CustomTaxonomy
 
             if (is_array($type_definitions) && !empty($type_definitions)) {
                 foreach ($type_definitions as $type_definition_key => $type_definition) {
+
+                    $rewrite = !empty($type_definition['slug'])
+                        ? ['slug' => $type_definition['slug']]
+                        : [];
+
                     register_taxonomy(
                         sanitize_title($type_definition['label']),
                         $type_definition['connected_post_types'],
                         array(
                             'label' => $type_definition['label'],
-                            'rewrite' => array( 'slug' => $type_definition['slug'] ),
+                            'rewrite' => $rewrite,
                             'hierarchical' => (bool) $type_definition['hierarchical'],
                             'show_admin_column' => (bool) $type_definition['show_ui'],
                             'show_ui' => (bool) $type_definition['show_ui'],
