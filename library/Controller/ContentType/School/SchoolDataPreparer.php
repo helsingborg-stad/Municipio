@@ -10,6 +10,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private object $postMeta;
     private array $data;
+    private const PAGE_POST_TYPE = 'school-page';
     private const PERSON_POST_TYPE = 'person';
     private const MEDIA_POST_TYPE = 'school-media';
     private const USP_TAXONOMY = 'usp';
@@ -377,6 +378,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewPagesData(): void
     {
+        if( !post_type_exists(self::PAGE_POST_TYPE) ) {
+            return;
+        }
+
         $pageIds = $this->postMeta->pages;
 
         if (!isset($pageIds) || empty($pageIds)) {
@@ -385,7 +390,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $pages = WP::getPosts([
-            'post_type' => 'school_page',
+            'post_type' => self::PAGE_POST_TYPE,
             'post__in' => $pageIds,
             'suppress_filters' => false
         ]);

@@ -46,31 +46,38 @@ class CustomTaxonomy
      */
     public function registerTaxonomy()
     {
-        if (function_exists('get_field')) {
-            $type_definitions = get_field('avabile_dynamic_taxonomies', 'option');
+        $type_definitions = self::getTypeDefinitions();
 
-            if (is_array($type_definitions) && !empty($type_definitions)) {
-                foreach ($type_definitions as $type_definition_key => $type_definition) {
+        foreach ($type_definitions as $type_definition_key => $type_definition) {
 
-                    $rewrite = !empty($type_definition['slug'])
-                        ? ['slug' => $type_definition['slug']]
-                        : [];
+            $rewrite = !empty($type_definition['slug'])
+            ? ['slug' => $type_definition['slug']]
+            : [];
 
-                    register_taxonomy(
-                        sanitize_title($type_definition['label']),
-                        $type_definition['connected_post_types'],
-                        array(
-                            'label' => $type_definition['label'],
-                            'rewrite' => $rewrite,
-                            'hierarchical' => (bool) $type_definition['hierarchical'],
-                            'show_admin_column' => (bool) $type_definition['show_ui'],
-                            'show_ui' => (bool) $type_definition['show_ui'],
-                            'public' => (bool) $type_definition['public']
-                        )
-                    );
-                }
-            }
+            register_taxonomy(
+                sanitize_title($type_definition['label']),
+                $type_definition['connected_post_types'],
+                array(
+                    'label' => $type_definition['label'],
+                    'rewrite' => $rewrite,
+                    'hierarchical' => (bool) $type_definition['hierarchical'],
+                    'show_admin_column' => (bool) $type_definition['show_ui'],
+                    'show_ui' => (bool) $type_definition['show_ui'],
+                    'public' => (bool) $type_definition['public']
+                )
+            );
         }
+    }
+
+    public static function getTypeDefinitions(): array
+    {
+        $typeDefinitions = [];
+
+        if (function_exists('get_field')) {
+            $typeDefinitions = get_field('avabile_dynamic_taxonomies', 'option');
+        }
+
+        return is_array($typeDefinitions) ? $typeDefinitions : [];
     }
 
     /**

@@ -279,6 +279,36 @@
                     "parent_repeater": "field_56b347f3ffb6c"
                 },
                 {
+                    "key": "field_652e6004ffdab",
+                    "label": "Parent post types",
+                    "name": "parent_post_types",
+                    "aria-label": "",
+                    "type": "posttype_select",
+                    "instructions": "Post types that will be used as a parent post type for this post type. This will mainly affects the post type permalinks by prefixing the url with the parent post types post url.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_56b364336050a",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_null": 1,
+                    "multiple": 1,
+                    "placeholder": "",
+                    "disabled": 0,
+                    "readonly": 0,
+                    "parent_repeater": "field_56b347f3ffb6c"
+                },
+                {
                     "key": "field_5805d63cdcbf4",
                     "label": "Navigation",
                     "name": "show_posts_in_sidebar_menu",

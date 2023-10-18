@@ -94,11 +94,7 @@ class CustomPostTypeFromApi
 
     private static function setupPostTypes()
     {
-        if (!function_exists('get_field')) {
-            return;
-        }
-
-        $typeDefinitions = get_field('avabile_dynamic_post_types', 'option');
+        $typeDefinitions = CustomPostType::getTypeDefinitions();
         $postTypesFromApi = array_filter(
             $typeDefinitions,
             fn ($typeDefinition) =>
@@ -155,9 +151,7 @@ class CustomPostTypeFromApi
         $wpPost->comment_count         = $restApiPost->comment_count ?? 0;
         $wpPost->filter                = 'raw';
 
-        return $wpPost;
-
-        // return apply_filters("Municipio/Content/RestApiPostToWpPost", $wpPost, $this, $restApiPost);
+        return apply_filters('Municipio/Content/RestApiPostToWpPost', $wpPost, $restApiPost, $postType);
     }
 
     private static function convertWPQueryToRestQuery($wpQuery): string

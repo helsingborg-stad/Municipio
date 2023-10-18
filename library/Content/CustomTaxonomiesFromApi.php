@@ -17,15 +17,7 @@ class CustomTaxonomiesFromApi
 
     private function getTaxonomiesFromApi(): array
     {
-        if (!function_exists('get_field')) {
-            return [];
-        }
-
-        $taxonomyDefinitions = get_field('avabile_dynamic_taxonomies', 'option');
-
-        if( empty($taxonomyDefinitions) ) {
-            return [];
-        }
+        $taxonomyDefinitions = CustomTaxonomy::getTypeDefinitions();
 
         $taxonomiesFromApi = array_filter(
             $taxonomyDefinitions,

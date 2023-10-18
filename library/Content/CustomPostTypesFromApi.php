@@ -4,26 +4,23 @@ namespace Municipio\Content;
 
 use WP_Post;
 use WP_Query;
-use WP_Term_Query;
 
 class CustomPostTypesFromApi
 {
     private array $postTypesFromApi = [];
+    private array $postTypesWithParentPostTypes = [];
 
     public function __construct()
     {
         add_action('init', function() {
             $this->postTypesFromApi = $this->getPostTypesFromApi();
+            $this->postTypesWithParentPostTypes = $this->getPostTypesWithParentPostTypes();
         }, 10);
     }
 
     private function getPostTypesFromApi(): array
     {
-        if (!function_exists('get_field')) {
-            return [];
-        }
-
-        $typeDefinitions = get_field('avabile_dynamic_post_types', 'option');
+        $typeDefinitions = CustomPostType::getTypeDefinitions();
         $postTypesFromApi = array_filter(
             $typeDefinitions,
             fn ($typeDefinition) =>
@@ -31,6 +28,24 @@ class CustomPostTypesFromApi
         );
 
         return array_map(fn ($postType) => sanitize_title(substr($postType['post_type_name'], 0, 19)), $postTypesFromApi);
+    }
+
+    private function getPostTypesWithParentPostTypes():array {
+
+        $postTypesWithParentPostTypes = [];
+        $typeDefinitions = CustomPostType::getTypeDefinitions();
+        $matches = array_filter(
+            $typeDefinitions,
+            fn ($typeDefinition) =>
+            isset($typeDefinition['parent_post_types']) && !empty($typeDefinition['parent_post_types'])
+        );
+
+        foreach($matches as $match) {
+            $postType = sanitize_title(substr($match['post_type_name'], 0, 19));
+            $postTypesWithParentPostTypes[$postType] = $match['parent_post_types'];
+        }
+
+        return $postTypesWithParentPostTypes;
     }
 
     public function addHooks(): void
@@ -45,19 +60,68 @@ class CustomPostTypesFromApi
 
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 10, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 10, 1);
-        add_action('init', [$this, 'addSchoolPageRewriteRules'], 10, 0);
+        add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
     {
         $postType = get_post_type($post);
 
-        if ($postType === 'school_page') {
-            $path     = trim(parse_url(get_post_permalink($post->post_parent))['path'], '/');
-            $postLink = str_replace('%school%', $path, $postLink);
+        if (isset($this->postTypesWithParentPostTypes[$postType])) {
+
+            $parentPost = get_post($post->post_parent);
+            $parentPostType = $parentPost->post_type;
+
+            if (in_array($parentPostType, $this->postTypesWithParentPostTypes[$postType])) {
+                $parentPostTypeObject = get_post_type_object($parentPostType);
+                $postTypeObject = get_post_type_object($postType);
+                $rewriteSlug = $postTypeObject->rewrite['slug'];
+                $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
+                $postLink = str_replace($rewriteSlug, $parentRewriteSlug, $postLink);
+            }
         }
 
         return $postLink;
+    }
+
+    public function modifyBreadcrumbsItems(array $pageData, $queriedObject, $queriedObjectData): array
+    {
+        if (!is_a($queriedObject, 'WP_Post')) {
+            return $pageData;
+        }
+
+        // if post type in entity registry
+        if (!isset($this->postTypesWithParentPostTypes[$queriedObject->post_type])) {
+            return $pageData;
+        }
+
+        if (empty($queriedObject->post_parent)) {
+            return $pageData;
+        }
+
+        foreach($this->postTypesWithParentPostTypes[$queriedObject->post_type] as $parentPostType) {
+
+            $parentPosts = get_posts(['post__in' => [$queriedObject->post_parent], 'post_type' => $parentPostType, 'suppress_filters' => false]);
+
+            if( !empty($parentPosts) ) {
+                break;
+            }
+        }
+
+        if( empty($parentPosts) ) {
+            return $pageData;
+        }
+
+        // Insert new element before the last one in $pageData.
+        array_splice($pageData, -1, 0, [
+            [
+                'label'   => $parentPosts[0]->post_title,
+                'href'    => get_post_permalink($parentPosts[0]),
+                'current' => false
+            ],
+        ]);
+
+        return $pageData;
     }
 
     public function modifyPostsResults(array $posts, WP_Query $query): array
@@ -87,41 +151,13 @@ class CustomPostTypesFromApi
         return CustomPostTypeFromApi::getMeta($objectId, $metaKey, $single, $metaType, $postType) ?? $value;
     }
 
-    public function modifyBreadcrumbsItems(array $pageData, $queriedObject, $queriedObjectData): array
+    public function modifySchoolPage(WP_Post $wpPost, object $restApiPost, string $postType)
     {
-        if (!is_a($queriedObject, 'WP_Post')) {
-            return $pageData;
+        if ($postType === 'school-page') {
+            $wpPost->post_parent = $restApiPost->acf->parent_school ?? 0;
         }
-
-        // if post type in entity registry
-        if ($queriedObject->post_type !== 'school_page') {
-            return $pageData;
-        }
-
-        if (empty($queriedObject->post_parent)) {
-            return $pageData;
-        }
-
-        $schoolPost = CustomPostTypeFromApi::getSingle($queriedObject->post_parent, 'school');
-
-        if (!empty($schoolPost)) {
-            // Insert new element before the last one in $pageData.
-            array_splice($pageData, -1, 0, [
-                [
-                    'label'   => $schoolPost->post_title,
-                    'href'    => get_post_permalink($schoolPost),
-                    'current' => false
-                ],
-            ]);
-        }
-
-        return $pageData;
-    }
-
-    public function modifySchoolPage(WP_Post $post, $postType, $restApiPost)
-    {
-        $post->post_parent = $restApiPost->acf->parent_school ?? 0;
-        return $post;
+        
+        return $wpPost;
     }
 
     public function modifyArchiveData(array $data): array
@@ -184,31 +220,29 @@ class CustomPostTypesFromApi
         $query->set('update_post_term_cache', false);
     }
 
-    public function addSchoolPageRewriteRules(): void
+    public function addRewriteRulesForPostTypesWithParentPostTypes(): void
     {
-        if(
-            post_type_exists('school_page') &&
-            post_type_exists('pre-school') &&
-            post_type_exists('elementary-school')
-        ) {
-            $postType                       = 'school_page';
-            $preSchoolPostTypeObject        = get_post_type_object('pre-school');
-            $elementarySchoolPostTypeObject = get_post_type_object('elementary-school');
-    
-            $preSchoolRewriteSlug        = $preSchoolPostTypeObject->rewrite['slug'];
-            $elementarySchoolRewriteSlug = $elementarySchoolPostTypeObject->rewrite['slug'];
-    
-            add_rewrite_rule(
-                $preSchoolRewriteSlug . '/(.*)/(.*)',
-                'index.php?post_type=' . $postType . '&name=$matches[2]',
-                'top'
-            );
-    
-            add_rewrite_rule(
-                $elementarySchoolRewriteSlug . '/(.*)/(.*)',
-                'index.php?post_type=' . $postType . '&name=$matches[2]',
-                'top'
-            );
+        foreach ($this->postTypesWithParentPostTypes as $postType => $parentPostTypes) {
+
+            if (!post_type_exists($postType)) {
+                return;
+            }
+
+            foreach ($parentPostTypes as $parentPostType) {
+
+                if (!post_type_exists($parentPostType)) {
+                    continue;
+                }
+
+                $parentPostTypeObject = get_post_type_object($parentPostType);
+                $rewriteSlug = $parentPostTypeObject->rewrite['slug'];
+
+                add_rewrite_rule(
+                    $rewriteSlug . '/(.*)/(.*)',
+                    'index.php?post_type=' . $postType . '&name=$matches[2]',
+                    'top'
+                );
+            }
         }
     }
 }
