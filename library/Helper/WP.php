@@ -26,6 +26,32 @@ class WP
 
         return !empty($terms) && !is_wp_error($terms) ? $terms : [];
     }
+    
+    public static function getTerms(array $wpTermQueryArgs = null): array
+    {
+        $terms = get_terms($wpTermQueryArgs);
+
+        return !empty($terms) && !is_wp_error($terms) ? $terms : [];
+    }
+
+    /**
+     * Get the value of a custom field for a given post.
+     *
+     * @param string $fieldName The name of the custom field.
+     * @param int $postId The ID of the post to get the custom field value from.
+     * @param bool $single Whether to return a single value or an array of values.
+     * @return mixed The value of the custom field.
+     */
+    public static function getField(string $fieldName = '', int $postId = 0, bool $single = true)
+    {
+        if (function_exists('get_field')) {
+            $fieldValue = get_field($fieldName, $postId);
+        } else {
+            $fieldValue = get_post_meta($postId, $fieldName, $single);
+        }
+
+        return $fieldValue;
+    }
 
     public static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
     {
