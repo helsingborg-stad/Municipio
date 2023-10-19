@@ -41,12 +41,11 @@ class RestRequestHelper
     {
         if (!empty($cacheKey)) {
             wp_cache_set($cacheKey, $data, '', self::CACHE_TTL);
-            set_transient($cacheKey, $data, self::CACHE_TTL);
         }
     }
 
     private static function getFromCache(string $cacheKey)
     {
-        return wp_cache_get($cacheKey, '') ?: get_transient($cacheKey);
+        return wp_cache_get($cacheKey, '');
     }
 }
