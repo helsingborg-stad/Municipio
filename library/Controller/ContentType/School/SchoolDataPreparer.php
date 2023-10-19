@@ -480,13 +480,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
 
-        if (!empty($galleryAttachments)) {
-            $this->data['gallerySliderItems'] = !empty($galleryAttachments)
-                ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
-                : null;
-        } elseif (!empty($this->postMeta->video)) {
-            $this->data['video'] = $this->postMeta->video;
-        }
+        $this->data['gallerySliderItems'] = !empty($galleryAttachments)
+            ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
+            : null;
+
+
+        $this->data['video'] =
+        (empty($this->data['gallerySliderItems']) && !empty($this->postMeta->video))
+            ? $this->postMeta->video
+            : null; 
+
     }
 
     private function attachmentToSliderItem($attachment): array
