@@ -157,4 +157,36 @@ class Image
 
         return $foundPosts[0];
     }
+
+    /**
+     * Gets correct image data
+     *
+     * @param int $id ID of the image attachment
+     * @param array|string $size Size should be an array containing two int values (height and width). Can also be a string matching predefined sizes (ex. medium).
+     * @return array
+     */
+    public static function getImageAttachmentData(int $id, $size = 'full') { 
+        $imageSrc           = wp_get_attachment_image_src($id, $size);
+
+        if (empty($imageSrc[0])) {
+            return false;
+        }
+
+        $imageAlt           = get_post_meta($id, '_wp_attachment_image_alt', true);
+        $imageTitle         = get_the_title($id);
+        $imageCaption       = get_post_field('post_excerpt', $id);
+        $imageDescription   = get_post_field('post_content', $id);
+        $imagePhotographer  = get_post_meta($id, 'photographer', true);
+
+        $image = [
+            'src'           => $imageSrc[0],
+            'alt'           => $imageAlt ? $imageAlt : null,
+            'title'         => $imageTitle ? $imageTitle : null,
+            'caption'       => $imageCaption ? $imageCaption : null,
+            'description'   => $imageDescription ? $imageDescription : null,
+            'photographer'  => $imagePhotographer ? $imagePhotographer : null
+        ];
+
+        return $image;
+    }
 }

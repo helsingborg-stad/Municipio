@@ -29,12 +29,12 @@
                 @endif
             @endgroup
             <div class="o-grid">
-                <div class="o-grid-12@sm o-grid-9@md o-grid-9@lg">
+                <div class="o-grid-12@sm o-grid-9@md o-grid-9@lg o-grid-9@xl">
                     @typography([])
                         {!! $post->postContentFiltered !!}
                     @endtypography
                 </div>
-                <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg">
+                <div class="o-grid-12@sm o-grid-3@md o-grid-3@lg o-grid-3@xl">
 
                     @if (!empty($post->placeInfo))
                         @listing([

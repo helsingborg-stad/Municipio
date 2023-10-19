@@ -4,6 +4,8 @@ namespace Municipio\Customizer\Applicators;
 
 abstract class AbstractApplicator
 {
+    private static $contextCache = [];
+
     /**
      * Determines if should be handled as a modifier.
      *
@@ -81,6 +83,13 @@ abstract class AbstractApplicator
 
     protected function hasFilterContexts(array $contexts, array $filterContexts): bool
     {
+
+        $cacheKey = md5(serialize($contexts) . serialize($filterContexts));
+
+        if (isset(self::$contextCache[$cacheKey])) {
+            return self::$contextCache[$cacheKey];
+        }
+
         $hasContext = [];
         foreach ($filterContexts as $context) {
             //Verify operator, before eval
@@ -99,6 +108,6 @@ abstract class AbstractApplicator
             $hasContext[] = (bool) eval('return in_array(' . $context['context'] . ', $contexts) ' . $context['operator'] . ' true;');
         }
 
-        return (bool) array_product($hasContext);
+        return (bool) self::$contextCache[$cacheKey] = array_product($hasContext);
     }
 }

@@ -27,7 +27,7 @@ class SearchTest extends WP_UnitTestCase
         $this->assertArrayHasKey('header', $search->getSearchDisplayOptions());
         $this->assertArrayHasKey('mainmenu', $search->getSearchDisplayOptions());
         $this->assertArrayHasKey('mobile', $search->getSearchDisplayOptions());
-        $this->assertArrayHasKey('hamburger_menu', $search->getSearchDisplayOptions());
+        $this->assertArrayHasKey('mega_menu', $search->getSearchDisplayOptions());
         $this->assertArrayHasKey('quicklinks', $search->getSearchDisplayOptions());
     }
 

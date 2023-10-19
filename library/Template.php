@@ -122,7 +122,7 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
-        if (is_archive() && $template === 'one-page') {
+        if (is_archive() && ($template === 'one-page' || $template === 'page-centered')) {
             $template = 'archive';
         }
 

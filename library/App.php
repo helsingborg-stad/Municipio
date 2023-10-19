@@ -57,7 +57,7 @@ class App
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
-
+        new \Municipio\Content\IframePosterImage();
 
         /**
          * Oembed

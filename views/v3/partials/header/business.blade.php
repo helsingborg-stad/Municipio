@@ -1,5 +1,6 @@
 @extends('templates.header', ['classList' => ['c-header', 'c-header--business']])
 
+
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
         <div class="o-container c-header__flex-content">
@@ -47,13 +48,16 @@
             @endif
             
             {{-- Hambuger menu trigger --}}
-            @includeIf('partials.navigation.trigger.hamburgermenu', ['context' => ['site.header.hamburgermenu-trigger', 'site.header.business.hamburgermenu-trigger']])
+            @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
             
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
 
         </div>
     </div>
+
+    {{-- Mega menu --}}
+    @includeIf('partials.navigation.megamenu')
 
     @includeWhen(
         $showMobileSearch, 
@@ -64,6 +68,7 @@
                 'u-padding__x--3', 
                 'u-width--auto',
                 'u-display--none@lg',
+                'u-display--none@xl',
                 'u-print-display--none'
             ]
         ]
@@ -91,8 +96,4 @@
             </div>
         </div>
     @endif
-
-    {{-- Hamburger menu --}}
-    @includeIf('partials.navigation.hamburgermenu')
-    
 @stop

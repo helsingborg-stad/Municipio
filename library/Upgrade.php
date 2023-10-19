@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 24; //The db version we want to achive
+    private $dbVersion = 27; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -500,6 +500,51 @@ class Upgrade
     private function v_24($db): bool
     {
         do_action('municipio_store_theme_mod');
+        return true;
+    }
+
+    /**
+     * Publish migrated logotypes (v_22) to the design API.
+     */
+    private function v_25($db): bool
+    {
+        $this->migrateThemeMod('hamburger_menu_appearance_type', 'mega_menu_appearance_type');
+        $this->migrateThemeMod('hamburger_menu_custom_colors', 'mega_menu_custom_colors');
+        $this->migrateThemeMod('hamburger_menu_font', 'mega_menu_font');
+        $this->migrateThemeMod('hamburger_menu_item_style', 'mega_menu_item_style');
+        $this->migrateThemeMod('hamburger_menu_item_button_style', 'mega_menu_item_button_style');
+        $this->migrateThemeMod('hamburger_menu_item_button_color', 'mega_menu_item_button_color');
+        $this->migrateThemeMod('hamburger_menu_color_scheme', 'mega_menu_color_scheme');
+        $this->migrateThemeMod('hamburger_menu_mobile', 'mega_menu_mobile');
+
+        $menuLocations = get_theme_mod('nav_menu_locations');
+        if (!empty($menuLocations) && isset($menuLocations['hamburger-menu'])) {
+            $menuLocations['mega-menu'] = $menuLocations['hamburger-menu'];
+            unset($menuLocations['hamburger-menu']);
+            set_theme_mod('nav_menu_locations', $menuLocations);
+        }
+        
+        return true;
+    }
+
+    private function v_26($db): bool
+    {
+        $drawerSizes = get_theme_mod('drawer_screen_sizes');
+        if (!empty($drawerSizes) && is_array($drawerSizes) && in_array('lg', $drawerSizes)) {
+            array_push($drawerSizes, 'xl');
+            set_theme_mod('drawer_screen_sizes', $drawerSizes);
+        }
+        return true;
+    }
+
+    private function v_27($db): bool
+    {  
+        $searchLocations = get_theme_mod('search_display');
+        if (!empty($searchLocations) && is_array($searchLocations) && in_array('hamburger_menu', $searchLocations) && !in_array('mega_menu', $searchLocations)) {
+            array_push($searchLocations, 'mega_menu');
+            set_theme_mod('search_display', $searchLocations);
+        }
+
         return true;
     }
 

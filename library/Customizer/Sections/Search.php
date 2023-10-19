@@ -133,7 +133,7 @@ class Search
             'header' => __('Header on frontpage', 'municipio'),
             'mainmenu' => __('Option in main menu', 'municipio'),
             'mobile' => __('Option in mobile menu', 'municipio'),
-            'hamburger_menu' => __('Hamburger menu', 'municipio'),
+            'mega_menu' => __('Mega menu', 'municipio'),
             'quicklinks' => __('Quicklinks menu', 'municipio'),
         ];
     }

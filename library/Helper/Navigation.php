@@ -680,7 +680,8 @@ class Navigation
                           'size' => 'md',
                           'classList' => ['c-nav__icon']
                         ],
-                        'style' => get_field('menu_item_style', $item->ID) ?? 'default'
+                        'style' => get_field('menu_item_style', $item->ID) ?? 'default',
+                        'description' => get_field('menu_item_description', $item->ID) ?? ''
                     ], $this->identifier, true);
                 }
             } else {
