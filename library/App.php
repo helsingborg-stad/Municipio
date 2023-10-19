@@ -58,6 +58,13 @@ class App
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
 
+        /**
+         * Content from API
+         */
+        $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
+        $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
+        $customPostTypesFromApi->addHooks();
+        $customTaxonomiesFromApi->addHooks();
 
         /**
          * Oembed

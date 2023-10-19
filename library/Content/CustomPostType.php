@@ -15,11 +15,6 @@ class CustomPostType
             return $value;
         }, 10, 3);
 
-        //Sanitize permalinks
-        add_filter('acf/update_value/key=field_56b36c01e0619', function ($value, $post_id, $field) {
-            return sanitize_title($value, $value);
-        }, 10, 3);
-
         //Use page or single template
         add_filter('single_template', array($this, 'setPageTemplate'), 20);
 
@@ -45,66 +40,91 @@ class CustomPostType
      */
     public function registerCustomPostTypes()
     {
-        if (function_exists('get_field')) {
-            $type_definitions = get_field('avabile_dynamic_post_types', 'option');
+        $typeDefinitions = self::getTypeDefinitions();
 
-            if (is_array($type_definitions) && !empty($type_definitions)) {
-                foreach ($type_definitions as $type_definition_key => $type_definition) {
-                    $labels = array(
-                        'name'               => $type_definition['post_type_name'],
-                        'singular_name'      => $type_definition['post_type_name'],
-                        'menu_name'          => $type_definition['post_type_name'],
-                        'name_admin_bar'     => $type_definition['post_type_name'],
-                        'add_new'            => __('Add new', 'municipio'),
-                        'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $type_definition['post_type_name']),
-                        'new_item'           => sprintf(__('New %s', 'municipio'), $type_definition['post_type_name']),
-                        'edit_item'          => sprintf(__('Edit %s', 'municipio'), $type_definition['post_type_name']),
-                        'view_item'          => sprintf(__('View %s', 'municipio'), $type_definition['post_type_name']),
-                        'all_items'          => sprintf(__('All %s', 'municipio'), $type_definition['post_type_name']),
-                        'search_items'       => sprintf(__('Search %s', 'municipio'), $type_definition['post_type_name']),
-                        'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $type_definition['post_type_name']),
-                        'not_found'          => sprintf(__('No %s found', 'municipio'), $type_definition['post_type_name']),
-                        'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $type_definition['post_type_name'])
+        foreach ($typeDefinitions as $typeDefinition) {
+
+            $postTypeFromAPI = $this->isPostTypeFromAPI($typeDefinition);
+
+            $labels = array(
+                'name'               => $typeDefinition['post_type_name'],
+                'singular_name'      => $typeDefinition['post_type_name'],
+                'menu_name'          => $typeDefinition['post_type_name'],
+                'name_admin_bar'     => $typeDefinition['post_type_name'],
+                'add_new'            => __('Add new', 'municipio'),
+                'add_new_item'       => sprintf(__('Add new %s', 'municipio'), $typeDefinition['post_type_name']),
+                'new_item'           => sprintf(__('New %s', 'municipio'), $typeDefinition['post_type_name']),
+                'edit_item'          => sprintf(__('Edit %s', 'municipio'), $typeDefinition['post_type_name']),
+                'view_item'          => sprintf(__('View %s', 'municipio'), $typeDefinition['post_type_name']),
+                'all_items'          => sprintf(__('All %s', 'municipio'), $typeDefinition['post_type_name']),
+                'search_items'       => sprintf(__('Search %s', 'municipio'), $typeDefinition['post_type_name']),
+                'parent_item_colon'  => sprintf(__('Parent %s', 'municipio'), $typeDefinition['post_type_name']),
+                'not_found'          => sprintf(__('No %s found', 'municipio'), $typeDefinition['post_type_name']),
+                'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
+            );
+
+            $supports = $postTypeFromAPI ? [] : array('title', 'editor');
+
+            if (!$postTypeFromAPI && !empty($typeDefinition['supports'])) {
+                $supports = array_merge($typeDefinition['supports'], $supports);
+            }
+
+            $rewrite = ['with_front' => isset($typeDefinition['with_front']) ? $typeDefinition['with_front'] : true];
+
+            if (!empty($typeDefinition['slug'])) {
+                $rewrite['slug'] = $typeDefinition['slug'];
+            }
+
+            $restBase = !empty($typeDefinition['slug'])
+                ? sanitize_title($typeDefinition['slug'])
+                : sanitize_title($typeDefinition['post_type_name']);
+
+            $args = array(
+                'labels'             => $labels,
+                'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
+                'public'             => $typeDefinition['public'],
+                'show_in_menu'       => $this->showInMenu($typeDefinition),
+                'rewrite'            => $rewrite,
+                'capability_type'    => 'post',
+                'hierarchical'       => $typeDefinition['hierarchical'],
+                'supports'           => $supports,
+                'menu_position'      => (int) $typeDefinition['menu_position'],
+                'has_archive'        => true,
+                'show_in_rest'       => true,
+                'rest_base'          => $restBase,
+            );
+
+            //Get custom menu icon
+            if (isset($typeDefinition['menu_icon']) && isset($typeDefinition['menu_icon']['id']) && is_numeric($typeDefinition['menu_icon']['id'])) {
+                $image_filepath = get_attached_file($typeDefinition['menu_icon']['id']);
+
+                if (is_admin() && file_exists($image_filepath)) {
+                    $args['menu_icon'] = 'data:image/svg+xml;base64,' . base64_encode(
+                        file_get_contents($image_filepath)
                     );
-
-                    $supports = array('title', 'editor');
-                    if (!empty($type_definition['supports'])) {
-                        $supports = array_merge($type_definition['supports'], $supports);
-                    }
-
-                    $args = array(
-                        'labels'             => $labels,
-                        'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
-                        'public'             => $type_definition['public'],
-                        'show_in_menu'       => $this->showInMenu($type_definition),
-                        'rewrite'            => array(
-                                                    'with_front' => isset($type_definition['with_front']) ? $type_definition['with_front'] : true,
-                                                    'slug' => sanitize_title($type_definition['slug'])
-                                                ),
-                        'capability_type'    => 'post',
-                        'hierarchical'       => $type_definition['hierarchical'],
-                        'supports'           => $supports,
-                        'menu_position'      => (int) $type_definition['menu_position'],
-                        'has_archive'        => true,
-                        'show_in_rest'       => true,
-                        'rest_base'          => sanitize_title($type_definition['slug']),
-                    );
-
-                    //Get custom menu icon
-                    if (isset($type_definition['menu_icon']) && isset($type_definition['menu_icon']['id']) && is_numeric($type_definition['menu_icon']['id'])) {
-                        $image_filepath = get_attached_file($type_definition['menu_icon']['id']);
-
-                        if (is_admin() && file_exists($image_filepath)) {
-                            $args['menu_icon'] = 'data:image/svg+xml;base64,'. base64_encode(
-                                file_get_contents($image_filepath)
-                            );
-                        }
-                    }
-
-                    register_post_type(sanitize_title(substr($type_definition['post_type_name'], 0, 19)), $args);
                 }
             }
+
+            $postType = sanitize_title(substr($typeDefinition['post_type_name'], 0, 19));
+
+            register_post_type($postType, $args);
         }
+    }
+
+    public static function getTypeDefinitions(): array
+    {
+        $typeDefinitions = [];
+
+        if (function_exists('get_field')) {
+            $typeDefinitions = get_field('avabile_dynamic_post_types', 'option');
+        }
+
+        return is_array($typeDefinitions) ? $typeDefinitions : [];
+    }
+
+    private function isPostTypeFromAPI(array $type_definition): bool
+    {
+        return isset($type_definition['api_source_url']) && $type_definition['api_source_url'] === true;
     }
 
     /**
