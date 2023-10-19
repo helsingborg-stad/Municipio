@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_6502be085ee3b',
     'title' => __('Mega menu', 'municipio'),
     'fields' => array(
@@ -39,7 +41,7 @@
             ),
             'choices' => array(
             ),
-            'default_value' => false,
+            'default_value' => 'menu',
             'return_format' => 'value',
             'multiple' => 0,
             'allow_custom' => 0,
@@ -95,4 +97,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

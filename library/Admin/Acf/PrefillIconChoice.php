@@ -4,48 +4,41 @@ namespace Municipio\Admin\Acf;
 
 class PrefillIconChoice
 {
-  /**
-   * Add filter to specified fields
-   */
+    /**
+     * Add filter to specified fields
+     */
     public function __construct()
     {
         /* TODO: Remove when removing manual input from post module */
-        add_filter(
-            'acf/load_field/name=menu_item_icon',
-            array($this, 'addIconsList')
+        $fieldNames = array(
+            'menu_item_icon',
+            'material_icon',
+            'mega_menu_button_icon',
+            'box_icon'
         );
 
-        add_filter(
-            'acf/load_field/name=material_icon',
-            array($this, 'addIconsList')
-        );
-
-        add_filter(
-            'acf/load_field/name=mega_menu_button_icon',
-            array($this, 'addIconsList')
-        );
-
-        add_filter(
-            'acf/load_field/name=box_icon',
-            array($this, 'addIconsList')
-        );
+        foreach ($fieldNames as $fieldName) {
+            add_filter(
+                'acf/load_field/name=' . $fieldName,
+                array($this, 'addIconsList'), 10, 1
+            );
+        }
     }
 
-  /**
-   * Add list to dropdown
-   *
-   * @param array $field  Field definition
-   *
-   * @return array $field Field definition with choices
-   */
+    /**
+     * Add list to dropdown
+     *
+     * @param array $field  Field definition
+     *
+     * @return array $field Field definition with choices
+     */
     public function addIconsList($field): array
     {
-
         $choices = \Municipio\Helper\Icons::getIcons();
 
         if (is_array($choices) && !empty($choices)) {
             foreach ($choices as $choice) {
-                $field['choices'][ $choice ] = '<i class="material-icons" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . $choice . '</span>';
+                $field['choices'][$choice] = '<i class="material-icons" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . $choice . '</span>';
             }
         } else {
             $field['choices'] = [];
