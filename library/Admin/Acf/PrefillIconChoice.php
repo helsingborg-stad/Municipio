@@ -35,6 +35,10 @@ class PrefillIconChoice
     public function addIconsList($field): array
     {
         $choices = \Municipio\Helper\Icons::getIcons();
+        
+        if (empty($field['value']) && !empty($field['default_value'])) {
+            $field['value'] = $field['default_value'];
+        }
 
         if (is_array($choices) && !empty($choices)) {
             foreach ($choices as $choice) {
