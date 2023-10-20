@@ -311,6 +311,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($information->optional) && !empty($information->optional)) {
             foreach ($information->optional as $optional) {
+
+                if (empty($optional->heading) && empty($optional->content)) {
+                    continue;
+                }
+
                 $accordions[] = ['list' => [
                     [
                         'heading' => $optional->heading ?? '',

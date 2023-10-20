@@ -129,7 +129,7 @@
                     <div class="o-grid-3@md">
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                             {{$visitingAddress['description']}}<br/>
-                            {{$visitingAddress['address']->name}}<br/>
+                            {{$visitingAddress['address']->street_name}} {{$visitingAddress['address']->street_number}}<br/>
                             {{$visitingAddress['address']->post_code}} {{$visitingAddress['address']->city}}<br><br>
                             @link([
                                 'href' => $visitingAddress['mapsLink']['href'],
