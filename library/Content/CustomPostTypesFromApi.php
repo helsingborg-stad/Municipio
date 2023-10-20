@@ -137,9 +137,11 @@ class CustomPostTypesFromApi
             return $posts;
         }
 
-        $posts = $query->is_single()
-            ? CustomPostTypeFromApi::getSingle($query->get('name'), $query->get('post_type'))
-            : CustomPostTypeFromApi::getCollection($query, $query->get('post_type'));
+        if ($query->is_single()) {
+            $posts = CustomPostTypeFromApi::getSingle($query->get('name'), $query->get('post_type'));
+        } else {
+            $posts = CustomPostTypeFromApi::getCollection($query, $query->get('post_type'));
+        }
 
         return is_array($posts) ? $posts : [$posts];
     }
