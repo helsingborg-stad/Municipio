@@ -2,6 +2,8 @@
 
 namespace Municipio\Content;
 
+use WP_Taxonomy;
+use WP_Term;
 use WP_Term_Query;
 
 class CustomTaxonomiesFromApi
@@ -32,8 +34,30 @@ class CustomTaxonomiesFromApi
 
     public function addHooks(): void
     {
+        add_action('pre_get_terms', [$this, 'modifyPreGetTerms'], 10, 1);
         add_filter('get_terms', [$this, 'modifyGetTerms'], 10, 4);
         add_filter('get_object_terms', [$this, 'modifyGetObjectTerms'], 10, 4);
+        add_filter('Municipio/Archive/getTaxonomyFilters/option/value', [$this, 'modifyGetTaxonomyFiltersOptionValue'], 10, 3);
+    }
+
+    public function modifyGetTaxonomyFiltersOptionValue(string $value, WP_Term $option, WP_Taxonomy $taxonomy): string
+    {
+        if (!is_a($option, 'WP_Term') || !in_array($taxonomy->name, $this->taxonomiesFromApi)) {
+            return $value;
+        }
+
+        return $option->term_id;
+    }
+
+    public function modifyPreGetTerms(WP_Term_Query $termQuery) {
+        
+        // If querying a taxonomy that is not from the API, return early
+        if (!isset($termQuery->query_vars['taxonomy']) || !in_array($termQuery->query_vars['taxonomy'][0], $this->taxonomiesFromApi)) {
+            return;
+        }
+
+        // Set suppress filters to false
+        $termQuery->query_vars['suppress_filters'] = false;
     }
 
     public function modifyGetTerms(array $terms, $taxonomy, array $queryVars, WP_Term_Query $termQuery): array
@@ -51,6 +75,8 @@ class CustomTaxonomiesFromApi
             return $terms;
         }
 
-        return CustomTaxonomyFromApi::getCollection(null, $queryVars['taxonomy'][0]);
+        $termQuery = new WP_Term_Query($queryVars);
+
+        return CustomTaxonomyFromApi::getCollection($termQuery, $queryVars['taxonomy'][0]);
     }
 }

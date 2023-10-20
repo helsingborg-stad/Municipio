@@ -105,6 +105,11 @@ class Archive extends \Municipio\Controller\BaseController
             return false;
         }
         $term = get_queried_object();
+
+        if (is_null($term)) {
+            return false;
+        }
+
         return \Municipio\Helper\Term::getTermColour($term->term_id, $term->taxonomy);
     }
 
@@ -116,7 +121,13 @@ class Archive extends \Municipio\Controller\BaseController
         if (!is_tax()) {
             return false;
         }
+        
         $term = get_queried_object();
+
+        if (is_null($term)) {
+            return false;
+        }
+
         return \Municipio\Helper\Term::getTermIcon($term->term_id, $term->taxonomy);
     }
 
@@ -441,7 +452,14 @@ class Archive extends \Municipio\Controller\BaseController
                 if (is_array($terms) && !empty($terms)) {
                     foreach ($terms as $option) {
                         if (!empty($option->name)) {
-                            $options[$option->slug] = ucfirst($option->name) . " (" . $option->count . ")";
+                            
+                            $value = $option->slug;
+                            $label = ucfirst($option->name) . " (" . $option->count . ")";
+
+                            $value = apply_filters('Municipio/Archive/getTaxonomyFilters/option/value', $value, $option, $taxonomy);
+                            $label = apply_filters('Municipio/Archive/getTaxonomyFilters/option/label', $label, $option, $taxonomy);
+
+                            $options[$value] = $label;
                         }
                     }
                 }
