@@ -4,6 +4,7 @@ namespace Municipio\Helper;
 
 class RestRequestHelper
 {
+    private const CACHE_GROUP = 'municipioRestRequest';
     private const CACHE_KEY_PREFIX = 'request_';
     private const CACHE_TTL        = HOUR_IN_SECONDS;
 
@@ -40,12 +41,12 @@ class RestRequestHelper
     private static function setCache(string $cacheKey, $data): void
     {
         if (!empty($cacheKey)) {
-            wp_cache_set($cacheKey, $data, '', self::CACHE_TTL);
+            wp_cache_set($cacheKey, $data, self::CACHE_GROUP, self::CACHE_TTL);
         }
     }
 
     private static function getFromCache(string $cacheKey)
     {
-        return wp_cache_get($cacheKey, '');
+        return wp_cache_get($cacheKey, self::CACHE_GROUP);
     }
 }
