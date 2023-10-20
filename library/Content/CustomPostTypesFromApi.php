@@ -55,7 +55,7 @@ class CustomPostTypesFromApi
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 10, 5);
 
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
-        add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'modifySchoolPage'], 10, 3);
+        add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'addParentToPostWithParentPostType'], 10, 3);
         // add_filter('Municipio/Controller/Archive/Data', [$this, 'modifyArchiveData'], 10, 1);
 
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 10, 1);
@@ -151,12 +151,15 @@ class CustomPostTypesFromApi
         return CustomPostTypeFromApi::getMeta($objectId, $metaKey, $single, $metaType, $postType) ?? $value;
     }
 
-    public function modifySchoolPage(WP_Post $wpPost, object $restApiPost, string $postType)
+    public function addParentToPostWithParentPostType(WP_Post $wpPost, object $restApiPost, string $postType)
     {
-        if ($postType === 'school-page') {
-            $wpPost->post_parent = $restApiPost->acf->parent_school ?? 0;
+        if (!isset($this->postTypesWithParentPostTypes[$postType])) {
+            return $wpPost;
         }
-        
+
+        // TODO: replace with real parent from API.
+        $wpPost->post_parent = $restApiPost->acf->parent_school ?? 0;
+
         return $wpPost;
     }
 
