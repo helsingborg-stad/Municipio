@@ -92,7 +92,7 @@ class CustomPostTypeFromApi
         return null;
     }
 
-    private static function setupPostTypes()
+    private static function setupPostTypes():void
     {
         $typeDefinitions = CustomPostType::getTypeDefinitions();
         $postTypesFromApi = array_filter(
@@ -100,6 +100,10 @@ class CustomPostTypeFromApi
             fn ($typeDefinition) =>
             isset($typeDefinition['api_source_url']) && !empty($typeDefinition['api_source_url'])
         );
+
+        if( empty($postTypesFromApi) ) {
+            return;
+        }
 
         foreach ($postTypesFromApi as $postType) {
             $postTypeName = sanitize_title(substr($postType['post_type_name'], 0, 19));

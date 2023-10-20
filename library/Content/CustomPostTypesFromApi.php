@@ -24,7 +24,9 @@ class CustomPostTypesFromApi
         $postTypesFromApi = array_filter(
             $typeDefinitions,
             fn ($typeDefinition) =>
-            isset($typeDefinition['api_source_url']) && !empty($typeDefinition['api_source_url'])
+                isset($typeDefinition['api_source_url']) &&
+                !empty($typeDefinition['api_source_url']) &&
+                filter_var($typeDefinition['api_source_url'], FILTER_VALIDATE_URL) !== false
         );
 
         return array_map(fn ($postType) => sanitize_title(substr($postType['post_type_name'], 0, 19)), $postTypesFromApi);
@@ -39,6 +41,10 @@ class CustomPostTypesFromApi
             fn ($typeDefinition) =>
             isset($typeDefinition['parent_post_types']) && !empty($typeDefinition['parent_post_types'])
         );
+
+        if( empty($matches) ) {
+            return [];
+        }
 
         foreach($matches as $match) {
             $postType = sanitize_title(substr($match['post_type_name'], 0, 19));
@@ -89,11 +95,11 @@ class CustomPostTypesFromApi
         }
 
         // if post type in entity registry
-        if (!isset($this->postTypesWithParentPostTypes[$queriedObject->post_type])) {
-            return $pageData;
-        }
-
-        if (empty($queriedObject->post_parent)) {
+        if (
+            !isset($this->postTypesWithParentPostTypes[$queriedObject->post_type]) ||
+            !is_array($queriedObject->post_type) ||
+            empty($queriedObject->post_parent)
+        ) {
             return $pageData;
         }
 

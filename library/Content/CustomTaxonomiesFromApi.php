@@ -22,7 +22,9 @@ class CustomTaxonomiesFromApi
         $taxonomiesFromApi = array_filter(
             $taxonomyDefinitions,
             fn ($taxonomyDefinition) =>
-            isset($taxonomyDefinition['api_source_url']) && !empty($taxonomyDefinition['api_source_url'])
+                isset($taxonomyDefinition['api_source_url']) &&
+                !empty($taxonomyDefinition['api_source_url'] ) &&
+                filter_var($taxonomyDefinition['api_source_url'], FILTER_VALIDATE_URL) !== false
         );
 
         return array_map(fn ($taxonomyDefinition) => sanitize_title($taxonomyDefinition['label']), $taxonomiesFromApi);

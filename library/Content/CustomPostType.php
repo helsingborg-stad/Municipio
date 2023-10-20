@@ -42,6 +42,10 @@ class CustomPostType
     {
         $typeDefinitions = self::getTypeDefinitions();
 
+        if (empty($typeDefinitions)) {
+            return;
+        }
+
         foreach ($typeDefinitions as $typeDefinition) {
 
             $postTypeFromAPI = $this->isPostTypeFromAPI($typeDefinition);

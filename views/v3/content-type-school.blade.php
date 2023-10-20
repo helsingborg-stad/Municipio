@@ -145,13 +145,15 @@
         @endif
     @endif
 
-    <div class="o-grid o-grid--half-gutter">
-        @foreach ($accordions as $accordion)
-            @accordion([
-                'list'=> $accordion['list'], 'classList' => ['u-color__bg--lightest', 'u-box-shadow--3']])
-            @endaccordion
-        @endforeach
-    </div>
+    @if(!empty($accordions))
+        <div class="o-grid o-grid--half-gutter">
+            @foreach ($accordions as $accordion)
+                @accordion([
+                    'list'=> $accordion['list'], 'classList' => ['u-color__bg--lightest', 'u-box-shadow--3']])
+                @endaccordion
+            @endforeach
+        </div>
+    @endif
     
     @if( $socialMediaLinks )
 
