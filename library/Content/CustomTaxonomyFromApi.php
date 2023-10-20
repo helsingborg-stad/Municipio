@@ -96,6 +96,13 @@ class CustomTaxonomyFromApi {
             }
     
             switch ($key) {
+                case 'object_ids':
+                    if (is_array($value)) {
+                        $rest_query['post'] = implode(',', array_filter($value, 'is_numeric'));
+                    } else if (is_numeric($value)) {
+                        $rest_query['post'] = $value;
+                    }
+                    break;
                 case 'taxonomy':
                     if (is_array($value)) {
                         $rest_query['taxonomy'] = implode(',', $value);
