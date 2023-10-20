@@ -152,7 +152,7 @@ class CustomPostTypeFromApi
         $wpPost->menu_order            = $restApiPost->menu_order ?? 0;
         $wpPost->post_type             = $postType;
         $wpPost->post_mime_type        = $restApiPost->mime_type ?? '';
-        $wpPost->comment_count         = $restApiPost->comment_count ?? 0;
+        $wpPost->comment_count         = 0;
         $wpPost->filter                = 'raw';
 
         return apply_filters('Municipio/Content/RestApiPostToWpPost', $wpPost, $restApiPost, $postType);
