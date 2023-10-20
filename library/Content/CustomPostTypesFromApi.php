@@ -53,10 +53,8 @@ class CustomPostTypesFromApi
         add_filter('post_type_link', [$this, 'modifyPostTypeLink'], 10, 2);
         add_filter('posts_results', [$this, 'modifyPostsResults'], 10, 2);
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 10, 5);
-
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
         add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'addParentToPostWithParentPostType'], 10, 3);
-        // add_filter('Municipio/Controller/Archive/Data', [$this, 'modifyArchiveData'], 10, 1);
 
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 10, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 10, 1);
@@ -161,47 +159,6 @@ class CustomPostTypesFromApi
         $wpPost->post_parent = $restApiPost->acf->parent_school ?? 0;
 
         return $wpPost;
-    }
-
-    public function modifyArchiveData(array $data): array
-    {
-        if (!$this->shouldApplyModifier($data)) {
-            return $data;
-        }
-
-        $preparedPosts = [
-            'items'    => [],
-            'headings' => [
-                __('Förskola', ASI_TEXT_DOMAIN),
-                __('Område', ASI_TEXT_DOMAIN),
-            ]
-        ];
-
-        if (is_array($data['posts']['items']) && !empty($data['posts']['items'])) {
-            foreach ($data['posts']['items'] as $post) {
-                $areaTerms = wp_get_post_terms($post['id'], 'area');
-                $areaName  = !empty($areaTerms) ? reset($areaTerms)->name : '';
-
-                $title = sprintf(
-                    '<a href="%s" title="%s">%s</a>',
-                    $post['href'],
-                    $post['columns'][0],
-                    $post['columns'][0]
-                );
-
-                $preparedPosts['items'][] = [
-                    'columns' => [
-                        $title,
-                        $areaName
-                    ]
-                ];
-            }
-
-            //Assign as list
-            $data['posts'] = $preparedPosts;
-        }
-
-        return $data;
     }
 
     public function preventSuppressFiltersOnWpQuery(WP_Query $query): void
