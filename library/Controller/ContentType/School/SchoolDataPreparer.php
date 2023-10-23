@@ -292,21 +292,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $information = $this->postMeta->information;
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [
-                [
-                    'heading' => __('About the school', 'municipio'),
-                    'content' => $information->about_us
-                ]
-            ]];
+            $accordions[] = ['list' => [$this->getAccordionListItem(
+                __('About the school', 'municipio'),
+                $information->about_us
+            )]];
         }
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [
-                [
-                    'heading' => __('How we work', 'municipio'),
-                    'content' => $information->how_we_work
-                ]
-            ]];
+            $accordions[] = ['list' => [$this->getAccordionListItem(
+                __('How we work', 'municipio'),
+                $information->how_we_work
+            )]];
         }
 
         if (isset($information->optional) && !empty($information->optional)) {
@@ -316,16 +312,21 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     continue;
                 }
 
-                $accordions[] = ['list' => [
-                    [
-                        'heading' => $optional->heading ?? '',
-                        'content' => $optional->content ?? ''
-                    ]
-                ]];
+                $accordions[] = ['list' => [$this->getAccordionListItem(
+                    $optional->heading,
+                    $optional->content
+                )]];
             }
         }
 
         $this->data['accordions'] = $accordions;
+    }
+
+    private function getAccordionListItem(?string $heading, ?string $text):array {
+        return [
+            'heading' => $heading ?? '',
+            'content' => wpautop($text ?? '')
+        ];
     }
 
     private function appendViewVisitingData(): void
