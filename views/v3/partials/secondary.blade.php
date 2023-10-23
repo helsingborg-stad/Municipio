@@ -66,10 +66,10 @@
                                         @endslot
                                     @endif
                                     @slot('before')
-                                        @if (!empty($place->thumbnail['src']))
+                                        @if (!empty($place->images['thumbnail1:1']['src']))
                                             @image([
-                                                'src' => $place->thumbnail['src'],
-                                                'alt' => $place->thumbnail['alt'] ? $place->thumbnail['alt'] : $place->postTitle,
+                                                'src' => $place->images['thumbnail3:4']['src'],
+                                                'alt' => $place->images['thumbnail1:1']['alt'] ? $place->images['thumbnail1:1']['alt'] : $place->postTitle,
                                                 'classList' => ['u-width--100']
                                             ])
                                             @endimage
