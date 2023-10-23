@@ -158,7 +158,7 @@ class CustomPostTypeFromApi
         return apply_filters('Municipio/Content/RestApiPostToWpPost', $wpPost, $restApiPost, $postType);
     }
 
-    function convertWPQueryToRestParamsString(WP_Query $wpQuery): string
+    public static function convertWPQueryToRestParamsString(WP_Query $wpQuery): string
     {
         $rest_query = [];
 
