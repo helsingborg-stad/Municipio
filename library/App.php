@@ -60,6 +60,14 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
+         * Content from API
+         */
+        $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
+        $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
+        $customPostTypesFromApi->addHooks();
+        $customTaxonomiesFromApi->addHooks();
+
+        /**
          * Oembed
          */
         new \Municipio\Oembed\OembedFilters();
