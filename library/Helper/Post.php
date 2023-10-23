@@ -118,43 +118,36 @@ class Post
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
 
-
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
-            if (empty($postObject->post_excerpt)) {
-                //Create excerpt if not defined by editor
-                $postObject->excerpt = wp_trim_words(
-                    $postObject->post_content,
-                    apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
-                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
-                );
+            $excerpt = self::getPostExcerpt($postObject);
+            //Create excerpt if not defined by editor
+            $postObject->excerpt = wp_trim_words(
+                $excerpt,
+                apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
+                apply_filters('Municipio/Helper/Post/MoreTag', "...")
+            );
 
-                //Create excerpt if not defined by editor
-                $postObject->excerpt_short = wp_trim_words(
-                    $postObject->post_content,
-                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
-                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
-                );
+            //Create excerpt if not defined by editor
+            $postObject->excerpt_short = wp_trim_words(
+                $excerpt,
+                apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
+                apply_filters('Municipio/Helper/Post/MoreTag', "...")
+            );
 
-                $postObject->excerpt_shorter =
-                wp_trim_words(
-                    $postObject->post_content,
-                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
-                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
-                );
+            $postObject->excerpt_shorter =
+            wp_trim_words(
+                $excerpt,
+                apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
+                apply_filters('Municipio/Helper/Post/MoreTag', "...")
+            );
 
-                //No content in post
-                if (empty($postObject->excerpt)) {
-                    $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
-                }
-            } else {
-                $postObject->excerpt_short = wp_trim_words(
-                    $postObject->post_content,
-                    apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
-                    apply_filters('Municipio/Helper/Post/MoreTag', "...")
-                );
+            //No content in post
+            if (empty($postObject->excerpt)) {
+                $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
             }
         }
+
         //Get filtered content
         if (!$passwordRequired && in_array('post_content_filtered', $appendFields)) {
             //Parse lead
@@ -191,7 +184,6 @@ class Post
             // Build post_content_filtered
             $postObject->post_content_filtered = $excerpt . $content;
         }
-
 
         //Get permalink
         if (in_array('permalink', $appendFields)) {
@@ -255,6 +247,19 @@ class Post
         }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
+    }
+
+    private static function getPostExcerpt($postObject) {
+        if ($postObject->post_excerpt) {
+            return $postObject->post_excerpt;
+        }
+        
+        if (!empty($postObject->post_content) && strpos($postObject->post_content, '<!--more-->')) {
+                $divided = explode('<!--more-->', $postObject->post_content);
+                return !empty(end($divided)) ? end($divided) : $postObject->post_content;
+        }
+        
+        return $postObject->post_content;
     }
 
     private static function getPostTermIcon($postId, $postType)
