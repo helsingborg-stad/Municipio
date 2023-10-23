@@ -191,7 +191,7 @@
         @iframe([
             'src' => $video,
             'height' => 600,
-            'labels' => (object)['knownLabels' => (object)['button' => '', 'title' => '', 'info' => '']],
+            'labels' => ['knownLabels' => ['button' => '', 'title' => '', 'info' => ''], 'unknownLabels' => ['button' => '', 'title' => '', 'info' => '']],
         ])
         @endiframe
     @endif
