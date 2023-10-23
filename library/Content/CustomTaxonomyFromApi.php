@@ -67,7 +67,7 @@ class CustomTaxonomyFromApi
             return [];
         }
 
-        $restParams = !empty($wpQuery)
+        $restParams = !empty($termQuery)
             ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($termQuery->query_vars)
             : '';
 
