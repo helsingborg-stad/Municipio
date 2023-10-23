@@ -139,6 +139,11 @@ class Template
         $isArchive = fn() => is_archive() || is_home();
 
         $hasContentType = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
+        $hasSpecificContentType = function (string $type): bool {
+            return
+                ($contentType = ContentTypeHelper::getContentType(get_post_type() ?? '')) &&
+                $contentType->getKey() === $type;
+        };
 
         $templateController = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
@@ -154,6 +159,11 @@ class Template
                 'condition'       => $hasContentType() && $isSingular(),
                 'controllerClass' => \Municipio\Controller\SingularContentType::class,
                 'controllerPath'  => ControllerHelper::locateController('SingularContentType'),
+            ],
+            [
+                'condition'       => $hasSpecificContentType('school') && $isArchive(),
+                'controllerClass' => \Municipio\Controller\SchoolArchiveContentType::class,
+                'controllerPath'  => ControllerHelper::locateController('SchoolArchiveContentType'),
             ],
             [
                 'condition'       => $hasContentType() && $isArchive(),

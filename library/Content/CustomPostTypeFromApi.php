@@ -3,6 +3,7 @@
 namespace Municipio\Content;
 
 use Municipio\Helper\RestRequestHelper;
+use Municipio\Helper\WPQueryToRestParamsConverter;
 use stdClass;
 use WP_Post;
 use WP_Query;
@@ -19,8 +20,11 @@ class CustomPostTypeFromApi
             return [];
         }
 
-        $queryParams  = !empty($wpQuery) ? self::convertWPQueryToRestQuery($wpQuery) : '';
-        $postsFromApi = RestRequestHelper::getFromApi("{$url}?{$queryParams}");
+        $restParams = !empty($wpQuery)
+            ? '?' . WPQueryToRestParamsConverter::convertToRestParamsString($wpQuery->query_vars)
+            : '';
+
+        $postsFromApi = RestRequestHelper::getFromApi($url . $restParams);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
             return [];
@@ -61,10 +65,10 @@ class CustomPostTypeFromApi
             return null;
         }
 
-        if( is_numeric($id) ) {
+        if (is_numeric($id)) {
             return "{$url}/{$id}";
         }
-        
+
         return "{$url}/?slug={$id}";
     }
 
@@ -92,7 +96,7 @@ class CustomPostTypeFromApi
         return null;
     }
 
-    private static function setupPostTypes():void
+    private static function setupPostTypes(): void
     {
         $typeDefinitions = CustomPostType::getTypeDefinitions();
         $postTypesFromApi = array_filter(
@@ -101,7 +105,7 @@ class CustomPostTypeFromApi
             isset($typeDefinition['api_source_url']) && !empty($typeDefinition['api_source_url'])
         );
 
-        if( empty($postTypesFromApi) ) {
+        if (empty($postTypesFromApi)) {
             return;
         }
 
@@ -156,24 +160,5 @@ class CustomPostTypeFromApi
         $wpPost->filter                = 'raw';
 
         return apply_filters('Municipio/Content/RestApiPostToWpPost', $wpPost, $restApiPost, $postType);
-    }
-
-    private static function convertWPQueryToRestQuery($wpQuery): string
-    {
-        $rest_query = '';
-
-        // Loop through all query vars and add them to the REST query string
-        foreach ($wpQuery->query_vars as $key => $value) {
-            switch ($key) {
-                case 'post__in':
-                    $rest_query .= 'include=' . implode(',', $value) . '&';
-                    break;
-            }
-        }
-
-        // Remove the trailing ampersand
-        $rest_query = rtrim($rest_query, '&');
-
-        return $rest_query;
     }
 }

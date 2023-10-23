@@ -3,15 +3,18 @@
 namespace Municipio\Content;
 
 use Municipio\Helper\RestRequestHelper;
+use Municipio\Helper\WPTermQueryToRestParamsConverter;
 use WP_Term;
 use WP_Term_Query;
 
-class CustomTaxonomyFromApi {
+class CustomTaxonomyFromApi
+{
 
     private static ?array $taxonomies = null;
 
-    private static function getCollectionUrl(string $taxonomy):?string {
-        
+    private static function getCollectionUrl(string $taxonomy): ?string
+    {
+
         if (self::$taxonomies === null) {
             self::setupTaxonomies();
         }
@@ -23,8 +26,9 @@ class CustomTaxonomyFromApi {
         return null;
     }
 
-    private static function setupTaxonomies(): void {
-        
+    private static function setupTaxonomies(): void
+    {
+
         $taxonomyDefinitions = CustomTaxonomy::getTypeDefinitions();
 
         $taxonomiesFromApi = array_filter(
@@ -42,7 +46,7 @@ class CustomTaxonomyFromApi {
     {
         $url = self::getSingleUrl($id, $taxonomy);
 
-        if( empty($url) ) {
+        if (empty($url)) {
             return null;
         }
 
@@ -59,18 +63,21 @@ class CustomTaxonomyFromApi {
     {
         $url = self::getCollectionUrl($taxonomy);
 
-        if( empty($url) ) {
+        if (empty($url)) {
             return [];
         }
 
-        $url .= $termQuery ? self::convertWpTermQueryToWPRestAPIQueryString($termQuery) : '';
-        $termsFromApi = RestRequestHelper::getFromApi($url);
+        $restParams = !empty($wpQuery)
+            ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($termQuery->query_vars)
+            : '';
+
+        $termsFromApi = RestRequestHelper::getFromApi($url . $restParams);
 
         if (is_wp_error($termsFromApi) || !is_array($termsFromApi)) {
             return [];
         }
 
-        return array_map(fn($termFromApi) => self::convertRestApiTermToWPTerm($termFromApi, $taxonomy), $termsFromApi);
+        return array_map(fn ($termFromApi) => self::convertRestApiTermToWPTerm($termFromApi, $taxonomy), $termsFromApi);
     }
 
     private static function getSingleUrl($id, string $taxonomy): ?string
@@ -84,17 +91,6 @@ class CustomTaxonomyFromApi {
         return "{$url}/{$id}";
     }
 
-    private static function convertWpTermQueryToWPRestAPIQueryString(WP_Term_Query $termQuery): string
-    {
-        $queryString = '?';
-
-        if ($termQuery->query_vars['object_ids']) {
-            $queryString .= 'post=' . implode(',', $termQuery->query_vars['object_ids']) . '&';
-        }
-
-        return rtrim($queryString, '&');
-    }
-    
     private static function convertRestApiTermToWPTerm(object $termFromApi, string $taxonomyName): WP_Term
     {
         $term                   = new WP_Term(new \stdClass());
