@@ -3,15 +3,18 @@
 namespace Municipio\Content;
 
 use Municipio\Helper\RestRequestHelper;
+use Municipio\Helper\WPTermQueryToRestParamsConverter;
 use WP_Term;
 use WP_Term_Query;
 
-class CustomTaxonomyFromApi {
+class CustomTaxonomyFromApi
+{
 
     private static ?array $taxonomies = null;
 
-    private static function getCollectionUrl(string $taxonomy):?string {
-        
+    private static function getCollectionUrl(string $taxonomy): ?string
+    {
+
         if (self::$taxonomies === null) {
             self::setupTaxonomies();
         }
@@ -23,8 +26,9 @@ class CustomTaxonomyFromApi {
         return null;
     }
 
-    private static function setupTaxonomies(): void {
-        
+    private static function setupTaxonomies(): void
+    {
+
         $taxonomyDefinitions = CustomTaxonomy::getTypeDefinitions();
 
         $taxonomiesFromApi = array_filter(
@@ -42,7 +46,7 @@ class CustomTaxonomyFromApi {
     {
         $url = self::getSingleUrl($id, $taxonomy);
 
-        if( empty($url) ) {
+        if (empty($url)) {
             return null;
         }
 
@@ -59,18 +63,21 @@ class CustomTaxonomyFromApi {
     {
         $url = self::getCollectionUrl($taxonomy);
 
-        if( empty($url) ) {
+        if (empty($url)) {
             return [];
         }
 
-        $url .= $termQuery ? '?' . self::convertWpTermQueryToWPRestAPIQueryString($termQuery) : '';
-        $termsFromApi = RestRequestHelper::getFromApi($url);
+        $restParams = !empty($wpQuery)
+            ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($termQuery->query_vars)
+            : '';
+
+        $termsFromApi = RestRequestHelper::getFromApi($url . $restParams);
 
         if (is_wp_error($termsFromApi) || !is_array($termsFromApi)) {
             return [];
         }
 
-        return array_map(fn($termFromApi) => self::convertRestApiTermToWPTerm($termFromApi, $taxonomy), $termsFromApi);
+        return array_map(fn ($termFromApi) => self::convertRestApiTermToWPTerm($termFromApi, $taxonomy), $termsFromApi);
     }
 
     private static function getSingleUrl($id, string $taxonomy): ?string
@@ -84,84 +91,6 @@ class CustomTaxonomyFromApi {
         return "{$url}/{$id}";
     }
 
-    private static function convertWpTermQueryToWPRestAPIQueryString(WP_Term_Query $termQuery): string
-    {
-        $rest_query = [];
-
-        // Loop through all query vars and map them to REST API parameters
-        foreach ($termQuery->query_vars as $key => $value) {
-            
-            if (empty($value)) {
-                continue;
-            }
-    
-            switch ($key) {
-                case 'object_ids':
-                    if (is_array($value)) {
-                        $rest_query['post'] = implode(',', array_filter($value, 'is_numeric'));
-                    } else if (is_numeric($value)) {
-                        $rest_query['post'] = $value;
-                    }
-                    break;
-                case 'taxonomy':
-                    if (is_array($value)) {
-                        $rest_query['taxonomy'] = implode(',', $value);
-                    } else if (is_string($value)) {
-                        $rest_query['taxonomy'] = $value;
-                    }
-                    break;
-                case 'order':
-                    if (in_array(strtolower($value), ['asc', 'desc'])) {
-                        $rest_query['order'] = strtolower($value);
-                    }
-                    break;
-                case 'orderby':
-                    if (is_string($value)) {
-                        $rest_query['orderby'] = $value;
-                    }
-                    break;
-                case 'hide_empty':
-                    if (is_bool($value)) {
-                        $rest_query['hide_empty'] = $value ? 'true' : 'false';
-                    }
-                    break;
-                case 'include':
-                case 'exclude':
-                case 'parent':
-                case 'parent_exclude':
-                    if (is_array($value)) {
-                        $rest_query[$key] = implode(',', array_filter($value, 'is_numeric'));
-                    } else if (is_numeric($value)) {
-                        $rest_query[$key] = $value;
-                    }
-                    break;
-                case 'slug':
-                    if (is_string($value)) {
-                        $rest_query['slug'] = $value;
-                    }
-                    break;
-                case 'offset':
-                case 'number':
-                    if (is_numeric($value)) {
-                        $rest_query[$key] = $value;
-                    }
-                    break;
-                case 'search':
-                    if (is_string($value)) {
-                        $rest_query['search'] = $value;
-                    }
-                    break;
-                // Add more cases as needed...
-            }
-        }
-
-        return implode('&', array_map(
-            function ($key, $value) { return sprintf('%s=%s', urlencode($key), urlencode($value)); },
-            array_keys($rest_query),
-            $rest_query
-        ));
-    }
-    
     private static function convertRestApiTermToWPTerm(object $termFromApi, string $taxonomyName): WP_Term
     {
         $term                   = new WP_Term(new \stdClass());
