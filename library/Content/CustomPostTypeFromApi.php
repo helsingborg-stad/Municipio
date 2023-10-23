@@ -3,6 +3,7 @@
 namespace Municipio\Content;
 
 use Municipio\Helper\RestRequestHelper;
+use Municipio\Helper\WPQueryToRestParamsConverter;
 use stdClass;
 use WP_Post;
 use WP_Query;
@@ -19,8 +20,11 @@ class CustomPostTypeFromApi
             return [];
         }
 
-        $url  .= !empty($wpQuery) ? '?' . self::convertWPQueryToRestParamsString($wpQuery) : '';
-        $postsFromApi = RestRequestHelper::getFromApi($url);
+        $restParams = !empty($wpQuery)
+            ? '?' . WPQueryToRestParamsConverter::convertToRestParamsString($wpQuery->query_vars)
+            : '';
+
+        $postsFromApi = RestRequestHelper::getFromApi($url . $restParams);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
             return [];
@@ -92,7 +96,7 @@ class CustomPostTypeFromApi
         return null;
     }
 
-    private static function setupPostTypes():void
+    private static function setupPostTypes(): void
     {
         $typeDefinitions = CustomPostType::getTypeDefinitions();
         $postTypesFromApi = array_filter(
@@ -101,7 +105,7 @@ class CustomPostTypeFromApi
             isset($typeDefinition['api_source_url']) && !empty($typeDefinition['api_source_url'])
         );
 
-        if( empty($postTypesFromApi) ) {
+        if (empty($postTypesFromApi)) {
             return;
         }
 
@@ -156,92 +160,5 @@ class CustomPostTypeFromApi
         $wpPost->filter                = 'raw';
 
         return apply_filters('Municipio/Content/RestApiPostToWpPost', $wpPost, $restApiPost, $postType);
-    }
-
-    public static function convertWPQueryToRestParamsString(WP_Query $wpQuery): string
-    {
-        $rest_query = [];
-
-        // Loop through all query vars and map them to REST API parameters
-        foreach ($wpQuery->query_vars as $key => $value) {
-            
-            if (empty($value)) {
-                continue;
-            }
-    
-            switch ($key) {
-                case 'p':
-                    if (is_numeric($value)) {
-                        $rest_query['id'] = $value;
-                    }
-                    break;
-                case 'name':
-                case 'pagename':
-                    if (is_string($value)) {
-                        $rest_query['slug'] = $value;
-                    }
-                    break;
-                case 'page_id':
-                    if (is_numeric($value)) {
-                        $rest_query['page'] = $value;
-                    }
-                    break;
-                case 'post__in':
-                case 'post__not_in':
-                    if (is_array($value)) {
-                        $rest_query[$key === 'post__in' ? 'include' : 'exclude'] = implode(',', $value);
-                    }
-                    break;
-                case 'posts_per_page':
-                    if (is_numeric($value)) {
-                        $rest_query['per_page'] = $value;
-                    }
-                    break;
-                case 'offset':
-                    if (is_numeric($value)) {
-                        $rest_query['offset'] = $value;
-                    }
-                    break;
-                case 'order':
-                    if (in_array(strtolower($value), ['asc', 'desc'])) {
-                        $rest_query['order'] = strtolower($value);
-                    }
-                    break;
-                case 'orderby':
-                    if (is_string($value)) {
-                        $rest_query['orderby'] = $value;
-                    }
-                    break;
-                case 's':
-                    if (is_string($value)) {
-                        $rest_query['search'] = $value;
-                    }
-                    break;
-                case 'tax_query':
-                    foreach ($value as $tax_query) {
-                        if (isset($tax_query['taxonomy'], $tax_query['field'], $tax_query['terms']) && $tax_query['field'] === 'term_id') {
-                            $rest_query[$tax_query['taxonomy']] = implode(',', $tax_query['terms']);
-                        }
-                    }
-                    break;
-                default:
-                    if (taxonomy_exists($key)) {
-                        $terms = is_array($value) ? array_filter($value, 'is_numeric') : (is_numeric($value) ? $value : null);
-                        if ($terms !== null) {
-                            $rest_query[$key] = is_array($terms) ? implode(',', $terms) : $terms;
-                        }
-                    }
-                    break;
-            }
-        }
-
-        // Join all parameters with '&' and return
-        return implode('&', array_map(
-            function ($key, $value) {
-                return sprintf('%s=%s', urlencode($key), urlencode($value));
-            },
-            array_keys($rest_query),
-            $rest_query
-        ));
     }
 }
