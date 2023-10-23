@@ -109,16 +109,16 @@
                                         'classList' => ['c-openstreetmap__post-icon']
                                     ])
                                     @endicon
-                                    @if (!empty($place->featuredImage['src']))
+                                    @if (!empty($place->images['featuredImage']['src']))
                                         @hero([
-                                            'image' => $place->featuredImage['src']
+                                            'image' => $place->images['featuredImage']['src']
                                         ])
                                         @endhero
                                     @endif
                                     <div class="u-margin__x--2">
                                         @paper([
                                             'attributeList' => [
-                                                'style' => !empty($place->featuredImage['src'])
+                                                'style' => !empty($place->images['featuredImage']['src'])
                                                     ? 'transform:translateY(calc(max(-50%, -50px)))'
                                                     : 'margin-top: 32px'
                                             ],
