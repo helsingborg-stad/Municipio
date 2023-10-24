@@ -141,6 +141,9 @@ class CustomPostTypesFromApi
             $posts = CustomPostTypeFromApi::getSingle($query->get('name'), $query->get('post_type'));
         } else {
             $posts = CustomPostTypeFromApi::getCollection($query, $query->get('post_type'));
+            $headers = CustomPostTypeFromApi::getCollectionHeaders($query, $query->get('post_type'));
+            $query->found_posts = $headers['x-wp-total'] ?? count($posts);
+            $query->max_num_pages = $headers['x-wp-totalpages'] ?? 1;
         }
 
         return is_array($posts) ? $posts : [$posts];

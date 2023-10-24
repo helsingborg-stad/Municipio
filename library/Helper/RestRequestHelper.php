@@ -32,6 +32,37 @@ class RestRequestHelper
 
         return $data;
     }
+    
+    /**
+     * @param string $apiUrl
+     * @return array|object|\WP_Error
+     */
+    public static function getHeadersFromApi(string $apiUrl)
+    {
+        $cacheKey   = self::getCacheKey($apiUrl) . '-headers';
+        $cacheValue = self::getFromCache($cacheKey);
+
+        if ($cacheValue) {
+            return $cacheValue;
+        }
+
+        try {
+            $response = wp_remote_get($apiUrl);
+            $responseHeaders  = wp_remote_retrieve_headers($response);
+
+            if (!is_a($responseHeaders, 'WpOrg\Requests\Utility\CaseInsensitiveDictionary')) {
+                throw new \Exception('No headers found');
+            }
+
+            $headers = $responseHeaders->getAll();
+            self::setCache($cacheKey, $headers);
+
+        } catch (\Exception $e) {
+            return new \WP_Error('rest_error', $e->getMessage());
+        }
+
+        return $headers;
+    }
 
     private static function getCacheKey($apiUrl): string
     {

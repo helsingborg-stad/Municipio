@@ -14,17 +14,13 @@ class CustomPostTypeFromApi
 
     public static function getCollection(?WP_Query $wpQuery, $postType): array
     {
-        $url = self::getCollectionUrl($postType);
+        $url = self::getCollectionUrl($postType, $wpQuery);
 
         if (empty($url)) {
             return [];
         }
 
-        $restParams = !empty($wpQuery)
-            ? '?' . WPQueryToRestParamsConverter::convertToRestParamsString($wpQuery->query_vars)
-            : '';
-
-        $postsFromApi = RestRequestHelper::getFromApi($url . $restParams);
+        $postsFromApi = RestRequestHelper::getFromApi($url);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
             return [];
@@ -34,6 +30,23 @@ class CustomPostTypeFromApi
             fn ($post) => self::convertRestApiPostToWPPost((object)$post, $postType),
             $postsFromApi
         );
+    }
+
+    public static function getCollectionHeaders(?WP_Query $wpQuery, $postType): array
+    {
+        $url = self::getCollectionUrl($postType, $wpQuery);
+
+        if (empty($url)) {
+            return [];
+        }
+
+        $headers = RestRequestHelper::getHeadersFromApi($url);
+
+        if (is_wp_error($headers) || !is_array($headers)) {
+            return [];
+        }
+
+        return $headers;
     }
 
     public static function getSingle($id, string $postType): ?WP_Post
@@ -115,17 +128,21 @@ class CustomPostTypeFromApi
         }
     }
 
-    private static function getCollectionUrl(string $postType): ?string
+    private static function getCollectionUrl(string $postType, ?WP_Query $wpQuery = null): ?string
     {
         if (self::$postTypes === null) {
             self::setupPostTypes();
         }
 
-        if (isset(self::$postTypes[$postType])) {
-            return self::$postTypes[$postType];
+        if (!isset(self::$postTypes[$postType])) {
+            return null;
         }
 
-        return null;
+        $restParams = !empty($wpQuery)
+            ? '?' . WPQueryToRestParamsConverter::convertToRestParamsString($wpQuery->query_vars)
+            : '';
+
+        return self::$postTypes[$postType] . $restParams;
     }
 
     /**

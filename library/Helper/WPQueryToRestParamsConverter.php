@@ -81,6 +81,11 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
                     $restQuery['per_page'] = $value;
                 }
                 break;
+            case 'paged':
+                if (is_numeric($value)) {
+                    $restQuery['page'] = $value;
+                }
+                break;
             case 'offset':
                 if (is_numeric($value)) {
                     $restQuery['offset'] = $value;
