@@ -357,7 +357,7 @@ class PostFilters
      */
     private function isMetaQuery($key)
     {
-        return in_array($key, array('post_date', 'post_modified', 'post_title'));
+        return !in_array($key, array('post_date', 'post_modified', 'post_title'));
     }
 
     /**
