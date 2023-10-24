@@ -88,9 +88,9 @@ class CustomPostTypesFromApi
         return $postLink;
     }
 
-    public function modifyBreadcrumbsItems(array $pageData, $queriedObject, $queriedObjectData): array
+    public function modifyBreadcrumbsItems(?array $pageData, $queriedObject, $queriedObjectData): array
     {
-        if (!is_a($queriedObject, 'WP_Post')) {
+        if (is_null($pageData) || !is_a($queriedObject, 'WP_Post')) {
             return $pageData;
         }
 
