@@ -10,6 +10,11 @@ export default (() => {
                 console.log("Settings: ", wp.customize.settings);
                 Object.keys(controls).forEach(key => {
                     const control = controls[key];
+                    const setting = control?.params;
+
+                    if (setting.hasOwnProperty('type') && setting.type == "kirki-react-colorful" && setting.hasOwnProperty('value') && setting.value == "") {
+                        control.setting.set('#0000000a');
+                    }
 
                     if (control.setting) {
                         control.setting.bind('error', (message: any) => {
