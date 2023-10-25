@@ -1,6 +1,10 @@
 @extends('templates.single')
 
     @section('article.title.after')
+    
+    @if ($post->postExcerpt)
+        {!! $post->postExcerpt !!}
+    @endif
 
     @if($notification)
         @notice([
@@ -11,10 +15,6 @@
             ]
         ])
         @endnotice
-    @endif
-    
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
     @endif
 
     @if($facadeSliderItems)
