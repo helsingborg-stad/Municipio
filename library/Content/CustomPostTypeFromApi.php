@@ -90,20 +90,20 @@ class CustomPostTypeFromApi
         $url         = self::getSingleUrl($objectId, $postType);
         $postFromApi = RestRequestHelper::getFromApi($url);
 
+        if (isset($postFromApi->acf) && isset($postFromApi->acf->$metaKey)) {
+            if (is_array($postFromApi->acf->$metaKey)) {
+                return [$postFromApi->acf->$metaKey];
+            }
+
+            return $postFromApi->acf->$metaKey;
+        }
+
         if (isset($postFromApi->$metaKey)) {
             if (is_array($postFromApi->$metaKey)) {
                 return [$postFromApi->$metaKey];
             }
 
             return $postFromApi->$metaKey;
-        }
-
-        if (isset($postFromApi->acf->$metaKey)) {
-            if (is_array($postFromApi->acf->$metaKey)) {
-                return [$postFromApi->acf->$metaKey];
-            }
-
-            return $postFromApi->acf->$metaKey;
         }
 
         return null;

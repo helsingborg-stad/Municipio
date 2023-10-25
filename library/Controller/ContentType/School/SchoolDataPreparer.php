@@ -221,6 +221,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $uspTerms = get_terms([
                 'taxonomy' => self::USP_TAXONOMY,
                 'include' => $this->postMeta->usp,
+                'orderby' => 'include',
                 'hide_empty' => false
             ]);
 
