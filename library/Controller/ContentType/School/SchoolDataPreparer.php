@@ -338,20 +338,24 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        foreach ($visitingAddresses as $visitingAddress) {
-            $visitingData[] = $visitingAddress->address;
-            $mapPins[] = [
-                'lat' => $visitingAddress->address->lat,
-                'lng' => $visitingAddress->address->lng,
-                'tooltip' => ['title' => $visitingAddress->address->address]
-            ];
-        }
-
-        $visitingData = array_map(function ($address) {
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(function ($address) use(&$mapPins) {
             $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $street = $address->address->street_name ?? '';
+            $streetNumber = $address->address->street_number ?? '';
+            $postCode = $address->address->post_code ?? '';
+            $city = $address->address->city ?? '';
+            $addressString = $street . ' ' . $streetNumber . ',<br>' . $postCode . ' ' . $city;
+            $mapPinTooltip = ['title' => $this->data['post']->postTitle ?? null, 'excerpt' => $addressString];
+            
+            $mapPins[] = [
+                'lat' => $address->address->lat,
+                'lng' => $address->address->lng,
+                'tooltip' => $mapPinTooltip
+            ];
             
             return [
-                'address' => $address->address,
+                'address' => $addressString,
                 'description' => $address->description ?? null,
                 'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
