@@ -256,7 +256,7 @@ class Post
         
         if (!empty($postObject->post_content) && strpos($postObject->post_content, '<!--more-->')) {
                 $divided = explode('<!--more-->', $postObject->post_content);
-                return !empty(end($divided)) ? end($divided) : $postObject->post_content;
+                return !empty($divided[0]) ? $divided[0] : $postObject->post_content;
         }
         
         return $postObject->post_content;
