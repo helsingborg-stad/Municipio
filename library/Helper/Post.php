@@ -251,7 +251,7 @@ class Post
 
     private static function getPostExcerpt($postObject) {
         if ($postObject->post_excerpt) {
-            return $postObject->post_excerpt;
+            return strip_shortcodes($postObject->post_excerpt);
         }
         
         if (!empty($postObject->post_content) && strpos($postObject->post_content, '<!--more-->')) {
@@ -259,7 +259,7 @@ class Post
                 return !empty($divided[0]) ? $divided[0] : $postObject->post_content;
         }
         
-        return $postObject->post_content;
+        return strip_shortcodes($postObject->post_content);
     }
 
     private static function getPostTermIcon($postId, $postType)
