@@ -304,35 +304,35 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewAccordionData(): void
     {
-        $accordions = [];
+        $accordionListItems = [];
         $information = $this->postMeta->information;
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('About the school', 'municipio'),
                 $information->about_us
-            )]];
+            );
         }
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('How we work', 'municipio'),
                 $information->how_we_work
-            )]];
+            );
         }
 
         if (isset($information->orientation) && !empty($information->orientation)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('Orientation', 'municipio'),
                 $information->orientation
-            )]];
+            );
         }
         
         if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('Our leisure center', 'municipio'),
                 $information->our_leisure_center
-            )]];
+            );
         }
 
         if (isset($information->optional) && !empty($information->optional)) {
@@ -342,14 +342,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     continue;
                 }
 
-                $accordions[] = ['list' => [$this->getAccordionListItem(
+                $accordionListItems[] = $this->getAccordionListItem(
                     $optional->heading,
                     $optional->content
-                )]];
+                );
             }
         }
 
-        $this->data['accordions'] = $accordions;
+        $this->data['accordionListItems'] = $accordionListItems;
     }
 
     private function getAccordionListItem(?string $heading, ?string $text):array {
