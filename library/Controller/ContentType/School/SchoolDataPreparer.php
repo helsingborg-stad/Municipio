@@ -67,6 +67,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'link_facebook',
             'link_instagram',
             'number_of_children',
+            'number_of_profiles',
             'number_of_students',
             'number_of_units',
             'open_hours',
@@ -188,6 +189,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
             if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
             }
+        }
+
+        if (!empty($this->postMeta->numberOfProfiles) ) {
+            $value = absint($this->postMeta->numberOfProfiles);
+            $label = sprintf(__('%s profiles', 'municipio'), $value);
+            $quickFacts[] = ['label' => $label];
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
