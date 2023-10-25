@@ -1,6 +1,10 @@
 @extends('templates.single')
 
     @section('article.title.after')
+    
+    @if ($post->postExcerpt)
+        {!! $post->postExcerpt !!}
+    @endif
 
     @if($notification)
         @notice([
@@ -11,10 +15,6 @@
             ]
         ])
         @endnotice
-    @endif
-    
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
     @endif
 
     @if($facadeSliderItems)
@@ -43,6 +43,13 @@
             </div>
 
         @endpaper
+    @endif
+
+    @if( $visitUs )
+        @typography(['element' => 'h2'])
+            {{$visitUs['title']}}
+        @endtypography
+        {!!$visitUs['content']!!}
     @endif
 
 
@@ -128,12 +135,12 @@
                 @foreach ($visitingAddresses as $visitingAddress)
                     <div class="o-grid-3@md">
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
-                            {{$visitingAddress['description']}}<br/>
-                            {{$visitingAddress['address']->street_name}} {{$visitingAddress['address']->street_number}}<br/>
-                            {{$visitingAddress['address']->post_code}} {{$visitingAddress['address']->city}}<br><br>
+                            @if($visitingAddress['description'])
+                                {{$visitingAddress['description']}}<br/>
+                            @endif
+                            {!!$visitingAddress['address']!!}
                             @link([
-                                'href' => $visitingAddress['mapsLink']['href'],
-                                'target' => '_blank'
+                                'href' => $visitingAddress['mapsLink']['href']
                             ])
                                 {{$visitingAddress['mapsLink']['text']}}
                             @endlink
@@ -145,14 +152,19 @@
         @endif
     @endif
 
-    @if(!empty($accordions))
-        <div class="o-grid o-grid--half-gutter">
-            @foreach ($accordions as $accordion)
-                @accordion([
-                    'list'=> $accordion['list'], 'classList' => ['u-color__bg--lightest', 'u-box-shadow--3']])
-                @endaccordion
-            @endforeach
-        </div>
+    @if(!empty($accordionListItems))
+        
+            @accordion([])
+                @foreach ($accordionListItems as $listItem)
+                    @accordion__item([
+                        'heading' => $listItem['heading'],
+                        'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--3', 'u-padding--2', 'u-border--0']
+                    ])
+                        {!!$listItem['content']!!}
+                    @endaccordion__item                    
+                @endforeach
+            @endaccordion
+        
     @endif
     
     @if( $socialMediaLinks )
@@ -197,17 +209,16 @@
     @endif
 
     @if($pages)
-        @collection(['classList' => ['o-grid']])
+        @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
                 @collection__item([
                     'containerAware' => true,
                     'link' => $page['link'],
-                    'classList' => [ 'o-grid-6@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--4']
+                    'classList' => [ 'o-grid-'.$pagesNumberOfColumns.'@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--3']
                 ])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'p', 'variant' => 'h4'])
                     {{$page['title']}}
                     @endtypography
-                    {!!$page['content']!!}
                 @endcollection__item
             @endforeach
         @endcollection

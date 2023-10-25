@@ -33,6 +33,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendViewNotificationData();
         $this->appendViewContactData();
         $this->appendViewQuickFactsData();
+        $this->appendViewVisitUsData();
         $this->appendViewApplicationData();
         $this->appendViewAccordionData();
         $this->appendViewVisitingData();
@@ -66,6 +67,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'link_facebook',
             'link_instagram',
             'number_of_children',
+            'number_of_profiles',
             'number_of_students',
             'number_of_units',
             'open_hours',
@@ -76,6 +78,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'notice_heading',
             'notice_content',
             'video',
+            'visit_us'
         ];
     }
 
@@ -160,13 +163,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (!empty($this->postMeta->numberOfChildren)) {
             $value = absint($this->postMeta->numberOfChildren);
-            $label = sprintf(__('%d children', 'municipio'), $value);
+            $label = sprintf(__('ca. %d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
         
         if (!empty($this->postMeta->numberOfStudents)) {
             $value = absint($this->postMeta->numberOfStudents);
-            $label = sprintf(__('%d students', 'municipio'), $value);
+            $label = sprintf(__('ca. %d students', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
@@ -186,6 +189,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
             if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
             }
+        }
+
+        if (!empty($this->postMeta->numberOfProfiles) ) {
+            $value = absint($this->postMeta->numberOfProfiles);
+            $label = sprintf(__('%s profiles', 'municipio'), $value);
+            $quickFacts[] = ['label' => $label];
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
@@ -219,6 +228,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $uspTerms = get_terms([
                 'taxonomy' => self::USP_TAXONOMY,
                 'include' => $this->postMeta->usp,
+                'orderby' => 'include',
                 'hide_empty' => false
             ]);
 
@@ -236,6 +246,20 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $this->data['quickFactsTitle'] = __('Facts', 'municipio');
             $this->data['quickFacts'] = $quickFacts;
         }
+    }
+
+    private function appendViewVisitUsData(): void
+    {
+        $visitUs = null;
+
+        if (isset($this->postMeta->visitUs) && !empty($this->postMeta->visitUs)) {
+            $visitUs = [
+                'title' => __('Visit us', 'municipio'),
+                'content' => $this->postMeta->visitUs,
+            ];
+        }
+
+        $this->data['visitUs'] = $visitUs;
     }
 
     private function appendViewApplicationData(): void
@@ -288,21 +312,35 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewAccordionData(): void
     {
-        $accordions = [];
+        $accordionListItems = [];
         $information = $this->postMeta->information;
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('About the school', 'municipio'),
                 $information->about_us
-            )]];
+            );
         }
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordions[] = ['list' => [$this->getAccordionListItem(
+            $accordionListItems[] = $this->getAccordionListItem(
                 __('How we work', 'municipio'),
                 $information->how_we_work
-            )]];
+            );
+        }
+
+        if (isset($information->orientation) && !empty($information->orientation)) {
+            $accordionListItems[] = $this->getAccordionListItem(
+                __('Orientation', 'municipio'),
+                $information->orientation
+            );
+        }
+        
+        if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
+            $accordionListItems[] = $this->getAccordionListItem(
+                __('Our leisure center', 'municipio'),
+                $information->our_leisure_center
+            );
         }
 
         if (isset($information->optional) && !empty($information->optional)) {
@@ -312,14 +350,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     continue;
                 }
 
-                $accordions[] = ['list' => [$this->getAccordionListItem(
+                $accordionListItems[] = $this->getAccordionListItem(
                     $optional->heading,
                     $optional->content
-                )]];
+                );
             }
         }
 
-        $this->data['accordions'] = $accordions;
+        $this->data['accordionListItems'] = $accordionListItems;
     }
 
     private function getAccordionListItem(?string $heading, ?string $text):array {
@@ -338,20 +376,24 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        foreach ($visitingAddresses as $visitingAddress) {
-            $visitingData[] = $visitingAddress->address;
-            $mapPins[] = [
-                'lat' => $visitingAddress->address->lat,
-                'lng' => $visitingAddress->address->lng,
-                'tooltip' => ['title' => $visitingAddress->address->address]
-            ];
-        }
-
-        $visitingData = array_map(function ($address) {
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(function ($address) use(&$mapPins) {
             $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $street = $address->address->street_name ?? '';
+            $streetNumber = $address->address->street_number ?? '';
+            $postCode = $address->address->post_code ?? '';
+            $city = $address->address->city ?? '';
+            $addressString = $street . ' ' . $streetNumber . ',<br>' . $postCode . ' ' . $city;
+            $mapPinTooltip = ['title' => $this->data['post']->postTitle ?? null, 'excerpt' => $addressString];
+            
+            $mapPins[] = [
+                'lat' => $address->address->lat,
+                'lng' => $address->address->lng,
+                'tooltip' => $mapPinTooltip
+            ];
             
             return [
-                'address' => $address->address,
+                'address' => $addressString,
                 'description' => $address->description ?? null,
                 'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
@@ -409,6 +451,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'linkText' => __('Read more', 'municipio')
             ];
         }, $pages);
+
+        $this->data['pagesNumberOfColumns'] = sizeof($this->data['pages']) === 1 ? 12 : 6;
     }
 
     private function appendSocialMediaLinksData(): void
