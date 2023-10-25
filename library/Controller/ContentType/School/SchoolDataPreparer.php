@@ -321,6 +321,20 @@ class SchoolDataPreparer implements DataPrepearerInterface
             )]];
         }
 
+        if (isset($information->orientation) && !empty($information->orientation)) {
+            $accordions[] = ['list' => [$this->getAccordionListItem(
+                __('Orientation', 'municipio'),
+                $information->orientation
+            )]];
+        }
+        
+        if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
+            $accordions[] = ['list' => [$this->getAccordionListItem(
+                __('Our leisure center', 'municipio'),
+                $information->our_leisure_center
+            )]];
+        }
+
         if (isset($information->optional) && !empty($information->optional)) {
             foreach ($information->optional as $optional) {
 
