@@ -133,8 +133,7 @@
                             @endif
                             {!!$visitingAddress['address']!!}
                             @link([
-                                'href' => $visitingAddress['mapsLink']['href'],
-                                'target' => '_blank'
+                                'href' => $visitingAddress['mapsLink']['href']
                             ])
                                 {{$visitingAddress['mapsLink']['text']}}
                             @endlink
