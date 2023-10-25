@@ -214,7 +214,7 @@
                 @collection__item([
                     'containerAware' => true,
                     'link' => $page['link'],
-                    'classList' => [ 'o-grid-6@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--4']
+                    'classList' => [ 'o-grid-'.$pagesNumberOfColumns.'@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--4']
                 ])
                     @typography(['element' => 'h4'])
                     {{$page['title']}}

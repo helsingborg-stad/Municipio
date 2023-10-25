@@ -451,6 +451,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'linkText' => __('Read more', 'municipio')
             ];
         }, $pages);
+
+        $this->data['pagesNumberOfColumns'] = sizeof($this->data['pages']) === 1 ? 12 : 6;
     }
 
     private function appendSocialMediaLinksData(): void
