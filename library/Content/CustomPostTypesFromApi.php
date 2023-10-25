@@ -62,8 +62,8 @@ class CustomPostTypesFromApi
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
         add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'addParentToPostWithParentPostType'], 10, 3);
 
-        add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 10, 1);
-        add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 10, 1);
+        add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
+        add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
     }
 
