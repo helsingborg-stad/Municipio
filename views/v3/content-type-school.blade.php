@@ -209,17 +209,16 @@
     @endif
 
     @if($pages)
-        @collection(['classList' => ['o-grid']])
+        @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
                 @collection__item([
                     'containerAware' => true,
                     'link' => $page['link'],
-                    'classList' => [ 'o-grid-'.$pagesNumberOfColumns.'@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--4']
+                    'classList' => [ 'o-grid-'.$pagesNumberOfColumns.'@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--3']
                 ])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'p', 'variant' => 'h4'])
                     {{$page['title']}}
                     @endtypography
-                    {!!$page['content']!!}
                 @endcollection__item
             @endforeach
         @endcollection
