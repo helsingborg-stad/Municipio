@@ -33,6 +33,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendViewNotificationData();
         $this->appendViewContactData();
         $this->appendViewQuickFactsData();
+        $this->appendViewVisitUsData();
         $this->appendViewApplicationData();
         $this->appendViewAccordionData();
         $this->appendViewVisitingData();
@@ -76,6 +77,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'notice_heading',
             'notice_content',
             'video',
+            'visit_us'
         ];
     }
 
@@ -236,6 +238,20 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $this->data['quickFactsTitle'] = __('Facts', 'municipio');
             $this->data['quickFacts'] = $quickFacts;
         }
+    }
+
+    private function appendViewVisitUsData(): void
+    {
+        $visitUs = null;
+
+        if (isset($this->postMeta->visitUs) && !empty($this->postMeta->visitUs)) {
+            $visitUs = [
+                'title' => __('Visit us', 'municipio'),
+                'content' => $this->postMeta->visitUs,
+            ];
+        }
+
+        $this->data['visitUs'] = $visitUs;
     }
 
     private function appendViewApplicationData(): void

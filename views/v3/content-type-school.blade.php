@@ -45,6 +45,13 @@
         @endpaper
     @endif
 
+    @if( $visitUs )
+        @typography(['element' => 'h2'])
+            {{$visitUs['title']}}
+        @endtypography
+        {!!$visitUs['content']!!}
+    @endif
+
 
     @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
         
