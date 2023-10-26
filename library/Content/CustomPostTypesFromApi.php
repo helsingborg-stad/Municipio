@@ -12,7 +12,7 @@ class CustomPostTypesFromApi
 
     public function __construct()
     {
-        add_action('init', function() {
+        add_action('init', function () {
             $this->postTypesFromApi = $this->getPostTypesFromApi();
             $this->postTypesWithParentPostTypes = $this->getPostTypesWithParentPostTypes();
         }, 10);
@@ -24,7 +24,7 @@ class CustomPostTypesFromApi
         $postTypesFromApi = array_filter(
             $typeDefinitions,
             fn ($typeDefinition) =>
-                isset($typeDefinition['api_source_url']) &&
+            isset($typeDefinition['api_source_url']) &&
                 !empty($typeDefinition['api_source_url']) &&
                 filter_var($typeDefinition['api_source_url'], FILTER_VALIDATE_URL) !== false
         );
@@ -32,7 +32,8 @@ class CustomPostTypesFromApi
         return array_map(fn ($postType) => sanitize_title(substr($postType['post_type_name'], 0, 19)), $postTypesFromApi);
     }
 
-    private function getPostTypesWithParentPostTypes():array {
+    private function getPostTypesWithParentPostTypes(): array
+    {
 
         $postTypesWithParentPostTypes = [];
         $typeDefinitions = CustomPostType::getTypeDefinitions();
@@ -42,11 +43,11 @@ class CustomPostTypesFromApi
             isset($typeDefinition['parent_post_types']) && !empty($typeDefinition['parent_post_types'])
         );
 
-        if( empty($matches) ) {
+        if (empty($matches)) {
             return [];
         }
 
-        foreach($matches as $match) {
+        foreach ($matches as $match) {
             $postType = sanitize_title(substr($match['post_type_name'], 0, 19));
             $postTypesWithParentPostTypes[$postType] = $match['parent_post_types'];
         }
@@ -65,6 +66,7 @@ class CustomPostTypesFromApi
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
+        add_action('init', [$this, 'addPostType']);
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
@@ -103,16 +105,16 @@ class CustomPostTypesFromApi
             return $pageData;
         }
 
-        foreach($this->postTypesWithParentPostTypes[$queriedObject->post_type] as $parentPostType) {
+        foreach ($this->postTypesWithParentPostTypes[$queriedObject->post_type] as $parentPostType) {
 
             $parentPosts = get_posts(['post__in' => [$queriedObject->post_parent], 'post_type' => $parentPostType, 'suppress_filters' => false]);
 
-            if( !empty($parentPosts) ) {
+            if (!empty($parentPosts)) {
                 break;
             }
         }
 
-        if( empty($parentPosts) ) {
+        if (empty($parentPosts)) {
             return $pageData;
         }
 
@@ -215,5 +217,24 @@ class CustomPostTypesFromApi
                 );
             }
         }
+    }
+
+    public function addPostType()
+    {
+        register_post_type(
+            'post-type-from-api',
+            [
+                'labels' => [
+                    'name' => __('Custom post type from API', 'municipio'),
+                    'singular_name' => __('Custom post type from API', 'municipio'),
+                ],
+                'show_ui' => true,
+                'public' => true,
+                'has_archive' => false,
+                'show_in_rest' => false,
+                'supports' => [],
+                'taxonomies' => [],
+            ]
+        );
     }
 }
