@@ -2,6 +2,7 @@
 
 namespace Municipio\Content;
 
+use Municipio\Helper\RestRequestHelper;
 use WP_Post;
 use WP_Query;
 
@@ -66,7 +67,15 @@ class CustomPostTypesFromApi
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
+        
         add_action('init', [$this, 'addPostType']);
+        add_action('acf/init', [$this, 'addOptionsPage']);
+        
+        add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
+        add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
+
+        add_action('acf/save_post', [$this, 'setResourcePostTitleFromAcf'], 10);
+        add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
@@ -222,19 +231,173 @@ class CustomPostTypesFromApi
     public function addPostType()
     {
         register_post_type(
-            'post-type-from-api',
+            'api-resource',
             [
+                'label' => __('API Resources', 'municipio'),
                 'labels' => [
-                    'name' => __('Custom post type from API', 'municipio'),
-                    'singular_name' => __('Custom post type from API', 'municipio'),
+                    'singular_name' => __('API Resource', 'municipio'),
                 ],
                 'show_ui' => true,
-                'public' => true,
+                'public' => false,
                 'has_archive' => false,
                 'show_in_rest' => false,
-                'supports' => [],
+                'supports' => false,
                 'taxonomies' => [],
             ]
         );
+    }
+
+    public function addOptionsPage()
+    {
+        if (function_exists('acf_add_options_page')) {
+            acf_add_options_page(array(
+                'page_title'    => 'Api:s',
+                'menu_title'    => 'Api:s',
+                'menu_slug'     => 'api-resource-apis',
+                'capability'    => 'manage_options',
+                'redirect'       => false,
+                'parent_slug' => 'edit.php?post_type=api-resource',
+            ));
+        }
+    }
+
+    function loadPostTypeSourceOptions( $field ) {
+
+        $choices = [];
+        
+        if (!function_exists('get_field')) {
+            return $field;
+        }
+
+        $endpoints = get_field('api_resources_apis', 'options');
+
+        if (empty($endpoints)) {
+            return $field;
+        }
+
+        $urls = array_map(fn ($row) => $row['url'], $endpoints);
+        $urls = array_filter($urls, fn ($url) => filter_var($url, FILTER_VALIDATE_URL) !== false);
+
+        if (empty($urls)) {
+            return $field;
+        }
+
+        foreach($urls as $url) {
+            
+            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'types');
+
+            if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
+                return null;
+            }
+
+            foreach($typesFromApi as $type) {
+                if (
+                    !isset($type->slug) ||
+                    !isset($type->_links) ||
+                    !isset($type->_links->collection) ||
+                    empty($type->_links->collection) ||
+                    !isset($type->_links->collection[0]->href) ||
+                    !filter_var($type->_links->collection[0]->href, FILTER_VALIDATE_URL)
+                ) {
+                    continue;
+                }
+
+                $value = trailingslashit($type->_links->collection[0]->href) . $type->rest_base;
+                $label = "{$type->slug}: {$value}";
+                $choices[$value] = $label;
+            }
+        }
+
+        if( !empty($choices) ) {
+            $field['choices'] = $choices;
+        }
+
+        return $field;
+        
+    }
+    
+    function loadTaxonomySourceOptions( $field ) {
+
+        $choices = [];
+        
+        if (!function_exists('get_field')) {
+            return $field;
+        }
+
+        $endpoints = get_field('api_resources_apis', 'options');
+
+        if (empty($endpoints)) {
+            return $field;
+        }
+
+        $urls = array_map(fn ($row) => $row['url'], $endpoints);
+        $urls = array_filter($urls, fn ($url) => filter_var($url, FILTER_VALIDATE_URL) !== false);
+
+        if (empty($urls)) {
+            return $field;
+        }
+
+        foreach($urls as $url) {
+            
+            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'taxonomies');
+
+            if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
+                return null;
+            }
+
+            foreach($typesFromApi as $type) {
+                if (
+                    !isset($type->slug) ||
+                    !isset($type->_links) ||
+                    !isset($type->_links->collection) ||
+                    empty($type->_links->collection) ||
+                    !isset($type->_links->collection[0]->href) ||
+                    !filter_var($type->_links->collection[0]->href, FILTER_VALIDATE_URL)
+                ) {
+                    continue;
+                }
+
+                $value = trailingslashit($type->_links->collection[0]->href) . $type->rest_base;
+                $label = "{$type->slug}: {$value}";
+                $choices[$value] = $label;
+            }
+        }
+
+        if( !empty($choices) ) {
+            $field['choices'] = $choices;
+        }
+
+        return $field;
+        
+    }
+
+    public function setResourcePostTitleFromAcf(int $postId)
+    {
+        $postTypeArguments = get_field('post_type_argruments', $postId);
+
+        if (
+            empty($postTypeArguments) ||
+            !isset($postTypeArguments['post_type_key']) ||
+            empty($postTypeArguments['post_type_key'])
+        ) {
+            return;
+        }
+
+        $postTypeName = $postTypeArguments['post_type_key'];
+        $postTypeName = sanitize_title(substr($postTypeName, 0, 19));
+
+        wp_update_post([
+            'ID' => $postId,
+            'post_title' => $postTypeName,
+        ]);
+    }
+
+    public function sanitizePostTypeKeyBeforeSave($value, $postId, $field, $originalValue)
+    {
+        return sanitize_title(substr($value, 0, 19));
+    }
+
+    public function populatePostTypsesField(array $field) {
+        return $field;
     }
 }

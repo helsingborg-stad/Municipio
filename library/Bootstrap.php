@@ -84,6 +84,8 @@ add_action('init', function () {
         'options-menu-mega'                         => 'group_6502be085ee3b',           
         'options-menu-description'                  => 'group_650296216899c',
         'options-menu-language'                     => 'group_6141cc9c72cc3',
+        'options-api-resources-apis'                => 'group_653a1673dc501',
+        'resource-fields'                           => 'group_653a509450198',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',
         'widget-header-common'                      => 'group_5a65d5e7e913b',

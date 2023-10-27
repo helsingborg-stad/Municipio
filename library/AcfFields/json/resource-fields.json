@@ -1,0 +1,596 @@
+[{
+    "key": "group_653a509450198",
+    "title": "Api Resource fields",
+    "fields": [
+        {
+            "key": "field_653a5094a6168",
+            "label": "Type",
+            "name": "type",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "postType": "Post Type",
+                "taxonomy": "Taxonomy"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_653a52d126e03",
+            "label": "Post Type Source",
+            "name": "post_type_source",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "postType"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/posts": "post: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/posts",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/pages": "page: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/pages",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/media": "attachment: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/media",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/menu-items": "nav_menu_item: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/menu-items",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/blocks": "wp_block: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/blocks",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/templates": "wp_template: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/templates",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/template-parts": "wp_template_part: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/template-parts",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/navigation": "wp_navigation: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/navigation",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/pre-school": "pre-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/pre-school",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/elementary-school": "elementary-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/elementary-school",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/person": "person: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/types\/person"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_653a539bb2fc9",
+            "label": "Taxonomy Source",
+            "name": "taxonomy_source",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "taxonomy"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/categories": "category: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/categories",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/tags": "post_tag: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/tags",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/menus": "nav_menu: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/menus",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/area": "area: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/area",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/usp": "usp: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/usp",
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/grade": "grade: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/taxonomies\/grade"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_653b48052dc15",
+            "label": "Post Type Argruments",
+            "name": "post_type_argruments",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "postType"
+                    },
+                    {
+                        "field": "field_653a52d126e03",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "acfe_seamless_style": 0,
+            "acfe_group_modal": 0,
+            "sub_fields": [
+                {
+                    "key": "field_601b9c6128f07",
+                    "label": "Post Type Key",
+                    "name": "post_type_key",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "The key of the post type. Max. 20 characters, cannot contain capital letters or spaces.",
+                    "required": true,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_601b9c6128f08",
+                    "label": "Description",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "A short descriptive summary of what the post type is.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "rows": ""
+                },
+                {
+                    "key": "field_601b9c6128f09",
+                    "label": "Public",
+                    "name": "public",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether the post type should be publicly queryable.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f19",
+                    "label": "Hierarchical",
+                    "name": "hierarchical",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether the post type is hierarchical. Allows Parent to be specified.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f10",
+                    "label": "Show UI",
+                    "name": "show_ui",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether to generate a default UI for managing this post type.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f11",
+                    "label": "Has Archive",
+                    "name": "has_archive",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Enables post type archives.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f12",
+                    "label": "Exclude From Search",
+                    "name": "exclude_from_search",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether to exclude posts with this post type from front end search results.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f13",
+                    "label": "Publicly Queryable",
+                    "name": "publicly_queryable",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether queries can be performed on the front end as part of parse_request().",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f14",
+                    "label": "Show In Nav Menus",
+                    "name": "show_in_nav_menus",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Whether post_type is available for selection in navigation menus.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f15",
+                    "label": "Show In Menu",
+                    "name": "show_in_menu",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Where to show the post type in the admin menu. show_ui must be true.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_601b9c6128f10",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f16",
+                    "label": "Show In Admin Bar",
+                    "name": "show_in_admin_bar",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Where to show the post type in the admin bar. show_in_menu must be true.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_601b9c6128f15",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f21",
+                    "label": "Rewrite",
+                    "name": "rewrite",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1
+                },
+                {
+                    "key": "field_601b9c6128f17",
+                    "label": "Menu Position",
+                    "name": "menu_position",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "The position in the menu order the post type should appear. show_in_menu must be true.",
+                    "required": false,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_601b9c6128f15",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "step": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_601b9c6128f18",
+                    "label": "Capabilities",
+                    "name": "capabilities",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": [],
+                    "default_value": [],
+                    "return_format": "value",
+                    "multiple": 1,
+                    "allow_custom": 1,
+                    "placeholder": "eg. \"manage_options\"...",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0
+                },
+                {
+                    "key": "field_653b5d117edbf",
+                    "label": "Rewrite options",
+                    "name": "rewrite_options",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_601b9c6128f21",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "acfe_seamless_style": 0,
+                    "acfe_group_modal": 0,
+                    "sub_fields": [
+                        {
+                            "key": "field_653b5d227edc0",
+                            "label": "Slug",
+                            "name": "slug",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_653b5d627edc1",
+                            "label": "With front",
+                            "name": "with_front",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_653b5d727edc2",
+                            "label": "Feeds",
+                            "name": "feeds",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
+                        }
+                    ]
+                },
+                {
+                    "key": "field_601b9c6128f22",
+                    "label": "Query Var",
+                    "name": "query_var",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Sets the query_var key for this post type.",
+                    "required": false,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "api-resource"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "php",
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
