@@ -68,12 +68,16 @@ class Cache
      */
     public static function clearCache($postId, $post)
     {
+        global $wpdb;
+
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
         }
 
         wp_cache_delete($postId, self::getKeyGroup());
         wp_cache_delete($post->post_type, self::getKeyGroup());
+
+        $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_oembed_%' AND post_id LIKE {$postId}");
 
         // Empty post type for all sites in network (?)
         if (function_exists('is_multisite') && is_multisite() && apply_filters('Municipio\Cache\EmptyForAllBlogs', false, $post)) {
