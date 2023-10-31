@@ -89,7 +89,11 @@ class Cache
         return true;
     }
 
-    public function clearOembedCache($postId) {
+    /**
+     * Clears Oembed cache
+     * @param  integer $postId Post id to clear
+     */
+    public function clearOembedCache(int $postId) {
         global $wpdb;
 
         $metaKeyPattern = '_oembed_%';
