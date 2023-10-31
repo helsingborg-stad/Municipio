@@ -68,8 +68,6 @@ class Cache
      */
     public static function clearCache($postId, $post)
     {
-        global $wpdb;
-
         if (wp_is_post_revision($postId) || get_post_status($postId) != 'publish') {
             return false;
         }
@@ -77,7 +75,7 @@ class Cache
         wp_cache_delete($postId, self::getKeyGroup());
         wp_cache_delete($post->post_type, self::getKeyGroup());
 
-        $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_oembed_%' AND post_id LIKE {$postId}");
+        self::clearOembedCache($postId);
 
         // Empty post type for all sites in network (?)
         if (function_exists('is_multisite') && is_multisite() && apply_filters('Municipio\Cache\EmptyForAllBlogs', false, $post)) {
@@ -89,6 +87,19 @@ class Cache
         }
 
         return true;
+    }
+
+    public function clearOembedCache($postId) {
+        global $wpdb;
+
+        $metaKeyPattern = '_oembed_%';
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE %s AND post_id = %d",
+                $metaKeyPattern,
+                $postId
+            )
+        );
     }
 
     /**
