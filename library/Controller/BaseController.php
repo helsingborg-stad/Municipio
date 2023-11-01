@@ -267,6 +267,14 @@ class BaseController
         );
         $this->data['labels'] = (array) $this->data['lang'];
 
+        add_filter('ComponentLibrary/Component/Lang', function ($arr) {
+            $arr = (object) [
+                'visit' => __('Visit', 'municipio'),
+            ];
+            return $arr;
+        }, 10, 1);
+        
+
         //Wordpress hooks
         $this->data['hook'] = (object) array(
         'innerLoopStart' => $this->hook('inner_loop_start'),
