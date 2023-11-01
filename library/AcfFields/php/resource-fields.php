@@ -177,6 +177,46 @@
                     'append' => '',
                 ),
                 1 => array(
+                    'key' => 'field_65420ddf4476f',
+                    'label' => __('Label (plural)', 'municipio'),
+                    'name' => 'label',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                ),
+                2 => array(
+                    'key' => 'field_65420e0644770',
+                    'label' => __('Label (singular)', 'municipio'),
+                    'name' => 'labels_singular_name',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                ),
+                3 => array(
                     'key' => 'field_601b9c6128f08',
                     'label' => __('Description', 'municipio'),
                     'name' => 'description',
@@ -196,7 +236,7 @@
                     'placeholder' => '',
                     'rows' => '',
                 ),
-                2 => array(
+                4 => array(
                     'key' => 'field_601b9c6128f09',
                     'label' => __('Public', 'municipio'),
                     'name' => 'public',
@@ -216,7 +256,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                3 => array(
+                5 => array(
                     'key' => 'field_601b9c6128f19',
                     'label' => __('Hierarchical', 'municipio'),
                     'name' => 'hierarchical',
@@ -236,7 +276,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                4 => array(
+                6 => array(
                     'key' => 'field_601b9c6128f10',
                     'label' => __('Show UI', 'municipio'),
                     'name' => 'show_ui',
@@ -256,7 +296,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                5 => array(
+                7 => array(
                     'key' => 'field_601b9c6128f11',
                     'label' => __('Has Archive', 'municipio'),
                     'name' => 'has_archive',
@@ -276,7 +316,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                6 => array(
+                8 => array(
                     'key' => 'field_601b9c6128f12',
                     'label' => __('Exclude From Search', 'municipio'),
                     'name' => 'exclude_from_search',
@@ -296,7 +336,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                7 => array(
+                9 => array(
                     'key' => 'field_601b9c6128f13',
                     'label' => __('Publicly Queryable', 'municipio'),
                     'name' => 'publicly_queryable',
@@ -316,7 +356,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                8 => array(
+                10 => array(
                     'key' => 'field_601b9c6128f14',
                     'label' => __('Show In Nav Menus', 'municipio'),
                     'name' => 'show_in_nav_menus',
@@ -336,7 +376,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                9 => array(
+                11 => array(
                     'key' => 'field_601b9c6128f15',
                     'label' => __('Show In Menu', 'municipio'),
                     'name' => 'show_in_menu',
@@ -364,7 +404,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                10 => array(
+                12 => array(
                     'key' => 'field_601b9c6128f16',
                     'label' => __('Show In Admin Bar', 'municipio'),
                     'name' => 'show_in_admin_bar',
@@ -392,7 +432,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                11 => array(
+                13 => array(
                     'key' => 'field_601b9c6128f21',
                     'label' => __('Rewrite', 'municipio'),
                     'name' => 'rewrite',
@@ -412,7 +452,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                12 => array(
+                14 => array(
                     'key' => 'field_601b9c6128f17',
                     'label' => __('Menu Position', 'municipio'),
                     'name' => 'menu_position',
@@ -442,7 +482,7 @@
                     'prepend' => '',
                     'append' => '',
                 ),
-                13 => array(
+                15 => array(
                     'key' => 'field_601b9c6128f18',
                     'label' => __('Capabilities', 'municipio'),
                     'name' => 'capabilities',
@@ -468,7 +508,7 @@
                     'ui' => 1,
                     'ajax' => 0,
                 ),
-                14 => array(
+                16 => array(
                     'key' => 'field_653b5d117edbf',
                     'label' => __('Rewrite options', 'municipio'),
                     'name' => 'rewrite_options',
@@ -556,7 +596,7 @@
                         ),
                     ),
                 ),
-                15 => array(
+                17 => array(
                     'key' => 'field_601b9c6128f22',
                     'label' => __('Query Var', 'municipio'),
                     'name' => 'query_var',

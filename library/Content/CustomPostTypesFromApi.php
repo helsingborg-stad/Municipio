@@ -70,10 +70,8 @@ class CustomPostTypesFromApi
         
         add_action('init', [$this, 'addPostType']);
         add_action('acf/init', [$this, 'addOptionsPage']);
-        
         add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
         add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
-
         add_action('acf/save_post', [$this, 'setResourcePostTitleFromAcf'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
     }
@@ -302,7 +300,7 @@ class CustomPostTypesFromApi
                     continue;
                 }
 
-                $value = trailingslashit($type->_links->collection[0]->href) . $type->rest_base;
+                $value = trailingslashit($url) . $type->rest_base;
                 $label = "{$type->slug}: {$value}";
                 $choices[$value] = $label;
             }
@@ -357,7 +355,7 @@ class CustomPostTypesFromApi
                     continue;
                 }
 
-                $value = trailingslashit($type->_links->collection[0]->href) . $type->rest_base;
+                $value = trailingslashit($url) . $type->rest_base;
                 $label = "{$type->slug}: {$value}";
                 $choices[$value] = $label;
             }

@@ -60,6 +60,20 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
+         * Resources from API
+         */
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType->addHooks();
+
+        $postTypeRegistrar = new \Municipio\Content\ResourceFromApi\PostTypeRegistrar();
+
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry($postTypeRegistrar);
+        $resourceRegistry->initialize();
+
+        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostTypeQueriesModifier($resourceRegistry);
+        $postTypeQueriesModifier->addHooks();
+
+        /**
          * Content from API
          */
         $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
