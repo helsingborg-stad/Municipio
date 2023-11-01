@@ -86,7 +86,7 @@
                                                 'element' => 'h2',
                                                 'variant' => 'h3',
                                             ])
-                                                {{ $place->postTitle }}
+                                                {!! $place->postTitle !!}
                                             @endtypography
                                         @endgroup
                                         @tags([
