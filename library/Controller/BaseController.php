@@ -268,10 +268,11 @@ class BaseController
         $this->data['labels'] = (array) $this->data['lang'];
 
         add_filter('ComponentLibrary/Component/Lang', function ($arr) {
-            $arr = (object) [
+            $lang = [
                 'visit' => __('Visit', 'municipio'),
             ];
-            return $arr;
+            
+            return array_merge($arr, $lang);
         }, 10, 1);
         
 
