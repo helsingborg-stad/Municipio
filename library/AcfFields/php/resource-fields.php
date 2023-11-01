@@ -22,6 +22,7 @@
             'choices' => array(
                 'postType' => __('Post Type', 'municipio'),
                 'taxonomy' => __('Taxonomy', 'municipio'),
+                'attachment' => __('Attachment', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -47,6 +48,13 @@
                         'field' => 'field_653a5094a6168',
                         'operator' => '==',
                         'value' => 'postType',
+                    ),
+                ),
+                1 => array(
+                    0 => array(
+                        'field' => 'field_653a5094a6168',
+                        'operator' => '==',
+                        'value' => 'attachment',
                     ),
                 ),
             ),

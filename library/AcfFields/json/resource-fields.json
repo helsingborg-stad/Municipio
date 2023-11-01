@@ -18,7 +18,8 @@
             },
             "choices": {
                 "postType": "Post Type",
-                "taxonomy": "Taxonomy"
+                "taxonomy": "Taxonomy",
+                "attachment": "Attachment"
             },
             "default_value": false,
             "return_format": "value",
@@ -44,6 +45,13 @@
                         "field": "field_653a5094a6168",
                         "operator": "==",
                         "value": "postType"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "attachment"
                     }
                 ]
             ],
