@@ -206,13 +206,15 @@ class CustomPostTypesFromApi
                 }
 
                 $parentPostTypeObject = get_post_type_object($parentPostType);
-                $rewriteSlug = $parentPostTypeObject->rewrite['slug'];
+                $rewriteSlug = isset( $parentPostTypeObject->rewrite['slug'] ) ? $parentPostTypeObject->rewrite['slug'] : null;
 
-                add_rewrite_rule(
-                    $rewriteSlug . '/(.*)/(.*)',
-                    'index.php?post_type=' . $postType . '&name=$matches[2]',
-                    'top'
-                );
+                if(!is_null($rewriteSlug)) {
+                    add_rewrite_rule(
+                        $rewriteSlug . '/(.*)/(.*)',
+                        'index.php?post_type=' . $postType . '&name=$matches[2]',
+                        'top'
+                    );
+                }
             }
         }
     }
