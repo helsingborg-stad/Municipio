@@ -13,8 +13,10 @@ class ResourcePostType
         add_action('acf/init', [$this, 'addOptionsPage']);
         add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
         add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
-        add_action('acf/save_post', [$this, 'setResourcePostTitleFromAcf'], 10);
+        add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
+        add_action('acf/save_post', [$this, 'setTaxonomyResourcePostTitleFromAcf'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
+        add_filter('acf/update_value/name=taxonomy_key', [$this, 'sanitizeTaxonomyKeyBeforeSave'], 10, 4);
     }
 
     public function addPostType()
@@ -160,7 +162,7 @@ class ResourcePostType
         return $field;
     }
 
-    public function setResourcePostTitleFromAcf($postId)
+    public function setPostTypeResourcePostTitleFromAcf($postId)
     {
         $postTypeArguments = get_field('post_type_arguments', $postId);
 
@@ -182,9 +184,37 @@ class ResourcePostType
 
         ]);
     }
+    
+    public function setTaxonomyResourcePostTitleFromAcf($postId)
+    {
+        $taxonomyArguments = get_field('taxonomy_arguments', $postId);
+
+        if (
+            empty($taxonomyArguments) ||
+            !isset($taxonomyArguments['taxonomy_key']) ||
+            empty($taxonomyArguments['taxonomy_key'])
+        ) {
+            return;
+        }
+
+        $taxonomyName = $taxonomyArguments['taxonomy_key'];
+        $taxonomyName = sanitize_title(substr($taxonomyName, 0, 31));
+
+        wp_update_post([
+            'ID' => $postId,
+            'post_title' => $taxonomyName,
+            'post_name' => $taxonomyName,
+
+        ]);
+    }
 
     public function sanitizePostTypeKeyBeforeSave($value, $postId, $field, $originalValue)
     {
         return sanitize_title(substr($value, 0, 19));
+    }
+    
+    public function sanitizeTaxonomyKeyBeforeSave($value, $postId, $field, $originalValue)
+    {
+        return sanitize_title(substr($value, 0, 31));
     }
 }

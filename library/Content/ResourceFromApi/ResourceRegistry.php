@@ -8,11 +8,13 @@ class ResourceRegistry implements ResourceRegistryInterface
 {
     public static ?object $registry = null;
     private PostTypeRegistrar $postTypeRegistrar;
+    private TaxonomyRegistrar $taxonomyRegistrar;
     private string $resourcePostTypeName = 'api-resource';
 
-    public function __construct(PostTypeRegistrar $postTypeRegistrar)
+    public function __construct(PostTypeRegistrar $postTypeRegistrar, TaxonomyRegistrar $taxonomyRegistrar)
     {
         $this->postTypeRegistrar = $postTypeRegistrar;
+        $this->taxonomyRegistrar = $taxonomyRegistrar;
     }
 
     public function initialize()
@@ -28,6 +30,7 @@ class ResourceRegistry implements ResourceRegistryInterface
         self::$registry->attachments = [];
 
         $this->registerPostTypes();
+        $this->registerTaxonomies();
     }
 
     public function getRegisteredPostTypes(): array
@@ -101,6 +104,31 @@ class ResourceRegistry implements ResourceRegistryInterface
         }
     }
 
+    private function registerTaxonomies() {
+        $taxonomies = $this->getTaxonomies();
+
+        if (empty($taxonomies)) {
+            return;
+        }
+
+        foreach ($taxonomies as $taxonomy) {
+
+            if (
+                empty($taxonomy->name) ||
+                empty($taxonomy->arguments) ||
+                empty($taxonomy->resourceID)
+            ) {
+                continue;
+            }
+
+            $registered = $this->taxonomyRegistrar->register($taxonomy->name, $taxonomy->arguments);
+
+            if ($registered) {
+                self::$registry->taxonomies[] = $taxonomy;
+            }
+        }
+    }
+
     private function getPostTypes(): array
     {
         $resources = $this->getResourcesByType('postType');
@@ -118,6 +146,22 @@ class ResourceRegistry implements ResourceRegistryInterface
         }, $resources);
     }
 
+    private function getTaxonomies(): array {
+        $resources = $this->getResourcesByType('taxonomy');
+
+        if (empty($resources)) {
+            return [];
+        }
+
+        return array_map(function ($resource) {
+            $arguments = $this->getTaxonomyArguments($resource->ID);
+            $name = $this->getTaxonomyName($resource->ID);
+            $resourceID = $resource->ID;
+
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments];
+        }, $resources);
+    }
+
     private function getResourcesByType(string $type): array
     {
         if (!in_array($type, ['postType', 'taxonomy', 'attachment'])) {
@@ -127,7 +171,7 @@ class ResourceRegistry implements ResourceRegistryInterface
         return get_posts([
             'post_type' => $this->resourcePostTypeName,
             'meta_key' => 'type',
-            'meta_value' => 'postType'
+            'meta_value' => $type
         ]);
     }
 
@@ -140,6 +184,14 @@ class ResourceRegistry implements ResourceRegistryInterface
         return get_field('post_type_arguments', $resourceId) ?? [];
     }
 
+    public function getTaxonomyArguments(int $resourceId): array {
+        if (!function_exists('get_field')) {
+            return [];
+        }
+
+        return get_field('taxonomy_arguments', $resourceId) ?? [];
+    }
+
     private function getPostTypeName(int $resourceId) {
         if (!function_exists('get_field')) {
             return '';
@@ -149,6 +201,20 @@ class ResourceRegistry implements ResourceRegistryInterface
 
         if( isset($arguments['post_type_key']) ) {
             return $arguments['post_type_key'];
+        }
+
+        return '';
+    }
+
+    private function getTaxonomyName(int $resourceId) {
+        if (!function_exists('get_field')) {
+            return '';
+        }
+
+        $arguments = $this->getTaxonomyArguments($resourceId);
+
+        if( isset($arguments['taxonomy_key']) ) {
+            return $arguments['taxonomy_key'];
         }
 
         return '';

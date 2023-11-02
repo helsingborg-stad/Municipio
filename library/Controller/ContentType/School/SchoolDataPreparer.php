@@ -11,11 +11,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private object $postMeta;
     private array $data;
     private const PAGE_POST_TYPE = 'school-page';
-    private const PERSON_POST_TYPE = 'person';
+    private const PERSON_POST_TYPE = 'school-person';
     private const MEDIA_POST_TYPE = 'school-media';
-    private const USP_TAXONOMY = 'usp';
-    private const AREA_TAXONOMY = 'area';
-    private const GRADE_TAXONOMY = 'grade';
+    private const USP_TAXONOMY = 'school-usp';
+    private const AREA_TAXONOMY = 'school-area';
+    private const GRADE_TAXONOMY = 'school-grade';
 
     public function prepareData(array $data): array
     {
@@ -100,12 +100,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewContactData(): void
     {
         if (!isset($this->postMeta->contacts) || !post_type_exists(self::PERSON_POST_TYPE)) {
+            $this->data['contacts'] = null;
             return;
         }
 
         $personIds = array_map(function ($contact) {
             return $contact->person;
-        }, $this->postMeta->contacts);
+        }, $this->postMeta->contacts[0]);
 
         $persons = WP::getPosts(array('post_type' => self::PERSON_POST_TYPE, 'post__in' => $personIds, 'suppress_filters' => false));
 
@@ -136,7 +137,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'name'              => $person->postTitle
             ];
             return $contact;
-        }, $this->postMeta->contacts) : null;
+        }, $this->postMeta->contacts[]) : null;
 
         $this->data['contacts'] = array_filter($this->data['contacts'] ?? []);
 
@@ -376,9 +377,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress[0]->address, $visitingAddresses);
         $visitingData = array_map(function ($address) use(&$mapPins) {
-            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address[0]->address->address);
             $street = $address->address->street_name ?? '';
             $streetNumber = $address->address->street_number ?? '';
             $postCode = $address->address->post_code ?? '';
@@ -387,8 +388,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $mapPinTooltip = ['title' => $this->data['post']->postTitle ?? null, 'excerpt' => $addressString];
             
             $mapPins[] = [
-                'lat' => $address->address->lat,
-                'lng' => $address->address->lng,
+                'lat' => $address[0]->address->lat,
+                'lng' => $address[0]->address->lng,
                 'tooltip' => $mapPinTooltip
             ];
             
@@ -427,6 +428,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewPagesData(): void
     {
         if( !post_type_exists(self::PAGE_POST_TYPE) ) {
+            $this->data['pages'] = null;
             return;
         }
 
@@ -513,6 +515,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
 
         if (!isset($this->postMeta->attachments)) {
+            $this->data['facadeSliderItems'] = null;
+            $this->data['gallerySliderItems'] = null;
+            $this->data['video'] = null;
             return;
         }
 
@@ -533,7 +538,6 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['gallerySliderItems'] = !empty($galleryAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
             : null;
-
 
         $this->data['video'] =
         (empty($this->data['gallerySliderItems']) && !empty($this->postMeta->video))
