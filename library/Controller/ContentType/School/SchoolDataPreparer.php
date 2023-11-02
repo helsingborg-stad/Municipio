@@ -137,7 +137,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'name'              => $person->postTitle
             ];
             return $contact;
-        }, $this->postMeta->contacts[]) : null;
+        }, $this->postMeta->contacts[0]) : null;
 
         $this->data['contacts'] = array_filter($this->data['contacts'] ?? []);
 

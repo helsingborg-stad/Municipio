@@ -3,7 +3,9 @@
 namespace Municipio;
 
 use Municipio\Controller\ContentType\ContentTypeComplexInterface;
+use Municipio\Controller\ContentType\ContentTypeComponentInterface;
 use Municipio\Helper\ContentType as ContentTypeHelper;
+use WP_UnitTestCase;
 
 /**
  * Dummy class for testing
@@ -22,9 +24,9 @@ class ContentTypeComplexTestDummy extends \Municipio\Controller\ContentType\Cont
     }
 
     /**
-     * Adds a secondary content type if it's a simple content type
+     * Adds a ContentTypeComponentInterface instance to the collection.
      *
-     * @param ContentTypeComponentInterface $contentType
+     * @param ContentTypeComponentInterface $contentType The ContentTypeComponentInterface instance to add.
      * @return void
      */
     public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void

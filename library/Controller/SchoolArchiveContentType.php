@@ -26,7 +26,7 @@ class SchoolArchiveContentType extends \Municipio\Controller\ArchiveContentType
         }
 
         $posts = $data['posts']['items'];
-        $taxonomies = array_filter(['area'], 'taxonomy_exists');
+        $taxonomies = array_filter(['school-area'], 'taxonomy_exists');
         $postType = get_post_type();
         $postTypeObject = get_post_type_object($postType);
         $postTypeLabel = $postTypeObject->label;
@@ -58,7 +58,7 @@ class SchoolArchiveContentType extends \Municipio\Controller\ArchiveContentType
 
     private function getTermName(string $taxonomy, int $postId): string
     {
-        $terms = WP::getPostTerms([$taxonomy], $postId);
+        $terms = get_terms(['object_ids' => [$postId], 'taxonomy' => $taxonomy]);
         return !empty($terms) ? $terms[0]->name : '';
     }
 

@@ -17,7 +17,7 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
     public function addHooks(): void
     {
-        add_action('pre_get_terms', [$this, 'modifyPreGetTerms'], 10, 1);
+        // add_action('pre_get_terms', [$this, 'modifyPreGetTerms'], 10, 1);
         add_filter('get_terms', [$this, 'modifyGetTerms'], 10, 4);
         add_filter('get_object_terms', [$this, 'modifyGetObjectTerms'], 10, 4);
         add_filter('Municipio/Archive/getTaxonomyFilters/option/value', [$this, 'modifyGetTaxonomyFiltersOptionValue'], 10, 3);
@@ -60,7 +60,25 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             return $terms;
         }
 
-        return TaxonomyResourceRequest::getCollection($resource, $queryVars);
+        if( isset($queryVars['object_ids']) && !empty($queryVars['object_ids']) ) {
+            $queryVars['object_ids'] = array_map(function($objectId){
+                
+                $objectResource = $this->getResourceFromObjectId($objectId);
+
+                if( empty($objectResource) ) {
+                    return null;
+                }
+
+                return (int)str_replace($objectResource->resourceID, '', (string)absint($objectId));
+
+            }, $queryVars['object_ids']);
+
+            array_filter($queryVars['object_ids']);
+        }
+
+        $collection = TaxonomyResourceRequest::getCollection($resource, $queryVars);
+
+        return $collection;
     }
 
     public function modifyGetObjectTerms(array $terms, array $objectIds, array $taxonomies, array $queryVars): array
@@ -75,7 +93,25 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             return $terms;
         }
 
-        return TaxonomyResourceRequest::getCollection($resource, $queryVars);
+        if( isset($queryVars['object_ids']) && !empty($queryVars['object_ids']) ) {
+            $queryVars['object_ids'] = array_map(function($objectId){
+                
+                $objectResource = $this->getResourceFromObjectId($objectId);
+
+                if( empty($objectResource) ) {
+                    return null;
+                }
+
+                return (int)str_replace($objectResource->resourceID, '', (string)absint($objectId));
+
+            }, $queryVars['object_ids']);
+
+            array_filter($queryVars['object_ids']);
+        }
+
+        $collection = TaxonomyResourceRequest::getCollection($resource, $queryVars);
+
+        return $collection;
     }
 
     private function getResourceFromTermId($termId):?object {
@@ -96,6 +132,30 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
             if( str_starts_with($haystack, $needle) ) {
                 return $registeredTaxonomy;
+            }
+        }
+
+        return null;
+    }
+    
+    private function getResourceFromObjectId(int $objectId):?object {
+
+        if( $objectId > -1 ) {
+            return null;
+        }
+
+        $registeredPostTypes = $this->resourceRegistry->getRegisteredPostTypes();
+        
+        if(empty($registeredPostTypes)) {
+            return null;
+        }
+
+        foreach($registeredPostTypes as $registeredPostType) {
+            $needle = (string)$registeredPostType->resourceID;
+            $haystack = (string)absint($objectId);
+
+            if( str_starts_with($haystack, $needle) ) {
+                return $registeredPostType;
             }
         }
 
