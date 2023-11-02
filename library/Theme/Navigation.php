@@ -111,6 +111,13 @@ class Navigation
                         __("(above archive posts)", "municipio")
                     )
                 );
+                $archiveMenu[$postType->name . '-secondary-menu'] = implode(
+                    ' ',
+                    array(
+                        $postType->label,
+                        __("(left sidebar)", "municipio")
+                    )
+                );
             }
         }
 

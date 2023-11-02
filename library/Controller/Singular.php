@@ -74,6 +74,9 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
+        if(!empty($this->data['posttypeSecondaryMenuItems'])) {
+            $this->data['secondaryMenuItems'] = $this->data['posttypeSecondaryMenuItems'];
+        }
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
 

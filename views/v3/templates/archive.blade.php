@@ -3,7 +3,21 @@
 @section('helper-navigation')
     @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
-
+@section('sidebar-left')
+    @if ($showSidebars)
+        @if ($customizer->secondaryNavigationPosition == 'left')
+            @if ($secondaryMenuItems)
+                <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
+                    @paper()
+                        @includeIf('partials.navigation.sidebar', [
+                            'menuItems' => $posttypeSecondaryMenuItems,
+                        ])
+                    @endpaper
+                </div>
+            @endif
+        @endif
+    @endif
+@stop
 @section('content')
 
     @if ($archiveTitle || $archiveLead)
