@@ -10,7 +10,7 @@
                 <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
                     @paper()
                         @includeIf('partials.navigation.sidebar', [
-                            'menuItems' => $posttypeSecondaryMenuItems,
+                            'menuItems' => $secondaryMenuItems,
                         ])
                     @endpaper
                 </div>

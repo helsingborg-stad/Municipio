@@ -81,6 +81,7 @@ class Navigation
 
         //Append dynamic menus
         $menus = array_merge($menus, $this->getArchiveMenus());
+        $menus = array_merge($menus, $this->getContentTypeMenus());
 
         //Register menus
         register_nav_menus($menus);
@@ -96,6 +97,8 @@ class Navigation
     {
         $archiveMenu = array();
         $publicPostTypes = \Municipio\Helper\PostType::getPublic();
+
+        // TODO Add support for content types
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postTypeSlug => $postType) {
@@ -124,6 +127,28 @@ class Navigation
         return $archiveMenu;
     }
 
+    /**
+     * Get all content types
+     * Create a menu specification for each of these.
+     *
+     * @return array
+     */
+    private function getContentTypeMenus(): array
+    {
+        $contentTypeMenu = array();
+        $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes();
+
+        if (is_array($contentTypes) && !empty($contentTypes)) {
+            foreach ($contentTypes as $key => $label) {
+                $contentTypeMenu[$key . '-secondary-menu'] = sprintf(
+                    __('Content type - %s (left sidebar)', 'municipio'),
+                    $label
+                );
+            }
+        }
+
+        return $contentTypeMenu;
+    }
     public function appendFetchUrl($item, $identifier)
     {
         $targetMenuIdentifiers = ['mobile', 'sidebar'];
