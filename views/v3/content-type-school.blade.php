@@ -139,11 +139,13 @@
                                 {{$visitingAddress['description']}}<br/>
                             @endif
                             {!!$visitingAddress['address']!!}
-                            @link([
-                                'href' => $visitingAddress['mapsLink']['href']
+                            @button([
+                                'text' => $visitingAddress['mapsLink']['text'],
+                                'href' => $visitingAddress['mapsLink']['href'],
+                                'color' => 'primary',
+                                'style' => 'basic',
                             ])
-                                {{$visitingAddress['mapsLink']['text']}}
-                            @endlink
+                            @endbutton
                         @endtypography
                     </div>
                 @endforeach
