@@ -156,24 +156,6 @@
                     "parent_repeater": "field_56b347f3ffb6c"
                 },
                 {
-                    "key": "field_652cf6c8921b0",
-                    "label": "API Source URL",
-                    "name": "api_source_url",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "API Source for the post type. If this is supplied and responds with a WordPress REST API endpoint for a post type collection; the posts for this post type will be served from the supplied endpoint.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "E.g. ...\/wp-json\/wp\/v2\/pre-school",
-                    "parent_repeater": "field_56b347f3ffb6c"
-                },
-                {
                     "key": "field_56b361b25defd",
                     "label": "Public?",
                     "name": "public",
@@ -276,36 +258,6 @@
                     "ui": 0,
                     "ui_on_text": "",
                     "ui_off_text": "",
-                    "parent_repeater": "field_56b347f3ffb6c"
-                },
-                {
-                    "key": "field_652e6004ffdab",
-                    "label": "Parent post types",
-                    "name": "parent_post_types",
-                    "aria-label": "",
-                    "type": "posttype_select",
-                    "instructions": "Post types that will be used as a parent post type for this post type. This will mainly affects the post type permalinks by prefixing the url with the parent post types post url.",
-                    "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_56b364336050a",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "allow_null": 1,
-                    "multiple": 1,
-                    "placeholder": "",
-                    "disabled": 0,
-                    "readonly": 0,
                     "parent_repeater": "field_56b347f3ffb6c"
                 },
                 {

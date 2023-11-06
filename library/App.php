@@ -60,12 +60,19 @@ class App
         new \Municipio\Content\IframePosterImage();
 
         /**
-         * Content from API
+         * Resources from API
          */
-        $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
-        $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
-        $customPostTypesFromApi->addHooks();
-        $customTaxonomiesFromApi->addHooks();
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType->addHooks();
+
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
+        $resourceRegistry->initialize();
+
+        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);
+        $postTypeQueriesModifier->addHooks();
+
+        $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyQueriesModifier($resourceRegistry);
+        $taxonomyQueriesModifier->addHooks();
 
         /**
          * Oembed
