@@ -44,9 +44,9 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             return null;
         }
 
-        if( is_array($postFromApi) ) {
+        if (is_array($postFromApi)) {
             return self::convertRestApiPostToWPPost($postFromApi[0], $resource);
-        } else if( is_object($postFromApi) ) {
+        } else if (is_object($postFromApi)) {
             return self::convertRestApiPostToWPPost($postFromApi, $resource);
         }
 
@@ -94,11 +94,12 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return null;
     }
 
-    private static function getSingleUrl($id, object $resource):?string {
+    private static function getSingleUrl($id, object $resource): ?string
+    {
 
         $collectionUrl = self::getCollectionUrl($resource);
 
-        if( is_numeric($id) ) {
+        if (is_numeric($id)) {
             return trailingslashit($collectionUrl) . $id;
         }
 

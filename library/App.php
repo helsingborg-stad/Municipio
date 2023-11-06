@@ -65,10 +65,7 @@ class App
         $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
         $resourcePostType->addHooks();
 
-        $postTypeRegistrar = new \Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar();
-        $taxonomyRegistrar = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar();
-
-        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry($postTypeRegistrar, $taxonomyRegistrar);
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
         $resourceRegistry->initialize();
 
         $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);

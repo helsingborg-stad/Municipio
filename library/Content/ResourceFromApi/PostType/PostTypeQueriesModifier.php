@@ -22,14 +22,15 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_filter('post_type_link', [$this, 'modifyPostTypeLink'], 10, 2);
         add_filter('posts_results', [$this, 'modifyPostsResults'], 10, 2);
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 100, 5);
-        add_filter( 'acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3 );
+        add_filter('acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3);
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_action('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [$this, 'addParentToPost'], 10, 3);
     }
 
-    public function preLoadAcfValue($value, $postId, $field) {
+    public function preLoadAcfValue($value, $postId, $field)
+    {
 
         $registeredPostType = $this->getResourceFromPostId($postId);
 
@@ -39,7 +40,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         $postId = (int)str_replace((string)$registeredPostType->resourceID, '', (string)absint($postId));
 
-        if( !isset($field['name']) ) {
+        if (!isset($field['name'])) {
             return $value;
         }
 
@@ -81,7 +82,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
     {
-        if( $post->post_parent === 0 ) {
+        if ($post->post_parent === 0) {
             return $postLink;
         }
 
@@ -103,7 +104,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
     }
 
     public function modifyPostsResults(array $posts, WP_Query $query): array
-    {   
+    {
         $registeredPostType = $this->getResourceFromQuery($query);
 
         if (empty($registeredPostType)) {
@@ -213,23 +214,24 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         $query->set('update_post_term_cache', false);
     }
 
-    private function getResourceFromPostId($postId):?object {
+    private function getResourceFromPostId($postId): ?object
+    {
 
-        if( !$this->isRemotePostId((int)$postId) ) {
+        if (!$this->isRemotePostId((int)$postId)) {
             return null;
         }
 
         $registeredPostTypes = $this->resourceRegistry->getRegisteredPostTypes();
-        
-        if(empty($registeredPostTypes)) {
+
+        if (empty($registeredPostTypes)) {
             return null;
         }
 
-        foreach($registeredPostTypes as $registeredPostType) {
+        foreach ($registeredPostTypes as $registeredPostType) {
             $needle = (string)$registeredPostType->resourceID;
             $haystack = (string)absint($postId);
 
-            if( str_starts_with($haystack, $needle) ) {
+            if (str_starts_with($haystack, $needle)) {
                 return $registeredPostType;
             }
         }
@@ -242,9 +244,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         return $id < 0;
     }
 
-    public function addParentToPost($wpPost, $restApiPost, $localPostType) {
+    public function addParentToPost($wpPost, $restApiPost, $localPostType)
+    {
 
-        if( $wpPost->post_parent === 0 ) {
+        if ($wpPost->post_parent === 0) {
             return $wpPost;
         }
 
@@ -254,7 +257,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         $parentUrl = $restApiPost->_links->up[0]->href;
 
-        if( empty($parentUrl) ) {
+        if (empty($parentUrl)) {
             return $wpPost;
         }
 
@@ -271,20 +274,20 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         $resources = $this->resourceRegistry->getRegisteredPostTypes();
 
-        foreach($resources as $resource) {
-            if( $resource->collectionUrl === $parentCollectionUrl ) {
+        foreach ($resources as $resource) {
+            if ($resource->collectionUrl === $parentCollectionUrl) {
                 $parentResource = $resource;
                 break;
             }
         }
 
-        if( empty($parentResource) ) {
+        if (empty($parentResource)) {
             return $wpPost;
         }
 
         $parentPost = PostTypeResourceRequest::getSingle($parentId, $parentResource);
 
-        if( empty($parentPost) ) {
+        if (empty($parentPost)) {
             return $wpPost;
         }
 

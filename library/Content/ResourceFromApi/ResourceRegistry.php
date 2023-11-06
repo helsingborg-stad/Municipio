@@ -9,15 +9,7 @@ use stdClass;
 class ResourceRegistry implements ResourceRegistryInterface
 {
     public static ?object $registry = null;
-    private PostTypeRegistrar $postTypeRegistrar;
-    private TaxonomyRegistrar $taxonomyRegistrar;
     private string $resourcePostTypeName = 'api-resource';
-
-    public function __construct(PostTypeRegistrar $postTypeRegistrar, TaxonomyRegistrar $taxonomyRegistrar)
-    {
-        $this->postTypeRegistrar = $postTypeRegistrar;
-        $this->taxonomyRegistrar = $taxonomyRegistrar;
-    }
 
     public function initialize()
     {
@@ -99,9 +91,10 @@ class ResourceRegistry implements ResourceRegistryInterface
                 continue;
             }
 
-            $registered = $this->postTypeRegistrar->register($postType->name, $postType->arguments);
+            $registrar = new PostTypeRegistrar($postType->name, $postType->arguments);
+            $registrar->register($postType->name, $postType->arguments);
 
-            if ($registered) {
+            if ($registrar->isRegistered()) {
                 self::$registry->postTypes[] = $postType;
             }
         }
@@ -162,9 +155,10 @@ class ResourceRegistry implements ResourceRegistryInterface
                 continue;
             }
 
-            $registered = $this->taxonomyRegistrar->register($taxonomy->name, $taxonomy->arguments);
+            $registrar = new TaxonomyRegistrar($taxonomy->name, $taxonomy->arguments);
+            $registrar->register($taxonomy->name, $taxonomy->arguments);
 
-            if ($registered) {
+            if ($registrar->isRegistered()) {
                 self::$registry->taxonomies[] = $taxonomy;
             }
         }
