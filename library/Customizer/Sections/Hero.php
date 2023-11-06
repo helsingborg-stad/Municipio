@@ -116,7 +116,7 @@ class Hero
             'label'       => esc_html__('Content background', 'municipio'),
             'description' => esc_html__('Choose a background color for hero content.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => '',
+            'default'     => 'rgba(255, 255, 255, 0)',
             'priority'    => 10,
             'choices'     => [
                 'alpha' => true,
@@ -141,7 +141,7 @@ class Hero
             'label'       => esc_html__('Contrast color', 'municipio'),
             'description' => esc_html__('Choose a contrast color that will be applied to all elements in the content area.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => '',
+            'default'     => 'rgba(255, 255, 255, 0)',
             'priority'    => 10,
             'active_callback' => $this->getActiveCallbackForFieldDependentOnContentBackground(),
             'output' => [

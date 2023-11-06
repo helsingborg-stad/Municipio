@@ -109,7 +109,7 @@ class Divider
             'priority'    => 10,
             'transport'   => 'auto',
             'alpha'       => true,
-            'default'     => '',
+            'default'     => 'rgba(255, 255, 255, 0)',
             'active_callback' => [
                 [
                     'setting'  => 'divider_custom_font',
