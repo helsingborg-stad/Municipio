@@ -22,10 +22,8 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 100, 5);
         add_filter( 'acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3 );
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
-        // add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'addParentToPostWithParentPostType'], 10, 3);
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
-        // add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
         add_action('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [$this, 'addParentToPost'], 10, 3);
     }
 

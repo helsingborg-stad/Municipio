@@ -48,8 +48,6 @@ class CustomPostType
 
         foreach ($typeDefinitions as $typeDefinition) {
 
-            $postTypeFromAPI = $this->isPostTypeFromAPI($typeDefinition);
-
             $labels = array(
                 'name'               => $typeDefinition['post_type_name'],
                 'singular_name'      => $typeDefinition['post_type_name'],
@@ -66,12 +64,6 @@ class CustomPostType
                 'not_found'          => sprintf(__('No %s found', 'municipio'), $typeDefinition['post_type_name']),
                 'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
             );
-
-            $supports = $postTypeFromAPI ? [] : array('title', 'editor');
-
-            if (!$postTypeFromAPI && !empty($typeDefinition['supports'])) {
-                $supports = array_merge($typeDefinition['supports'], $supports);
-            }
 
             $rewrite = ['with_front' => isset($typeDefinition['with_front']) ? $typeDefinition['with_front'] : true];
 
@@ -91,7 +83,7 @@ class CustomPostType
                 'rewrite'            => $rewrite,
                 'capability_type'    => 'post',
                 'hierarchical'       => $typeDefinition['hierarchical'],
-                'supports'           => $supports,
+                'supports'           => $typeDefinition['supports'],
                 'menu_position'      => (int) $typeDefinition['menu_position'],
                 'has_archive'        => true,
                 'show_in_rest'       => true,
