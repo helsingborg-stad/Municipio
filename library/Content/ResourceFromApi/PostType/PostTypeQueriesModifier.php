@@ -31,18 +31,12 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function preLoadAcfValue($value, $postId, $field)
     {
+        if (!isset($field['name']) || !$this->isRemotePostId($postId)) {
+            return $value;
+        }
 
         $registeredPostType = $this->getResourceFromPostId($postId);
-
-        if (is_null($registeredPostType)) {
-            return $value;
-        }
-
         $postId = (int)str_replace((string)$registeredPostType->resourceID, '', (string)absint($postId));
-
-        if (!isset($field['name'])) {
-            return $value;
-        }
 
         return PostTypeResourceRequest::getMeta($postId, $field['name'], $registeredPostType) ?? $value;
     }
@@ -239,9 +233,9 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         return null;
     }
 
-    private function isRemotePostId(int $id): bool
+    private function isRemotePostId($id): bool
     {
-        return $id < 0;
+        return is_numeric($id) && (int)$id < 0;
     }
 
     public function addParentToPost($wpPost, $restApiPost, $localPostType)
