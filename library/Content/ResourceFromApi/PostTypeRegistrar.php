@@ -10,7 +10,6 @@ class PostTypeRegistrar implements TypeRegistrarInterface
     {
         $preparedArguments = $this->prepareArguments($arguments);
         $registered = register_post_type($name, $preparedArguments);
-
         return is_a($registered, WP_Post_Type::class);
     }
 
@@ -31,6 +30,19 @@ class PostTypeRegistrar implements TypeRegistrarInterface
             if( empty($arguments['rewrite_options']['slug']) ) {
                 unset($preparedArguments['rewrite']['slug']);
             }
+        }
+
+        if( !$arguments['hierarchical'] && !empty($arguments['parent_post_types']) ) {
+            
+            $parentSlug = '/%parentPost%';
+            $slug = '';
+            
+            if( isset($preparedArguments['rewrite']) && isset($preparedArguments['rewrite']['slug']) ) {
+                $slug = $preparedArguments['rewrite']['slug'];
+                $slug = ltrim($slug, '/');
+            } 
+
+            $preparedArguments['rewrite']['slug'] = "{$parentSlug}{$slug}";
         }
 
         return $preparedArguments;

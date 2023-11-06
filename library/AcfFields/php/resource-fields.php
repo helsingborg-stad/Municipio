@@ -75,6 +75,14 @@
                 'https://skolor.helsingborg.io/wp-json/wp/v2/pre-school' => __('pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school', 'municipio'),
                 'https://skolor.helsingborg.io/wp-json/wp/v2/elementary-school' => __('elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-school', 'municipio'),
                 'https://skolor.helsingborg.io/wp-json/wp/v2/person' => __('person: https://skolor.helsingborg.io/wp-json/wp/v2/person', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/media' => __('attachment: https://api.helsingborg.se/event/json/wp/v2/media', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/event' => __('event: https://api.helsingborg.se/event/json/wp/v2/event', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/location' => __('location: https://api.helsingborg.se/event/json/wp/v2/location', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/organizer' => __('organizer: https://api.helsingborg.se/event/json/wp/v2/organizer', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/sponsor' => __('sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/membership-card' => __('membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/guide' => __('guide: https://api.helsingborg.se/event/json/wp/v2/guide', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/interactive_guide' => __('interactive_guide: https://api.helsingborg.se/event/json/wp/v2/interactive_guide', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -115,6 +123,16 @@
                 'https://skolor.helsingborg.io/wp-json/wp/v2/area' => __('area: https://skolor.helsingborg.io/wp-json/wp/v2/area', 'municipio'),
                 'https://skolor.helsingborg.io/wp-json/wp/v2/usp' => __('usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp', 'municipio'),
                 'https://skolor.helsingborg.io/wp-json/wp/v2/grade' => __('grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/categories' => __('category: https://api.helsingborg.se/event/json/wp/v2/categories', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/tags' => __('post_tag: https://api.helsingborg.se/event/json/wp/v2/tags', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/user_groups' => __('user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/event_categories' => __('event_categories: https://api.helsingborg.se/event/json/wp/v2/event_categories', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/event_tags' => __('event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/location_categories' => __('location_categories: https://api.helsingborg.se/event/json/wp/v2/location_categories', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/guidegroup' => __('guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/navigation' => __('navigation: https://api.helsingborg.se/event/json/wp/v2/navigation', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/guidetype' => __('guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype', 'municipio'),
+                'https://api.helsingborg.se/event/json/wp/v2/property' => __('property: https://api.helsingborg.se/event/json/wp/v2/property', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -509,6 +527,35 @@
                     'ajax' => 0,
                 ),
                 16 => array(
+                    'key' => 'field_6544a42c139a9',
+                    'label' => __('Parent post types', 'municipio'),
+                    'name' => 'parent_post_types',
+                    'aria-label' => '',
+                    'type' => 'posttype_select',
+                    'instructions' => __('Parent post types are used to determine the permalink and the rewrite rules for this post type. Setting parent post types will affect the rewrite slug by prepending it with the parent post types slug.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        0 => array(
+                            0 => array(
+                                'field' => 'field_601b9c6128f19',
+                                'operator' => '==',
+                                'value' => '1',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'allow_null' => 1,
+                    'multiple' => 1,
+                    'placeholder' => '',
+                    'disabled' => 0,
+                    'readonly' => 0,
+                ),
+                17 => array(
                     'key' => 'field_653b5d117edbf',
                     'label' => __('Rewrite options', 'municipio'),
                     'name' => 'rewrite_options',
@@ -596,7 +643,7 @@
                         ),
                     ),
                 ),
-                17 => array(
+                18 => array(
                     'key' => 'field_601b9c6128f22',
                     'label' => __('Query Var', 'municipio'),
                     'name' => 'query_var',
@@ -669,6 +716,46 @@
                     'append' => '',
                 ),
                 1 => array(
+                    'key' => 'field_654253463faf6',
+                    'label' => __('Label (Plural)', 'municipio'),
+                    'name' => 'labels_name',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => __('The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                ),
+                2 => array(
+                    'key' => 'field_654253693faf7',
+                    'label' => __('Label (Singular)', 'municipio'),
+                    'name' => 'labels_singular_name',
+                    'aria-label' => '',
+                    'type' => 'text',
+                    'instructions' => __('The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'default_value' => '',
+                    'maxlength' => '',
+                    'placeholder' => '',
+                    'prepend' => '',
+                    'append' => '',
+                ),
+                3 => array(
                     'key' => 'field_6541ee02a37c0',
                     'label' => __('Object Type', 'municipio'),
                     'name' => 'object_type',
@@ -689,7 +776,7 @@
                     'disabled' => 0,
                     'readonly' => 0,
                 ),
-                2 => array(
+                4 => array(
                     'key' => 'field_6541eda2a37ae',
                     'label' => __('Description', 'municipio'),
                     'name' => 'description',
@@ -710,7 +797,7 @@
                     'placeholder' => '',
                     'new_lines' => '',
                 ),
-                3 => array(
+                5 => array(
                     'key' => 'field_6541eda2a37af',
                     'label' => __('Public', 'municipio'),
                     'name' => 'public',
@@ -730,7 +817,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                4 => array(
+                6 => array(
                     'key' => 'field_6541eda2a37b0',
                     'label' => __('Hierarchical', 'municipio'),
                     'name' => 'hierarchical',
@@ -750,7 +837,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                5 => array(
+                7 => array(
                     'key' => 'field_6541eda2a37b1',
                     'label' => __('Show UI', 'municipio'),
                     'name' => 'show_ui',
@@ -770,7 +857,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                6 => array(
+                8 => array(
                     'key' => 'field_6541ee8c94dac',
                     'label' => __('Show Admin Column', 'municipio'),
                     'name' => 'show_admin_column',
@@ -790,7 +877,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                7 => array(
+                9 => array(
                     'key' => 'field_6541eda2a37b4',
                     'label' => __('Publicly Queryable', 'municipio'),
                     'name' => 'publicly_queryable',
@@ -810,7 +897,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                8 => array(
+                10 => array(
                     'key' => 'field_6541eda2a37b5',
                     'label' => __('Show In Nav Menus', 'municipio'),
                     'name' => 'show_in_nav_menus',
@@ -830,7 +917,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                9 => array(
+                11 => array(
                     'key' => 'field_6541eda2a37b6',
                     'label' => __('Show In Menu', 'municipio'),
                     'name' => 'show_in_menu',
@@ -858,7 +945,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                10 => array(
+                12 => array(
                     'key' => 'field_6541eda2a37b7',
                     'label' => __('Show In Admin Bar', 'municipio'),
                     'name' => 'show_in_admin_bar',
@@ -886,7 +973,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                11 => array(
+                13 => array(
                     'key' => 'field_6541eda2a37b8',
                     'label' => __('Rewrite', 'municipio'),
                     'name' => 'rewrite',
@@ -906,7 +993,7 @@
                     'ui_off_text' => '',
                     'ui' => 1,
                 ),
-                12 => array(
+                14 => array(
                     'key' => 'field_6541eda2a37ba',
                     'label' => __('Capabilities', 'municipio'),
                     'name' => 'capabilities',
@@ -932,7 +1019,7 @@
                     'ui' => 1,
                     'ajax' => 0,
                 ),
-                13 => array(
+                15 => array(
                     'key' => 'field_6541eda2a37bb',
                     'label' => __('Rewrite options', 'municipio'),
                     'name' => 'rewrite_options',
@@ -1020,7 +1107,7 @@
                         ),
                     ),
                 ),
-                14 => array(
+                16 => array(
                     'key' => 'field_6541eda2a37bf',
                     'label' => __('Query Var', 'municipio'),
                     'name' => 'query_var',

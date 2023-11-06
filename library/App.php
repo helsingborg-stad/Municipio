@@ -80,10 +80,10 @@ class App
         /**
          * Content from API
          */
-        $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
-        $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
-        $customPostTypesFromApi->addHooks();
-        $customTaxonomiesFromApi->addHooks();
+        // $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
+        // $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
+        // $customPostTypesFromApi->addHooks();
+        // $customTaxonomiesFromApi->addHooks();
 
         /**
          * Oembed

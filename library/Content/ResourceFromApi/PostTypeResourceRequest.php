@@ -39,11 +39,17 @@ class PostTypeResourceRequest implements ResourceRequestInterface
 
         $postFromApi = RestRequestHelper::getFromApi($url);
 
-        if (is_wp_error($postFromApi) || !is_array($postFromApi)) {
+        if (is_wp_error($postFromApi)) {
             return null;
         }
 
-        return self::convertRestApiPostToWPPost($postFromApi[0], $resource);
+        if( is_array($postFromApi) ) {
+            return self::convertRestApiPostToWPPost($postFromApi[0], $resource);
+        } else if( is_object($postFromApi) ) {
+            return self::convertRestApiPostToWPPost($postFromApi, $resource);
+        }
+
+        return null;
     }
 
     public static function getCollectionHeaders(object $resource, ?array $queryArgs): array

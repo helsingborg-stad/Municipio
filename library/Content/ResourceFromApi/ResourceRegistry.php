@@ -30,6 +30,7 @@ class ResourceRegistry implements ResourceRegistryInterface
         self::$registry->attachments = [];
 
         $this->registerPostTypes();
+        $this->registerPostTypesRewriteRules();
         $this->registerTaxonomies();
     }
 
@@ -104,6 +105,44 @@ class ResourceRegistry implements ResourceRegistryInterface
         }
     }
 
+    private function registerPostTypesRewriteRules() {
+        $postTypes = $this->getPostTypes();
+        foreach($postTypes as $postType) {
+            $this->addRewriteRules($postType->name, $postType->arguments);
+        }
+    }
+
+    private function addRewriteRules(string $postTypeName, array $arguments):void {
+
+        if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
+            return;
+        }
+
+        foreach($arguments['parent_post_types'] as $parentPostTypeName) {
+            
+            if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
+                return;
+            }
+    
+            foreach($arguments['parent_post_types'] as $parentPostTypeName) {
+                
+                $parentPostTypeObject = get_post_type_object($parentPostTypeName);
+    
+                if( empty($parentPostTypeObject) ) {
+                    continue;
+                }
+    
+                $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
+    
+                add_rewrite_rule(
+                    $parentRewriteSlug . '/(.*)/(.*)',
+                    'index.php?'.$postTypeName . '=$matches[2]',
+                    'top'
+                );
+            }
+        }
+    }
+
     private function registerTaxonomies() {
         $taxonomies = $this->getTaxonomies();
 
@@ -141,8 +180,9 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getPostTypeArguments($resource->ID);
             $name = $this->getPostTypeName($resource->ID);
             $resourceID = $resource->ID;
+            $collectionUrl = self::getCollectionUrl($resourceID, 'postType');
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
         }, $resources);
     }
 
@@ -157,8 +197,9 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getTaxonomyArguments($resource->ID);
             $name = $this->getTaxonomyName($resource->ID);
             $resourceID = $resource->ID;
+            $collectionUrl = self::getCollectionUrl($resourceID, 'taxonomy');
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
         }, $resources);
     }
 
@@ -171,7 +212,8 @@ class ResourceRegistry implements ResourceRegistryInterface
         return get_posts([
             'post_type' => $this->resourcePostTypeName,
             'meta_key' => 'type',
-            'meta_value' => $type
+            'meta_value' => $type,
+            'posts_per_page' => -1,
         ]);
     }
 
@@ -182,6 +224,22 @@ class ResourceRegistry implements ResourceRegistryInterface
         }
 
         return get_field('post_type_arguments', $resourceId) ?? [];
+    }
+
+    private function getCollectionUrl(int $resourceId, string $type = 'postType'): ?string
+    {
+        if (!function_exists('get_field')) {
+            return null;
+        }
+
+        $fieldName = $type === 'postType' ? 'post_type_source' : 'taxonomy_source';
+        $resourceUrl = get_field($fieldName, $resourceId);
+
+        if (empty($resourceUrl)) {
+            return null;
+        }
+
+        return $resourceUrl;
     }
 
     public function getTaxonomyArguments(int $resourceId): array {

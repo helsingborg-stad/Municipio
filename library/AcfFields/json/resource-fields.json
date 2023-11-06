@@ -71,7 +71,15 @@
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/navigation": "wp_navigation: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/navigation",
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pre-school": "pre-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pre-school",
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/elementary-school": "elementary-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/elementary-school",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person": "person: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person"
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person": "person: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/media": "attachment: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/media",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event": "event: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location": "location: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/organizer": "organizer: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/organizer",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/sponsor": "sponsor: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/sponsor",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/membership-card": "membership-card: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/membership-card",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guide": "guide: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guide",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/interactive_guide": "interactive_guide: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/interactive_guide"
             },
             "default_value": false,
             "return_format": "value",
@@ -111,7 +119,17 @@
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menus": "nav_menu: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menus",
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/area": "area: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/area",
                 "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/usp": "usp: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/usp",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade": "grade: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade"
+                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade": "grade: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/categories": "category: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/categories",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/tags": "post_tag: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/tags",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/user_groups": "user_groups: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/user_groups",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_categories": "event_categories: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_categories",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_tags": "event_tags: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_tags",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location_categories": "location_categories: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location_categories",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidegroup": "guidegroup: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidegroup",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/navigation": "navigation: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/navigation",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidetype": "guidetype: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidetype",
+                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/property": "property: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/property"
             },
             "default_value": false,
             "return_format": "value",
@@ -504,6 +522,35 @@
                     "ajax": 0
                 },
                 {
+                    "key": "field_6544a42c139a9",
+                    "label": "Parent post types",
+                    "name": "parent_post_types",
+                    "aria-label": "",
+                    "type": "posttype_select",
+                    "instructions": "Parent post types are used to determine the permalink and the rewrite rules for this post type. Setting parent post types will affect the rewrite slug by prepending it with the parent post types slug.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_601b9c6128f19",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_null": 1,
+                    "multiple": 1,
+                    "placeholder": "",
+                    "disabled": 0,
+                    "readonly": 0
+                },
+                {
                     "key": "field_653b5d117edbf",
                     "label": "Rewrite options",
                     "name": "rewrite_options",
@@ -651,6 +698,46 @@
                     "type": "text",
                     "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
                     "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_654253463faf6",
+                    "label": "Label (Plural)",
+                    "name": "labels_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_654253693faf7",
+                    "label": "Label (Singular)",
+                    "name": "labels_singular_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",

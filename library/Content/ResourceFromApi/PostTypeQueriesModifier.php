@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
+use Municipio\Helper\RestRequestHelper;
 use WP_Post;
 use WP_Query;
 
@@ -16,7 +17,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function addHooks(): void
     {
-        // add_filter('post_type_link', [$this, 'modifyPostTypeLink'], 10, 2);
+        add_filter('post_type_link', [$this, 'modifyPostTypeLink'], 10, 2);
         add_filter('posts_results', [$this, 'modifyPostsResults'], 10, 2);
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 100, 5);
         add_filter( 'acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3 );
@@ -25,6 +26,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         // add_action('init', [$this, 'addRewriteRulesForPostTypesWithParentPostTypes'], 10, 0);
+        add_action('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [$this, 'addParentToPost'], 10, 3);
     }
 
     public function preLoadAcfValue($value, $postId, $field) {
@@ -46,22 +48,24 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
     {
-        if (!is_a($post, WP_Post::class)) {
+        if( $post->post_parent === 0 ) {
             return $postLink;
         }
 
-        $registeredPostType = $this->getResourceFromPostId($post->ID);
+        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($post->post_type);
+        $postTypeObject = get_post_type_object($post->post_type);
 
-
-        if (empty($registeredPostType)) {
+        if (empty($registeredPostType) || empty($postTypeObject)) {
             return $postLink;
         }
 
-        $postFromApi = PostTypeResourceRequest::getSingle($post->post_name, $registeredPostType);
+        if (!str_starts_with($postTypeObject->rewrite['slug'], '/%parentPost%')) {
+            return $postLink;
+        }
 
-        if( $postFromApi ){}
+        $path     = trim(parse_url(get_post_permalink($post->post_parent))['path'], '/');
+        $postLink = str_replace('%parentPost%', $path, $postLink);
 
-        $postType = get_post_type($post);
         return $postLink;
     }
 
@@ -155,5 +159,58 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         return null;
+    }
+
+    public function addParentToPost($wpPost, $restApiPost, $localPostType) {
+
+        if( $wpPost->post_parent === 0 ) {
+            return $wpPost;
+        }
+
+        if (!isset($restApiPost->_links) || !isset($restApiPost->_links->up)) {
+            return $wpPost;
+        }
+
+        $parentUrl = $restApiPost->_links->up[0]->href;
+
+        if( empty($parentUrl) ) {
+            return $wpPost;
+        }
+
+        // Get parent post from API and convert to WP_Post. Then use the id from that WP_Post as the parent id for $wpPost.
+        $parentPostFromApi = RestRequestHelper::getFromApi($parentUrl);
+        $parentPostType = $parentPostFromApi->type;
+        $parentId = $parentPostFromApi->id;
+        $parentResource = null;
+
+        if (!isset($parentPostFromApi->_links) || !isset($parentPostFromApi->_links->collection)) {
+            return $wpPost;
+        }
+
+        $parentCollectionUrl = $parentPostFromApi->_links->collection[0]->href;
+
+        $resources = $this->resourceRegistry->getRegisteredPostTypes();
+
+        foreach($resources as $resource) {
+            if( $resource->collectionUrl === $parentCollectionUrl ) {
+                $parentResource = $resource;
+                break;
+            }
+        }
+
+        if( empty($parentResource) ) {
+            return $wpPost;
+        }
+
+        $parentPost = PostTypeResourceRequest::getSingle($parentId, $parentResource);
+
+        if( empty($parentPost) ) {
+            return $wpPost;
+        }
+
+        $localParentId = $parentPost->ID;
+        $wpPost->post_parent = $localParentId;
+
+        return $wpPost;
     }
 }
