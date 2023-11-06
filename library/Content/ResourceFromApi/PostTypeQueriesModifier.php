@@ -21,7 +21,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_filter('posts_results', [$this, 'modifyPostsResults'], 10, 2);
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 100, 5);
         add_filter( 'acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3 );
-        // add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
+        add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
         // add_filter('Municipio/Content/RestApiPostToWpPost', [$this, 'addParentToPostWithParentPostType'], 10, 3);
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
@@ -44,6 +44,39 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         return PostTypeResourceRequest::getMeta($postId, $field['name'], $registeredPostType) ?? $value;
+    }
+
+    public function modifyBreadcrumbsItems(?array $pageData, $queriedObject, $queriedObjectData): ?array
+    {
+        if (is_null($pageData) || !is_a($queriedObject, 'WP_Post')) {
+            return $pageData;
+        }
+
+        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($queriedObject->post_type);
+
+        if (empty($registeredPostType)) {
+            return $pageData;
+        }
+
+        if ($queriedObject->post_parent === 0) {
+            return $pageData;
+        }
+
+        $parentPosts = get_posts(['post__in' => [$queriedObject->post_parent], 'suppress_filters' => false]);
+
+        if (empty($parentPosts)) {
+            return $pageData;
+        }
+
+        array_splice($pageData, -1, 0, [
+            [
+                'label'   => $parentPosts[0]->post_title,
+                'href'    => get_post_permalink($parentPosts[0]),
+                'current' => false
+            ],
+        ]);
+
+        return $pageData;
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
@@ -70,12 +103,8 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
     }
 
     public function modifyPostsResults(array $posts, WP_Query $query): array
-    {
-        if (!$query->get('post_type') || !is_string($query->get('post_type'))) {
-            return $posts;
-        }
-
-        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($query->get('post_type'));
+    {   
+        $registeredPostType = $this->getResourceFromQuery($query);
 
         if (empty($registeredPostType)) {
             return $posts;
@@ -84,13 +113,43 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         if ($query->is_single()) {
             $posts = PostTypeResourceRequest::getSingle($query->get('name'), $registeredPostType);
         } else {
-            $posts = PostTypeResourceRequest::getCollection($registeredPostType, $query->query_vars);
-            $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $query->query_vars);
+            $queryVars = $this->prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
+            $posts = PostTypeResourceRequest::getCollection($registeredPostType, $queryVars);
+            $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $queryVars);
             $query->found_posts = $headers['x-wp-total'] ?? count($posts);
             $query->max_num_pages = $headers['x-wp-totalpages'] ?? 1;
         }
 
         return is_array($posts) ? $posts : [$posts];
+    }
+
+    private function getResourceFromQuery(WP_Query $query): ?object
+    {
+        if ($query->get('post__in') && !empty($query->get('post__in'))) {
+
+            $ids = $query->get('post__in');
+
+            if ($this->containsIdFromResource($ids)) {
+                return $this->getResourceFromPostId($ids[0]);
+            }
+        }
+
+        if ($query->get('post_type') && is_string($query->get('post_type'))) {
+            return $this->resourceRegistry->getRegisteredPostType($query->get('post_type'));
+        }
+
+        return null;
+    }
+
+    private function containsIdFromResource(array $ids): bool
+    {
+        foreach ($ids as $id) {
+            if ($this->isRemotePostId((int)$id)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function modifyDefaultPostMetadata($value, int $objectId, $metaKey, $single, $metaType)
@@ -101,9 +160,26 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return $value;
         }
 
-        $objectId = (int)str_replace((string)$registeredPostType->resourceID, '', (string)absint($objectId));
+        $objectId = $this->prepareIdForRequest($objectId, $registeredPostType);
 
         return PostTypeResourceRequest::getMeta($objectId, $metaKey, $registeredPostType, $single) ?? $value;
+    }
+
+    private function prepareQueryArgsForRequest(array $queryArgs, object $resource): array
+    {
+        if (isset($queryArgs['post__in']) && !empty(array_filter($queryArgs['post__in']))) {
+            $queryArgs['post__in'] = array_map(
+                fn ($id) => $this->prepareIdForRequest($id, $resource),
+                $queryArgs['post__in']
+            );
+        }
+
+        return $queryArgs;
+    }
+
+    private function prepareIdForRequest(int $id, object $resource): int
+    {
+        return (int)str_replace((string)$resource->resourceID, '', (string)absint($id));
     }
 
     public function preventSuppressFiltersOnWpQuery(WP_Query $query): void
@@ -139,7 +215,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     private function getResourceFromPostId($postId):?object {
 
-        if( $postId > -1 ) {
+        if( !$this->isRemotePostId((int)$postId) ) {
             return null;
         }
 
@@ -161,6 +237,11 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         return null;
     }
 
+    private function isRemotePostId(int $id): bool
+    {
+        return $id < 0;
+    }
+
     public function addParentToPost($wpPost, $restApiPost, $localPostType) {
 
         if( $wpPost->post_parent === 0 ) {
@@ -179,7 +260,6 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         // Get parent post from API and convert to WP_Post. Then use the id from that WP_Post as the parent id for $wpPost.
         $parentPostFromApi = RestRequestHelper::getFromApi($parentUrl);
-        $parentPostType = $parentPostFromApi->type;
         $parentId = $parentPostFromApi->id;
         $parentResource = null;
 

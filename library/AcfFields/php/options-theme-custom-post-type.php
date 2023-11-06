@@ -159,24 +159,6 @@
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
                 5 => array(
-                    'key' => 'field_652cf6c8921b0',
-                    'label' => __('API Source URL', 'municipio'),
-                    'name' => 'api_source_url',
-                    'aria-label' => '',
-                    'type' => 'url',
-                    'instructions' => __('API Source for the post type. If this is supplied and responds with a WordPress REST API endpoint for a post type collection; the posts for this post type will be served from the supplied endpoint.', 'municipio'),
-                    'required' => 0,
-                    'conditional_logic' => 0,
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'default_value' => '',
-                    'placeholder' => __('E.g. .../wp-json/wp/v2/pre-school', 'municipio'),
-                    'parent_repeater' => 'field_56b347f3ffb6c',
-                ),
-                6 => array(
                     'key' => 'field_56b361b25defd',
                     'label' => __('Public?', 'municipio'),
                     'name' => 'public',
@@ -197,7 +179,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                7 => array(
+                6 => array(
                     'key' => 'field_56b362255defe',
                     'label' => __('Exclude from search?', 'municipio'),
                     'name' => 'exclude_from_search',
@@ -218,7 +200,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                8 => array(
+                7 => array(
                     'key' => 'field_56b3629c5deff',
                     'label' => __('Avabile in nav menus?', 'municipio'),
                     'name' => 'show_in_nav_menus',
@@ -239,7 +221,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                9 => array(
+                8 => array(
                     'key' => 'field_56b364336050a',
                     'label' => __('Hierarchical', 'municipio'),
                     'name' => 'hierarchical',
@@ -260,7 +242,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                10 => array(
+                9 => array(
                     'key' => 'field_64fef9ff25f70',
                     'label' => __('Place under pages menu?', 'municipio'),
                     'name' => 'place_under_pages_menu',
@@ -281,37 +263,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                11 => array(
-                    'key' => 'field_652e6004ffdab',
-                    'label' => __('Parent post types', 'municipio'),
-                    'name' => 'parent_post_types',
-                    'aria-label' => '',
-                    'type' => 'posttype_select',
-                    'instructions' => __('Post types that will be used as a parent post type for this post type. This will mainly affects the post type permalinks by prefixing the url with the parent post types post url.', 'municipio'),
-                    'required' => 0,
-                    'conditional_logic' => array(
-                        0 => array(
-                            0 => array(
-                                'field' => 'field_56b364336050a',
-                                'operator' => '==',
-                                'value' => '1',
-                            ),
-                        ),
-                    ),
-                    'wrapper' => array(
-                        'width' => '',
-                        'class' => '',
-                        'id' => '',
-                    ),
-                    'default_value' => '',
-                    'allow_null' => 1,
-                    'multiple' => 1,
-                    'placeholder' => '',
-                    'disabled' => 0,
-                    'readonly' => 0,
-                    'parent_repeater' => 'field_56b347f3ffb6c',
-                ),
-                12 => array(
+                10 => array(
                     'key' => 'field_5805d63cdcbf4',
                     'label' => __('Navigation', 'municipio'),
                     'name' => 'show_posts_in_sidebar_menu',
@@ -340,7 +292,7 @@
                     'ui_off_text' => '',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                13 => array(
+                11 => array(
                     'key' => 'field_56b364a391788',
                     'label' => __('Post type functions', 'municipio'),
                     'name' => 'supports',
@@ -382,7 +334,7 @@
                     'custom_choice_button_text' => 'Add new choice',
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                14 => array(
+                12 => array(
                     'key' => 'field_633d67ea3f62c',
                     'label' => __('Display age notification on posts', 'municipio'),
                     'name' => 'display_age_notification_on_posts',
@@ -403,7 +355,7 @@
                     'ui' => 0,
                     'parent_repeater' => 'field_56b347f3ffb6c',
                 ),
-                15 => array(
+                13 => array(
                     'key' => 'field_633d68aec93bb',
                     'label' => __('Display the notice after this many days', 'municipio'),
                     'name' => 'post_age_days',
