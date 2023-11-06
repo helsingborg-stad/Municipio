@@ -52,7 +52,7 @@ class ResourcePostType
         }
     }
 
-    function loadPostTypeSourceOptions($field)
+    public function loadPostTypeSourceOptions($field)
     {
 
         $choices = [];
@@ -107,7 +107,7 @@ class ResourcePostType
         return $field;
     }
 
-    function loadTaxonomySourceOptions($field)
+    public function loadTaxonomySourceOptions($field)
     {
 
         $choices = [];
