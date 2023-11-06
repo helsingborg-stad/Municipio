@@ -39,7 +39,7 @@
                             'element' => 'h2',
                             'variant' => 'h3'
                         ])
-                            {{ $post->postTitle }}
+                            {!! $post->postTitle !!}
                         @endtypography
                         {{-- TODO: Add icon --}}
                     @endgroup
