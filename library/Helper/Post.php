@@ -55,6 +55,7 @@ class Post
             $post, 
             [
                 'excerpt',
+                'post_content_filtered',
                 'post_title_filtered',
                 'permalink',
                 'terms',
@@ -245,7 +246,7 @@ class Post
         if (!empty($postObject->post_type)) {
             $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType($postObject->post_type);
         }
-
+        
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
