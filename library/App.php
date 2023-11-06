@@ -65,25 +65,17 @@ class App
         $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
         $resourcePostType->addHooks();
 
-        $postTypeRegistrar = new \Municipio\Content\ResourceFromApi\PostTypeRegistrar();
-        $taxonomyRegistrar = new \Municipio\Content\ResourceFromApi\TaxonomyRegistrar();
+        $postTypeRegistrar = new \Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar();
+        $taxonomyRegistrar = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar();
 
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry($postTypeRegistrar, $taxonomyRegistrar);
         $resourceRegistry->initialize();
 
-        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostTypeQueriesModifier($resourceRegistry);
+        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);
         $postTypeQueriesModifier->addHooks();
 
-        $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\TaxonomyQueriesModifier($resourceRegistry);
+        $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyQueriesModifier($resourceRegistry);
         $taxonomyQueriesModifier->addHooks();
-
-        /**
-         * Content from API
-         */
-        // $customPostTypesFromApi = new \Municipio\Content\CustomPostTypesFromApi();
-        // $customTaxonomiesFromApi = new \Municipio\Content\CustomTaxonomiesFromApi();
-        // $customPostTypesFromApi->addHooks();
-        // $customTaxonomiesFromApi->addHooks();
 
         /**
          * Oembed

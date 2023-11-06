@@ -1,12 +1,11 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
+use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Helper\RestRequestHelper;
-use Municipio\Helper\WPQueryToRestParamsConverter;
 use Municipio\Helper\WPTermQueryToRestParamsConverter;
 use stdClass;
-use WP_Post;
 use WP_Term;
 
 class TaxonomyResourceRequest implements ResourceRequestInterface

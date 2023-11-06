@@ -2,6 +2,8 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
+use Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar;
+use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar;
 use stdClass;
 
 class ResourceRegistry implements ResourceRegistryInterface

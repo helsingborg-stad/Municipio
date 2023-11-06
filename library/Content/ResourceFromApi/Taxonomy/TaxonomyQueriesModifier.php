@@ -1,7 +1,9 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
+use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
+use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use WP_Taxonomy;
 use WP_Term;
 use WP_Term_Query;

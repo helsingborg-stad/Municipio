@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
 use stdClass;

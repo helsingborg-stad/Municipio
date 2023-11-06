@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
+use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
 use WP_Taxonomy;
 
 class TaxonomyRegistrar implements TypeRegistrarInterface

@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
 use WP_Post_Type;
 
 class PostTypeRegistrar implements TypeRegistrarInterface

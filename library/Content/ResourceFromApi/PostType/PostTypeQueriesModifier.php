@@ -1,7 +1,9 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
+use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Helper\RestRequestHelper;
 use WP_Post;
 use WP_Query;
