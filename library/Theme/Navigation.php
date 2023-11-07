@@ -98,8 +98,6 @@ class Navigation
         $archiveMenu = array();
         $publicPostTypes = \Municipio\Helper\PostType::getPublic();
 
-        // TODO Add support for content types
-
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postTypeSlug => $postType) {
 
@@ -118,7 +116,7 @@ class Navigation
                     ' ',
                     array(
                         $postType->label,
-                        __("(left sidebar)", "municipio")
+                        __("(sidebar)", "municipio")
                     )
                 );
             }
@@ -141,7 +139,7 @@ class Navigation
         if (is_array($contentTypes) && !empty($contentTypes)) {
             foreach ($contentTypes as $key => $label) {
                 $contentTypeMenu[$key . '-secondary-menu'] = sprintf(
-                    __('Content type - %s (left sidebar)', 'municipio'),
+                    __('Content type - %s (sidebar)', 'municipio'),
                     $label
                 );
             }
