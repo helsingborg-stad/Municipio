@@ -376,9 +376,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress[0]->address, $visitingAddresses);
         $visitingData = array_map(function ($address) use(&$mapPins) {
-            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address[0]->address->address);
             $street = $address[0]->address->street_name ?? '';
             $streetNumber = $address[0]->address->street_number ?? '';
             $postCode = $address[0]->address->post_code ?? '';
@@ -485,34 +485,38 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendImagesData(): void
     {
+        if( !empty($this->postMeta->facadeImages) ) {
+            $facadeAttachmentIds = array_map(fn($facadeImage) => $facadeImage[0]->image->id ,$this->postMeta->facadeImages );
 
-        $facadeAttachmentIds = array_map(fn($facadeImage) => $facadeImage->image->id ,$this->postMeta->facadeImages ?? [] );
-        $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
-            'post_type' => self::MEDIA_POST_TYPE,
-            'post__in' => $facadeAttachmentIds,
-            'suppress_filters' => false
-        ]) : [];
+            $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
+                'post_type' => self::MEDIA_POST_TYPE,
+                'post__in' => $facadeAttachmentIds,
+                'suppress_filters' => false
+            ]) : [];
+        }
 
-        $galleryAttachmentIds = array_map(fn($galleryImage) => $galleryImage->image->id ,$this->postMeta->gallery ?? [] );
-        $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
-            'post_type' => self::MEDIA_POST_TYPE,
-            'post__in' => $galleryAttachmentIds,
-            'suppress_filters' => false
-        ]) : [];
-
-        $this->data['facadeSliderItems'] = !empty($facadeAttachments)
+        $this->data['facadeSliderItems'] = isset($facadeAttachments) && !empty($facadeAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
 
-        $this->data['gallerySliderItems'] = !empty($galleryAttachments)
+        if( !empty($this->postMeta->gallery) ) {
+            $galleryAttachmentIds = array_map(fn($galleryImage) => $galleryImage->image->id ,$this->postMeta->gallery );
+
+            $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
+                'post_type' => self::MEDIA_POST_TYPE,
+                'post__in' => $galleryAttachmentIds,
+                'suppress_filters' => false
+            ]) : [];
+        }
+
+        $this->data['gallerySliderItems'] = isset($galleryAttachments) && !empty($galleryAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
             : null;
 
         $this->data['video'] =
-        (empty($this->data['gallerySliderItems']) && !empty($this->postMeta->video))
+        ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
             ? $this->postMeta->video
             : null; 
-
     }
 
     private function attachmentToSliderItem($attachment): array
