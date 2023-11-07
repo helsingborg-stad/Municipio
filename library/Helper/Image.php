@@ -176,7 +176,7 @@ class Image
         $imageTitle         = get_the_title($id);
         $imageCaption       = get_post_field('post_excerpt', $id);
         $imageDescription   = get_post_field('post_content', $id);
-        $imagePhotographer  = get_post_meta($id, 'photographer', true);
+        $imageByline        = get_post_meta($id, 'byline', true);
 
         $image = [
             'src'           => $imageSrc[0],
@@ -184,7 +184,7 @@ class Image
             'title'         => $imageTitle ? $imageTitle : null,
             'caption'       => $imageCaption ? $imageCaption : null,
             'description'   => $imageDescription ? $imageDescription : null,
-            'photographer'  => $imagePhotographer ? $imagePhotographer : null
+            'byline'        => $imageByline ? $imageByline : null
         ];
 
         return $image;

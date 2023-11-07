@@ -31,7 +31,7 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
 /**
  * Acf auto import and export
  */
-add_action('init', function () {
+add_action('acf/init', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
@@ -84,6 +84,8 @@ add_action('init', function () {
         'options-menu-mega'                         => 'group_6502be085ee3b',           
         'options-menu-description'                  => 'group_650296216899c',
         'options-menu-language'                     => 'group_6141cc9c72cc3',
+        'options-api-resources-apis'                => 'group_653a1673dc501',
+        'resource-fields'                           => 'group_653a509450198',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',
         'widget-header-common'                      => 'group_5a65d5e7e913b',
@@ -94,6 +96,7 @@ add_action('init', function () {
         'options-customize-header'                  => 'group_5afa93c0a25e1',
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
+        'media-attachments'                         => 'group_650857c9f2cce',
         // Content Types (formerly Purposes)
         'content-type-place'    => 'group_63eb4a0aa476e',
         'options-content-types' => 'group_63e3852d91646'

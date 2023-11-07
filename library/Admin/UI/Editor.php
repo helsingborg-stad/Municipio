@@ -145,6 +145,9 @@ class Editor
      */
     public function styleFormat($settings)
     {
+        //Removes h1 from the available element.
+        $settings['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6;Preformatted=pre;';
+
         // Set color scheme class on mce body
         $color = get_field('color_scheme', 'option');
 
