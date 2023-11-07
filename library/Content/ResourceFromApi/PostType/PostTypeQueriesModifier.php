@@ -162,10 +162,11 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     private function prepareQueryArgsForRequest(array $queryArgs, object $resource): array
     {
-        if (isset($queryArgs['post__in']) && !empty(array_filter($queryArgs['post__in']))) {
+        $postIn = isset($queryArgs['post__in']) && is_array($queryArgs['post__in']) ? array_filter($queryArgs['post__in'], fn($id) => !empty($id)) : [];
+        if (!empty($postIn)) {
             $queryArgs['post__in'] = array_map(
                 fn ($id) => $this->prepareIdForRequest($id, $resource),
-                $queryArgs['post__in']
+                $postIn
             );
         }
 
