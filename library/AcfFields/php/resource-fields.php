@@ -534,15 +534,7 @@
                     'type' => 'posttype_select',
                     'instructions' => __('Parent post types are used to determine the permalink and the rewrite rules for this post type. Setting parent post types will affect the rewrite slug by prepending it with the parent post types slug.', 'municipio'),
                     'required' => 0,
-                    'conditional_logic' => array(
-                        0 => array(
-                            0 => array(
-                                'field' => 'field_601b9c6128f19',
-                                'operator' => '==',
-                                'value' => '1',
-                            ),
-                        ),
-                    ),
+                    'conditional_logic' => 0,
                     'wrapper' => array(
                         'width' => '',
                         'class' => '',
