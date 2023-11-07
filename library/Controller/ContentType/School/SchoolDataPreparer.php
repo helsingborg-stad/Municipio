@@ -240,7 +240,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         // Split quickFacts into 3 columns
-        $quickFacts = array_chunk($quickFacts, ceil(sizeof($quickFacts) / 3));
+        $numberOfColumns = ceil(sizeof($quickFacts) / 3);
+        if( $numberOfColumns > 0 ) {
+            $quickFacts = array_chunk($quickFacts, $numberOfColumns);
+        }
 
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Facts', 'municipio');
