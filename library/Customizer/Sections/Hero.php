@@ -116,7 +116,7 @@ class Hero
             'label'       => esc_html__('Content background', 'municipio'),
             'description' => esc_html__('Choose a background color for hero content.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 'rgba(255, 255, 255, 0)',
+            'default'     => '',
             'priority'    => 10,
             'choices'     => [
                 'alpha' => true,
