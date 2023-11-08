@@ -681,7 +681,8 @@ class Navigation
                           'classList' => ['c-nav__icon']
                         ],
                         'style' => get_field('menu_item_style', $item->ID) ?? 'default',
-                        'description' => get_field('menu_item_description', $item->ID) ?? ''
+                        'description' => get_field('menu_item_description', $item->ID) ?? '',
+                        'xfn' => $item->xfn ?? false
                     ], $this->identifier, true);
                 }
             } else {
