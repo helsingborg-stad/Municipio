@@ -185,10 +185,11 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getPostTypeArguments($resource->ID);
             $name = $this->getPostTypeName($resource->ID);
             $resourceID = $resource->ID;
-            $apiInformation = self::getApiInformation($resourceID, 'postType');
-            $collectionUrl = $apiInformation ? $apiInformation['url'] . $apiInformation['baseName'] : '';
-            $originalName = $apiInformation ? $apiInformation['originalName'] : '';
-            $baseName = $apiInformation ? $apiInformation['baseName'] : '';
+            
+            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
+            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $collectionUrl = $resourceUrl . $baseName;
 
             return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
@@ -205,10 +206,10 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getTaxonomyArguments($resource->ID);
             $name = $this->getTaxonomyName($resource->ID);
             $resourceID = $resource->ID;
-            $apiInformation = self::getApiInformation($resourceID, 'taxonomy');
-            $collectionUrl = $apiInformation ? $apiInformation['url'] . $apiInformation['baseName'] : '';
-            $originalName = $apiInformation ? $apiInformation['originalName'] : '';
-            $baseName = $apiInformation ? $apiInformation['baseName'] : '';
+            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
+            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $collectionUrl = $resourceUrl . $baseName;
 
             return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
@@ -235,37 +236,6 @@ class ResourceRegistry implements ResourceRegistryInterface
         }
 
         return get_field('post_type_arguments', $resourceId) ?? [];
-    }
-
-    private function getApiInformation(int $resourceId, string $type = 'postType'): ?array
-    {
-        if (!function_exists('get_field')) {
-            return null;
-        }
-
-        $fieldName = $type === 'postType' ? 'post_type_source' : 'taxonomy_source';
-        $source = get_field($fieldName, $resourceId);
-
-        if (!is_string($source) || empty($source)) {
-            return null;
-        }
-
-        $parts = explode(',', $source);
-
-        if (sizeof($parts) !== 3) {
-            return null;
-        }
-
-        $url = $parts[0];
-        $originalName = $parts[1];
-        $baseName = $parts[2];
-
-
-        return [
-            'url' => $url,
-            'originalName' => $originalName,
-            'baseName' => $baseName,
-        ];
     }
 
     public function getTaxonomyArguments(int $resourceId): array {

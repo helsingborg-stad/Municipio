@@ -8,7 +8,7 @@
 
     @if($notification)
         @notice([
-            'type' => 'info',
+            'type' => 'warning',
             'message' => [
                 'title' => $notification['title'] ?? '',
                 'text' => $notification['text'] ?? ''
@@ -43,6 +43,36 @@
             </div>
 
         @endpaper
+    @endif
+
+    @if($eventsTitle)
+        @typography(['element' => 'h4'])
+            {{$eventsTitle}}
+        @endtypography
+    @endif
+
+    @if($events)
+
+        @foreach ($events as $event)
+            @collection([])
+                @collection__item([
+                    'classList' => ['u-box-shadow--3', 'u-margin__bottom--3', 'u-padding--1', 'u-border--1']
+                ])
+                    @slot('before')
+                        @datebadge([
+                            'classList' => ['u-padding--2', 'u-margin__right--2'],
+                            'date' => $event['date'],
+                            'size' => 'sm',
+                        ])
+                        @enddatebadge
+                    @endslot
+                    @typography(['element' => 'h4'])
+                        {{$event['title']}}
+                    @endtypography
+                    {!!$event['text']!!}
+                @endcollection__item
+            @endcollection
+        @endforeach
     @endif
 
     @if( $visitUs )
@@ -153,14 +183,14 @@
             </div>
         @endif
     @endif
-
+    
     @if(!empty($accordionListItems))
         
             @accordion([])
                 @foreach ($accordionListItems as $listItem)
                     @accordion__item([
                         'heading' => $listItem['heading'],
-                        'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--3', 'u-padding--2', 'u-border--0']
+                        'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
                     ])
                         {!!$listItem['content']!!}
                     @endaccordion__item                    

@@ -175,8 +175,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             foreach($queryArgs['tax_query'] as $key => $taxQuery) {
                 
                 if( isset($taxQuery['taxonomy']) && is_string($taxQuery['taxonomy']) && !empty($taxQuery['taxonomy']) ) {
-                    // TODO: Get correct taxonomy from registry
-                    $queryArgs['tax_query'][$key]['taxonomy'] = 
+                    $queryArgs['tax_query'][$key]['taxonomy'] = $this->possiblyConvertLocalTaxonomyToRemote($taxQuery['taxonomy']);
                 }
                 
                 if( isset($taxQuery['terms']) && is_array($taxQuery['terms']) && !empty($taxQuery['terms']) ) {
@@ -192,6 +191,21 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         return $queryArgs;
+    }
+
+    private function possiblyConvertLocalTaxonomyToRemote (string $taxonomy): string
+    {
+        $localTaxonomyResource = $this->resourceRegistry->getRegisteredTaxonomy($taxonomy);
+
+        if (
+            !empty($localTaxonomyResource) &&
+            isset($localTaxonomyResource->originalName) &&
+            !empty($localTaxonomyResource->originalName)
+        ) {
+            return $localTaxonomyResource->originalName;
+        }
+
+        return $taxonomy;
     }
 
     private function prepareIdForRequest(int $id, object $resource): int

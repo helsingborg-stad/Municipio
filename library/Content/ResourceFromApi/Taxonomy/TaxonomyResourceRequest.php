@@ -101,9 +101,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
 
     private static function getCollectionUrl(object $resource, ?array $queryArgs = null): ?string
     {
-        $resourceUrl = get_field('taxonomy_source', $resource->resourceID);
-
-        if (empty($resourceUrl)) {
+        if (empty($resource->collectionUrl)) {
             return null;
         }
 
@@ -111,7 +109,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
             ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($queryArgs)
             : '';
 
-        return $resourceUrl . $restParams;
+        return $resource->collectionUrl . $restParams;
     }
 
     private static function getLocalID(int $id, object $resource): int

@@ -16,6 +16,7 @@ class ResourcePostType
         add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setTaxonomyResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setPostTypeApiMeta'], 10);
+        add_action('acf/save_post', [$this, 'setTaxonomyApiMeta'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
         add_filter('acf/update_value/name=taxonomy_key', [$this, 'sanitizeTaxonomyKeyBeforeSave'], 10, 4);
     }
@@ -98,6 +99,7 @@ class ResourcePostType
                 $value = trailingslashit($url) . ",{$type->slug}" . ",{$type->rest_base}";
                 $labelParenthesis = trailingslashit($url) . $type->rest_base;
                 $label = "{$type->slug}: {$labelParenthesis}";
+                $choices[$value] = $label;
             }
         }
 
@@ -222,6 +224,32 @@ class ResourcePostType
         }
 
         $parts = explode(',', $postTypeSource);
+        
+        if( sizeof($parts) !== 3 ) {
+            return;
+        }
+
+        $url = $parts[0];
+        $originalName = $parts[1];
+        $baseName = $parts[2];
+
+        update_post_meta($postId, 'api_resource_url', $url);
+        update_post_meta($postId, 'api_resource_original_name', $originalName);
+        update_post_meta($postId, 'api_resource_base_name', $baseName);
+    }
+    
+    public function setTaxonomyApiMeta($postId) {
+        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== 'api-resource' || !function_exists('get_field') ) {
+            return;
+        }
+
+        $taxonomySource = get_field('taxonomy_source', $postId);
+        
+        if( !is_string($taxonomySource) || empty($taxonomySource) ) {
+            return;
+        }
+
+        $parts = explode(',', $taxonomySource);
         
         if( sizeof($parts) !== 3 ) {
             return;

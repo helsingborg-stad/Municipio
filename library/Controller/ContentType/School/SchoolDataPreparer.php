@@ -567,7 +567,46 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'terms' => [$eventTag->term_id]
             ]
         ]]);
-        var_dump($events);
 
+        if( empty($events) ) {
+            return;
+        }
+
+        foreach($events as $event) {
+            $title = $event->post_title;
+            $text = $event->post_content;
+            $occasions = WP::getField('occasions', $event->ID, true);
+
+            if (empty($occasions) || empty($text) || empty($text)) {
+                continue;
+            }
+
+            $firstOccation = $occasions[0];
+
+            if (
+                !isset($firstOccation[0]->start_date) ||
+                empty($firstOccation[0]->start_date) ||
+                strtotime($firstOccation[0]->start_date) === false
+            ) {
+                continue;
+            }
+
+            $time = strtotime($firstOccation[0]->start_date);
+            $date = date('Y-m-d', $time);
+
+            if( $this->data['events'] === null ) {
+                $this->data['events'] = [];
+            }
+
+            $this->data['events'][] = [
+                'title' => $title,
+                'text' => $text,
+                'date' => $date
+            ];
+        }
+
+        if( $this->data['events'] !== null ) {
+            $this->data['eventsTitle'] = __('Events', 'municipio');
+        }
     }
 }

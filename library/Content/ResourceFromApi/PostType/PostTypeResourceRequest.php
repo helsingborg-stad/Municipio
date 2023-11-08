@@ -108,7 +108,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
 
     private static function getCollectionUrl(object $resource, ?array $queryArgs = null): ?string
     {
-        $resourceUrl = get_field('post_type_source', $resource->resourceID);
+        $resourceUrl = $resource->collectionUrl;
 
         if (empty($resourceUrl)) {
             return null;
