@@ -66,7 +66,7 @@ class App
         $resourcePostType->addHooks();
 
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        $resourceRegistry->initialize();
+        $resourceRegistry->addHooks();
 
         $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);
         $postTypeQueriesModifier->addHooks();
