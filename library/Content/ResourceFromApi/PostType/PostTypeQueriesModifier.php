@@ -109,7 +109,6 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             $posts = PostTypeResourceRequest::getSingle($query->get('name'), $registeredPostType);
         } else {
             $queryVars = $this->prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
-            $queryVars = 
             $posts = PostTypeResourceRequest::getCollection($registeredPostType, $queryVars);
             $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $queryVars);
             $query->found_posts = $headers['x-wp-total'] ?? count($posts);
