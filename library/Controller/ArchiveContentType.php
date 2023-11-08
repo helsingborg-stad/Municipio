@@ -18,6 +18,8 @@ class ArchiveContentType extends \Municipio\Controller\Archive
         if (ContentType::hasContentType('place', get_post_type(), true)) {
             $this->setupOpenStreetMap();
         }
+
+        
     }
 
     private function setupOpenStreetMap()

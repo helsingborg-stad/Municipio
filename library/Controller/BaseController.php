@@ -118,8 +118,31 @@ class BaseController
 
         //Main Navigation
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
-        $this->data['secondaryMenuItems']           = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
-
+        
+        /**
+         * Get the secondary menu items based on the content type or post type.
+         * If a content type is found, it will look for a secondary menu with the key {content_type}-secondary-menu.
+         * If not found, it will look for a secondary menu with the key {post_type}-secondary-menu.
+         * If still not found, it will fallback to the secondary menu with the key 'secondary-menu'.
+         *
+         * @return void
+         */
+        $contentType = \Municipio\Helper\ContentType::getContentType(get_post_type());   
+        if($contentType) {
+            $contentTypeSecondaryMenu = $secondary->getMenuItems( $contentType->getKey() . '-secondary-menu', $this->getPageID());
+            if( !empty( $contentTypeSecondaryMenu ) ) {
+                $this->data['secondaryMenuItems'] = $contentTypeSecondaryMenu;
+            }
+        } else {
+            $posttypeSecondaryMenuItems  = $secondary->getMenuItems( get_post_type() . '-secondary-menu', $this->getPageID());
+            if(!empty($posttypeSecondaryMenuItems)) {
+                $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
+            } else {
+                $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
+            }
+        }
+        
+        
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['megaMenuItems']           = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
 
