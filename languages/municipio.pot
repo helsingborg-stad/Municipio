@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-02 15:01+0000\n"
+"POT-Creation-Date: 2023-11-07 10:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -19,6 +19,22 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-favicon.php:216
 msgid "#FFFFFF"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:178
+msgid "%d units"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:196
+#, php-format
+msgid "%s profiles"
+msgstr ""
+
+#: library/Helper/ContentType.php:221
+#, php-format
+msgid ""
+"%s tried to add %s as a secondary content type. Complex content types cannot "
+"add other complex content types."
 msgstr ""
 
 #: library/Theme/Navigation.php:111
@@ -14931,7 +14947,13 @@ msgid ""
 "8px;\">zoom_out_map</span>"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:36
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:37
+msgid ""
+"<span style=\"color: #ff0000;\">Once you have published a post type the name "
+"cannot be changed!</span>"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:38
 msgid ""
 "<span style=\"color: #ff0000;\">Will generate the post type name, select a "
 "name with care! Cannot be changed! </span>"
@@ -14979,11 +15001,20 @@ msgstr ""
 msgid "A margin block"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:245
+#: library/AcfFields/php/resource-fields.php:779
+msgid "A short descriptive summary of what the post type is."
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:320
+msgid "About the school"
+msgstr ""
+
 #: library/Theme/Sidebars.php:246
 msgid "Above columns sidebar"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:15
+#: library/AcfFields/php/options-theme-google-translate.php:27
 msgid "Above header"
 msgstr ""
 
@@ -14992,16 +15023,16 @@ msgid "ac_unit"
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:159
-#: library/Customizer/Sections/Module/Contacts.php:38
-#: library/Customizer/Sections/Module/Inlay.php:19
 #: library/Customizer/Sections/Module/LocalEvent.php:19
-#: library/Customizer/Sections/Module/Map.php:21
-#: library/Customizer/Sections/Module/Script.php:21
-#: library/Customizer/Sections/Module/Text.php:19
 #: library/Customizer/Sections/Module/Video.php:21
+#: library/Customizer/Sections/Module/Map.php:21
 #: library/Customizer/Sections/Module/Posts.php:19
 #: library/Customizer/Sections/Module/Posts.php:40
 #: library/Customizer/Sections/Module/Posts.php:61
+#: library/Customizer/Sections/Module/Inlay.php:19
+#: library/Customizer/Sections/Module/Text.php:19
+#: library/Customizer/Sections/Module/Script.php:21
+#: library/Customizer/Sections/Module/Contacts.php:38
 msgid "Accented"
 msgstr ""
 
@@ -15053,6 +15084,38 @@ msgstr ""
 msgid "account_tree"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:169
+msgid "acf-post-type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:168
+msgid "acf-taxonomy"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:170
+msgid "acf-ui-options-page"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:199
+msgid "acfe-dbt"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:201
+msgid "acfe-dop"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:202
+msgid "acfe-dpt"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:203
+msgid "acfe-dt"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:200
+msgid "acfe-form"
+msgstr ""
+
 #: library/AcfFields/php/options-activate-gutenberg.php:8
 msgid "Activate Gutenberg"
 msgstr ""
@@ -15061,7 +15124,7 @@ msgstr ""
 msgid "Activate gutenberg editor"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:268
+#: library/Customizer/Sections/Colors.php:263
 msgid "Active"
 msgstr ""
 
@@ -15091,20 +15154,30 @@ msgstr ""
 msgid "Add navigation item"
 msgstr ""
 
-#: library/Content/CustomPostType.php:58
+#: library/Content/CustomPostType.php:56
 msgid "Add new"
 msgstr ""
 
-#: library/Content/CustomPostType.php:59
+#: library/Content/CustomPostType.php:57
+#, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:26
+#: library/AcfFields/php/options-theme-custom-post-type.php:27
 msgid "Add post type"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:222
+#: library/AcfFields/php/options-api-resources-apis.php:30
+msgid "Add Row"
 msgstr ""
 
 #: library/AcfFields/php/options-customize-header.php:27
 msgid "Add section"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:27
+msgid "Add taxonomy"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:42
@@ -15182,6 +15255,14 @@ msgid ""
 "the components tab."
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:240
+msgid "Admin user interface"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:158
+msgid "Advanced"
+msgstr ""
+
 #: library/AcfFields/php/term-icon-and-colour.php:8
 msgid "Advanced term settings"
 msgstr ""
@@ -15190,7 +15271,7 @@ msgstr ""
 msgid "After first block"
 msgstr ""
 
-#: library/Controller/BaseController.php:203
+#: library/Controller/BaseController.php:207
 msgid "ago"
 msgstr ""
 
@@ -15266,7 +15347,8 @@ msgstr ""
 msgid "album"
 msgstr ""
 
-#: library/Content/CustomPostType.php:63
+#: library/Content/CustomPostType.php:61
+#, php-format
 msgid "All %s"
 msgstr ""
 
@@ -15288,7 +15370,7 @@ msgstr ""
 msgid "all_out"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:312
+#: library/Customizer/Sections/Colors.php:306
 msgid "Alpha colors"
 msgstr ""
 
@@ -15348,8 +15430,40 @@ msgstr ""
 msgid "apartment"
 msgstr ""
 
+#: library/Content/ResourceFromApi/ResourcePostType.php:29
+msgid "API Resource"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:8
+msgid "Api Resource fields"
+msgstr ""
+
+#: library/Content/ResourceFromApi/ResourcePostType.php:27
+msgid "API Resources"
+msgstr ""
+
+#: library/AcfFields/php/options-api-resources-apis.php:8
+msgid "Api Resources - Api:s"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:81
+msgid ""
+"API Source for the taxonomy. If this is supplied and responds with a "
+"WordPress REST API endpoint for a taxonomy collection; the terms for this "
+"taxonomy will be served from the supplied endpoint."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:77
+msgid "API Source URL"
+msgstr ""
+
+#: library/AcfFields/php/options-api-resources-apis.php:12
+msgid "Api:s"
+msgstr ""
+
 #: library/Customizer/Sections/Quicklinks.php:16
 #: library/Customizer/Sections/Field.php:15
+#: library/Customizer/Sections/MegaMenu.php:16
 msgid "Appearance"
 msgstr ""
 
@@ -15359,6 +15473,11 @@ msgstr ""
 
 #: library/Customizer/Sections/Padding.php:56
 msgid "Apply air"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:290
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:303
+msgid "Apply here"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:186
@@ -15373,8 +15492,8 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
-#: library/AcfFields/php/options-menu-floating.php:42
 #: library/AcfFields/php/options-menu-icon.php:79
+#: library/AcfFields/php/options-menu-floating.php:42
 msgid "apps"
 msgstr ""
 
@@ -15394,7 +15513,7 @@ msgstr ""
 msgid "Archive lead text"
 msgstr ""
 
-#: library/Controller/Archive.php:117
+#: library/Controller/BaseController.php:265
 msgid "Archive navigation"
 msgstr ""
 
@@ -15402,12 +15521,20 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: library/Theme/Enqueue.php:139
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:271
+msgid "Are you interested in applying?"
+msgstr ""
+
+#: library/Theme/Enqueue.php:147
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/AcfFields/php/purpose-place.php:16
+#: library/AcfFields/php/content-type-place.php:16
 msgid "Area or street address of the location."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:125
+msgid "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
 msgstr ""
 
 #: library/Theme/Icon.php:80 library/Theme/Icon.php:82
@@ -15566,28 +15693,33 @@ msgstr ""
 msgid "attach_money"
 msgstr ""
 
-#: views/v1/single-listing.blade.php:61
-msgid "Attached files"
-msgstr ""
-
-#: library/Theme/Icon.php:130
+#: library/Theme/Icon.php:130 library/AcfFields/php/resource-fields.php:27
 msgid "Attachment"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:107
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:138
 msgid "attachment"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:80
+msgid "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:71
+msgid "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:108
 msgid "audiotrack"
 msgstr ""
 
-#: library/Controller/Singular.php:305
+#: library/Controller/Singular.php:300
 #: library/AcfFields/php/options-theme-author.php:8
 msgid "Author"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:283
+#: library/AcfFields/php/options-theme-custom-post-type.php:320
 msgid "Author Select"
 msgstr ""
 
@@ -15595,7 +15727,7 @@ msgstr ""
 msgid "Auto"
 msgstr ""
 
-#: library/Content/CustomPostType.php:77
+#: library/Content/CustomPostType.php:80
 msgid "Auto generated cpt from user iterface."
 msgstr ""
 
@@ -15607,29 +15739,32 @@ msgstr ""
 msgid "av_timer"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:201
+#: library/AcfFields/php/options-theme-custom-post-type.php:207
 msgid "Avabile in nav menus?"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:12
+msgid "Available dynamic taxonomies"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:12
 msgid "Available post types"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:109
-#: library/Customizer/Sections/Colors.php:141
-#: library/Customizer/Sections/FooterSub.php:18
 #: library/Customizer/Sections/Siteselector.php:45
-#: library/Customizer/Sections/HamburgerMenu.php:93
-#: library/Customizer/Sections/HamburgerMenu.php:99
+#: library/Customizer/Sections/FooterSub.php:18
+#: library/Customizer/Sections/MegaMenu.php:37
+#: library/Customizer/Sections/Colors.php:111
+#: library/Customizer/Sections/Colors.php:141
 msgid "Background"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:201
-#: library/Customizer/Sections/Navigation.php:255
+#: library/Customizer/Sections/Navigation.php:198
+#: library/Customizer/Sections/Navigation.php:246
 msgid "Background (Active)"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:203
+#: library/Customizer/Sections/Navigation.php:200
 msgid "Background (Expanded)"
 msgstr ""
 
@@ -15637,13 +15772,13 @@ msgstr ""
 msgid "Background card - Hover"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:88
-#: library/Customizer/Sections/Divider.php:196
+#: library/AcfFields/php/block-container.php:112
 #: library/Customizer/Sections/Card.php:29
-#: library/Customizer/Sections/Collection.php:29
+#: library/Customizer/Sections/Divider.php:196
 #: library/Customizer/Sections/Quicklinks.php:42
+#: library/Customizer/Sections/Field.php:65
 #: library/Customizer/Sections/Header.php:108
-#: library/Customizer/Sections/Field.php:66
+#: library/Customizer/Sections/Collection.php:29
 msgid "Background color"
 msgstr ""
 
@@ -15653,6 +15788,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Collection.php:43
 msgid "Background color on hover."
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:88
+msgid "Background color type"
 msgstr ""
 
 #: library/Customizer/Sections/Colors.php:104
@@ -15691,33 +15830,34 @@ msgstr ""
 msgid "bar_chart"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:21
-#: library/Customizer/Sections/Colors.php:64
-#: library/Customizer/Sections/Colors.php:171
-#: library/Customizer/Sections/Colors.php:318
-#: library/Customizer/Sections/Colors.php:347
-#: library/Customizer/Sections/Colors.php:390
-#: library/Customizer/Sections/Colors.php:433
-#: library/Customizer/Sections/Colors.php:476
 #: library/Customizer/Sections/SliderHero.php:108
 #: library/Customizer/Sections/Typography.php:31
+#: library/Customizer/Sections/Colors.php:22
+#: library/Customizer/Sections/Colors.php:66
+#: library/Customizer/Sections/Colors.php:171
+#: library/Customizer/Sections/Colors.php:313
+#: library/Customizer/Sections/Colors.php:343
+#: library/Customizer/Sections/Colors.php:387
+#: library/Customizer/Sections/Colors.php:431
+#: library/Customizer/Sections/Colors.php:475
 msgid "Base"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:319
 #: library/Customizer/Sections/FooterSub.php:19
+#: library/Customizer/Sections/Colors.php:314
 msgid "Base Contrasting"
 msgstr ""
 
+#: library/AcfFields/php/block-container.php:157
 #: library/AcfFields/php/block-button.php:96
 #: library/Customizer/Sections/FooterMain.php:20
-#: library/Customizer/Sections/Header.php:226
-#: library/Customizer/Sections/Header.php:260
+#: library/Customizer/Sections/Header.php:232
+#: library/Customizer/Sections/Header.php:266
 msgid "Basic"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:35
-msgid "Basic button"
+#: library/AcfFields/php/block-container.php:160
+msgid "basic"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:115
@@ -15752,23 +15892,23 @@ msgstr ""
 msgid "beenhere"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:140
+#: library/AcfFields/php/options-theme-custom-post-type.php:144
 msgid "Below comments"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:141
+#: library/AcfFields/php/options-theme-custom-post-type.php:145
 msgid "Below first separator"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:16
+#: library/AcfFields/php/options-theme-google-translate.php:28
 msgid "Below footer"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:138
+#: library/AcfFields/php/options-theme-custom-post-type.php:142
 msgid "Below Links"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:137
+#: library/AcfFields/php/options-theme-custom-post-type.php:141
 msgid "Below Media"
 msgstr ""
 
@@ -15776,31 +15916,31 @@ msgstr ""
 msgid "Below page content"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:139
+#: library/AcfFields/php/options-theme-custom-post-type.php:143
 msgid "Below Pages"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:142
+#: library/AcfFields/php/options-theme-custom-post-type.php:146
 msgid "Below Plugins"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:136
+#: library/AcfFields/php/options-theme-custom-post-type.php:140
 msgid "Below Posts"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:146
+#: library/AcfFields/php/options-theme-custom-post-type.php:150
 msgid "Below second separator"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:145
+#: library/AcfFields/php/options-theme-custom-post-type.php:149
 msgid "Below Settings"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:144
+#: library/AcfFields/php/options-theme-custom-post-type.php:148
 msgid "Below Tools"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:143
+#: library/AcfFields/php/options-theme-custom-post-type.php:147
 msgid "Below Users"
 msgstr ""
 
@@ -15812,8 +15952,8 @@ msgstr ""
 msgid "Bin"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:562
 #: library/Customizer/Sections/Header.php:137
+#: library/Customizer/Sections/Colors.php:563
 msgid "Black"
 msgstr ""
 
@@ -15866,6 +16006,7 @@ msgid "blur_on"
 msgstr ""
 
 #: library/Customizer/Sections/Quicklinks.php:133
+#: library/Customizer/Sections/MegaMenu.php:79
 msgid "Body"
 msgstr ""
 
@@ -15881,7 +16022,7 @@ msgstr ""
 msgid "book"
 msgstr ""
 
-#: library/Controller/BaseController.php:237
+#: library/Controller/BaseController.php:241
 msgid "Book here"
 msgstr ""
 
@@ -15898,16 +16039,16 @@ msgid "bookmarks"
 msgstr ""
 
 #: library/Customizer/Sections/Colors.php:142
-#: library/Customizer/Sections/Colors.php:241
+#: library/Customizer/Sections/Colors.php:238
 msgid "Border"
 msgstr ""
 
 #: library/Customizer/Sections/Divider.php:197
-#: library/Customizer/Sections/Field.php:67
+#: library/Customizer/Sections/Field.php:66
 msgid "Border color"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:204
+#: library/Customizer/Sections/Colors.php:202
 msgid "Border colors"
 msgstr ""
 
@@ -15973,8 +16114,8 @@ msgstr ""
 msgid "Borders"
 msgstr ""
 
-#: library/Customizer/Sections/Hero.php:71
 #: library/Customizer/Sections/Search.php:124
+#: library/Customizer/Sections/Hero.php:71
 msgid "Bottom"
 msgstr ""
 
@@ -16074,9 +16215,10 @@ msgstr ""
 msgid "business_center"
 msgstr ""
 
-#: library/AcfFields/php/options-menu-style.php:25
 #: library/AcfFields/php/options-theme-editor-formats.php:39
+#: library/AcfFields/php/options-menu-style.php:25
 #: library/Customizer/Sections/Borders.php:99
+#: library/Customizer/Sections/MegaMenu.php:105
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:31
 msgid "Button"
 msgstr ""
@@ -16087,6 +16229,14 @@ msgstr ""
 
 #: library/AcfFields/php/block-button.php:8
 msgid "Button Block"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-mega.php:31
+msgid "Button icon"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-mega.php:12
+msgid "Button label"
 msgstr ""
 
 #: library/Customizer/Sections/Button.php:117
@@ -16115,6 +16265,18 @@ msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:268
 msgid "Buttons"
+msgstr ""
+
+#: library/AcfFields/php/media-attachments.php:12
+msgid "Byline"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:166
+msgid "ca. %d children"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:172
+msgid "ca. %d students"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:168
@@ -16218,8 +16380,9 @@ msgstr ""
 msgid "cancel_schedule_send"
 msgstr ""
 
-#: views/v1/archive-event.blade.php:91 views/v1/single-event.blade.php:68
-msgid "Cancelled"
+#: library/AcfFields/php/resource-fields.php:507
+#: library/AcfFields/php/resource-fields.php:992
+msgid "Capabilities"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:30
@@ -16241,7 +16404,7 @@ msgid ""
 "user. Therefore they share settings."
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:136
+#: library/Customizer/Sections/Colors.php:135
 msgid "Card & Paper colors"
 msgstr ""
 
@@ -16281,12 +16444,16 @@ msgstr ""
 msgid "Casual (Small sites)"
 msgstr ""
 
-#: views/v1/partials/blog/post-categories.blade.php:2
-msgid "Categories"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:196
 msgid "category"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:128
+msgid "category: https://api.helsingborg.se/event/json/wp/v2/categories"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:122
+msgid "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
 msgstr ""
 
 #: library/Customizer/Sections/Divider.php:138
@@ -16341,7 +16508,7 @@ msgid ""
 "content area, if applicable."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:78
+#: library/AcfFields/php/options-theme-custom-post-type.php:80
 msgid "Check if you would like to prefix the slug with blogfront"
 msgstr ""
 
@@ -16353,8 +16520,9 @@ msgstr ""
 msgid "Check the formats you would like to enable"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:96
-msgid "Check to <u>not</u> use the custom template for this post type."
+#: library/Admin/Options/ContentType.php:96
+msgid ""
+"Check to <u>not</u> use the custom content type template for this post type."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:204
@@ -16415,11 +16583,11 @@ msgstr ""
 msgid "Choose a font color for the collection component."
 msgstr ""
 
-#: library/Controller/Archive.php:109
+#: library/Controller/BaseController.php:258
 msgid "Choose a from date"
 msgstr ""
 
-#: library/Controller/Archive.php:110
+#: library/Controller/BaseController.php:259
 msgid "Choose a to date"
 msgstr ""
 
@@ -16455,11 +16623,6 @@ msgstr ""
 msgid "clear"
 msgstr ""
 
-#: views/v1/partials/archive-filters.blade.php:75
-#: views/v2/partials/archive-filters.blade.php:75
-msgid "Clear filters"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:215
 msgid "clear_all"
 msgstr ""
@@ -16469,7 +16632,7 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
-#: library/Controller/BaseController.php:228
+#: library/Controller/BaseController.php:232
 msgid "Close"
 msgstr ""
 
@@ -16534,6 +16697,7 @@ msgstr ""
 msgid "collections_bookmark"
 msgstr ""
 
+#: library/AcfFields/php/block-container.php:227
 #: library/AcfFields/php/block-button.php:53
 #: library/Customizer/Sections/Card.php:99
 #: library/Customizer/Sections/Collection.php:99
@@ -16564,8 +16728,13 @@ msgstr ""
 msgid "Color of shadows"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:157
+msgid "Color of the button"
+msgstr ""
+
 #: library/Customizer/Sections/Siteselector.php:76
 #: library/Customizer/Sections/Quicklinks.php:154
+#: library/Customizer/Sections/MegaMenu.php:196
 msgid "Color scheme"
 msgstr ""
 
@@ -16587,9 +16756,9 @@ msgstr ""
 msgid "Colors"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:163
-#: library/Customizer/Sections/Navigation.php:194
-#: library/Customizer/Sections/Navigation.php:248
+#: library/Customizer/Sections/Navigation.php:162
+#: library/Customizer/Sections/Navigation.php:191
+#: library/Customizer/Sections/Navigation.php:239
 msgid "colors"
 msgstr ""
 
@@ -16614,7 +16783,7 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:287
+#: library/AcfFields/php/options-theme-custom-post-type.php:324
 msgid "Comments"
 msgstr ""
 
@@ -16638,11 +16807,11 @@ msgstr ""
 msgid "compass_calibration"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:514
+#: library/Customizer/Sections/Colors.php:513
 msgid "Complement colors"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:110
+#: library/Customizer/Sections/Colors.php:112
 msgid "Complementary"
 msgstr ""
 
@@ -16666,6 +16835,10 @@ msgstr ""
 msgid "confirmation_number"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:121
+msgid "Connect to post type(s)"
+msgstr ""
+
 #: library/Admin/Options/AttachmentConsent.php:43
 msgid "Consent comment"
 msgstr ""
@@ -16676,6 +16849,10 @@ msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:19
 msgid "Contact person"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:144
+msgid "Contact us"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:237
@@ -16737,13 +16914,28 @@ msgstr ""
 msgid "Content background"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:282
 #: library/Admin/Options/Theme.php:67 library/Admin/Options/Theme.php:68
+#: library/AcfFields/php/options-theme-custom-post-type.php:319
 msgid "Content editor"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:90
 msgid "Content horizontal alignment"
+msgstr ""
+
+#: library/Admin/Options/ContentType.php:67
+msgid "Content Type"
+msgstr ""
+
+#: library/Admin/Acf/LocationRulesContentType.php:8
+#: library/AcfFields/php/options-content-types.php:12
+msgid "Content type"
+msgstr ""
+
+#: library/Admin/Options/ContentType.php:19
+#: library/Admin/Options/ContentType.php:20
+#: library/AcfFields/php/options-content-types.php:8
+msgid "Content types"
 msgstr ""
 
 #: library/Customizer/Sections/Hero.php:64
@@ -16762,18 +16954,18 @@ msgstr ""
 msgid "Contrasting"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:170
-#: library/Customizer/Sections/Navigation.php:202
-#: library/Customizer/Sections/Navigation.php:256
+#: library/Customizer/Sections/Navigation.php:169
+#: library/Customizer/Sections/Navigation.php:199
+#: library/Customizer/Sections/Navigation.php:247
 msgid "Contrasting (Active)"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:24
-#: library/Customizer/Sections/Colors.php:67
-#: library/Customizer/Sections/Colors.php:350
-#: library/Customizer/Sections/Colors.php:393
-#: library/Customizer/Sections/Colors.php:436
-#: library/Customizer/Sections/Colors.php:479
+#: library/Customizer/Sections/Colors.php:25
+#: library/Customizer/Sections/Colors.php:69
+#: library/Customizer/Sections/Colors.php:346
+#: library/Customizer/Sections/Colors.php:390
+#: library/Customizer/Sections/Colors.php:434
+#: library/Customizer/Sections/Colors.php:478
 msgid "Contrastring"
 msgstr ""
 
@@ -16789,7 +16981,7 @@ msgstr ""
 msgid "control_point_duplicate"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:173
+#: library/AcfFields/php/options-theme-custom-post-type.php:177
 msgid "Controls how the type is visible to authors"
 msgstr ""
 
@@ -16808,6 +17000,14 @@ msgstr ""
 #: library/Comment/HoneyPot.php:138 library/Comment/HoneyPot.php:143
 #: library/Comment/HoneyPot.php:148
 msgid "Could not verify that you are human."
+msgstr ""
+
+#: library/Customizer/Sections/MegaMenu.php:229
+msgid "Cover"
+msgstr ""
+
+#: library/Customizer/Sections/MegaMenu.php:223
+msgid "Cover full page"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:246
@@ -16874,8 +17074,8 @@ msgstr ""
 msgid "CSS"
 msgstr ""
 
-#: library/AcfFields/php/options-customize-footer.php:90
 #: library/AcfFields/php/options-customize-header.php:69
+#: library/AcfFields/php/options-customize-footer.php:90
 msgid "CSS Class"
 msgstr ""
 
@@ -16883,7 +17083,7 @@ msgstr ""
 msgid "CSS input"
 msgstr ""
 
-#: library/Upgrade.php:735
+#: library/Upgrade.php:780
 msgid "Current database version must be a number."
 msgstr ""
 
@@ -16893,6 +17093,7 @@ msgstr ""
 
 #: library/Customizer/Sections/Quicklinks.php:23
 #: library/Customizer/Sections/Field.php:22
+#: library/Customizer/Sections/MegaMenu.php:23
 msgid "Custom appearance"
 msgstr ""
 
@@ -16910,7 +17111,8 @@ msgstr ""
 
 #: library/Customizer/Sections/Siteselector.php:40
 #: library/Customizer/Sections/Quicklinks.php:37
-#: library/Customizer/Sections/Field.php:61
+#: library/Customizer/Sections/Field.php:60
+#: library/Customizer/Sections/MegaMenu.php:30
 msgid "Custom colors"
 msgstr ""
 
@@ -16930,8 +17132,24 @@ msgstr ""
 msgid "Custom Post Types"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-google-translate.php:68
+msgid "Custom Posts (above archive posts)"
+msgstr ""
+
 #: library/Admin/Options/Theme.php:83
 msgid "Custom Taxonomies"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:171
+msgid "custom-short-link"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:139
+msgid "custom_css"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:141
+msgid "customer-feedback"
 msgstr ""
 
 #: library/AcfFields/php/options-customize-footer.php:8
@@ -16946,30 +17164,34 @@ msgstr ""
 msgid "Customize text color"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:140
+msgid "customize_changeset"
+msgstr ""
+
 #: library/Admin/Options/Theme.php:32 library/Admin/Options/Theme.php:33
 msgid "Customizer"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:385
+#: library/Customizer/Sections/Colors.php:381
 msgid "Danger colors"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:22
-#: library/Customizer/Sections/Colors.php:65
-#: library/Customizer/Sections/Colors.php:348
-#: library/Customizer/Sections/Colors.php:391
-#: library/Customizer/Sections/Colors.php:434
-#: library/Customizer/Sections/Colors.php:477
-#: library/Customizer/Sections/Colors.php:565
 #: library/Customizer/Sections/OpenStreetMap.php:22
+#: library/Customizer/Sections/Colors.php:23
+#: library/Customizer/Sections/Colors.php:67
+#: library/Customizer/Sections/Colors.php:344
+#: library/Customizer/Sections/Colors.php:388
+#: library/Customizer/Sections/Colors.php:432
+#: library/Customizer/Sections/Colors.php:476
+#: library/Customizer/Sections/Colors.php:566
 msgid "Dark"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:564
+#: library/Customizer/Sections/Colors.php:565
 msgid "Darker"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:563
+#: library/Customizer/Sections/Colors.php:564
 msgid "Darkest"
 msgstr ""
 
@@ -16977,8 +17199,8 @@ msgstr ""
 msgid "dashboard"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:40
 #: library/Customizer/Sections/Card.php:117
+#: library/Customizer/Sections/Divider.php:40
 #: library/Customizer/Sections/Collection.php:117
 msgid "Dashed"
 msgstr ""
@@ -16987,7 +17209,7 @@ msgstr ""
 msgid "data_usage"
 msgstr ""
 
-#: library/Upgrade.php:740
+#: library/Upgrade.php:785
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 
@@ -17005,8 +17227,6 @@ msgid "Date format"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:42
-#: views/v1/partials/archive-filters.blade.php:50
-#: views/v2/partials/archive-filters.blade.php:50
 msgid "Date published"
 msgstr ""
 
@@ -17026,12 +17246,12 @@ msgstr ""
 msgid "date_range"
 msgstr ""
 
-#: library/Controller/BaseController.php:212
+#: library/Controller/BaseController.php:216
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:211
-#: library/AcfFields/php/options-theme-custom-post-type.php:347
+#: library/Controller/BaseController.php:215
+#: library/AcfFields/php/options-theme-custom-post-type.php:388
 msgid "days"
 msgstr ""
 
@@ -17051,30 +17271,34 @@ msgstr ""
 msgid "Decrease"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:67
-#: library/AcfFields/php/options-menu-style.php:24
-#: library/AcfFields/php/widget-header-links.php:360
-#: library/AcfFields/php/widget-header-menu.php:50
-#: library/AcfFields/php/navigation-widget.php:352
 #: library/AcfFields/php/options-page-quicklinks-placement.php:25
-#: library/Customizer/Sections/Width.php:15
+#: library/AcfFields/php/widget-header-links.php:360
+#: library/AcfFields/php/options-menu-style.php:24
+#: library/AcfFields/php/block-container.php:100
+#: library/AcfFields/php/block-button.php:67
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/widget-header-menu.php:50
+#: library/Customizer/Sections/OpenStreetMap.php:20
 #: library/Customizer/Sections/Quicklinks.php:186
 #: library/Customizer/Sections/Quicklinks.php:239
+#: library/Customizer/Sections/Field.php:35
+#: library/Customizer/Sections/MegaMenu.php:104
+#: library/Customizer/Sections/MegaMenu.php:164
+#: library/Customizer/Sections/Search.php:143
+#: library/Customizer/Sections/Search.php:152
+#: library/Customizer/Sections/Width.php:15
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
-#: library/Customizer/Sections/Header.php:209
-#: library/Customizer/Sections/Header.php:243
-#: library/Customizer/Sections/Search.php:143
-#: library/Customizer/Sections/Search.php:152
-#: library/Customizer/Sections/OpenStreetMap.php:20
-#: library/Customizer/Sections/Field.php:35
+#: library/Customizer/Sections/Header.php:215
+#: library/Customizer/Sections/Header.php:249
 #: library/Customizer/Sections/Tags.php:18
 #: library/Customizer/Sections/Tags.php:44
 msgid "Default"
 msgstr ""
 
 #: library/AcfFields/php/options-page-quicklinks-placement.php:29
+#: library/AcfFields/php/block-container.php:103
 msgid "default"
 msgstr ""
 
@@ -17082,13 +17306,17 @@ msgstr ""
 msgid "Default "
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:124
+msgid "Default button"
+msgstr ""
+
 #: library/Customizer/Sections/Button.php:83
 msgid "Default button colors"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:169
-#: library/Customizer/Sections/Navigation.php:200
-#: library/Customizer/Sections/Navigation.php:254
+#: library/Customizer/Sections/Navigation.php:168
+#: library/Customizer/Sections/Navigation.php:197
+#: library/Customizer/Sections/Navigation.php:245
 msgid "Default Contrast"
 msgstr ""
 
@@ -17101,6 +17329,7 @@ msgid "Default post types"
 msgstr ""
 
 #: library/Content/RelatedPosts.php:40
+#, php-format
 msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr ""
@@ -17129,6 +17358,9 @@ msgstr ""
 msgid "departure_board"
 msgstr ""
 
+#: library/AcfFields/php/options-menu-description.php:12
+#: library/AcfFields/php/resource-fields.php:241
+#: library/AcfFields/php/resource-fields.php:775
 #: library/AcfFields/php/term-icon-and-colour.php:2266
 msgid "Description"
 msgstr ""
@@ -17260,10 +17492,10 @@ msgid "Disable script"
 msgstr ""
 
 #: library/AcfFields/php/options-activate-gutenberg.php:24
-#: library/Customizer/Sections/Colors.php:173
 #: library/Customizer/Sections/Divider.php:88
 #: library/Customizer/Sections/Divider.php:164
-#: library/Customizer/Sections/HamburgerMenu.php:20
+#: library/Customizer/Sections/MegaMenu.php:248
+#: library/Customizer/Sections/Colors.php:173
 #: library/Customizer/Sections/Menu.php:86
 msgid "Disabled"
 msgstr ""
@@ -17284,7 +17516,7 @@ msgstr ""
 msgid "Display a link to Google Maps on each marker on the map?"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:302
+#: library/AcfFields/php/options-theme-custom-post-type.php:341
 msgid "Display age notification on posts"
 msgstr ""
 
@@ -17322,19 +17554,23 @@ msgstr ""
 msgid "Display reading time"
 msgstr ""
 
+#: library/AcfFields/php/options-page-display.php:8
+msgid "Display settings"
+msgstr ""
+
 #: library/Customizer/Sections/Module/Posts.php:75
 msgid "Display term icon"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:322
+#: library/AcfFields/php/options-theme-custom-post-type.php:362
 msgid "Display the notice after this many days"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:329
 #: library/Customizer/Sections/Borders.php:14
-#: library/Customizer/Sections/Colors.php:209
+#: library/Customizer/Sections/Navigation.php:201
 #: library/Customizer/Sections/Divider.php:65
-#: library/Customizer/Sections/Navigation.php:204
+#: library/Customizer/Sections/Colors.php:208
 msgid "Divider"
 msgstr ""
 
@@ -17346,16 +17582,16 @@ msgstr ""
 msgid "dns"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:14
+#: library/AcfFields/php/options-theme-google-translate.php:26
 msgid "Do not show"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:108
+#: library/Admin/Options/ContentType.php:108
 msgid "Do not use"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:104
-msgid "Do not use purpose template"
+#: library/Admin/Options/ContentType.php:104
+msgid "Do not use content type template"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:296
@@ -17390,8 +17626,8 @@ msgstr ""
 msgid "Dot"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:39
 #: library/Customizer/Sections/Card.php:116
+#: library/Customizer/Sections/Divider.php:39
 #: library/Customizer/Sections/Collection.php:116
 msgid "Dotted"
 msgstr ""
@@ -17426,6 +17662,7 @@ msgid "Drak gray"
 msgstr ""
 
 #: library/Theme/Navigation.php:34
+#: library/AcfFields/php/options-theme-google-translate.php:64
 msgid "Drawer (bottom)"
 msgstr ""
 
@@ -17454,6 +17691,7 @@ msgid "Dropdown"
 msgstr ""
 
 #: library/Theme/Navigation.php:30
+#: library/AcfFields/php/options-theme-google-translate.php:60
 msgid "Dropdown menu"
 msgstr ""
 
@@ -17473,16 +17711,12 @@ msgstr ""
 msgid "eco"
 msgstr ""
 
-#: views/v1/partials/blog/comments.blade.php:59
-#: views/v1/partials/blog/comments.blade.php:123
-msgid "Edit"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:312
 msgid "edit"
 msgstr ""
 
-#: library/Content/CustomPostType.php:61
+#: library/Content/CustomPostType.php:59
+#, php-format
 msgid "Edit %s"
 msgstr ""
 
@@ -17494,8 +17728,23 @@ msgstr ""
 msgid "Editor formats"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:526
+#: library/AcfFields/php/resource-fields.php:1011
+msgid "eg. \"manage_options\"..."
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:314
 msgid "eject"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:197
+msgid "elementary-school"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:78
+msgid ""
+"elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-"
+"school"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:81
@@ -17506,7 +17755,8 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:41
+#: library/Customizer/Sections/Logo.php:42
+#: library/Customizer/Sections/Header.php:198
 msgid "Emblem"
 msgstr ""
 
@@ -17550,8 +17800,12 @@ msgstr ""
 #: library/AcfFields/php/options-theme-author.php:24
 #: library/AcfFields/php/options-theme-author.php:43
 #: library/AcfFields/php/options-theme-author.php:62
-#: library/AcfFields/php/options-theme-google-translate.php:98
+#: library/AcfFields/php/options-theme-google-translate.php:120
 msgid "Enable"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:253
+msgid "Enable administration UI"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-gdpr.php:12
@@ -17562,19 +17816,27 @@ msgstr ""
 msgid "Enable to remove space between content and the edge of cards."
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:232
+msgid "Enable visitors to browse this taxonomy"
+msgstr ""
+
 #: library/Customizer/Sections/Divider.php:87
 #: library/Customizer/Sections/Divider.php:163
-#: library/Customizer/Sections/HamburgerMenu.php:19
+#: library/Customizer/Sections/MegaMenu.php:247
 #: library/Customizer/Sections/Menu.php:85
 msgid "Enabled"
 msgstr ""
 
-#: library/AcfFields/php/options-menu-icon.php:325
-msgid "enhanced_encryption"
+#: library/AcfFields/php/resource-fields.php:325
+msgid "Enables post type archives."
 msgstr ""
 
-#: views/v1/partials/share-email-form.blade.php:26
-msgid "Enter one or many e-mail addresses. Separate with comma."
+#: library/Customizer/Sections/Header.php:307
+msgid "Enables text to the right of the header logotype."
+msgstr ""
+
+#: library/AcfFields/php/options-menu-icon.php:325
+msgid "enhanced_encryption"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-css.php:20
@@ -17606,10 +17868,6 @@ msgstr ""
 msgid "error"
 msgstr ""
 
-#: views/v1/partials/404/default.blade.php:18
-msgid "Error 404"
-msgstr ""
-
 #: library/Customizer/Sections/LoadDesign.php:130
 msgid "Error loading options"
 msgstr ""
@@ -17630,7 +17888,7 @@ msgstr ""
 msgid "ev_station"
 msgstr ""
 
-#: library/Controller/Purpose/Event.php:14
+#: library/Controller/ContentType/Event.php:22
 msgid "Event"
 msgstr ""
 
@@ -17638,14 +17896,12 @@ msgstr ""
 msgid "event"
 msgstr ""
 
-#: views/v1/archive-event.blade.php:70
-msgctxt "Event archive"
-msgid "Date"
+#: library/AcfFields/php/options-theme-google-translate.php:67
+msgid "Event (above archive posts)"
 msgstr ""
 
-#: views/v1/archive-event.blade.php:83
-msgctxt "Event archive"
-msgid "Location"
+#: library/AcfFields/php/resource-fields.php:81
+msgid "event: https://api.helsingborg.se/event/json/wp/v2/event"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:333
@@ -17656,6 +17912,12 @@ msgstr ""
 msgid "event_busy"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:131
+msgid ""
+"event_categories: https://api.helsingborg."
+"se/event/json/wp/v2/event_categories"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:335
 msgid "event_note"
 msgstr ""
@@ -17664,7 +17926,11 @@ msgstr ""
 msgid "event_seat"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:285
+#: library/AcfFields/php/resource-fields.php:132
+msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:322
 msgid "Excerpt"
 msgstr ""
 
@@ -17672,11 +17938,15 @@ msgstr ""
 msgid "Exclude from import"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:341
+msgid "Exclude From Search"
+msgstr ""
+
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:181
+#: library/AcfFields/php/options-theme-custom-post-type.php:186
 msgid "Exclude from search?"
 msgstr ""
 
@@ -17691,11 +17961,15 @@ msgstr ""
 msgid "Exclude title from Google Translate"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-google-translate.php:127
+msgid "Exclude words from being translated"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:337
 msgid "exit_to_app"
 msgstr ""
 
-#: library/Controller/BaseController.php:231
+#: library/Controller/BaseController.php:235
 msgid "Expand"
 msgstr ""
 
@@ -17755,9 +18029,9 @@ msgstr ""
 msgid "extension"
 msgstr ""
 
+#: library/AcfFields/php/navigation-widget.php:62
 #: library/AcfFields/php/widget-media.php:65
 #: library/AcfFields/php/widget-media.php:102
-#: library/AcfFields/php/navigation-widget.php:62
 msgid "External link"
 msgstr ""
 
@@ -17766,11 +18040,12 @@ msgid "External links"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:27
+#: library/Customizer/Sections/Menu.php:121
 msgid "Extra large"
 msgstr ""
 
-#: library/Customizer/Sections/Radius.php:12
 #: library/Customizer/Sections/Siteselector.php:115
+#: library/Customizer/Sections/Radius.php:12
 #: library/Customizer/Sections/Menu.php:117
 msgid "Extra small"
 msgstr ""
@@ -17789,6 +18064,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Archive.php:277
 msgid "Facetting type"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:246
+msgid "Facts"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:351
@@ -17827,11 +18106,11 @@ msgstr ""
 msgid "favorite_border"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:284
+#: library/AcfFields/php/options-theme-custom-post-type.php:321
 msgid "Featured Image"
 msgstr ""
 
-#: library/AcfFields/php/options-page-display.php:17
+#: library/AcfFields/php/options-page-display.php:12
 msgid "Featured image"
 msgstr ""
 
@@ -17845,6 +18124,11 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:358
 msgid "feedback"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:620
+#: library/AcfFields/php/resource-fields.php:1084
+msgid "Feeds"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:359
@@ -17871,7 +18155,7 @@ msgstr ""
 msgid "Field"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:129
+#: library/Customizer/Sections/Field.php:128
 msgid "Field shadow"
 msgstr ""
 
@@ -17896,8 +18180,8 @@ msgid "Fill"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:98
-#: library/Customizer/Sections/Header.php:228
-#: library/Customizer/Sections/Header.php:262
+#: library/Customizer/Sections/Header.php:234
+#: library/Customizer/Sections/Header.php:268
 msgid "Filled"
 msgstr ""
 
@@ -17905,11 +18189,12 @@ msgstr ""
 msgid "filled"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:36
+#: library/Customizer/Sections/MegaMenu.php:123
 msgid "Filled button"
 msgstr ""
 
-#: library/Controller/Singular.php:139 library/Controller/Archive.php:114
+#: library/Controller/BaseController.php:246
+#: library/Controller/BaseController.php:262
 msgid "Filter"
 msgstr ""
 
@@ -17997,6 +18282,10 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:398
+msgid "Find directions"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:385
 msgid "find_in_page"
 msgstr ""
@@ -18021,7 +18310,7 @@ msgstr ""
 msgid "fitness_center"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:17
+#: library/AcfFields/php/options-theme-google-translate.php:29
 msgid "Fixed to right edge"
 msgstr ""
 
@@ -18087,6 +18376,7 @@ msgstr ""
 
 #: library/Theme/Navigation.php:31
 #: library/AcfFields/php/options-menu-floating.php:8
+#: library/AcfFields/php/options-theme-google-translate.php:61
 msgid "Floating menu"
 msgstr ""
 
@@ -18104,6 +18394,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:407
 msgid "folder_special"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:480
+msgid "Follow us in social media"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:408
@@ -18148,6 +18442,10 @@ msgstr ""
 
 #: library/Theme/Sidebars.php:79
 msgid "Footer top"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:204
+msgid "form-submissions"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:64
@@ -18270,16 +18568,7 @@ msgstr ""
 msgid "Found"
 msgstr ""
 
-#: views/v1/partials/search/algolia-customsearch.blade.php:42
-#: views/v1/partials/search/algolia-instantsearch.blade.php:127
-#: views/v1/partials/search/algolia.blade.php:42
-#: views/v1/partials/search/google.blade.php:24
-#: views/v1/partials/search/wp.blade.php:30
-#: views/v2/partials/search/wp.blade.php:24
-msgid "Found no matching results on your search…"
-msgstr ""
-
-#: library/Theme/Enqueue.php:172
+#: library/Theme/Enqueue.php:180
 msgid "Fr"
 msgstr ""
 
@@ -18297,16 +18586,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:436
 msgid "free_breakfast"
-msgstr ""
-
-#: views/v1/partials/archive-filters.blade.php:52
-#: views/v2/partials/archive-filters.blade.php:52
-msgid "From"
-msgstr ""
-
-#: views/v1/partials/archive-filters.blade.php:53
-#: views/v2/partials/archive-filters.blade.php:53
-msgid "From date"
 msgstr ""
 
 #: library/Customizer/Sections/Width.php:22
@@ -18373,7 +18652,7 @@ msgstr ""
 msgid "gesture"
 msgstr ""
 
-#: library/Helper/Location.php:74
+#: library/Helper/Location.php:79
 msgid "Get directions on Google Maps"
 msgstr ""
 
@@ -18393,13 +18672,17 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: library/Controller/E404.php:37 library/Controller/BaseController.php:197
-#: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
+#: library/Controller/BaseController.php:201 library/Controller/E404.php:37
+#: library/Widget/Header/Logo.php:46 library/Widget/Brand/Brand.php:47
 msgid "Go to homepage"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:447
 msgid "golf_course"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:8
+msgid "Google Translate"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:448
@@ -18418,8 +18701,28 @@ msgstr ""
 msgid "grade"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:127
+msgid "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:101
+msgid "Gradient"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:452
 msgid "gradient"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:169
+msgid "Gradient angle"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:197
+msgid "Gradient background color"
+msgstr ""
+
+#: library/AcfFields/php/block-container.php:137
+msgid "Gradient settings"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:453
@@ -18455,14 +18758,24 @@ msgstr ""
 msgid "group_work"
 msgstr ""
 
-#: library/Controller/BaseController.php:223 library/Theme/Navigation.php:29
-#: library/Customizer/PanelsRegistry.php:280
-#: library/Customizer/Sections/Search.php:136
-msgid "Hamburger menu"
+#: library/AcfFields/php/resource-fields.php:86
+msgid "guide: https://api.helsingborg.se/event/json/wp/v2/guide"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:134
+msgid "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:136
+msgid "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
 msgstr ""
 
 #: library/Oembed/OembedFilters.php:28
 msgid "Handling of personal data"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:321
+msgid "Has Archive"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:460
@@ -18493,6 +18806,22 @@ msgstr ""
 msgid "Header logotype"
 msgstr ""
 
+#: library/Customizer/Sections/Header.php:306
+msgid "Header Logotype Text"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:337
+msgid "Header LogoType Text: Color "
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:322
+msgid "Header Logotype Text: Content"
+msgstr ""
+
+#: library/Customizer/Sections/Header.php:354
+msgid "Header LogoType Text: Font Settings "
+msgstr ""
+
 #: library/Customizer/Sections/Search.php:133
 msgid "Header on frontpage"
 msgstr ""
@@ -18506,13 +18835,14 @@ msgid "Header sections"
 msgstr ""
 
 #: library/Theme/Navigation.php:26
+#: library/AcfFields/php/options-theme-google-translate.php:56
 msgid "Header tabs menu"
 msgstr ""
 
 #: library/Customizer/Sections/SliderHero.php:133
 #: library/Customizer/Sections/Quicklinks.php:134
-#: library/Customizer/Sections/HamburgerMenu.php:47
-#: library/Customizer/Sections/HamburgerMenu.php:53
+#: library/Customizer/Sections/MegaMenu.php:35
+#: library/Customizer/Sections/MegaMenu.php:80
 msgid "Heading"
 msgstr ""
 
@@ -18569,6 +18899,7 @@ msgid "help"
 msgstr ""
 
 #: library/Theme/Navigation.php:25
+#: library/AcfFields/php/options-theme-google-translate.php:55
 msgid "Help menu"
 msgstr ""
 
@@ -18642,7 +18973,9 @@ msgstr ""
 msgid "Hide text"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:221
+#: library/AcfFields/php/resource-fields.php:281
+#: library/AcfFields/php/resource-fields.php:816
+#: library/AcfFields/php/options-theme-custom-post-type.php:228
 msgid "Hierarchical"
 msgstr ""
 
@@ -18652,18 +18985,18 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-editor-formats.php:32
 #: library/Customizer/Sections/Borders.php:35
-#: library/Customizer/Sections/Module/Contacts.php:18
-#: library/Customizer/Sections/Module/Contacts.php:39
-#: library/Customizer/Sections/Module/Index.php:18
-#: library/Customizer/Sections/Module/Inlay.php:20
-#: library/Customizer/Sections/Module/Map.php:22
-#: library/Customizer/Sections/Module/Script.php:22
-#: library/Customizer/Sections/Module/SectionsSplit.php:18
-#: library/Customizer/Sections/Module/Text.php:20
 #: library/Customizer/Sections/Module/Video.php:22
+#: library/Customizer/Sections/Module/Map.php:22
+#: library/Customizer/Sections/Module/SectionsSplit.php:18
 #: library/Customizer/Sections/Module/Posts.php:20
 #: library/Customizer/Sections/Module/Posts.php:41
 #: library/Customizer/Sections/Module/Posts.php:62
+#: library/Customizer/Sections/Module/Inlay.php:20
+#: library/Customizer/Sections/Module/Index.php:18
+#: library/Customizer/Sections/Module/Text.php:20
+#: library/Customizer/Sections/Module/Script.php:22
+#: library/Customizer/Sections/Module/Contacts.php:18
+#: library/Customizer/Sections/Module/Contacts.php:39
 msgid "Highlight"
 msgstr ""
 
@@ -18679,10 +19012,6 @@ msgstr ""
 msgid "history"
 msgstr ""
 
-#: views/v1/partials/search/algolia-instantsearch.blade.php:139
-msgid "hits on"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:476
 msgid "home"
 msgstr ""
@@ -18691,8 +19020,8 @@ msgstr ""
 msgid "home_work"
 msgstr ""
 
-#: library/Customizer/Sections/FooterSub.php:132
 #: library/Customizer/Sections/Navigation.php:96
+#: library/Customizer/Sections/FooterSub.php:132
 msgid "Horizontal"
 msgstr ""
 
@@ -18708,7 +19037,7 @@ msgstr ""
 msgid "hotel"
 msgstr ""
 
-#: library/Controller/BaseController.php:214
+#: library/Controller/BaseController.php:218
 msgid "hour"
 msgstr ""
 
@@ -18720,7 +19049,7 @@ msgstr ""
 msgid "hourglass_full"
 msgstr ""
 
-#: library/Controller/BaseController.php:213
+#: library/Controller/BaseController.php:217
 msgid "hours"
 msgstr ""
 
@@ -18732,7 +19061,7 @@ msgstr ""
 msgid "house"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:267
+#: library/Customizer/Sections/Colors.php:262
 msgid "Hover"
 msgstr ""
 
@@ -18760,6 +19089,15 @@ msgstr ""
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:294
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:307
+msgid "How to apply"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:327
+msgid "How we work"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:484
 msgid "how_to_reg"
 msgstr ""
@@ -18780,6 +19118,10 @@ msgstr ""
 msgid "https"
 msgstr ""
 
+#: library/AcfFields/php/options-api-resources-apis.php:48
+msgid "https://dummy.api/wp-json/wp/v2"
+msgstr ""
+
 #. URI of the theme
 msgid "https://github.com/helsingborg-stad/Municipio"
 msgstr ""
@@ -18789,13 +19131,13 @@ msgid "I understand, continue."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:15
-#: library/AcfFields/php/options-theme-favicon.php:153
-#: library/AcfFields/php/widget-header-links.php:33
-#: library/AcfFields/php/widget-header-links.php:120
-#: library/AcfFields/php/options-theme-google-translate.php:75
 #: library/AcfFields/php/term-icon-and-colour.php:30
 #: library/AcfFields/php/term-icon-and-colour.php:60
 #: library/AcfFields/php/term-icon-and-colour.php:75
+#: library/AcfFields/php/widget-header-links.php:33
+#: library/AcfFields/php/widget-header-links.php:120
+#: library/AcfFields/php/options-theme-favicon.php:153
+#: library/AcfFields/php/options-theme-google-translate.php:97
 msgid "Icon"
 msgstr ""
 
@@ -18811,7 +19153,7 @@ msgstr ""
 msgid "Icon 152x152"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:76
+#: library/AcfFields/php/options-theme-google-translate.php:98
 msgid "Icon and text"
 msgstr ""
 
@@ -18823,6 +19165,10 @@ msgstr ""
 msgid "Icon color"
 msgstr ""
 
+#: library/AcfFields/php/options-menu-mega.php:56
+msgid "Icon position"
+msgstr ""
+
 #: library/Customizer/Sections/Tags.php:39
 msgid "Icon to prepend tags with."
 msgstr ""
@@ -18831,8 +19177,8 @@ msgstr ""
 msgid "Icon: "
 msgstr ""
 
-#: library/AcfFields/php/options-customize-footer.php:50
 #: library/AcfFields/php/options-customize-header.php:50
+#: library/AcfFields/php/options-customize-footer.php:50
 msgid "ID"
 msgstr ""
 
@@ -18840,7 +19186,7 @@ msgstr ""
 msgid "IE10, Windows Metro (144x144px)"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:130
+#: library/Customizer/Sections/Field.php:129
 msgid "If fields should apply shadows"
 msgstr ""
 
@@ -18856,10 +19202,24 @@ msgid ""
 "is wanted. Choose a value higher than the gap."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:106
+#: library/AcfFields/php/options-theme-google-translate.php:111
 msgid ""
 "If set to enabled, Google Translate usage will be tracked in Google "
 "Analytics (to the account specified under the Google Analytics settings)"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:288
+msgid ""
+"If you want to apply for a place in preschool, you can do so by filling in "
+"the form below. You can also apply for a place in preschool by contacting "
+"the preschool directly."
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:301
+msgid ""
+"If you want to apply for a place in school, you can do so by filling in the "
+"form below. You can also apply for a place in school by contacting the "
+"school directly."
 msgstr ""
 
 #: library/AcfFields/php/options-page-navigation.php:34
@@ -18871,6 +19231,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:488
 msgid "image"
+msgstr ""
+
+#: library/AcfFields/php/media-attachments.php:8
+msgid "Image Attachment Byline"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:489
@@ -18919,8 +19283,8 @@ msgid "indeterminate_check_box"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:126
-#: library/Customizer/Sections/Module/Index.php:12
 #: library/Customizer/Sections/Module/Posts.php:12
+#: library/Customizer/Sections/Module/Index.php:12
 msgid "Index"
 msgstr ""
 
@@ -18928,7 +19292,7 @@ msgstr ""
 msgid "info"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:471
+#: library/Customizer/Sections/Colors.php:469
 msgid "Info colors"
 msgstr ""
 
@@ -18949,11 +19313,11 @@ msgstr ""
 msgid "input"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:236
+#: library/Customizer/Sections/Colors.php:232
 msgid "Input colors"
 msgstr ""
 
-#: library/Theme/Enqueue.php:136
+#: library/Theme/Enqueue.php:144
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -19002,9 +19366,15 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:87
+msgid ""
+"interactive_guide: https://api.helsingborg."
+"se/event/json/wp/v2/interactive_guide"
+msgstr ""
+
+#: library/AcfFields/php/navigation-widget.php:141
 #: library/AcfFields/php/widget-media.php:36
 #: library/AcfFields/php/widget-media.php:101
-#: library/AcfFields/php/navigation-widget.php:141
 msgid "Internal link"
 msgstr ""
 
@@ -19032,7 +19402,7 @@ msgstr ""
 msgid "Italic"
 msgstr ""
 
-#: library/Helper/Post.php:115
+#: library/Helper/Post.php:148
 msgid "Item is missing content"
 msgstr ""
 
@@ -19041,14 +19411,16 @@ msgstr ""
 msgid "JavaScript"
 msgstr ""
 
-#: library/Controller/BaseController.php:199
-#: views/v1/templates/master.blade.php:29
+#: library/Controller/BaseController.php:204
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:198
-#: views/v1/templates/master.blade.php:27
+#: library/Controller/BaseController.php:202
 msgid "Jump to the main menu"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:110
+msgid "Kategorier"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:174
@@ -19120,11 +19492,28 @@ msgid "Kontakter"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:23
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:33
 msgid "Label"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:522
 msgid "label"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:714
+msgid "Label (Plural)"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:201
+msgid "Label (plural)"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:734
+msgid "Label (Singular)"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:221
+msgid "Label (singular)"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:523
@@ -19139,7 +19528,7 @@ msgstr ""
 msgid "landscape"
 msgstr ""
 
-#: library/Controller/BaseController.php:230
+#: library/Controller/BaseController.php:234
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr ""
@@ -19153,6 +19542,7 @@ msgid "Language Menu"
 msgstr ""
 
 #: library/Theme/Navigation.php:32
+#: library/AcfFields/php/options-theme-google-translate.php:62
 msgid "Language menu"
 msgstr ""
 
@@ -19172,27 +19562,23 @@ msgstr ""
 msgid "laptop_windows"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:129
-#: library/AcfFields/php/widget-header-links.php:362
 #: library/AcfFields/php/options-theme-editor-formats.php:26
+#: library/AcfFields/php/widget-header-links.php:362
+#: library/AcfFields/php/block-button.php:129
+#: library/AcfFields/php/navigation-widget.php:354
 #: library/AcfFields/php/widget-header-common.php:133
 #: library/AcfFields/php/widget-header-menu.php:52
-#: library/AcfFields/php/navigation-widget.php:354
+#: library/Customizer/Sections/Siteselector.php:118
 #: library/Customizer/Sections/Radius.php:75
 #: library/Customizer/Sections/Width.php:84
 #: library/Customizer/Sections/Width.php:100
-#: library/Customizer/Sections/Siteselector.php:118
-#: library/Customizer/Sections/Header.php:279
+#: library/Customizer/Sections/Header.php:285
 #: library/Customizer/Sections/Menu.php:120
 msgid "Large"
 msgstr ""
 
 #: library/Admin/LoginTracking.php:32
 msgid "Last Login"
-msgstr ""
-
-#: views/v1/partials/timestamps.blade.php:42
-msgid "Last updated"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:531
@@ -19226,9 +19612,9 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:104
 #: library/Customizer/Sections/Divider.php:137
 #: library/Customizer/Sections/FooterSub.php:161
-#: library/Customizer/Sections/Width.php:78
 #: library/Customizer/Sections/Hero.php:43
 #: library/Customizer/Sections/Hero.php:95
+#: library/Customizer/Sections/Width.php:78
 #: library/Customizer/Sections/Header.php:36
 #: library/Customizer/Sections/Header.php:64
 msgid "Left"
@@ -19244,6 +19630,15 @@ msgstr ""
 
 #: library/Theme/Sidebars.php:205
 msgid "Left sidebar bottom"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:219
+msgid "Leisure center"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:217
+#, php-format
+msgid "Leisure center: %s"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:537
@@ -19274,14 +19669,14 @@ msgstr ""
 msgid "library_music"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:23
-#: library/Customizer/Sections/Colors.php:66
-#: library/Customizer/Sections/Colors.php:349
-#: library/Customizer/Sections/Colors.php:392
-#: library/Customizer/Sections/Colors.php:435
-#: library/Customizer/Sections/Colors.php:478
+#: library/Customizer/Sections/Colors.php:24
+#: library/Customizer/Sections/Colors.php:68
+#: library/Customizer/Sections/Colors.php:345
+#: library/Customizer/Sections/Colors.php:389
+#: library/Customizer/Sections/Colors.php:433
+#: library/Customizer/Sections/Colors.php:477
 #: library/Customizer/Sections/Colors.php:520
-#: library/Customizer/Sections/Colors.php:566
+#: library/Customizer/Sections/Colors.php:567
 msgid "Light"
 msgstr ""
 
@@ -19298,11 +19693,11 @@ msgid "Lighter"
 msgstr ""
 
 #: library/Customizer/Sections/Colors.php:522
-#: library/Customizer/Sections/Colors.php:568
+#: library/Customizer/Sections/Colors.php:569
 msgid "Lightest"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:567
+#: library/Customizer/Sections/Colors.php:568
 msgid "Lighther"
 msgstr ""
 
@@ -19323,7 +19718,7 @@ msgid "linear_scale"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:31
-#: library/Customizer/Sections/Colors.php:266
+#: library/Customizer/Sections/Colors.php:261
 msgid "Link"
 msgstr ""
 
@@ -19331,7 +19726,7 @@ msgstr ""
 msgid "link"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:261
+#: library/Customizer/Sections/Colors.php:255
 msgid "Link colors"
 msgstr ""
 
@@ -19361,11 +19756,11 @@ msgid "Links"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:49
-#: library/Customizer/Sections/Module/Contacts.php:31
-#: library/Customizer/Sections/Module/Map.php:14
-#: library/Customizer/Sections/Module/Text.php:12
 #: library/Customizer/Sections/Module/Video.php:14
+#: library/Customizer/Sections/Module/Map.php:14
 #: library/Customizer/Sections/Module/Posts.php:33
+#: library/Customizer/Sections/Module/Text.php:12
+#: library/Customizer/Sections/Module/Contacts.php:31
 msgid "List"
 msgstr ""
 
@@ -19375,6 +19770,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:548
 msgid "list_alt"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:160
+msgid "listing"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:549
@@ -19396,6 +19795,10 @@ msgstr ""
 #: library/Customizer/PanelsRegistry.php:138
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 msgid "Local Event"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:69
+msgid "Local event (above archive posts)"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:551
@@ -19515,14 +19918,24 @@ msgid "local_taxi"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-js.php:71
-#: library/AcfFields/php/purpose-place.php:8
-#: library/AcfFields/php/purpose-place.php:12
+#: library/AcfFields/php/content-type-place.php:8
+#: library/AcfFields/php/content-type-place.php:12
 #: library/Customizer/Sections/Quicklinks.php:200
 msgid "Location"
 msgstr ""
 
 #: library/Theme/Icon.php:100 library/Theme/Icon.php:101
 msgid "Location point"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:82
+msgid "location: https://api.helsingborg.se/event/json/wp/v2/location"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:133
+msgid ""
+"location_categories: https://api.helsingborg."
+"se/event/json/wp/v2/location_categories"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:580
@@ -19649,7 +20062,7 @@ msgstr ""
 msgid "Main footer"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:213
+#: library/AcfFields/php/options-theme-custom-post-type.php:219
 msgid "Make post type available for selection in navigation menus."
 msgstr ""
 
@@ -19667,6 +20080,10 @@ msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:180
 msgid "Manage site general design options."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:8
+msgid "Manage taxonomies"
 msgstr ""
 
 #: library/Theme/Icon.php:140
@@ -19771,9 +20188,9 @@ msgid "Media widget"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:128
-#: library/Customizer/Sections/Radius.php:54
 #: library/Customizer/Sections/Siteselector.php:117
-#: library/Customizer/Sections/Header.php:278
+#: library/Customizer/Sections/Radius.php:54
+#: library/Customizer/Sections/Header.php:284
 #: library/Customizer/Sections/Menu.php:119
 msgid "Medium"
 msgstr ""
@@ -19786,15 +20203,26 @@ msgstr ""
 msgid "meeting_room"
 msgstr ""
 
+#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:227
+#: library/Customizer/PanelsRegistry.php:280
+#: library/AcfFields/php/options-menu-mega.php:8
+#: library/AcfFields/php/options-theme-google-translate.php:59
+#: library/Customizer/Sections/Search.php:136
+msgid "Mega menu"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:85
+msgid ""
+"membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:603
 msgid "memory"
 msgstr ""
 
-#: library/Controller/BaseController.php:226 library/Theme/Icon.php:44
-#: library/Widget/Header/Links.php:68
+#: library/Theme/Icon.php:44 library/Controller/BaseController.php:230
 #: library/Widget/Navigation/Navigation.php:77
-#: views/v1/partials/header/default.blade.php:42
-#: views/v2/partials/header/default.blade.php:45
+#: library/Widget/Header/Links.php:68
 msgid "Menu"
 msgstr ""
 
@@ -19820,11 +20248,15 @@ msgid "Menu behaviour settings."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:8
-#: library/AcfFields/php/options-theme-custom-post-type.php:95
+#: library/AcfFields/php/options-theme-custom-post-type.php:97
 msgid "Menu icon"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:122
+#: library/AcfFields/php/resource-fields.php:477
+msgid "Menu Position"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:125
 msgid "Menu position"
 msgstr ""
 
@@ -19832,7 +20264,7 @@ msgstr ""
 msgid "Menu title"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:57
+#: library/AcfFields/php/options-theme-google-translate.php:41
 msgid "Menu to show translate link in"
 msgstr ""
 
@@ -19856,8 +20288,7 @@ msgstr ""
 msgid "merge_type"
 msgstr ""
 
-#: library/Theme/Icon.php:66 views/v1/partials/share-email-form.blade.php:30
-#: views/v1/partials/share-email-form.blade.php:31
+#: library/Theme/Icon.php:66
 msgid "Message"
 msgstr ""
 
@@ -19885,11 +20316,11 @@ msgstr ""
 msgid "Minus"
 msgstr ""
 
-#: library/Controller/BaseController.php:216
+#: library/Controller/BaseController.php:220
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:215
+#: library/Controller/BaseController.php:219
 msgid "minutes"
 msgstr ""
 
@@ -19901,7 +20332,7 @@ msgstr ""
 msgid "mms"
 msgstr ""
 
-#: library/Theme/Enqueue.php:168
+#: library/Theme/Enqueue.php:176
 msgid "Mo"
 msgstr ""
 
@@ -19915,6 +20346,166 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:617
 msgid "mobile_screen_share"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:172
+msgid "mod-breadcrumbs"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:183
+msgid "mod-contact-banner"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:144
+msgid "mod-contacts"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:173
+msgid "mod-curator"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:174
+msgid "mod-divider"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:145
+msgid "mod-fileslist"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:184
+msgid "mod-form"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:146
+msgid "mod-gallery"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:175
+msgid "mod-hero"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:147
+msgid "mod-iframe"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:148
+msgid "mod-image"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:149
+msgid "mod-index"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:150
+msgid "mod-inheritpost"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:151
+msgid "mod-inlaylist"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:176
+msgid "mod-logogrid"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:177
+msgid "mod-map"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:178
+msgid "mod-modal"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:152
+msgid "mod-notice"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:185
+msgid "mod-open-street-map"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:153
+msgid "mod-posts"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:186
+msgid "mod-products"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:187
+msgid "mod-recommend"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:179
+msgid "mod-rss"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:154
+msgid "mod-script"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:191
+msgid "mod-section-card"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:190
+msgid "mod-section-featured"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:189
+msgid "mod-section-full"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:188
+msgid "mod-section-split"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:180
+msgid "mod-sites"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:155
+msgid "mod-slider"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:156
+msgid "mod-social"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:181
+msgid "mod-spacer"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:182
+msgid "mod-subscribe"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:157
+msgid "mod-table"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:192
+msgid "mod-testimonial-card"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:143
+msgid "mod-text"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:193
+msgid "mod-timeline"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:158
+msgid "mod-video"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:159
+msgid "mod-wpwidget"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:205
+msgid "modal-content"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:618
@@ -19949,11 +20540,11 @@ msgstr ""
 msgid "Monotone colors"
 msgstr ""
 
-#: library/Controller/BaseController.php:208
+#: library/Controller/BaseController.php:212
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:207
+#: library/Controller/BaseController.php:211
 msgid "months"
 msgstr ""
 
@@ -19965,16 +20556,11 @@ msgstr ""
 msgid "mood_bad"
 msgstr ""
 
-#: views/v1/partials/dropdown-menu.blade.php:2
-#: views/v2/partials/header/jumbo.blade.php:23
-msgid "More"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:625
 msgid "more"
 msgstr ""
 
-#: library/Controller/BaseController.php:229
+#: library/Controller/BaseController.php:233
 msgid "More Languages"
 msgstr ""
 
@@ -20054,20 +20640,17 @@ msgstr ""
 msgid "Must be a .ico file containing    16x16px, 32x32px and 48x48px"
 msgstr ""
 
-#: views/v1/partials/author-box.blade.php:16
-#: views/v1/partials/author-box.blade.php:20
-#: views/v1/partials/author-box.blade.php:24
-#: views/v1/partials/author-box.blade.php:28
-msgid "My profile on"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:639
 msgid "my_location"
 msgstr ""
 
-#: library/AcfFields/php/options-customize-footer.php:31
 #: library/AcfFields/php/options-customize-header.php:31
+#: library/AcfFields/php/options-customize-footer.php:31
 msgid "Name"
+msgstr ""
+
+#: library/Controller/BaseController.php:251
+msgid "Name (A-Z)"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:640
@@ -20078,6 +20661,14 @@ msgstr ""
 msgid "nature_people"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:124
+msgid "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:72
+msgid "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:642
 msgid "navigate_before"
 msgstr ""
@@ -20086,12 +20677,16 @@ msgstr ""
 msgid "navigate_next"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:241
+#: library/AcfFields/php/options-theme-custom-post-type.php:270
 msgid "Navigation"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:644
 msgid "navigation"
+msgstr ""
+
+#: library/AcfFields/php/options-menu-description.php:8
+msgid "Navigation item description"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-style.php:8
@@ -20110,6 +20705,10 @@ msgstr ""
 msgid "Navigation widget"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:135
+msgid "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
+msgstr ""
+
 #: library/Customizer/PanelsRegistry.php:274
 msgid "Navigations"
 msgstr ""
@@ -20126,7 +20725,8 @@ msgstr ""
 msgid "network_locked"
 msgstr ""
 
-#: library/Content/CustomPostType.php:60
+#: library/Content/CustomPostType.php:58
+#, php-format
 msgid "New %s"
 msgstr ""
 
@@ -20143,6 +20743,14 @@ msgstr ""
 msgid "News"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:194
+msgid "news"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-google-translate.php:70
+msgid "News (above archive posts)"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:649
 msgid "next_week"
 msgstr ""
@@ -20155,11 +20763,13 @@ msgstr ""
 msgid "nights_stay"
 msgstr ""
 
-#: library/Content/CustomPostType.php:66
+#: library/Content/CustomPostType.php:64
+#, php-format
 msgid "No %s found"
 msgstr ""
 
-#: library/Content/CustomPostType.php:67
+#: library/Content/CustomPostType.php:65
+#, php-format
 msgid "No %s found in trash"
 msgstr ""
 
@@ -20167,25 +20777,16 @@ msgstr ""
 msgid "No animation"
 msgstr ""
 
-#: views/v1/partials/blog/post-categories.blade.php:6
-msgid "No categories"
+#: library/Customizer/Sections/MegaMenu.php:228
+msgid "No cover"
 msgstr ""
 
-#: library/Controller/Archive.php:103
+#: library/Controller/BaseController.php:255
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/Singular.php:141
+#: library/Controller/BaseController.php:248
 msgid "No items found."
-msgstr ""
-
-#: views/v1/archive-event.blade.php:118 views/v1/archive.blade.php:96
-#: views/v2/templates/archive.blade.php:49
-msgid "No posts to show"
-msgstr ""
-
-#: views/v1/partials/blog/post-tags.blade.php:8
-msgid "No tags"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:652
@@ -20201,28 +20802,29 @@ msgid "no_sim"
 msgstr ""
 
 #: library/AcfFields/php/widget-header-common.php:134
+#: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/FooterMain.php:59
 #: library/Customizer/Sections/FooterSub.php:54
-#: library/Customizer/Sections/Card.php:124
-#: library/Customizer/Sections/Collection.php:124
 #: library/Customizer/Sections/Header.php:158
-#: library/Customizer/Sections/Module/Contacts.php:17
-#: library/Customizer/Sections/Module/Contacts.php:36
-#: library/Customizer/Sections/Module/Index.php:17
-#: library/Customizer/Sections/Module/Inlay.php:17
+#: library/Customizer/Sections/Collection.php:124
 #: library/Customizer/Sections/Module/LocalEvent.php:17
-#: library/Customizer/Sections/Module/Map.php:19
-#: library/Customizer/Sections/Module/Script.php:19
-#: library/Customizer/Sections/Module/SectionsSplit.php:17
-#: library/Customizer/Sections/Module/Text.php:17
 #: library/Customizer/Sections/Module/Video.php:19
+#: library/Customizer/Sections/Module/Map.php:19
+#: library/Customizer/Sections/Module/SectionsSplit.php:17
 #: library/Customizer/Sections/Module/Posts.php:17
 #: library/Customizer/Sections/Module/Posts.php:38
 #: library/Customizer/Sections/Module/Posts.php:59
+#: library/Customizer/Sections/Module/Inlay.php:17
+#: library/Customizer/Sections/Module/Index.php:17
+#: library/Customizer/Sections/Module/Text.php:17
+#: library/Customizer/Sections/Module/Script.php:19
+#: library/Customizer/Sections/Module/Contacts.php:17
+#: library/Customizer/Sections/Module/Contacts.php:36
 msgid "None"
 msgstr ""
 
 #: library/Admin/Options/GoogleTranslate.php:15
+#: library/AcfFields/php/options-theme-google-translate.php:71
 msgid "None (link to #translate to show)"
 msgstr ""
 
@@ -20276,6 +20878,10 @@ msgstr ""
 msgid "notifications_paused"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:142
+msgid "np-redirect"
+msgstr ""
+
 #: library/Customizer/Sections/FooterMain.php:238
 #: library/Customizer/Sections/Archive.php:128
 msgid "Number of columns to display"
@@ -20293,8 +20899,20 @@ msgstr ""
 msgid "Number of posts to display"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:754
+msgid "Object Type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:161
+msgid "oembed_cache"
+msgstr ""
+
 #: library/Customizer/Sections/Module/Posts.php:82
 msgid "Off"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:219
+msgid "Offentlig"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:665
@@ -20309,7 +20927,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: library/Controller/BaseController.php:241
+#: library/Controller/BaseController.php:245
 msgid "on"
 msgstr ""
 
@@ -20321,8 +20939,12 @@ msgstr ""
 msgid "One Page"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:12
+#: library/Customizer/Sections/Logo.php:13
 msgid "Only accepts .svg-files (Scalable Vector Graphics)."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:60
+msgid "Only applies if you enable the option to publish your taxonomy."
 msgstr ""
 
 #: library/Admin/General.php:113
@@ -20369,6 +20991,11 @@ msgstr ""
 msgid "open_with"
 msgstr ""
 
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:206
+#, php-format
+msgid "Opening hours: %s"
+msgstr ""
+
 #: library/Customizer/Sections/Search.php:134
 msgid "Option in main menu"
 msgstr ""
@@ -20396,22 +21023,34 @@ msgstr ""
 msgid "Order direction"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:83
+msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:334
+msgid "Orientation"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:341
+msgid "Our leisure center"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:672
 msgid "outdoor_grill"
 msgstr ""
 
 #: library/Customizer/Sections/Borders.php:77
-#: library/Customizer/Sections/Colors.php:210
+#: library/Customizer/Sections/Colors.php:209
 msgid "Outline"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:97
-#: library/Customizer/Sections/Header.php:227
-#: library/Customizer/Sections/Header.php:261
+#: library/Customizer/Sections/Header.php:233
+#: library/Customizer/Sections/Header.php:267
 msgid "Outlined"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:37
+#: library/Customizer/Sections/MegaMenu.php:125
 msgid "Outlined button"
 msgstr ""
 
@@ -20440,6 +21079,10 @@ msgstr ""
 msgid "Padding will be applied in 8px increments."
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:137
+msgid "page"
+msgstr ""
+
 #: library/Theme/CustomTemplates.php:36
 msgid "Page (centered)"
 msgstr ""
@@ -20448,12 +21091,16 @@ msgstr ""
 msgid "Page (default template)"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:288
+#: library/AcfFields/php/options-theme-custom-post-type.php:325
 msgid "Page Attributes"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:207
 msgid "Page Widths"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:70
+msgid "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:674
@@ -20476,16 +21123,16 @@ msgstr ""
 msgid "pan_tool"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Contacts.php:37
-#: library/Customizer/Sections/Module/Inlay.php:18
 #: library/Customizer/Sections/Module/LocalEvent.php:18
-#: library/Customizer/Sections/Module/Map.php:20
-#: library/Customizer/Sections/Module/Script.php:20
-#: library/Customizer/Sections/Module/Text.php:18
 #: library/Customizer/Sections/Module/Video.php:20
+#: library/Customizer/Sections/Module/Map.php:20
 #: library/Customizer/Sections/Module/Posts.php:18
 #: library/Customizer/Sections/Module/Posts.php:39
 #: library/Customizer/Sections/Module/Posts.php:60
+#: library/Customizer/Sections/Module/Inlay.php:18
+#: library/Customizer/Sections/Module/Text.php:18
+#: library/Customizer/Sections/Module/Script.php:20
+#: library/Customizer/Sections/Module/Contacts.php:37
 msgid "Panel"
 msgstr ""
 
@@ -20509,8 +21156,20 @@ msgstr ""
 msgid "panorama_wide_angle"
 msgstr ""
 
-#: library/Content/CustomPostType.php:65
+#: library/Content/CustomPostType.php:63
+#, php-format
 msgid "Parent %s"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:533
+msgid "Parent post types"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:537
+msgid ""
+"Parent post types are used to determine the permalink and the rewrite rules "
+"for this post type. Setting parent post types will affect the rewrite slug "
+"by prepending it with the parent post types slug."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:683
@@ -20590,12 +21249,22 @@ msgstr ""
 msgid "perm_scan_wifi"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:53
+#: library/AcfFields/php/options-theme-custom-post-type.php:55
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:56
 msgid "Permalänk"
 msgstr ""
 
+#: library/Controller/ContentType/Person.php:18
+msgid "Person"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:700
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:196
 msgid "person"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:79
+msgid "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:701
@@ -20752,14 +21421,22 @@ msgid "pie_chart"
 msgstr ""
 
 #: library/Customizer/Sections/Siteselector.php:119
-#: library/Customizer/Sections/Button.php:146
 #: library/Customizer/Sections/Search.php:153
+#: library/Customizer/Sections/Button.php:146
 #: library/Customizer/Sections/Tags.php:19
 msgid "Pill"
 msgstr ""
 
-#: library/Controller/Purpose/Place.php:14
+#: library/Controller/ContentType/Place.php:20
 msgid "Place"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:261
+msgid "Place this post type under \"Pages\" in the admin panel?"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:249
+msgid "Place under pages menu?"
 msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:2300
@@ -20804,7 +21481,7 @@ msgid "playlist_play"
 msgstr ""
 
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:124
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:172
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:177
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -20848,36 +21525,72 @@ msgstr ""
 msgid "portrait"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:136
+msgid "post"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-post-timestamps.php:15
 msgid "Post footer timestamps"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:289
+#: library/AcfFields/php/options-theme-custom-post-type.php:326
 msgid "Post Formats"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:269
+#: library/AcfFields/php/resource-fields.php:25
+msgid "Post Type"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:151
+msgid "Post Type Arguments"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:299
 msgid "Post type functions"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:33
+#: library/AcfFields/php/resource-fields.php:181
+msgid "Post Type Key"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:34
 msgid "Post type name"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:41
+msgid "Post Type Source"
 msgstr ""
 
 #: library/Admin/Options/Theme.php:76
 msgid "Post Types"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:758
+msgid "Post Types to which this taxonomy should be connected to."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:69
+msgid "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:751
 msgid "post_add"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:129
+msgid "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:123
+msgid "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:150
 msgid "Posts"
 msgstr ""
 
-#: views/v1/author.blade.php:34
-msgid "Posts by"
+#: library/AcfFields/php/options-theme-google-translate.php:66
+msgid "Posts (above archive posts)"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:752
@@ -20900,8 +21613,17 @@ msgstr ""
 msgid "Pre-footer Text alignment"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:195
+msgid "pre-school"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:77
+msgid "pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school"
+msgstr ""
+
 #: library/Customizer/Sections/Quicklinks.php:22
 #: library/Customizer/Sections/Field.php:21
+#: library/Customizer/Sections/MegaMenu.php:22
 msgid "Predefined appearance"
 msgstr ""
 
@@ -20909,7 +21631,7 @@ msgstr ""
 msgid "Predefined colors"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:87
+#: library/AcfFields/php/options-theme-custom-post-type.php:89
 msgid "Prefix slug with blog front"
 msgstr ""
 
@@ -20921,22 +21643,20 @@ msgstr ""
 msgid "present_to_all"
 msgstr ""
 
-#: views/v1/single-listing.blade.php:48
-msgid "Price"
-msgstr ""
-
 #: library/AcfFields/php/block-button.php:65
 #: library/Customizer/Sections/FooterMain.php:60
-#: library/Customizer/Sections/FooterSub.php:55
 #: library/Customizer/Sections/Siteselector.php:82
 #: library/Customizer/Sections/Quicklinks.php:159
-#: library/Customizer/Sections/Button.php:24
+#: library/Customizer/Sections/FooterSub.php:55
+#: library/Customizer/Sections/MegaMenu.php:162
+#: library/Customizer/Sections/MegaMenu.php:201
+#: library/Customizer/Sections/Search.php:144
 #: library/Customizer/Sections/Header.php:115
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
-#: library/Customizer/Sections/Header.php:210
-#: library/Customizer/Sections/Header.php:244
-#: library/Customizer/Sections/Search.php:144
+#: library/Customizer/Sections/Header.php:216
+#: library/Customizer/Sections/Header.php:250
+#: library/Customizer/Sections/Button.php:24
 msgid "Primary"
 msgstr ""
 
@@ -20956,20 +21676,21 @@ msgstr ""
 msgid "Primary Contrasting"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:27
+#: library/Customizer/Sections/Logo.php:28
 msgid "Primary logo"
 msgstr ""
 
 #: library/Theme/Navigation.php:27
+#: library/AcfFields/php/options-theme-google-translate.php:57
 msgid "Primary menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:222
+#: library/Controller/BaseController.php:226
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr ""
 
-#: library/Helper/Navigation.php:865
+#: library/Helper/Navigation.php:866
 msgid "Print"
 msgstr ""
 
@@ -20977,7 +21698,7 @@ msgstr ""
 msgid "print"
 msgstr ""
 
-#: library/Helper/Navigation.php:866
+#: library/Helper/Navigation.php:867
 msgid "Print this page"
 msgstr ""
 
@@ -20997,58 +21718,60 @@ msgstr ""
 msgid "Profile picture"
 msgstr ""
 
-#: library/Controller/Purpose/Project.php:14
+#: library/Controller/ContentType/Project.php:17
 msgid "Project"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:137
+msgid "property: https://api.helsingborg.se/event/json/wp/v2/property"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:261
+#: library/AcfFields/php/resource-fields.php:796
+msgid "Public"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:761
 msgid "public"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:56
+#: library/AcfFields/php/options-theme-custom-post-type.php:59
 msgid "Public /url/ to show archive on."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:161
+#: library/AcfFields/php/options-theme-custom-post-type.php:165
 msgid "Public?"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:361
+#: library/AcfFields/php/resource-fields.php:876
+msgid "Publicly Queryable"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:762
 msgid "publish"
 msgstr ""
 
-#: library/Controller/BaseController.php:239 library/Controller/Archive.php:104
-#: views/v1/partials/timestamps.blade.php:33
-#: views/v1/partials/timestamps.blade.php:53
+#: library/Controller/BaseController.php:252
+msgid "Publish Date"
+msgstr ""
+
+#: library/Controller/BaseController.php:243
+#: library/Controller/BaseController.php:253
 msgid "Published"
 msgstr ""
 
-#: library/Controller/BaseController.php:240
-#: views/v1/partials/timestamps.blade.php:4
-#: views/v1/partials/blog/post-footer.blade.php:34
-#: views/v2/partials/archive/post-footer.blade.php:34
+#: library/Controller/BaseController.php:244
 msgid "Published by"
-msgstr ""
-
-#: library/Admin/Options/Purpose.php:67
-#: library/Admin/Acf/LocationRulesPurpose.php:8
-msgid "Purpose"
-msgstr ""
-
-#: library/Admin/Options/Purpose.php:19
-msgid "Purpose templates"
-msgstr ""
-
-#: library/Admin/Options/Purpose.php:20
-msgid "Purposes"
 msgstr ""
 
 #: library/AcfFields/php/brand-widget.php:52
 msgid "px"
 msgstr ""
 
-#: views/v1/partials/search/algolia-instantsearch.blade.php:141
-msgid "Query is empty, please type somehing."
+#: library/AcfFields/php/resource-fields.php:642
+#: library/AcfFields/php/resource-fields.php:1106
+msgid "Query Var"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:763
@@ -21088,7 +21811,9 @@ msgstr ""
 msgid "Quicklinks location."
 msgstr ""
 
-#: library/Theme/Navigation.php:33 library/Customizer/Sections/Search.php:137
+#: library/Theme/Navigation.php:33
+#: library/AcfFields/php/options-theme-google-translate.php:63
+#: library/Customizer/Sections/Search.php:137
 msgid "Quicklinks menu"
 msgstr ""
 
@@ -21104,15 +21829,21 @@ msgstr ""
 msgid "radio_button_unchecked"
 msgstr ""
 
+#: library/Controller/BaseController.php:250
+msgid "Random"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:771
 msgid "rate_review"
 msgstr ""
 
-#: library/Controller/BaseController.php:236 library/Controller/Archive.php:106
+#: library/Controller/BaseController.php:240
+#: library/Controller/BaseController.php:256
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:452
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/BaseController.php:237
 msgid "Reading time"
 msgstr ""
 
@@ -21122,11 +21853,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:773
 msgid "recent_actors"
-msgstr ""
-
-#: views/v1/partials/share-email-form.blade.php:25
-#: views/v1/partials/share-email-form.blade.php:27
-msgid "Recipient email"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:774
@@ -21153,22 +21879,17 @@ msgstr ""
 msgid "Regular Slider"
 msgstr ""
 
-#: library/Controller/BaseController.php:234
+#: library/Controller/BaseController.php:238
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
-#: library/Controller/BaseController.php:225
+#: library/Controller/BaseController.php:229
 msgid "Related links"
 msgstr ""
 
 #: library/Api/Media/Sideload.php:31
 msgid "Remote URL from which to sideload image."
-msgstr ""
-
-#: views/v1/partials/blog/comments.blade.php:62
-#: views/v1/partials/blog/comments.blade.php:126
-msgid "Remove"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:778
@@ -21247,19 +21968,16 @@ msgstr ""
 msgid "report_problem"
 msgstr ""
 
-#: views/v1/archive-event.blade.php:96 views/v1/single-event.blade.php:70
-msgid "Rescheduled"
-msgstr ""
-
-#: library/Controller/Archive.php:118
+#: library/Controller/BaseController.php:266
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/Singular.php:140 library/Controller/Archive.php:116
+#: library/Controller/BaseController.php:247
+#: library/Controller/BaseController.php:264
 msgid "Reset filter"
 msgstr ""
 
-#: library/Controller/Archive.php:115
+#: library/Controller/BaseController.php:263
 msgid "Reset search"
 msgstr ""
 
@@ -21295,11 +22013,21 @@ msgstr ""
 msgid "Return type from sideloaded image."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:290
+#: library/AcfFields/php/options-theme-custom-post-type.php:327
 msgid "Revisions"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:75
+#: library/AcfFields/php/resource-fields.php:457
+#: library/AcfFields/php/resource-fields.php:972
+msgid "Rewrite"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:554
+#: library/AcfFields/php/resource-fields.php:1018
+msgid "Rewrite options"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:76
 msgid "Rewrite with front"
 msgstr ""
 
@@ -21311,9 +22039,9 @@ msgstr ""
 #: library/AcfFields/php/widget-header-common.php:105
 #: library/Customizer/Sections/Divider.php:139
 #: library/Customizer/Sections/FooterSub.php:163
-#: library/Customizer/Sections/Width.php:94
 #: library/Customizer/Sections/Hero.php:45
 #: library/Customizer/Sections/Hero.php:97
+#: library/Customizer/Sections/Width.php:94
 #: library/Customizer/Sections/Header.php:38
 #: library/Customizer/Sections/Header.php:65
 msgid "Right"
@@ -21380,7 +22108,7 @@ msgstr ""
 msgid "rv_hookup"
 msgstr ""
 
-#: library/Theme/Enqueue.php:173
+#: library/Theme/Enqueue.php:181
 msgid "Sa"
 msgstr ""
 
@@ -21408,8 +22136,16 @@ msgstr ""
 msgid "schedule"
 msgstr ""
 
+#: library/Controller/ContentType/School.php:21
+msgid "School"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:818
 msgid "school"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:198
+msgid "school-media"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:819
@@ -21453,17 +22189,12 @@ msgstr ""
 msgid "sd_storage"
 msgstr ""
 
-#: library/Controller/BaseController.php:219 library/Controller/Archive.php:113
-#: library/Search/General.php:54 library/Customizer/PanelsRegistry.php:234
-#: library/Admin/Options/Purpose.php:88 library/Admin/Options/Theme.php:51
+#: library/Search/General.php:55 library/Controller/BaseController.php:223
+#: library/Controller/BaseController.php:261
+#: library/Customizer/PanelsRegistry.php:234
+#: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
 #: library/Widget/Navigation/Navigation.php:66
-#: views/v1/partials/archive-filters.blade.php:40
-#: views/v1/partials/archive-filters.blade.php:43
-#: views/v1/partials/archive-filters.blade.php:79
-#: views/v2/partials/archive-filters.blade.php:40
-#: views/v2/partials/archive-filters.blade.php:43
-#: views/v2/partials/archive-filters.blade.php:79
 msgid "Search"
 msgstr ""
 
@@ -21471,7 +22202,8 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-#: library/Content/CustomPostType.php:64
+#: library/Content/CustomPostType.php:62
+#, php-format
 msgid "Search %s"
 msgstr ""
 
@@ -21483,7 +22215,7 @@ msgstr ""
 msgid "Search form shape"
 msgstr ""
 
-#: library/Controller/BaseController.php:220
+#: library/Controller/BaseController.php:224
 msgid "Search on"
 msgstr ""
 
@@ -21496,22 +22228,24 @@ msgid ""
 "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
 msgstr ""
 
-#: library/Controller/BaseController.php:218
+#: library/Controller/BaseController.php:222
 msgid "second"
 msgstr ""
 
 #: library/AcfFields/php/block-button.php:66
-#: library/Customizer/Sections/Colors.php:172
 #: library/Customizer/Sections/FooterMain.php:61
-#: library/Customizer/Sections/FooterSub.php:56
 #: library/Customizer/Sections/Siteselector.php:83
 #: library/Customizer/Sections/Quicklinks.php:160
+#: library/Customizer/Sections/FooterSub.php:56
+#: library/Customizer/Sections/MegaMenu.php:163
+#: library/Customizer/Sections/MegaMenu.php:202
+#: library/Customizer/Sections/Search.php:145
 #: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
-#: library/Customizer/Sections/Header.php:211
-#: library/Customizer/Sections/Header.php:245
-#: library/Customizer/Sections/Search.php:145
+#: library/Customizer/Sections/Header.php:217
+#: library/Customizer/Sections/Header.php:251
+#: library/Customizer/Sections/Colors.php:172
 msgid "Secondary"
 msgstr ""
 
@@ -21523,7 +22257,7 @@ msgstr ""
 msgid "Secondary button colors"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:59
+#: library/Customizer/Sections/Colors.php:60
 msgid "Secondary colors"
 msgstr ""
 
@@ -21531,11 +22265,12 @@ msgstr ""
 msgid "Secondary Contrasting"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:34
+#: library/Customizer/Sections/Logo.php:35
 msgid "Secondary logo"
 msgstr ""
 
 #: library/Theme/Navigation.php:28
+#: library/AcfFields/php/options-theme-google-translate.php:58
 msgid "Secondary menu & drawer menu"
 msgstr ""
 
@@ -21543,7 +22278,7 @@ msgstr ""
 msgid "Secondary navigation position"
 msgstr ""
 
-#: library/Controller/BaseController.php:217
+#: library/Controller/BaseController.php:221
 msgid "seconds"
 msgstr ""
 
@@ -21559,24 +22294,12 @@ msgstr ""
 msgid "security"
 msgstr ""
 
-#: library/Controller/Singular.php:235 library/Controller/Archive.php:475
+#: library/Controller/Singular.php:230 library/Controller/Archive.php:471
 msgid "Select"
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:153
 msgid "Select a alternative style of this header."
-msgstr ""
-
-#: library/Customizer/Sections/HamburgerMenu.php:94
-msgid "Select a color for the background"
-msgstr ""
-
-#: library/Customizer/Sections/HamburgerMenu.php:48
-msgid "Select a color for the headings"
-msgstr ""
-
-#: library/Customizer/Sections/HamburgerMenu.php:71
-msgid "Select a color for the subitems"
 msgstr ""
 
 #: library/Customizer/Sections/LoadDesign.php:30
@@ -21597,7 +22320,7 @@ msgstr ""
 msgid "Select a key/value to order by."
 msgstr ""
 
-#: library/Controller/Archive.php:111
+#: library/Controller/BaseController.php:260
 msgid "Select a valid date"
 msgstr ""
 
@@ -21605,7 +22328,7 @@ msgstr ""
 msgid "Select amount of border radius"
 msgstr ""
 
-#: library/Customizer/Sections/Field.php:98
+#: library/Customizer/Sections/Field.php:97
 msgid "Select border radius"
 msgstr ""
 
@@ -21617,16 +22340,22 @@ msgstr ""
 msgid "Select color source"
 msgstr ""
 
+#: library/Admin/Options/ContentType.php:86
+msgid "Select content type"
+msgstr ""
+
 #: library/Customizer/Sections/Archive.php:334
 msgid "Select decending or ascending order."
 msgstr ""
 
 #: library/Customizer/Sections/Quicklinks.php:129
+#: library/Customizer/Sections/MegaMenu.php:74
 msgid "Select font"
 msgstr ""
 
 #: library/Customizer/Sections/Quicklinks.php:17
 #: library/Customizer/Sections/Field.php:16
+#: library/Customizer/Sections/MegaMenu.php:17
 msgid ""
 "Select if you want to use one of the predefined appearance, or customize "
 "freely."
@@ -21637,19 +22366,15 @@ msgid ""
 "Select if you want to use one of the predefined colors, or select one freely."
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:30
-msgid "Select menu trigger style"
-msgstr ""
-
-#: library/Admin/Options/Purpose.php:86
-msgid "Select purpose"
-msgstr ""
-
 #: library/Customizer/Sections/Archive.php:355
 msgid "Select source of timestamp for post"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:125
+#: library/AcfFields/php/options-content-types.php:43
+msgid "Select to override the default post template for this post type."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:129
 msgid "Select where to place this custom post type admin section."
 msgstr ""
 
@@ -21667,10 +22392,6 @@ msgstr ""
 
 #: library/Customizer/Sections/LoadDesign.php:44
 msgid "Selected local settings will not be overriden on import."
-msgstr ""
-
-#: views/v1/partials/share-email-form.blade.php:43
-msgid "Send"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:830
@@ -21697,6 +22418,10 @@ msgstr ""
 msgid "sentiment_very_satisfied"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-google-translate.php:130
+msgid "Seperate the words with a comma"
+msgstr ""
+
 #: library/Customizer/PanelsRegistry.php:208
 msgid "Set the maximum page withs of different page types."
 msgstr ""
@@ -21705,6 +22430,20 @@ msgstr ""
 msgid ""
 "Set the width of left & right columns. The middle (content) column will use "
 "whatever space left."
+msgstr ""
+
+#: library/Customizer/Sections/MegaMenu.php:158
+msgid "Sets the color of the button. The custom color will be ignored."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:646
+#: library/AcfFields/php/resource-fields.php:1110
+msgid "Sets the query_var key for this post type."
+msgstr ""
+
+#: library/Customizer/Sections/MegaMenu.php:100
+#: library/Customizer/Sections/MegaMenu.php:119
+msgid "Sets the style of the main items"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:288
@@ -21787,30 +22526,6 @@ msgstr ""
 msgid "share"
 msgstr ""
 
-#: views/v1/partials/share-email-form.blade.php:6
-#: views/v1/partials/social-share.blade.php:22
-msgid "Share as e-mail"
-msgstr ""
-
-#: views/v1/partials/social-share.blade.php:4
-#: views/v1/partials/social-share.blade.php:6
-#: views/v1/partials/social-share.blade.php:10
-#: views/v1/partials/social-share.blade.php:12
-#: views/v1/partials/social-share.blade.php:16
-#: views/v1/partials/social-share.blade.php:18
-msgid "Share on"
-msgstr ""
-
-#: views/v1/partials/page-footer.blade.php:11
-#: views/v1/partials/blog/post-footer.blade.php:9
-#: views/v2/partials/archive/post-footer.blade.php:9
-msgid "Share the page"
-msgstr ""
-
-#: views/v1/partials/social-share.blade.php:24
-msgid "Share with e-mail"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:854
 msgid "shop"
 msgstr ""
@@ -21839,12 +22554,15 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: library/Controller/E404.php:47 library/Controller/BaseController.php:235
-#: views/v1/partials/blog/taxonomy-filters.blade.php:10
+#: library/AcfFields/php/resource-fields.php:856
+msgid "Show Admin Column"
+msgstr ""
+
+#: library/Controller/BaseController.php:239 library/Controller/E404.php:47
 msgid "Show all"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:84
+#: library/AcfFields/php/options-theme-google-translate.php:83
 msgid "Show as"
 msgstr ""
 
@@ -21860,15 +22578,34 @@ msgstr ""
 msgid "Show emblem in hero"
 msgstr ""
 
-#: library/AcfFields/php/options-page-display.php:12
+#: library/AcfFields/php/options-page-display.php:24
 msgid "Show featured image in single template"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:14
+#: library/AcfFields/php/options-menu-mega.php:67
+msgid "Show icon after label"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:429
+#: library/AcfFields/php/resource-fields.php:944
+msgid "Show In Admin Bar"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:401
+#: library/AcfFields/php/resource-fields.php:916
+msgid "Show In Menu"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:381
+#: library/AcfFields/php/resource-fields.php:896
+msgid "Show In Nav Menus"
+msgstr ""
+
+#: library/Customizer/Sections/MegaMenu.php:242
 msgid "Show on mobile"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:261
+#: library/AcfFields/php/options-theme-custom-post-type.php:291
 msgid "Show posts in sidebar menu (only ofr automatically generated menus)"
 msgstr ""
 
@@ -21878,6 +22615,19 @@ msgstr ""
 
 #: library/Customizer/Sections/Menu.php:80
 msgid "Show subitems as dropdown in main menu"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:31
+msgid "Show title"
+msgstr ""
+
+#: library/AcfFields/php/options-page-display.php:42
+msgid "Show title in One Page template"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:301
+#: library/AcfFields/php/resource-fields.php:836
+msgid "Show UI"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:859
@@ -21952,7 +22702,7 @@ msgstr ""
 msgid "sim_card"
 msgstr ""
 
-#: library/Controller/BaseController.php:204
+#: library/Controller/BaseController.php:208
 msgid "since"
 msgstr ""
 
@@ -21964,11 +22714,12 @@ msgstr ""
 msgid "single_bed"
 msgstr ""
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:231
 msgid "Site emblem"
 msgstr ""
 
 #: library/Theme/Navigation.php:35 library/Customizer/PanelsRegistry.php:256
+#: library/AcfFields/php/options-theme-google-translate.php:65
 msgid "Siteselector"
 msgstr ""
 
@@ -21977,15 +22728,15 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: library/Controller/BaseController.php:200
+#: library/Controller/BaseController.php:203
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:201
+#: library/Controller/BaseController.php:205
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:202
+#: library/Controller/BaseController.php:206
 msgid "Skip to the side menu"
 msgstr ""
 
@@ -22020,19 +22771,24 @@ msgstr ""
 msgid "slow_motion_video"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:580
+#: library/AcfFields/php/resource-fields.php:1044
+msgid "Slug"
+msgstr ""
+
 #: library/AcfFields/php/widget-header-common.php:159
 msgid "SM and up"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:127
-#: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/options-theme-editor-formats.php:25
+#: library/AcfFields/php/widget-header-links.php:361
+#: library/AcfFields/php/block-button.php:127
+#: library/AcfFields/php/navigation-widget.php:353
 #: library/AcfFields/php/widget-header-common.php:132
 #: library/AcfFields/php/widget-header-menu.php:51
-#: library/AcfFields/php/navigation-widget.php:353
-#: library/Customizer/Sections/Radius.php:33
 #: library/Customizer/Sections/Siteselector.php:116
-#: library/Customizer/Sections/Header.php:277
+#: library/Customizer/Sections/Radius.php:33
+#: library/Customizer/Sections/Header.php:283
 #: library/Customizer/Sections/Menu.php:118
 msgid "Small"
 msgstr ""
@@ -22061,18 +22817,22 @@ msgstr ""
 msgid "snooze"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:38
 #: library/Customizer/Sections/Card.php:118
+#: library/Customizer/Sections/Divider.php:38
 #: library/Customizer/Sections/Collection.php:118
 msgid "Solid"
 msgstr ""
 
-#: library/Theme/Enqueue.php:140
+#: library/Theme/Enqueue.php:148
 msgid "Something went wrong, please try again later"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:883
 msgid "sort"
+msgstr ""
+
+#: library/Controller/BaseController.php:249
+msgid "Sort by"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:884
@@ -22113,6 +22873,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:893
 msgid "spellcheck"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:84
+msgid "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:894
@@ -22188,8 +22952,8 @@ msgid "square_foot"
 msgstr ""
 
 #: library/AcfFields/php/block-container.php:46
-#: library/Customizer/Sections/Colors.php:519
 #: library/Customizer/Sections/Button.php:145
+#: library/Customizer/Sections/Colors.php:519
 msgid "Standard"
 msgstr ""
 
@@ -22243,6 +23007,10 @@ msgstr ""
 msgid "Sticky background"
 msgstr ""
 
+#: library/AcfFields/php/block-container.php:245
+msgid "Stop"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:919
 msgid "stop"
 msgstr ""
@@ -22279,12 +23047,12 @@ msgstr ""
 msgid "strikethrough_s"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:84
 #: library/AcfFields/php/options-menu-style.php:12
+#: library/AcfFields/php/block-button.php:84
 #: library/AcfFields/php/navigation-widget.php:316
 #: library/Customizer/Sections/Card.php:112
-#: library/Customizer/Sections/Collection.php:112
 #: library/Customizer/Sections/Header.php:152
+#: library/Customizer/Sections/Collection.php:112
 #: library/Customizer/Sections/Archive.php:42
 msgid "Style"
 msgstr ""
@@ -22293,7 +23061,7 @@ msgstr ""
 msgid "style"
 msgstr ""
 
-#: library/Theme/Enqueue.php:167
+#: library/Theme/Enqueue.php:175
 msgid "Su"
 msgstr ""
 
@@ -22309,8 +23077,7 @@ msgstr ""
 msgid "subdirectory_arrow_right"
 msgstr ""
 
-#: library/Customizer/Sections/HamburgerMenu.php:70
-#: library/Customizer/Sections/HamburgerMenu.php:76
+#: library/Customizer/Sections/MegaMenu.php:36
 msgid "Subitem"
 msgstr ""
 
@@ -22330,7 +23097,7 @@ msgstr ""
 msgid "subway"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:342
+#: library/Customizer/Sections/Colors.php:337
 msgid "Success colors"
 msgstr ""
 
@@ -22439,11 +23206,11 @@ msgstr ""
 msgid "tablet_mac"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:204
+#: library/Customizer/Sections/Header.php:210
 msgid "Tabmenu - Color"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:221
+#: library/Customizer/Sections/Header.php:227
 msgid "Tabmenu - Type"
 msgstr ""
 
@@ -22460,7 +23227,7 @@ msgid "tag_faces"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:347
-#: views/v1/partials/blog/post-tags.blade.php:2
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:109
 msgid "Tags"
 msgstr ""
 
@@ -22502,11 +23269,27 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:26
+msgid "Taxonomy"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:664
+msgid "Taxonomy Arguments"
+msgstr ""
+
 #: library/Customizer/Sections/Archive.php:297
 msgid "Taxonomy display"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:92
+#: library/AcfFields/php/resource-fields.php:694
+msgid "Taxonomy key"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:101
+msgid "Taxonomy Source"
+msgstr ""
+
+#: library/Admin/Options/ContentType.php:92
 msgid "Template"
 msgstr ""
 
@@ -22515,34 +23298,39 @@ msgid "terrain"
 msgstr ""
 
 #: library/Admin/UI/BackEnd.php:27
+#: library/Controller/ContentType/ContentTypeComplex.Test.php:21
 msgid "Test"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:168
-#: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
-#: library/AcfFields/php/options-theme-google-translate.php:74
+#: library/AcfFields/php/block-button.php:12
+#: library/AcfFields/php/options-theme-google-translate.php:96
 msgid "Text"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:132
-#: library/Customizer/Sections/FooterMain.php:111
+#: library/AcfFields/php/options-theme-google-translate.php:100
+msgid "text"
+msgstr ""
+
 #: library/Customizer/Sections/SliderHero.php:65
+#: library/Customizer/Sections/FooterMain.php:111
+#: library/Customizer/Sections/Divider.php:132
 #: library/Customizer/Sections/Hero.php:38
 #: library/Customizer/Sections/SliderDefault.php:115
 msgid "Text alignment"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:106
-#: library/Customizer/Sections/Divider.php:107
+#: library/AcfFields/php/block-container.php:276
 #: library/Customizer/Sections/FooterMain.php:265
+#: library/Customizer/Sections/Divider.php:107
 #: library/Customizer/Sections/Quicklinks.php:44
 #: library/Customizer/Sections/Header.php:129
 msgid "Text color"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:166
+#: library/Customizer/Sections/Colors.php:165
 msgid "Text colors"
 msgstr ""
 
@@ -22594,11 +23382,12 @@ msgstr ""
 msgid "texture"
 msgstr ""
 
-#: library/Theme/Enqueue.php:171
+#: library/Theme/Enqueue.php:179
 msgid "Th"
 msgstr ""
 
 #: library/Controller/E404.php:68
+#, php-format
 msgid "The %s you are looking for is either moved or removed."
 msgstr ""
 
@@ -22626,18 +23415,32 @@ msgstr ""
 msgid "The color of the footer header's bottom border"
 msgstr ""
 
+#: library/AcfFields/php/block-container.php:200
+msgid "The color with the lowest stop will always be shown first."
+msgstr ""
+
 #: library/Customizer/Sections/Shadow.php:34
 msgid ""
 "The detail shadow size will affect smaller components. A value of 0 will "
 "turn of the shadow completely."
 msgstr ""
 
-#: views/v1/partials/404/event.blade.php:5
-msgid "The event could not be found"
-msgstr ""
-
 #: library/Theme/Sidebars.php:124
 msgid "The hero area"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:185
+msgid ""
+"The key of the post type. Max. 20 characters, cannot contain capital letters "
+"or spaces."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:698
+#: library/AcfFields/php/resource-fields.php:718
+#: library/AcfFields/php/resource-fields.php:738
+msgid ""
+"The key of the post type. Max. 32 characters, cannot contain capital letters "
+"or spaces."
 msgstr ""
 
 #: library/Theme/Sidebars.php:191
@@ -22650,6 +23453,12 @@ msgstr ""
 
 #: library/Theme/Forms.php:43
 msgid "The password entered is not correct."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:481
+msgid ""
+"The position in the menu order the post type should appear. show_in_menu "
+"must be true."
 msgstr ""
 
 #: library/Theme/Sidebars.php:176
@@ -22670,10 +23479,6 @@ msgstr ""
 msgid "The size of the footer header's bottom border"
 msgstr ""
 
-#: views/v1/partials/404/ticket.blade.php:5
-msgid "The ticket could not be found"
-msgstr ""
-
 #: library/Theme/Sidebars.php:80
 msgid "The top of footer area"
 msgstr ""
@@ -22686,7 +23491,8 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: library/Controller/Singular.php:441
+#: library/Controller/Singular.php:436
+#, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
@@ -22704,21 +23510,17 @@ msgid "This it the test-environment. Your content will not be published."
 msgstr ""
 
 #: library/Oembed/OembedFilters.php:18
+#, php-format
 msgid ""
 "This part of the website shows content from %s. By continuing, <a "
 "href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 
 #: library/Oembed/OembedFilters.php:24
+#, php-format
 msgid ""
 "This part of the website shows content from another website (%s). By "
 "continuing, you are accepting GDPR and privacy policy."
-msgstr ""
-
-#: views/v1/partials/search/algolia-instantsearch.blade.php:89
-msgid ""
-"This post is not publicly avabile, you will be prompted to login to view "
-"this post."
 msgstr ""
 
 #: library/Theme/Icon.php:50 library/Theme/Icon.php:51
@@ -22783,18 +23585,8 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: views/v1/partials/archive-filters.blade.php:54
-#: views/v2/partials/archive-filters.blade.php:54
-msgid "To"
-msgstr ""
-
-#: library/Upgrade.php:731
+#: library/Upgrade.php:776
 msgid "To be installed database version must be a number."
-msgstr ""
-
-#: views/v1/partials/archive-filters.blade.php:55
-#: views/v2/partials/archive-filters.blade.php:55
-msgid "To date"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:984
@@ -22829,8 +23621,8 @@ msgstr ""
 msgid "tonality"
 msgstr ""
 
-#: library/Customizer/Sections/Hero.php:69
 #: library/Customizer/Sections/Search.php:122
+#: library/Customizer/Sections/Hero.php:69
 msgid "Top"
 msgstr ""
 
@@ -22850,7 +23642,7 @@ msgstr ""
 msgid "toys"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:103
+#: library/AcfFields/php/options-theme-google-translate.php:108
 msgid "Track usage with Google Analytics"
 msgstr ""
 
@@ -22858,7 +23650,7 @@ msgstr ""
 msgid "track_changes"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:286
+#: library/AcfFields/php/options-theme-custom-post-type.php:323
 msgid "Trackbacks"
 msgstr ""
 
@@ -22906,23 +23698,30 @@ msgstr ""
 msgid "trending_up"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:238
+#: library/Customizer/Sections/Header.php:244
 msgid "Trigger button color"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:272
+#: library/Customizer/Sections/Header.php:278
 msgid "Trigger button size"
 msgstr ""
 
-#: library/Customizer/Sections/Header.php:255
+#: library/Customizer/Sections/Header.php:261
 msgid "Trigger button type"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:461
+#: library/AcfFields/php/resource-fields.php:558
+#: library/AcfFields/php/resource-fields.php:976
+#: library/AcfFields/php/resource-fields.php:1022
+msgid "Triggers the handling of rewrites for this post type."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1003
 msgid "trip_origin"
 msgstr ""
 
-#: library/Theme/Enqueue.php:169
+#: library/Theme/Enqueue.php:177
 msgid "Tu"
 msgstr ""
 
@@ -22950,9 +23749,14 @@ msgstr ""
 msgid "Twitter username"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-favicon.php:31
+#: library/AcfFields/php/resource-fields.php:12
 #: library/AcfFields/php/term-icon-and-colour.php:47
+#: library/AcfFields/php/options-theme-favicon.php:31
 msgid "Type"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:95
+msgid "Type of taxonomy"
 msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:201
@@ -22983,7 +23787,7 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:930
+#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:931
 msgid "Untitled page"
 msgstr ""
 
@@ -22991,11 +23795,12 @@ msgstr ""
 msgid "update"
 msgstr ""
 
-#: library/Controller/BaseController.php:238 library/Controller/Archive.php:105
+#: library/Controller/BaseController.php:242
+#: library/Controller/BaseController.php:254
 msgid "Updated"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:18
+#: library/Customizer/Sections/Logo.php:19
 msgid ""
 "Upload an emblem in .svg format (Scalable Vector Graphics).\n"
 "            The emblem will be used to strengthen the website brand, when a "
@@ -23014,7 +23819,7 @@ msgstr ""
 msgid "Upload SVG logo"
 msgstr ""
 
-#: library/Customizer/Sections/Logo.php:13
+#: library/Customizer/Sections/Logo.php:14
 msgid ""
 "Upload your secondary logotype in .svg format (Scalable Vector Graphics).\n"
 "            The secondary logotype is usually 100% white and can be used on "
@@ -23030,16 +23835,24 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
+#: library/AcfFields/php/options-api-resources-apis.php:35
+msgid "Url"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:1015
 msgid "usb"
 msgstr ""
 
-#: library/Admin/Options/Purpose.php:107
+#: library/Admin/Options/ContentType.php:107
 msgid "Use"
 msgstr ""
 
+#: library/AcfFields/php/options-content-types.php:52
+msgid "Use content type template"
+msgstr ""
+
 #: library/Customizer/Sections/Menu.php:64
-msgid "Use page tree as fallback for hamburger menu"
+msgid "Use page tree as fallback for mega menu"
 msgstr ""
 
 #: library/Customizer/Sections/Menu.php:48
@@ -23054,6 +23867,10 @@ msgstr ""
 msgid "Use page tree as fallback for secondary menu"
 msgstr ""
 
+#: library/AcfFields/php/options-content-types.php:39
+msgid "Use template"
+msgstr ""
+
 #: library/Customizer/Sections/Typography.php:112
 msgid "Use the same font as base but preferably with a higher font weight"
 msgstr ""
@@ -23062,16 +23879,28 @@ msgstr ""
 msgid "Use the same font as base but preferably with an italic style"
 msgstr ""
 
-#: library/Controller/BaseController.php:224
+#: library/Controller/BaseController.php:228
 msgid "Useful links"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:130
+msgid "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:162
+msgid "user_request"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:126
+msgid "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1016
 msgid "verified_user"
 msgstr ""
 
-#: library/Customizer/Sections/FooterSub.php:133
 #: library/Customizer/Sections/Navigation.php:100
+#: library/Customizer/Sections/FooterSub.php:133
 msgid "Vertical"
 msgstr ""
 
@@ -23119,16 +23948,9 @@ msgstr ""
 msgid "videogame_asset"
 msgstr ""
 
-#: library/Content/CustomPostType.php:62
+#: library/Content/CustomPostType.php:60
+#, php-format
 msgid "View %s"
-msgstr ""
-
-#: views/v1/partials/404/event.blade.php:6
-msgid "View all events"
-msgstr ""
-
-#: views/v1/partials/404/ticket.blade.php:7
-msgid "View all tickets"
 msgstr ""
 
 #: library/Api/View/Render.php:37
@@ -23207,16 +24029,32 @@ msgstr ""
 msgid "visibility_off"
 msgstr ""
 
-#: library/Helper/PurposePlace.php:52
+#: library/Controller/BaseController.php:272
+msgid "Visit"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:257
+msgid "Visit us"
+msgstr ""
+
+#: library/Helper/ContentTypePlace.php:38
 msgid "Visit website"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:269
+#: library/Customizer/Sections/Colors.php:264
 msgid "Visited"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:270
+#: library/Customizer/Sections/Colors.php:265
 msgid "Visited hover"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:407
+msgid "Visiting address"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:408
+msgid "Visiting addresses"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1044
@@ -23290,7 +24128,7 @@ msgstr ""
 msgid "warning"
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:428
+#: library/Customizer/Sections/Colors.php:425
 msgid "Warning colors"
 msgstr ""
 
@@ -23330,13 +24168,8 @@ msgstr ""
 msgid "wc"
 msgstr ""
 
-#: library/Theme/Enqueue.php:170
+#: library/Theme/Enqueue.php:178
 msgid "We"
-msgstr ""
-
-#: views/v1/partials/404/default.blade.php:44
-#: views/v2/partials/404/default.blade.php:40
-msgid "We made a search for you, maybe you were looking for..."
 msgstr ""
 
 #: library/Oembed/OembedFilters.php:17 library/Oembed/OembedFilters.php:23
@@ -23355,15 +24188,15 @@ msgstr ""
 msgid "web_asset"
 msgstr ""
 
-#: library/Controller/BaseController.php:210
+#: library/Controller/BaseController.php:214
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:209
+#: library/Controller/BaseController.php:213
 msgid "weeks"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:313
+#: library/AcfFields/php/options-theme-custom-post-type.php:353
 msgid "Wether to display an information notice on posts after X amount of days"
 msgstr ""
 
@@ -23371,11 +24204,7 @@ msgstr ""
 msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
-#: views/v1/partials/mobile-menu.blade.php:5
-msgid "What are you looking for?"
-msgstr ""
-
-#: library/Controller/BaseController.php:221
+#: library/Controller/BaseController.php:225
 msgid "What are you searching for?"
 msgstr ""
 
@@ -23400,8 +24229,19 @@ msgstr ""
 msgid "whatshot"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-google-translate.php:27
+#: library/AcfFields/php/options-theme-google-translate.php:12
 msgid "Where to show Google Translate"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:433
+#: library/AcfFields/php/resource-fields.php:948
+msgid ""
+"Where to show the post type in the admin bar. show_in_menu must be true."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:405
+#: library/AcfFields/php/resource-fields.php:920
+msgid "Where to show the post type in the admin menu. show_ui must be true."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1067
@@ -23414,15 +24254,42 @@ msgid ""
 "when adding multiple selections for facetting."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:233
+#: library/AcfFields/php/resource-fields.php:385
+#: library/AcfFields/php/resource-fields.php:900
+msgid "Whether post_type is available for selection in navigation menus."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:365
+#: library/AcfFields/php/resource-fields.php:880
+msgid ""
+"Whether queries can be performed on the front end as part of parse_request()."
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-post-type.php:240
 msgid ""
 "Whether the post type is hierarchical (e.g. page). Allows Parent to be "
 "specified."
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:193
+#: library/AcfFields/php/resource-fields.php:285
+#: library/AcfFields/php/resource-fields.php:820
+msgid "Whether the post type is hierarchical. Allows Parent to be specified."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:265
+#: library/AcfFields/php/resource-fields.php:800
+msgid "Whether the post type should be publicly queryable."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:345
+#: library/AcfFields/php/options-theme-custom-post-type.php:198
 msgid ""
 "Whether to exclude posts with this post type from front end search results."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:305
+#: library/AcfFields/php/resource-fields.php:840
+msgid "Whether to generate a default UI for managing this post type."
 msgstr ""
 
 #: library/Customizer/Sections/OpenStreetMap.php:44
@@ -23449,13 +24316,9 @@ msgstr ""
 msgid "Which zoom level to use on Open Street Maps on as default."
 msgstr ""
 
-#: library/Customizer/Sections/Colors.php:569
 #: library/Customizer/Sections/Header.php:136
+#: library/Customizer/Sections/Colors.php:570
 msgid "White"
-msgstr ""
-
-#: views/v1/partials/search/algolia-customsearch.blade.php:56
-msgid "Whoops, this search result page dosen't exist anymore…"
 msgstr ""
 
 #: library/AcfFields/php/widget-header-common.php:8
@@ -23503,6 +24366,11 @@ msgstr ""
 msgid "Will default to \"Select <name of taxonomy>\"."
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:600
+#: library/AcfFields/php/resource-fields.php:1064
+msgid "With front"
+msgstr ""
+
 #: library/AcfFields/php/navigation-widget.php:27
 msgid "Wordpress menu"
 msgstr ""
@@ -23519,6 +24387,43 @@ msgstr ""
 msgid "work_outline"
 msgstr ""
 
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:163
+msgid "wp_block"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:73
+msgid "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:166
+msgid "wp_global_styles"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:167
+msgid "wp_navigation"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:76
+msgid "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:164
+msgid "wp_template"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:74
+msgid "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
+msgstr ""
+
+#: library/AcfFields/php/options-theme-custom-taxonomy.php:165
+msgid "wp_template_part"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:75
+msgid ""
+"wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts"
+msgstr ""
+
 #: library/Customizer/Sections/Divider.php:158
 msgid "Wrap title in frame"
 msgstr ""
@@ -23527,11 +24432,11 @@ msgstr ""
 msgid "wrap_text"
 msgstr ""
 
-#: library/Controller/BaseController.php:206
+#: library/Controller/BaseController.php:210
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:205
+#: library/Controller/BaseController.php:209
 msgid "years"
 msgstr ""
 
@@ -23543,7 +24448,7 @@ msgstr ""
 msgid "Yes, disable posts."
 msgstr ""
 
-#: library/Controller/BaseController.php:232
+#: library/Controller/BaseController.php:236
 msgid "You are here: "
 msgstr ""
 
@@ -23555,13 +24460,11 @@ msgstr ""
 msgid "You're on a local server."
 msgstr ""
 
-#: library/Comment/Form.php:38 views/v1/partials/share-email-form.blade.php:20
-#: views/v1/partials/share-email-form.blade.php:21
+#: library/Comment/Form.php:38
 msgid "Your email"
 msgstr ""
 
-#: library/Comment/Form.php:37 views/v1/partials/share-email-form.blade.php:16
-#: views/v1/partials/share-email-form.blade.php:17
+#: library/Comment/Form.php:37
 msgid "Your name"
 msgstr ""
 
