@@ -163,13 +163,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (!empty($this->postMeta->numberOfChildren)) {
             $value = absint($this->postMeta->numberOfChildren);
-            $label = sprintf(__('ca. %d children', 'municipio'), $value);
+            $label = sprintf(__('Ca. %d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
         
         if (!empty($this->postMeta->numberOfStudents)) {
             $value = absint($this->postMeta->numberOfStudents);
-            $label = sprintf(__('ca. %d students', 'municipio'), $value);
+            $label = sprintf(__('Ca. %d students', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
@@ -198,8 +198,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $open = substr($this->postMeta->openHours->open, 0, -3);
-            $close = substr($this->postMeta->openHours->close, 0, -3);
+            $open = substr($this->postMeta->openHours->open, 0, -2);
+            $close = substr($this->postMeta->openHours->close, 0, -2);
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";

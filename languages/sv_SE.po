@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-07 11:37+0000\n"
+"PO-Revision-Date: 2023-11-08 10:21+0000\n"
 "Last-Translator: Anna Johansson\n"
-"Language-Team: Swedish\n"
+"Language-Team: Svenska\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +21,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Loco-Parser: loco_parse_po\n"
 "X-Source-Language: en\n"
-"X-Loco-Version: 2.6.3; wp-6.2.1\n"
+"X-Loco-Version: 2.6.6; wp-6.3.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -21984,9 +21984,8 @@ msgid "Area or street address of the location."
 msgstr "Område eller gatuadress till platsen."
 
 #: library/AcfFields/php/resource-fields.php:125
-#, fuzzy
 msgid "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
-msgstr "område: https://skolor.helsingborg.io/wp-json/wp/v2/area"
+msgstr "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
 
 #: library/Theme/Icon.php:80 library/Theme/Icon.php:82
 msgid "Arrow back"
@@ -22154,14 +22153,12 @@ msgid "attachment"
 msgstr "attachment"
 
 #: library/AcfFields/php/resource-fields.php:80
-#, fuzzy
 msgid "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
-msgstr "bifogad fil: https://api.helsingborg.se/event/json/wp/v2/media"
+msgstr "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
 
 #: library/AcfFields/php/resource-fields.php:71
-#, fuzzy
 msgid "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
-msgstr "bifogad fil: https://skolor.helsingborg.io/wp-json/wp/v2/media"
+msgstr "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
 
 #: library/AcfFields/php/options-menu-icon.php:108
 msgid "audiotrack"
@@ -22730,12 +22727,14 @@ msgstr "Byline"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:166
 #, fuzzy
-msgid "ca. %d children"
+#| msgid "ca. %d children"
+msgid "Ca. %d children"
 msgstr "ca. %d barn"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:172
 #, fuzzy
-msgid "ca. %d students"
+#| msgid "ca. %d students"
+msgid "Ca. %d students"
 msgstr "ca. %d studenter"
 
 #: library/AcfFields/php/options-menu-icon.php:168
@@ -22912,14 +22911,12 @@ msgid "category"
 msgstr "category"
 
 #: library/AcfFields/php/resource-fields.php:128
-#, fuzzy
 msgid "category: https://api.helsingborg.se/event/json/wp/v2/categories"
-msgstr "kategori: https://api.helsingborg.se/event/json/wp/v2/categories"
+msgstr "category: https://api.helsingborg.se/event/json/wp/v2/categories"
 
 #: library/AcfFields/php/resource-fields.php:122
-#, fuzzy
 msgid "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
-msgstr "kategori: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
+msgstr "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
 
 #: library/Customizer/Sections/Divider.php:138
 #: library/Customizer/Sections/FooterSub.php:162
@@ -22977,7 +22974,8 @@ msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:80
 msgid "Check if you would like to prefix the slug with blogfront"
-msgstr "Bocka i om du vill prefixa slugen med blogfront (exempel /blog/slug)"
+msgstr ""
+"Bocka i om du vill prefixa permalänken med blogfront (exempel /blog/slug)"
 
 #: library/Theme/Icon.php:115
 msgid "Check mark"
@@ -24225,9 +24223,8 @@ msgstr "Format"
 
 #: library/AcfFields/php/resource-fields.php:526
 #: library/AcfFields/php/resource-fields.php:1011
-#, fuzzy
 msgid "eg. \"manage_options\"..."
-msgstr "t.ex. \"hantera_optioner\"..."
+msgstr "t.ex. \"manage_options\"..."
 
 #: library/AcfFields/php/options-menu-icon.php:314
 msgid "eject"
@@ -24647,9 +24644,8 @@ msgstr "feedback"
 
 #: library/AcfFields/php/resource-fields.php:620
 #: library/AcfFields/php/resource-fields.php:1084
-#, fuzzy
 msgid "Feeds"
-msgstr "Matningar"
+msgstr "RSS-flöde"
 
 #: library/AcfFields/php/options-menu-icon.php:359
 msgid "fiber_dvr"
@@ -26493,17 +26489,15 @@ msgid "Location point"
 msgstr "Platspunkt"
 
 #: library/AcfFields/php/resource-fields.php:82
-#, fuzzy
 msgid "location: https://api.helsingborg.se/event/json/wp/v2/location"
-msgstr "plats: https://api.helsingborg.se/event/json/wp/v2/location"
+msgstr "location: https://api.helsingborg.se/event/json/wp/v2/location"
 
 #: library/AcfFields/php/resource-fields.php:133
-#, fuzzy
 msgid ""
 "location_categories: https://api.helsingborg."
 "se/event/json/wp/v2/location_categories"
 msgstr ""
-"plats_kategorier: https://api.helsingborg."
+"location_categories: https://api.helsingborg."
 "se/event/json/wp/v2/location_categories"
 
 #: library/AcfFields/php/options-menu-icon.php:580
@@ -26780,11 +26774,10 @@ msgid "Mega menu"
 msgstr "Megameny"
 
 #: library/AcfFields/php/resource-fields.php:85
-#, fuzzy
 msgid ""
 "membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
 msgstr ""
-"medlemskort: https://api.helsingborg.se/event/json/wp/v2/membership-card"
+"membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
 
 #: library/AcfFields/php/options-menu-icon.php:603
 msgid "memory"
@@ -27321,9 +27314,8 @@ msgid "Navigation widget"
 msgstr "Navigationswidget"
 
 #: library/AcfFields/php/resource-fields.php:135
-#, fuzzy
 msgid "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
-msgstr "navigering: https://api.helsingborg.se/event/json/wp/v2/navigation"
+msgstr "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
 
 #: library/Customizer/PanelsRegistry.php:274
 msgid "Navigations"
@@ -27651,9 +27643,8 @@ msgid "Order direction"
 msgstr "Riktning"
 
 #: library/AcfFields/php/resource-fields.php:83
-#, fuzzy
 msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
-msgstr "arrangör: https://api.helsingborg.se/event/json/wp/v2/organizer"
+msgstr "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:334
 #, fuzzy
@@ -27731,9 +27722,8 @@ msgid "Page Widths"
 msgstr "Sidans bredd"
 
 #: library/AcfFields/php/resource-fields.php:70
-#, fuzzy
 msgid "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
-msgstr "sida: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
+msgstr "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
 
 #: library/AcfFields/php/options-menu-icon.php:674
 msgid "pages"
@@ -28182,36 +28172,32 @@ msgid "Post Formats"
 msgstr "Inläggsformat"
 
 #: library/AcfFields/php/resource-fields.php:25
-#, fuzzy
 msgid "Post Type"
-msgstr "Typ av inlägg"
+msgstr "Posttyp"
 
 #: library/AcfFields/php/resource-fields.php:151
-#, fuzzy
 msgid "Post Type Arguments"
-msgstr "Post typ argument"
+msgstr "Posttypsargument"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:299
 msgid "Post type functions"
-msgstr "Funktioner för inläggstypen"
+msgstr "Funktioner för posttypen"
 
 #: library/AcfFields/php/resource-fields.php:181
-#, fuzzy
 msgid "Post Type Key"
-msgstr "Posttyp Nyckel"
+msgstr "Nyckel"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:34
 msgid "Post type name"
-msgstr "Inläggstypens namn"
+msgstr "Posttypens namn"
 
 #: library/AcfFields/php/resource-fields.php:41
-#, fuzzy
 msgid "Post Type Source"
-msgstr "Posttyp Källa"
+msgstr "Källa"
 
 #: library/Admin/Options/Theme.php:76
 msgid "Post Types"
-msgstr "Inläggstyper"
+msgstr "Posttyper"
 
 #: library/AcfFields/php/resource-fields.php:758
 #, fuzzy
@@ -28377,9 +28363,8 @@ msgid "Project"
 msgstr "Projekt"
 
 #: library/AcfFields/php/resource-fields.php:137
-#, fuzzy
 msgid "property: https://api.helsingborg.se/event/json/wp/v2/property"
-msgstr "egendom: https://api.helsingborg.se/event/json/wp/v2/property"
+msgstr "property: https://api.helsingborg.se/event/json/wp/v2/property"
 
 #: library/AcfFields/php/resource-fields.php:261
 #: library/AcfFields/php/resource-fields.php:796
@@ -29458,9 +29443,8 @@ msgstr "slow_motion_video"
 
 #: library/AcfFields/php/resource-fields.php:580
 #: library/AcfFields/php/resource-fields.php:1044
-#, fuzzy
 msgid "Slug"
-msgstr "Snigel"
+msgstr "Permalänk"
 
 #: library/AcfFields/php/widget-header-common.php:159
 msgid "SM and up"
