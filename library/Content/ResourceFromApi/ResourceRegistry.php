@@ -11,21 +11,30 @@ class ResourceRegistry implements ResourceRegistryInterface
     public static ?object $registry = null;
     private string $resourcePostTypeName = 'api-resource';
 
-    public function initialize()
+    public function __construct()
     {
-        if (is_object(self::$registry)) {
-            // Already initialized.
+        if ($this->isInitialized()) {
             return;
         }
 
         self::$registry = new stdClass();
         self::$registry->postTypes = [];
         self::$registry->taxonomies = [];
-        self::$registry->attachments = [];
+        self::$registry->attachments = [];   
+    }
 
-        $this->registerPostTypes();
-        $this->registerPostTypesRewriteRules();
-        $this->registerTaxonomies();
+    public function addHooks()
+    {
+        add_action('init', function () {
+            $this->registerPostTypes();
+            $this->registerPostTypesRewriteRules();
+            $this->registerTaxonomies();
+        });
+    }
+
+    private function isInitialized(): bool
+    {
+        return is_object(self::$registry);
     }
 
     public function getRegisteredPostTypes(): array
