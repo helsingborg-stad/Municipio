@@ -17,6 +17,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private const USP_TAXONOMY = 'school-usp';
     private const AREA_TAXONOMY = 'school-area';
     private const GRADE_TAXONOMY = 'school-grade';
+    private const EVENT_POST_TYPE = 'school-event';
+    private const EVENT_TAXONOMY = 'school-event-tag';
 
     public function prepareData(array $data): array
     {
@@ -39,6 +41,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendViewVisitingData();
         $this->appendViewPagesData();
         $this->appendSocialMediaLinksData();
+        $this->appendEventData();
 
         return $this->data;
     }
@@ -240,7 +243,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         // Split quickFacts into 3 columns
-        $quickFacts = array_chunk($quickFacts, ceil(sizeof($quickFacts) / 3));
+        $numberOfColumns = ceil(sizeof($quickFacts) / 3);
+        if( $numberOfColumns > 0 ) {
+            $quickFacts = array_chunk($quickFacts, $numberOfColumns);
+        }
 
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Facts', 'municipio');
@@ -537,5 +543,70 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $sliderItem['desktop_image'] = $attachment->guid;
 
         return $sliderItem;
+    }
+
+    private function appendEventData()
+    {
+        $this->data['events'] = null;
+        
+        if( !post_type_exists(self::EVENT_POST_TYPE) || !taxonomy_exists(self::EVENT_TAXONOMY) ) {    
+            return;
+        }
+
+        $eventTags = get_terms(['taxonomy' => self::EVENT_TAXONOMY, 'search' => $this->data['post']->postTitle]);
+
+        if( empty($eventTags) ) {
+            return;
+        }
+
+        $eventTag = $eventTags[0];
+        $events = get_posts(['post_type' => self::EVENT_POST_TYPE,  'suppress_filters' => false, 'tax_query' => [
+            [
+                'taxonomy' => self::EVENT_TAXONOMY,
+                'field' => 'term_id',
+                'terms' => [$eventTag->term_id]
+            ]
+        ]]);
+
+        if( empty($events) ) {
+            return;
+        }
+
+        foreach($events as $event) {
+            $title = $event->post_title;
+            $text = $event->post_content;
+            $occasions = WP::getField('occasions', $event->ID, true);
+
+            if (empty($occasions) || empty($text) || empty($text)) {
+                continue;
+            }
+
+            $firstOccation = $occasions[0];
+
+            if (
+                !isset($firstOccation[0]->start_date) ||
+                empty($firstOccation[0]->start_date) ||
+                strtotime($firstOccation[0]->start_date) === false
+            ) {
+                continue;
+            }
+
+            $time = strtotime($firstOccation[0]->start_date);
+            $date = date('Y-m-d', $time);
+
+            if( $this->data['events'] === null ) {
+                $this->data['events'] = [];
+            }
+
+            $this->data['events'][] = [
+                'title' => $title,
+                'text' => $text,
+                'date' => $date
+            ];
+        }
+
+        if( $this->data['events'] !== null ) {
+            $this->data['eventsTitle'] = __('Events', 'municipio');
+        }
     }
 }
