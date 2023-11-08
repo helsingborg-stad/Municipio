@@ -31,7 +31,7 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
 /**
  * Acf auto import and export
  */
-add_action('acf/init', function () {
+add_action('init', function () {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');

@@ -10,7 +10,7 @@ class ResourcePostType
     public function addHooks(): void
     {
         add_action('init', [$this, 'addPostType']);
-        add_action('acf/init', [$this, 'addOptionsPage']);
+        add_action('init', [$this, 'addOptionsPage']);
         add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
         add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
         add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
@@ -63,7 +63,7 @@ class ResourcePostType
 
         $endpoints = get_field('api_resources_apis', 'options');
 
-        if (empty($endpoints)) {
+        if (!is_array($endpoints) || empty($endpoints)) {
             return $field;
         }
 
@@ -118,7 +118,7 @@ class ResourcePostType
 
         $endpoints = get_field('api_resources_apis', 'options');
 
-        if (empty($endpoints)) {
+        if (!is_array($endpoints) || empty($endpoints)) {
             return $field;
         }
 
