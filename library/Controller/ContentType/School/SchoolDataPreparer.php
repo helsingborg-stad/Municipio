@@ -17,6 +17,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private const USP_TAXONOMY = 'school-usp';
     private const AREA_TAXONOMY = 'school-area';
     private const GRADE_TAXONOMY = 'school-grade';
+    private const EVENT_POST_TYPE = 'school-event';
+    private const EVENT_TAXONOMY = 'school-event-tag';
 
     public function prepareData(array $data): array
     {
@@ -39,6 +41,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendViewVisitingData();
         $this->appendViewPagesData();
         $this->appendSocialMediaLinksData();
+        $this->appendEventData();
 
         return $this->data;
     }
@@ -540,5 +543,31 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $sliderItem['desktop_image'] = $attachment->guid;
 
         return $sliderItem;
+    }
+
+    private function appendEventData()
+    {
+        $this->data['events'] = null;
+        
+        if( !post_type_exists(self::EVENT_POST_TYPE) || !taxonomy_exists(self::EVENT_TAXONOMY) ) {    
+            return;
+        }
+
+        $eventTags = get_terms(['taxonomy' => self::EVENT_TAXONOMY, 'search' => $this->data['post']->postTitle]);
+
+        if( empty($eventTags) ) {
+            return;
+        }
+
+        $eventTag = $eventTags[0];
+        $events = get_posts(['post_type' => self::EVENT_POST_TYPE,  'suppress_filters' => false, 'tax_query' => [
+            [
+                'taxonomy' => self::EVENT_TAXONOMY,
+                'field' => 'term_id',
+                'terms' => [$eventTag->term_id]
+            ]
+        ]]);
+        var_dump($events);
+
     }
 }

@@ -109,6 +109,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             $posts = PostTypeResourceRequest::getSingle($query->get('name'), $registeredPostType);
         } else {
             $queryVars = $this->prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
+            $queryVars = 
             $posts = PostTypeResourceRequest::getCollection($registeredPostType, $queryVars);
             $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $queryVars);
             $query->found_posts = $headers['x-wp-total'] ?? count($posts);
@@ -170,6 +171,26 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             );
         }
 
+        if( isset($queryArgs['tax_query']) && is_array($queryArgs['tax_query']) && !empty($queryArgs['tax_query']) ) {
+            foreach($queryArgs['tax_query'] as $key => $taxQuery) {
+                
+                if( isset($taxQuery['taxonomy']) && is_string($taxQuery['taxonomy']) && !empty($taxQuery['taxonomy']) ) {
+                    // TODO: Get correct taxonomy from registry
+                    $queryArgs['tax_query'][$key]['taxonomy'] = 
+                }
+                
+                if( isset($taxQuery['terms']) && is_array($taxQuery['terms']) && !empty($taxQuery['terms']) ) {
+                    $queryArgs['tax_query'][$key]['terms'] = array_map(
+                        function ($id) {    
+                            $taxResource = $this->getResourceFromPostId($id);
+                            return !empty($taxResource) ? $this->prepareIdForRequest($id, $taxResource) : $id;
+                        },
+                        $taxQuery['terms']
+                    );
+                }
+            }
+        }
+
         return $queryArgs;
     }
 
@@ -217,17 +238,20 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         $registeredPostTypes = $this->resourceRegistry->getRegisteredPostTypes();
+        $registeredTaxonomies = $this->resourceRegistry->getRegisteredTaxonomies();
 
-        if (empty($registeredPostTypes)) {
+        $registeredResources = array_merge($registeredPostTypes, $registeredTaxonomies);
+
+        if (empty($registeredResources)) {
             return null;
         }
 
-        foreach ($registeredPostTypes as $registeredPostType) {
-            $needle = (string)$registeredPostType->resourceID;
+        foreach ($registeredResources as $registeredResource) {
+            $needle = (string)$registeredResource->resourceID;
             $haystack = (string)absint($postId);
 
             if (str_starts_with($haystack, $needle)) {
-                return $registeredPostType;
+                return $registeredResource;
             }
         }
 

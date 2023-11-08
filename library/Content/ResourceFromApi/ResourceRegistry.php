@@ -176,9 +176,12 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getPostTypeArguments($resource->ID);
             $name = $this->getPostTypeName($resource->ID);
             $resourceID = $resource->ID;
-            $collectionUrl = self::getCollectionUrl($resourceID, 'postType');
+            $apiInformation = self::getApiInformation($resourceID, 'postType');
+            $collectionUrl = $apiInformation ? $apiInformation['url'] . $apiInformation['baseName'] : '';
+            $originalName = $apiInformation ? $apiInformation['originalName'] : '';
+            $baseName = $apiInformation ? $apiInformation['baseName'] : '';
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
     }
 
@@ -193,9 +196,12 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getTaxonomyArguments($resource->ID);
             $name = $this->getTaxonomyName($resource->ID);
             $resourceID = $resource->ID;
-            $collectionUrl = self::getCollectionUrl($resourceID, 'taxonomy');
+            $apiInformation = self::getApiInformation($resourceID, 'taxonomy');
+            $collectionUrl = $apiInformation ? $apiInformation['url'] . $apiInformation['baseName'] : '';
+            $originalName = $apiInformation ? $apiInformation['originalName'] : '';
+            $baseName = $apiInformation ? $apiInformation['baseName'] : '';
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
     }
 
@@ -222,20 +228,35 @@ class ResourceRegistry implements ResourceRegistryInterface
         return get_field('post_type_arguments', $resourceId) ?? [];
     }
 
-    private function getCollectionUrl(int $resourceId, string $type = 'postType'): ?string
+    private function getApiInformation(int $resourceId, string $type = 'postType'): ?array
     {
         if (!function_exists('get_field')) {
             return null;
         }
 
         $fieldName = $type === 'postType' ? 'post_type_source' : 'taxonomy_source';
-        $resourceUrl = get_field($fieldName, $resourceId);
+        $source = get_field($fieldName, $resourceId);
 
-        if (empty($resourceUrl)) {
+        if (!is_string($source) || empty($source)) {
             return null;
         }
 
-        return $resourceUrl;
+        $parts = explode(',', $source);
+
+        if (sizeof($parts) !== 3) {
+            return null;
+        }
+
+        $url = $parts[0];
+        $originalName = $parts[1];
+        $baseName = $parts[2];
+
+
+        return [
+            'url' => $url,
+            'originalName' => $originalName,
+            'baseName' => $baseName,
+        ];
     }
 
     public function getTaxonomyArguments(int $resourceId): array {
