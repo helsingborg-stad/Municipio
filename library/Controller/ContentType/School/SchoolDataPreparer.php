@@ -212,8 +212,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
-            $open = substr($this->postMeta->openHoursLeisureCenter->open, 0, -3);
-            $close = substr($this->postMeta->openHoursLeisureCenter->close, 0, -3);
+
+            $open = $this->postMeta->openHoursLeisureCenter->open;
+            $close = $this->postMeta->openHoursLeisureCenter->close;
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
