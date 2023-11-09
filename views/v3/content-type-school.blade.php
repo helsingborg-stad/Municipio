@@ -1,12 +1,12 @@
 @extends('templates.single')
 
-    @section('article.title.after')
-    
+@section('article.title.after')
+
     @if ($post->postExcerpt)
         {!! $post->postExcerpt !!}
     @endif
 
-    @if($notification)
+    @if ($notification)
         @notice([
             'type' => 'warning',
             'message' => [
@@ -17,41 +17,40 @@
         @endnotice
     @endif
 
-    @if($facadeSliderItems)
-        @slider(['showStepper' => true,'autoSlide' => false])
+    @if ($facadeSliderItems)
+        @slider(['showStepper' => true, 'autoSlide' => false])
             @foreach ($facadeSliderItems as $sliderItem)
-                @slider__item($sliderItem)@endslider__item
+                @slider__item($sliderItem)
+                @endslider__item
             @endforeach
         @endslider
     @endif
-    
+
     @if ($quickFacts)
-        @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
-            
+        @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4']])
             @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
-                {{$quickFactsTitle}}
+                {{ $quickFactsTitle }}
             @endtypography
 
             <div class="o-grid o-grid--no-gutter">
-                @foreach($quickFacts as $column)
+                @foreach ($quickFacts as $column)
                     <ul class="o-grid-4@md u-margin__top--0">
-                        @foreach($column as $listItem)
-                            <li class="u-margin__top--1">{{$listItem['label']}}</li>
+                        @foreach ($column as $listItem)
+                            <li class="u-margin__top--1">{{ $listItem['label'] }}</li>
                         @endforeach
                     </ul>
                 @endforeach
             </div>
-
         @endpaper
     @endif
 
-    @if($eventsTitle)
+    @if ($eventsTitle)
         @typography(['element' => 'h4'])
-            {{$eventsTitle}}
+            {{ $eventsTitle }}
         @endtypography
     @endif
 
-    @if($events)
+    @if ($events)
 
         @foreach ($events as $event)
             @collection([])
@@ -62,35 +61,35 @@
                         @datebadge([
                             'classList' => ['u-padding--2', 'u-margin__right--2'],
                             'date' => $event['date'],
-                            'size' => 'sm',
+                            'size' => 'sm'
                         ])
                         @enddatebadge
                     @endslot
                     @typography(['element' => 'h4'])
-                        {{$event['title']}}
+                        {{ $event['title'] }}
                     @endtypography
-                    {!!$event['text']!!}
+                    {!! $event['text'] !!}
                 @endcollection__item
             @endcollection
         @endforeach
     @endif
 
-    @if( $visitUs )
+    @if ($visitUs)
         @typography(['element' => 'h2'])
-            {{$visitUs['title']}}
+            {{ $visitUs['title'] }}
         @endtypography
-        {!!$visitUs['content']!!}
+        {!! $visitUs['content'] !!}
     @endif
 
 
-    @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4'] ])
-        
+    @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4']])
+
         @typography(['element' => 'h2'])
-            {{$application['title']}}
+            {{ $application['title'] }}
         @endtypography
 
         @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
-            {{$application['description']}}
+            {{ $application['description'] }}
         @endtypography
 
         @button([
@@ -98,10 +97,10 @@
             'href' => $application['apply']['url'],
             'color' => 'primary',
             'style' => 'filled',
-            'size' => 'lg'
+            'size' => 'lg',
         ])
         @endbutton
-        
+
         @button([
             'text' => $application['howToApply']['text'],
             'href' => $application['howToApply']['url'],
@@ -116,59 +115,55 @@
     @if ($contacts)
 
         @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{$contactTitle}}
+            {{ $contactTitle }}
         @endtypography
 
         <div class="o-grid">
             @foreach ($contacts as $contact)
-
                 @card(['classList' => ['o-grid-4@md', 'u-color__bg--transparent']])
-
-                    @if($contact->attachment)
+                    @if ($contact->attachment)
                         @image([
-                            'src'=> $contact->attachment->guid
+                            'src' => $contact->attachment->guid
                         ])
                         @endimage
                     @endif
 
                     @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--1', 'u-margin__bottom--0']])
-                        {{$contact->name}}
+                        {{ $contact->name }}
                     @endtypography
 
                     @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
-                        {{$contact->professionalTitle}}
+                        {{ $contact->professionalTitle }}
                     @endtypography
 
                     @link(['href' => "tel:{$contact->phone}"])
-                        {{$contact->phone}}
+                        {{ $contact->phone }}
                     @endlink
-                    
+
                     @link(['href' => "mailto:{$contact->email}"])
-                        {{$contact->email}}
+                        {{ $contact->email }}
                     @endlink
-
                 @endcard
-
             @endforeach
 
     @endif
 
-    @if($visitingDataTitle)
+    @if ($visitingDataTitle)
 
         @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{$visitingDataTitle}}
+            {{ $visitingDataTitle }}
         @endtypography
-        
-        @if($visitingAddresses)
+
+        @if ($visitingAddresses)
             <div class="o-grid">
 
                 @foreach ($visitingAddresses as $visitingAddress)
                     <div class="o-grid-3@md">
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
-                            @if($visitingAddress['description'])
-                                {{$visitingAddress['description']}}<br/>
+                            @if ($visitingAddress['description'])
+                                {{ $visitingAddress['description'] }}<br />
                             @endif
-                            {!!$visitingAddress['address']!!}
+                            {!! $visitingAddress['address'] !!}
                             @button([
                                 'text' => $visitingAddress['mapsLink']['text'],
                                 'href' => $visitingAddress['mapsLink']['href'],
@@ -183,28 +178,28 @@
             </div>
         @endif
     @endif
-    
-    @if(!empty($accordionListItems))
-        
-            @accordion([])
-                @foreach ($accordionListItems as $listItem)
-                    @accordion__item([
-                        'heading' => $listItem['heading'],
-                        'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
-                    ])
-                        {!!$listItem['content']!!}
-                    @endaccordion__item                    
-                @endforeach
-            @endaccordion
-        
+
+    @if (!empty($accordionListItems))
+
+        @accordion([])
+            @foreach ($accordionListItems as $listItem)
+                @accordion__item([
+                    'heading' => $listItem['heading'],
+                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
+                ])
+                    {!! $listItem['content'] !!}
+                @endaccordion__item
+            @endforeach
+        @endaccordion
+
     @endif
-    
-    @if( $socialMediaLinks )
+
+    @if ($socialMediaLinks)
 
         <div>
-        
+
             @typography(['element' => 'h2', 'variant' => 'h2'])
-                {{$socialMediaLinksTitle}}
+                {{ $socialMediaLinksTitle }}
             @endtypography
 
             @foreach ($socialMediaLinks as $socialMediaLink)
@@ -216,52 +211,53 @@
                     'href' => $socialMediaLink['href'],
                     'icon' => $socialMediaLink['icon'],
                     'reversePositions' => 'true',
-                    'classList' => ['u-margin__right--3']
+                    'classList' => ['u-margin__right--3'],
                 ])
                 @endbutton
             @endforeach
         </div>
     @endif
-    
 
 
-    @if($gallerySliderItems)
-        @slider(['showStepper' => true,'autoSlide' => false])
+
+    @if ($gallerySliderItems)
+        @slider(['showStepper' => true, 'autoSlide' => false])
             @foreach ($gallerySliderItems as $sliderItem)
-                @slider__item($sliderItem)@endslider__item
+                @slider__item($sliderItem)
+                @endslider__item
             @endforeach
         @endslider
     @elseif($video)
-        @iframe([
-            'src' => $video,
-            'height' => 600,
-            'labels' => ['knownLabels' => ['button' => '', 'title' => '', 'info' => ''], 'unknownLabels' => ['button' => '', 'title' => '', 'info' => '']],
-        ])
-        @endiframe
+        {!! $video !!}
     @endif
 
-    @if($pages)
+    @if ($pages)
         @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
                 @collection__item([
                     'containerAware' => true,
                     'link' => $page['link'],
-                    'classList' => [ 'o-grid-'.$pagesNumberOfColumns.'@md', 'u-color__bg--lightest', 'u-box-shadow--3', 'u-padding--3']
+                    'classList' => [
+                        'o-grid-' . $pagesNumberOfColumns . '@md',
+                        'u-color__bg--lightest',
+                        'u-box-shadow--3',
+                        'u-padding--3'
+                    ]
                 ])
                     @typography(['element' => 'p', 'variant' => 'h4'])
-                    {{$page['title']}}
+                        {{ $page['title'] }}
                     @endtypography
                 @endcollection__item
             @endforeach
         @endcollection
     @endif
 
-    @if($visitingDataTitle)
+    @if ($visitingDataTitle)
 
         @openStreetMap([
             'startPosition' => $visitingAddressMapStartPosition,
             'pins' => $visitingAddressMapPins,
-            'height' => '60vh',
+            'height' => '60vh'
         ])
         @endopenStreetMap
 

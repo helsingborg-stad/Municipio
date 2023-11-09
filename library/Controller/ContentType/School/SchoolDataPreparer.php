@@ -521,7 +521,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['video'] =
         ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
-            ? $this->postMeta->video
+            ? wp_oembed_get( $this->postMeta->video )
             : null; 
     }
 
