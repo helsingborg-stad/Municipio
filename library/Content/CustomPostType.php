@@ -65,6 +65,12 @@ class CustomPostType
                 'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
             );
 
+            $supports = array('title', 'editor');
+
+            if (!empty($typeDefinition['supports'])) {
+                $supports = array_merge($typeDefinition['supports'], $supports);
+            }
+
             $rewrite = ['with_front' => isset($typeDefinition['with_front']) ? $typeDefinition['with_front'] : true];
 
             if (!empty($typeDefinition['slug'])) {
@@ -83,7 +89,7 @@ class CustomPostType
                 'rewrite'            => $rewrite,
                 'capability_type'    => 'post',
                 'hierarchical'       => $typeDefinition['hierarchical'],
-                'supports'           => $typeDefinition['supports'],
+                'supports'           => $supports,
                 'menu_position'      => (int) $typeDefinition['menu_position'],
                 'has_archive'        => true,
                 'show_in_rest'       => true,
