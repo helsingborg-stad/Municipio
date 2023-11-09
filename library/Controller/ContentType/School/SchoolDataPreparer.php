@@ -220,7 +220,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 $timeString = "$open - $close";
                 $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
             } else {
-                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->LeisureCenter);
+                $label = __('Leisure center', 'municipio');
             }
 
             $quickFacts[] = ['label' => $label];
@@ -271,50 +271,35 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendViewApplicationData(): void
     {
+        $this->data['application'] = [];
+        $this->data['application']['title'] = __('Are you interested in applying?', 'municipio');
+        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?? '';
+        $this->data['application']['apply'] = null;
+        $this->data['application']['howToApply'] = null;
 
-        $defaultApplicationData = $this->getDefaultApplicationData($this->data['post']->postType);
-
-        $this->data['application'] = [
-            'title' => __('Are you interested in applying?', 'municipio'),
-            'description' => $this->postMeta->ctaApplication->description ?? $defaultApplicationData['description'],
-            'apply' => [
-                'text' => $this->postMeta->ctaApplication->cta_apply_here->title ?? $defaultApplicationData['apply']['text'],
-                'url' => $this->postMeta->ctaApplication->cta_apply_here->url ?? $defaultApplicationData['apply']['url']
-            ],
-            'howToApply' => [
-                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title ?? $defaultApplicationData['howToApply']['text'],
-                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url ?? $defaultApplicationData['howToApply']['url']
-            ],
-        ];
-    }
-
-    private function getDefaultApplicationData(string $postType): array
-    {
-        if ($postType === 'pre-school') {
-            return [
-                'description' => __('If you want to apply for a place in preschool, you can do so by filling in the form below. You can also apply for a place in preschool by contacting the preschool directly.', 'municipio'),
-                'apply' => [
-                    'text' => __('Apply here', 'municipio'),
-                    'url' => '#'
-                ],
-                'howToApply' => [
-                    'text' => __('How to apply', 'municipio'),
-                    'url' => '#'
-                ],
+        if (
+            isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
+            !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
+            isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
+            !empty($this->postMeta->ctaApplication->cta_apply_here->title)
+        ) {
+            $this->data['application']['apply'] = [
+                'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
+                'url' => $this->postMeta->ctaApplication->cta_apply_here->url
             ];
         }
 
-        return [
-            'description' => __('If you want to apply for a place in school, you can do so by filling in the form below. You can also apply for a place in school by contacting the school directly.', 'municipio'),
-            'apply' => [
-                'text' => __('Apply here', 'municipio'),
-                'url' => '#'
-            ],
-            'howToApply' => [
-                'text' => __('How to apply', 'municipio'),
-                'url' => '#'
-            ],
-        ];
+        if (
+            isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
+            isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
+        ) {
+            $this->data['application']['howToApply'] = [
+                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
+                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url
+            ];
+        }
     }
 
     private function appendViewAccordionData(): void
