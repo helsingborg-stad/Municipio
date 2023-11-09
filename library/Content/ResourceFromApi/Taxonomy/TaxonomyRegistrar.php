@@ -111,8 +111,14 @@ class TaxonomyRegistrar implements TypeRegistrarInterface
      */
     private function prepareLabels(array $arguments): array
     {
+        $arguments['labels'] = [];
+
+        if( isset($arguments['labels_name']) && !empty($arguments['labels_name']) ) {
+            $arguments['labels']['name'] = $arguments['labels_name'];
+        }
+
         if (isset($arguments['labels_singular_name']) && !empty($arguments['labels_singular_name'])) {
-            $arguments['labels'] = ['singular_name' => $arguments['labels_singular_name']];
+            $arguments['labels']['singular_name'] = $arguments['labels_singular_name'];
         }
 
         return $arguments;

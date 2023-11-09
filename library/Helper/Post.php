@@ -317,7 +317,7 @@ class Post
             foreach ($taxonomies as $taxonomy) {
                 $terms = wp_get_post_terms($postId, $taxonomy);
 
-                if (!empty($terms)) {
+                if (!is_wp_error($terms) && !empty($terms)) {
                     foreach ($terms as $term) {
                         $item = [];
 

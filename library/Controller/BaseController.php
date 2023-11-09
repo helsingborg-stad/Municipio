@@ -118,6 +118,7 @@ class BaseController
 
         //Main Navigation
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
+        $this->data['secondaryMenuItems'] = null;
         
         /**
          * Get the secondary menu items based on the content type or post type.
