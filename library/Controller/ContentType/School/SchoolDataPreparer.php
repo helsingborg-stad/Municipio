@@ -201,8 +201,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $open = substr($this->postMeta->openHours->open, 0, -2);
-            $close = substr($this->postMeta->openHours->close, 0, -2);
+            $open = $this->postMeta->openHours->open;
+            $close = $this->postMeta->openHours->close;
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -212,16 +212,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
-            $open = substr($this->postMeta->openHoursLeisureCenter->open, 0, -3);
-            $close = substr($this->postMeta->openHoursLeisureCenter->close, 0, -3);
+
+            $open = $this->postMeta->openHoursLeisureCenter->open;
+            $close = $this->postMeta->openHoursLeisureCenter->close;
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
                 $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
             } else {
-                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->openHoursLeisureCenter);
+                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->LeisureCenter);
             }
-
+g
             $quickFacts[] = ['label' => $label];
         }
 
@@ -521,7 +522,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['video'] =
         ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
-            ? $this->postMeta->video
+            ? wp_oembed_get( $this->postMeta->video )
             : null; 
     }
 
