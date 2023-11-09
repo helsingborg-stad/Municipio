@@ -549,6 +549,7 @@ g
     private function appendEventData()
     {
         $this->data['events'] = null;
+        $this->data['eventsTitle'] = null;
         
         if( !post_type_exists(self::EVENT_POST_TYPE) || !taxonomy_exists(self::EVENT_TAXONOMY) ) {    
             return;
