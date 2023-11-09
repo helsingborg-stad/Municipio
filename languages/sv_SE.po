@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-08 10:21+0000\n"
+"PO-Revision-Date: 2023-11-09 07:45+0100\n"
 "Last-Translator: Anna Johansson\n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -30,17 +30,16 @@ msgid "#FFFFFF"
 msgstr "#FFFFFF"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:178
-#, fuzzy
 msgid "%d units"
-msgstr "%d enheter"
+msgstr "%d avdelningar"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:196
-#, fuzzy, php-format
+#, php-format
 msgid "%s profiles"
 msgstr "%s profiler"
 
 #: library/Helper/ContentType.php:221
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s tried to add %s as a secondary content type. Complex content types cannot "
 "add other complex content types."
@@ -752,12 +751,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:164
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">account_balance_wallet</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">account_balance_wallet</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">account_balance_wallet</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">account_balance_wallet</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">account_balance_wallet</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">account_balance_wallet</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:165
@@ -1162,85 +1161,85 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:205
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_flat_angled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">airline_seat_flat_angled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">airline_seat_flat_angled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">airline_seat_flat_angled</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_flat_angled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">airline_seat_flat_angled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">airline_seat_flat_angled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">airline_seat_flat_angled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:206
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_individual_suite</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_individual_suite</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_individual_suite</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_individual_suite</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_individual_suite</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_individual_suite</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_individual_suite</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_individual_suite</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:207
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_extra</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_extra</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_extra</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_extra</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_extra</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_extra</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_extra</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_extra</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:208
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_normal</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_normal</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_normal</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_normal</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_normal</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_normal</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_normal</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_normal</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:209
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_reduced</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_reduced</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_reduced</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_reduced</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_legroom_reduced</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_legroom_reduced</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_legroom_reduced</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_legroom_reduced</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:210
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_recline_extra</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_recline_extra</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_recline_extra</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_recline_extra</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_recline_extra</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_recline_extra</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_recline_extra</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_recline_extra</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:211
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_recline_normal</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_recline_normal</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_recline_normal</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_recline_normal</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_recline_normal</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_recline_normal</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_recline_normal</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_recline_normal</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:212
 msgid ""
@@ -1258,10 +1257,10 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">airlines</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"airline_seat_recline_normal</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"airline_seat_recline_normal</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">airline_seat_recline_normal</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">airline_seat_recline_normal</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:214
 msgid ""
@@ -1365,13 +1364,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:224
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"align_horizontal_center</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">align_horizontal_center</span>"
+"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_center</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">align_horizontal_center</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"align_horizontal_center</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">align_horizontal_center</span>"
+"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_center</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">align_horizontal_center</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:225
 msgid ""
@@ -1385,12 +1384,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:226
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_right</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_right</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">align_horizontal_right</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_right</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">align_horizontal_right</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">align_horizontal_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:227
@@ -1745,12 +1744,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:262
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">arrow_drop_down_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">arrow_drop_down_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">arrow_drop_down_circle</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">arrow_drop_down_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">arrow_drop_down_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">arrow_drop_down_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:263
@@ -3915,13 +3914,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:479
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"check_box_outline_blank</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">check_box_outline_blank</span>"
+"<i class=\"material-icons\" style=\"float: left;\">check_box_outline_blank</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">check_box_outline_blank</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"check_box_outline_blank</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">check_box_outline_blank</span>"
+"<i class=\"material-icons\" style=\"float: left;\">check_box_outline_blank</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">check_box_outline_blank</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:480
 msgid ""
@@ -4135,13 +4134,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:501
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"closed_caption_disabled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">closed_caption_disabled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">closed_caption_disabled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">closed_caption_disabled</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"closed_caption_disabled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">closed_caption_disabled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">closed_caption_disabled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">closed_caption_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:502
 msgid ""
@@ -4159,9 +4158,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">cloud</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"closed_caption_disabled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">closed_caption_disabled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">closed_caption_disabled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">closed_caption_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:504
 msgid ""
@@ -4455,13 +4454,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:533
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"connect_without_contact</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">connect_without_contact</span>"
+"<i class=\"material-icons\" style=\"float: left;\">connect_without_contact</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">connect_without_contact</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"connect_without_contact</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">connect_without_contact</span>"
+"<i class=\"material-icons\" style=\"float: left;\">connect_without_contact</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">connect_without_contact</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:534
 msgid ""
@@ -4655,13 +4654,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:553
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"control_point_duplicate</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">control_point_duplicate</span>"
+"<i class=\"material-icons\" style=\"float: left;\">control_point_duplicate</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">control_point_duplicate</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"control_point_duplicate</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">control_point_duplicate</span>"
+"<i class=\"material-icons\" style=\"float: left;\">control_point_duplicate</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">control_point_duplicate</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:554
 msgid ""
@@ -5365,13 +5364,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:624
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"desktop_access_disabled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">desktop_access_disabled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">desktop_access_disabled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">desktop_access_disabled</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"desktop_access_disabled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">desktop_access_disabled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">desktop_access_disabled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">desktop_access_disabled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:625
 msgid ""
@@ -5585,12 +5584,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:646
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">directions_boat_filled</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">directions_boat_filled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">directions_boat_filled</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">directions_boat_filled</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">directions_boat_filled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">directions_boat_filled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:647
@@ -5655,15 +5654,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:653
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_railway_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"directions_railway_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">directions_railway_filled</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">directions_railway_filled</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_railway_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"directions_railway_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">directions_railway_filled</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">directions_railway_filled</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:654
 msgid ""
@@ -5687,13 +5686,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:656
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_subway_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">directions_subway_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">directions_subway_filled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">directions_subway_filled</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_subway_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">directions_subway_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;\">directions_subway_filled</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">directions_subway_filled</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:657
 msgid ""
@@ -5707,15 +5706,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:658
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_transit_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"directions_transit_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">directions_transit_filled</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">directions_transit_filled</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"directions_transit_filled</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"directions_transit_filled</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">directions_transit_filled</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">directions_transit_filled</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:659
 msgid ""
@@ -5909,15 +5908,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:678
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"do_not_disturb_on_total_silence</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"do_not_disturb_on_total_silence</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">do_not_disturb_on_total_silence</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">do_not_disturb_on_total_silence</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"do_not_disturb_on_total_silence</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"do_not_disturb_on_total_silence</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">do_not_disturb_on_total_silence</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">do_not_disturb_on_total_silence</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:679
 msgid ""
@@ -6221,15 +6220,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:709
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"drive_file_rename_outline</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">drive_file_rename_outline</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"drive_file_rename_outline</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">drive_file_rename_outline</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:710
 msgid ""
@@ -6247,10 +6246,10 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">dry</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"drive_file_rename_outline</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">drive_file_rename_outline</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">drive_file_rename_outline</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:712
 msgid ""
@@ -7104,13 +7103,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:797
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"face_retouching_natural</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">face_retouching_natural</span>"
+"<i class=\"material-icons\" style=\"float: left;\">face_retouching_natural</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">face_retouching_natural</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"face_retouching_natural</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">face_retouching_natural</span>"
+"<i class=\"material-icons\" style=\"float: left;\">face_retouching_natural</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">face_retouching_natural</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:798
 msgid ""
@@ -8224,22 +8223,22 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:909
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">format_indent_decrease</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">format_indent_decrease</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">format_indent_decrease</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">format_indent_decrease</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">format_indent_decrease</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">format_indent_decrease</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:910
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">format_indent_increase</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">format_indent_increase</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">format_indent_increase</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">format_indent_increase</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">format_indent_increase</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">format_indent_increase</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:911
@@ -8284,13 +8283,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:915
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_list_numbered_rtl</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">format_list_numbered_rtl</span>"
+"<i class=\"material-icons\" style=\"float: left;\">format_list_numbered_rtl</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">format_list_numbered_rtl</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_list_numbered_rtl</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">format_list_numbered_rtl</span>"
+"<i class=\"material-icons\" style=\"float: left;\">format_list_numbered_rtl</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">format_list_numbered_rtl</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:916
 msgid ""
@@ -8354,27 +8353,27 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:922
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_textdirection_l_to_r</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"format_textdirection_l_to_r</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">format_textdirection_l_to_r</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">format_textdirection_l_to_r</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_textdirection_l_to_r</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"format_textdirection_l_to_r</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">format_textdirection_l_to_r</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">format_textdirection_l_to_r</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:923
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_textdirection_r_to_l</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"format_textdirection_r_to_l</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">format_textdirection_r_to_l</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">format_textdirection_r_to_l</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_textdirection_r_to_l</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"format_textdirection_r_to_l</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">format_textdirection_r_to_l</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">format_textdirection_r_to_l</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:924
 msgid ""
@@ -8412,10 +8411,10 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">forward</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"format_textdirection_r_to_l</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"format_textdirection_r_to_l</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">format_textdirection_r_to_l</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">format_textdirection_r_to_l</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:928
 msgid ""
@@ -9799,13 +9798,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1066
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"indeterminate_check_box</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">indeterminate_check_box</span>"
+"<i class=\"material-icons\" style=\"float: left;\">indeterminate_check_box</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">indeterminate_check_box</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"indeterminate_check_box</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">indeterminate_check_box</span>"
+"<i class=\"material-icons\" style=\"float: left;\">indeterminate_check_box</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">indeterminate_check_box</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1067
 msgid ""
@@ -9949,13 +9948,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1081
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"integration_instructions</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">integration_instructions</span>"
+"<i class=\"material-icons\" style=\"float: left;\">integration_instructions</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">integration_instructions</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"integration_instructions</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">integration_instructions</span>"
+"<i class=\"material-icons\" style=\"float: left;\">integration_instructions</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">integration_instructions</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1082
 msgid ""
@@ -10239,49 +10238,49 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1110
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_down</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_down</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_down</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_down</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_down</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_down</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_down</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_down</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1111
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_left</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_left</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_left</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_left</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_left</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_left</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_left</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1112
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_right</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_right</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_right</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_right</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_right</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"keyboard_double_arrow_right</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">keyboard_double_arrow_right</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">keyboard_double_arrow_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1113
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_up</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">keyboard_double_arrow_up</span>"
+"<i class=\"material-icons\" style=\"float: left;\">keyboard_double_arrow_up</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">keyboard_double_arrow_up</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"keyboard_double_arrow_up</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">keyboard_double_arrow_up</span>"
+"<i class=\"material-icons\" style=\"float: left;\">keyboard_double_arrow_up</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">keyboard_double_arrow_up</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1114
 msgid ""
@@ -10845,13 +10844,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1170
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"local_convenience_store</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">local_convenience_store</span>"
+"<i class=\"material-icons\" style=\"float: left;\">local_convenience_store</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">local_convenience_store</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"local_convenience_store</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">local_convenience_store</span>"
+"<i class=\"material-icons\" style=\"float: left;\">local_convenience_store</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">local_convenience_store</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1171
 msgid ""
@@ -11885,12 +11884,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1274
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">miscellaneous_services</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">miscellaneous_services</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1275
@@ -11909,8 +11908,8 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">mms</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">miscellaneous_services</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">miscellaneous_services</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1277
@@ -12785,15 +12784,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1364
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"no_encryption_gmailerrorred</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"no_encryption_gmailerrorred</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">no_encryption_gmailerrorred</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">no_encryption_gmailerrorred</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"no_encryption_gmailerrorred</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"no_encryption_gmailerrorred</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">no_encryption_gmailerrorred</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">no_encryption_gmailerrorred</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1365
 msgid ""
@@ -13037,12 +13036,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1389
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">notification_important</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">notification_important</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">notification_important</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">notification_important</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">notification_important</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">notification_important</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1390
@@ -13407,15 +13406,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1426
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_horizontal_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_horizontal_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_horizontal_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_horizontal_select</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_horizontal_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_horizontal_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_horizontal_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_horizontal_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1427
 msgid ""
@@ -13429,15 +13428,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1428
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_photosphere_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_photosphere_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_photosphere_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_photosphere_select</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_photosphere_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_photosphere_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_photosphere_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_photosphere_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1429
 msgid ""
@@ -13451,13 +13450,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1430
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_vertical_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">panorama_vertical_select</span>"
+"<i class=\"material-icons\" style=\"float: left;\">panorama_vertical_select</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">panorama_vertical_select</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_vertical_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">panorama_vertical_select</span>"
+"<i class=\"material-icons\" style=\"float: left;\">panorama_vertical_select</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">panorama_vertical_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1431
 msgid ""
@@ -13471,15 +13470,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1432
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_wide_angle_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_wide_angle_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_wide_angle_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_wide_angle_select</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_wide_angle_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_wide_angle_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_wide_angle_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_wide_angle_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1433
 msgid ""
@@ -13497,10 +13496,10 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">park</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"panorama_wide_angle_select</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"panorama_wide_angle_select</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">panorama_wide_angle_select</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">panorama_wide_angle_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1435
 msgid ""
@@ -13714,13 +13713,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1456
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"perm_device_information</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">perm_device_information</span>"
+"<i class=\"material-icons\" style=\"float: left;\">perm_device_information</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">perm_device_information</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"perm_device_information</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">perm_device_information</span>"
+"<i class=\"material-icons\" style=\"float: left;\">perm_device_information</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">perm_device_information</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1457
 msgid ""
@@ -13994,13 +13993,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1484
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"phone_bluetooth_speaker</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">phone_bluetooth_speaker</span>"
+"<i class=\"material-icons\" style=\"float: left;\">phone_bluetooth_speaker</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">phone_bluetooth_speaker</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"phone_bluetooth_speaker</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">phone_bluetooth_speaker</span>"
+"<i class=\"material-icons\" style=\"float: left;\">phone_bluetooth_speaker</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">phone_bluetooth_speaker</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1485
 msgid ""
@@ -14214,33 +14213,33 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1506
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_actual</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_actual</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_actual</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_actual</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_actual</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_actual</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_actual</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_actual</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1507
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_large</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_large</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_large</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_large</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_large</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_large</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_large</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_large</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1508
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_small</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_small</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_small</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_small</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_small</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_small</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_small</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_small</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1509
 msgid ""
@@ -14268,9 +14267,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">piano_off</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"photo_size_select_large</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">photo_size_select_large</span>"
+"<i class=\"material-icons\" style=\"float: left;\">photo_size_select_large</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">photo_size_select_large</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1512
 msgid ""
@@ -14294,12 +14293,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1514
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">picture_in_picture_alt</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">picture_in_picture_alt</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">picture_in_picture_alt</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">picture_in_picture_alt</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">picture_in_picture_alt</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">picture_in_picture_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1515
@@ -14504,15 +14503,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1535
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"playlist_add_check_circle</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"playlist_add_check_circle</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">playlist_add_check_circle</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">playlist_add_check_circle</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"playlist_add_check_circle</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"playlist_add_check_circle</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">playlist_add_check_circle</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">playlist_add_check_circle</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1536
 msgid ""
@@ -14706,13 +14705,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1555
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"precision_manufacturing</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">precision_manufacturing</span>"
+"<i class=\"material-icons\" style=\"float: left;\">precision_manufacturing</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">precision_manufacturing</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"precision_manufacturing</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">precision_manufacturing</span>"
+"<i class=\"material-icons\" style=\"float: left;\">precision_manufacturing</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">precision_manufacturing</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1556
 msgid ""
@@ -14816,15 +14815,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1566
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"production_quantity_limits</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"production_quantity_limits</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">production_quantity_limits</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">production_quantity_limits</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"production_quantity_limits</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"production_quantity_limits</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">production_quantity_limits</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">production_quantity_limits</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1567
 msgid ""
@@ -14898,12 +14897,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1574
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">published_with_changes</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">published_with_changes</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1575
@@ -14942,8 +14941,8 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">qr_code_2</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">published_with_changes</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">published_with_changes</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1579
@@ -15088,12 +15087,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1593
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">radio_button_unchecked</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">radio_button_unchecked</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">radio_button_unchecked</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">radio_button_unchecked</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">radio_button_unchecked</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">radio_button_unchecked</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1594
@@ -16358,13 +16357,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1720
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"security_update_warning</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">security_update_warning</span>"
+"<i class=\"material-icons\" style=\"float: left;\">security_update_warning</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">security_update_warning</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"security_update_warning</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">security_update_warning</span>"
+"<i class=\"material-icons\" style=\"float: left;\">security_update_warning</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">security_update_warning</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1721
 msgid ""
@@ -16498,12 +16497,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1734
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">sentiment_dissatisfied</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_dissatisfied</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">sentiment_dissatisfied</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">sentiment_dissatisfied</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_dissatisfied</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">sentiment_dissatisfied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1735
@@ -16528,35 +16527,35 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1737
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_satisfied_alt</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">sentiment_satisfied_alt</span>"
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_satisfied_alt</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">sentiment_satisfied_alt</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_satisfied_alt</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">sentiment_satisfied_alt</span>"
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_satisfied_alt</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">sentiment_satisfied_alt</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1738
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"sentiment_very_dissatisfied</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">sentiment_very_dissatisfied</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"sentiment_very_dissatisfied</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">sentiment_very_dissatisfied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1739
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_very_satisfied</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">sentiment_very_satisfied</span>"
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_very_satisfied</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">sentiment_very_satisfied</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_very_satisfied</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">sentiment_very_satisfied</span>"
+"<i class=\"material-icons\" style=\"float: left;\">sentiment_very_satisfied</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">sentiment_very_satisfied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1740
 msgid ""
@@ -16574,19 +16573,19 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">settings</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"sentiment_very_dissatisfied</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">sentiment_very_dissatisfied</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">sentiment_very_dissatisfied</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1742
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">settings_accessibility</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">settings_accessibility</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">settings_accessibility</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">settings_accessibility</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">settings_accessibility</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">settings_accessibility</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1743
@@ -16601,13 +16600,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1744
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_backup_restore</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_backup_restore</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_backup_restore</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_backup_restore</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_backup_restore</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_backup_restore</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_backup_restore</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_backup_restore</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1745
 msgid ""
@@ -16651,33 +16650,33 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1749
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">settings_input_antenna</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_antenna</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">settings_input_antenna</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">settings_input_antenna</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_antenna</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">settings_input_antenna</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1750
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_input_component</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_input_component</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_component</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_input_component</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_input_component</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_input_component</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_component</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_input_component</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1751
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_input_composite</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_input_composite</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_composite</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_input_composite</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_input_composite</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_input_composite</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_input_composite</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_input_composite</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1752
 msgid ""
@@ -16751,13 +16750,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1759
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_system_daydream</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_system_daydream</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_system_daydream</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_system_daydream</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"settings_system_daydream</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">settings_system_daydream</span>"
+"<i class=\"material-icons\" style=\"float: left;\">settings_system_daydream</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">settings_system_daydream</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1760
 msgid ""
@@ -16891,12 +16890,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1773
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">shopping_cart_checkout</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">shopping_cart_checkout</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1774
@@ -16915,8 +16914,8 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">shortcut</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">shopping_cart_checkout</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">shopping_cart_checkout</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1776
@@ -17021,70 +17020,70 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1786
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_alt_1_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_alt_1_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_alt_1_bar</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">signal_cellular_alt_1_bar</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_alt_1_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_alt_1_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_alt_1_bar</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">signal_cellular_alt_1_bar</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1787
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_alt_2_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_alt_2_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_alt_2_bar</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">signal_cellular_alt_2_bar</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_alt_2_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_alt_2_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_alt_2_bar</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">signal_cellular_alt_2_bar</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1788
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_connected_no_internet_0_bar</i> <span style=\"height: 24px; "
-"display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_connected_no_internet_0_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_connected_no_internet_0_bar</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_cellular_connected_no_internet_0_bar</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_connected_no_internet_0_bar</i> <span style=\"height: 24px; "
-"display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_connected_no_internet_0_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_connected_no_internet_0_bar</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_cellular_connected_no_internet_0_bar</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1789
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_connected_no_internet_4_bar</i> <span style=\"height: 24px; "
-"display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_connected_no_internet_4_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_connected_no_internet_4_bar</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_cellular_connected_no_internet_4_bar</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_cellular_connected_no_internet_4_bar</i> <span style=\"height: 24px; "
-"display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_cellular_connected_no_internet_4_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_cellular_connected_no_internet_4_bar</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_cellular_connected_no_internet_4_bar</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1790
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_no_sim</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_no_sim</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_cellular_no_sim</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_no_sim</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_no_sim</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_cellular_no_sim</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1791
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_nodata</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_nodata</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_cellular_nodata</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_nodata</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_cellular_nodata</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_cellular_nodata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1792
@@ -17129,12 +17128,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1796
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_wifi_4_bar_lock</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_wifi_4_bar_lock</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_wifi_4_bar_lock</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">signal_wifi_4_bar_lock</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">signal_wifi_4_bar_lock</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">signal_wifi_4_bar_lock</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1797
@@ -17149,15 +17148,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1798
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_connected_no_internet_4</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_connected_no_internet_4</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_connected_no_internet_4</i> <span style=\"height: 24px; "
+"display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_connected_no_internet_4</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_connected_no_internet_4</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_connected_no_internet_4</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_connected_no_internet_4</i> <span style=\"height: 24px; "
+"display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_connected_no_internet_4</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1799
 msgid ""
@@ -17171,39 +17170,39 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1800
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_4_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_4_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_4_bar</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_4_bar</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_4_bar</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_4_bar</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_4_bar</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_4_bar</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1801
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: 24px;"
-" display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_connected_no_internet_4</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_connected_no_internet_4</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: 24px;"
-" display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_connected_no_internet_4</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_connected_no_internet_4</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1802
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_null</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_null</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_null</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_null</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_null</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_null</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_null</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_null</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1803
 msgid ""
@@ -17221,10 +17220,10 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">sim_card</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: 24px;"
-" display: inline-block; line-height: 24px; margin-left: 8px;\">"
-"signal_wifi_statusbar_connected_no_internet_4</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">signal_wifi_statusbar_connected_no_internet_4</i> <span style=\"height: "
+"24px; display: inline-block; line-height: 24px; margin-left: 8px;"
+"\">signal_wifi_statusbar_connected_no_internet_4</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1805
 msgid ""
@@ -18098,12 +18097,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1892
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">stay_current_landscape</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">stay_current_landscape</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">stay_current_landscape</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">stay_current_landscape</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">stay_current_landscape</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">stay_current_landscape</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1893
@@ -18118,12 +18117,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1894
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">stay_primary_landscape</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">stay_primary_landscape</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">stay_primary_landscape</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">stay_primary_landscape</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">stay_primary_landscape</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">stay_primary_landscape</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1895
@@ -18298,23 +18297,23 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1912
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"subdirectory_arrow_left</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_left</span>"
+"<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_left</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">subdirectory_arrow_left</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"subdirectory_arrow_left</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_left</span>"
+"<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_left</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">subdirectory_arrow_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1913
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"subdirectory_arrow_right</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_right</span>"
+"<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_right</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">subdirectory_arrow_right</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"subdirectory_arrow_right</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_right</span>"
+"<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_right</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">subdirectory_arrow_right</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1914
 msgid ""
@@ -18332,9 +18331,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">subscript</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"subdirectory_arrow_left</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">subdirectory_arrow_left</span>"
+"<i class=\"material-icons\" style=\"float: left;\">subdirectory_arrow_left</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">subdirectory_arrow_left</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1916
 msgid ""
@@ -18398,12 +18397,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1922
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">supervised_user_circle</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">supervised_user_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1923
@@ -18422,8 +18421,8 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">support</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">supervised_user_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">supervised_user_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1925
@@ -18478,12 +18477,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1930
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">swap_horizontal_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">swap_horizontal_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">swap_horizontal_circle</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">swap_horizontal_circle</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">swap_horizontal_circle</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">swap_horizontal_circle</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1931
@@ -18608,25 +18607,25 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1943
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">switch_access_shortcut</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">switch_access_shortcut</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">switch_access_shortcut</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">switch_access_shortcut</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">switch_access_shortcut</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">switch_access_shortcut</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1944
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"switch_access_shortcut_add</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"switch_access_shortcut_add</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">switch_access_shortcut_add</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">switch_access_shortcut_add</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"switch_access_shortcut_add</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"switch_access_shortcut_add</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">switch_access_shortcut_add</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">switch_access_shortcut_add</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1945
 msgid ""
@@ -18740,37 +18739,37 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1956
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">system_security_update</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">system_security_update</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">system_security_update</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">system_security_update</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">system_security_update</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">system_security_update</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1957
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"system_security_update_good</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"system_security_update_good</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">system_security_update_good</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">system_security_update_good</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"system_security_update_good</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"system_security_update_good</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">system_security_update_good</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">system_security_update_good</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1958
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"system_security_update_warning</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"system_security_update_warning</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">system_security_update_warning</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">system_security_update_warning</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"system_security_update_warning</i> <span style=\"height: 24px; display: "
-"inline-block; line-height: 24px; margin-left: 8px;\">"
-"system_security_update_warning</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">system_security_update_warning</i> <span style=\"height: 24px; display: "
+"inline-block; line-height: 24px; margin-left: 8px;"
+"\">system_security_update_warning</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1959
 msgid ""
@@ -19074,13 +19073,13 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:1989
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"text_rotation_angledown</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">text_rotation_angledown</span>"
+"<i class=\"material-icons\" style=\"float: left;\">text_rotation_angledown</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">text_rotation_angledown</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"text_rotation_angledown</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">text_rotation_angledown</span>"
+"<i class=\"material-icons\" style=\"float: left;\">text_rotation_angledown</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"margin-left: 8px;\">text_rotation_angledown</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:1990
 msgid ""
@@ -19554,15 +19553,15 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:2037
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"transfer_within_a_station</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"transfer_within_a_station</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">transfer_within_a_station</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">transfer_within_a_station</"
+"span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">"
-"transfer_within_a_station</i> <span style=\"height: 24px; display: inline-"
-"block; line-height: 24px; margin-left: 8px;\">"
-"transfer_within_a_station</span>"
+"<i class=\"material-icons\" style=\"float: left;"
+"\">transfer_within_a_station</i> <span style=\"height: 24px; display: inline-"
+"block; line-height: 24px; margin-left: 8px;\">transfer_within_a_station</"
+"span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2038
 msgid ""
@@ -20126,12 +20125,12 @@ msgstr ""
 
 #: library/AcfFields/php/term-icon-and-colour.php:2094
 msgid ""
-"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">vertical_shades_closed</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">vertical_shades_closed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2095
@@ -20150,8 +20149,8 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">vibration</span>"
 msgstr ""
-"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</i>"
-" <span style=\"height: 24px; display: inline-block; line-height: 24px; "
+"<i class=\"material-icons\" style=\"float: left;\">vertical_shades_closed</"
+"i> <span style=\"height: 24px; display: inline-block; line-height: 24px; "
 "margin-left: 8px;\">vertical_shades_closed</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2097
@@ -21365,7 +21364,6 @@ msgstr ""
 "8px;\">zoom_out_map</span>"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:37
-#, fuzzy
 msgid ""
 "<span style=\"color: #ff0000;\">Once you have published a post type the name "
 "cannot be changed!</span>"
@@ -21429,7 +21427,6 @@ msgstr "Ett marginalblock"
 
 #: library/AcfFields/php/resource-fields.php:245
 #: library/AcfFields/php/resource-fields.php:779
-#, fuzzy
 msgid "A short descriptive summary of what the post type is."
 msgstr "En kort beskrivande sammanfattning av vad inläggstypen är."
 
@@ -21607,7 +21604,6 @@ msgid "Add section"
 msgstr "Lägg till sektion"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:27
-#, fuzzy
 msgid "Add taxonomy"
 msgstr "Lägg till taxonomi"
 
@@ -21693,7 +21689,6 @@ msgstr ""
 "du under komponentfliken."
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:240
-#, fuzzy
 msgid "Admin user interface"
 msgstr "Användargränssnitt för administratörer"
 
@@ -21869,27 +21864,22 @@ msgid "apartment"
 msgstr "apartment"
 
 #: library/Content/ResourceFromApi/ResourcePostType.php:29
-#, fuzzy
 msgid "API Resource"
 msgstr "API-resurs"
 
 #: library/AcfFields/php/resource-fields.php:8
-#, fuzzy
 msgid "Api Resource fields"
 msgstr "Api-resursfält"
 
 #: library/Content/ResourceFromApi/ResourcePostType.php:27
-#, fuzzy
 msgid "API Resources"
 msgstr "API-resurser"
 
 #: library/AcfFields/php/options-api-resources-apis.php:8
-#, fuzzy
 msgid "Api Resources - Api:s"
 msgstr "Api Resurser - Api:s"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:81
-#, fuzzy
 msgid ""
 "API Source for the taxonomy. If this is supplied and responds with a "
 "WordPress REST API endpoint for a taxonomy collection; the terms for this "
@@ -21905,7 +21895,6 @@ msgid "API Source URL"
 msgstr "URL för API-källa"
 
 #: library/AcfFields/php/options-api-resources-apis.php:12
-#, fuzzy
 msgid "Api:s"
 msgstr "Api:er"
 
@@ -21925,7 +21914,6 @@ msgstr "Luft"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:290
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:303
-#, fuzzy
 msgid "Apply here"
 msgstr "Ansök här"
 
@@ -21971,7 +21959,6 @@ msgid "Archives"
 msgstr "Arkiv"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:271
-#, fuzzy
 msgid "Are you interested in applying?"
 msgstr "Är du intresserad av att ansöka?"
 
@@ -22194,9 +22181,8 @@ msgid "Avabile in nav menus?"
 msgstr "Tillgänglig i menyer?"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:12
-#, fuzzy
 msgid "Available dynamic taxonomies"
-msgstr "Tillgängliga dynamiska taxonomier"
+msgstr "Available dynamic taxonomies"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:12
 msgid "Available post types"
@@ -22309,7 +22295,7 @@ msgstr "Standard"
 
 #: library/AcfFields/php/block-container.php:160
 msgid "basic"
-msgstr "Standard"
+msgstr "basic"
 
 #: library/AcfFields/php/options-menu-icon.php:115
 msgid "bathtub"
@@ -22512,8 +22498,8 @@ msgstr "Rundning på hörn"
 msgid ""
 "Border radius on wrapped collections are automatically removed if needed."
 msgstr ""
-"Rundade hörn på samlingskomponenter som ligger omslutet av andra komponenter,"
-" tas bort vid behov automatiskt."
+"Rundade hörn på samlingskomponenter som ligger omslutet av andra "
+"komponenter, tas bort vid behov automatiskt."
 
 #: library/Customizer/Sections/Divider.php:33
 msgid "Border style"
@@ -22721,21 +22707,16 @@ msgid "Buttons"
 msgstr "Knappar"
 
 #: library/AcfFields/php/media-attachments.php:12
-#, fuzzy
 msgid "Byline"
 msgstr "Byline"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:166
-#, fuzzy
-#| msgid "ca. %d children"
 msgid "Ca. %d children"
-msgstr "ca. %d barn"
+msgstr "Ca. %d barn"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:172
-#, fuzzy
-#| msgid "ca. %d students"
 msgid "Ca. %d students"
-msgstr "ca. %d studenter"
+msgstr "Ca. %d elever"
 
 #: library/AcfFields/php/options-menu-icon.php:168
 msgid "cached"
@@ -22840,7 +22821,6 @@ msgstr "cancel_schedule_send"
 
 #: library/AcfFields/php/resource-fields.php:507
 #: library/AcfFields/php/resource-fields.php:992
-#, fuzzy
 msgid "Capabilities"
 msgstr "Kapacitet"
 
@@ -22986,13 +22966,9 @@ msgid "Check the formats you would like to enable"
 msgstr "Välj de format som du vill aktivera"
 
 #: library/Admin/Options/ContentType.php:96
-#, fuzzy
-#| msgid "Check to <u>not</u> use the custom template for this post type."
 msgid ""
 "Check to <u>not</u> use the custom content type template for this post type."
 msgstr ""
-"Markera för att <u>inte</u> använda den anpassade mallen för den här "
-"inläggstypen."
 
 #: library/AcfFields/php/options-menu-icon.php:204
 msgid "check_box"
@@ -23307,7 +23283,6 @@ msgid "confirmation_number"
 msgstr "confirmation_number"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:121
-#, fuzzy
 msgid "Connect to post type(s)"
 msgstr "Anslut till posttyp(er)"
 
@@ -23324,7 +23299,6 @@ msgid "Contact person"
 msgstr "Kontaktperson"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:144
-#, fuzzy
 msgid "Contact us"
 msgstr "Kontakta oss"
 
@@ -23397,25 +23371,22 @@ msgid "Content horizontal alignment"
 msgstr "Innehållsjustering horisontellt"
 
 #: library/Admin/Options/ContentType.php:67
-#, fuzzy
 #| msgid "Content"
 msgid "Content Type"
-msgstr "Innehåll"
+msgstr "Innehållstyp"
 
 #: library/Admin/Acf/LocationRulesContentType.php:8
 #: library/AcfFields/php/options-content-types.php:12
-#, fuzzy
 #| msgid "Content"
 msgid "Content type"
-msgstr "Innehåll"
+msgstr "Innehållstyp"
 
 #: library/Admin/Options/ContentType.php:19
 #: library/Admin/Options/ContentType.php:20
 #: library/AcfFields/php/options-content-types.php:8
-#, fuzzy
 #| msgid "Content"
 msgid "Content types"
-msgstr "Innehåll"
+msgstr "Innehållstyper"
 
 #: library/Customizer/Sections/Hero.php:64
 msgid "Content vertical alignment"
@@ -23482,15 +23453,12 @@ msgid "Could not verify that you are human."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
 #: library/Customizer/Sections/MegaMenu.php:229
-#, fuzzy
-#| msgid "Hover"
 msgid "Cover"
-msgstr "Hovra"
+msgstr "Omslag"
 
 #: library/Customizer/Sections/MegaMenu.php:223
-#, fuzzy
 msgid "Cover full page"
-msgstr "Omslag hela sidan"
+msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:246
 msgid "create"
@@ -23632,9 +23600,8 @@ msgid "custom_css"
 msgstr "custom_css"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:141
-#, fuzzy
 msgid "customer-feedback"
-msgstr "kund-feedback"
+msgstr "customer-feedback"
 
 #: library/AcfFields/php/options-customize-footer.php:8
 msgid "Customize Footer"
@@ -23793,10 +23760,9 @@ msgid "Default "
 msgstr "Standard "
 
 #: library/Customizer/Sections/MegaMenu.php:124
-#, fuzzy
 #| msgid "Default button colors"
 msgid "Default button"
-msgstr "Standardfärger på knappar"
+msgstr "Default button"
 
 #: library/Customizer/Sections/Button.php:83
 msgid "Default button colors"
@@ -24010,7 +23976,7 @@ msgstr "Visa notis om innehållets ålder"
 
 #: library/Customizer/Sections/Module/Posts.php:76
 msgid "Display an icon on the post if the post has a term with an icon set"
-msgstr "Visa en ikon på inlägget om det har en term med en ikon."
+msgstr "Visa en ikon på inlägget om det har en term med en ikon"
 
 #: library/Customizer/Sections/Archive.php:157
 msgid "Display an Open Street Map on the archive if applicable."
@@ -24231,7 +24197,6 @@ msgid "eject"
 msgstr "eject"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:197
-#, fuzzy
 msgid "elementary-school"
 msgstr "elementary-school"
 
@@ -24301,7 +24266,6 @@ msgid "Enable"
 msgstr "Aktivera"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:253
-#, fuzzy
 msgid "Enable administration UI"
 msgstr "Aktivera administrationsgränssnittet"
 
@@ -24328,12 +24292,10 @@ msgid "Enabled"
 msgstr "Aktiverad"
 
 #: library/AcfFields/php/resource-fields.php:325
-#, fuzzy
 msgid "Enables post type archives."
-msgstr "Aktiverar arkiv för inläggstyper."
+msgstr "Aktiverar posttypsarkiv."
 
 #: library/Customizer/Sections/Header.php:307
-#, fuzzy
 msgid "Enables text to the right of the header logotype."
 msgstr "Aktiverar text till höger om rubrikens logotyp."
 
@@ -24423,11 +24385,11 @@ msgstr "event_busy"
 
 #: library/AcfFields/php/resource-fields.php:131
 msgid ""
-"event_categories: https://api.helsingborg."
-"se/event/json/wp/v2/event_categories"
+"event_categories: https://api.helsingborg.se/event/json/wp/v2/"
+"event_categories"
 msgstr ""
-"event_categories: https://api.helsingborg."
-"se/event/json/wp/v2/event_categories"
+"event_categories: https://api.helsingborg.se/event/json/wp/v2/"
+"event_categories"
 
 #: library/AcfFields/php/options-menu-icon.php:335
 msgid "event_note"
@@ -24450,9 +24412,8 @@ msgid "Exclude from import"
 msgstr "Exkludera från import"
 
 #: library/AcfFields/php/resource-fields.php:341
-#, fuzzy
 msgid "Exclude From Search"
-msgstr "Utesluta från sökning"
+msgstr "Uteslut från sök"
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -24475,8 +24436,6 @@ msgid "Exclude title from Google Translate"
 msgstr "Uteslut sidans titel från Google Translate"
 
 #: library/AcfFields/php/options-theme-google-translate.php:127
-#, fuzzy
-#| msgid "Exclude title from Google Translate"
 msgid "Exclude words from being translated"
 msgstr "Uteslut sidans titel från Google Translate"
 
@@ -24582,7 +24541,6 @@ msgid "Facetting type"
 msgstr "Filtreringsbeteende"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:246
-#, fuzzy
 msgid "Facts"
 msgstr "Fakta"
 
@@ -24799,7 +24757,6 @@ msgid "Filters"
 msgstr "Filtrering"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:398
-#, fuzzy
 msgid "Find directions"
 msgstr "Hitta vägbeskrivningar"
 
@@ -24914,7 +24871,6 @@ msgid "folder_special"
 msgstr "folder_special"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:480
-#, fuzzy
 msgid "Follow us in social media"
 msgstr "Följ oss i sociala medier"
 
@@ -25200,10 +25156,9 @@ msgid "golf_course"
 msgstr "golf_course"
 
 #: library/AcfFields/php/options-theme-google-translate.php:8
-#, fuzzy
 #| msgid "Where to show Google Translate"
 msgid "Google Translate"
-msgstr "Var Google Translate ska visas"
+msgstr "Google Translate"
 
 #: library/AcfFields/php/options-menu-icon.php:448
 msgid "gps_fixed"
@@ -25222,9 +25177,8 @@ msgid "grade"
 msgstr "grade"
 
 #: library/AcfFields/php/resource-fields.php:127
-#, fuzzy
 msgid "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
-msgstr "klass: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
+msgstr "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
 
 #: library/AcfFields/php/block-container.php:101
 msgid "Gradient"
@@ -25288,9 +25242,8 @@ msgid "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
 msgstr "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
 
 #: library/AcfFields/php/resource-fields.php:136
-#, fuzzy
 msgid "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
-msgstr "vägledande typ: https://api.helsingborg.se/event/json/wp/v2/guidetype"
+msgstr "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
 
 #: library/Oembed/OembedFilters.php:28
 msgid "Handling of personal data"
@@ -25329,27 +25282,23 @@ msgid "Header logotype"
 msgstr "Logotyp för sidhuvud"
 
 #: library/Customizer/Sections/Header.php:306
-#, fuzzy
 #| msgid "Header logotype"
 msgid "Header Logotype Text"
-msgstr "Logotyp för sidhuvud"
+msgstr ""
 
 #: library/Customizer/Sections/Header.php:337
-#, fuzzy
 #| msgid "Header logotype"
 msgid "Header LogoType Text: Color "
-msgstr "Logotyp för sidhuvud"
+msgstr ""
 
 #: library/Customizer/Sections/Header.php:322
-#, fuzzy
 #| msgid "Header logotype"
 msgid "Header Logotype Text: Content"
-msgstr "Logotyp för sidhuvud"
+msgstr ""
 
 #: library/Customizer/Sections/Header.php:354
-#, fuzzy
 msgid "Header LogoType Text: Font Settings "
-msgstr "Rubrik LogoTyp Text: Inställningar för teckensnitt"
+msgstr ""
 
 #: library/Customizer/Sections/Search.php:133
 msgid "Header on frontpage"
@@ -25620,12 +25569,10 @@ msgstr "Hur texten före sidfoten ska justeras."
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:294
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:307
-#, fuzzy
 msgid "How to apply"
 msgstr "Hur man ansöker"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:327
-#, fuzzy
 msgid "How we work"
 msgstr "Hur vi arbetar"
 
@@ -25650,7 +25597,6 @@ msgid "https"
 msgstr "https"
 
 #: library/AcfFields/php/options-api-resources-apis.php:48
-#, fuzzy
 msgid "https://dummy.api/wp-json/wp/v2"
 msgstr "https://dummy.api/wp-json/wp/v2"
 
@@ -25917,13 +25863,12 @@ msgid "Install plugin"
 msgstr "Installera tillägg"
 
 #: library/AcfFields/php/resource-fields.php:87
-#, fuzzy
 msgid ""
-"interactive_guide: https://api.helsingborg."
-"se/event/json/wp/v2/interactive_guide"
+"interactive_guide: https://api.helsingborg.se/event/json/wp/v2/"
+"interactive_guide"
 msgstr ""
-"interaktiv_guide: https://api.helsingborg."
-"se/event/json/wp/v2/interactive_guide"
+"interaktiv_guide: https://api.helsingborg.se/event/json/wp/v2/"
+"interactive_guide"
 
 #: library/AcfFields/php/navigation-widget.php:141
 #: library/AcfFields/php/widget-media.php:36
@@ -25973,13 +25918,12 @@ msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:110
-#, fuzzy
 msgid "Kategorier"
 msgstr "Kategorier"
 
 #: library/Customizer/Sections/Archive.php:174
 msgid "Keep the regular loop"
-msgstr "Behåll standardflödet av poster."
+msgstr "Behåll standardflödet av poster"
 
 #: library/Customizer/Sections/Archive.php:175
 msgid "Keep the regular loop of posts on the archive?"
@@ -26055,22 +25999,18 @@ msgid "label"
 msgstr "label"
 
 #: library/AcfFields/php/resource-fields.php:714
-#, fuzzy
 msgid "Label (Plural)"
 msgstr "Etikett (plural)"
 
 #: library/AcfFields/php/resource-fields.php:201
-#, fuzzy
 msgid "Label (plural)"
 msgstr "Etikett (plural)"
 
 #: library/AcfFields/php/resource-fields.php:734
-#, fuzzy
 msgid "Label (Singular)"
 msgstr "Etikett (singular)"
 
 #: library/AcfFields/php/resource-fields.php:221
-#, fuzzy
 msgid "Label (singular)"
 msgstr "Etikett (singular)"
 
@@ -26331,9 +26271,8 @@ msgid "list_alt"
 msgstr "list_alt"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:160
-#, fuzzy
 msgid "listing"
-msgstr "notering"
+msgstr "listing"
 
 #: library/AcfFields/php/options-menu-icon.php:549
 msgid "live_help"
@@ -26494,11 +26433,11 @@ msgstr "location: https://api.helsingborg.se/event/json/wp/v2/location"
 
 #: library/AcfFields/php/resource-fields.php:133
 msgid ""
-"location_categories: https://api.helsingborg."
-"se/event/json/wp/v2/location_categories"
+"location_categories: https://api.helsingborg.se/event/json/wp/v2/"
+"location_categories"
 msgstr ""
-"location_categories: https://api.helsingborg."
-"se/event/json/wp/v2/location_categories"
+"location_categories: https://api.helsingborg.se/event/json/wp/v2/"
+"location_categories"
 
 #: library/AcfFields/php/options-menu-icon.php:580
 msgid "location_city"
@@ -26913,204 +26852,164 @@ msgid "mobile_screen_share"
 msgstr "mobile_screen_share"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:172
-#, fuzzy
 msgid "mod-breadcrumbs"
-msgstr "mod-brödsmulor"
+msgstr "mod-breadcrumbs"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:183
-#, fuzzy
 msgid "mod-contact-banner"
-msgstr "mod-kontakt-banner"
+msgstr "mod-contact-banner"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:144
-#, fuzzy
 msgid "mod-contacts"
-msgstr "mod-kontakter"
+msgstr "mod-contacts"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:173
-#, fuzzy
 msgid "mod-curator"
-msgstr "mod-kurator"
+msgstr "mod-curator"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:174
-#, fuzzy
 msgid "mod-divider"
 msgstr "mod-divider"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:145
-#, fuzzy
 msgid "mod-fileslist"
-msgstr "mod-fil-lista"
+msgstr "mod-fileslist"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:184
-#, fuzzy
 msgid "mod-form"
 msgstr "mod-form"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:146
-#, fuzzy
 msgid "mod-gallery"
-msgstr "mod-galleri"
+msgstr "mod-gallery"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:175
-#, fuzzy
 msgid "mod-hero"
-msgstr "mod-hjälte"
+msgstr "mod-hero"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:147
-#, fuzzy
 msgid "mod-iframe"
 msgstr "mod-iframe"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:148
-#, fuzzy
 msgid "mod-image"
-msgstr "mod-bild"
+msgstr "mod-image"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:149
-#, fuzzy
 msgid "mod-index"
 msgstr "mod-index"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:150
-#, fuzzy
 msgid "mod-inheritpost"
 msgstr "mod-inheritpost"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:151
-#, fuzzy
 msgid "mod-inlaylist"
 msgstr "mod-inlaylist"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:176
-#, fuzzy
 msgid "mod-logogrid"
 msgstr "mod-logogrid"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:177
-#, fuzzy
 msgid "mod-map"
-msgstr "mod-karta"
+msgstr "mod-map"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:178
-#, fuzzy
 msgid "mod-modal"
-msgstr "modal-modal"
+msgstr "mod-modal"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:152
-#, fuzzy
 msgid "mod-notice"
-msgstr "mod-anmälan"
+msgstr "mod-notice"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:185
-#, fuzzy
 msgid "mod-open-street-map"
-msgstr "mod-öppna-gator-karta"
+msgstr "mod-open-street-map"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:153
-#, fuzzy
 msgid "mod-posts"
-msgstr "mod-inlägg"
+msgstr "mod-posts"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:186
-#, fuzzy
 msgid "mod-products"
-msgstr "mod-produkter"
+msgstr "mod-products"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:187
-#, fuzzy
 msgid "mod-recommend"
-msgstr "mod-rekommendera"
+msgstr "mod-recommend"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:179
-#, fuzzy
 msgid "mod-rss"
 msgstr "mod-rss"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:154
-#, fuzzy
 msgid "mod-script"
 msgstr "mod-script"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:191
-#, fuzzy
 msgid "mod-section-card"
-msgstr "kort med mod-sektion"
+msgstr "mod-section-card"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:190
-#, fuzzy
 msgid "mod-section-featured"
-msgstr "mod-sektion-utmärkta"
+msgstr "mod-section-featured"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:189
-#, fuzzy
 msgid "mod-section-full"
-msgstr "mod-sektion-full"
+msgstr "mod-section-full"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:188
-#, fuzzy
 msgid "mod-section-split"
-msgstr "mod-sektion-split"
+msgstr "mod-section-split"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:180
-#, fuzzy
 msgid "mod-sites"
-msgstr "mod-siter"
+msgstr "mod-sites"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:155
-#, fuzzy
 msgid "mod-slider"
 msgstr "mod-slider"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:156
-#, fuzzy
 msgid "mod-social"
 msgstr "mod-social"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:181
-#, fuzzy
 msgid "mod-spacer"
 msgstr "mod-spacer"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:182
-#, fuzzy
 msgid "mod-subscribe"
-msgstr "mod-prenumeration"
+msgstr "mod-subscribe"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:157
-#, fuzzy
 msgid "mod-table"
-msgstr "mod-tabell"
+msgstr "mod-table"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:192
-#, fuzzy
 msgid "mod-testimonial-card"
-msgstr "mod-attestkort"
+msgstr "mod-testimonial-card"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:143
-#, fuzzy
 msgid "mod-text"
 msgstr "mod-text"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:193
-#, fuzzy
 msgid "mod-timeline"
-msgstr "mod-tidslinje"
+msgstr "mod-timeline"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:158
-#, fuzzy
 msgid "mod-video"
 msgstr "mod-video"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:159
-#, fuzzy
 msgid "mod-wpwidget"
 msgstr "mod-wpwidget"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:205
-#, fuzzy
 msgid "modal-content"
-msgstr "modal-innehåll"
+msgstr "modal-content"
 
 #: library/AcfFields/php/options-menu-icon.php:618
 msgid "mode_comment"
@@ -27266,12 +27165,10 @@ msgid "nature_people"
 msgstr "nature_people"
 
 #: library/AcfFields/php/resource-fields.php:124
-#, fuzzy
 msgid "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
 msgstr "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
 
 #: library/AcfFields/php/resource-fields.php:72
-#, fuzzy
 msgid "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
 msgstr "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
 
@@ -27292,10 +27189,9 @@ msgid "navigation"
 msgstr "navigation"
 
 #: library/AcfFields/php/options-menu-description.php:8
-#, fuzzy
 #| msgid "Navigation items"
 msgid "Navigation item description"
-msgstr "Navigationsobjekt"
+msgstr ""
 
 #: library/AcfFields/php/options-menu-style.php:8
 msgid "Navigation Item Style"
@@ -27352,9 +27248,8 @@ msgid "News"
 msgstr "Nyheter"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:194
-#, fuzzy
 msgid "news"
-msgstr "nyheter"
+msgstr "news"
 
 #: library/AcfFields/php/options-theme-google-translate.php:70
 #| msgid "(above archive posts)"
@@ -27388,10 +27283,8 @@ msgid "No animation"
 msgstr "Ingen animation"
 
 #: library/Customizer/Sections/MegaMenu.php:228
-#, fuzzy
-#| msgid "Hover"
 msgid "No cover"
-msgstr "Hovra"
+msgstr "Utan omslag"
 
 #: library/Controller/BaseController.php:255
 msgid "No items found at this query."
@@ -27491,7 +27384,6 @@ msgid "notifications_paused"
 msgstr "notifications_paused"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:142
-#, fuzzy
 msgid "np-redirect"
 msgstr "np-redirect"
 
@@ -27518,7 +27410,6 @@ msgid "Object Type"
 msgstr "Typ av objekt"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:161
-#, fuzzy
 msgid "oembed_cache"
 msgstr "oembed_cache"
 
@@ -27608,7 +27499,7 @@ msgid "open_with"
 msgstr "open_with"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "Opening hours: %s"
 msgstr "Öppettider: %s"
 
@@ -27626,8 +27517,8 @@ msgid ""
 "font). Simply upload your font in the media library, and it will be "
 "selectable."
 msgstr ""
-"Inställningar för typografi: Den här sektionen stödjer ”Bring your own font”."
-" För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
+"Inställningar för typografi: Den här sektionen stödjer ”Bring your own "
+"font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
 "mediabiblioteket och väljer sedan typsnittet i listan nedan."
 
 #: library/Customizer/Sections/Archive.php:282
@@ -27652,9 +27543,8 @@ msgid "Orientation"
 msgstr "Orientering"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:341
-#, fuzzy
 msgid "Our leisure center"
-msgstr "Vårt fritidscenter"
+msgstr "Our leisure center"
 
 #: library/AcfFields/php/options-menu-icon.php:672
 msgid "outdoor_grill"
@@ -27701,9 +27591,8 @@ msgid "Padding will be applied in 8px increments."
 msgstr "Luft sätts i steg om 8 pixlar."
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:137
-#, fuzzy
 msgid "page"
-msgstr "sida"
+msgstr "page"
 
 #: library/Theme/CustomTemplates.php:36
 msgid "Page (centered)"
@@ -27883,7 +27772,6 @@ msgid "Permalänk"
 msgstr "Permalänk"
 
 #: library/Controller/ContentType/Person.php:18
-#, fuzzy
 msgid "Person"
 msgstr "Person"
 
@@ -27893,7 +27781,6 @@ msgid "person"
 msgstr "person"
 
 #: library/AcfFields/php/resource-fields.php:79
-#, fuzzy
 msgid "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
 msgstr "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
 
@@ -28062,7 +27949,6 @@ msgid "Place"
 msgstr "Plats"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:261
-#, fuzzy
 msgid "Place this post type under \"Pages\" in the admin panel?"
 msgstr "Placera denna inläggstyp under \"Sidor\" i adminpanelen?"
 
@@ -28158,10 +28044,9 @@ msgid "portrait"
 msgstr "portrait"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:136
-#, fuzzy
 #| msgid "post_add"
 msgid "post"
-msgstr "post_add"
+msgstr "post"
 
 #: library/AcfFields/php/options-theme-post-timestamps.php:15
 msgid "Post footer timestamps"
@@ -28200,12 +28085,10 @@ msgid "Post Types"
 msgstr "Posttyper"
 
 #: library/AcfFields/php/resource-fields.php:758
-#, fuzzy
 msgid "Post Types to which this taxonomy should be connected to."
-msgstr "Posttyper som denna taxonomi ska kopplas till."
+msgstr "Post Types to which this taxonomy should be connected to."
 
 #: library/AcfFields/php/resource-fields.php:69
-#, fuzzy
 msgid "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
 msgstr "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
 
@@ -28214,12 +28097,10 @@ msgid "post_add"
 msgstr "post_add"
 
 #: library/AcfFields/php/resource-fields.php:129
-#, fuzzy
 msgid "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
 msgstr "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
 
 #: library/AcfFields/php/resource-fields.php:123
-#, fuzzy
 msgid "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
 msgstr "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
 
@@ -28253,7 +28134,6 @@ msgid "Pre-footer Text alignment"
 msgstr "Textjustering före sidfot"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:195
-#, fuzzy
 msgid "pre-school"
 msgstr "pre-school"
 
@@ -28780,18 +28660,16 @@ msgid "schedule"
 msgstr "schedule"
 
 #: library/Controller/ContentType/School.php:21
-#, fuzzy
 msgid "School"
-msgstr "Skolan"
+msgstr "Skola"
 
 #: library/AcfFields/php/options-menu-icon.php:818
 msgid "school"
 msgstr "school"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:198
-#, fuzzy
 msgid "school-media"
-msgstr "skola-media"
+msgstr "school-media"
 
 #: library/AcfFields/php/options-menu-icon.php:819
 msgid "score"
@@ -28987,10 +28865,9 @@ msgid "Select color source"
 msgstr "Väl färgkälla"
 
 #: library/Admin/Options/ContentType.php:86
-#, fuzzy
 #| msgid "Select font"
 msgid "Select content type"
-msgstr "Välj typsnitt"
+msgstr "Välj innehållstyp"
 
 #: library/Customizer/Sections/Archive.php:334
 msgid "Select decending or ascending order."
@@ -29019,12 +28896,9 @@ msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
 #: library/AcfFields/php/options-content-types.php:43
-#, fuzzy
 #| msgid "Check to <u>not</u> use the custom template for this post type."
 msgid "Select to override the default post template for this post type."
 msgstr ""
-"Markera för att <u>inte</u> använda den anpassade mallen för den här "
-"inläggstypen."
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:129
 msgid "Select where to place this custom post type admin section."
@@ -29032,7 +28906,7 @@ msgstr "Välj var inläggstypen ska ligga i amdinistrationsmenyn."
 
 #: library/Customizer/Sections/Menu.php:102
 msgid "Select which screen sizes the drawer menu should be visible on."
-msgstr "Välj på vilka skärmstorlekar den utfällbara menyn ska visas. "
+msgstr "Välj på vilka skärmstorlekar den utfällbara menyn ska visas."
 
 #: library/AcfFields/php/widget-header-menu.php:12
 msgid "Select WP menu"
@@ -29071,9 +28945,8 @@ msgid "sentiment_very_satisfied"
 msgstr "sentiment_very_satisfied"
 
 #: library/AcfFields/php/options-theme-google-translate.php:130
-#, fuzzy
 msgid "Seperate the words with a comma"
-msgstr "Separera orden med ett kommatecken"
+msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:208
 msgid "Set the maximum page withs of different page types."
@@ -29106,7 +28979,7 @@ msgstr "Ställer in stilen för huvudobjekten"
 
 #: library/Customizer/PanelsRegistry.php:288
 msgid "Settings for Open Street Maps."
-msgstr "Inställningar för Open Street Map"
+msgstr "Inställningar för Open Street Map."
 
 #: library/Customizer/PanelsRegistry.php:305
 msgid "Settings for the slider in the hero area."
@@ -29242,9 +29115,8 @@ msgid "Show featured image in single template"
 msgstr "Visa utvald bild i singel-template"
 
 #: library/AcfFields/php/options-menu-mega.php:67
-#, fuzzy
 msgid "Show icon after label"
-msgstr "Visa ikon efter etikett"
+msgstr "Visa ikon"
 
 #: library/AcfFields/php/resource-fields.php:429
 #: library/AcfFields/php/resource-fields.php:944
@@ -29281,10 +29153,9 @@ msgid "Show subitems as dropdown in main menu"
 msgstr "Visa undermenyalternativ i en dropdown"
 
 #: library/AcfFields/php/options-page-display.php:31
-#, fuzzy
 #| msgid "New title"
 msgid "Show title"
-msgstr "Ny titel"
+msgstr "Visa titel"
 
 #: library/AcfFields/php/options-page-display.php:42
 #, fuzzy
@@ -29546,7 +29417,6 @@ msgid "spellcheck"
 msgstr "spellcheck"
 
 #: library/AcfFields/php/resource-fields.php:84
-#, fuzzy
 msgid "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
 msgstr "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
 
@@ -29887,7 +29757,7 @@ msgstr "Tabbmeny - Typ"
 
 #: library/Customizer/Sections/Tags.php:38
 msgid "Tag icon"
-msgstr "Vilket utseende taggar ska ha."
+msgstr "Ikon för tagg"
 
 #: library/Customizer/Sections/Tags.php:12
 msgid "Tag styling"
@@ -29946,7 +29816,6 @@ msgid "Taxonomy"
 msgstr "Taxonomi"
 
 #: library/AcfFields/php/resource-fields.php:664
-#, fuzzy
 msgid "Taxonomy Arguments"
 msgstr "Argument för taxonomi"
 
@@ -29955,14 +29824,12 @@ msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
 #: library/AcfFields/php/resource-fields.php:694
-#, fuzzy
 msgid "Taxonomy key"
-msgstr "Taxonomisk nyckel"
+msgstr "Taxonominyckel"
 
 #: library/AcfFields/php/resource-fields.php:101
-#, fuzzy
 msgid "Taxonomy Source"
-msgstr "Taxonomi Källa"
+msgstr "Källa"
 
 #: library/Admin/Options/ContentType.php:92
 msgid "Template"
@@ -29986,10 +29853,9 @@ msgid "Text"
 msgstr "Text"
 
 #: library/AcfFields/php/options-theme-google-translate.php:100
-#, fuzzy
 #| msgid "textsms"
 msgid "text"
-msgstr "textsms"
+msgstr "text"
 
 #: library/Customizer/Sections/SliderHero.php:65
 #: library/Customizer/Sections/FooterMain.php:111
@@ -30144,7 +30010,6 @@ msgid "The password entered is not correct."
 msgstr "Lösenordet är inte korrekt."
 
 #: library/AcfFields/php/resource-fields.php:481
-#, fuzzy
 msgid ""
 "The position in the menu order the post type should appear. show_in_menu "
 "must be true."
@@ -30414,9 +30279,8 @@ msgstr "Typ av knapp"
 #: library/AcfFields/php/resource-fields.php:558
 #: library/AcfFields/php/resource-fields.php:976
 #: library/AcfFields/php/resource-fields.php:1022
-#, fuzzy
 msgid "Triggers the handling of rewrites for this post type."
-msgstr "Utlöser hanteringen av omskrivningar för denna posttyp."
+msgstr "Hantering av url-omskrivningar för denna posttyp."
 
 #: library/AcfFields/php/options-menu-icon.php:1003
 msgid "trip_origin"
@@ -30510,7 +30374,7 @@ msgid ""
 msgstr ""
 "Ladda upp ett emblem i SVG format.\n"
 "            Emblemet används för att förstärka webbplatsens varumärke, när "
-"ett dottervarumärke används. "
+"ett dottervarumärke används."
 
 #: library/AcfFields/php/widget-media.php:12
 msgid "Upload image"
@@ -30558,10 +30422,8 @@ msgid "Use"
 msgstr "Använd"
 
 #: library/AcfFields/php/options-content-types.php:52
-#, fuzzy
-#| msgid "Do not use purpose template"
 msgid "Use content type template"
-msgstr "Använd inte anpassad mall"
+msgstr "Använd anpassad mall"
 
 #: library/Customizer/Sections/Menu.php:64
 #| msgid "Use page tree as fallback for mobile menu"
@@ -30581,10 +30443,9 @@ msgid "Use page tree as fallback for secondary menu"
 msgstr "Använd sidträd som reserv för sekundärmeny"
 
 #: library/AcfFields/php/options-content-types.php:39
-#, fuzzy
 #| msgid "Purpose templates"
 msgid "Use template"
-msgstr "Innehållssyfte"
+msgstr "Använd anpassad mall"
 
 #: library/Customizer/Sections/Typography.php:112
 msgid "Use the same font as base but preferably with a higher font weight"
@@ -30599,7 +30460,6 @@ msgid "Useful links"
 msgstr "Användbara länkar"
 
 #: library/AcfFields/php/resource-fields.php:130
-#, fuzzy
 msgid "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
 msgstr "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
 
@@ -30608,7 +30468,6 @@ msgid "user_request"
 msgstr "user_request"
 
 #: library/AcfFields/php/resource-fields.php:126
-#, fuzzy
 msgid "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
 msgstr "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
 
@@ -30747,14 +30606,12 @@ msgid "visibility_off"
 msgstr "visibility_off"
 
 #: library/Controller/BaseController.php:272
-#, fuzzy
 msgid "Visit"
 msgstr "Besök"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:257
-#, fuzzy
 msgid "Visit us"
-msgstr "Besök oss på"
+msgstr "Besök oss"
 
 #: library/Helper/ContentTypePlace.php:38
 msgid "Visit website"
@@ -30769,12 +30626,10 @@ msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:407
-#, fuzzy
 msgid "Visiting address"
 msgstr "Besöksadress"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:408
-#, fuzzy
 msgid "Visiting addresses"
 msgstr "Besöksadresser"
 
@@ -30960,7 +30815,6 @@ msgstr "Var Google Translate ska visas"
 
 #: library/AcfFields/php/resource-fields.php:433
 #: library/AcfFields/php/resource-fields.php:948
-#, fuzzy
 msgid ""
 "Where to show the post type in the admin bar. show_in_menu must be true."
 msgstr ""
@@ -30968,7 +30822,6 @@ msgstr ""
 
 #: library/AcfFields/php/resource-fields.php:405
 #: library/AcfFields/php/resource-fields.php:920
-#, fuzzy
 msgid "Where to show the post type in the admin menu. show_ui must be true."
 msgstr "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
 
@@ -30992,7 +30845,6 @@ msgstr "Om post_type är tillgänglig för val i navigeringsmenyer."
 
 #: library/AcfFields/php/resource-fields.php:365
 #: library/AcfFields/php/resource-fields.php:880
-#, fuzzy
 msgid ""
 "Whether queries can be performed on the front end as part of parse_request()."
 msgstr ""
@@ -31026,7 +30878,6 @@ msgstr "Om inläggstypen ska exkluderas från sökresultat."
 
 #: library/AcfFields/php/resource-fields.php:305
 #: library/AcfFields/php/resource-fields.php:840
-#, fuzzy
 msgid "Whether to generate a default UI for managing this post type."
 msgstr ""
 "Huruvida ett standardgränssnitt ska genereras för hantering av denna "
@@ -31106,7 +30957,7 @@ msgstr "wifi_tethering"
 
 #: library/AcfFields/php/term-icon-and-colour.php:2304
 msgid "Will default to \"Select <name of taxonomy>\"."
-msgstr "Som standard visas \"Välj (namn på kategoritypen)\""
+msgstr "Som standard visas \"Välj (namn på kategoritypen)\"."
 
 #: library/AcfFields/php/resource-fields.php:600
 #: library/AcfFields/php/resource-fields.php:1064
@@ -31131,47 +30982,38 @@ msgid "work_outline"
 msgstr "work_outline"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:163
-#, fuzzy
 msgid "wp_block"
 msgstr "wp_block"
 
 #: library/AcfFields/php/resource-fields.php:73
-#, fuzzy
 msgid "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
 msgstr "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:166
-#, fuzzy
 msgid "wp_global_styles"
 msgstr "wp_global_styles"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:167
-#, fuzzy
 msgid "wp_navigation"
 msgstr "wp_navigation"
 
 #: library/AcfFields/php/resource-fields.php:76
-#, fuzzy
 msgid "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
 msgstr "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:164
-#, fuzzy
 msgid "wp_template"
 msgstr "wp_template"
 
 #: library/AcfFields/php/resource-fields.php:74
-#, fuzzy
 msgid "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
 msgstr "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:165
-#, fuzzy
 msgid "wp_template_part"
 msgstr "wp_template_part"
 
 #: library/AcfFields/php/resource-fields.php:75
-#, fuzzy
 msgid ""
 "wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts"
 msgstr ""
