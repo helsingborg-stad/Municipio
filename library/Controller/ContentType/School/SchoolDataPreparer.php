@@ -222,7 +222,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             } else {
                 $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->LeisureCenter);
             }
-g
+
             $quickFacts[] = ['label' => $label];
         }
 
