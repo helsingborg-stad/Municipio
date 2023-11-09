@@ -286,6 +286,19 @@ g
                 'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url ?? $defaultApplicationData['howToApply']['url']
             ],
         ];
+
+        if( 
+            !empty($this->postMeta->ctaApplication->cta_apply_here) && 
+            empty($this->postMeta->ctaApplication->cta_how_to_apply) 
+        ) {
+            $this->data['application']['howToApply'] = false;
+        }
+        if( 
+            empty($this->postMeta->ctaApplication->cta_apply_here) && 
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply) 
+        ) {
+            $this->data['application']['apply'] = false;
+        }
     }
 
     private function getDefaultApplicationData(string $postType): array
