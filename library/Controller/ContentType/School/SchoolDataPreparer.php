@@ -201,8 +201,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $open = substr($this->postMeta->openHours->open, 0, -2);
-            $close = substr($this->postMeta->openHours->close, 0, -2);
+            $open = $this->postMeta->openHours->open;
+            $close = $this->postMeta->openHours->close;
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -220,9 +220,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 $timeString = "$open - $close";
                 $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
             } else {
-                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->openHoursLeisureCenter);
+                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->LeisureCenter);
             }
-
+g
             $quickFacts[] = ['label' => $label];
         }
 
