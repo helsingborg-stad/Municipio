@@ -220,7 +220,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 $timeString = "$open - $close";
                 $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
             } else {
-                $label = sprintf(__('Leisure center', 'municipio'), $this->postMeta->LeisureCenter);
+                $label = __('Leisure center', 'municipio');
             }
 
             $quickFacts[] = ['label' => $label];
