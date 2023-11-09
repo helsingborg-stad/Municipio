@@ -185,9 +185,13 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getPostTypeArguments($resource->ID);
             $name = $this->getPostTypeName($resource->ID);
             $resourceID = $resource->ID;
-            $collectionUrl = self::getCollectionUrl($resourceID, 'postType');
+            
+            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
+            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $collectionUrl = $resourceUrl . $baseName;
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
     }
 
@@ -202,9 +206,12 @@ class ResourceRegistry implements ResourceRegistryInterface
             $arguments = $this->getTaxonomyArguments($resource->ID);
             $name = $this->getTaxonomyName($resource->ID);
             $resourceID = $resource->ID;
-            $collectionUrl = self::getCollectionUrl($resourceID, 'taxonomy');
+            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
+            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $collectionUrl = $resourceUrl . $baseName;
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl];
+            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
     }
 
@@ -229,22 +236,6 @@ class ResourceRegistry implements ResourceRegistryInterface
         }
 
         return get_field('post_type_arguments', $resourceId) ?? [];
-    }
-
-    private function getCollectionUrl(int $resourceId, string $type = 'postType'): ?string
-    {
-        if (!function_exists('get_field')) {
-            return null;
-        }
-
-        $fieldName = $type === 'postType' ? 'post_type_source' : 'taxonomy_source';
-        $resourceUrl = get_field($fieldName, $resourceId);
-
-        if (empty($resourceUrl)) {
-            return null;
-        }
-
-        return $resourceUrl;
     }
 
     public function getTaxonomyArguments(int $resourceId): array {

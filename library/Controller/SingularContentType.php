@@ -34,6 +34,8 @@ class SingularContentType extends \Municipio\Controller\Singular
          */
         $contentType->addHooks();
         
+        
+
         /**
          * If the content type has secondary content types, initate hooks for each of them.
          * 
