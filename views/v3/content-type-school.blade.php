@@ -228,7 +228,7 @@
             @endforeach
         @endslider
     @elseif($video)
-        {{ $video }}}
+        {!!$video!!}
     @endif
 
     @if ($pages)
