@@ -251,7 +251,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (!empty($quickFacts)) {
-            $this->data['quickFactsTitle'] = __('Facts', 'municipio');
+            $this->data['quickFactsTitle'] = __('Quick facts', 'municipio');
             $this->data['quickFacts'] = $quickFacts;
         }
     }
