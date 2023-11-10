@@ -296,7 +296,7 @@ class BaseController
                 'visit' => __('Visit', 'municipio'),
             ];
             
-            return array_merge((array) $obj, $lang);
+            return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
         
 

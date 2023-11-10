@@ -44,7 +44,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             return null;
         }
 
-        if (is_array($postFromApi)) {
+        if (is_array($postFromApi) && !empty($postFromApi)) {
             return self::convertRestApiPostToWPPost($postFromApi[0], $resource);
         } else if (is_object($postFromApi)) {
             return self::convertRestApiPostToWPPost($postFromApi, $resource);

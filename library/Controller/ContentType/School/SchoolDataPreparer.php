@@ -201,8 +201,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $open = $this->postMeta->openHours->open;
-            $close = $this->postMeta->openHours->close;
+
+            $open = wp_date('H:i', strtotime($this->postMeta->openHours->open));
+            $close = wp_date('H:i', strtotime($this->postMeta->openHours->close));
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -213,8 +214,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
 
-            $open = $this->postMeta->openHoursLeisureCenter->open;
-            $close = $this->postMeta->openHoursLeisureCenter->close;
+            $open = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open));
+            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close));
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -477,13 +478,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendImagesData(): void
     {
+        $mapAttachmentToId = fn($attachment) => $attachment->image->id;
+
         if( !empty($this->postMeta->facadeImages) ) {
-            $facadeAttachmentIds = array_map(fn($facadeImage) => $facadeImage[0]->image->id ,$this->postMeta->facadeImages );
+            $facadeAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->facadeImages[0] );
 
             $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $facadeAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 
@@ -491,13 +495,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
 
-        if( !empty($this->postMeta->gallery) ) {
-            $galleryAttachmentIds = array_map(fn($galleryImage) => $galleryImage->image->id ,$this->postMeta->gallery );
+        if (!empty($this->postMeta->gallery)) {
+            $galleryAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->gallery[0] );
 
             $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $galleryAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 
