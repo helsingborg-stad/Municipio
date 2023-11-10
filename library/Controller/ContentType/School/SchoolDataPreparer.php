@@ -477,13 +477,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendImagesData(): void
     {
+        $mapAttachmentToId = fn($attachment) => $attachment->image->id;
+
         if( !empty($this->postMeta->facadeImages) ) {
-            $facadeAttachmentIds = array_map(fn($facadeImage) => $facadeImage[0]->image->id ,$this->postMeta->facadeImages );
+            $facadeAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->facadeImages[0] );
 
             $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $facadeAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 
@@ -491,13 +494,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
 
-        if( !empty($this->postMeta->gallery) ) {
-            $galleryAttachmentIds = array_map(fn($galleryImage) => $galleryImage->image->id ,$this->postMeta->gallery );
+        if (!empty($this->postMeta->gallery)) {
+            $galleryAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->gallery[0] );
 
             $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $galleryAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 
