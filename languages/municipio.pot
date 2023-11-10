@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-10 11:19+0000\n"
+"POT-Creation-Date: 2023-11-10 13:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "%s profiles"
 msgstr ""
 
-#: library/Helper/ContentType.php:221
+#: library/Helper/ContentType.php:224
 #, php-format
 msgid ""
 "%s tried to add %s as a secondary content type. Complex content types cannot "
@@ -15010,7 +15010,7 @@ msgstr ""
 msgid "A short descriptive summary of what the post type is."
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:313
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:317
 msgid "About the school"
 msgstr ""
 
@@ -15520,7 +15520,7 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:276
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
 msgid "Are you interested in applying?"
 msgstr ""
 
@@ -17222,6 +17222,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:608
+#, php-format
+msgid "Date and time: %s at %s"
+msgstr ""
+
 #: library/Customizer/Sections/Archive.php:387
 msgid "Date badge"
 msgstr ""
@@ -17934,7 +17939,7 @@ msgstr ""
 msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:601
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
 msgid "Events"
 msgstr ""
 
@@ -18286,7 +18291,7 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:391
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:395
 msgid "Find directions"
 msgstr ""
 
@@ -18400,7 +18405,7 @@ msgstr ""
 msgid "folder_special"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:473
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:477
 msgid "Follow us in social media"
 msgstr ""
 
@@ -18656,7 +18661,7 @@ msgstr ""
 msgid "gesture"
 msgstr ""
 
-#: library/Helper/Location.php:79
+#: library/Helper/Location.php:82
 msgid "Get directions on Google Maps"
 msgstr ""
 
@@ -19093,7 +19098,7 @@ msgstr ""
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:320
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:324
 msgid "How we work"
 msgstr ""
 
@@ -19617,11 +19622,11 @@ msgstr ""
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:224
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:228
 msgid "Leisure center"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:222
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:226
 #, php-format
 msgid "Leisure center: %s"
 msgstr ""
@@ -20976,7 +20981,7 @@ msgstr ""
 msgid "open_with"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:210
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:212
 #, php-format
 msgid "Opening hours: %s"
 msgstr ""
@@ -21012,11 +21017,11 @@ msgstr ""
 msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:327
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:331
 msgid "Orientation"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:334
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:338
 msgid "Our leisure center"
 msgstr ""
 
@@ -21783,7 +21788,7 @@ msgstr ""
 msgid "queue_play_next"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:254
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:258
 msgid "Quick facts"
 msgstr ""
 
@@ -21828,7 +21833,7 @@ msgstr ""
 
 #: library/Controller/BaseController.php:264
 #: library/Controller/BaseController.php:280
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:445
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:449
 msgid "Read more"
 msgstr ""
 
@@ -24022,7 +24027,7 @@ msgstr ""
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:265
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:269
 msgid "Visit us"
 msgstr ""
 
@@ -24038,11 +24043,11 @@ msgstr ""
 msgid "Visited hover"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:400
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:404
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:401
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:405
 msgid "Visiting addresses"
 msgstr ""
 

@@ -569,9 +569,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         foreach($events as $event) {
+            
             $title = $event->post_title;
             $text = $event->post_content;
             $occasions = WP::getField('occasions', $event->ID, true);
+
 
             if (empty($occasions) || empty($text) || empty($text)) {
                 continue;
@@ -587,8 +589,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 continue;
             }
 
-            $time = strtotime($firstOccation[0]->start_date);
-            $date = date('Y-m-d', $time);
+            $timestamp = strtotime($firstOccation[0]->start_date);
+            $time = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
+            $date = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
+            $dateLong = wp_date(get_option( 'date_format' ), $timestamp, new \DateTimeZone('GMT'));
 
             if( $this->data['events'] === null ) {
                 $this->data['events'] = [];
@@ -597,7 +601,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $this->data['events'][] = [
                 'title' => $title,
                 'text' => $text,
-                'date' => $date
+                'date' => $date,
+                'time' => $time,
+                'dateAndTime' => 
+                sprintf(
+                    __("Date and time: %s at %s", 'municipio'),
+                    $dateLong,
+                    $time
+                )
             ];
         }
 
