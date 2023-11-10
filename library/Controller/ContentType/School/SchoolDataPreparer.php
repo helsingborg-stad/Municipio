@@ -477,8 +477,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendImagesData(): void
     {
+        $mapAttachmentToId = fn($attachment) => $attachment->image->id;
+
         if( !empty($this->postMeta->facadeImages) ) {
-            $facadeAttachmentIds = array_map(fn($facadeImage) => $facadeImage->image->id ,$this->postMeta->facadeImages[0] );
+            $facadeAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->facadeImages[0] );
 
             $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
@@ -493,7 +495,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             : null;
 
         if (!empty($this->postMeta->gallery)) {
-            $galleryAttachmentIds = array_map(fn($galleryImage) => $galleryImage->image->id ,$this->postMeta->gallery[0] );
+            $galleryAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->gallery[0] );
 
             $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,

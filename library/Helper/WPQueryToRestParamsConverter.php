@@ -124,13 +124,11 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
 
     private static function mapOrderBy(string $orderBy): string
     {
-
-        switch ($orderBy) {
-            case 'post__in':
-                return 'include';
-            default:
-                return $orderBy;
+        if ($orderBy === 'post__in') {
+            $orderBy = 'include';
         }
+
+        return $orderBy;
     }
 
     /**
