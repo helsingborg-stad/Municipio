@@ -483,7 +483,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $facadeAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 
@@ -497,7 +498,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
                 'post_type' => self::MEDIA_POST_TYPE,
                 'post__in' => $galleryAttachmentIds,
-                'suppress_filters' => false
+                'suppress_filters' => false,
+                'orderby' => 'post__in'
             ]) : [];
         }
 

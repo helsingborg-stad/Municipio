@@ -98,7 +98,7 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
                 break;
             case 'orderby':
                 if (is_string($value)) {
-                    $restQuery['orderby'] = $value;
+                    $restQuery['orderby'] = self::mapOrderBy($value);
                 }
                 break;
             case 's':
@@ -120,6 +120,17 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
         }
 
         return $restQuery;
+    }
+
+    private static function mapOrderBy(string $orderBy): string
+    {
+
+        switch ($orderBy) {
+            case 'post__in':
+                return 'include';
+            default:
+                return $orderBy;
+        }
     }
 
     /**
