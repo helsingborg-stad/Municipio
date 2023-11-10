@@ -201,8 +201,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $open = $this->postMeta->openHours->open;
-            $close = $this->postMeta->openHours->close;
+
+            $open = wp_date('H:i', strtotime($this->postMeta->openHours->open));
+            $close = wp_date('H:i', strtotime($this->postMeta->openHours->close));
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -213,8 +214,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
 
-            $open = $this->postMeta->openHoursLeisureCenter->open;
-            $close = $this->postMeta->openHoursLeisureCenter->close;
+            $open = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open));
+            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close));
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
