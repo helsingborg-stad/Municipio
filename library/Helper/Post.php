@@ -201,6 +201,17 @@ class Post
             $postObject->post_title_filtered = apply_filters('the_title', $postObject->post_title, $postObject->ID);
         }
 
+        //Set time formats
+        $postObject->post_time      = wp_date(
+            \Municipio\Helper\DateFormat::getDateFormat('time'), strtotime($postObject->post_date)
+        );
+        $postObject->post_date_time = wp_date(
+            \Municipio\Helper\DateFormat::getDateFormat('date-time'), strtotime($postObject->post_date)
+        );
+        $postObject->post_date      = wp_date(
+            \Municipio\Helper\DateFormat::getDateFormat('date'), strtotime($postObject->post_date)
+        );
+
         //Get post tumbnail image
         $postObject->thumbnail          = self::getFeaturedImage($postObject->ID, [400, 225]);
         $postObject->thumbnail_tall     = self::getFeaturedImage($postObject->ID, [390, 520]);
