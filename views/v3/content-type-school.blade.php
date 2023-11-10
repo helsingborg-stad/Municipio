@@ -2,10 +2,6 @@
 
 @section('article.title.after')
 
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
-    @endif
-
     @if ($notification)
         @notice([
             'type' => 'warning',
@@ -15,6 +11,10 @@
             ]
         ])
         @endnotice
+    @endif
+
+    @if ($post->postExcerpt)
+        {!! $post->postExcerpt !!}
     @endif
 
     @if ($facadeSliderItems)
