@@ -155,8 +155,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
             $gradeTerms = get_terms([
                 'taxonomy' => self::GRADE_TAXONOMY,
-                'include' => $this->postMeta->grades,
-                'hide_empty' => false
+                'include' => $this->postMeta->grades[0],
+                'hide_empty' => true
             ]);
 
             if (!empty($gradeTerms)) {
