@@ -10,6 +10,7 @@ class ResourceRegistry implements ResourceRegistryInterface
 {
     public static ?object $registry = null;
     private string $resourcePostTypeName = 'api-resource';
+    private static $resourceIdRangeStart = 100;
 
     public function __construct()
     {
@@ -94,8 +95,7 @@ class ResourceRegistry implements ResourceRegistryInterface
 
             if (
                 empty($postType->name) ||
-                empty($postType->arguments) ||
-                empty($postType->resourceID)
+                empty($postType->arguments)
             ) {
                 continue;
             }
@@ -104,6 +104,7 @@ class ResourceRegistry implements ResourceRegistryInterface
             $registrar->register($postType->name, $postType->arguments);
 
             if ($registrar->isRegistered()) {
+                $postType->resourceID = $this->getNewResourceID();
                 self::$registry->postTypes[] = $postType;
             }
         }
@@ -158,8 +159,7 @@ class ResourceRegistry implements ResourceRegistryInterface
 
             if (
                 empty($taxonomy->name) ||
-                empty($taxonomy->arguments) ||
-                empty($taxonomy->resourceID)
+                empty($taxonomy->arguments)
             ) {
                 continue;
             }
@@ -168,6 +168,7 @@ class ResourceRegistry implements ResourceRegistryInterface
             $registrar->register($taxonomy->name, $taxonomy->arguments);
 
             if ($registrar->isRegistered()) {
+                $taxonomy->resourceID = $this->getNewResourceID();
                 self::$registry->taxonomies[] = $taxonomy;
             }
         }
@@ -184,15 +185,24 @@ class ResourceRegistry implements ResourceRegistryInterface
         return array_map(function ($resource) {
             $arguments = $this->getPostTypeArguments($resource->ID);
             $name = $this->getPostTypeName($resource->ID);
-            $resourceID = $resource->ID;
+            $resourcePostId = $resource->ID;
             
-            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
-            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
-            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $resourceUrl = get_post_meta($resourcePostId, 'api_resource_url', true);
+            $originalName = get_post_meta($resourcePostId, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourcePostId, 'api_resource_base_name', true);
             $collectionUrl = $resourceUrl . $baseName;
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
+            return (object)['name' => $name, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
+    }
+
+    private function getNewResourceID():int {
+        $postTypesSize = sizeof(self::$registry->postTypes);
+        $taxonomiesSize = sizeof(self::$registry->taxonomies);
+        $attachmentsSize = sizeof(self::$registry->attachments);
+
+        $currentSize = $postTypesSize + $taxonomiesSize + $attachmentsSize;
+        return self::$resourceIdRangeStart + $currentSize + 1;
     }
 
     private function getTaxonomies(): array {
@@ -205,13 +215,13 @@ class ResourceRegistry implements ResourceRegistryInterface
         return array_map(function ($resource) {
             $arguments = $this->getTaxonomyArguments($resource->ID);
             $name = $this->getTaxonomyName($resource->ID);
-            $resourceID = $resource->ID;
-            $resourceUrl = get_post_meta($resourceID, 'api_resource_url', true);
-            $originalName = get_post_meta($resourceID, 'api_resource_original_name', true);
-            $baseName = get_post_meta($resourceID, 'api_resource_base_name', true);
+            $resourcePostId = $resource->ID;
+            $resourceUrl = get_post_meta($resourcePostId, 'api_resource_url', true);
+            $originalName = get_post_meta($resourcePostId, 'api_resource_original_name', true);
+            $baseName = get_post_meta($resourcePostId, 'api_resource_base_name', true);
             $collectionUrl = $resourceUrl . $baseName;
 
-            return (object)['name' => $name, 'resourceID' => $resourceID, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
+            return (object)['name' => $name, 'arguments' => $arguments, 'collectionUrl' => $collectionUrl, 'originalName' => $originalName, 'baseName' => $baseName];
         }, $resources);
     }
 
