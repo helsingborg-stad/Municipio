@@ -2,10 +2,6 @@
 
 @section('article.title.after')
 
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
-    @endif
-
     @if ($notification)
         @notice([
             'type' => 'warning',
@@ -15,6 +11,10 @@
             ]
         ])
         @endnotice
+    @endif
+
+    @if ($post->postExcerpt)
+        {!! $post->postExcerpt !!}
     @endif
 
     @if ($facadeSliderItems)
@@ -65,8 +65,11 @@
                         ])
                         @enddatebadge
                     @endslot
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'h3'])
                         {{ $event['title'] }}
+                    @endtypography
+                    @typography(['classList' => ['u-padding__bottom--2', 'u-padding__top-2']])
+                        {{ $event['dateAndTime'] }}
                     @endtypography
                     {!! $event['text'] !!}
                 @endcollection__item

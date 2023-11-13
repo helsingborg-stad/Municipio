@@ -155,8 +155,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
             $gradeTerms = get_terms([
                 'taxonomy' => self::GRADE_TAXONOMY,
-                'include' => $this->postMeta->grades,
-                'hide_empty' => false
+                'include' => $this->postMeta->grades[0],
+                'hide_empty' => true
             ]);
 
             if (!empty($gradeTerms)) {
@@ -202,8 +202,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
 
-            $open = wp_date('H:i', strtotime($this->postMeta->openHours->open));
-            $close = wp_date('H:i', strtotime($this->postMeta->openHours->close));
+            $timezone = new \DateTimeZone( 'GMT' );
+
+            $open = wp_date('H:i', strtotime($this->postMeta->openHours->open), $timezone);
+            $close = wp_date('H:i', strtotime($this->postMeta->openHours->close), $timezone);
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -213,9 +215,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
+            
+            $timezone = new \DateTimeZone( 'GMT' );
 
-            $open = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open));
-            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close));
+            $open = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open), $timezone );
+            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close), $timezone );
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
@@ -251,7 +255,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (!empty($quickFacts)) {
-            $this->data['quickFactsTitle'] = __('Facts', 'municipio');
+            $this->data['quickFactsTitle'] = __('Quick facts', 'municipio');
             $this->data['quickFacts'] = $quickFacts;
         }
     }
@@ -565,9 +569,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         foreach($events as $event) {
+            
             $title = $event->post_title;
             $text = $event->post_content;
             $occasions = WP::getField('occasions', $event->ID, true);
+
 
             if (empty($occasions) || empty($text) || empty($text)) {
                 continue;
@@ -583,8 +589,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 continue;
             }
 
-            $time = strtotime($firstOccation[0]->start_date);
-            $date = date('Y-m-d', $time);
+            $timestamp = strtotime($firstOccation[0]->start_date);
+            $time = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
+            $date = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
+            $dateLong = wp_date(get_option( 'date_format' ), $timestamp, new \DateTimeZone('GMT'));
 
             if( $this->data['events'] === null ) {
                 $this->data['events'] = [];
@@ -593,7 +601,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $this->data['events'][] = [
                 'title' => $title,
                 'text' => $text,
-                'date' => $date
+                'date' => $date,
+                'time' => $time,
+                'dateAndTime' => 
+                sprintf(
+                    __("Date and time: %s at %s", 'municipio'),
+                    $dateLong,
+                    $time
+                )
             ];
         }
 

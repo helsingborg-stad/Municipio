@@ -14,6 +14,9 @@ class Location
     public static function addLocationDataToPosts(array $posts): array
     {
         foreach ($posts as &$_post) {
+            if(!isset($_post->id) || empty($_post->id)) {
+                continue;
+            }
             $location = get_field("location", $_post->id);
             if (!empty($location) && !empty($location["lat"]) && !empty($location["lng"])) {
                 $_post->location = $location;

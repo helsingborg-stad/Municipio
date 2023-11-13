@@ -118,6 +118,9 @@ class ContentType
     private static function checkMainContentType(array $contentType, string $contentTypeToCheckFor): bool
     {
         foreach ($contentType as $item) {
+            if(!is_object($item) || empty($item->key)) {
+                continue;
+            }
             if ($contentTypeToCheckFor === $item->key) {
                 return true;
             }

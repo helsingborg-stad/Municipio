@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-10 07:31+0000\n"
-"Last-Translator: Anna Johansson\n"
+"PO-Revision-Date: 2023-11-10 13:46+0000\n"
+"Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "%d avdelningar"
 msgid "%s profiles"
 msgstr "%s profiler"
 
-#: library/Helper/ContentType.php:221
+#: library/Helper/ContentType.php:224
 #, php-format
 msgid ""
 "%s tried to add %s as a secondary content type. Complex content types cannot "
@@ -21434,7 +21434,7 @@ msgstr "Ett marginalblock"
 msgid "A short descriptive summary of what the post type is."
 msgstr "En kort beskrivande sammanfattning av vad inläggstypen är."
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:312
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:317
 msgid "About the school"
 msgstr "Om oss"
 
@@ -21956,7 +21956,7 @@ msgstr "Arkivnavigering"
 msgid "Archives"
 msgstr "Arkiv"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:275
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
 msgid "Are you interested in applying?"
 msgstr "Är du intresserad av att ansöka?"
 
@@ -22967,6 +22967,8 @@ msgstr "Välj de format som du vill aktivera"
 msgid ""
 "Check to <u>not</u> use the custom content type template for this post type."
 msgstr ""
+"Välj denna för att <u>inte</u> använda innehållstypens anpassade mall på "
+"denna posttyp."
 
 #: library/AcfFields/php/options-menu-icon.php:204
 msgid "check_box"
@@ -23673,6 +23675,11 @@ msgstr ""
 #: library/Customizer/Sections/Archive.php:385
 msgid "Date"
 msgstr "Datum"
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:608
+#, php-format
+msgid "Date and time: %s at %s"
+msgstr "Datum och tid: %s kl. %s"
 
 #: library/Customizer/Sections/Archive.php:387
 msgid "Date badge"
@@ -24406,7 +24413,7 @@ msgstr "event_seat"
 msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
 msgstr "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:596
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
 msgid "Events"
 msgstr "Evenemang"
 
@@ -24546,10 +24553,6 @@ msgstr "Url till Facebook-profil"
 #: library/Customizer/Sections/Archive.php:277
 msgid "Facetting type"
 msgstr "Filtreringsbeteende"
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:253
-msgid "Facts"
-msgstr "Fakta"
 
 #: library/AcfFields/php/options-menu-icon.php:351
 msgid "fast_forward"
@@ -24763,7 +24766,7 @@ msgstr "filter_vintage"
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:390
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:395
 msgid "Find directions"
 msgstr "Hitta vägbeskrivningar"
 
@@ -24877,7 +24880,7 @@ msgstr "folder_shared"
 msgid "folder_special"
 msgstr "folder_special"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:472
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:477
 msgid "Follow us in social media"
 msgstr "Följ oss i sociala medier"
 
@@ -25133,7 +25136,7 @@ msgstr "Generella inställningar"
 msgid "gesture"
 msgstr "gesture"
 
-#: library/Helper/Location.php:79
+#: library/Helper/Location.php:82
 msgid "Get directions on Google Maps"
 msgstr "Få vägbeskrivning via Google Maps"
 
@@ -25574,7 +25577,7 @@ msgstr "Hur texten i kolumnerna ska justeras."
 msgid "How to align the text in the pre-footer."
 msgstr "Hur texten före sidfoten ska justeras."
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:319
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:324
 msgid "How we work"
 msgstr "Så arbetar vi"
 
@@ -26110,14 +26113,14 @@ msgstr "Vänster sidofält (övre sektion)"
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:223
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:228
 msgid "Leisure center"
-msgstr "Fritidscenter"
+msgstr "Fritidshem"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:221
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:226
 #, php-format
 msgid "Leisure center: %s"
-msgstr "Fritidscenter: %s"
+msgstr "Fritidshem: %s"
 
 #: library/AcfFields/php/options-menu-icon.php:537
 msgid "lens"
@@ -27478,7 +27481,7 @@ msgstr "open_in_new"
 msgid "open_with"
 msgstr "open_with"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:209
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:212
 #, php-format
 msgid "Opening hours: %s"
 msgstr "Öppettider: %s"
@@ -27517,12 +27520,12 @@ msgstr "Riktning"
 msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 msgstr "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:326
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:331
 #, fuzzy
 msgid "Orientation"
 msgstr "Orientering"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:333
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:338
 msgid "Our leisure center"
 msgstr "Vårt fritidshem"
 
@@ -28190,7 +28193,7 @@ msgstr "Primär menu"
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Helper/Navigation.php:866
+#: library/Helper/Navigation.php:867
 msgid "Print"
 msgstr "Skriv ut"
 
@@ -28198,7 +28201,7 @@ msgstr "Skriv ut"
 msgid "print"
 msgstr "skriv ut"
 
-#: library/Helper/Navigation.php:867
+#: library/Helper/Navigation.php:868
 msgid "Print this page"
 msgstr "Skriv ut den här sidan"
 
@@ -28300,6 +28303,10 @@ msgstr "queue_music"
 msgid "queue_play_next"
 msgstr "queue_play_next"
 
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:258
+msgid "Quick facts"
+msgstr "Snabba fakta"
+
 #: library/Customizer/PanelsRegistry.php:262
 #: library/AcfFields/php/options-page-quicklinks-placement.php:8
 msgid "Quicklinks"
@@ -28341,7 +28348,7 @@ msgstr "rate_review"
 
 #: library/Controller/BaseController.php:264
 #: library/Controller/BaseController.php:280
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:444
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:449
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -30333,7 +30340,7 @@ msgstr "unfold_more"
 msgid "unsubscribe"
 msgstr "unsubscribe"
 
-#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:931
+#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:932
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
@@ -30589,7 +30596,7 @@ msgstr "visibility_off"
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:264
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:269
 msgid "Visit us"
 msgstr "Besök oss"
 
@@ -30605,11 +30612,11 @@ msgstr "Besökt"
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:399
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:404
 msgid "Visiting address"
 msgstr "Besöksadress"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:400
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:405
 msgid "Visiting addresses"
 msgstr "Besöksadresser"
 
