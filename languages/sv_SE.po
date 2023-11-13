@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-10 13:46+0000\n"
+"PO-Revision-Date: 2023-11-13 08:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -30614,11 +30614,11 @@ msgstr "Besökt (fokuserad)"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:404
 msgid "Visiting address"
-msgstr "Besöksadress"
+msgstr "Adress"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:405
 msgid "Visiting addresses"
-msgstr "Besöksadresser"
+msgstr "Adresser"
 
 #: library/AcfFields/php/options-menu-icon.php:1044
 msgid "voice_chat"
