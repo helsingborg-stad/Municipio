@@ -277,8 +277,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewApplicationData(): void
     {
         $this->data['application'] = [];
-        $this->data['application']['title'] = sprintf(__('Do you want to apply to %s?', 'municipio'), get_queried_object()->post_title);
-        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?? '';
+        $this->data['application']['title'] = $this->postMeta->ctaApplication->title ?: sprintf(__('Do you want to apply to %s?', 'municipio'), get_queried_object()->post_title);
+        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
         $this->data['application']['apply'] = null;
         $this->data['application']['howToApply'] = null;
 
