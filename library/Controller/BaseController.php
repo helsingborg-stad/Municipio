@@ -129,12 +129,17 @@ class BaseController
          * @return void
          */
         $contentType = \Municipio\Helper\ContentType::getContentType(get_post_type());   
+        $contentTypeSecondaryMenu = false;
+
         if($contentType) {
             $contentTypeSecondaryMenu = $secondary->getMenuItems( $contentType->getKey() . '-secondary-menu', $this->getPageID());
             if( !empty( $contentTypeSecondaryMenu ) ) {
                 $this->data['secondaryMenuItems'] = $contentTypeSecondaryMenu;
             }
-        } else {
+        }
+        
+        if(!$contentTypeSecondaryMenu) {
+            
             $posttypeSecondaryMenuItems  = $secondary->getMenuItems( get_post_type() . '-secondary-menu', $this->getPageID());
             if(!empty($posttypeSecondaryMenuItems)) {
                 $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
