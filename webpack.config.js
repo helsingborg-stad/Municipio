@@ -38,6 +38,7 @@ module.exports = {
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
+        'js/blocks/validation': './assets/source/3.0/js/admin/blocks/validation.js',
         
         
         /* Legacy 2.0  */

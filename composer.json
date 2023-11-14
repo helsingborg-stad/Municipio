@@ -33,7 +33,8 @@
         "pragmarx/ia-arr": "^7.3",
         "wpackagist-plugin/kirki": "^5.0",
         "ouun/kirki-module-fonts_upload": "dev-master",
-        "symfony/polyfill-php80": "^1.27"
+        "symfony/polyfill-php80": "^1.27",
+        "dompdf/dompdf": "dev-master"
     },
     "extra": {
         "installer-paths": {

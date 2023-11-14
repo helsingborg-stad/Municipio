@@ -27,6 +27,8 @@ class Enqueue
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
 
+        add_action( 'admin_enqueue_scripts', array($this, 'adminScript'), 10);
+
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
         add_filter('style_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -88,6 +90,10 @@ class Enqueue
             false,
             true
         );
+    }
+
+    public function adminScript() {
+        
     }
 
     /**

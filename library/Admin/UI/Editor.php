@@ -67,6 +67,12 @@ class Editor
             get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/blocks/columns.js'),
             array('wp-blocks', 'wp-dom-ready', 'wp-edit-post')
         );
+
+        wp_enqueue_script(
+            'validation',
+            get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/blocks/validation.js'),
+            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post')
+        );
     }
 
     /**

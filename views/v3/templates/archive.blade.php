@@ -1,6 +1,13 @@
 @extends('templates.single')
 
 @section('helper-navigation')
+@button([
+        'text' => 'CC',
+        'attributeList' => [
+            'data-js-pdf-generator' => 'archive'
+        ]
+    ])
+    @endbutton
     @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
 @section('sidebar-left')

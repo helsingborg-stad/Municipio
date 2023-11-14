@@ -304,7 +304,6 @@ class BaseController
             return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
         
-
         //Wordpress hooks
         $this->data['hook'] = (object) array(
         'innerLoopStart' => $this->hook('inner_loop_start'),
