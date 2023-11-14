@@ -97,6 +97,8 @@ add_action('init', function () {
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
         'widget-media'                              => 'group_5b2b70c0bde2f',
         'media-attachments'                         => 'group_650857c9f2cce',
+        'pdf-generator'                             => 'group_65538baa43fb2',
+
         // Content Types (formerly Purposes)
         'content-type-place'    => 'group_63eb4a0aa476e',
         'options-content-types' => 'group_63e3852d91646'

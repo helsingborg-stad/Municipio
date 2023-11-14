@@ -1,0 +1,114 @@
+<?php 
+
+if (function_exists('acf_add_local_field_group')) {
+    acf_add_local_field_group(array(
+    'key' => 'group_65538baa43fb2',
+    'title' => __('Pdf Generator Frontpage', 'municipio'),
+    'fields' => array(
+        0 => array(
+            'key' => 'field_65538baad188c',
+            'label' => __('Frontpage heading', 'municipio'),
+            'name' => 'pdf_frontpage_heading',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+        ),
+        1 => array(
+            'key' => 'field_65538bd9d188d',
+            'label' => __('Frontpage subheading', 'municipio'),
+            'name' => 'pdf_frontpage_subheading',
+            'type' => 'text',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'maxlength' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+        ),
+        2 => array(
+            'key' => 'field_65538ce1f53fc',
+            'label' => __('Frontpage introduction', 'municipio'),
+            'name' => 'pdf_frontpage_introduction',
+            'type' => 'textarea',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => '',
+            'acfe_textarea_code' => 0,
+            'maxlength' => '',
+            'rows' => '',
+            'placeholder' => '',
+            'new_lines' => '',
+        ),
+        3 => array(
+            'key' => 'field_65538c41d188e',
+            'label' => __('Frontpage image cover', 'municipio'),
+            'name' => 'pdf_frontpage_image_cover',
+            'type' => 'focuspoint',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'preview_size' => 'medium',
+            'min_width' => '',
+            'min_height' => '',
+            'min_size' => '',
+            'max_width' => '',
+            'max_height' => '',
+            'max_size' => '',
+        ),
+    ),
+    'location' => array(
+        0 => array(
+            0 => array(
+                'param' => 'options_page',
+                'operator' => '==',
+                'value' => 'pdf-generator-settings',
+            ),
+        ),
+    ),
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'left',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => true,
+    'description' => '',
+    'show_in_rest' => 0,
+    'acfe_display_title' => '',
+    'acfe_autosync' => array(
+        0 => 'json',
+    ),
+    'acfe_form' => 0,
+    'acfe_meta' => '',
+    'acfe_note' => '',
+));
+}
