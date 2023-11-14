@@ -17,7 +17,7 @@ class CreatePdf
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
                 $post = get_post($id);
-                if (!empty($post)) {
+                if (!empty($post->post_status) && $post->post_status == 'publish') {
                     $post = \Municipio\Helper\Post::preparePostObjectArchive($post);
                     array_push($posts, $post);
                 }
@@ -26,8 +26,7 @@ class CreatePdf
         
         $styles = $this->getThemeMods();
         $fonts = $this->getFonts($styles);
-
-        if ($posts) {
+        if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'posts' => $posts,
                 'styles' => $styles,
