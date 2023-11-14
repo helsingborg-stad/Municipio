@@ -1,11 +1,11 @@
 <?php
 
-namespace Municipio\Content;
+namespace Municipio\Api\Pdf;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-class PdfGenerator
+class CreatePdf
 {
     public function __construct()
     {
@@ -76,8 +76,6 @@ class PdfGenerator
     }
 
     private function renderPdf($html) {
-        $options = new Options();
-        // $options->set('isFontSubsettingEnabled', false);
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,
             'isPhpEnabled' => true

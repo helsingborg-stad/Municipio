@@ -139,6 +139,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfGenerator());
 
         /**
          * Customizer
@@ -154,24 +155,6 @@ class App
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });
-
-        // add_action('wp_ajax_nopriv_generate_pdf', array($this, 'generate'));
-        // add_action('wp_ajax_generate_pdf', array($this, 'generate')); 
-        add_action('rest_api_init', function () {
-            register_rest_route('pdf/v2', '/id=(?P<id>\d+(?:,\d+)*)', array(
-                'methods' => 'GET ',
-                'callback' => array($this, 'idToPdf'),
-            ));
-        });        
-    }
-
-    public function idToPdf($request) {
-        $ids = $request->get_param('id');
-        if (!empty($ids) && is_string($ids)) {
-            $idArr = explode(',', $ids);
-            $pdf = new \Municipio\Content\PdfGenerator();
-            return $pdf->renderView($idArr);
-        }
+        });      
     }
 }
