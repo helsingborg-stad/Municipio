@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-10 13:44+0000\n"
+"POT-Creation-Date: 2023-11-14 11:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -15275,7 +15275,7 @@ msgstr ""
 msgid "After first block"
 msgstr ""
 
-#: library/Controller/BaseController.php:231
+#: library/Controller/BaseController.php:236
 msgid "ago"
 msgstr ""
 
@@ -15512,16 +15512,12 @@ msgstr ""
 msgid "Archive lead text"
 msgstr ""
 
-#: library/Controller/BaseController.php:289
+#: library/Controller/BaseController.php:294
 msgid "Archive navigation"
 msgstr ""
 
 #: library/Customizer/Sections/Width.php:29
 msgid "Archives"
-msgstr ""
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
-msgid "Are you interested in applying?"
 msgstr ""
 
 #: library/Theme/Enqueue.php:147
@@ -16021,7 +16017,7 @@ msgstr ""
 msgid "book"
 msgstr ""
 
-#: library/Controller/BaseController.php:265
+#: library/Controller/BaseController.php:270
 msgid "Book here"
 msgstr ""
 
@@ -16582,11 +16578,11 @@ msgstr ""
 msgid "Choose a font color for the collection component."
 msgstr ""
 
-#: library/Controller/BaseController.php:282
+#: library/Controller/BaseController.php:287
 msgid "Choose a from date"
 msgstr ""
 
-#: library/Controller/BaseController.php:283
+#: library/Controller/BaseController.php:288
 msgid "Choose a to date"
 msgstr ""
 
@@ -16631,7 +16627,7 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
-#: library/Controller/BaseController.php:256
+#: library/Controller/BaseController.php:261
 msgid "Close"
 msgstr ""
 
@@ -17255,11 +17251,11 @@ msgstr ""
 msgid "date_range"
 msgstr ""
 
-#: library/Controller/BaseController.php:240
+#: library/Controller/BaseController.php:245
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:239
+#: library/Controller/BaseController.php:244
 #: library/AcfFields/php/options-theme-custom-post-type.php:388
 msgid "days"
 msgstr ""
@@ -17601,6 +17597,11 @@ msgstr ""
 
 #: library/Admin/Options/ContentType.php:104
 msgid "Do not use content type template"
+msgstr ""
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
+#, php-format
+msgid "Do you want to apply to %s?"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:296
@@ -17982,7 +17983,7 @@ msgstr ""
 msgid "exit_to_app"
 msgstr ""
 
-#: library/Controller/BaseController.php:259
+#: library/Controller/BaseController.php:264
 msgid "Expand"
 msgstr ""
 
@@ -18202,8 +18203,8 @@ msgstr ""
 msgid "Filled button"
 msgstr ""
 
-#: library/Controller/BaseController.php:270
-#: library/Controller/BaseController.php:286
+#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:291
 msgid "Filter"
 msgstr ""
 
@@ -18681,7 +18682,7 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: library/Controller/BaseController.php:225 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:230 library/Controller/E404.php:37
 #: library/Widget/Header/Logo.php:46 library/Widget/Brand/Brand.php:47
 msgid "Go to homepage"
 msgstr ""
@@ -19046,7 +19047,7 @@ msgstr ""
 msgid "hotel"
 msgstr ""
 
-#: library/Controller/BaseController.php:242
+#: library/Controller/BaseController.php:247
 msgid "hour"
 msgstr ""
 
@@ -19058,7 +19059,7 @@ msgstr ""
 msgid "hourglass_full"
 msgstr ""
 
-#: library/Controller/BaseController.php:241
+#: library/Controller/BaseController.php:246
 msgid "hours"
 msgstr ""
 
@@ -19401,11 +19402,11 @@ msgstr ""
 msgid "JavaScript"
 msgstr ""
 
-#: library/Controller/BaseController.php:228
+#: library/Controller/BaseController.php:233
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:231
 msgid "Jump to the main menu"
 msgstr ""
 
@@ -19518,7 +19519,7 @@ msgstr ""
 msgid "landscape"
 msgstr ""
 
-#: library/Controller/BaseController.php:258
+#: library/Controller/BaseController.php:263
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr ""
@@ -20193,7 +20194,7 @@ msgstr ""
 msgid "meeting_room"
 msgstr ""
 
-#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:251
+#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:256
 #: library/Customizer/PanelsRegistry.php:280
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
@@ -20210,7 +20211,7 @@ msgstr ""
 msgid "memory"
 msgstr ""
 
-#: library/Theme/Icon.php:44 library/Controller/BaseController.php:254
+#: library/Theme/Icon.php:44 library/Controller/BaseController.php:259
 #: library/Widget/Navigation/Navigation.php:77
 #: library/Widget/Header/Links.php:68
 msgid "Menu"
@@ -20306,11 +20307,11 @@ msgstr ""
 msgid "Minus"
 msgstr ""
 
-#: library/Controller/BaseController.php:244
+#: library/Controller/BaseController.php:249
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:243
+#: library/Controller/BaseController.php:248
 msgid "minutes"
 msgstr ""
 
@@ -20530,11 +20531,11 @@ msgstr ""
 msgid "Monotone colors"
 msgstr ""
 
-#: library/Controller/BaseController.php:236
+#: library/Controller/BaseController.php:241
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:235
+#: library/Controller/BaseController.php:240
 msgid "months"
 msgstr ""
 
@@ -20550,7 +20551,7 @@ msgstr ""
 msgid "more"
 msgstr ""
 
-#: library/Controller/BaseController.php:257
+#: library/Controller/BaseController.php:262
 msgid "More Languages"
 msgstr ""
 
@@ -20639,7 +20640,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:280
 msgid "Name (A-Z)"
 msgstr ""
 
@@ -20771,11 +20772,11 @@ msgstr ""
 msgid "No cover"
 msgstr ""
 
-#: library/Controller/BaseController.php:279
+#: library/Controller/BaseController.php:284
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:277
 msgid "No items found."
 msgstr ""
 
@@ -20917,7 +20918,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:274
 msgid "on"
 msgstr ""
 
@@ -21675,7 +21676,7 @@ msgstr ""
 msgid "Primary menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:250
+#: library/Controller/BaseController.php:255
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr ""
@@ -21742,16 +21743,16 @@ msgstr ""
 msgid "publish"
 msgstr ""
 
-#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:281
 msgid "Publish Date"
 msgstr ""
 
-#: library/Controller/BaseController.php:267
-#: library/Controller/BaseController.php:277
+#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:282
 msgid "Published"
 msgstr ""
 
-#: library/Controller/BaseController.php:268
+#: library/Controller/BaseController.php:273
 msgid "Published by"
 msgstr ""
 
@@ -21823,7 +21824,7 @@ msgstr ""
 msgid "radio_button_unchecked"
 msgstr ""
 
-#: library/Controller/BaseController.php:274
+#: library/Controller/BaseController.php:279
 msgid "Random"
 msgstr ""
 
@@ -21831,13 +21832,13 @@ msgstr ""
 msgid "rate_review"
 msgstr ""
 
-#: library/Controller/BaseController.php:264
-#: library/Controller/BaseController.php:280
+#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:285
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:449
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/BaseController.php:261
+#: library/Controller/BaseController.php:266
 msgid "Reading time"
 msgstr ""
 
@@ -21873,12 +21874,12 @@ msgstr ""
 msgid "Regular Slider"
 msgstr ""
 
-#: library/Controller/BaseController.php:262
+#: library/Controller/BaseController.php:267
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
-#: library/Controller/BaseController.php:253
+#: library/Controller/BaseController.php:258
 msgid "Related links"
 msgstr ""
 
@@ -21962,16 +21963,16 @@ msgstr ""
 msgid "report_problem"
 msgstr ""
 
-#: library/Controller/BaseController.php:290
+#: library/Controller/BaseController.php:295
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/BaseController.php:271
-#: library/Controller/BaseController.php:288
+#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:293
 msgid "Reset filter"
 msgstr ""
 
-#: library/Controller/BaseController.php:287
+#: library/Controller/BaseController.php:292
 msgid "Reset search"
 msgstr ""
 
@@ -22183,8 +22184,8 @@ msgstr ""
 msgid "sd_storage"
 msgstr ""
 
-#: library/Search/General.php:55 library/Controller/BaseController.php:247
-#: library/Controller/BaseController.php:285
+#: library/Search/General.php:55 library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:290
 #: library/Customizer/PanelsRegistry.php:234
 #: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
@@ -22209,7 +22210,7 @@ msgstr ""
 msgid "Search form shape"
 msgstr ""
 
-#: library/Controller/BaseController.php:248
+#: library/Controller/BaseController.php:253
 msgid "Search on"
 msgstr ""
 
@@ -22222,7 +22223,7 @@ msgid ""
 "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
 msgstr ""
 
-#: library/Controller/BaseController.php:246
+#: library/Controller/BaseController.php:251
 msgid "second"
 msgstr ""
 
@@ -22272,7 +22273,7 @@ msgstr ""
 msgid "Secondary navigation position"
 msgstr ""
 
-#: library/Controller/BaseController.php:245
+#: library/Controller/BaseController.php:250
 msgid "seconds"
 msgstr ""
 
@@ -22314,7 +22315,7 @@ msgstr ""
 msgid "Select a key/value to order by."
 msgstr ""
 
-#: library/Controller/BaseController.php:284
+#: library/Controller/BaseController.php:289
 msgid "Select a valid date"
 msgstr ""
 
@@ -22552,7 +22553,7 @@ msgstr ""
 msgid "Show Admin Column"
 msgstr ""
 
-#: library/Controller/BaseController.php:263 library/Controller/E404.php:47
+#: library/Controller/BaseController.php:268 library/Controller/E404.php:47
 msgid "Show all"
 msgstr ""
 
@@ -22696,7 +22697,7 @@ msgstr ""
 msgid "sim_card"
 msgstr ""
 
-#: library/Controller/BaseController.php:232
+#: library/Controller/BaseController.php:237
 msgid "since"
 msgstr ""
 
@@ -22708,7 +22709,7 @@ msgstr ""
 msgid "single_bed"
 msgstr ""
 
-#: library/Controller/BaseController.php:255
+#: library/Controller/BaseController.php:260
 msgid "Site emblem"
 msgstr ""
 
@@ -22722,15 +22723,15 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:232
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:229
+#: library/Controller/BaseController.php:234
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:230
+#: library/Controller/BaseController.php:235
 msgid "Skip to the side menu"
 msgstr ""
 
@@ -22825,7 +22826,7 @@ msgstr ""
 msgid "sort"
 msgstr ""
 
-#: library/Controller/BaseController.php:273
+#: library/Controller/BaseController.php:278
 msgid "Sort by"
 msgstr ""
 
@@ -23789,8 +23790,8 @@ msgstr ""
 msgid "update"
 msgstr ""
 
-#: library/Controller/BaseController.php:266
-#: library/Controller/BaseController.php:278
+#: library/Controller/BaseController.php:271
+#: library/Controller/BaseController.php:283
 msgid "Updated"
 msgstr ""
 
@@ -23873,7 +23874,7 @@ msgstr ""
 msgid "Use the same font as base but preferably with an italic style"
 msgstr ""
 
-#: library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:257
 msgid "Useful links"
 msgstr ""
 
@@ -24023,7 +24024,7 @@ msgstr ""
 msgid "visibility_off"
 msgstr ""
 
-#: library/Controller/BaseController.php:296
+#: library/Controller/BaseController.php:301
 msgid "Visit"
 msgstr ""
 
@@ -24182,11 +24183,11 @@ msgstr ""
 msgid "web_asset"
 msgstr ""
 
-#: library/Controller/BaseController.php:238
+#: library/Controller/BaseController.php:243
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:237
+#: library/Controller/BaseController.php:242
 msgid "weeks"
 msgstr ""
 
@@ -24198,7 +24199,7 @@ msgstr ""
 msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
-#: library/Controller/BaseController.php:249
+#: library/Controller/BaseController.php:254
 msgid "What are you searching for?"
 msgstr ""
 
@@ -24426,11 +24427,11 @@ msgstr ""
 msgid "wrap_text"
 msgstr ""
 
-#: library/Controller/BaseController.php:234
+#: library/Controller/BaseController.php:239
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/BaseController.php:238
 msgid "years"
 msgstr ""
 
@@ -24442,7 +24443,7 @@ msgstr ""
 msgid "Yes, disable posts."
 msgstr ""
 
-#: library/Controller/BaseController.php:260
+#: library/Controller/BaseController.php:265
 msgid "You are here: "
 msgstr ""
 

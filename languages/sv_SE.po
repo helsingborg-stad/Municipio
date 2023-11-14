@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-13 08:14+0000\n"
+"PO-Revision-Date: 2023-11-14 11:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -21707,7 +21707,7 @@ msgstr "Avancerade inställningar"
 msgid "After first block"
 msgstr "Efter första blocket"
 
-#: library/Controller/BaseController.php:231
+#: library/Controller/BaseController.php:236
 msgid "ago"
 msgstr "sedan"
 
@@ -21948,17 +21948,13 @@ msgstr "Rubrik"
 msgid "Archive lead text"
 msgstr "Brödtext"
 
-#: library/Controller/BaseController.php:289
+#: library/Controller/BaseController.php:294
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
 #: library/Customizer/Sections/Width.php:29
 msgid "Archives"
 msgstr "Arkiv"
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
-msgid "Are you interested in applying?"
-msgstr "Är du intresserad av att ansöka?"
 
 #: library/Theme/Enqueue.php:147
 msgid "Are you sure you want to delete the comment?"
@@ -22457,7 +22453,7 @@ msgstr "Fet (700)"
 msgid "book"
 msgstr "book"
 
-#: library/Controller/BaseController.php:265
+#: library/Controller/BaseController.php:270
 msgid "Book here"
 msgstr "Boka här"
 
@@ -23029,11 +23025,11 @@ msgstr "Välj en typsnittsfärg för kort."
 msgid "Choose a font color for the collection component."
 msgstr "Välj en typsnittsfärg för samlingskomponenten."
 
-#: library/Controller/BaseController.php:282
+#: library/Controller/BaseController.php:287
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/BaseController.php:283
+#: library/Controller/BaseController.php:288
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
@@ -23078,7 +23074,7 @@ msgstr "clear_all"
 msgid "Clock"
 msgstr "Klocka"
 
-#: library/Controller/BaseController.php:256
+#: library/Controller/BaseController.php:261
 msgid "Close"
 msgstr "Stänger"
 
@@ -23709,11 +23705,11 @@ msgstr "Datum, Tid"
 msgid "date_range"
 msgstr "date_range"
 
-#: library/Controller/BaseController.php:240
+#: library/Controller/BaseController.php:245
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:239
+#: library/Controller/BaseController.php:244
 #: library/AcfFields/php/options-theme-custom-post-type.php:388
 msgid "days"
 msgstr "dagar"
@@ -24062,6 +24058,11 @@ msgstr "Använd inte"
 #| msgid "Do not use purpose template"
 msgid "Do not use content type template"
 msgstr "Använd inte anpassad mall för innehållstyp"
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
+#, php-format
+msgid "Do you want to apply to %s?"
+msgstr "Vill du välja %s?"
 
 #: library/AcfFields/php/options-menu-icon.php:296
 msgid "dock"
@@ -24457,7 +24458,7 @@ msgstr "Uteslut sidans titel från Google Translate"
 msgid "exit_to_app"
 msgstr "exit_to_app"
 
-#: library/Controller/BaseController.php:259
+#: library/Controller/BaseController.php:264
 msgid "Expand"
 msgstr "Expandera"
 
@@ -24677,8 +24678,8 @@ msgstr "ifylld"
 msgid "Filled button"
 msgstr "Ifylld knapp"
 
-#: library/Controller/BaseController.php:270
-#: library/Controller/BaseController.php:286
+#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:291
 msgid "Filter"
 msgstr "Filtrera"
 
@@ -25156,7 +25157,7 @@ msgstr "Jordglob"
 msgid "Go back"
 msgstr "Gå bakåt"
 
-#: library/Controller/BaseController.php:225 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:230 library/Controller/E404.php:37
 #: library/Widget/Header/Logo.php:46 library/Widget/Brand/Brand.php:47
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
@@ -25525,7 +25526,7 @@ msgstr "hot_tub"
 msgid "hotel"
 msgstr "hotel"
 
-#: library/Controller/BaseController.php:242
+#: library/Controller/BaseController.php:247
 msgid "hour"
 msgstr "timme"
 
@@ -25537,7 +25538,7 @@ msgstr "hourglass_empty"
 msgid "hourglass_full"
 msgstr "hourglass_full"
 
-#: library/Controller/BaseController.php:241
+#: library/Controller/BaseController.php:246
 msgid "hours"
 msgstr "timmar"
 
@@ -25892,11 +25893,11 @@ msgstr "Objektet saknar innehåll"
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: library/Controller/BaseController.php:228
+#: library/Controller/BaseController.php:233
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:231
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
@@ -26009,7 +26010,7 @@ msgstr "label_off"
 msgid "landscape"
 msgstr "landscape"
 
-#: library/Controller/BaseController.php:258
+#: library/Controller/BaseController.php:263
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr "Språk"
@@ -26687,7 +26688,7 @@ msgstr "Medel (500)"
 msgid "meeting_room"
 msgstr "meeting_room"
 
-#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:251
+#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:256
 #: library/Customizer/PanelsRegistry.php:280
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
@@ -26705,7 +26706,7 @@ msgstr ""
 msgid "memory"
 msgstr "memory"
 
-#: library/Theme/Icon.php:44 library/Controller/BaseController.php:254
+#: library/Theme/Icon.php:44 library/Controller/BaseController.php:259
 #: library/Widget/Navigation/Navigation.php:77
 #: library/Widget/Header/Links.php:68
 msgid "Menu"
@@ -26802,11 +26803,11 @@ msgstr "minimize"
 msgid "Minus"
 msgstr "Minus"
 
-#: library/Controller/BaseController.php:244
+#: library/Controller/BaseController.php:249
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:243
+#: library/Controller/BaseController.php:248
 msgid "minutes"
 msgstr "minuter"
 
@@ -27026,11 +27027,11 @@ msgstr "monochrome_photos"
 msgid "Monotone colors"
 msgstr "Monotona färger"
 
-#: library/Controller/BaseController.php:236
+#: library/Controller/BaseController.php:241
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:235
+#: library/Controller/BaseController.php:240
 msgid "months"
 msgstr "månader"
 
@@ -27046,7 +27047,7 @@ msgstr "mood_bad"
 msgid "more"
 msgstr "more"
 
-#: library/Controller/BaseController.php:257
+#: library/Controller/BaseController.php:262
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -27135,7 +27136,7 @@ msgstr "my_location"
 msgid "Name"
 msgstr "Namn"
 
-#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:280
 msgid "Name (A-Z)"
 msgstr "Namn (A-Ö)"
 
@@ -27269,11 +27270,11 @@ msgstr "Ingen animation"
 msgid "No cover"
 msgstr "Utan omslag"
 
-#: library/Controller/BaseController.php:279
+#: library/Controller/BaseController.php:284
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:277
 msgid "No items found."
 msgstr "Inga hittades."
 
@@ -27417,7 +27418,7 @@ msgstr "offline_pin"
 msgid "On"
 msgstr "På"
 
-#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:274
 msgid "on"
 msgstr "på"
 
@@ -28188,7 +28189,7 @@ msgstr "Primär logotyp"
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Controller/BaseController.php:250
+#: library/Controller/BaseController.php:255
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr "Huvudmeny"
@@ -28257,16 +28258,16 @@ msgstr "Offentligt sökbar"
 msgid "publish"
 msgstr "publish"
 
-#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:281
 msgid "Publish Date"
 msgstr "Publiceringsdatum"
 
-#: library/Controller/BaseController.php:267
-#: library/Controller/BaseController.php:277
+#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:282
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:268
+#: library/Controller/BaseController.php:273
 msgid "Published by"
 msgstr "Publicerad av"
 
@@ -28338,7 +28339,7 @@ msgstr "radio_button_checked"
 msgid "radio_button_unchecked"
 msgstr "radio_button_unchecked"
 
-#: library/Controller/BaseController.php:274
+#: library/Controller/BaseController.php:279
 msgid "Random"
 msgstr "Slumpmässig"
 
@@ -28346,13 +28347,13 @@ msgstr "Slumpmässig"
 msgid "rate_review"
 msgstr "rate_review"
 
-#: library/Controller/BaseController.php:264
-#: library/Controller/BaseController.php:280
+#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:285
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:449
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/BaseController.php:261
+#: library/Controller/BaseController.php:266
 msgid "Reading time"
 msgstr "Lästid"
 
@@ -28388,12 +28389,12 @@ msgstr "Normal (400)"
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Controller/BaseController.php:262
+#: library/Controller/BaseController.php:267
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr "Relaterade"
 
-#: library/Controller/BaseController.php:253
+#: library/Controller/BaseController.php:258
 msgid "Related links"
 msgstr "Relaterade länkar"
 
@@ -28477,16 +28478,16 @@ msgstr "report_off"
 msgid "report_problem"
 msgstr "report_problem"
 
-#: library/Controller/BaseController.php:290
+#: library/Controller/BaseController.php:295
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/BaseController.php:271
-#: library/Controller/BaseController.php:288
+#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:293
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/BaseController.php:287
+#: library/Controller/BaseController.php:292
 msgid "Reset search"
 msgstr "Återställ sök"
 
@@ -28699,8 +28700,8 @@ msgstr "sd_card"
 msgid "sd_storage"
 msgstr "sd_storage"
 
-#: library/Search/General.php:55 library/Controller/BaseController.php:247
-#: library/Controller/BaseController.php:285
+#: library/Search/General.php:55 library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:290
 #: library/Customizer/PanelsRegistry.php:234
 #: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
@@ -28725,7 +28726,7 @@ msgstr "Sök efter"
 msgid "Search form shape"
 msgstr "Form på sökfältet"
 
-#: library/Controller/BaseController.php:248
+#: library/Controller/BaseController.php:253
 msgid "Search on"
 msgstr "Sök på"
 
@@ -28739,7 +28740,7 @@ msgid ""
 msgstr ""
 "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
 
-#: library/Controller/BaseController.php:246
+#: library/Controller/BaseController.php:251
 msgid "second"
 msgstr "sekund"
 
@@ -28789,7 +28790,7 @@ msgstr "Sekundärmeny och panelmeny"
 msgid "Secondary navigation position"
 msgstr "Positionering av sekundärmeny"
 
-#: library/Controller/BaseController.php:245
+#: library/Controller/BaseController.php:250
 msgid "seconds"
 msgstr "sekunder"
 
@@ -28831,7 +28832,7 @@ msgstr "Välj en färg att använda för text i sidhuvudet."
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: library/Controller/BaseController.php:284
+#: library/Controller/BaseController.php:289
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
@@ -29077,7 +29078,7 @@ msgstr "Visa"
 msgid "Show Admin Column"
 msgstr "Visa admin-kolumn"
 
-#: library/Controller/BaseController.php:263 library/Controller/E404.php:47
+#: library/Controller/BaseController.php:268 library/Controller/E404.php:47
 msgid "Show all"
 msgstr "Visa alla"
 
@@ -29228,7 +29229,7 @@ msgstr "signal_wifi_off"
 msgid "sim_card"
 msgstr "sim_card"
 
-#: library/Controller/BaseController.php:232
+#: library/Controller/BaseController.php:237
 msgid "since"
 msgstr "sedan"
 
@@ -29240,7 +29241,7 @@ msgstr "Ettvalsväljare"
 msgid "single_bed"
 msgstr "single_bed"
 
-#: library/Controller/BaseController.php:255
+#: library/Controller/BaseController.php:260
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
@@ -29254,15 +29255,15 @@ msgstr "Webbplatsväljare"
 msgid "Size"
 msgstr "Storlek"
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:232
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: library/Controller/BaseController.php:229
+#: library/Controller/BaseController.php:234
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: library/Controller/BaseController.php:230
+#: library/Controller/BaseController.php:235
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
@@ -29359,7 +29360,7 @@ msgstr "Något gick fel, vänligen försök igen senare"
 msgid "sort"
 msgstr "sort"
 
-#: library/Controller/BaseController.php:273
+#: library/Controller/BaseController.php:278
 msgid "Sort by"
 msgstr "Sortera efter"
 
@@ -30348,8 +30349,8 @@ msgstr "Namnlös sida"
 msgid "update"
 msgstr "update"
 
-#: library/Controller/BaseController.php:266
-#: library/Controller/BaseController.php:278
+#: library/Controller/BaseController.php:271
+#: library/Controller/BaseController.php:283
 msgid "Updated"
 msgstr "Uppdaterad"
 
@@ -30442,7 +30443,7 @@ msgstr "Använd samma typsnitt som bas men mer fetstilad"
 msgid "Use the same font as base but preferably with an italic style"
 msgstr "Använd samma typsnitt som bas men välj en kursiv stil"
 
-#: library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:257
 msgid "Useful links"
 msgstr "Användbara länkar"
 
@@ -30592,7 +30593,7 @@ msgstr "visibility"
 msgid "visibility_off"
 msgstr "visibility_off"
 
-#: library/Controller/BaseController.php:296
+#: library/Controller/BaseController.php:301
 msgid "Visit"
 msgstr "Besök"
 
@@ -30753,11 +30754,11 @@ msgstr "web"
 msgid "web_asset"
 msgstr "web_asset"
 
-#: library/Controller/BaseController.php:238
+#: library/Controller/BaseController.php:243
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:237
+#: library/Controller/BaseController.php:242
 msgid "weeks"
 msgstr "veckor"
 
@@ -30771,7 +30772,7 @@ msgstr ""
 msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
-#: library/Controller/BaseController.php:249
+#: library/Controller/BaseController.php:254
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
@@ -31014,11 +31015,11 @@ msgstr "Ram runt titel"
 msgid "wrap_text"
 msgstr "wrap_text"
 
-#: library/Controller/BaseController.php:234
+#: library/Controller/BaseController.php:239
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/BaseController.php:238
 msgid "years"
 msgstr "år"
 
@@ -31030,7 +31031,7 @@ msgstr "Ja, inaktivera sidor."
 msgid "Yes, disable posts."
 msgstr "Ja, inaktivera blogg."
 
-#: library/Controller/BaseController.php:260
+#: library/Controller/BaseController.php:265
 msgid "You are here: "
 msgstr "Du är här: "
 
