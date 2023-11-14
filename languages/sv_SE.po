@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-14 11:57+0000\n"
+"PO-Revision-Date: 2023-11-14 14:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -21,7 +21,7 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Loco-Parser: loco_parse_po\n"
 "X-Source-Language: en\n"
-"X-Loco-Version: 2.6.6; wp-6.3.1\n"
+"X-Loco-Version: 2.6.6; wp-6.4.1\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -27522,9 +27522,8 @@ msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 msgstr "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:331
-#, fuzzy
 msgid "Orientation"
-msgstr "Orientering"
+msgstr "Inskolning"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:338
 msgid "Our leisure center"
