@@ -3,7 +3,7 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_65538baa43fb2',
-    'title' => __('Pdf Generator Frontpage', 'municipio'),
+    'title' => __('Pdf Generator', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_65538baad188c',
