@@ -31,7 +31,7 @@ class PdfGenerator
             $html = render_blade_view('partials.content.pdf.layout', [
                 'posts' => $posts,
                 'styles' => $styles,
-                // 'fonts' => $fonts
+                'fonts' => $fonts
             ]);
 
             $this->renderPdf($html);
@@ -39,36 +39,36 @@ class PdfGenerator
     }
 
     private function getFonts($styles) {
-        // $args = array(
-        //     'post_type'      => 'attachment',
-        //     'posts_per_page' => -1,
-        //     'post_status'    => 'inherit',
-        //     'post_mime_type' => 'application/font-woff'
-        // );
+        $args = array(
+            'post_type'      => 'attachment',
+            'posts_per_page' => -1,
+            'post_status'    => 'inherit',
+            'post_mime_type' => 'application/font-woff'
+        );
 
-        // $customFonts = new \WP_Query($args);
+        $customFonts = new \WP_Query($args);
 
-        // $heading = $styles['typography_heading'];
-        // $base = $styles['typography_base'];
+        $heading = $styles['typography_heading'];
+        $base = $styles['typography_base'];
 
-        // if (!empty($customFonts->posts) && (!empty($heading['font-family']) || $base['font-family']) && is_array($customFonts->posts)) {
-        //     foreach ($customFonts->posts as $font) {
-        //         if (!empty($font->post_title)) {
-        //             if ($font->post_title == $heading['font-family']) {
-        //                 $heading['src'] = !empty($font->guid) ? $font->guid : '';
-        //             }
+        if (!empty($customFonts->posts) && (!empty($heading['font-family']) || $base['font-family']) && is_array($customFonts->posts)) {
+            foreach ($customFonts->posts as $font) {
+                if (!empty($font->post_title)) {
+                    if ($font->post_title == $heading['font-family']) {
+                        $heading['src'] = !empty($font->guid) ? $font->guid : '';
+                    }
                     
-        //             if ($font->post_title == $base['font-family']) {
-        //                 $base['src'] = !empty($font->guid) ? $font->guid : '';
-        //             }
-        //         }
-        //     }
-        // }
+                    if ($font->post_title == $base['font-family']) {
+                        $base['src'] = !empty($font->guid) ? $font->guid : '';
+                    }
+                }
+            }
+        }
 
-        // return [
-        //     'base' => $base,
-        //     'heading' => $heading
-        // ];
+        return [
+            'base' => $base,
+            'heading' => $heading
+        ];
     }
 
     private function getThemeMods() {

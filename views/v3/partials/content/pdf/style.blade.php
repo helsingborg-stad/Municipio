@@ -1,4 +1,13 @@
 <style>
+    @font-face {
+        font-family: 'helsingborg-sans-medium';
+        font-display:swap;
+        font-style: normal;
+        src: url('https://media.helsingborg.se/uploads/networks/1/2023/04/helsingborg-sans-medium.woff') format("woff");
+        font-weight: 600;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    
     /* Headings */
     h1,
     h2,
@@ -7,15 +16,16 @@
     h5,
     h6 {
         margin-top: 0;
-        font-weight: 400;
-        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        font-family: 'helsingborg-sans-medium', sans-serif;
     }
 
     h1,
     .pdf-heading--h1 {
+        font-family: 'helsingborg-sans-medium', sans-serif;
         font-size: {{ !empty($styles['typography_h1']['font-size']) ? $styles['typography_h1']['font-size'] : '48px' }};
         line-height: {{ !empty($styles['typography_h1']['line-height']) ? $styles['typography_h1']['line-height'] : '1.25' }};
-        /* font-weight: {{ !empty($styles['typography_h1']['variant']) ? $styles['typography_h1']['variant'] : 'bold'}} */
+        font-weight: {{ !empty($styles['typography_h1']['variant']) ? $styles['typography_h1']['variant'] : 'bold'}}
     }
 
     h2 {
