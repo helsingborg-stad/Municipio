@@ -475,14 +475,8 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * Get the original post data
      *
-     * @param integer $pageID The page id
-     * @return object The post object
-     */
-    /**
-     * Get the original post data
-     *
-     * @param int $pageID The page ID
-     * @return WP_Post|null The post object or null if not found
+     * @param int $pageID The page id
+     * @return WP_Post|null
      */
     protected function getOriginalPostData(int $pageID): ?WP_Post
     {
