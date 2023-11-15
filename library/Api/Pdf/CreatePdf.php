@@ -22,7 +22,7 @@ class CreatePdf
                 if (!empty($post->post_status) && $post->post_status == 'publish') {
                     $post = \Municipio\Helper\Post::preparePostObjectArchive($post);
                     if (!empty($post->postType)) {
-                        array_push($postTypes, $post->postType);
+                        $postTypes[$post->postType] = $post->postType;
                     }
                     array_push($posts, $post);
                 }
@@ -33,14 +33,11 @@ class CreatePdf
         $styles = $this->getThemeMods();
         $fonts = $this->getFonts($styles);
 
-        // echo '<pre>' . print_r( $cover, true ) . '</pre>';
-        // die;
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'posts' => $posts,
-                'styles' => $styles,
-                'cover' => $cover,
-                // 'fonts' => $fonts
+                'posts'     => $posts,
+                'styles'    => $styles,
+                'cover'     => $cover,
             ]);
 
             $this->renderPdf($html);
@@ -50,8 +47,9 @@ class CreatePdf
     private function getCover($postTypes) {
         $postType = 'default';
         if (!empty($postTypes) && count($postTypes) === 1) {
-            $postType = $postTypes[0];
+            $postType = $postTypes[reset($postTypes)];
         } 
+
         return [
             'heading'       => get_field($postType . '_pdf_frontpage_heading', 'option'),
             'introduction'  => get_field($postType . '_pdf_frontpage_introduction', 'option'),

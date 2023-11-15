@@ -120,7 +120,7 @@
     }
 
     /* Pdf page covers */
-    .pdf-frontpage,
+    .pdf-cover,
     .pdf-backpage {
         width: 210mm;
         height: 297mm;
@@ -131,12 +131,12 @@
     }
 
     /* Pdf Frontpage */
-    .pdf-frontpage .pdf-heading {
+    .pdf-cover .pdf-heading {
         margin-bottom: 8px;
         font-weight: 700;
     }
 
-    .pdf-frontpage__heading {  
+    .pdf-cover__heading {  
         position: absolute; 
         top: 50%; 
         left: 0; 

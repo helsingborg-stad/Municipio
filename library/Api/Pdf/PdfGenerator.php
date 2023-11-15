@@ -58,7 +58,12 @@ class PdfGenerator extends RestApiEndpoint
 
     private function getFieldsForEachPostType($postTypes) {
         $fields = [];
-        
+
+        array_unshift($postTypes, (object) [
+            'name' => 'default',
+            'label' => __('Default', 'municipio')
+        ]);
+  
         foreach ($postTypes as $postType) {
             if (!empty($postType->name) && !empty($postType->label) && $this->excludedPostTypes($postType->name)) {
                 $fields[] = [
