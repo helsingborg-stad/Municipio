@@ -116,11 +116,11 @@
     }  
 
     .pdf-container {
-        margin: 2cm 2cm;
+        padding: 2cm 2cm;
     }
 
     /* Pdf page covers */
-    .pdf-cover,
+    .pdf-frontpage,
     .pdf-backpage {
         width: 210mm;
         height: 297mm;
@@ -131,19 +131,22 @@
     }
 
     /* Pdf Frontpage */
-    .pdf-cover .pdf-heading {
+    .pdf-frontpage {
+        background-color: {{ !empty($styles['color_palette_primary']['base']) ? $styles['color_palette_primary']['base'] : '#fff' }}
+    }
+    .pdf-frontpage .pdf-heading {
         margin-bottom: 8px;
         font-weight: 700;
     }
 
-    .pdf-cover__heading {  
+    /* .pdf-frontpage__heading {  
         position: absolute; 
         top: 50%; 
         left: 0; 
         right: 0; 
         padding: 0 2cm;  
         transform: translateY(-50%);
-    }
+    } */
 
     footer {
         position: fixed;

@@ -8,6 +8,8 @@ use Municipio\Helper\Image;
 
 class CreatePdf
 {
+    private $defaultPrefix = 'default';
+
     public function __construct()
     {
 
@@ -45,15 +47,27 @@ class CreatePdf
     }
 
     private function getCover($postTypes) {
-        $postType = 'default';
-        if (!empty($postTypes) && count($postTypes) === 1) {
-            $postType = $postTypes[reset($postTypes)];
+        $postType = $this->defaultPrefix;
+        if (count($postTypes) === 1) {
+            $postType = current($postTypes);
         } 
 
+        return $this->getCoverFieldsForPostType($postType);
+    }
+
+    private function getCoverFieldsForPostType($postType) {
+        $heading = get_field($postType . '_pdf_frontpage_heading', 'option');
+        $introduction = get_field($postType . '_pdf_frontpage_introduction', 'option');
+        $cover = Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600]);
+
+        if ($postType != $this->defaultPrefix && empty($heading) && empty($introduction) && empty($cover)) {
+            return $this->getCoverFieldsForPostType($this->defaultPrefix);
+        }
+
         return [
-            'heading'       => get_field($postType . '_pdf_frontpage_heading', 'option'),
-            'introduction'  => get_field($postType . '_pdf_frontpage_introduction', 'option'),
-            'cover'         => Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600])
+            'heading'       => $heading,
+            'introduction'  => $introduction,
+            'cover'         => $cover
         ];
     }
 
