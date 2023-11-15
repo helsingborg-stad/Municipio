@@ -929,8 +929,9 @@ class Navigation
                 //Add items
                 foreach ($ancestors as $id) {
                     if (!in_array($id, $pageForPostTypeIds)) {
-                        $pageData[$id]['label']   = get_the_title($id) ? get_the_title($id) : __("Untitled page", 'municipio');
-                        $pageData[$id]['href']    = get_permalink($id);
+                        $title = WP::getTheTitle($id);
+                        $pageData[$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
+                        $pageData[$id]['href']    = WP::getPermalink($id);
                         $pageData[$id]['current'] = false;
                         $pageData[$id]['icon']    = 'chevron_right';
                     }
