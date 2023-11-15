@@ -3,6 +3,48 @@
     "title": "Pdf Generator",
     "fields": [
         {
+            "key": "field_65547887e88c1",
+            "label": "Tab 1",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_6554a105265fb",
+            "label": "Image",
+            "name": "image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "return_format": "id",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
             "key": "field_65538baad188c",
             "label": "Frontpage heading",
             "name": "pdf_frontpage_heading",
@@ -22,29 +64,10 @@
             "append": ""
         },
         {
-            "key": "field_65538bd9d188d",
-            "label": "Frontpage subheading",
-            "name": "pdf_frontpage_subheading",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_65538ce1f53fc",
             "label": "Frontpage introduction",
             "name": "pdf_frontpage_introduction",
-            "type": "textarea",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -54,11 +77,10 @@
                 "id": ""
             },
             "default_value": "",
-            "acfe_textarea_code": 0,
-            "maxlength": "",
-            "rows": "",
-            "placeholder": "",
-            "new_lines": ""
+            "delay": 0,
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0
         },
         {
             "key": "field_65538c41d188e",
@@ -80,6 +102,41 @@
             "max_width": "",
             "max_height": "",
             "max_size": ""
+        },
+        {
+            "key": "field_6554790d39822",
+            "label": "Tab 2",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_6554791d39823",
+            "label": "Text",
+            "name": "text",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -87,7 +144,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "pdf-generator-settings"
+                "value": "acf-options-css"
             }
         ]
     ],

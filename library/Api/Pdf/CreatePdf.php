@@ -14,18 +14,24 @@ class CreatePdf
 
     public function renderView($ids) {
         $posts = [];
+        $postTypes = [];
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
                 $post = get_post($id);
                 if (!empty($post->post_status) && $post->post_status == 'publish') {
                     $post = \Municipio\Helper\Post::preparePostObjectArchive($post);
+                    if (!empty($post->postType)) {
+                        array_push($postTypes, $post->postType);
+                    }
                     array_push($posts, $post);
                 }
             }
         }
         
+        $cover = $this->getCover($postTypes);
         $styles = $this->getThemeMods();
         $fonts = $this->getFonts($styles);
+
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'posts' => $posts,
@@ -34,6 +40,15 @@ class CreatePdf
             ]);
 
             $this->renderPdf($html);
+        }
+    }
+
+    private function getCover($postTypes) {
+        if (!empty($postTypes) && count($postTypes) === 1) {
+            echo '<pre>' . print_r( $postTypes, true ) . '</pre>';
+            die;
+        } else {
+
         }
     }
 
