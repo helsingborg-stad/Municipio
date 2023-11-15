@@ -58,7 +58,7 @@ class PdfGenerator extends RestApiEndpoint
 
     private function getFieldsForEachPostType($postTypes) {
         $fields = [];
-
+        
         foreach ($postTypes as $postType) {
             if (!empty($postType->name) && !empty($postType->label) && $this->excludedPostTypes($postType->name)) {
                 $fields[] = [
@@ -81,7 +81,7 @@ class PdfGenerator extends RestApiEndpoint
                 $fields[] = [
                     'key' => 'field_heading_' . $postType->name,
                     'label' => __('Heading', 'municipio'),
-                    'name' => $postType->label . '_pdf_frontpage_heading',
+                    'name' => $postType->name . '_pdf_frontpage_heading',
                     'type' => 'text',
                     'instructions' => '',
                     'required' => 0,
@@ -96,7 +96,7 @@ class PdfGenerator extends RestApiEndpoint
                 $fields[] = [
                     'key' => 'field_introduction_' . $postType->name,
                     'label' => __('Introduction', 'municipio'),
-                    'name' => $postType->label . '_pdf_frontpage_introduction',
+                    'name' => $postType->name . '_pdf_frontpage_introduction',
                     'type' => 'wysiwyg',
                     'instructions' => '',
                     'required' => 0,
@@ -116,7 +116,7 @@ class PdfGenerator extends RestApiEndpoint
                 $fields[] = [
                     'key' => 'field_cover_' . $postType->name,
                     'label' => __('Cover', 'municipio'),
-                    'name' => $postType->label . '_pdf_frontpage_cover',
+                    'name' => $postType->name . '_pdf_frontpage_cover',
                     'type' => 'image',
                     'instructions' => '',
                     'required' => 0,

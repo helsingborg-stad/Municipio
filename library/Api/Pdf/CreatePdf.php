@@ -4,6 +4,7 @@ namespace Municipio\Api\Pdf;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Municipio\Helper\Image;
 
 class CreatePdf
 {
@@ -32,10 +33,13 @@ class CreatePdf
         $styles = $this->getThemeMods();
         $fonts = $this->getFonts($styles);
 
+        // echo '<pre>' . print_r( $cover, true ) . '</pre>';
+        // die;
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'posts' => $posts,
                 'styles' => $styles,
+                'cover' => $cover,
                 // 'fonts' => $fonts
             ]);
 
@@ -44,12 +48,15 @@ class CreatePdf
     }
 
     private function getCover($postTypes) {
+        $postType = 'default';
         if (!empty($postTypes) && count($postTypes) === 1) {
-            echo '<pre>' . print_r( $postTypes, true ) . '</pre>';
-            die;
-        } else {
-
-        }
+            $postType = $postTypes[0];
+        } 
+        return [
+            'heading'       => get_field($postType . '_pdf_frontpage_heading', 'option'),
+            'introduction'  => get_field($postType . '_pdf_frontpage_introduction', 'option'),
+            'cover'         => Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600])
+        ];
     }
 
     private function getFonts($styles) {
