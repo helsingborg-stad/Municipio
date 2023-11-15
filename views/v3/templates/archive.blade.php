@@ -17,6 +17,10 @@
             @endif
         @endif
     @endif
+    @include('partials.sidebar', [
+        'id' => 'left-sidebar-bottom',
+        'classes' => ['o-grid'],
+    ])
 @stop
 
 @section('content')
@@ -127,4 +131,5 @@
             @endif
         @endif
     @endif
+    @includeIf('partials.sidebar', ['id' => 'right-sidebar', 'classes' => ['o-grid']])
 @stop
