@@ -112,7 +112,7 @@ class WP
         }, $item);
 
         $mapGeneralPostData = function (object $post): object {
-            $post->permalink = get_permalink($post->id);
+            $post->permalink = WP::getPermalink($post->id);
             $post->thumbnail =
                 Post::getFeaturedImage($post->id, [800, 800]);
 
@@ -129,5 +129,52 @@ class WP
             ]),
             $posts
         );
+    }
+
+    public static function getPost($post = null, $output = OBJECT, $filter = 'raw') {
+
+        if (self::isRemotePostID($post)) {
+            // Get post by ID using get_posts
+            $remotePostFound = fn ($posts) =>
+                is_array($posts) &&
+                !empty($posts) &&
+                is_a($posts[0], 'WP_Post') &&
+                $posts[0]->ID === $post;
+
+            $posts = get_posts(array(
+                'post__in' => [$post],
+                'posts_per_page' => 1,
+                'suppress_filters' => false, // Important to allow filters to modify the query
+            ));
+
+            if ($remotePostFound($posts)) {
+                return get_post($posts[0], $output, $filter);
+            }
+        }
+
+        return get_post($post, $output, $filter);
+    }
+
+    public static function getTheTitle($post = 0)
+    {
+        if (self::isRemotePostID($post)) {
+            $post = self::getPost($post);
+        }
+
+        return get_the_title($post);
+    }
+
+    public static function getPermalink($post = 0, $leavename = false)
+    {
+        if (self::isRemotePostID($post)) {
+            $post = self::getPost($post);
+        }
+
+        return get_permalink($post, $leavename);
+    }
+
+    private static function isRemotePostID($postID): bool
+    {
+        return is_numeric($postID) && $postID < 0;
     }
 }

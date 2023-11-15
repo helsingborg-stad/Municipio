@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
+use Municipio\Helper\WP;
 use WP_Post;
 
 /**
@@ -483,7 +484,7 @@ class Singular extends \Municipio\Controller\BaseController
         if (isset($GLOBALS['post']) && is_a($GLOBALS['post'], 'WP_Post') && $GLOBALS['post']->ID === $pageID) {
             $post = $GLOBALS['post'];
         } else {
-            $post = get_post($pageID);
+            $post = WP::getPost($pageID);
         }
 
         return $post instanceof WP_Post ? $post : null;

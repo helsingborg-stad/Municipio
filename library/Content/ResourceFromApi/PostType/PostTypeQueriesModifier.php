@@ -5,6 +5,7 @@ namespace Municipio\Content\ResourceFromApi\PostType;
 use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Helper\RestRequestHelper;
+use Municipio\Helper\WP;
 use WP_Post;
 use WP_Query;
 
@@ -91,7 +92,13 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return $postLink;
         }
 
-        $path     = trim(parse_url(get_post_permalink($post->post_parent))['path'], '/');
+        $parent = WP::getPost($post->post_parent);
+
+        if( empty($parent) ) {
+            return $postLink;
+        }
+
+        $path     = trim(parse_url(WP::getPermalink($parent))['path'], '/');
         $postLink = str_replace('%parentPost%', $path, $postLink);
 
         return $postLink;
