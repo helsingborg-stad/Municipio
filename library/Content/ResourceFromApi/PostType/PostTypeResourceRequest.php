@@ -160,12 +160,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         $wpPost->comment_count         = 0;
         $wpPost->filter                = 'raw';
 
-        $wpPost = apply_filters('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', $wpPost, $restApiPost, $localPostType);
-
-        if (is_a($wpPost, 'WP_Post')) {
-            wp_cache_add($wpPost->ID, $wpPost, 'posts');
-        }
-
-        return $wpPost;
+        $hookName = 'Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost';
+        return apply_filters($hookName, $wpPost, $restApiPost, $localPostType);
     }
 }
