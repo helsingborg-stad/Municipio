@@ -22,7 +22,7 @@
     {{-- @include('pdf.frontpage') --}}
     <!-- /Front page -->
     <!-- Article pages -->
-    @include('partials.content.pdf.cover')
+    @include('partials.content.pdf.frontpage')
     {{-- @dump($styles['typography_h1']) --}}
     @if (!empty($posts)) 
     <section class="pdf-toc" class="pdf-page-break">

@@ -3,7 +3,8 @@
     /* Typography */
     article,
     section:not(.pdf-toc),
-    p {
+    p,
+    .pdf-frontpage__introduction {
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
     }
@@ -52,11 +53,6 @@
     h6 {
         font-size: {{ !empty($styles['typography_h6']['font-size']) ? $styles['typography_h6']['font-size'] : '16px' }};
         line-height: {{ !empty($styles['typography_h6']['line-height']) ? $styles['typography_h6']['line-height'] : '1.25' }};
-    }
-
-    h2.pdf-post__heading {
-        color: {{ !empty($styles['color_palette_primary']['base']) ? $styles['color_palette_primary']['base'] : '#76232F' }};
-        font-weight: bold;
     }
 
     .pdf-page-break {
@@ -132,21 +128,40 @@
 
     /* Pdf Frontpage */
     .pdf-frontpage {
-        background-color: {{ !empty($styles['color_palette_primary']['base']) ? $styles['color_palette_primary']['base'] : '#fff' }}
-    }
-    .pdf-frontpage .pdf-heading {
-        margin-bottom: 8px;
-        font-weight: 700;
+        background-color: {{ !empty($styles['color_palette_secondary']['base']) ? $styles['color_palette_secondary']['base'] : '#fff' }};
+        color: {{!empty($styles['color_palette_secondary']['contrasting']) ? $styles['color_palette_secondary']['contrasting'] : '#000' }};
     }
 
-    /* .pdf-frontpage__heading {  
+    .pdf-frontpage .pdf-container {
+        padding: 1cm 2cm;
+    }
+
+    .pdf-frontpage h1.pdf-frontpage__heading {
+        font-size: 56px;
+        line-height: 1;
+        font-weight: 700;
+        max-width: 55%;
+    }
+
+    .pdf-frontpage .pdf-frontpage__introduction {
+        max-width: 55%;
+        float: right;
+    }
+
+    .pdf-frontpage .pdf-frontpage__emblem {
         position: absolute; 
+        width: 100px; 
+        height: 100px; 
         top: 50%; 
-        left: 0; 
-        right: 0; 
-        padding: 0 2cm;  
-        transform: translateY(-50%);
-    } */
+        transform: translateY(-50%); 
+        right: 2cm;
+    }
+
+    .pdf-frontpage .pdf-frontpage__introduction,
+    .pdf-frontpage .pdf-frontpage__introduction * {
+        text-align: right:
+        
+    }
 
     footer {
         position: fixed;

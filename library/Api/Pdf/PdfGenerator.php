@@ -13,18 +13,94 @@ class PdfGenerator extends RestApiEndpoint
     
     public function __construct()
     {
-        add_action('init', array($this, 'acfTest'));
+        add_action('init', array($this, 'addAcfFields'));
     }
 
-    public function acfTest () {
+    public function handleRegisterRestRoute(): bool
+    {
+        return register_rest_route(self::NAMESPACE, self::ROUTE, array(
+            'methods' => 'GET',
+            'callback' => array($this, 'handleRequest'),
+        ));
+    }
+
+    public function handleRequest(WP_REST_Request $request): WP_REST_Response
+    {
+        $ids = $request->get_param('id');
+        if (!empty($ids) && is_string($ids)) {
+            $idArr = explode(',', $ids);
+            $pdf = new \Municipio\Api\Pdf\CreatePdf();
+            return $pdf->renderView($idArr);
+        }
+    }
+
+    public function addAcfFields () {
         $postTypes = get_post_types([
                 'public' => true
         ], 'objects');
         
         if (!empty($postTypes) && is_array($postTypes) && function_exists('acf_add_local_field_group')) {
             acf_add_local_field_group(array(
-            'key' => 'group_123321123',
-            'title' => __('Pdf Generator', 'municipio'),
+                'key' => 'group_pdf_generator_emblem',
+                'title' => __('Emblem', 'municipio'),
+                'fields' => [
+                    [
+                        'key' => 'field_pdf_emblem',
+                        'label' => __('Emblem', 'municipio'),
+                        'name' => 'pdf_frontpage_emblem',
+                        'type' => 'image',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'uploader' => '',
+                        'acfe_thumbnail' => 0,
+                        'return_format' => 'id',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                    ]
+                ],
+                'location' => array(
+                    0 => array(
+                        0 => array(
+                            'param' => 'options_page',
+                            'operator' => '==',
+                            'value' => 'pdf-generator-settings',
+                        ),
+                    ),
+                ),
+                'menu_order' => 0,
+                'position' => 'normal',
+                'style' => 'default',
+                'label_placement' => 'left',
+                'instruction_placement' => 'label',
+                'hide_on_screen' => '',
+                'active' => true,
+                'description' => '',
+                'show_in_rest' => 0,
+                'acfe_display_title' => '',
+                'acfe_autosync' => array(
+                    0 => 'json',
+                ),
+                'acfe_form' => 0,
+                'acfe_meta' => '',
+                'acfe_note' => '',
+            ));
+
+            acf_add_local_field_group(array(
+            'key' => 'group_pdf_generator_templates',
+            'title' => __('PDF post types', 'municipio'),
             'fields' => $this->getFieldsForEachPostType($postTypes),
             'location' => array(
                 0 => array(
@@ -52,7 +128,6 @@ class PdfGenerator extends RestApiEndpoint
             'acfe_meta' => '',
             'acfe_note' => '',
         ));
-        
         }
     }
 
@@ -152,23 +227,5 @@ class PdfGenerator extends RestApiEndpoint
 
     private function excludedPostTypes($postTypeName) {
         return !in_array($postTypeName, ['attachment']);
-    }
-
-    public function handleRegisterRestRoute(): bool
-    {
-        return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => 'GET',
-            'callback' => array($this, 'handleRequest'),
-        ));
-    }
-
-    public function handleRequest(WP_REST_Request $request): WP_REST_Response
-    {
-        $ids = $request->get_param('id');
-        if (!empty($ids) && is_string($ids)) {
-            $idArr = explode(',', $ids);
-            $pdf = new \Municipio\Api\Pdf\CreatePdf();
-            return $pdf->renderView($idArr);
-        }
     }
 }

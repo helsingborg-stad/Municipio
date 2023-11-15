@@ -59,6 +59,7 @@ class CreatePdf
         $heading = get_field($postType . '_pdf_frontpage_heading', 'option');
         $introduction = get_field($postType . '_pdf_frontpage_introduction', 'option');
         $cover = Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600]);
+        $emblem = Image::getImageAttachmentData(get_field('pdf_frontpage_emblem', 'option'), [100, 100]);
 
         if ($postType != $this->defaultPrefix && empty($heading) && empty($introduction) && empty($cover)) {
             return $this->getCoverFieldsForPostType($this->defaultPrefix);
@@ -67,7 +68,8 @@ class CreatePdf
         return [
             'heading'       => $heading,
             'introduction'  => $introduction,
-            'cover'         => $cover
+            'cover'         => $cover,
+            'emblem'        => $emblem
         ];
     }
 
