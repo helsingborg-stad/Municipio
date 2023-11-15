@@ -133,7 +133,7 @@
                                                     'element' => 'h2',
                                                     'variant' => 'h1'
                                                 ])
-                                                    {{ $place->postTitle }}
+                                                    {!! $place->postTitle !!}
                                                 @endtypography
                                                 @if(is_array($place->callToActionItems['floating']))
                                                     @icon($place->callToActionItems['floating'])
