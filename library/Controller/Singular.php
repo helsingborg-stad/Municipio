@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
+use WP_Post;
 
 /**
  * Class Singular
@@ -19,7 +20,12 @@ class Singular extends \Municipio\Controller\BaseController
         parent::init();
 
         //Get post data
-        $originalPostData = get_post($this->getPageID());
+        $pageID = $this->getPageID();
+        $originalPostData = $this->getOriginalPostData($pageID);
+
+        if (!$originalPostData) {
+            return $this->data;
+        }
 
         $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
@@ -464,5 +470,28 @@ class Singular extends \Municipio\Controller\BaseController
             get_field('post_one_page_show_title', $postId),
             $postId
         );
+    }
+
+    /**
+     * Get the original post data
+     *
+     * @param integer $pageID The page id
+     * @return object The post object
+     */
+    /**
+     * Get the original post data
+     *
+     * @param int $pageID The page ID
+     * @return WP_Post|null The post object or null if not found
+     */
+    protected function getOriginalPostData(int $pageID): ?WP_Post
+    {
+        if (isset($GLOBALS['post']) && is_a($GLOBALS['post'], 'WP_Post') && $GLOBALS['post']->ID === $pageID) {
+            $post = $GLOBALS['post'];
+        } else {
+            $post = get_post($pageID);
+        }
+
+        return $post instanceof WP_Post ? $post : null;
     }
 }
