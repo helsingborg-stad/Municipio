@@ -166,13 +166,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (!empty($this->postMeta->numberOfChildren)) {
             $value = absint($this->postMeta->numberOfChildren);
-            $label = sprintf(__('Ca. %d children', 'municipio'), $value);
+            $label = sprintf(__('Ca %d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
         
         if (!empty($this->postMeta->numberOfStudents)) {
             $value = absint($this->postMeta->numberOfStudents);
-            $label = sprintf(__('Ca. %d students', 'municipio'), $value);
+            $label = sprintf(__('Ca %d students', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
