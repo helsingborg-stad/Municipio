@@ -85,39 +85,40 @@
     @endif
 
 
-    @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4']])
+    @if ($application['displayOnWebsite'])
 
-        @typography(['element' => 'h2'])
-            {{ $application['title'] }}
-        @endtypography
+        @paper(['classList' => ['u-color__bg--complementary-lighter', 'u-padding--4']])
+            @typography(['element' => 'h2'])
+                {{ $application['title'] }}
+            @endtypography
 
-        @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
-            {{ $application['description'] }}
-        @endtypography
+            @typography(['element' => 'p', 'classList' => ['u-margin__bottom--3']])
+                {{ $application['description'] }}
+            @endtypography
 
-        @if ($application['apply'])
-            @button([
-                'text' => $application['apply']['text'],
-                'href' => $application['apply']['url'],
-                'color' => 'primary',
-                'style' => 'filled',
-                'size' => 'lg',
-            ])
-            @endbutton
-        @endif
+            @if ($application['apply'])
+                @button([
+                    'text' => $application['apply']['text'],
+                    'href' => $application['apply']['url'],
+                    'color' => 'primary',
+                    'style' => 'filled',
+                    'size' => 'lg',
+                ])
+                @endbutton
+            @endif
 
-        @if ($application['howToApply'])
-            @button([
-                'text' => $application['howToApply']['text'],
-                'href' => $application['howToApply']['url'],
-                'color' => 'secondary',
-                'style' => 'filled',
-                'size' => 'lg',
-            ])
-            @endbutton
-        @endif
-
-    @endpaper
+            @if ($application['howToApply'])
+                @button([
+                    'text' => $application['howToApply']['text'],
+                    'href' => $application['howToApply']['url'],
+                    'color' => 'secondary',
+                    'style' => 'filled',
+                    'size' => 'lg',
+                ])
+                @endbutton
+            @endif
+        @endpaper
+    @endif
 
     @if ($contacts)
 
