@@ -1,4 +1,4 @@
-<article class="pdf-page-break">
+<article class="pdf-post pdf-page-break">
     <script type="text/php">
         $GLOBALS['chapters']['{{$index + 1}}'] = $pdf->get_page_number();
     </script>

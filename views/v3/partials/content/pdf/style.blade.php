@@ -84,7 +84,7 @@
 
     .pdf-frontpage h1.pdf-frontpage__heading {
         font-size: 56px;
-        line-height: 1;
+        line-height: 0.9;
         font-weight: 700;
         max-width: 55%;
     }

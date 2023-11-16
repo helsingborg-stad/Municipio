@@ -3,11 +3,11 @@
     "title": "Pdf Generator",
     "fields": [
         {
-            "key": "field_65547887e88c1",
-            "label": "Tab 1",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
+            "key": "field_655633c401312",
+            "label": "Default frontpage",
+            "name": "default_frontpage",
+            "type": "radio",
+            "instructions": "If there is no data attached. What template should it use?",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,128 +15,52 @@
                 "class": "",
                 "id": ""
             },
-            "placement": "top",
-            "endpoint": 0
+            "choices": {
+                "default": "Default",
+                "none": "None",
+                "custom": "Custom"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
         },
         {
-            "key": "field_6554a105265fb",
-            "label": "Image",
-            "name": "image",
-            "type": "image",
+            "key": "field_6556381b6eefe",
+            "label": "Chose another frontpage",
+            "name": "chose_another_frontpage",
+            "type": "select",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_655633c401312",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "uploader": "",
-            "acfe_thumbnail": 0,
-            "return_format": "id",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "preview_size": "medium",
-            "library": "all"
-        },
-        {
-            "key": "field_65538baad188c",
-            "label": "Frontpage heading",
-            "name": "pdf_frontpage_heading",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
+            "choices": {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4"
             },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_65538ce1f53fc",
-            "label": "Frontpage introduction",
-            "name": "pdf_frontpage_introduction",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "delay": 0,
-            "tabs": "visual",
-            "toolbar": "basic",
-            "media_upload": 0
-        },
-        {
-            "key": "field_65538c41d188e",
-            "label": "Frontpage image cover",
-            "name": "pdf_frontpage_image_cover",
-            "type": "focuspoint",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "preview_size": "medium",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": ""
-        },
-        {
-            "key": "field_6554790d39822",
-            "label": "Tab 2",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
-            "key": "field_6554791d39823",
-            "label": "Text",
-            "name": "text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "default_value": 1,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [

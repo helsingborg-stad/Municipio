@@ -10,6 +10,7 @@ class PdfGenerator extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v2';
     private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
+    private $defaultPrefix = 'default';
     
     public function __construct()
     {
@@ -138,7 +139,7 @@ class PdfGenerator extends RestApiEndpoint
             'name' => 'default',
             'label' => __('Default', 'municipio')
         ]);
-  
+        
         foreach ($postTypes as $postType) {
             if (!empty($postType->name) && !empty($postType->label) && $this->excludedPostTypes($postType->name)) {
                 $fields[] = [
@@ -219,10 +220,77 @@ class PdfGenerator extends RestApiEndpoint
                     'preview_size' => 'medium',
                     'library' => 'all',
                 ];
+
+                $fields[] = [
+                    'key' => 'field_fallback_frontpage_' . $postType->name,
+                    'label' => __('Default frontpage', 'municipio'),
+                    'name' => $postType->name . '_pdf_fallback_frontpage',
+                    'type' => 'radio',
+                    'instructions' => __('If there is no data attached. Which frontpage should it use?', 'municipio'),
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        'default' => __('Default', 'municipio'),
+                        'none' => __('None', 'municipio'),
+                        'custom' => __('Custom', 'municipio'),
+                    ),
+                    'default_value' => __('default', 'municipio'),
+                    'return_format' => 'value',
+                    'allow_null' => 0,
+                    'other_choice' => 0,
+                    'layout' => 'horizontal',
+                    'save_other_choice' => 0,
+                ];
+
+                $fields[] = [
+                    'key' => 'field_custom_frontpage_' . $postType->name,
+                    'label' => __('Chose another frontpage', 'municipio'),
+                    'name' => $postType->name . '_pdf_custom_frontpage',
+                    'type' => 'select',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => array(
+                        0 => array(
+                            0 => array(
+                                'field' => 'field_fallback_frontpage_' . $postType->name,
+                                'operator' => '==',
+                                'value' => 'custom',
+                            ),
+                        ),
+                    ),
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => $this->structurePostTypesArray($postTypes, $postType->name),
+                    'default_value' => 1,
+                    'return_format' => 'value',
+                    'multiple' => 0,
+                    'allow_null' => 0,
+                    'ui' => 0,
+                    'ajax' => 0,
+                    'placeholder' => '',
+                ];
             }
         }
 
         return $fields;
+    }
+
+    private function structurePostTypesArray($postTypes, $currentPostType) {
+        $postTypesArray = [];
+        foreach ($postTypes as $postType) {
+            if (!empty($postType->name) && !empty($postType->label) && $postType->name != $currentPostType && $postType->name != $this->defaultPrefix) {
+                $postTypesArray[$postType->name] = $postType->label;
+            }
+        }
+        return $postTypesArray;
     }
 
     private function excludedPostTypes($postTypeName) {

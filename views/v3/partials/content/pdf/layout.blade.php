@@ -27,16 +27,14 @@
     {{-- @include('pdf.frontpage') --}}
     <!-- /Front page -->
     <!-- Article pages -->
-    @include('partials.content.pdf.frontpage')
+    @includeWhen(!empty($cover), 'partials.content.pdf.frontpage')
     {{-- @dump($styles['typography_h1']) --}}
     @if (!empty($posts)) 
-    <section class="pdf-toc" class="pdf-page-break">
+    <section class="pdf-toc {{!empty($cover) ? 'pdf-page-break' : ''}}">
         @include('partials.content.pdf.table-of-contents')
     </section>
     @foreach ($posts as $index => $post)
-        <article class="pdf-post">
-            @include('partials.content.pdf.post')
-        </article>
+        @include('partials.content.pdf.post')
     @endforeach
     @endif
 
@@ -46,7 +44,7 @@
 		$pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] = str_replace( '%%CH'.$chapter.'%%' , $page , $pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] );
 	}
 	$pdf->page_script('
-		if ($PAGE_NUM==2 ) {
+		if ($PAGE_NUM=={{!empty($cover) ? 2 : 1}} ) {
 			$pdf->add_object($GLOBALS["backside"],"add");
 			$pdf->stop_object($GLOBALS["backside"]);
 		} 

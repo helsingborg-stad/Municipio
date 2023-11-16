@@ -41,7 +41,7 @@ class CreatePdf
             foreach ($ids as $id) {
                 $post = get_post($id);
                 if (!empty($post->post_status) && $post->post_status == 'publish') {
-                    $post = \Municipio\Helper\Post::preparePostObjectArchive($post);
+                    $post = \Municipio\Helper\Post::preparePostObject($post);
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
                     }
@@ -61,14 +61,21 @@ class CreatePdf
         return $this->getCoverFieldsForPostType($postType);
     }
 
-    private function getCoverFieldsForPostType($postType) {
+    private function getCoverFieldsForPostType($postType, $ranOnce = false) {
         $heading = get_field($postType . '_pdf_frontpage_heading', 'option');
         $introduction = get_field($postType . '_pdf_frontpage_introduction', 'option');
         $cover = Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600]);
         $emblem = Image::getImageAttachmentData(get_field('pdf_frontpage_emblem', 'option'), [100, 100]);
-
+        $defaultFrontpage = get_field($postType . '_pdf_fallback_frontpage', 'option');
+        
         if ($postType != $this->defaultPrefix && empty($heading) && empty($introduction) && empty($cover)) {
-            return $this->getCoverFieldsForPostType($this->defaultPrefix);
+            if (!$ranOnce) {
+                if ($defaultFrontpage == 'none') {
+                    return false;
+                }
+                // echo '<pre>' . print_r( $defaultFrontpage, true ) . '</pre>';die;
+                return $this->getCoverFieldsForPostType($this->defaultPrefix, true);
+            }
         }
 
         return [
