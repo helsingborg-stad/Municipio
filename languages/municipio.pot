@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-14 11:57+0000\n"
+"POT-Creation-Date: 2023-11-16 07:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -15010,7 +15010,7 @@ msgstr ""
 msgid "A short descriptive summary of what the post type is."
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:317
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:325
 msgid "About the school"
 msgstr ""
 
@@ -15709,7 +15709,7 @@ msgstr ""
 msgid "audiotrack"
 msgstr ""
 
-#: library/Controller/Singular.php:300
+#: library/Controller/Singular.php:307
 #: library/AcfFields/php/options-theme-author.php:8
 msgid "Author"
 msgstr ""
@@ -16267,11 +16267,11 @@ msgid "Byline"
 msgstr ""
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:169
-msgid "Ca. %d children"
+msgid "Ca %d children"
 msgstr ""
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:175
-msgid "Ca. %d students"
+msgid "Ca %d students"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:168
@@ -17218,7 +17218,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:608
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr ""
@@ -17599,7 +17599,7 @@ msgstr ""
 msgid "Do not use content type template"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:280
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:288
 #, php-format
 msgid "Do you want to apply to %s?"
 msgstr ""
@@ -17940,7 +17940,7 @@ msgstr ""
 msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:624
 msgid "Events"
 msgstr ""
 
@@ -18292,7 +18292,7 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:395
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:403
 msgid "Find directions"
 msgstr ""
 
@@ -18406,7 +18406,7 @@ msgstr ""
 msgid "folder_special"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:477
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:485
 msgid "Follow us in social media"
 msgstr ""
 
@@ -19099,7 +19099,7 @@ msgstr ""
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:324
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:332
 msgid "How we work"
 msgstr ""
 
@@ -21018,11 +21018,11 @@ msgstr ""
 msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:331
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:339
 msgid "Orientation"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:338
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:346
 msgid "Our leisure center"
 msgstr ""
 
@@ -21834,7 +21834,7 @@ msgstr ""
 
 #: library/Controller/BaseController.php:269
 #: library/Controller/BaseController.php:285
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:449
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:457
 msgid "Read more"
 msgstr ""
 
@@ -22289,7 +22289,7 @@ msgstr ""
 msgid "security"
 msgstr ""
 
-#: library/Controller/Singular.php:230 library/Controller/Archive.php:473
+#: library/Controller/Singular.php:237 library/Controller/Archive.php:475
 msgid "Select"
 msgstr ""
 
@@ -23486,7 +23486,7 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: library/Controller/Singular.php:436
+#: library/Controller/Singular.php:443
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -23782,7 +23782,7 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:932
+#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:933
 msgid "Untitled page"
 msgstr ""
 
@@ -24044,11 +24044,11 @@ msgstr ""
 msgid "Visited hover"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:404
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:412
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:405
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:413
 msgid "Visiting addresses"
 msgstr ""
 
