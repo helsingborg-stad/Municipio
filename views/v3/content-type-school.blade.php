@@ -173,7 +173,7 @@
                     @endif
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                             @if ($visitingAddress['description'])
-                                {{ $visitingAddress['description'] }}
+                                <strong>{{ $visitingAddress['description'] }}</strong>
                                 <br/>
                             @endif
                             {!! $visitingAddress['address'] !!}
