@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-11-14 14:48+0000\n"
+"PO-Revision-Date: 2023-11-14 15:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -24769,7 +24769,7 @@ msgstr "Filtrering"
 
 #: library/Controller/ContentType/School/SchoolDataPreparer.php:395
 msgid "Find directions"
-msgstr "Hitta vägbeskrivningar"
+msgstr "Hitta hit"
 
 #: library/AcfFields/php/options-menu-icon.php:385
 msgid "find_in_page"
