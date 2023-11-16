@@ -236,7 +236,7 @@
         @openStreetMap([
             'startPosition' => $visitingAddressMapStartPosition,
             'pins' => $visitingAddressMapPins,
-            'height' => '60vh',
+            'height' => '400px',
             'classList' => ['u-margin__top--5']
         ])
         @endopenStreetMap
