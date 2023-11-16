@@ -381,28 +381,33 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress[0]->address, $visitingAddresses);
-        $visitingData = array_map(function ($address) use(&$mapPins) {
-            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address[0]->address->address);
-            $street = $address[0]->address->street_name ?? '';
-            $streetNumber = $address[0]->address->street_number ?? '';
-            $postCode = $address[0]->address->post_code ?? '';
-            $city = $address[0]->address->city ?? '';
-            $addressString = $street . ' ' . $streetNumber . ',<br>' . $postCode . ' ' . $city;
-            $mapPinTooltip = ['title' => $this->data['post']->postTitle ?? null, 'excerpt' => $addressString];
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses[0]);
+        $visitingData = array_map(function ($address) use(&$mapPins, $visitingAddresses) {
+            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $street = $address->address->street_name ?? '';
+            $streetNumber = $address->address->street_number ?? '';
+            $postCode = $address->address->post_code ?? '';
+            $city = $address->address->city ?? '';
+            $lineBreak = sizeof($visitingAddresses[0]) > 1 ? ',<br>' : ',';
+            $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
+            $mapPinTooltip = [
+                'title' => $this->data['post']->postTitle ?? null,
+                'excerpt' => $addressString,
+                'directions' => ['label' => __('Find directions', 'municipio'), 'url' => $mapsUrl]
+            ];
             
             $mapPins[] = [
-                'lat' => $address[0]->address->lat,
-                'lng' => $address[0]->address->lng,
+                'lat' => $address->address->lat,
+                'lng' => $address->address->lng,
                 'tooltip' => $mapPinTooltip
             ];
             
             return [
                 'address' => $addressString,
-                'description' => $address[0]->description ?? null,
+                'description' => $address->description ?? null,
                 'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
-        }, $visitingAddresses);
+        }, $visitingAddresses[0]);
 
         if (!empty($visitingData)) {
             $this->data['visitingAddresses'] = $visitingData;

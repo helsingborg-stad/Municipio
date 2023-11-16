@@ -153,7 +153,7 @@
                     @endlink
                 @endcard
             @endforeach
-
+        </div>
     @endif
 
     @if ($visitingDataTitle)
@@ -166,19 +166,23 @@
             <div class="o-grid">
 
                 @foreach ($visitingAddresses as $visitingAddress)
-                    <div class="o-grid-3@md">
+                    @if( sizeof($visitingAddresses) === 1 )
+                        <div class="o-grid-12@md">
+                    @else
+                        <div class="o-grid-4@md">
+                    @endif
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                             @if ($visitingAddress['description'])
-                                {{ $visitingAddress['description'] }}<br />
+                                <strong>{{ $visitingAddress['description'] }}</strong>
+                                <br/>
                             @endif
                             {!! $visitingAddress['address'] !!}
-                            @button([
-                                'text' => $visitingAddress['mapsLink']['text'],
+                            <br>
+                            @link([
                                 'href' => $visitingAddress['mapsLink']['href'],
-                                'color' => 'primary',
-                                'style' => 'basic',
                             ])
-                            @endbutton
+                                {{$visitingAddress['mapsLink']['text']}}
+                            @endlink
                         @endtypography
                     </div>
                 @endforeach
@@ -189,7 +193,9 @@
 
     @if (!empty($accordionListItems))
 
-        @accordion([])
+        @accordion([
+            'classList' => ['u-margin__top--5']
+        ])
             @foreach ($accordionListItems as $listItem)
                 @accordion__item([
                     'heading' => $listItem['heading'],
@@ -204,11 +210,11 @@
 
     @if ($socialMediaLinks)
 
-        <div>
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{ $socialMediaLinksTitle }}
+        @endtypography
 
-            @typography(['element' => 'h2', 'variant' => 'h2'])
-                {{ $socialMediaLinksTitle }}
-            @endtypography
+        <div>
 
             @foreach ($socialMediaLinks as $socialMediaLink)
                 @button([
@@ -226,19 +232,6 @@
         </div>
     @endif
 
-
-
-    @if ($gallerySliderItems)
-        @slider(['showStepper' => true, 'autoSlide' => false])
-            @foreach ($gallerySliderItems as $sliderItem)
-                @slider__item($sliderItem)
-                @endslider__item
-            @endforeach
-        @endslider
-    @elseif($video)
-        {!! $video !!}
-    @endif
-
     @if ($pages)
         @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
@@ -249,26 +242,44 @@
                         'o-grid-' . $pagesNumberOfColumns . '@md',
                         'u-color__bg--lightest',
                         'u-box-shadow--3',
-                        'u-padding--3'
+                        'u-padding--2'
                     ]
                 ])
-                    @typography(['element' => 'p', 'variant' => 'h4'])
+                    @typography(['element' => 'h3', 'variant' => 'h4'])
                         {{ $page['title'] }}
                     @endtypography
+
+                    @slot('secondary')
+                        @icon(['icon' => 'arrow_forward', 'size' => 'md', 'color' => 'primary'])
+                        @endicon
+                    @endslot
+
                 @endcollection__item
             @endforeach
         @endcollection
     @endif
 
     @if ($visitingDataTitle)
-
         @openStreetMap([
             'startPosition' => $visitingAddressMapStartPosition,
             'pins' => $visitingAddressMapPins,
-            'height' => '60vh'
+            'height' => '400px',
+            'classList' => ['u-margin__top--5']
         ])
         @endopenStreetMap
+    @endif
 
+    @if ($gallerySliderItems)
+        @slider(['showStepper' => true, 'autoSlide' => false, 'classList' => ['u-margin__top--6']])
+            @foreach ($gallerySliderItems as $sliderItem)
+                @slider__item($sliderItem)
+                @endslider__item
+            @endforeach
+        @endslider
+    @elseif($video)
+        <div class="u-margin__top--6">
+        {!! $video !!}
+        </div>
     @endif
 
 @stop
