@@ -232,17 +232,14 @@
         </div>
     @endif
 
-
-
-    @if ($gallerySliderItems)
-        @slider(['showStepper' => true, 'autoSlide' => false])
-            @foreach ($gallerySliderItems as $sliderItem)
-                @slider__item($sliderItem)
-                @endslider__item
-            @endforeach
-        @endslider
-    @elseif($video)
-        {!! $video !!}
+    @if ($visitingDataTitle)
+        @openStreetMap([
+            'startPosition' => $visitingAddressMapStartPosition,
+            'pins' => $visitingAddressMapPins,
+            'height' => '60vh',
+            'classList' => ['u-margin__top--5']
+        ])
+        @endopenStreetMap
     @endif
 
     @if ($pages)
@@ -266,15 +263,17 @@
         @endcollection
     @endif
 
-    @if ($visitingDataTitle)
-
-        @openStreetMap([
-            'startPosition' => $visitingAddressMapStartPosition,
-            'pins' => $visitingAddressMapPins,
-            'height' => '60vh'
-        ])
-        @endopenStreetMap
-
+    @if ($gallerySliderItems)
+        @slider(['showStepper' => true, 'autoSlide' => false, 'classList' => ['u-margin__top--6']])
+            @foreach ($gallerySliderItems as $sliderItem)
+                @slider__item($sliderItem)
+                @endslider__item
+            @endforeach
+        @endslider
+    @elseif($video)
+        <div class="u-margin__top--6">
+        {!! $video !!}
+        </div>
     @endif
 
 @stop
