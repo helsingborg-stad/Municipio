@@ -1,60 +1,5 @@
 <style>
-
-    /* Typography */
-    article,
-    section:not(.pdf-toc),
-    p,
-    .pdf-frontpage__introduction {
-        font-family: 'Roboto', sans-serif;
-        font-weight: 400;
-    }
-
-    .lead {
-        font-weight: bold;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-top: 0;
-        font-weight: 700;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    h1,
-    .pdf-heading--h1 {
-        font-size: {{ !empty($styles['typography_h1']['font-size']) ? $styles['typography_h1']['font-size'] : '48px' }};
-        line-height: 1.1;
-    }
-
-    h2 {
-        font-size: {{ !empty($styles['typography_h2']['font-size']) ? $styles['typography_h2']['font-size'] : '32px' }};
-        line-height: {{ !empty($styles['typography_h2']['line-height']) ? $styles['typography_h2']['line-height'] : '1.25' }};
-    }
-
-    h3 {
-        font-size: {{ !empty($styles['typography_h3']['font-size']) ? $styles['typography_h3']['font-size'] : '24px' }};
-        line-height: {{ !empty($styles['typography_h3']['line-height']) ? $styles['typography_h3']['line-height'] : '1.25' }};
-    }
-
-    h4 {
-        font-size: {{ !empty($styles['typography_h4']['font-size']) ? $styles['typography_h4']['font-size'] : '20px' }};
-        line-height: {{ !empty($styles['typography_h4']['line-height']) ? $styles['typography_h4']['line-height'] : '1.25' }};
-    }
-
-    h5 {
-        font-size: {{ !empty($styles['typography_h5']['font-size']) ? $styles['typography_h5']['font-size'] : '18px' }};
-        line-height: {{ !empty($styles['typography_h5']['line-height']) ? $styles['typography_h5']['line-height'] : '1.25' }};
-    }
-
-    h6 {
-        font-size: {{ !empty($styles['typography_h6']['font-size']) ? $styles['typography_h6']['font-size'] : '16px' }};
-        line-height: {{ !empty($styles['typography_h6']['line-height']) ? $styles['typography_h6']['line-height'] : '1.25' }};
-    }
-
+    /* Page break */
     .pdf-page-break {
         page-break-before: always;
     }
@@ -99,6 +44,7 @@
 
     .pdf-toc__number {
         padding-left: 4px;
+        margin-right: -2cm;
         float: right;
     }
 
@@ -163,13 +109,13 @@
         
     }
 
+    /* Footer */
     footer {
         position: fixed;
         bottom: -1.5cm;
         left: -3.5cm;
         right: -3.5cm;
         height: 1cm;
-        /** Extra personal styles **/
         text-align: center;
         line-height: 35px;
     }

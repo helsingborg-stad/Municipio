@@ -6,15 +6,20 @@
     <meta name="author" content="Helsingborgs stad">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> --}}
+    @foreach($fonts as $font) 
+        @if(!empty($font['google-font']))
+            <link href="{{$font['google-font']}}" rel="stylesheet">
+        @endif
+    @endforeach
+    @include('partials.content.pdf.typography')
     @include('partials.content.pdf.style')
 </head>
 <body>
     <footer>
         <span></span>
     </footer>
-
+    
     {{-- @dump(get_option('kirki_downloaded_font_files')) --}}
     {{-- @dump(get_theme_mods()) --}}
     {{-- <div class="pagi"><span></span></div> --}}
