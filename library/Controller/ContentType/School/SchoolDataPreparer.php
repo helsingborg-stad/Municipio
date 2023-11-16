@@ -382,13 +382,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses[0]);
-        $visitingData = array_map(function ($address) use(&$mapPins) {
+        $visitingData = array_map(function ($address) use(&$mapPins, $visitingAddresses) {
             $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
             $street = $address->address->street_name ?? '';
             $streetNumber = $address->address->street_number ?? '';
             $postCode = $address->address->post_code ?? '';
             $city = $address->address->city ?? '';
-            $addressString = $street . ' ' . $streetNumber . ',<br>' . $postCode . ' ' . $city;
+            $lineBreak = sizeof($visitingAddresses[0]) > 1 ? ',<br>' : ',';
+            $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = ['title' => $this->data['post']->postTitle ?? null, 'excerpt' => $addressString];
             
             $mapPins[] = [

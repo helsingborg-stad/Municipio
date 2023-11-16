@@ -153,7 +153,7 @@
                     @endlink
                 @endcard
             @endforeach
-
+        </div>
     @endif
 
     @if ($visitingDataTitle)
@@ -166,19 +166,23 @@
             <div class="o-grid">
 
                 @foreach ($visitingAddresses as $visitingAddress)
-                    <div class="o-grid-3@md">
+                    @if( sizeof($visitingAddresses) === 1 )
+                        <div class="o-grid-12@md">
+                    @else
+                        <div class="o-grid-4@md">
+                    @endif
                         @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
                             @if ($visitingAddress['description'])
-                                {{ $visitingAddress['description'] }}<br />
+                                {{ $visitingAddress['description'] }}
+                                <br/>
                             @endif
                             {!! $visitingAddress['address'] !!}
-                            @button([
-                                'text' => $visitingAddress['mapsLink']['text'],
+                            <br>
+                            @link([
                                 'href' => $visitingAddress['mapsLink']['href'],
-                                'color' => 'primary',
-                                'style' => 'basic',
                             ])
-                            @endbutton
+                                {{$visitingAddress['mapsLink']['text']}}
+                            @endlink
                         @endtypography
                     </div>
                 @endforeach
@@ -189,7 +193,9 @@
 
     @if (!empty($accordionListItems))
 
-        @accordion([])
+        @accordion([
+            'classList' => ['u-margin__top--5']
+        ])
             @foreach ($accordionListItems as $listItem)
                 @accordion__item([
                     'heading' => $listItem['heading'],
@@ -204,11 +210,11 @@
 
     @if ($socialMediaLinks)
 
-        <div>
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{ $socialMediaLinksTitle }}
+        @endtypography
 
-            @typography(['element' => 'h2', 'variant' => 'h2'])
-                {{ $socialMediaLinksTitle }}
-            @endtypography
+        <div>
 
             @foreach ($socialMediaLinks as $socialMediaLink)
                 @button([
