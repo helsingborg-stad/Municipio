@@ -232,16 +232,6 @@
         </div>
     @endif
 
-    @if ($visitingDataTitle)
-        @openStreetMap([
-            'startPosition' => $visitingAddressMapStartPosition,
-            'pins' => $visitingAddressMapPins,
-            'height' => '400px',
-            'classList' => ['u-margin__top--5']
-        ])
-        @endopenStreetMap
-    @endif
-
     @if ($pages)
         @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
@@ -252,15 +242,31 @@
                         'o-grid-' . $pagesNumberOfColumns . '@md',
                         'u-color__bg--lightest',
                         'u-box-shadow--3',
-                        'u-padding--3'
+                        'u-padding--2'
                     ]
                 ])
-                    @typography(['element' => 'p', 'variant' => 'h4'])
+                    @typography(['element' => 'h3', 'variant' => 'h4'])
                         {{ $page['title'] }}
                     @endtypography
+
+                    @slot('secondary')
+                        @icon(['icon' => 'arrow_forward', 'size' => 'md', 'color' => 'primary'])
+                        @endicon
+                    @endslot
+
                 @endcollection__item
             @endforeach
         @endcollection
+    @endif
+
+    @if ($visitingDataTitle)
+        @openStreetMap([
+            'startPosition' => $visitingAddressMapStartPosition,
+            'pins' => $visitingAddressMapPins,
+            'height' => '400px',
+            'classList' => ['u-margin__top--5']
+        ])
+        @endopenStreetMap
     @endif
 
     @if ($gallerySliderItems)
