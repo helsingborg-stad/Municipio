@@ -249,7 +249,7 @@ class PdfGenerator extends RestApiEndpoint
 
                 $fields[] = [
                     'key' => 'field_custom_frontpage_' . $postType->name,
-                    'label' => __('Chose another frontpage', 'municipio'),
+                    'label' => __('Choose another frontpage', 'municipio'),
                     'name' => $postType->name . '_pdf_custom_frontpage',
                     'type' => 'select',
                     'instructions' => '',

@@ -17,7 +17,7 @@ class CreatePdf
 
     public function renderView($ids) {
 
-        [$posts, $postTypes] = $this->getPosts($ids);
+        [$posts, $postTypes] = $this->getPostsByIds($ids);
         $cover = $this->getCover($postTypes);
         $styles = $this->getThemeMods();
         $fonts = $this->getFonts($styles);
@@ -34,7 +34,7 @@ class CreatePdf
         }
     }
 
-    private function getPosts($ids) {
+    private function getPostsByIds($ids) {
         $posts = [];
         $postTypes = [];
         if (!empty($ids) && is_array($ids)) {
@@ -61,29 +61,39 @@ class CreatePdf
         return $this->getCoverFieldsForPostType($postType);
     }
 
-    private function getCoverFieldsForPostType($postType, $ranOnce = false) {
+    private function getCoverFieldsForPostType($postType = false, $ranOnce = false) {
         $heading = get_field($postType . '_pdf_frontpage_heading', 'option');
         $introduction = get_field($postType . '_pdf_frontpage_introduction', 'option');
         $cover = Image::getImageAttachmentData(get_field($postType . '_pdf_frontpage_cover', 'option'), [800, 600]);
         $emblem = Image::getImageAttachmentData(get_field('pdf_frontpage_emblem', 'option'), [100, 100]);
+
+        if (!empty($heading) || !empty($introduction) || !empty($cover)) {
+            return [
+                'heading'       => $heading,
+                'introduction'  => $introduction,
+                'cover'         => $cover,
+                'emblem'        => $emblem,
+            ];
+        }
+
         $defaultFrontpage = get_field($postType . '_pdf_fallback_frontpage', 'option');
+        $copyFrontpageFrom = get_field($postType . '_pdf_custom_frontpage', 'option');
         
-        if ($postType != $this->defaultPrefix && empty($heading) && empty($introduction) && empty($cover)) {
-            if (!$ranOnce) {
-                if ($defaultFrontpage == 'none') {
-                    return false;
-                }
-                // echo '<pre>' . print_r( $defaultFrontpage, true ) . '</pre>';die;
+        if (!$ranOnce) {
+            if ($defaultFrontpage == 'none') {
+                return false;
+            } 
+            
+            if ($defaultFrontpage == 'custom' && !empty($copyFrontpageFrom)) {
+                return $this->getCoverFieldsForPostType($copyFrontpageFrom, true);
+            }
+
+            if ($defaultFrontpage == 'default') {
                 return $this->getCoverFieldsForPostType($this->defaultPrefix, true);
             }
         }
 
-        return [
-            'heading'       => $heading,
-            'introduction'  => $introduction,
-            'cover'         => $cover,
-            'emblem'        => $emblem,
-        ];
+        return false;
     }
 
     private function getFonts($styles) {
