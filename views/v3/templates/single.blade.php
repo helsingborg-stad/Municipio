@@ -4,8 +4,6 @@
 @stop
 
 @section('helper-navigation')
-@php
-@endphp
     @button([
         'text' => 'CC',
         'attributeList' => [
