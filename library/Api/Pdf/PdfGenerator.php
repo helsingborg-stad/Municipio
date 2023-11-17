@@ -9,7 +9,8 @@ use WP_REST_Response;
 class PdfGenerator extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v2';
-    private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
+    // private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
+    private const ROUTE = '/id=(?P<id>[\d,]+)';
     private $defaultPrefix = 'default';
     
     public function __construct()
@@ -27,6 +28,7 @@ class PdfGenerator extends RestApiEndpoint
 
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
+        // echo '<pre>' . print_r( $request, true ) . '</pre>';die;
         $ids = $request->get_param('id');
         if (!empty($ids) && is_string($ids)) {
             $idArr = explode(',', $ids);
