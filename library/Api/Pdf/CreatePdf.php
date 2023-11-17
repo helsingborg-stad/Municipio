@@ -10,11 +10,6 @@ class CreatePdf
 {
     private $defaultPrefix = 'default';
 
-    public function __construct()
-    {
-
-    }
-
     public function renderView($ids) {
 
         [$posts, $postTypes] = $this->getPostsByIds($ids);
