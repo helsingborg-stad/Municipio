@@ -55,7 +55,6 @@ class Post
             $post, 
             [
                 'excerpt',
-                // 'post_content_filtered',
                 'post_title_filtered',
                 'permalink',
                 'terms',
