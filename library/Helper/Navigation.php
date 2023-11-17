@@ -856,14 +856,16 @@ class Navigation
      *
      * @return An array of items.
      */
-    public function getAccessibilityItems()
+    public function getAccessibilityItems($pageId)
     {
         $items = [];
         if (is_single() || is_page()) {
             $items[] =  array(
             'icon' => 'print',
             'href' => '#',
-            'script' => 'window.print();return false;',
+            'attributeList' => [
+                'data-js-pdf-generator' => $pageId,
+            ],
             'text' => __('Print', 'municipio'),
             'label' => __('Print this page', 'municipio')
             );
