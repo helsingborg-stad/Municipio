@@ -861,13 +861,23 @@ class Navigation
         $items = [];
         if (is_single() || is_page()) {
             $items[] =  array(
-            'icon' => 'print',
-            'href' => '#',
-            'attributeList' => [
-                'data-js-pdf-generator' => $pageId,
-            ],
-            'text' => __('Print', 'municipio'),
-            'label' => __('Print this page', 'municipio')
+                'icon' => 'print',
+                'href' => '#',
+                'attributeList' => [
+                    'data-js-pdf-generator' => $pageId,
+                ],
+                'text' => __('Print', 'municipio'),
+                'label' => __('Print this page', 'municipio')
+            );
+        } elseif(is_archive()) {
+            $items[] =  array(
+                'icon' => 'print',
+                'href' => '#',
+                'attributeList' => [
+                    'data-js-pdf-generator' => 'archive',
+                ],
+                'text' => __('Print', 'municipio'),
+                'label' => __('Print this page', 'municipio')
             );
         }
 
