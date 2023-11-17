@@ -161,7 +161,8 @@
     .modularity-edit-module a:before,
     .modularity-edit-module a:after,
     .modularity-mod-player__wrapper,
-    .menu-sidfotsmeny-container {
+    .menu-sidfotsmeny-container,
+    .u-print-display--none {
         display: none !important;
     }
 </style>
