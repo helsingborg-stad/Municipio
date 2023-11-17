@@ -126,4 +126,42 @@
     img {
         max-width: 100%;
     }
+
+    /* Remove not printable elements */
+    .pdf-post a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .c-accordion .c-accordion__content[aria-hidden="true"],
+    .c-accordion .c-accordion__content[aria-hidden="false"] {
+        display: block;
+    }
+
+    .c-icon,
+    .c-notice,
+    .c-slider,
+    .c-button,
+    .nav-helper,
+    .c-tooltip__container,
+    .c-collection .c-collection__icon,
+    .c-field.c-field--search,
+    .c-card__footer,
+    .c-card__image-background,
+    .c-card__image,
+    #sidebar-slider-area--container,
+    #customer-feedback,
+    #_hjRemoteVarsFrame,
+    .vngage-banner,
+    .c-signature,
+    .modularity-edit-module,
+    .modularity-edit-module:before,
+    .modularity-edit-module:after,
+    .modularity-edit-module a,
+    .modularity-edit-module a:before,
+    .modularity-edit-module a:after,
+    .modularity-mod-player__wrapper,
+    .menu-sidfotsmeny-container {
+        display: none !important;
+    }
 </style>
