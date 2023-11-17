@@ -4,13 +4,6 @@
 @stop
 
 @section('helper-navigation')
-    @button([
-        'text' => 'CC',
-        'attributeList' => [
-            'data-js-pdf-generator' => $pageID,
-        ]
-    ])
-    @endbutton
     @includeWhen($helperNavBeforeContent, 'partials.navigation.helper')
 @stop
 
