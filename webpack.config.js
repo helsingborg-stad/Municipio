@@ -30,6 +30,7 @@ module.exports = {
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
         'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
+        'js/pdf': './assets/source/3.0/js/pdf.ts',
 
         /* Admin js */
         'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
