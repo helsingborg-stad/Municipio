@@ -2,42 +2,18 @@
 
 namespace Municipio\Api\Pdf;
 
-use Municipio\Api\RestApiEndpoint;
-use WP_REST_Request;
-use WP_REST_Response;
+use Municipio\Api\RestApiEndpointsRegistry;
 
-class PdfGenerator extends RestApiEndpoint
-{
-    private const NAMESPACE = 'pdf/v2';
-    // private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
-    private const ROUTE = '/id=(?P<id>[\d,]+)';
+class PdfGenerator
+{    
     private $defaultPrefix = 'default';
-    
-    public function __construct()
-    {
-        add_action('init', array($this, 'addAcfFields'));
+
+    public function __construct() {
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
+        add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'));
     }
 
-    public function handleRegisterRestRoute(): bool
-    {
-        return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => 'GET',
-            'callback' => array($this, 'handleRequest'),
-        ));
-    }
-
-    public function handleRequest(WP_REST_Request $request): WP_REST_Response
-    {
-        // echo '<pre>' . print_r( $request, true ) . '</pre>';die;
-        $ids = $request->get_param('id');
-        if (!empty($ids) && is_string($ids)) {
-            $idArr = explode(',', $ids);
-            $pdf = new \Municipio\Api\Pdf\CreatePdf();
-            return $pdf->renderView($idArr);
-        }
-    }
-
-    public function addAcfFields () {
+    public function addAcfToPdfGeneratorOptionsPage () {
         $postTypes = get_post_types([
                 'public' => true
         ], 'objects');

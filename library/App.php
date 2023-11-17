@@ -139,7 +139,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfGenerator());
+        new \Municipio\Api\Pdf\PdfGenerator();
 
         /**
          * Customizer
