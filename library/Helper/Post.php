@@ -202,13 +202,13 @@ class Post
         }
 
         //Set time formats
-        $postObject->post_time      = wp_date(
+        $postObject->post_time_formatted      = wp_date(
             \Municipio\Helper\DateFormat::getDateFormat('time'), strtotime($postObject->post_date)
         );
-        $postObject->post_date_time = wp_date(
+        $postObject->post_date_time_formatted = wp_date(
             \Municipio\Helper\DateFormat::getDateFormat('date-time'), strtotime($postObject->post_date)
         );
-        $postObject->post_date      = wp_date(
+        $postObject->post_date_formatted      = wp_date(
             \Municipio\Helper\DateFormat::getDateFormat('date'), strtotime($postObject->post_date)
         );
 
