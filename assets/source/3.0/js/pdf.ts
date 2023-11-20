@@ -24,7 +24,12 @@
         }
     
         async fetchPdfForArchive() {
-            console.log("hellooo!");
+            const path = window.location.pathname;
+            const queryString = window.location.search;
+
+            const urlPart = path + queryString;
+
+            console.log(urlPart);
         }
 
         async fetchPdfForSingle() {

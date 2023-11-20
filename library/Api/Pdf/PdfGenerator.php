@@ -10,6 +10,8 @@ class PdfGenerator
 
     public function __construct() {
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
+
         add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'));
     }
 
