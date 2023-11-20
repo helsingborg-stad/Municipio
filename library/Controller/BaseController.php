@@ -303,14 +303,14 @@ class BaseController
             
             return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
-
-        if (!empty($_SERVER['HTTP_HOST']['host'])) {
+        
+        if (!empty($_SERVER['HTTP_HOST'])) {
             add_filter("ComponentLibrary/Component/Attribute", function ($attributes) {
                 if (!empty($attributes['href'])) {
-                    $parsedUrl = parse_url($href);
-    
-                    if ($parsedUrl !== $_SERVER['HTTP_HOST']['host']) {
-                        $attributes['data-js-original-link'] = $href;
+                    $parsedUrl = parse_url($attributes['href']);
+
+                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== $_SERVER['HTTP_HOST']) {
+                        $attributes['data-js-original-link'] = $attributes['href'];
                     }
                 }
 
