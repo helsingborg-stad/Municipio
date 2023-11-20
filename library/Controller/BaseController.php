@@ -303,6 +303,18 @@ class BaseController
             
             return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
+
+        if (!empty($_SERVER['HTTP_HOST']['host'])) {
+            add_filter("ComponentLibrary/Component/Attribute/Href", function ($attributes, $href) {
+                $parsedUrl = parse_url($href);
+
+                if ($parsedUrl !== $_SERVER['HTTP_HOST']['host']) {
+                    $attributes['data-js-original-link'] = $href;
+                }
+
+                return $attributes;
+            }, 10, 2);
+        }
         
 
         //Wordpress hooks
