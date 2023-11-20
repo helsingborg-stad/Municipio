@@ -305,15 +305,17 @@ class BaseController
         }, 10, 1);
 
         if (!empty($_SERVER['HTTP_HOST']['host'])) {
-            add_filter("ComponentLibrary/Component/Attribute/Href", function ($attributes, $href) {
-                $parsedUrl = parse_url($href);
-
-                if ($parsedUrl !== $_SERVER['HTTP_HOST']['host']) {
-                    $attributes['data-js-original-link'] = $href;
+            add_filter("ComponentLibrary/Component/Attribute", function ($attributes) {
+                if (!empty($attributes['href'])) {
+                    $parsedUrl = parse_url($href);
+    
+                    if ($parsedUrl !== $_SERVER['HTTP_HOST']['host']) {
+                        $attributes['data-js-original-link'] = $href;
+                    }
                 }
 
                 return $attributes;
-            }, 10, 2);
+            }, 10, 1);
         }
         
 
