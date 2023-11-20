@@ -15,7 +15,7 @@
                     'dateBadge' => $post->archiveDateFormat == 'date-badge',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'hasPlaceholder' => $anyPostHasImage && !isset($post->images['thumbnail16:9']['src'])
+                    'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])
                 ])
                 @endcard
             </div>

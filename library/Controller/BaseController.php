@@ -559,9 +559,9 @@ class BaseController
      * Check if any posts in the given array has an image
      */
     protected function anyPostHasImage(array $posts)
-    {
+    {   
         foreach ($posts as $post) {
-            if (!empty($post->thumbnail) && !empty($post->thumbnail['src'])) {
+            if (!empty( $post->images['thumbnail16:9']['src'])) {
                 return true;
             }
         }

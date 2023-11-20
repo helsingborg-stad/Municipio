@@ -18,7 +18,7 @@
                     'dateBadge' => $post->archiveDateFormat == 'date-badge',
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
-                    'hasPlaceholder' => $anyPostHasImage && !isset($post->thumbnail['src']) && !isset($post->thumbnailTall['src'])
+                    'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])
                 ])
                 @endblock
             </div>

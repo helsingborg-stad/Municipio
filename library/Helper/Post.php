@@ -215,13 +215,12 @@ class Post
         $postObject->images['thumbnail_1:1']    = self::getFeaturedImage($postObject->ID, [500, 500]);
         $postObject->images['thumbnail_3:4']    = self::getFeaturedImage($postObject->ID, [240, 320]);
         $postObject->images['featuredImage']    = self::getFeaturedImage($postObject->ID, [1080, false]);
-        
-        
         $postObject->images['thumbnail_12:16']  = $postObject->images['thumbnail_3:4'];
+        
+        //Deprecated
         $postObject->thumbnail                  = $postObject->images['thumbnail_16:9'];
         $postObject->thumbnail_tall             = $postObject->images['thumbnail_4:3'];
         $postObject->thumbnail_square           = $postObject->images['thumbnail_1:1'];
-
         $postObject->featuredImage              = $postObject->images['featuredImage'];
 
         //Append post terms
