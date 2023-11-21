@@ -187,6 +187,38 @@ class WP
         return get_permalink($post, $leavename);
     }
 
+    public static function getPostThumbnailId($post = null) {
+        $post = self::getPost( $post );
+
+        if ( ! $post ) {
+            return false;
+        }
+    
+        $thumbnail_id = (int) get_post_meta( $post->ID, '_thumbnail_id', true );
+        return (int) apply_filters( 'post_thumbnail_id', $thumbnail_id, $post );
+    }
+
+    public static function getThePostThumbnailUrl($post = null, $size = 'post-thumbnail')
+    {
+        $postThumbnailId = self::getPostThumbnailId( $post );
+
+        if ( ! $postThumbnailId ) {
+            return false;
+        }
+    
+        $thumbnailUrl = wp_get_attachment_image_url( $postThumbnailId, $size );
+    
+        return apply_filters( 'post_thumbnail_url', $thumbnailUrl, $post, $size );
+    }
+
+    public static function getAttachmentImageSrc($attachmentId, $size = 'thumbnail', $icon = false) {
+        return wp_get_attachment_image_src($attachmentId, $size, $icon);
+    }
+
+    public static function getAttachmentCaption($postId = 0) {
+        return wp_get_attachment_caption($postId);
+    }
+
     private static function isRemotePostID($postID): bool
     {
         return is_numeric($postID) && $postID < 0;

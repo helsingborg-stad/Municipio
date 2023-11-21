@@ -1,10 +1,10 @@
 [{
     "key": "group_653a509450198",
-    "title": "Api Resource fields",
+    "title": "Api-resursf\u00e4lt",
     "fields": [
         {
             "key": "field_653a5094a6168",
-            "label": "Type",
+            "label": "Typ",
             "name": "type",
             "aria-label": "",
             "type": "select",
@@ -17,9 +17,9 @@
                 "id": ""
             },
             "choices": {
-                "postType": "Post Type",
-                "taxonomy": "Taxonomy",
-                "attachment": "Attachment"
+                "postType": "Posttyp",
+                "taxonomy": "Taxonomi",
+                "attachment": "Bifoga"
             },
             "default_value": false,
             "return_format": "value",
@@ -33,7 +33,7 @@
         },
         {
             "key": "field_653a52d126e03",
-            "label": "Post Type Source",
+            "label": "K\u00e4lla",
             "name": "post_type_source",
             "aria-label": "",
             "type": "select",
@@ -46,13 +46,6 @@
                         "operator": "==",
                         "value": "postType"
                     }
-                ],
-                [
-                    {
-                        "field": "field_653a5094a6168",
-                        "operator": "==",
-                        "value": "attachment"
-                    }
                 ]
             ],
             "wrapper": {
@@ -60,27 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/posts": "post: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/posts",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pages": "page: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pages",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/media": "attachment: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/media",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menu-items": "nav_menu_item: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menu-items",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/blocks": "wp_block: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/blocks",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/templates": "wp_template: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/templates",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/template-parts": "wp_template_part: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/template-parts",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/navigation": "wp_navigation: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/navigation",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pre-school": "pre-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pre-school",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/elementary-school": "elementary-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/elementary-school",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person": "person: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/media": "attachment: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/media",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event": "event: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location": "location: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/organizer": "organizer: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/organizer",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/sponsor": "sponsor: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/sponsor",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/membership-card": "membership-card: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/membership-card",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guide": "guide: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guide",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/interactive_guide": "interactive_guide: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/interactive_guide"
-            },
+            "choices": [],
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -93,7 +66,7 @@
         },
         {
             "key": "field_653a539bb2fc9",
-            "label": "Taxonomy Source",
+            "label": "K\u00e4lla",
             "name": "taxonomy_source",
             "aria-label": "",
             "type": "select",
@@ -113,24 +86,40 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/categories": "category: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/categories",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/tags": "post_tag: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/tags",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menus": "nav_menu: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menus",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/area": "area: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/area",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/usp": "usp: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/usp",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade": "grade: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/categories": "category: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/categories",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/tags": "post_tag: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/tags",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/user_groups": "user_groups: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/user_groups",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_categories": "event_categories: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_categories",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_tags": "event_tags: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/event_tags",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location_categories": "location_categories: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/location_categories",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidegroup": "guidegroup: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidegroup",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/navigation": "navigation: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/navigation",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidetype": "guidetype: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/guidetype",
-                "https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/property": "property: https:\/\/api.helsingborg.se\/event\/json\/wp\/v2\/property"
+            "choices": [],
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 1,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6558779730ac2",
+            "label": "K\u00e4lla",
+            "name": "attachment_source",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "attachment"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
             },
+            "choices": [],
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -143,7 +132,7 @@
         },
         {
             "key": "field_653b48052dc15",
-            "label": "Post Type Arguments",
+            "label": "Posttypsargument",
             "name": "post_type_arguments",
             "aria-label": "",
             "type": "group",
@@ -170,14 +159,17 @@
             "layout": "block",
             "acfe_seamless_style": 0,
             "acfe_group_modal": 0,
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
                     "key": "field_601b9c6128f07",
-                    "label": "Post Type Key",
+                    "label": "Nyckel",
                     "name": "post_type_key",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The key of the post type. Max. 20 characters, cannot contain capital letters or spaces.",
+                    "instructions": "Nyckel f\u00f6r posttyp. Max. 20 tecken, f\u00e5r inte inneh\u00e5lla versaler eller mellanslag.",
                     "required": true,
                     "conditional_logic": false,
                     "wrapper": {
@@ -193,7 +185,7 @@
                 },
                 {
                     "key": "field_65420ddf4476f",
-                    "label": "Label (plural)",
+                    "label": "Etikett (plural)",
                     "name": "label",
                     "aria-label": "",
                     "type": "text",
@@ -213,7 +205,7 @@
                 },
                 {
                     "key": "field_65420e0644770",
-                    "label": "Label (singular)",
+                    "label": "Etikett (singular)",
                     "name": "labels_singular_name",
                     "aria-label": "",
                     "type": "text",
@@ -233,11 +225,11 @@
                 },
                 {
                     "key": "field_601b9c6128f08",
-                    "label": "Description",
+                    "label": "Beskrivning",
                     "name": "description",
                     "aria-label": "",
                     "type": "textarea",
-                    "instructions": "A short descriptive summary of what the post type is.",
+                    "instructions": "En kort beskrivande sammanfattning av vad inl\u00e4ggstypen \u00e4r.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -249,15 +241,16 @@
                     "new_lines": "",
                     "maxlength": "",
                     "placeholder": "",
-                    "rows": ""
+                    "rows": "",
+                    "acfe_textarea_code": 0
                 },
                 {
                     "key": "field_601b9c6128f09",
-                    "label": "Public",
+                    "label": "Offentlig",
                     "name": "public",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether the post type should be publicly queryable.",
+                    "instructions": "Om inl\u00e4ggstypen ska vara allm\u00e4nt s\u00f6kbar.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -273,11 +266,11 @@
                 },
                 {
                     "key": "field_601b9c6128f19",
-                    "label": "Hierarchical",
+                    "label": "Hierarkisk",
                     "name": "hierarchical",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether the post type is hierarchical. Allows Parent to be specified.",
+                    "instructions": "Om inl\u00e4ggstypen \u00e4r hierarkisk. Till\u00e5ter att F\u00f6r\u00e4lder anges.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -293,11 +286,11 @@
                 },
                 {
                     "key": "field_601b9c6128f10",
-                    "label": "Show UI",
+                    "label": "Visa anv\u00e4ndargr\u00e4nssnitt",
                     "name": "show_ui",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether to generate a default UI for managing this post type.",
+                    "instructions": "Huruvida ett standardgr\u00e4nssnitt ska genereras f\u00f6r hantering av denna inl\u00e4ggstyp.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -313,11 +306,11 @@
                 },
                 {
                     "key": "field_601b9c6128f11",
-                    "label": "Has Archive",
+                    "label": "Har arkiv",
                     "name": "has_archive",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Enables post type archives.",
+                    "instructions": "Aktiverar posttypsarkiv.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -333,11 +326,11 @@
                 },
                 {
                     "key": "field_601b9c6128f12",
-                    "label": "Exclude From Search",
+                    "label": "Uteslut fr\u00e5n s\u00f6k",
                     "name": "exclude_from_search",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether to exclude posts with this post type from front end search results.",
+                    "instructions": "Om inl\u00e4ggstypen ska exkluderas fr\u00e5n s\u00f6kresultat.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -353,11 +346,11 @@
                 },
                 {
                     "key": "field_601b9c6128f13",
-                    "label": "Publicly Queryable",
+                    "label": "Offentligt s\u00f6kbar",
                     "name": "publicly_queryable",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether queries can be performed on the front end as part of parse_request().",
+                    "instructions": "Huruvida f\u00f6rfr\u00e5gningar kan utf\u00f6ras p\u00e5 frontend som en del av parse_request().",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -373,11 +366,11 @@
                 },
                 {
                     "key": "field_601b9c6128f14",
-                    "label": "Show In Nav Menus",
+                    "label": "Visa i navigeringsmenyer",
                     "name": "show_in_nav_menus",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether post_type is available for selection in navigation menus.",
+                    "instructions": "Om post_type \u00e4r tillg\u00e4nglig f\u00f6r val i navigeringsmenyer.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -393,11 +386,11 @@
                 },
                 {
                     "key": "field_601b9c6128f15",
-                    "label": "Show In Menu",
+                    "label": "Visa i menyn",
                     "name": "show_in_menu",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Where to show the post type in the admin menu. show_ui must be true.",
+                    "instructions": "Var posttypen ska visas i adminmenyn. show_ui m\u00e5ste vara true.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -421,11 +414,11 @@
                 },
                 {
                     "key": "field_601b9c6128f16",
-                    "label": "Show In Admin Bar",
+                    "label": "Visa i adminf\u00e4ltet",
                     "name": "show_in_admin_bar",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Where to show the post type in the admin bar. show_in_menu must be true.",
+                    "instructions": "Var inl\u00e4ggstypen ska visas i adminf\u00e4ltet. show_in_menu m\u00e5ste vara true.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -449,11 +442,11 @@
                 },
                 {
                     "key": "field_601b9c6128f21",
-                    "label": "Rewrite",
+                    "label": "Omskrivning",
                     "name": "rewrite",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "instructions": "Hantering av url-omskrivningar f\u00f6r denna posttyp.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -469,11 +462,11 @@
                 },
                 {
                     "key": "field_601b9c6128f17",
-                    "label": "Menu Position",
+                    "label": "Position f\u00f6r meny",
                     "name": "menu_position",
                     "aria-label": "",
                     "type": "number",
-                    "instructions": "The position in the menu order the post type should appear. show_in_menu must be true.",
+                    "instructions": "Den position i menyordningen som inl\u00e4ggstypen ska visas. show_in_menu m\u00e5ste vara true.",
                     "required": false,
                     "conditional_logic": [
                         [
@@ -499,7 +492,7 @@
                 },
                 {
                     "key": "field_601b9c6128f18",
-                    "label": "Capabilities",
+                    "label": "Kapacitet",
                     "name": "capabilities",
                     "aria-label": "",
                     "type": "select",
@@ -516,18 +509,19 @@
                     "return_format": "value",
                     "multiple": 1,
                     "allow_custom": 1,
-                    "placeholder": "eg. \"manage_options\"...",
+                    "placeholder": "t.ex. \"manage_options\"...",
                     "allow_null": 0,
                     "ui": 1,
-                    "ajax": 0
+                    "ajax": 0,
+                    "search_placeholder": ""
                 },
                 {
                     "key": "field_6544a42c139a9",
-                    "label": "Parent post types",
+                    "label": "\u00d6verordnade inl\u00e4ggstyper",
                     "name": "parent_post_types",
                     "aria-label": "",
                     "type": "posttype_select",
-                    "instructions": "Parent post types are used to determine the permalink and the rewrite rules for this post type. Setting parent post types will affect the rewrite slug by prepending it with the parent post types slug.",
+                    "instructions": "\u00d6verordnade inl\u00e4ggstyper anv\u00e4nds f\u00f6r att best\u00e4mma permal\u00e4nken och omskrivningsreglerna f\u00f6r denna inl\u00e4ggstyp. Om du anger \u00f6verordnade inl\u00e4ggstyper p\u00e5verkas omskrivningssluggen genom att den inleds med sluggen f\u00f6r \u00f6verordnade inl\u00e4ggstyper.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -544,11 +538,11 @@
                 },
                 {
                     "key": "field_653b5d117edbf",
-                    "label": "Rewrite options",
+                    "label": "Alternativ f\u00f6r url-omskrivning",
                     "name": "rewrite_options",
                     "aria-label": "",
                     "type": "group",
-                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "instructions": "Hantering av url-omskrivningar f\u00f6r denna posttyp.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -567,10 +561,13 @@
                     "layout": "block",
                     "acfe_seamless_style": 0,
                     "acfe_group_modal": 0,
+                    "acfe_group_modal_close": 0,
+                    "acfe_group_modal_button": "",
+                    "acfe_group_modal_size": "large",
                     "sub_fields": [
                         {
                             "key": "field_653b5d227edc0",
-                            "label": "Slug",
+                            "label": "Permal\u00e4nk",
                             "name": "slug",
                             "aria-label": "",
                             "type": "text",
@@ -590,7 +587,7 @@
                         },
                         {
                             "key": "field_653b5d627edc1",
-                            "label": "With front",
+                            "label": "Med front",
                             "name": "with_front",
                             "aria-label": "",
                             "type": "true_false",
@@ -610,7 +607,7 @@
                         },
                         {
                             "key": "field_653b5d727edc2",
-                            "label": "Feeds",
+                            "label": "RSS-fl\u00f6de",
                             "name": "feeds",
                             "aria-label": "",
                             "type": "true_false",
@@ -636,7 +633,7 @@
                     "name": "query_var",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Sets the query_var key for this post type.",
+                    "instructions": "St\u00e4ller in query_var-nyckeln f\u00f6r denna inl\u00e4ggstyp.",
                     "required": false,
                     "conditional_logic": false,
                     "wrapper": {
@@ -654,7 +651,7 @@
         },
         {
             "key": "field_6541eda1a37ac",
-            "label": "Taxonomy Arguments",
+            "label": "Argument f\u00f6r taxonomi",
             "name": "taxonomy_arguments",
             "aria-label": "",
             "type": "group",
@@ -681,14 +678,17 @@
             "layout": "block",
             "acfe_seamless_style": 0,
             "acfe_group_modal": 0,
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
                     "key": "field_6541eda2a37ad",
-                    "label": "Taxonomy key",
+                    "label": "Taxonominyckel",
                     "name": "taxonomy_key",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
+                    "instructions": "Nyckel f\u00f6r posttyp. Max. 32 tecken, f\u00e5r inte inneh\u00e5lla versaler eller mellanslag.",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -704,11 +704,11 @@
                 },
                 {
                     "key": "field_654253463faf6",
-                    "label": "Label (Plural)",
+                    "label": "Etikett (plural)",
                     "name": "labels_name",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
+                    "instructions": "Nyckel f\u00f6r posttyp. Max. 32 tecken, f\u00e5r inte inneh\u00e5lla versaler eller mellanslag.",
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -724,11 +724,11 @@
                 },
                 {
                     "key": "field_654253693faf7",
-                    "label": "Label (Singular)",
+                    "label": "Etikett (singular)",
                     "name": "labels_singular_name",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.",
+                    "instructions": "Nyckel f\u00f6r posttyp. Max. 32 tecken, f\u00e5r inte inneh\u00e5lla versaler eller mellanslag.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -744,7 +744,7 @@
                 },
                 {
                     "key": "field_6541ee02a37c0",
-                    "label": "Object Type",
+                    "label": "Typ av objekt",
                     "name": "object_type",
                     "aria-label": "",
                     "type": "posttype_select",
@@ -765,11 +765,11 @@
                 },
                 {
                     "key": "field_6541eda2a37ae",
-                    "label": "Description",
+                    "label": "Beskrivning",
                     "name": "description",
                     "aria-label": "",
                     "type": "textarea",
-                    "instructions": "A short descriptive summary of what the post type is.",
+                    "instructions": "En kort beskrivande sammanfattning av vad inl\u00e4ggstypen \u00e4r.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -786,11 +786,11 @@
                 },
                 {
                     "key": "field_6541eda2a37af",
-                    "label": "Public",
+                    "label": "Offentlig",
                     "name": "public",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether the post type should be publicly queryable.",
+                    "instructions": "Om inl\u00e4ggstypen ska vara allm\u00e4nt s\u00f6kbar.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -806,11 +806,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b0",
-                    "label": "Hierarchical",
+                    "label": "Hierarkisk",
                     "name": "hierarchical",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether the post type is hierarchical. Allows Parent to be specified.",
+                    "instructions": "Om inl\u00e4ggstypen \u00e4r hierarkisk. Till\u00e5ter att F\u00f6r\u00e4lder anges.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -826,11 +826,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b1",
-                    "label": "Show UI",
+                    "label": "Visa anv\u00e4ndargr\u00e4nssnitt",
                     "name": "show_ui",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether to generate a default UI for managing this post type.",
+                    "instructions": "Huruvida ett standardgr\u00e4nssnitt ska genereras f\u00f6r hantering av denna inl\u00e4ggstyp.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -846,7 +846,7 @@
                 },
                 {
                     "key": "field_6541ee8c94dac",
-                    "label": "Show Admin Column",
+                    "label": "Visa admin-kolumn",
                     "name": "show_admin_column",
                     "aria-label": "",
                     "type": "true_false",
@@ -866,11 +866,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b4",
-                    "label": "Publicly Queryable",
+                    "label": "Offentligt s\u00f6kbar",
                     "name": "publicly_queryable",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether queries can be performed on the front end as part of parse_request().",
+                    "instructions": "Huruvida f\u00f6rfr\u00e5gningar kan utf\u00f6ras p\u00e5 frontend som en del av parse_request().",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -886,11 +886,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b5",
-                    "label": "Show In Nav Menus",
+                    "label": "Visa i navigeringsmenyer",
                     "name": "show_in_nav_menus",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Whether post_type is available for selection in navigation menus.",
+                    "instructions": "Om post_type \u00e4r tillg\u00e4nglig f\u00f6r val i navigeringsmenyer.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -906,11 +906,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b6",
-                    "label": "Show In Menu",
+                    "label": "Visa i menyn",
                     "name": "show_in_menu",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Where to show the post type in the admin menu. show_ui must be true.",
+                    "instructions": "Var posttypen ska visas i adminmenyn. show_ui m\u00e5ste vara true.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -934,11 +934,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b7",
-                    "label": "Show In Admin Bar",
+                    "label": "Visa i adminf\u00e4ltet",
                     "name": "show_in_admin_bar",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Where to show the post type in the admin bar. show_in_menu must be true.",
+                    "instructions": "Var inl\u00e4ggstypen ska visas i adminf\u00e4ltet. show_in_menu m\u00e5ste vara true.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -962,11 +962,11 @@
                 },
                 {
                     "key": "field_6541eda2a37b8",
-                    "label": "Rewrite",
+                    "label": "Omskrivning",
                     "name": "rewrite",
                     "aria-label": "",
                     "type": "true_false",
-                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "instructions": "Hantering av url-omskrivningar f\u00f6r denna posttyp.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -982,7 +982,7 @@
                 },
                 {
                     "key": "field_6541eda2a37ba",
-                    "label": "Capabilities",
+                    "label": "Kapacitet",
                     "name": "capabilities",
                     "aria-label": "",
                     "type": "select",
@@ -999,18 +999,19 @@
                     "return_format": "value",
                     "multiple": 1,
                     "allow_custom": 1,
-                    "placeholder": "eg. \"manage_options\"...",
+                    "placeholder": "t.ex. \"manage_options\"...",
                     "allow_null": 0,
                     "ui": 1,
-                    "ajax": 0
+                    "ajax": 0,
+                    "search_placeholder": ""
                 },
                 {
                     "key": "field_6541eda2a37bb",
-                    "label": "Rewrite options",
+                    "label": "Alternativ f\u00f6r url-omskrivning",
                     "name": "rewrite_options",
                     "aria-label": "",
                     "type": "group",
-                    "instructions": "Triggers the handling of rewrites for this post type.",
+                    "instructions": "Hantering av url-omskrivningar f\u00f6r denna posttyp.",
                     "required": 0,
                     "conditional_logic": [
                         [
@@ -1029,10 +1030,13 @@
                     "layout": "block",
                     "acfe_seamless_style": 0,
                     "acfe_group_modal": 0,
+                    "acfe_group_modal_close": 0,
+                    "acfe_group_modal_button": "",
+                    "acfe_group_modal_size": "large",
                     "sub_fields": [
                         {
                             "key": "field_6541eda2a37bc",
-                            "label": "Slug",
+                            "label": "Permal\u00e4nk",
                             "name": "slug",
                             "aria-label": "",
                             "type": "text",
@@ -1052,7 +1056,7 @@
                         },
                         {
                             "key": "field_6541eda2a37bd",
-                            "label": "With front",
+                            "label": "Med front",
                             "name": "with_front",
                             "aria-label": "",
                             "type": "true_false",
@@ -1072,7 +1076,7 @@
                         },
                         {
                             "key": "field_6541eda2a37be",
-                            "label": "Feeds",
+                            "label": "RSS-fl\u00f6de",
                             "name": "feeds",
                             "aria-label": "",
                             "type": "true_false",
@@ -1098,7 +1102,7 @@
                     "name": "query_var",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Sets the query_var key for this post type.",
+                    "instructions": "St\u00e4ller in query_var-nyckeln f\u00f6r denna inl\u00e4ggstyp.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -1113,6 +1117,66 @@
                     "append": ""
                 }
             ]
+        },
+        {
+            "key": "field_6558775730ac1",
+            "label": "Attachment arguments",
+            "name": "attachment_arguments",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_653a5094a6168",
+                        "operator": "==",
+                        "value": "attachment"
+                    },
+                    {
+                        "field": "field_6558779730ac2",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "acfe_seamless_style": 0,
+            "acfe_group_modal": 0,
+            "sub_fields": [
+                {
+                    "key": "field_655878bfc1a9a",
+                    "label": "Post types",
+                    "name": "post_types",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Choose which post types that should use this source for their attachments.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": [],
+                    "default_value": [],
+                    "return_format": "value",
+                    "multiple": 1,
+                    "allow_custom": 0,
+                    "placeholder": "",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 1,
+                    "search_placeholder": ""
+                }
+            ],
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large"
         }
     ],
     "location": [

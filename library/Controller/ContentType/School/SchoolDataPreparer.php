@@ -4,7 +4,6 @@ namespace Municipio\Controller\ContentType\School;
 
 use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
-use WP_Post;
 
 class SchoolDataPreparer implements DataPrepearerInterface
 {
@@ -109,7 +108,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $personIds = array_map(function ($contact) {
             return $contact->person;
-        }, $this->postMeta->contacts[0]);
+        }, $this->postMeta->contacts);
 
         $persons = WP::getPosts(array('post_type' => self::PERSON_POST_TYPE, 'post__in' => $personIds, 'suppress_filters' => false));
 
@@ -121,25 +120,19 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 return null;
             }
 
-            $featuredMediaID = WP::getField('featured_media', $personPosts[0]->ID);
+            $featuredMediaUrl = WP::getThePostThumbnailUrl($personPosts[0]->ID, 'medium');
             $email = WP::getField('e-mail', $personPosts[0]->ID);
             $phone = WP::getField('phone-number', $personPosts[0]->ID);
 
-            $featuredMedia = $featuredMediaID ? WP::getPosts([
-                'post_type' => self::MEDIA_POST_TYPE,
-                'post__in' => [$featuredMediaID],
-                'suppress_filters' => false
-            ]) : null;
-
             $contact = (object)[
-                'attachment'        => !empty($featuredMedia) ? $featuredMedia[0] : null,
+                'imageSrc'          => $featuredMediaUrl ?: null,
                 'professionalTitle' => $contact->professional_title ?? '',
                 'email'             => $email,
                 'phone'             => $phone,
                 'name'              => $personPosts[0]->post_title
             ];
             return $contact;
-        }, $this->postMeta->contacts[0]) : null;
+        }, $this->postMeta->contacts) : null;
 
         $this->data['contacts'] = array_filter($this->data['contacts'] ?? []);
 
@@ -381,14 +374,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses[0]);
+        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
         $visitingData = array_map(function ($address) use(&$mapPins, $visitingAddresses) {
             $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
             $street = $address->address->street_name ?? '';
             $streetNumber = $address->address->street_number ?? '';
             $postCode = $address->address->post_code ?? '';
             $city = $address->address->city ?? '';
-            $lineBreak = sizeof($visitingAddresses[0]) > 1 ? ',<br>' : ',';
+            $lineBreak = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
                 'title' => $this->data['post']->postTitle ?? null,
@@ -407,7 +400,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 'description' => $address->description ?? null,
                 'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
-        }, $visitingAddresses[0]);
+        }, $visitingAddresses);
 
         if (!empty($visitingData)) {
             $this->data['visitingAddresses'] = $visitingData;
@@ -441,7 +434,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $pageIds = $this->postMeta->pages[0] ?? [];
+        $pageIds = $this->postMeta->pages ?? [];
 
         if (!isset($pageIds) || empty($pageIds)) {
             $this->data['pages'] = null;
@@ -495,34 +488,26 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
     private function appendImagesData(): void
     {
-        $mapAttachmentToId = fn($attachment) => $attachment->image->id;
+        $facadeAttachments = !empty($this->postMeta->facadeImages) ? array_map(function ($attachment) {
+            $attachmentId = $attachment->image->id;
+            return [
+                'src' =>  WP::getAttachmentImageSrc($attachmentId, 'medium', false),
+                'caption' => WP::getAttachmentCaption($attachmentId)
+            ];
+        }, $this->postMeta->facadeImages) : null;
 
-        if( !empty($this->postMeta->facadeImages) ) {
-            $facadeAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->facadeImages[0] );
-
-            $facadeAttachments = !empty($facadeAttachmentIds) ? WP::getPosts([
-                'post_type' => self::MEDIA_POST_TYPE,
-                'post__in' => $facadeAttachmentIds,
-                'suppress_filters' => false,
-                'orderby' => 'post__in'
-            ]) : [];
-        }
+        $galleryAttachments = !empty($this->postMeta->galleryAttachments) ? array_map(function ($attachment) {
+            $attachmentId = $attachment->image->id;
+            return [
+                'src' =>  WP::getAttachmentImageSrc($attachmentId, 'medium', false),
+                'caption' => WP::getAttachmentCaption($attachmentId)
+            ];
+        }, $this->postMeta->gallery) : null;
 
         $this->data['facadeSliderItems'] = isset($facadeAttachments) && !empty($facadeAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
-
-        if (!empty($this->postMeta->gallery)) {
-            $galleryAttachmentIds = array_map($mapAttachmentToId ,$this->postMeta->gallery[0] );
-
-            $galleryAttachments = !empty($galleryAttachmentIds) ? WP::getPosts([
-                'post_type' => self::MEDIA_POST_TYPE,
-                'post__in' => $galleryAttachmentIds,
-                'suppress_filters' => false,
-                'orderby' => 'post__in'
-            ]) : [];
-        }
-
+        
         $this->data['gallerySliderItems'] = isset($galleryAttachments) && !empty($galleryAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
             : null;
@@ -543,12 +528,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'heroStyle' => true
         ];
 
-        $caption = WP::getField('caption', $attachment->id);
-        if( $caption && !empty($caption->rendered) ) {
-            $sliderItem['text'] = $caption->rendered;
-        }
-        
-        $sliderItem['desktop_image'] = $attachment->guid;
+        $sliderItem['text'] = $attachment['caption'];
+        $sliderItem['desktop_image'] = $attachment['src'];
 
         return $sliderItem;
     }
@@ -595,14 +576,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $firstOccation = $occasions[0];
 
             if (
-                !isset($firstOccation[0]->start_date) ||
-                empty($firstOccation[0]->start_date) ||
-                strtotime($firstOccation[0]->start_date) === false
+                !isset($firstOccation->start_date) ||
+                empty($firstOccation->start_date) ||
+                strtotime($firstOccation->start_date) === false
             ) {
                 continue;
             }
 
-            $timestamp = strtotime($firstOccation[0]->start_date);
+            $timestamp = strtotime($firstOccation->start_date);
             $time = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
             $date = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
             $dateLong = wp_date(get_option( 'date_format' ), $timestamp, new \DateTimeZone('GMT'));

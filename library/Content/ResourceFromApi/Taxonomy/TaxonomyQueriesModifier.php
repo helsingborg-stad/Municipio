@@ -3,7 +3,9 @@
 namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
 use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
+use Municipio\Content\ResourceFromApi\ResourceType;
 use WP_Taxonomy;
 use WP_Term;
 use WP_Term_Query;
@@ -19,7 +21,6 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
     public function addHooks(): void
     {
-        // add_action('pre_get_terms', [$this, 'modifyPreGetTerms'], 10, 1);
         add_filter('get_terms', [$this, 'modifyGetTerms'], 10, 4);
         add_filter('get_object_terms', [$this, 'modifyGetObjectTerms'], 10, 4);
         add_filter('Municipio/Archive/getTaxonomyFilters/option/value', [$this, 'modifyGetTaxonomyFiltersOptionValue'], 10, 3);
@@ -27,9 +28,10 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
     public function modifyGetTaxonomyFiltersOptionValue(string $value, WP_Term $option, WP_Taxonomy $taxonomy): string
     {
-        $resource = $this->resourceRegistry->getRegisteredTaxonomy($taxonomy->name);
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $taxonomy->name);
 
-        if (empty($resource)) {
+        if (empty($matchingResources)) {
             return $value;
         }
 
@@ -38,11 +40,14 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
     public function modifyPreGetTerms(WP_Term_Query $termQuery) {
 
-        // If querying a taxonomy that is not from the API, return early
-        if (
-            !isset($termQuery->query_vars['taxonomy']) ||
-            empty($this->resourceRegistry->getRegisteredTaxonomy($termQuery->query_vars['taxonomy'][0]))
-        ) {
+        if( !isset($termQuery->query_vars['taxonomy'][0])) {
+            return;
+        }
+
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $termQuery->query_vars['taxonomy'][0]);
+        
+        if (empty($matchingResources)) {
             return;
         }
 
@@ -56,9 +61,10 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             return $terms;
         }
 
-        $resource = $this->resourceRegistry->getRegisteredTaxonomy($queryVars['taxonomy'][0]);
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $queryVars['taxonomy'][0]);
 
-        if(empty($resource)) {
+        if(empty($matchingResources)) {
             return $terms;
         }
 
@@ -71,14 +77,14 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
                     return null;
                 }
 
-                return (int)str_replace($objectResource->resourceID, '', (string)absint($objectId));
+                return (int)str_replace($objectResource->getResourceID(), '', (string)absint($objectId));
 
             }, $queryVars['object_ids']);
 
             array_filter($queryVars['object_ids']);
         }
 
-        $collection = TaxonomyResourceRequest::getCollection($resource, $queryVars);
+        $collection = TaxonomyResourceRequest::getCollection($matchingResources[0], $queryVars);
 
         return $collection;
     }
@@ -89,9 +95,10 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             return $terms;
         }
 
-        $resource = $this->resourceRegistry->getRegisteredTaxonomy($queryVars['taxonomy'][0]);
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $queryVars['taxonomy'][0]);
 
-        if(empty($resource)) {
+        if(empty($matchingResources)) {
             return $terms;
         }
 
@@ -104,14 +111,14 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
                     return null;
                 }
 
-                return (int)str_replace($objectResource->resourceID, '', (string)absint($objectId));
+                return (int)str_replace($objectResource->getResourceID(), '', (string)absint($objectId));
 
             }, $queryVars['object_ids']);
 
             array_filter($queryVars['object_ids']);
         }
 
-        $collection = TaxonomyResourceRequest::getCollection($resource, $queryVars);
+        $collection = TaxonomyResourceRequest::getCollection($matchingResources[0], $queryVars);
 
         return $collection;
     }
@@ -122,14 +129,14 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             return null;
         }
 
-        $registeredTaxonomies = $this->resourceRegistry->getRegisteredTaxonomies();
+        $registeredTaxonomies = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
         
         if(empty($registeredTaxonomies)) {
             return null;
         }
 
         foreach($registeredTaxonomies as $registeredTaxonomy) {
-            $needle = (string)$registeredTaxonomy->resourceID;
+            $needle = (string)$registeredTaxonomy->getResourceID();
             $haystack = (string)absint($termId);
 
             if( str_starts_with($haystack, $needle) ) {
@@ -140,20 +147,20 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
         return null;
     }
     
-    private function getResourceFromObjectId(int $objectId):?object {
+    private function getResourceFromObjectId(int $objectId):?ResourceInterface {
 
         if( $objectId > -1 ) {
             return null;
         }
 
-        $registeredPostTypes = $this->resourceRegistry->getRegisteredPostTypes();
+        $registeredPostTypes = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
         
         if(empty($registeredPostTypes)) {
             return null;
         }
 
         foreach($registeredPostTypes as $registeredPostType) {
-            $needle = (string)$registeredPostType->resourceID;
+            $needle = (string)$registeredPostType->getResourceID();
             $haystack = (string)absint($objectId);
 
             if( str_starts_with($haystack, $needle) ) {

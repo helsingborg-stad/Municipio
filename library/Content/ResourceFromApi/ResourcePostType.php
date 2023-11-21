@@ -7,14 +7,19 @@ use Municipio\Helper\RestRequestHelper;
 class ResourcePostType
 {
 
+    public const POST_TYPE_NAME = 'api-resource';
+
     public function addHooks(): void
     {
         add_action('init', [$this, 'addPostType']);
         add_action('init', [$this, 'addOptionsPage']);
         add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
         add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
+        add_filter('acf/load_field/name=attachment_source', [$this, 'loadAttachmentSourceOptions']);
+        add_filter('acf/load_field/key=field_655878bfc1a9a', [$this, 'loadAttachmentArgumentsPostTypes']);
         add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setTaxonomyResourcePostTitleFromAcf'], 10);
+        add_action('acf/save_post', [$this, 'setAttachmentResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setPostTypeApiMeta'], 10);
         add_action('acf/save_post', [$this, 'setTaxonomyApiMeta'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
@@ -24,7 +29,7 @@ class ResourcePostType
     public function addPostType()
     {
         register_post_type(
-            'api-resource',
+            self::POST_TYPE_NAME,
             [
                 'label' => __('API Resources', 'municipio'),
                 'labels' => [
@@ -165,6 +170,85 @@ class ResourcePostType
 
         return $field;
     }
+    
+    public function loadAttachmentSourceOptions($field)
+    {
+
+        $choices = [];
+
+        if (!function_exists('get_field')) {
+            return $field;
+        }
+
+        $endpoints = get_field('api_resources_apis', 'options');
+
+        if (!is_array($endpoints) || empty($endpoints)) {
+            return $field;
+        }
+
+        $urls = array_map(fn ($row) => $row['url'], $endpoints);
+        $urls = array_filter($urls, fn ($url) => filter_var($url, FILTER_VALIDATE_URL) !== false);
+
+        if (empty($urls)) {
+            return $field;
+        }
+
+        foreach ($urls as $url) {
+
+            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'types');
+
+            if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
+                return null;
+            }
+
+            foreach ($typesFromApi as $type) {
+                if (
+                    !isset($type->slug) ||
+                    $type->slug !== 'attachment' ||
+                    !isset($type->_links) ||
+                    !isset($type->_links->collection) ||
+                    empty($type->_links->collection) ||
+                    !isset($type->_links->collection[0]->href) ||
+                    !filter_var($type->_links->collection[0]->href, FILTER_VALIDATE_URL)
+                ) {
+                    continue;
+                }
+
+                $value = trailingslashit($url) . ",{$type->slug}" . ",{$type->rest_base}";
+                $labelParenthesis = trailingslashit($url) . $type->rest_base;
+                $label = "{$type->slug}: {$labelParenthesis}";
+                $choices[$value] = $label;
+            }
+        }
+
+        if (!empty($choices)) {
+            $field['choices'] = $choices;
+        }
+
+        return $field;
+    }
+    
+    public function loadAttachmentArgumentsPostTypes($field)
+    {
+
+        $choices = [];
+
+        if (!function_exists('get_field')) {
+            return $field;
+        }
+
+        $postTypes = get_posts(['post_type' => self::POST_TYPE_NAME, 'posts_per_page' => -1]);
+
+        if (!empty($postTypes)) {
+            foreach ($postTypes as $postType) {
+                $choices[$postType->ID] = $postType->post_title;
+            }
+
+            $field['choices'] = $choices;
+        }
+
+        return $field;
+    }
 
     public function setPostTypeResourcePostTitleFromAcf($postId)
     {
@@ -212,8 +296,42 @@ class ResourcePostType
         ]);
     }
 
+    public function setAttachmentResourcePostTitleFromAcf($postId)
+    {
+        if( get_post_type($postId) !== self::POST_TYPE_NAME  ) {
+            return;
+        }
+
+        $attachmentArguments = get_field('attachment_arguments', $postId);
+
+        if (
+            empty($attachmentArguments) ||
+            !isset($attachmentArguments['post_types']) ||
+            empty($attachmentArguments['post_types'])
+        ) {
+            return;
+        }
+
+        $selectedPostTypes = get_posts([
+            'post_type' => self::POST_TYPE_NAME,
+            'post__in' => $attachmentArguments['post_types'],
+            'posts_per_page' => -1]
+        );
+        $selectedPostTypeNames = array_map(fn ($post) => $post->post_title, $selectedPostTypes);
+        $selectedPostTypesString = join(', ', $selectedPostTypeNames);
+        $postTitle = 'attachment for: ' . $selectedPostTypesString;
+        $postName = sanitize_title(substr($postTitle, 0, 19));
+
+        wp_update_post([
+            'ID' => $postId,
+            'post_title' => $postTitle,
+            'post_name' => $postName,
+
+        ]);
+    }
+
     public function setPostTypeApiMeta($postId) {
-        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== 'api-resource' || !function_exists('get_field') ) {
+        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== self::POST_TYPE_NAME || !function_exists('get_field') ) {
             return;
         }
 
@@ -239,7 +357,7 @@ class ResourcePostType
     }
     
     public function setTaxonomyApiMeta($postId) {
-        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== 'api-resource' || !function_exists('get_field') ) {
+        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== self::POST_TYPE_NAME || !function_exists('get_field') ) {
             return;
         }
 

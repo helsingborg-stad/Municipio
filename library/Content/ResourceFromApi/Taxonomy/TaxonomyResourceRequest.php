@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPTermQueryToRestParamsConverter;
@@ -10,7 +11,7 @@ use WP_Term;
 
 class TaxonomyResourceRequest implements ResourceRequestInterface
 {
-    public static function getCollection(object $resource, ?array $queryArgs = null): array
+    public static function getCollection(ResourceInterface $resource, ?array $queryArgs = null): array
     {
         $url = self::getCollectionUrl($resource, $queryArgs);
 
@@ -30,7 +31,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         );
     }
 
-    public static function getSingle($id, object $resource): ?object
+    public static function getSingle($id, ResourceInterface $resource): ?object
     {
         $url = self::getSingleUrl($id, $resource);
 
@@ -47,7 +48,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         return self::convertRestApiTermToWPTerm($termFromApi[0], $resource);
     }
 
-    public static function getCollectionHeaders(object $resource, ?array $queryArgs): array
+    public static function getCollectionHeaders(ResourceInterface $resource, ?array $queryArgs): array
     {
         $url = self::getCollectionUrl($resource, $queryArgs);
 
@@ -64,7 +65,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         return $headers;
     }
 
-    public static function getMeta(int $id, string $metaKey, object $resource, bool $single = true)
+    public static function getMeta(int $id, string $metaKey, ResourceInterface $resource, bool $single = true)
     {
         $url         = self::getSingleUrl($id, $resource);
         $termFromApi = RestRequestHelper::getFromApi($url);
@@ -88,7 +89,7 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         return null;
     }
 
-    private static function getSingleUrl($id, object $resource):?string {
+    private static function getSingleUrl($id, ResourceInterface $resource):?string {
 
         $collectionUrl = self::getCollectionUrl($resource);
 
@@ -99,9 +100,9 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         return "{$collectionUrl}/?slug={$id}";
     }
 
-    private static function getCollectionUrl(object $resource, ?array $queryArgs = null): ?string
+    private static function getCollectionUrl(ResourceInterface $resource, ?array $queryArgs = null): ?string
     {
-        if (empty($resource->collectionUrl)) {
+        if (empty($resource->getBaseUrl())) {
             return null;
         }
 
@@ -109,18 +110,19 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
             ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($queryArgs)
             : '';
 
-        return $resource->collectionUrl . $restParams;
+        return $resource->getBaseUrl() . $restParams;
     }
 
-    private static function getLocalID(int $id, object $resource): int
+    private static function getLocalID(int $id, ResourceInterface $resource): int
     {
-        return -(int)"{$resource->resourceID}{$id}";
+        $resourceId = $resource->getResourceID();
+        return -(int)"{$resourceId}{$id}";
     }
 
-    private static function convertRestApiTermToWPTerm(stdClass $termFromApi, object $resource): WP_Term
+    private static function convertRestApiTermToWPTerm(stdClass $termFromApi, ResourceInterface $resource): WP_Term
     {
         $localID = self::getLocalID($termFromApi->id, $resource);
-        $localTaxonomy = $resource->name;
+        $localTaxonomy = $resource->getName();
 
         $term                   = new WP_Term(new \stdClass());
         $term->term_id          = $localID;

@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
@@ -10,7 +11,7 @@ use WP_Post;
 
 class PostTypeResourceRequest implements ResourceRequestInterface
 {
-    public static function getCollection(object $resource, ?array $queryArgs = null): array
+    public static function getCollection(ResourceInterface $resource, ?array $queryArgs = null): array
     {
         $url = self::getCollectionUrl($resource, $queryArgs);
 
@@ -30,7 +31,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         );
     }
 
-    public static function getSingle($id, object $resource): ?object
+    public static function getSingle($id, ResourceInterface $resource): ?object
     {
         $url = self::getSingleUrl($id, $resource);
 
@@ -53,7 +54,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return null;
     }
 
-    public static function getCollectionHeaders(object $resource, ?array $queryArgs): array
+    public static function getCollectionHeaders(ResourceInterface $resource, ?array $queryArgs): array
     {
         $url = self::getCollectionUrl($resource, $queryArgs);
 
@@ -70,31 +71,22 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return $headers;
     }
 
-    public static function getMeta(int $id, string $metaKey, object $resource, bool $single = true)
+    public static function getMeta(int $id, string $metaKey, ResourceInterface $resource, bool $single = true)
     {
-        $url         = self::getSingleUrl($id, $resource);
-        $postFromApi = RestRequestHelper::getFromApi($url);
+        $post = self::getSingle($id, $resource);
 
-        if (isset($postFromApi->acf) && isset($postFromApi->acf->$metaKey)) {
-            if (is_array($postFromApi->acf->$metaKey)) {
-                return [$postFromApi->acf->$metaKey];
-            }
-
-            return $postFromApi->acf->$metaKey;
+        if (isset($post->meta->acf) && isset($post->meta->acf->{$metaKey})) {
+            return $post->meta->acf->{$metaKey};
         }
 
-        if (isset($postFromApi->$metaKey)) {
-            if (is_array($postFromApi->$metaKey)) {
-                return [$postFromApi->$metaKey];
-            }
-
-            return $postFromApi->$metaKey;
+        if (isset($post->meta->$metaKey)) {
+            return $post->meta->{$metaKey};
         }
 
         return null;
     }
 
-    private static function getSingleUrl($id, object $resource): ?string
+    private static function getSingleUrl($id, ResourceInterface $resource): ?string
     {
 
         $collectionUrl = self::getCollectionUrl($resource);
@@ -106,9 +98,9 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return "{$collectionUrl}/?slug={$id}";
     }
 
-    private static function getCollectionUrl(object $resource, ?array $queryArgs = null): ?string
+    private static function getCollectionUrl(ResourceInterface $resource, ?array $queryArgs = null): ?string
     {
-        $resourceUrl = $resource->collectionUrl;
+        $resourceUrl = $resource->getBaseUrl();
 
         if (empty($resourceUrl)) {
             return null;
@@ -121,45 +113,89 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return $resourceUrl . $restParams;
     }
 
-    private static function getLocalID(int $id, object $resource): int
+    private static function getLocalID(int $id, ResourceInterface $resource): int
     {
-        return -(int)"{$resource->resourceID}{$id}";
+        $resourceId = $resource->getResourceID();
+        return -(int)"{$resourceId}{$id}";
     }
 
     /**
      * @param stdClass $restApiPost
      */
-    private static function convertRestApiPostToWPPost(stdClass $restApiPost, object $resource): WP_Post
+    private static function convertRestApiPostToWPPost(stdClass $restApiPost, ResourceInterface $resource): WP_Post
     {
         $localID = self::getLocalID($restApiPost->id, $resource);
-        $localPostType = $resource->name;
+        $localPostType = $resource->getName();
 
-        $wpPost                        = new WP_Post((object)[]);
-        $wpPost->ID                    = $localID;
-        $wpPost->post_author           = $restApiPost->author ?? 1;
-        $wpPost->post_date             = $restApiPost->date ?? '';
-        $wpPost->post_date_gmt         = $restApiPost->date_gmt ?? '';
-        $wpPost->post_content          = $restApiPost->content->rendered ?? '';
-        $wpPost->post_title            = $restApiPost->title->rendered ?? '';
-        $wpPost->post_excerpt          = $restApiPost->excerpt->rendered ?? '';
-        $wpPost->post_status           = $restApiPost->status ?? '';
-        $wpPost->comment_status        = $restApiPost->comment_status ?? 'publish';
-        $wpPost->ping_status           = $restApiPost->ping_status ?? 'open';
-        $wpPost->post_password         = $restApiPost->password ?? '';
-        $wpPost->post_name             = $restApiPost->slug ?? '';
-        $wpPost->to_ping               = $restApiPost->to_ping ?? '';
-        $wpPost->pinged                = $restApiPost->pinged ?? '';
-        $wpPost->post_modified         = $restApiPost->modified ?? '';
-        $wpPost->post_modified_gmt     = $restApiPost->modified_gmt ?? '';
-        $wpPost->post_content_filtered = $restApiPost->content->rendered ?? '';
-        $wpPost->post_parent           = $restApiPost->parent ?? 0;
-        $wpPost->guid                  = $restApiPost->guid->rendered ?? '';
-        $wpPost->menu_order            = $restApiPost->menu_order ?? 0;
-        $wpPost->post_type             = $localPostType;
-        $wpPost->post_mime_type        = $restApiPost->mime_type ?? '';
-        $wpPost->comment_count         = 0;
-        $wpPost->filter                = 'raw';
+        // Map of all wp_post fields and their equivalent in the restApiPost
+        $postFieldsMap = [
+            'ID' => $localID,
+            'post_author' => $restApiPost->author ?? 1,
+            'post_date' => $restApiPost->date ?? '',
+            'post_date_gmt' => $restApiPost->date_gmt ?? '',
+            'post_content' => $restApiPost->content->rendered ?? '',
+            'post_title' => $restApiPost->title->rendered ?? '',
+            'post_excerpt' => $restApiPost->excerpt->rendered ?? '',
+            'post_status' => $restApiPost->status ?? '',
+            'comment_status' => $restApiPost->comment_status ?? 'publish',
+            'ping_status' => $restApiPost->ping_status ?? 'open',
+            'post_password' => $restApiPost->password ?? '',
+            'post_name' => $restApiPost->slug ?? '',
+            'to_ping' => $restApiPost->to_ping ?? '',
+            'pinged' => $restApiPost->pinged ?? '',
+            'post_modified' => $restApiPost->modified ?? '',
+            'post_modified_gmt' => $restApiPost->modified_gmt ?? '',
+            'post_content_filtered' => $restApiPost->content->rendered ?? '',
+            'post_parent' => $restApiPost->parent ?? 0,
+            'guid' => $restApiPost->guid->rendered ?? '',
+            'menu_order' => $restApiPost->menu_order ?? 0,
+            'post_type' => $localPostType,
+            'post_mime_type' => $restApiPost->mime_type ?? '',
+            'comment_count' => 0,
+            'filter' => 'raw',
+        ];
 
+        $wpPost = new WP_Post((object)[]);
+        
+        foreach ($postFieldsMap as $wpPostField => $restApiPostField) {
+            $wpPost->$wpPostField = $restApiPostField;
+        }
+
+        // The remaining props on restApiPost that were not used in the map above should be stored in a meta field
+        $restApiPostMeta = (array)$restApiPost;
+        unset($restApiPostMeta['id']);
+        unset($restApiPostMeta['date']);
+        unset($restApiPostMeta['date_gmt']);
+        unset($restApiPostMeta['content']);
+        unset($restApiPostMeta['title']);
+        unset($restApiPostMeta['excerpt']);
+        unset($restApiPostMeta['status']);
+        unset($restApiPostMeta['comment_status']);
+        unset($restApiPostMeta['ping_status']);
+        unset($restApiPostMeta['password']);
+        unset($restApiPostMeta['slug']);
+        unset($restApiPostMeta['to_ping']);
+        unset($restApiPostMeta['pinged']);
+        unset($restApiPostMeta['modified']);
+        unset($restApiPostMeta['modified_gmt']);
+        unset($restApiPostMeta['parent']);
+        unset($restApiPostMeta['guid']);
+        unset($restApiPostMeta['menu_order']);
+        unset($restApiPostMeta['mime_type']);
+        unset($restApiPostMeta['type']);
+
+        if( !empty($restApiPostMeta) ) {
+            $wpPost->meta = (object)[];
+            
+            foreach ($restApiPostMeta as $metaKey => $metaValue) {
+                $wpPost->meta->$metaKey = $metaValue;
+            }
+        }
+
+        if( isset($restApiPost->featured_media) && is_numeric($restApiPost->featured_media) ) {
+            $wpPost->meta->_thumbnail_id = $restApiPost->featured_media;
+        }
+        
         $hookName = 'Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost';
         return apply_filters($hookName, $wpPost, $restApiPost, $localPostType);
     }

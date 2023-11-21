@@ -3,7 +3,10 @@
 namespace Municipio\Content\ResourceFromApi\PostType;
 
 use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
+use Municipio\Content\ResourceFromApi\Resource;
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
+use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WP;
 use WP_Post;
@@ -37,7 +40,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         $registeredPostType = $this->getResourceFromPostId($postId);
-        $postId = (int)str_replace((string)$registeredPostType->resourceID, '', (string)absint($postId));
+        $postId = (int)str_replace((string)$registeredPostType->getResourceID(), '', (string)absint($postId));
 
         return PostTypeResourceRequest::getMeta($postId, $field['name'], $registeredPostType) ?? $value;
     }
@@ -48,9 +51,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return $pageData;
         }
 
-        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($queriedObject->post_type);
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $queriedObject->post_type);
 
-        if (empty($registeredPostType)) {
+        if (empty($matchingResources)) {
             return $pageData;
         }
 
@@ -81,10 +85,11 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return $postLink;
         }
 
-        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($post->post_type);
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $post->post_type);
         $postTypeObject = get_post_type_object($post->post_type);
 
-        if (empty($registeredPostType) || empty($postTypeObject)) {
+        if (empty($matchingResources) || empty($postTypeObject)) {
             return $postLink;
         }
 
@@ -137,7 +142,12 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         if ($query->get('post_type') && is_string($query->get('post_type'))) {
-            return $this->resourceRegistry->getRegisteredPostType($query->get('post_type'));
+            $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
+            
+            if( !empty($matchingResources) ) {
+                return reset($matchingResources);
+            }
         }
 
         return null;
@@ -187,6 +197,9 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
                 if( isset($taxQuery['terms']) && is_array($taxQuery['terms']) && !empty($taxQuery['terms']) ) {
                     $queryArgs['tax_query'][$key]['terms'] = array_map(
                         function ($id) {    
+                            if( $id > 0 ) {
+                                return $id;
+                            }
                             $taxResource = $this->getResourceFromPostId($id);
                             return !empty($taxResource) ? $this->prepareIdForRequest($id, $taxResource) : $id;
                         },
@@ -199,24 +212,25 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         return $queryArgs;
     }
 
-    private function possiblyConvertLocalTaxonomyToRemote (string $taxonomy): string
+    private function possiblyConvertLocalTaxonomyToRemote(string $taxonomy): string
     {
-        $localTaxonomyResource = $this->resourceRegistry->getRegisteredTaxonomy($taxonomy);
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $taxonomy);
 
-        if (
-            !empty($localTaxonomyResource) &&
-            isset($localTaxonomyResource->originalName) &&
-            !empty($localTaxonomyResource->originalName)
-        ) {
-            return $localTaxonomyResource->originalName;
+        if (!empty($matchingResources)) {
+            return $matchingResources[0]->getOriginalName();
         }
 
         return $taxonomy;
     }
 
-    private function prepareIdForRequest(int $id, object $resource): int
+    private function prepareIdForRequest(int $id, ResourceInterface $resource): int
     {
-        return (int)str_replace((string)$resource->resourceID, '', (string)absint($id));
+        if( $id > -1 ) {
+            return $id;
+        }
+        
+        return (int)substr_replace((string)absint($id), '', 0, strlen((string)$resource->getResourceID()));
     }
 
     public function preventSuppressFiltersOnWpQuery(WP_Query $query): void
@@ -225,9 +239,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return;
         }
 
-        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($query->get('post_type'));
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
 
-        if (empty($registeredPostType)) {
+        if (empty($matchingResources)) {
             return;
         }
 
@@ -240,9 +255,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return;
         }
 
-        $registeredPostType = $this->resourceRegistry->getRegisteredPostType($query->get('post_type'));
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
 
-        if (empty($registeredPostType)) {
+        if (empty($matchingResources)) {
             return;
         }
 
@@ -250,28 +266,19 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         $query->set('update_post_term_cache', false);
     }
 
-    private function getResourceFromPostId($postId): ?object
+    private function getResourceFromPostId($postId): ?ResourceInterface
     {
-
         if (!$this->isRemotePostId((int)$postId)) {
             return null;
         }
 
-        $registeredPostTypes = $this->resourceRegistry->getRegisteredPostTypes();
-        $registeredTaxonomies = $this->resourceRegistry->getRegisteredTaxonomies();
+        $resources = $this->resourceRegistry->getRegistry();
 
-        $registeredResources = array_merge($registeredPostTypes, $registeredTaxonomies);
-
-        if (empty($registeredResources)) {
-            return null;
-        }
-
-        foreach ($registeredResources as $registeredResource) {
-            $needle = (string)$registeredResource->resourceID;
+        foreach ($resources as $resource) {
             $haystack = (string)absint($postId);
 
-            if (str_starts_with($haystack, $needle)) {
-                return $registeredResource;
+            if (str_starts_with($haystack, (string)$resource->getResourceID())) {
+                return $resource;
             }
         }
 
@@ -311,10 +318,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         $parentCollectionUrl = $parentPostFromApi->_links->collection[0]->href;
 
-        $resources = $this->resourceRegistry->getRegisteredPostTypes();
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
 
         foreach ($resources as $resource) {
-            if ($resource->collectionUrl === $parentCollectionUrl) {
+            if ($resource->getBaseUrl() === $parentCollectionUrl) {
                 $parentResource = $resource;
                 break;
             }
