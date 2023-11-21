@@ -165,7 +165,7 @@ class Image
      * @param array|string $size Size should be an array containing two int values (height and width). Can also be a string matching predefined sizes (ex. medium).
      * @return array
      */
-    public static function getImageAttachmentData(int $id, $size = 'full') { 
+    public static function getImageAttachmentData($id, $size = 'full') { 
         $imageSrc           = wp_get_attachment_image_src($id, $size);
 
         if (empty($imageSrc[0])) {
