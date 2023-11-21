@@ -39,7 +39,7 @@
     @endif
 
 
-<script type="text/php">
+{{-- <script type="text/php">
 	foreach ($GLOBALS['chapters'] as $chapter => $page) {
 		$pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] = str_replace( '%%CH'.$chapter.'%%' , $page , $pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] );
 	}
@@ -49,7 +49,22 @@
 			$pdf->stop_object($GLOBALS["backside"]);
 		} 
 	');
+</script> --}}
+<script type="text/php">
+    for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
+        if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {
+            continue;
+        }
+        $object = $pdf->get_cpdf()->objects[$i];
+        foreach ($GLOBALS['chapters'] as $chapter => $page) {
+            if (array_key_exists('c', $object)) {
+                $object['c'] = str_replace( '%%CH'.$chapter.'%%' , $page , $object['c'] );
+                $pdf->get_cpdf()->objects[$i] = $object;
+            }
+        }
+    }
 </script>
+
     
 </body>
 

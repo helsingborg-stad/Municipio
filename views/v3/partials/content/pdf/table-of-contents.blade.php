@@ -1,15 +1,11 @@
-{{-- <h2 class="pdf-post-heading">Table of contents</h2>
-<ul class="">
-    @foreach($posts as $index => $post)
-        @if(!empty($post->postTitleFiltered))
-            <li><a href="#post-{{$index}}">{{ $post->postTitleFiltered }} %%CH2%%</a></li>
-        @endif
-    @endforeach
-</ul> --}}
 <script type="text/php">
+    $GLOBALS['chapters'] = array();
+    $GLOBALS['max_object'] = 0;
+</script>
+{{-- <script type="text/php">
 	$GLOBALS['chapters'] = array();
 	$GLOBALS['backside'] = $pdf->open_object();
-</script>
+</script> --}}
 
 <h2 class="pdf-heading--h1">Table of Contents</h2>
 <ul class="pdf-toc__list">
@@ -24,5 +20,8 @@
 </ul>
 
 <script type="text/php">
-	$pdf->close_object();
+    $GLOBALS['max_object'] = count($pdf->get_cpdf()->objects);
 </script>
+{{-- <script type="text/php">
+	$pdf->close_object();
+</script> --}}
