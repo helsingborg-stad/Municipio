@@ -12,10 +12,11 @@ class PdfGenerator
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
 
-        add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'));
+        add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'), 99);
     }
 
     public function addAcfToPdfGeneratorOptionsPage () {
+
         $postTypes = get_post_types([
                 'public' => true
         ], 'objects');
