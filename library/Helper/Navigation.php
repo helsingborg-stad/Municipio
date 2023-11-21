@@ -864,7 +864,7 @@ class Navigation
                 'icon' => 'print',
                 'href' => '#',
                 'attributeList' => [
-                    'data-js-pdf-generator' => $pageId,
+                    'data-js-pdf-generator' => 'single',
                 ],
                 'text' => __('Print', 'municipio'),
                 'label' => __('Print this page', 'municipio')
