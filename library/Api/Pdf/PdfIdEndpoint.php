@@ -5,6 +5,7 @@ namespace Municipio\Api\Pdf;
 use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
+use Municipio\Api\Pdf\PdfHelper;
 
 class PdfIdEndpoint extends RestApiEndpoint
 {
@@ -22,11 +23,38 @@ class PdfIdEndpoint extends RestApiEndpoint
 
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $ids = $request->get_param('id');
-        if (!empty($ids) && is_string($ids)) {
-            $idArr = explode(',', $ids);
-            $pdf = new \Municipio\Api\Pdf\CreatePdf();
-            return $pdf->renderView($idArr);
+        $pdfHelper = new PdfHelper();
+        $idString = $request->get_param('id');
+        
+        if (!empty($idString) && is_string($idString)) {
+            $idArr = explode(',', $idString);
+            [$posts, $postTypes] = $this->getPostsById($idArr);
+            $cover = $pdfHelper->getCover($postTypes);
         }
+
+        if (!empty($posts)) {
+            $pdf = new \Municipio\Api\Pdf\CreatePdf();
+            return $pdf->renderView($posts, $cover);
+        }
+
+        return new WP_REST_Response('No valid posts', 200);
+    }
+
+    private function getPostsById(array $ids) {
+        $posts = [];
+        $postTypes = [];
+        if (!empty($ids) && is_array($ids)) {
+            foreach ($ids as $id) {
+                $post = get_post($id);
+                if (!empty($post->post_status) && $post->post_status == 'publish') {
+                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                    if (!empty($post->postType)) {
+                        $postTypes[$post->postType] = $post->postType;
+                    }
+                    array_push($posts, $post);
+                }
+            }
+        }
+        return [$posts, $postTypes];
     }
 }
