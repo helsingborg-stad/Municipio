@@ -38,18 +38,6 @@
     @endforeach
     @endif
 
-
-{{-- <script type="text/php">
-	foreach ($GLOBALS['chapters'] as $chapter => $page) {
-		$pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] = str_replace( '%%CH'.$chapter.'%%' , $page , $pdf->get_cpdf()->objects[$GLOBALS['backside']]['c'] );
-	}
-	$pdf->page_script('
-		if ($PAGE_NUM=={{!empty($cover) ? 2 : 1}} ) {
-			$pdf->add_object($GLOBALS["backside"],"add");
-			$pdf->stop_object($GLOBALS["backside"]);
-		} 
-	');
-</script> --}}
 <script type="text/php">
     for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
         if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {

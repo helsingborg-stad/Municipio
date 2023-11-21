@@ -2,10 +2,6 @@
     $GLOBALS['chapters'] = array();
     $GLOBALS['max_object'] = 0;
 </script>
-{{-- <script type="text/php">
-	$GLOBALS['chapters'] = array();
-	$GLOBALS['backside'] = $pdf->open_object();
-</script> --}}
 
 <h2 class="pdf-heading--h1">Table of Contents</h2>
 <ul class="pdf-toc__list">
@@ -22,6 +18,3 @@
 <script type="text/php">
     $GLOBALS['max_object'] = count($pdf->get_cpdf()->objects);
 </script>
-{{-- <script type="text/php">
-	$pdf->close_object();
-</script> --}}
