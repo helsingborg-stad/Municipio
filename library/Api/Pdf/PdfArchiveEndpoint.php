@@ -40,7 +40,8 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     private function getArchivePosts($postType = false, $queryParams = false) {
         $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         $order = get_theme_mod('archive_' . $postType . '_order_direction');
-        
+        $facetting = empty(get_theme_mod('archive_' . $postType . '_filter_type')) ? 'IN' : 'AND';
+
         $posts = [];
         $args = [
             'post_type' => $postType,
@@ -76,7 +77,8 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                 $args['tax_query'][] = [
                     'taxonomy' => $key,
                     'field' => 'slug',
-                    'terms' => $values
+                    'terms' => $values,
+                    'operator' => $facetting
                 ];
             }
         }

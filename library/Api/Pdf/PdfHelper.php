@@ -58,7 +58,7 @@ class PdfHelper
 
     public function getCover(array $postTypes) {
         $postType = $this->defaultPrefix;
-        if (count($postTypes) === 1) {
+        if (!empty($postTypes)) {
             $postType = current($postTypes);
         } 
 
