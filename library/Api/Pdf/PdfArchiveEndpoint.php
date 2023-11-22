@@ -42,16 +42,40 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         $args = [
             'post_type' => $postType,
             'tax_query' => [],
+            'date_query' => [
+                'inclusive' => true,
+            ],
             'posts_per_page' => -1
         ];
+
         foreach ($queryParams as $key => $values) {
-            $args['tax_query'][] = [
-                'taxonomy' => $key,
-                'field' => 'slug',
-                'terms' => $values
-            ];
+            if (empty($values)) {
+                //Do nothing for empty values
+            } elseif ($key == 'from' || $key == 'to') {
+                if ($key == 'from') {
+                    $args['date_query']['after'] = $values;
+                }
+
+                if ($key == 'to') {
+                    $args['date_query']['before'] = $values;
+                    $args['date_query']['compare'] = '<=';
+                }
+
+                //if both after and before are set we compare dates between the two
+                if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
+                    $args['date_query']['compare'] = 'BETWEEN';
+                }
+            } elseif ($key == 's') {
+                $args['s'] = $values;
+            } else {
+                $args['tax_query'][] = [
+                    'taxonomy' => $key,
+                    'field' => 'slug',
+                    'terms' => $values
+                ];
+            }
         }
-        
+
         $query = new \WP_Query($args);
         
         if (!empty($query->posts)) {
