@@ -4,6 +4,7 @@ namespace Municipio\Content\ResourceFromApi\PostType;
 
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
+use Municipio\Helper\RemotePosts;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
 use stdClass;
@@ -113,18 +114,12 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         return $resourceUrl . $restParams;
     }
 
-    private static function getLocalID(int $id, ResourceInterface $resource): int
-    {
-        $resourceId = $resource->getResourceID();
-        return -(int)"{$resourceId}{$id}";
-    }
-
     /**
      * @param stdClass $restApiPost
      */
     private static function convertRestApiPostToWPPost(stdClass $restApiPost, ResourceInterface $resource): WP_Post
     {
-        $localID = self::getLocalID($restApiPost->id, $resource);
+        $localID = RemotePosts::getLocalID($restApiPost->id, $resource);
         $localPostType = $resource->getName();
 
         // Map of all wp_post fields and their equivalent in the restApiPost
@@ -135,7 +130,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             'post_date_gmt' => $restApiPost->date_gmt ?? '',
             'post_content' => $restApiPost->content->rendered ?? '',
             'post_title' => $restApiPost->title->rendered ?? '',
-            'post_excerpt' => $restApiPost->excerpt->rendered ?? '',
+            'post_excerpt' => $restApiPost->excerpt->rendered ?? $restApiPost->caption->rendered ?? '',
             'post_status' => $restApiPost->status ?? '',
             'comment_status' => $restApiPost->comment_status ?? 'publish',
             'ping_status' => $restApiPost->ping_status ?? 'open',
@@ -193,7 +188,13 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         }
 
         if( isset($restApiPost->featured_media) && is_numeric($restApiPost->featured_media) ) {
-            $wpPost->meta->_thumbnail_id = $restApiPost->featured_media;
+            $featuredMediaId = $restApiPost->featured_media;
+            
+            if( $resource->getMediaResource() !== null ) {
+                $featuredMediaId = RemotePosts::getLocalID($featuredMediaId, $resource->getMediaResource());
+            }
+
+            $wpPost->meta->_thumbnail_id = $featuredMediaId;
         }
         
         $hookName = 'Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost';

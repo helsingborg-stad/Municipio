@@ -84,7 +84,7 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
             array_filter($queryVars['object_ids']);
         }
 
-        $collection = TaxonomyResourceRequest::getCollection($matchingResources[0], $queryVars);
+        $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
 
         return $collection;
     }

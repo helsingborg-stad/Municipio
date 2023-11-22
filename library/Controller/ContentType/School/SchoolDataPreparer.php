@@ -490,17 +490,23 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $facadeAttachments = !empty($this->postMeta->facadeImages) ? array_map(function ($attachment) {
             $attachmentId = $attachment->image->id;
+            $postType = $this->data['post']->postType;
+            $src = WP::getAttachmentImageSrc($attachmentId, 'large', false, $postType);
+            $caption = WP::getAttachmentCaption($attachmentId, $postType);
             return [
-                'src' =>  WP::getAttachmentImageSrc($attachmentId, 'medium', false),
-                'caption' => WP::getAttachmentCaption($attachmentId)
+                'src' =>  is_array($src) ? $src[0] : '',
+                'caption' => $caption
             ];
         }, $this->postMeta->facadeImages) : null;
 
-        $galleryAttachments = !empty($this->postMeta->galleryAttachments) ? array_map(function ($attachment) {
+        $galleryAttachments = !empty($this->postMeta->gallery) ? array_map(function ($attachment) {
             $attachmentId = $attachment->image->id;
+            $postType = $this->data['post']->postType;
+            $src = WP::getAttachmentImageSrc($attachmentId, 'large', false, $postType);
+            $caption = WP::getAttachmentCaption($attachmentId, $postType);
             return [
-                'src' =>  WP::getAttachmentImageSrc($attachmentId, 'medium', false),
-                'caption' => WP::getAttachmentCaption($attachmentId)
+                'src' =>  is_array($src) ? $src[0] : '',
+                'caption' => $caption
             ];
         }, $this->postMeta->gallery) : null;
 

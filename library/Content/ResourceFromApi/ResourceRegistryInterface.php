@@ -11,15 +11,15 @@ interface ResourceRegistryInterface
     /**
      * @return ResourceInterface[]
      */
-    public function getRegistry(): array;
+    public static function getRegistry(): array;
     /**
      * @param string $type
      * @return ResourceInterface[]
      */
-    public function getByType(string $type): array;
+    public static function getByType(string $type): array;
     /**
      * @param string $name
      * @return ResourceInterface[]
      */
-    public function getByName(string $name): array;
+    public static function getByName(string $name): array;
 }

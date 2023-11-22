@@ -7,6 +7,7 @@ use Municipio\Content\ResourceFromApi\Resource;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
+use Municipio\Helper\RemotePosts;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WP;
 use WP_Post;
@@ -28,6 +29,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_filter('default_post_metadata', [$this, 'modifyDefaultPostMetadata'], 100, 5);
         add_filter('acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3);
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
+        add_filter( 'wp_get_attachment_image_src', [$this, 'modifyAttachmentImageSrc'], 10, 4 );
         add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
         add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_filter('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [$this, 'addParentToPost'], 10, 3);
@@ -77,6 +79,55 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         ]);
 
         return $pageData;
+    }
+
+    public function modifyAttachmentImageSrc($image, $attachmentId, $size, $icon) {
+
+        if (!empty($image) || !is_numeric($attachmentId) || (int)$attachmentId > -1) {
+            return $image;
+        }
+
+        $resource = $this->getResourceFromPostId($attachmentId);
+
+        if( empty($resource) ) {
+            return $image;
+        }
+
+        $attachment = WP::getPost($attachmentId);
+
+        if( !is_a($attachment, 'WP_Post') ) {
+            return $image;
+        }
+
+        if (!isset($attachment->meta->media_details) || !isset($attachment->meta->media_details->sizes)) {
+            return [$attachment->meta->source_url];
+        }
+
+        $image = [
+            $attachment->meta->media_details->sizes->{$size}->source_url ?? $attachment->meta->source_url,
+            $attachment->meta->media_details->sizes->{$size}->width ?? $attachment->meta->width,
+            $attachment->meta->media_details->sizes->{$size}->height ?? $attachment->meta->height,
+            true
+        ];
+
+        return $image;
+    }
+
+    private function getClosestSize(array $size, array $sizes): ?string
+    {
+        $sizeName = null;
+        $sizeDiff = null;
+
+        foreach($sizes as $name => $imageSize) {
+            $diff = abs($size[0] - $imageSize->width) + abs($size[1] - $imageSize->height);
+
+            if( is_null($sizeDiff) || $diff < $sizeDiff ) {
+                $sizeDiff = $diff;
+                $sizeName = $name;
+            }
+        }
+
+        return $sizeName;
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)
@@ -166,6 +217,10 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function modifyDefaultPostMetadata($value, int $objectId, $metaKey, $single, $metaType)
     {
+        if( !RemotePosts::isRemotePostID($objectId) ) {
+            return $value;
+        }
+
         $registeredPostType = $this->getResourceFromPostId($objectId);
 
         if (is_null($registeredPostType)) {
@@ -218,7 +273,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $taxonomy);
 
         if (!empty($matchingResources)) {
-            return $matchingResources[0]->getOriginalName();
+            return reset($matchingResources)->getOriginalName();
         }
 
         return $taxonomy;

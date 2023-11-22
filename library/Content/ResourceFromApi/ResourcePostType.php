@@ -20,8 +20,7 @@ class ResourcePostType
         add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setTaxonomyResourcePostTitleFromAcf'], 10);
         add_action('acf/save_post', [$this, 'setAttachmentResourcePostTitleFromAcf'], 10);
-        add_action('acf/save_post', [$this, 'setPostTypeApiMeta'], 10);
-        add_action('acf/save_post', [$this, 'setTaxonomyApiMeta'], 10);
+        add_action('acf/save_post', [$this, 'setApiMeta'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
         add_filter('acf/update_value/name=taxonomy_key', [$this, 'sanitizeTaxonomyKeyBeforeSave'], 10, 4);
     }
@@ -329,45 +328,28 @@ class ResourcePostType
 
         ]);
     }
-
-    public function setPostTypeApiMeta($postId) {
-        if( !is_string(get_post_type($postId)) || get_post_type($postId) !== self::POST_TYPE_NAME || !function_exists('get_field') ) {
-            return;
-        }
-
-        $postTypeSource = get_field('post_type_source', $postId);
-        
-        if( !is_string($postTypeSource) || empty($postTypeSource) ) {
-            return;
-        }
-
-        $parts = explode(',', $postTypeSource);
-        
-        if( sizeof($parts) !== 3 ) {
-            return;
-        }
-
-        $url = $parts[0];
-        $originalName = $parts[1];
-        $baseName = $parts[2];
-
-        update_post_meta($postId, 'api_resource_url', $url);
-        update_post_meta($postId, 'api_resource_original_name', $originalName);
-        update_post_meta($postId, 'api_resource_base_name', $baseName);
-    }
     
-    public function setTaxonomyApiMeta($postId) {
+    public function setApiMeta($postId) {
+
         if( !is_string(get_post_type($postId)) || get_post_type($postId) !== self::POST_TYPE_NAME || !function_exists('get_field') ) {
             return;
         }
 
-        $taxonomySource = get_field('taxonomy_source', $postId);
+        if (get_field('type', $postId) ===  ResourceType::ATTACHMENT) {
+            $source = get_field('attachment_source', $postId);
+        } else if (get_field('type', $postId) ===  ResourceType::POST_TYPE) {
+            $source = get_field('post_type_source', $postId);
+        } else if (get_field('type', $postId) ===  ResourceType::TAXONOMY) {
+            $source = get_field('taxonomy_source', $postId);
+        } else {
+            return;
+        }
         
-        if( !is_string($taxonomySource) || empty($taxonomySource) ) {
+        if( !is_string($source) || empty($source) ) {
             return;
         }
 
-        $parts = explode(',', $taxonomySource);
+        $parts = explode(',', $source);
         
         if( sizeof($parts) !== 3 ) {
             return;
