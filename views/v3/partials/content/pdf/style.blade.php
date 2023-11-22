@@ -160,6 +160,8 @@
     .c-card__footer,
     .c-card__image-background,
     .c-card__image,
+    .c-modal,
+    .c-acceptance__content,
     #sidebar-slider-area--container,
     #customer-feedback,
     #_hjRemoteVarsFrame,
