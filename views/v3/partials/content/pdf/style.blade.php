@@ -44,8 +44,9 @@
 
     .pdf-toc__number {
         padding-left: 4px;
-        margin-right: -2cm;
         float: right;
+        position: absolute;
+        width: 1.5cm;
     }
 
     /* Pdf Page/container */
