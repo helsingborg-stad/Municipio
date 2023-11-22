@@ -77,6 +77,12 @@
         left: -2cm;
     }
 
+    /* Pdf posts */
+    .pdf-post__featured-image {
+        margin-bottom: 0.5cm;
+    }
+
+
     /* Pdf Frontpage */
     .pdf-frontpage {
         background-color: {{ !empty($styles['color_palette_secondary']['base']) ? $styles['color_palette_secondary']['base'] : '#fff' }};
