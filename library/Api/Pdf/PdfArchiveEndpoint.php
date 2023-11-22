@@ -38,6 +38,9 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     }
 
     private function getArchivePosts($postType = false, $queryParams = false) {
+        $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
+        $order = get_theme_mod('archive_' . $postType . '_order_direction');
+        
         $posts = [];
         $args = [
             'post_type' => $postType,
@@ -45,7 +48,9 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             'date_query' => [
                 'inclusive' => true,
             ],
-            'posts_per_page' => -1
+            'posts_per_page' => -1,
+            'order_by' => !empty($orderBy) ? $orderBy : 'post_date',
+            'order' => !empty($order) ? $order : 'desc'
         ];
 
         foreach ($queryParams as $key => $values) {
