@@ -29,31 +29,28 @@
     <!-- Article pages -->
     @includeWhen(!empty($cover), 'partials.content.pdf.frontpage')
     {{-- @dump($styles['typography_h1']) --}}
-    @if (!empty($posts)) 
-    <section class="pdf-toc {{!empty($cover) ? 'pdf-page-break' : ''}}">
-        @include('partials.content.pdf.table-of-contents')
-    </section>
+    @if (!empty($posts) && is_array($posts)) 
+        @includeWhen(count($posts) > 1, 'partials.content.pdf.table-of-contents')
     @foreach ($posts as $index => $post)
         @include('partials.content.pdf.post')
     @endforeach
+        @if (count($posts) > 1)
+            <script type="text/php">
+                for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
+                    if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {
+                        continue;
+                    }
+                    $object = $pdf->get_cpdf()->objects[$i];
+                    foreach ($GLOBALS['chapters'] as $chapter => $page) {
+                        if (array_key_exists('c', $object)) {
+                            $object['c'] = str_replace( '%%CH' . $chapter . '%%', $page, $object['c'] );
+                            $pdf->get_cpdf()->objects[$i] = $object;
+                        }
+                    }
+                }
+            </script>
+        @endif
     @endif
-
-<script type="text/php">
-    for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
-        if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {
-            continue;
-        }
-        $object = $pdf->get_cpdf()->objects[$i];
-        foreach ($GLOBALS['chapters'] as $chapter => $page) {
-            if (array_key_exists('c', $object)) {
-                $object['c'] = str_replace( '%%CH' . $chapter . '%%', $page, $object['c'] );
-                $pdf->get_cpdf()->objects[$i] = $object;
-            }
-        }
-    }
-</script>
-
-    
 </body>
 
 <!-- /Article pages -->
