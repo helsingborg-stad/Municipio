@@ -46,7 +46,7 @@
         $object = $pdf->get_cpdf()->objects[$i];
         foreach ($GLOBALS['chapters'] as $chapter => $page) {
             if (array_key_exists('c', $object)) {
-                $object['c'] = str_replace( '%%CH'.$chapter.'%%' , (!in_array($chapter, ['4', '5', '6', '7', '8', '9', '94', '95', '96', '97', '98', '99']) ? '  ' : '') . $page, $object['c'] );
+                $object['c'] = str_replace( '%%CH' . $chapter . '%%', $page, $object['c'] );
                 $pdf->get_cpdf()->objects[$i] = $object;
             }
         }
