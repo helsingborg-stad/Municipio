@@ -28,9 +28,12 @@
         content: '';
         clear: both;
         display: table;
-        border-bottom: 2px dotted black;
         width: 100%;
         margin-top: -7px;
+        border-bottom: 2px dotted black;
+    }
+    .pdf-toc__item.pdf-toc__item--big::after {
+        border-bottom: 2px dotted white;
     }
     
     .pdf-toc__title, .pdf-toc__number {
@@ -40,6 +43,7 @@
     .pdf-toc__title {
         padding-right: 3px;
         float: left;
+        margin-right: 2cm;
     }
 
     .pdf-toc__number {
