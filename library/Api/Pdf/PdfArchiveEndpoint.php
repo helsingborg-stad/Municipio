@@ -33,6 +33,8 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             $pdf = new \Municipio\Api\Pdf\CreatePdf();
             return $pdf->renderView($posts, $cover);
         }
+
+        return new WP_REST_Response('No valid posts', 200);
     }
 
     private function getArchivePosts($postType = false, $queryParams = false) {
