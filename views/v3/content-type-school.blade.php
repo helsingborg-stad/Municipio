@@ -129,9 +129,9 @@
         <div class="o-grid">
             @foreach ($contacts as $contact)
                 @card(['classList' => ['o-grid-4@md', 'u-color__bg--transparent']])
-                    @if ($contact->attachment)
+                    @if ($contact->imageSrc)
                         @image([
-                            'src' => $contact->attachment->guid
+                            'src' => $contact->imageSrc
                         ])
                         @endimage
                     @endif
