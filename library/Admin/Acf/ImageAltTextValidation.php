@@ -30,7 +30,7 @@ class ImageAltTextValidation
     }
 
     private function postHasFeaturedImage($field, $post) {
-        return !empty($field['key']) && $field['key'] == 'field_654a2a58ca4e9' && !empty($post) && !empty($post['_thumbnail_id']);
+        return !empty($field['key']) && $field['key'] == 'field_654a2a58ca4e9' && !empty($post) && !empty($post['_thumbnail_id']) && $post['_thumbnail_id'] !== '-1';
     }
 
     private function imageFieldHasValue($field, $value) {
