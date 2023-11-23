@@ -17,8 +17,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private const USP_TAXONOMY = 'school-usp';
     private const AREA_TAXONOMY = 'school-area';
     private const GRADE_TAXONOMY = 'school-grade';
-    private const EVENT_POST_TYPE = 'school-event';
-    private const EVENT_TAXONOMY = 'school-event-tag';
+    private const EVENT_POST_TYPE = 'event';
+    private const EVENT_TAXONOMY = 'event_tags';
 
     public function prepareData(array $data): array
     {
@@ -569,7 +569,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $eventTag = $eventTags[0];
-        $events = get_posts(['post_type' => self::EVENT_POST_TYPE,  'suppress_filters' => false, 'tax_query' => [
+        $events = get_posts(['post_type' => self::EVENT_POST_TYPE,  'tax_query' => [
             [
                 'taxonomy' => self::EVENT_TAXONOMY,
                 'field' => 'term_id',
@@ -585,7 +585,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             
             $title = $event->post_title;
             $text = $event->post_content;
-            $occasions = WP::getField('occasions', $event->ID, true);
+            $occasions = get_post_meta($event->ID, 'occasions_complete', true);
 
 
             if (empty($occasions) || empty($text) || empty($text)) {
@@ -595,14 +595,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $firstOccation = $occasions[0];
 
             if (
-                !isset($firstOccation[0]->start_date) ||
-                empty($firstOccation[0]->start_date) ||
-                strtotime($firstOccation[0]->start_date) === false
+                !isset($firstOccation['start_date']) ||
+                empty($firstOccation['start_date']) ||
+                strtotime($firstOccation['start_date']) === false
             ) {
                 continue;
             }
 
-            $timestamp = strtotime($firstOccation[0]->start_date);
+            $timestamp = strtotime($firstOccation['start_date']);
             $time = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
             $date = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
             $dateLong = wp_date(get_option( 'date_format' ), $timestamp, new \DateTimeZone('GMT'));
