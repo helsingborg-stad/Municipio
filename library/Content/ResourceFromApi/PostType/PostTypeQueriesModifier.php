@@ -103,31 +103,25 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return [$attachment->meta->source_url];
         }
 
+        $matchingSize = RemotePosts::getClosestImageBySize($size, $attachment->meta->media_details->sizes);
+
+        if( empty($matchingSize) ) {
+            return [
+                $attachment->meta->source_url,
+                $attachment->meta->width ?? null,
+                $attachment->meta->height ?? null,
+                false
+            ];
+        }
+
         $image = [
-            $attachment->meta->media_details->sizes->{$size}->source_url ?? $attachment->meta->source_url,
-            $attachment->meta->media_details->sizes->{$size}->width ?? $attachment->meta->width ?? null,
-            $attachment->meta->media_details->sizes->{$size}->height ?? $attachment->meta->height ?? null,
+            $attachment->meta->media_details->sizes->{$matchingSize}->source_url ?? $attachment->meta->source_url,
+            $attachment->meta->media_details->sizes->{$matchingSize}->width ?? $attachment->meta->width ?? null,
+            $attachment->meta->media_details->sizes->{$matchingSize}->height ?? $attachment->meta->height ?? null,
             true
         ];
 
         return $image;
-    }
-
-    private function getClosestSize(array $size, array $sizes): ?string
-    {
-        $sizeName = null;
-        $sizeDiff = null;
-
-        foreach($sizes as $name => $imageSize) {
-            $diff = abs($size[0] - $imageSize->width) + abs($size[1] - $imageSize->height);
-
-            if( is_null($sizeDiff) || $diff < $sizeDiff ) {
-                $sizeDiff = $diff;
-                $sizeName = $name;
-            }
-        }
-
-        return $sizeName;
     }
 
     public function modifyPostTypeLink(string $postLink, WP_Post $post)

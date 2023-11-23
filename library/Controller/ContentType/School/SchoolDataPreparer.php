@@ -486,42 +486,41 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['socialMediaLinks'] = $socialMediaLinks;
     }
 
+    private function mapAttachments($attachments): ?array
+    {
+        if (empty($attachments)) {
+            return null;
+        }
+
+        return array_map(function ($attachment) {
+            $imageSize = [760];
+            $attachmentId = $attachment->image->id;
+            $postType = $this->data['post']->postType;
+            $src = WP::getAttachmentImageSrc($attachmentId, $imageSize, false, $postType);
+            $caption = WP::getAttachmentCaption($attachmentId, $postType);
+            return [
+                'src' => is_array($src) ? $src[0] : '',
+                'caption' => $caption
+            ];
+        }, $attachments);
+    }
+
     private function appendImagesData(): void
     {
-        $facadeAttachments = !empty($this->postMeta->facadeImages) ? array_map(function ($attachment) {
-            $attachmentId = $attachment->image->id;
-            $postType = $this->data['post']->postType;
-            $src = WP::getAttachmentImageSrc($attachmentId, 'large', false, $postType);
-            $caption = WP::getAttachmentCaption($attachmentId, $postType);
-            return [
-                'src' =>  is_array($src) ? $src[0] : '',
-                'caption' => $caption
-            ];
-        }, $this->postMeta->facadeImages) : null;
+        $facadeAttachments = $this->mapAttachments($this->postMeta->facadeImages);
+        $galleryAttachments = $this->mapAttachments($this->postMeta->gallery);
 
-        $galleryAttachments = !empty($this->postMeta->gallery) ? array_map(function ($attachment) {
-            $attachmentId = $attachment->image->id;
-            $postType = $this->data['post']->postType;
-            $src = WP::getAttachmentImageSrc($attachmentId, 'large', false, $postType);
-            $caption = WP::getAttachmentCaption($attachmentId, $postType);
-            return [
-                'src' =>  is_array($src) ? $src[0] : '',
-                'caption' => $caption
-            ];
-        }, $this->postMeta->gallery) : null;
-
-        $this->data['facadeSliderItems'] = isset($facadeAttachments) && !empty($facadeAttachments)
+        $this->data['facadeSliderItems'] = !empty($facadeAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $facadeAttachments)
             : null;
-        
-        $this->data['gallerySliderItems'] = isset($galleryAttachments) && !empty($galleryAttachments)
+
+        $this->data['gallerySliderItems'] = !empty($galleryAttachments)
             ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
             : null;
 
-        $this->data['video'] =
-        ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
-            ? wp_oembed_get( $this->postMeta->video )
-            : null; 
+        $this->data['video'] = ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
+            ? wp_oembed_get($this->postMeta->video)
+            : null;
     }
 
     private function attachmentToSliderItem($attachment): array
