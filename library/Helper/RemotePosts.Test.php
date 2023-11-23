@@ -44,6 +44,19 @@ class RemotePostsTest extends WP_UnitTestCase
         // Then
         $this->assertEquals('medium', $result);
     }
+    
+    public function testGetClosestImageBySizeReturnsClosestMatchWhenOnlyHeightIsProvided()
+    {
+        // Given
+        $size = [false, 151];
+        $sizes = $this->getMockedSizes();
+
+        // When
+        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+
+        // Then
+        $this->assertEquals('medium', $result);
+    }
 
     public function testGetClosestImageBySizeReturnsMatchByName()
     {
