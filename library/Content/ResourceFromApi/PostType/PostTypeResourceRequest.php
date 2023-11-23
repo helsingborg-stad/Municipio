@@ -2,13 +2,12 @@
 
 namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\ApiPost;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
-use Municipio\Helper\RemotePosts;
+use Municipio\Content\ResourceFromApi\RestApiPostConverter;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
-use stdClass;
-use WP_Post;
 
 class PostTypeResourceRequest implements ResourceRequestInterface
 {
@@ -27,7 +26,7 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         }
 
         return array_map(
-            fn ($post) => self::convertRestApiPostToWPPost((object)$post, $resource),
+            fn ($post) => (new RestApiPostConverter($post, $resource))->convertToWPPost(),
             $postsFromApi
         );
     }
@@ -47,9 +46,9 @@ class PostTypeResourceRequest implements ResourceRequestInterface
         }
 
         if (is_array($postFromApi) && !empty($postFromApi)) {
-            return self::convertRestApiPostToWPPost($postFromApi[0], $resource);
+            return (new RestApiPostConverter($postFromApi[0], $resource))->convertToWPPost();
         } else if (is_object($postFromApi)) {
-            return self::convertRestApiPostToWPPost($postFromApi, $resource);
+            return (new RestApiPostConverter($postFromApi, $resource))->convertToWPPost();
         }
 
         return null;
@@ -112,92 +111,5 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             : '';
 
         return $resourceUrl . $restParams;
-    }
-
-    /**
-     * @param stdClass $restApiPost
-     */
-    private static function convertRestApiPostToWPPost(stdClass $restApiPost, ResourceInterface $resource): WP_Post
-    {
-        $localID = RemotePosts::getLocalID($restApiPost->id, $resource);
-        $localPostType = $resource->getName();
-
-        // Map of all wp_post fields and their equivalent in the restApiPost
-        $postFieldsMap = [
-            'ID' => $localID,
-            'post_author' => $restApiPost->author ?? 1,
-            'post_date' => $restApiPost->date ?? '',
-            'post_date_gmt' => $restApiPost->date_gmt ?? '',
-            'post_content' => $restApiPost->content->rendered ?? '',
-            'post_title' => $restApiPost->title->rendered ?? '',
-            'post_excerpt' => $restApiPost->excerpt->rendered ?? $restApiPost->caption->rendered ?? '',
-            'post_status' => $restApiPost->status ?? '',
-            'comment_status' => $restApiPost->comment_status ?? 'publish',
-            'ping_status' => $restApiPost->ping_status ?? 'open',
-            'post_password' => $restApiPost->password ?? '',
-            'post_name' => $restApiPost->slug ?? '',
-            'to_ping' => $restApiPost->to_ping ?? '',
-            'pinged' => $restApiPost->pinged ?? '',
-            'post_modified' => $restApiPost->modified ?? '',
-            'post_modified_gmt' => $restApiPost->modified_gmt ?? '',
-            'post_content_filtered' => $restApiPost->content->rendered ?? '',
-            'post_parent' => $restApiPost->parent ?? 0,
-            'guid' => $restApiPost->guid->rendered ?? '',
-            'menu_order' => $restApiPost->menu_order ?? 0,
-            'post_type' => $localPostType,
-            'post_mime_type' => $restApiPost->mime_type ?? '',
-            'comment_count' => 0,
-            'filter' => 'raw',
-        ];
-
-        $wpPost = new WP_Post((object)[]);
-        
-        foreach ($postFieldsMap as $wpPostField => $restApiPostField) {
-            $wpPost->$wpPostField = $restApiPostField;
-        }
-
-        // The remaining props on restApiPost that were not used in the map above should be stored in a meta field
-        $restApiPostMeta = (array)$restApiPost;
-        unset($restApiPostMeta['id']);
-        unset($restApiPostMeta['date']);
-        unset($restApiPostMeta['date_gmt']);
-        unset($restApiPostMeta['content']);
-        unset($restApiPostMeta['title']);
-        unset($restApiPostMeta['excerpt']);
-        unset($restApiPostMeta['status']);
-        unset($restApiPostMeta['comment_status']);
-        unset($restApiPostMeta['ping_status']);
-        unset($restApiPostMeta['password']);
-        unset($restApiPostMeta['slug']);
-        unset($restApiPostMeta['to_ping']);
-        unset($restApiPostMeta['pinged']);
-        unset($restApiPostMeta['modified']);
-        unset($restApiPostMeta['modified_gmt']);
-        unset($restApiPostMeta['parent']);
-        unset($restApiPostMeta['guid']);
-        unset($restApiPostMeta['menu_order']);
-        unset($restApiPostMeta['mime_type']);
-        unset($restApiPostMeta['type']);
-
-        if( !empty($restApiPostMeta) ) {
-            $wpPost->meta = (object)[];
-            
-            foreach ($restApiPostMeta as $metaKey => $metaValue) {
-                $wpPost->meta->$metaKey = $metaValue;
-            }
-        }
-
-        if( isset($restApiPost->featured_media) && is_numeric($restApiPost->featured_media) ) {
-            $featuredMediaId = $restApiPost->featured_media;
-            
-            if( $resource->getMediaResource() !== null ) {
-                $featuredMediaId = RemotePosts::getLocalID($featuredMediaId, $resource->getMediaResource());
-            }
-
-            $wpPost->meta->_thumbnail_id = $featuredMediaId;
-        }
-        
-        $hookName = 'Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost';
-        return apply_filters($hookName, $wpPost, $restApiPost, $localPostType);
     }
 }
