@@ -96,27 +96,31 @@
                 {{ $application['description'] }}
             @endtypography
 
-            @if ($application['apply'])
-                @button([
-                    'text' => $application['apply']['text'],
-                    'href' => $application['apply']['url'],
-                    'color' => 'primary',
-                    'style' => 'filled',
-                    'size' => 'lg',
-                ])
-                @endbutton
-            @endif
+            <div class="o-grid">
+                @if ($application['apply'])
+                    @button([
+                        'text' => $application['apply']['text'],
+                        'href' => $application['apply']['url'],
+                        'color' => 'primary',
+                        'style' => 'filled',
+                        'size' => 'md',
+                        'classList' => ['o-grid-6@md']
+                    ])
+                    @endbutton
+                @endif
 
-            @if ($application['howToApply'])
-                @button([
-                    'text' => $application['howToApply']['text'],
-                    'href' => $application['howToApply']['url'],
-                    'color' => 'secondary',
-                    'style' => 'filled',
-                    'size' => 'lg',
-                ])
-                @endbutton
-            @endif
+                @if ($application['howToApply'])
+                    @button([
+                        'text' => $application['howToApply']['text'],
+                        'href' => $application['howToApply']['url'],
+                        'color' => 'secondary',
+                        'style' => 'filled',
+                        'size' => 'md',
+                        'classList' => ['o-grid-6@md', 'u-margin__left--0']
+                    ])
+                    @endbutton
+                @endif
+            </div>
         @endpaper
     @endif
 
