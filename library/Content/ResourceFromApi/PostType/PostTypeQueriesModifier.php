@@ -37,14 +37,14 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
     public function preLoadAcfValue($value, $postId, $field)
     {
-        if (!isset($field['name']) || !$this->isRemotePostId($postId)) {
+        if (!isset($field['name']) || !RemotePosts::isRemotePostID($postId)) {
             return $value;
         }
 
         $registeredPostType = $this->getResourceFromPostId($postId);
-        $postId = (int)str_replace((string)$registeredPostType->getResourceID(), '', (string)absint($postId));
+        $remotePostId = RemotePosts::getRemoteId($postId, $registeredPostType);
 
-        return PostTypeResourceRequest::getMeta($postId, $field['name'], $registeredPostType) ?? $value;
+        return PostTypeResourceRequest::getMeta($remotePostId, $field['name'], $registeredPostType) ?? $value;
     }
 
     public function modifyBreadcrumbsItems(?array $pageData, $queriedObject, $queriedObjectData): ?array
@@ -221,7 +221,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
             return $value;
         }
 
-        $objectId = $this->prepareIdForRequest($objectId, $registeredPostType);
+        $objectId = RemotePosts::getRemoteId($objectId, $registeredPostType);
 
         return PostTypeResourceRequest::getMeta($objectId, $metaKey, $registeredPostType, $single) ?? $value;
     }
@@ -231,7 +231,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         $postIn = isset($queryArgs['post__in']) && is_array($queryArgs['post__in']) ? array_filter($queryArgs['post__in'], fn($id) => !empty($id)) : [];
         if (!empty($postIn)) {
             $queryArgs['post__in'] = array_map(
-                fn ($id) => $this->prepareIdForRequest($id, $resource),
+                fn ($id) => RemotePosts::getRemoteId($id, $resource),
                 $postIn
             );
         }
@@ -250,7 +250,7 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
                                 return $id;
                             }
                             $taxResource = $this->getResourceFromPostId($id);
-                            return !empty($taxResource) ? $this->prepareIdForRequest($id, $taxResource) : $id;
+                            return !empty($taxResource) ? RemotePosts::getRemoteId($id, $taxResource) : $id;
                         },
                         $taxQuery['terms']
                     );
@@ -271,15 +271,6 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         return $taxonomy;
-    }
-
-    private function prepareIdForRequest(int $id, ResourceInterface $resource): int
-    {
-        if( $id > -1 ) {
-            return $id;
-        }
-        
-        return (int)substr_replace((string)absint($id), '', 0, strlen((string)$resource->getResourceID()));
     }
 
     public function preventSuppressFiltersOnWpQuery(WP_Query $query): void

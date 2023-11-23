@@ -10,7 +10,7 @@ class RemotePosts
 {
     public static function isRemotePostID($postID): bool
     {
-        return is_numeric($postID) && (int)$postID < 0;
+        return is_numeric($postID) && (int)$postID <= -1;
     }
 
     public static function getLocalID($id, ResourceInterface $resource): int
@@ -21,6 +21,15 @@ class RemotePosts
 
         $resourceId = $resource->getResourceID();
         return -(int)"{$resourceId}{$id}";
+    }
+
+    public static function getRemoteId($localId, ResourceInterface $resource): int
+    {
+        if (!RemotePosts::isRemotePostID($localId)) {
+            return $localId;
+        }
+
+        return (int)substr_replace((string)absint($localId), '', 0, strlen((string)$resource->getResourceID()));
     }
 
     public static function getLocalAttachmentId(int $id, ResourceInterface $resource): int

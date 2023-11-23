@@ -12,7 +12,6 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private array $data;
     private const PAGE_POST_TYPE = 'school-page';
     private const PERSON_POST_TYPE = 'school-person';
-    private const MEDIA_POST_TYPE = 'school-media';
     private const USP_TAXONOMY = 'school-usp';
     private const AREA_TAXONOMY = 'school-area';
     private const GRADE_TAXONOMY = 'school-grade';

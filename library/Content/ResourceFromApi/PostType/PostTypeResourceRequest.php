@@ -2,7 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi\PostType;
 
-use Municipio\Content\ResourceFromApi\ApiPost;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Content\ResourceFromApi\RestApiPostConverter;
