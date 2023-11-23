@@ -105,8 +105,8 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
 
         $image = [
             $attachment->meta->media_details->sizes->{$size}->source_url ?? $attachment->meta->source_url,
-            $attachment->meta->media_details->sizes->{$size}->width ?? $attachment->meta->width,
-            $attachment->meta->media_details->sizes->{$size}->height ?? $attachment->meta->height,
+            $attachment->meta->media_details->sizes->{$size}->width ?? $attachment->meta->width ?? null,
+            $attachment->meta->media_details->sizes->{$size}->height ?? $attachment->meta->height ?? null,
             true
         ];
 
