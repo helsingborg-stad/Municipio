@@ -31,7 +31,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         if (!empty($posts)) {
             $cover = $pdfHelper->getCoverFieldsForPostType($postType);
             $pdf = new \Municipio\Api\Pdf\CreatePdf();
-            return $pdf->renderView($posts, $cover);
+            return $pdf->renderView($posts, $cover, $postType);
         }
 
         return new WP_REST_Response('No valid posts', 200);
@@ -84,7 +84,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         }
 
         $query = new \WP_Query($args);
-        
+
         if (!empty($query->posts)) {
             foreach($query->posts as &$post) {
                 $post = \Municipio\Helper\Post::preparePostObject($post);

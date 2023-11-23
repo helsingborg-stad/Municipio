@@ -25,16 +25,16 @@ class PdfIdEndpoint extends RestApiEndpoint
     {
         $pdfHelper = new PdfHelper();
         $idString = $request->get_param('id');
-        
+
         if (!empty($idString) && is_string($idString)) {
             $idArr = explode(',', $idString);
             [$posts, $postTypes] = $this->getPostsById($idArr);
             $cover = $pdfHelper->getCover($postTypes);
         }
-
+    
         if (!empty($posts)) {
             $pdf = new \Municipio\Api\Pdf\CreatePdf();
-            return $pdf->renderView($posts, $cover);
+            return $pdf->renderView($posts, $cover, !empty($posts[0]->postName) ? $posts[0]->postName : 'page-pdf');
         }
 
         return new WP_REST_Response('No valid posts', 200);

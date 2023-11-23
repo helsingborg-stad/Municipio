@@ -9,7 +9,7 @@ use Municipio\Api\Pdf\PdfHelper;
 
 class CreatePdf
 {
-    public function renderView($posts = false, $cover = false) {
+    public function renderView($posts = false, $cover = false, string $fileName = 'print') {
         $pdfHelper = new PdfHelper();
         $styles = $pdfHelper->getThemeMods();
         $fonts = $pdfHelper->getFonts($styles);
@@ -27,7 +27,7 @@ class CreatePdf
                 $html
             );
 
-            $this->renderPdf($html);
+            $this->renderPdf($html, $fileName);
         }
     }
 
@@ -41,7 +41,7 @@ class CreatePdf
         return $html;
     }
 
-    private function renderPdf(string $html) {
+    private function renderPdf(string $html, string $fileName) {
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,
             'isPhpEnabled' => true,
@@ -51,7 +51,7 @@ class CreatePdf
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         
-        $dompdf->stream('dom', ['Attachment' => 0]);
+        $dompdf->stream($fileName, ['Attachment' => 0]);
     }
 }
 
