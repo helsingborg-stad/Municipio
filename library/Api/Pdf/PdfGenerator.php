@@ -13,15 +13,97 @@ class PdfGenerator
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
 
         add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'), 99);
+        add_filter('Municipio/Accessibility/Items', array($this, 'replacePrintWithPdf'));
     }
 
-    public function addAcfToPdfGeneratorOptionsPage () {
+    public function replacePrintWithPdf($items) {
+        $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
+        
+        if (!empty($replacePrintWithPdf) && $typeOfPage = $this->typeOfPage()) {
+            [
+                'icon' => 'print',
+                'href' => '#',
+                'attributeList' => [
+                    'data-js-pdf-generator' => $typeOfPage,
+                ],
+                'text' => __('Print', 'municipio'),
+                'label' => __('Print this page', 'municipio')
+            ];
+        }
+
+        return $items;
+    }
+
+    private function typeOfPage() {
+        if (is_single() || is_page()) {
+            return 'single';
+        }
+
+        if (is_archive()) {
+            return 'archive';
+        }
+
+        return false;
+    }
+
+    public function addAcfToPdfGeneratorOptionsPage() {
 
         $postTypes = get_post_types([
                 'public' => true
         ], 'objects');
         
         if (!empty($postTypes) && is_array($postTypes) && function_exists('acf_add_local_field_group')) {
+            acf_add_local_field_group(array(
+                'key' => 'group_pdf_generator_replace_print',
+                'title' => __('Settings', 'municipio'),
+                'fields' => [
+                    [
+                        'key' => 'field_pdf_replace_print',
+                        'label' => __('Replace default Print with PDF generator', 'municipio'),
+                        'name' => 'replace_print',
+                        'type' => 'true_false',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'message' => '',
+                        'default_value' => 0,
+                        'ui_on_text' => '',
+                        'ui_off_text' => '',
+                        'ui' => 1,
+                    ]
+                ],
+                'location' => array(
+                    0 => array(
+                        0 => array(
+                            'param' => 'options_page',
+                            'operator' => '==',
+                            'value' => 'pdf-generator-settings',
+                        ),
+                    ),
+                ),
+                'menu_order' => 0,
+                'position' => 'normal',
+                'style' => 'default',
+                'label_placement' => 'left',
+                'instruction_placement' => 'label',
+                'hide_on_screen' => '',
+                'active' => true,
+                'description' => '',
+                'show_in_rest' => 0,
+                'acfe_display_title' => '',
+                'acfe_autosync' => array(
+                    0 => 'json',
+                ),
+                'acfe_form' => 0,
+                'acfe_meta' => '',
+                'acfe_note' => '',
+            ));
+
             acf_add_local_field_group(array(
                 'key' => 'group_pdf_generator_emblem',
                 'title' => __('Emblem', 'municipio'),
@@ -62,7 +144,7 @@ class PdfGenerator
                         ),
                     ),
                 ),
-                'menu_order' => 0,
+                'menu_order' => 2,
                 'position' => 'normal',
                 'style' => 'default',
                 'label_placement' => 'left',
@@ -93,7 +175,7 @@ class PdfGenerator
                     ),
                 ),
             ),
-            'menu_order' => 0,
+            'menu_order' => 3,
             'position' => 'normal',
             'style' => 'default',
             'label_placement' => 'left',
