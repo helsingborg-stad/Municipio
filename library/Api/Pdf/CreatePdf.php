@@ -22,11 +22,26 @@ class CreatePdf
                 'fonts'     => $fonts
             ]);
 
+            $html = $this->replaceHtmlFromRegex(
+                ['/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s'],
+                $html
+            );
+
             $this->renderPdf($html);
         }
     }
 
-    private function renderPdf($html) {
+    private function replaceHtmlFromRegex(array $patterns, string $html = '') {
+        if (isset($patterns) && is_array($patterns)) {
+            foreach ($patterns as $pattern) {
+                $html = preg_replace($pattern, '', $html);
+            }
+        }
+
+        return $html;
+    }
+
+    private function renderPdf(string $html) {
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,
             'isPhpEnabled' => true,

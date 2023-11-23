@@ -1,5 +1,5 @@
 <section class="pdf-toc {{!empty($cover) ? 'pdf-page-break' : ''}}">
-<script type="text/php">
+<script class="pdf-script" type="text/php">
     $GLOBALS['chapters'] = array();
     $GLOBALS['max_object'] = 0;
 </script>
@@ -17,7 +17,7 @@
     @endforeach
 </ul>
 
-<script type="text/php">
+<script class="pdf-script" type="text/php">
     $GLOBALS['max_object'] = count($pdf->get_cpdf()->objects);
 </script>
 </section>

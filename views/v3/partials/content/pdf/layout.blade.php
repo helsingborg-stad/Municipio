@@ -35,7 +35,7 @@
         @include('partials.content.pdf.post')
     @endforeach
         @if (count($posts) > 1)
-            <script type="text/php">
+            <script class="pdf-script" type="text/php">
                 for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
                     if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {
                         continue;

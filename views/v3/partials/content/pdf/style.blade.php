@@ -161,6 +161,7 @@
     .c-card__image-background,
     .c-card__image,
     .c-modal,
+    .mod-recommend,
     .c-acceptance__content,
     #sidebar-slider-area--container,
     #customer-feedback,
