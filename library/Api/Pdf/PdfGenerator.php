@@ -18,9 +18,8 @@ class PdfGenerator
 
     public function replacePrintWithPdf($items) {
         $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
-        
         if (!empty($replacePrintWithPdf) && $typeOfPage = $this->typeOfPage()) {
-            [
+            $items['print'] = [
                 'icon' => 'print',
                 'href' => '#',
                 'attributeList' => [
@@ -106,7 +105,7 @@ class PdfGenerator
 
             acf_add_local_field_group(array(
                 'key' => 'group_pdf_generator_emblem',
-                'title' => __('Emblem', 'municipio'),
+                'title' => __('General cover settings', 'municipio'),
                 'fields' => [
                     [
                         'key' => 'field_pdf_emblem',
@@ -164,7 +163,7 @@ class PdfGenerator
 
             acf_add_local_field_group(array(
             'key' => 'group_pdf_generator_templates',
-            'title' => __('PDF post types', 'municipio'),
+            'title' => __('Specific cover settings', 'municipio'),
             'fields' => $this->getFieldsForEachPostType($postTypes),
             'location' => array(
                 0 => array(
