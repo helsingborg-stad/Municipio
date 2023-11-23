@@ -96,7 +96,7 @@
                 {{ $application['description'] }}
             @endtypography
 
-            <div class="o-grid">
+            <div class="o-grid o-grid--half-gutter">
                 @if ($application['apply'])
                     @button([
                         'text' => $application['apply']['text'],
