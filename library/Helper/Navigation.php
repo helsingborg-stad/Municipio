@@ -860,22 +860,10 @@ class Navigation
     {
         $items = [];
         if (is_single() || is_page()) {
-            $items[] =  array(
+            $items['print'] =  array(
                 'icon' => 'print',
                 'href' => '#',
-                'attributeList' => [
-                    'data-js-pdf-generator' => 'single',
-                ],
-                'text' => __('Print', 'municipio'),
-                'label' => __('Print this page', 'municipio')
-            );
-        } elseif(is_archive()) {
-            $items[] =  array(
-                'icon' => 'print',
-                'href' => '#',
-                'attributeList' => [
-                    'data-js-pdf-generator' => 'archive',
-                ],
+                'script' => 'window.print();return false;',
                 'text' => __('Print', 'municipio'),
                 'label' => __('Print this page', 'municipio')
             );
