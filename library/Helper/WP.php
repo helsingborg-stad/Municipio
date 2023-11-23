@@ -147,7 +147,7 @@ class WP
      */
     public static function getPost($post = null, $output = OBJECT, $filter = 'raw') {
 
-        if (self::isRemotePostID($post)) {
+        if (RemotePosts::isRemotePostID($post)) {
             // Get post by ID using get_posts
             $remotePostFound = fn ($posts) =>
                 is_array($posts) &&
@@ -171,7 +171,7 @@ class WP
 
     public static function getTheTitle($post = 0)
     {
-        if (self::isRemotePostID($post)) {
+        if (RemotePosts::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
@@ -180,15 +180,83 @@ class WP
 
     public static function getPermalink($post = 0, $leavename = false)
     {
-        if (self::isRemotePostID($post)) {
+        if (RemotePosts::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
         return get_permalink($post, $leavename);
     }
 
-    private static function isRemotePostID($postID): bool
+    /**
+     * Get remote attachment id.
+     * Necessary for cases where an attachment id exists, but has no obvious connection
+     * to the remote resource where it can be found.
+     * 
+     * @param int $id The attachment id.
+     * @param string $postType The post type of the attachment.
+     * @return int The remote attachment id.
+     */
+    public static function getRemoteAttachmentId(int $id, string $postType):int {
+
+        if( RemotePosts::isRemotePostID($id) ) {
+            // Already handled.
+            return $id;
+        }
+
+
+
+        return $id;
+    }
+
+    public static function getPostThumbnailId($post = null) {
+        $post = self::getPost( $post );
+
+        if ( ! $post ) {
+            return false;
+        }
+    
+        $thumbnail_id = (int) get_post_meta( $post->ID, '_thumbnail_id', true );
+        return (int) apply_filters( 'post_thumbnail_id', $thumbnail_id, $post );
+    }
+
+    public static function getThePostThumbnailUrl($post = null, $size = 'post-thumbnail')
     {
-        return is_numeric($postID) && $postID < 0;
+        $postThumbnailId = self::getPostThumbnailId( $post );
+
+        if ( ! $postThumbnailId ) {
+            return false;
+        }
+    
+        $thumbnailUrl = wp_get_attachment_image_url( $postThumbnailId, $size );
+    
+        return apply_filters( 'post_thumbnail_url', $thumbnailUrl, $post, $size );
+    }
+
+    public static function getAttachmentImageSrc($attachmentId, $size = 'thumbnail', $icon = false, string $postType = '') {
+
+        if (!empty($postType) && !RemotePosts::isRemotePostID($attachmentId)) {
+            $attachmentId = RemotePosts::getLocalAttachmentIdByPostType($attachmentId, $postType);
+        }
+
+        return wp_get_attachment_image_src($attachmentId, $size, $icon);
+    }
+
+    public static function getAttachmentCaption($postId = 0, string $postType = '') {
+        if (!empty($postType) && !RemotePosts::isRemotePostID($postId)) {
+            $postId = RemotePosts::getLocalAttachmentIdByPostType($postId, $postType);
+
+            if( RemotePosts::isRemotePostID($postId) ) {
+                $post = self::getPost($postId);
+
+                if( !$post ) {
+                    return '';
+                }
+
+                $caption = $post->post_excerpt;
+                return apply_filters( 'wp_get_attachment_caption', $caption, $post->ID );
+            }
+        }
+
+        return wp_get_attachment_caption($postId);
     }
 }

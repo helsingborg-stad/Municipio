@@ -96,27 +96,31 @@
                 {{ $application['description'] }}
             @endtypography
 
-            @if ($application['apply'])
-                @button([
-                    'text' => $application['apply']['text'],
-                    'href' => $application['apply']['url'],
-                    'color' => 'primary',
-                    'style' => 'filled',
-                    'size' => 'lg',
-                ])
-                @endbutton
-            @endif
+            <div class="o-grid o-grid--half-gutter">
+                @if ($application['apply'])
+                    @button([
+                        'text' => $application['apply']['text'],
+                        'href' => $application['apply']['url'],
+                        'color' => 'primary',
+                        'style' => 'filled',
+                        'size' => 'md',
+                        'classList' => ['o-grid-6@md']
+                    ])
+                    @endbutton
+                @endif
 
-            @if ($application['howToApply'])
-                @button([
-                    'text' => $application['howToApply']['text'],
-                    'href' => $application['howToApply']['url'],
-                    'color' => 'secondary',
-                    'style' => 'filled',
-                    'size' => 'lg',
-                ])
-                @endbutton
-            @endif
+                @if ($application['howToApply'])
+                    @button([
+                        'text' => $application['howToApply']['text'],
+                        'href' => $application['howToApply']['url'],
+                        'color' => 'secondary',
+                        'style' => 'filled',
+                        'size' => 'md',
+                        'classList' => ['o-grid-6@md', 'u-margin__left--0']
+                    ])
+                    @endbutton
+                @endif
+            </div>
         @endpaper
     @endif
 
@@ -129,9 +133,9 @@
         <div class="o-grid">
             @foreach ($contacts as $contact)
                 @card(['classList' => ['o-grid-4@md', 'u-color__bg--transparent']])
-                    @if ($contact->attachment)
+                    @if ($contact->imageSrc)
                         @image([
-                            'src' => $contact->attachment->guid
+                            'src' => $contact->imageSrc
                         ])
                         @endimage
                     @endif

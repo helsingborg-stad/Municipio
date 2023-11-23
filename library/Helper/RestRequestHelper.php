@@ -23,6 +23,11 @@ class RestRequestHelper
 
         try {
             $response = wp_remote_get($apiUrl);
+
+            if( wp_remote_retrieve_response_code($response) !== 200 ) {
+                throw new \Exception(wp_remote_retrieve_response_message($response));
+            }
+
             $body     = wp_remote_retrieve_body($response);
             $data     = json_decode($body, false);
             self::setCache($cacheKey, $data);
