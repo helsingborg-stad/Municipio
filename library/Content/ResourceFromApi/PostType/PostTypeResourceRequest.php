@@ -18,6 +18,10 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             return [];
         }
 
+        if (self::shouldGetEntireCollection($queryArgs)) {
+            return self::getEntireCollection($url, $resource);
+        }
+
         $postsFromApi = RestRequestHelper::getFromApi($url);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
@@ -29,6 +33,46 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             $postsFromApi
         );
     }
+
+    private static function shouldGetEntireCollection(?array $queryArgs = null)
+    {
+        if (empty($queryArgs)) {
+            return true;
+        }
+
+        if (isset($queryArgs['posts_per_page']) && $queryArgs['posts_per_page'] === -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static function getEntireCollection(string $url, ResourceInterface $resource): array
+    {
+        $posts = [];
+        $offset = 0;
+
+        do {
+            $postsFromApi = RestRequestHelper::getFromApi($url . "&offset={$offset}");
+
+            if (is_wp_error($postsFromApi) || !is_array($postsFromApi) || empty($postsFromApi)) {
+                return $posts;
+            }
+
+            $posts = array_merge(
+                $posts,
+                array_map(
+                    fn ($post) => (new RestApiPostConverter($post, $resource))->convertToWPPost(),
+                    $postsFromApi
+                )
+            );
+
+            $offset = sizeof($posts);
+        } while (!empty($postsFromApi) && !is_wp_error($postsFromApi));
+
+        return $posts;
+    }
+
 
     public static function getSingle($id, ResourceInterface $resource): ?object
     {
