@@ -4,11 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Test</title>
     <meta name="author" content="Helsingborgs stad">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    {{-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> --}}
     @foreach($fonts as $font) 
         @if(!empty($font['google-font']))
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="{{$font['google-font']}}" rel="stylesheet">
         @endif
     @endforeach
@@ -20,15 +19,8 @@
         <span></span>
     </footer>
     
-    {{-- @dump(get_option('kirki_downloaded_font_files')) --}}
-    {{-- @dump(get_theme_mods()) --}}
-    {{-- <div class="pagi"><span></span></div> --}}
-    <!-- Front page -->
-    {{-- @include('pdf.frontpage') --}}
-    <!-- /Front page -->
-    <!-- Article pages -->
     @includeWhen(!empty($cover), 'partials.content.pdf.frontpage')
-    {{-- @dump($styles['typography_h1']) --}}
+
     @if (!empty($posts) && is_array($posts)) 
         @includeWhen(count($posts) > 1, 'partials.content.pdf.table-of-contents')
     @foreach ($posts as $index => $post)
@@ -52,10 +44,4 @@
         @endif
     @endif
 </body>
-
-<!-- /Article pages -->
-
-<!-- Back page -->
-{{-- @include('pdf.backpage') --}}
-<!-- /Back page -->
 </html>

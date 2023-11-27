@@ -1,15 +1,6 @@
 <section class="pdf-frontpage">
-    {{-- <header>
-         @if(!empty($styles['logotype']))
-        <img class="pdf-logotype" src="{{$styles['logotype']}}" style="max-width: 50%; max-height: 100px;">
-        @endif
-    </header> --}}
         <div style="{{!empty($cover['cover']['src']) ? 'background-image: url(' . $cover['cover']['src'] . ');' : ''}}; height: 50%; width: 100%; background-size:cover; background-repeat:no-repeat; background-color: {{$styles['color_palette_primary']['contrasting'] ?? '#fff'}}">
         </div>
-   {{--  @else 
-        @if(!empty($styles['logotype']))
-            <img class="pdf-logotype" src="{{$styles['logotype']}}" style="max-width: 50%; max-height: 100px;">
-        @endif --}}
         <div class="pdf-container" style="height: 50%;">
         @if(!empty($cover['emblem']['src']))
             <img class="pdf-frontpage__emblem" src="{{$cover['emblem']['src']}}">
