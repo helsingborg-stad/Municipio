@@ -13,13 +13,15 @@ class CreatePdf
         $pdfHelper = new PdfHelper();
         $styles = $pdfHelper->getThemeMods();
         $fonts = $pdfHelper->getFonts($styles);
+        $lang = $this->getLang();
 
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'posts'     => $posts,
                 'styles'    => $styles,
                 'cover'     => $cover,
-                'fonts'     => $fonts
+                'fonts'     => $fonts,
+                'lang'      => $lang
             ]);
 
             $html = $this->replaceHtmlFromRegex(
@@ -29,6 +31,13 @@ class CreatePdf
 
             $this->renderPdf($html, $fileName);
         }
+    }
+
+    private function getLang() {
+        $lang = [
+            'generatedPdf' => __('Generated PDF', 'municipio')
+        ];
+        return $lang;
     }
 
     private function replaceHtmlFromRegex(array $patterns, string $html = '') {
