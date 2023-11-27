@@ -10,15 +10,15 @@
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
                     'filled' => true,
                     'image' => [
-                        'src' => $archiveProps->format == 'tall' ? $post->thumbnailTall['src'] : $post->thumbnailSquare['src'],
-                        'alt' => $post->thumbnailTall['alt'] ? $post->thumbnailTall['alt'] : $post->postTitle,
+                        'src' => $archiveProps->format == 'tall' ? $post->images['thumbnail3:4']['src'] : $post->images['thumbnail16:9']['src'],
+                        'alt' => $post->images['thumbnail16:9']['alt'] ? $post->images['thumbnail16:9']['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary'
                     ],
                     'date' => $post->archiveDate,
                     'dateBadge' => $post->archiveDateFormat == 'date-badge',
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
-                    'hasPlaceholder' => $anyPostHasImage && !isset($post->thumbnail['src']) && !isset($post->thumbnailTall['src'])
+                    'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])
                 ])
                 @endblock
             </div>

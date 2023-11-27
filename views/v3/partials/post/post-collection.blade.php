@@ -16,11 +16,11 @@
                         @endicon
                     @endslot
                 @endif
-                @if ($displayFeaturedImage && !empty($post->thumbnail['src']))
+                @if ($displayFeaturedImage && !empty($post->images['thumbnail16:9']['src']))
                     @slot('before')
                         @image([
-                            'src' => $post->thumbnail['src'],
-                            'alt' => $post->thumbnail['alt'],
+                            'src' => $post->images['thumbnail16:9']['src'],
+                            'alt' => $post->images['thumbnail16:9']['alt'],
                             'placeholderIconSize' => 'sm',
                             'placeholderIcon' => 'image',
                             'placeholderText' => ''

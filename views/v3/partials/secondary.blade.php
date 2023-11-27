@@ -66,10 +66,10 @@
                                         @endslot
                                     @endif
                                     @slot('before')
-                                        @if (!empty($place->thumbnail['src']))
+                                        @if (!empty($place->images['thumbnail1:1']['src']))
                                             @image([
-                                                'src' => $place->thumbnail['src'],
-                                                'alt' => $place->thumbnail['alt'] ? $place->thumbnail['alt'] : $place->postTitle,
+                                                'src' => $place->images['thumbnail3:4']['src'],
+                                                'alt' => $place->images['thumbnail1:1']['alt'] ? $place->images['thumbnail1:1']['alt'] : $place->postTitle,
                                                 'classList' => ['u-width--100']
                                             ])
                                             @endimage
@@ -109,16 +109,16 @@
                                         'classList' => ['c-openstreetmap__post-icon']
                                     ])
                                     @endicon
-                                    @if (!empty($place->featuredImage['src']))
+                                    @if (!empty($place->images['featuredImage']['src']))
                                         @hero([
-                                            'image' => $place->featuredImage['src']
+                                            'image' => $place->images['featuredImage']['src']
                                         ])
                                         @endhero
                                     @endif
                                     <div class="u-margin__x--2">
                                         @paper([
                                             'attributeList' => [
-                                                'style' => !empty($place->featuredImage['src'])
+                                                'style' => !empty($place->images['featuredImage']['src'])
                                                     ? 'transform:translateY(calc(max(-50%, -50px)))'
                                                     : 'margin-top: 32px'
                                             ],
@@ -133,7 +133,7 @@
                                                     'element' => 'h2',
                                                     'variant' => 'h1'
                                                 ])
-                                                    {{ $place->postTitle }}
+                                                    {!! $place->postTitle !!}
                                                 @endtypography
                                                 @if(is_array($place->callToActionItems['floating']))
                                                     @icon($place->callToActionItems['floating'])

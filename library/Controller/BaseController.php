@@ -304,6 +304,20 @@ class BaseController
             return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
         
+        if (!empty($_SERVER['HTTP_HOST'])) {
+            add_filter("ComponentLibrary/Component/Attribute", function ($attributes) {
+                if (!empty($attributes['href'])) {
+                    $parsedUrl = parse_url($attributes['href']);
+
+                    if (!empty($parsedUrl['host']) && $parsedUrl['host'] !== $_SERVER['HTTP_HOST']) {
+                        $attributes['data-js-original-link'] = $attributes['href'];
+                    }
+                }
+
+                return $attributes;
+            }, 10, 1);
+        }
+        
         //Wordpress hooks
         $this->data['hook'] = (object) array(
         'innerLoopStart' => $this->hook('inner_loop_start'),
@@ -596,9 +610,9 @@ class BaseController
      * Check if any posts in the given array has an image
      */
     protected function anyPostHasImage(array $posts)
-    {
+    {   
         foreach ($posts as $post) {
-            if (!empty($post->thumbnail) && !empty($post->thumbnail['src'])) {
+            if (!empty( $post->images['thumbnail16:9']['src'])) {
                 return true;
             }
         }

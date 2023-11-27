@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\WP;
+
 /**
  * Class Archive
  *
@@ -669,7 +671,7 @@ class Archive extends \Municipio\Controller\BaseController
                 $preparedPosts['items'][] =
                 [
                     'id' => $post->id,
-                    'href' => get_permalink($post->id),
+                    'href' => WP::getPermalink($post->id),
                     'columns' => [
                         $post->postTitle,
                         $post->post_date = $postDate,

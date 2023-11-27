@@ -3,11 +3,11 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_653a509450198',
-    'title' => __('Api Resource fields', 'municipio'),
+    'title' => __('Api-resursfält', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_653a5094a6168',
-            'label' => __('Type', 'municipio'),
+            'label' => __('Typ', 'municipio'),
             'name' => 'type',
             'aria-label' => '',
             'type' => 'select',
@@ -20,9 +20,9 @@
                 'id' => '',
             ),
             'choices' => array(
-                'postType' => __('Post Type', 'municipio'),
-                'taxonomy' => __('Taxonomy', 'municipio'),
-                'attachment' => __('Attachment', 'municipio'),
+                'postType' => __('Posttyp', 'municipio'),
+                'taxonomy' => __('Taxonomi', 'municipio'),
+                'attachment' => __('Bifoga', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -36,7 +36,7 @@
         ),
         1 => array(
             'key' => 'field_653a52d126e03',
-            'label' => __('Post Type Source', 'municipio'),
+            'label' => __('Källa', 'municipio'),
             'name' => 'post_type_source',
             'aria-label' => '',
             'type' => 'select',
@@ -50,13 +50,6 @@
                         'value' => 'postType',
                     ),
                 ),
-                1 => array(
-                    0 => array(
-                        'field' => 'field_653a5094a6168',
-                        'operator' => '==',
-                        'value' => 'attachment',
-                    ),
-                ),
             ),
             'wrapper' => array(
                 'width' => '',
@@ -64,25 +57,6 @@
                 'id' => '',
             ),
             'choices' => array(
-                'https://skolor.helsingborg.io/wp-json/wp/v2/posts' => __('post: https://skolor.helsingborg.io/wp-json/wp/v2/posts', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/pages' => __('page: https://skolor.helsingborg.io/wp-json/wp/v2/pages', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/media' => __('attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/menu-items' => __('nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/blocks' => __('wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/templates' => __('wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/template-parts' => __('wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/navigation' => __('wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/pre-school' => __('pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/elementary-school' => __('elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-school', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/person' => __('person: https://skolor.helsingborg.io/wp-json/wp/v2/person', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/media' => __('attachment: https://api.helsingborg.se/event/json/wp/v2/media', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/event' => __('event: https://api.helsingborg.se/event/json/wp/v2/event', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/location' => __('location: https://api.helsingborg.se/event/json/wp/v2/location', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/organizer' => __('organizer: https://api.helsingborg.se/event/json/wp/v2/organizer', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/sponsor' => __('sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/membership-card' => __('membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/guide' => __('guide: https://api.helsingborg.se/event/json/wp/v2/guide', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/interactive_guide' => __('interactive_guide: https://api.helsingborg.se/event/json/wp/v2/interactive_guide', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -96,7 +70,7 @@
         ),
         2 => array(
             'key' => 'field_653a539bb2fc9',
-            'label' => __('Taxonomy Source', 'municipio'),
+            'label' => __('Källa', 'municipio'),
             'name' => 'taxonomy_source',
             'aria-label' => '',
             'type' => 'select',
@@ -117,22 +91,6 @@
                 'id' => '',
             ),
             'choices' => array(
-                'https://skolor.helsingborg.io/wp-json/wp/v2/categories' => __('category: https://skolor.helsingborg.io/wp-json/wp/v2/categories', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/tags' => __('post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/menus' => __('nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/area' => __('area: https://skolor.helsingborg.io/wp-json/wp/v2/area', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/usp' => __('usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/grade' => __('grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/categories' => __('category: https://api.helsingborg.se/event/json/wp/v2/categories', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/tags' => __('post_tag: https://api.helsingborg.se/event/json/wp/v2/tags', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/user_groups' => __('user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/event_categories' => __('event_categories: https://api.helsingborg.se/event/json/wp/v2/event_categories', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/event_tags' => __('event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/location_categories' => __('location_categories: https://api.helsingborg.se/event/json/wp/v2/location_categories', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/guidegroup' => __('guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/navigation' => __('navigation: https://api.helsingborg.se/event/json/wp/v2/navigation', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/guidetype' => __('guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype', 'municipio'),
-                'https://api.helsingborg.se/event/json/wp/v2/property' => __('property: https://api.helsingborg.se/event/json/wp/v2/property', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -145,8 +103,42 @@
             'placeholder' => '',
         ),
         3 => array(
+            'key' => 'field_6558779730ac2',
+            'label' => __('Källa', 'municipio'),
+            'name' => 'attachment_source',
+            'aria-label' => '',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 1,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_653a5094a6168',
+                        'operator' => '==',
+                        'value' => 'attachment',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+            ),
+            'default_value' => false,
+            'return_format' => 'value',
+            'multiple' => 0,
+            'allow_custom' => 0,
+            'search_placeholder' => '',
+            'allow_null' => 0,
+            'ui' => 1,
+            'ajax' => 1,
+            'placeholder' => '',
+        ),
+        4 => array(
             'key' => 'field_653b48052dc15',
-            'label' => __('Post Type Arguments', 'municipio'),
+            'label' => __('Posttypsargument', 'municipio'),
             'name' => 'post_type_arguments',
             'aria-label' => '',
             'type' => 'group',
@@ -173,14 +165,17 @@
             'layout' => 'block',
             'acfe_seamless_style' => 0,
             'acfe_group_modal' => 0,
+            'acfe_group_modal_close' => 0,
+            'acfe_group_modal_button' => '',
+            'acfe_group_modal_size' => 'large',
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_601b9c6128f07',
-                    'label' => __('Post Type Key', 'municipio'),
+                    'label' => __('Nyckel', 'municipio'),
                     'name' => 'post_type_key',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('The key of the post type. Max. 20 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'instructions' => __('Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller mellanslag.', 'municipio'),
                     'required' => true,
                     'conditional_logic' => false,
                     'wrapper' => array(
@@ -196,7 +191,7 @@
                 ),
                 1 => array(
                     'key' => 'field_65420ddf4476f',
-                    'label' => __('Label (plural)', 'municipio'),
+                    'label' => __('Etikett (plural)', 'municipio'),
                     'name' => 'label',
                     'aria-label' => '',
                     'type' => 'text',
@@ -216,7 +211,7 @@
                 ),
                 2 => array(
                     'key' => 'field_65420e0644770',
-                    'label' => __('Label (singular)', 'municipio'),
+                    'label' => __('Etikett (singular)', 'municipio'),
                     'name' => 'labels_singular_name',
                     'aria-label' => '',
                     'type' => 'text',
@@ -236,11 +231,11 @@
                 ),
                 3 => array(
                     'key' => 'field_601b9c6128f08',
-                    'label' => __('Description', 'municipio'),
+                    'label' => __('Beskrivning', 'municipio'),
                     'name' => 'description',
                     'aria-label' => '',
                     'type' => 'textarea',
-                    'instructions' => __('A short descriptive summary of what the post type is.', 'municipio'),
+                    'instructions' => __('En kort beskrivande sammanfattning av vad inläggstypen är.', 'municipio'),
                     'required' => false,
                     'conditional_logic' => false,
                     'wrapper' => array(
@@ -253,14 +248,15 @@
                     'maxlength' => '',
                     'placeholder' => '',
                     'rows' => '',
+                    'acfe_textarea_code' => 0,
                 ),
                 4 => array(
                     'key' => 'field_601b9c6128f09',
-                    'label' => __('Public', 'municipio'),
+                    'label' => __('Offentlig', 'municipio'),
                     'name' => 'public',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether the post type should be publicly queryable.', 'municipio'),
+                    'instructions' => __('Om inläggstypen ska vara allmänt sökbar.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -276,11 +272,11 @@
                 ),
                 5 => array(
                     'key' => 'field_601b9c6128f19',
-                    'label' => __('Hierarchical', 'municipio'),
+                    'label' => __('Hierarkisk', 'municipio'),
                     'name' => 'hierarchical',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether the post type is hierarchical. Allows Parent to be specified.', 'municipio'),
+                    'instructions' => __('Om inläggstypen är hierarkisk. Tillåter att Förälder anges.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -296,11 +292,11 @@
                 ),
                 6 => array(
                     'key' => 'field_601b9c6128f10',
-                    'label' => __('Show UI', 'municipio'),
+                    'label' => __('Visa användargränssnitt', 'municipio'),
                     'name' => 'show_ui',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether to generate a default UI for managing this post type.', 'municipio'),
+                    'instructions' => __('Huruvida ett standardgränssnitt ska genereras för hantering av denna inläggstyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -316,11 +312,11 @@
                 ),
                 7 => array(
                     'key' => 'field_601b9c6128f11',
-                    'label' => __('Has Archive', 'municipio'),
+                    'label' => __('Har arkiv', 'municipio'),
                     'name' => 'has_archive',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Enables post type archives.', 'municipio'),
+                    'instructions' => __('Aktiverar posttypsarkiv.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -336,11 +332,11 @@
                 ),
                 8 => array(
                     'key' => 'field_601b9c6128f12',
-                    'label' => __('Exclude From Search', 'municipio'),
+                    'label' => __('Uteslut från sök', 'municipio'),
                     'name' => 'exclude_from_search',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether to exclude posts with this post type from front end search results.', 'municipio'),
+                    'instructions' => __('Om inläggstypen ska exkluderas från sökresultat.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -356,11 +352,11 @@
                 ),
                 9 => array(
                     'key' => 'field_601b9c6128f13',
-                    'label' => __('Publicly Queryable', 'municipio'),
+                    'label' => __('Offentligt sökbar', 'municipio'),
                     'name' => 'publicly_queryable',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether queries can be performed on the front end as part of parse_request().', 'municipio'),
+                    'instructions' => __('Huruvida förfrågningar kan utföras på frontend som en del av parse_request().', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -376,11 +372,11 @@
                 ),
                 10 => array(
                     'key' => 'field_601b9c6128f14',
-                    'label' => __('Show In Nav Menus', 'municipio'),
+                    'label' => __('Visa i navigeringsmenyer', 'municipio'),
                     'name' => 'show_in_nav_menus',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether post_type is available for selection in navigation menus.', 'municipio'),
+                    'instructions' => __('Om post_type är tillgänglig för val i navigeringsmenyer.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -396,11 +392,11 @@
                 ),
                 11 => array(
                     'key' => 'field_601b9c6128f15',
-                    'label' => __('Show In Menu', 'municipio'),
+                    'label' => __('Visa i menyn', 'municipio'),
                     'name' => 'show_in_menu',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Where to show the post type in the admin menu. show_ui must be true.', 'municipio'),
+                    'instructions' => __('Var posttypen ska visas i adminmenyn. show_ui måste vara true.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -424,11 +420,11 @@
                 ),
                 12 => array(
                     'key' => 'field_601b9c6128f16',
-                    'label' => __('Show In Admin Bar', 'municipio'),
+                    'label' => __('Visa i adminfältet', 'municipio'),
                     'name' => 'show_in_admin_bar',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Where to show the post type in the admin bar. show_in_menu must be true.', 'municipio'),
+                    'instructions' => __('Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -452,11 +448,11 @@
                 ),
                 13 => array(
                     'key' => 'field_601b9c6128f21',
-                    'label' => __('Rewrite', 'municipio'),
+                    'label' => __('Omskrivning', 'municipio'),
                     'name' => 'rewrite',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Triggers the handling of rewrites for this post type.', 'municipio'),
+                    'instructions' => __('Hantering av url-omskrivningar för denna posttyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -472,11 +468,11 @@
                 ),
                 14 => array(
                     'key' => 'field_601b9c6128f17',
-                    'label' => __('Menu Position', 'municipio'),
+                    'label' => __('Position för meny', 'municipio'),
                     'name' => 'menu_position',
                     'aria-label' => '',
                     'type' => 'number',
-                    'instructions' => __('The position in the menu order the post type should appear. show_in_menu must be true.', 'municipio'),
+                    'instructions' => __('Den position i menyordningen som inläggstypen ska visas. show_in_menu måste vara true.', 'municipio'),
                     'required' => false,
                     'conditional_logic' => array(
                         0 => array(
@@ -502,7 +498,7 @@
                 ),
                 15 => array(
                     'key' => 'field_601b9c6128f18',
-                    'label' => __('Capabilities', 'municipio'),
+                    'label' => __('Kapacitet', 'municipio'),
                     'name' => 'capabilities',
                     'aria-label' => '',
                     'type' => 'select',
@@ -521,18 +517,19 @@
                     'return_format' => 'value',
                     'multiple' => 1,
                     'allow_custom' => 1,
-                    'placeholder' => __('eg. "manage_options"...', 'municipio'),
+                    'placeholder' => __('t.ex. "manage_options"...', 'municipio'),
                     'allow_null' => 0,
                     'ui' => 1,
                     'ajax' => 0,
+                    'search_placeholder' => '',
                 ),
                 16 => array(
                     'key' => 'field_6544a42c139a9',
-                    'label' => __('Parent post types', 'municipio'),
+                    'label' => __('Överordnade inläggstyper', 'municipio'),
                     'name' => 'parent_post_types',
                     'aria-label' => '',
                     'type' => 'posttype_select',
-                    'instructions' => __('Parent post types are used to determine the permalink and the rewrite rules for this post type. Setting parent post types will affect the rewrite slug by prepending it with the parent post types slug.', 'municipio'),
+                    'instructions' => __('Överordnade inläggstyper används för att bestämma permalänken och omskrivningsreglerna för denna inläggstyp. Om du anger överordnade inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen för överordnade inläggstyper.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -549,11 +546,11 @@
                 ),
                 17 => array(
                     'key' => 'field_653b5d117edbf',
-                    'label' => __('Rewrite options', 'municipio'),
+                    'label' => __('Alternativ för url-omskrivning', 'municipio'),
                     'name' => 'rewrite_options',
                     'aria-label' => '',
                     'type' => 'group',
-                    'instructions' => __('Triggers the handling of rewrites for this post type.', 'municipio'),
+                    'instructions' => __('Hantering av url-omskrivningar för denna posttyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -572,10 +569,13 @@
                     'layout' => 'block',
                     'acfe_seamless_style' => 0,
                     'acfe_group_modal' => 0,
+                    'acfe_group_modal_close' => 0,
+                    'acfe_group_modal_button' => '',
+                    'acfe_group_modal_size' => 'large',
                     'sub_fields' => array(
                         0 => array(
                             'key' => 'field_653b5d227edc0',
-                            'label' => __('Slug', 'municipio'),
+                            'label' => __('Permalänk', 'municipio'),
                             'name' => 'slug',
                             'aria-label' => '',
                             'type' => 'text',
@@ -595,7 +595,7 @@
                         ),
                         1 => array(
                             'key' => 'field_653b5d627edc1',
-                            'label' => __('With front', 'municipio'),
+                            'label' => __('Med front', 'municipio'),
                             'name' => 'with_front',
                             'aria-label' => '',
                             'type' => 'true_false',
@@ -615,7 +615,7 @@
                         ),
                         2 => array(
                             'key' => 'field_653b5d727edc2',
-                            'label' => __('Feeds', 'municipio'),
+                            'label' => __('RSS-flöde', 'municipio'),
                             'name' => 'feeds',
                             'aria-label' => '',
                             'type' => 'true_false',
@@ -641,7 +641,7 @@
                     'name' => 'query_var',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('Sets the query_var key for this post type.', 'municipio'),
+                    'instructions' => __('Ställer in query_var-nyckeln för denna inläggstyp.', 'municipio'),
                     'required' => false,
                     'conditional_logic' => false,
                     'wrapper' => array(
@@ -657,9 +657,9 @@
                 ),
             ),
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_6541eda1a37ac',
-            'label' => __('Taxonomy Arguments', 'municipio'),
+            'label' => __('Argument för taxonomi', 'municipio'),
             'name' => 'taxonomy_arguments',
             'aria-label' => '',
             'type' => 'group',
@@ -686,14 +686,17 @@
             'layout' => 'block',
             'acfe_seamless_style' => 0,
             'acfe_group_modal' => 0,
+            'acfe_group_modal_close' => 0,
+            'acfe_group_modal_button' => '',
+            'acfe_group_modal_size' => 'large',
             'sub_fields' => array(
                 0 => array(
                     'key' => 'field_6541eda2a37ad',
-                    'label' => __('Taxonomy key', 'municipio'),
+                    'label' => __('Taxonominyckel', 'municipio'),
                     'name' => 'taxonomy_key',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'instructions' => __('Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag.', 'municipio'),
                     'required' => 1,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -709,11 +712,11 @@
                 ),
                 1 => array(
                     'key' => 'field_654253463faf6',
-                    'label' => __('Label (Plural)', 'municipio'),
+                    'label' => __('Etikett (plural)', 'municipio'),
                     'name' => 'labels_name',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'instructions' => __('Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag.', 'municipio'),
                     'required' => 1,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -729,11 +732,11 @@
                 ),
                 2 => array(
                     'key' => 'field_654253693faf7',
-                    'label' => __('Label (Singular)', 'municipio'),
+                    'label' => __('Etikett (singular)', 'municipio'),
                     'name' => 'labels_singular_name',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('The key of the post type. Max. 32 characters, cannot contain capital letters or spaces.', 'municipio'),
+                    'instructions' => __('Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller mellanslag.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -749,7 +752,7 @@
                 ),
                 3 => array(
                     'key' => 'field_6541ee02a37c0',
-                    'label' => __('Object Type', 'municipio'),
+                    'label' => __('Typ av objekt', 'municipio'),
                     'name' => 'object_type',
                     'aria-label' => '',
                     'type' => 'posttype_select',
@@ -770,11 +773,11 @@
                 ),
                 4 => array(
                     'key' => 'field_6541eda2a37ae',
-                    'label' => __('Description', 'municipio'),
+                    'label' => __('Beskrivning', 'municipio'),
                     'name' => 'description',
                     'aria-label' => '',
                     'type' => 'textarea',
-                    'instructions' => __('A short descriptive summary of what the post type is.', 'municipio'),
+                    'instructions' => __('En kort beskrivande sammanfattning av vad inläggstypen är.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -791,11 +794,11 @@
                 ),
                 5 => array(
                     'key' => 'field_6541eda2a37af',
-                    'label' => __('Public', 'municipio'),
+                    'label' => __('Offentlig', 'municipio'),
                     'name' => 'public',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether the post type should be publicly queryable.', 'municipio'),
+                    'instructions' => __('Om inläggstypen ska vara allmänt sökbar.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -811,11 +814,11 @@
                 ),
                 6 => array(
                     'key' => 'field_6541eda2a37b0',
-                    'label' => __('Hierarchical', 'municipio'),
+                    'label' => __('Hierarkisk', 'municipio'),
                     'name' => 'hierarchical',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether the post type is hierarchical. Allows Parent to be specified.', 'municipio'),
+                    'instructions' => __('Om inläggstypen är hierarkisk. Tillåter att Förälder anges.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -831,11 +834,11 @@
                 ),
                 7 => array(
                     'key' => 'field_6541eda2a37b1',
-                    'label' => __('Show UI', 'municipio'),
+                    'label' => __('Visa användargränssnitt', 'municipio'),
                     'name' => 'show_ui',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether to generate a default UI for managing this post type.', 'municipio'),
+                    'instructions' => __('Huruvida ett standardgränssnitt ska genereras för hantering av denna inläggstyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -851,7 +854,7 @@
                 ),
                 8 => array(
                     'key' => 'field_6541ee8c94dac',
-                    'label' => __('Show Admin Column', 'municipio'),
+                    'label' => __('Visa admin-kolumn', 'municipio'),
                     'name' => 'show_admin_column',
                     'aria-label' => '',
                     'type' => 'true_false',
@@ -871,11 +874,11 @@
                 ),
                 9 => array(
                     'key' => 'field_6541eda2a37b4',
-                    'label' => __('Publicly Queryable', 'municipio'),
+                    'label' => __('Offentligt sökbar', 'municipio'),
                     'name' => 'publicly_queryable',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether queries can be performed on the front end as part of parse_request().', 'municipio'),
+                    'instructions' => __('Huruvida förfrågningar kan utföras på frontend som en del av parse_request().', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -891,11 +894,11 @@
                 ),
                 10 => array(
                     'key' => 'field_6541eda2a37b5',
-                    'label' => __('Show In Nav Menus', 'municipio'),
+                    'label' => __('Visa i navigeringsmenyer', 'municipio'),
                     'name' => 'show_in_nav_menus',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Whether post_type is available for selection in navigation menus.', 'municipio'),
+                    'instructions' => __('Om post_type är tillgänglig för val i navigeringsmenyer.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -911,11 +914,11 @@
                 ),
                 11 => array(
                     'key' => 'field_6541eda2a37b6',
-                    'label' => __('Show In Menu', 'municipio'),
+                    'label' => __('Visa i menyn', 'municipio'),
                     'name' => 'show_in_menu',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Where to show the post type in the admin menu. show_ui must be true.', 'municipio'),
+                    'instructions' => __('Var posttypen ska visas i adminmenyn. show_ui måste vara true.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -939,11 +942,11 @@
                 ),
                 12 => array(
                     'key' => 'field_6541eda2a37b7',
-                    'label' => __('Show In Admin Bar', 'municipio'),
+                    'label' => __('Visa i adminfältet', 'municipio'),
                     'name' => 'show_in_admin_bar',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Where to show the post type in the admin bar. show_in_menu must be true.', 'municipio'),
+                    'instructions' => __('Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -967,11 +970,11 @@
                 ),
                 13 => array(
                     'key' => 'field_6541eda2a37b8',
-                    'label' => __('Rewrite', 'municipio'),
+                    'label' => __('Omskrivning', 'municipio'),
                     'name' => 'rewrite',
                     'aria-label' => '',
                     'type' => 'true_false',
-                    'instructions' => __('Triggers the handling of rewrites for this post type.', 'municipio'),
+                    'instructions' => __('Hantering av url-omskrivningar för denna posttyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -987,7 +990,7 @@
                 ),
                 14 => array(
                     'key' => 'field_6541eda2a37ba',
-                    'label' => __('Capabilities', 'municipio'),
+                    'label' => __('Kapacitet', 'municipio'),
                     'name' => 'capabilities',
                     'aria-label' => '',
                     'type' => 'select',
@@ -1006,18 +1009,19 @@
                     'return_format' => 'value',
                     'multiple' => 1,
                     'allow_custom' => 1,
-                    'placeholder' => __('eg. "manage_options"...', 'municipio'),
+                    'placeholder' => __('t.ex. "manage_options"...', 'municipio'),
                     'allow_null' => 0,
                     'ui' => 1,
                     'ajax' => 0,
+                    'search_placeholder' => '',
                 ),
                 15 => array(
                     'key' => 'field_6541eda2a37bb',
-                    'label' => __('Rewrite options', 'municipio'),
+                    'label' => __('Alternativ för url-omskrivning', 'municipio'),
                     'name' => 'rewrite_options',
                     'aria-label' => '',
                     'type' => 'group',
-                    'instructions' => __('Triggers the handling of rewrites for this post type.', 'municipio'),
+                    'instructions' => __('Hantering av url-omskrivningar för denna posttyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => array(
                         0 => array(
@@ -1036,10 +1040,13 @@
                     'layout' => 'block',
                     'acfe_seamless_style' => 0,
                     'acfe_group_modal' => 0,
+                    'acfe_group_modal_close' => 0,
+                    'acfe_group_modal_button' => '',
+                    'acfe_group_modal_size' => 'large',
                     'sub_fields' => array(
                         0 => array(
                             'key' => 'field_6541eda2a37bc',
-                            'label' => __('Slug', 'municipio'),
+                            'label' => __('Permalänk', 'municipio'),
                             'name' => 'slug',
                             'aria-label' => '',
                             'type' => 'text',
@@ -1059,7 +1066,7 @@
                         ),
                         1 => array(
                             'key' => 'field_6541eda2a37bd',
-                            'label' => __('With front', 'municipio'),
+                            'label' => __('Med front', 'municipio'),
                             'name' => 'with_front',
                             'aria-label' => '',
                             'type' => 'true_false',
@@ -1079,7 +1086,7 @@
                         ),
                         2 => array(
                             'key' => 'field_6541eda2a37be',
-                            'label' => __('Feeds', 'municipio'),
+                            'label' => __('RSS-flöde', 'municipio'),
                             'name' => 'feeds',
                             'aria-label' => '',
                             'type' => 'true_false',
@@ -1105,7 +1112,7 @@
                     'name' => 'query_var',
                     'aria-label' => '',
                     'type' => 'text',
-                    'instructions' => __('Sets the query_var key for this post type.', 'municipio'),
+                    'instructions' => __('Ställer in query_var-nyckeln för denna inläggstyp.', 'municipio'),
                     'required' => 0,
                     'conditional_logic' => 0,
                     'wrapper' => array(
@@ -1120,6 +1127,68 @@
                     'append' => '',
                 ),
             ),
+        ),
+        6 => array(
+            'key' => 'field_6558775730ac1',
+            'label' => __('Attachment arguments', 'municipio'),
+            'name' => 'attachment_arguments',
+            'aria-label' => '',
+            'type' => 'group',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_653a5094a6168',
+                        'operator' => '==',
+                        'value' => 'attachment',
+                    ),
+                    1 => array(
+                        'field' => 'field_6558779730ac2',
+                        'operator' => '!=empty',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'layout' => 'block',
+            'acfe_seamless_style' => 0,
+            'acfe_group_modal' => 0,
+            'sub_fields' => array(
+                0 => array(
+                    'key' => 'field_655878bfc1a9a',
+                    'label' => __('Post types', 'municipio'),
+                    'name' => 'post_types',
+                    'aria-label' => '',
+                    'type' => 'select',
+                    'instructions' => __('Choose which post types that should use this source for their attachments.', 'municipio'),
+                    'required' => 1,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                    ),
+                    'default_value' => array(
+                    ),
+                    'return_format' => 'value',
+                    'multiple' => 1,
+                    'allow_custom' => 0,
+                    'placeholder' => '',
+                    'allow_null' => 0,
+                    'ui' => 1,
+                    'ajax' => 1,
+                    'search_placeholder' => '',
+                ),
+            ),
+            'acfe_group_modal_close' => 0,
+            'acfe_group_modal_button' => '',
+            'acfe_group_modal_size' => 'large',
         ),
     ),
     'location' => array(
