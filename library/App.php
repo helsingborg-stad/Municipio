@@ -156,6 +156,6 @@ class App
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });      
+        });   
     }
 }
