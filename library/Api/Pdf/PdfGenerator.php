@@ -46,7 +46,6 @@ class PdfGenerator
     }
 
     public function addAcfToPdfGeneratorOptionsPage() {
-
         $postTypes = get_post_types([
                 'public' => true
         ], 'objects');
