@@ -1,4 +1,3 @@
-// await fetch(ajaxurl + "/?action=generate_pdf", {
     class PdfGen {
         button: Element;
         attr: string;
@@ -27,29 +26,6 @@
             if (this.postType) {
                 searchParams.delete('paged');
                 window.location.href = '/wp-json/pdf/v2/' + this.postType + '/' + (searchParams.toString() ? '?' + searchParams.toString() : '');
-                /* try {
-                    const response = await fetch( '/wp-json/pdf/v2/' + this.postType + '/' + (queryString ? queryString : ''), {
-                        method: 'GET',
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    // a.download = "pdf";
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                } catch (error) {
-                    console.log('error with response: ' + error);
-                } */
-
-                
-                // window.location.href = '/wp-json/pdf/v2/' + this.postType + '/' + (queryString ? queryString : '');
             }
         }
 
@@ -57,31 +33,7 @@
             if (this.pageId) {
                 window.location.href = '/wp-json/pdf/v2/id=' + this.pageId;
             }
-        
-            /* try {
-                const response = await fetch("/wp-json/pdf/v2/id=" + this.attr, {
-                    method: 'GET',
-                });
-        
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-        
-                const blob = await response.blob();
-        
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = url;
-                // a.download = "pdf";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error('Error fetching PDF:', error);
-            } */
         }
-        
     }
 
 document.addEventListener("DOMContentLoaded", () => {
