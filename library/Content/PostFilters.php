@@ -103,13 +103,15 @@ class PostFilters
             $grouped[$placement][$tax->name] = array(
                 'label' => $tax->label,
                 'type' => $type,
-                'values' => $terms
+                'values' => $terms,
+                'hierarchical' => $tax->hierarchical
             );
 
             $ungrouped[$tax->name] = array(
                 'label' => $tax->label,
                 'type' => $type,
-                'values' => $terms
+                'values' => $terms,
+                'hierarchical' => $tax->hierarchical
             );
         }
 
@@ -164,24 +166,22 @@ class PostFilters
         if (empty($filterable) || !is_array($filterable)) {
             return $query;
         }
-
         $facetting = get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false);
         if ($facetting == true) {
             $taxQuery = array('relation' => 'AND');
         } else {
             $taxQuery = array('relation' => 'OR');
         }
-
         foreach ($filterable as $key => $value) {
             if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
                 continue;
             }
-
+            
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
                 'terms' => $this->getQueryString($key, false),
-                'operator' => $facetting ? 'AND' : 'IN'
+                'operator' => !empty($value['hierarchical']) ? 'IN' : 'AND'
             );
         }
 
@@ -201,15 +201,6 @@ class PostFilters
             );
         }
 
-            // $taxQuery = array(
-            //         array(
-            //             'taxonomy' => 'categories',
-            //             'terms' => array('category', 'paper'),
-            //             'field' => 'slug',
-            //             'operator' => 'AND',
-            //             'include_children' => 1,
-            //         ),
-            //     );
         $query->set(
             'tax_query',
             apply_filters('Municipio/archive/tax_query', $taxQuery, $query)
