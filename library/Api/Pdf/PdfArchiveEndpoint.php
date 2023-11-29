@@ -75,25 +75,30 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         ];
 
         if (!empty($queryParams) && is_array($queryParams)) {
+            
+            if (!empty($queryParams['from'])) {
+                $args['date_query']['after'] = $queryParams['from'];
+                unset($queryParams['from']);
+            }
+    
+            if (!empty($queryParams['to'])) {
+                $args['date_query']['before'] = $queryParams['to'];
+                $args['date_query']['compare'] = '<=';
+                unset($queryParams['to']);
+            }
+    
+            if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
+                $args['date_query']['compare'] = 'BETWEEN';
+            }
+    
+            if (isset($queryParams['s'])) {
+                $args['s'] = $queryParams['s'];
+                unset($queryParams['s']);
+            }
+
             foreach ($queryParams as $key => $values) {
                 if (empty($values)) {
                     continue;
-                } elseif ($key == 'from' || $key == 'to') {
-                    if ($key == 'from') {
-                        $args['date_query']['after'] = $values;
-                    }
-
-                    if ($key == 'to') {
-                        $args['date_query']['before'] = $values;
-                        $args['date_query']['compare'] = '<=';
-                    }
-
-                    //if both after and before are set we compare dates between the two
-                    if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
-                        $args['date_query']['compare'] = 'BETWEEN';
-                    }
-                } elseif ($key == 's') {
-                    $args['s'] = $values;
                 } else {
                     $args['tax_query'][] = [
                         'taxonomy' => $key,
@@ -115,5 +120,11 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         }
         
         return $posts;
+    }
+
+    private function handleDateAndSearchFiltering(array $queryParams) {
+
+
+        return $queryParams;
     }
 }
