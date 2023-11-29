@@ -9,6 +9,13 @@ use Municipio\Api\Pdf\PdfHelper;
 
 class CreatePdf
 {
+    /**
+     * Renders a PDF view for the specified posts and cover information.
+     *
+     * @param array|false $posts     Array of posts or false if not available.
+     * @param array|false $cover     Cover information or false if not available.
+     * @param string      $fileName  Name of the PDF file.
+     */
     public function renderView($posts = false, $cover = false, string $fileName = 'print') {
         $pdfHelper = new PdfHelper();
         $styles = $pdfHelper->getThemeMods();
@@ -33,6 +40,11 @@ class CreatePdf
         }
     }
 
+    /**
+     * Retrieves language-related information.
+     *
+     * @return array Language-related information.
+     */
     private function getLang() {
         $lang = [
             'generatedPdf' => __('Generated PDF', 'municipio')
@@ -40,6 +52,14 @@ class CreatePdf
         return $lang;
     }
 
+    /**
+     * Replaces HTML content based on regular expressions.
+     *
+     * @param array  $patterns Array of regular expression patterns.
+     * @param string $html     HTML content.
+     *
+     * @return string Modified HTML content.
+     */
     private function replaceHtmlFromRegex(array $patterns, string $html = '') {
         if (isset($patterns) && is_array($patterns)) {
             foreach ($patterns as $pattern) {
@@ -50,6 +70,12 @@ class CreatePdf
         return $html;
     }
 
+    /**
+     * Renders a PDF from the provided HTML content.
+     *
+     * @param string $html     HTML content.
+     * @param string $fileName Name of the PDF file.
+     */
     private function renderPdf(string $html, string $fileName) {
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,

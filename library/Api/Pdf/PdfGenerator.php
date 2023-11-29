@@ -7,7 +7,7 @@ use Municipio\Api\RestApiEndpointsRegistry;
 class PdfGenerator
 {    
     private $defaultPrefix = 'default';
-
+    
     public function __construct() {
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
@@ -16,6 +16,13 @@ class PdfGenerator
         add_filter('Municipio/Accessibility/Items', array($this, 'replacePrintWithPdf'));
     }
 
+    /**
+     * Replaces the default Print with PDF generator in accessibility items.
+     *
+     * @param array $items Original accessibility items.
+     *
+     * @return array Modified accessibility items.
+     */
     public function replacePrintWithPdf($items) {
         $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
         if (!empty($replacePrintWithPdf) && $typeOfPage = $this->typeOfPage()) {
@@ -33,6 +40,11 @@ class PdfGenerator
         return $items;
     }
 
+    /**
+     * Determines the type of page (single, page, archive).
+     *
+     * @return string|false Page type or false if unknown.
+     */
     private function typeOfPage() {
         if (is_single() || is_page()) {
             return 'single';
@@ -45,6 +57,9 @@ class PdfGenerator
         return false;
     }
 
+     /**
+     * Adds ACF fields to the PDF generator options page.
+     */
     public function addAcfToPdfGeneratorOptionsPage() {
         $postTypes = get_post_types([
                 'public' => true
@@ -193,6 +208,13 @@ class PdfGenerator
         }
     }
 
+    /**
+     * Retrieves ACF fields for each post type.
+     *
+     * @param array $postTypes Array of post types.
+     *
+     * @return array ACF fields.
+     */
     private function getFieldsForEachPostType($postTypes) {
         $fields = [];
 
@@ -344,6 +366,14 @@ class PdfGenerator
         return $fields;
     }
 
+    /**
+     * Structures an array of post types for ACF choices.
+     *
+     * @param array  $postTypes        Array of post types.
+     * @param string $currentPostType  Current post type.
+     *
+     * @return array ACF choices.
+     */
     private function structurePostTypesArray($postTypes, $currentPostType) {
         $postTypesArray = [];
         foreach ($postTypes as $postType) {
@@ -354,7 +384,17 @@ class PdfGenerator
         return $postTypesArray;
     }
 
-    private function excludedPostTypes($postTypeName) {
+    
+    /**
+     * Checks if a post type should be excluded.
+     * 
+     * @param string $postTypeName Post type name.
+     * 
+     * @return bool Whether the post type should be excluded.
+     */
+    private function excludedPostTypes($postTypeName)
+    {
         return !in_array($postTypeName, ['attachment']);
     }
+
 }

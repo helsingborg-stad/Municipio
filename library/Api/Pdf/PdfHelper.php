@@ -8,6 +8,14 @@ class PdfHelper
 {    
     private $defaultPrefix = 'default';
 
+
+    /**
+     * Retrieves font information for heading and base styles.
+     *
+     * @param array $styles Typography styles.
+     *
+     * @return array Font information for heading and base styles.
+     */
     public function getFonts($styles) {
         $args = array(
             'post_type'      => 'attachment',
@@ -48,14 +56,33 @@ class PdfHelper
         ];
     }
 
+    /**
+     * Creates a Google Font import URL.
+     *
+     * @param string $fontFamily Font family name.
+     *
+     * @return string Google Font import URL.
+     */
     private function createGoogleFontImport($fontFamily) {
         return 'https://fonts.googleapis.com/css2?family=' . urlencode($fontFamily) . ':wght@100;300;400;500;600;700;800;900&display=swap';
     }
 
+    /**
+     * Retrieves theme modifications.
+     *
+     * @return array Theme modifications.
+     */
     public function getThemeMods() {
         return get_theme_mods();
     }
 
+    /**
+     * Retrieves cover information for the specified post types.
+     *
+     * @param array $postTypes Array of post types.
+     *
+     * @return array Cover information.
+     */
     public function getCover(array $postTypes) {
         $postType = $this->defaultPrefix;
         if (!empty($postTypes)) {
@@ -65,6 +92,14 @@ class PdfHelper
         return $this->getCoverFieldsForPostType($postType);
     }
 
+    /**
+     * Retrieves cover fields for the specified post type.
+     *
+     * @param string $postType Post type name.
+     * @param bool   $ranOnce  Whether the method has already run once.
+     *
+     * @return array|false Cover fields or false if not found.
+     */
     public function getCoverFieldsForPostType(string $postType = "", bool $ranOnce = false) {
         $heading = get_field($postType . '_pdf_frontpage_heading', 'option');
         $introduction = get_field($postType . '_pdf_frontpage_introduction', 'option');

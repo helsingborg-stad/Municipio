@@ -12,6 +12,11 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     private const NAMESPACE = 'pdf/v1';
     private const ROUTE = '/(?P<postType>[a-zA-Z]+)';
     
+    /**
+     * Handles the registration of the REST route.
+     *
+     * @return bool Whether the REST route registration was successful.
+     */
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
@@ -20,6 +25,13 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         ));
     }
 
+    /**
+     * Handles the REST API request.
+     *
+     * @param WP_REST_Request $request The REST API request object.
+     *
+     * @return WP_REST_Response The REST API response object.
+     */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $pdfHelper = new PdfHelper();
@@ -37,6 +49,14 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return new WP_REST_Response('No valid posts', 200);
     }
 
+    /**
+     * Retrieves posts for the archive based on the given parameters.
+     *
+     * @param string $postType    The post type.
+     * @param array  $queryParams The query parameters.
+     *
+     * @return array The retrieved posts.
+     */
     private function getArchivePosts($postType = false, $queryParams = false) {
         $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         $order = get_theme_mod('archive_' . $postType . '_order_direction');

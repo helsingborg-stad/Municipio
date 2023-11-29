@@ -10,9 +10,13 @@ use Municipio\Api\Pdf\PdfHelper;
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
-    // private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
     private const ROUTE = '/id=(?P<id>[\d,]+)';
     
+    /**
+     * Handles the registration of the REST route.
+     *
+     * @return bool Whether the REST route registration was successful.
+     */
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
@@ -21,6 +25,13 @@ class PdfIdEndpoint extends RestApiEndpoint
         ));
     }
 
+    /**
+     * Handles the REST API request.
+     *
+     * @param WP_REST_Request $request The REST API request object.
+     *
+     * @return WP_REST_Response The REST API response object.
+     */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $pdfHelper = new PdfHelper();
@@ -40,6 +51,13 @@ class PdfIdEndpoint extends RestApiEndpoint
         return new WP_REST_Response('No valid posts', 200);
     }
 
+    /**
+     * Retrieves posts based on the provided IDs.
+     *
+     * @param array $ids Array of post IDs.
+     *
+     * @return array Array containing posts and associated post types.
+     */
     private function getPostsById(array $ids) {
         $posts = [];
         $postTypes = [];
