@@ -5,7 +5,7 @@ namespace Municipio\Api\Pdf;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Municipio\Helper\Image;
-use Municipio\Api\Pdf\PdfHelper;
+use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 
 class CreatePdf
 {
@@ -17,7 +17,7 @@ class CreatePdf
      * @param string      $fileName  Name of the PDF file.
      */
     public function renderView($posts = false, $cover = false, string $fileName = 'print') {
-        $pdfHelper = new PdfHelper();
+        $pdfHelper = new PDFHelper();
         $styles = $pdfHelper->getThemeMods();
         $fonts = $pdfHelper->getFonts($styles);
         $lang = $this->getLang();

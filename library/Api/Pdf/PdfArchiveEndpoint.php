@@ -5,7 +5,7 @@ namespace Municipio\Api\Pdf;
 use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
-use Municipio\Api\Pdf\PdfHelper;
+use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 
 class PdfArchiveEndpoint extends RestApiEndpoint
 {
@@ -34,7 +34,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $pdfHelper = new PdfHelper();
+        $pdfHelper = new PDFHelper();
         $postType = $request->get_param('postType');
         $queryParams = $request->get_query_params();
 
