@@ -62,7 +62,6 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         $order = get_theme_mod('archive_' . $postType . '_order_direction');
         $facetting = empty(get_theme_mod('archive_' . $postType . '_filter_type')) ? 'IN' : 'AND';
 
-        $posts = [];
         $args = [
             'post_type' => $postType,
             'tax_query' => [],
@@ -75,7 +74,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         ];
 
         if (!empty($queryParams) && is_array($queryParams)) {
-            
+
             if (!empty($queryParams['from'])) {
                 $args['date_query']['after'] = $queryParams['from'];
                 unset($queryParams['from']);
@@ -115,11 +114,10 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         if (!empty($query->posts)) {
             foreach($query->posts as &$post) {
                 $post = \Municipio\Helper\Post::preparePostObject($post);
-                array_push($posts, $post);
             }
         }
-        
-        return $posts;
+
+        return $query->posts;
     }
 
     private function handleDateAndSearchFiltering(array $queryParams) {
