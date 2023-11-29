@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{{!empty($cover['heading']) ? $cover['heading'] : $lang['generatedPdf']}}</title>
-    <meta name="author" content="Helsingborgs stad">
     @foreach($fonts as $font) 
         @if(!empty($font['google-font']))
             <link rel="preconnect" href="https://fonts.googleapis.com">
