@@ -1,4 +1,4 @@
-    class PdfGen {
+    class PdfGenerator {
         button: Element;
         attr: string;
         isSingle: boolean;
@@ -14,7 +14,6 @@
 
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log("click");
                 this.isSingle ? this.fetchPdfForSingle() : this.fetchPdfForArchive();
             });
         }
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     [...pdfGeneratorButtons].forEach(button => {
         const attr = button.getAttribute('data-js-pdf-generator');
         if (attr) {
-            new PdfGen(button, attr);
+            new PdfGenerator(button, attr);
         }
     });
 });
