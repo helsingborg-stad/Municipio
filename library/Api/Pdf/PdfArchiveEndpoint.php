@@ -74,32 +74,34 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             'order' => !empty($order) ? $order : 'desc'
         ];
 
-        foreach ($queryParams as $key => $values) {
-            if (empty($values)) {
-                //Do nothing for empty values
-            } elseif ($key == 'from' || $key == 'to') {
-                if ($key == 'from') {
-                    $args['date_query']['after'] = $values;
-                }
+        if (!empty($queryParams) && is_array($queryParams)) {
+            foreach ($queryParams as $key => $values) {
+                if (empty($values)) {
+                    continue;
+                } elseif ($key == 'from' || $key == 'to') {
+                    if ($key == 'from') {
+                        $args['date_query']['after'] = $values;
+                    }
 
-                if ($key == 'to') {
-                    $args['date_query']['before'] = $values;
-                    $args['date_query']['compare'] = '<=';
-                }
+                    if ($key == 'to') {
+                        $args['date_query']['before'] = $values;
+                        $args['date_query']['compare'] = '<=';
+                    }
 
-                //if both after and before are set we compare dates between the two
-                if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
-                    $args['date_query']['compare'] = 'BETWEEN';
+                    //if both after and before are set we compare dates between the two
+                    if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
+                        $args['date_query']['compare'] = 'BETWEEN';
+                    }
+                } elseif ($key == 's') {
+                    $args['s'] = $values;
+                } else {
+                    $args['tax_query'][] = [
+                        'taxonomy' => $key,
+                        'field' => 'slug',
+                        'terms' => $values,
+                        'operator' => $facetting
+                    ];
                 }
-            } elseif ($key == 's') {
-                $args['s'] = $values;
-            } else {
-                $args['tax_query'][] = [
-                    'taxonomy' => $key,
-                    'field' => 'slug',
-                    'terms' => $values,
-                    'operator' => $facetting
-                ];
             }
         }
 
