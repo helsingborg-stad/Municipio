@@ -9,7 +9,7 @@ use Municipio\Api\Pdf\PdfHelper;
 
 class PdfIdEndpoint extends RestApiEndpoint
 {
-    private const NAMESPACE = 'pdf/v2';
+    private const NAMESPACE = 'pdf/v1';
     // private const ROUTE = '/id=(?P<id>\d+(?:,\d+)*)';
     private const ROUTE = '/id=(?P<id>[\d,]+)';
     

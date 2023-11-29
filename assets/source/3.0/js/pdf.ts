@@ -12,25 +12,28 @@
             this.pageId = document.body.getAttribute('data-js-page-id');
             this.postType = document.body.getAttribute('data-js-post-type');
 
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.isSingle ? this.fetchPdfForSingle() : this.fetchPdfForArchive();
-            });
+            const apiRoot = wpApiSettings.root;
+            if (apiRoot) {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.isSingle ? this.fetchPdfForSingle(apiRoot) : this.fetchPdfForArchive(apiRoot);
+                });
+            }
         }
     
-        async fetchPdfForArchive() {
+        async fetchPdfForArchive(apiRoot: string) {
             const queryString = window.location.search;
             const searchParams = new URLSearchParams(queryString);
             
             if (this.postType) {
                 searchParams.delete('paged');
-                window.location.href = '/wp-json/pdf/v2/' + this.postType + '/' + (searchParams.toString() ? '?' + searchParams.toString() : '');
+                window.location.href = apiRoot + 'pdf/v1/' + this.postType + '/' + (searchParams.toString() ? '?' + searchParams.toString() : '');
             }
         }
 
-        async fetchPdfForSingle() {
+        async fetchPdfForSingle(apiRoot: string) {
             if (this.pageId) {
-                window.location.href = '/wp-json/pdf/v2/id=' + this.pageId;
+                window.location.href = apiRoot + 'pdf/v1/id=' + this.pageId;
             }
         }
     }

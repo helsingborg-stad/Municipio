@@ -38,9 +38,7 @@ module.exports = {
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
-        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
-        'js/blocks/validation': './assets/source/3.0/js/admin/blocks/validation.js',
-        
+        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',        
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
