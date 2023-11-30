@@ -1,4 +1,7 @@
 <style>
+    @if (!empty($fonts['localGoogleFonts']))
+        {{ $fonts['localGoogleFonts'] }}
+    @endif
     @if(!empty($fonts['heading']['src']))
             @font-face {
                 font-family: {{ $fonts['heading']['font-family'] }};

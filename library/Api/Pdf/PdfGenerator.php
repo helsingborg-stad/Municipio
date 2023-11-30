@@ -7,7 +7,7 @@ use Municipio\Api\RestApiEndpointsRegistry;
 class PdfGenerator
 {    
     private $defaultPrefix = 'default';
-    
+
     public function __construct() {
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
