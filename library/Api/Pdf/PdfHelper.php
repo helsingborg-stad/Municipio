@@ -99,7 +99,7 @@ class PdfHelper
      * @return string Google Font import URL.
      */
     private function createGoogleFontImport($fontFamily) {
-        return 'https://fonts.googleapis.com/css2?family=' . urlencode($fontFamily) . ':wght@100;300;400;500;600;700;800;900&display=swap';
+        return 'https://fonts.googleapis.com/css?family=' . urlencode($fontFamily) . ':100,300,400,500,600,700,800,900&display=swap';
     }
 
     /**
