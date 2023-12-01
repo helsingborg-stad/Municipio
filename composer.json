@@ -66,6 +66,5 @@
         "psr-4": {
             "Municipio\\": "library/"
         }
-    },
-    "version": "3.47.1"
+    "version": "3.47.2"
 }
