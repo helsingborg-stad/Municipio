@@ -194,6 +194,10 @@ class Enqueue
         //Load instant page
         wp_register_script('instantpage-js', self::getAssetWithCacheBust('js/instantpage.js'));
         wp_enqueue_script('instantpage-js');
+
+        //Load pdf generator
+        wp_register_script('pdf-js', self::getAssetWithCacheBust('js/pdf.js'));
+        wp_enqueue_script('pdf-js');
     }
 
     /**

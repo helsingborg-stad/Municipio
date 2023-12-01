@@ -59,6 +59,7 @@ class App
         new \Municipio\Content\Cache();
         new \Municipio\Content\IframePosterImage();
 
+
         /**
          * Resources from API
          */
@@ -139,6 +140,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
+        new \Municipio\Api\Pdf\PdfGenerator();
 
         /**
          * Customizer
@@ -154,6 +156,6 @@ class App
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });
+        });   
     }
 }

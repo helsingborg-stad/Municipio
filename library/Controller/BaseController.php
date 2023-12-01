@@ -318,7 +318,6 @@ class BaseController
             }, 10, 1);
         }
         
-
         //Wordpress hooks
         $this->data['hook'] = (object) array(
         'innerLoopStart' => $this->hook('inner_loop_start'),

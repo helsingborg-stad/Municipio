@@ -94,6 +94,14 @@ class Theme
                 'capability' => $themeOptionsCapability,
                 'menu_slug' => 'acf-options-css'
             ));
+
+            acf_add_options_sub_page(array(
+                'page_title' => __('PDF Generator Settings', 'municipio'),
+                'menu_title' => __('PDF Generator Settings', 'municipio'),
+                'parent_slug' => $themeOptionsParent,
+                'capability' => $themeOptionsCapability,
+                'menu_slug' => 'pdf-generator-settings'
+            ));
         }
     }
 }

@@ -98,6 +98,7 @@ add_action('init', function () {
         'widget-media'                              => 'group_5b2b70c0bde2f',
         'media-attachments'                         => 'group_650857c9f2cce',
         'hidden-validation'                         => 'group_654a2a57e6897',  
+      
         // Content Types (formerly Purposes)
         'content-type-place'    => 'group_63eb4a0aa476e',
         'options-content-types' => 'group_63e3852d91646'
