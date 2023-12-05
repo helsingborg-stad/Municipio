@@ -1,3 +1,71 @@
 {
+    "name": "helsingborg-stad/municipio",
+    "description": "A bootstrap theme for creating municipality sites.",
+    "license": "MIT",
+    "type": "wordpress-theme",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Kristoffer Svanmark",
+            "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        },
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/helsingborg-stad/acf-export-manager.git"
+        }
+    ],
+    "require": {
+        "composer/installers": "^1.0",
+        "helsingborg-stad/global-blade-engine": "^2.0.0",
+        "symfony/polyfill-mbstring": "1.17.0",
+        "helsingborg-stad/acf-export-manager": ">=1.0.0",
+        "helsingborg-stad/blade-engine-wrapper": "dev-master",
+        "pragmarx/ia-arr": "^7.3",
+        "wpackagist-plugin/kirki": "^5.0",
+        "ouun/kirki-module-fonts_upload": "dev-master",
+        "symfony/polyfill-php80": "^1.27",
+        "dompdf/dompdf": "dev-master"
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$name}/": [
+                "type:wordpress-plugin"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit --bootstrap tests/bootstrap.php",
+        "test:setup": "tests/install-wp-tests.sh",
+        "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
+        "test:watch": "phpunit-watcher watch --bootstrap tests/bootstrap.php",
+        "test:coverage:watch": "XDEBUG_MODE=coverage phpunit-watcher watch --bootstrap tests/bootstrap.php --coverage-html .coverage",
+        "post-update-cmd": []
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.6.x-dev",
+        "yoast/phpunit-polyfills": "^1.0.4",
+        "spatie/phpunit-watcher": "*",
+        "php-stubs/acf-pro-stubs": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Municipio\\": "library/"
+        }
+    },
     "version": "3.48.1"
 }
