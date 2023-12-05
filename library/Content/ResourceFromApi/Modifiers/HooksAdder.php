@@ -13,9 +13,6 @@ class HooksAdder
     {
         $this->resourceRegistry = $resourceRegistry;
         $this->modifiersHelper = $modifiersHelper;
-
-        // Set up helper to populate the registry inside.
-        new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
     }
 
     public function addHooks()
