@@ -175,11 +175,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (!empty($this->postMeta->area) && taxonomy_exists(self::AREA_TAXONOMY)) {
-            $areaTerms = get_terms([
-                'taxonomy' => self::AREA_TAXONOMY,
-                'include' => $this->postMeta->area,
-                'hide_empty' => false
-            ]);
+            $areaTerms = wp_get_post_terms($this->data['post']->id, self::AREA_TAXONOMY);
 
             if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
@@ -226,12 +222,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
 
             // Get usp taxonomy terms
-            $uspTerms = get_terms([
-                'taxonomy' => self::USP_TAXONOMY,
-                'include' => $this->postMeta->usp,
-                'orderby' => 'include',
-                'hide_empty' => false
-            ]);
+            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY);
 
             // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
             $uspTerms = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));

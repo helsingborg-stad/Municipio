@@ -3,7 +3,6 @@
 namespace Municipio\Content\ResourceFromApi\PostType;
 
 use Municipio\Content\ResourceFromApi\QueriesModifierInterface;
-use Municipio\Content\ResourceFromApi\Resource;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
@@ -30,9 +29,13 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         add_filter('acf/pre_load_value', [$this, 'preLoadAcfValue'], 10, 3);
         add_filter('Municipio/Breadcrumbs/Items', [$this, 'modifyBreadcrumbsItems'], 10, 3);
         add_filter( 'wp_get_attachment_image_src', [$this, 'modifyAttachmentImageSrc'], 10, 4 );
-        add_action('pre_get_posts', [$this, 'preventSuppressFiltersOnWpQuery'], 200, 1);
-        add_action('pre_get_posts', [$this, 'preventCacheOnPreGetPosts'], 200, 1);
         add_filter('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [$this, 'addParentToPost'], 10, 3);
+        add_action( 'clean_post_cache', [$this, 'cleanPostCacheModifier'], 10, 2 );
+    }
+
+    public function cleanPostCacheModifier($postId, $post)
+    {
+        wp_cache_delete($post->name, $post->post_type . '-posts');
     }
 
     public function preLoadAcfValue($value, $postId, $field)
@@ -271,39 +274,6 @@ class PostTypeQueriesModifier implements QueriesModifierInterface
         }
 
         return $taxonomy;
-    }
-
-    public function preventSuppressFiltersOnWpQuery(WP_Query $query): void
-    {
-        if (!$query->get('post_type') || !is_string($query->get('post_type'))) {
-            return;
-        }
-
-        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
-        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
-
-        if (empty($matchingResources)) {
-            return;
-        }
-
-        $query->query['suppress_filters'] = false;
-    }
-
-    public function preventCacheOnPreGetPosts(WP_Query $query): void
-    {
-        if (!$query->get('post_type') || !is_string($query->get('post_type'))) {
-            return;
-        }
-
-        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
-        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
-
-        if (empty($matchingResources)) {
-            return;
-        }
-
-        $query->set('update_post_meta_cache', false);
-        $query->set('update_post_term_cache', false);
     }
 
     private function getResourceFromPostId($postId): ?ResourceInterface

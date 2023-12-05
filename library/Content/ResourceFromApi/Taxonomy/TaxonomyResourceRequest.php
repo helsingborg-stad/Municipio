@@ -137,6 +137,10 @@ class TaxonomyResourceRequest implements ResourceRequestInterface
         $term->filter           = 'raw';
 
         $hookName = 'Municipio/Content/ResourceFromApi/ConvertRestApiTermToWPTerm';
-        return apply_filters($hookName, $term, $termFromApi, $localTaxonomy);
+        $term = apply_filters($hookName, $term, $termFromApi, $localTaxonomy);
+
+        wp_cache_add($term->term_id, $term, 'terms');
+
+        return $term;
     }
 }

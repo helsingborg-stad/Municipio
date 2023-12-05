@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Content\ResourceFromApi\ResourceType;
 
 /**
  * Class App
@@ -74,6 +75,13 @@ class App
 
         $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyQueriesModifier($resourceRegistry);
         $taxonomyQueriesModifier->addHooks();
+
+        add_action('rest_api_init', function() use($resourceRegistry) {
+            foreach($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+                $controller = new \Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController($resource->getName());
+                $controller->register_routes();
+            }
+        });
 
         /**
          * Oembed

@@ -21,9 +21,28 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
     public function addHooks(): void
     {
-        add_filter('get_terms', [$this, 'modifyGetTerms'], 10, 4);
+        add_filter('terms_pre_query', [$this, 'modifyGetTerms'], 10, 2);
         add_filter('get_object_terms', [$this, 'modifyGetObjectTerms'], 10, 4);
         add_filter('Municipio/Archive/getTaxonomyFilters/option/value', [$this, 'modifyGetTaxonomyFiltersOptionValue'], 10, 3);
+        add_action('clean_object_term_cache', [$this, 'cleanObjectTermCache'], 10, 2);
+    }
+
+    public function cleanObjectTermCache($object_ids, $object_type) {
+        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $object_type);
+
+        if(empty($matchingResources)) {
+            return;
+        }
+
+        $postType = get_post_type_object($object_type); 
+        $postTypeTaxonomies = $postType->taxonomies;
+
+        foreach($postTypeTaxonomies as $taxonomyname => $taxonomy) {
+            $cacheGroup = 'termQueryRemoteResourceResults-' . $taxonomyname;
+            wp_cache_flush_group($cacheGroup);
+        }
+
     }
 
     public function modifyGetTaxonomyFiltersOptionValue(string $value, WP_Term $option, WP_Taxonomy $taxonomy): string
@@ -55,10 +74,41 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
         $termQuery->query_vars['suppress_filters'] = false;
     }
 
-    public function modifyGetTerms(array $terms, $taxonomy, array $queryVars, WP_Term_Query $termQuery): array
+    private function getFromCache(string $cacheKey, string $taxonomy): ?array
     {
+        $cacheGroup = 'termQueryRemoteResourceResults-' . $taxonomy;
+        $foundInCache = wp_cache_get($cacheKey, $cacheGroup);
+
+        if ($foundInCache) {
+            return $foundInCache;
+        }
+
+        return null;
+    }
+
+    private function addToCache(string $cacheKey, array $collection, string $taxonomy): void
+    {
+        $cacheGroup = 'termQueryRemoteResourceResults-' . $taxonomy;
+        wp_cache_add($cacheKey, $collection, $cacheGroup);
+    }
+
+    private function getCacheKey(array $queryVars):string {
+        return md5(json_encode($queryVars));
+    }
+
+    public function modifyGetTerms(?array $terms, WP_Term_Query $termQuery): ?array
+    {
+        $queryVars = $termQuery->query_vars;
+
         if (!isset($queryVars['taxonomy'])) {
             return $terms;
+        }
+
+        $cacheKey = $this->getCacheKey($queryVars);
+        $foundInCache = $this->getFromCache($cacheKey, $queryVars['taxonomy'][0]);
+
+        if ($foundInCache) {
+            return $foundInCache;
         }
 
         $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
@@ -85,14 +135,25 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
         }
 
         $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
+
+        $this->addToCache($cacheKey, $collection, $queryVars['taxonomy'][0]);
 
         return $collection;
     }
 
-    public function modifyGetObjectTerms(array $terms, array $objectIds, array $taxonomies, array $queryVars): array
-    {
+    public function modifyGetObjectTerms($terms, array $objectIds, array $taxonomies, array $queryVars)
+    {   
+        $terms = !is_array($terms) ? [] : $terms;
+
         if (!isset($queryVars['taxonomy'])) {
             return $terms;
+        }
+
+        $cacheKey = $this->getCacheKey($queryVars);
+        $foundInCache = $this->getFromCache($cacheKey, $queryVars['taxonomy'][0]);
+
+        if ($foundInCache) {
+            return $foundInCache;
         }
 
         $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
@@ -120,7 +181,13 @@ class TaxonomyQueriesModifier implements QueriesModifierInterface
 
         $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
 
-        return $collection;
+        if( $collection !== null ) {
+            $terms = $collection;
+        }
+
+        $this->addToCache($cacheKey, $terms, $queryVars['taxonomy'][0]);
+
+        return $terms;
     }
 
     private function getResourceFromTermId($termId):?object {

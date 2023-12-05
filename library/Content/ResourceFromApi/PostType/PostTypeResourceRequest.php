@@ -5,6 +5,7 @@ namespace Municipio\Content\ResourceFromApi\PostType;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRequestInterface;
 use Municipio\Content\ResourceFromApi\RestApiPostConverter;
+use Municipio\Helper\RemotePosts;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
 
@@ -18,20 +19,43 @@ class PostTypeResourceRequest implements ResourceRequestInterface
             return [];
         }
 
+        $foundInCache = wp_cache_get($url, $resource->getName() . '-posts');
+
+        if ($foundInCache) {
+            return $foundInCache;
+        }
+
         $postsFromApi = RestRequestHelper::getFromApi($url);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
             return [];
         }
 
-        return array_map(
+        $posts = array_map(
             fn ($post) => (new RestApiPostConverter($post, $resource))->convertToWPPost(),
             $postsFromApi
         );
+
+        wp_cache_add($url, $posts, $resource->getName() . '-posts');
+
+        return $posts;
     }
 
     public static function getSingle($id, ResourceInterface $resource): ?object
     {
+        $foundInCache = null;
+
+        if( is_numeric($id) ) {
+            $localId = RemotePosts::getLocalId($id, $resource);
+            $foundInCache = wp_cache_get($localId, 'posts');
+        } else {
+            $foundInCache = wp_cache_get($id, $resource->getName() . '-posts');
+        }
+
+        if ($foundInCache) {
+            return $foundInCache;
+        }
+
         $url = self::getSingleUrl($id, $resource);
 
         if (empty($url)) {
@@ -72,6 +96,10 @@ class PostTypeResourceRequest implements ResourceRequestInterface
 
     public static function getMeta(int $id, string $metaKey, ResourceInterface $resource, bool $single = true)
     {
+        if ($id === 0) {
+            return null;
+        }
+
         $post = self::getSingle($id, $resource);
 
         if (isset($post->meta->acf) && isset($post->meta->acf->{$metaKey})) {

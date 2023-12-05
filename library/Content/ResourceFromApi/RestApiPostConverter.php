@@ -30,7 +30,7 @@ class RestApiPostConverter
 
     private function getLocalMediaId(): int
     {
-        if( $this->resource->getMediaResource() === null ) {
+        if ($this->resource->getMediaResource() === null || empty($this->restApiPost->featured_media)) {
             return $this->restApiPost->featured_media;
         }
 
@@ -57,7 +57,12 @@ class RestApiPostConverter
         $wpPost = $this->initializeWPPost();
         $this->setWPPostFields($wpPost);
         $this->setNonDefaultFieldsInMeta($wpPost);
-        return $this->applyFilters($wpPost);
+        $wpPost = $this->applyFilters($wpPost);
+
+        wp_cache_add($wpPost->ID, $wpPost, 'posts');
+        wp_cache_add($wpPost->post_name, $wpPost, $wpPost->post_type . '-posts');
+
+        return $wpPost;
     }
 
     /**
