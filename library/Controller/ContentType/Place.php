@@ -12,7 +12,7 @@ namespace Municipio\Controller\ContentType;
 class Place extends ContentTypeFactory
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -23,13 +23,19 @@ class Place extends ContentTypeFactory
 
     }
 
-    public function addHooks(): void {
+    public function init(): void
+    {  
+        $this->addHooks();
+    }
 
+    public function addHooks(): void {
         // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
+
+    
     // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {

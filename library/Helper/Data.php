@@ -4,13 +4,9 @@ namespace Municipio\Helper;
 
 class Data
 {
-    public static function getStructuredData($postType, $postId)
+    public static function getStructuredData($postType, $postId, $structuredData = [])
     {
-        $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
-
-        if (is_null($schema)) {
-            return false;
-        }
+        $schema = apply_filters('Municipio/StructuredData', $structuredData, $postType, $postId);
 
         if (empty($schema)) {
             return false;

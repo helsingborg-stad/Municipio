@@ -9,22 +9,30 @@ namespace Municipio\Controller\ContentType;
 class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
 
     public function __construct()
     {
         $this->key = 'project';
         $this->label = __('Project', 'municipio');
-
+       
         parent::__construct($this->key, $this->label);
-
+        
         $this->addSecondaryContentType(new Place());
 
     }
+
+    public function init(): void
+    {
+
+        $this->addHooks();
+
+    }
+
     public function addHooks(): void {
         
         // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * addSecondaryContentType

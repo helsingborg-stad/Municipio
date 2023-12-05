@@ -210,11 +210,13 @@ class BaseController
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
         //Structured data
-        $this->data['structuredData']       = \Municipio\Helper\Data::getStructuredData(
-            $this->data['postType'],
-            $this->getPageID()
-        );
+        
+        add_action('plugin_loaded', function() {
+            
 
+            $this->data['structuredData'] = apply_filters('Municipio/StructuredData', $this->data['structuredData'], $$this->data['post']->postType, $$this->data['post']->id);
+
+        });
         //Notice storage
         $this->data['notice']               = [];
 

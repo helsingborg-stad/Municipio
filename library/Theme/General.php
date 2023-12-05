@@ -251,6 +251,7 @@ class General
                 "primary-content-type-{$contentType->getKey()}"
             ];
 
+            echo '<pre>' . print_r( $contentType, true ) . '</pre>';
             if (!empty($contentType->secondaryContentType)) {
                 foreach ($contentType->secondaryContentType as $secondaryContentType) {
                         $classes[] = "secondary-content-type-{$secondaryContentType->getKey()}";

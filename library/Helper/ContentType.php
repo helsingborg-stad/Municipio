@@ -279,4 +279,5 @@ class ContentType
         
         return array_merge($structuredData, $additionalData);
     }
+
 }

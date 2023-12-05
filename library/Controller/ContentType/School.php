@@ -12,24 +12,34 @@ use Municipio\Helper\ContentType as Helper;
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     protected object $postMeta;
 
     public function __construct()
     {
         $this->key = 'school';
         $this->label = __('School', 'municipio');
-
+       
         parent::__construct($this->key, $this->label);
 
         $this->addSecondaryContentType(new Place());
         $this->addSecondaryContentType(new Person());
+
+    }
+
+    public function init(): void
+    {
+
+        $this->addHooks();
+
     }
 
     public function addHooks(): void
     {
         $dataPreparer = new SchoolDataPreparer();
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
 

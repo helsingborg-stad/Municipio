@@ -41,7 +41,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->appendSocialMediaLinksData();
         $this->appendEventData();
 
-        return $this->data;
+      $this->data['structuredData'] = apply_filters('Municipio/StructuredData', (array) $this->data['structuredData'], $this->data['post']->postType, $this->data['post']->id);
+
+                return $this->data;
     }
 
     private function getFieldName(string $fieldName): string

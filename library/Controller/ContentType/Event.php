@@ -14,7 +14,7 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -22,15 +22,19 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->label = __('Event', 'municipio');
 
         parent::__construct($this->key, $this->label);
-
+        
         $this->addSecondaryContentType(new Place());
 
+    }
+    public function init(): void
+    {
+        $this->addHooks();
     }
 
     public function addHooks(): void {
 
         // Append structured data to use for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * addSecondaryContentType

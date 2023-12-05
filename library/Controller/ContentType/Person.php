@@ -10,7 +10,7 @@ namespace Municipio\Controller\ContentType;
 class Person extends ContentTypeFactory
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -18,12 +18,16 @@ class Person extends ContentTypeFactory
         $this->label = __('Person', 'municipio');
 
         parent::__construct($this->key, $this->label);
+    }
 
+    public function init(): void
+    {
+        $this->addHooks();
     }
 
     public function addHooks(): void {
         // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
 
     }
     /**
