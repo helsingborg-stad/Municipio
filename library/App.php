@@ -69,12 +69,9 @@ class App
 
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
         $resourceRegistry->addHooks();
-
-        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);
-        $postTypeQueriesModifier->addHooks();
-
-        $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyQueriesModifier($resourceRegistry);
-        $taxonomyQueriesModifier->addHooks();
+        
+        $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry);
+        $hooksAdder->addHooks();
 
         add_action('rest_api_init', function() use($resourceRegistry) {
             foreach($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
