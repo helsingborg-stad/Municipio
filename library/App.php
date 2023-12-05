@@ -70,11 +70,13 @@ class App
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
         $resourceRegistry->addHooks();
         
-        $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry);
+        $modifiersHelper = new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
+
+        $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry, $modifiersHelper);
         $hooksAdder->addHooks();
 
-        add_action('rest_api_init', function() use($resourceRegistry) {
-            foreach($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+        add_action('rest_api_init', function () use ($resourceRegistry) {
+            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
                 $controller = new \Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController($resource->getName());
                 $controller->register_routes();
             }

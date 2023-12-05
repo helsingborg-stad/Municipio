@@ -7,13 +7,20 @@ use Municipio\Helper\WP;
 
 class ModifyWpGetAttachmentImageSrc
 {
+    private ModifiersHelperInterface $modifiersHelper;
+
+    public function __construct(ModifiersHelperInterface $modifiersHelper)
+    {
+        $this->modifiersHelper = $modifiersHelper;
+    }
+
     public function handle($image, $attachmentId, $size, $icon)
     {
         if (!empty($image) || !is_numeric($attachmentId) || (int)$attachmentId > -1) {
             return $image;
         }
 
-        $resource = ModifiersHelper::getResourceFromPostId($attachmentId);
+        $resource = $this->modifiersHelper->getResourceFromPostId($attachmentId);
 
         if (empty($resource)) {
             return $image;

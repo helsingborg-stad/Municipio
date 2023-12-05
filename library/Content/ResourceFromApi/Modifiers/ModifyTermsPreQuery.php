@@ -10,10 +10,12 @@ use WP_Term_Query;
 class ModifyTermsPreQuery
 {
     private ResourceRegistryInterface $resourceRegistry;
+    private ModifiersHelperInterface $modifiersHelper;
 
-    public function __construct(ResourceRegistryInterface $resourceRegistry)
+    public function __construct(ResourceRegistryInterface $resourceRegistry, ModifiersHelperInterface $modifiersHelper)
     {
         $this->resourceRegistry = $resourceRegistry;
+        $this->modifiersHelper = $modifiersHelper;
     }
 
     public function handle(?array $terms, WP_Term_Query $termQuery): ?array
@@ -24,8 +26,8 @@ class ModifyTermsPreQuery
             return $terms;
         }
 
-        $cacheKey = ModifiersHelper::getTermQueryCacheKey($queryVars);
-        $foundInCache = ModifiersHelper::getTermQueryResultFromCache($cacheKey, $queryVars['taxonomy'][0]);
+        $cacheKey = $this->modifiersHelper->getTermQueryCacheKey($queryVars);
+        $foundInCache = $this->modifiersHelper->getTermQueryResultFromCache($cacheKey, $queryVars['taxonomy'][0]);
 
         if ($foundInCache) {
             return $foundInCache;
@@ -34,21 +36,20 @@ class ModifyTermsPreQuery
         $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
         $matchingResources = array_filter($resources, fn ($resource) => $resource->getName() === $queryVars['taxonomy'][0]);
 
-        if(empty($matchingResources)) {
+        if (empty($matchingResources)) {
             return $terms;
         }
 
-        if( isset($queryVars['object_ids']) && !empty($queryVars['object_ids']) ) {
-            $queryVars['object_ids'] = array_map(function($objectId){
-                
-                $objectResource = ModifiersHelper::getResourceFromPostId($objectId);
+        if (isset($queryVars['object_ids']) && !empty($queryVars['object_ids'])) {
+            $queryVars['object_ids'] = array_map(function ($objectId) {
 
-                if( empty($objectResource) ) {
+                $objectResource = $this->modifiersHelper->getResourceFromPostId($objectId);
+
+                if (empty($objectResource)) {
                     return null;
                 }
 
                 return (int)str_replace($objectResource->getResourceID(), '', (string)absint($objectId));
-
             }, $queryVars['object_ids']);
 
             array_filter($queryVars['object_ids']);
@@ -56,7 +57,7 @@ class ModifyTermsPreQuery
 
         $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
 
-        ModifiersHelper::addTermQueryResultToCache($cacheKey, $collection, $queryVars['taxonomy'][0]);
+        $this->modifiersHelper->addTermQueryResultToCache($cacheKey, $collection, $queryVars['taxonomy'][0]);
 
         return $collection;
     }

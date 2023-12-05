@@ -9,10 +9,12 @@ use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyResourceRequest;
 class ModifyGetObjectTerms
 {
     private ResourceRegistryInterface $resourceRegistry;
+    private ModifiersHelperInterface $modifiersHelper;
 
-    public function __construct(ResourceRegistryInterface $resourceRegistry)
+    public function __construct(ResourceRegistryInterface $resourceRegistry, ModifiersHelperInterface $modifiersHelper)
     {
         $this->resourceRegistry = $resourceRegistry;
+        $this->modifiersHelper = $modifiersHelper;
     }
 
     public function handle($terms, array $objectIds, array $taxonomies, array $queryVars)
@@ -23,8 +25,8 @@ class ModifyGetObjectTerms
             return $terms;
         }
 
-        $cacheKey = ModifiersHelper::getTermQueryCacheKey($queryVars);
-        $foundInCache = ModifiersHelper::getTermQueryResultFromCache($cacheKey, $queryVars['taxonomy'][0]);
+        $cacheKey = $this->modifiersHelper->getTermQueryCacheKey($queryVars);
+        $foundInCache = $this->modifiersHelper->getTermQueryResultFromCache($cacheKey, $queryVars['taxonomy'][0]);
 
         if ($foundInCache) {
             return $foundInCache;
@@ -40,7 +42,7 @@ class ModifyGetObjectTerms
         if (isset($queryVars['object_ids']) && !empty($queryVars['object_ids'])) {
             $queryVars['object_ids'] = array_map(function ($objectId) {
 
-                $objectResource = ModifiersHelper::getResourceFromPostId($objectId);
+                $objectResource = $this->modifiersHelper->getResourceFromPostId($objectId);
 
                 if (empty($objectResource)) {
                     return null;
@@ -58,7 +60,7 @@ class ModifyGetObjectTerms
             $terms = $collection;
         }
 
-        ModifiersHelper::addTermQueryResultToCache($cacheKey, $terms, $queryVars['taxonomy'][0]);
+        $this->modifiersHelper->addTermQueryResultToCache($cacheKey, $terms, $queryVars['taxonomy'][0]);
 
         return $terms;
     }

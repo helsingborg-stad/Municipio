@@ -7,13 +7,20 @@ use Municipio\Helper\RemotePosts;
 
 class ModifyDefaultPostMetaData
 {
+    private ModifiersHelperInterface $modifiersHelper;
+
+    public function __construct(ModifiersHelperInterface $modifiersHelper)
+    {
+        $this->modifiersHelper = $modifiersHelper;
+    }
+
     public function handle($value, int $objectId, $metaKey, $single, $metaType)
     {
-        if( !RemotePosts::isRemotePostID($objectId) ) {
+        if (!RemotePosts::isRemotePostID($objectId)) {
             return $value;
         }
 
-        $registeredPostType = ModifiersHelper::getResourceFromPostId($objectId);
+        $registeredPostType = $this->modifiersHelper->getResourceFromPostId($objectId);
 
         if (is_null($registeredPostType)) {
             return $value;

@@ -8,17 +8,17 @@ use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Helper\RemotePosts;
 use WP_Query;
 
-class ModifiersHelper {
-
-    private static ResourceRegistryInterface $resourceRegistry;
+class ModifiersHelper implements ModifiersHelperInterface
+{
+    private ResourceRegistryInterface $resourceRegistry;
     private const TERM_QUERY_CACHE_GROUP_PREFIX = 'termQueryRemoteResourceResults-';
 
     public function __construct(ResourceRegistryInterface $resourceRegistry)
     {
-        self::$resourceRegistry = $resourceRegistry;
+        $this->resourceRegistry = $resourceRegistry;
     }
-    
-    public static function getResourceFromQuery(WP_Query $query): ?object
+
+    public function getResourceFromQuery(WP_Query $query): ?object
     {
         if ($query->get('post__in') && !empty($query->get('post__in'))) {
 
@@ -30,10 +30,10 @@ class ModifiersHelper {
         }
 
         if ($query->get('post_type') && is_string($query->get('post_type'))) {
-            $resources = self::$resourceRegistry->getByType(ResourceType::POST_TYPE);
-            $matchingResources = array_filter($resources, fn($r) => $r->getName() === $query->get('post_type'));
-            
-            if( !empty($matchingResources) ) {
+            $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $query->get('post_type'));
+
+            if (!empty($matchingResources)) {
                 return reset($matchingResources);
             }
         }
@@ -41,10 +41,10 @@ class ModifiersHelper {
         return null;
     }
 
-    public static function containsIdFromResource(array $ids): bool
+    public function containsIdFromResource(array $ids): bool
     {
         foreach ($ids as $id) {
-            
+
             if (RemotePosts::isRemotePostID($id)) {
                 return true;
             }
@@ -53,13 +53,13 @@ class ModifiersHelper {
         return false;
     }
 
-    public static function getResourceFromPostId($postId): ?ResourceInterface
+    public function getResourceFromPostId($postId): ?ResourceInterface
     {
         if (!RemotePosts::isRemotePostID((int)$postId)) {
             return null;
         }
 
-        $resources = self::$resourceRegistry->getRegistry();
+        $resources = $this->resourceRegistry->getRegistry();
 
         foreach ($resources as $resource) {
             $haystack = (string)absint($postId);
@@ -72,9 +72,9 @@ class ModifiersHelper {
         return null;
     }
 
-    public static function prepareQueryArgsForRequest(array $queryArgs, object $resource): array
+    public function prepareQueryArgsForRequest(array $queryArgs, object $resource): array
     {
-        $postIn = isset($queryArgs['post__in']) && is_array($queryArgs['post__in']) ? array_filter($queryArgs['post__in'], fn($id) => !empty($id)) : [];
+        $postIn = isset($queryArgs['post__in']) && is_array($queryArgs['post__in']) ? array_filter($queryArgs['post__in'], fn ($id) => !empty($id)) : [];
         if (!empty($postIn)) {
             $queryArgs['post__in'] = array_map(
                 fn ($id) => RemotePosts::getRemoteId($id, $resource),
@@ -82,17 +82,17 @@ class ModifiersHelper {
             );
         }
 
-        if( isset($queryArgs['tax_query']) && is_array($queryArgs['tax_query']) && !empty($queryArgs['tax_query']) ) {
-            foreach($queryArgs['tax_query'] as $key => $taxQuery) {
-                
-                if( isset($taxQuery['taxonomy']) && is_string($taxQuery['taxonomy']) && !empty($taxQuery['taxonomy']) ) {
+        if (isset($queryArgs['tax_query']) && is_array($queryArgs['tax_query']) && !empty($queryArgs['tax_query'])) {
+            foreach ($queryArgs['tax_query'] as $key => $taxQuery) {
+
+                if (isset($taxQuery['taxonomy']) && is_string($taxQuery['taxonomy']) && !empty($taxQuery['taxonomy'])) {
                     $queryArgs['tax_query'][$key]['taxonomy'] = self::possiblyConvertLocalTaxonomyToRemote($taxQuery['taxonomy']);
                 }
-                
-                if( isset($taxQuery['terms']) && is_array($taxQuery['terms']) && !empty($taxQuery['terms']) ) {
+
+                if (isset($taxQuery['terms']) && is_array($taxQuery['terms']) && !empty($taxQuery['terms'])) {
                     $queryArgs['tax_query'][$key]['terms'] = array_map(
-                        function ($id) {    
-                            if( $id > 0 ) {
+                        function ($id) {
+                            if ($id > 0) {
                                 return $id;
                             }
                             $taxResource = self::getResourceFromPostId($id);
@@ -107,9 +107,9 @@ class ModifiersHelper {
         return $queryArgs;
     }
 
-    public static function possiblyConvertLocalTaxonomyToRemote(string $taxonomy): string
+    public function possiblyConvertLocalTaxonomyToRemote(string $taxonomy): string
     {
-        $resources = self::$resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $resources = $this->resourceRegistry->getByType(ResourceType::TAXONOMY);
         $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $taxonomy);
 
         if (!empty($matchingResources)) {
@@ -119,7 +119,7 @@ class ModifiersHelper {
         return $taxonomy;
     }
 
-    public static function getTermQueryResultFromCache(string $cacheKey, string $taxonomy): ?array
+    public function getTermQueryResultFromCache(string $cacheKey, string $taxonomy): ?array
     {
         $cacheGroup = self::TERM_QUERY_CACHE_GROUP_PREFIX . $taxonomy;
         $foundInCache = wp_cache_get($cacheKey, $cacheGroup);
@@ -131,13 +131,14 @@ class ModifiersHelper {
         return null;
     }
 
-    public static function addTermQueryResultToCache(string $cacheKey, array $collection, string $taxonomy): void
+    public function addTermQueryResultToCache(string $cacheKey, array $collection, string $taxonomy): void
     {
         $cacheGroup = self::TERM_QUERY_CACHE_GROUP_PREFIX . $taxonomy;
         wp_cache_add($cacheKey, $collection, $cacheGroup);
     }
 
-    public static function getTermQueryCacheKey(array $queryVars):string {
+    public function getTermQueryCacheKey(array $queryVars): string
+    {
         return md5(json_encode($queryVars));
     }
 }

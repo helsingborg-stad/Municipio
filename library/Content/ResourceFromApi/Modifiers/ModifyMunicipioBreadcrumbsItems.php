@@ -4,8 +4,6 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Helper\WP;
-use WP_Post;
 
 class ModifyMunicipioBreadcrumbsItems
 {
@@ -23,7 +21,7 @@ class ModifyMunicipioBreadcrumbsItems
         }
 
         $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
-        $matchingResources = array_filter($resources, fn($r) => $r->getName() === $queriedObject->post_type);
+        $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $queriedObject->post_type);
 
         if (empty($matchingResources)) {
             return $pageData;

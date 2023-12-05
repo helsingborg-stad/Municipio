@@ -7,9 +7,16 @@ use WP_Query;
 
 class ModifyPostsResults
 {
+    private ModifiersHelperInterface $modifiersHelper;
+
+    public function __construct(ModifiersHelperInterface $modifiersHelper)
+    {
+        $this->modifiersHelper = $modifiersHelper;
+    }
+
     public function handle(array $posts, WP_Query $query): array
     {
-        $registeredPostType = ModifiersHelper::getResourceFromQuery($query);
+        $registeredPostType = $this->modifiersHelper->getResourceFromQuery($query);
 
         if (empty($registeredPostType)) {
             return $posts;
@@ -18,7 +25,7 @@ class ModifyPostsResults
         if ($query->is_single()) {
             $posts = PostTypeResourceRequest::getSingle($query->get('name'), $registeredPostType);
         } else {
-            $queryVars = ModifiersHelper::prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
+            $queryVars = $this->modifiersHelper->prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
             $posts = PostTypeResourceRequest::getCollection($registeredPostType, $queryVars);
             $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $queryVars);
             $query->found_posts = $headers['x-wp-total'] ?? count($posts);
