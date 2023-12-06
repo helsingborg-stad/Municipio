@@ -67,27 +67,36 @@ class App
         /**
          * Resources from API
          */
+
+        // Register the actual post type to be used for resources.
         $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
         $resourcePostType->addHooks();
 
+        // Set up registry.
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
         $resourceRegistry->registerResources();
+
+        // Make resources available to the helper class.
         ResourceFromApiHelper::initialize($resourceRegistry);
 
+        // Register post types from resources.
         foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
             $registrar = new PostTypeRegistrar($resource);
             $registrar->register();
         }
 
+        // Register taxonomies from resources.
         foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
             $registrar = new TaxonomyRegistrar($resource);
             $registrar->register();
         }
         
+        // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
         $modifiersHelper = new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
         $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry, $modifiersHelper);
         $hooksAdder->addHooks();
 
+        // Add REST API endpoints for resources.
         add_action('rest_api_init', function () use ($resourceRegistry) {
             foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
                 $controller = new \Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController($resource->getName());
