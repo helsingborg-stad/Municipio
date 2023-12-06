@@ -24,11 +24,12 @@ class CreatePdf
 
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'posts'     => $posts,
-                'styles'    => $styles,
-                'cover'     => $cover,
-                'fonts'     => $fonts,
-                'lang'      => $lang
+                'posts'                 => $posts,
+                'styles'                => $styles,
+                'cover'                 => $cover,
+                'fonts'                 => $fonts,
+                'lang'                  => $lang,
+                'hasMoreThanOnePost'    => count($posts) > 1
             ]);
 
             $html = $this->replaceHtmlFromRegex(

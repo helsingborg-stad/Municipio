@@ -14,11 +14,11 @@
     @includeWhen(!empty($cover), 'partials.content.pdf.frontpage')
 
     @if (!empty($posts) && is_array($posts)) 
-        @includeWhen(count($posts) > 1, 'partials.content.pdf.table-of-contents')
+        @includeWhen($hasMoreThanOnePost, 'partials.content.pdf.table-of-contents')
     @foreach ($posts as $index => $post)
         @include('partials.content.pdf.post')
     @endforeach
-        @if (count($posts) > 1)
+        @if ($hasMoreThanOnePost)
             <script class="pdf-script" type="text/php">
                 for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
                     if (!array_key_exists($i, $pdf->get_cpdf()->objects)) {
