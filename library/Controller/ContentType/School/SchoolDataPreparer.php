@@ -145,11 +145,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $quickFacts = [];
 
         if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
-            $gradeTerms = get_terms([
-                'taxonomy' => self::GRADE_TAXONOMY,
-                'include' => $this->postMeta->grades[0],
-                'hide_empty' => true
-            ]);
+            $gradeTerms = wp_get_post_terms($this->data['post']->id, self::GRADE_TAXONOMY);
 
             if (!empty($gradeTerms)) {
                 $quickFacts[] = ['label' => $gradeTerms[0]->name];

@@ -4,6 +4,7 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
+use Municipio\Helper\ResourceFromApiHelper;
 
 class ModifyGetObjectTerms
 {
@@ -47,7 +48,8 @@ class ModifyGetObjectTerms
                     return null;
                 }
 
-                return (int)str_replace($objectResource->getResourceID(), '', (string)absint($objectId));
+                return ResourceFromApiHelper::getRemoteId($objectId, $objectResource);
+                
             }, $queryVars['object_ids']);
 
             array_filter($queryVars['object_ids']);

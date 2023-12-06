@@ -58,7 +58,7 @@ class SchoolArchiveContentType extends \Municipio\Controller\ArchiveContentType
 
     private function getTermName(string $taxonomy, int $postId): string
     {
-        $terms = get_terms(['object_ids' => [$postId], 'taxonomy' => $taxonomy]);
+        $terms = wp_get_object_terms($postId, $taxonomy);
         return !empty($terms) ? $terms[0]->name : '';
     }
 
