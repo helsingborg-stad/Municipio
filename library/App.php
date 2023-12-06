@@ -71,23 +71,18 @@ class App
         $resourcePostType->addHooks();
 
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        
-        add_action('init', [$resourceRegistry, 'registerResources'], 10);
-        add_action('init', fn() => ResourceFromApiHelper::initialize($resourceRegistry), 11);
-        add_action('init', function () use ($resourceRegistry) {
-            $postTypes = $resourceRegistry->getByType(ResourceType::POST_TYPE);
-            $taxonomies = $resourceRegistry->getByType(ResourceType::TAXONOMY);
+        $resourceRegistry->registerResources();
+        ResourceFromApiHelper::initialize($resourceRegistry);
 
-            foreach ($postTypes as $resource) {
-                $registrar = new PostTypeRegistrar($resource);
-                $registrar->register();
-            }
+        foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+            $registrar = new PostTypeRegistrar($resource);
+            $registrar->register();
+        }
 
-            foreach ($taxonomies as $resource) {
-                $registrar = new TaxonomyRegistrar($resource);
-                $registrar->register();
-            }
-        }, 12);
+        foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
+            $registrar = new TaxonomyRegistrar($resource);
+            $registrar->register();
+        }
         
         $modifiersHelper = new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
         $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry, $modifiersHelper);
