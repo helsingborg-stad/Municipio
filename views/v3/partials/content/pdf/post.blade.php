@@ -1,4 +1,4 @@
-<article class="pdf-post {{ empty($cover) && $hasMoreThanOnePost ? 'pdf-page-break' : '' }}">
+<article class="pdf-post {{ !empty($cover) || $hasMoreThanOnePost ? 'pdf-page-break' : '' }}">
     <script class="pdf-script" type="text/php">
         $GLOBALS['chapters']['{{$index + 1}}'] = $pdf->get_page_number();
     </script>
