@@ -527,8 +527,8 @@ class Navigation
     /**
      * Get a list of hidden post id's
      *
-     * Optimzing: We are getting all meta keys since it's the
-     * fastest way of doing this due to missing indexes in database.
+     * Optimzing: It may be faster on smaller databases 
+     * to not use a join. This will however slow down larger sites. 
      *
      * This is a calculated risk that should be caught
      * by the object cache. Tests have been made to enshure
@@ -550,9 +550,11 @@ class Navigation
         $hiddenPages = (array) self::$db->get_col(
             self::$db->prepare("
                 SELECT post_id
-                FROM " . self::$db->postmeta . "
+                FROM " . self::$db->postmeta . " AS pm 
+                JOIN " . self::$db->post . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
-                AND meta_value = '1'
+                AND meta_value = '1' 
+                AND post_status = 'publish'
             ", $metaKey)
         );
 
@@ -571,8 +573,8 @@ class Navigation
     /**
      * Get a list of custom page titles
      *
-     * Optimzing: We are getting all meta keys since it's the
-     * fastest way of doing this due to missing indexes in database.
+     * Optimzing: It may be faster on smaller databases 
+     * to not use a join. This will however slow down larger sites. 
      *
      * This is a calculated risk that should be caught
      * by the object cache. Tests have been made to enshure
@@ -594,9 +596,11 @@ class Navigation
         $result = (array) self::$db->get_results(
             self::$db->prepare("
                 SELECT post_id, meta_value
-                FROM " . self::$db->postmeta . "
+                FROM " . self::$db->postmeta . " as pm
+                JOIN " . self::$db->post . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
-                AND meta_value != ''
+                AND meta_value != '',
+                AND post_status = 'publish'
             ", $metaKey)
         );
 
