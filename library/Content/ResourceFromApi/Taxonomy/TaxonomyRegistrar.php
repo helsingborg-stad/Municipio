@@ -31,6 +31,8 @@ class TaxonomyRegistrar implements TypeRegistrarInterface
 
     private function getObjectType (): array
     {
+        $arguments = $this->resource->getArguments();
+        
         if (isset($arguments['object_type']) && is_array($arguments['object_type'])) {
             return $arguments['object_type'];
         }
