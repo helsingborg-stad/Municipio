@@ -10,7 +10,7 @@ use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
-    private const ROUTE = '/id=(?P<id>[\d,]+)';
+    private const ROUTE = '/id=(?P<id>[\d,-]+)';
     
     /**
      * Handles the registration of the REST route.

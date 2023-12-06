@@ -219,7 +219,7 @@ class PdfGenerator
         $fields = [];
 
         array_unshift($postTypes, (object) [
-            'name' => 'default',
+            'name' => $this->defaultPrefix,
             'label' => __('Default', 'municipio')
         ]);
         
