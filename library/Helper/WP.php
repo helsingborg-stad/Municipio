@@ -147,7 +147,7 @@ class WP
      */
     public static function getPost($post = null, $output = OBJECT, $filter = 'raw') {
 
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             // Get post by ID using get_posts
             $remotePostFound = fn ($posts) =>
                 is_array($posts) &&
@@ -171,7 +171,7 @@ class WP
 
     public static function getTheTitle($post = 0)
     {
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
@@ -180,7 +180,7 @@ class WP
 
     public static function getPermalink($post = 0, $leavename = false)
     {
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
@@ -198,7 +198,7 @@ class WP
      */
     public static function getRemoteAttachmentId(int $id, string $postType):int {
 
-        if( RemotePosts::isRemotePostID($id) ) {
+        if( ResourceFromApiHelper::isRemotePostID($id) ) {
             // Already handled.
             return $id;
         }
@@ -234,18 +234,18 @@ class WP
 
     public static function getAttachmentImageSrc($attachmentId, $size = 'thumbnail', $icon = false, string $postType = '') {
 
-        if (!empty($postType) && !RemotePosts::isRemotePostID($attachmentId)) {
-            $attachmentId = RemotePosts::getLocalAttachmentIdByPostType($attachmentId, $postType);
+        if (!empty($postType) && !ResourceFromApiHelper::isRemotePostID($attachmentId)) {
+            $attachmentId = ResourceFromApiHelper::getLocalAttachmentIdByPostType($attachmentId, $postType);
         }
 
         return wp_get_attachment_image_src($attachmentId, $size, $icon);
     }
 
     public static function getAttachmentCaption($postId = 0, string $postType = '') {
-        if (!empty($postType) && !RemotePosts::isRemotePostID($postId)) {
-            $postId = RemotePosts::getLocalAttachmentIdByPostType($postId, $postType);
+        if (!empty($postType) && !ResourceFromApiHelper::isRemotePostID($postId)) {
+            $postId = ResourceFromApiHelper::getLocalAttachmentIdByPostType($postId, $postType);
 
-            if( RemotePosts::isRemotePostID($postId) ) {
+            if( ResourceFromApiHelper::isRemotePostID($postId) ) {
                 $post = self::getPost($postId);
 
                 if( !$post ) {

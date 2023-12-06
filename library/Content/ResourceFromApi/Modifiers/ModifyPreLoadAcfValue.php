@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 
 class ModifyPreLoadAcfValue
 {
@@ -15,12 +15,12 @@ class ModifyPreLoadAcfValue
 
     public function handle($value, $postId, $field)
     {
-        if (!isset($field['name']) || !RemotePosts::isRemotePostID($postId)) {
+        if (!isset($field['name']) || !ResourceFromApiHelper::isRemotePostID($postId)) {
             return $value;
         }
 
         $registeredPostType = $this->modifiersHelper->getResourceFromPostId($postId);
-        $remotePostId = RemotePosts::getRemoteId($postId, $registeredPostType);
+        $remotePostId = ResourceFromApiHelper::getRemoteId($postId, $registeredPostType);
 
         return $registeredPostType->getMeta($remotePostId, $field['name']) ?? $value;
     }

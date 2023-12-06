@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Api;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use WP_Error;
 use WP_REST_Controller;
 use WP_REST_Server;
@@ -31,7 +31,7 @@ class ResourceFromApiRestController extends WP_REST_Controller
     {
         $id = (int) $request['id'];
 
-        if( RemotePosts::isRemotePostID($id) ) {
+        if( ResourceFromApiHelper::isRemotePostID($id) ) {
             $post = get_post($id);
 
             clean_post_cache($post);

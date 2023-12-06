@@ -4,7 +4,7 @@ namespace Municipio\Helper;
 
 use WP_UnitTestCase;
 
-class RemotePostsTest extends WP_UnitTestCase
+class ResourceFromApiHelperTest extends WP_UnitTestCase
 {
     public function testGetClosestImageBySizeReturnsExactMatchIfFound()
     {
@@ -13,7 +13,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertEquals('medium', $result);
@@ -26,7 +26,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertEquals('medium', $result);
@@ -39,7 +39,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertEquals('medium', $result);
@@ -52,7 +52,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertEquals('medium', $result);
@@ -65,7 +65,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertEquals('large', $result);
@@ -78,7 +78,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertNull($result);
@@ -91,7 +91,7 @@ class RemotePostsTest extends WP_UnitTestCase
         $sizes = $this->getMockedSizes();
 
         // When
-        $result = RemotePosts::getClosestImageBySize($size, $sizes);
+        $result = ResourceFromApiHelper::getClosestImageBySize($size, $sizes);
 
         // Then
         $this->assertNull($result);

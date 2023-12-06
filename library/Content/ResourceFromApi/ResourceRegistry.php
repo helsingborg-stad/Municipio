@@ -2,8 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-use Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar;
-use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar;
 use Municipio\Helper\WP;
 
 class ResourceRegistry implements ResourceRegistryInterface
@@ -11,111 +9,23 @@ class ResourceRegistry implements ResourceRegistryInterface
     /**
      * @var ResourceInterface[] $registry
      */
-    private static ?array $registry = null;
+    private array $registry = [];
     private string $resourcePostTypeName = 'api-resource';
-    private static $resourceIdRangeStart = 100;
+    private const RESOURCE_ID_RANGE_START = 100;
 
-    public function __construct()
+    public function getRegistry(): array
     {
-        if ($this->isInitialized()) {
-            return;
-        }
-
-        self::$registry = [];
+        return $this->registry;
     }
 
-    public function addHooks(): void
+    public function getByName(string $name): array
     {
-        add_action('init', function () {
-            $this->populateRegistry();
-            $this->register();
-            $this->registerPostTypesRewriteRules();
-        });
-    }
-
-    public static function getRegistry(): array
-    {
-        return self::$registry;
-    }
-
-    private function isInitialized(): bool
-    {
-        return is_array(self::$registry);
-    }
-
-    public static function getByName(string $name): array
-    {
-        return array_filter(self::$registry, function ($resource) use ($name) {
+        return array_filter($this->registry, function ($resource) use ($name) {
             return $resource->getName() === $name;
         });
     }
 
-    private function register()
-    {
-        $postTypes = $this->getByType(ResourceType::POST_TYPE);
-        $taxonomies = $this->getByType(ResourceType::TAXONOMY);
-
-        foreach ($postTypes as $resource) {
-            $registrar = new PostTypeRegistrar($resource->getName(), $resource->getArguments());
-            $registrar->register();
-
-            if ($registrar->isRegistered()) {
-                $resource->resourceID = $this->getNewResourceID();
-            }
-        }
-
-        foreach ($taxonomies as $resource) {
-            $registrar = new TaxonomyRegistrar($resource->getName(), $resource->getArguments());
-            $registrar->register();
-
-            if ($registrar->isRegistered()) {
-                $resource->resourceID = $this->getNewResourceID();
-            }
-        }
-    }
-
-    private function registerPostTypesRewriteRules()
-    {
-        $resources = $this->getByType(ResourceType::POST_TYPE);
-
-        foreach ($resources as $resource) {
-            $this->addRewriteRules($resource->getName(), $resource->getArguments());
-        }
-    }
-
-    private function addRewriteRules(string $postTypeName, array $arguments): void
-    {
-
-        if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
-            return;
-        }
-
-        foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-
-            if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
-                return;
-            }
-
-            foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-
-                $parentPostTypeObject = get_post_type_object($parentPostTypeName);
-
-                if (empty($parentPostTypeObject)) {
-                    continue;
-                }
-
-                $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
-
-                add_rewrite_rule(
-                    $parentRewriteSlug . '/(.*)/(.*)',
-                    'index.php?' . $postTypeName . '=$matches[2]',
-                    'top'
-                );
-            }
-        }
-    }
-
-    private function populateRegistry()
+    public function registerResources()
     {
         $types = [
             ResourceType::ATTACHMENT,
@@ -160,11 +70,11 @@ class ResourceRegistry implements ResourceRegistryInterface
                         $mediaResource = array_shift($matchingMediaResources);
                     }
 
-                    self::$registry[] = new PostTypeResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new PostTypeResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
                 } elseif ($type === ResourceType::TAXONOMY) {
-                    self::$registry[] = new TaxonomyResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new TaxonomyResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
                 } elseif ($type === ResourceType::ATTACHMENT) {
-                    self::$registry[] = new AttachmentResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new AttachmentResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
                 }
             }
         }
@@ -172,16 +82,14 @@ class ResourceRegistry implements ResourceRegistryInterface
 
     private function getNewResourceID(): int
     {
-        $currentSize = sizeof(self::$registry);
+        $currentSize = sizeof($this->registry);
 
-        return self::$resourceIdRangeStart + $currentSize + 1;
+        return self::RESOURCE_ID_RANGE_START + $currentSize + 1;
     }
 
-    public static function getByType(string $type): array
+    public function getByType(string $type): array
     {
-        return array_filter(self::$registry, function ($resource) use ($type) {
-            return $resource->getType() === $type;
-        });
+        return array_filter( $this->registry, fn ($resource) => $resource->getType() === $type );
     }
 
     private function getArguments(int $resourceId, string $type): ?array

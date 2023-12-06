@@ -2,9 +2,9 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\Helper\RestRequestHelper;
-use Municipio\Helper\WPQueryToRestParamsConverter;
+use Municipio\Helper\WPTermQueryToRestParamsConverter;
 use stdClass;
 use WP_Term;
 
@@ -95,17 +95,13 @@ class TaxonomyResource extends Resource
 
     private function getCollectionUrl(?array $queryArgs = null): ?string
     {
-        $resourceUrl = $this->getBaseUrl();
-
-        if (empty($resourceUrl)) {
-            return null;
-        }
+        $url = $this->getBaseUrl();
 
         $restParams = !empty($queryArgs)
-            ? '?' . WPQueryToRestParamsConverter::convertToRestParamsString($queryArgs)
+            ? '?' . WPTermQueryToRestParamsConverter::convertToRestParamsString($queryArgs)
             : '';
 
-        return $resourceUrl . $restParams;
+        return $url . $restParams;
     }
 
     private function getSingleUrl($id): ?string
@@ -122,7 +118,7 @@ class TaxonomyResource extends Resource
 
     private function convertRestApiTermToWPTerm(stdClass $termFromApi): WP_Term
     {
-        $localID = RemotePosts::getLocalID($termFromApi->id, $this);
+        $localID = ResourceFromApiHelper::getLocalID($termFromApi->id, $this);
         $localTaxonomy = $this->getName();
 
         $term                   = new WP_Term(new \stdClass());

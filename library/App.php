@@ -3,7 +3,10 @@
 namespace Municipio;
 
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar;
 use Municipio\Content\ResourceFromApi\ResourceType;
+use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar;
+use Municipio\Helper\ResourceFromApiHelper;
 
 /**
  * Class App
@@ -68,10 +71,25 @@ class App
         $resourcePostType->addHooks();
 
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        $resourceRegistry->addHooks();
+        
+        add_action('init', [$resourceRegistry, 'registerResources'], 10);
+        add_action('init', fn() => ResourceFromApiHelper::initialize($resourceRegistry), 11);
+        add_action('init', function () use ($resourceRegistry) {
+            $postTypes = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $taxonomies = $resourceRegistry->getByType(ResourceType::TAXONOMY);
+
+            foreach ($postTypes as $resource) {
+                $registrar = new PostTypeRegistrar($resource);
+                $registrar->register();
+            }
+
+            foreach ($taxonomies as $resource) {
+                $registrar = new TaxonomyRegistrar($resource);
+                $registrar->register();
+            }
+        }, 12);
         
         $modifiersHelper = new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
-
         $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry, $modifiersHelper);
         $hooksAdder->addHooks();
 

@@ -5,7 +5,7 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use WP_Query;
 
 class ModifiersHelper implements ModifiersHelperInterface
@@ -45,7 +45,7 @@ class ModifiersHelper implements ModifiersHelperInterface
     {
         foreach ($ids as $id) {
 
-            if (RemotePosts::isRemotePostID($id)) {
+            if (ResourceFromApiHelper::isRemotePostID($id)) {
                 return true;
             }
         }
@@ -55,7 +55,7 @@ class ModifiersHelper implements ModifiersHelperInterface
 
     public function getResourceFromPostId($postId): ?ResourceInterface
     {
-        if (!RemotePosts::isRemotePostID((int)$postId)) {
+        if (!ResourceFromApiHelper::isRemotePostID((int)$postId)) {
             return null;
         }
 
@@ -77,7 +77,7 @@ class ModifiersHelper implements ModifiersHelperInterface
         $postIn = isset($queryArgs['post__in']) && is_array($queryArgs['post__in']) ? array_filter($queryArgs['post__in'], fn ($id) => !empty($id)) : [];
         if (!empty($postIn)) {
             $queryArgs['post__in'] = array_map(
-                fn ($id) => RemotePosts::getRemoteId($id, $resource),
+                fn ($id) => ResourceFromApiHelper::getRemoteId($id, $resource),
                 $postIn
             );
         }
@@ -96,7 +96,7 @@ class ModifiersHelper implements ModifiersHelperInterface
                                 return $id;
                             }
                             $taxResource = self::getResourceFromPostId($id);
-                            return !empty($taxResource) ? RemotePosts::getRemoteId($id, $taxResource) : $id;
+                            return !empty($taxResource) ? ResourceFromApiHelper::getRemoteId($id, $taxResource) : $id;
                         },
                         $taxQuery['terms']
                     );

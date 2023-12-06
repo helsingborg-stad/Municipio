@@ -6,8 +6,15 @@ use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\ResourceRegistry;
 use Municipio\Content\ResourceFromApi\ResourceType;
 
-class RemotePosts
+class ResourceFromApiHelper
 {
+    private static ?ResourceRegistry $registry = null;
+
+    public static function initialize(ResourceRegistry $registry): void
+    {
+        self::$registry = $registry;
+    }
+
     public static function isRemotePostID($postID): bool
     {
         return is_numeric($postID) && (int)$postID <= -1;
@@ -25,7 +32,7 @@ class RemotePosts
 
     public static function getRemoteId($localId, ResourceInterface $resource): int
     {
-        if (!RemotePosts::isRemotePostID($localId)) {
+        if (!self::isRemotePostID($localId)) {
             return $localId;
         }
 
@@ -47,7 +54,7 @@ class RemotePosts
             return $id;
         }
 
-        $resources = ResourceRegistry::getByType(ResourceType::POST_TYPE);
+        $resources = self::$registry->getByType(ResourceType::POST_TYPE);
         $resources = array_filter($resources, fn (ResourceInterface $resource) => $resource->getName() === $postType);
 
         if (empty($resources)) {

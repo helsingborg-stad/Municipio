@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\PostType;
 
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
 use WP_Post_Type;
 
@@ -14,9 +15,7 @@ use WP_Post_Type;
  */
 class PostTypeRegistrar implements TypeRegistrarInterface
 {
-    private string $name;
-    private array $arguments;
-    private bool $registered = false;
+    private ResourceInterface $resource;
 
     /**
      * Constructor for the PostTypeRegistrar class.
@@ -24,10 +23,9 @@ class PostTypeRegistrar implements TypeRegistrarInterface
      * @param string $name The name of the post type.
      * @param array $arguments An array of arguments for registering the post type.
      */
-    public function __construct(string $name, array $arguments)
+    public function __construct(ResourceInterface $resource)
     {
-        $this->name = $name;
-        $this->arguments = $arguments;
+        $this->resource = $resource;
     }
 
     /**
@@ -35,54 +33,50 @@ class PostTypeRegistrar implements TypeRegistrarInterface
      *
      * @return void
      */
-    public function register(): void
+    public function register(): bool
     {
-        $this->prepareArguments();
-        $this->registerPostType();
-    }
-
-    /**
-     * Get the name of the post type.
-     *
-     * @return string The name of the post type.
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the arguments for registering the post type.
-     *
-     * @return array The arguments for registering the post type.
-     */
-    public function getArguments(): array
-    {
-        return $this->arguments;
-    }
-
-    /**
-     * Check if the post type is registered.
-     *
-     * @return bool True if the post type is registered, false otherwise.
-     */
-    public function isRegistered(): bool
-    {
-        return $this->registered;
-    }
-
-    /**
-     * Registers a custom post type.
-     *
-     * @access private
-     * @return void
-     */
-    private function registerPostType()
-    {
-        $success = register_post_type($this->name, $this->arguments);
+        $arguments = $this->prepareArguments($this->resource->getArguments());
+        $success = register_post_type($this->resource->getName(), $arguments);
+        $this->addRewriteRules();
 
         if (is_a($success, WP_Post_Type::class)) {
-            $this->registered = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    private function addRewriteRules(): void
+    {
+        $postTypeName = $this->resource->getName();
+        $arguments = $this->resource->getArguments();
+
+        if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
+            return;
+        }
+
+        foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
+
+            if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
+                return;
+            }
+
+            foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
+
+                $parentPostTypeObject = get_post_type_object($parentPostTypeName);
+
+                if (empty($parentPostTypeObject)) {
+                    continue;
+                }
+
+                $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
+
+                add_rewrite_rule(
+                    $parentRewriteSlug . '/(.*)/(.*)',
+                    'index.php?' . $postTypeName . '=$matches[2]',
+                    'top'
+                );
+            }
         }
     }
 
@@ -91,15 +85,15 @@ class PostTypeRegistrar implements TypeRegistrarInterface
      *
      * @return void
      */
-    private function prepareArguments(): void
+    private function prepareArguments(): array
     {
-        $preparedArguments = $this->arguments;
-        $preparedArguments = $this->prepareLabels($preparedArguments);
-        $preparedArguments = $this->prepareQueryVar($preparedArguments);
-        $preparedArguments = $this->prepareRewrite($preparedArguments);
-        $preparedArguments = $this->prepareParentPostTypes($preparedArguments);
+        $arguments = $this->resource->getArguments();
+        $arguments = $this->prepareLabels($arguments);
+        $arguments = $this->prepareQueryVar($arguments);
+        $arguments = $this->prepareRewrite($arguments);
+        $arguments = $this->prepareParentPostTypes($arguments);
 
-        $this->arguments = $preparedArguments;
+        return $arguments;
     }
 
     /**

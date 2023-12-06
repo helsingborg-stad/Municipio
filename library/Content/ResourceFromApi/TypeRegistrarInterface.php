@@ -4,8 +4,6 @@ namespace Municipio\Content\ResourceFromApi;
 
 interface TypeRegistrarInterface
 {
-    public function register(): void;
-    public function isRegistered(): bool;
-    public function getName(): string;
-    public function getArguments(): array;
+    public function __construct(ResourceInterface $resource);
+    public function register(): bool;
 }

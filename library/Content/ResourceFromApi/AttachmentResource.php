@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
 
@@ -65,7 +65,7 @@ class AttachmentResource extends PostTypeResource
         $foundInCache = null;
 
         if (is_numeric($id)) {
-            $localId = RemotePosts::getLocalId($id, $this);
+            $localId = ResourceFromApiHelper::getLocalId($id, $this);
             $foundInCache = wp_cache_get($localId, 'posts');
         } else {
             $foundInCache = wp_cache_get($id, $this->getName() . '-posts');

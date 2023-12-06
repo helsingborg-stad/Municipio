@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 
 class ModifyDefaultPostMetaData
 {
@@ -15,7 +15,7 @@ class ModifyDefaultPostMetaData
 
     public function handle($value, int $objectId, $metaKey, $single, $metaType)
     {
-        if (!RemotePosts::isRemotePostID($objectId)) {
+        if (!ResourceFromApiHelper::isRemotePostID($objectId)) {
             return $value;
         }
 
@@ -25,7 +25,7 @@ class ModifyDefaultPostMetaData
             return $value;
         }
 
-        $objectId = RemotePosts::getRemoteId($objectId, $registeredPostType);
+        $objectId = ResourceFromApiHelper::getRemoteId($objectId, $registeredPostType);
 
         return $registeredPostType->getMeta($objectId, $metaKey, $single) ?? $value;
     }

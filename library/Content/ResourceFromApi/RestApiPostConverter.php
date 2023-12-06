@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use WP_Post;
 
 class RestApiPostConverter
@@ -25,7 +25,7 @@ class RestApiPostConverter
      */
     private function getLocalId(): int
     {
-        return RemotePosts::getLocalId($this->restApiPost->id, $this->resource);
+        return ResourceFromApiHelper::getLocalId($this->restApiPost->id, $this->resource);
     }
 
     private function getLocalMediaId(): int
@@ -34,7 +34,7 @@ class RestApiPostConverter
             return $this->restApiPost->featured_media;
         }
 
-        return RemotePosts::getLocalId($this->restApiPost->featured_media, $this->resource->getMediaResource());
+        return ResourceFromApiHelper::getLocalId($this->restApiPost->featured_media, $this->resource->getMediaResource());
     }
 
     /**

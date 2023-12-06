@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Helper\RemotePosts;
+use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\Helper\WP;
 
 class ModifyWpGetAttachmentImageSrc
@@ -36,7 +36,7 @@ class ModifyWpGetAttachmentImageSrc
             return [$attachment->meta->source_url];
         }
 
-        $matchingSize = RemotePosts::getClosestImageBySize($size, $attachment->meta->media_details->sizes);
+        $matchingSize = ResourceFromApiHelper::getClosestImageBySize($size, $attachment->meta->media_details->sizes);
 
         if (empty($matchingSize)) {
             return [

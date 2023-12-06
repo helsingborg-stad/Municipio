@@ -2,6 +2,8 @@
 
 namespace Municipio\Content\ResourceFromApi\Taxonomy;
 
+use Municipio\Content\ResourceFromApi\Resource;
+use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
 use WP_Taxonomy;
 
@@ -14,10 +16,7 @@ use WP_Taxonomy;
  */
 class TaxonomyRegistrar implements TypeRegistrarInterface
 {
-    private string $name;
-    private array $arguments;
-    private bool $registered = false;
-    private array $objectType = [];
+    private ResourceInterface $resource;
 
     /**
      * Constructor for TaxonomyRegistrar class.
@@ -25,14 +24,18 @@ class TaxonomyRegistrar implements TypeRegistrarInterface
      * @param string $name The name of the taxonomy.
      * @param array $arguments Optional. Array of arguments for registering the taxonomy.
      */
-    public function __construct(string $name, array $arguments)
+    public function __construct(ResourceInterface $resource)
     {
-        $this->name = $name;
-        $this->arguments = $arguments;
+        $this->resource = $resource;
+    }
 
+    private function getObjectType (): array
+    {
         if (isset($arguments['object_type']) && is_array($arguments['object_type'])) {
-            $this->objectType = $arguments['object_type'];
+            return $arguments['object_type'];
         }
+
+        return [];
     }
 
     /**
@@ -40,67 +43,19 @@ class TaxonomyRegistrar implements TypeRegistrarInterface
      *
      * @return void
      */
-    public function register(): void
+    public function register(): bool
     {
-        $this->prepareArguments();
-        $this->registerTaxonomy();
+        $arguments = $this->prepareArguments();
+        $success = register_taxonomy($this->resource->getName(), $this->getObjectType(), $arguments);
+        return is_a($success, WP_Taxonomy::class);
     }
-
-    /**
-     * Get the name of the taxonomy.
-     *
-     * @return string The name of the taxonomy.
-     */
-    public function getName(): string
+    
+    private function prepareArguments(): array
     {
-        return $this->name;
-    }
-
-    /**
-     * Get the arguments for registering a taxonomy.
-     *
-     * @return array The arguments for registering a taxonomy.
-     */
-    public function getArguments(): array
-    {
-        return $this->arguments;
-    }
-
-    /**
-     * Check if the taxonomy is registered.
-     *
-     * @return bool True if the taxonomy is registered, false otherwise.
-     */
-    public function isRegistered(): bool
-    {
-        return $this->registered;
-    }
-
-    /**
-     * Registers a taxonomy.
-     *
-     * @return void
-     */
-    private function registerTaxonomy(): void
-    {
-        $success = register_taxonomy($this->getName(), $this->objectType, $this->getArguments());
-
-        if (is_a($success, WP_Taxonomy::class)) {
-            $this->registered = true;
-        }
-    }
-
-    /**
-     * Prepares the arguments for the taxonomy registrar.
-     *
-     * @return void
-     */
-    private function prepareArguments(): void
-    {
-        $preparedArguments = $this->arguments;
+        $preparedArguments = $this->resource->getArguments();
         $preparedArguments = $this->prepareLabels($preparedArguments);
 
-        $this->arguments = $preparedArguments;
+        return $preparedArguments;
     }
 
     /**
