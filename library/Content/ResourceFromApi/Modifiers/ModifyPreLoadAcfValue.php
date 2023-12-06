@@ -2,7 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Content\ResourceFromApi\PostType\PostTypeResourceRequest;
 use Municipio\Helper\RemotePosts;
 
 class ModifyPreLoadAcfValue
@@ -23,6 +22,6 @@ class ModifyPreLoadAcfValue
         $registeredPostType = $this->modifiersHelper->getResourceFromPostId($postId);
         $remotePostId = RemotePosts::getRemoteId($postId, $registeredPostType);
 
-        return PostTypeResourceRequest::getMeta($remotePostId, $field['name'], $registeredPostType) ?? $value;
+        return $registeredPostType->getMeta($remotePostId, $field['name']) ?? $value;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Content\ResourceFromApi\PostType\PostTypeResourceRequest;
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Helper\RestRequestHelper;
@@ -57,7 +56,7 @@ class ModifyMunicipioContentResourceFromApiConvertRestApiPostToWPPost
             return $wpPost;
         }
 
-        $parentPost = PostTypeResourceRequest::getSingle($parentId, $parentResource);
+        $parentPost = $parentResource->getSingle($parentId);
 
         if (empty($parentPost)) {
             return $wpPost;

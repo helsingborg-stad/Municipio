@@ -2,7 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Content\ResourceFromApi\PostType\PostTypeResourceRequest;
 use WP_Query;
 
 class ModifyPostsResults
@@ -23,11 +22,11 @@ class ModifyPostsResults
         }
 
         if ($query->is_single()) {
-            $posts = PostTypeResourceRequest::getSingle($query->get('name'), $registeredPostType);
+            $posts = $registeredPostType->getSingle($query->get('name'));
         } else {
             $queryVars = $this->modifiersHelper->prepareQueryArgsForRequest($query->query_vars, $registeredPostType);
-            $posts = PostTypeResourceRequest::getCollection($registeredPostType, $queryVars);
-            $headers = PostTypeResourceRequest::getCollectionHeaders($registeredPostType, $queryVars);
+            $posts = $registeredPostType->getCollection($queryVars);
+            $headers = $registeredPostType->getCollectionHeaders($queryVars);
             $query->found_posts = $headers['x-wp-total'] ?? count($posts);
             $query->max_num_pages = $headers['x-wp-totalpages'] ?? 1;
         }

@@ -4,7 +4,6 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyResourceRequest;
 use WP_Term_Query;
 
 class ModifyTermsPreQuery
@@ -55,7 +54,7 @@ class ModifyTermsPreQuery
             array_filter($queryVars['object_ids']);
         }
 
-        $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
+        $collection = reset($matchingResources)->getCollection($queryVars);
 
         $this->modifiersHelper->addTermQueryResultToCache($cacheKey, $collection, $queryVars['taxonomy'][0]);
 

@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-interface ResourceInterface
+interface ResourceInterface extends ResourceRequestInterface
 {
     public function getName(): string;
     public function getType(): string;

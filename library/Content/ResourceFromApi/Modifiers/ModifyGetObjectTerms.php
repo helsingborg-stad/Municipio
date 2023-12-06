@@ -4,7 +4,6 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyResourceRequest;
 
 class ModifyGetObjectTerms
 {
@@ -54,7 +53,7 @@ class ModifyGetObjectTerms
             array_filter($queryVars['object_ids']);
         }
 
-        $collection = TaxonomyResourceRequest::getCollection(reset($matchingResources), $queryVars);
+        $collection = reset($matchingResources)->getCollection($queryVars);
 
         if ($collection !== null) {
             $terms = $collection;

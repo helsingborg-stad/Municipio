@@ -2,7 +2,6 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Content\ResourceFromApi\PostType\PostTypeResourceRequest;
 use Municipio\Helper\RemotePosts;
 
 class ModifyDefaultPostMetaData
@@ -28,6 +27,6 @@ class ModifyDefaultPostMetaData
 
         $objectId = RemotePosts::getRemoteId($objectId, $registeredPostType);
 
-        return PostTypeResourceRequest::getMeta($objectId, $metaKey, $registeredPostType, $single) ?? $value;
+        return $registeredPostType->getMeta($objectId, $metaKey, $single) ?? $value;
     }
 }

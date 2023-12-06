@@ -5,7 +5,6 @@ namespace Municipio\Content\ResourceFromApi;
 use Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar;
 use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar;
 use Municipio\Helper\WP;
-use stdClass;
 
 class ResourceRegistry implements ResourceRegistryInterface
 {
@@ -148,21 +147,25 @@ class ResourceRegistry implements ResourceRegistryInterface
                 $id = $this->getNewResourceID();
                 $mediaResource = null;
 
-                if( $type === ResourceType::POST_TYPE ) {
+                if ($type === ResourceType::POST_TYPE) {
                     // Attempt to add attachment resource to post type.
                     $mediaResources = $this->getByType(ResourceType::ATTACHMENT);
-                    $matchingMediaResources = array_filter($mediaResources, function($mediaResource) use ($resourcePost) {
+                    $matchingMediaResources = array_filter($mediaResources, function ($mediaResource) use ($resourcePost) {
                         $mediaResourceArgs = $mediaResource->getArguments();
                         return !empty($mediaResourceArgs['post_types']) &&
                             in_array((string)$resourcePost->ID, $mediaResourceArgs['post_types']);
                     });
 
-                    if( !empty($matchingMediaResources) ) {
+                    if (!empty($matchingMediaResources)) {
                         $mediaResource = array_shift($matchingMediaResources);
                     }
-                }
 
-                self::$registry[] = new Resource($id, $name, $type, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    self::$registry[] = new PostTypeResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                } elseif ($type === ResourceType::TAXONOMY) {
+                    self::$registry[] = new TaxonomyResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                } elseif ($type === ResourceType::ATTACHMENT) {
+                    self::$registry[] = new AttachmentResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                }
             }
         }
     }

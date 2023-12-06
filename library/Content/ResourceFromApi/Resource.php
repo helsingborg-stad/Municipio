@@ -2,22 +2,20 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-class Resource implements ResourceInterface
+abstract class Resource implements ResourceInterface
 {
     private int $id;
     private string $name;
-    private string $type;
     private array $arguments;
     private string $baseUrl;
     private string $originalName;
     private string $baseName;
     private ?ResourceInterface $mediaResource;
 
-    public function __construct(int $id, string $name, string $type, array $arguments, string $baseUrl, string $originalName, string $baseName, ?ResourceInterface $mediaResource = null)
+    public function __construct(int $id, string $name, array $arguments, string $baseUrl, string $originalName, string $baseName, ?ResourceInterface $mediaResource = null)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->type = $type;
         $this->arguments = $arguments;
         $this->baseUrl = $baseUrl;
         $this->originalName = $originalName;
@@ -33,11 +31,6 @@ class Resource implements ResourceInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function getArguments(): array
@@ -64,4 +57,14 @@ class Resource implements ResourceInterface
     {
         return $this->mediaResource;
     }
+
+    abstract public function getType(): string;
+
+    abstract public function getCollection(?array $queryArgs = null): array;
+
+    abstract public function getCollectionHeaders(?array $queryArgs = null): array;
+
+    abstract public function getSingle($id): ?object;
+
+    abstract public function getMeta(int $id, string $metaKey, bool $single = true);
 }
