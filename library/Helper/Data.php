@@ -4,9 +4,15 @@ namespace Municipio\Helper;
 
 class Data
 {
-    public static function getStructuredData($postType, $postId, $structuredData = [])
+    /**
+     * Prepares structured data for encoding as JSON.
+     *
+     * @param array $structuredData The structured data to be prepared.
+     * @return false|string The encoded JSON string of the prepared structured data, or false if the structured data is empty.
+     */
+    public static function prepareStructuredData(array $structuredData = [])
     {
-        $schema = apply_filters('Municipio/StructuredData', $structuredData, $postType, $postId);
+        $schema = apply_filters('Municipio/StructuredData',$structuredData);
 
         if (empty($schema)) {
             return false;
@@ -17,7 +23,6 @@ class Data
             ["@context" => "https://schema.org/"],
             $schema
         );
-
 
         return json_encode($schema, JSON_UNESCAPED_UNICODE);
     }

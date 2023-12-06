@@ -75,15 +75,15 @@ class Place extends ContentTypeFactory
     * @return array The updated structured data.
     *
     */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function appendStructuredData(int $postId): array
     {
         if (empty($postId)) {
-            return $structuredData;
+            return [];
         }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
         
-        $additionalData = ['location' => []];
+        $structuredData = ['location' => []];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);
@@ -93,12 +93,12 @@ class Place extends ContentTypeFactory
 
             // General address
             if (!empty($location['formatted_address'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'   => 'Place',
                     'address' => $location['formatted_address'],
                 ];
             } elseif (!empty($location['address'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'   => 'Place',
                     'address' => $location['address'],
                 ];
@@ -106,7 +106,7 @@ class Place extends ContentTypeFactory
 
             // Coordinates
             if (!empty($location['lat']) && !empty($location['lng'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'     => 'GeoCoordinates',
                     'latitude'  => $location['lat'],
                     'longitude' => $location['lng'],
@@ -115,13 +115,13 @@ class Place extends ContentTypeFactory
 
             // Country
             if (!empty($location['country'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'          => 'PostalAddress',
                     'addressCountry' => $location['country'],
                 ];
             }
         }
 
-        return array_merge($structuredData, $additionalData);
+        return $structuredData;
     }
 }

@@ -11,10 +11,14 @@ use WP_Term;
 class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
+    protected $postId;
+    protected $contentType;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->postId = $this->data['post']->id;
 
         /**
          * Retrieves the content type of the current post typr.
@@ -23,24 +27,26 @@ class SingularContentType extends \Municipio\Controller\Singular
          */
 
         $postType = $this->data['post']->postType;
-        $currentContentType = \Municipio\Helper\ContentType::getContentType($postType);
+
+        $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         // $currentContentType = new $contentType();
-        $currentContentType->init();
+        $this->contentType->init();
 
-        if(!empty($currentContentType->secondaryContentType)) {
-            foreach($currentContentType->secondaryContentType as $secondaryContentType) {
+        if(!empty($this->contentType->secondaryContentType)) {
+            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
                 $secondaryContentType->init();
             }
         }
-
 
         /**
          * Check if the content type template should be skipped and set the view accordingly if not.
          */
         if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($postType)) {
-            $this->view = $currentContentType->getView();
+            $this->view = $this->contentType->getView();
         }
+
+        $this->appendStructuredData();
 
     }
 
@@ -56,11 +62,7 @@ class SingularContentType extends \Municipio\Controller\Singular
         // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
-        $this->data['structuredData']       = \Municipio\Helper\Data::getStructuredData(
-            $this->data['postType'],
-            $this->getPageID(),
-            $this->data['structuredData']
-        );
+        // $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($this->data['post']->id);
 
         return $this->data;
     }
@@ -126,5 +128,22 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         return $posts;
+    }
+
+    public function appendStructuredData()  {
+        
+        $structuredData = $this->contentType->getStructuredData($this->postId);
+
+        // if(!empty($this->contentType->secondaryContentType)) {
+        //     foreach($this->contentType->secondaryContentType as $secondaryContentType) {
+        //         $structuredData = array_merge( 
+        //             $structuredData,
+        //             $secondaryContentType->getStructuredData($this->postId)
+        //         );
+
+        //     }
+        // }
+
+        $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($structuredData ?? []);
     }
 }

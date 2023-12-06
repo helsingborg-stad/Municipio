@@ -38,13 +38,13 @@ class Person extends ContentTypeFactory
      *
      * @return array The updated array with the Person structured data appended.
      */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function appendStructuredData(int $postId): array
     {
         if (empty($postId)) {
-            return $structuredData;
+            return [];
         }
 
-        $additionalData = [
+        $structuredData = [
             '@context' => 'https://schema.org',
             '@type' => 'Person',
         ];
@@ -74,7 +74,7 @@ class Person extends ContentTypeFactory
                 $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
             }
 
-            $additionalData[$property] =
+            $structuredData[$property] =
             apply_filters(
                 "Municipio/ContentType/structuredDataProperty/{$property}/value",
                 $propertyValue,
@@ -82,6 +82,6 @@ class Person extends ContentTypeFactory
             );
         }
 
-        return array_merge($structuredData, $additionalData);
+        return $structuredData;
     }
 }

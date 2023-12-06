@@ -19,6 +19,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     {
         $this->key = 'school';
         $this->label = __('School', 'municipio');
+        
        
         parent::__construct($this->key, $this->label);
 
@@ -27,10 +28,13 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
     }
 
-    public function init(): void
+    public function init(int $postId = 0): void
     {
 
         $this->addHooks();
+
+        // $this->data['structuredData'] = $this->appendStructuredData($postId);
+        // echo '<pre>' . print_r( $this, true ) . '</pre>';die;
 
     }
 
@@ -38,7 +42,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     {
         $dataPreparer = new SchoolDataPreparer();
 
-        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 1);
 
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
@@ -53,24 +57,11 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     {
         $this->secondaryContentType[] = $contentType;
     }
-    /**
-     * Appends the structured data array (used for schema.org markup) with additional data
-     *
-     * @param array structuredData The structured data array that we're going to append to.
-     * @param string postType The post type of the current page.
-     * @param int postId The ID of the post you want to add structured data to.
-     *
-     * @return array The modified structured data array.
-     */
 
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function getStructuredData(int $postId)
     {
-        if (empty($postId)) {
-            return $structuredData;
-        }
 
-        $additionalData = [
-            '@context' => 'https://schema.org',
+        $structuredData = [
             '@type' => 'School',
         ];
 
@@ -82,6 +73,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
         ], $postId);
 
-        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId, $structuredData, $additionalData);
+        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId);
     }
 }
