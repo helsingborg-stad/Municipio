@@ -82,7 +82,7 @@ class ResourcePostType
 
         foreach ($urls as $url) {
 
-            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'types');
+            $typesFromApi = RestRequestHelper::get(trailingslashit($url) . 'types');
 
             if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
                 return null;
@@ -138,7 +138,7 @@ class ResourcePostType
 
         foreach ($urls as $url) {
 
-            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'taxonomies');
+            $typesFromApi = RestRequestHelper::get(trailingslashit($url) . 'taxonomies');
 
             if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
                 return null;
@@ -194,7 +194,7 @@ class ResourcePostType
 
         foreach ($urls as $url) {
 
-            $typesFromApi = RestRequestHelper::getFromApi(trailingslashit($url) . 'types');
+            $typesFromApi = RestRequestHelper::get(trailingslashit($url) . 'types');
 
             if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
                 return null;

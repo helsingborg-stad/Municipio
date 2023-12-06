@@ -3,9 +3,9 @@
 namespace Municipio;
 
 use Municipio\Api\RestApiEndpointsRegistry;
-use Municipio\Content\ResourceFromApi\PostType\PostTypeRegistrar;
+use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
-use Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyRegistrar;
+use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
 
 /**
@@ -81,13 +81,13 @@ class App
 
         // Register post types from resources.
         foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-            $registrar = new PostTypeRegistrar($resource);
+            $registrar = new PostTypeFromResource($resource);
             $registrar->register();
         }
 
         // Register taxonomies from resources.
         foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
-            $registrar = new TaxonomyRegistrar($resource);
+            $registrar = new TaxonomyFromResource($resource);
             $registrar->register();
         }
         

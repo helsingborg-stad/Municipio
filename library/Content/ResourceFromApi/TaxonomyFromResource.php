@@ -1,8 +1,7 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi\Taxonomy;
+namespace Municipio\Content\ResourceFromApi;
 
-use Municipio\Content\ResourceFromApi\Resource;
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
 use WP_Taxonomy;
@@ -14,7 +13,7 @@ use WP_Taxonomy;
  *
  * @package Municipio\Content\ResourceFromApi\Taxonomy
  */
-class TaxonomyRegistrar implements TypeRegistrarInterface
+class TaxonomyFromResource implements TypeRegistrarInterface
 {
     private ResourceInterface $resource;
 
@@ -32,7 +31,7 @@ class TaxonomyRegistrar implements TypeRegistrarInterface
     private function getObjectType (): array
     {
         $arguments = $this->resource->getArguments();
-        
+
         if (isset($arguments['object_type']) && is_array($arguments['object_type'])) {
             return $arguments['object_type'];
         }

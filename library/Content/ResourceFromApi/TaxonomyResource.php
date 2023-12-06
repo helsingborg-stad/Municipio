@@ -23,7 +23,7 @@ class TaxonomyResource extends Resource
             return [];
         }
 
-        $termsFromApi = RestRequestHelper::getFromApi($url);
+        $termsFromApi = RestRequestHelper::get($url);
 
         if (is_wp_error($termsFromApi) || !is_array($termsFromApi)) {
             return [];
@@ -43,7 +43,7 @@ class TaxonomyResource extends Resource
             return [];
         }
 
-        $headers = RestRequestHelper::getHeadersFromApi($url);
+        $headers = RestRequestHelper::getHeaders($url);
 
         if (is_wp_error($headers) || !is_array($headers)) {
             return [];
@@ -60,7 +60,7 @@ class TaxonomyResource extends Resource
             return null;
         }
 
-        $termFromApi = RestRequestHelper::getFromApi($url);
+        $termFromApi = RestRequestHelper::get($url);
 
         if (is_wp_error($termFromApi) || !is_array($termFromApi)) {
             return null;
@@ -72,7 +72,7 @@ class TaxonomyResource extends Resource
     public function getMeta(int $id, string $metaKey, bool $single = true)
     {
         $url         = $this->getSingleUrl($id);
-        $termFromApi = RestRequestHelper::getFromApi($url);
+        $termFromApi = RestRequestHelper::get($url);
 
         if (isset($termFromApi->acf) && isset($termFromApi->acf->$metaKey)) {
             if (is_array($termFromApi->acf->$metaKey)) {

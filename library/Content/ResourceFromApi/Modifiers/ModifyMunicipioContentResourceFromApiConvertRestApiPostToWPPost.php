@@ -33,7 +33,7 @@ class ModifyMunicipioContentResourceFromApiConvertRestApiPostToWPPost
         }
 
         // Get parent post from API and convert to WP_Post. Then use the id from that WP_Post as the parent id for $wpPost.
-        $parentPostFromApi = RestRequestHelper::getFromApi($parentUrl);
+        $parentPostFromApi = RestRequestHelper::get($parentUrl);
         $parentId = $parentPostFromApi->id;
         $parentResource = null;
 

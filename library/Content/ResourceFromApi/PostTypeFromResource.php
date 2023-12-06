@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi\PostType;
+namespace Municipio\Content\ResourceFromApi;
 
 use Municipio\Content\ResourceFromApi\ResourceInterface;
 use Municipio\Content\ResourceFromApi\TypeRegistrarInterface;
@@ -13,7 +13,7 @@ use WP_Post_Type;
  *
  * @package Content\ResourceFromApi\PostType
  */
-class PostTypeRegistrar implements TypeRegistrarInterface
+class PostTypeFromResource implements TypeRegistrarInterface
 {
     private ResourceInterface $resource;
 

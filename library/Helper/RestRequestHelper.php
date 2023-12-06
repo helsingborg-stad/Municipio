@@ -8,7 +8,7 @@ class RestRequestHelper
      * @param string $apiUrl
      * @return array|object|\WP_Error
      */
-    public static function getFromApi(string $apiUrl)
+    public static function get(string $apiUrl)
     {
         try {
 
@@ -31,7 +31,7 @@ class RestRequestHelper
      * @param string $apiUrl
      * @return array|object|\WP_Error
      */
-    public static function getHeadersFromApi(string $apiUrl)
+    public static function getHeaders(string $apiUrl)
     {
         try {
             $response = wp_remote_get($apiUrl);

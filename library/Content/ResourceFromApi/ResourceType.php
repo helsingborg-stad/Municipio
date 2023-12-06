@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi;
 
-class ResourceType
+interface ResourceType
 {
     public const DEFAULT = 'resource';
     public const POST_TYPE = 'postType';

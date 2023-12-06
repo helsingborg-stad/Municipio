@@ -27,7 +27,7 @@ class PostTypeResource extends Resource
             return $foundInCache;
         }
 
-        $postsFromApi = RestRequestHelper::getFromApi($url);
+        $postsFromApi = RestRequestHelper::get($url);
 
         if (is_wp_error($postsFromApi) || !is_array($postsFromApi)) {
             return [];
@@ -51,7 +51,7 @@ class PostTypeResource extends Resource
             return [];
         }
 
-        $headers = RestRequestHelper::getHeadersFromApi($url);
+        $headers = RestRequestHelper::getHeaders($url);
 
         if (is_wp_error($headers) || !is_array($headers)) {
             return [];
@@ -81,7 +81,7 @@ class PostTypeResource extends Resource
             return null;
         }
 
-        $postFromApi = RestRequestHelper::getFromApi($url);
+        $postFromApi = RestRequestHelper::get($url);
 
         if (is_wp_error($postFromApi)) {
             return null;
