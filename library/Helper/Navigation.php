@@ -551,7 +551,7 @@ class Navigation
             self::$db->prepare("
                 SELECT post_id
                 FROM " . self::$db->postmeta . " AS pm 
-                JOIN " . self::$db->post . " AS p ON pm.post_id = p.ID
+                JOIN " . self::$db->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value = '1' 
                 AND post_status = 'publish'
@@ -597,7 +597,7 @@ class Navigation
             self::$db->prepare("
                 SELECT post_id, meta_value
                 FROM " . self::$db->postmeta . " as pm
-                JOIN " . self::$db->post . " AS p ON pm.post_id = p.ID
+                JOIN " . self::$db->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value != '',
                 AND post_status = 'publish'
