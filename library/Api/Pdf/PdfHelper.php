@@ -54,7 +54,10 @@ class PdfHelper
             $headingUrl = $this->createGoogleFontImport($heading['font-family']);
             $fontFacesString .= $this->buildFontFaces($headingUrl, $downloadedFontFiles);
         }
-
+        echo '<pre>' . print_r( $base, true ) . '</pre>';
+        echo '<pre>' . print_r( $fontFacesString, true ) . '</pre>';
+        echo '<pre>' . print_r( $heading, true ) . '</pre>';
+        die;
         return [
             'base' => $base,
             'heading' => $heading,
