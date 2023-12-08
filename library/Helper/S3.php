@@ -106,4 +106,16 @@ class S3
     {
         return strpos($path, 's3://') === 0;
     }
+
+    /**
+     * Check if we have some sort of s3 support
+     *
+     * @return bool
+     */
+    public function hasS3Support() {
+      if (!class_exists('\\Aws\\S3\\S3Client')) {
+        return false;
+      }
+      return true;
+    }
 }
