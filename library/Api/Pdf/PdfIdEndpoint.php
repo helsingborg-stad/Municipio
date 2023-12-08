@@ -48,12 +48,12 @@ class PdfIdEndpoint extends RestApiEndpoint
                 $pdf->renderView(
                     $posts,
                     $cover,
-                    (string) function () use ($posts) {
+                    (string)(function () use ($posts) {
                         if (!empty($posts[0]->postName)) {
                             return $posts[0]->postName;
                         }
                         return 'page-pdf';
-                    }
+                    })()
                 );
             }
             return new WP_REST_Response(null, 200);
