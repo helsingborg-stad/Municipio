@@ -35,7 +35,7 @@ class PdfGenerator
                     'data-js-pdf-generator' => $typeOfPage,
                 ],
                 'text' => __('Print', 'municipio'),
-                'label' => __('Print this page', 'municipio'),
+                'label' => __('Print this page', 'municipio')
             ];
         }
 
