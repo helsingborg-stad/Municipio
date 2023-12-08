@@ -79,7 +79,7 @@ class PdfIdEndpoint extends RestApiEndpoint
         $postTypes = [];
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
-                $id = absint(trim($id)); 
+                $id = trim($id); 
                 $post = get_post($id);
                 if (!empty($post->post_status) && $post->post_status == 'publish') {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
