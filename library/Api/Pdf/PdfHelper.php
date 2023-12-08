@@ -3,6 +3,7 @@
 namespace Municipio\Api\Pdf;
 
 use Municipio\Helper\Image;
+use Municipio\Helper\WoffConverter as WoffConverterHelper;
 
 class PdfHelper
 {    
@@ -21,7 +22,7 @@ class PdfHelper
             'post_type'      => 'attachment',
             'posts_per_page' => -1,
             'post_status'    => 'inherit',
-            'post_mime_type' => 'font/ttf'
+            'post_mime_type' => 'application/font-woff'
         );
         
         $customFonts = new \WP_Query($args);
@@ -32,11 +33,11 @@ class PdfHelper
             foreach ($customFonts->posts as $font) {
                 if (!empty($font->post_title)) {
                     if ($font->post_title == $heading['font-family']) {
-                        $heading['src'] = !empty($font->ID) ? wp_get_attachment_url( $font->ID ) : '';
+                        $heading['src'] = $this->convertWOFFToTTF($font->ID);
                     }
                     
                     if ($font->post_title == $base['font-family']) {
-                        $base['src'] = !empty($font->ID) ? wp_get_attachment_url( $font->ID ) : '';
+                        $base['src'] = $this->convertWOFFToTTF($font->ID);
                     } 
                 }
             }
@@ -47,17 +48,14 @@ class PdfHelper
                 
         if (empty($base['src']) && !empty($base['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
             $baseUrl = $this->createGoogleFontImport($base['font-family']);
-            $fontFacesString .= $this->buildFontfaces($baseUrl, $downloadedFontFiles);
+            $fontFacesString .= $this->buildFontFaces($baseUrl, $downloadedFontFiles);
         }
 
         if (empty($heading['src']) && !empty($heading['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
             $headingUrl = $this->createGoogleFontImport($heading['font-family']);
             $fontFacesString .= $this->buildFontFaces($headingUrl, $downloadedFontFiles);
         }
-        echo '<pre>' . print_r( $base, true ) . '</pre>';
-        echo '<pre>' . print_r( $fontFacesString, true ) . '</pre>';
-        echo '<pre>' . print_r( $heading, true ) . '</pre>';
-        die;
+
         return [
             'base' => $base,
             'heading' => $heading,
@@ -65,11 +63,24 @@ class PdfHelper
         ];
     }
 
+    private function convertWOFFToTTF($fontId) {
+        $fontFile = get_attached_file($fontId);
+        if (!empty($fontFile)) {
+            if (!empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile)) {
+                WoffConverterHelper::convert($fontFile, str_replace('.woff', '.ttf', $fontFile ));
+                return str_replace('.woff', '.ttf',wp_get_attachment_url( $fontId ));
+            }
+        }
+
+        return "";
+    }
+
     private function buildFontFaces ($url, $downloadedFontFiles) {
         $fontFacesString = "";
-        if (ini_get('allow_url_fopen')) {      
-            $response = wp_remote_get( $url, array( 'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8' ) );
 
+        if (ini_get('allow_url_fopen')) {     
+            $response = wp_remote_get( $url, array( 'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8' ) );
+            
             if ( is_wp_error( $response ) ) {
                 return [];
             }
@@ -80,9 +91,9 @@ class PdfHelper
                 foreach ($downloadedFontFiles as $key => $fontFile) {
                     $contents = str_replace($key, $fontFile, $contents);
                 }
-            
+
                 $fontFaces = explode('@font-face', $contents);
-            
+
                 foreach ($fontFaces as $fontFace) {
                     if (!preg_match('/fonts.gstatic/', $fontFace) && preg_match('/src:/', $fontFace)) {
                         $fontFacesString .= '@font-face ' . $fontFace;
