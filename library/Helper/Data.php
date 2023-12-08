@@ -12,19 +12,38 @@ class Data
      */
     public static function prepareStructuredData(array $structuredData = [])
     {
-        $schema = apply_filters('Municipio/StructuredData',$structuredData);
-
-        if (empty($schema)) {
+        if(empty($structuredData)) {
             return false;
         }
 
-        //Default common schema
-        $schema = array_merge(
-            ["@context" => "https://schema.org/"],
-            $schema
-        );
+        $structuredData = apply_filters('Municipio/StructuredData',$structuredData);
+        
+        foreach ($structuredData as $key => $value) {
+            if(empty($value)) {
+                unset($structuredData[$key]);
+            }
+        }
+        
+        if (empty($structuredData)) {
+            return false;
+        }
 
-        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+        $schema = [];
+        $schema["@context"] = "http://schema.org";
+
+        if(count($structuredData) > 1) {
+            $schema["@graph"] = [];        
+            foreach ($structuredData as $key => $properties) {
+                if(empty($properties)) {
+                    continue;
+                }
+                array_push($schema["@graph"], $properties);
+          }
+        } else  {
+            $schema = $structuredData;
+        }
+
+        return json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
     public static function isJson($string)
     {

@@ -31,11 +31,11 @@ class SingularContentType extends \Municipio\Controller\Singular
         $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         // $currentContentType = new $contentType();
-        $this->contentType->init();
+        $this->contentType->addHooks();
 
         if(!empty($this->contentType->secondaryContentType)) {
             foreach($this->contentType->secondaryContentType as $secondaryContentType) {
-                $secondaryContentType->init();
+                $secondaryContentType->addHooks();
             }
         }
 
@@ -131,19 +131,17 @@ class SingularContentType extends \Municipio\Controller\Singular
     }
 
     public function appendStructuredData()  {
-        
-        $structuredData = $this->contentType->getStructuredData($this->postId);
+                
+        $structuredData[] = $this->contentType->getStructuredData($this->postId);
 
-        // if(!empty($this->contentType->secondaryContentType)) {
-        //     foreach($this->contentType->secondaryContentType as $secondaryContentType) {
-        //         $structuredData = array_merge( 
-        //             $structuredData,
-        //             $secondaryContentType->getStructuredData($this->postId)
-        //         );
+        if(!empty($this->contentType->secondaryContentType)) {
+            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
+                $structuredData[] = $secondaryContentType->getStructuredData($this->postId);
 
-        //     }
-        // }
+            }
+        }
 
-        $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($structuredData ?? []);
+
+        $this->data['structuredData'] = \Municipio\Helper\Data::prepareStructuredData($structuredData ?? []);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\ContentType;
 
+use Municipio\Helper\ContentType as ContentTypeHelper;
+
 /**
  * Class Place
  *
@@ -23,14 +25,7 @@ class Place extends ContentTypeFactory
 
     }
 
-    public function init(): void
-    {  
-        $this->addHooks();
-    }
-
     public function addHooks(): void {
-        // Append structured data for schema.org markup
-        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
@@ -66,24 +61,12 @@ class Place extends ContentTypeFactory
         }
         return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
     }
-    /**
-    * Appends the structured data array (used for schema.org markup) with additional data
-    *
-    * @param array $structuredData The structured data to append location data to.
-    * @param int $postId The ID of the post to retrieve location data for.
-    *
-    * @return array The updated structured data.
-    *
-    */
-    public function appendStructuredData(int $postId): array
+    
+    public function getStructuredData(int $postId): array
     {
-        if (empty($postId)) {
-            return [];
-        }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        
-        $structuredData = ['location' => []];
+        $structuredData = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);

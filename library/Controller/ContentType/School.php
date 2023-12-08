@@ -3,7 +3,7 @@
 namespace Municipio\Controller\ContentType;
 
 use Municipio\Controller\ContentType\School\SchoolDataPreparer;
-use Municipio\Helper\ContentType as Helper;
+use Municipio\Helper\ContentType as ContentTypeHelper;
 
 /**
  * Class School
@@ -28,21 +28,9 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
     }
 
-    public function init(int $postId = 0): void
-    {
-
-        $this->addHooks();
-
-        // $this->data['structuredData'] = $this->appendStructuredData($postId);
-        // echo '<pre>' . print_r( $this, true ) . '</pre>';die;
-
-    }
-
     public function addHooks(): void
     {
         $dataPreparer = new SchoolDataPreparer();
-
-        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 1);
 
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
@@ -58,21 +46,22 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->secondaryContentType[] = $contentType;
     }
 
-    public function getStructuredData(int $postId)
+    public function getStructuredData(int $postId) : array
     {
 
         $structuredData = [
-            '@type' => 'School',
+            '@type'            => 'School',
+            'name'             => get_the_title($postId),
+            'description'      => get_the_excerpt($postId),
         ];
 
-        $properties = \Municipio\Helper\ContentType::getStructuredDataProperties([
-            'name',
-            'description', // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
+        $meta = [
             'numberOfStudents',
             'openingHours',
-            'slogan' // TODO Define which meta to use for this. Use the filter hook declared in Helper for this.
-        ], $postId);
+            'slogan' // TODO Define which meta to use for this.
+        ];
 
-        return \Municipio\Helper\ContentType::appendStructuredData($properties, $postId);
+        return ContentTypeHelper::getStructuredData($postId, $structuredData, $meta);
+        
     }
 }

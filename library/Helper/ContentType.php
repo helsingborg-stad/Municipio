@@ -64,15 +64,15 @@ class ContentType
         if (!$type) {
             $type = self::getCurrentType();
         }
-
-        $contentType = false;
-        $contentTypeStr = get_option("options_contentType_{$type}", false);
-
-        if ($contentTypeStr) {
-            $contentType = self::getContentTypeInstance($contentTypeStr);
+       
+        $contentTypeInstance = false;
+        $contentTypeKey = get_option("options_contentType_{$type}", false);
+        
+        if ($contentTypeKey) {
+            $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
         }
 
-        return apply_filters('Municipio/ContentType/getContentType', $contentType, $type);
+        return $contentTypeInstance;
     }
 
     /**
@@ -104,36 +104,39 @@ class ContentType
         string $contentTypeToCheckFor = '',
         string $typeToCheck = ''
     ): bool {
-        if ($contentType = self::getContentType($typeToCheck)) {
-            if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
+
+        $contentType = self::getContentType($typeToCheck);
+       
+        if ($contentType) {
+
+            if (true === self::isMainContentType($contentType, $contentTypeToCheckFor)) {
                 return true;
             }
-            if (self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
-                return true;
+            
+            if(!empty($contentType->secondaryContentType))  {
+                if (true === self::isSecondaryContentType((array) $contentType->secondaryContentType, $contentTypeToCheckFor)) {
+                    return true;
+                }
             }
+        }
+
+        return false;
+    }
+
+    private static function isMainContentType(object $contentType, string $contentTypeToCheckFor): bool
+    {   
+        if ($contentTypeToCheckFor === $contentType->getKey()) {
+            return true;
         }
         return false;
     }
 
-    private static function checkMainContentType(array $contentType, string $contentTypeToCheckFor): bool
+    private static function isSecondaryContentType(array $secondaryContentTypes, string $contentTypeToCheckFor): bool
     {
-        foreach ($contentType as $item) {
-            if(!is_object($item) || empty($item->key)) {
-                continue;
-            }
-            if ($contentTypeToCheckFor === $item->key) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static function checkSecondaryContentType(array $contentType, string $contentTypeToCheckFor): bool
-    {
-        foreach ($contentType as $item) {
+        foreach ($secondaryContentTypes as $item) {
             if (!empty($item->secondaryContentType)) {
                 foreach ($item->secondaryContentType as $secondaryContentType) {
-                    if ($contentTypeToCheckFor === $secondaryContentType->key) {
+                    if ($contentTypeToCheckFor === $secondaryContentType->getKey()) {
                         return true;
                     }
                 }
@@ -231,5 +234,16 @@ class ContentType
         }
         return true;
     }
-    
+    public static function getStructuredData(int $postId, array $structuredData = [], array $meta = []) : array {
+        
+        foreach ($meta as $key) {
+          
+            $structuredData[$key] = \Municipio\Helper\WP::getField($key, $postId);
+
+            if(empty($structuredData[$key])) {
+                unset($structuredData[$key]);
+            }
+        }
+        return $structuredData;
+    }
 }

@@ -209,7 +209,7 @@ class BaseController
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
-        $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData();
+        $this->data['structuredData'] = \Municipio\Helper\Data::prepareStructuredData([]);
         //Notice storage
         $this->data['notice']               = [];
 

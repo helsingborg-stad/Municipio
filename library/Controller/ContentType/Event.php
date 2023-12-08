@@ -26,15 +26,9 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->addSecondaryContentType(new Place());
 
     }
-    public function init(): void
+    public function addHooks() : void 
     {
-        $this->addHooks();
-    }
-
-    public function addHooks(): void {
-
-        // Append structured data to use for schema.org markup
-        // add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
+        
     }
     /**
      * addSecondaryContentType
@@ -58,20 +52,17 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The updated structured data.
      */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function getStructuredData(int $postId): array
     {
-        if (empty($postId)) {
-            return $structuredData;
-        }
 
         $post = \Municipio\Helper\Post::preparePostObject(get_post($postId));
 
        // Build the schema.org event data
         $eventData = [
-        '@type'       => 'Event',
-        'name'        => $post->postTitle,
-        'description' => $post->postExcerpt,
-        'offers'      => [],
+            '@type'       => 'Event',
+            'name'        => $post->postTitle,
+            'description' => $post->postExcerpt,
+            'offers'      => [],
         ];
 
         $eventMeta = get_post_meta($postId);
@@ -132,7 +123,11 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
             }
         }
 
+        if(empty($eventData['offers'])) {
+            unset($eventData['offers']);
+        }
        // Append the event data to the structured data
-        return array_merge($eventData, $structuredData);
+        return $eventData;
     }
+
 }
