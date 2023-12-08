@@ -6,6 +6,7 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use WP_Post;
 
 class PdfIdEndpoint extends RestApiEndpoint
 {
@@ -60,7 +61,7 @@ class PdfIdEndpoint extends RestApiEndpoint
     
         return new WP_REST_Response(
             null,
-            404,
+            303,
             [
                 'Location' => site_url( '/404' ),
             ]
@@ -74,14 +75,14 @@ class PdfIdEndpoint extends RestApiEndpoint
      *
      * @return array Array containing posts and associated post types.
      */
-    private function getPostsById(array $ids) {
+    private function getPostsById(array $ids): array {
         $posts = [];
         $postTypes = [];
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
                 $id = trim($id); 
                 $post = get_post($id);
-                if (!empty($post->post_status) && $post->post_status == 'publish') {
+                if ($this->shouldRenderPost($post)) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
@@ -91,5 +92,41 @@ class PdfIdEndpoint extends RestApiEndpoint
             }
         }
         return [$posts, $postTypes];
+    }
+
+    /**
+     * Check if a post should be rendered.
+     *
+     * @param WP_Post $post WordPress post object.
+     * @return bool Whether the post should be rendered.
+     */
+    private function shouldRenderPost(WP_Post $post): bool {
+
+        if(empty($post->post_status)) {
+            return false;
+        }
+
+        if(empty($post->post_type)) {
+            return false;
+        }
+
+        if($post->post_status == 'publish' && $this->isPublicPostType($post->post_type)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** Check if a post type is public.
+     *
+     * @param string $postType Post type to check.
+     * @return bool Whether the post type is public.
+     */
+    private function isPublicPostType($postType): bool {
+        $publicPostTypes = get_post_types(['public' => true]);
+        if(in_array($postType, $publicPostTypes)) {
+            return true;
+        }
+        return false;
     }
 }
