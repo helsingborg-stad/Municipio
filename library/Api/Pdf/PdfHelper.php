@@ -66,7 +66,7 @@ class PdfHelper
     private function convertWOFFToTTF($fontId) {
         $fontFile = get_attached_file($fontId);
         if (!empty($fontFile)) {
-            if (!empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile)) {
+            if (!empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff') {
                 WoffConverterHelper::convert($fontFile, str_replace('.woff', '.ttf', $fontFile ));
                 return str_replace('.woff', '.ttf',wp_get_attachment_url( $fontId ));
             }
@@ -84,7 +84,7 @@ class PdfHelper
             if ( is_wp_error( $response ) ) {
                 return [];
             }
-            
+
             $contents = wp_remote_retrieve_body( $response );
             
             if (!empty($contents) && is_string($contents)) {
