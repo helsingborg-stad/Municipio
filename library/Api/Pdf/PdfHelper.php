@@ -32,11 +32,11 @@ class PdfHelper
         if (!empty($customFonts->posts) && (!empty($heading['font-family']) || $base['font-family']) && is_array($customFonts->posts)) {
             foreach ($customFonts->posts as $font) {
                 if (!empty($font->post_title)) {
-                    if ($font->post_title == $heading['font-family']) {
+                    if (!empty($heading['font-family']) && $font->post_title == $heading['font-family']) {
                         $heading['src'] = $this->convertWOFFToTTF($font->ID);
                     }
                     
-                    if ($font->post_title == $base['font-family']) {
+                    if (!empty($base['font-family']) && $font->post_title == $base['font-family']) {
                         $base['src'] = $this->convertWOFFToTTF($font->ID);
                     } 
                 }
