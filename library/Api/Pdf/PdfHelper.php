@@ -4,6 +4,7 @@ namespace Municipio\Api\Pdf;
 
 use Municipio\Helper\Image;
 use Municipio\Helper\WoffConverter as WoffConverterHelper;
+use Municipio\Helper\S3 as S3Helper;
 
 class PdfHelper
 {    
@@ -64,15 +65,61 @@ class PdfHelper
     }
 
     private function convertWOFFToTTF($fontId) {
-        $fontFile = get_attached_file($fontId);
-        if (!empty($fontFile)) {
-            if (!empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff') {
-                WoffConverterHelper::convert($fontFile, str_replace('.woff', '.ttf', $fontFile ));
-                return str_replace('.woff', '.ttf',wp_get_attachment_url( $fontId ));
+        $woffFontFile = get_attached_file($fontId);
+        
+        if ($this->isValidWoffFontFile($woffFontFile)) {
+            if (S3Helper::isS3Path($woffFontFile)) {
+
+                $ttfFontFile = $this->createVariantName(
+                    $woffFontFile,
+                    "ttf"
+                );
+
+                if ($s3TtfKey = S3Helper::objectExistsOnS3($ttfFontFile)) {
+                    return $s3TtfKey;
+                }
+    
+                // Download the file from S3 to a temporary local file
+                $tempLocalFile = tempnam(sys_get_temp_dir(), 'woff_download_');
+                S3Helper::downloadFromS3(
+                    $woffFontFile, 
+                    $tempLocalFile
+                );
+    
+                // Convert the local WOFF file to TTF
+                $localTtfFile = $this->convertLocalWoffToTtf($tempLocalFile);
+    
+                // Upload the TTF file to S3
+                S3Helper::uploadToS3($localTtfFile, $ttfFontFile);
+    
+
+                unlink($tempLocalFile);
+    
+                return $ttfFontFile;
+            } else {
+                return $this->convertLocalWoffToTtf($woffFontFile);
             }
         }
-
+    
         return "";
+    }
+    
+    private function convertLocalWoffToTtf($woffFontFile) {
+        WoffConverterHelper::convert(
+            $woffFontFile, 
+            $this->createVariantName($woffFontFile, "ttf")
+        );
+        return $this->createVariantName($woffFontFile, "ttf"); 
+    }
+
+    private function isValidWoffFontFile($fontFile) {
+        return !empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff';
+    }
+
+    private function createVariantName($fileName, $targetSuffix) {
+        $pathInfo = pathinfo($fileName);
+        $newFileName = $pathInfo['filename'] . '.' . $targetSuffix;
+        return $newFileName;
     }
 
     private function buildFontFaces ($url, $downloadedFontFiles) {
