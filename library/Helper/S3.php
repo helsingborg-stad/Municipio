@@ -48,11 +48,11 @@ class S3
                 'Bucket' => S3_UPLOADS_BUCKET,
                 'Key' => $key,
             ]);
-
             return true;
         } catch (S3Exception $e) {
-            return false;
+          self::bail("Error to check for object: " . $e->getMessage());
         }
+        return false;
     }
 
     /**
@@ -61,18 +61,20 @@ class S3
      * @param string $filePath Local file path
      * @param string $s3Key    S3 object key
      */
-    public static function uploadToS3($filePath, $s3Key)
+    public static function uploadToS3($localFilePath, $s3Key)
     {
         try {
             $s3 = self::getS3Client();
             $s3->putObject([
                 'Bucket' => S3_UPLOADS_BUCKET,
                 'Key' => $s3Key,
-                'SourceFile' => $filePath,
+                'SourceFile' => $localFilePath,
             ]);
+            return $localFilePath;
         } catch (S3Exception $e) {
             self::bail("Error uploading file to S3: " . $e->getMessage());
         }
+        return false;
     }
 
     /**
@@ -80,8 +82,10 @@ class S3
      *
      * @param string $s3Key       S3 object key
      * @param string $localPath   Local file path
+     * 
+     * @return string|bool        The filepath to the downloaded file or false
      */
-    public static function downloadFromS3($s3Key, $localPath)
+    public static function downloadFromS3($s3Key, $localFilePath)
     {
         try {
             $s3 = self::getS3Client();
@@ -90,10 +94,12 @@ class S3
                 'Key' => $s3Key,
             ]);
 
-            file_put_contents($localPath, $result['Body']);
+            file_put_contents($localFilePath, $result['Body']);
+            return $localFilePath;
         } catch (S3Exception $e) {
             self::bail("Error downloading file from S3: " . $e->getMessage());
         }
+        return false; 
     }
 
     /**
@@ -118,4 +124,26 @@ class S3
       }
       return true;
     }
+
+    /**
+     * Log an error message, display it to the user, and exit the script.
+     *
+     * @param string $errorMessage The error message to log and display.
+     * @return void
+     */
+    public static function bail($errorMessage, $exit = false) {
+      // You can customize this function based on your needs.
+      // For example, you might want to log the error, display a message to the user, or exit the script.
+
+      // Log the error (optional)
+      error_log($errorMessage);
+
+      // Display an error message to the user (optional)
+      echo $errorMessage;
+
+      // Exit the script with an error code
+      if($exit == true) {
+        exit(1);
+      }
+  }
 }
