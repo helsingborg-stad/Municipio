@@ -84,23 +84,26 @@ class PdfHelper
                     "ttf"
                 );
 
-                if ($s3TtfKey = S3Helper::objectExistsOnS3($ttfFontFile)) {
-                    return $s3TtfKey;
+                if (S3Helper::objectExistsOnS3($ttfFontFile)) {
+                    return $ttfFontFile;
                 }
     
-                // Download the file from S3 to a temporary local file
+                // Create local temp file
                 $tempLocalFile = tempnam(sys_get_temp_dir(), 'woff_download_');
+                
+                //Download
                 S3Helper::downloadFromS3(
                     $woffFontFile, 
                     $tempLocalFile
                 );
+
+                //Convert and upload
+                S3Helper::uploadToS3(
+                    $this->convertLocalWoffToTtf($tempLocalFile), 
+                    $ttfFontFile
+                );
     
-                // Convert the local WOFF file to TTF
-                $localTtfFile = $this->convertLocalWoffToTtf($tempLocalFile);
-    
-                // Upload the TTF file to S3
-                S3Helper::uploadToS3($localTtfFile, $ttfFontFile);
-    
+                //Remove local temp file
                 unlink($tempLocalFile);
     
                 return $ttfFontFile;
