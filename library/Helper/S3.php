@@ -123,7 +123,7 @@ class S3
    *
    * @return bool
    */
-  public function hasS3Support() {
+  public static function hasS3Support() {
     if (!class_exists('\\Aws\\S3\\S3Client')) {
       return false;
     }
