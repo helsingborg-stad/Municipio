@@ -154,7 +154,7 @@ class PdfHelper
      */
     private function createVariantName($fileName, $targetSuffix) {
         $pathInfo = pathinfo($fileName);
-        $newFileName = $pathInfo['filename'] . '.' . $targetSuffix;
+        $newFileName = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $targetSuffix;
         return $newFileName;
     }
 
