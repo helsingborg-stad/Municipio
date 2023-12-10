@@ -40,15 +40,16 @@ class S3
    * @param string $key S3 object key
    * @return bool
    */
-  public static function objectExistsOnS3($key)
+  public static function objectExistsOnS3($s3key)
   {
+    $s3Key = self::sanitizeS3Key($s3Key); 
     try {
       $s3 = self::getS3Client();
       $s3->headObject([
           'Bucket' => S3_UPLOADS_BUCKET,
-          'Key' => $key,
+          'Key' => $s3key,
       ]);
-      return true;
+      return self::restoreS3Key($s3Key);
     } catch (S3Exception $e) {
       self::bail("Error to check for object: " . $e->getMessage());
     }
@@ -63,6 +64,8 @@ class S3
    */
   public static function uploadToS3($localFilePath, $s3Key)
   {
+    $s3Key = self::sanitizeS3Key($s3Key); 
+
     try {
       $s3 = self::getS3Client();
       $s3->putObject([
@@ -70,7 +73,7 @@ class S3
           'Key' => $s3Key,
           'SourceFile' => $localFilePath,
       ]);
-      return $localFilePath;
+      return self::restoreS3Key($s3Key);
     } catch (S3Exception $e) {
       self::bail("Error uploading file to S3: " . $e->getMessage());
     }
@@ -87,6 +90,8 @@ class S3
    */
   public static function downloadFromS3($s3Key, $localFilePath)
   {
+    $s3Key = self::sanitizeS3Key($s3Key); 
+
     try {
       $s3 = self::getS3Client();
       $result = $s3->getObject([
@@ -137,5 +142,27 @@ class S3
     if($exit == true) {
       exit(1);
     }
+  }
+
+  /**
+   * Sanitize an S3 key by removing the 's3://[BUCKET_NAME]/' prefix.
+   *
+   * @param string $key S3 object key
+   * @return string The sanitized S3 object key
+   */
+  public static function sanitizeS3Key($key)
+  {
+    return str_replace("s3://" . S3_UPLOADS_BUCKET . "/", '', $key);
+  }
+
+  /**
+   * Restore an S3 key by adding the 's3://[BUCKET_NAME]/' prefix.
+   *
+   * @param string $sanitizedKey The sanitized S3 object key
+   * @return string The restored S3 object key
+   */
+  public static function restoreS3Key($sanitizedKey)
+  {
+    return "s3://" . S3_UPLOADS_BUCKET . "/" . $sanitizedKey;
   }
 }
