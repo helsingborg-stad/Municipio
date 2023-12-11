@@ -100,7 +100,7 @@ class PdfIdEndpoint extends RestApiEndpoint
      * @param WP_Post $post WordPress post object.
      * @return bool Whether the post should be rendered.
      */
-    private function shouldRenderPost(WP_Post $post): bool {
+    private function shouldRenderPost($post): bool {
 
         if(empty($post->post_status)) {
             return false;
