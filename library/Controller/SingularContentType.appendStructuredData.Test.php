@@ -49,7 +49,7 @@ class SingularContentTypeAppendStructuredDataTest extends TestCase
         $this->assertContains('bar', json_decode($result));
     }
 
-    private function getContentTypeMock(string $strucuredData)
+    private function getContentTypeMock($strucuredData)
     {
         return Mockery::mock(\stdClass::class)
             ->shouldReceive('getStructuredData')
