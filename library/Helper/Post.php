@@ -248,7 +248,7 @@ class Post
      * @param  WP_Post $postObject The post object
      * @return string              The filtered content
      */
-    private static function getFilteredContent(WP_Post $postObject): string
+    public static function getFilteredContent(object $postObject): string
     {
         //Parse lead
         $parts = explode("<!--more-->", $postObject->post_content);
@@ -261,7 +261,7 @@ class Post
                 $part = str_replace('<!-- /wp:more -->', '', $part);
             }
 
-            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(array_shift($parts)));
+            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(self::removeEmptyPTag(array_shift($parts))));
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
         } else {
             $excerpt = "";
@@ -274,6 +274,7 @@ class Post
         }
 
         // Apply the_content
+        $excerpt = apply_filters('the_content', $excerpt);
         $content = apply_filters('the_content', $content);
 
         if ($postObject->hasQuicklinksAfterFirstBlock) {
