@@ -40,14 +40,14 @@ class S3
    * @param string $key S3 object key
    * @return bool
    */
-  public static function objectExistsOnS3($s3key)
+  public static function objectExistsOnS3($s3Key)
   {
     $s3Key = self::sanitizeS3Key($s3Key); 
     try {
       $s3 = self::getS3Client();
       $s3->headObject([
           'Bucket' => S3_UPLOADS_BUCKET,
-          'Key' => $s3key,
+          'Key' => $s3Key,
       ]);
       return self::restoreS3Key($s3Key);
     } catch (S3Exception $e) {
