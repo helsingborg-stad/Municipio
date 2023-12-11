@@ -547,7 +547,6 @@ class Archive extends \Municipio\Controller\BaseController
     protected function getArchiveItems(array $posts): array
     {
         $preparedPosts = [];
-
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
                 $post                   = \Municipio\Helper\Post::preparePostObject($post);

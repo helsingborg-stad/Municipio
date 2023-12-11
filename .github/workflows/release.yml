@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -20,3 +20,107 @@ jobs:
       with:
         php-version: 8.2
         node-version: 20.6.0
+  build-assets:
+    needs: ['release']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest release version
+        id: get-version
+        run: |
+          echo "LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Inject access token in .npmrc
+        run: | 
+          echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+      - name: Run CI
+        if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') != '' }}
+        run: npm ci --no-progress --no-audit
+      - name: Run install
+        if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') == '' }}
+        run: npm install --no-progress --no-audit
+      - name: Run build
+        if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') == '' }}
+        run: npx --yes browserslist@latest --update-db && npm run build
+      - name: Run gulp
+        if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') != '' }}
+        run: gulp
+      - name: Create assets zip
+        uses: thedoctor0/zip-release@0.7.5
+        if: ${{ hashFiles('dist/') != '' }}
+        with:
+          type: zip
+          filename: '../assets.zip'
+          directory: dist
+          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
+      - name: Upload Assets
+        uses: helsingborg-stad/upload-artifact@1.0.0
+        if: ${{ hashFiles('assets.zip') != '' }}
+        with:
+          artifact: "assets.zip"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          release: ${{ env.LATEST_RELEASE }}
+          repo: ${{ github.repository }}
+          artifact_mime_type: application/zip
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        if: ${{ hashFiles('composer.json') != '' }}
+        with:
+          tools: composer
+          php-version: '7.4'
+      
+      - name: Build PHP
+        if: ${{ hashFiles('composer.json') != '' }}
+        run: |
+          composer install --prefer-dist --no-progress --no-dev
+          composer dump-autoload
+
+      - name: Process removables
+        run: |
+          removables=('.git'
+            '.gitignore'
+            '.github'
+            '.gitattributes'
+            'build.php'
+            '.npmrc'
+            'composer.json'
+            'composer.lock'
+            'env-example'
+            'webpack.config.js'
+            'package-lock.json'
+            'package.json'
+            'phpunit.xml.dist'
+            'README.md'
+            'gulpfile.js'
+            './node_modules/'
+            './source/sass/'
+            './source/js/'
+            'LICENSE'
+            'babel.config.js'
+            'yarn.lock'
+          )
+          for item in ${removables[@]}; do rm -rf $item; done;
+
+      - name: Create release zip
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+          type: zip
+          filename: 'release.zip'
+          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
+      
+      - name: Upload release
+        uses: helsingborg-stad/upload-artifact@1.0.0
+        with:
+          artifact: "release.zip"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          release: ${{ env.LATEST_RELEASE }}
+          repo: ${{ github.repository }}
+          artifact_mime_type: application/zip

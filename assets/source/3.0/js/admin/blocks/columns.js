@@ -1,5 +1,4 @@
 wp.domReady(() => {
-
   //Remove assymetric grids
   wp.blocks.unregisterBlockVariation('core/columns', 'three-columns-wider-center');
 

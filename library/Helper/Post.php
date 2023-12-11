@@ -7,6 +7,10 @@ use Municipio\Helper\Image;
 
 class Post
 {
+
+    //Stores cache in runtime
+    private static $runtimeCache = [];
+
     /**
      * Prepare post object before sending to view
      * Appends useful variables for views (Singular).
@@ -416,15 +420,23 @@ class Post
      * @param  string $posttype The posttype
      * @return array            Meta keys as array
      */
-    public static function getPosttypeMetaKeys($posttype)
+    public static function getPosttypeMetaKeys($postType)
     {
+        if(!isset(self::$runtimeCache['getPostTypeMetaKeys'])) {
+            self::$runtimeCache['getPostTypeMetaKeys'] = [];
+        }
+
+        if(isset(self::$runtimeCache['getPostTypeMetaKeys'][$postType])) {
+            return self::$runtimeCache['getPostTypeMetaKeys'][$postType]; 
+        }
+
         global $wpdb;
         $metaKeys = $wpdb->get_col("
             SELECT DISTINCT {$wpdb->postmeta}.meta_key
             FROM {$wpdb->postmeta}
             LEFT JOIN {$wpdb->posts} ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
             WHERE
-            {$wpdb->posts}.post_type = '$posttype'
+            {$wpdb->posts}.post_type = '$postType'
             LIMIT 50
         ");
 
@@ -436,7 +448,7 @@ class Post
             return true;
         });
 
-        return $metaKeys;
+        return self::$runtimeCache['getPostTypeMetaKeys'][$postType] = $metaKeys;
     }
 
     /**
