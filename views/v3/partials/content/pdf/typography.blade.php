@@ -1,8 +1,5 @@
 <style type="text/css">
     /*<![CDATA[*/
-    @if (!empty($fonts['localGoogleFonts']))
-        {!! $fonts['localGoogleFonts'] !!}
-    @endif
     @if(!empty($fonts['heading']['src']))
             @font-face {
                 font-family: {!! $fonts['heading']['font-family'] !!};
@@ -34,12 +31,12 @@
     section:not(.pdf-toc),
     p,
     .pdf-frontpage__introduction {
-        font-family: {!!$fonts['base']['font-family']!!};
+        font-family: {!!$fonts['base']['font-family']!!}, sans-serif;
         font-weight: {!! $fonts['base']['variant']!!};
     }
 
     .lead {
-        font-weight: bold;
+        font-weight: bold !important;
     }
 
     h1,

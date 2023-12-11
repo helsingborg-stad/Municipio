@@ -26,15 +26,15 @@ class PdfHelper
         );
         
         $customFonts = new \WP_Query($args);
-        $heading = $styles['typography_heading'];
-        $base = $styles['typography_base'];
-        
+
+  
+        [$heading, $base] = $this->handleFontVariant($styles);
+
         if (!empty($customFonts->posts) && (!empty($heading['font-family']) || $base['font-family']) && is_array($customFonts->posts)) {
             foreach ($customFonts->posts as $font) {
                 if (!empty($font->post_title)) {
                     if (!empty($heading['font-family']) && $font->post_title == $heading['font-family']) {
                         $heading['src'] = $this->convertWOFFToTTF($font->ID);
-                        $heading['variant'] = !empty($heading['variant']) && $heading['variant'] != 'regular' ? $heading['variant'] : '700';
                     }
                     
                     if (!empty($base['font-family']) && $font->post_title == $base['font-family']) {
@@ -45,32 +45,40 @@ class PdfHelper
             }
         }
 
-        //Convert all google fonts to ttf
-        $downloadedFontFiles = get_option('kirki_downloaded_font_files');
-        if(!empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
-            foreach($downloadedFontFiles as &$woffFontFile) {
-                if ($this->isValidWoffFontFile($woffFontFile)) {
-                    $woffFontFile = $this->convertLocalWoffToTtf($woffFontFile);
-                }
-            }
-        }
-
-        $fontFacesString = "";
-        if (empty($base['src']) && !empty($base['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
-            $baseUrl = $this->createGoogleFontImport($base['font-family']);
-            $fontFacesString .= $this->buildFontFaces($baseUrl, $downloadedFontFiles);
-        }
-
-        if (empty($heading['src']) && !empty($heading['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
-            $headingUrl = $this->createGoogleFontImport($heading['font-family']);
-            $fontFacesString .= $this->buildFontFaces($headingUrl, $downloadedFontFiles);
-        }
-
         return [
             'base' => $base,
             'heading' => $heading,
-            'localGoogleFonts' => $fontFacesString,
         ];
+    }
+
+    private function handleFontVariant($styles) {
+        $heading = array_merge(
+            [
+                'font-family' => '',
+                'variant' => '700',
+                'src' => '',
+            ], 
+            $styles['typography_heading'] ?? []
+        );
+
+        $base = array_merge(
+            [
+                'font-family' => '',
+                'variant' => '400',
+                'src' => ''
+            ], 
+            $styles['typography_base'] ?? []
+        );
+        
+        foreach ([&$heading, &$base] as $index => &$font) {
+           $font['variant'] = intval($font['variant']);
+            
+           if (empty($font['variant'])) {
+                $font['variant'] = $index == 0 ? '700' : '400';
+           }
+        }
+        
+        return [$heading, $base];
     }
 
     /**
@@ -173,50 +181,6 @@ class PdfHelper
         $pathInfo = pathinfo($fileName);
         $newFileName = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $targetSuffix;
         return $newFileName;
-    }
-
-    private function buildFontFaces ($url, $downloadedFontFiles) {
-        $fontFacesString = "";
-
-        if (ini_get('allow_url_fopen')) {     
-            $response = wp_remote_get( $url, array( 'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8' ) );
-            
-            if ( is_wp_error( $response ) ) {
-                return [];
-            }
-
-            $contents = wp_remote_retrieve_body( $response );
-            
-            if (!empty($contents) && is_string($contents)) {
-                foreach ($downloadedFontFiles as $key => $fontFile) {
-                    $contents = str_replace($key, $fontFile, $contents);
-                    $contents = str_replace(rtrim(WP_CONTENT_DIR, "/"), content_url(), $contents);
-                }
-
-                $fontFaces = explode('@font-face', $contents);
-                if(!empty($fontFaces) && is_array($fontFaces)) {
-                   foreach ($fontFaces as $fontFace) {
-                        if (!preg_match('/fonts.gstatic/', $fontFace) && preg_match('/src:/', $fontFace)) {
-                            $fontFacesString .= '@font-face ' . $fontFace;
-                        }
-                    } 
-                }
-                
-            }
-            
-            return str_replace("format('woff')", "format('truetype')", $fontFacesString);
-        }
-    }
- 
-    /**
-     * Creates a Google Font import URL.
-     *
-     * @param string $fontFamily Font family name.
-     *
-     * @return string Google Font import URL.
-     */
-    private function createGoogleFontImport($fontFamily) {
-        return 'https://fonts.googleapis.com/css?family=' . urlencode($fontFamily) . ':100,300,400,500,600,700,800,900&display=swap';
     }
 
     /**
