@@ -23,14 +23,14 @@ class PdfGenerator
      *
      * @return array Modified accessibility items.
      */
-    public function replacePrintWithPdf($items) {
-        $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
-        if (!empty($replacePrintWithPdf) && $typeOfPage = $this->typeOfPage()) {
+    public function replacePrintWithPdf($items)
+    {
+        if ($this->shouldReplacePrintWithPdf()) {
             $items['print'] = [
                 'icon' => 'print',
                 'href' => '#',
                 'attributeList' => [
-                    'data-js-pdf-generator' => $typeOfPage,
+                    'data-js-pdf-generator' => $this->typeOfPage(),
                 ],
                 'text' => __('Print', 'municipio'),
                 'label' => __('Print this page', 'municipio')
@@ -38,6 +38,23 @@ class PdfGenerator
         }
 
         return $items;
+    }
+
+    /**
+     * Determines whether the default Print should be replaced with PDF generator.
+     *
+     * @return bool Whether the default Print should be replaced with PDF generator.
+     */
+    private function shouldReplacePrintWithPdf(): bool
+    {
+        $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
+        $keepOriginalPrintForPostTypes = get_field('field_pdf_keep_regular_print', 'option');
+        $typeOfPage = $this->typeOfPage();
+
+        return
+            !empty($replacePrintWithPdf) &&
+            !in_array(get_post_type(), $keepOriginalPrintForPostTypes) &&
+            $typeOfPage !== false;
     }
 
     /**
@@ -88,6 +105,26 @@ class PdfGenerator
                         'ui_on_text' => '',
                         'ui_off_text' => '',
                         'ui' => 1,
+                    ],
+                    [
+                        'key' => 'field_pdf_keep_regular_print',
+                        'label' => __('Do not use PDF generator on following post types.', 'modularity'),
+                        'name' => 'pdf_keep_regular_print',
+                        'type' => 'checkbox',
+                        'instructions' => __('Checked post types will not use the PDF generator and will use the built in print function instead.', 'municipio'),
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'choices' => $this->postTypesToChoices($postTypes),
+                        'return_format' => 'value',
+                        'allow_custom' => 0,
+                        'layout' => 'horizontal',
+                        'toggle' => 0,
+                        'save_custom' => 0,
                     ]
                 ],
                 'location' => array(
@@ -206,6 +243,25 @@ class PdfGenerator
             'acfe_note' => '',
         ));
         }
+    }
+
+    /**
+     * Generates an array of post type choices based on provided post types.
+     *
+     * @param array $postTypes An array of post type objects.
+     *
+     * @return array Associative array where keys are post type names and values are post type labels.
+     */
+    private function postTypesToChoices($postTypes) {
+        $choices = [];
+
+        foreach ($postTypes as $postType) {
+            if (!empty($postType->name) && !empty($postType->label) && $this->excludedPostTypes($postType->name)) {
+                $choices[$postType->name] = $postType->label;
+            }
+        }
+
+        return $choices;
     }
 
     /**
