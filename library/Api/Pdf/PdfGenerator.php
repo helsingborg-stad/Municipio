@@ -63,7 +63,9 @@ class PdfGenerator
      * @return string|false Page type or false if unknown.
      */
     private function typeOfPage() {
-        if (is_single() || is_page()) {
+        $isSinglePageForPostType = get_option('page_for_' . get_post_type() . '_content');
+
+        if (is_single() || is_page() || (!empty($isSinglePageForPostType) && $isSinglePageForPostType == 'on')) {
             return 'single';
         }
 
