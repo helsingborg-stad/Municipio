@@ -4,11 +4,11 @@ namespace Municipio\Api\Pdf;
 
 use Municipio\Helper\Image;
 use Municipio\Helper\WoffConverter as WoffConverterHelper;
+use Municipio\Helper\S3 as S3Helper;
 
 class PdfHelper
 {    
     private $defaultPrefix = 'default';
-
 
     /**
      * Retrieves font information for heading and base styles.
@@ -63,16 +63,102 @@ class PdfHelper
         ];
     }
 
+    /**
+     * Converts a WOFF font file to TTF format.
+     *
+     * This function takes a font ID, retrieves the WOFF font file path, and performs the conversion
+     * to TTF format. If S3 support is available and the file is on S3, it handles download,
+     * conversion, and upload operations. If the file is local, it directly converts it to TTF.
+     *
+     * @param int $fontId The font ID to convert.
+     * @return string The path or S3 key of the converted TTF font file, or an empty string if unsuccessful.
+     */
     private function convertWOFFToTTF($fontId) {
-        $fontFile = get_attached_file($fontId);
-        if (!empty($fontFile)) {
-            if (!empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff') {
-                WoffConverterHelper::convert($fontFile, str_replace('.woff', '.ttf', $fontFile ));
-                return str_replace('.woff', '.ttf',wp_get_attachment_url( $fontId ));
+        $woffFontFile = get_attached_file($fontId);
+        
+        if ($this->isValidWoffFontFile($woffFontFile)) {
+            if (S3Helper::hasS3Support() && S3Helper::isS3Path($woffFontFile)) {
+
+                $ttfFontFile = $this->createVariantName(
+                    $woffFontFile,
+                    "ttf"
+                );
+
+                if (S3Helper::objectExistsOnS3($ttfFontFile)) {
+                    return $ttfFontFile;
+                }
+    
+                // Create local temp file
+                $tempLocalFile = tempnam(sys_get_temp_dir(), 'woff_download_');
+                
+                //Download
+                S3Helper::downloadFromS3(
+                    $woffFontFile, 
+                    $tempLocalFile
+                );
+
+                //Convert and upload
+                S3Helper::uploadToS3(
+                    $this->convertLocalWoffToTtf($tempLocalFile), 
+                    $ttfFontFile
+                );
+    
+                //Remove local temp file
+                unlink($tempLocalFile);
+    
+                return $ttfFontFile;
+            } else {
+                return $this->convertLocalWoffToTtf($woffFontFile);
             }
         }
-
+    
         return "";
+    }
+    
+    /**
+     * Converts a local WOFF font file to TTF format.
+     *
+     * This function utilizes the WoffConverterHelper to perform the conversion
+     * and generates a TTF variant name using the createVariantName method.
+     *
+     * @param string $woffFontFile The path to the local WOFF font file.
+     * @return string The path to the converted TTF font file.
+     */
+    private function convertLocalWoffToTtf($woffFontFile) {
+        WoffConverterHelper::convert(
+            $woffFontFile, 
+            $this->createVariantName($woffFontFile, "ttf")
+        );
+        return $this->createVariantName($woffFontFile, "ttf"); 
+    }
+
+    /**
+     * Checks if a file is a valid WOFF font file.
+     *
+     * This function verifies the existence of the file, its non-empty status,
+     * and whether its MIME type is 'application/font-woff'.
+     *
+     * @param string $fontFile The path to the font file being checked.
+     * @return bool True if the file is a valid WOFF font, false otherwise.
+     */
+    private function isValidWoffFontFile($fontFile) {
+        return !empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff';
+    }
+
+    /**
+     * Creates a variant file name based on the provided file name and target suffix.
+     *
+     * This function extracts the filename from the given path, appends the specified
+     * target suffix, and returns the new file name.
+     *
+     * @param string $fileName      The original file name or path.
+     * @param string $targetSuffix  The target suffix to append to the filename.
+     * @return string The new variant file name.
+     */
+    private function createVariantName($fileName, $targetSuffix) {
+        $pathInfo = pathinfo($fileName);
+        $newFileName = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $targetSuffix;
+        return $newFileName;
     }
 
     private function buildFontFaces ($url, $downloadedFontFiles) {
