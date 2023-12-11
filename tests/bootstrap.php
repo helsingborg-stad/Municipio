@@ -1,64 +1,26 @@
 <?php
 
-/**
- * PHPUnit bootstrap file.
- *
- * @package Municipio
- */
+use tad\FunctionMocker\FunctionMocker;
 
-if (PHP_MAJOR_VERSION >= 8) {
-	echo "The scaffolded tests cannot currently be run on PHP 8.0+. See https://github.com/wp-cli/scaffold-command/issues/285" . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	exit(1);
-}
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$_tests_dir = getenv('WP_TESTS_DIR');
+// Bootstrap Patchwork
+WP_Mock::setUsePatchwork(true);
 
-if (!$_tests_dir) {
-	$_tests_dir = rtrim(sys_get_temp_dir(), '/\\') . '/wordpress-tests-lib';
-}
+// Bootstrap WP_Mock to initialize built-in features
+WP_Mock::bootstrap();
 
-if (!file_exists($_tests_dir . '/includes/functions.php')) {
-	echo "Could not find {$_tests_dir}/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL;
-	exit(1);
-}
+WP_Mock::userFunction('plugin_dir_path')->andReturn('./');
+WP_Mock::userFunction('plugins_url')->andReturn('foo');
+WP_Mock::userFunction('load_plugin_textdomain')->andReturn('foo');
+WP_Mock::userFunction('get_template_directory')->andReturn('/');
+WP_Mock::userFunction('plugin_basename')->andReturn('foo');
+WP_Mock::userFunction('is_wp_error', [
+    'return' => function ($object) {
+        return $object instanceof WP_Error;
+    }
+]);
 
-// Give access to tests_add_filter() function.
-require_once "{$_tests_dir}/includes/functions.php";
-
-/**
- * Registers theme.
- */
-function _register_theme()
-{
-
-	$theme_dir     = dirname(__DIR__);
-	$current_theme = basename($theme_dir);
-	$theme_root    = dirname($theme_dir);
-
-	add_filter('theme_root', function () use ($theme_root) {
-		return $theme_root;
-	});
-
-	register_theme_directory($theme_root);
-
-	add_filter('pre_option_template', function () use ($current_theme) {
-		return $current_theme;
-	});
-
-	add_filter('pre_option_stylesheet', function () use ($current_theme) {
-		return $current_theme;
-	});
-}
-
-function _manually_load_plugins()
-{
-	$theme_dir = dirname(__DIR__);
-	require sys_get_temp_dir() . '/advanced-custom-fields-pro/acf.php';
-	require $theme_dir . '/vendor/kirki/kirki.php';
-}
-
-tests_add_filter('muplugins_loaded', '_register_theme');
-tests_add_filter('muplugins_loaded', '_manually_load_plugins');
-
-// Start up the WP testing environment.
-require "{$_tests_dir}/includes/bootstrap.php";
+FunctionMocker::init([
+    'include' => [dirname(__DIR__)]
+]);
