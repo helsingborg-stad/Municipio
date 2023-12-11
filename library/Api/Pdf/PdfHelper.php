@@ -45,7 +45,16 @@ class PdfHelper
             }
         }
 
+        //Convert all google fonts to ttf
         $downloadedFontFiles = get_option('kirki_downloaded_font_files');
+        if(!empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
+            foreach($downloadedFontFiles as &$woffFontFile) {
+                if ($this->isValidWoffFontFile($woffFontFile)) {
+                    $woffFontFile = $this->convertLocalWoffToTtf($woffFontFile);
+                }
+            }
+        }
+
         $fontFacesString = "";
         if (empty($base['src']) && !empty($base['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
             $baseUrl = $this->createGoogleFontImport($base['font-family']);
@@ -195,7 +204,7 @@ class PdfHelper
                 
             }
             
-            return $fontFacesString;
+            return str_replace("format('woff')", "format('truetype')", $fontFacesString);
         }
     }
  
