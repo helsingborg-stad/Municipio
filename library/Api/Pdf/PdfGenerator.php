@@ -23,16 +23,14 @@ class PdfGenerator
      *
      * @return array Modified accessibility items.
      */
-    public function replacePrintWithPdf($items) {
-        $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
-        $keepOriginalPrintForPostTypes = get_field('field_pdf_keep_regular_print', 'option');
-
-        if (!empty($replacePrintWithPdf) && !in_array(get_post_type(), $keepOriginalPrintForPostTypes) && $typeOfPage = $this->typeOfPage()) {
+    public function replacePrintWithPdf($items)
+    {
+        if ($this->shouldReplacePrintWithPdf()) {
             $items['print'] = [
                 'icon' => 'print',
                 'href' => '#',
                 'attributeList' => [
-                    'data-js-pdf-generator' => $typeOfPage,
+                    'data-js-pdf-generator' => $this->typeOfPage(),
                 ],
                 'text' => __('Print', 'municipio'),
                 'label' => __('Print this page', 'municipio')
@@ -40,6 +38,23 @@ class PdfGenerator
         }
 
         return $items;
+    }
+
+    /**
+     * Determines whether the default Print should be replaced with PDF generator.
+     *
+     * @return bool Whether the default Print should be replaced with PDF generator.
+     */
+    private function shouldReplacePrintWithPdf(): bool
+    {
+        $replacePrintWithPdf = get_field('field_pdf_replace_print', 'option');
+        $keepOriginalPrintForPostTypes = get_field('field_pdf_keep_regular_print', 'option');
+        $typeOfPage = $this->typeOfPage();
+
+        return
+            !empty($replacePrintWithPdf) &&
+            !in_array(get_post_type(), $keepOriginalPrintForPostTypes) &&
+            $typeOfPage !== false;
     }
 
     /**
