@@ -4,6 +4,8 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
+use WP_Error;
+use WP_Post;
 
 class Post
 {
@@ -154,39 +156,7 @@ class Post
 
         //Get filtered content
         if (!$passwordRequired && in_array('post_content_filtered', $appendFields)) {
-            //Parse lead
-            $parts = explode("<!--more-->", $postObject->post_content);
-
-            //Replace builtin css classes to our own
-            if (is_array($parts) && count($parts) > 1) {
-                //Remove the now broken more block
-                foreach ($parts as &$part) {
-                    $part = str_replace('<!-- wp:more -->', '', $part);
-                    $part = str_replace('<!-- /wp:more -->', '', $part);
-                }
-
-                $excerpt = self::replaceBuiltinClasses(self::createLeadElement(array_shift($parts)));
-                $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
-            } else {
-                $excerpt = "";
-                $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
-            }
-
-            if ($postObject->hasQuicklinksAfterFirstBlock) {
-                // Temporarily deactivate wpautop from the_content
-                remove_filter('the_content', 'wpautop');
-            }
-
-            // Apply the_content
-            $content = apply_filters('the_content', $content);
-
-            if ($postObject->hasQuicklinksAfterFirstBlock) {
-                // Add wpautop back to the_content
-                add_filter('the_content', 'wpautop');
-            }
-
-            // Build post_content_filtered
-            $postObject->post_content_filtered = $excerpt . $content;
+            $postObject->post_content_filtered = self::getFilteredContent($postObject);
         }
 
         //Get permalink
@@ -271,6 +241,48 @@ class Post
         }
         
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
+    }
+
+    /**
+     * Get filtered content
+     * @param  WP_Post $postObject The post object
+     * @return string              The filtered content
+     */
+    private static function getFilteredContent(WP_Post $postObject): string
+    {
+        //Parse lead
+        $parts = explode("<!--more-->", $postObject->post_content);
+
+        //Replace builtin css classes to our own
+        if (is_array($parts) && count($parts) > 1) {
+            //Remove the now broken more block
+            foreach ($parts as &$part) {
+                $part = str_replace('<!-- wp:more -->', '', $part);
+                $part = str_replace('<!-- /wp:more -->', '', $part);
+            }
+
+            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(array_shift($parts)));
+            $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
+        } else {
+            $excerpt = "";
+            $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
+        }
+
+        if ($postObject->hasQuicklinksAfterFirstBlock) {
+            // Temporarily deactivate wpautop from the_content
+            remove_filter('the_content', 'wpautop');
+        }
+
+        // Apply the_content
+        $content = apply_filters('the_content', $content);
+
+        if ($postObject->hasQuicklinksAfterFirstBlock) {
+            // Add wpautop back to the_content
+            add_filter('the_content', 'wpautop');
+        }
+
+        // Build post_content_filtered
+        return $excerpt . $content;
     }
 
     private static function getPostExcerpt($postObject) {
