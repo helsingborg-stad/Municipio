@@ -180,15 +180,18 @@ class PdfHelper
             if (!empty($contents) && is_string($contents)) {
                 foreach ($downloadedFontFiles as $key => $fontFile) {
                     $contents = str_replace($key, $fontFile, $contents);
+                    $contents = str_replace(rtrim(WP_CONTENT_DIR, "/"), content_url(), $contents);
                 }
 
                 $fontFaces = explode('@font-face', $contents);
-
-                foreach ($fontFaces as $fontFace) {
-                    if (!preg_match('/fonts.gstatic/', $fontFace) && preg_match('/src:/', $fontFace)) {
-                        $fontFacesString .= '@font-face ' . $fontFace;
-                    }
+                if(!empty($fontFaces) && is_array($fontFaces)) {
+                   foreach ($fontFaces as $fontFace) {
+                        if (!preg_match('/fonts.gstatic/', $fontFace) && preg_match('/src:/', $fontFace)) {
+                            $fontFacesString .= '@font-face ' . $fontFace;
+                        }
+                    } 
                 }
+                
             }
             
             return $fontFacesString;
