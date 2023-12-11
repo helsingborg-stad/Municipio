@@ -46,7 +46,7 @@ class SingularContentType extends \Municipio\Controller\Singular
             $this->view = $this->contentType->getView();
         }
 
-        $this->appendStructuredData();
+        $this->data['structuredData'] = $this->appendStructuredData();
 
     }
 
@@ -130,7 +130,7 @@ class SingularContentType extends \Municipio\Controller\Singular
         return $posts;
     }
 
-    public function appendStructuredData()  {
+    public function appendStructuredData() {
                 
         $structuredData[] = $this->contentType->getStructuredData($this->postId);
 
@@ -141,7 +141,6 @@ class SingularContentType extends \Municipio\Controller\Singular
             }
         }
 
-
-        $this->data['structuredData'] = \Municipio\Helper\Data::prepareStructuredData($structuredData ?? []);
+        return \Municipio\Helper\Data::prepareStructuredData($structuredData ?? []);
     }
 }
