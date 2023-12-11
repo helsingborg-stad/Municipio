@@ -34,10 +34,12 @@ class PdfHelper
                 if (!empty($font->post_title)) {
                     if (!empty($heading['font-family']) && $font->post_title == $heading['font-family']) {
                         $heading['src'] = $this->convertWOFFToTTF($font->ID);
+                        $heading['variant'] = !empty($heading['variant']) && $heading['variant'] != 'regular' ? $heading['variant'] : '700';
                     }
                     
                     if (!empty($base['font-family']) && $font->post_title == $base['font-family']) {
                         $base['src'] = $this->convertWOFFToTTF($font->ID);
+                        $base['variant'] = !empty($base['variant']) && $base['variant'] != 'regular' ? $base['variant'] : '400';
                     } 
                 }
             }
@@ -45,7 +47,6 @@ class PdfHelper
 
         $downloadedFontFiles = get_option('kirki_downloaded_font_files');
         $fontFacesString = "";
-                
         if (empty($base['src']) && !empty($base['font-family']) && !empty($downloadedFontFiles) && is_array($downloadedFontFiles)) {
             $baseUrl = $this->createGoogleFontImport($base['font-family']);
             $fontFacesString .= $this->buildFontFaces($baseUrl, $downloadedFontFiles);
