@@ -142,7 +142,7 @@ class PdfHelper
      * @return bool True if the file is a valid WOFF font, false otherwise.
      */
     private function isValidWoffFontFile($fontFile) {
-        return !empty($fontFile) && file_exists($fontFile) && mime_content_type($fontFile) == 'application/font-woff';
+        return !empty($fontFile) && file_exists($fontFile) && in_array(mime_content_type($fontFile), ['application/font-woff', 'application/octet-stream']);
     }
 
     /**
