@@ -28,7 +28,7 @@ class PdfHelper
         $customFonts = new \WP_Query($args);
 
   
-        [$heading, $base] = $this->handleFontVariant($styles);
+        [$heading, $base] = $this->getFontsFromCustomizer($styles);
 
         if (!empty($customFonts->posts) && (!empty($heading['font-family']) || $base['font-family']) && is_array($customFonts->posts)) {
             foreach ($customFonts->posts as $font) {
@@ -51,7 +51,7 @@ class PdfHelper
         ];
     }
 
-    private function handleFontVariant($styles) {
+    private function getFontsFromCustomizer($styles) {
         $heading = array_merge(
             [
                 'font-family' => '',
