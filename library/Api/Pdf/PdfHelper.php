@@ -84,8 +84,12 @@ class PdfHelper
                     "ttf"
                 );
 
+                $ttfFontFileHttp = S3Helper::restoreS3KeyToHttps(
+                    S3Helper::sanitizeS3Key($ttfFontFile)
+                ); 
+
                 if (S3Helper::objectExistsOnS3($ttfFontFile)) {
-                    return $ttfFontFile;
+                    return $ttfFontFileHttp;
                 }
     
                 // Create local temp file
@@ -106,7 +110,7 @@ class PdfHelper
                 //Remove local temp file
                 unlink($tempLocalFile);
     
-                return $ttfFontFile;
+                return $ttfFontFileHttp;
             } else {
                 return $this->convertLocalWoffToTtf($woffFontFile);
             }
