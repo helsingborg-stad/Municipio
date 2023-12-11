@@ -116,7 +116,7 @@
 
     .pdf-frontpage .pdf-frontpage__introduction,
     .pdf-frontpage .pdf-frontpage__introduction * {
-        text-align: right:
+        text-align: right;
         
     }
 
