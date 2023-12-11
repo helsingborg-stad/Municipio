@@ -156,13 +156,20 @@ class S3
   }
 
   /**
-   * Restore an S3 key by adding the 's3://[BUCKET_NAME]/' prefix.
+   * Restore an S3 key by adding the 's3://[BUCKET_NAME]/' prefix if not already present.
    *
    * @param string $sanitizedKey The sanitized S3 object key
    * @return string The restored S3 object key
    */
   public static function restoreS3Key($sanitizedKey)
   {
-    return "s3://" . S3_UPLOADS_BUCKET . "/" . $sanitizedKey;
+    // Check if the input already contains a protocol
+    if (strpos($sanitizedKey, '://') === false) {
+        // If not, prepend the S3 protocol
+        return "s3://" . S3_UPLOADS_BUCKET . "/" . $sanitizedKey;
+    }
+
+    // If the input already contains a protocol, return it as is
+    return $sanitizedKey;
   }
 }
