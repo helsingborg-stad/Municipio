@@ -45,7 +45,7 @@
     },
     "scripts": {
         "test": "phpunit --bootstrap tests/bootstrap.php",
-        "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml --coverage-filter=library/",
         "post-update-cmd": []
     },
     "config": {

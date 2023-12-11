@@ -10,16 +10,24 @@ use WP_Mock\Tools\TestCase;
  */
 class PostGetFilteredContentTest extends TestCase
 {
-    public function testMoreTagIsRemovedFromContent() {
-        $mockPost = $this->mockPost(['post_content' => '<p>Lead</p><!--more--><p>Body</p>']);
-        
+    public function testMoreTagIsRemovedFromContent()
+    {
+        $mockPost = $this->mockPost([
+            'post_content' => '<p>Lead</p><!--more--><p>Body</p>',
+            'hasQuicklinksAfterFirstBlock' => false
+        ]);
+
         $filteredContent = Post::getFilteredContent($mockPost);
 
         $this->assertStringNotContainsString('<!--more-->', $filteredContent);
     }
 
-    public function testContentFilterIsAppliedToContentAndExcerpt() {
-        $mockPost = $this->mockPost(['post_content' => "<p>Excerpt</p><!--more--><p>Body</p>"]);
+    public function testContentFilterIsAppliedToContentAndExcerpt()
+    {
+        $mockPost = $this->mockPost([
+            'post_content' => "<p>Excerpt</p><!--more--><p>Body</p>",
+            'hasQuicklinksAfterFirstBlock' => false
+        ]);
 
         WP_Mock::expectFilter('the_content', '<p class="lead">Excerpt</p>');
         WP_Mock::expectFilter('the_content', '<p>Body</p>');
