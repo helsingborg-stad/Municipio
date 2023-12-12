@@ -9,7 +9,7 @@ use WP_Mock\Tools\TestCase;
 class SingularContentTypeAppendStructuredDataTest extends TestCase
 {
     /**
-     * @covers SingularContentType::appendStructuredData
+     * @covers \Municipio\Controller\SingularContentType::appendStructuredData
      */
     public function testAppendStructuredDataReturnsJsonEncodedArray()
     {
@@ -29,7 +29,7 @@ class SingularContentTypeAppendStructuredDataTest extends TestCase
     }
 
     /**
-     * @covers SingularContentType::appendStructuredData
+     * @covers \Municipio\Controller\SingularContentType::appendStructuredData
      */
     public function testAppendStructuredDataAppendsSecondaryContentTypeIfSet()
     {
