@@ -28,11 +28,16 @@
     }
 
     article,
-    section:not(.pdf-toc),
+    section,
     p,
     .pdf-frontpage__introduction {
         font-family: {!!$fonts['base']['font-family']!!}, sans-serif;
         font-weight: {!! $fonts['base']['variant']!!};
+    }
+
+    section .pdf-toc__item {
+        font-family: sans-serif;
+        font-weight: 400;
     }
 
     .lead {
