@@ -1,7 +1,8 @@
 <?php
 
-namespace Municipio\Helper;
+namespace Municipio\Helper\Test;
 
+use Municipio\Helper\Data;
 use PHPUnit\Framework\TestCase;
 
 class DataIsJsonTest extends TestCase {
