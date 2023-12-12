@@ -12,11 +12,14 @@
     <include>
       <directory suffix=".php">./library</directory>
     </include>
+    <exclude>
+      <directory suffix=".php">./library/AcfFields</directory>
+    </exclude>
     <report>
       <text outputFile="php://stdout" showUncoveredFiles="true"/>
-      <html outputDirectory="coverage/phpunit"/>
+      <html outputDirectory=".coverage/phpunit"/>
+      <clover outputFile=".coverage/phpunit/clover.xml"/>
     </report>
-    
   </coverage>
 
   <testsuites>
