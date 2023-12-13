@@ -171,6 +171,7 @@
     .c-modal,
     .mod-recommend,
     .c-acceptance__content,
+    .c-acceptance__modal,
     #sidebar-slider-area--container,
     #customer-feedback,
     #_hjRemoteVarsFrame,
