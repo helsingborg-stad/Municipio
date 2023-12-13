@@ -135,6 +135,10 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         if (!empty($query->posts)) {
             foreach($query->posts as &$post) {
                 $post = \Municipio\Helper\Post::preparePostObject($post);
+
+                if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
+                    $post->images = false;
+                }
             }
         }
 

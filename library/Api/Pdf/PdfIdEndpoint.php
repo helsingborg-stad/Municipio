@@ -82,9 +82,15 @@ class PdfIdEndpoint extends RestApiEndpoint
                 $post = get_post($id);
                 if ($this->shouldRenderPost($post)) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
+
+                    if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
+                        $post->images = false;
+                    }
+
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
                     }
+                    
                     array_push($posts, $post);
                 }
             }

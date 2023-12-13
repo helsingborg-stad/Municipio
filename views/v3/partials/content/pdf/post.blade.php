@@ -5,7 +5,7 @@
     @if (!empty($post->postTitleFiltered))
         <h2 class="pdf-post__heading pdf-heading--h1" id="post-{{$index}}">{{ $post->postTitleFiltered }}</h2>
     @endif
-    @if (!empty($post->featuredImage['src']))
+    @if (!empty($post->images['featuredImage']['src']))
         <img class="pdf-post__featured-image" src="{{$post->featuredImage['src']}}">
     @endif
     @if (!empty($post->postContentFiltered))
