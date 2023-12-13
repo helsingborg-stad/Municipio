@@ -63,7 +63,6 @@ class PostFilters
         if (!$taxonomies) {
             return array();
         }
-
         // Hide category filter if displaying a category
         global $wp_query;
         if (is_category()) {
@@ -73,7 +72,7 @@ class PostFilters
         }
 
         // Hide taxonomy if displaying a taxonomy
-        if (is_a(get_queried_object(), 'WP_Term')) {
+        if ($this->currentTaxonomy()) {
             $taxonomies = array_diff($taxonomies, (array)get_queried_object()->taxonomy);
         }
 
@@ -104,13 +103,15 @@ class PostFilters
             $grouped[$placement][$tax->name] = array(
                 'label' => $tax->label,
                 'type' => $type,
-                'values' => $terms
+                'values' => $terms,
+                'hierarchical' => $tax->hierarchical
             );
 
             $ungrouped[$tax->name] = array(
                 'label' => $tax->label,
                 'type' => $type,
-                'values' => $terms
+                'values' => $terms,
+                'hierarchical' => $tax->hierarchical
             );
         }
 
@@ -118,7 +119,7 @@ class PostFilters
             $grouped = json_decode(json_encode($grouped));
             return $grouped;
         }
-
+        
         return $ungrouped;
     }
 
@@ -131,7 +132,7 @@ class PostFilters
     {
         $template = \Municipio\Helper\Template::locateTemplate($template);
 
-        if ((is_post_type_archive() || is_category() || is_date() || is_tax() || is_tag()) && is_search()) {
+        if ((is_post_type_archive() || is_category() || is_date() || $this->currentTaxonomy() || is_tag()) && is_search()) {
             $archiveTemplate = \Municipio\Helper\Template::locateTemplate('archive-' . get_post_type() . '.blade.php');
 
             if (!$archiveTemplate) {
@@ -153,7 +154,7 @@ class PostFilters
     public function doPostTaxonomyFiltering($query)
     {
         // Do not execute this in admin view
-        if (is_admin() || !(is_archive() || is_home() || is_category() || is_tax() || is_tag()) || !$query->is_main_query()) {
+        if (is_admin() || !(is_archive() || is_home() || is_category() || $this->currentTaxonomy() || is_tag()) || !$query->is_main_query()) {
             return $query;
         }
 
@@ -162,30 +163,29 @@ class PostFilters
             false
         );
 
-        if (empty($filterable)) {
+        if (empty($filterable) || !is_array($filterable)) {
             return $query;
         }
-
-        if (get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false) == true) {
+        $facetting = get_theme_mod('archive_' . $this->getCurrentPostType($query) . '_filter_type', false);
+        if ($facetting == true) {
             $taxQuery = array('relation' => 'AND');
         } else {
             $taxQuery = array('relation' => 'OR');
         }
-
         foreach ($filterable as $key => $value) {
             if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
                 continue;
             }
-
+            
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
                 'terms' => $this->getQueryString($key, false),
-                'operator' => 'AND'
+                'operator' => !empty($value['hierarchical']) ? 'IN' : 'AND'
             );
         }
 
-        if (is_tax() || is_category() || is_tag()) {
+        if ($this->currentTaxonomy() || is_category() || is_tag()) {
             $taxQuery = array(
                 'relation' => 'AND',
                 array(
@@ -205,7 +205,6 @@ class PostFilters
             'tax_query',
             apply_filters('Municipio/archive/tax_query', $taxQuery, $query)
         );
-
         return $query;
     }
 
@@ -305,6 +304,20 @@ class PostFilters
         return $query;
     }
 
+    private function currentTaxonomy() {
+        $queriedObject = get_queried_object();
+        $isTaxArchive = false;
+        if (!empty($queriedObject->taxonomy) && isset($_SERVER['REQUEST_URI'])) {
+            $pathParts = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+            $trimmedPath = end($pathParts);
+            if ($queriedObject->slug == $trimmedPath) {
+                $isTaxArchive = $queriedObject->taxonomy;
+            }
+        }
+
+        return $isTaxArchive;
+    }
+
     /**
      * Retrieves the number of posts to display per page for the "post" post type.
      *
@@ -340,8 +353,16 @@ class PostFilters
         if ($known === true) {
             return get_query_var($queryString, false);
         }
-
+        
         if (isset($_GET[$queryString]) && !empty($_GET[$queryString])) {
+            if (is_array($_GET[$queryString])) {
+                $sanitizedTerms = [];
+                foreach ($_GET[$queryString] as $term) {
+                    $sanitizedTerms[] = sanitize_text_field($term);
+                }
+
+                return $sanitizedTerms;
+            }
             return sanitize_text_field($_GET[$queryString]);
         }
 
