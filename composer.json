@@ -44,8 +44,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit --bootstrap tests/bootstrap.php",
-        "test:coverage": "rm -rf .coverage && XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --do-not-cache-result --coverage-html .coverage/html --coverage-clover .coverage/clover.xml",
+        "test": "phpunit --bootstrap tests/bootstrap.php --testdox --no-coverage",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --testdox",
         "post-update-cmd": []
     },
     "config": {
@@ -65,5 +65,5 @@
             "Municipio\\": "library/"
         }
     },
-    "version": "3.50.0"
+    "version": "3.53.2"
 }
