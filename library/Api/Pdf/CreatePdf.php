@@ -9,6 +9,13 @@ use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 
 class CreatePdf
 {
+    private PdfHelperInterface $pdfHelper;
+
+    public function __construct(PdfHelperInterface $pdfHelper)
+    {
+        $this->pdfHelper = $pdfHelper;
+    }
+
     /**
      * Renders a PDF view for the specified posts and cover information.
      *
@@ -16,10 +23,9 @@ class CreatePdf
      * @param array|false $cover     Cover information or false if not available.
      * @param string      $fileName  Name of the PDF file.
      */
-    public function renderView($posts = false, $cover = false, string $fileName = 'print') {
-        $pdfHelper = new PDFHelper();
-        $styles = $pdfHelper->getThemeMods();
-        $fonts = $pdfHelper->getFonts($styles);
+    public function getHtmlFromView($posts = false, $cover = false):string {
+        $styles = $this->pdfHelper->getThemeMods();
+        $fonts = $this->pdfHelper->getFonts($styles);
         $lang = $this->getLang();
 
         if (!empty($posts)) {
@@ -33,12 +39,17 @@ class CreatePdf
             ]);
 
             $html = $this->replaceHtmlFromRegex(
-                ['/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s'],
+                [
+                    '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s',
+                    '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s',
+                ],
                 $html
             );
 
-            $this->renderPdf($html, $fileName);
+            return $html;
         }
+
+        return "";
     }
 
     /**
@@ -77,7 +88,7 @@ class CreatePdf
      * @param string $html     HTML content.
      * @param string $fileName Name of the PDF file.
      */
-    private function renderPdf(string $html, string $fileName) {
+    public function renderPdf(string $html, string $fileName = 'print') {
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,
             'isPhpEnabled' => true,
