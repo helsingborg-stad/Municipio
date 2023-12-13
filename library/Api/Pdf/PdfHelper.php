@@ -6,7 +6,7 @@ use Municipio\Helper\Image;
 use Municipio\Helper\WoffConverter as WoffConverterHelper;
 use Municipio\Helper\S3 as S3Helper;
 
-class PdfHelper
+class PdfHelper implements PdfHelperInterface
 {    
     private $defaultPrefix = 'default';
 
@@ -248,5 +248,9 @@ class PdfHelper
         }
 
         return false;
+    }
+
+    public function systemHasSuggestedDependencies():bool {
+        return extension_loaded('gd');
     }
 }

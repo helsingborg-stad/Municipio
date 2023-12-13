@@ -3,17 +3,39 @@
 namespace Municipio\Api\Pdf;
 
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Api\Pdf\PdfHelper;
 
 class PdfGenerator
 {    
     private $defaultPrefix = 'default';
+    private PdfHelperInterface $pdfHelper;
 
-    public function __construct() {
+    public function __construct(PdfHelperInterface $pdfHelper)
+    {
+        $this->pdfHelper = $pdfHelper;
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
+    }
 
+    public function addHooks(): void
+    {
         add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'), 99);
         add_filter('Municipio/Accessibility/Items', array($this, 'replacePrintWithPdf'));
+        add_action('admin_notices', array($this, 'displayMissingSuggestedDependenciesNotices'));
+    }
+
+    public function displayMissingSuggestedDependenciesNotices():void {
+        
+        $systemMissingSuggestedDependencies = $this->pdfHelper->systemHasSuggestedDependencies() === false;
+
+        if( $this->currentPageIsSettingsPage() && $systemMissingSuggestedDependencies ) {
+            $message = __('The PDF generator is missing some suggested dependencies. Please install the following PHP extensions: GD', 'municipio');
+            wp_admin_notice( $message, ['type' => 'warning'] );
+        }
+    }
+
+    private function currentPageIsSettingsPage():bool {
+        return is_admin() && isset($_GET['page']) && $_GET['page'] === 'pdf-generator-settings';
     }
 
     /**
