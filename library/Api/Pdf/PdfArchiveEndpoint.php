@@ -90,7 +90,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                 'inclusive' => true,
             ],
             'posts_per_page' => -1,
-            'order_by' => !empty($orderBy) ? $orderBy : 'post_date',
+            'orderby' => !empty($orderBy) ? $orderBy : 'post_date',
             'order' => !empty($order) ? $order : 'desc'
         ];
 
