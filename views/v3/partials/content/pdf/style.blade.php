@@ -124,8 +124,6 @@
     .c-image {
         margin-left: 0 !important;
         margin-right: 0 !important;
-        width: 100%;
-        height: auto;
     }
 
     /* Footer */
@@ -144,6 +142,8 @@
     
     img {
         max-width: 100%;
+        width: 100%;
+        height: auto;
     }
 
     /* Remove not printable elements */
