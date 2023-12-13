@@ -25,8 +25,8 @@ class CreatePdfTest extends TestCase
         $html = join('', $imageTags);
         $expectedHtml = '<img src="https://foo.bar/img.jpg"/><img src="https://foo.bar/img.jpeg"/>';
 
+        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
         $pdfHelper = Mockery::mock(PdfHelperInterface::class);
-        $pdfHelper->shouldReceive('systemHasSuggestedDependencies')->andReturn(false);
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
         WP_Mock::userFunction('render_blade_view', ['times' => 1, 'return' => $html]);
@@ -36,6 +36,8 @@ class CreatePdfTest extends TestCase
         $result = $createPdf->getHtmlFromView([$this->mockPost()]);
 
         // Then
+        $mockExtensionLoaded->wasCalledOnce();
+        $mockExtensionLoaded->wasCalledWithOnce(['gd']);
         $this->assertEquals($expectedHtml, $result);
     }
 }
