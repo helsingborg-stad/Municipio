@@ -44,17 +44,15 @@ class PdfIdEndpoint extends RestApiEndpoint
             $cover = $pdfHelper->getCover($postTypes);
             
             if (!empty($posts)) {
-                $pdf = new \Municipio\Api\Pdf\CreatePdf();
-                $pdf->renderView(
-                    $posts,
-                    $cover,
-                    (string)(function () use ($posts) {
-                        if (!empty($posts[0]->postName)) {
-                            return $posts[0]->postName;
-                        }
-                        return 'page-pdf';
-                    })()
-                );
+                $fileName = (string)(function () use ($posts) {
+                    if (!empty($posts[0]->postName)) {
+                        return $posts[0]->postName;
+                    }
+                    return 'page-pdf';
+                })();
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper);
+                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf->renderPdf($html, $fileName);
             }
             return new WP_REST_Response(null, 200);
         }

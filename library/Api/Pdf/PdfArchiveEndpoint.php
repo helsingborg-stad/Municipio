@@ -46,12 +46,9 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             
             if (!empty($posts)) {
                 $cover = $pdfHelper->getCoverFieldsForPostType($postType);
-                $pdf = new \Municipio\Api\Pdf\CreatePdf();
-                $pdf->renderView(
-                    $posts,
-                    $cover,
-                    $postType
-                );
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper);
+                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf->renderPdf($html, $postType);
                 return new WP_REST_Response(null, 200);
             }
 
