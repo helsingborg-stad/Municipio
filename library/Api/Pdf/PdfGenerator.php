@@ -10,11 +10,15 @@ class PdfGenerator
     private $defaultPrefix = 'default';
     private PdfHelperInterface $pdfHelper;
 
-    public function __construct(PdfHelperInterface $pdfHelper) {
+    public function __construct(PdfHelperInterface $pdfHelper)
+    {
         $this->pdfHelper = $pdfHelper;
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfIdEndpoint());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Pdf\PdfArchiveEndpoint());
+    }
 
+    public function addHooks(): void
+    {
         add_action('init', array($this, 'addAcfToPdfGeneratorOptionsPage'), 99);
         add_filter('Municipio/Accessibility/Items', array($this, 'replacePrintWithPdf'));
         add_action('admin_notices', array($this, 'displayMissingSuggestedDependenciesNotices'));

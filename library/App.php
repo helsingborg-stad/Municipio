@@ -142,7 +142,9 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
         
         $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
-        new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
+        $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
+        $pdfGenerator->addHooks();
+
 
         /**
          * Customizer
