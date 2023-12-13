@@ -38,13 +38,11 @@ class CreatePdf
                 'hasMoreThanOnePost'    => count($posts) > 1
             ]);
 
-            $html = $this->replaceHtmlFromRegex(
-                [
-                    '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s',
-                    '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s',
-                ],
-                $html
-            );
+            $html = $this->replaceHtmlFromRegex( [ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html );
+
+            if( !extension_loaded('gd') ) {
+                $html = $this->replaceHtmlFromRegex( [ '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s', ], $html );
+            }
 
             return $html;
         }
