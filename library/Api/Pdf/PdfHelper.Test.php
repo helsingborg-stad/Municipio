@@ -12,8 +12,16 @@ class PdfHelperTest extends TestCase
      */
     public function testSystemHasSuggestedDependenciesReturnsFalseIfMissingGD()
     {
+        // Given
+        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
         $pdfHelper = new PdfHelper();
-        $this->assertFalse($pdfHelper->systemHasSuggestedDependencies());
+        
+        // When
+        $result = $pdfHelper->systemHasSuggestedDependencies();
+        
+        // Then
+        $this->assertFalse($result);
+        $mockExtensionLoaded->wasCalledWithTimes(['gd'], 1);
     }
 
     /**
