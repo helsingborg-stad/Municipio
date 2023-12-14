@@ -50,9 +50,7 @@ class ContentType
         }
 
         return apply_filters('Municipio/ContentType/getRegisteredContentTypes', $contentTypes);
-    }
-
-    
+    }    
     /**
      * Retrieves the content type for a given post type.
      *
@@ -118,13 +116,14 @@ class ContentType
 
     public static function hasContentType(
         string $contentTypeToCheckFor = '',
-        string $typeToCheck = ''
+        string $postTypeToCheck = '',
+        bool $checkSecondary = true
     ): bool {
-        if ($contentType = self::getContentType($typeToCheck)) {
+        if ($contentType = self::getContentType($postTypeToCheck)) {
             if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
                 return true;
             }
-            if (self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
+            if ($checkSecondary && self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
                 return true;
             }
         }
@@ -295,5 +294,17 @@ class ContentType
         }
         
         return array_merge($structuredData, $additionalData);
+    }
+
+    public static function hideMap(string $postType = ''): bool 
+    {
+        $hideMap = true;
+
+        $hasPlaceContentType = self::hasContentType('place', $postType, false);
+        if($hasPlaceContentType) {
+            $hideMap = get_theme_mod( 'posttype_' . $postType . '_hide_map', false );
+        }
+
+        return $hideMap;
     }
 }

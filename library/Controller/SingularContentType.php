@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use \Municipio\Helper\ContentType;
+
 use WP_Term;
 
 /**
@@ -21,7 +23,7 @@ class SingularContentType extends \Municipio\Controller\Singular
          *
          * @return string The content type of the current post.
          */
-        $contentType = \Municipio\Helper\ContentType::getPostTypeContentType($this->data['post']->postType);
+        $contentType = ContentType::getPostTypeContentType($this->data['post']->postType);
 
         /**
          * Initiate hooks for the current content type.
