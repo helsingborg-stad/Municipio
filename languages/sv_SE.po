@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2023-12-14 13:30+0000\n"
+"PO-Revision-Date: 2023-12-14 13:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -25428,7 +25428,8 @@ msgstr "Dölj datum"
 msgid "Hide in menu"
 msgstr "Dölj i meny"
 
-#: library/Customizer/Sections/ContentType.php:44
+#: library/Customizer/Sections/ContentType.php:38
+#: library/Customizer/Sections/ContentType.php:43
 msgid "Hide map"
 msgstr "Dölj karta"
 
@@ -29067,13 +29068,21 @@ msgstr "Visa utvald bild i singel-template"
 msgid "Show icon after label"
 msgstr "Visa ikon"
 
-#: library/Customizer/Sections/ContentType.php:43
+#: library/Customizer/Sections/ContentType.php:44
 msgid "Show map"
 msgstr "Visa karta"
 
 #: library/Customizer/Sections/MegaMenu.php:242
 msgid "Show on mobile"
 msgstr "Visa på mobil"
+
+#: library/Customizer/Sections/ContentType.php:39
+msgid ""
+"Show or hide a map on singular posts of this posttype. (On = map is hidden, "
+"Off = map is displayed.)"
+msgstr ""
+"Visa eller dölj kartan på enskilda inlägg ur denna posttyp. (På = karta dold,"
+" Av = karta visas)"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:291
 msgid "Show posts in sidebar menu (only ofr automatically generated menus)"
@@ -29097,10 +29106,6 @@ msgstr "Visa titel"
 #| msgid "Show featured image in single template"
 msgid "Show title in One Page template"
 msgstr "Visa utvald bild i singel-template"
-
-#: library/Customizer/Sections/ContentType.php:38
-msgid "Show/hide map"
-msgstr "Visa/Dölj Karta"
 
 #: library/AcfFields/php/options-menu-icon.php:859
 msgid "show_chart"
@@ -30760,10 +30765,6 @@ msgstr ""
 msgid ""
 "Whether to exclude posts with this post type from front end search results."
 msgstr "Om inläggstypen ska exkluderas från sökresultat."
-
-#: library/Customizer/Sections/ContentType.php:39
-msgid "Whether to show a map on single posts of this posttype."
-msgstr "Om karta ska visas på enskilda sidor av denna posttyp."
 
 #: library/Customizer/Sections/OpenStreetMap.php:44
 msgid "Which latitude and longitude to center Open Street Maps on as default."
