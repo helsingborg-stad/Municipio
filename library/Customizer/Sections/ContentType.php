@@ -35,13 +35,13 @@ class ContentType
         \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'     => 'switch',
             'settings' => 'posttype_' . $postType->name . '_hide_map',
-            'label'    => esc_html__('Show/hide map', 'municipio'),
-            'description' => esc_html__('Whether to show a map on single posts of this posttype.', 'municipio'),
+            'label'    => esc_html__('Hide map', 'municipio'),
+            'description' => esc_html__('Show or hide a map on singular posts of this posttype. (On = map is hidden, Off = map is displayed.)', 'municipio'),
             'section'  => $sectionID,
             'default'     => 0,
             'choices' => [
-                1  => esc_html__('Show map', 'municipio'),
-                0 => esc_html__('Hide map', 'municipio'),
+                1  => __('Hide map', 'municipio'),
+                0 => __('Show map', 'municipio'),
             ],
             'output' => [
                 [
