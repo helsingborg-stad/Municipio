@@ -44,8 +44,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit --bootstrap tests/bootstrap.php --testdox --no-coverage",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --bootstrap tests/bootstrap.php --testdox",
+        "test": "phpunit --testdox --no-coverage",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
         "post-update-cmd": []
     },
     "config": {

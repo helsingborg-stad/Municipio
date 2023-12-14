@@ -2,7 +2,7 @@
 
 use tad\FunctionMocker\FunctionMocker;
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/../vendor/autoload.php';
 
 // Bootstrap Patchwork
 WP_Mock::setUsePatchwork(true);
