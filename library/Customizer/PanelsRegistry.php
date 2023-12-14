@@ -141,6 +141,7 @@ class PanelsRegistry
                 ->setPanel($panelID)
                 ->setTitle($postType->label)
                 ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ContentType($id, $postType))
+                // @fixme: setPreviewUrl is not working?
                 ->setPreviewUrl($latestPostTypePostUrl);
         }, $postTypes);
         
@@ -148,7 +149,7 @@ class PanelsRegistry
             ->setID($panelID)
             ->setTitle(esc_html__('Content Types', 'municipio'))
             ->setDescription(esc_html__('Content type settings for each post custom type.', 'municipio'))
-            ->setPriority(130)
+            ->setPriority(120)
             ->addSections($sections)
             ->register();
     }

@@ -52,29 +52,45 @@ class ContentType
         return apply_filters('Municipio/ContentType/getRegisteredContentTypes', $contentTypes);
     }
 
+    
     /**
-     * Get the content type instance for a given type.
+     * Retrieves the content type for a given post type.
      *
-     * @param string $type The type of content type to get.
+     * If no post type is specified, it will retrieve the content type for the current post type.
      *
-     * @return mixed The content type instance for the given type, or false if no content type is set.
+     * @param string $postType The post type for which to retrieve the content type.
+     * @return mixed The content type instance, or false if no content type is found.
      */
-    public static function getContentType(string $type = '')
+    public static function getPostTypeContentType(string $postType = '')
     {
-        if (!$type) {
-            $type = self::getCurrentType();
+        if (!$postType) {
+            $postType = self::getCurrentType();
         }
 
         $contentType = false;
-        $contentTypeStr = get_option("options_contentType_{$type}", false);
+        
+        $contentTypeStr = 
+        get_theme_mod("posttype_{$postType}_contenttype", null) ??
+        get_option("options_contentType_{$postType}", false); // legacy support
 
         if ($contentTypeStr) {
             $contentType = self::getContentTypeInstance($contentTypeStr);
         }
 
-        return apply_filters('Municipio/ContentType/getContentType', $contentType, $type);
+        return apply_filters('Municipio/ContentType/getContentType', $contentType, $postType);
     }
-
+    /**
+     * Alias for getPostTypeContentType()
+     * Retrieves the content type for a given post type.
+     *
+     * @param string $postType The post type to retrieve the content type for.
+     * @return string The content type of the post type.
+     */
+    public function getContentType(string $postType = '')
+    {
+        return self::getPostTypeContentType($postType);
+    }
+    
     /**
      * Get an instance of a content type
      *
