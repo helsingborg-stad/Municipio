@@ -86,7 +86,7 @@ class ContentType
      * @param string $postType The post type to retrieve the content type for.
      * @return string The content type of the post type.
      */
-    public function getContentType(string $postType = '')
+    public static function getContentType(string $postType = '')
     {
         return self::getPostTypeContentType($postType);
     }
@@ -198,14 +198,15 @@ class ContentType
     }
 
     /**
-     * Checks if the user has opted to skip the content type template for a specific type.
+     * skipContentTypeTemplate
+     * @deprecated since version 3.5.4. There is no direct replacement.
      *
      * @param string $type The type of template to check (post type or taxonomy). Defaults to an empty string.
-     *
      * @return bool A boolean value indicating whether the user has opted to skip the content type template.
      */
     public static function skipContentTypeTemplate(string $postType = ''): bool
     {
+        error_log('Function skipContentTypeTemplate() is deprecated since version 3.5.4. There is no direct replacement for this function.');
         return (bool) get_option("skip_content_type_template_{$postType}", false);
     }
 

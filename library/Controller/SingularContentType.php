@@ -21,7 +21,7 @@ class SingularContentType extends \Municipio\Controller\Singular
          *
          * @return string The content type of the current post.
          */
-        $contentType = \Municipio\Helper\ContentType::getContentType($this->data['post']->postType);
+        $contentType = \Municipio\Helper\ContentType::getPostTypeContentType($this->data['post']->postType);
 
         /**
          * Initiate hooks for the current content type.
@@ -33,8 +33,6 @@ class SingularContentType extends \Municipio\Controller\Singular
          * @author Your Name
          */
         $contentType->addHooks();
-        
-        
 
         /**
          * If the content type has secondary content types, initate hooks for each of them.
@@ -48,13 +46,9 @@ class SingularContentType extends \Municipio\Controller\Singular
             }
         }
 
-        /**
-         * Check if the content type template should be skipped and set the view accordingly if not.
-         */
-        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($this->data['post']->postType)) {
-            $this->view = $contentType->getView();
-        }
-
+        /** Set Blade view */
+        $this->view = $contentType->getView();
+        
     }
 
     /**
