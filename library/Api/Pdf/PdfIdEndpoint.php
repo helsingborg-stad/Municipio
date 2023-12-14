@@ -44,17 +44,15 @@ class PdfIdEndpoint extends RestApiEndpoint
             $cover = $pdfHelper->getCover($postTypes);
             
             if (!empty($posts)) {
-                $pdf = new \Municipio\Api\Pdf\CreatePdf();
-                $pdf->renderView(
-                    $posts,
-                    $cover,
-                    (string)(function () use ($posts) {
-                        if (!empty($posts[0]->postName)) {
-                            return $posts[0]->postName;
-                        }
-                        return 'page-pdf';
-                    })()
-                );
+                $fileName = (string)(function () use ($posts) {
+                    if (!empty($posts[0]->postName)) {
+                        return $posts[0]->postName;
+                    }
+                    return 'page-pdf';
+                })();
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper);
+                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf->renderPdf($html, $fileName);
             }
             return new WP_REST_Response(null, 200);
         }
@@ -84,9 +82,15 @@ class PdfIdEndpoint extends RestApiEndpoint
                 $post = get_post($id);
                 if ($this->shouldRenderPost($post)) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
+
+                    if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
+                        $post->images = false;
+                    }
+
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
                     }
+                    
                     array_push($posts, $post);
                 }
             }

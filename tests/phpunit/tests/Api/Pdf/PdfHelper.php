@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Api\Pdf\Test;
+namespace Municipio\Tests\Api\Pdf;
 
 use Municipio\Api\Pdf\PdfHelper;
 use WP_Mock\Tools\TestCase;
