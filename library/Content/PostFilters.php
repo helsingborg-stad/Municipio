@@ -17,12 +17,24 @@ class PostFilters
         add_action('pre_get_posts', array($this, 'doPostTaxonomyFiltering'));
         add_action('pre_get_posts', array($this, 'doPostOrderBy'));
         add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
+        add_action('parse_query', array($this, 'handleQuery'));
 
         add_filter('option_posts_per_page', array($this, 'postsPerPage'), 999, 2);
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
         remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+    }
+
+    /**
+     * Handle query vars before pre_get_posts
+     *
+     * @param  object $query Query object
+     */
+    public function handleQuery($query) {
+        if (is_post_type_archive()) {
+            $query->is_tax = false;
+        }
     }
 
     /**
