@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Api\Pdf\Test;
+namespace Municipio\Tests\Api\Pdf;
 
 use Mockery;
 use Municipio\Api\Pdf\PdfHelperInterface;
