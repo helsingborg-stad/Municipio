@@ -189,9 +189,10 @@ class PdfHelper implements PdfHelperInterface
      * @return array Theme modifications.
      */
     public function getThemeMods() {
-        return get_theme_mods();
+        $themeMods = function_exists('get_theme_mods') ? get_theme_mods() : [];
+        return is_array($themeMods) ? $themeMods : [];
     }
-
+    
     /**
      * Retrieves cover information for the specified post types.
      *
@@ -201,6 +202,7 @@ class PdfHelper implements PdfHelperInterface
      */
     public function getCover(array $postTypes) {
         $postType = $this->defaultPrefix;
+        $postTypes = !empty($postTypes) ? array_filter($postTypes, 'is_string') : [];
         if (!empty($postTypes)) {
             $postType = current($postTypes);
         } 
