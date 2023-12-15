@@ -205,7 +205,11 @@ class ContentType
      */
     public static function skipContentTypeTemplate(string $postType = ''): bool
     {
-        error_log('Function skipContentTypeTemplate() is deprecated since version 3.5.4. There is no direct replacement for this function.');
+        
+        if (function_exists('_doing_it_wrong')) {
+            _doing_it_wrong(__METHOD__, 'Function skipContentTypeTemplate() is deprecated since version 3.5.4. There is no direct replacement for this function.', '3.5.4');
+        }
+    
         return (bool) get_option("skip_content_type_template_{$postType}", false);
     }
 
