@@ -78,6 +78,7 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
                 break;
             case 'posts_per_page':
                 if (is_numeric($value)) {
+                    $value =  $value < 1 ? 100 : $value;
                     $restQuery['per_page'] = $value;
                 }
                 break;
