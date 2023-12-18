@@ -10,6 +10,41 @@ use Mockery;
 class PdfHelperTest extends TestCase
 {
     /**
+     * @testdox getCoverFieldsForPostType returns an array with designated keys if any cover data is present.
+     */
+    public function testGetCoverFieldsForPostTypeReturnsCoverArrayIfHasData() {
+        // Given 
+        $pdfHelper = new PdfHelper();
+        WP_Mock::userFunction('get_field', [ 'return' => "Test" ]);
+        Mockery::mock('alias:' . \Municipio\Helper\Image::class)->shouldReceive('getImageAttachmentData')->andReturn(['src' => 'test']);
+        
+        // When 
+        $result = $pdfHelper->getCoverFieldsForPostType();
+
+        // Then
+        $this->assertArrayHasKey('heading', $result);
+        $this->assertArrayHasKey('introduction', $result);
+        $this->assertArrayHasKey('cover', $result);
+        $this->assertArrayHasKey('emblem', $result);
+    }
+
+    /**
+     * @testdox getCoverFieldsForPostType returns false if no cover data is present.
+     */
+    public function testGetCoverFieldsForPostTypeReturnsFalseIfNoDataAndNoCoverSelected() {
+        // Given 
+        $pdfHelper = new PdfHelper();
+        WP_Mock::userFunction('get_field', [ 'return' => null ]);
+        Mockery::mock('alias:' . \Municipio\Helper\Image::class)->shouldReceive('getImageAttachmentData')->andReturn(false);
+
+        // When
+        $result = $pdfHelper->getCoverFieldsForPostType();
+
+        // Then
+        $this->assertFalse($result);
+    }
+
+    /**
      * @testdox systemHasSuggestedDependencies returns false if extension GD is not loaded.
      */
     public function testSystemHasSuggestedDependenciesReturnsFalseIfMissingGD()
@@ -92,6 +127,37 @@ class PdfHelperTest extends TestCase
 
         // Then
         $this->assertEquals(['secondPostType'], $cover);
+    }
+
+    public function testGetThemeModsReturnsArray()
+    {
+        // Given
+        $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
+
+        // When
+        $result = $pdfHelper->getThemeMods();
+
+        // Then
+        $this->assertIsArray($result);
+    }
+
+    public function testGetThemeModsReturnsThemeMods()
+    {
+        // Given
+        WP_Mock::userFunction('get_theme_mods', [
+            'times' => 1,
+            'return' => ['modName' => 'modValue']
+        ]);
+
+        $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
+        $this->assertEquals(['modName' => 'modValue'], $pdfHelper->getThemeMods());
+    }
+
+    public function testGetThemeModsReturnsArrayEvenIfGetThemeModsDoesNot()
+    {
+        WP_Mock::userFunction('get_theme_mods', [ 'times' => 1, 'return' => null ]);
+        $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
+        $this->assertIsArray($pdfHelper->getThemeMods());
     }
 
     /**

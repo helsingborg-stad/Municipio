@@ -235,16 +235,12 @@ class PdfHelper implements PdfHelperInterface
         $defaultFrontpage = get_field($postType . '_pdf_fallback_frontpage', 'option');
         $copyFrontpageFrom = get_field($postType . '_pdf_custom_frontpage', 'option');
         
-        if (!$ranOnce) {
-            if ($defaultFrontpage == 'none') {
-                return false;
-            } 
-            
-            if ($defaultFrontpage == 'custom' && !empty($copyFrontpageFrom)) {
+        if (!$ranOnce) {            
+            if ($defaultFrontpage === 'custom' && !empty($copyFrontpageFrom)) {
                 return $this->getCoverFieldsForPostType($copyFrontpageFrom, true);
             }
 
-            if ($defaultFrontpage == 'default') {
+            if ($defaultFrontpage === 'default') {
                 return $this->getCoverFieldsForPostType($this->defaultPrefix, true);
             }
         }
