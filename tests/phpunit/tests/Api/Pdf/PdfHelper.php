@@ -24,14 +24,39 @@ class PdfHelperTest extends TestCase
         $result = $pdfHelper->getFonts([], $woffConverterMock);
 
         // Then
-        $this->assertIsArray($result);
+        $this->assertArrayHasKey('heading', $result);
+        $this->assertArrayHasKey('base', $result);
     }
 
     /**
-     * @testdox getFonts Returns array containing src if custom fonts exists and have the same post_title as styles headings or base font.
+     * @testdox getFonts Returns the default array containing two arrays without the src key.
      * @runInSeparateProcess
      */
-    public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExists() {
+    public function testGetFontsReturnsArrayWithDefaultValuesIfCustomFontsDoNotMatch() {
+        // Given
+        $pdfHelper = new PdfHelper();
+        $woffConverterMock = Mockery::mock(FileConverterInterface::class);
+        $woffConverterMock->shouldReceive('convert')->andReturn('test');
+        $mockPosts = [$this->mockPost(['ID' => 1, 'post_title' => 'notMatching'])];
+        $wpQueryMock = Mockery::mock('overload:WP_Query');
+        $wpQueryMock->shouldReceive('__construct')->times(1)->withAnyArgs()->andSet('posts', $mockPosts);
+
+        // When
+        $result = $pdfHelper->getFonts([
+            'typography_heading' => ['font-family' => 'test'],
+            'typography_base' => ['font-family' => 'test']
+        ], $woffConverterMock);
+        
+        // Then
+        $this->assertEmpty($result['heading']['src']);
+        $this->assertEmpty($result['base']['src']);
+    }
+
+    /**
+     * @testdox getFonts Returns an array with arrays containing src if custom fonts exists and have the same post_title as styles headings or base font.
+     * @runInSeparateProcess
+     */
+    public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExistsAndMatchesStyles() {
         // Given
         $pdfHelper = new PdfHelper();
         $woffConverterMock = Mockery::mock(FileConverterInterface::class);
@@ -47,7 +72,6 @@ class PdfHelperTest extends TestCase
         ], $woffConverterMock);
         
         // Then
-        $this->assertConditionsMet();
         $this->assertNotEmpty($result['heading']['src']);
         $this->assertNotEmpty($result['base']['src']);
     }
