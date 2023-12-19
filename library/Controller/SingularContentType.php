@@ -62,15 +62,15 @@ class SingularContentType extends \Municipio\Controller\Singular
      *
      * @return array The data to send to the view.
      */
-    public function init()
-    {
-        parent::init();
+    // public function init()
+    // {
+    //     parent::init();
 
-        // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
-        $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
+    //     // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
+    //     // $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
-        return $this->data;
-    }
+    //     return $this->data;
+    // }
 
     
     /**
@@ -80,58 +80,57 @@ class SingularContentType extends \Municipio\Controller\Singular
      *
      * @return array|bool An array of related posts or false if no related posts are found.
      */
-    // TODO Move this to a helper class
-    private function getRelatedPosts($postId)
-    {
-        $taxonomies = get_post_taxonomies($postId);
-        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
+    // private function getRelatedPosts($postId)
+    // {
+    //     $taxonomies = get_post_taxonomies($postId);
+    //     $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
-        $arr = [];
-        foreach ($taxonomies as $taxonomy) {
-            $terms = get_the_terms($postId, $taxonomy);
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    if( $term instanceof WP_Term ) {
-                        $arr[$taxonomy][] = $term->term_id;
-                    }
-                }
-            }
-        }
+    //     $arr = [];
+    //     foreach ($taxonomies as $taxonomy) {
+    //         $terms = get_the_terms($postId, $taxonomy);
+    //         if (!empty($terms)) {
+    //             foreach ($terms as $term) {
+    //                 if( $term instanceof WP_Term ) {
+    //                     $arr[$taxonomy][] = $term->term_id;
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        if (empty($arr)) {
-            return false;
-        }
+    //     if (empty($arr)) {
+    //         return false;
+    //     }
 
-        $posts = [];
-        foreach ($postTypes as $postType) {
-            $args = array(
-            'numberposts' => 3,
-            'post_type' => $postType->name,
-            'post__not_in' => array($postId),
-            'tax_query' => array(
-                'relation' => 'OR',
-            ),
-            );
+    //     $posts = [];
+    //     foreach ($postTypes as $postType) {
+    //         $args = array(
+    //         'numberposts' => 3,
+    //         'post_type' => $postType->name,
+    //         'post__not_in' => array($postId),
+    //         'tax_query' => array(
+    //             'relation' => 'OR',
+    //         ),
+    //         );
 
-            foreach ($arr as $tax => $ids) {
-                $args['tax_query'][] = array(
-                'taxonomy' => $tax,
-                'field' => 'term_id',
-                'terms' => $ids,
-                'operator' => 'IN',
-                );
-            }
+    //         foreach ($arr as $tax => $ids) {
+    //             $args['tax_query'][] = array(
+    //             'taxonomy' => $tax,
+    //             'field' => 'term_id',
+    //             'terms' => $ids,
+    //             'operator' => 'IN',
+    //             );
+    //         }
 
-            $result = get_posts($args);
+    //         $result = get_posts($args);
 
-            if (!empty($result)) {
-                foreach ($result as &$post) {
-                    $post = \Municipio\Helper\Post::preparePostObject($post);
-                    $posts[$postType->label] = $result;
-                }
-            }
-        }
+    //         if (!empty($result)) {
+    //             foreach ($result as &$post) {
+    //                 $post = \Municipio\Helper\Post::preparePostObject($post);
+    //                 $posts[$postType->label] = $result;
+    //             }
+    //         }
+    //     }
 
-        return $posts;
-    }
+    //     return $posts;
+    // }
 }
