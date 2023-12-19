@@ -7,11 +7,14 @@ use Municipio\Api\Pdf\CreatePdf;
 use Municipio\Api\Pdf\PdfHelperInterface;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
+use Municipio\Helper\FileConverters\FileConverterInterface;
 
 class CreatePdfTest extends TestCase
 {
     /**
      * testdox renderView() removes unsupported image types.
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testRenderViewRemovesUnsupportedImageTypes()
     {
@@ -27,10 +30,12 @@ class CreatePdfTest extends TestCase
 
         $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
         $pdfHelper = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock = Mockery::mock('alias:'.FileConverterInterface::class);
+        $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
         WP_Mock::userFunction('render_blade_view', ['times' => 1, 'return' => $html]);
-        $createPdf = new CreatePdf($pdfHelper);
+        $createPdf = new CreatePdf($pdfHelper, $woffConverterMock);
 
         // When
         $result = $createPdf->getHtmlFromView([$this->mockPost()]);

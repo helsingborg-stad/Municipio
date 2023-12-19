@@ -6,9 +6,52 @@ use Municipio\Api\Pdf\PdfHelper;
 use WP_Mock\Tools\TestCase;
 use WP_Mock;
 use Mockery;
+use Municipio\Helper\FileConverters\FileConverterInterface;
 
 class PdfHelperTest extends TestCase
 {
+    /**
+     * @testdox getFonts Returns default values if no custom font files or styles.
+     * @runInSeparateProcess
+     */
+    public function testGetFontsReturnsDefaultArrayIfNoCustomFontsAreAvailable() {
+        // Given
+        $pdfHelper = new PdfHelper();
+        $woffConverterMock = Mockery::mock(FileConverterInterface::class);
+        $wp_query = Mockery::mock('WP_Query');
+
+        // When
+        $result = $pdfHelper->getFonts([], $woffConverterMock);
+
+        // Then
+        $this->assertIsArray($result);
+    }
+
+    /**
+     * @testdox getFonts Returns array containing src if custom fonts exists and have the same post_title as styles headings or base font.
+     * @runInSeparateProcess
+     */
+    public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExists() {
+        // Given
+        $pdfHelper = new PdfHelper();
+        $woffConverterMock = Mockery::mock(FileConverterInterface::class);
+        $woffConverterMock->shouldReceive('convert')->andReturn('test');
+        $mockPosts = [$this->mockPost(['ID' => 1, 'post_title' => 'test'])];
+        $wpQueryMock = Mockery::mock('overload:WP_Query');
+        $wpQueryMock->shouldReceive('__construct')->times(1)->withAnyArgs()->andSet('posts', $mockPosts);
+
+        // When
+        $result = $pdfHelper->getFonts([
+            'typography_heading' => ['font-family' => 'test'],
+            'typography_base' => ['font-family' => 'test']
+        ], $woffConverterMock);
+        
+        // Then
+        $this->assertConditionsMet();
+        $this->assertNotEmpty($result['heading']['src']);
+        $this->assertNotEmpty($result['base']['src']);
+    }
+
     /**
      * @testdox getCoverFieldsForPostType returns an array with designated keys if any cover data is present.
      */
