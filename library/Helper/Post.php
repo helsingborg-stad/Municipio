@@ -125,6 +125,9 @@ class Post
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
             $excerpt = self::getPostExcerpt($postObject);
+            $excerpt = str_replace("\n\n", '{DOUBLE_LINE_BREAK_PLACEHOLDER}', $excerpt);
+            $excerpt = str_replace("\n", '{LINE_BREAK_PLACEHOLDER}', $excerpt);
+            
             //Create excerpt if not defined by editor
             $postObject->excerpt = wp_trim_words(
                 $excerpt,
@@ -149,6 +152,11 @@ class Post
             //No content in post
             if (empty($postObject->excerpt)) {
                 $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
+            } else {
+                foreach ([&$postObject->excerpt, &$postObject->excerpt_short, &$postObject->excerpt_shorter] as &$sizedExcerpt) {
+                    $sizedExcerpt = str_replace('{DOUBLE_LINE_BREAK_PLACEHOLDER}', '<br><br>', $sizedExcerpt);
+                    $sizedExcerpt = str_replace('{LINE_BREAK_PLACEHOLDER}', '<br>', $sizedExcerpt);
+                }
             }
         }
 
