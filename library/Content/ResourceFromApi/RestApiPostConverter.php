@@ -5,6 +5,9 @@ namespace Municipio\Content\ResourceFromApi;
 use Municipio\Helper\ResourceFromApiHelper;
 use WP_Post;
 
+/**
+ * Class RestApiPostConverter
+ */
 class RestApiPostConverter
 {
     private ?object $restApiPost = null;
@@ -12,10 +15,16 @@ class RestApiPostConverter
 
     private const DEFAULT_POST_AUTHOR = 1;
 
+    /**
+     * RestApiPostConverter constructor.
+     *
+     * @param object $restApiPost
+     * @param ResourceInterface $resource
+     */
     public function __construct(object $restApiPost, ResourceInterface $resource)
     {
         $this->restApiPost = $restApiPost;
-        $this->resource = $resource;
+        $this->resource    = $resource;
     }
 
     /**
@@ -28,13 +37,21 @@ class RestApiPostConverter
         return ResourceFromApiHelper::getLocalId($this->restApiPost->id, $this->resource);
     }
 
+    /**
+     * Get the local media ID.
+     *
+     * @return int
+     */
     private function getLocalMediaId(): int
     {
         if ($this->resource->getMediaResource() === null || empty($this->restApiPost->featured_media)) {
             return $this->restApiPost->featured_media;
         }
 
-        return ResourceFromApiHelper::getLocalId($this->restApiPost->featured_media, $this->resource->getMediaResource());
+        return ResourceFromApiHelper::getLocalId(
+            $this->restApiPost->featured_media,
+            $this->resource->getMediaResource()
+        );
     }
 
     /**
@@ -154,30 +171,32 @@ class RestApiPostConverter
     private function getWPPostFieldsMap(): array
     {
         return [
-            'ID' => $this->getLocalId(),
-            'post_author' => $this->restApiPost->author ?? self::DEFAULT_POST_AUTHOR,
-            'post_date' => $this->restApiPost->date ?? '',
-            'post_date_gmt' => $this->restApiPost->date_gmt ?? '',
-            'post_content' => $this->restApiPost->content->rendered ?? '',
-            'post_title' => $this->restApiPost->title->rendered ?? '',
-            'post_excerpt' => $this->restApiPost->excerpt->rendered ?? $this->restApiPost->caption->rendered ?? '',
-            'post_status' => $this->restApiPost->status ?? '',
-            'comment_status' => $this->restApiPost->comment_status ?? 'publish',
-            'ping_status' => $this->restApiPost->ping_status ?? 'open',
-            'post_password' => $this->restApiPost->password ?? '',
-            'post_name' => $this->restApiPost->slug ?? '',
-            'to_ping' => $this->restApiPost->to_ping ?? '',
-            'pinged' => $this->restApiPost->pinged ?? '',
-            'post_modified' => $this->restApiPost->modified ?? '',
-            'post_modified_gmt' => $this->restApiPost->modified_gmt ?? '',
+            'ID'                    => $this->getLocalId(),
+            'post_author'           => $this->restApiPost->author ?? self::DEFAULT_POST_AUTHOR,
+            'post_date'             => $this->restApiPost->date ?? '',
+            'post_date_gmt'         => $this->restApiPost->date_gmt ?? '',
+            'post_content'          => $this->restApiPost->content->rendered ?? '',
+            'post_title'            => $this->restApiPost->title->rendered ?? '',
+            'post_excerpt'          => $this->restApiPost->excerpt->rendered
+                                        ?? $this->restApiPost->caption->rendered
+                                        ?? '',
+            'post_status'           => $this->restApiPost->status ?? '',
+            'comment_status'        => $this->restApiPost->comment_status ?? 'publish',
+            'ping_status'           => $this->restApiPost->ping_status ?? 'open',
+            'post_password'         => $this->restApiPost->password ?? '',
+            'post_name'             => $this->restApiPost->slug ?? '',
+            'to_ping'               => $this->restApiPost->to_ping ?? '',
+            'pinged'                => $this->restApiPost->pinged ?? '',
+            'post_modified'         => $this->restApiPost->modified ?? '',
+            'post_modified_gmt'     => $this->restApiPost->modified_gmt ?? '',
             'post_content_filtered' => $this->restApiPost->content->rendered ?? '',
-            'post_parent' => $this->restApiPost->parent ?? 0,
-            'guid' => $this->restApiPost->guid->rendered ?? '',
-            'menu_order' => $this->restApiPost->menu_order ?? 0,
-            'post_type' => $this->getLocalPostType(),
-            'post_mime_type' => $this->restApiPost->mime_type ?? '',
-            'comment_count' => 0,
-            'filter' => 'raw',
+            'post_parent'           => $this->restApiPost->parent ?? 0,
+            'guid'                  => $this->restApiPost->guid->rendered ?? '',
+            'menu_order'            => $this->restApiPost->menu_order ?? 0,
+            'post_type'             => $this->getLocalPostType(),
+            'post_mime_type'        => $this->restApiPost->mime_type ?? '',
+            'comment_count'         => 0,
+            'filter'                => 'raw',
         ];
     }
 

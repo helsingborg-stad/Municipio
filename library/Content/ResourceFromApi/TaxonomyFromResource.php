@@ -8,7 +8,7 @@ use WP_Taxonomy;
 
 /**
  * Class TaxonomyRegistrar
- * 
+ *
  * This class implements the TypeRegistrarInterface and is responsible for registering taxonomies.
  *
  * @package Municipio\Content\ResourceFromApi\Taxonomy
@@ -28,7 +28,12 @@ class TaxonomyFromResource implements TypeRegistrarInterface
         $this->resource = $resource;
     }
 
-    private function getObjectType (): array
+    /**
+     * Returns the object type of the taxonomy.
+     *
+     * @return array The object type of the taxonomy.
+     */
+    private function getObjectType(): array
     {
         $arguments = $this->resource->getArguments();
 
@@ -47,10 +52,15 @@ class TaxonomyFromResource implements TypeRegistrarInterface
     public function register(): bool
     {
         $arguments = $this->prepareArguments();
-        $success = register_taxonomy($this->resource->getName(), $this->getObjectType(), $arguments);
+        $success   = register_taxonomy($this->resource->getName(), $this->getObjectType(), $arguments);
         return is_a($success, WP_Taxonomy::class);
     }
-    
+
+    /**
+     * Prepares the arguments for the taxonomy resource.
+     *
+     * @return array The prepared arguments.
+     */
     private function prepareArguments(): array
     {
         $preparedArguments = $this->resource->getArguments();
@@ -69,7 +79,7 @@ class TaxonomyFromResource implements TypeRegistrarInterface
     {
         $arguments['labels'] = [];
 
-        if( isset($arguments['labels_name']) && !empty($arguments['labels_name']) ) {
+        if (isset($arguments['labels_name']) && !empty($arguments['labels_name'])) {
             $arguments['labels']['name'] = $arguments['labels_name'];
         }
 

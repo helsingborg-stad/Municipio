@@ -4,19 +4,32 @@ namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
 
+/**
+ * Class HooksAdder
+ */
 class HooksAdder
 {
     private ResourceRegistryInterface $resourceRegistry;
     private ModifiersHelperInterface $modifiersHelper;
 
+    /**
+     * Constructor for HooksAdder class.
+     *
+     * @param ResourceRegistryInterface $resourceRegistry The resource registry.
+     * @param ModifiersHelperInterface $modifiersHelper The modifiers helper.
+     */
     public function __construct(ResourceRegistryInterface $resourceRegistry, ModifiersHelperInterface $modifiersHelper)
     {
         $this->resourceRegistry = $resourceRegistry;
-        $this->modifiersHelper = $modifiersHelper;
+        $this->modifiersHelper  = $modifiersHelper;
     }
 
+    /**
+     * Add hooks.
+     */
     public function addHooks()
     {
+        // phpcs:disable Generic.Files.LineLength.TooLong
         add_action('clean_post_cache', [new ModifyCleanPostCache(), 'handle'], 10, 2);
         add_action('clean_object_term_cache', [new ModifyCleanObjectTermCache($this->resourceRegistry), 'handle'], 10, 2);
         add_filter('post_type_link', [new ModifyPostTypeLink($this->resourceRegistry), 'handle'], 10, 2);
@@ -29,5 +42,6 @@ class HooksAdder
         add_filter('Municipio/Archive/getTaxonomyFilters/option/value', [new ModifyMunicipioArchiveGetTaxonomyFiltersOptionValue($this->resourceRegistry), 'handle'], 10, 3);
         add_filter('Municipio/Breadcrumbs/Items', [new ModifyMunicipioBreadcrumbsItems($this->resourceRegistry), 'handle'], 10, 3);
         add_filter('Municipio/Content/ResourceFromApi/ConvertRestApiPostToWPPost', [new ModifyMunicipioContentResourceFromApiConvertRestApiPostToWPPost($this->resourceRegistry), 'handle'], 10, 3);
+        // phpcs:enable Generic.Files.LineLength.TooLong
     }
 }

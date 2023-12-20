@@ -7,24 +7,39 @@ use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Helper\WP;
 use WP_Post;
 
+/**
+ * Class ModifyPostTypeLink
+ */
 class ModifyPostTypeLink
 {
     private ResourceRegistryInterface $resourceRegistry;
 
+    /**
+     * Class constructor.
+     *
+     * @param ResourceRegistryInterface $resourceRegistry The resource registry.
+     */
     public function __construct(ResourceRegistryInterface $resourceRegistry)
     {
         $this->resourceRegistry = $resourceRegistry;
     }
 
+    /**
+     * Handle the modification of the post type link.
+     *
+     * @param string $postLink The original post link.
+     * @param WP_Post $post The WP_Post object.
+     * @return string The modified post link.
+     */
     public function handle(string $postLink, WP_Post $post)
     {
         if ($post->post_parent === 0) {
             return $postLink;
         }
 
-        $resources = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
+        $resources         = $this->resourceRegistry->getByType(ResourceType::POST_TYPE);
         $matchingResources = array_filter($resources, fn ($r) => $r->getName() === $post->post_type);
-        $postTypeObject = get_post_type_object($post->post_type);
+        $postTypeObject    = get_post_type_object($post->post_type);
 
         if (empty($matchingResources) || empty($postTypeObject)) {
             return $postLink;

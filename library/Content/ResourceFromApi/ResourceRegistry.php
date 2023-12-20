@@ -4,20 +4,35 @@ namespace Municipio\Content\ResourceFromApi;
 
 use Municipio\Helper\WP;
 
+/**
+ * Class ResourceRegistry
+ * Represents a registry of resources obtained from an API.
+ */
 class ResourceRegistry implements ResourceRegistryInterface
 {
     /**
      * @var ResourceInterface[] $registry
      */
-    private array $registry = [];
-    private string $resourcePostTypeName = 'api-resource';
+    private array $registry               = [];
+    private string $resourcePostTypeName  = 'api-resource';
     private const RESOURCE_ID_RANGE_START = 100;
 
+    /**
+     * Returns the registry.
+     *
+     * @return ResourceInterface[] The registry.
+     */
     public function getRegistry(): array
     {
         return $this->registry;
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return ResourceInterface|null The resource.
+     */
     public function getByName(string $name): array
     {
         return array_filter($this->registry, function ($resource) use ($name) {
@@ -25,6 +40,12 @@ class ResourceRegistry implements ResourceRegistryInterface
         });
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return ResourceInterface|null The resource.
+     */
     public function registerResources()
     {
         $types = [
@@ -34,11 +55,10 @@ class ResourceRegistry implements ResourceRegistryInterface
         ];
 
         foreach ($types as $type) {
-
             $resourcePosts = get_posts([
-                'post_type' => $this->resourcePostTypeName,
-                'meta_key' => 'type',
-                'meta_value' => $type,
+                'post_type'      => $this->resourcePostTypeName,
+                'meta_key'       => 'type',
+                'meta_value'     => $type,
                 'posts_per_page' => -1,
             ]);
 
@@ -47,39 +67,72 @@ class ResourceRegistry implements ResourceRegistryInterface
             }
 
             foreach ($resourcePosts as $resourcePost) {
-                $arguments = $this->getArguments($resourcePost->ID, $type);
-                $name = $this->getName($resourcePost->ID, $type, $arguments);
+                $arguments      = $this->getArguments($resourcePost->ID, $type);
+                $name           = $this->getName($resourcePost->ID, $type, $arguments ?? []);
                 $resourcePostId = $resourcePost->ID;
-                $resourceUrl = get_post_meta($resourcePostId, 'api_resource_url', true);
-                $originalName = get_post_meta($resourcePostId, 'api_resource_original_name', true);
-                $baseName = get_post_meta($resourcePostId, 'api_resource_base_name', true);
-                $baseUrl = $resourceUrl . $baseName;
-                $id = $this->getNewResourceID();
-                $mediaResource = null;
+                $resourceUrl    = get_post_meta($resourcePostId, 'api_resource_url', true);
+                $originalName   = get_post_meta($resourcePostId, 'api_resource_original_name', true);
+                $baseName       = get_post_meta($resourcePostId, 'api_resource_base_name', true);
+                $baseUrl        = $resourceUrl . $baseName;
+                $id             = $this->getNewResourceID();
+                $mediaResource  = null;
 
                 if ($type === ResourceType::POST_TYPE) {
                     // Attempt to add attachment resource to post type.
-                    $mediaResources = $this->getByType(ResourceType::ATTACHMENT);
-                    $matchingMediaResources = array_filter($mediaResources, function ($mediaResource) use ($resourcePost) {
-                        $mediaResourceArgs = $mediaResource->getArguments();
-                        return !empty($mediaResourceArgs['post_types']) &&
-                            in_array((string)$resourcePost->ID, $mediaResourceArgs['post_types']);
-                    });
+                    $mediaResources         = $this->getByType(ResourceType::ATTACHMENT);
+                    $matchingMediaResources = array_filter(
+                        $mediaResources,
+                        function ($mediaResource) use ($resourcePost) {
+                            $mediaResourceArgs = $mediaResource->getArguments();
+                            return !empty($mediaResourceArgs['post_types']) &&
+                                in_array((string)$resourcePost->ID, $mediaResourceArgs['post_types']);
+                        }
+                    );
 
                     if (!empty($matchingMediaResources)) {
                         $mediaResource = array_shift($matchingMediaResources);
                     }
 
-                    $this->registry[] = new PostTypeResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new PostTypeResource(
+                        $id,
+                        $name,
+                        $arguments,
+                        $baseUrl,
+                        $originalName,
+                        $baseName,
+                        $mediaResource
+                    );
                 } elseif ($type === ResourceType::TAXONOMY) {
-                    $this->registry[] = new TaxonomyResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new TaxonomyResource(
+                        $id,
+                        $name,
+                        $arguments,
+                        $baseUrl,
+                        $originalName,
+                        $baseName,
+                        $mediaResource
+                    );
                 } elseif ($type === ResourceType::ATTACHMENT) {
-                    $this->registry[] = new AttachmentResource($id, $name, $arguments, $baseUrl, $originalName, $baseName, $mediaResource);
+                    $this->registry[] = new AttachmentResource(
+                        $id,
+                        $name,
+                        $arguments,
+                        $baseUrl,
+                        $originalName,
+                        $baseName,
+                        $mediaResource
+                    );
                 }
             }
         }
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return int The resource.
+     */
     private function getNewResourceID(): int
     {
         $currentSize = sizeof($this->registry);
@@ -87,11 +140,23 @@ class ResourceRegistry implements ResourceRegistryInterface
         return self::RESOURCE_ID_RANGE_START + $currentSize + 1;
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return ResourceInterface[]|null The resource.
+     */
     public function getByType(string $type): array
     {
-        return array_filter( $this->registry, fn ($resource) => $resource->getType() === $type );
+        return array_filter($this->registry, fn ($resource) => $resource->getType() === $type);
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return array|null The resource.
+     */
     private function getArguments(int $resourceId, string $type): ?array
     {
         if (!function_exists('get_field')) {
@@ -100,15 +165,21 @@ class ResourceRegistry implements ResourceRegistryInterface
 
         if ($type === ResourceType::POST_TYPE) {
             return get_field('post_type_arguments', $resourceId) ?? [];
-        } else if ($type === ResourceType::TAXONOMY) {
+        } elseif ($type === ResourceType::TAXONOMY) {
             return get_field('taxonomy_arguments', $resourceId) ?? [];
-        } else if ($type === ResourceType::ATTACHMENT) {
+        } elseif ($type === ResourceType::ATTACHMENT) {
             return get_field('attachment_arguments', $resourceId) ?? [];
         }
 
         return null;
     }
 
+    /**
+     * Returns a resource by its ID.
+     *
+     * @param int $id The ID of the resource.
+     * @return string|null The resource.
+     */
     private function getName(int $resourceId, string $type, array $arguments): ?string
     {
         if (!function_exists('get_field')) {

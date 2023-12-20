@@ -8,7 +8,7 @@ use WP_Post_Type;
 
 /**
  * Class PostTypeRegistrar
- * 
+ *
  * This class implements the TypeRegistrarInterface and is responsible for registering custom post types for resources.
  *
  * @package Content\ResourceFromApi\PostType
@@ -36,7 +36,7 @@ class PostTypeFromResource implements TypeRegistrarInterface
     public function register(): bool
     {
         $arguments = $this->prepareArguments($this->resource->getArguments());
-        $success = register_post_type($this->resource->getName(), $arguments);
+        $success   = register_post_type($this->resource->getName(), $arguments);
         $this->addRewriteRules();
 
         if (is_a($success, WP_Post_Type::class)) {
@@ -46,23 +46,24 @@ class PostTypeFromResource implements TypeRegistrarInterface
         return false;
     }
 
+    /**
+     * Add rewrite rules for the post type.
+     */
     private function addRewriteRules(): void
     {
         $postTypeName = $this->resource->getName();
-        $arguments = $this->resource->getArguments();
+        $arguments    = $this->resource->getArguments();
 
         if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
             return;
         }
 
         foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-
             if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
                 return;
             }
 
             foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-
                 $parentPostTypeObject = get_post_type_object($parentPostTypeName);
 
                 if (empty($parentPostTypeObject)) {
@@ -157,7 +158,7 @@ class PostTypeFromResource implements TypeRegistrarInterface
     {
         if (!$arguments['hierarchical'] && !empty($arguments['parent_post_types'])) {
             $parentSlug = '/%parentPost%';
-            $slug = '';
+            $slug       = '';
 
             if (isset($arguments['rewrite']) && isset($arguments['rewrite']['slug'])) {
                 $slug = $arguments['rewrite']['slug'];

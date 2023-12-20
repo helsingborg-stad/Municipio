@@ -6,13 +6,23 @@ use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\Helper\RestRequestHelper;
 use Municipio\Helper\WPQueryToRestParamsConverter;
 
+/**
+ * Class PostTypeResource
+ * Represents a resource obtained from an API.
+ */
 class PostTypeResource extends Resource
 {
+    /**
+     * Returns the type of the resource.
+     */
     public function getType(): string
     {
         return ResourceType::POST_TYPE;
     }
 
+    /**
+     * Returns the collection of the resource.
+     */
     public function getCollection(?array $queryArgs = null): array
     {
         $url = $this->getCollectionUrl($queryArgs);
@@ -47,6 +57,9 @@ class PostTypeResource extends Resource
         return $posts;
     }
 
+    /**
+     * Returns the HTTP headers of the collection response.
+     */
     public function getCollectionHeaders(?array $queryArgs = null): array
     {
         $url = $this->getCollectionUrl($queryArgs);
@@ -64,6 +77,12 @@ class PostTypeResource extends Resource
         return $headers;
     }
 
+    /**
+     * Returns a single post from the api.
+     *
+     * @param int|string $id The id or slug of the post.
+     * @return object|null The post.
+     */
     public function getSingle($id): ?object
     {
         $foundInCache = null;
@@ -100,6 +119,9 @@ class PostTypeResource extends Resource
         return null;
     }
 
+    /**
+     * Returns meta value for a post.
+     */
     public function getMeta(int $id, string $metaKey, bool $single = true)
     {
         if ($id === 0) {
@@ -119,6 +141,12 @@ class PostTypeResource extends Resource
         return null;
     }
 
+    /**
+     * Returns the api url for the entire collection.
+     *
+     * @param array|null $queryArgs The query arguments.
+     * @return string|null The api url for the entire collection.
+     */
     private function getCollectionUrl(?array $queryArgs = null): ?string
     {
         if (empty($this->getBaseUrl())) {
@@ -132,6 +160,12 @@ class PostTypeResource extends Resource
         return $this->getBaseUrl() . $restParams;
     }
 
+    /**
+     * Returns the api url for a single post.
+     *
+     * @param int|string $id The id or slug of the post.
+     * @return string|null The api url for a single post.
+     */
     private function getSingleUrl($id): ?string
     {
 
@@ -144,7 +178,13 @@ class PostTypeResource extends Resource
         return "{$url}/?slug={$id}";
     }
 
-    private function shouldGetEntireCollection(?array $queryArgs = null)
+    /**
+     * Returns whether the entire collection should be fetched.
+     *
+     * @param array|null $queryArgs The query arguments.
+     * @return bool Whether the entire collection should be fetched.
+     */
+    private function shouldGetEntireCollection(?array $queryArgs = null): bool
     {
         if (empty($queryArgs)) {
             return true;
@@ -157,7 +197,13 @@ class PostTypeResource extends Resource
         return false;
     }
 
-    private function getEntireCollection(string $url): array
+    /**
+     * Returns the entire collection of posts.
+     *
+     * @param string $url The url to fetch the posts from.
+     * @return array|WP_Error|object The entire collection of posts.
+     */
+    private function getEntireCollection(string $url)
     {
         $posts  = [];
         $offset = 0;
