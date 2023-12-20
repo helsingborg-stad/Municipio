@@ -53,6 +53,25 @@ You can install composer dependencies with.
 $ composer install
 ```
 
+### Composer scripts
+```bash
+composer run test # Run phpunit tests
+```
+```bash
+composer run test:coverage # Run phpunit tests with code coverage
+```
+```bash
+composer run lint # Run phpcs
+```
+```bash
+composer run lint:changed # Run phpcs on changed files (Compares to main branch).
+```
+```bash
+composer run fix # Run phpcbf to apply fixes to code.
+```
+```bash
+composer run fix:changed # Run phpcbf to apply fixes to changed files (Compares to main branch).
+```
 
 ## Constants
 
