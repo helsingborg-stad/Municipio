@@ -46,11 +46,16 @@
     "scripts": {
         "test": "phpunit --testdox --no-coverage",
         "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
+        "lint": "vendor/bin/phpcs",
+        "lint:changed": "vendor/bin/phpcs-changed origin/main",
+        "fix": "vendor/bin/phpcbf",
+        "fix:changed": "vendor/bin/phpcbf-changed origin/main",
         "post-update-cmd": []
     },
     "config": {
         "allow-plugins": {
-            "composer/installers": true
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "require-dev": {
@@ -58,7 +63,8 @@
         "lucatume/function-mocker": "^1.3",
         "yoast/phpunit-polyfills": "^1.0.4",
         "spatie/phpunit-watcher": "*",
-        "php-stubs/acf-pro-stubs": "dev-master"
+        "php-stubs/acf-pro-stubs": "dev-master",
+        "helsingborg-stad/phpcs": "dev-main"
     },
     "autoload": {
         "psr-4": {
