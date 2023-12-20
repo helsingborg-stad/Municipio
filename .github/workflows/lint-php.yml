@@ -40,4 +40,4 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Run php lint
-      run: vendor/bin/phpcs-changed origin/main
+      run: composer run lint:changed
