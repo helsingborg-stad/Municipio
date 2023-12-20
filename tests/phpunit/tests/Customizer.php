@@ -1,6 +1,10 @@
 <?php
 
-class CustomizerTest extends Phpunit\Framework\TestCase
+namespace Municipio\Tests;
+
+use PHPUnit\Framework\TestCase;
+
+class CustomizerTest extends TestCase
 {
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {

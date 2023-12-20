@@ -53,6 +53,25 @@ You can install composer dependencies with.
 $ composer install
 ```
 
+### Composer scripts
+```bash
+composer run test # Run phpunit tests
+```
+```bash
+composer run test:coverage # Run phpunit tests with code coverage
+```
+```bash
+composer run lint # Run phpcs
+```
+```bash
+composer run lint:changed # Run phpcs on changed files (Compares to main branch).
+```
+```bash
+composer run fix # Run phpcbf to apply fixes to code.
+```
+```bash
+composer run fix:changed # Run phpcbf to apply fixes to changed files (Compares to main branch).
+```
 
 ## Constants
 
@@ -475,37 +494,17 @@ bem-views
 
 ```
 
-## Tests
+## PHP Tests
+Municipio uses [PHPUnit](https://phpunit.de/) for unit testing. For mocking and stubbing we use [WP_Mock](https://wp-mock.gitbook.io/). This means that you can use WP_Mock, [Mockery](https://github.com/mockery/mockery)(since this is a wrapper for WP_Mock) and PHPUnit_MockObject for mocking and stubbing.
 
-### PHP Tests
-Municipio comes with support and setup for WordPress integration testing based on the WordPress test suite. Since the test suite uses PHPUnit to write tests, unit tests are supported as well as integration tests.
+### PHPUnit Tests file structure
+All tests are stored in the `tests/phpunit/tests` folder. The file structure should mirror the file structure of the theme. The file name should be the same as the file you want to test. For example, if you want to test the file `src/Controller/Base.php` you should create the file `tests/phpunit/tests/Controller/Base.php`. To avoid having too large test files, you can instead create a folder with the same name as the file you want to test and put the test files inside. Please note that for separating files by which class function you are testing, you should name the file e.g. `Base.functionName.php`.
 
-#### Prerequesites
-* PHP >=7.4
-* MySQL
-* SVN cli, The `subversion` package is required to check out specified versions of WordPress for testing.
+### Running PHPUnit tests
+Run `composer test` in the terminal.
 
-#### Set up test suite
-1. Make sure you have run ```composer install`` to get all the packages required.
-1. Run `composer run test:setup` and pass along the parameters that are required. You will be informed about which parameters are required when running the command without passing any parameters.
-1. Run `composer run test`.
-
-#### Organizing tests
-Different from the PHPUnit standard way of organizing test files Municipio looks for test files in the `/library` folder and expect a suffix of `.Test.php`. This is to improve readability of the file structure and make it faster to identify if a corresponding test file exists for any given source file.
-
-##### Example test file organization
-```
-├── libraru
-│   ├── SomeClass.php
-│   ├── SomeClass.Test.php
-```
-
-#### Test commands
-A number of scripts are available from the composer.json as shorthands for running tests. These are:
-1. `test`. Runs the test suite as is.
-1. `test:coverage`. Runs the test suite and generates coverage reports in html and clover format which are then stored in the `.coverage` folder.
-1. `test:watch`. Runs phpunit-watcher which in turn runs the test suite as is but in "watch-mode".
-1. `test:watch:coverage`. Runs phpunit-watcher which in turn runs the test suite and generates coverage report files, but in "watch-mode".
+### Running PHPUnit tests with code coverage
+Run `composer test:coverage` in the terminal. This will generate a code coverage report in the `tests/phpunit/.coverage` folder.
 
 ## Image compression
 Municipio supports image compression with shortpixel. This will enque a cronjob with a slight delay to compress newly uploaded images. Simpley define SHORTPIXEL_API_KEY constant in your config file and that's it! 

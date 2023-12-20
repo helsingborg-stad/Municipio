@@ -426,7 +426,7 @@ class Post
             self::$runtimeCache['getPostTypeMetaKeys'] = [];
         }
 
-        if(!isset(self::$runtimeCache['getPostTypeMetaKeys'][$postType])) {
+        if(isset(self::$runtimeCache['getPostTypeMetaKeys'][$postType])) {
             return self::$runtimeCache['getPostTypeMetaKeys'][$postType]; 
         }
 

@@ -21,6 +21,10 @@ class PostTypeResource extends Resource
             return [];
         }
 
+        if ($this->shouldGetEntireCollection($queryArgs)) {
+            return $this->getEntireCollection($url);
+        }
+
         $foundInCache = wp_cache_get($url, $this->getName() . '-posts');
 
         if ($foundInCache) {
@@ -65,7 +69,7 @@ class PostTypeResource extends Resource
         $foundInCache = null;
 
         if (is_numeric($id)) {
-            $localId = ResourceFromApiHelper::getLocalId($id, $this);
+            $localId      = ResourceFromApiHelper::getLocalId($id, $this);
             $foundInCache = wp_cache_get($localId, 'posts');
         } else {
             $foundInCache = wp_cache_get($id, $this->getName() . '-posts');
@@ -89,7 +93,7 @@ class PostTypeResource extends Resource
 
         if (is_array($postFromApi) && !empty($postFromApi)) {
             return (new RestApiPostConverter($postFromApi[0], $this))->convertToWPPost();
-        } else if (is_object($postFromApi)) {
+        } elseif (is_object($postFromApi)) {
             return (new RestApiPostConverter($postFromApi, $this))->convertToWPPost();
         }
 
@@ -138,5 +142,44 @@ class PostTypeResource extends Resource
         }
 
         return "{$url}/?slug={$id}";
+    }
+
+    private function shouldGetEntireCollection(?array $queryArgs = null)
+    {
+        if (empty($queryArgs)) {
+            return true;
+        }
+
+        if (isset($queryArgs['posts_per_page']) && $queryArgs['posts_per_page'] === -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function getEntireCollection(string $url): array
+    {
+        $posts  = [];
+        $offset = 0;
+
+        do {
+            $postsFromApi = RestRequestHelper::get($url . "&offset={$offset}");
+
+            if (is_wp_error($postsFromApi) || !is_array($postsFromApi) || empty($postsFromApi)) {
+                return $posts;
+            }
+
+            $posts = array_merge(
+                $posts,
+                array_map(
+                    fn ($post) => (new RestApiPostConverter($post, $this))->convertToWPPost(),
+                    $postsFromApi
+                )
+            );
+
+            $offset = sizeof($posts);
+        } while (!empty($postsFromApi) && !is_wp_error($postsFromApi));
+
+        return $posts;
     }
 }

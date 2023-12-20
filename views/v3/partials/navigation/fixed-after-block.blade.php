@@ -1,5 +1,5 @@
 @if (!empty($quicklinksMenuItems) && !empty($quicklinksPlacement) && $quicklinksPlacement === 'after_first_block')
-    @if (($customizer->quicklinksLocation == 'frontpage' && $isFrontPage) || $customizer->quicklinksLocation == 'everywhere')
+    @if (($customizer->quicklinksLocation == 'frontpage' && !empty($isFrontPage)) || $customizer->quicklinksLocation == 'everywhere')
         @header([
             'id' => 'quicklinks-header',
             'classList' => ['site-header', 's-nav-fixed', 'u-padding-0', 'u-print-display--none'],

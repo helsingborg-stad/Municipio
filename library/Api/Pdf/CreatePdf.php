@@ -6,9 +6,19 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Municipio\Helper\Image;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use Municipio\Helper\FileConverters\FileConverterInterface;
 
 class CreatePdf
 {
+    private PdfHelperInterface $pdfHelper;
+    private FileConverterInterface $woffHelper;
+
+    public function __construct(PdfHelperInterface $pdfHelper, FileConverterInterface $woffHelper)
+    {
+        $this->pdfHelper = $pdfHelper;
+        $this->woffHelper = $woffHelper;
+    }
+
     /**
      * Renders a PDF view for the specified posts and cover information.
      *
@@ -16,28 +26,31 @@ class CreatePdf
      * @param array|false $cover     Cover information or false if not available.
      * @param string      $fileName  Name of the PDF file.
      */
-    public function renderView($posts = false, $cover = false, string $fileName = 'print') {
-        $pdfHelper = new PDFHelper();
-        $styles = $pdfHelper->getThemeMods();
-        $fonts = $pdfHelper->getFonts($styles);
+    public function getHtmlFromView($posts = false, $cover = false):string {
+        $styles = $this->pdfHelper->getThemeMods();
+        $fonts = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang = $this->getLang();
 
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'posts'     => $posts,
-                'styles'    => $styles,
-                'cover'     => $cover,
-                'fonts'     => $fonts,
-                'lang'      => $lang
+                'posts'                 => $posts,
+                'styles'                => $styles,
+                'cover'                 => $cover,
+                'fonts'                 => $fonts,
+                'lang'                  => $lang,
+                'hasMoreThanOnePost'    => count($posts) > 1
             ]);
 
-            $html = $this->replaceHtmlFromRegex(
-                ['/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s'],
-                $html
-            );
+            $html = $this->replaceHtmlFromRegex( [ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html );
 
-            $this->renderPdf($html, $fileName);
+            if( !extension_loaded('gd') ) {
+                $html = $this->replaceHtmlFromRegex( [ '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s', ], $html );
+            }
+
+            return $html;
         }
+
+        return "";
     }
 
     /**
@@ -76,12 +89,13 @@ class CreatePdf
      * @param string $html     HTML content.
      * @param string $fileName Name of the PDF file.
      */
-    private function renderPdf(string $html, string $fileName) {
+    public function renderPdf(string $html, string $fileName = 'print') {
         $dompdf = new Dompdf([
             'isRemoteEnabled' => true,
             'isPhpEnabled' => true,
             'isHtml5ParserEnabled' => true,
         ]);
+        
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
