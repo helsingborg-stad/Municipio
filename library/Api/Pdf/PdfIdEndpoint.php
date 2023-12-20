@@ -12,8 +12,8 @@ use WP_Post;
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
-    private const ROUTE = '/id=(?P<id>[\d,-]+)';
-    
+    private const ROUTE     = '/id=(?P<id>[\d,-]+)';
+
     /**
      * Handles the registration of the REST route.
      *
@@ -22,8 +22,9 @@ class PdfIdEndpoint extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => 'GET',
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => 'GET',
+            'callback'            => array($this, 'handleRequest'),
+            'permission_callback' => '__return_true',
         ));
     }
 
@@ -36,15 +37,15 @@ class PdfIdEndpoint extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $pdfHelper = new PDFHelper();
+        $pdfHelper  = new PDFHelper();
         $woffHelper = new WoffConverterHelper();
-        $idString = $request->get_param('id');
+        $idString   = $request->get_param('id');
 
         if (!empty($idString) && is_string($idString)) {
-            $idArr = explode(',', $idString);
+            $idArr               = explode(',', $idString);
             [$posts, $postTypes] = $this->getPostsById($idArr);
-            $cover = $pdfHelper->getCover($postTypes);
-            
+            $cover               = $pdfHelper->getCover($postTypes);
+
             if (!empty($posts)) {
                 $fileName = (string)(function () use ($posts) {
                     if (!empty($posts[0]->postName)) {
@@ -52,18 +53,18 @@ class PdfIdEndpoint extends RestApiEndpoint
                     }
                     return 'page-pdf';
                 })();
-                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
-                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf      = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
+                $html     = $pdf->getHtmlFromView($posts, $cover);
                 $pdf->renderPdf($html, $fileName);
             }
             return new WP_REST_Response(null, 200);
         }
-    
+
         return new WP_REST_Response(
             null,
             303,
             [
-                'Location' => site_url( '/404' ),
+                'Location' => site_url('/404'),
             ]
         );
     }
@@ -75,12 +76,13 @@ class PdfIdEndpoint extends RestApiEndpoint
      *
      * @return array Array containing posts and associated post types.
      */
-    private function getPostsById(array $ids): array {
-        $posts = [];
+    private function getPostsById(array $ids): array
+    {
+        $posts     = [];
         $postTypes = [];
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
-                $id = trim($id); 
+                $id   = trim($id);
                 $post = get_post($id);
                 if ($this->shouldRenderPost($post)) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
@@ -92,7 +94,7 @@ class PdfIdEndpoint extends RestApiEndpoint
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
                     }
-                    
+
                     array_push($posts, $post);
                 }
             }
@@ -106,17 +108,18 @@ class PdfIdEndpoint extends RestApiEndpoint
      * @param WP_Post $post WordPress post object.
      * @return bool Whether the post should be rendered.
      */
-    private function shouldRenderPost($post): bool {
+    private function shouldRenderPost($post): bool
+    {
 
-        if(empty($post->post_status)) {
+        if (empty($post->post_status)) {
             return false;
         }
 
-        if(empty($post->post_type)) {
+        if (empty($post->post_type)) {
             return false;
         }
 
-        if($post->post_status == 'publish' && $this->isPublicPostType($post->post_type)) {
+        if ($post->post_status == 'publish' && $this->isPublicPostType($post->post_type)) {
             return true;
         }
 
@@ -128,9 +131,10 @@ class PdfIdEndpoint extends RestApiEndpoint
      * @param string $postType Post type to check.
      * @return bool Whether the post type is public.
      */
-    private function isPublicPostType($postType): bool {
+    private function isPublicPostType($postType): bool
+    {
         $publicPostTypes = get_post_types(['public' => true]);
-        if(in_array($postType, $publicPostTypes)) {
+        if (in_array($postType, $publicPostTypes)) {
             return true;
         }
         return false;

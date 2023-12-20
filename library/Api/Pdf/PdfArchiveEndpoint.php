@@ -11,8 +11,8 @@ use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 class PdfArchiveEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
-    private const ROUTE = '/(?P<postType>[a-zA-Z-_]+)';
-    
+    private const ROUTE     = '/(?P<postType>[a-zA-Z-_]+)';
+
     /**
      * Handles the registration of the REST route.
      *
@@ -21,8 +21,10 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => 'GET',
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => 'GET',
+            'callback'            => array($this, 'handleRequest'),
+            'permission_callback' => '__return_true',
+
         ));
     }
 
@@ -37,18 +39,17 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     {
         $postType = $request->get_param('postType');
 
-        if($this->isPublicPostType($postType)) {
-
-            $pdfHelper = new PDFHelper();
-            $woffHelper = new WoffConverterHelper();
+        if ($this->isPublicPostType($postType)) {
+            $pdfHelper   = new PDFHelper();
+            $woffHelper  = new WoffConverterHelper();
             $queryParams = $request->get_query_params();
 
             $posts = $this->getArchivePosts($postType, $queryParams);
-            
+
             if (!empty($posts)) {
                 $cover = $pdfHelper->getCoverFieldsForPostType($postType);
-                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
-                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf   = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
+                $html  = $pdf->getHtmlFromView($posts, $cover);
                 $pdf->renderPdf($html, $postType);
                 return new WP_REST_Response(null, 200);
             }
@@ -57,7 +58,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                 null,
                 302,
                 [
-                    'Location' => site_url( '/404' ),
+                    'Location' => site_url('/404'),
                 ]
             );
         }
@@ -66,7 +67,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             null,
             302,
             [
-                'Location' => site_url( '/404' ),
+                'Location' => site_url('/404'),
             ]
         );
     }
@@ -79,39 +80,39 @@ class PdfArchiveEndpoint extends RestApiEndpoint
      *
      * @return array The retrieved posts.
      */
-    private function getArchivePosts($postType = false, $queryParams = false) {
-        $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
-        $order = get_theme_mod('archive_' . $postType . '_order_direction');
+    private function getArchivePosts($postType = false, $queryParams = false)
+    {
+        $orderBy   = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
+        $order     = get_theme_mod('archive_' . $postType . '_order_direction');
         $facetting = empty(get_theme_mod('archive_' . $postType . '_filter_type')) ? 'IN' : 'AND';
 
         $args = [
-            'post_type' => $postType,
-            'tax_query' => [],
-            'date_query' => [
+            'post_type'      => $postType,
+            'tax_query'      => [],
+            'date_query'     => [
                 'inclusive' => true,
             ],
             'posts_per_page' => -1,
-            'orderby' => !empty($orderBy) ? $orderBy : 'post_date',
-            'order' => !empty($order) ? $order : 'desc'
+            'orderby'        => !empty($orderBy) ? $orderBy : 'post_date',
+            'order'          => !empty($order) ? $order : 'desc'
         ];
 
         if (!empty($queryParams) && is_array($queryParams)) {
-
             if (!empty($queryParams['from'])) {
                 $args['date_query']['after'] = $queryParams['from'];
                 unset($queryParams['from']);
             }
-    
+
             if (!empty($queryParams['to'])) {
-                $args['date_query']['before'] = $queryParams['to'];
+                $args['date_query']['before']  = $queryParams['to'];
                 $args['date_query']['compare'] = '<=';
                 unset($queryParams['to']);
             }
-    
+
             if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {
                 $args['date_query']['compare'] = 'BETWEEN';
             }
-    
+
             if (isset($queryParams['s'])) {
                 $args['s'] = $queryParams['s'];
                 unset($queryParams['s']);
@@ -123,8 +124,8 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                 } else {
                     $args['tax_query'][] = [
                         'taxonomy' => $key,
-                        'field' => 'slug',
-                        'terms' => $values,
+                        'field'    => 'slug',
+                        'terms'    => $values,
                         'operator' => $facetting
                     ];
                 }
@@ -134,7 +135,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         $query = new \WP_Query($args);
 
         if (!empty($query->posts)) {
-            foreach($query->posts as &$post) {
+            foreach ($query->posts as &$post) {
                 $post = \Municipio\Helper\Post::preparePostObject($post);
 
                 if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
@@ -146,7 +147,8 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return $query->posts;
     }
 
-    private function handleDateAndSearchFiltering(array $queryParams) {
+    private function handleDateAndSearchFiltering(array $queryParams)
+    {
 
 
         return $queryParams;
@@ -157,9 +159,10 @@ class PdfArchiveEndpoint extends RestApiEndpoint
      * @param string $postType Post type to check.
      * @return bool Whether the post type is public.
      */
-    private function isPublicPostType($postType): bool {
+    private function isPublicPostType($postType): bool
+    {
         $publicPostTypes = get_post_types(['public' => true]);
-        if(in_array($postType, $publicPostTypes)) {
+        if (in_array($postType, $publicPostTypes)) {
             return true;
         }
         return false;
