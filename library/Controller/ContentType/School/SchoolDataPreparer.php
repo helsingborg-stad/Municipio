@@ -272,7 +272,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $this->data['application']['displayOnWebsite'] = false;
         }
 
-        $this->data['application']['title'] = $this->postMeta->ctaApplication->title ?: $this->getApplicationTitle(get_queried_object());
+        $this->data['application']['title'] = $this->postMeta->ctaApplication->title ?: $this->getApplicationCtaTitle(get_queried_object());
 
         $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
         $this->data['application']['apply']       = null;
@@ -308,7 +308,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
      * @param \WP_Post|null $post The post object.
      * @return string The application title.
      */
-    private function getApplicationTitle($post): string
+    private function getApplicationCtaTitle($post): string
     {
         if ($post instanceof \WP_Post) {
             switch ($post->post_type) {
