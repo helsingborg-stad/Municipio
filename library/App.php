@@ -101,6 +101,12 @@ class App
 
         // Add REST API endpoints for resources.
         add_action('rest_api_init', function () use ($resourceRegistry) {
+            $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+
+            if (empty($resources)) {
+                return;
+            }
+
             foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
                 $controller = new ResourceFromApiRestController($resource->getName());
                 $controller->register_routes();
