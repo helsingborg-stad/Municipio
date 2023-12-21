@@ -432,7 +432,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $streetNumber  = $address->address->street_number ?? '';
             $postCode      = $address->address->post_code ?? '';
             $city          = $address->address->city ?? '';
-            $lineBreak     = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
+            $lineBreak     = sizeof($visitingAddresses) > 1 ? ', <br>' : ', ';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
                 'title'      => $this->data['post']->postTitle ?? null,
