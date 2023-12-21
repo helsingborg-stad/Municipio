@@ -13,8 +13,13 @@
         @endnotice
     @endif
 
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
+    @if ($post->excerpt)
+        @typography([
+            'classList' => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0'],
+            'element' => 'div'
+        ])
+            {!! $post->excerpt !!}
+        @endtypography
     @endif
 
     @if ($facadeSliderItems)

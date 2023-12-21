@@ -610,7 +610,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'layout'         => 'bottom',
             'containerColor' => 'transparent',
             'textColor'      => 'white',
-            'heroStyle'      => true
+            'heroStyle'      => true,
+            'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
         $sliderItem['text']          = $attachment['caption'];
