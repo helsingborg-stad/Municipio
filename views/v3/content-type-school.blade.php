@@ -202,8 +202,10 @@
         ])
             @foreach ($accordionListItems as $listItem)
                 @accordion__item([
+                    'beforeHeading' => '<span id="' . $listItem['anchor'] . '">',
+                    'afterHeading' => '</span>',
                     'heading' => $listItem['heading'],
-                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
+                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0'],
                 ])
                     {!! $listItem['content'] !!}
                 @endaccordion__item
