@@ -70,6 +70,25 @@ class PostTest extends TestCase
         $this->assertInstanceOf(\WP_Post::class, $post);
     }
 
+    public function testGetFeaturedImageReturnImage()
+    {
+        // Given
+        WP_Mock::userFunction('get_post_thumbnail_id', [
+            'return' => 1
+        ]);
+
+        Mockery::mock('alias:' . \Municipio\Helper\Image::class)->
+        shouldReceive('getImageAttachmentData')->
+        andReturn(['src' => 'test']);
+
+        // When
+        $result = \Municipio\Helper\Post::getFeaturedImage(1, 'full');
+
+        $this->assertTrue(true);
+
+        $foo = 'bar';
+    }
+
 
     /**
      * @testdox ComplementObject Returns instance of WP_Post.
@@ -320,6 +339,24 @@ class PostTest extends TestCase
 
         // Then
         $this->assertEquals('<div>block</div><div>quicklinks</div><div>block</div>', $result->post_content);
+    }
+
+    /**
+     * @testdox ComplementObject Returns formatted post_content as post_content_filtered when a more-tag is found
+     */
+    public function testComplementObjectReturnsFilteredPostContent()
+    {
+        // Given
+        $post = $this->getMockedpost(['post_content' => 'Some text. <!--more--> Some other text']);
+        $this->mockDependenciesForComplementObject($post);
+
+        // When
+        $result = Post::complementObject($post, ['post_content_filtered']);
+
+        // Then
+        $this->assertEquals($post->post_content_filtered, '<p class="lead">Some text. </p> Some other text');
+
+        $foo = 'bar';
     }
 
     // Mock post args
