@@ -3,6 +3,9 @@
 namespace Municipio;
 
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
+use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
+use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
@@ -90,16 +93,16 @@ class App
             $registrar = new TaxonomyFromResource($resource);
             $registrar->register();
         }
-        
+
         // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
-        $modifiersHelper = new \Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper($resourceRegistry);
-        $hooksAdder = new \Municipio\Content\ResourceFromApi\Modifiers\HooksAdder($resourceRegistry, $modifiersHelper);
+        $modifiersHelper = new ModifiersHelper($resourceRegistry);
+        $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
         $hooksAdder->addHooks();
 
         // Add REST API endpoints for resources.
         add_action('rest_api_init', function () use ($resourceRegistry) {
             foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-                $controller = new \Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController($resource->getName());
+                $controller = new ResourceFromApiRestController($resource->getName());
                 $controller->register_routes();
             }
         });
@@ -169,8 +172,8 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
-        
-        $pdfHelper = new \Municipio\Api\Pdf\PdfHelper();
+
+        $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
         $pdfGenerator->addHooks();
 
@@ -189,6 +192,6 @@ class App
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });   
+        });
     }
 }
