@@ -9,6 +9,9 @@ use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\FileConverters\FileConverterInterface;
 
+/**
+ * Class CreatePdfTest
+ */
 class CreatePdfTest extends TestCase
 {
     /**
@@ -19,18 +22,18 @@ class CreatePdfTest extends TestCase
     public function testGetHtmlFromViewRemovesUnsupportedImageTypes()
     {
         // Given
-        $imageTags = [
+        $imageTags    = [
             '<img src="https://foo.bar/img.jpg"/>',
             '<img src="https://foo.bar/img.png"/>',
             '<img src="https://foo.bar/img.gif"/>',
             '<img src="https://foo.bar/img.jpeg"/>',
         ];
-        $html = join('', $imageTags);
+        $html         = join('', $imageTags);
         $expectedHtml = '<img src="https://foo.bar/img.jpg"/><img src="https://foo.bar/img.jpeg"/>';
 
         $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
-        $pdfHelper = Mockery::mock(PdfHelperInterface::class);
-        $woffConverterMock = Mockery::mock('alias:'.FileConverterInterface::class);
+        $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
@@ -54,16 +57,16 @@ class CreatePdfTest extends TestCase
     public function testGetHtmlFromViewRemovesScriptTagsWithoutThePdfScriptClass()
     {
         // Given
-        $scriptTags = [
+        $scriptTags   = [
             '<script type="text/javascript" class="pdf-script">console.log("some test code");</script>',
             '<script type="text/javascript" class="foo-bar">console.log("some test code");</script>'
         ];
-        $html = join('', $scriptTags);
+        $html         = join('', $scriptTags);
         $expectedHtml = '<script type="text/javascript" class="pdf-script">console.log("some test code");</script>';
 
         $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
-        $pdfHelper = Mockery::mock(PdfHelperInterface::class);
-        $woffConverterMock = Mockery::mock('alias:'.FileConverterInterface::class);
+        $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
@@ -91,8 +94,8 @@ class CreatePdfTest extends TestCase
             '<script type="text/javascript" class="pdf-script">console.log("some test code");</script>'
         ];
 
-        $pdfHelper = Mockery::mock(PdfHelperInterface::class);
-        $woffConverterMock = Mockery::mock('alias:'.FileConverterInterface::class);
+        $pdfHelper         = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);

@@ -9,6 +9,13 @@ use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 use WP_Post;
 
+/**
+ * Class PdfIdEndpoint
+ *
+ * PDF REST API endpoint for handling PDF generation based on post IDs.
+ *
+ * @package Municipio\Api\Pdf
+ */
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
