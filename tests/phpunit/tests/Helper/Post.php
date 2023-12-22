@@ -70,7 +70,10 @@ class PostTest extends TestCase
         $this->assertInstanceOf(\WP_Post::class, $post);
     }
 
-    public function testGetFeaturedImageReturnImage()
+    /**
+     * @testdox preparePostObjectSingular returns an array if there is a thumbnailID.
+     */
+    public function testGetFeaturedImageReturnArrayIfFeaturedImageExists()
     {
         // Given
         WP_Mock::userFunction('get_post_thumbnail_id', [
@@ -84,9 +87,23 @@ class PostTest extends TestCase
         // When
         $result = \Municipio\Helper\Post::getFeaturedImage(1, 'full');
 
-        $this->assertTrue(true);
+        $this->assertIsArray($result);
+    }
 
-        $foo = 'bar';
+    /**
+     * @testdox preparePostObjectSingular returns false if there is no thumbnail ID
+     */
+    public function testGetFeaturedImageReturnFalseIfNoFeaturedImage()
+    {
+        // Given
+        WP_Mock::userFunction('get_post_thumbnail_id', [
+            'return' => ""
+        ]);
+
+        // When
+        $result = \Municipio\Helper\Post::getFeaturedImage(null, 'full');
+
+        $this->assertFalse($result);
     }
 
 

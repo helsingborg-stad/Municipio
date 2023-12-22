@@ -455,13 +455,16 @@ class Post
     /**
      * Get the post featured image
      *
-     * @param integer   $postId
-     * @return array    $featuredImage  The post thumbnail image, with alt and title
+     * @param integer $postId               Post ID
+     * @param string|array $size            Since as a string (full) or an array [400, 400]
+     *
+     * @return array|false $featuredImage  The post thumbnail image, with alt and title
      */
     public static function getFeaturedImage($postId, $size = 'full')
     {
-        $featuredImageID = get_post_thumbnail_id($postId);
-        $featuredImage   = Image::getImageAttachmentData($featuredImageID, $size);
+        $thumbnailId   = get_post_thumbnail_id($postId);
+        $featuredImage = !empty($thumbnailId) ? Image::getImageAttachmentData($thumbnailId, $size) : false;
+
 
         return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
