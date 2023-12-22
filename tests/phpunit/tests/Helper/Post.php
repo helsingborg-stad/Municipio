@@ -52,11 +52,10 @@ class PostTest extends TestCase
     /**
      * @testdox getPosttypeMetaKeys Always returns an array.
      */
-    public function testGetPosttypeMetaKeys()
+    public function testGetPosttypeMetaKeysReturnsArray()
     {
         // Given
         $wpdbMock = Mockery::mock('WPDB');
-        // global $wpdb;
         $wpdbMock->shouldReceive('get_col')
         ->once()
         ->andReturn(['meta_key1', 'meta_key2']);
@@ -72,7 +71,28 @@ class PostTest extends TestCase
     /**
      * @testdox getPosttypeMetaKeys Always returns an array.
      */
-    public function testGetPostMetaKeys()
+    public function testGetPosttypeMetaKeysSkipCertainKeys()
+    {
+        // Given
+        $wpdbMock = Mockery::mock('WPDB');
+        // global $wpdb;
+        $wpdbMock->shouldReceive('get_col')
+        ->once()
+        ->andReturn(['key1' => '_meta_key1', 'key2' => 'meta_key2']);
+        $GLOBALS['wpdb'] = $wpdbMock;
+
+        // When
+        $result = \Municipio\Helper\Post::getPosttypeMetaKeys('test');
+
+        // Then
+        $this->assertArrayNotHasKey('key1', $result);
+        $this->assertArrayHasKey('key2', $result);
+    }
+
+    /**
+     * @testdox getPosttypeMetaKeys Always returns an array.
+     */
+    public function testGetPostMetaKeysReturnsArray()
     {
         // Given
         $wpdbMock = Mockery::mock('WPDB');
