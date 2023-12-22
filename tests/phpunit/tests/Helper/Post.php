@@ -6,8 +6,6 @@ use Mockery;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Post;
-use WP_Error;
-use WP_Post;
 
 use function Patchwork\Config\merge;
 
@@ -17,8 +15,7 @@ use function Patchwork\Config\merge;
 class PostTest extends TestCase
 {
     /**
-     * @testdox preparePostObject returns a post if it $post is an instance of WP_Post.
-     * @runInSeparateProcess
+     * @testdox preparePostObject returns a post if $post is an instance of WP_Post.
      */
     public function testPreparePostObjectReturnsPostIfPostReceived()
     {
@@ -31,7 +28,7 @@ class PostTest extends TestCase
         $result = \Municipio\Helper\Post::preparePostObject($post);
 
         // Then
-        $this->assertInstanceOf(\WP_Post::class, $post);
+        $this->assertIsObject($result);
     }
 
      /**
@@ -46,38 +43,60 @@ class PostTest extends TestCase
         $mock->once()->andReturn($post);
 
         // When
-        $result = \Municipio\Helper\Post::preparePostObject($post);
+        $result = \Municipio\Helper\Post::preparePostObjectArchive($post);
 
         // Then
-        $this->assertInstanceOf(\WP_Post::class, $post);
+        $this->assertIsObject($result);
     }
 
     /**
-     * @testdox preparePostObjectSingular returns a post if it $post is an instance of WP_Post.
-     * @runInSeparateProcess
+     * @testdox getPosttypeMetaKeys Always returns an array.
      */
-    public function testPreparePostObjectSingularReturnsPostIfPostReceived()
+    public function testGetPosttypeMetaKeys()
     {
         // Given
-        $post = $this->mockPost(['ID' => 1, 'post_title' => 'Test', 'post_content' => 'Test']);
-        $mock = $this->mockStaticMethod('\Municipio\Helper\Post', 'complementObject');
-        $mock->once()->andReturn($post);
+        $wpdbMock = Mockery::mock('WPDB');
+        // global $wpdb;
+        $wpdbMock->shouldReceive('get_col')
+        ->once()
+        ->andReturn(['meta_key1', 'meta_key2']);
+        $GLOBALS['wpdb'] = $wpdbMock;
 
         // When
-        $result = \Municipio\Helper\Post::preparePostObject($post);
+        $result = \Municipio\Helper\Post::getPosttypeMetaKeys('test');
 
         // Then
-        $this->assertInstanceOf(\WP_Post::class, $post);
+        $this->assertIsArray($result);
     }
 
     /**
-     * @testdox preparePostObjectSingular returns an array if there is a thumbnailID.
+     * @testdox getPosttypeMetaKeys Always returns an array.
+     */
+    public function testGetPostMetaKeys()
+    {
+        // Given
+        $wpdbMock = Mockery::mock('WPDB');
+        // global $wpdb;
+        $wpdbMock->shouldReceive('get_results')
+        ->once()
+        ->andReturn(['meta_key1', 'meta_key2']);
+        $GLOBALS['wpdb'] = $wpdbMock;
+
+        // When
+        $result = \Municipio\Helper\Post::getPostMetaKeys('test');
+
+        // Then
+        $this->assertIsArray($result);
+    }
+
+    /**
+     * @testdox getFeaturedImage returns an array if there is a thumbnailID.
      */
     public function testGetFeaturedImageReturnArrayIfFeaturedImageExists()
     {
         // Given
         WP_Mock::userFunction('get_post_thumbnail_id', [
-            'return' => 1
+        'return' => 1
         ]);
 
         Mockery::mock('alias:' . \Municipio\Helper\Image::class)->
@@ -91,25 +110,25 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox preparePostObjectSingular returns false if there is no thumbnail ID
+     * @testdox getFeaturedImage returns false if there is no thumbnail ID
      */
     public function testGetFeaturedImageReturnFalseIfNoFeaturedImage()
     {
         // Given
         WP_Mock::userFunction('get_post_thumbnail_id', [
-            'return' => ""
+        'return' => ""
         ]);
 
         // When
         $result = \Municipio\Helper\Post::getFeaturedImage(null, 'full');
 
+        // Then
         $this->assertFalse($result);
     }
 
 
     /**
      * @testdox ComplementObject Returns instance of WP_Post.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsPostObject()
     {
@@ -117,14 +136,12 @@ class PostTest extends TestCase
         $post = $this->getMockedpost();
         $this->mockDependenciesForComplementObject($post);
 
-        $postHelper = new Post();
-
         Mockery::mock('alias:' . \Municipio\Helper\Image::class)->
         shouldReceive('getImageAttachmentData')->
         andReturn(['src' => 'test']);
 
         // When
-        $result = $postHelper::complementObject($post);
+        $result = Post::complementObject($post);
 
         // Then
         $this->assertInstanceOf(\WP_Post::class, $result);
@@ -146,6 +163,63 @@ class PostTest extends TestCase
         $this->assertIsString($result->excerpt);
         $this->assertIsString($result->excerpt_short);
         $this->assertIsString($result->excerpt_shorter);
+    }
+
+    /**
+     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     */
+    public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
+    {
+        // Given
+        $post = $this->getMockedpost(['post_excerpt' => "", 'post_content' => ""]);
+        $this->mockDependenciesForComplementObject($post, 'string', false, $post->post_content, $post->post_content);
+
+        // When
+        $result = Post::complementObject($post, [ 'excerpt']);
+
+        // Then
+        $this->assertEquals($result->excerpt, '<span class="undefined-content">Item is missing content</span>');
+        $this->assertEquals($result->excerpt_short, '');
+        $this->assertEquals($result->excerpt_shorter, '');
+    }
+
+    /**
+     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
+     * post_excerpt and post_content.
+     */
+    public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
+    {
+        // Given
+        $post = $this->getMockedpost(['post_excerpt' => "", 'post_content' => "test"]);
+        $this->mockDependenciesForComplementObject($post, 'string', false, $post->post_content, $post->post_content);
+
+        // When
+        $result = Post::complementObject($post, [ 'excerpt']);
+
+        // Then
+        $this->assertEquals($result->excerpt, $post->post_content);
+        $this->assertEquals($result->excerpt_short, $post->post_content);
+        $this->assertEquals($result->excerpt_shorter, $post->post_content);
+    }
+
+    /**
+     * @testdox ComplementObject Returns complemented a post_excerpt based on
+     */
+    public function testComplementObjectReturnsExcerptFromPostContentIfMoreTag()
+    {
+        // Given
+        $post = $this->getMockedpost([
+            'post_excerpt' => "",
+            'post_content' => 'Some text. <!--more--> Some other text'
+        ]);
+
+        $this->mockDependenciesForComplementObject($post, 'string', false, $post->post_content, $post->post_content);
+
+        // When
+        $result = Post::complementObject($post, [ 'excerpt']);
+
+        // Then
+        $this->assertEquals($result->post_excerpt, 'Some text. ');
     }
 
     /**
@@ -371,9 +445,7 @@ class PostTest extends TestCase
         $result = Post::complementObject($post, ['post_content_filtered']);
 
         // Then
-        $this->assertEquals($post->post_content_filtered, '<p class="lead">Some text. </p> Some other text');
-
-        $foo = 'bar';
+        $this->assertEquals($result->post_content_filtered, '<p class="lead">Some text. </p> Some other text');
     }
 
     // Mock post args
@@ -391,8 +463,13 @@ class PostTest extends TestCase
     }
 
     // Mock ComplementObject methods
-    private function mockDependenciesForComplementObject($post, $getField = 'string', $postPasswordRequired = false)
-    {
+    private function mockDependenciesForComplementObject(
+        $post,
+        $getField = 'string',
+        $postPasswordRequired = false,
+        $wpTrimWords = null,
+        $stripShortcodes = null
+    ) {
         WP_Mock::userFunction('post_password_required', [
             'return' => $postPasswordRequired
         ]);
@@ -414,11 +491,11 @@ class PostTest extends TestCase
         ]);
 
         WP_Mock::userFunction('strip_shortcodes', [
-            'return' => $post->post_excerpt
+            'return' => $stripShortcodes ?? $post->post_excerpt
         ]);
 
         WP_Mock::userFunction('wp_trim_words', [
-            'return' => $post->post_excerpt
+            'return' => $wpTrimWords ?? $post->post_excerpt
         ]);
 
         WP_Mock::userFunction('get_permalink', [

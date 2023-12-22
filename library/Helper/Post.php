@@ -50,7 +50,7 @@ class Post
      * @param object $post WP_Post object
      * @param mixed $data Additional data for post object
      */
-    public static function preparePostObjectSingular($post, $data = null)
+    public static function preparePostObjectSingular(\WP_Post $post, $data = null): void
     {
         self::preparePostObject($post, $data);
     }
@@ -91,7 +91,7 @@ class Post
      *
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): object
+    public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): \WP_Post
     {
         //Check that a post object is entered
         $appendFields = apply_filters(
@@ -135,24 +135,25 @@ class Post
 
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
-            $excerpt = self::getPostExcerpt($postObject);
+            $postObject->post_excerpt = self::getPostExcerpt($postObject);
+
             //Create excerpt if not defined by editor
             $postObject->excerpt = wp_trim_words(
-                $excerpt,
+                $postObject->post_excerpt,
                 apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
 
             //Create excerpt if not defined by editor
             $postObject->excerpt_short = wp_trim_words(
-                $excerpt,
+                $postObject->post_excerpt,
                 apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
 
             $postObject->excerpt_shorter =
             wp_trim_words(
-                $excerpt,
+                $postObject->post_excerpt,
                 apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
@@ -314,7 +315,7 @@ class Post
     */
     private static function getPostExcerpt($postObject)
     {
-        if ($postObject->post_excerpt) {
+        if (!empty($postObject->post_excerpt)) {
             return strip_shortcodes($postObject->post_excerpt);
         }
 
@@ -478,7 +479,7 @@ class Post
      * @param  string $posttype The posttype
      * @return array            Meta keys as array
      */
-    public static function getPosttypeMetaKeys($postType)
+    public static function getPosttypeMetaKeys(string $postType)
     {
         if (!isset(self::$runtimeCache['getPostTypeMetaKeys'])) {
             self::$runtimeCache['getPostTypeMetaKeys'] = [];
@@ -512,7 +513,7 @@ class Post
     /**
      * Lists all meta-keys existing for the given post
      *
-     * @param  string $post     The post id
+     * @param  string $postId   The post id
      * @return array            Meta keys as array
      */
     public static function getPostMetaKeys($postId)
