@@ -51,13 +51,13 @@ class PostTest extends TestCase
 
     /**
      * @testdox getPosttypeMetaKeys Always returns an array.
+     * @runInSeparateProcess
      */
     public function testGetPosttypeMetaKeysReturnsArray()
     {
         // Given
         $wpdbMock = Mockery::mock('WPDB');
         $wpdbMock->shouldReceive('get_col')
-        ->once()
         ->andReturn(['meta_key1', 'meta_key2']);
         $GLOBALS['wpdb'] = $wpdbMock;
 
@@ -69,15 +69,13 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox getPosttypeMetaKeys Always returns an array.
+     * @testdox getPosttypeMetaKeys Returns an array and filters certain values
      */
     public function testGetPosttypeMetaKeysSkipCertainKeys()
     {
         // Given
         $wpdbMock = Mockery::mock('WPDB');
-        // global $wpdb;
         $wpdbMock->shouldReceive('get_col')
-        ->once()
         ->andReturn(['key1' => '_meta_key1', 'key2' => 'meta_key2']);
         $GLOBALS['wpdb'] = $wpdbMock;
 
@@ -90,7 +88,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox getPosttypeMetaKeys Always returns an array.
+     * @testdox getPostMetaKeys Always returns an array.
      */
     public function testGetPostMetaKeysReturnsArray()
     {
@@ -535,7 +533,11 @@ class PostTest extends TestCase
         ]);
 
         WP_Mock::userFunction('wp_get_post_terms', [
-            'return' => []
+            'return' => ['test' => 'test']
+        ]);
+
+        WP_Mock::userFunction('get_term_link', [
+            'return' => 'https://test.url'
         ]);
 
         WP_Mock::userFunction('get_object_taxonomies', [
