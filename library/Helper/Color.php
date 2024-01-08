@@ -12,34 +12,29 @@ class Color
      * Prepare the color and alpha value
      *
      * @param   array   $colorItem      [
-     *                                      ['value' => ['color', 'alpha'],
-     *                                      ['default' => ['color' => '', 'alpha' => '']]
+     *                                      'value' => ['color', 'alpha'],
+     *                                      'default' => ['color' => '', 'alpha' => '']
      *                                  ]
      *
      * @return  string                  Rgba css color value.
      */
-    public static function prepareColor($colorItem)
+    public static function prepareColor(array $colorItem)
     {
-
         $colorItem['alpha'] = "1"; //Set default alpha value
 
-        if (is_array($colorItem['value']) || (empty($colorItem['value']) && is_array($colorItem['default']))) {
-            //Extra default values for group
-            $defaultColor = $colorItem['default']['color'] ?? "";
-            $defaultAlpha = $colorItem['default']['alpha'] . "%" ?? "1";
+        if (is_array($colorItem['value']) || is_array($colorItem['default'])) {
+            $defaultColor = !empty($colorItem['default']['color']) ? $colorItem['default']['color'] : "";
+            $defaultAlpha = !empty($colorItem['default']['alpha']) ? $colorItem['default']['alpha'] :  "1";
 
-            //Collect set values for group
-            if (is_array($colorItem['value'])) {
-                $setColor = array_values($colorItem['value'])[0];
-                $setAlpha = array_values($colorItem['value'])[1];
-            } else {
-                $setColor = $colorItem['value'];
-                $setAlpha = $colorItem['alpha'];
+            if (!empty($colorItem['value'])) {
+                $setColor = array_values($colorItem['value'])[0] ?? '';
+                $setAlpha = array_values($colorItem['value'])[1] ?? "1";
             }
 
-            //Define set value else default values
             $colorItem['value'] = !empty($setColor) ? $setColor : $defaultColor;
-            $colorItem['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha . '%' : $defaultAlpha; //empty() returns true on "0"
+            $colorItem['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha : $defaultAlpha;
+        } else {
+            return false;
         }
 
         return self::convertHexToRgba($colorItem['value'], $colorItem['alpha'], $colorItem['default']);
