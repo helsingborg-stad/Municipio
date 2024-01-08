@@ -8,7 +8,7 @@ use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Color;
 
 /**
- * Class HtmlTest
+ * Class ColorTest
  */
 class ColorTest extends TestCase
 {
