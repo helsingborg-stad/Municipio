@@ -2,14 +2,45 @@
 
 namespace Municipio\Admin\Gutenberg;
 
+/**
+* Class Gutenberg
+*
+*
+*/
 class Gutenberg
 {
+        /**
+         * Constructor method.
+         *
+         * Initializes the Gutenberg class and adds necessary filters.
+         */
     public function __construct()
     {
         add_filter("use_block_editor_for_post_type", array($this, 'activateGutenbergEditor'), 10, 2);
+        add_filter('allowed_block_types', [$this,'additionalAllowedBlocks'], 10, 1);
     }
 
-    public function activateGutenbergEditor($useBlockEditor, $postType) {
+
+    /**
+     *
+     * @param array $allowed_block_types The array of allowed block types.
+     * @return array The updated array of allowed block types.
+     */
+    public function additionalAllowedBlocks($allowed_block_types)
+    {
+        $allowed_block_types[] = 'core/embed';
+        return $allowed_block_types;
+    }
+    /**
+     * Activates the Gutenberg editor based on the specified conditions.
+     *
+     * @param bool $useBlockEditor Whether to use the block editor.
+     * @param string $postType The post type.
+     * @return bool The updated value of $useBlockEditor.
+     */
+
+    public function activateGutenbergEditor($useBlockEditor, $postType)
+    {
 
         global $post;
 
@@ -46,5 +77,4 @@ class Gutenberg
 
         return $useBlockEditor;
     }
-
 }
