@@ -79,9 +79,25 @@ class ColorTest extends TestCase
         $classExistsMock->wasCalledWithOnce(['Kirki']);
         $this->assertEquals('option', $result[0]);
     }
+     /**
+     * @testdox getPalettes returns array with options
+    */
+    public function testGetPalettesReturnsArrayWithOptions()
+    {
+        // Given
+        $arr   = ['key1' => 'value1', 'key2' => 'value2'];
+        $kirki = Mockery::mock('overload:Kirki');
+        $kirki->shouldReceive('get_option')->andReturn($arr);
+
+        // When
+        $result = Color::getPalettes([ 'option' ]);
+
+        // Then
+        $this->assertEquals($arr, $result['option']);
+    }
 
     /**
-     * @testdox createGridClass returns false
+     * Provider
     */
     public function prepareColorFalseProvider()
     {

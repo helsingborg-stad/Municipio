@@ -51,6 +51,16 @@ class Color
         return "rgba({$value[0]}, {$value[1]}, {$value[2]}, $alpha)";
     }
 
+    /**
+     * Get color palettes based on specified options.
+     *
+     * @param array $options An array of option names to retrieve color palettes.
+     * Defaults to common color palette options.
+     *
+     * @return array An associative array of color palettes,
+     * where keys are option names and values are corresponding color palettes.
+     *
+     */
     public static function getPalettes(array $options = [
         'color_palette_primary',
         'color_palette_secondary',
