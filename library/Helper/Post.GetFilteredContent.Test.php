@@ -13,7 +13,7 @@ class PostGetFilteredContentTest extends TestCase
     public function testMoreTagIsRemovedFromContent()
     {
         $mockPost = $this->mockPost([
-            'post_content' => '<p>Lead</p><!--more--><p>Body</p>',
+            'post_content'                 => '<p>Lead</p><!--more--><p>Body</p>',
             'hasQuicklinksAfterFirstBlock' => false
         ]);
 
@@ -25,7 +25,7 @@ class PostGetFilteredContentTest extends TestCase
     public function testContentFilterIsAppliedToContentAndExcerpt()
     {
         $mockPost = $this->mockPost([
-            'post_content' => "<p>Excerpt</p><!--more--><p>Body</p>",
+            'post_content'                 => "<p>Excerpt</p><!--more--><p>Body</p>",
             'hasQuicklinksAfterFirstBlock' => false
         ]);
 

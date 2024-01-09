@@ -360,7 +360,7 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @return void
      */
-    public function setQueryParameters(array $data = [])
+    public function setQueryParameters()
     {
         $queryParameters = [
         'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
@@ -368,10 +368,9 @@ class Archive extends \Municipio\Controller\BaseController
         'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
-        if (!empty($data) && !empty($data['postType'])) {
+        if (!empty($this->data['postType']) && is_string($this->data['postType'])) {
             //Include taxonomies (dynamic)
-            $taxonomies = get_object_taxonomies($data['postType']);
-
+            $taxonomies = get_object_taxonomies($this->data['postType']);
             if (is_array($taxonomies) && !empty($taxonomies)) {
                 foreach ($taxonomies as $taxonomy) {
                     $queryParameters[$taxonomy] = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';

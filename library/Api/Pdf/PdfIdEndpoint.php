@@ -6,8 +6,16 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 use WP_Post;
 
+/**
+ * Class PdfIdEndpoint
+ *
+ * PDF REST API endpoint for handling PDF generation based on post IDs.
+ *
+ * @package Municipio\Api\Pdf
+ */
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
@@ -36,6 +44,7 @@ class PdfIdEndpoint extends RestApiEndpoint
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $pdfHelper = new PDFHelper();
+        $woffHelper = new WoffConverterHelper();
         $idString = $request->get_param('id');
 
         if (!empty($idString) && is_string($idString)) {
@@ -44,17 +53,15 @@ class PdfIdEndpoint extends RestApiEndpoint
             $cover = $pdfHelper->getCover($postTypes);
             
             if (!empty($posts)) {
-                $pdf = new \Municipio\Api\Pdf\CreatePdf();
-                $pdf->renderView(
-                    $posts,
-                    $cover,
-                    (string)(function () use ($posts) {
-                        if (!empty($posts[0]->postName)) {
-                            return $posts[0]->postName;
-                        }
-                        return 'page-pdf';
-                    })()
-                );
+                $fileName = (string)(function () use ($posts) {
+                    if (!empty($posts[0]->postName)) {
+                        return $posts[0]->postName;
+                    }
+                    return 'page-pdf';
+                })();
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
+                $html = $pdf->getHtmlFromView( $posts, $cover );
+                $pdf->renderPdf($html, $fileName);
             }
             return new WP_REST_Response(null, 200);
         }
@@ -84,9 +91,15 @@ class PdfIdEndpoint extends RestApiEndpoint
                 $post = get_post($id);
                 if ($this->shouldRenderPost($post)) {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
+
+                    if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
+                        $post->images = false;
+                    }
+
                     if (!empty($post->postType)) {
                         $postTypes[$post->postType] = $post->postType;
                     }
+                    
                     array_push($posts, $post);
                 }
             }

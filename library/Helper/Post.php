@@ -7,9 +7,12 @@ use Municipio\Helper\Image;
 use WP_Error;
 use WP_Post;
 
+/**
+ * Class Post
+ * @package Municipio\Helper
+ */
 class Post
 {
-
     //Stores cache in runtime
     private static $runtimeCache = [];
 
@@ -17,34 +20,41 @@ class Post
      * Prepare post object before sending to view
      * Appends useful variables for views (Singular).
      *
-     * @param   object   $post    WP_Post object
+     * @param object $post WP_Post object
+     * @param mixed $data Additional data for post object
      *
-     * @return  object   $post    Transformed WP_Post object
+     * @return object Transformed WP_Post object
      */
     public static function preparePostObject($post, $data = null)
     {
         $post = self::complementObject(
-            $post, 
+            $post,
             [
-                'excerpt',
-                'post_content_filtered',
-                'post_title_filtered',
-                'permalink',
-                'terms',
-                'post_language',
-                'reading_time',
-                'quicklinks',
-                'call_to_action_items',
-                'term_icon'
-            ], 
+            'excerpt',
+            'post_content_filtered',
+            'post_title_filtered',
+            'permalink',
+            'terms',
+            'post_language',
+            'reading_time',
+            'quicklinks',
+            'call_to_action_items',
+            'term_icon'
+            ],
             $data
-        ); 
+        );
         return \Municipio\Helper\FormatObject::camelCase($post);
     }
 
-    //Alias
-    public static function preparePostObjectSingular($post, $data = null) {
-        self::preparePostObject($post, $data); 
+     /**
+     * Alias for preparePostObject
+     *
+     * @param object $post WP_Post object
+     * @param mixed $data Additional data for post object
+     */
+    public static function preparePostObjectSingular($post, $data = null)
+    {
+        self::preparePostObject($post, $data);
     }
 
     /**
@@ -52,24 +62,25 @@ class Post
      * Appends useful variables for views (Archive).
      *
      * @param   object   $post    WP_Post object
+     * @param mixed $data Additional data for post object
      *
      * @return  object   $post    Transformed WP_Post object
      */
     public static function preparePostObjectArchive($post, $data = null)
     {
         $post = self::complementObject(
-            $post, 
+            $post,
             [
-                'excerpt',
-                'post_title_filtered',
-                'permalink',
-                'terms',
-                'reading_time',
-                'call_to_action_items',
-                'term_icon'
-            ], 
+            'excerpt',
+            'post_title_filtered',
+            'permalink',
+            'terms',
+            'reading_time',
+            'call_to_action_items',
+            'term_icon'
+            ],
             $data
-        ); 
+        );
         return \Municipio\Helper\FormatObject::camelCase($post);
     }
 
@@ -86,7 +97,7 @@ class Post
         //Check that a post object is entered
         if (!is_a($postObject, 'WP_Post')) {
             return $postObject;
-            throw new WP_Error("Complement object must recive a WP_Post class");
+            throw new \WP_Error("Complement object must recive a WP_Post class");
         }
 
         $appendFields = apply_filters(
@@ -94,26 +105,29 @@ class Post
             array_merge([], $appendFields) //Ability to add default
         );
 
-        $postObject->quicklinksPlacement = Navigation::getQuicklinksPlacement($postObject->ID);
-        $postObject->hasQuicklinksAfterFirstBlock = false;
+        $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID);
+        $postObject->hasQuicklinksAfterFirstBlock  = false;
         $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
-        if (!empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block' && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])) {
+        if (
+            !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
+            && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
+        ) {
             $postObject->displayQuicklinksAfterContent = false;
             // Add quicklinks after first block
             foreach (parse_blocks($postObject->post_content) as $key => $block) {
                 if (0 == $key) {
-                    $postObject->post_content =
-                        render_block($block) .
-                        render_blade_view(
-                            'partials.navigation.fixed-after-block',
-                            [
-                            'quicklinksMenuItems' => $data['quicklinksMenuItems'],
-                            'quicklinksPlacement' => $postObject->quicklinksPlacement,
-                            'customizer'          => $data['customizer'],
-                            'lang'                => $data['lang'],
-                            ]
-                        );
-                            $postObject->hasQuicklinksAfterFirstBlock = true;
+                    $postObject->post_content                     =
+                    render_block($block) .
+                    render_blade_view(
+                        'partials.navigation.fixed-after-block',
+                        [
+                        'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                        'quicklinksPlacement' => $postObject->quicklinksPlacement,
+                        'customizer'          => $data['customizer'],
+                        'lang'                => $data['lang'],
+                        ]
+                    );
+                        $postObject->hasQuicklinksAfterFirstBlock = true;
                 } else {
                     $postObject->post_content .= render_block($block);
                 }
@@ -150,7 +164,8 @@ class Post
 
             //No content in post
             if (empty($postObject->excerpt)) {
-                $postObject->excerpt = '<span class="undefined-content">' . __("Item is missing content", 'municipio') . "</span>";
+                $postObject->excerpt = '<span class="undefined-content">' .
+                __("Item is missing content", 'municipio') . "</span>";
             }
         }
 
@@ -161,12 +176,16 @@ class Post
 
         //Get permalink
         if (in_array('permalink', $appendFields)) {
-            $postObject->permalink              = get_permalink($postObject);
+            $postObject->permalink = get_permalink($postObject);
         }
 
         //Get reading time
         if (in_array('reading_time', $appendFields)) {
-            $postObject->reading_time = \Municipio\Helper\ReadingTime::getReadingTime($postObject->post_content, 0, true);
+            $postObject->reading_time = \Municipio\Helper\ReadingTime::getReadingTime(
+                $postObject->post_content,
+                0,
+                true
+            );
         }
 
         //Get filtered post title
@@ -176,35 +195,38 @@ class Post
 
         //Set time formats
         $postObject->post_time_formatted      = wp_date(
-            \Municipio\Helper\DateFormat::getDateFormat('time'), strtotime($postObject->post_date)
+            \Municipio\Helper\DateFormat::getDateFormat('time'),
+            strtotime($postObject->post_date)
         );
         $postObject->post_date_time_formatted = wp_date(
-            \Municipio\Helper\DateFormat::getDateFormat('date-time'), strtotime($postObject->post_date)
+            \Municipio\Helper\DateFormat::getDateFormat('date-time'),
+            strtotime($postObject->post_date)
         );
         $postObject->post_date_formatted      = wp_date(
-            \Municipio\Helper\DateFormat::getDateFormat('date'), strtotime($postObject->post_date)
+            \Municipio\Helper\DateFormat::getDateFormat('date'),
+            strtotime($postObject->post_date)
         );
 
         //Get post tumbnail image
-        $postObject->images = [];
-        $postObject->images['thumbnail_16:9']   = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->images['thumbnail_4:3']    = self::getFeaturedImage($postObject->ID, [390, 520]);
-        $postObject->images['thumbnail_1:1']    = self::getFeaturedImage($postObject->ID, [500, 500]);
-        $postObject->images['thumbnail_3:4']    = self::getFeaturedImage($postObject->ID, [240, 320]);
-        $postObject->images['featuredImage']    = self::getFeaturedImage($postObject->ID, [1080, false]);
-        $postObject->images['thumbnail_12:16']  = $postObject->images['thumbnail_3:4'];
-        
+        $postObject->images                    = [];
+        $postObject->images['thumbnail_16:9']  = self::getFeaturedImage($postObject->ID, [400, 225]);
+        $postObject->images['thumbnail_4:3']   = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->images['thumbnail_1:1']   = self::getFeaturedImage($postObject->ID, [500, 500]);
+        $postObject->images['thumbnail_3:4']   = self::getFeaturedImage($postObject->ID, [240, 320]);
+        $postObject->images['featuredImage']   = self::getFeaturedImage($postObject->ID, [1080, false]);
+        $postObject->images['thumbnail_12:16'] = $postObject->images['thumbnail_3:4'];
+
         //Deprecated
-        $postObject->thumbnail                  = $postObject->images['thumbnail_16:9'];
-        $postObject->thumbnail_tall             = $postObject->images['thumbnail_4:3'];
-        $postObject->thumbnail_square           = $postObject->images['thumbnail_1:1'];
-        $postObject->featuredImage              = $postObject->images['featuredImage'];
+        $postObject->thumbnail        = $postObject->images['thumbnail_16:9'];
+        $postObject->thumbnail_tall   = $postObject->images['thumbnail_4:3'];
+        $postObject->thumbnail_square = $postObject->images['thumbnail_1:1'];
+        $postObject->featuredImage    = $postObject->images['featuredImage'];
 
         //Append post terms
         if (in_array('terms', $appendFields)) {
-            $taxonomiesToDisplay        = $data['taxonomiesToDisplay'] ?? null;
-            $postObject->terms          = self::getPostTerms($postObject->ID, true, $taxonomiesToDisplay);
-            $postObject->termsUnlinked  = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
+            $taxonomiesToDisplay       = $data['taxonomiesToDisplay'] ?? null;
+            $postObject->terms         = self::getPostTerms($postObject->ID, true, $taxonomiesToDisplay);
+            $postObject->termsUnlinked = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
         }
 
         if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
@@ -212,7 +234,7 @@ class Post
         }
 
         if (in_array('post_language', $appendFields)) {
-            $siteLang   = strtolower(get_bloginfo('language'));
+            $siteLang = strtolower(get_bloginfo('language'));
             $postLang = strtolower(get_field('lang', $postObject->ID));
             if ($postLang && ($postLang !== $siteLang)) {
                 $postObject->post_language = $postLang;
@@ -227,19 +249,25 @@ class Post
         }
 
         if (in_array('call_to_action_items', $appendFields)) {
-            $postObject->call_to_action_items = apply_filters('Municipio/Helper/Post/CallToActionItems', [], $postObject);
+            $postObject->call_to_action_items = apply_filters(
+                'Municipio/Helper/Post/CallToActionItems',
+                [],
+                $postObject
+            );
         }
 
         /* Get location data */
         $postObject->location = get_field('location', $postObject->ID);
         if (!empty($postObject->location)) {
             $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
-        } 
+        }
 
         if (!empty($postObject->post_type)) {
-            $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType($postObject->post_type);
+            $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType(
+                $postObject->post_type
+            );
         }
-        
+
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
@@ -286,36 +314,62 @@ class Post
         return $excerpt . $content;
     }
 
-    private static function getPostExcerpt($postObject) {
+    /*
+    * Get the post excerpt .
+    *
+    * if the post has a manual excerpt, it is returned after stripping shortcodes .
+    * if no manual excerpt is set, and the post content contains < !--more-- > ,
+    * the content is divided at the < !--more-- > tag, and the first part is returned .
+    * if neither manual excerpt nor < !--more-- > tag is present, the entire post content
+    * is returned after stripping shortcodes .
+    *
+    * @param object $postObject The WP_Post object .
+    * @return string The post excerpt .
+    */
+    private static function getPostExcerpt($postObject)
+    {
         if ($postObject->post_excerpt) {
             return strip_shortcodes($postObject->post_excerpt);
         }
-        
+
         if (!empty($postObject->post_content) && strpos($postObject->post_content, '<!--more-->')) {
                 $divided = explode('<!--more-->', $postObject->post_content);
                 return !empty($divided[0]) ? $divided[0] : $postObject->post_content;
         }
-        
+
         return strip_shortcodes($postObject->post_content);
     }
 
+    /**
+     * Get the icon and color associated with terms for a post.
+     *
+     * Iterates through the taxonomies of the post type and retrieves the terms.
+     * For each term, it gets the icon and color using the \Municipio\Helper\Term class.
+     * The first found icon and color are used to build an associative array representing
+     * the term icon, which includes properties like icon source, size, color, and background color.
+     * The resulting array is then filtered using 'Municipio/Helper/Post/getPostTermIcon' filter.
+     *
+     * @param int    $postId   The post identifier.
+     * @param string $postType The post type.
+     * @return array The term icon associative array.
+     */
     private static function getPostTermIcon($postId, $postType)
     {
         $taxonomies = get_object_taxonomies($postType);
 
-        $termIcon = [];
+        $termIcon  = [];
         $termColor = false;
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
                     if (empty($termIcon)) {
-                        $icon = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
+                        $icon  = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
                         $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
                         if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
-                            $termIcon['icon'] = $icon['src'];
-                            $termIcon['size'] = 'md';
-                            $termIcon['color'] = 'white';
+                            $termIcon['icon']            = $icon['src'];
+                            $termIcon['size']            = 'md';
+                            $termIcon['color']           = 'white';
                             $termIcon['backgroundColor'] = $color;
                         }
 
@@ -346,7 +400,7 @@ class Post
                 'archive_' . get_post_type($postId) . '_taxonomies_to_display',
                 false
             );
-        } 
+        }
 
         $termsList = [];
         if (is_array($taxonomies) && !empty($taxonomies)) {
@@ -419,7 +473,7 @@ class Post
     public static function getFeaturedImage($postId, $size = 'full')
     {
         $featuredImageID = get_post_thumbnail_id($postId);
-        $featuredImage = Image::getImageAttachmentData($featuredImageID, $size);
+        $featuredImage   = Image::getImageAttachmentData($featuredImageID, $size);
 
         return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
@@ -435,12 +489,12 @@ class Post
      */
     public static function getPosttypeMetaKeys($postType)
     {
-        if(!isset(self::$runtimeCache['getPostTypeMetaKeys'])) {
+        if (!isset(self::$runtimeCache['getPostTypeMetaKeys'])) {
             self::$runtimeCache['getPostTypeMetaKeys'] = [];
         }
 
-        if(isset(self::$runtimeCache['getPostTypeMetaKeys'][$postType])) {
-            return self::$runtimeCache['getPostTypeMetaKeys'][$postType]; 
+        if (isset(self::$runtimeCache['getPostTypeMetaKeys'][$postType])) {
+            return self::$runtimeCache['getPostTypeMetaKeys'][$postType];
         }
 
         global $wpdb;
@@ -484,6 +538,16 @@ class Post
         return $metaKeys;
     }
 
+    /**
+     * Replace built-in WordPress and theme-specific classes in the provided content.
+     *
+     * Replaces various built-in WordPress classes and theme-specific classes in the content
+     * with corresponding updated classes. This method is useful for standardizing and customizing
+     * the appearance of elements in the content.
+     *
+     * @param string $content The content to replace classes in.
+     * @return string The content with replaced classes.
+     */
     public static function replaceBuiltinClasses($content)
     {
         return str_replace(
@@ -512,8 +576,12 @@ class Post
                 'c-image',
                 'c-image__caption',
                 'c-image__image wp-image-',
-                'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs',
-                'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs',
+                'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-float--left@xl u-margin__y--2 
+                u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl 
+                u-width--100@xs',
+                'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-float--right@xl 
+                u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl 
+                u-width--100@xs',
                 '',
                 'u-margin__x--auto u-text-align--center',
 

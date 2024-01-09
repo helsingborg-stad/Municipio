@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-         bootstrap="./tests/bootstrap.php"
+         bootstrap="./tests/phpunit/bootstrap.php"
          backupGlobals="false"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true">
 
+  <coverage processUncoveredFiles="false">
+    <include>
+      <directory suffix=".php">./library</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./library/AcfFields</directory>
+    </exclude>
+    <report>
+      <text outputFile="php://stdout" showUncoveredFiles="true"/>
+      <html outputDirectory="./tests/phpunit/.coverage"/>
+      <clover outputFile="./tests/phpunit/.coverage/clover.xml"/>
+    </report>
+  </coverage>
+
   <testsuites>
-    <testsuite name="Theme Test Suite">
-      <directory suffix="Test.php">./library</directory>
+    <testsuite name="default">
+      <directory suffix=".php">./tests/phpunit/tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>

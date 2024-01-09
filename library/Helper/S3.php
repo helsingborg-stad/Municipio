@@ -172,4 +172,19 @@ class S3
     // If the input already contains a protocol, return it as is
     return $sanitizedKey;
   }
+
+  /**
+   * Restore an S3 key to an HTTPS link.
+   *
+   * @param string $sanitizedKey The sanitized S3 object key
+   * @return string The restored HTTPS link
+   */
+  public static function restoreS3KeyToHttps($sanitizedKey)
+  {
+    if (strpos($sanitizedKey, '://') === false) {
+        $bucketUrl = defined('S3_UPLOADS_BUCKET_URL') ? rtrim(S3_UPLOADS_BUCKET_URL, '/') : rtrim(S3_UPLOADS_CUSTOM_ENDPOINT, '/');
+        return $bucketUrl . "/" . $sanitizedKey;
+    }
+    return $sanitizedKey;
+  }
 }

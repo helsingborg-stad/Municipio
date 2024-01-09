@@ -26,6 +26,8 @@ class Enqueue
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
+        // Admin scripts
+        add_action('admin_enqueue_scripts', array($this, 'adminScripts'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -98,6 +100,12 @@ class Enqueue
     {
         //Download and use material icons
         $this->getMaterialIcons(null); //Create self handle
+    }
+    public function adminScripts() : void {
+        global $pagenow;
+        if ($pagenow == 'options-reading.php') {
+            wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
+        }
     }
 
     public function gutenbergStyle()

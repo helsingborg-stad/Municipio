@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\Test;
+namespace Municipio\Tests\Controller;
 
 use WP_Mock\Tools\TestCase;
 

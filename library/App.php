@@ -3,6 +3,13 @@
 namespace Municipio;
 
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
+use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
+use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
+use Municipio\Content\ResourceFromApi\PostTypeFromResource;
+use Municipio\Content\ResourceFromApi\ResourceType;
+use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\Helper\ResourceFromApiHelper;
 
 /**
  * Class App
@@ -63,17 +70,48 @@ class App
         /**
          * Resources from API
          */
+
+        // Register the actual post type to be used for resources.
         $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
         $resourcePostType->addHooks();
 
+        // Set up registry.
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        $resourceRegistry->addHooks();
+        $resourceRegistry->registerResources();
 
-        $postTypeQueriesModifier = new \Municipio\Content\ResourceFromApi\PostType\PostTypeQueriesModifier($resourceRegistry);
-        $postTypeQueriesModifier->addHooks();
+        // Make resources available to the helper class.
+        ResourceFromApiHelper::initialize($resourceRegistry);
 
-        $taxonomyQueriesModifier = new \Municipio\Content\ResourceFromApi\Taxonomy\TaxonomyQueriesModifier($resourceRegistry);
-        $taxonomyQueriesModifier->addHooks();
+        // Register post types from resources.
+        foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+            $registrar = new PostTypeFromResource($resource);
+            $registrar->register();
+        }
+
+        // Register taxonomies from resources.
+        foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
+            $registrar = new TaxonomyFromResource($resource);
+            $registrar->register();
+        }
+
+        // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
+        $modifiersHelper = new ModifiersHelper($resourceRegistry);
+        $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
+        $hooksAdder->addHooks();
+
+        // Add REST API endpoints for resources.
+        add_action('rest_api_init', function () use ($resourceRegistry) {
+            $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+
+            if (empty($resources)) {
+                return;
+            }
+
+            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+                $controller = new ResourceFromApiRestController($resource->getName());
+                $controller->register_routes();
+            }
+        });
 
         /**
          * Oembed
@@ -140,7 +178,11 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
-        new \Municipio\Api\Pdf\PdfGenerator();
+
+        $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
+        $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
+        $pdfGenerator->addHooks();
+
 
         /**
          * Customizer
@@ -156,6 +198,6 @@ class App
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
-        });   
+        });
     }
 }

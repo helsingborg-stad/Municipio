@@ -116,8 +116,14 @@
 
     .pdf-frontpage .pdf-frontpage__introduction,
     .pdf-frontpage .pdf-frontpage__introduction * {
-        text-align: right:
+        text-align: right;
         
+    }
+
+    /* Images */
+    .c-image {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     /* Footer */
@@ -136,6 +142,8 @@
     
     img {
         max-width: 100%;
+        width: 100%;
+        height: auto;
     }
 
     /* Remove not printable elements */
@@ -163,6 +171,7 @@
     .c-modal,
     .mod-recommend,
     .c-acceptance__content,
+    .c-acceptance__modal,
     #sidebar-slider-area--container,
     #customer-feedback,
     #_hjRemoteVarsFrame,

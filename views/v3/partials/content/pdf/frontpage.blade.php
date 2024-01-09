@@ -1,5 +1,5 @@
 <section class="pdf-frontpage">
-        <div style="{{!empty($cover['cover']['src']) ? 'background-image: url(' . $cover['cover']['src'] . ');' : ''}}; height: 50%; width: 100%; background-size:cover; background-repeat:no-repeat; background-color: {{$styles['color_palette_primary']['contrasting'] ?? '#fff'}}">
+        <div style="{{!empty($cover['cover']['src']) ? 'background-image: url(' . $cover['cover']['src'] . ')' : ''}}; height: 50%; width: 100%; background-size:cover; background-repeat:no-repeat; background-color: {{$styles['color_palette_primary']['contrasting'] ?? '#fff'}}">
         </div>
         <div class="pdf-container" style="height: 50%;">
         @if(!empty($cover['emblem']['src']))
