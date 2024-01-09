@@ -6,6 +6,7 @@ use Mockery;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Color;
+use tad\FunctionMocker\FunctionMocker;
 
 /**
  * Class ColorTest
@@ -69,14 +70,13 @@ class ColorTest extends TestCase
     public function testGetPalettesReturnsArrayWithOptionsIfKirkiDoesNotExist()
     {
         // Given
-        $kirkiMock = $this->getMockBuilder('Kirki')->disableOriginalConstructor()->getMock();
+        $classExistsMock = FunctionMocker::replace('class_exists', false);
 
         // When
-        $result = Color::getPalettes([
-            'option'
-        ]);
+        $result = Color::getPalettes([ 'option' ]);
 
         // Then
+        $classExistsMock->wasCalledWithOnce(['Kirki']);
         $this->assertEquals('option', $result[0]);
     }
 
