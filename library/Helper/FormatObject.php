@@ -4,6 +4,9 @@ namespace Municipio\Helper;
 
 use DOMDocument;
 
+/**
+ * Class FormatObject
+ */
 class FormatObject
 {
     /**
@@ -11,52 +14,48 @@ class FormatObject
      *
      * @param   object|array|string   $object The item, snake case
      *
-     * @return  object|array|string   $object The item, camel case
+     * @return  object|string   $object The item, camel case
      */
     public static function camelCase($item)
     {
-        switch ($item) {
-            case is_array($item):
-            case is_object($item):
-                return self::camelCaseObject($item);
-                break;
-            case is_string($item):
-                return self::camelCaseString($item);
-                break;
-            default:
-                throw new \Exception("Input is not a array, object or string. Cannot camelCase value.");
+        if (is_array($item) || is_object($item)) {
+            return self::camelCaseObject($item);
+        } elseif (is_string($item)) {
+            return self::camelCaseString($item);
+        } else {
+            throw new \Exception("Input is not an array, object, or string. Cannot camelCase value.");
         }
     }
+
 
     /**
      * Camelcase snake_case object or array
      *
      * @param   object|array   $object The object, snake case
      *
-     * @return  object|array   $object The object, camel case
+     * @return  object          $object The object, camel case
      */
-    public static function camelCaseObject($object)
+    public static function camelCaseObject($object): object
     {
         return (object) self::mapArrayKeys(function ($string) {
-            $isNotCamelCase = !preg_match('/^[a-z]+([A-Z][a-z]*)*$/m', $string);
-            return lcfirst(
-                $isNotCamelCase
-                    ? implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string)))))
-                    : $string
-            );
+            return self::camelCaseString($string);
         }, (array) $object);
     }
 
     /**
-     * Camelcase snake_case string
+     * Camelcase string
      *
      * @param   string   $string The string, snake case
      *
      * @return  string   $string The string, camel case
      */
-    public static function camelCaseString($string)
+    public static function camelCaseString(string $string): string
     {
-        return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string))))));
+        if (preg_match('/^[a-zA-Z0-9]*$/', $string)) {
+            return $string;
+        }
+
+        return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', $string)))));
     }
 
     /**
@@ -67,12 +66,13 @@ class FormatObject
      *
      * @return  array       $return  The array with renamed keys
      */
-    public static function mapArrayKeys(callable $func, array $array)
+    public static function mapArrayKeys(callable $func, array $array): array
     {
-        $return = array();
+        $return     = array();
         $keysToSkip = ['classList', 'attributeList'];
         foreach ($array as $key => $value) {
-            $return[$func($key)] = is_array($value) &&  !in_array($key, $keysToSkip) ? self::mapArrayKeys($func, $value) : $value;
+            $return[$func($key)] = is_array($value) && !in_array($key, $keysToSkip) ?
+            self::mapArrayKeys($func, $value) : $value;
         }
         return $return;
     }
