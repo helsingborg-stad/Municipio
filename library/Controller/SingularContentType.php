@@ -11,39 +11,30 @@ use WP_Term;
 class SingularContentType extends \Municipio\Controller\Singular
 {
     public $view;
+    protected $postId;
+    protected $contentType;
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->postId = $this->data['post']->id;
 
         /**
          * Retrieves the content type of the current post typr.
          *
          * @return string The content type of the current post.
          */
-        $contentType = \Municipio\Helper\ContentType::getContentType($this->data['post']->postType);
 
-        /**
-         * Initiate hooks for the current content type.
-         *
-         * @param object $contentType The content type object.
-         * @return void
-         *
-         * @since 1.0.0
-         * @author Your Name
-         */
-        $contentType->addHooks();
-        
-        
+        $postType = $this->data['post']->postType;
 
-        /**
-         * If the content type has secondary content types, initate hooks for each of them.
-         * 
-         * @param object $contentType The content type object.
-         * @return void
-         */
-        if(!empty($contentType->secondaryContentType)) {
-            foreach ($contentType->secondaryContentType as $secondaryContentType) {
+        $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
+
+        // $currentContentType = new $contentType();
+        $this->contentType->addHooks();
+
+        if(!empty($this->contentType->secondaryContentType)) {
+            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
                 $secondaryContentType->addHooks();
             }
         }
@@ -51,9 +42,11 @@ class SingularContentType extends \Municipio\Controller\Singular
         /**
          * Check if the content type template should be skipped and set the view accordingly if not.
          */
-        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($this->data['post']->postType)) {
-            $this->view = $contentType->getView();
+        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($postType)) {
+            $this->view = $this->contentType->getView();
         }
+
+        $this->data['structuredData'] = $this->appendStructuredData();
 
     }
 
@@ -68,6 +61,8 @@ class SingularContentType extends \Municipio\Controller\Singular
 
         // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
+
+        // $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($this->data['post']->id);
 
         return $this->data;
     }
@@ -133,5 +128,22 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         return $posts;
+    }
+
+    /**
+     * Append structured data to the view data.
+     * @return string The structured data as a JSON string.
+     */
+    public function appendStructuredData(): string
+    {
+        $structuredData = [$this->contentType->getStructuredData($this->postId)];
+
+        if (!empty($this->contentType->secondaryContentType)) {
+            foreach ($this->contentType->secondaryContentType as $secondaryContentType) {
+                $structuredData[] = $secondaryContentType->getStructuredData($this->postId);
+            }
+        }
+
+        return \Municipio\Helper\Data::prepareStructuredData($structuredData);
     }
 }

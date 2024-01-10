@@ -47,4 +47,8 @@ class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return "content-type-{$this->getKey()}";
     }
+    public function getStructuredData(int $postId) : array
+    {
+        return [];
+    }
 }

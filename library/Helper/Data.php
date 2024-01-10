@@ -4,26 +4,46 @@ namespace Municipio\Helper;
 
 class Data
 {
-    public static function getStructuredData($postType, $postId)
+    /**
+     * Prepares structured data for encoding as JSON.
+     *
+     * @param array $structuredData The structured data to be prepared.
+     * @return false|string The encoded JSON string of the prepared structured data, or false if the structured data is empty.
+     */
+    public static function prepareStructuredData(array $structuredData = [])
     {
-        $schema = apply_filters('Municipio/StructuredData', [], $postType, $postId);
-
-        if (is_null($schema)) {
+        if(empty($structuredData)) {
             return false;
         }
 
-        if (empty($schema)) {
+        $structuredData = apply_filters('Municipio/StructuredData',$structuredData);
+        
+        foreach ($structuredData as $key => $value) {
+            if(empty($value)) {
+                unset($structuredData[$key]);
+            }
+        }
+        
+        if (empty($structuredData)) {
             return false;
         }
 
-        //Default common schema
-        $schema = array_merge(
-            ["@context" => "https://schema.org/"],
-            $schema
-        );
+        $schema = [];
+        $schema["@context"] = "http://schema.org";
 
+        if(count($structuredData) > 1) {
+            $schema["@graph"] = [];        
+            foreach ($structuredData as $key => $properties) {
+                if(empty($properties)) {
+                    continue;
+                }
+                array_push($schema["@graph"], $properties);
+          }
+        } else  {
+            $schema = $structuredData;
+        }
 
-        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+        return json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
     public static function isJson($string)
     {
