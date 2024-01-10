@@ -13,24 +13,23 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Place extends ContentTypeFactory
 {
-
     public $secondaryContentType = [];
-    
+
     public function __construct()
     {
-        $this->key = 'place';
+        $this->key   = 'place';
         $this->label = __('Place', 'municipio');
 
         parent::__construct($this->key, $this->label);
-
     }
 
-    public function addHooks(): void {
+    public function addHooks(): void
+    {
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
 
-    
+
     // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
@@ -61,12 +60,12 @@ class Place extends ContentTypeFactory
         }
         return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
     }
-    
+
     public function getStructuredData(int $postId): array
     {
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        $structuredData = [];
+        $structuredData   = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);

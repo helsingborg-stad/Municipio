@@ -14,6 +14,9 @@ class SingularContentType extends \Municipio\Controller\Singular
     protected $postId;
     protected $contentType;
 
+    /**
+     * SingularContentType construct
+     */
     public function __construct()
     {
         parent::__construct();
@@ -30,11 +33,13 @@ class SingularContentType extends \Municipio\Controller\Singular
 
         $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
 
+        $this->setContentTypeViewData();
+
         // $currentContentType = new $contentType();
         $this->contentType->addHooks();
 
-        if(!empty($this->contentType->secondaryContentType)) {
-            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
+        if (!empty($this->contentType->secondaryContentType)) {
+            foreach ($this->contentType->secondaryContentType as $secondaryContentType) {
                 $secondaryContentType->addHooks();
             }
         }
@@ -48,6 +53,7 @@ class SingularContentType extends \Municipio\Controller\Singular
 
         $this->data['structuredData'] = $this->appendStructuredData();
 
+        print_r($this->data['structuredData']);
     }
 
     /**
@@ -59,7 +65,8 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
+        // TODO: Should related posts really be set here?
+        // They aren't technically dependant on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         // $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($this->data['post']->id);
@@ -67,7 +74,28 @@ class SingularContentType extends \Municipio\Controller\Singular
         return $this->data;
     }
 
-    
+    /**
+     * Set up view data based on the content type of the current post.
+     *
+     * If the content type is "place," the post data is complemented using
+     * \Municipio\Helper\ContentType::complementPlacePost() method with the complement flag set to false.
+     *
+     * @return void
+     */
+    private function setContentTypeViewData()
+    {
+        if (empty(!$this->contentType->getKey())) {
+            return;
+        }
+
+        $contentType = $this->contentType->getKey();
+
+        if ($contentType === 'place') {
+            $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post'], false);
+        }
+    }
+
+
     /**
      * Get related posts based on the taxonomies of the current post.
      *
@@ -79,14 +107,14 @@ class SingularContentType extends \Municipio\Controller\Singular
     private function getRelatedPosts($postId)
     {
         $taxonomies = get_post_taxonomies($postId);
-        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
+        $postTypes  = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
         $arr = [];
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    if( $term instanceof WP_Term ) {
+                    if ($term instanceof WP_Term) {
                         $arr[$taxonomy][] = $term->term_id;
                     }
                 }
@@ -100,10 +128,10 @@ class SingularContentType extends \Municipio\Controller\Singular
         $posts = [];
         foreach ($postTypes as $postType) {
             $args = array(
-            'numberposts' => 3,
-            'post_type' => $postType->name,
+            'numberposts'  => 3,
+            'post_type'    => $postType->name,
             'post__not_in' => array($postId),
-            'tax_query' => array(
+            'tax_query'    => array(
                 'relation' => 'OR',
             ),
             );
@@ -111,8 +139,8 @@ class SingularContentType extends \Municipio\Controller\Singular
             foreach ($arr as $tax => $ids) {
                 $args['tax_query'][] = array(
                 'taxonomy' => $tax,
-                'field' => 'term_id',
-                'terms' => $ids,
+                'field'    => 'term_id',
+                'terms'    => $ids,
                 'operator' => 'IN',
                 );
             }
@@ -121,7 +149,7 @@ class SingularContentType extends \Municipio\Controller\Singular
 
             if (!empty($result)) {
                 foreach ($result as &$post) {
-                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                    $post                    = \Municipio\Helper\Post::preparePostObject($post);
                     $posts[$postType->label] = $result;
                 }
             }
