@@ -76,23 +76,27 @@ class App
         $resourcePostType->addHooks();
 
         // Set up registry.
+        
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        $resourceRegistry->registerResources();
+        
+        add_action('init', function() use ($resourceRegistry) {
+           
+            $resourceRegistry->registerResources();
+
+            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+                $registrar = new PostTypeFromResource($resource);
+                $registrar->register();
+            }
+
+            foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
+                $registrar = new TaxonomyFromResource($resource);
+                $registrar->register();
+            }
+
+        });
 
         // Make resources available to the helper class.
         ResourceFromApiHelper::initialize($resourceRegistry);
-
-        // Register post types from resources.
-        foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-            $registrar = new PostTypeFromResource($resource);
-            $registrar->register();
-        }
-
-        // Register taxonomies from resources.
-        foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
-            $registrar = new TaxonomyFromResource($resource);
-            $registrar->register();
-        }
 
         // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
         $modifiersHelper = new ModifiersHelper($resourceRegistry);
