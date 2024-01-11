@@ -76,11 +76,11 @@ class App
         $resourcePostType->addHooks();
 
         // Set up registry.
-        
+
         $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
-        
-        add_action('init', function() use ($resourceRegistry) {
-           
+
+        add_action('init', function () use ($resourceRegistry) {
+
             $resourceRegistry->registerResources();
 
             foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
@@ -92,7 +92,6 @@ class App
                 $registrar = new TaxonomyFromResource($resource);
                 $registrar->register();
             }
-
         });
 
         // Make resources available to the helper class.
