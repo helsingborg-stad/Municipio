@@ -62,6 +62,7 @@ class PanelsRegistry
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
+        self::registerContentTypesPanel();
         self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
@@ -89,6 +90,7 @@ class PanelsRegistry
     {
         $panelID = 'municipio_customizer_panel_archive';
         $archives = self::getArchives();
+  
         $sections = array_map(function ($archive) use ($panelID) {
             $id = "{$panelID}_{$archive->name}";
             return KirkiPanelSection::create()
@@ -103,6 +105,50 @@ class PanelsRegistry
             ->setID($panelID)
             ->setTitle(esc_html__('Archive Apperance', 'municipio'))
             ->setDescription(esc_html__('Manage apperance options on archives.', 'municipio'))
+            ->setPriority(120)
+            ->addSections($sections)
+            ->register();
+    }
+    /* Content Types panel */
+    public static function registerContentTypesPanel()
+    {
+        $panelID = 'municipio_customizer_panel_content_type';
+        $postTypes = get_post_types(
+            [
+                'public' => true,
+                '_builtin' => false
+            ], 
+            'objects'
+        );
+                
+        $sections = array_map(function ($postType) use ($panelID) {
+
+            $id = "{$panelID}_{$postType->name}";
+
+            $latestPost = get_posts(
+                [
+                    'post_type'      => $postType->name,
+                    'posts_per_page' => 1,
+                    'post_status'    => 'publish',
+                    'orderby'        => 'date',
+                    'order'          => 'DESC'
+                ]
+            );
+            $latestPostTypePostUrl = !empty($latestPost) ? $latestPost[0]->guid : '';
+            
+            return KirkiPanelSection::create()
+                ->setID($id)
+                ->setPanel($panelID)
+                ->setTitle($postType->label)
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ContentType($id, $postType))
+                // @fixme: setPreviewUrl is not working?
+                ->setPreviewUrl($latestPostTypePostUrl);
+        }, $postTypes);
+        
+        KirkiPanel::create()
+            ->setID($panelID)
+            ->setTitle(esc_html__('Content Types', 'municipio'))
+            ->setDescription(esc_html__('Content type settings for each post custom type.', 'municipio'))
             ->setPriority(120)
             ->addSections($sections)
             ->register();
@@ -497,4 +543,6 @@ class PanelsRegistry
 
         return $metaKeys;
     }
+
+    
 }

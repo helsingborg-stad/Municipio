@@ -155,9 +155,6 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        // TODO Move Content Type settings to the customizer
-        new \Municipio\Admin\Options\ContentType();
-
         new \Municipio\Admin\Acf\PrefillIconChoice();
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();

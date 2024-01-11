@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Helper\ContentType;
 use WP_Term;
 
 /**
@@ -10,10 +11,30 @@ use WP_Term;
  */
 class SingularContentType extends \Municipio\Controller\Singular
 {
+    /**
+     * The view object.
+     *
+     * @var object
+     */
     public $view;
+
+    /**
+     * The ID of the current post.
+     *
+     * @var int
+     */
     protected $postId;
+
+    /**
+     * The content type object.
+     *
+     * @var object
+     */
     protected $contentType;
 
+    /**
+     * SingularContentType constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -21,33 +42,37 @@ class SingularContentType extends \Municipio\Controller\Singular
         $this->postId = $this->data['post']->id;
 
         /**
-         * Retrieves the content type of the current post typr.
+         * Retrieves the content type of the current post type.
          *
          * @return string The content type of the current post.
          */
+        $contentType = ContentType::getPostTypeContentType($this->data['post']->postType);
 
-        $postType = $this->data['post']->postType;
+        /**
+         * Initiate hooks for the current content type.
+         *
+         * @param object $contentType The content type object.
+         * @return void
+         *
+         * @since 1.0.0
+         * @author Your Name
+         */
+        $contentType->addHooks();
 
-        $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
-
-        // $currentContentType = new $contentType();
-        $this->contentType->addHooks();
-
-        if(!empty($this->contentType->secondaryContentType)) {
-            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
+        /**
+         * If the content type has secondary content types, initiate hooks for each of them.
+         *
+         * @param object $contentType The content type object.
+         * @return void
+         */
+        if (!empty($contentType->secondaryContentType)) {
+            foreach ($contentType->secondaryContentType as $secondaryContentType) {
                 $secondaryContentType->addHooks();
             }
         }
 
-        /**
-         * Check if the content type template should be skipped and set the view accordingly if not.
-         */
-        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($postType)) {
-            $this->view = $this->contentType->getView();
-        }
-
-        $this->data['structuredData'] = $this->appendStructuredData();
-
+        /** Set Blade view */
+        $this->view = $contentType->getView();
     }
 
     /**
@@ -59,7 +84,7 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        // TODO Should related posts really be set here? They aren't technically dependant on the post having a content type. Figure out a better place to place this.
+        // TODO Should related posts really be set here? They aren't technically dependent on the post having a content type. Figure out a better place to place this.
         $this->data['relatedPosts'] = $this->getRelatedPosts($this->data['post']->id);
 
         // $this->data['structuredData'] = \Municipio\Helper\Data::getStructuredData($this->data['post']->id);
@@ -67,7 +92,6 @@ class SingularContentType extends \Municipio\Controller\Singular
         return $this->data;
     }
 
-    
     /**
      * Get related posts based on the taxonomies of the current post.
      *
@@ -79,14 +103,14 @@ class SingularContentType extends \Municipio\Controller\Singular
     private function getRelatedPosts($postId)
     {
         $taxonomies = get_post_taxonomies($postId);
-        $postTypes = get_post_types(array('public' => true, '_builtin' => false), 'objects');
+        $postTypes  = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
         $arr = [];
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    if( $term instanceof WP_Term ) {
+                    if ($term instanceof WP_Term) {
                         $arr[$taxonomy][] = $term->term_id;
                     }
                 }
@@ -100,20 +124,20 @@ class SingularContentType extends \Municipio\Controller\Singular
         $posts = [];
         foreach ($postTypes as $postType) {
             $args = array(
-            'numberposts' => 3,
-            'post_type' => $postType->name,
-            'post__not_in' => array($postId),
-            'tax_query' => array(
-                'relation' => 'OR',
-            ),
+                'numberposts'  => 3,
+                'post_type'    => $postType->name,
+                'post__not_in' => array($postId),
+                'tax_query'    => array(
+                    'relation' => 'OR',
+                ),
             );
 
             foreach ($arr as $tax => $ids) {
                 $args['tax_query'][] = array(
-                'taxonomy' => $tax,
-                'field' => 'term_id',
-                'terms' => $ids,
-                'operator' => 'IN',
+                    'taxonomy' => $tax,
+                    'field'    => 'term_id',
+                    'terms'    => $ids,
+                    'operator' => 'IN',
                 );
             }
 
@@ -121,7 +145,7 @@ class SingularContentType extends \Municipio\Controller\Singular
 
             if (!empty($result)) {
                 foreach ($result as &$post) {
-                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                    $post                    = \Municipio\Helper\Post::preparePostObject($post);
                     $posts[$postType->label] = $result;
                 }
             }
@@ -132,6 +156,7 @@ class SingularContentType extends \Municipio\Controller\Singular
 
     /**
      * Append structured data to the view data.
+     *
      * @return string The structured data as a JSON string.
      */
     public function appendStructuredData(): string
