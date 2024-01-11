@@ -6,7 +6,7 @@ use Municipio\Helper\Url;
 use WP_Mock\Tools\TestCase;
 
 /**
- * Class ListingTest
+ * Class UrlTest
  */
 class UrlTest extends TestCase
 {
