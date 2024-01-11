@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\ContentType;
 
+use Municipio\Helper\ContentType as ContentTypeHelper;
+
 /**
  * Class Place
  *
@@ -12,7 +14,7 @@ namespace Municipio\Controller\ContentType;
 class Place extends ContentTypeFactory
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -24,12 +26,11 @@ class Place extends ContentTypeFactory
     }
 
     public function addHooks(): void {
-
-        // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
+
+    
     // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
@@ -60,24 +61,12 @@ class Place extends ContentTypeFactory
         }
         return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
     }
-    /**
-    * Appends the structured data array (used for schema.org markup) with additional data
-    *
-    * @param array $structuredData The structured data to append location data to.
-    * @param int $postId The ID of the post to retrieve location data for.
-    *
-    * @return array The updated structured data.
-    *
-    */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    
+    public function getStructuredData(int $postId): array
     {
-        if (empty($postId)) {
-            return $structuredData;
-        }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        
-        $additionalData = ['location' => []];
+        $structuredData = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);
@@ -87,12 +76,12 @@ class Place extends ContentTypeFactory
 
             // General address
             if (!empty($location['formatted_address'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'   => 'Place',
                     'address' => $location['formatted_address'],
                 ];
             } elseif (!empty($location['address'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'   => 'Place',
                     'address' => $location['address'],
                 ];
@@ -100,7 +89,7 @@ class Place extends ContentTypeFactory
 
             // Coordinates
             if (!empty($location['lat']) && !empty($location['lng'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'     => 'GeoCoordinates',
                     'latitude'  => $location['lat'],
                     'longitude' => $location['lng'],
@@ -109,13 +98,13 @@ class Place extends ContentTypeFactory
 
             // Country
             if (!empty($location['country'])) {
-                $additionalData['location'][] = [
+                $structuredData['location'][] = [
                     '@type'          => 'PostalAddress',
                     'addressCountry' => $location['country'],
                 ];
             }
         }
 
-        return array_merge($structuredData, $additionalData);
+        return $structuredData;
     }
 }

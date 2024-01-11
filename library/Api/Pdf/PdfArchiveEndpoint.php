@@ -6,7 +6,15 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 
+/**
+ * Class PdfArchiveEndpoint
+ *
+ * PDF REST API endpoint for handling PDF generation based on archive parameters.
+ *
+ * @package Municipio\Api\Pdf
+ */
 class PdfArchiveEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
@@ -39,14 +47,14 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         if($this->isPublicPostType($postType)) {
 
             $pdfHelper = new PDFHelper();
-            
+            $woffHelper = new WoffConverterHelper();
             $queryParams = $request->get_query_params();
 
             $posts = $this->getArchivePosts($postType, $queryParams);
             
             if (!empty($posts)) {
                 $cover = $pdfHelper->getCoverFieldsForPostType($postType);
-                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper);
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
                 $html = $pdf->getHtmlFromView( $posts, $cover );
                 $pdf->renderPdf($html, $postType);
                 return new WP_REST_Response(null, 200);
@@ -145,9 +153,15 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return $query->posts;
     }
 
-    private function handleDateAndSearchFiltering(array $queryParams) {
-
-
+    /**
+     * Handles date and search filtering for the archive.
+     *
+     * @param array $queryParams The query parameters.
+     *
+     * @return array The modified query parameters.
+     */
+    private function handleDateAndSearchFiltering(array $queryParams)
+    {
         return $queryParams;
     }
 

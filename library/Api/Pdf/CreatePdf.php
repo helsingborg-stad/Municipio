@@ -6,14 +6,17 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Municipio\Helper\Image;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use Municipio\Helper\FileConverters\FileConverterInterface;
 
 class CreatePdf
 {
     private PdfHelperInterface $pdfHelper;
+    private FileConverterInterface $woffHelper;
 
-    public function __construct(PdfHelperInterface $pdfHelper)
+    public function __construct(PdfHelperInterface $pdfHelper, FileConverterInterface $woffHelper)
     {
         $this->pdfHelper = $pdfHelper;
+        $this->woffHelper = $woffHelper;
     }
 
     /**
@@ -25,7 +28,7 @@ class CreatePdf
      */
     public function getHtmlFromView($posts = false, $cover = false):string {
         $styles = $this->pdfHelper->getThemeMods();
-        $fonts = $this->pdfHelper->getFonts($styles);
+        $fonts = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang = $this->getLang();
 
         if (!empty($posts)) {
@@ -92,6 +95,7 @@ class CreatePdf
             'isPhpEnabled' => true,
             'isHtml5ParserEnabled' => true,
         ]);
+        
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
