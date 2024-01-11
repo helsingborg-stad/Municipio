@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class PostType
+ */
 class PostType
 {
     /**
@@ -9,21 +12,11 @@ class PostType
      * @param  array  $filter Don't get these
      * @return array
      */
-    public static function getPublic($filter = array('page'))
+    public static function getPublic(array $filter = ['page']): array
     {
-        $postTypes = array();
+        $postTypes = get_post_types(['public' => true], 'object');
 
-        foreach (get_post_types() as $key => $postType) {
-            $args = get_post_type_object($postType);
-
-            if (!$args->public) {
-                continue;
-            }
-
-            $postTypes[$postType] = $args;
-        }
-
-        if (!empty($filter)) {
+        if (!empty($postTypes) && !empty($filter)) {
             $postTypes = array_filter($postTypes, function ($item) use ($filter) {
                 if (substr($item->name, 0, 4) === 'mod-') {
                     return false;
@@ -39,12 +32,12 @@ class PostType
     /**
      * Get post type REST URL
      * @param  string|null $postType Post type slug
-     * @return string                Post types REST URL
+     * @return string|null Post types REST URL
      */
     public static function postTypeRestUrl($postType = null)
     {
-        $restUrl = null;
-        $postType = !$postType ? self::getPostType() : $postType;
+        $restUrl     = null;
+        $postType    = !$postType ? self::getPostType() : $postType;
         $postTypeObj = get_post_type_object($postType);
 
         if ($postTypeObj && !empty($postTypeObj->show_in_rest) && !empty($postTypeObj->rest_base)) {
@@ -57,11 +50,13 @@ class PostType
     /**
      * Get post type details
 
-     * @return object  Information about the current posttype
+     * @return object|null  Information about the current posttype
      */
     public static function postTypeDetails()
     {
-        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(get_post_type_object(self::getPostType()));
+        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(
+            get_post_type_object(self::getPostType())
+        );
 
         return apply_filters('Municipio/postTypeDetails', $postTypeDetails);
     }
@@ -69,7 +64,7 @@ class PostType
     /**
      * Return current post type
 
-     * @return object  Current post type id
+     * @return string|false  Current post type
      */
     private static function getPostType()
     {
@@ -78,14 +73,23 @@ class PostType
         }
 
         global $wp_query;
-        if (isset($wp_query->query) && isset($wp_query->query['post_type']) && !empty($wp_query->query['post_type'])) {
+
+        if (
+            isset($wp_query->query) &&
+            isset($wp_query->query['post_type']) &&
+            !empty($wp_query->query['post_type'])
+        ) {
             return $wp_query->query['post_type'];
         }
 
-        if (isset($wp_query->queried_object) && isset($wp_query->queried_object->post_type) && !empty($wp_query->queried_object->post_type)) {
+        if (
+            isset($wp_query->queried_object) &&
+            isset($wp_query->queried_object->post_type) &&
+            !empty($wp_query->queried_object->post_type)
+        ) {
             return $wp_query->queried_object->post_type;
         }
 
-        return null;
+        return false;
     }
 }
