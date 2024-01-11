@@ -6,8 +6,16 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
+use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 use WP_Post;
 
+/**
+ * Class PdfIdEndpoint
+ *
+ * PDF REST API endpoint for handling PDF generation based on post IDs.
+ *
+ * @package Municipio\Api\Pdf
+ */
 class PdfIdEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
@@ -36,6 +44,7 @@ class PdfIdEndpoint extends RestApiEndpoint
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $pdfHelper = new PDFHelper();
+        $woffHelper = new WoffConverterHelper();
         $idString = $request->get_param('id');
 
         if (!empty($idString) && is_string($idString)) {
@@ -50,7 +59,7 @@ class PdfIdEndpoint extends RestApiEndpoint
                     }
                     return 'page-pdf';
                 })();
-                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper);
+                $pdf = new \Municipio\Api\Pdf\CreatePdf($pdfHelper, $woffHelper);
                 $html = $pdf->getHtmlFromView( $posts, $cover );
                 $pdf->renderPdf($html, $fileName);
             }

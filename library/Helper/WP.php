@@ -2,8 +2,19 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class WP
+ */
 class WP
 {
+    /**
+     * Get the joined terms for a post.
+     *
+     * @param array $taxonomies The taxonomies to retrieve terms from.
+     * @param int $postId The ID of the post.
+     * @param array $termQueryArgs Additional query arguments for retrieving terms.
+     * @return string The joined terms.
+     */
     public static function getPostTermsJoined(array $taxonomies, int $postId = 0, array $termQueryArgs = []): string
     {
         $createString = fn ($term) => '<span>' . $term->name . '</span>';
@@ -16,6 +27,14 @@ class WP
         );
     }
 
+    /**
+     * Get the terms for a post.
+     *
+     * @param array $taxonomies The taxonomies to retrieve terms from.
+     * @param int $postId The ID of the post.
+     * @param array $termQueryArgs Additional query arguments for retrieving terms.
+     * @return array The terms.
+     */
     public static function getPostTerms(array $taxonomies, int $postId = 0, array $termQueryArgs = []): array
     {
         $terms = wp_get_post_terms(
@@ -26,7 +45,13 @@ class WP
 
         return !empty($terms) && !is_wp_error($terms) ? $terms : [];
     }
-    
+
+    /**
+     * Get the terms based on the provided WordPress term query arguments.
+     *
+     * @param array|null $wpTermQueryArgs The WordPress term query arguments.
+     * @return array The terms.
+     */
     public static function getTerms(array $wpTermQueryArgs = null): array
     {
         $terms = get_terms($wpTermQueryArgs);
@@ -53,29 +78,43 @@ class WP
         return $fieldValue;
     }
 
+    /**
+     * Get the meta value for a specific key from a post.
+     *
+     * @param string $metaKey The meta key to retrieve the value for.
+     * @param mixed $defaultValue The default value to return if the meta key is not found.
+     * @param int $postId The ID of the post to retrieve the meta value from.
+     * @return mixed The meta value.
+     */
     public static function getPostMeta(string $metaKey = '', $defaultValue = null, int $postId = 0)
     {
         $postMeta = self::queryPostMeta($postId);
 
-        $isNull = fn () => !in_array($metaKey, array_keys($postMeta)) || $postMeta[$metaKey] === null;
+        $isNull        = fn () => !in_array($metaKey, array_keys($postMeta)) || $postMeta[$metaKey] === null;
         $isEmptyString = fn () => is_string($postMeta[$metaKey]) && empty($postMeta[$metaKey]);
-        $isEmptyArray = fn () => is_array($postMeta[$metaKey]) && empty($postMeta[$metaKey]);
+        $isEmptyArray  = fn () => is_array($postMeta[$metaKey]) && empty($postMeta[$metaKey]);
 
-        $caseEmptyArray = fn () => $isEmptyArray() ? $defaultValue : $postMeta[$metaKey];
+        $caseEmptyArray  = fn () => $isEmptyArray() ? $defaultValue : $postMeta[$metaKey];
         $caseEmptyString = fn () => $isEmptyString() ? $defaultValue : $caseEmptyArray();
-        $caseNull = fn () => $isNull() ? $defaultValue : $caseEmptyString();
+        $caseNull        = fn () => $isNull() ? $defaultValue : $caseEmptyString();
 
         return !empty($metaKey) ? $caseNull() : $postMeta;
     }
 
+    /**
+     * Query the meta values for a specific post.
+     *
+     * @param int $postId The ID of the post to query the meta values for.
+     * @return array The meta values.
+     */
     private static function queryPostMeta(int $postId = 0): array
     {
         $post = $postId > 0 ? $postId : get_queried_object_id();
 
-        $removeNullValues = fn ($arr) => array_filter($arr, fn ($i) => $i !== null);
+        $removeNullValues           = fn ($arr) => array_filter($arr, fn ($i) => $i !== null);
         $removeNullVaulesFromArrays = fn ($meta) => is_array($meta) ? $removeNullValues($meta) : $meta;
-        $unserializeMetaValue = fn ($meta) => maybe_unserialize($meta);
-        $flattenMetaValue = fn ($meta) => $meta[0] ?? $meta;
+        $unserializeMetaValue       = fn ($meta) => maybe_unserialize($meta);
+        $flattenMetaValue           = fn ($meta) => $meta[0] ?? $meta;
 
         return array_merge(
             array_map(
@@ -91,6 +130,12 @@ class WP
             []
         );
     }
+    /**
+     * Embeds a URL into the content.
+     *
+     * @param string $url The URL to embed.
+     * @return mixed The embedded content.
+     */
     public static function embed(string $url = '')
     {
         if (filter_var($url, FILTER_VALIDATE_URL)) {
@@ -99,11 +144,24 @@ class WP
 
         return false;
     }
+
+    /**
+     * Get posts based on the provided WP query arguments.
+     *
+     * @param array|null $wpQueryArgs The WP query arguments.
+     * @return array The array of posts.
+     */
     public static function getPosts(array $wpQueryArgs = null): array
     {
         return self::mapPosts(get_posts($wpQueryArgs));
     }
 
+    /**
+     * Map the posts array using a set of callbacks.
+     *
+     * @param array $posts The array of posts to map.
+     * @return array The mapped array of posts.
+     */
     public static function mapPosts($posts): array
     {
         $reduceToOneCallback = fn ($callbacks) => fn ($item) =>
@@ -145,9 +203,10 @@ class WP
      * @return WP_Post|array|null Type corresponding to $output on success or null on failure.
      * When $output is OBJECT, a `WP_Post` instance is returned.
      */
-    public static function getPost($post = null, $output = OBJECT, $filter = 'raw') {
+    public static function getPost($post = null, $output = OBJECT, $filter = 'raw')
+    {
 
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             // Get post by ID using get_posts
             $remotePostFound = fn ($posts) =>
                 is_array($posts) &&
@@ -156,8 +215,8 @@ class WP
                 $posts[0]->ID === $post;
 
             $posts = get_posts(array(
-                'post__in' => [$post],
-                'posts_per_page' => 1,
+                'post__in'         => [$post],
+                'posts_per_page'   => 1,
                 'suppress_filters' => false, // Important to allow filters to modify the query
             ));
 
@@ -169,18 +228,31 @@ class WP
         return get_post($post, $output, $filter);
     }
 
+    /**
+     * Get the title of a post.
+     *
+     * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
+     * @return string The title of the post.
+     */
     public static function getTheTitle($post = 0)
     {
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
         return get_the_title($post);
     }
 
+    /**
+     * Get the permalink of a post.
+     *
+     * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
+     * @param bool $leavename Optional. Whether to keep the post name in the permalink. Defaults to false.
+     * @return string The permalink of the post.
+     */
     public static function getPermalink($post = 0, $leavename = false)
     {
-        if (RemotePosts::isRemotePostID($post)) {
+        if (ResourceFromApiHelper::isRemotePostID($post)) {
             $post = self::getPost($post);
         }
 
@@ -191,14 +263,15 @@ class WP
      * Get remote attachment id.
      * Necessary for cases where an attachment id exists, but has no obvious connection
      * to the remote resource where it can be found.
-     * 
+     *
      * @param int $id The attachment id.
      * @param string $postType The post type of the attachment.
      * @return int The remote attachment id.
      */
-    public static function getRemoteAttachmentId(int $id, string $postType):int {
+    public static function getRemoteAttachmentId(int $id, string $postType): int
+    {
 
-        if( RemotePosts::isRemotePostID($id) ) {
+        if (ResourceFromApiHelper::isRemotePostID($id)) {
             // Already handled.
             return $id;
         }
@@ -208,52 +281,88 @@ class WP
         return $id;
     }
 
-    public static function getPostThumbnailId($post = null) {
-        $post = self::getPost( $post );
+    /**
+     * Get the thumbnail ID of a post.
+     *
+     * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
+     * @return int|false The thumbnail ID of the post, or false if not found.
+     */
+    public static function getPostThumbnailId($post = null)
+    {
+        $post = self::getPost($post);
 
-        if ( ! $post ) {
+        if (! $post) {
             return false;
         }
-    
-        $thumbnail_id = (int) get_post_meta( $post->ID, '_thumbnail_id', true );
-        return (int) apply_filters( 'post_thumbnail_id', $thumbnail_id, $post );
+
+        $thumbnail_id = (int) get_post_meta($post->ID, '_thumbnail_id', true);
+        return (int) apply_filters('post_thumbnail_id', $thumbnail_id, $post);
     }
 
+    /**
+     * Get the URL of the post thumbnail.
+     *
+     * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
+     * @param string $size Optional. Image size. Defaults to 'post-thumbnail'.
+     * @return string|false The URL of the post thumbnail, or false if not found.
+     */
     public static function getThePostThumbnailUrl($post = null, $size = 'post-thumbnail')
     {
-        $postThumbnailId = self::getPostThumbnailId( $post );
+        $postThumbnailId = self::getPostThumbnailId($post);
 
-        if ( ! $postThumbnailId ) {
+        if (! $postThumbnailId) {
             return false;
         }
-    
-        $thumbnailUrl = wp_get_attachment_image_url( $postThumbnailId, $size );
-    
-        return apply_filters( 'post_thumbnail_url', $thumbnailUrl, $post, $size );
+
+        $thumbnailUrl = wp_get_attachment_image_url($postThumbnailId, $size);
+
+        return apply_filters('post_thumbnail_url', $thumbnailUrl, $post, $size);
     }
 
-    public static function getAttachmentImageSrc($attachmentId, $size = 'thumbnail', $icon = false, string $postType = '') {
+    /**
+     * Get the image source of an attachment.
+     *
+     * @param int $attachmentId The attachment ID.
+     * @param string $size Optional. Image size. Defaults to 'thumbnail'.
+     * @param bool $icon Optional. Whether to include the icon. Defaults to false.
+     * @param string $postType Optional. The post type of the attachment.
+     * @return array|false The image source of the attachment, or false if not found.
+     */
+    public static function getAttachmentImageSrc(
+        $attachmentId,
+        $size = 'thumbnail',
+        $icon = false,
+        string $postType = ''
+    ) {
 
-        if (!empty($postType) && !RemotePosts::isRemotePostID($attachmentId)) {
-            $attachmentId = RemotePosts::getLocalAttachmentIdByPostType($attachmentId, $postType);
+        if (!empty($postType) && !ResourceFromApiHelper::isRemotePostID($attachmentId)) {
+            $attachmentId = ResourceFromApiHelper::getLocalAttachmentIdByPostType($attachmentId, $postType);
         }
 
         return wp_get_attachment_image_src($attachmentId, $size, $icon);
     }
 
-    public static function getAttachmentCaption($postId = 0, string $postType = '') {
-        if (!empty($postType) && !RemotePosts::isRemotePostID($postId)) {
-            $postId = RemotePosts::getLocalAttachmentIdByPostType($postId, $postType);
+    /**
+     * Get the caption of an attachment.
+     *
+     * @param int $postId The attachment ID.
+     * @param string $postType Optional. The post type of the attachment.
+     * @return string The caption of the attachment.
+     */
+    public static function getAttachmentCaption($postId = 0, string $postType = '')
+    {
+        if (!empty($postType) && !ResourceFromApiHelper::isRemotePostID($postId)) {
+            $postId = ResourceFromApiHelper::getLocalAttachmentIdByPostType($postId, $postType);
 
-            if( RemotePosts::isRemotePostID($postId) ) {
+            if (ResourceFromApiHelper::isRemotePostID($postId)) {
                 $post = self::getPost($postId);
 
-                if( !$post ) {
+                if (!$post) {
                     return '';
                 }
 
                 $caption = $post->post_excerpt;
-                return apply_filters( 'wp_get_attachment_caption', $caption, $post->ID );
+                return apply_filters('wp_get_attachment_caption', $caption, $post->ID);
             }
         }
 

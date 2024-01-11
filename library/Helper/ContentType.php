@@ -64,6 +64,7 @@ class ContentType
         if (!$postType) {
             $postType = self::getCurrentType();
         }
+<<<<<<< HEAD
 
         $contentType = false;
         
@@ -76,6 +77,17 @@ class ContentType
         }
 
         return apply_filters('Municipio/ContentType/getContentType', $contentType, $postType);
+=======
+       
+        $contentTypeInstance = false;
+        $contentTypeKey = get_option("options_contentType_{$type}", false);
+        
+        if ($contentTypeKey) {
+            $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
+        }
+
+        return $contentTypeInstance;
+>>>>>>> main
     }
     /**
      * Alias for getPostTypeContentType()
@@ -119,36 +131,48 @@ class ContentType
         string $postTypeToCheck = '',
         bool $checkSecondary = true
     ): bool {
+<<<<<<< HEAD
         if ($contentType = self::getContentType($postTypeToCheck)) {
             if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
                 return true;
             }
             if ($checkSecondary && self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
                 return true;
-            }
-        }
-        return false;
-    }
+=======
 
-    private static function checkMainContentType(array $contentType, string $contentTypeToCheckFor): bool
-    {
-        foreach ($contentType as $item) {
-            if(!is_object($item) || empty($item->key)) {
-                continue;
-            }
-            if ($contentTypeToCheckFor === $item->key) {
+        $contentType = self::getContentType($typeToCheck);
+       
+        if ($contentType) {
+
+            if (true === self::isMainContentType($contentType, $contentTypeToCheckFor)) {
                 return true;
             }
+            
+            if(!empty($contentType->secondaryContentType))  {
+                if (true === self::isSecondaryContentType((array) $contentType->secondaryContentType, $contentTypeToCheckFor)) {
+                    return true;
+                }
+>>>>>>> main
+            }
+        }
+
+        return false;
+    }
+
+    private static function isMainContentType(object $contentType, string $contentTypeToCheckFor): bool
+    {   
+        if ($contentTypeToCheckFor === $contentType->getKey()) {
+            return true;
         }
         return false;
     }
 
-    private static function checkSecondaryContentType(array $contentType, string $contentTypeToCheckFor): bool
+    private static function isSecondaryContentType(array $secondaryContentTypes, string $contentTypeToCheckFor): bool
     {
-        foreach ($contentType as $item) {
+        foreach ($secondaryContentTypes as $item) {
             if (!empty($item->secondaryContentType)) {
                 foreach ($item->secondaryContentType as $secondaryContentType) {
-                    if ($contentTypeToCheckFor === $secondaryContentType->key) {
+                    if ($contentTypeToCheckFor === $secondaryContentType->getKey()) {
                         return true;
                     }
                 }
@@ -251,54 +275,19 @@ class ContentType
         }
         return true;
     }
-
-    /**
-     * Gets the available properties for a structured data schema.
-     *
-     * @param array $properties The properties to include in the schema.
-     * @param int|null $postId The ID of the post to get the properties for.
-     *
-     * @return array The available properties for the structured data schema.
-     */
-    public static function getStructuredDataProperties(array $properties, int $postId): array
-    {
-        return apply_filters('Municipio/ContentType/structuredDataProperties', $properties, $postId);
-    }
-
-    /**
-     * Appends structured data to an array of properties for a given post ID.
-     *
-     * @param array $properties An array of properties to append to the structured data.
-     * @param int $postId The ID of the post to append the structured data to.
-     * @param array $structuredData An array of structured data to append to.
-     * @return array The merged array of structured data and additional data.
-     */
-    public static function appendStructuredData(array $properties, int $postId, array $structuredData = [], array $additionalData = []): array
-    {
-        foreach ($properties as $property) {
-            // propertyValue will always return null unless a filter hook is defined for it.
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
-
-            // if no value is returned from the filter hook, try to get the value from the post meta
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
-            }
-
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
-            );
-        }
+    public static function getStructuredData(int $postId, array $structuredData = [], array $meta = []) : array {
         
-        return array_merge($structuredData, $additionalData);
+        foreach ($meta as $key) {
+          
+            $structuredData[$key] = \Municipio\Helper\WP::getField($key, $postId);
+
+            if(empty($structuredData[$key])) {
+                unset($structuredData[$key]);
+            }
+        }
+        return $structuredData;
     }
+<<<<<<< HEAD
 
     public static function hideMap(string $postType = ''): bool 
     {
@@ -312,3 +301,6 @@ class ContentType
         return $hideMap;
     }
 }
+=======
+}
+>>>>>>> main
