@@ -5,6 +5,9 @@ namespace Municipio\Helper\Test;
 use Municipio\Helper\Url;
 use WP_Mock\Tools\TestCase;
 
+/**
+ * Class ListingTest
+ */
 class UrlTest extends TestCase
 {
     /**
@@ -13,7 +16,7 @@ class UrlTest extends TestCase
     public function testGetCurrentReturnsCurrentUrlWithoutQuerystring()
     {
         // Given
-        $_SERVER['HTTP_HOST'] = 'example.com';
+        $_SERVER['HTTP_HOST']   = 'example.com';
         $_SERVER['REQUEST_URI'] = '/page';
 
         // When
@@ -29,7 +32,7 @@ class UrlTest extends TestCase
     public function testGetCurrentReturnsCurrentUrlWithQuerystring()
     {
         // Given
-        $_SERVER['HTTP_HOST'] = 'example.com';
+        $_SERVER['HTTP_HOST']   = 'example.com';
         $_SERVER['REQUEST_URI'] = '/page?param=value';
 
         // When
@@ -45,7 +48,7 @@ class UrlTest extends TestCase
     public function testGetCurrentReturnsCurrentUrlWithoutQuerystringWhenQuerystringParameterIsFalse()
     {
         // Given
-        $_SERVER['HTTP_HOST'] = 'example.com';
+        $_SERVER['HTTP_HOST']   = 'example.com';
         $_SERVER['REQUEST_URI'] = '/page?param=value';
 
         // When
