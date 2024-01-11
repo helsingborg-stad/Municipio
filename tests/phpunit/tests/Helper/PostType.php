@@ -8,7 +8,7 @@ use WP_Mock;
 use Mockery;
 
 /**
- * Class ListingTest
+ * Class PostTypeTest
  */
 class PostTypeTest extends TestCase
 {
