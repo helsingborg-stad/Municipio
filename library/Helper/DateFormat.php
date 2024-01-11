@@ -22,8 +22,6 @@ class DateFormat
         $dateFormat = !empty(get_option('date_format')) ? get_option('date_format') : $defaultDate;
         $timeFormat = !empty(get_option('time_format')) ? get_option('time_format') : $defaultTime;
 
-        $returnFormat = $dateFormat . ' ' . $timeFormat;
-
         switch ($format) {
             case 'date':
                 return $dateFormat;
