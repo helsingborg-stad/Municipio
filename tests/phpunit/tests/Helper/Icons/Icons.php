@@ -9,7 +9,7 @@ use Mockery;
 use tad\FunctionMocker\FunctionMocker;
 
 /**
- * Class ListingTest
+ * Class IconTest
  */
 class IconsTest extends TestCase
 {
@@ -29,15 +29,15 @@ class IconsTest extends TestCase
     }
 
     /**
-     * @testdox getIcons returns empty array when get_theme_mod function doesn't exist
+     * @testdox getIcons returns an array with icon names.
     */
     public function testGetIcons()
     {
         // Given
         $this->mockedData();
-        $icons          = file_get_contents(__DIR__ . '/icons.json');
-        $fileExistsMock = FunctionMocker::replace('file_exists', true);
-        $fileExistsMock = FunctionMocker::replace('file_get_contents', $icons);
+        $icons           = file_get_contents(__DIR__ . '/icons.json');
+        $fileExistsMock  = FunctionMocker::replace('file_exists', true);
+        $fileGetContents = FunctionMocker::replace('file_get_contents', $icons);
 
         // When
         $result = Icons::getIcons();
