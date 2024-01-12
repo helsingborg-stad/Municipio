@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class Term
+ */
 class Term
 {
     /**
@@ -11,7 +14,7 @@ class Term
      * @param int|string|WP_Term $term The term to get the colour for. Can be a term object, term ID or term slug.
      * @param string $taxonomy The taxonomy of the term. Default is an empty string.
      *
-     * @return bool|string A string of the colour of the term in HEX format.
+     * @return false|string A string of the colour of the term in HEX format.
      */
     public static function getTermColour($term, string $taxonomy = '')
     {
@@ -25,6 +28,10 @@ class Term
         } elseif (is_string($term)) {
             $term = get_term_by('slug', $term, $taxonomy);
         } elseif (!is_a($term, 'WP_Term')) {
+            return false;
+        }
+
+        if (empty($term)) {
             return false;
         }
 
@@ -45,6 +52,27 @@ class Term
         }
 
         return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
+    }
+
+    /**
+     * Gets term color from ancestor term
+     * @param WP_Term $term The term to get the color for. Can be a term object, term ID or term slug.
+     *
+     * @return string|false
+     */
+    private static function getAncestorTermColor(\WP_Term $term)
+    {
+        $ancestors = get_ancestors($term->term_id, $term->taxonomy, 'taxonomy');
+        if (!empty($ancestors)) {
+            foreach ($ancestors as $ancestorId) {
+                $colour = get_field('colour', 'term_' . $ancestorId);
+                if ($colour) {
+                    return $colour;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -77,12 +105,12 @@ class Term
             return false;
         }
 
-        
+
         $termIcon = get_field('icon', $term);
-        $type = !empty($termIcon['type']) ? $termIcon['type'] : false;
+        $type     = !empty($termIcon['type']) ? $termIcon['type'] : false;
         if ($type === 'svg') {
             $attachment = wp_get_attachment_image_url($termIcon['svg']['ID'], 'full');
-            $result = apply_filters(
+            $result     = apply_filters(
                 'Municipio/getTermIconSvg',
                 [
                     'src'         => $attachment,
