@@ -149,7 +149,7 @@
                         {{ $contact->name }}
                     @endtypography
 
-                    @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                    @typography(['element' => 'p', 'classList' => ['u-margin__top--0']])
                         {{ $contact->professionalTitle }}
                     @endtypography
 
@@ -180,7 +180,7 @@
                     @else
                         <div class="o-grid-4@md">
                     @endif
-                        @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                        @typography(['element' => 'p', 'classList' => ['u-margin__top--0']])
                             @if ($visitingAddress['description'])
                                 <strong>{{ $visitingAddress['description'] }}</strong>
                                 <br/>
