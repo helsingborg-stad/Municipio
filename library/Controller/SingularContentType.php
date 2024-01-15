@@ -31,8 +31,8 @@ class SingularContentType extends \Municipio\Controller\Singular
         // $currentContentType = new $contentType();
         $this->contentType->addHooks();
 
-        if(!empty($this->contentType->secondaryContentType)) {
-            foreach($this->contentType->secondaryContentType as $secondaryContentType) {
+        if (!empty($this->contentType->secondaryContentType)) {
+            foreach ($this->contentType->secondaryContentType as $secondaryContentType) {
                 $secondaryContentType->addHooks();
             }
         }
@@ -45,7 +45,6 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         $this->data['structuredData'] = $this->appendStructuredData();
-
     }
 
     /**
@@ -56,5 +55,22 @@ class SingularContentType extends \Municipio\Controller\Singular
     public function init()
     {
         parent::init();
+    }
+
+     /**
+     * Append structured data to the view data.
+     * @return string The structured data as a JSON string.
+     */
+    public function appendStructuredData(): string
+    {
+        $structuredData = [$this->contentType->getStructuredData($this->postId)];
+
+        if (!empty($this->contentType->secondaryContentType)) {
+            foreach ($this->contentType->secondaryContentType as $secondaryContentType) {
+                $structuredData[] = $secondaryContentType->getStructuredData($this->postId);
+            }
+        }
+
+        return \Municipio\Helper\Data::prepareStructuredData($structuredData);
     }
 }
