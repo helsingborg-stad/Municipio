@@ -152,21 +152,127 @@ class TermTest extends TestCase
     }
 
     /**
-     * @testdox getTermColour returns false if ancestor does not have term color set.
+     * @testdox getTermColour returns ancestor term color.
     */
-    public function testGetTermColour()
+    public function testGetTermColourReturnsAncestorTermColor()
     {
         // Given
-        $this->mockUserFunctions(false);
+        WP_Mock::userFunction('get_field', [
+            'times'           => 2,
+            'return_in_order' => [false, '#000000']
+        ]);
+
+        WP_Mock::userFunction('get_ancestors', [
+            'return' => [1, 2]
+        ]);
+
 
         // When
         $result = Term::getTermColour($this->mockTermObject(), 'test');
 
         // Then
-        $this->assertFalse($result);
+        $this->assertEquals('#000000', $result);
     }
 
-    /* TESTA ANCESTOR DELEN */
+    /**
+     * @testdox getTermColor returns getTermColour
+    */
+    public function testGetTermColor()
+    {
+        $this->mockUserFunctions();
+
+        $result = Term::getTermColor($this->mockTermObject(), 'test');
+
+        $this->assertEquals('#000000', $result);
+    }
+
+    /**
+     * @testdox getTermIcon returns false if no taxonomy and no WP_Term
+    */
+    public function testGetTermIconReturnsFalseIfNoTaxonomy()
+    {
+        $this->mockUserFunctions();
+
+        $result = Term::getTermIcon(1, '');
+
+        $this->assertEquals(false, $result);
+    }
+
+    /**
+     * @testdox getTermIcon returns false if no term icon type key.
+    */
+    public function testGetTermIconReturnsFalseNoIconTypeKey()
+    {
+        WP_Mock::userFunction('get_term_by', [
+            'times'  => 1,
+            'return' => $this->mockTermObject()
+        ]);
+
+        WP_Mock::userFunction('get_field', [
+            'times'  => 1,
+            'return' => false
+        ]);
+
+        $result = Term::getTermIcon(1, 'test');
+
+        $this->assertEquals(false, $result);
+    }
+
+    /**
+     * @testdox getTermIcon returns false if no term icon type key.
+    */
+    public function testGetTermIconReturnsFalseIfNoTerm()
+    {
+        WP_Mock::userFunction('get_term_by', [
+            'times'  => 1,
+            'return' => false
+        ]);
+
+        WP_Mock::userFunction('get_field', [
+            'times'  => 0,
+            'return' => false
+        ]);
+
+        $result = Term::getTermIcon(1, 'test');
+
+        $this->assertEquals(false, $result);
+    }
+
+    /**
+     * @testdox getTermIcon returns array if type equals "svg".
+    */
+    public function testGetTermIconReturnsArrayWhenTypeEqualsSvg()
+    {
+        $this->mockUserFunctions([
+            'type' => 'svg',
+            'svg'  => [
+                'ID' => 1
+            ]
+        ]);
+
+        $result = Term::getTermIcon(1, 'test');
+
+        $this->assertArrayHasKey('src', $result);
+        $this->assertArrayHasKey('type', $result);
+        $this->assertArrayHasKey('description', $result);
+        $this->assertArrayHasKey('alt', $result);
+    }
+
+    /**
+     * @testdox getTermIcon returns array if type equals "icon".
+    */
+    public function testGetTermIcon()
+    {
+        $this->mockUserFunctions([
+            'type'          => 'icon',
+            'material_icon' => 'test'
+        ]);
+
+        $result = Term::getTermIcon(1, 'test');
+
+        $this->assertArrayHasKey('src', $result);
+        $this->assertArrayHasKey('type', $result);
+    }
 
     /**
      * Mock term object
@@ -181,8 +287,12 @@ class TermTest extends TestCase
     /**
      * Mock user functions
     */
-    private function mockUserFunctions($getField = '#000000', $getTermBy = "", $getAncestors = [1, 2])
-    {
+    private function mockUserFunctions(
+        $getField = '#000000',
+        $getTermBy = "",
+        $getAncestors = [1, 2],
+        $wpGetAttachmentImageUrl = 'https://test.test'
+    ) {
         WP_Mock::userFunction('get_field', [
             'return' => $getField
         ]);
@@ -193,6 +303,10 @@ class TermTest extends TestCase
 
         WP_Mock::userFunction('get_ancestors', [
             'return' => $getAncestors
+        ]);
+
+        WP_Mock::userFunction('wp_get_attachment_image_url', [
+            'return' => $wpGetAttachmentImageUrl
         ]);
     }
 }
