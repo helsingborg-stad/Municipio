@@ -81,6 +81,9 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
+        // Related posts (based on taxonomies)
+        $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
+
         //Secondary Query
         $this->data = $this->setupSecondaryQueryData($this->data);
 
@@ -489,4 +492,71 @@ class Singular extends \Municipio\Controller\BaseController
 
         return $post instanceof WP_Post ? $post : null;
     }
+
+ /**
+     * Get related posts based on the taxonomies of the current post.
+     *
+     * @param int $postId The ID of the current post.
+     *
+     * @return array|bool An array of related posts or false if no related posts are found.
+     */
+    public function getRelatedPosts(int $postId = 0)
+    {
+        $taxonomies = get_post_taxonomies($postId);
+        $postTypes = get_post_types(
+            [
+                'public' => true, 
+                '_builtin' => false
+            ], 
+            'objects'
+        );
+
+        $arr = [];
+        foreach ($taxonomies as $taxonomy) {
+            $terms = get_the_terms($postId, $taxonomy);
+            if (!empty($terms)) {
+                foreach ($terms as $term) {
+                    if( $term instanceof \WP_Term ) {
+                        $arr[$taxonomy][] = $term->term_id;
+                    }
+                }
+            }
+        }
+
+        if (empty($arr)) {
+            return false;
+        }
+
+        $posts = [];
+        foreach ($postTypes as $postType) {
+            $args = [
+                'numberposts' => 3,
+                'post_type' => $postType->name,
+                'post__not_in' => [$postId],
+                'tax_query' => [
+                    'relation' => 'OR',
+                ],
+            ];
+
+            foreach ($arr as $tax => $ids) {
+                $args['tax_query'][] = [
+                'taxonomy' => $tax,
+                'field' => 'term_id',
+                'terms' => $ids,
+                'operator' => 'IN',
+                ];
+            }
+
+            $result = get_posts($args);
+
+            if (!empty($result)) {
+                foreach ($result as &$post) {
+                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                    $posts[$postType->label] = $result;
+                }
+            }
+        }
+
+        return $posts;
+    }    
 }
