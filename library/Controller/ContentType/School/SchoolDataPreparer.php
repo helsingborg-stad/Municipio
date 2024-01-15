@@ -409,7 +409,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         return [
             'heading' => $heading ?? '',
-            'content' => wpautop($text ?? '')
+            'content' => wpautop($text ?? ''),
+            'anchor'  => sanitize_title($heading),
         ];
     }
 
