@@ -22,9 +22,6 @@ class GoogleTranslateTest extends TestCase
             'return' => 'word1, word2, word3'
         ]);
 
-        $mock = Mockery::mock(GoogleTranslate::class)->makePartial();
-        $mock->shouldReceive('shouldReplaceWords')->andReturn('modified content');
-
         WP_Mock::expectFilterAdded('the_content', WP_Mock\Functions::type('callable'));
         WP_Mock::expectFilterAdded('the_excerpt', WP_Mock\Functions::type('callable'));
         WP_Mock::expectFilterAdded('the_title', WP_Mock\Functions::type('callable'));
