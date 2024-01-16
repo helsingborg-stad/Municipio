@@ -6,7 +6,7 @@ use WP_Mock\Tools\TestCase;
 use Municipio\Helper\ElementAttribute;
 
 /**
- * Class TermTest
+ * Class ElementAttributeTest
  */
 class ElementAttributeTest extends TestCase
 {
