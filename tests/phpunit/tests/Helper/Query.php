@@ -18,10 +18,10 @@ class QueryTest extends TestCase
     public function testGetPaginationData()
     {
         $wpQueryMock                = Mockery::mock('WP_Query');
-        $wpQueryMock->query         = ['post_type' => 'test', 'paged' => "2"];
-        $wpQueryMock->post_count    = "test";
-        $wpQueryMock->found_posts   = "test";
-        $wpQueryMock->max_num_pages = "test";
+        $wpQueryMock->query         = ['post_type' => 'testPostType', 'paged' => "2"];
+        $wpQueryMock->post_count    = "testPostCount";
+        $wpQueryMock->found_posts   = "testPostTotal";
+        $wpQueryMock->max_num_pages = "testPageTotal";
 
 
         $GLOBALS['wp_query'] = $wpQueryMock;
@@ -31,10 +31,10 @@ class QueryTest extends TestCase
 
         // Then
         $this->assertEquals(2, $result['pageIndex']);
-        $this->assertEquals('test', $result['postType']);
-        $this->assertEquals('test', $result['postCount']);
-        $this->assertEquals('test', $result['postTotal']);
-        $this->assertEquals('test', $result['pageTotal']);
+        $this->assertEquals('testPostType', $result['postType']);
+        $this->assertEquals('testPostCount', $result['postCount']);
+        $this->assertEquals('testPostTotal', $result['postTotal']);
+        $this->assertEquals('testPageTotal', $result['pageTotal']);
     }
 
     /**
@@ -118,7 +118,6 @@ class QueryTest extends TestCase
                     'field'    => 'slug',
                     'terms'    => [
                         'term1',
-                        'term2'
                     ]
                 ],
                 'operator' => 'IN',
@@ -126,8 +125,7 @@ class QueryTest extends TestCase
                     'taxonomy' => 'test2',
                     'field'    => 'slug',
                     'terms'    => [
-                        'term1',
-                        'term2'
+                        'term2',
                     ]
                 ]
             ]
@@ -141,10 +139,8 @@ class QueryTest extends TestCase
         $result = Query::getTaxQueryTerms();
 
         // Then
-        $this->assertCount(4, $result);
+        $this->assertCount(2, $result);
         $this->assertInstanceOf('WP_Term', $result[0]);
         $this->assertInstanceOf('WP_Term', $result[1]);
-        $this->assertInstanceOf('WP_Term', $result[2]);
-        $this->assertInstanceOf('WP_Term', $result[3]);
     }
 }
