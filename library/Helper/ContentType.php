@@ -5,7 +5,11 @@ namespace Municipio\Helper;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Controller\ContentType\ContentTypeFactory as ContentTypeFactory;
 use Municipio\Controller\ContentType\ContentTypeComplexInterface as ContentTypeComplexInterface;
+use Municipio\Helper\Listing as ListingHelper;
 
+/**
+ * Class SingularContentType
+ */
 class ContentType
 {
     /**
@@ -30,8 +34,8 @@ class ContentType
                         continue;
                     }
 
-                    $namespace = ControllerHelper::getNamespace($filename);
-                    $className = basename($filename, '.php');
+                    $namespace              = ControllerHelper::getNamespace($filename);
+                    $className              = basename($filename, '.php');
                     $classNameWithNamespace = $namespace . '\\' . $className;
 
                     $instance = new $classNameWithNamespace();
@@ -65,14 +69,14 @@ class ContentType
             $type = self::getCurrentType();
         }
 
-        $contentType = false;
-        $contentTypeStr = get_option("options_contentType_{$type}", false);
+        $contentTypeInstance = false;
+        $contentTypeKey      = get_option("options_contentType_{$type}", false);
 
-        if ($contentTypeStr) {
-            $contentType = self::getContentTypeInstance($contentTypeStr);
+        if ($contentTypeKey) {
+            $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
         }
 
-        return apply_filters('Municipio/ContentType/getContentType', $contentType, $type);
+        return $contentTypeInstance;
     }
 
     /**
@@ -104,36 +108,54 @@ class ContentType
         string $contentTypeToCheckFor = '',
         string $typeToCheck = ''
     ): bool {
-        if ($contentType = self::getContentType($typeToCheck)) {
-            if (self::checkMainContentType((array)$contentType, $contentTypeToCheckFor)) {
+
+        $contentType = self::getContentType($typeToCheck);
+
+        if ($contentType) {
+            if (true === self::isMainContentType($contentType, $contentTypeToCheckFor)) {
                 return true;
             }
-            if (self::checkSecondaryContentType([$contentType], $contentTypeToCheckFor)) {
-                return true;
+
+            if (!empty($contentType->secondaryContentType)) {
+                if (true === self::isSecondaryContentType((array) $contentType->secondaryContentType, $contentTypeToCheckFor)) {
+                    return true;
+                }
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the provided main content type matches the specified content type to check for.
+     *
+     * @param object $contentType The main content type to compare.
+     * @param string $contentTypeToCheckFor The content type to check for.
+     *
+     * @return bool True if the main content type matches the specified content type, false otherwise.
+     */
+    private static function isMainContentType(object $contentType, string $contentTypeToCheckFor): bool
+    {
+        if ($contentTypeToCheckFor === $contentType->getKey()) {
+            return true;
         }
         return false;
     }
 
-    private static function checkMainContentType(array $contentType, string $contentTypeToCheckFor): bool
+    /**
+     * Check if any secondary content type within the provided array matches the specified content type to check for.
+     *
+     * @param array $secondaryContentTypes An array of objects representing secondary content types.
+     * @param string $contentTypeToCheckFor The content type to check for.
+     *
+     * @return bool True if any secondary content type matches the specified content type, false otherwise.
+     */
+    private static function isSecondaryContentType(array $secondaryContentTypes, string $contentTypeToCheckFor): bool
     {
-        foreach ($contentType as $item) {
-            if(!is_object($item) || empty($item->key)) {
-                continue;
-            }
-            if ($contentTypeToCheckFor === $item->key) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static function checkSecondaryContentType(array $contentType, string $contentTypeToCheckFor): bool
-    {
-        foreach ($contentType as $item) {
+        foreach ($secondaryContentTypes as $item) {
             if (!empty($item->secondaryContentType)) {
                 foreach ($item->secondaryContentType as $secondaryContentType) {
-                    if ($contentTypeToCheckFor === $secondaryContentType->key) {
+                    if ($contentTypeToCheckFor === $secondaryContentType->getKey()) {
                         return true;
                     }
                 }
@@ -141,6 +163,7 @@ class ContentType
         }
         return false;
     }
+
     /**
      * Checks if a $type has any content type set.
      *
@@ -233,50 +256,84 @@ class ContentType
     }
 
     /**
-     * Gets the available properties for a structured data schema.
+     * Get structured data for a post based on specified meta keys.
      *
-     * @param array $properties The properties to include in the schema.
-     * @param int|null $postId The ID of the post to get the properties for.
+     * @param int $postId The ID of the post.
+     * @param array $structuredData An array containing existing structured data (optional).
+     * @param array $meta An array of meta keys to retrieve and include in the structured data.
      *
-     * @return array The available properties for the structured data schema.
+     * @return array The structured data for the post based on the specified meta keys.
      */
-    public static function getStructuredDataProperties(array $properties, int $postId): array
+    public static function getStructuredData(int $postId, array $structuredData = [], array $meta = []): array
     {
-        return apply_filters('Municipio/ContentType/structuredDataProperties', $properties, $postId);
+
+        foreach ($meta as $key) {
+            $structuredData[$key] = \Municipio\Helper\WP::getField($key, $postId);
+
+            if (empty($structuredData[$key])) {
+                unset($structuredData[$key]);
+            }
+        }
+        return $structuredData;
     }
 
     /**
-     * Appends structured data to an array of properties for a given post ID.
+     * Complement a place post with additional information if needed.
      *
-     * @param array $properties An array of properties to append to the structured data.
-     * @param int $postId The ID of the post to append the structured data to.
-     * @param array $structuredData An array of structured data to append to.
-     * @return array The merged array of structured data and additional data.
+     * @param mixed $post The post object or post ID to complement.
+     * @param bool $complementPost Flag indicating whether to complement the post (default is true).
+     *
+     * @return mixed The complemented post object.
      */
-    public static function appendStructuredData(array $properties, int $postId, array $structuredData = [], array $additionalData = []): array
+    public static function complementPlacePost($post, $complementPost = true)
     {
-        foreach ($properties as $property) {
-            // propertyValue will always return null unless a filter hook is defined for it.
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
+        if ($complementPost) {
+            $post = \Municipio\Helper\Post::preparePostObject($post);
+        }
 
-            // if no value is returned from the filter hook, try to get the value from the post meta
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
-            }
+        $fields = get_fields($post->id);
 
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
+        $post->bookingLink = $fields['booking_link'] ?? false;
+        $post->placeInfo   = self::createPlaceInfoList($fields);
+
+        return $post;
+    }
+
+    /**
+     * Create a list of place information based on specified fields.
+     *
+     * @param array $fields An array of fields containing information about the place.
+     *
+     * @return array The list of place information.
+     */
+    public static function createPlaceInfoList($fields)
+    {
+        $list = [];
+        // Phone number
+        if (!empty($fields['phone'])) {
+            $list['phone'] = ListingHelper::createListingItem(
+                $fields['phone'],
+                '',
+                ['src' => 'call']
             );
         }
-        
-        return array_merge($structuredData, $additionalData);
+
+        // Website link (with fixed label)
+        if (!empty($fields['website'])) {
+            $list['website'] = ListingHelper::createListingItem(
+                __('Visit website', 'municipio'),
+                $fields['website'],
+                ['src' => 'language'],
+            );
+        }
+
+        // Apply filters to listing items
+        $list = apply_filters(
+            'Municipio/Controller/SingularContentType/listing',
+            $list,
+            $fields
+        );
+
+        return $list;
     }
 }
