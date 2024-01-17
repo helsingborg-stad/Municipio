@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Municipio\Tests\Helper;
 
 use WP_Mock\Tools\TestCase;
@@ -246,7 +248,8 @@ class TermTest extends TestCase
         $this->mockUserFunctions([
             'type' => 'svg',
             'svg'  => [
-                'ID' => 1
+                'ID' => 1,
+                'description' => 'test'
             ]
         ]);
 
@@ -280,6 +283,8 @@ class TermTest extends TestCase
     private function mockTermObject()
     {
         $termMock = Mockery::mock('WP_Term');
+        $termMock->term_id = 1;
+        $termMock->taxonomy = 'test-taxonomy';
 
         return $termMock;
     }

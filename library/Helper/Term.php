@@ -61,7 +61,7 @@ class Term
      * @param string|int|WP_Term    $term The term to get
      * @param string                $taxonomy The taxonomy of the term. Default is an empty string.
      */
-    private function getTerm($term, string $taxonomy = '')
+    private static function getTerm($term, string $taxonomy = '')
     {
         if (is_a($term, 'WP_Term')) {
             return $term;
