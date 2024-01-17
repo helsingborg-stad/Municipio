@@ -409,7 +409,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         return [
             'heading' => $heading ?? '',
-            'content' => wpautop($text ?? '')
+            'content' => wpautop($text ?? ''),
+            'anchor'  => sanitize_title($heading),
         ];
     }
 
@@ -432,7 +433,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $streetNumber  = $address->address->street_number ?? '';
             $postCode      = $address->address->post_code ?? '';
             $city          = $address->address->city ?? '';
-            $lineBreak     = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
+            $lineBreak     = sizeof($visitingAddresses) > 1 ? ', <br>' : ', ';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
                 'title'      => $this->data['post']->postTitle ?? null,
@@ -610,7 +611,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'layout'         => 'bottom',
             'containerColor' => 'transparent',
             'textColor'      => 'white',
-            'heroStyle'      => true
+            'heroStyle'      => true,
+            'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
         $sliderItem['text']          = $attachment['caption'];

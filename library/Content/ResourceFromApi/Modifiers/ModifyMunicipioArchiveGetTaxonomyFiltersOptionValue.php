@@ -25,12 +25,12 @@ class ModifyMunicipioArchiveGetTaxonomyFiltersOptionValue
     /**
      * Handle the modification of the page data.
      *
-     * @param array|null $pageData The page data.
+     * @param mixed $pageData The page data.
      * @param mixed $queriedObject The queried object.
      * @param mixed $queriedObjectData The queried object data.
-     * @return array|null The modified page data.
+     * @return mixed The modified page data.
      */
-    public function handle(?array $pageData, $queriedObject, $queriedObjectData): ?array
+    public function handle($pageData, $queriedObject, $queriedObjectData)
     {
         if (is_null($pageData) || !is_a($queriedObject, 'WP_Post')) {
             return $pageData;
