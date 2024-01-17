@@ -78,6 +78,7 @@ class PdfHelperTest extends TestCase
 
     /**
      * @testdox getCoverFieldsForPostType returns an array with designated keys if any cover data is present.
+     * @runInSeparateProcess
      */
     public function testGetCoverFieldsForPostTypeReturnsCoverArrayIfHasData() {
         // Given 
@@ -97,6 +98,7 @@ class PdfHelperTest extends TestCase
 
     /**
      * @testdox getCoverFieldsForPostType returns false if no cover data is present.
+     * @runInSeparateProcess
      */
     public function testGetCoverFieldsForPostTypeReturnsFalseIfNoDataAndNoCoverSelected() {
         // Given 
