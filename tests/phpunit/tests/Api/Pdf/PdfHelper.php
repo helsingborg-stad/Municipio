@@ -8,17 +8,21 @@ use WP_Mock;
 use Mockery;
 use Municipio\Helper\FileConverters\FileConverterInterface;
 
+/**
+ * Class PdfHelperTest
+ */
 class PdfHelperTest extends TestCase
 {
     /**
      * @testdox getFonts Returns default values if no custom font files or styles.
      * @runInSeparateProcess
      */
-    public function testGetFontsReturnsDefaultArrayIfNoCustomFontsAreAvailable() {
+    public function testGetFontsReturnsDefaultArrayIfNoCustomFontsAreAvailable()
+    {
         // Given
-        $pdfHelper = new PdfHelper();
+        $pdfHelper         = new PdfHelper();
         $woffConverterMock = Mockery::mock(FileConverterInterface::class);
-        $wp_query = Mockery::mock('WP_Query');
+        $wp_query          = Mockery::mock('WP_Query');
 
         // When
         $result = $pdfHelper->getFonts([], $woffConverterMock);
@@ -32,45 +36,48 @@ class PdfHelperTest extends TestCase
      * @testdox getFonts Returns the default array containing two arrays without the src key.
      * @runInSeparateProcess
      */
-    public function testGetFontsReturnsArrayWithDefaultValuesIfCustomFontsDoNotMatch() {
+    public function testGetFontsReturnsArrayWithDefaultValuesIfCustomFontsDoNotMatch()
+    {
         // Given
-        $pdfHelper = new PdfHelper();
+        $pdfHelper         = new PdfHelper();
         $woffConverterMock = Mockery::mock(FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('test');
-        $mockPosts = [$this->mockPost(['ID' => 1, 'post_title' => 'notMatching'])];
+        $mockPosts   = [$this->mockPost(['ID' => 1, 'post_title' => 'notMatching'])];
         $wpQueryMock = Mockery::mock('overload:WP_Query');
         $wpQueryMock->shouldReceive('__construct')->times(1)->withAnyArgs()->andSet('posts', $mockPosts);
 
         // When
         $result = $pdfHelper->getFonts([
             'typography_heading' => ['font-family' => 'test'],
-            'typography_base' => ['font-family' => 'test']
+            'typography_base'    => ['font-family' => 'test']
         ], $woffConverterMock);
-        
+
         // Then
         $this->assertEmpty($result['heading']['src']);
         $this->assertEmpty($result['base']['src']);
     }
 
     /**
-     * @testdox getFonts Returns an array with arrays containing src if custom fonts exists and have the same post_title as styles headings or base font.
+     * @testdox getFonts Returns an array with arrays containing src
+     * if custom fonts exists and have the same post_title as styles headings or base font.
      * @runInSeparateProcess
      */
-    public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExistsAndMatchesStyles() {
+    public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExistsAndMatchesStyles()
+    {
         // Given
-        $pdfHelper = new PdfHelper();
+        $pdfHelper         = new PdfHelper();
         $woffConverterMock = Mockery::mock(FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('test');
-        $mockPosts = [$this->mockPost(['ID' => 1, 'post_title' => 'test'])];
+        $mockPosts   = [$this->mockPost(['ID' => 1, 'post_title' => 'test'])];
         $wpQueryMock = Mockery::mock('overload:WP_Query');
         $wpQueryMock->shouldReceive('__construct')->times(1)->withAnyArgs()->andSet('posts', $mockPosts);
 
         // When
         $result = $pdfHelper->getFonts([
             'typography_heading' => ['font-family' => 'test'],
-            'typography_base' => ['font-family' => 'test']
+            'typography_base'    => ['font-family' => 'test']
         ], $woffConverterMock);
-        
+
         // Then
         $this->assertNotEmpty($result['heading']['src']);
         $this->assertNotEmpty($result['base']['src']);
@@ -80,13 +87,16 @@ class PdfHelperTest extends TestCase
      * @testdox getCoverFieldsForPostType returns an array with designated keys if any cover data is present.
      * @runInSeparateProcess
      */
-    public function testGetCoverFieldsForPostTypeReturnsCoverArrayIfHasData() {
-        // Given 
+    public function testGetCoverFieldsForPostTypeReturnsCoverArrayIfHasData()
+    {
+        // Given
         $pdfHelper = new PdfHelper();
         WP_Mock::userFunction('get_field', [ 'return' => "Test" ]);
-        Mockery::mock('alias:' . \Municipio\Helper\Image::class)->shouldReceive('getImageAttachmentData')->andReturn(['src' => 'test']);
-        
-        // When 
+        Mockery::mock('alias:' . \Municipio\Helper\Image::class)
+            ->shouldReceive('getImageAttachmentData')
+            ->andReturn(['src' => 'test']);
+
+        // When
         $result = $pdfHelper->getCoverFieldsForPostType();
 
         // Then
@@ -100,11 +110,14 @@ class PdfHelperTest extends TestCase
      * @testdox getCoverFieldsForPostType returns false if no cover data is present.
      * @runInSeparateProcess
      */
-    public function testGetCoverFieldsForPostTypeReturnsFalseIfNoDataAndNoCoverSelected() {
-        // Given 
+    public function testGetCoverFieldsForPostTypeReturnsFalseIfNoDataAndNoCoverSelected()
+    {
+        // Given
         $pdfHelper = new PdfHelper();
         WP_Mock::userFunction('get_field', [ 'return' => null ]);
-        Mockery::mock('alias:' . \Municipio\Helper\Image::class)->shouldReceive('getImageAttachmentData')->andReturn(false);
+        Mockery::mock('alias:' . \Municipio\Helper\Image::class)
+            ->shouldReceive('getImageAttachmentData')
+            ->andReturn(false);
 
         // When
         $result = $pdfHelper->getCoverFieldsForPostType();
@@ -120,11 +133,11 @@ class PdfHelperTest extends TestCase
     {
         // Given
         $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
-        $pdfHelper = new PdfHelper();
-        
+        $pdfHelper           = new PdfHelper();
+
         // When
         $result = $pdfHelper->systemHasSuggestedDependencies();
-        
+
         // Then
         $this->assertFalse($result);
         $mockExtensionLoaded->wasCalledWithTimes(['gd'], 1);
@@ -137,7 +150,7 @@ class PdfHelperTest extends TestCase
     {
         // Given
         $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', true);
-        $pdfHelper = new PdfHelper();
+        $pdfHelper           = new PdfHelper();
 
         // When
         $pdfHelper->systemHasSuggestedDependencies();
@@ -214,7 +227,7 @@ class PdfHelperTest extends TestCase
     {
         // Given
         WP_Mock::userFunction('get_theme_mods', [
-            'times' => 1,
+            'times'  => 1,
             'return' => ['modName' => 'modValue']
         ]);
 
@@ -241,5 +254,5 @@ class PdfHelperTest extends TestCase
             ->with($postType)
             ->andReturnUsing(fn ($input) => [$input])
             ->getMock();
-    }  
+    }
 }
