@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class Query
+ */
 class Query
 {
     /**
@@ -14,7 +17,7 @@ class Query
 
         $data = array();
 
-        $data['postType'] = $wp_query->query['post_type'];
+        $data['postType']  = $wp_query->query['post_type'];
         $data['postCount'] = $wp_query->post_count;
         $data['postTotal'] = $wp_query->found_posts;
         $data['pageIndex'] = ($wp_query->query['paged']) ? intval($wp_query->query['paged']) : 1;
@@ -43,6 +46,7 @@ class Query
         if (!isset($taxonomies) || !is_array($taxonomies) || empty($taxonomies)) {
             return false;
         }
+
 
         $terms = array();
         foreach ($taxonomies as $taxonomy => $taxTerm) {

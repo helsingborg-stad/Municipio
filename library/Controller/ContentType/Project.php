@@ -9,22 +9,20 @@ namespace Municipio\Controller\ContentType;
 class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
 
     public function __construct()
     {
         $this->key = 'project';
         $this->label = __('Project', 'municipio');
-
+       
         parent::__construct($this->key, $this->label);
-
+        
         $this->addSecondaryContentType(new Place());
 
     }
     public function addHooks(): void {
         
-        // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
     }
     /**
      * addSecondaryContentType
@@ -45,15 +43,11 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The modified structured data array.
      */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function getStructuredData(int $postId): array
     {
-        if (empty($postId)) {
-            return $structuredData;
-        }
+        $post = \Municipio\Helper\WP::getPost($postId);
 
-        $additionalData = [];
-
-        if ('project' === $postType) {
+        if ('project' === $post->post_type) {
             $founder     = get_the_terms($postId, 'organisation');
             $brands      = get_the_terms($postId, 'participants');
             $departments = get_the_terms($postId, 'operation');
@@ -67,7 +61,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 
         if (is_iterable($founder) && !is_wp_error($founder)) {
             foreach ($founder as $founder) {
-                $additionalData['founder'][] = [
+                $structuredData['founder'][] = [
                     '@type' => 'Organization',
                     'name'  => $founder
                 ];
@@ -75,7 +69,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         }
         if (is_iterable($brands) && !is_wp_error($brands)) {
             foreach ($brands as $brand) {
-                $additionalData['brand'][] = [
+                $structuredData['brand'][] = [
                     '@type' => 'Organization',
                     'name'  => $brand
                 ];
@@ -83,7 +77,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         }
         if (is_iterable($sponsors) && !is_wp_error($sponsors)) {
             foreach ($sponsors as $sponsor) {
-                $additionalData['sponsor'][] = [
+                $structuredData['sponsor'][] = [
                     '@type' => 'Organization',
                     'name'  => $sponsor
                 ];
@@ -91,12 +85,12 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         }
         if (is_iterable($departments) && !is_wp_error($departments)) {
             foreach ($departments as $department) {
-                $additionalData['department'][] = [
+                $structuredData['department'][] = [
                     '@type' => 'Organization',
                     'name' => $department
                 ];
             }
         }
-        return array_merge($structuredData, $additionalData);
+        return $structuredData;
     }
 }
