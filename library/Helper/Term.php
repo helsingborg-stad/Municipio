@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class Term
+ */
 class Term
 {
     /**
@@ -11,20 +14,13 @@ class Term
      * @param int|string|WP_Term $term The term to get the colour for. Can be a term object, term ID or term slug.
      * @param string $taxonomy The taxonomy of the term. Default is an empty string.
      *
-     * @return bool|string A string of the colour of the term in HEX format.
+     * @return false|string A string of the colour of the term in HEX format.
      */
     public static function getTermColour($term, string $taxonomy = '')
     {
-        // If no taxonomy is set $term must be a complete term object
-        if ('' === $taxonomy && !is_a($term, 'WP_Term')) {
-            return false;
-        }
+        $term = self::getTerm($term, $taxonomy);
 
-        if (is_int($term)) {
-            $term = get_term_by('term_id', $term, $taxonomy);
-        } elseif (is_string($term)) {
-            $term = get_term_by('slug', $term, $taxonomy);
-        } elseif (!is_a($term, 'WP_Term')) {
+        if (empty($term)) {
             return false;
         }
 
@@ -32,19 +28,58 @@ class Term
         if (is_string($colour) && "" !== $colour && !str_starts_with($colour, '#')) {
             $colour = "#{$colour}";
         } elseif ("" === $colour || !$colour) {
-            // Use the color and exit the foreach loop when a color is found on an ancestor term
-            $ancestors = get_ancestors($term->term_id, $term->taxonomy, 'taxonomy');
-            if (!empty($ancestors)) {
-                foreach ($ancestors as $ancestorId) {
-                    $colour = get_field('colour', 'term_' . $ancestorId);
-                    if ($colour) {
-                        return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
-                    }
+            $colour = self::getAncestorTermColor($term);
+        }
+
+        return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
+    }
+
+    /**
+     * Gets term color from ancestor term
+     * @param WP_Term $term The term to get the color for. Can be a term object, term ID or term slug.
+     *
+     * @return string|false
+     */
+    private static function getAncestorTermColor(\WP_Term $term)
+    {
+        $ancestors = get_ancestors($term->term_id, $term->taxonomy, 'taxonomy');
+        if (!empty($ancestors)) {
+            foreach ($ancestors as $ancestorId) {
+                $color = get_field('colour', 'term_' . $ancestorId);
+                if ($color) {
+                    return $color;
                 }
             }
         }
 
-        return apply_filters('Municipio/getTermColour', $colour, $term, $taxonomy);
+        return false;
+    }
+
+    /**
+     * Get term based on type.
+     *
+     * @param string|int|WP_Term    $term The term to get
+     * @param string                $taxonomy The taxonomy of the term. Default is an empty string.
+     */
+    private static function getTerm($term, string $taxonomy = '')
+    {
+        if (is_a($term, 'WP_Term')) {
+            return $term;
+        }
+
+        if (empty($taxonomy)) {
+            return false;
+        }
+
+        if (is_int($term)) {
+            return get_term_by('term_id', $term, $taxonomy);
+        }
+
+        if (is_string($term)) {
+            return get_term_by('slug', $term, $taxonomy);
+        }
+
+        return false;
     }
 
     /**
@@ -65,24 +100,17 @@ class Term
      */
     public static function getTermIcon($term, string $taxonomy = '')
     {
-        if ('' === $taxonomy && !is_a($term, 'WP_Term')) {
+        $term = self::getTerm($term, $taxonomy);
+
+        if (empty($term)) {
             return false;
         }
 
-        if (is_int($term)) {
-            $term = get_term_by('term_id', $term, $taxonomy);
-        } elseif (is_string($term)) {
-            $term = get_term_by('slug', $term, $taxonomy);
-        } elseif (!is_a($term, 'WP_Term')) {
-            return false;
-        }
-
-        
         $termIcon = get_field('icon', $term);
-        $type = !empty($termIcon['type']) ? $termIcon['type'] : false;
-        if ($type === 'svg') {
+        $type     = !empty($termIcon['type']) ? $termIcon['type'] : false;
+        if ($type === 'svg' && !empty($termIcon['svg']['ID'])) {
             $attachment = wp_get_attachment_image_url($termIcon['svg']['ID'], 'full');
-            $result = apply_filters(
+            $result     = apply_filters(
                 'Municipio/getTermIconSvg',
                 [
                     'src'         => $attachment,
@@ -92,7 +120,7 @@ class Term
                 ],
                 $term
             );
-        } elseif ($type === 'icon') {
+        } elseif ($type === 'icon' && !empty($termIcon['material_icon'])) {
             $result = apply_filters(
                 'Municipio/getTermIcon',
                 [

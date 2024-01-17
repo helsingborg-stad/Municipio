@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\ContentType;
 
+use Municipio\Helper\ContentType as ContentTypeHelper;
+
 /**
  * Class Person
  *
@@ -10,7 +12,7 @@ namespace Municipio\Controller\ContentType;
 class Person extends ContentTypeFactory
 {
 
-    protected $secondaryContentType = [];
+    public $secondaryContentType = [];
     
     public function __construct()
     {
@@ -18,66 +20,31 @@ class Person extends ContentTypeFactory
         $this->label = __('Person', 'municipio');
 
         parent::__construct($this->key, $this->label);
+    }
 
+    public function init(): void
+    {
+        $this->addHooks();
     }
 
     public function addHooks(): void {
-        // Append structured data for schema.org markup
-        add_filter('Municipio/StructuredData', [$this, 'appendStructuredData'], 10, 3);
-
+       
     }
-    /**
-     * Appends structured data for a Person to the given array.
-     *
-     * @param array $structuredData The array to append the structured data to.
-     * @param Person $person The Person object to generate the structured data for.
-     *
-     * @return array The updated array with the Person structured data appended.
-     */
-    public function appendStructuredData(array $structuredData, string $postType, int $postId): array
+    public function getStructuredData(int $postId) : array
     {
-        if (empty($postId)) {
-            return $structuredData;
-        }
 
-        $additionalData = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Person',
+        $structuredData = [
+            '@type'            => 'Person',
+            'name'             => get_the_title($postId),
         ];
 
-        // Define the available properties for the Person schema
-        $properties = apply_filters(
-            'Municipio/ContentType/structuredDataProperties',
-            [
-                'name',
-                'jobTitle',
-                'email',
-                'telephone'
-            ],
-            $postId
-        );
+        $meta = [
+            'jobTitle',
+            'email',
+            'telephone'
+        ];
 
-        // Iterate over each property and try to fetch the corresponding meta data from the post
-        foreach ($properties as $property) {
-            $propertyValue =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}",
-                null,
-                $postId
-            );
-
-            if (is_null($propertyValue)) {
-                $propertyValue = \Municipio\Helper\WP::getField($property, $postId);
-            }
-
-            $additionalData[$property] =
-            apply_filters(
-                "Municipio/ContentType/structuredDataProperty/{$property}/value",
-                $propertyValue,
-                $postId
-            );
-        }
-
-        return array_merge($structuredData, $additionalData);
+        return ContentTypeHelper::getStructuredData($postId, $structuredData, $meta);
+        
     }
 }
