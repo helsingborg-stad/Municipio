@@ -13,24 +13,40 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Place extends ContentTypeFactory
 {
-
     public $secondaryContentType = [];
-    
+
+    /**
+     * Constructor method to set key and label for the Place content type.
+     */
     public function __construct()
     {
-        $this->key = 'place';
+        $this->key   = 'place';
         $this->label = __('Place', 'municipio');
 
         parent::__construct($this->key, $this->label);
-
     }
 
-    public function addHooks(): void {
+    /**
+     * Add hooks for the Place content type.
+     *
+     * @return void
+     */
+    public function addHooks(): void
+    {
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
 
-    
+
+
+    /**
+     * Append location-related list items to the listing array.
+     *
+     * @param array $listing The existing listing array.
+     * @param array $fields The fields associated with the post.
+     *
+     * @return array The updated listing array.
+     */
     // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
@@ -54,6 +70,14 @@ class Place extends ContentTypeFactory
         }
         return $listing;
     }
+
+    /**
+     * Build a Google Maps link based on location coordinates.
+     *
+     * @param array $location An array containing latitude and longitude information.
+     *
+     * @return string|bool The generated Google Maps link or false if location information is missing.
+     */
     public function buildGoogleMapsLink(array $location = [])
     {
         if (empty($location) || empty($location['lng']) || empty($location['lat'])) {
@@ -61,12 +85,20 @@ class Place extends ContentTypeFactory
         }
         return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
     }
-    
+
+
+    /**
+     * Get structured data for a Place post based on location meta keys.
+     *
+     * @param int $postId The ID of the Place post.
+     *
+     * @return array The structured data for the Place post.
+     */
     public function getStructuredData(int $postId): array
     {
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        $structuredData = [];
+        $structuredData   = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);

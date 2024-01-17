@@ -12,6 +12,9 @@ class SingularContentType extends \Municipio\Controller\Singular
     protected $postId;
     protected $contentType;
 
+    /**
+     * SingularContentType construct
+     */
     public function __construct()
     {
         parent::__construct();
@@ -27,6 +30,8 @@ class SingularContentType extends \Municipio\Controller\Singular
         $postType = $this->data['post']->postType;
 
         $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
+
+        $this->setContentTypeViewData();
 
         // $currentContentType = new $contentType();
         $this->contentType->addHooks();
@@ -45,6 +50,7 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         $this->data['structuredData'] = $this->appendStructuredData();
+
     }
 
     /**

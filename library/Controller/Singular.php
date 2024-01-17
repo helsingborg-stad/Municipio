@@ -21,38 +21,38 @@ class Singular extends \Municipio\Controller\BaseController
         parent::init();
 
         //Get post data
-        $pageID = $this->getPageID();
+        $pageID           = $this->getPageID();
         $originalPostData = $this->getOriginalPostData($pageID);
 
         if (!$originalPostData) {
             return $this->data;
         }
 
-        $this->data['post'] = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
+        $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayFeaturedImage'] = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
+        $this->data['displayFeaturedImage']   = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
         $this->data['showPageTitleOnOnePage'] = $this->showPageTitleOnOnePage($this->data['post']->id);
 
-        $this->data['quicklinksPlacement'] = $this->data['post']->quicklinksPlacement;
+        $this->data['quicklinksPlacement']           = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
+        $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
 
         //Reading time
-        $this->data['readingTime']          = $this->getReadingTime($this->data['post']->postContent);
+        $this->data['readingTime'] = $this->getReadingTime($this->data['post']->postContent);
 
         //Comments
         if (get_option('comment_moderation') === '1') {
             $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
-                'order'     => get_option('comment_order')
+                'order' => get_option('comment_order')
             ));
         } else {
             $this->data['comments'] = get_comments(array(
-                'post_id'   => $this->data['post']->id,
-                'order'     => get_option('comment_order')
+                'post_id' => $this->data['post']->id,
+                'order'   => get_option('comment_order')
             ));
         }
 
@@ -69,7 +69,12 @@ class Singular extends \Municipio\Controller\BaseController
         );
 
         //Post settings
-        $this->data['settingItems'] = apply_filters_deprecated('Municipio/blog/post_settings', array($this->data['post']), '3.0', 'Municipio/blog/postSettings');
+        $this->data['settingItems'] = apply_filters_deprecated(
+            'Municipio/blog/post_settings',
+            array($this->data['post']),
+            '3.0',
+            'Municipio/blog/postSettings'
+        );
 
         //Should link author page
         $this->data['authorPages'] = apply_filters('Municipio/author/hasAuthorPage', false);
@@ -90,6 +95,13 @@ class Singular extends \Municipio\Controller\BaseController
         return $this->data;
     }
 
+    /**
+     * Set up data related to the secondary query for use in templates.
+     *
+     * @param array $data The existing data array.
+     *
+     * @return array The updated data array with secondary query-related information.
+     */
     protected function setupSecondaryQueryData($data)
     {
         $data['secondaryQuery'] = $this->prepareQuery(get_query_var('secondaryQuery'));
@@ -102,7 +114,7 @@ class Singular extends \Municipio\Controller\BaseController
             return $data;
         }
 
-        $data['displaySecondaryMap'] = get_field('display_secondary_map', $this->data['post']->id);
+        $data['displaySecondaryMap']  = get_field('display_secondary_map', $this->data['post']->id);
         $data['secondaryQuery']->pins = $this->getSecondaryQueryPins($data['secondaryQuery']);
 
         $queryStr = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
@@ -110,17 +122,17 @@ class Singular extends \Municipio\Controller\BaseController
         if (isset($queries['paged'])) {
             unset($queries['paged']);
         }
-        $queryStr = build_query($queries);
+        $queryStr                              = build_query($queries);
         $data['secondaryPaginationLinkPrefix'] = $queryStr . '&paged=' ?? 'paged=';
 
         $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 
-        $data['secondaryPostType']       = $secondaryPostType;
-        $data['secondaryArchiveProps']   = Archive::getArchiveProperties(
+        $data['secondaryPostType']     = $secondaryPostType;
+        $data['secondaryArchiveProps'] = Archive::getArchiveProperties(
             $secondaryPostType,
             $data['customizer']
         );
-        $secondaryArchiveProps = $data['secondaryArchiveProps'];
+        $secondaryArchiveProps         = $data['secondaryArchiveProps'];
 
         $data['secondaryTemplate']       = Archive::getTemplate($secondaryArchiveProps);
         $data['secondaryPaginationList'] = Archive::getPagination(
@@ -137,11 +149,11 @@ class Singular extends \Municipio\Controller\BaseController
         $data['displayReadingTime']   = Archive::displayReadingTime($secondaryArchiveProps);
         $data['displayFeaturedImage'] = Archive::displayFeaturedImageOnArchive($secondaryArchiveProps);
 
-        $data['showFilter']           = Archive::showFilter($secondaryArchiveProps);
-        $data['facettingType']        = Archive::getFacettingType($secondaryArchiveProps);
-        $data['selectedFilters']      = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
+        $data['showFilter']      = Archive::showFilter($secondaryArchiveProps);
+        $data['facettingType']   = Archive::getFacettingType($secondaryArchiveProps);
+        $data['selectedFilters'] = \apply_filters('Municipio/secondaryQuery/selectedFilters', (array) $_GET);
 
-        $data['enabledFilters']       = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
+        $data['enabledFilters'] = $this->getSecondaryTaxonomyFilters($secondaryArchiveProps, $data);
 
         $data['archiveResetUrl'] = get_permalink(add_query_arg(array(), ''));
         $data['showFilterReset'] = Archive::showFilterReset($data['selectedFilters']);
@@ -153,6 +165,14 @@ class Singular extends \Municipio\Controller\BaseController
 
         return $data;
     }
+
+    /**
+     * Determine whether to display the secondary query based on the provided query object.
+     *
+     * @param WP_Query $secondaryQuery The secondary query object.
+     *
+     * @return bool True if the secondary query should be displayed, false otherwise.
+     */
     public function displaySecondaryQuery($secondaryQuery)
     {
         $display = false;
@@ -165,6 +185,14 @@ class Singular extends \Municipio\Controller\BaseController
         }
         return $display;
     }
+
+    /**
+     * Prepare the query object by enhancing each post within the query result.
+     *
+     * @param WP_Query $query The query object to prepare.
+     *
+     * @return WP_Query|bool The prepared query object, or false if the input is not a valid query.
+     */
     public function prepareQuery($query)
     {
 
@@ -173,11 +201,10 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         if ($query->have_posts()) {
-            $contentTypePlaceHelper = new \Municipio\Helper\ContentTypePlace();
             foreach ($query->posts as &$post) {
                 $contentType = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
                 if (is_object($contentType) && $contentType->getKey() == 'place') {
-                    $post = \Municipio\Helper\ContentTypePlace::complementPlacePost($post, true);
+                    $post = \Municipio\Helper\ContentType::complementPlacePost($post, true);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
@@ -185,6 +212,7 @@ class Singular extends \Municipio\Controller\BaseController
         }
         return $query;
     }
+
     /**
      * getSecondaryQueryPins
      * Get the pins for map
@@ -215,7 +243,7 @@ class Singular extends \Municipio\Controller\BaseController
             return \apply_filters('Municipio/secondaryQuery/getSecondaryTaxonomyFilters', [], $data);
         }
 
-        $taxonomies = apply_filters('Municipio/secondaryQuery/enabledFilters', $args->enabledFilters, $data);
+        $taxonomies      = apply_filters('Municipio/secondaryQuery/enabledFilters', $args->enabledFilters, $data);
         $taxonomyObjects = [];
 
         foreach ($taxonomies as $tax) {
@@ -240,17 +268,17 @@ class Singular extends \Municipio\Controller\BaseController
                     $defaultLabel = __("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name);
 
                     $parent = get_term($term->parent, $taxonomy->name);
-                    $label = get_field('term_filter_placeholder', $parent) ?? $defaultLabel;
-                    $tax = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
+                    $label  = get_field('term_filter_placeholder', $parent) ?? $defaultLabel;
+                    $tax    = \Municipio\Helper\FormatObject::camelCase($taxonomy->name);
 
                     $taxonomyObjects[] = [
-                        'label' => $label,
+                        'label'         => $label,
                         'attributeList' => [
                            'name' => "{$taxonomy->name}"
                         ],
-                        'fieldType' => $args->{$tax . "FilterFieldType"} ?? 'single',
-                        'options' => $options,
-                        'preselected' => $data['selectedFilters'][$taxonomy->name] ?? false,
+                        'fieldType'     => $args->{$tax . "FilterFieldType"} ?? 'single',
+                        'options'       => $options,
+                        'preselected'   => $data['selectedFilters'][$taxonomy->name] ?? false,
                     ];
                 }
             }
@@ -289,20 +317,20 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getSignature(): object
     {
-        $postId         = $this->data['post']->id;
-        $displayAuthor  = get_field('page_show_author', 'option');
-        $displayAvatar  = get_field('page_show_author_image', 'option');
-        $linkAuthor     = get_field('page_link_to_author_archive', 'option');
+        $postId        = $this->data['post']->id;
+        $displayAuthor = get_field('page_show_author', 'option');
+        $displayAvatar = get_field('page_show_author_image', 'option');
+        $linkAuthor    = get_field('page_link_to_author_archive', 'option');
 
         $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option'));
         $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
 
         if ($displayPublish) {
-            $published  = $this->getPostDates($this->data['post']->id)->published;
+            $published = $this->getPostDates($this->data['post']->id)->published;
         }
 
         if ($displayUpdated) {
-            $updated    = $this->getPostDates($this->data['post']->id)->updated;
+            $updated = $this->getPostDates($this->data['post']->id)->updated;
         }
 
         return (object) [
@@ -322,9 +350,9 @@ class Singular extends \Municipio\Controller\BaseController
     private function getAuthor($id): object
     {
         $author = array(
-        'id' => $this->data['post']->postAuthor,
-        'link' => get_author_posts_url($this->data['post']->postAuthor),
-        'name' => null,
+        'id'     => $this->data['post']->postAuthor,
+        'link'   => get_author_posts_url($this->data['post']->postAuthor),
+        'name'   => null,
         'avatar' => null
         );
 
@@ -359,7 +387,7 @@ class Singular extends \Municipio\Controller\BaseController
     {
         return apply_filters('Municipio/Controller/Singular/publishDate', (object) [
         'published' => get_the_date(),
-        'updated' => get_the_modified_date()
+        'updated'   => get_the_modified_date()
         ]);
     }
 
@@ -459,6 +487,14 @@ class Singular extends \Municipio\Controller\BaseController
 
         return false;
     }
+
+    /**
+     * Determine whether to display the featured image on a single post based on configuration.
+     *
+     * @param int $postId The ID of the post (optional, default is 0 for the current post).
+     *
+     * @return bool True if the featured image should be displayed, false otherwise.
+     */
     private function displayFeaturedImageOnSinglePost(int $postId = 0)
     {
         return (bool) apply_filters(
@@ -468,7 +504,15 @@ class Singular extends \Municipio\Controller\BaseController
         );
     }
 
-    private function showPageTitleOnOnePage(int $postId = 0) {
+    /**
+     * Determine whether to show the page title on a one-page post based on configuration.
+     *
+     * @param int $postId The ID of the post (optional, default is 0 for the current post).
+     *
+     * @return bool True if the page title should be shown on a one-page post, false otherwise.
+     */
+    private function showPageTitleOnOnePage(int $postId = 0)
+    {
         return (bool) apply_filters(
             'Municipio/Controller/Singular/showTitleOnOnePage',
             get_field('post_one_page_show_title', $postId),
