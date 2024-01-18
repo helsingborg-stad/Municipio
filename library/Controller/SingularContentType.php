@@ -89,7 +89,7 @@ class SingularContentType extends \Municipio\Controller\Singular
      */
     private function setContentTypeViewData()
     {
-        if (empty(!$this->contentType->getKey())) {
+        if (empty($this->contentType->getKey())) {
             return;
         }
 
