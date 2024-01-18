@@ -50,7 +50,6 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         $this->data['structuredData'] = $this->appendStructuredData();
-
     }
 
     /**
@@ -78,5 +77,26 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         return \Municipio\Helper\Data::prepareStructuredData($structuredData);
+    }
+
+     /**
+     * Set up view data based on the content type of the current post.
+     *
+     * If the content type is "place," the post data is complemented using
+     * \Municipio\Helper\ContentType::complementPlacePost() method with the complement flag set to false.
+     *
+     * @return void
+     */
+    private function setContentTypeViewData()
+    {
+        if (empty($this->contentType->getKey())) {
+            return;
+        }
+
+        $contentType = $this->contentType->getKey();
+
+        if ($contentType === 'place') {
+            $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post'], false);
+        }
     }
 }
