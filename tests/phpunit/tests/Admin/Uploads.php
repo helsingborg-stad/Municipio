@@ -76,6 +76,10 @@ class UploadsTest extends TestCase
         WP_Mock::userFunction('get_attached_file', [
             'return' => $getAttachedFile
         ]);
+
+        WP_Mock::userFunction('add_post_meta', [
+            'return' => true
+        ]);
     }
 
     /**

@@ -20,11 +20,17 @@ class Uploads
     */
     public function convertWOFFToTTF(int $id)
     {
-        if (!$this->attachmentIsWOFF($id)) {
-            return false;
+        if ($this->attachmentIsWOFF($id)) {
+            $convertedUrl = \Municipio\Helper\FileConverters\WoffConverter::convert($id);
+
+            if ($convertedUrl) {
+                add_post_meta($id, 'ttf', $convertedUrl);
+
+                return $convertedUrl;
+            }
         }
 
-        return \Municipio\Helper\FileConverters\WoffConverter::convert($id);
+        return false;
     }
 
     /**
