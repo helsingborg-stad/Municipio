@@ -59,7 +59,7 @@ class PdfHelperTest extends TestCase
 
     /**
      * @testdox getFonts Returns an array with arrays containing src
-     * if custom fonts exists and have the same post_title as styles headings or base font.
+     * if woff font has ttf file meta data.
      * @runInSeparateProcess
      */
     public function testGetFontsReturnsArrayWithCustomFontsUrlIfCustomFontsExistsAndMatchesStyles()
@@ -71,6 +71,9 @@ class PdfHelperTest extends TestCase
         $mockPosts   = [$this->mockPost(['ID' => 1, 'post_title' => 'test'])];
         $wpQueryMock = Mockery::mock('overload:WP_Query');
         $wpQueryMock->shouldReceive('__construct')->times(1)->withAnyArgs()->andSet('posts', $mockPosts);
+        WP_Mock::userFunction('get_post_meta', [
+            'return' => ['ttf' => 'https://test.ttf']
+        ]);
 
         // When
         $result = $pdfHelper->getFonts([
@@ -160,6 +163,9 @@ class PdfHelperTest extends TestCase
         $this->assertTrue($pdfHelper->systemHasSuggestedDependencies());
     }
 
+    /**
+     * @testdox getCover Invokers getCoverFieldsForPostType
+     */
     public function testGetCoverInvokesGetCoverFieldsForPostType()
     {
         // Given
@@ -172,6 +178,9 @@ class PdfHelperTest extends TestCase
         $this->assertEquals(['default'], $cover);
     }
 
+    /**
+     * @testdox getCover defaults to the first post type
+     */
     public function testGetCoverDefaultsToFirstPostType()
     {
         // Given
@@ -185,6 +194,9 @@ class PdfHelperTest extends TestCase
         $this->assertEquals(['firstPostType'], $cover);
     }
 
+    /**
+     * @testdox getCover Santizes post type
+     */
     public function testGetCoverSanitizesPostType()
     {
         // Given
@@ -198,6 +210,9 @@ class PdfHelperTest extends TestCase
         $this->assertEquals(['default'], $cover);
     }
 
+    /**
+     * @testdox getCover Uses first valid post type from input
+     */
     public function testGetCoverUsesFirstValidPostTypeFromInput()
     {
         // Given
@@ -211,6 +226,9 @@ class PdfHelperTest extends TestCase
         $this->assertEquals(['secondPostType'], $cover);
     }
 
+    /**
+     * @testdox getThemeMods Returns an array
+     */
     public function testGetThemeModsReturnsArray()
     {
         // Given
@@ -223,6 +241,9 @@ class PdfHelperTest extends TestCase
         $this->assertIsArray($result);
     }
 
+    /**
+     * @testdox getThemeMods Returns theme mods
+     */
     public function testGetThemeModsReturnsThemeMods()
     {
         // Given
@@ -235,6 +256,9 @@ class PdfHelperTest extends TestCase
         $this->assertEquals(['modName' => 'modValue'], $pdfHelper->getThemeMods());
     }
 
+    /**
+     * @return PdfHelper
+     */
     public function testGetThemeModsReturnsArrayEvenIfGetThemeModsDoesNot()
     {
         WP_Mock::userFunction('get_theme_mods', [ 'times' => 1, 'return' => null ]);
