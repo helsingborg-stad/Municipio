@@ -56,10 +56,7 @@ class PostTest extends TestCase
     public function testGetPosttypeMetaKeysReturnsArray()
     {
         // Given
-        $wpdbMock = Mockery::mock('WPDB');
-        $wpdbMock->shouldReceive('get_col')
-        ->andReturn(['meta_key1', 'meta_key2']);
-        $GLOBALS['wpdb'] = $wpdbMock;
+        $this->getMockWpdb(['meta_key1', 'meta_key2']);
 
         // When
         $result = \Municipio\Helper\Post::getPosttypeMetaKeys('test');
@@ -74,10 +71,7 @@ class PostTest extends TestCase
     public function testGetPosttypeMetaKeysSkipCertainKeys()
     {
         // Given
-        $wpdbMock = Mockery::mock('WPDB');
-        $wpdbMock->shouldReceive('get_col')
-        ->andReturn(['key1' => '_meta_key1', 'key2' => 'meta_key2']);
-        $GLOBALS['wpdb'] = $wpdbMock;
+        $this->getMockWpdb(['key1' => '_meta_key1', 'key2' => 'meta_key2']);
 
         // When
         $result = \Municipio\Helper\Post::getPosttypeMetaKeys('test');
@@ -89,16 +83,12 @@ class PostTest extends TestCase
 
     /**
      * @testdox getPostMetaKeys Always returns an array.
+     * @runInSeparateProcess
      */
     public function testGetPostMetaKeysReturnsArray()
     {
         // Given
-        $wpdbMock = Mockery::mock('WPDB');
-        // global $wpdb;
-        $wpdbMock->shouldReceive('get_results')
-        ->once()
-        ->andReturn(['meta_key1', 'meta_key2']);
-        $GLOBALS['wpdb'] = $wpdbMock;
+        $this->getMockWpdb(['meta_key1', 'meta_key2'], 'get_results');
 
         // When
         $result = \Municipio\Helper\Post::getPostMetaKeys('test');
@@ -109,6 +99,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox getFeaturedImage returns an array if there is a thumbnailID.
+     * @runInSeparateProcess
      */
     public function testGetFeaturedImageReturnArrayIfFeaturedImageExists()
     {
@@ -147,6 +138,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns instance of WP_Post.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsPostObject()
     {
@@ -167,6 +159,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented post_excerpt keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostExcerptKeys()
     {
@@ -184,7 +177,9 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
+     * post_excerpt and post_content.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
     {
@@ -204,6 +199,7 @@ class PostTest extends TestCase
     /**
      * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
      * post_excerpt and post_content.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
     {
@@ -221,7 +217,8 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented a post_excerpt based on
+     * @testdox ComplementObject Returns complemented a post_excerpt if more tag
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsExcerptFromPostContentIfMoreTag()
     {
@@ -242,6 +239,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented post_title keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostTitleKeys()
     {
@@ -258,6 +256,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented permalink keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostPermalinkKeys()
     {
@@ -274,6 +273,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented permalink keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostTermsKeys()
     {
@@ -291,6 +291,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented langauge keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostlanguageKeys()
     {
@@ -307,6 +308,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented reading time keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostReadingTimeKeys()
     {
@@ -323,6 +325,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented call to action items keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostCallToActionItemsKeys()
     {
@@ -339,6 +342,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented term icon keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostTermIconKeys()
     {
@@ -359,6 +363,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented location keys.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostLocationKeys()
     {
@@ -377,6 +382,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns correct keys that are always set
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedAlwaysSetKeys()
     {
@@ -402,6 +408,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Changes content keys if password protected.
+     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsSkipKeysWhenPasswordProtected()
     {
@@ -575,5 +582,18 @@ class PostTest extends TestCase
         Mockery::mock('alias:' . \Modularity\Module\Posts\Helper\ContentType::class)->
         shouldReceive('getContentType')->
         andReturn(false);
+    }
+
+    /**
+     * Wpdb mock
+    */
+    private function getMockWpdb($returnValue = false, $shouldReceive = 'get_col')
+    {
+        $wpdbMock = Mockery::mock('WPDB');
+        $wpdbMock->shouldReceive($shouldReceive)
+        ->andReturn($returnValue);
+        $GLOBALS['wpdb']           = $wpdbMock;
+        $GLOBALS['wpdb']->postmeta = 'test';
+        $GLOBALS['wpdb']->posts    = 'test';
     }
 }
