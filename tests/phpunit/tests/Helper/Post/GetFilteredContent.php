@@ -36,7 +36,7 @@ class GetFilteredContentTest extends TestCase
             'hasQuicklinksAfterFirstBlock' => false
         ]);
 
-        WP_Mock::expectFilter('the_content', '<p class="lead">Excerpt</p>');
+        WP_Mock::expectFilter('the_excerpt', '<p class="lead">Excerpt</p>');
         WP_Mock::expectFilter('the_content', '<p>Body</p>');
 
         Post::getFilteredContent($mockPost);

@@ -302,7 +302,7 @@ class Post
         }
 
         // Apply the_content
-        $excerpt = apply_filters('the_content', $excerpt);
+        $excerpt = apply_filters('the_excerpt', $excerpt);
         $content = apply_filters('the_content', $content);
 
         if ($postObject->hasQuicklinksAfterFirstBlock) {
