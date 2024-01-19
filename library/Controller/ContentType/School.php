@@ -14,6 +14,9 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     public $secondaryContentType = [];
     protected object $postMeta;
 
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
         $this->key   = 'school';
@@ -26,6 +29,11 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->addSecondaryContentType(new Person());
     }
 
+    /**
+     * Add hooks for the School content type.
+     *
+     * @return void
+     */
     public function addHooks(): void
     {
         $dataPreparer = new SchoolDataPreparer();
@@ -44,6 +52,11 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->secondaryContentType[] = $contentType;
     }
 
+    /**
+     * Get the secondary content types associated with the school.
+     *
+     * @return array The array of secondary content types.
+     */
     public function getSecondaryContentType(): array
     {
         return $this->secondaryContentType;

@@ -29,24 +29,54 @@ class ContentTypeFactory implements ContentTypeComponentInterface
     protected string $key;
     protected string $label;
 
+        /**
+         * ContentTypeFactory constructor.
+         *
+         * @param string $key   The key of the content type.
+         * @param string $label The label of the content type.
+         */
     public function __construct(string $key, string $label)
     {
         $this->key   = $key;
         $this->label = $label;
     }
 
+    /**
+     * Get the label of the content type.
+     *
+     * @return string The label of the content type.
+     */
     public function getLabel(): string
     {
         return $this->label;
     }
+
+    /**
+     * Get the key of the content type.
+     *
+     * @return string The key of the content type.
+     */
     public function getKey(): string
     {
         return $this->key;
     }
+
+    /**
+     * Get the view for the content type.
+     *
+     * @return string The view for the content type.
+     */
     public function getView(): string
     {
         return "content-type-{$this->getKey()}";
     }
+
+    /**
+     * Get the structured data for a post.
+     *
+     * @param int $postId The ID of the post.
+     * @return array|null The structured data for the post.
+     */
     public function getStructuredData(int $postId): ?array
     {
         return [];
