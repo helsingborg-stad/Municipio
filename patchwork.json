@@ -1,5 +1,6 @@
 {
     "redefinable-internals": [
-        "extension_loaded"
+        "extension_loaded",
+        "md5_file"
     ]
 }

@@ -157,13 +157,12 @@ class Image
     */
     public static function getAttachmentByRemoteUrl(string $remoteUrl)
     {
-        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        self::includeFile();
         $file = download_url($remoteUrl);
 
         if (is_wp_error($file)) {
             return $file;
         }
-
         $fileHash = md5_file($file);
 
         if ($fileHash === false) {
@@ -185,10 +184,19 @@ class Image
     }
 
     /**
+     * Requires file.php from wp-admin
+    */
+    protected static function includeFile()
+    {
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+    }
+
+    /**
      * Gets correct image data
      *
      * @param int $id ID of the image attachment
-     * @param array|string $size Size should be an array containing two int values (height and width). Can also be a string matching predefined sizes (ex. medium).
+     * @param array|string $size Size should be an array containing two int values (height and width).
+     * Can also be a string matching predefined sizes (ex. medium).
      * @return array
      */
     public static function getImageAttachmentData($id, $size = 'full')
