@@ -55,7 +55,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param int $postId The ID of the post.
      * @return void
      */
-    public function getStructuredData(int $postId)
+    public function getStructuredData(int $postId): ?array
     {
         $graph = new \Spatie\SchemaOrg\Graph();
 
