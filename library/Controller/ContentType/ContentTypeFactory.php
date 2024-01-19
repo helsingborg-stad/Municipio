@@ -31,8 +31,8 @@ class ContentTypeFactory implements ContentTypeComponentInterface
 
     public function __construct(string $key, string $label)
     {
-        $this->key              = $key;
-        $this->label            = $label;
+        $this->key   = $key;
+        $this->label = $label;
     }
 
     public function getLabel(): string
@@ -47,7 +47,7 @@ class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return "content-type-{$this->getKey()}";
     }
-    public function getStructuredData(int $postId) : array
+    public function getStructuredData(int $postId)
     {
         return [];
     }

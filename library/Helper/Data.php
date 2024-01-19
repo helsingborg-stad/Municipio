@@ -9,46 +9,26 @@ namespace Municipio\Helper;
 class Data
 {
     /**
-     * Prepares structured data for encoding as JSON.
+     * Prepares structured data for encoding as JSON and applies Municipio/StructuredData filter.
      *
-     * @param array $structuredData The structured data to be prepared.
-     * @return false|string The encoded JSON string of the prepared
-     * structured data, or false if the structured data is empty.
+     * @param array|null $structuredData The structured data to be prepared.
+     * @return string|null The prepared structured data as a JSON string, or null if the input is empty.
      */
-    public static function prepareStructuredData(array $structuredData = [])
+    public static function normalizeStructuredData(?array $structuredData = []): ?string
     {
-        if (empty($structuredData)) {
-            return false;
-        }
-
         $structuredData = apply_filters('Municipio/StructuredData', $structuredData);
 
-        foreach ($structuredData as $key => $value) {
-            if (empty($value)) {
-                unset($structuredData[$key]);
-            }
-        }
-
-        if (empty($structuredData)) {
-            return false;
-        }
-
-        $schema             = [];
-        $schema["@context"] = "http://schema.org";
-
-        if (count($structuredData) > 1) {
-            $schema["@graph"] = [];
-            foreach ($structuredData as $key => $properties) {
-                if (empty($properties)) {
-                    continue;
-                }
-                array_push($schema["@graph"], $properties);
-            }
-        } else {
-            $schema = $structuredData;
-        }
-
-        return json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return json_encode($structuredData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+    /**
+     * Alias for 'normalizeStructuredData' for legacy purposes.
+     *
+     * @param array $structuredData The structured data to be prepared.
+     * @return array The prepared structured data.
+     */
+    public function prepareStructuredData(array $structuredData = []): ?string
+    {
+        return self::normalizeStructuredData($structuredData);
     }
     /**
      * Checks if a string is a valid JSON.
