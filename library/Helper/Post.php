@@ -4,6 +4,8 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
+use WP_Error;
+use WP_Post;
 
 /**
  * Class Post
@@ -28,16 +30,16 @@ class Post
         $post = self::complementObject(
             $post,
             [
-                'excerpt',
-                'post_content_filtered',
-                'post_title_filtered',
-                'permalink',
-                'terms',
-                'post_language',
-                'reading_time',
-                'quicklinks',
-                'call_to_action_items',
-                'term_icon'
+            'excerpt',
+            'post_content_filtered',
+            'post_title_filtered',
+            'permalink',
+            'terms',
+            'post_language',
+            'reading_time',
+            'quicklinks',
+            'call_to_action_items',
+            'term_icon'
             ],
             $data
         );
@@ -69,13 +71,13 @@ class Post
         $post = self::complementObject(
             $post,
             [
-                'excerpt',
-                'post_title_filtered',
-                'permalink',
-                'terms',
-                'reading_time',
-                'call_to_action_items',
-                'term_icon'
+            'excerpt',
+            'post_title_filtered',
+            'permalink',
+            'terms',
+            'reading_time',
+            'call_to_action_items',
+            'term_icon'
             ],
             $data
         );
@@ -114,18 +116,18 @@ class Post
             // Add quicklinks after first block
             foreach (parse_blocks($postObject->post_content) as $key => $block) {
                 if (0 == $key) {
-                    $postObject->post_content                         =
-                        render_block($block) .
-                        render_blade_view(
-                            'partials.navigation.fixed-after-block',
-                            [
-                            'quicklinksMenuItems' => $data['quicklinksMenuItems'],
-                            'quicklinksPlacement' => $postObject->quicklinksPlacement,
-                            'customizer'          => $data['customizer'],
-                            'lang'                => $data['lang'],
-                            ]
-                        );
-                            $postObject->hasQuicklinksAfterFirstBlock = true;
+                    $postObject->post_content                     =
+                    render_block($block) .
+                    render_blade_view(
+                        'partials.navigation.fixed-after-block',
+                        [
+                        'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                        'quicklinksPlacement' => $postObject->quicklinksPlacement,
+                        'customizer'          => $data['customizer'],
+                        'lang'                => $data['lang'],
+                        ]
+                    );
+                        $postObject->hasQuicklinksAfterFirstBlock = true;
                 } else {
                     $postObject->post_content .= render_block($block);
                 }
@@ -169,39 +171,7 @@ class Post
 
         //Get filtered content
         if (!$passwordRequired && in_array('post_content_filtered', $appendFields)) {
-            //Parse lead
-            $parts = explode("<!--more-->", $postObject->post_content);
-
-            //Replace builtin css classes to our own
-            if (is_array($parts) && count($parts) > 1) {
-                //Remove the now broken more block
-                foreach ($parts as &$part) {
-                    $part = str_replace('<!-- wp:more -->', '', $part);
-                    $part = str_replace('<!-- /wp:more -->', '', $part);
-                }
-
-                $excerpt = self::replaceBuiltinClasses(self::createLeadElement(array_shift($parts)));
-                $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
-            } else {
-                $excerpt = "";
-                $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
-            }
-
-            if ($postObject->hasQuicklinksAfterFirstBlock) {
-                // Temporarily deactivate wpautop from the_content
-                remove_filter('the_content', 'wpautop');
-            }
-
-            // Apply the_content
-            $content = apply_filters('the_content', $content);
-
-            if ($postObject->hasQuicklinksAfterFirstBlock) {
-                // Add wpautop back to the_content
-                add_filter('the_content', 'wpautop');
-            }
-
-            // Build post_content_filtered
-            $postObject->post_content_filtered = $excerpt . $content;
+            $postObject->post_content_filtered = self::getFilteredContent($postObject);
         }
 
         //Get permalink
@@ -302,16 +272,59 @@ class Post
     }
 
     /**
-     * Get the post excerpt.
-     *
-     * If the post has a manual excerpt, it is returned after stripping shortcodes.
-     * If no manual excerpt is set, and the post content contains <!--more-->,
-     * the content is divided at the <!--more--> tag, and the first part is returned.
-     * If neither manual excerpt nor <!--more--> tag is present, the entire post content
-     * is returned after stripping shortcodes.
-     *
-     * @param object $postObject The WP_Post object.
-     * @return string The post excerpt.
+     * Get filtered content
+     * @param  WP_Post $postObject The post object
+     * @return string              The filtered content
+     */
+    public static function getFilteredContent(object $postObject): string
+    {
+        //Parse lead
+        $parts = explode("<!--more-->", $postObject->post_content);
+
+        //Replace builtin css classes to our own
+        if (is_array($parts) && count($parts) > 1) {
+            //Remove the now broken more block
+            foreach ($parts as &$part) {
+                $part = str_replace('<!-- wp:more -->', '', $part);
+                $part = str_replace('<!-- /wp:more -->', '', $part);
+            }
+
+            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(self::removeEmptyPTag(array_shift($parts))));
+            $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
+        } else {
+            $excerpt = "";
+            $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
+        }
+
+        if ($postObject->hasQuicklinksAfterFirstBlock) {
+            // Temporarily deactivate wpautop from the_content
+            remove_filter('the_content', 'wpautop');
+        }
+
+        // Apply the_content
+        $excerpt = apply_filters('the_excerpt', $excerpt);
+        $content = apply_filters('the_content', $content);
+
+        if ($postObject->hasQuicklinksAfterFirstBlock) {
+            // Add wpautop back to the_content
+            add_filter('the_content', 'wpautop');
+        }
+
+        // Build post_content_filtered
+        return $excerpt . $content;
+    }
+
+    /*
+    * Get the post excerpt .
+    *
+    * if the post has a manual excerpt, it is returned after stripping shortcodes .
+    * if no manual excerpt is set, and the post content contains < !--more-- > ,
+    * the content is divided at the < !--more-- > tag, and the first part is returned .
+    * if neither manual excerpt nor < !--more-- > tag is present, the entire post content
+    * is returned after stripping shortcodes .
+    *
+    * @param object $postObject The WP_Post object .
+    * @return string The post excerpt .
     */
     private static function getPostExcerpt($postObject)
     {

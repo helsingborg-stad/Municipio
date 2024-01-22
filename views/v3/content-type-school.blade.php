@@ -13,8 +13,13 @@
         @endnotice
     @endif
 
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
+    @if ($post->excerpt)
+        @typography([
+            'classList' => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0'],
+            'element' => 'div'
+        ])
+            {!! $post->excerpt !!}
+        @endtypography
     @endif
 
     @if ($facadeSliderItems)
@@ -202,8 +207,10 @@
         ])
             @foreach ($accordionListItems as $listItem)
                 @accordion__item([
+                    'beforeHeading' => '<span id="' . $listItem['anchor'] . '">',
+                    'afterHeading' => '</span>',
                     'heading' => $listItem['heading'],
-                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
+                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0'],
                 ])
                     {!! $listItem['content'] !!}
                 @endaccordion__item

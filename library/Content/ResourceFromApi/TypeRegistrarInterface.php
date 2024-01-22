@@ -4,8 +4,18 @@ namespace Municipio\Content\ResourceFromApi;
 
 interface TypeRegistrarInterface
 {
-    public function register(): void;
-    public function isRegistered(): bool;
-    public function getName(): string;
-    public function getArguments(): array;
+    /**
+     * Constructor for the TypeRegistrarInterface.
+     *
+     * @param ResourceInterface $resource The resource object.
+     */
+    public function __construct(ResourceInterface $resource);
+
+
+    /**
+     * Registers a type.
+     *
+     * @return bool Returns true if the registration was successful, false otherwise.
+     */
+    public function register(): bool;
 }

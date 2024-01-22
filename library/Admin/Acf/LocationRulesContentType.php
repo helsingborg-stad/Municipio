@@ -32,18 +32,8 @@ class LocationRulesContentType extends \ACF_Location // @codingStandardsIgnoreLi
         }
 
         // Compare the post attribute to rule value.
-        $contentType = \Municipio\Helper\ContentType::getContentType($type, true);
-
-        if (is_object($contentType)) {
-            $result = ($contentType->getKey() === $rule['value']);
-            $returnResult = $result;
-            // Return result taking into account the operator type.
-            if ($rule['operator'] == '!=') {
-                $returnResult = !$result;
-            }
-        } else {
-            $returnResult = false;
-        }
-        return $returnResult;
+        $hasContentType = \Municipio\Helper\ContentType::hasContentType($rule['value'], $type);
+        
+        return $hasContentType;
     }
 }

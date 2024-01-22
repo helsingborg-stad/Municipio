@@ -18,8 +18,6 @@ class ArchiveContentType extends \Municipio\Controller\Archive
         if (ContentType::hasContentType('place', get_post_type(), true)) {
             $this->setupOpenStreetMap();
         }
-
-        
     }
 
     private function setupOpenStreetMap()
@@ -31,7 +29,7 @@ class ArchiveContentType extends \Municipio\Controller\Archive
         }
 
         $this->data['displayGoogleMapsLink'] = (bool) ($this->data['archiveProps']->displayGoogleMapsLink ?? true);
-        $this->data['pins'] = Location::createPins($this->data['posts'], $this->data['displayGoogleMapsLink']);
-        $this->data['postsWithLocation'] = Location::filterPostsWithLocationData($this->data['posts']);
+        $this->data['pins']                  = Location::createMapMarkers($this->data['posts']);
+        $this->data['postsWithLocation']     = Location::filterPostsWithLocationData($this->data['posts']);
     }
 }

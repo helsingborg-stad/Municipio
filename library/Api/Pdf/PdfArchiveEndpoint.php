@@ -10,7 +10,11 @@ use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 
 /**
  * Class PdfArchiveEndpoint
-*/
+ *
+ * PDF REST API endpoint for handling PDF generation based on archive parameters.
+ *
+ * @package Municipio\Api\Pdf
+ */
 class PdfArchiveEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';

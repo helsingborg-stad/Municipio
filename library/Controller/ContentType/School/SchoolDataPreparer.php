@@ -5,27 +5,37 @@ namespace Municipio\Controller\ContentType\School;
 use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
 
+/**
+ * Class SchoolDataPreparer
+ *
+ * This class prepares data for the School content type.
+ */
 class SchoolDataPreparer implements DataPrepearerInterface
 {
-
     private object $postMeta;
     private array $data;
-    private const PAGE_POST_TYPE = 'school-page';
+    private const PAGE_POST_TYPE   = 'school-page';
     private const PERSON_POST_TYPE = 'school-person';
-    private const USP_TAXONOMY = 'school-usp';
-    private const AREA_TAXONOMY = 'school-area';
-    private const GRADE_TAXONOMY = 'school-grade';
-    private const EVENT_POST_TYPE = 'event';
-    private const EVENT_TAXONOMY = 'event_tags';
+    private const USP_TAXONOMY     = 'school-usp';
+    private const AREA_TAXONOMY    = 'school-area';
+    private const GRADE_TAXONOMY   = 'school-grade';
+    private const EVENT_POST_TYPE  = 'event';
+    private const EVENT_TAXONOMY   = 'event_tags';
 
+    /**
+     * Prepare data for the School content type.
+     *
+     * @param array $data The data to be prepared.
+     * @return array The prepared data.
+     */
     public function prepareData(array $data): array
     {
-        $this->data = $data;
-        $metaKeys = $this->getMetaKeys();
+        $this->data     = $data;
+        $metaKeys       = $this->getMetaKeys();
         $this->postMeta = new \stdClass();
 
         foreach ($metaKeys as $metaKey) {
-            $fieldName = $this->getFieldName($metaKey);
+            $fieldName                    = $this->getFieldName($metaKey);
             $this->postMeta->{$fieldName} = $this->getFieldValue($metaKey);
         }
 
@@ -44,16 +54,33 @@ class SchoolDataPreparer implements DataPrepearerInterface
         return $this->data;
     }
 
+    /**
+     * Get the field name.
+     *
+     * @param string $fieldName The field name.
+     * @return string The formatted field name.
+     */
     private function getFieldName(string $fieldName): string
     {
         return lcfirst(Controller::camelCase($fieldName));
     }
 
+    /**
+     * Get the field value.
+     *
+     * @param string $fieldName The field name.
+     * @return mixed The field value.
+     */
     private function getFieldValue($fieldName)
     {
         return WP::getField($fieldName, $this->data['post']->id, true);
     }
 
+    /**
+     * Get the meta keys.
+     *
+     * @return array The meta keys.
+     */
     private function getMetaKeys(): array
     {
         return [
@@ -83,6 +110,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ];
     }
 
+    /**
+     * Append view notification data.
+     */
     private function appendViewNotificationData(): void
     {
         $notification = [];
@@ -98,6 +128,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['notification'] = empty($notification) ? null : $notification;
     }
 
+    /**
+     * Append view contact data.
+     */
     private function appendViewContactData(): void
     {
         if (!isset($this->postMeta->contacts) || !post_type_exists(self::PERSON_POST_TYPE)) {
@@ -109,19 +142,27 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return $contact->person;
         }, $this->postMeta->contacts);
 
-        $persons = WP::getPosts(array('post_type' => self::PERSON_POST_TYPE, 'post__in' => $personIds, 'suppress_filters' => false));
+        $persons = WP::getPosts(array(
+            'post_type'        => self::PERSON_POST_TYPE,
+            'post__in'         => $personIds,
+            'suppress_filters' => false
+        ));
 
         $this->data['contacts'] = !empty($persons) ? array_map(function ($contact) use ($persons) {
 
-            $personPosts = get_posts(['post_type' => self::PERSON_POST_TYPE, 'post__in' => [$contact->person], 'suppress_filters' => false]);
+            $personPosts = get_posts([
+                'post_type'        => self::PERSON_POST_TYPE,
+                'post__in'         => [$contact->person],
+                'suppress_filters' => false
+            ]);
 
-            if( sizeof($personPosts) !== 1 ) {
+            if (sizeof($personPosts) !== 1) {
                 return null;
             }
 
             $featuredMediaUrl = WP::getThePostThumbnailUrl($personPosts[0]->ID, 'medium');
-            $email = WP::getField('e-mail', $personPosts[0]->ID);
-            $phone = WP::getField('phone-number', $personPosts[0]->ID);
+            $email            = WP::getField('e-mail', $personPosts[0]->ID);
+            $phone            = WP::getField('phone-number', $personPosts[0]->ID);
 
             $contact = (object)[
                 'imageSrc'          => $featuredMediaUrl ?: null,
@@ -140,16 +181,15 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
     }
 
+    /**
+     * Append view quick facts data.
+     */
     private function appendViewQuickFactsData(): void
     {
         $quickFacts = [];
 
         if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
-            $gradeTerms = get_terms([
-                'taxonomy' => self::GRADE_TAXONOMY,
-                'include' => $this->postMeta->grades[0],
-                'hide_empty' => true
-            ]);
+            $gradeTerms = wp_get_post_terms($this->data['post']->id, self::GRADE_TAXONOMY);
 
             if (!empty($gradeTerms)) {
                 $quickFacts[] = ['label' => $gradeTerms[0]->name];
@@ -157,65 +197,59 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (!empty($this->postMeta->numberOfChildren)) {
-            $value = absint($this->postMeta->numberOfChildren);
-            $label = sprintf(__('Ca %d children', 'municipio'), $value);
+            $value        = absint($this->postMeta->numberOfChildren);
+            $label        = sprintf(__('Ca %d children', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
-        
+
         if (!empty($this->postMeta->numberOfStudents)) {
-            $value = absint($this->postMeta->numberOfStudents);
-            $label = sprintf(__('Ca %d students', 'municipio'), $value);
+            $value        = absint($this->postMeta->numberOfStudents);
+            $label        = sprintf(__('Ca %d students', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
         if (!empty($this->postMeta->numberOfUnits)) {
-            $value = absint($this->postMeta->numberOfUnits);
-            $label = sprintf(__('%d units', 'municipio'), $value);
+            $value        = absint($this->postMeta->numberOfUnits);
+            $label        = sprintf(__('%d units', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
         if (!empty($this->postMeta->area) && taxonomy_exists(self::AREA_TAXONOMY)) {
-            $areaTerms = get_terms([
-                'taxonomy' => self::AREA_TAXONOMY,
-                'include' => $this->postMeta->area,
-                'hide_empty' => false
-            ]);
+            $areaTerms = wp_get_post_terms($this->data['post']->id, self::AREA_TAXONOMY);
 
             if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
                 $quickFacts[] = ['label' => $areaTerms[0]->name];
             }
         }
 
-        if (!empty($this->postMeta->numberOfProfiles) ) {
-            $value = absint($this->postMeta->numberOfProfiles);
-            $label = sprintf(__('%s profiles', 'municipio'), $value);
+        if (!empty($this->postMeta->numberOfProfiles)) {
+            $value        = absint($this->postMeta->numberOfProfiles);
+            $label        = sprintf(__('%s profiles', 'municipio'), $value);
             $quickFacts[] = ['label' => $label];
         }
 
         if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
+            $timezone = new \DateTimeZone('GMT');
 
-            $timezone = new \DateTimeZone( 'GMT' );
-
-            $open = wp_date('H:i', strtotime($this->postMeta->openHours->open), $timezone);
+            $open  = wp_date('H:i', strtotime($this->postMeta->openHours->open), $timezone);
             $close = wp_date('H:i', strtotime($this->postMeta->openHours->close), $timezone);
 
             if (!empty($open) && !empty($close)) {
-                $timeString = "$open - $close";
-                $label = sprintf(__('Opening hours: %s', 'municipio'), $timeString);
+                $timeString   = "$open - $close";
+                $label        = sprintf(__('Opening hours: %s', 'municipio'), $timeString);
                 $quickFacts[] = ['label' => $label];
             }
         }
 
         if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
-            
-            $timezone = new \DateTimeZone( 'GMT' );
+            $timezone = new \DateTimeZone('GMT');
 
-            $open = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open), $timezone );
-            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close), $timezone );
+            $open  = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open), $timezone);
+            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close), $timezone);
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
-                $label = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
+                $label      = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
             } else {
                 $label = __('Leisure center', 'municipio');
             }
@@ -224,17 +258,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
-
             // Get usp taxonomy terms
-            $uspTerms = get_terms([
-                'taxonomy' => self::USP_TAXONOMY,
-                'include' => $this->postMeta->usp,
-                'orderby' => 'include',
-                'hide_empty' => false
-            ]);
+            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY);
 
             // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
-            $uspTerms = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));
+            $uspTerms   = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));
             $quickFacts = array_merge($quickFacts, array_map(function ($uspTerm) {
                 return ['label' => $uspTerm->name];
             }, $uspTerms));
@@ -242,23 +270,26 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         // Split quickFacts into 3 columns
         $numberOfColumns = ceil(sizeof($quickFacts) / 3);
-        if( $numberOfColumns > 0 ) {
+        if ($numberOfColumns > 0) {
             $quickFacts = array_chunk($quickFacts, $numberOfColumns);
         }
 
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Quick facts', 'municipio');
-            $this->data['quickFacts'] = $quickFacts;
+            $this->data['quickFacts']      = $quickFacts;
         }
     }
 
+    /**
+     * Appends data for the "Visit Us" section.
+     */
     private function appendViewVisitUsData(): void
     {
         $visitUs = null;
 
         if (isset($this->postMeta->visitUs) && !empty($this->postMeta->visitUs)) {
             $visitUs = [
-                'title' => __('Visit us', 'municipio'),
+                'title'   => __('Visit us', 'municipio'),
                 'content' => $this->postMeta->visitUs,
             ];
         }
@@ -266,21 +297,29 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['visitUs'] = $visitUs;
     }
 
+    /**
+     * Appends data for the "Application" section.
+     */
     private function appendViewApplicationData(): void
     {
         $this->data['application'] = [];
 
 
         $this->data['application']['displayOnWebsite'] = true;
-        if( false === $this->postMeta->ctaApplication->display_on_website || 0 === $this->postMeta->ctaApplication->display_on_website ) 
-        {
+        if (
+            false === $this->postMeta->ctaApplication->display_on_website ||
+            0 === $this->postMeta->ctaApplication->display_on_website
+        ) {
             $this->data['application']['displayOnWebsite'] = false;
         }
 
-        $this->data['application']['title'] = $this->postMeta->ctaApplication->title ?: sprintf(__('Do you want to apply to %s?', 'municipio'), get_queried_object()->post_title);
+        $this->data['application']['title']       = $this->postMeta->ctaApplication->title ?: sprintf(
+            __('Do you want to apply to %s?', 'municipio'),
+            get_queried_object()->post_title
+        );
         $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
-        $this->data['application']['apply'] = null;
-        $this->data['application']['howToApply'] = null;
+        $this->data['application']['apply']       = null;
+        $this->data['application']['howToApply']  = null;
 
         if (
             isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
@@ -290,7 +329,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ) {
             $this->data['application']['apply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-                'url' => $this->postMeta->ctaApplication->cta_apply_here->url
+                'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
             ];
         }
 
@@ -302,15 +341,18 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ) {
             $this->data['application']['howToApply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url
+                'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
             ];
         }
     }
 
+    /**
+     * Appends data for the accordion section.
+     */
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information = $this->postMeta->information;
+        $information        = $this->postMeta->information;
 
         if (isset($information->how_we_work) && !empty($information->how_we_work)) {
             $accordionListItems[] = $this->getAccordionListItem(
@@ -332,7 +374,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 $information->orientation
             );
         }
-        
+
         if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
             $accordionListItems[] = $this->getAccordionListItem(
                 __('Our leisure center', 'municipio'),
@@ -342,7 +384,6 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (isset($information->optional) && !empty($information->optional)) {
             foreach ($information->optional as $optional) {
-
                 if (empty($optional->heading) && empty($optional->content)) {
                     continue;
                 }
@@ -357,64 +398,82 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['accordionListItems'] = $accordionListItems;
     }
 
-    private function getAccordionListItem(?string $heading, ?string $text):array {
+    /**
+     * Returns an array representing an accordion list item.
+     *
+     * @param string|null $heading The heading of the accordion list item.
+     * @param string|null $text The content of the accordion list item.
+     * @return array The accordion list item array.
+     */
+    private function getAccordionListItem(?string $heading, ?string $text): array
+    {
         return [
             'heading' => $heading ?? '',
-            'content' => wpautop($text ?? '')
+            'content' => wpautop($text ?? ''),
+            'anchor'  => sanitize_title($heading),
         ];
     }
 
+    /**
+     * Appends data for the visiting section.
+     */
     private function appendViewVisitingData(): void
     {
         $visitingAddresses = $this->postMeta->visitingAddress;
-        $mapPins = [];
+        $mapPins           = [];
 
         if (!isset($visitingAddresses) || empty($visitingAddresses)) {
             return;
         }
 
         $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
-        $visitingData = array_map(function ($address) use(&$mapPins, $visitingAddresses) {
-            $mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
-            $street = $address->address->street_name ?? '';
-            $streetNumber = $address->address->street_number ?? '';
-            $postCode = $address->address->post_code ?? '';
-            $city = $address->address->city ?? '';
-            $lineBreak = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
+        $visitingData = array_map(function ($address) use (&$mapPins, $visitingAddresses) {
+            $mapsUrl       = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
+            $street        = $address->address->street_name ?? '';
+            $streetNumber  = $address->address->street_number ?? '';
+            $postCode      = $address->address->post_code ?? '';
+            $city          = $address->address->city ?? '';
+            $lineBreak     = sizeof($visitingAddresses) > 1 ? ', <br>' : ', ';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
-                'title' => $this->data['post']->postTitle ?? null,
-                'excerpt' => $addressString,
+                'title'      => $this->data['post']->postTitle ?? null,
+                'excerpt'    => $addressString,
                 'directions' => ['label' => __('Find directions', 'municipio'), 'url' => $mapsUrl]
             ];
-            
+
             $mapPins[] = [
-                'lat' => $address->address->lat,
-                'lng' => $address->address->lng,
+                'lat'     => $address->address->lat,
+                'lng'     => $address->address->lng,
                 'tooltip' => $mapPinTooltip
             ];
-            
+
             return [
-                'address' => $addressString,
+                'address'     => $addressString,
                 'description' => $address->description ?? null,
-                'mapsLink' => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
+                'mapsLink'    => ['href' => $mapsUrl, 'text' => __('Find directions', 'municipio')]
             ];
         }, $visitingAddresses);
 
         if (!empty($visitingData)) {
-            $this->data['visitingAddresses'] = $visitingData;
-            $this->data['visitingAddressMapPins'] = $mapPins;
+            $this->data['visitingAddresses']               = $visitingData;
+            $this->data['visitingAddressMapPins']          = $mapPins;
             $this->data['visitingAddressMapStartPosition'] = $this->getMapStartPosition($mapPins);
-            $this->data['visitingDataTitle'] = sizeof($visitingData) === 1
+            $this->data['visitingDataTitle']               = sizeof($visitingData) === 1
                 ? __('Visiting address', 'municipio')
                 : __('Visiting addresses', 'municipio');
         }
     }
 
+    /**
+     * Returns the start position for the map based on the given map pins.
+     *
+     * @param array $mapPins The array of map pins.
+     * @return array The start position for the map.
+     */
     private function getMapStartPosition(array $mapPins): array
     {
-        $lats = array_map(fn ($pin) => $pin['lat'], $mapPins);
-        $lngs = array_map(fn ($pin) => $pin['lng'], $mapPins);
+        $lats   = array_map(fn ($pin) => $pin['lat'], $mapPins);
+        $lngs   = array_map(fn ($pin) => $pin['lng'], $mapPins);
         $maxLat = max($lats);
         $minLat = min($lats);
         $maxLng = max($lngs);
@@ -426,9 +485,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
         return ['lat' => $startLat, 'lng' => $startLng, 'zoom' => 13];
     }
 
+    /**
+     * Appends data for the pages section.
+     */
     private function appendViewPagesData(): void
     {
-        if( !post_type_exists(self::PAGE_POST_TYPE) ) {
+        if (!post_type_exists(self::PAGE_POST_TYPE)) {
             $this->data['pages'] = null;
             return;
         }
@@ -441,16 +503,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $pages = WP::getPosts([
-            'post_type' => self::PAGE_POST_TYPE,
-            'post__in' => $pageIds,
+            'post_type'        => self::PAGE_POST_TYPE,
+            'post__in'         => $pageIds,
             'suppress_filters' => false
         ]);
 
         $this->data['pages'] = array_map(function ($page) {
             return [
-                'title' => $page->postTitle,
-                'content' => $page->postExcerpt,
-                'link' => $page->permalink,
+                'title'    => $page->postTitle,
+                'content'  => $page->postExcerpt,
+                'link'     => $page->permalink,
                 'linkText' => __('Read more', 'municipio')
             ];
         }, $pages);
@@ -458,6 +520,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['pagesNumberOfColumns'] = sizeof($this->data['pages']) === 1 ? 12 : 6;
     }
 
+    /**
+     * Appends data for the social media links section.
+     */
     private function appendSocialMediaLinksData(): void
     {
         $socialMediaLinks = [];
@@ -485,6 +550,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['socialMediaLinks'] = $socialMediaLinks;
     }
 
+    /**
+     * Maps the attachments data.
+     *
+     * @param mixed $attachments The attachments data.
+     * @return array|null The mapped attachments.
+     */
     private function mapAttachments($attachments): ?array
     {
         if (empty($attachments)) {
@@ -492,21 +563,24 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         return array_map(function ($attachment) {
-            $imageSize = [760];
+            $imageSize    = [760];
             $attachmentId = $attachment->image->id;
-            $postType = $this->data['post']->postType;
-            $src = WP::getAttachmentImageSrc($attachmentId, $imageSize, false, $postType);
-            $caption = WP::getAttachmentCaption($attachmentId, $postType);
+            $postType     = $this->data['post']->postType;
+            $src          = WP::getAttachmentImageSrc($attachmentId, $imageSize, false, $postType);
+            $caption      = WP::getAttachmentCaption($attachmentId, $postType);
             return [
-                'src' => is_array($src) ? $src[0] : '',
+                'src'     => is_array($src) ? $src[0] : '',
                 'caption' => $caption
             ];
         }, $attachments);
     }
 
+    /**
+     * Appends data for the images section.
+     */
     private function appendImagesData(): void
     {
-        $facadeAttachments = $this->mapAttachments($this->postMeta->facadeImages);
+        $facadeAttachments  = $this->mapAttachments($this->postMeta->facadeImages);
         $galleryAttachments = $this->mapAttachments($this->postMeta->gallery);
 
         $this->data['facadeSliderItems'] = !empty($facadeAttachments)
@@ -517,59 +591,73 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ? array_map([$this, 'attachmentToSliderItem'], $galleryAttachments)
             : null;
 
-        $this->data['video'] = ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) && !empty($this->postMeta->video))
-            ? wp_oembed_get($this->postMeta->video)
-            : null;
+        $this->data['video'] =
+            ((!isset($this->data['gallerySliderItems']) || empty($this->data['gallerySliderItems'])) &&
+            !empty($this->postMeta->video))
+                ? wp_oembed_get($this->postMeta->video)
+                : null;
     }
 
+    /**
+     * Converts an attachment to a slider item.
+     *
+     * @param array $attachment The attachment data.
+     * @return array The slider item.
+     */
     private function attachmentToSliderItem($attachment): array
     {
         $sliderItem = [
-            'title' => '',
-            'layout' => 'bottom',
+            'title'          => '',
+            'layout'         => 'bottom',
             'containerColor' => 'transparent',
-            'textColor' => 'white',
-            'heroStyle' => true
+            'textColor'      => 'white',
+            'heroStyle'      => true,
+            'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
-        $sliderItem['text'] = $attachment['caption'];
+        $sliderItem['text']          = $attachment['caption'];
         $sliderItem['desktop_image'] = $attachment['src'];
 
         return $sliderItem;
     }
 
+    /**
+     * Appends data for the event section.
+     */
     private function appendEventData()
     {
-        $this->data['events'] = null;
+        $this->data['events']      = null;
         $this->data['eventsTitle'] = null;
-        
-        if( !post_type_exists(self::EVENT_POST_TYPE) || !taxonomy_exists(self::EVENT_TAXONOMY) ) {    
+
+        if (!post_type_exists(self::EVENT_POST_TYPE) || !taxonomy_exists(self::EVENT_TAXONOMY)) {
             return;
         }
 
         $eventTags = get_terms(['taxonomy' => self::EVENT_TAXONOMY, 'search' => $this->data['post']->postTitle]);
 
-        if( empty($eventTags) ) {
+        if (empty($eventTags)) {
             return;
         }
 
         $eventTag = $eventTags[0];
-        $events = get_posts(['post_type' => self::EVENT_POST_TYPE,  'tax_query' => [
-            [
-                'taxonomy' => self::EVENT_TAXONOMY,
-                'field' => 'term_id',
-                'terms' => [$eventTag->term_id]
+        $events   = get_posts([
+            'post_type' => self::EVENT_POST_TYPE,
+            'tax_query' => [
+                [
+                    'taxonomy' => self::EVENT_TAXONOMY,
+                    'field'    => 'term_id',
+                    'terms'    => [$eventTag->term_id]
+                ]
             ]
-        ]]);
+        ]);
 
-        if( empty($events) ) {
+        if (empty($events)) {
             return;
         }
 
-        foreach($events as $event) {
-            
-            $title = $event->post_title;
-            $text = $event->post_content;
+        foreach ($events as $event) {
+            $title     = $event->post_title;
+            $text      = $event->post_content;
             $occasions = get_post_meta($event->ID, 'occasions_complete', true);
 
 
@@ -588,29 +676,29 @@ class SchoolDataPreparer implements DataPrepearerInterface
             }
 
             $timestamp = strtotime($firstOccation['start_date']);
-            $time = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
-            $date = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
-            $dateLong = wp_date(get_option( 'date_format' ), $timestamp, new \DateTimeZone('GMT'));
+            $time      = wp_date('H:i', $timestamp, new \DateTimeZone('GMT'));
+            $date      = wp_date('Y-m-d', $timestamp, new \DateTimeZone('GMT'));
+            $dateLong  = wp_date(get_option('date_format'), $timestamp, new \DateTimeZone('GMT'));
 
-            if( $this->data['events'] === null ) {
+            if ($this->data['events'] === null) {
                 $this->data['events'] = [];
             }
 
             $this->data['events'][] = [
-                'title' => $title,
-                'text' => $text,
-                'date' => $date,
-                'time' => $time,
-                'dateAndTime' => 
-                sprintf(
-                    __("Date and time: %s at %s", 'municipio'),
-                    $dateLong,
-                    $time
-                )
+            'title'       => $title,
+            'text'        => $text,
+            'date'        => $date,
+            'time'        => $time,
+            'dateAndTime' =>
+            sprintf(
+                __("Date and time: %s at %s", 'municipio'),
+                $dateLong,
+                $time
+            )
             ];
         }
 
-        if( $this->data['events'] !== null ) {
+        if ($this->data['events'] !== null) {
             $this->data['eventsTitle'] = __('Events', 'municipio');
         }
     }
