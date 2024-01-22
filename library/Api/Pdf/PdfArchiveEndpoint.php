@@ -8,6 +8,9 @@ use WP_REST_Response;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 use Municipio\Helper\FileConverters\WoffConverter as WoffConverterHelper;
 
+/**
+ * Class PdfArchiveEndpoint
+*/
 class PdfArchiveEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'pdf/v1';
@@ -145,13 +148,6 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         }
 
         return $query->posts;
-    }
-
-    private function handleDateAndSearchFiltering(array $queryParams)
-    {
-
-
-        return $queryParams;
     }
 
     /** Check if a post type is public.
