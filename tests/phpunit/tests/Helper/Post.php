@@ -52,6 +52,7 @@ class PostTest extends TestCase
     /**
      * @testdox getPosttypeMetaKeys Always returns an array.
      * @runInSeparateProcess
+     * @backupGlobals enabled
      */
     public function testGetPosttypeMetaKeysReturnsArray()
     {
@@ -67,6 +68,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox getPosttypeMetaKeys Returns an array and filters certain values
+     * @backupGlobals enabled
      */
     public function testGetPosttypeMetaKeysSkipCertainKeys()
     {
@@ -84,6 +86,7 @@ class PostTest extends TestCase
     /**
      * @testdox getPostMetaKeys Always returns an array.
      * @runInSeparateProcess
+     * @backupGlobals enabled
      */
     public function testGetPostMetaKeysReturnsArray()
     {
