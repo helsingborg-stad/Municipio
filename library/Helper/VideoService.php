@@ -1,8 +1,14 @@
 <?php
+
 namespace Municipio\Helper;
 
 use Municipio\Helper\File as FileHelper;
 
+/**
+ * Class VideoService
+ *
+ * This class provides methods for getting cover images for videos from different video services.
+ */
 class VideoService
 {
     protected $url;
@@ -13,43 +19,60 @@ class VideoService
     protected $fileName;
     protected $filePath;
     public $coverArt;
-    
+
     private $imageLocations = [
-        'youtube'   => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
-        'vimeo'     => 'https://vumbnail.com/%s.jpg'
+        'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
+        'vimeo'   => 'https://vumbnail.com/%s.jpg'
     ];
-    
-    public function __construct(string $url)
+
+    /**
+     * Constructor method.
+     *
+     * @param string url The url of the video.
+     */
+    public function __construct(?string $url = '')
     {
         $this->url     = $url;
         $this->videoId = $this->getVideoId($this->url);
-        
+
         $this->uploadsDir          = $this->getUploadsDir();
         $this->videoServiceDirname = 'video-service-thumbnails';
         $this->uploadsSubDir       = $this->uploadsDir . '/' . $this->videoServiceDirname;
         $this->fileName            = $this->videoId . '.jpg';
-        
+
         $this->filePath = implode("/", [
             $this->uploadsSubDir,
             $this->fileName
         ]);
-        
+
         $this->coverArt = $this->getCoverArt();
     }
+    /**
+     * Takes a url and returns the cover image if it is available.
+     *
+     * @param string url The url of the video.
+     *
+     * @return The cover image url.
+     */
     public function getCoverArt(string $url = null)
     {
         if (empty($url)) {
             $url = $this->url;
         }
-        
+
         return $this->maybeDownloadCoverArt($url);
     }
+    /**
+     * Downloads the cover art if it is available.
+     *
+     * @access private
+     */
     private function maybeDownloadCoverArt()
     {
         if (!FileHelper::fileExists($this->filePath)) {
             $this->downloadCoverImage();
         }
-        
+
         return $this->getLocalCoverUrl();
     }
     /**
@@ -71,7 +94,7 @@ class VideoService
         if (str_contains($url, 'youtu')) { //Matches youtu.be and full domain
             return 'youtube';
         }
-        
+
         return false;
     }
    /**
@@ -88,11 +111,11 @@ class VideoService
         if (empty($url)) {
             $url = $this->url;
         }
-        
+
         if (empty($videoService)) {
             $videoService = $this->detectVideoService($url);
         }
-        
+
         if ($videoService == 'youtube') {
             return $this->parseYoutubeId($url);
         }
@@ -116,15 +139,13 @@ class VideoService
         $url      = $this->url;
         $urlParts = parse_url($url);
         $hostname = $urlParts['host'];
-        
+
         if ($hostname == 'youtu.be') {
             //https://youtu.be/ID
             $id = trim(rtrim(parse_url($url, PHP_URL_PATH), "/"), "/");
-            
         } elseif (str_contains($urlParts['path'], 'embed')) {
             //https://www.youtube.com/embed/ID
             $id = trim(rtrim(str_replace('/embed/', '', $urlParts['path'])));
-            
         } else {
             //https://www.youtube.com/watch?v=ID
             parse_str(
@@ -134,7 +155,6 @@ class VideoService
             if (isset($queryParameters['v']) && !empty($queryParameters['v'])) {
                 $id = $queryParameters['v'];
             }
-            
         }
 
         return $id;
@@ -169,7 +189,7 @@ class VideoService
     {
         $coverUrl    = $this->getRemoteCoverUrl();
         $fileContent = $this->readRemoteFile($coverUrl);
-        
+
         if ($fileContent) {
             return $this->storeImage($fileContent);
         }
@@ -185,13 +205,13 @@ class VideoService
         if (empty($fileContent)) {
             return false;
         }
-        
+
         $fileSystem = $this->initFileSystem();
-        
+
         if (!is_dir($this->uploadsSubDir)) {
             $fileSystem->mkdir($this->uploadsSubDir, FS_CHMOD_DIR);
         }
-        
+
         if (!FileHelper::fileExists($this->filePath)) {
             return $fileSystem->put_contents(
                 $this->filePath,
@@ -211,11 +231,11 @@ class VideoService
     public function getLocalCoverUrl()
     {
         $fileSystem = $this->initFileSystem();
-       
+
         if ($fileSystem->is_file($this->filePath)) {
             return wp_upload_dir(null, false)['baseurl'] . "/{$this->videoServiceDirname}/{$this->fileName}";
         }
-        
+
         return false;
     }
     /**
@@ -231,15 +251,15 @@ class VideoService
         if (empty($videoService) || empty($videoId)) {
             $url = $this->url;
         }
-        
+
         if (empty($videoService)) {
             $videoService = $this->detectVideoService($url);
         }
-        
+
         if (empty($videoId)) {
             $videoId = $this->getVideoId($url);
         }
-        
+
         if (isset($this->imageLocations[$videoService])) {
             return sprintf($this->imageLocations[$videoService], $videoId);
         }
