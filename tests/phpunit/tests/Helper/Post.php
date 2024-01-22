@@ -120,6 +120,7 @@ class PostTest extends TestCase
 
     /**
      * @testdox getFeaturedImage returns false if there is no thumbnail ID
+     * @runInSeparateProcess
      */
     public function testGetFeaturedImageReturnFalseIfNoFeaturedImage()
     {
