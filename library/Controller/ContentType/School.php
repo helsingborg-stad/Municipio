@@ -84,21 +84,15 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             foreach ($this->getSecondaryContentType() as $contentType) {
                 switch ($contentType->getKey()) {
                     case 'place':
-                        $visitingAddresses = WP::getField('visiting_address', $postId);
-                        if (!empty($visitingAddresses) && is_array($visitingAddresses)) {
-                            $addresses = [];
-                            foreach ($visitingAddresses as $visitingAddress) {
-                                $address = new \Spatie\SchemaOrg\PostalAddress();
-                                $address->streetAddress($visitingAddress['address']['name']);
-                                $address->postalCode($visitingAddress['address']['post_code']);
-                                $address->addressLocality($visitingAddress['address']['city']);
-                                $address->addressCountry($visitingAddress['address']['country']);
-                                $addresses[] = $address;
-                            }
+                        $addresses = $this->getSchoolAddress($postId);
+                        // If no addresses found, use legacy method
+                        if (empty($addresses)) {
+                            $addresses = $this->legacyVisitingAddress($postId);
+                        }
+                        if (!empty($addresses)) {
                             $graph->school()->address($addresses);
                             $graph->hide(\Spatie\SchemaOrg\PostalAddress::class);
                         }
-
                         break;
 
                     case 'person':
@@ -129,5 +123,70 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         }
 
         return $graph->toArray();
+    }
+    /**
+     * Get the school address for a specific post.
+     *
+     * @param int $postId The ID of the post.
+     * @return array The array of school addresses.
+     */
+    protected function getSchoolAddress(int $postId): array
+    {
+        $addressesData = WP::getField('PostalAddress', $postId);
+        $addresses     = [];
+
+        if (!empty($addressesData) && is_array($addressesData)) {
+            foreach ($addressesData as $addressData) {
+                $address = new \Spatie\SchemaOrg\PostalAddress();
+
+                // Define valid parameters for a School address according to Schema.org
+                $validParams = [
+                    'streetAddress',
+                    'postalCode',
+                    'addressLocality',
+                    'addressRegion',
+                    'addressCountry'
+                ];
+
+                // Loop through each parameter and set it if it's valid for School
+                foreach ($addressData as $param => $value) {
+                    if (in_array($param, $validParams) && method_exists($address, $param)) {
+                        $address->$param($value);
+                    }
+                }
+
+                $addresses[] = $address;
+            }
+        }
+
+        return $addresses;
+    }
+    /**
+     * Handle visiting addresses and mark the method as deprecated.
+     *
+     * @param int $postId The ID of the post.
+     * @return array An array of \Spatie\SchemaOrg\PostalAddress objects.
+     */
+    protected function legacyVisitingAddress(int $postId): array
+    {
+        _doing_it_wrong(__METHOD__, 'Using visiting_address is deprecated 
+        and will be removed in future versions. Use the new address format, see https://schema.org for 
+        valid parameters and naming conventions. Note that parameter keys are case sensitive.', '3.61.8');
+
+        $visitingAddresses = WP::getField('visiting_address', $postId);
+        $addresses         = [];
+
+        if (!empty($visitingAddresses) && is_array($visitingAddresses)) {
+            foreach ($visitingAddresses as $visitingAddress) {
+                $address = new \Spatie\SchemaOrg\PostalAddress();
+                $address->streetAddress($visitingAddress['address']['name']);
+                $address->postalCode($visitingAddress['address']['post_code']);
+                $address->addressLocality($visitingAddress['address']['city']);
+                $address->addressCountry($visitingAddress['address']['country']);
+                $addresses[] = $address;
+            }
+        }
+
+        return $addresses;
     }
 }

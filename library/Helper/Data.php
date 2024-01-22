@@ -9,7 +9,7 @@ namespace Municipio\Helper;
 class Data
 {
     /**
-     * Prepares structured data for encoding as JSON and applies Municipio/StructuredData filter.
+     * Prepares structured data and applies Municipio/StructuredData filter.
      *
      * @param array|null $structuredData The structured data to be prepared.
      * @return string|null The prepared structured data as a JSON string, or null if the input is empty.
