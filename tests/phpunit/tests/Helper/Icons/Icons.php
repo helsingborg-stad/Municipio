@@ -51,6 +51,8 @@ class IconsTest extends TestCase
     */
     private function mockedData()
     {
-        define('MUNICIPIO_PATH', '/');
+        if (!defined('MUNICIPIO_PATH')) {
+            define('MUNICIPIO_PATH', '/');
+        }
     }
 }
