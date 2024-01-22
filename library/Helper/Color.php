@@ -20,9 +20,12 @@ class Color
      */
     public static function prepareColor(array $colorItem)
     {
-        $colorItem['alpha'] = "1"; //Set default alpha value
+        $colorItem['alpha'] = "1";
 
-        if (is_array($colorItem['value']) || is_array($colorItem['default'])) {
+        if (
+            isset($colorItem['value']) && is_array($colorItem['value']) ||
+            isset($colorItem['default']) && is_array($colorItem['default'])
+        ) {
             $defaultColor = !empty($colorItem['default']['color']) ? $colorItem['default']['color'] : "";
             $defaultAlpha = !empty($colorItem['default']['alpha']) ? $colorItem['default']['alpha'] :  "1";
 
@@ -32,7 +35,7 @@ class Color
             }
 
             $colorItem['value'] = !empty($setColor) ? $setColor : $defaultColor;
-            $colorItem['alpha'] = !empty($setAlpha) || $setAlpha == "0" ? $setAlpha : $defaultAlpha;
+            $colorItem['alpha'] = isset($setAlpha) && $setAlpha == "0" || !empty($setAlpha) ? $setAlpha : $defaultAlpha;
         } else {
             return false;
         }
