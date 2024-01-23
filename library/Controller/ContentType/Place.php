@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\ContentType;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
+use Municipio\Helper\WP;
 
 /**
  * Class Place
@@ -83,7 +83,12 @@ class Place extends ContentTypeFactory
         if (empty($location) || empty($location['lng']) || empty($location['lat'])) {
             return false;
         }
-        return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
+        return
+        'https://www.google.com/maps/dir/?api=1&destination='
+         . $location['lat']
+         . ','
+         . $location['lng']
+         . '&travelmode=transit';
     }
 
 
@@ -94,7 +99,7 @@ class Place extends ContentTypeFactory
      *
      * @return array The structured data for the Place post.
      */
-    public function getStructuredData(int $postId): array
+    public function getStructuredData(int $postId): ?array
     {
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.

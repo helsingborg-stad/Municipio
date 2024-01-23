@@ -22,7 +22,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->key   = 'school';
         $this->label = __('School', 'municipio');
 
-
         parent::__construct($this->key, $this->label);
 
         $this->addSecondaryContentType(new Place());
