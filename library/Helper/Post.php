@@ -127,7 +127,6 @@ class Post
                         $postObject->hasQuicklinksAfterFirstBlock = true;
                 } else {
                     $postObject->post_content .= render_block($block);
-                    $postObject->testing      .= render_block($block);
                 }
             }
         } else {

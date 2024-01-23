@@ -11,12 +11,13 @@ use function Patchwork\Config\merge;
 
 /**
  * Class PostTest
+ * @runTestsInSeparateProcesses
  */
 class PostTest extends TestCase
 {
     /**
      * @testdox preparePostObject returns a post if $post is an instance of WP_Post.
-     */
+    */
     public function testPreparePostObjectReturnsPostIfPostReceived()
     {
         // Given
@@ -33,7 +34,6 @@ class PostTest extends TestCase
 
      /**
      * @testdox preparePostObjectArchive returns a post if it $post is an instance of WP_Post.
-     * @runInSeparateProcess
      */
     public function testPreparePostObjectArchiveReturnsPostIfPostReceived()
     {
@@ -51,7 +51,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox getPosttypeMetaKeys Always returns an array.
-     * @runInSeparateProcess
      * @backupGlobals enabled
      */
     public function testGetPosttypeMetaKeysReturnsArray()
@@ -85,7 +84,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox getPostMetaKeys Always returns an array.
-     * @runInSeparateProcess
      * @backupGlobals enabled
      */
     public function testGetPostMetaKeysReturnsArray()
@@ -102,7 +100,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox getFeaturedImage returns an array if there is a thumbnailID.
-     * @runInSeparateProcess
      */
     public function testGetFeaturedImageReturnArrayIfFeaturedImageExists()
     {
@@ -123,7 +120,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox getFeaturedImage returns false if there is no thumbnail ID
-     * @runInSeparateProcess
      */
     public function testGetFeaturedImageReturnFalseIfNoFeaturedImage()
     {
@@ -142,7 +138,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns instance of WP_Post.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsPostObject()
     {
@@ -163,7 +158,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented post_excerpt keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostExcerptKeys()
     {
@@ -183,7 +177,6 @@ class PostTest extends TestCase
     /**
      * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
      * post_excerpt and post_content.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
     {
@@ -203,7 +196,6 @@ class PostTest extends TestCase
     /**
      * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
      * post_excerpt and post_content.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
     {
@@ -222,7 +214,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented a post_excerpt if more tag
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsExcerptFromPostContentIfMoreTag()
     {
@@ -243,7 +234,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented post_title keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostTitleKeys()
     {
@@ -260,7 +250,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented permalink keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostPermalinkKeys()
     {
@@ -276,8 +265,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented permalink keys.
-     * @runInSeparateProcess
+     * @testdox ComplementObject Returns complemented terms keys.
      */
     public function testComplementObjectReturnsComplementedPostTermsKeys()
     {
@@ -295,7 +283,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented langauge keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostlanguageKeys()
     {
@@ -312,7 +299,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented reading time keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostReadingTimeKeys()
     {
@@ -329,7 +315,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented call to action items keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostCallToActionItemsKeys()
     {
@@ -346,7 +331,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented term icon keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostTermIconKeys()
     {
@@ -367,7 +351,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns complemented location keys.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedPostLocationKeys()
     {
@@ -386,7 +369,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Returns correct keys that are always set
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsComplementedAlwaysSetKeys()
     {
@@ -412,7 +394,6 @@ class PostTest extends TestCase
 
     /**
      * @testdox ComplementObject Changes content keys if password protected.
-     * @runInSeparateProcess
      */
     public function testComplementObjectReturnsSkipKeysWhenPasswordProtected()
     {
@@ -455,7 +436,11 @@ class PostTest extends TestCase
         $this->mockDependenciesForComplementObject($post);
 
         // When
-        $result = Post::complementObject($post, [], ['quicklinksMenuItems' => ['item 1', 'item 2']]);
+        $result = Post::complementObject($post, [], [
+            'lang'                => 'test',
+            'customizer'          => 'test',
+            'quicklinksMenuItems' => ['item 1', 'item 2']
+        ]);
 
         // Then
         $this->assertEquals('<div>block</div><div>quicklinks</div><div>block</div>', $result->post_content);
@@ -467,14 +452,14 @@ class PostTest extends TestCase
     public function testComplementObjectReturnsFilteredPostContent()
     {
         // Given
-        $post = $this->getMockedpost(['post_content' => 'Some text. <!--more--> Some other text']);
+        $post = $this->getMockedpost(['post_content' => 'Some text . <!--more--> Some other text']);
         $this->mockDependenciesForComplementObject($post);
 
         // When
         $result = Post::complementObject($post, ['post_content_filtered']);
 
         // Then
-        $this->assertEquals($result->post_content_filtered, '<p class="lead">Some text. </p> Some other text');
+        $this->assertEquals($result->post_content_filtered, '<p class="lead">Some text . </p> Some other text');
     }
 
     // Mock post args
@@ -489,6 +474,16 @@ class PostTest extends TestCase
             'post_type'    => 'test',
             'terms'        => ['test' => 'test']
         ], $args));
+    }
+
+    // Mock term object
+    private function mockTermObject()
+    {
+        $termMock           = Mockery::mock('WP_Term');
+        $termMock->term_id  = 1;
+        $termMock->taxonomy = 'test-taxonomy';
+
+        return $termMock;
     }
 
     // Mock ComplementObject methods
@@ -544,7 +539,7 @@ class PostTest extends TestCase
         ]);
 
         WP_Mock::userFunction('wp_get_post_terms', [
-            'return' => ['test' => 'test']
+            'return' => [$this->mockTermObject()]
         ]);
 
         WP_Mock::userFunction('get_term_link', [
