@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2024-01-23 07:42+0000\n"
+"PO-Revision-Date: 2023-11-16 07:23+0000\n"
 "Last-Translator: \n"
-"Language-Team: Swedish\n"
+"Language-Team: Svenska\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,16 +29,16 @@ msgstr ""
 msgid "#FFFFFF"
 msgstr "#FFFFFF"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:213
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:181
 msgid "%d units"
 msgstr "%d avdelningar"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:227
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:199
 #, php-format
 msgid "%s profiles"
 msgstr "%s profiler"
 
-#: library/Helper/ContentType.php:247
+#: library/Helper/ContentType.php:224
 #, php-format
 msgid ""
 "%s tried to add %s as a secondary content type. Complex content types cannot "
@@ -21429,7 +21429,12 @@ msgstr ""
 msgid "A margin block"
 msgstr "Ett marginalblock"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:385
+#: library/AcfFields/php/resource-fields.php:245
+#: library/AcfFields/php/resource-fields.php:779
+msgid "A short descriptive summary of what the post type is."
+msgstr "En kort beskrivande sammanfattning av vad inläggstypen är."
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:325
 msgid "About the school"
 msgstr "Om oss"
 
@@ -21702,7 +21707,7 @@ msgstr "Avancerade inställningar"
 msgid "After first block"
 msgstr "Efter första blocket"
 
-#: library/Controller/BaseController.php:231
+#: library/Controller/BaseController.php:236
 msgid "ago"
 msgstr "sedan"
 
@@ -21758,10 +21763,6 @@ msgstr "airplay"
 msgid "airport_shuttle"
 msgstr "airport_shuttle"
 
-#: library/AcfFields/php/resource-fields.php:321
-msgid "Aktiverar posttypsarkiv."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:67
 msgid "alarm"
 msgstr "alarm"
@@ -21808,11 +21809,6 @@ msgstr "all_out"
 #: library/Customizer/Sections/Colors.php:306
 msgid "Alpha colors"
 msgstr "Alfa färger"
-
-#: library/AcfFields/php/resource-fields.php:551
-#: library/AcfFields/php/resource-fields.php:1022
-msgid "Alternativ för url-omskrivning"
-msgstr ""
 
 #: library/Customizer/Sections/Shadow.php:33
 msgid "Amount of detail shadow"
@@ -21870,11 +21866,15 @@ msgstr "announcement"
 msgid "apartment"
 msgstr "apartment"
 
-#: library/Content/ResourceFromApi/ResourcePostType.php:48
+#: library/Content/ResourceFromApi/ResourcePostType.php:31
 msgid "API Resource"
 msgstr "API-resurs"
 
-#: library/Content/ResourceFromApi/ResourcePostType.php:46
+#: library/AcfFields/php/resource-fields.php:8
+msgid "Api Resource fields"
+msgstr "Api-resursfält"
+
+#: library/Content/ResourceFromApi/ResourcePostType.php:29
 msgid "API Resources"
 msgstr "API-resurser"
 
@@ -21896,10 +21896,6 @@ msgstr ""
 #, fuzzy
 msgid "API Source URL"
 msgstr "URL för API-källa"
-
-#: library/AcfFields/php/resource-fields.php:8
-msgid "Api-resursfält"
-msgstr ""
 
 #: library/AcfFields/php/options-api-resources-apis.php:12
 msgid "Api:s"
@@ -21952,7 +21948,7 @@ msgstr "Rubrik"
 msgid "Archive lead text"
 msgstr "Brödtext"
 
-#: library/Controller/BaseController.php:289
+#: library/Controller/BaseController.php:294
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
@@ -21960,7 +21956,7 @@ msgstr "Arkivnavigering"
 msgid "Archives"
 msgstr "Arkiv"
 
-#: library/Theme/Enqueue.php:155
+#: library/Theme/Enqueue.php:147
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
@@ -21968,9 +21964,9 @@ msgstr "Är du säker på att du vill ta bort kommentaren?"
 msgid "Area or street address of the location."
 msgstr "Område eller gatuadress till platsen."
 
-#: library/AcfFields/php/resource-fields.php:664
-msgid "Argument för taxonomi"
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:125
+msgid "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
+msgstr "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
 
 #: library/Theme/Icon.php:80 library/Theme/Icon.php:82
 msgid "Arrow back"
@@ -22128,7 +22124,7 @@ msgstr "attach_file"
 msgid "attach_money"
 msgstr "attach_money"
 
-#: library/Theme/Icon.php:130
+#: library/Theme/Icon.php:130 library/AcfFields/php/resource-fields.php:27
 msgid "Attachment"
 msgstr "Bifoga"
 
@@ -22137,15 +22133,19 @@ msgstr "Bifoga"
 msgid "attachment"
 msgstr "attachment"
 
-#: library/AcfFields/php/resource-fields.php:1135
-msgid "Attachment arguments"
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:80
+msgid "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
+msgstr "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
+
+#: library/AcfFields/php/resource-fields.php:71
+msgid "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
+msgstr "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
 
 #: library/AcfFields/php/options-menu-icon.php:108
 msgid "audiotrack"
 msgstr "audiotrack"
 
-#: library/Controller/Singular.php:338
+#: library/Controller/Singular.php:307
 #: library/AcfFields/php/options-theme-author.php:8
 msgid "Author"
 msgstr "Författare"
@@ -22375,18 +22375,9 @@ msgstr "Under verktyg"
 msgid "Below Users"
 msgstr "Under användare"
 
-#: library/AcfFields/php/resource-fields.php:236
-#: library/AcfFields/php/resource-fields.php:778
-msgid "Beskrivning"
-msgstr ""
-
 #: library/Admin/UI/BackEnd.php:31
 msgid "Beta"
 msgstr "Beta"
-
-#: library/AcfFields/php/resource-fields.php:27
-msgid "Bifoga"
-msgstr ""
 
 #: library/Theme/Icon.php:131
 msgid "Bin"
@@ -22462,7 +22453,7 @@ msgstr "Fet (700)"
 msgid "book"
 msgstr "book"
 
-#: library/Controller/BaseController.php:265
+#: library/Controller/BaseController.php:270
 msgid "Book here"
 msgstr "Boka här"
 
@@ -22713,12 +22704,12 @@ msgstr "Knappar"
 msgid "Byline"
 msgstr "Byline"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:201
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:169
 #| msgid "Ca. %d children"
 msgid "Ca %d children"
 msgstr "Ca %d barn"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:207
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:175
 #| msgid "Ca. %d students"
 msgid "Ca %d students"
 msgstr "Ca %d elever"
@@ -22824,6 +22815,11 @@ msgstr "cancel_presentation"
 msgid "cancel_schedule_send"
 msgstr "cancel_schedule_send"
 
+#: library/AcfFields/php/resource-fields.php:507
+#: library/AcfFields/php/resource-fields.php:992
+msgid "Capabilities"
+msgstr "Kapacitet"
+
 #: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Capitalize"
 msgstr "Stora bokstäver"
@@ -22889,6 +22885,14 @@ msgstr "Casual (Små hemsidor)"
 #: library/AcfFields/php/options-menu-icon.php:196
 msgid "category"
 msgstr "category"
+
+#: library/AcfFields/php/resource-fields.php:128
+msgid "category: https://api.helsingborg.se/event/json/wp/v2/categories"
+msgstr "category: https://api.helsingborg.se/event/json/wp/v2/categories"
+
+#: library/AcfFields/php/resource-fields.php:122
+msgid "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
+msgstr "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
 
 #: library/Customizer/Sections/Divider.php:138
 #: library/Customizer/Sections/FooterSub.php:162
@@ -22984,12 +22988,6 @@ msgstr "check_circle_outline"
 msgid "Checked"
 msgstr "Checkad"
 
-#: library/Api/Pdf/PdfGenerator.php:138
-msgid ""
-"Checked post types will not use the PDF generator and will use the built in "
-"print function instead."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:208
 msgid "chevron_left"
 msgstr "chevron_left"
@@ -23029,11 +23027,11 @@ msgstr "Välj en typsnittsfärg för kort."
 msgid "Choose a font color for the collection component."
 msgstr "Välj en typsnittsfärg för samlingskomponenten."
 
-#: library/Controller/BaseController.php:282
+#: library/Controller/BaseController.php:287
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Controller/BaseController.php:283
+#: library/Controller/BaseController.php:288
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
@@ -23045,10 +23043,6 @@ msgstr "Välj en animation för Heroytan"
 msgid "Choose animation type"
 msgstr "Välj animationstyp"
 
-#: library/Api/Pdf/PdfGenerator.php:415
-msgid "Choose another frontpage"
-msgstr ""
-
 #: library/AcfFields/php/brand-widget.php:39
 msgid "Choose the max width of the logo."
 msgstr "Välj maxbredden på logotypen."
@@ -23056,11 +23050,6 @@ msgstr "Välj maxbredden på logotypen."
 #: library/Customizer/Sections/Button.php:118
 msgid "Choose the shape of the buttons."
 msgstr "Form på knappar."
-
-#: library/AcfFields/php/resource-fields.php:1169
-msgid ""
-"Choose which post types that should use this source for their attachments."
-msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:212
 msgid "chrome_reader_mode"
@@ -23087,7 +23076,7 @@ msgstr "clear_all"
 msgid "Clock"
 msgstr "Klocka"
 
-#: library/Controller/BaseController.php:256
+#: library/Controller/BaseController.php:261
 msgid "Close"
 msgstr "Stänger"
 
@@ -23307,7 +23296,7 @@ msgstr "Samtyckes ID"
 msgid "Contact person"
 msgstr "Kontaktperson"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:180
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:147
 msgid "Contact us"
 msgstr "Kontakta oss"
 
@@ -23466,7 +23455,6 @@ msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas
 msgid "Could not verify that you are human."
 msgstr "Kunde inte verifiera att du är mänsklig (något formulärsfält saknas)"
 
-#: library/Api/Pdf/PdfGenerator.php:362
 #: library/Customizer/Sections/MegaMenu.php:229
 msgid "Cover"
 msgstr "Omslag"
@@ -23552,7 +23540,6 @@ msgstr "Css"
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Api/Pdf/PdfGenerator.php:403
 #: library/Customizer/Sections/FooterSub.php:57
 msgid "Custom"
 msgstr "Anpassad"
@@ -23687,7 +23674,7 @@ msgstr ""
 msgid "Date"
 msgstr "Datum"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:720
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr "Datum och tid: %s kl. %s"
@@ -23720,11 +23707,11 @@ msgstr "Datum, Tid"
 msgid "date_range"
 msgstr "date_range"
 
-#: library/Controller/BaseController.php:240
+#: library/Controller/BaseController.php:245
 msgid "day"
 msgstr "dag"
 
-#: library/Controller/BaseController.php:239
+#: library/Controller/BaseController.php:244
 #: library/AcfFields/php/options-theme-custom-post-type.php:388
 msgid "days"
 msgstr "dagar"
@@ -23745,7 +23732,6 @@ msgstr "deck"
 msgid "Decrease"
 msgstr "Minska"
 
-#: library/Api/Pdf/PdfGenerator.php:303 library/Api/Pdf/PdfGenerator.php:401
 #: library/AcfFields/php/options-page-quicklinks-placement.php:25
 #: library/AcfFields/php/widget-header-links.php:360
 #: library/AcfFields/php/options-menu-style.php:24
@@ -23772,7 +23758,6 @@ msgstr "Minska"
 msgid "Default"
 msgstr "Standard"
 
-#: library/Api/Pdf/PdfGenerator.php:405
 #: library/AcfFields/php/options-page-quicklinks-placement.php:29
 #: library/AcfFields/php/block-container.php:103
 msgid "default"
@@ -23800,10 +23785,6 @@ msgstr "Standard kontrasterande"
 #: library/Customizer/Sections/Button.php:89
 msgid "Default Contrasting"
 msgstr "Standard kontrasterande"
-
-#: library/Api/Pdf/PdfGenerator.php:389
-msgid "Default frontpage"
-msgstr ""
 
 #: library/AcfFields/php/options-theme-post-types.php:8
 msgid "Default post types"
@@ -23835,17 +23816,13 @@ msgstr "delete_outline"
 msgid "delete_sweep"
 msgstr "delete_sweep"
 
-#: library/AcfFields/php/resource-fields.php:477
-msgid ""
-"Den position i menyordningen som inläggstypen ska visas. show_in_menu måste "
-"vara true."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:270
 msgid "departure_board"
 msgstr "departure_board"
 
 #: library/AcfFields/php/options-menu-description.php:12
+#: library/AcfFields/php/resource-fields.php:241
+#: library/AcfFields/php/resource-fields.php:775
 #: library/AcfFields/php/term-icon-and-colour.php:2266
 msgid "Description"
 msgstr "Beskrivning"
@@ -24084,14 +24061,10 @@ msgstr "Använd inte"
 msgid "Do not use content type template"
 msgstr "Använd inte anpassad mall för innehållstyp"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:368
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:288
 #, php-format
 msgid "Do you want to apply to %s?"
 msgstr "Vill du välja %s?"
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:372
-msgid "Do you want to apply?"
-msgstr "Vill du ansöka?"
 
 #: library/AcfFields/php/options-menu-icon.php:296
 msgid "dock"
@@ -24227,6 +24200,11 @@ msgstr "edit_attributes"
 msgid "Editor formats"
 msgstr "Format"
 
+#: library/AcfFields/php/resource-fields.php:526
+#: library/AcfFields/php/resource-fields.php:1011
+msgid "eg. \"manage_options\"..."
+msgstr "t.ex. \"manage_options\"..."
+
 #: library/AcfFields/php/options-menu-icon.php:314
 msgid "eject"
 msgstr "eject"
@@ -24234,6 +24212,14 @@ msgstr "eject"
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:197
 msgid "elementary-school"
 msgstr "elementary-school"
+
+#: library/AcfFields/php/resource-fields.php:78
+msgid ""
+"elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-"
+"school"
+msgstr ""
+"elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-"
+"school"
 
 #: library/AcfFields/php/widget-contact.php:81
 msgid "Email"
@@ -24243,7 +24229,7 @@ msgstr "Epost"
 msgid "email"
 msgstr "email"
 
-#: library/Api/Pdf/PdfGenerator.php:187 library/Customizer/Sections/Logo.php:42
+#: library/Customizer/Sections/Logo.php:42
 #: library/Customizer/Sections/Header.php:198
 msgid "Emblem"
 msgstr "Emblem"
@@ -24284,11 +24270,6 @@ msgstr "emoji_symbols"
 msgid "emoji_transportation"
 msgstr "emoji_transportation"
 
-#: library/AcfFields/php/resource-fields.php:240
-#: library/AcfFields/php/resource-fields.php:782
-msgid "En kort beskrivande sammanfattning av vad inläggstypen är."
-msgstr ""
-
 #: library/Helper/KirkiConditional.php:48
 #: library/AcfFields/php/options-theme-author.php:24
 #: library/AcfFields/php/options-theme-author.php:43
@@ -24322,6 +24303,10 @@ msgstr "Gör det möjligt för besökare att bläddra i denna taxonomi"
 #: library/Customizer/Sections/Menu.php:85
 msgid "Enabled"
 msgstr "Aktiverad"
+
+#: library/AcfFields/php/resource-fields.php:325
+msgid "Enables post type archives."
+msgstr "Aktiverar posttypsarkiv."
 
 #: library/Customizer/Sections/Header.php:307
 msgid "Enables text to the right of the header logotype."
@@ -24374,16 +24359,6 @@ msgstr "Kunde inte ladda in alternativen"
 msgid "error_outline"
 msgstr "error_outline"
 
-#: library/AcfFields/php/resource-fields.php:196
-#: library/AcfFields/php/resource-fields.php:717
-msgid "Etikett (plural)"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:216
-#: library/AcfFields/php/resource-fields.php:737
-msgid "Etikett (singular)"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:329
 msgid "euro"
 msgstr "euro"
@@ -24409,6 +24384,10 @@ msgstr "event"
 msgid "Event (above archive posts)"
 msgstr "Evenemang (ovanför arkivinlägg)"
 
+#: library/AcfFields/php/resource-fields.php:81
+msgid "event: https://api.helsingborg.se/event/json/wp/v2/event"
+msgstr "event: https://api.helsingborg.se/event/json/wp/v2/event"
+
 #: library/AcfFields/php/options-menu-icon.php:333
 msgid "event_available"
 msgstr "event_available"
@@ -24416,6 +24395,14 @@ msgstr "event_available"
 #: library/AcfFields/php/options-menu-icon.php:334
 msgid "event_busy"
 msgstr "event_busy"
+
+#: library/AcfFields/php/resource-fields.php:131
+msgid ""
+"event_categories: https://api.helsingborg."
+"se/event/json/wp/v2/event_categories"
+msgstr ""
+"event_categories: https://api.helsingborg."
+"se/event/json/wp/v2/event_categories"
 
 #: library/AcfFields/php/options-menu-icon.php:335
 msgid "event_note"
@@ -24425,7 +24412,11 @@ msgstr "event_note"
 msgid "event_seat"
 msgstr "event_seat"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:728
+#: library/AcfFields/php/resource-fields.php:132
+msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
+msgstr "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:624
 msgid "Events"
 msgstr "Evenemang"
 
@@ -24436,6 +24427,10 @@ msgstr "Ingress"
 #: library/Customizer/Sections/LoadDesign.php:43
 msgid "Exclude from import"
 msgstr "Exkludera från import"
+
+#: library/AcfFields/php/resource-fields.php:341
+msgid "Exclude From Search"
+msgstr "Uteslut från sök"
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -24465,7 +24460,7 @@ msgstr "Uteslut sidans titel från Google Translate"
 msgid "exit_to_app"
 msgstr "exit_to_app"
 
-#: library/Controller/BaseController.php:259
+#: library/Controller/BaseController.php:264
 msgid "Expand"
 msgstr "Expandera"
 
@@ -24618,6 +24613,11 @@ msgstr "featured_video"
 msgid "feedback"
 msgstr "feedback"
 
+#: library/AcfFields/php/resource-fields.php:620
+#: library/AcfFields/php/resource-fields.php:1084
+msgid "Feeds"
+msgstr "RSS-flöde"
+
 #: library/AcfFields/php/options-menu-icon.php:359
 msgid "fiber_dvr"
 msgstr "fiber_dvr"
@@ -24680,8 +24680,8 @@ msgstr "ifylld"
 msgid "Filled button"
 msgstr "Ifylld knapp"
 
-#: library/Controller/BaseController.php:270
-#: library/Controller/BaseController.php:286
+#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:291
 msgid "Filter"
 msgstr "Filtrera"
 
@@ -24769,8 +24769,7 @@ msgstr "filter_vintage"
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:467
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:479
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:403
 msgid "Find directions"
 msgstr "Hitta hit"
 
@@ -24884,7 +24883,7 @@ msgstr "folder_shared"
 msgid "folder_special"
 msgstr "folder_special"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:573
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:485
 msgid "Follow us in social media"
 msgstr "Följ oss i sociala medier"
 
@@ -25056,7 +25055,7 @@ msgstr "forward_5"
 msgid "Found"
 msgstr "Hittade"
 
-#: library/Theme/Enqueue.php:188
+#: library/Theme/Enqueue.php:180
 msgid "Fr"
 msgstr "Fr"
 
@@ -25132,23 +25131,15 @@ msgstr "GDPR"
 msgid "General Apperance"
 msgstr "Generellt utseende"
 
-#: library/Api/Pdf/PdfGenerator.php:183
-msgid "General cover settings"
-msgstr ""
-
 #: library/Customizer/PanelsRegistry.php:190
 msgid "General settings"
 msgstr "Generella inställningar"
-
-#: library/Api/Pdf/CreatePdf.php:63
-msgid "Generated PDF"
-msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:444
 msgid "gesture"
 msgstr "gesture"
 
-#: library/Helper/Location.php:75
+#: library/Helper/Location.php:82
 msgid "Get directions on Google Maps"
 msgstr "Få vägbeskrivning via Google Maps"
 
@@ -25168,7 +25159,7 @@ msgstr "Jordglob"
 msgid "Go back"
 msgstr "Gå bakåt"
 
-#: library/Controller/BaseController.php:225 library/Controller/E404.php:37
+#: library/Controller/BaseController.php:230 library/Controller/E404.php:37
 #: library/Widget/Header/Logo.php:46 library/Widget/Brand/Brand.php:47
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
@@ -25197,6 +25188,10 @@ msgstr "gps_off"
 #: library/AcfFields/php/options-menu-icon.php:451
 msgid "grade"
 msgstr "grade"
+
+#: library/AcfFields/php/resource-fields.php:127
+msgid "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
+msgstr "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
 
 #: library/AcfFields/php/block-container.php:101
 msgid "Gradient"
@@ -25251,20 +25246,25 @@ msgstr "group_add"
 msgid "group_work"
 msgstr "group_work"
 
-#: library/Oembed/OembedFilters.php:50
+#: library/AcfFields/php/resource-fields.php:86
+msgid "guide: https://api.helsingborg.se/event/json/wp/v2/guide"
+msgstr "guide: https://api.helsingborg.se/event/json/wp/v2/guide"
+
+#: library/AcfFields/php/resource-fields.php:134
+msgid "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
+msgstr "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
+
+#: library/AcfFields/php/resource-fields.php:136
+msgid "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
+msgstr "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
+
+#: library/Oembed/OembedFilters.php:28
 msgid "Handling of personal data"
 msgstr "Hantering av personlig data"
 
-#: library/AcfFields/php/resource-fields.php:457
-#: library/AcfFields/php/resource-fields.php:555
-#: library/AcfFields/php/resource-fields.php:979
-#: library/AcfFields/php/resource-fields.php:1026
-msgid "Hantering av url-omskrivningar för denna posttyp."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:317
-msgid "Har arkiv"
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:321
+msgid "Has Archive"
+msgstr "Har arkiv"
 
 #: library/AcfFields/php/options-menu-icon.php:460
 msgid "hd"
@@ -25330,7 +25330,6 @@ msgstr "Rubriksektioner"
 msgid "Header tabs menu"
 msgstr "Header-tabbar"
 
-#: library/Api/Pdf/PdfGenerator.php:327
 #: library/Customizer/Sections/SliderHero.php:133
 #: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/MegaMenu.php:35
@@ -25424,11 +25423,6 @@ msgstr "Slider (Hero)"
 msgid "Hidden"
 msgstr "Dold"
 
-#: library/AcfFields/php/hidden-validation.php:8
-#: library/AcfFields/php/hidden-validation.php:12
-msgid "Hidden validation"
-msgstr ""
-
 #: library/AcfFields/php/options-page-navigation.php:23
 #: library/Customizer/Sections/Archive.php:94
 #: library/Customizer/Sections/Archive.php:162
@@ -25470,14 +25464,11 @@ msgstr "Göm på små enheter"
 msgid "Hide text"
 msgstr "Dölj text"
 
+#: library/AcfFields/php/resource-fields.php:281
+#: library/AcfFields/php/resource-fields.php:816
 #: library/AcfFields/php/options-theme-custom-post-type.php:228
 msgid "Hierarchical"
 msgstr "Hierarkisk"
-
-#: library/AcfFields/php/resource-fields.php:277
-#: library/AcfFields/php/resource-fields.php:819
-msgid "Hierarkisk"
-msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:472
 msgid "high_quality"
@@ -25537,7 +25528,7 @@ msgstr "hot_tub"
 msgid "hotel"
 msgstr "hotel"
 
-#: library/Controller/BaseController.php:242
+#: library/Controller/BaseController.php:247
 msgid "hour"
 msgstr "timme"
 
@@ -25549,7 +25540,7 @@ msgstr "hourglass_empty"
 msgid "hourglass_full"
 msgstr "hourglass_full"
 
-#: library/Controller/BaseController.php:241
+#: library/Controller/BaseController.php:246
 msgid "hours"
 msgstr "timmar"
 
@@ -25589,7 +25580,7 @@ msgstr "Hur texten i kolumnerna ska justeras."
 msgid "How to align the text in the pre-footer."
 msgstr "Hur texten före sidfoten ska justeras."
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:392
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:332
 msgid "How we work"
 msgstr "Så arbetar vi"
 
@@ -25621,20 +25612,7 @@ msgstr "https://dummy.api/wp-json/wp/v2"
 msgid "https://github.com/helsingborg-stad/Municipio"
 msgstr "https://github.com/helsingborg-stad/Municipio"
 
-#: library/AcfFields/php/resource-fields.php:301
-#: library/AcfFields/php/resource-fields.php:843
-msgid ""
-"Huruvida ett standardgränssnitt ska genereras för hantering av denna "
-"inläggstyp."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:361
-#: library/AcfFields/php/resource-fields.php:883
-msgid ""
-"Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
-msgstr ""
-
-#: library/Oembed/OembedFilters.php:41 library/Oembed/OembedFilters.php:47
+#: library/Oembed/OembedFilters.php:19 library/Oembed/OembedFilters.php:25
 msgid "I understand, continue."
 msgstr "Jag förstår, fortsätt."
 
@@ -25723,10 +25701,6 @@ msgstr ""
 "Om funktionen är aktiverad kommer Google Translate användandet att spåras i "
 "Google Analytucs (till det Google Analytics kontot som är speicificerat "
 "under Google Analytics tabben)"
-
-#: library/Api/Pdf/PdfGenerator.php:392
-msgid "If there is no data attached. Which frontpage should it use?"
-msgstr ""
 
 #: library/AcfFields/php/options-page-navigation.php:34
 msgid ""
@@ -25825,7 +25799,7 @@ msgstr "input"
 msgid "Input colors"
 msgstr "Färg på inmatningsfält"
 
-#: library/Theme/Enqueue.php:152
+#: library/Theme/Enqueue.php:144
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
@@ -25874,6 +25848,14 @@ msgstr "Användarnamn på Instagram"
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
+#: library/AcfFields/php/resource-fields.php:87
+msgid ""
+"interactive_guide: https://api.helsingborg."
+"se/event/json/wp/v2/interactive_guide"
+msgstr ""
+"interaktiv_guide: https://api.helsingborg."
+"se/event/json/wp/v2/interactive_guide"
+
 #: library/AcfFields/php/navigation-widget.php:141
 #: library/AcfFields/php/widget-media.php:36
 #: library/AcfFields/php/widget-media.php:101
@@ -25883,10 +25865,6 @@ msgstr "Interna länkar"
 #: library/AcfFields/php/widget-header-links.php:115
 msgid "Internal links"
 msgstr "Interna länkar"
-
-#: library/Api/Pdf/PdfGenerator.php:342
-msgid "Introduction"
-msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:506
 msgid "invert_colors"
@@ -25908,7 +25886,7 @@ msgstr "iso"
 msgid "Italic"
 msgstr "Kursiv"
 
-#: library/Helper/Post.php:168
+#: library/Helper/Post.php:148
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
@@ -25917,18 +25895,13 @@ msgstr "Objektet saknar innehåll"
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: library/Controller/BaseController.php:228
+#: library/Controller/BaseController.php:233
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: library/Controller/BaseController.php:226
+#: library/Controller/BaseController.php:231
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
-
-#: library/AcfFields/php/resource-fields.php:503
-#: library/AcfFields/php/resource-fields.php:995
-msgid "Kapacitet"
-msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:110
 msgid "Kategorier"
@@ -26002,12 +25975,6 @@ msgstr "kitchen"
 msgid "Kontakter"
 msgstr "Kontakter"
 
-#: library/AcfFields/php/resource-fields.php:41
-#: library/AcfFields/php/resource-fields.php:75
-#: library/AcfFields/php/resource-fields.php:109
-msgid "Källa"
-msgstr ""
-
 #: library/AcfFields/php/block-button.php:23
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
 msgid "Label"
@@ -26016,6 +25983,22 @@ msgstr "Etikett"
 #: library/AcfFields/php/options-menu-icon.php:522
 msgid "label"
 msgstr "label"
+
+#: library/AcfFields/php/resource-fields.php:714
+msgid "Label (Plural)"
+msgstr "Etikett (plural)"
+
+#: library/AcfFields/php/resource-fields.php:201
+msgid "Label (plural)"
+msgstr "Etikett (plural)"
+
+#: library/AcfFields/php/resource-fields.php:734
+msgid "Label (Singular)"
+msgstr "Etikett (singular)"
+
+#: library/AcfFields/php/resource-fields.php:221
+msgid "Label (singular)"
+msgstr "Etikett (singular)"
 
 #: library/AcfFields/php/options-menu-icon.php:523
 msgid "label_important"
@@ -26029,7 +26012,7 @@ msgstr "label_off"
 msgid "landscape"
 msgstr "landscape"
 
-#: library/Controller/BaseController.php:258
+#: library/Controller/BaseController.php:263
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr "Språk"
@@ -26133,11 +26116,11 @@ msgstr "Vänster sidofält (övre sektion)"
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:254
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:228
 msgid "Leisure center"
 msgstr "Fritidshem"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:252
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:226
 #, php-format
 msgid "Leisure center: %s"
 msgstr "Fritidshem: %s"
@@ -26430,6 +26413,18 @@ msgstr "Plats"
 msgid "Location point"
 msgstr "Platspunkt"
 
+#: library/AcfFields/php/resource-fields.php:82
+msgid "location: https://api.helsingborg.se/event/json/wp/v2/location"
+msgstr "location: https://api.helsingborg.se/event/json/wp/v2/location"
+
+#: library/AcfFields/php/resource-fields.php:133
+msgid ""
+"location_categories: https://api.helsingborg."
+"se/event/json/wp/v2/location_categories"
+msgstr ""
+"location_categories: https://api.helsingborg."
+"se/event/json/wp/v2/location_categories"
+
 #: library/AcfFields/php/options-menu-icon.php:580
 msgid "location_city"
 msgstr "location_city"
@@ -26671,11 +26666,6 @@ msgstr "md"
 msgid "MD and up"
 msgstr "MD och uppåt"
 
-#: library/AcfFields/php/resource-fields.php:600
-#: library/AcfFields/php/resource-fields.php:1071
-msgid "Med front"
-msgstr ""
-
 #: library/AcfFields/php/widget-media.php:89
 msgid "Media link"
 msgstr "Medialänk"
@@ -26700,7 +26690,7 @@ msgstr "Medel (500)"
 msgid "meeting_room"
 msgstr "meeting_room"
 
-#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:251
+#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:256
 #: library/Customizer/PanelsRegistry.php:280
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:59
@@ -26708,11 +26698,17 @@ msgstr "meeting_room"
 msgid "Mega menu"
 msgstr "Megameny"
 
+#: library/AcfFields/php/resource-fields.php:85
+msgid ""
+"membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
+msgstr ""
+"membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
+
 #: library/AcfFields/php/options-menu-icon.php:603
 msgid "memory"
 msgstr "memory"
 
-#: library/Theme/Icon.php:44 library/Controller/BaseController.php:254
+#: library/Theme/Icon.php:44 library/Controller/BaseController.php:259
 #: library/Widget/Navigation/Navigation.php:77
 #: library/Widget/Header/Links.php:68
 msgid "Menu"
@@ -26743,6 +26739,11 @@ msgstr "Inställningar för menybeteende."
 #: library/AcfFields/php/options-theme-custom-post-type.php:97
 msgid "Menu icon"
 msgstr "Menyikon"
+
+#: library/AcfFields/php/resource-fields.php:477
+#, fuzzy
+msgid "Menu Position"
+msgstr "Position för meny"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:125
 msgid "Menu position"
@@ -26804,11 +26805,11 @@ msgstr "minimize"
 msgid "Minus"
 msgstr "Minus"
 
-#: library/Controller/BaseController.php:244
+#: library/Controller/BaseController.php:249
 msgid "minute"
 msgstr "minut"
 
-#: library/Controller/BaseController.php:243
+#: library/Controller/BaseController.php:248
 msgid "minutes"
 msgstr "minuter"
 
@@ -26820,7 +26821,7 @@ msgstr "missed_video_call"
 msgid "mms"
 msgstr "mms"
 
-#: library/Theme/Enqueue.php:184
+#: library/Theme/Enqueue.php:176
 msgid "Mo"
 msgstr "Må"
 
@@ -27028,11 +27029,11 @@ msgstr "monochrome_photos"
 msgid "Monotone colors"
 msgstr "Monotona färger"
 
-#: library/Controller/BaseController.php:236
+#: library/Controller/BaseController.php:241
 msgid "month"
 msgstr "månad"
 
-#: library/Controller/BaseController.php:235
+#: library/Controller/BaseController.php:240
 msgid "months"
 msgstr "månader"
 
@@ -27048,7 +27049,7 @@ msgstr "mood_bad"
 msgid "more"
 msgstr "more"
 
-#: library/Controller/BaseController.php:257
+#: library/Controller/BaseController.php:262
 msgid "More Languages"
 msgstr "Fler språk"
 
@@ -27137,7 +27138,7 @@ msgstr "my_location"
 msgid "Name"
 msgstr "Namn"
 
-#: library/Controller/BaseController.php:275
+#: library/Controller/BaseController.php:280
 msgid "Name (A-Z)"
 msgstr "Namn (A-Ö)"
 
@@ -27148,6 +27149,14 @@ msgstr "nature"
 #: library/AcfFields/php/options-menu-icon.php:641
 msgid "nature_people"
 msgstr "nature_people"
+
+#: library/AcfFields/php/resource-fields.php:124
+msgid "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
+msgstr "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
+
+#: library/AcfFields/php/resource-fields.php:72
+msgid "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
+msgstr "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
 
 #: library/AcfFields/php/options-menu-icon.php:642
 msgid "navigate_before"
@@ -27185,6 +27194,10 @@ msgstr "Navigationsinställningar"
 #: library/AcfFields/php/navigation-widget.php:8
 msgid "Navigation widget"
 msgstr "Navigationswidget"
+
+#: library/AcfFields/php/resource-fields.php:135
+msgid "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
+msgstr "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
 
 #: library/Customizer/PanelsRegistry.php:274
 msgid "Navigations"
@@ -27259,11 +27272,11 @@ msgstr "Ingen animation"
 msgid "No cover"
 msgstr "Utan omslag"
 
-#: library/Controller/BaseController.php:279
+#: library/Controller/BaseController.php:284
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:277
 msgid "No items found."
 msgstr "Inga hittades."
 
@@ -27279,7 +27292,6 @@ msgstr "no_meeting_room"
 msgid "no_sim"
 msgstr "no_sim"
 
-#: library/Api/Pdf/PdfGenerator.php:402
 #: library/AcfFields/php/widget-header-common.php:134
 #: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/FooterMain.php:59
@@ -27378,23 +27390,10 @@ msgstr "Antal objekt"
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
-#: library/AcfFields/php/resource-fields.php:176
-msgid "Nyckel"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:180
-msgid ""
-"Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller "
-"mellanslag."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:701
-#: library/AcfFields/php/resource-fields.php:721
-#: library/AcfFields/php/resource-fields.php:741
-msgid ""
-"Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller "
-"mellanslag."
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:754
+#, fuzzy
+msgid "Object Type"
+msgstr "Typ av objekt"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:161
 msgid "oembed_cache"
@@ -27404,16 +27403,10 @@ msgstr "oembed_cache"
 msgid "Off"
 msgstr "Av"
 
-#: library/AcfFields/php/resource-fields.php:257
-#: library/AcfFields/php/resource-fields.php:799
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:219
+#, fuzzy
 msgid "Offentlig"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:357
-#: library/AcfFields/php/resource-fields.php:879
-msgid "Offentligt sökbar"
-msgstr ""
+msgstr "Offentlig"
 
 #: library/AcfFields/php/options-menu-icon.php:665
 msgid "offline_bolt"
@@ -27423,35 +27416,11 @@ msgstr "offline_bolt"
 msgid "offline_pin"
 msgstr "offline_pin"
 
-#: library/AcfFields/php/resource-fields.php:341
-msgid "Om inläggstypen ska exkluderas från sökresultat."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:261
-#: library/AcfFields/php/resource-fields.php:803
-msgid "Om inläggstypen ska vara allmänt sökbar."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:281
-#: library/AcfFields/php/resource-fields.php:823
-msgid "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:381
-#: library/AcfFields/php/resource-fields.php:903
-msgid "Om post_type är tillgänglig för val i navigeringsmenyer."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:453
-#: library/AcfFields/php/resource-fields.php:975
-msgid "Omskrivning"
-msgstr ""
-
 #: library/Customizer/Sections/Module/Posts.php:81
 msgid "On"
 msgstr "På"
 
-#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:274
 msgid "on"
 msgstr "på"
 
@@ -27515,7 +27484,7 @@ msgstr "open_in_new"
 msgid "open_with"
 msgstr "open_with"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:239
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:212
 #, php-format
 msgid "Opening hours: %s"
 msgstr "Öppettider: %s"
@@ -27550,11 +27519,15 @@ msgstr "Ordna efter"
 msgid "Order direction"
 msgstr "Riktning"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:399
+#: library/AcfFields/php/resource-fields.php:83
+msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
+msgstr "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
+
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:339
 msgid "Orientation"
 msgstr "Inskolning"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:406
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:346
 msgid "Our leisure center"
 msgstr "Vårt fritidshem"
 
@@ -27622,6 +27595,10 @@ msgstr "Sidattribut"
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
+#: library/AcfFields/php/resource-fields.php:70
+msgid "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
+msgstr "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
+
 #: library/AcfFields/php/options-menu-icon.php:674
 msgid "pages"
 msgstr "pages"
@@ -27680,6 +27657,23 @@ msgstr "panorama_wide_angle"
 msgid "Parent %s"
 msgstr "Förälder %s"
 
+#: library/AcfFields/php/resource-fields.php:533
+#, fuzzy
+msgid "Parent post types"
+msgstr "Överordnade inläggstyper"
+
+#: library/AcfFields/php/resource-fields.php:537
+#, fuzzy
+msgid ""
+"Parent post types are used to determine the permalink and the rewrite rules "
+"for this post type. Setting parent post types will affect the rewrite slug "
+"by prepending it with the parent post types slug."
+msgstr ""
+"Överordnade inläggstyper används för att bestämma permalänken och "
+"omskrivningsreglerna för denna inläggstyp. Om du anger överordnade "
+"inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen "
+"för överordnade inläggstyper."
+
 #: library/AcfFields/php/options-menu-icon.php:683
 msgid "party_mode"
 msgstr "party_mode"
@@ -27708,10 +27702,6 @@ msgstr "pause_presentation"
 #: library/AcfFields/php/options-menu-icon.php:688
 msgid "payment"
 msgstr "payment"
-
-#: library/Admin/Options/Theme.php:99 library/Admin/Options/Theme.php:100
-msgid "PDF Generator Settings"
-msgstr ""
 
 #: library/Theme/Icon.php:77
 msgid "People"
@@ -27761,14 +27751,12 @@ msgstr "perm_phone_msg"
 msgid "perm_scan_wifi"
 msgstr "perm_scan_wifi"
 
-#: library/AcfFields/php/resource-fields.php:580
-#: library/AcfFields/php/resource-fields.php:1051
 #: library/AcfFields/php/options-theme-custom-post-type.php:55
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:56
 msgid "Permalänk"
 msgstr "Permalänk"
 
-#: library/Controller/ContentType/Person.php:20
+#: library/Controller/ContentType/Person.php:18
 msgid "Person"
 msgstr "Person"
 
@@ -27776,6 +27764,10 @@ msgstr "Person"
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:196
 msgid "person"
 msgstr "person"
+
+#: library/AcfFields/php/resource-fields.php:79
+msgid "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
+msgstr "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
 
 #: library/AcfFields/php/options-menu-icon.php:701
 msgid "person_add"
@@ -27937,7 +27929,7 @@ msgstr "pie_chart"
 msgid "Pill"
 msgstr "Tablett"
 
-#: library/Controller/ContentType/Place.php:24
+#: library/Controller/ContentType/Place.php:20
 msgid "Place"
 msgstr "Plats"
 
@@ -27991,10 +27983,6 @@ msgstr "playlist_add_check"
 msgid "playlist_play"
 msgstr "playlist_play"
 
-#: library/Admin/Acf/ImageAltTextValidation.php:26
-msgid "Please add an alt text to the image"
-msgstr ""
-
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:124
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:177
 msgid "Please fill in all required fields."
@@ -28040,10 +28028,6 @@ msgstr "portable_wifi_off"
 msgid "portrait"
 msgstr "portrait"
 
-#: library/AcfFields/php/resource-fields.php:473
-msgid "Position för meny"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:136
 #| msgid "post_add"
 msgid "post"
@@ -28057,31 +28041,53 @@ msgstr "Tidstämplar under inlägg"
 msgid "Post Formats"
 msgstr "Inläggsformat"
 
+#: library/AcfFields/php/resource-fields.php:25
+msgid "Post Type"
+msgstr "Posttyp"
+
+#: library/AcfFields/php/resource-fields.php:151
+msgid "Post Type Arguments"
+msgstr "Posttypsargument"
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:299
 msgid "Post type functions"
 msgstr "Funktioner för posttypen"
+
+#: library/AcfFields/php/resource-fields.php:181
+msgid "Post Type Key"
+msgstr "Nyckel"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:34
 msgid "Post type name"
 msgstr "Posttypens namn"
 
+#: library/AcfFields/php/resource-fields.php:41
+msgid "Post Type Source"
+msgstr "Källa"
+
 #: library/Admin/Options/Theme.php:76
 msgid "Post Types"
 msgstr "Posttyper"
 
-#: library/AcfFields/php/resource-fields.php:1165
-#, fuzzy
-#| msgid "Post Type"
-msgid "Post types"
-msgstr "Posttyp"
-
-#: library/AcfFields/php/resource-fields.php:761
+#: library/AcfFields/php/resource-fields.php:758
 msgid "Post Types to which this taxonomy should be connected to."
 msgstr "Post Types to which this taxonomy should be connected to."
+
+#: library/AcfFields/php/resource-fields.php:69
+msgid "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
+msgstr "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
 
 #: library/AcfFields/php/options-menu-icon.php:751
 msgid "post_add"
 msgstr "post_add"
+
+#: library/AcfFields/php/resource-fields.php:129
+msgid "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
+msgstr "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
+
+#: library/AcfFields/php/resource-fields.php:123
+msgid "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
+msgstr "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
 
 #: library/Customizer/PanelsRegistry.php:150
 msgid "Posts"
@@ -28091,16 +28097,6 @@ msgstr "Inlägg"
 #| msgid "(above archive posts)"
 msgid "Posts (above archive posts)"
 msgstr "Inlägg (ovanför arkivinlägg)"
-
-#: library/AcfFields/php/resource-fields.php:25
-msgid "Posttyp"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:143
-#, fuzzy
-#| msgid "Post Type Arguments"
-msgid "Posttypsargument"
-msgstr "Posttypsargument"
 
 #: library/AcfFields/php/options-menu-icon.php:752
 msgid "power"
@@ -28125,6 +28121,10 @@ msgstr "Textjustering före sidfot"
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:195
 msgid "pre-school"
 msgstr "pre-school"
+
+#: library/AcfFields/php/resource-fields.php:77
+msgid "pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school"
+msgstr "pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school"
 
 #: library/Customizer/Sections/Quicklinks.php:22
 #: library/Customizer/Sections/Field.php:21
@@ -28190,12 +28190,12 @@ msgstr "Primär logotyp"
 msgid "Primary menu"
 msgstr "Primär menu"
 
-#: library/Controller/BaseController.php:250
+#: library/Controller/BaseController.php:255
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: library/Helper/Navigation.php:871 library/Api/Pdf/PdfGenerator.php:57
+#: library/Helper/Navigation.php:867
 msgid "Print"
 msgstr "Skriv ut"
 
@@ -28203,7 +28203,7 @@ msgstr "Skriv ut"
 msgid "print"
 msgstr "skriv ut"
 
-#: library/Helper/Navigation.php:872 library/Api/Pdf/PdfGenerator.php:58
+#: library/Helper/Navigation.php:868
 msgid "Print this page"
 msgstr "Skriv ut den här sidan"
 
@@ -28227,6 +28227,16 @@ msgstr "Profilbild"
 msgid "Project"
 msgstr "Projekt"
 
+#: library/AcfFields/php/resource-fields.php:137
+msgid "property: https://api.helsingborg.se/event/json/wp/v2/property"
+msgstr "property: https://api.helsingborg.se/event/json/wp/v2/property"
+
+#: library/AcfFields/php/resource-fields.php:261
+#: library/AcfFields/php/resource-fields.php:796
+#, fuzzy
+msgid "Public"
+msgstr "Offentlig"
+
 #: library/AcfFields/php/options-menu-icon.php:761
 msgid "public"
 msgstr "public"
@@ -28239,20 +28249,26 @@ msgstr "Offentlig /url/ att visa arkivet på."
 msgid "Public?"
 msgstr "Publik?"
 
+#: library/AcfFields/php/resource-fields.php:361
+#: library/AcfFields/php/resource-fields.php:876
+#, fuzzy
+msgid "Publicly Queryable"
+msgstr "Offentligt sökbar"
+
 #: library/AcfFields/php/options-menu-icon.php:762
 msgid "publish"
 msgstr "publish"
 
-#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:281
 msgid "Publish Date"
 msgstr "Publiceringsdatum"
 
-#: library/Controller/BaseController.php:267
-#: library/Controller/BaseController.php:277
+#: library/Controller/BaseController.php:272
+#: library/Controller/BaseController.php:282
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:268
+#: library/Controller/BaseController.php:273
 msgid "Published by"
 msgstr "Publicerad av"
 
@@ -28261,7 +28277,7 @@ msgid "px"
 msgstr "px"
 
 #: library/AcfFields/php/resource-fields.php:642
-#: library/AcfFields/php/resource-fields.php:1113
+#: library/AcfFields/php/resource-fields.php:1106
 msgid "Query Var"
 msgstr "Query Var"
 
@@ -28289,7 +28305,7 @@ msgstr "queue_music"
 msgid "queue_play_next"
 msgstr "queue_play_next"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:278
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:258
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
@@ -28324,7 +28340,7 @@ msgstr "radio_button_checked"
 msgid "radio_button_unchecked"
 msgstr "radio_button_unchecked"
 
-#: library/Controller/BaseController.php:274
+#: library/Controller/BaseController.php:279
 msgid "Random"
 msgstr "Slumpmässig"
 
@@ -28332,13 +28348,13 @@ msgstr "Slumpmässig"
 msgid "rate_review"
 msgstr "rate_review"
 
-#: library/Controller/BaseController.php:264
-#: library/Controller/BaseController.php:280
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:542
+#: library/Controller/BaseController.php:269
+#: library/Controller/BaseController.php:285
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:457
 msgid "Read more"
 msgstr "Läs mer"
 
-#: library/Controller/BaseController.php:261
+#: library/Controller/BaseController.php:266
 msgid "Reading time"
 msgstr "Lästid"
 
@@ -28374,12 +28390,12 @@ msgstr "Normal (400)"
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Controller/BaseController.php:262
+#: library/Controller/BaseController.php:267
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr "Relaterade"
 
-#: library/Controller/BaseController.php:253
+#: library/Controller/BaseController.php:258
 msgid "Related links"
 msgstr "Relaterade länkar"
 
@@ -28427,10 +28443,6 @@ msgstr "repeat"
 msgid "repeat_one"
 msgstr "repeat_one"
 
-#: library/Api/Pdf/PdfGenerator.php:116
-msgid "Replace default Print with PDF generator"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:787
 msgid "replay"
 msgstr "replay"
@@ -28467,16 +28479,16 @@ msgstr "report_off"
 msgid "report_problem"
 msgstr "report_problem"
 
-#: library/Controller/BaseController.php:290
+#: library/Controller/BaseController.php:295
 msgid "Reset"
 msgstr "Återställ"
 
-#: library/Controller/BaseController.php:271
-#: library/Controller/BaseController.php:288
+#: library/Controller/BaseController.php:276
+#: library/Controller/BaseController.php:293
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Controller/BaseController.php:287
+#: library/Controller/BaseController.php:292
 msgid "Reset search"
 msgstr "Återställ sök"
 
@@ -28515,6 +28527,17 @@ msgstr "Returtyp från nedladdad bild."
 #: library/AcfFields/php/options-theme-custom-post-type.php:327
 msgid "Revisions"
 msgstr "Versioner"
+
+#: library/AcfFields/php/resource-fields.php:457
+#: library/AcfFields/php/resource-fields.php:972
+#, fuzzy
+msgid "Rewrite"
+msgstr "Omskrivning"
+
+#: library/AcfFields/php/resource-fields.php:554
+#: library/AcfFields/php/resource-fields.php:1018
+msgid "Rewrite options"
+msgstr "Alternativ för url-omskrivning"
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:76
 msgid "Rewrite with front"
@@ -28589,11 +28612,6 @@ msgstr "Rad"
 msgid "rowing"
 msgstr "rowing"
 
-#: library/AcfFields/php/resource-fields.php:620
-#: library/AcfFields/php/resource-fields.php:1091
-msgid "RSS-flöde"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:810
 msgid "rss_feed"
 msgstr "rss_feed"
@@ -28602,7 +28620,7 @@ msgstr "rss_feed"
 msgid "rv_hookup"
 msgstr "rv_hookup"
 
-#: library/Theme/Enqueue.php:189
+#: library/Theme/Enqueue.php:181
 msgid "Sa"
 msgstr "Lö"
 
@@ -28683,8 +28701,8 @@ msgstr "sd_card"
 msgid "sd_storage"
 msgstr "sd_storage"
 
-#: library/Search/General.php:55 library/Controller/BaseController.php:247
-#: library/Controller/BaseController.php:285
+#: library/Search/General.php:55 library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:290
 #: library/Customizer/PanelsRegistry.php:234
 #: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52
@@ -28709,7 +28727,7 @@ msgstr "Sök efter"
 msgid "Search form shape"
 msgstr "Form på sökfältet"
 
-#: library/Controller/BaseController.php:248
+#: library/Controller/BaseController.php:253
 msgid "Search on"
 msgstr "Sök på"
 
@@ -28723,7 +28741,7 @@ msgid ""
 msgstr ""
 "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
 
-#: library/Controller/BaseController.php:246
+#: library/Controller/BaseController.php:251
 msgid "second"
 msgstr "sekund"
 
@@ -28773,7 +28791,7 @@ msgstr "Sekundärmeny och panelmeny"
 msgid "Secondary navigation position"
 msgstr "Positionering av sekundärmeny"
 
-#: library/Controller/BaseController.php:245
+#: library/Controller/BaseController.php:250
 msgid "seconds"
 msgstr "sekunder"
 
@@ -28789,7 +28807,7 @@ msgstr "Sektioner: Tvådelad"
 msgid "security"
 msgstr "security"
 
-#: library/Controller/Singular.php:268 library/Controller/Archive.php:474
+#: library/Controller/Singular.php:237 library/Controller/Archive.php:475
 msgid "Select"
 msgstr "Välj"
 
@@ -28815,7 +28833,7 @@ msgstr "Välj en färg att använda för text i sidhuvudet."
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: library/Controller/BaseController.php:284
+#: library/Controller/BaseController.php:289
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
@@ -28936,15 +28954,17 @@ msgstr ""
 msgid "Sets the color of the button. The custom color will be ignored."
 msgstr "Ställer in färgen på knappen. Den anpassade färgen ignoreras."
 
+#: library/AcfFields/php/resource-fields.php:646
+#: library/AcfFields/php/resource-fields.php:1110
+#, fuzzy
+msgid "Sets the query_var key for this post type."
+msgstr "Ställer in query_var-nyckeln för denna inläggstyp."
+
 #: library/Customizer/Sections/MegaMenu.php:100
 #: library/Customizer/Sections/MegaMenu.php:119
 #, fuzzy
 msgid "Sets the style of the main items"
 msgstr "Ställer in stilen för huvudobjekten"
-
-#: library/Api/Pdf/PdfGenerator.php:112
-msgid "Settings"
-msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:288
 msgid "Settings for Open Street Maps."
@@ -29054,7 +29074,12 @@ msgstr "short_text"
 msgid "Show"
 msgstr "Visa"
 
-#: library/Controller/BaseController.php:263 library/Controller/E404.php:47
+#: library/AcfFields/php/resource-fields.php:856
+#, fuzzy
+msgid "Show Admin Column"
+msgstr "Visa admin-kolumn"
+
+#: library/Controller/BaseController.php:268 library/Controller/E404.php:47
 msgid "Show all"
 msgstr "Visa alla"
 
@@ -29081,6 +29106,24 @@ msgstr "Visa utvald bild i singel-template"
 #: library/AcfFields/php/options-menu-mega.php:67
 msgid "Show icon after label"
 msgstr "Visa ikon"
+
+#: library/AcfFields/php/resource-fields.php:429
+#: library/AcfFields/php/resource-fields.php:944
+#, fuzzy
+msgid "Show In Admin Bar"
+msgstr "Visa i adminfältet"
+
+#: library/AcfFields/php/resource-fields.php:401
+#: library/AcfFields/php/resource-fields.php:916
+#, fuzzy
+msgid "Show In Menu"
+msgstr "Visa i menyn"
+
+#: library/AcfFields/php/resource-fields.php:381
+#: library/AcfFields/php/resource-fields.php:896
+#, fuzzy
+msgid "Show In Nav Menus"
+msgstr "Visa i navigeringsmenyer"
 
 #: library/Customizer/Sections/MegaMenu.php:242
 msgid "Show on mobile"
@@ -29109,15 +29152,15 @@ msgstr "Visa titel"
 msgid "Show title in One Page template"
 msgstr "Visa utvald bild i singel-template"
 
+#: library/AcfFields/php/resource-fields.php:301
+#: library/AcfFields/php/resource-fields.php:836
+#, fuzzy
+msgid "Show UI"
+msgstr "Visa användargränssnitt"
+
 #: library/AcfFields/php/options-menu-icon.php:859
 msgid "show_chart"
 msgstr "show_chart"
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:361
-#, php-format
-msgctxt "Shown on pre-schools"
-msgid "Do you want to join %s?"
-msgstr ""
 
 #: library/Theme/Icon.php:107
 msgid "Shrink section"
@@ -29187,7 +29230,7 @@ msgstr "signal_wifi_off"
 msgid "sim_card"
 msgstr "sim_card"
 
-#: library/Controller/BaseController.php:232
+#: library/Controller/BaseController.php:237
 msgid "since"
 msgstr "sedan"
 
@@ -29199,7 +29242,7 @@ msgstr "Ettvalsväljare"
 msgid "single_bed"
 msgstr "single_bed"
 
-#: library/Controller/BaseController.php:255
+#: library/Controller/BaseController.php:260
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
@@ -29213,15 +29256,15 @@ msgstr "Webbplatsväljare"
 msgid "Size"
 msgstr "Storlek"
 
-#: library/Controller/BaseController.php:227
+#: library/Controller/BaseController.php:232
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: library/Controller/BaseController.php:229
+#: library/Controller/BaseController.php:234
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: library/Controller/BaseController.php:230
+#: library/Controller/BaseController.php:235
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
@@ -29257,6 +29300,11 @@ msgstr "slideshow"
 #: library/AcfFields/php/options-menu-icon.php:876
 msgid "slow_motion_video"
 msgstr "slow_motion_video"
+
+#: library/AcfFields/php/resource-fields.php:580
+#: library/AcfFields/php/resource-fields.php:1044
+msgid "Slug"
+msgstr "Permalänk"
 
 #: library/AcfFields/php/widget-header-common.php:159
 msgid "SM and up"
@@ -29305,7 +29353,7 @@ msgstr "snooze"
 msgid "Solid"
 msgstr "Solid"
 
-#: library/Theme/Enqueue.php:156
+#: library/Theme/Enqueue.php:148
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
@@ -29313,7 +29361,7 @@ msgstr "Något gick fel, vänligen försök igen senare"
 msgid "sort"
 msgstr "sort"
 
-#: library/Controller/BaseController.php:273
+#: library/Controller/BaseController.php:278
 msgid "Sort by"
 msgstr "Sortera efter"
 
@@ -29349,10 +29397,6 @@ msgstr "speaker_notes_off"
 msgid "speaker_phone"
 msgstr "speaker_phone"
 
-#: library/Api/Pdf/PdfGenerator.php:241
-msgid "Specific cover settings"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:892
 msgid "speed"
 msgstr "speed"
@@ -29360,6 +29404,10 @@ msgstr "speed"
 #: library/AcfFields/php/options-menu-icon.php:893
 msgid "spellcheck"
 msgstr "spellcheck"
+
+#: library/AcfFields/php/resource-fields.php:84
+msgid "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
+msgstr "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
 
 #: library/AcfFields/php/options-menu-icon.php:894
 msgid "sports"
@@ -29543,12 +29591,7 @@ msgstr "Stil"
 msgid "style"
 msgstr "style"
 
-#: library/AcfFields/php/resource-fields.php:646
-#: library/AcfFields/php/resource-fields.php:1117
-msgid "Ställer in query_var-nyckeln för denna inläggstyp."
-msgstr ""
-
-#: library/Theme/Enqueue.php:183
+#: library/Theme/Enqueue.php:175
 msgid "Su"
 msgstr "Sö"
 
@@ -29669,13 +29712,6 @@ msgstr "system_update_alt"
 msgid "Sök utlösare"
 msgstr "Sök utlösare"
 
-#: library/AcfFields/php/resource-fields.php:522
-#: library/AcfFields/php/resource-fields.php:1014
-#, fuzzy
-#| msgid "eg. \"manage_options\"..."
-msgid "t.ex. \"manage_options\"..."
-msgstr "t.ex. \"manage_options\"..."
-
 #: library/AcfFields/php/options-menu-icon.php:951
 msgid "tab"
 msgstr "tab"
@@ -29759,23 +29795,30 @@ msgstr "Stående"
 msgid "tap_and_play"
 msgstr "tap_and_play"
 
-#: library/AcfFields/php/resource-fields.php:26
-#, fuzzy
-#| msgid "Taxonomy"
-msgid "Taxonomi"
-msgstr "Taxonomi"
-
 #: library/Admin/Options/Theme.php:84
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
-#: library/AcfFields/php/resource-fields.php:697
-msgid "Taxonominyckel"
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:26
+#, fuzzy
+msgid "Taxonomy"
+msgstr "Taxonomi"
+
+#: library/AcfFields/php/resource-fields.php:664
+msgid "Taxonomy Arguments"
+msgstr "Argument för taxonomi"
 
 #: library/Customizer/Sections/Archive.php:297
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
+
+#: library/AcfFields/php/resource-fields.php:694
+msgid "Taxonomy key"
+msgstr "Taxonominyckel"
+
+#: library/AcfFields/php/resource-fields.php:101
+msgid "Taxonomy Source"
+msgstr "Källa"
 
 #: library/Admin/Options/ContentType.php:92
 msgid "Template"
@@ -29786,7 +29829,7 @@ msgid "terrain"
 msgstr "terrain"
 
 #: library/Admin/UI/BackEnd.php:27
-#: library/Controller/ContentType/School/ContentTypeComplex.TestExcl.php:21
+#: library/Controller/ContentType/ContentTypeComplex.Test.php:21
 msgid "Test"
 msgstr "Test"
 
@@ -29871,7 +29914,7 @@ msgstr "textsms"
 msgid "texture"
 msgstr "texture"
 
-#: library/Theme/Enqueue.php:187
+#: library/Theme/Enqueue.php:179
 msgid "Th"
 msgstr "To"
 
@@ -29921,6 +29964,26 @@ msgstr ""
 msgid "The hero area"
 msgstr "Hero-arean"
 
+#: library/AcfFields/php/resource-fields.php:185
+#, fuzzy
+msgid ""
+"The key of the post type. Max. 20 characters, cannot contain capital letters "
+"or spaces."
+msgstr ""
+"Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller "
+"mellanslag."
+
+#: library/AcfFields/php/resource-fields.php:698
+#: library/AcfFields/php/resource-fields.php:718
+#: library/AcfFields/php/resource-fields.php:738
+#, fuzzy
+msgid ""
+"The key of the post type. Max. 32 characters, cannot contain capital letters "
+"or spaces."
+msgstr ""
+"Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller "
+"mellanslag."
+
 #: library/Theme/Sidebars.php:191
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
@@ -29935,11 +29998,13 @@ msgstr ""
 msgid "The password entered is not correct."
 msgstr "Lösenordet är inte korrekt."
 
-#: library/Api/Pdf/PdfGenerator.php:32
+#: library/AcfFields/php/resource-fields.php:481
 msgid ""
-"The PDF generator is missing some suggested dependencies. Please install the "
-"following PHP extensions: GD"
+"The position in the menu order the post type should appear. show_in_menu "
+"must be true."
 msgstr ""
+"Den position i menyordningen som inläggstypen ska visas. show_in_menu måste "
+"vara true."
 
 #: library/Theme/Sidebars.php:176
 msgid "The right sidebar area"
@@ -29973,7 +30038,7 @@ msgstr "theaters"
 msgid "Theme Options"
 msgstr "Temainställningar"
 
-#: library/Controller/Singular.php:474
+#: library/Controller/Singular.php:443
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -29994,7 +30059,7 @@ msgstr ""
 msgid "This it the test-environment. Your content will not be published."
 msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 
-#: library/Oembed/OembedFilters.php:40
+#: library/Oembed/OembedFilters.php:18
 #, php-format
 msgid ""
 "This part of the website shows content from %s. By continuing, <a "
@@ -30003,7 +30068,7 @@ msgstr ""
 "Den här delen av hemsidan visar innehåll från %s. Genom att fortsätta "
 "godkänner du <a href=\"%s\">GDPR och Sekretesspolicyn</a>."
 
-#: library/Oembed/OembedFilters.php:46
+#: library/Oembed/OembedFilters.php:24
 #, php-format
 msgid ""
 "This part of the website shows content from another website (%s). By "
@@ -30199,11 +30264,18 @@ msgstr "Storlek på knapp"
 msgid "Trigger button type"
 msgstr "Typ av knapp"
 
+#: library/AcfFields/php/resource-fields.php:461
+#: library/AcfFields/php/resource-fields.php:558
+#: library/AcfFields/php/resource-fields.php:976
+#: library/AcfFields/php/resource-fields.php:1022
+msgid "Triggers the handling of rewrites for this post type."
+msgstr "Hantering av url-omskrivningar för denna posttyp."
+
 #: library/AcfFields/php/options-menu-icon.php:1003
 msgid "trip_origin"
 msgstr "trip_origin"
 
-#: library/Theme/Enqueue.php:185
+#: library/Theme/Enqueue.php:177
 msgid "Tu"
 msgstr "Ti"
 
@@ -30232,13 +30304,6 @@ msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
 #: library/AcfFields/php/resource-fields.php:12
-msgid "Typ"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:757
-msgid "Typ av objekt"
-msgstr ""
-
 #: library/AcfFields/php/term-icon-and-colour.php:47
 #: library/AcfFields/php/options-theme-favicon.php:31
 msgid "Type"
@@ -30277,7 +30342,7 @@ msgstr "unfold_more"
 msgid "unsubscribe"
 msgstr "unsubscribe"
 
-#: library/Helper/Navigation.php:644 library/Helper/Navigation.php:937
+#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:933
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
@@ -30285,8 +30350,8 @@ msgstr "Namnlös sida"
 msgid "update"
 msgstr "update"
 
-#: library/Controller/BaseController.php:266
-#: library/Controller/BaseController.php:278
+#: library/Controller/BaseController.php:271
+#: library/Controller/BaseController.php:283
 msgid "Updated"
 msgstr "Uppdaterad"
 
@@ -30379,27 +30444,21 @@ msgstr "Använd samma typsnitt som bas men mer fetstilad"
 msgid "Use the same font as base but preferably with an italic style"
 msgstr "Använd samma typsnitt som bas men välj en kursiv stil"
 
-#: library/Controller/BaseController.php:252
+#: library/Controller/BaseController.php:257
 msgid "Useful links"
 msgstr "Användbara länkar"
+
+#: library/AcfFields/php/resource-fields.php:130
+msgid "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
+msgstr "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:162
 msgid "user_request"
 msgstr "user_request"
 
-#: library/AcfFields/php/resource-fields.php:337
-msgid "Uteslut från sök"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:429
-#: library/AcfFields/php/resource-fields.php:951
-msgid "Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:401
-#: library/AcfFields/php/resource-fields.php:923
-msgid "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
-msgstr ""
+#: library/AcfFields/php/resource-fields.php:126
+msgid "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
+msgstr "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
 
 #: library/AcfFields/php/options-menu-icon.php:1016
 msgid "verified_user"
@@ -30523,30 +30582,6 @@ msgstr "view_week"
 msgid "vignette"
 msgstr "vignette"
 
-#: library/AcfFields/php/resource-fields.php:859
-msgid "Visa admin-kolumn"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:297
-#: library/AcfFields/php/resource-fields.php:839
-msgid "Visa användargränssnitt"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:425
-#: library/AcfFields/php/resource-fields.php:947
-msgid "Visa i adminfältet"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:397
-#: library/AcfFields/php/resource-fields.php:919
-msgid "Visa i menyn"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:377
-#: library/AcfFields/php/resource-fields.php:899
-msgid "Visa i navigeringsmenyer"
-msgstr ""
-
 #: library/AcfFields/php/widget-header-common.php:29
 msgid "Visibility"
 msgstr "Synbarhet"
@@ -30559,15 +30594,15 @@ msgstr "visibility"
 msgid "visibility_off"
 msgstr "visibility_off"
 
-#: library/Controller/BaseController.php:296
+#: library/Controller/BaseController.php:301
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:292
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:269
 msgid "Visit us"
 msgstr "Besök oss"
 
-#: library/Helper/ContentType.php:324
+#: library/Helper/ContentTypePlace.php:38
 msgid "Visit website"
 msgstr "Gå till webbplats"
 
@@ -30579,11 +30614,11 @@ msgstr "Besökt"
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:488
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:412
 msgid "Visiting address"
 msgstr "Adress"
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:489
+#: library/Controller/ContentType/School/SchoolDataPreparer.php:413
 msgid "Visiting addresses"
 msgstr "Adresser"
 
@@ -30700,11 +30735,11 @@ msgstr "wb_sunny"
 msgid "wc"
 msgstr "wc"
 
-#: library/Theme/Enqueue.php:186
+#: library/Theme/Enqueue.php:178
 msgid "We"
 msgstr "On"
 
-#: library/Oembed/OembedFilters.php:39 library/Oembed/OembedFilters.php:45
+#: library/Oembed/OembedFilters.php:17 library/Oembed/OembedFilters.php:23
 msgid "We need your consent to continue"
 msgstr "Vi behöver ditt godkännande för att ta dig vidare"
 
@@ -30720,11 +30755,11 @@ msgstr "web"
 msgid "web_asset"
 msgstr "web_asset"
 
-#: library/Controller/BaseController.php:238
+#: library/Controller/BaseController.php:243
 msgid "week"
 msgstr "vecka"
 
-#: library/Controller/BaseController.php:237
+#: library/Controller/BaseController.php:242
 msgid "weeks"
 msgstr "veckor"
 
@@ -30738,7 +30773,7 @@ msgstr ""
 msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
-#: library/Controller/BaseController.php:249
+#: library/Controller/BaseController.php:254
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
@@ -30767,6 +30802,18 @@ msgstr "whatshot"
 msgid "Where to show Google Translate"
 msgstr "Var Google Translate ska visas"
 
+#: library/AcfFields/php/resource-fields.php:433
+#: library/AcfFields/php/resource-fields.php:948
+msgid ""
+"Where to show the post type in the admin bar. show_in_menu must be true."
+msgstr ""
+"Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
+
+#: library/AcfFields/php/resource-fields.php:405
+#: library/AcfFields/php/resource-fields.php:920
+msgid "Where to show the post type in the admin menu. show_ui must be true."
+msgstr "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
+
 #: library/AcfFields/php/options-menu-icon.php:1067
 msgid "where_to_vote"
 msgstr "where_to_vote"
@@ -30779,6 +30826,19 @@ msgstr ""
 "Om sökresultatet ska breddas (av) eller om sökresultatet ska smalnas av (på) "
 "när flera kategorier väljs."
 
+#: library/AcfFields/php/resource-fields.php:385
+#: library/AcfFields/php/resource-fields.php:900
+#, fuzzy
+msgid "Whether post_type is available for selection in navigation menus."
+msgstr "Om post_type är tillgänglig för val i navigeringsmenyer."
+
+#: library/AcfFields/php/resource-fields.php:365
+#: library/AcfFields/php/resource-fields.php:880
+msgid ""
+"Whether queries can be performed on the front end as part of parse_request()."
+msgstr ""
+"Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
+
 #: library/AcfFields/php/options-theme-custom-post-type.php:240
 msgid ""
 "Whether the post type is hierarchical (e.g. page). Allows Parent to be "
@@ -30787,10 +30847,30 @@ msgstr ""
 "Om inläggstypen är hierarkisk. Tillåter parent/child förhållande mellan "
 "inlägg."
 
+#: library/AcfFields/php/resource-fields.php:285
+#: library/AcfFields/php/resource-fields.php:820
+#, fuzzy
+msgid "Whether the post type is hierarchical. Allows Parent to be specified."
+msgstr "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
+
+#: library/AcfFields/php/resource-fields.php:265
+#: library/AcfFields/php/resource-fields.php:800
+#, fuzzy
+msgid "Whether the post type should be publicly queryable."
+msgstr "Om inläggstypen ska vara allmänt sökbar."
+
+#: library/AcfFields/php/resource-fields.php:345
 #: library/AcfFields/php/options-theme-custom-post-type.php:198
 msgid ""
 "Whether to exclude posts with this post type from front end search results."
 msgstr "Om inläggstypen ska exkluderas från sökresultat."
+
+#: library/AcfFields/php/resource-fields.php:305
+#: library/AcfFields/php/resource-fields.php:840
+msgid "Whether to generate a default UI for managing this post type."
+msgstr ""
+"Huruvida ett standardgränssnitt ska genereras för hantering av denna "
+"inläggstyp."
 
 #: library/Customizer/Sections/OpenStreetMap.php:44
 msgid "Which latitude and longitude to center Open Street Maps on as default."
@@ -30868,6 +30948,12 @@ msgstr "wifi_tethering"
 msgid "Will default to \"Select <name of taxonomy>\"."
 msgstr "Som standard visas \"Välj (namn på kategoritypen)\"."
 
+#: library/AcfFields/php/resource-fields.php:600
+#: library/AcfFields/php/resource-fields.php:1064
+#, fuzzy
+msgid "With front"
+msgstr "Med front"
+
 #: library/AcfFields/php/navigation-widget.php:27
 msgid "Wordpress menu"
 msgstr "Wordpress-menyn"
@@ -30888,6 +30974,10 @@ msgstr "work_outline"
 msgid "wp_block"
 msgstr "wp_block"
 
+#: library/AcfFields/php/resource-fields.php:73
+msgid "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
+msgstr "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
+
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:166
 msgid "wp_global_styles"
 msgstr "wp_global_styles"
@@ -30896,13 +30986,27 @@ msgstr "wp_global_styles"
 msgid "wp_navigation"
 msgstr "wp_navigation"
 
+#: library/AcfFields/php/resource-fields.php:76
+msgid "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
+msgstr "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
+
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:164
 msgid "wp_template"
 msgstr "wp_template"
 
+#: library/AcfFields/php/resource-fields.php:74
+msgid "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
+msgstr "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
+
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:165
 msgid "wp_template_part"
 msgstr "wp_template_part"
+
+#: library/AcfFields/php/resource-fields.php:75
+msgid ""
+"wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts"
+msgstr ""
+"wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts"
 
 #: library/Customizer/Sections/Divider.php:158
 msgid "Wrap title in frame"
@@ -30912,11 +31016,11 @@ msgstr "Ram runt titel"
 msgid "wrap_text"
 msgstr "wrap_text"
 
-#: library/Controller/BaseController.php:234
+#: library/Controller/BaseController.php:239
 msgid "year"
 msgstr "år"
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/BaseController.php:238
 msgid "years"
 msgstr "år"
 
@@ -30928,7 +31032,7 @@ msgstr "Ja, inaktivera sidor."
 msgid "Yes, disable posts."
 msgstr "Ja, inaktivera blogg."
 
-#: library/Controller/BaseController.php:260
+#: library/Controller/BaseController.php:265
 msgid "You are here: "
 msgstr "Du är här: "
 
@@ -30963,18 +31067,6 @@ msgstr "zoom_out"
 #: library/AcfFields/php/options-menu-icon.php:1080
 msgid "zoom_out_map"
 msgstr "zoom_out_map"
-
-#: library/AcfFields/php/resource-fields.php:530
-msgid "Överordnade inläggstyper"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:534
-msgid ""
-"Överordnade inläggstyper används för att bestämma permalänken och "
-"omskrivningsreglerna för denna inläggstyp. Om du anger överordnade "
-"inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen "
-"för överordnade inläggstyper."
-msgstr ""
 
 #: library/Widget/Navigation/Navigation.php:82
 msgid "Översätt"
