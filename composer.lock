@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07b7a891dfd9a7afbc0a62f77aafa271",
+    "content-hash": "9bcfa3221190ee4cb580971df3246818",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -325,16 +325,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "dev-master",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "a373c4584d43f8da0b109184b8abf8e35c6cdf67"
+                "reference": "093f2d9739cec57428e39ddadedfd4f3ae862c0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/a373c4584d43f8da0b109184b8abf8e35c6cdf67",
-                "reference": "a373c4584d43f8da0b109184b8abf8e35c6cdf67",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/093f2d9739cec57428e39ddadedfd4f3ae862c0f",
+                "reference": "093f2d9739cec57428e39ddadedfd4f3ae862c0f",
                 "shasum": ""
             },
             "require": {
@@ -346,13 +346,11 @@
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "ext-gd": "*",
                 "ext-json": "*",
                 "ext-zip": "*",
                 "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^7.5 || ^8 || ^9 || ^10",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/process": "^4.4 || ^5.4 || ^6.2 || ^7.0"
+                "phpunit/phpunit": "^7.5 || ^8 || ^9",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "suggest": {
                 "ext-gd": "Needed to process images",
@@ -360,7 +358,6 @@
                 "ext-imagick": "Improves image processing performance",
                 "ext-zlib": "Needed for pdf stream compression"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -384,9 +381,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/master"
+                "source": "https://github.com/dompdf/dompdf/tree/v2.0.4"
             },
-            "time": "2024-01-12T12:43:38+00:00"
+            "time": "2023-12-12T20:19:39+00:00"
         },
         {
             "name": "helsingborg-stad/acf-export-manager",
@@ -1085,7 +1082,7 @@
         },
         {
             "name": "ouun/kirki-module-fonts_upload",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ouun/kirki-module-fonts_upload.git",
@@ -1100,7 +1097,6 @@
             "require": {
                 "php": ">=5.6"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -4733,10 +4729,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "ouun/kirki-module-fonts_upload": 20,
-        "dompdf/dompdf": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

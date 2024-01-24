@@ -32,7 +32,7 @@
         "helsingborg-stad/blade-engine-wrapper": "^1.0.0",
         "pragmarx/ia-arr": "^7.3",
         "wpackagist-plugin/kirki": "^5.0",
-        "ouun/kirki-module-fonts_upload": "dev-master",
+        "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4"
     },
