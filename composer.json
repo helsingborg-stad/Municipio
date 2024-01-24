@@ -29,7 +29,7 @@
         "helsingborg-stad/global-blade-engine": "^2.0.0",
         "symfony/polyfill-mbstring": "1.17.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "helsingborg-stad/blade-engine-wrapper": "dev-master",
+        "helsingborg-stad/blade-engine-wrapper": "^1.0.0",
         "pragmarx/ia-arr": "^7.3",
         "wpackagist-plugin/kirki": "^5.0",
         "ouun/kirki-module-fonts_upload": "dev-master",
