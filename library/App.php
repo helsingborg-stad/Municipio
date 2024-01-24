@@ -83,7 +83,7 @@ class App
 
             $resourceRegistry->registerResources();
 
-            $postTypeResources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
             $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
 
             foreach ($sortedPostTypeResources as $resource) {

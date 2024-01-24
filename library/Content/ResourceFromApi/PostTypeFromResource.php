@@ -53,19 +53,19 @@ class PostTypeFromResource implements TypeRegistrarInterface
     {
         $postTypeName = $this->resource->getName();
         $arguments    = $this->resource->getArguments();
-        
+
         if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
             return;
         }
-        
+
         foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
             if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
                 return;
             }
-            
+
             foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
                 $parentPostTypeObject = get_post_type_object($parentPostTypeName);
-                
+
                 if (empty($parentPostTypeObject)) {
                     continue;
                 }
