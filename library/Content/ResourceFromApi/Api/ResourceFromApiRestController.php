@@ -82,12 +82,16 @@ class ResourceFromApiRestController extends WP_REST_Controller
         return rest_ensure_response($updatedPosts[0]);
     }
 
-    private function purgePostFromObjectCache($postId): void {
+    /**
+     * Purges the given post from the object cache.
+     */
+    private function purgePostFromObjectCache($postId): void
+    {
         clean_post_cache($postId);
     }
 
     /**
-     * Purges the given post from the cache.
+     * Purges the given post from the page cache.
      */
     private function purgePostFromPageCache($postId): void
     {
@@ -97,7 +101,7 @@ class ResourceFromApiRestController extends WP_REST_Controller
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             return;
         }
-        
+
         wp_remote_request(
             $url,
             array(
