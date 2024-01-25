@@ -65,7 +65,8 @@ class ResourceFromApiRestController extends WP_REST_Controller
         }
 
         if (is_a($post, 'WP_Post')) {
-            $this->purgeFromCache($post->ID);
+            $this->purgePostFromObjectCache($post->ID);
+            $this->purgePostFromPageCache($post->ID);
         }
 
         $updatedPosts = get_posts([
@@ -81,13 +82,22 @@ class ResourceFromApiRestController extends WP_REST_Controller
         return rest_ensure_response($updatedPosts[0]);
     }
 
+    private function purgePostFromObjectCache($postId): void {
+        clean_post_cache($postId);
+    }
+
     /**
      * Purges the given post from the cache.
      */
-    private function purgeFromCache($postId): void
+    private function purgePostFromPageCache($postId): void
     {
         $url = WP::getPermalink($postId);
-        clean_post_cache($postId);
+
+        // Vegify url that $url is a url
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            return;
+        }
+        
         wp_remote_request(
             $url,
             array(
