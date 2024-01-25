@@ -102,7 +102,6 @@ class ResourceFromApiRestController extends WP_REST_Controller
      */
     public function update_item_permissions_check($request)// phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     {
-        return true;
         if (!current_user_can('edit_posts')) {
             return new WP_Error(
                 'rest_cannot_edit',
