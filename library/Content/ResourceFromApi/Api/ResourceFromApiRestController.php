@@ -51,7 +51,7 @@ class ResourceFromApiRestController extends WP_REST_Controller
      */
     public function update_item($request) // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     {
-        $id = (int) $request['id'];
+        $id   = (int) $request['id'];
         $post = null;
 
         if (ResourceFromApiHelper::isRemotePostID($id)) {
@@ -64,7 +64,7 @@ class ResourceFromApiRestController extends WP_REST_Controller
             }
         }
 
-        if( is_a($post, 'WP_Post') ) {
+        if (is_a($post, 'WP_Post')) {
             $this->purgeFromCache($post->ID);
         }
 
@@ -81,15 +81,20 @@ class ResourceFromApiRestController extends WP_REST_Controller
         return rest_ensure_response($updatedPosts[0]);
     }
 
-    private function purgeFromCache($postId):void {
+    /**
+     * Purges the given post from the cache.
+     */
+    private function purgeFromCache($postId): void
+    {
         $url = WP::getPermalink($postId);
         clean_post_cache($postId);
-        wp_remote_request($url,
+        wp_remote_request(
+            $url,
             array(
-                'method' => 'PURGE',
-                'timeout' => 2,
+                'method'      => 'PURGE',
+                'timeout'     => 2,
                 'redirection' => 0,
-                'blocking' => false
+                'blocking'    => false
             )
         );
     }
