@@ -304,47 +304,39 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $this->data['application'] = [];
 
-        $this->data['application']['displayOnWebsite'] = true;
+        $this->data['application']['displayOnWebsite'] =
+        (bool) $this->postMeta->ctaApplication->display_on_website ?? true;
+
+        $this->data['application']['title'] =
+        $this->postMeta->ctaApplication->title
+        ?: $this->getApplicationCtaTitle(get_queried_object());
+
+        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
+        $this->data['application']['apply']       = null;
+        $this->data['application']['howToApply']  = null;
+
         if (
-            false ===
-            $this->postMeta->ctaApplication->display_on_website ||
-            0 ===
-            $this->postMeta->ctaApplication->display_on_website
+            isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
+            !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
+            isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
+            !empty($this->postMeta->ctaApplication->cta_apply_here->title)
         ) {
-            {
-            $this->data['application']['displayOnWebsite'] = false;
-            }
+            $this->data['application']['apply'] = [
+            'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
+            'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
+            ];
+        }
 
-            $this->data['application']['title'] = $this->postMeta->ctaApplication->title ?:
-                $this->getApplicationCtaTitle(get_queried_object());
-
-            $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
-            $this->data['application']['apply']       = null;
-            $this->data['application']['howToApply']  = null;
-
-            if (
-                isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
-                !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
-                isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
-                !empty($this->postMeta->ctaApplication->cta_apply_here->title)
-            ) {
-                $this->data['application']['apply'] = [
-                'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-                'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
-                ];
-            }
-
-            if (
-                isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-                !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-                isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
-                !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
-            ) {
-                $this->data['application']['howToApply'] = [
-                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-                'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
-                ];
-            }
+        if (
+            isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
+            isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
+        ) {
+            $this->data['application']['howToApply'] = [
+            'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
+            'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
+            ];
         }
     }
         /**
