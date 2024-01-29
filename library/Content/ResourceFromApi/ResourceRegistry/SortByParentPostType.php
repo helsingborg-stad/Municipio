@@ -2,6 +2,8 @@
 
 namespace Municipio\Content\ResourceFromApi\ResourceRegistry;
 
+use Municipio\Content\ResourceFromApi\ResourceInterface;
+
 /**
  * Class SortByParentPostType
  */
@@ -10,16 +12,14 @@ class SortByParentPostType implements SortByParentPostTypeInterface
     /**
      * Sorts the resources by parent post type.
      *
-     * @param Resource[] $resources The resources to sort.
+     * @param ResourceInterface[] $resources The resources to sort.
      * @return array The sorted resources.
      */
     public function sortByParentPostType(array $resources): array
     {
-
-        // Sort the resources by parent post type using usort.
         usort($resources, function ($a, $b) {
-            $aParentPostTypes = $a->getArguments()['parent_post_types'] ?? [];
-            $bParentPostTypes = $b->getArguments()['parent_post_types'] ?? [];
+            $aParentPostTypes = $this->getParentPostTypesFromResource($a);
+            $bParentPostTypes = $this->getParentPostTypesFromResource($b);
 
             if (empty($aParentPostTypes) && !empty($bParentPostTypes)) {
                 return -1;
@@ -33,5 +33,19 @@ class SortByParentPostType implements SortByParentPostTypeInterface
         });
 
         return $resources;
+    }
+
+    /**
+     * Gets the parent post types from a resource.
+     *
+     * @param ResourceInterface $resource The resource to get the parent post types from.
+     * @return array The parent post types.
+     */
+    private function getParentPostTypesFromResource(ResourceInterface $resource): array
+    {
+        $parentPostTypes = $resource->getArguments()['parent_post_types'] ?? [];
+        $sanitized       = array_filter(is_array($parentPostTypes) ? $parentPostTypes : []);
+
+        return $sanitized;
     }
 }
