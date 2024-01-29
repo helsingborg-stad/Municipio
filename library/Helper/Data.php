@@ -28,6 +28,7 @@ class Data
      */
     public function prepareStructuredData(array $structuredData = []): ?string
     {
+        _doing_it_wrong(__METHOD__, 'The method ' . __METHOD__ . ' has been deprecated since version 3.61.8. Please use the normalizeStructuredData method instead.', '3.61.8');
         return self::normalizeStructuredData($structuredData);
     }
     /**
