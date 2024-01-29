@@ -59,10 +59,9 @@ class PostTypeFromResource implements TypeRegistrarInterface
         }
 
         foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-            
             $parentPostTypeObject = get_post_type_object($parentPostTypeName);
 
-            if (!is_a($parentPostTypeObject, WP_Post_Type::class) ){
+            if (!is_a($parentPostTypeObject, WP_Post_Type::class)) {
                 continue;
             }
 
