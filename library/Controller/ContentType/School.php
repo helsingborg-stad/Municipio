@@ -19,8 +19,9 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     public function __construct()
     {
-        $this->key   = 'school';
-        $this->label = __('School', 'municipio');
+        $this->key          = 'school';
+        $this->label        = __('School', 'municipio');
+        $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
 
@@ -40,6 +41,10 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
 
+    protected function setSchemaParams(): array
+    {
+        return [];
+    }
     /**
      * addSecondaryContentType
      *

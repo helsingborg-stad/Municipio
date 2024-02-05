@@ -24,10 +24,11 @@ namespace Municipio\Controller\ContentType;
  * An example of a complex purpose is the default 'Event'.
  *
  */
-class ContentTypeFactory implements ContentTypeComponentInterface
+abstract class ContentTypeFactory implements ContentTypeComponentInterface
 {
     protected string $key;
     protected string $label;
+    protected array $schemaParams;
 
         /**
          * ContentTypeFactory constructor.
@@ -37,9 +38,29 @@ class ContentTypeFactory implements ContentTypeComponentInterface
          */
     public function __construct(string $key, string $label)
     {
-        $this->key   = $key;
-        $this->label = $label;
+        $this->key          = $key;
+        $this->label        = $label;
+        $this->schemaParams = $this->applySchemaParamsFilter();
     }
+    /**
+     * Apply the 'Municipio/ContentType/schemaParams' filter to the schema parameters.
+     *
+     * @return array The filtered schema parameters.
+     */
+    protected function applySchemaParamsFilter(): array
+    {
+        $params = $this->setSchemaParams();
+
+        return apply_filters('Municipio/ContentType/schemaParams', $params, $this->key);
+    }
+
+    /**
+     * Abstract method to set schema parameters.
+     * Must be implemented by subclasses to define their specific schema parameters.
+     *
+     * @return array The schema parameters.
+     */
+    abstract protected function setSchemaParams(): array;
 
     /**
      * Get the label of the content type.
@@ -70,7 +91,15 @@ class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return "content-type-{$this->getKey()}";
     }
-
+    /**
+     * Get the schema parameters.
+     *
+     * @return array|null The schema parameters.
+     */
+    public function getSchemaParams(): ?array
+    {
+        return $this->schemaParams;
+    }
     /**
      * Get the structured data for a post.
      *

@@ -13,22 +13,25 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
-
     public $secondaryContentType = [];
-    
+
     public function __construct()
     {
-        $this->key = 'event';
-        $this->label = __('Event', 'municipio');
+        $this->key          = 'event';
+        $this->label        = __('Event', 'municipio');
+        $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
-        
-        $this->addSecondaryContentType(new Place());
 
+        $this->addSecondaryContentType(new Place());
     }
-    public function addHooks() : void 
+    public function addHooks(): void
     {
-        
+    }
+
+    protected function setSchemaParams(): array
+    {
+        return [];
     }
     /**
      * addSecondaryContentType
@@ -70,7 +73,7 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
        // Event dates
         $occasions = $eventMeta['occasions_complete'][0] ?? null;
         $startDate = $occasions ? $occasions[0]['start_date'] ?? '' : '';
-        $endDate = $occasions ? $occasions[0]['end_date'] ?? '' : '';
+        $endDate   = $occasions ? $occasions[0]['end_date'] ?? '' : '';
 
         if ($startDate) {
             $eventData['startDate'] = $startDate;
@@ -110,7 +113,7 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         if ($additionalTypes) {
             $ticketTypes = maybe_unserialize($additionalTypes);
             foreach ($ticketTypes as $type) {
-                $ticketName = $type['ticket_name'] ?? null;
+                $ticketName   = $type['ticket_name'] ?? null;
                 $maximumPrice = $type['maximum_price'] ?? null;
                 if ($ticketName && $maximumPrice) {
                     $eventData['offers'][] = [
@@ -123,11 +126,10 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
             }
         }
 
-        if(empty($eventData['offers'])) {
+        if (empty($eventData['offers'])) {
             unset($eventData['offers']);
         }
        // Append the event data to the structured data
         return $eventData;
     }
-
 }

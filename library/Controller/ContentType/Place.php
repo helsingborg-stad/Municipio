@@ -14,15 +14,15 @@ use Municipio\Helper\WP;
 class Place extends ContentTypeFactory
 {
     public $secondaryContentType = [];
-    public $schemaParams         = [];
     /**
      * Constructor method to set key and label for the Place content type.
      */
     public function __construct()
     {
-        $this->key          = 'place';
-        $this->label        = __('Place', 'municipio');
-        $this->schemaParams = $this->setSchemaParams();
+        $this->key   = 'place';
+        $this->label = __('Place', 'municipio');
+
+        $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
     }
@@ -32,16 +32,24 @@ class Place extends ContentTypeFactory
      *
      * @return array The schema parameters.
      */
-    public function setSchemaParams(): array
+    // public function setSchemaParams(): array
+    // {
+    //     return apply_filters('Municipio/ContentType/schemaParams', [
+    //             'address' => [
+    //                 'schemaType' => 'GeoCoordinates',
+    //                 'label'      => __('Address', 'municipio')
+    //             ],
+    //         ], $this->key);
+    // }
+    protected function setSchemaParams(): array
     {
-        return apply_filters('Municipio/ContentType/schemaParams', [
-                'address' => [
-                    'schemaType' => 'GeoCoordinates',
-                    'label'      => __('Address', 'municipio')
-                ],
-            ], $this->key);
+        return [
+            'address' => [
+                'schemaType' => 'GeoCoordinates',
+                'label'      => __('Address', 'municipio')
+            ],
+        ];
     }
-
     /**
      * Add hooks for the Place content type.
      *

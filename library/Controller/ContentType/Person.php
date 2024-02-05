@@ -11,13 +11,13 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Person extends ContentTypeFactory
 {
-
     public $secondaryContentType = [];
-    
+
     public function __construct()
     {
-        $this->key = 'person';
-        $this->label = __('Person', 'municipio');
+        $this->key          = 'person';
+        $this->label        = __('Person', 'municipio');
+        $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
     }
@@ -27,15 +27,20 @@ class Person extends ContentTypeFactory
         $this->addHooks();
     }
 
-    public function addHooks(): void {
-       
+    public function addHooks(): void
+    {
     }
-    public function getStructuredData(int $postId) : array
+
+    protected function setSchemaParams(): array
+    {
+        return [];
+    }
+    public function getStructuredData(int $postId): array
     {
 
         $structuredData = [
-            '@type'            => 'Person',
-            'name'             => get_the_title($postId),
+            '@type' => 'Person',
+            'name'  => get_the_title($postId),
         ];
 
         $meta = [
@@ -45,6 +50,5 @@ class Person extends ContentTypeFactory
         ];
 
         return ContentTypeHelper::getStructuredData($postId, $structuredData, $meta);
-        
     }
 }
