@@ -3,24 +3,37 @@
 namespace Municipio\Admin\Acf;
 
 /**
- * Class ContentTypeMetaFields
- * @sinve 3.61.8
+ * Manages custom ACF field groups and fields for content types.
+ * This class is responsible for registering field groups and fields based on content types,
+ * ensuring fields are loaded correctly for each content type, and providing a mechanism to
+ * handle field registration dynamically.
+ *
+ * @since 3.61.8
  */
 class ContentTypeMetaFields
 {
+    /**
+     * Key used for the ACF field group associated with schema data.
+     *
+     * @var string
+     */
     protected $fieldGroupKey = 'group_schema_data';
 
     /**
-     * Class constructor.
+     * Constructor hooks into ACF to register field groups and fields.
      */
     public function __construct()
     {
-
         add_action('acf/init', [$this, 'registerFieldGroup']);
-
         add_filter('acf/load_field', [$this, 'loadField'], 1, 2);
     }
 
+    /**
+     * Filters fields based on the content type of the current post.
+     *
+     * @param array $field The field configuration array.
+     * @return array|false The modified field array or false if the field does not match the content type.
+     */
     public function loadField($field)
     {
         global $post;
@@ -31,12 +44,16 @@ class ContentTypeMetaFields
 
         $postContentType = \Municipio\Helper\ContentType::getContentType($post->post_type);
 
-
         if ($postContentType->getKey() === $field['contentType']) {
             return $field;
         }
+
         return false;
     }
+
+    /**
+     * Registers the field group for content types, adding location rules based on registered content types.
+     */
     public function registerFieldGroup()
     {
         $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes();
@@ -45,29 +62,35 @@ class ContentTypeMetaFields
             return;
         }
 
-        $locationRules = [];
-        foreach ($contentTypes as $key => $value) {
-            $locationRules[] =
-            [
+        $locationRules = array_map(function ($key) {
+            return [
                 [
                     'param'    => 'content_type',
                     'operator' => '==',
                     'value'    => $key,
-                ]
+                ],
             ];
-        }
+        }, array_keys($contentTypes));
 
         acf_add_local_field_group([
             'key'      => $this->fieldGroupKey,
             'title'    => __('Schema data', 'municipio'),
-            'fields'   =>  [],
-            'location' => $locationRules
+            'fields'   => [],
+            'location' => $locationRules,
         ]);
+
         $this->registerFields($this->fieldGroupKey);
     }
+
+    /**
+     * Iterates over registered content types and registers fields based on schema parameters.
+     *
+     * @param string $fieldGroup The field group key under which the fields should be registered.
+     */
     public function registerFields($fieldGroup)
     {
         $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes(true);
+
         if (empty($contentTypes) || !is_array($contentTypes)) {
             return;
         }
@@ -75,16 +98,17 @@ class ContentTypeMetaFields
         foreach ($contentTypes as $contentType) {
             if (!empty($contentType['instance']->schemaParams)) {
                 $schemaParams = (array) $contentType['instance']->schemaParams;
-                if (empty($schemaParams)) {
-                    continue;
-                }
+
                 foreach ($schemaParams as $key => $field) {
                     $this->registerField($key, $field, $fieldGroup, $contentType['instance']->getKey());
                 }
             }
         }
     }
+
     /**
+     * Registers a single field within an ACF field group, applying a fallback mechanism for 'GeoCoordinates'.
+     *
      * @param string $key The field key.
      * @param array $field The field data.
      * @param string $fieldGroup The field group key.
@@ -95,34 +119,26 @@ class ContentTypeMetaFields
         $schemaType = $field['schemaType'];
 
         // Check for a Google API key to determine if the 'google_map' field type can be used
-        $apiKey = acf_get_setting('google_api_key');
-        if (empty($apiKey)) {
-            $api    = apply_filters('acf/fields/google_map/api', []);
-            $apiKey = $api['key'] ?? '';
-        }
+        $apiKey = $this->getGoogleApiKey();
 
         if (empty($apiKey) && $schemaType === 'GeoCoordinates') {
-            // Fallback to 'group' field type with sub-fields for address components
             $field['type']       = 'group';
             $field['sub_fields'] = $this->getPostalAddressSubFields(true);
-        } elseif ($schemaType === 'GeoCoordinates') {
-            $field['type'] = 'google_map';
         } elseif ($schemaType === 'PostalAddress') {
-            // Setup for 'PostalAddress' remains unchanged
-            $field['type']       = 'group';
-            $field['sub_fields'] = $this->getPostalAddressSubFields(true);
+            $field['type']       = $this->getFieldTypeBySchema($schemaType);
+            $field['sub_fields'] = $this->getPostalAddressSubFields(false);
         } else {
-            // Handling for other schema types remains unchanged
             $field['type'] = $this->getFieldTypeBySchema($schemaType);
         }
 
         $fieldSettings = [
-        'key'         => 'field_' . $key,
-        'label'       => $field['label'] ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $schemaType),
-        'type'        => $field['type'],
-        'name'        => $key,
-        'parent'      => $fieldGroup,
-        'contentType' => $contentType,
+            'key'         => 'field_' . $key,
+            'label'       => $field['label'] ??
+            sprintf(__('Automatically registered field (%s, %s)'), $key, $schemaType),
+            'type'        => $field['type'],
+            'name'        => $key,
+            'parent'      => $fieldGroup,
+            'contentType' => $contentType,
         ];
 
         if (!empty($field['sub_fields'])) {
@@ -131,96 +147,94 @@ class ContentTypeMetaFields
 
         acf_add_local_field($fieldSettings);
     }
-/**
- * Returns the configuration for sub-fields of a 'PostalAddress' group in ACF.
- *
- * This method defines a set of sub-fields for capturing detailed postal address
- * information. It includes fields for the street address, postal code, and country,
- * each configured with appropriate ACF field settings like key, label, name, and type.
- *
- * @return array An array of ACF field configurations for the postal address components.
- */
+
+    /**
+     * Checks both the new and old methods for setting the Google Maps API key.
+     *
+     * @return string|null The Google Maps API key if set, otherwise null.
+     */
+    protected function getGoogleApiKey()
+    {
+        $apiKey = acf_get_setting('google_api_key');
+        if (empty($apiKey)) {
+            $api    = apply_filters('acf/fields/google_map/api', []);
+            $apiKey = $api['key'] ?? null;
+        }
+
+        return $apiKey;
+    }
+    /**
+     * Returns the configuration for sub-fields of a 'PostalAddress' group in ACF, optionally including geo-coordinates.
+     *
+     * @param bool $includeCoordinates Whether to include latitude and longitude fields.
+     * @return array An array of ACF field configurations for postal address components, and optionally geo-coordinates.
+     */
     protected function getPostalAddressSubFields($includeCoordinates = false): array
     {
         $fields = [
-            [
-                'key'          => 'field_' . uniqid('streetAddress'), // Unique key for the field
-                'label'        => __('Street Address', 'municipio'), // Field label for display
-                'name'         => 'streetAddress', // Field name used in the database
-                'type'         => 'text', // ACF field type for a single line text input
-                'instructions' => __('Enter the street address.', 'municipio'), // Optional instructions for the field
-                'required'     => 0, // Whether the field is required; 1 for yes, 0 for no
-            ],
-            [
-                'key'          => 'field_' . uniqid('postalCode'),
-                'label'        => __('Postal Code', 'municipio'),
-                'name'         => 'postalCode',
-                'type'         => 'text',
-                'instructions' => __('Enter the postal code.', 'municipio'),
-                'required'     => 0,
-            ],
-            [
-                'key'           => 'field_' . uniqid('addressCountry'),
-                'label'         => __('Country', 'municipio'),
-                'name'          => 'addressCountry',
-                'type'          => 'text',
-                'instructions'  => __('Enter the country name.', 'municipio'),
-                'required'      => 0,
-                'default_value' => '', // You can set a default value if needed
-                'placeholder'   => __('Enter country here', 'municipio'), // Placeholder text when the field is empty
-            ],
+        [
+            'key'          => 'field_streetAddress',
+            'label'        => __('Street Address', 'municipio'),
+            'name'         => 'streetAddress',
+            'type'         => 'text',
+            'instructions' => __('Enter the street address.', 'municipio'),
+            'required'     => 0,
+        ],
+        [
+            'key'          => 'field_postalCode',
+            'label'        => __('Postal Code', 'municipio'),
+            'name'         => 'postalCode',
+            'type'         => 'text',
+            'instructions' => __('Enter the postal code.', 'municipio'),
+            'required'     => 0,
+        ],
+        [
+            'key'           => 'field_addressCountry',
+            'label'         => __('Country', 'municipio'),
+            'name'          => 'addressCountry',
+            'type'          => 'text',
+            'instructions'  => __('Enter the country name.', 'municipio'),
+            'required'      => 0,
+            'default_value' => '',
+            'placeholder'   => __('Enter country here', 'municipio'),
+        ],
         ];
+
         if ($includeCoordinates) {
-            array_push(
-                $fields,
-                [
-                'key'   => 'field_latitude',
-                'label' => __('Latitude', 'municipio'),
-                'name'  => 'latitude',
-                'type'  => 'text',
-                ],
-                [
-                'key'   => 'field_longitude',
-                'label' => __('Longitude', 'municipio'),
-                'name'  => 'longitude',
-                'type'  => 'text',
-                ]
-            );
+            $fields[] = [
+            'key'   => 'field_latitude',
+            'label' => __('Latitude', 'municipio'),
+            'name'  => 'latitude',
+            'type'  => 'text',
+            ];
+            $fields[] = [
+            'key'   => 'field_longitude',
+            'label' => __('Longitude', 'municipio'),
+            'name'  => 'longitude',
+            'type'  => 'text',
+            ];
         }
+
         return $fields;
     }
-
     /**
- * Determines the ACF field type based on the provided schema type.
- *
- * This method maps schema types to their corresponding ACF field types,
- * allowing for dynamic field type assignment based on the schema.
- * It supports a range of schema types, including 'ImageObject', 'URL',
- * and defaults to 'text' for unrecognized schema types.
- *
- * @param string $schemaType The schema type to convert to an ACF field type.
- * @return string The ACF field type corresponding to the given schema type.
- */
+     * Determines the ACF field type based on the provided schema type.
+     *
+     * @param string $schemaType The schema type to convert to an ACF field type.
+     * @return string The ACF field type corresponding to the given schema type.
+     */
     protected function getFieldTypeBySchema(string $schemaType): string
     {
         switch ($schemaType) {
+            case 'GeoCoordinates':
+                return 'google_map';
+            case 'PostalAddress':
+                return 'group';
             case 'ImageObject':
-                // Return the ACF field type for images
                 return 'image';
-
             case 'URL':
-                // Return the ACF field type for URLs
                 return 'url';
-
-            // Add more cases as needed for other schema types
-            // For example:
-            // case 'Date':
-            //     return 'date_picker';
-            // case 'DateTime':
-            //     return 'date_time_picker';
-
             default:
-                // Default to 'text' for any unrecognized schema types
                 return 'text';
         }
     }
