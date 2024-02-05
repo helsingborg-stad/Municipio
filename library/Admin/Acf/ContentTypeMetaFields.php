@@ -25,7 +25,7 @@ class ContentTypeMetaFields
     public function __construct()
     {
         add_action('acf/init', [$this, 'registerFieldGroup']);
-        add_filter('acf/load_field', [$this, 'loadField'], 1, 2);
+        add_filter('acf/load_field', [$this, 'loadField'], 10, 2);
     }
 
     /**
@@ -36,13 +36,14 @@ class ContentTypeMetaFields
      */
     public function loadField($field)
     {
-        global $post;
 
-        if (empty($field['contentType']) || !is_a($post, 'WP_Post')) {
+        $postType = \Municipio\Helper\WP::getCurrentPostType();
+
+        if (empty($field['contentType']) || empty($postType)) {
             return $field;
         }
 
-        $postContentType = \Municipio\Helper\ContentType::getContentType($post->post_type);
+        $postContentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         if ($postContentType->getKey() === $field['contentType']) {
             return $field;

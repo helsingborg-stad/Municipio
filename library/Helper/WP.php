@@ -368,4 +368,43 @@ class WP
 
         return wp_get_attachment_caption($postId);
     }
+
+    /**
+     * Get the current post type.
+     *
+     * @return string|null The current post type or null if not found.
+     */
+    public static function getCurrentPostType()
+    {
+        global $post, $typenow, $current_screen;
+
+        // Check the global $typenow - set in admin.php
+        if ($typenow) {
+            return $typenow;
+        }
+
+        // Check the global $post variable - set when editing a post
+        if ($post && $post->post_type) {
+            return $post->post_type;
+        }
+
+        // Check the query string - set when creating a new post
+        if (isset($_REQUEST['post_type'])) {
+            return sanitize_text_field($_REQUEST['post_type']);
+        }
+
+        // Lastly check the post_type in the edit page's query string
+        if (isset($_REQUEST['post'])) {
+            $postId = intval($_REQUEST['post']);
+            return get_post_type($postId);
+        }
+
+        // Check the current screen object - set in screen settings
+        if ($current_screen && $current_screen->post_type) {
+            return $current_screen->post_type;
+        }
+
+        // Default fallback
+        return null;
+    }
 }
