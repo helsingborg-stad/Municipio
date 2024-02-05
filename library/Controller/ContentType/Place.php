@@ -14,16 +14,32 @@ use Municipio\Helper\WP;
 class Place extends ContentTypeFactory
 {
     public $secondaryContentType = [];
-
+    protected $schemaParams      = [];
     /**
      * Constructor method to set key and label for the Place content type.
      */
     public function __construct()
     {
-        $this->key   = 'place';
-        $this->label = __('Place', 'municipio');
+        $this->key          = 'place';
+        $this->label        = __('Place', 'municipio');
+        $this->schemaParams = $this->schemaParams();
 
         parent::__construct($this->key, $this->label);
+    }
+
+    /**
+     * Get the schema parameters for the Place content type.
+     *
+     * @return array The schema parameters.
+     */
+    public function schemaParams(): array
+    {
+        return apply_filters('Municipio/ContentType/schemaParams', [
+                'address' => [
+                    'schemaType' => 'GeoCoordinates',
+                    'label'      => __('Address', 'municipio')
+                ],
+            ], $this->key);
     }
 
     /**
@@ -85,10 +101,10 @@ class Place extends ContentTypeFactory
         }
         return
         'https://www.google.com/maps/dir/?api=1&destination='
-         . $location['lat']
-         . ','
-         . $location['lng']
-         . '&travelmode=transit';
+            . $location['lat']
+            . ','
+            . $location['lng']
+            . '&travelmode=transit';
     }
 
 

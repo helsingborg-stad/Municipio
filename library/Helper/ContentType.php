@@ -4,7 +4,6 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Controller\ContentType\ContentTypeFactory as ContentTypeFactory;
-use Municipio\Controller\ContentType\ContentTypeComplexInterface as ContentTypeComplexInterface;
 use Municipio\Helper\Listing as ListingHelper;
 
 /**
@@ -15,7 +14,8 @@ class ContentType
     /**
      * Returns an array of all the content types that are registered in the system.
      *
-     * @param bool $includeExtras Include additional information about the registered content types in the returned array.
+     * @param bool $includeExtras Include additional information about the registered
+     * content types in the returned array.
      *
      * @return array Array of registered content types.
      * If $includeExtras is true, each item in the array will be an array containing
@@ -117,7 +117,12 @@ class ContentType
             }
 
             if (!empty($contentType->secondaryContentType)) {
-                if (true === self::isSecondaryContentType((array) $contentType->secondaryContentType, $contentTypeToCheckFor)) {
+                if (
+                    true === self::isSecondaryContentType(
+                        (array) $contentType->secondaryContentType,
+                        $contentTypeToCheckFor
+                    )
+                ) {
                     return true;
                 }
             }
@@ -244,7 +249,8 @@ class ContentType
             $error = new \WP_Error(
                 'invalid_content_type',
                 sprintf(
-                    __('%s tried to add %s as a secondary content type. Complex content types cannot add other complex content types.', 'municipio'),
+                    __('%s tried to add %s as a secondary content type. 
+                    Complex content types cannot add other complex content types.', 'municipio'),
                     get_class($parent),
                     get_class($contentType)
                 )
@@ -256,6 +262,8 @@ class ContentType
     }
 
     /**
+     * TODO Deprecate this function
+     *
      * Get structured data for a post based on specified meta keys.
      *
      * @param int $postId The ID of the post.
