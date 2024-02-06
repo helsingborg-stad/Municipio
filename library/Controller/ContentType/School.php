@@ -62,7 +62,8 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         foreach ($this->getSecondaryContentType() as $contentType) {
             switch ($contentType->getKey()) {
                 case 'place':
-                    $params = array_merge($params, $contentType->getSchemaParams());
+                    $placeParams       = $contentType->getSchemaParams();
+                    $params['address'] = $placeParams['geo'];
                     break;
 
                 default:

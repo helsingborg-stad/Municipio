@@ -35,7 +35,7 @@ class Place extends ContentTypeFactory
     protected function setSchemaParams(): array
     {
         return [
-            'address' => [
+            'geo' => [
                 'schemaType' => 'GeoCoordinates',
                 'label'      => __('Address', 'municipio')
             ],
