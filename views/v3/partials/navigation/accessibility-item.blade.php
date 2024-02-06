@@ -8,7 +8,7 @@
     ])
     @icon([
         'icon' => $item['icon'],
-        'size' => $item['size'] ?? 'md',
+        'size' => $item['size'] ?? 'sm',
         'filled' => $item['filled'] ?? true,
         'classList' => $item['classList'] ?? []
     ])
