@@ -22,9 +22,9 @@ class Place extends ContentTypeFactory
         $this->key   = 'place';
         $this->label = __('Place', 'municipio');
 
-        parent::__construct($this->key, $this->label);
-
         $this->schemaParams = $this->applySchemaParamsFilter();
+
+        parent::__construct($this->key, $this->label);
     }
 
     /**

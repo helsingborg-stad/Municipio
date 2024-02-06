@@ -12,13 +12,14 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 
     public function __construct()
     {
-        $this->key          = 'project';
-        $this->label        = __('Project', 'municipio');
+        $this->key   = 'project';
+        $this->label = __('Project', 'municipio');
+
         $this->schemaParams = $this->applySchemaParamsFilter();
 
-        parent::__construct($this->key, $this->label);
-
         $this->addSecondaryContentType(new Place());
+
+        parent::__construct($this->key, $this->label);
     }
     public function addHooks(): void
     {

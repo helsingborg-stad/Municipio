@@ -17,13 +17,14 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 
     public function __construct()
     {
-        $this->key          = 'event';
-        $this->label        = __('Event', 'municipio');
+        $this->key   = 'event';
+        $this->label = __('Event', 'municipio');
+
+        $this->addSecondaryContentType(new Place());
+
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
-
-        $this->addSecondaryContentType(new Place());
     }
     public function addHooks(): void
     {

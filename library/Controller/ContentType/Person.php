@@ -15,8 +15,9 @@ class Person extends ContentTypeFactory
 
     public function __construct()
     {
-        $this->key          = 'person';
-        $this->label        = __('Person', 'municipio');
+        $this->key   = 'person';
+        $this->label = __('Person', 'municipio');
+
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
