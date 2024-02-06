@@ -19,14 +19,15 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     public function __construct()
     {
-        $this->key          = 'school';
-        $this->label        = __('School', 'municipio');
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
-        parent::__construct($this->key, $this->label);
+        $this->key   = 'school';
+        $this->label = __('School', 'municipio');
 
         $this->addSecondaryContentType(new Place());
         $this->addSecondaryContentType(new Person());
+
+        $this->schemaParams = $this->applySchemaParamsFilter();
+
+        parent::__construct($this->key, $this->label);
     }
 
     /**
@@ -41,9 +42,32 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
 
+    /**
+     * Set the schema parameters for the School content type.
+     *
+     * @return array The array of schema parameters.
+     */
     protected function setSchemaParams(): array
     {
-        return [];
+
+        $params = [
+            'name'         => [
+                'schemaType' => 'Text',
+                'label'      => __('Name', 'municipio')
+            ],
+            'openingHours' => [
+                'schemaType' => 'Text',
+                'label'      => __('Opening hours', 'municipio')
+            ],
+        ];
+        foreach ($this->getSecondaryContentType() as $contentType) {
+            if ($contentType->getKey() === 'place') {
+                $placeParams       = $contentType->getSchemaParams();
+                $params['address'] = $placeParams['address'];
+            }
+        }
+
+        return $params;
     }
     /**
      * addSecondaryContentType
@@ -57,6 +81,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     }
 
     /**
+     * TODO: Deprecate this method
      * Get the secondary content types associated with the school.
      *
      * @return array The array of secondary content types.

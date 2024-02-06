@@ -22,9 +22,9 @@ class Place extends ContentTypeFactory
         $this->key   = 'place';
         $this->label = __('Place', 'municipio');
 
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
         parent::__construct($this->key, $this->label);
+
+        $this->schemaParams = $this->applySchemaParamsFilter();
     }
 
     /**
@@ -32,15 +32,6 @@ class Place extends ContentTypeFactory
      *
      * @return array The schema parameters.
      */
-    // public function setSchemaParams(): array
-    // {
-    //     return apply_filters('Municipio/ContentType/schemaParams', [
-    //             'address' => [
-    //                 'schemaType' => 'GeoCoordinates',
-    //                 'label'      => __('Address', 'municipio')
-    //             ],
-    //         ], $this->key);
-    // }
     protected function setSchemaParams(): array
     {
         return [
@@ -60,8 +51,6 @@ class Place extends ContentTypeFactory
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
-
-
 
     /**
      * Append location-related list items to the listing array.
