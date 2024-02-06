@@ -98,8 +98,6 @@ class ContentTypeMetaFields
 
         foreach ($contentTypes as $contentType) {
             if (!empty($contentType['instance']->getSchemaParams())) {
-                $schemaParams = (array) $contentType['instance']->getSchemaParams();
-
                 foreach ($contentType['instance']->getSchemaParams() as $key => $field) {
                     $this->registerField($key, $field, $fieldGroup, $contentType['instance']->getKey());
                 }

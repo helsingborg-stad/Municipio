@@ -49,7 +49,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     protected function setSchemaParams(): array
     {
-
         $params = [
             'name'         => [
                 'schemaType' => 'Text',
@@ -61,9 +60,13 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             ],
         ];
         foreach ($this->getSecondaryContentType() as $contentType) {
-            if ($contentType->getKey() === 'place') {
-                $placeParams       = $contentType->getSchemaParams();
-                $params['address'] = $placeParams['address'];
+            switch ($contentType->getKey()) {
+                case 'place':
+                    $params = array_merge($params, $contentType->getSchemaParams());
+                    break;
+
+                default:
+                    break;
             }
         }
 
