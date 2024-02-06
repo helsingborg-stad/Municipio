@@ -25,7 +25,7 @@ class ContentTypeMetaFields
     public function __construct()
     {
         add_action('acf/init', [$this, 'registerFieldGroup']);
-        add_filter('acf/load_field', [$this, 'loadField'], 10, 2);
+        add_filter('acf/prepare_field', [$this, 'loadField'], 10, 2);
     }
 
     /**
@@ -97,10 +97,10 @@ class ContentTypeMetaFields
         }
 
         foreach ($contentTypes as $contentType) {
-            if (!empty($contentType['instance']->schemaParams)) {
-                $schemaParams = (array) $contentType['instance']->schemaParams;
+            if (!empty($contentType['instance']->getSchemaParams())) {
+                $schemaParams = (array) $contentType['instance']->getSchemaParams();
 
-                foreach ($schemaParams as $key => $field) {
+                foreach ($contentType['instance']->getSchemaParams() as $key => $field) {
                     $this->registerField($key, $field, $fieldGroup, $contentType['instance']->getKey());
                 }
             }
