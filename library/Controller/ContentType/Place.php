@@ -11,7 +11,6 @@ namespace Municipio\Controller\ContentType;
  */
 class Place extends ContentTypeFactory
 {
-    public $secondaryContentType = [];
     /**
      * Constructor method to set key and label for the Place content type.
      */

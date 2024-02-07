@@ -8,8 +8,6 @@ namespace Municipio\Controller\ContentType;
  */
 class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 {
-    public $secondaryContentType = [];
-
     public function __construct()
     {
         $this->key   = 'project';
@@ -27,11 +25,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 
     protected function setSchemaParams(): array
     {
-        return [
-            'geo'        => [
-                'schemaType' => 'GeoCoordinates',
-                'label'      => __('Address', 'municipio')
-            ],
+        $params = [
             'founder'    => [
                 'schemaType' => 'Organisation',
                 'label'      => _x('Founder', 'Project founder, commonly organisation.', 'municipio')
@@ -45,6 +39,20 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
                 'label'      => _x('Department', 'Project department', 'municipio')
             ],
         ];
+
+        foreach ($this->getSecondaryContentType() as $contentType) {
+            switch ($contentType->getKey()) {
+                case 'place':
+                    $placeParams       = $contentType->getSchemaParams();
+                    $params['address'] = $placeParams['geo'];
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return $params;
     }
     /**
      * addSecondaryContentType

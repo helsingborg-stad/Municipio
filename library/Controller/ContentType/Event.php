@@ -13,8 +13,6 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
-    public $secondaryContentType = [];
-
     public function __construct()
     {
         $this->key   = 'event';
@@ -32,7 +30,37 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 
     protected function setSchemaParams(): array
     {
-        return [];
+        $params = [
+            'startDate' => [
+                'schemaType' => 'Date',
+                'label'      => __('Start date', 'municipio')
+            ],
+            'endDate'   => [
+                'schemaType' => 'Date',
+                'label'      => __('End date', 'municipio')
+            ],
+            'image'     => [
+                'schemaType' => 'ImageObject',
+                'label'      => __('Image', 'municipio')
+            ],
+            'offers'    => [
+                'schemaType' => 'Offer',
+                'label'      => __('Offers', 'municipio')
+            ],
+        ];
+        foreach ($this->getSecondaryContentType() as $contentType) {
+            switch ($contentType->getKey()) {
+                case 'place':
+                    $placeParams        = $contentType->getSchemaParams();
+                    $params['location'] = $placeParams['geo'];
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return $params;
     }
     /**
      * addSecondaryContentType

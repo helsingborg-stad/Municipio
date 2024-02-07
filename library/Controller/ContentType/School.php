@@ -11,7 +11,6 @@ use Municipio\Helper\WP;
  */
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
-    public $secondaryContentType = [];
     protected object $postMeta;
 
     /**
