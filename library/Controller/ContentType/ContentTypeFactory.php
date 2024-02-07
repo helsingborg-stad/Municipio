@@ -28,6 +28,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 {
     protected string $key;
     protected string $label;
+    protected array $secondaryContentType = [];
     protected array $schemaParams;
 
         /**
@@ -42,6 +43,11 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         $this->label        = $label;
         $this->schemaParams = $this->applySchemaParamsFilter();
     }
+
+    public function getSecondaryContentType(): array
+    {
+        return $this->secondaryContentType;
+    }
     /**
      * Apply the 'Municipio/ContentType/schemaParams' filter to the schema parameters.
      *
@@ -53,14 +59,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         return apply_filters('Municipio/ContentType/schemaParams', $params, $this->key);
     }
-
-    /**
-     * Abstract method to set schema parameters.
-     * Must be implemented by subclasses to define their specific schema parameters.
-     *
-     * @return array The schema parameters.
-     */
-    abstract protected function setSchemaParams(): array;
 
     /**
      * Get the label of the content type.
@@ -91,6 +89,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return "content-type-{$this->getKey()}";
     }
+
     /**
      * Get the schema parameters.
      *
@@ -100,6 +99,15 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return $this->schemaParams;
     }
+
+    /**
+     * Abstract method to set schema parameters.
+     * Must be implemented by subclasses to define their specific schema parameters.
+     *
+     * @return array The schema parameters.
+     */
+    abstract protected function setSchemaParams(): array;
+
     /**
      * Get the structured data for a post.
      *
