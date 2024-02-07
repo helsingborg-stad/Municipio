@@ -27,7 +27,24 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
 
     protected function setSchemaParams(): array
     {
-        return [];
+        return [
+            'geo'        => [
+                'schemaType' => 'GeoCoordinates',
+                'label'      => __('Address', 'municipio')
+            ],
+            'founder'    => [
+                'schemaType' => 'Organisation',
+                'label'      => _x('Founder', 'Project founder, commonly organisation.', 'municipio')
+            ],
+            'brand'      => [
+                'schemaType' => 'Organisation',
+                'label'      => _x('Brand', 'Project brand, commonly participants', 'municipio')
+            ],
+            'department' => [
+                'schemaType' => 'Organisation',
+                'label'      => _x('Department', 'Project department', 'municipio')
+            ],
+        ];
     }
     /**
      * addSecondaryContentType

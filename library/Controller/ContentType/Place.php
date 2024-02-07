@@ -2,12 +2,10 @@
 
 namespace Municipio\Controller\ContentType;
 
-use Municipio\Helper\WP;
-
 /**
  * Class Place
  *
- * Used to represent physical places such as buildings, parks, etc.
+ * Used to represent physical places.
  *
  * @package Municipio\Controller\ContentType
  */
