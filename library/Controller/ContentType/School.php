@@ -42,6 +42,17 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
     }
 
     /**
+     * addSecondaryContentType
+     *
+     * @param ContentTypeComponentInterface $contentType
+     * @return void
+     */
+    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
+    {
+        $this->secondaryContentType[] = $contentType;
+    }
+
+    /**
      * Set the schema parameters for the School content type.
      *
      * @return array The array of schema parameters.
@@ -52,6 +63,26 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
             'name'         => [
                 'schemaType' => 'Text',
                 'label'      => __('Name', 'municipio')
+            ],
+            'description'  => [
+                'schemaType' => 'Text',
+                'label'      => __('Description', 'municipio')
+            ],
+            'url'          => [
+                'schemaType' => 'URL',
+                'label'      => __('URL', 'municipio')
+            ],
+            'email'        => [
+                'schemaType' => 'Text',
+                'label'      => __('Email', 'municipio')
+            ],
+            'telephone'    => [
+                'schemaType' => 'Text',
+                'label'      => __('Phone', 'municipio')
+            ],
+            'image'        => [
+                'schemaType' => 'ImageObject',
+                'label'      => __('Image', 'municipio')
             ],
             'openingHours' => [
                 'schemaType' => 'Text',
@@ -73,28 +104,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         return $params;
     }
     /**
-     * addSecondaryContentType
-     *
-     * @param ContentTypeComponentInterface $contentType
-     * @return void
-     */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
-    {
-        $this->secondaryContentType[] = $contentType;
-    }
-
-    /**
-     * TODO: Deprecate this method
-     * Get the secondary content types associated with the school.
-     *
-     * @return array The array of secondary content types.
-     */
-    public function getSecondaryContentType(): array
-    {
-        return $this->secondaryContentType;
-    }
-
-    /**
      * Get school-related structured data for a specific post.
      *
      * @param int $postId The ID of the post.
@@ -102,55 +111,44 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     public function getStructuredData(int $postId): ?array
     {
+        $schemaParams = (array) $this->getSchemaParams();
+        $schemaData   = (array) get_field('schema', $postId);
+
+        if (empty($schemaParams) || empty($schemaData)) {
+            return [];
+        }
+
         $graph = new \Spatie\SchemaOrg\Graph();
+        $graph->school();
 
-        $graph->school()
-        ->name(get_the_title($postId))
-        ->description(get_the_excerpt($postId))
-        ->image(get_the_post_thumbnail_url($postId))
-        ->url(get_permalink($postId))
-        ->numberOfStudents(WP::getField('numberOfStudents', $postId))
-        ->openingHours(WP::getField('openingHours', $postId));
+        foreach ($schemaParams as $key => $param) {
+            $value = $schemaData[$key] ?? null;
 
-        if (!empty($this->getSecondaryContentType())) {
-            foreach ($this->getSecondaryContentType() as $contentType) {
-                switch ($contentType->getKey()) {
-                    case 'place':
-                        $addresses = $this->getSchoolAddress($postId);
-                        // If no addresses found, use legacy method
-                        if (empty($addresses)) {
-                            $addresses = $this->legacyVisitingAddress($postId);
-                        }
-                        if (!empty($addresses)) {
-                            $graph->school()->address($addresses);
-                            $graph->hide(\Spatie\SchemaOrg\PostalAddress::class);
-                        }
-                        break;
+            if (empty($value)) {
+                continue;
+            }
 
-                    case 'person':
-                        $contacts = WP::getField('contacts', $postId);
-                        if (!empty($contacts) && is_array($contacts)) {
-                            $contactPoints = [];
-                            foreach ($contacts as $contact) {
-                                if (empty($contact['person']) || !isset($contact['person']->ID)) {
-                                    continue;
-                                }
-                                $contactPoint = new \Spatie\SchemaOrg\ContactPoint();
-
-                                $contactPoint->contactType($contact['professional_title']);
-
-                                $phone = WP::getField('phone-number', $contact['person']->ID);
-                                $contactPoint->telephone($phone);
-
-                                $email = WP::getField('e-mail', $contact['person']->ID);
-                                $contactPoint->email($email);
-
-                                $contactPoints[] = $contactPoint;
-                            }
-                            $graph->school()->contactPoint($contactPoints);
-                        }
-                        break;
-                }
+            switch ($key) {
+                case 'name':
+                    $graph->school()->name($value);
+                    break;
+                case 'description':
+                    $graph->school()->description($value);
+                    break;
+                case 'openingHours':
+                    $graph->school()->openingHours($value);
+                    break;
+                case 'image':
+                    $graph->school()->image($value);
+                    break;
+                case 'url':
+                    $graph->school()->url($value);
+                    break;
+                case 'address':
+                    $graph->school()->address($value);
+                    break;
+                default:
+                    break;
             }
         }
 
