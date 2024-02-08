@@ -23,18 +23,50 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
     {
     }
 
+    /**
+     * addSecondaryContentType
+     *
+     * @param ContentTypeComponentInterface $contentType
+     * @return void
+     */
+    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
+    {
+        $this->secondaryContentType[] = $contentType;
+    }
+
+    /**
+     * Set the schema parameters.
+     *
+     * @return array
+     */
     protected function setSchemaParams(): array
     {
         $params = [
-            'founder'    => [
-                'schemaType' => 'Organisation',
-                'label'      => _x('Founder', 'Project founder, commonly organisation.', 'municipio')
+            'name'        => [
+                'schemaType' => 'Text',
+                'label'      => _x('Name', 'Project name', 'municipio')
             ],
-            'brand'      => [
-                'schemaType' => 'Organisation',
-                'label'      => _x('Brand', 'Project brand, commonly participants', 'municipio')
+            'description' => [
+                'schemaType' => 'Text',
+                'label'      => __('Description', 'municipio')
             ],
-            'department' => [
+            'image'       => [
+                'schemaType' => 'ImageObject',
+                'label'      => __('Image', 'municipio')
+            ],
+            'url'         => [
+                'schemaType' => 'URL',
+                'label'      => __('URL', 'municipio')
+            ],
+            'founder'     => [
+                'schemaType' => 'Organisation',
+                'label'      => _x('Founder', 'Project founder, commonly "organisation".', 'municipio')
+            ],
+            'brand'       => [
+                'schemaType' => 'Organisation',
+                'label'      => _x('Brand', 'Project brand, commonly "participants"', 'municipio')
+            ],
+            'department'  => [
                 'schemaType' => 'Organisation',
                 'label'      => _x('Department', 'Project department', 'municipio')
             ],
@@ -55,14 +87,61 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         return $params;
     }
     /**
-     * addSecondaryContentType
+     * Get school-related structured data for a specific post.
      *
-     * @param ContentTypeComponentInterface $contentType
+     * @param int $postId The ID of the post.
      * @return void
      */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
+    public function getStructuredData(int $postId): ?array
     {
-        $this->secondaryContentType[] = $contentType;
+        $schemaParams = (array) $this->getSchemaParams();
+        $schemaData   = (array) get_field('schema', $postId);
+
+        if (empty($schemaParams) || empty($schemaData)) {
+            return $this->legacyGetStructuredData($postId);
+        }
+
+        $graph = new \Spatie\SchemaOrg\Graph();
+        $graph->project();
+
+        foreach ($schemaParams as $key => $param) {
+            $value = $schemaData[$key] ?? null;
+
+            if (empty($value)) {
+                continue;
+            }
+
+            switch ($key) {
+                case 'name':
+                    $graph->school()->name($value);
+                    break;
+                case 'description':
+                    $graph->school()->description($value);
+                    break;
+                case 'image':
+                    $graph->school()->image($value);
+                    break;
+                case 'url':
+                    $graph->school()->url($value);
+                    break;
+                case 'address':
+                    $graph->school()->address($value);
+                    break;
+                case 'founder':
+                    $graph->school()->founder($value);
+                    break;
+                case 'brand':
+                    $graph->school()->brand($value);
+                    break;
+                case 'department':
+                    $graph->school()->department($value);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $graph->toArray();
     }
     /**
      * Appends the structured data array (used for schema.org markup) with additional data
@@ -73,9 +152,10 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The modified structured data array.
      */
-    public function getStructuredData(int $postId): array
+    protected function legacyGetStructuredData(int $postId): array
     {
-        $post = \Municipio\Helper\WP::getPost($postId);
+        $post           = \Municipio\Helper\WP::getPost($postId);
+        $structuredData = [];
 
         if ('project' === $post->post_type) {
             $founder     = get_the_terms($postId, 'organisation');
