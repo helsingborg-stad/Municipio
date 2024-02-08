@@ -255,6 +255,8 @@ class ContentTypeMetaFieldManager
                 return 'image';
             case 'URL':
                 return 'url';
+            case 'Email':
+                return 'email';
             default:
                 return 'text';
         }
