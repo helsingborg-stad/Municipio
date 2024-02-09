@@ -246,25 +246,6 @@ class VideoService
     *
     * @return The cover image url for the video.
     */
-    // public function getRemoteCoverUrl(string $videoId = null, string $videoService = null)
-    // {
-    //     if (empty($videoService) || empty($videoId)) {
-    //         $url = $this->url;
-    //     }
-
-    //     if (empty($videoService)) {
-    //         $videoService = $this->detectVideoService($url);
-    //     }
-
-    //     if (empty($videoId)) {
-    //         $videoId = $this->getVideoId($url);
-    //     }
-
-    //     if (isset($this->imageLocations[$videoService])) {
-    //         return sprintf($this->imageLocations[$videoService], $videoId);
-    //     }
-    //     return false;
-    // }
     public function getRemoteCoverUrl(string $videoId = null, string $videoService = null)
     {
         if (empty($videoService) || empty($videoId)) {
