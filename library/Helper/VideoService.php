@@ -293,6 +293,12 @@ class VideoService
         return false;
     }
 
+    /**
+     * Check if a remote file exists.
+     *
+     * @param string $url The URL of the remote file.
+     * @return bool True if the remote file exists, false otherwise.
+     */
     private function checkRemoteFile(string $url)
     {
         $responseHandle = wp_remote_head($url);
