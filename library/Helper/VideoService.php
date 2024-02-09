@@ -21,7 +21,7 @@ class VideoService
     public $coverArt;
 
     private $imageLocations = [
-        'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
+        'youtube' => 'https://img.youtube.com/vi/%s/hqdefault.jpg',
         'vimeo'   => 'https://vumbnail.com/%s.jpg'
     ];
 
