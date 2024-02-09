@@ -246,6 +246,25 @@ class VideoService
     *
     * @return The cover image url for the video.
     */
+    // public function getRemoteCoverUrl(string $videoId = null, string $videoService = null)
+    // {
+    //     if (empty($videoService) || empty($videoId)) {
+    //         $url = $this->url;
+    //     }
+
+    //     if (empty($videoService)) {
+    //         $videoService = $this->detectVideoService($url);
+    //     }
+
+    //     if (empty($videoId)) {
+    //         $videoId = $this->getVideoId($url);
+    //     }
+
+    //     if (isset($this->imageLocations[$videoService])) {
+    //         return sprintf($this->imageLocations[$videoService], $videoId);
+    //     }
+    //     return false;
+    // }
     public function getRemoteCoverUrl(string $videoId = null, string $videoService = null)
     {
         if (empty($videoService) || empty($videoId)) {
@@ -261,10 +280,29 @@ class VideoService
         }
 
         if (isset($this->imageLocations[$videoService])) {
-            return sprintf($this->imageLocations[$videoService], $videoId);
+            $coverUrl = sprintf($this->imageLocations[$videoService], $videoId);
+            // If YouTube, first try with maxresdefault
+            if ($videoService === 'youtube') {
+                $maxResUrl = str_replace('hqdefault', 'maxresdefault', $coverUrl);
+                if ($this->checkRemoteFile($maxResUrl)) {
+                    return $maxResUrl;
+                }
+            }
+            return $coverUrl;
         }
         return false;
     }
+
+    private function checkRemoteFile(string $url)
+    {
+        $responseHandle = wp_remote_head($url);
+        if (!is_wp_error($responseHandle)) {
+            $responseCode = wp_remote_retrieve_response_code($responseHandle);
+            return $responseCode === 200;
+        }
+        return false;
+    }
+
    /**
     * It reads a remote file and returns the body of the file.
     *
