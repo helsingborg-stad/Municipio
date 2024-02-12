@@ -21,7 +21,7 @@ class VideoService
     public $coverArt;
 
     private $imageLocations = [
-        'youtube' => 'https://img.youtube.com/vi/%s/maxresdefault.jpg',
+        'youtube' => 'https://img.youtube.com/vi/%s/hqdefault.jpg',
         'vimeo'   => 'https://vumbnail.com/%s.jpg'
     ];
 
@@ -261,10 +261,35 @@ class VideoService
         }
 
         if (isset($this->imageLocations[$videoService])) {
-            return sprintf($this->imageLocations[$videoService], $videoId);
+            $coverUrl = sprintf($this->imageLocations[$videoService], $videoId);
+            // If YouTube, first try with maxresdefault
+            if ($videoService === 'youtube') {
+                $maxResUrl = str_replace('hqdefault', 'maxresdefault', $coverUrl);
+                if ($this->checkRemoteFile($maxResUrl)) {
+                    return $maxResUrl;
+                }
+            }
+            return $coverUrl;
         }
         return false;
     }
+
+    /**
+     * Check if a remote file exists.
+     *
+     * @param string $url The URL of the remote file.
+     * @return bool True if the remote file exists, false otherwise.
+     */
+    private function checkRemoteFile(string $url)
+    {
+        $responseHandle = wp_remote_head($url);
+        if (!is_wp_error($responseHandle)) {
+            $responseCode = wp_remote_retrieve_response_code($responseHandle);
+            return $responseCode === 200;
+        }
+        return false;
+    }
+
    /**
     * It reads a remote file and returns the body of the file.
     *
