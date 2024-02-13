@@ -2,6 +2,11 @@
 
 namespace Municipio\Admin\Gutenberg\Blocks;
 
+/**
+ * Class BlockManager
+ *
+ * This class manages the registration of blocks.
+ */
 class BlockManager
 {
     /* These block works fine without validation */
@@ -10,6 +15,9 @@ class BlockManager
         'acf/innerbutton',
     ];
 
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
         add_filter('Municipio/blade/view_paths', array($this, 'getViewPath'), 10);
@@ -130,6 +138,12 @@ class BlockManager
             echo render_blade_view('default', ['blockTitle' => $block['title'], 'message' => __('Please fill in all required fields.', 'municipio')]);
         }
     }
+    /**
+     * Callback for container block, renders view.
+     *
+     * @param array $block
+     * @return void
+     */
     public function renderContainerCallback($block)
     {
         $data = $this->buildData($block['data']);
@@ -194,11 +208,23 @@ class BlockManager
         }
     }
 
+    /**
+     * Check if the block has a background gradient.
+     *
+     * @param array $data The block data.
+     * @return bool
+     */
     private function blockHasBackgroundGradient($data): bool
     {
         return !empty($data['background_gradient']) && $data['background_color_type'] == 'gradient';
     }
 
+    /**
+     * Get the styles for the block background gradient.
+     *
+     * @param array $data The block data.
+     * @return string The generated CSS styles.
+     */
     private function getBlockBackgroundGradientStyles($data): string
     {
         $styles         = "";
@@ -228,6 +254,13 @@ class BlockManager
         return $styles;
     }
 
+    /**
+     * Handle the gradient stop values.
+     *
+     * @param array $gradient The gradient data.
+     * @param string $type The type of gradient.
+     * @return string The generated stop value.
+     */
     private function handleGradientStopValues($gradient, $type)
     {
         if ($type == 'advanced') {
