@@ -122,6 +122,7 @@ class BlockManager
         $data              = $this->buildData($block['data']);
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
+        $data['anchor']    = $block['anchor'] ?? '';
 
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             echo render_blade_view($block['view'], $data);
