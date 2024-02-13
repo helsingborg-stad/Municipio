@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion = 27; //The db version we want to achive
+    private $dbVersion    = 28; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -166,10 +166,10 @@ class Upgrade
     {
         $overlays = get_theme_mod('hero');
 
-        $defaultColor = $overlays['field_614c713ae73ea']['field_614c7189e73eb'];
+        $defaultColor   = $overlays['field_614c713ae73ea']['field_614c7189e73eb'];
         $defaultOpacity = $overlays['field_614c713ae73ea']['field_614c7197e73ec'];
 
-        $vibrantColor = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
+        $vibrantColor   = $overlays['field_614c720fb65a4']['field_614c720fb65a5'];
         $vibrantOpacity = $overlays['field_614c720fb65a4']['field_614c720fb65a6'];
 
         $defaultOverlay = $this->hex2rgba($defaultColor, "0." . (int)$defaultOpacity);
@@ -197,7 +197,7 @@ class Upgrade
     {
         $overlays = get_theme_mod('overlay');
         if ($overlays) {
-            $color = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
+            $color   = $overlays['field_615c1bc3772c6']['field_615c1bc3780b0'];
             $opacity = $overlays['field_615c1bc3772c6']['field_615c1bc3780b6'];
             $overlay = $this->hex2rgba($color, "0." . (int)$opacity);
             set_theme_mod('overlay', $overlay);
@@ -411,11 +411,11 @@ class Upgrade
 
         //Translation sheme
         $scheme = [
-            'title' => 'heading',
-            'post_style' => 'style',
-            'number_of_posts' => 'post_count',
-            'sort_key' => 'order_by',
-            'sort_order' => 'order_direction',
+            'title'                 => 'heading',
+            'post_style'            => 'style',
+            'number_of_posts'       => 'post_count',
+            'sort_key'              => 'order_by',
+            'sort_order'            => 'order_direction',
             'post_taxonomy_display' => 'taxonomies_to_display'
         ];
 
@@ -523,7 +523,7 @@ class Upgrade
             unset($menuLocations['hamburger-menu']);
             set_theme_mod('nav_menu_locations', $menuLocations);
         }
-        
+
         return true;
     }
 
@@ -538,13 +538,35 @@ class Upgrade
     }
 
     private function v_27($db): bool
-    {  
+    {
         $searchLocations = get_theme_mod('search_display');
         if (!empty($searchLocations) && is_array($searchLocations) && in_array('hamburger_menu', $searchLocations) && !in_array('mega_menu', $searchLocations)) {
             array_push($searchLocations, 'mega_menu');
             set_theme_mod('search_display', $searchLocations);
         }
 
+        return true;
+    }
+
+    private function v_28($db): bool
+    {
+        $args = array(
+            'post_type'      => 'attachment',
+            'posts_per_page' => -1,
+            'post_status'    => 'inherit',
+            'post_mime_type' => 'application/font-woff'
+        );
+
+        $woffFilesQuery = new \WP_Query($args);
+
+        if (!empty($woffFilesQuery->posts)) {
+            $uploadsInstance = new \Municipio\Admin\Uploads();
+            foreach ($woffFilesQuery->posts as $woffFile) {
+                if (!get_post_meta($woffFile->ID, 'ttf')) {
+                    $uploadsInstance->convertWOFFToTTF($woffFile->ID);
+                }
+            }
+        }
         return true;
     }
 
@@ -567,9 +589,9 @@ class Upgrade
         }
 
         $postTypes['author'] = (object) array(
-            'name' => 'author',
-            'label' => __('Author'),
-            'has_archive' => true,
+            'name'              => 'author',
+            'label'             => __('Author'),
+            'has_archive'       => true,
             'is_author_archive' => true
         );
 
@@ -679,8 +701,8 @@ class Upgrade
     protected function setAssociativeThemeMod($key, $value, $castToArray = false)
     {
         $parsedString = explode('.', $key);
-        $key = $parsedString[0] ?? '';
-        $property = $parsedString[1] ?? '';
+        $key          = $parsedString[0] ?? '';
+        $property     = $parsedString[1] ?? '';
 
         if (empty($parsedString) || empty($key)) {
             return false;
@@ -698,7 +720,7 @@ class Upgrade
             }
 
             $associativeArr[$property] = $value;
-            $value = $associativeArr;
+            $value                     = $associativeArr;
         }
 
         return set_theme_mod($key, $value);

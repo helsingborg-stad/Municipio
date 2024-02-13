@@ -28,7 +28,6 @@
             @endif
             @if ($archiveLead)
                 @typography([
-                    'variant' => 'p',
                     'element' => 'p',
                     'classList' => ['lead', 't-archive-lead', 't-' . $postType . '-archive-lead']
                 ])

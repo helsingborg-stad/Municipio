@@ -2482,16 +2482,16 @@
         },
         {
             "name": "helsingborg-stad/phpcs",
-            "version": "0.3.3",
+            "version": "0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/phpcs.git",
-                "reference": "fd6791d896ff70a450cece0afbb9ce53e9b1dfd0"
+                "reference": "8cc871e0087af071554669707cef42fc02a15da3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/phpcs/zipball/fd6791d896ff70a450cece0afbb9ce53e9b1dfd0",
-                "reference": "fd6791d896ff70a450cece0afbb9ce53e9b1dfd0",
+                "url": "https://api.github.com/repos/helsingborg-stad/phpcs/zipball/8cc871e0087af071554669707cef42fc02a15da3",
+                "reference": "8cc871e0087af071554669707cef42fc02a15da3",
                 "shasum": ""
             },
             "require": {
@@ -2515,9 +2515,9 @@
             "description": "PHP_CodeSniffer rulesets supporting the coding standards for the Helsingborg Stad organization",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/phpcs/issues",
-                "source": "https://github.com/helsingborg-stad/phpcs/tree/0.3.3"
+                "source": "https://github.com/helsingborg-stad/phpcs/tree/0.3.5"
             },
-            "time": "2023-12-20T14:04:32+00:00"
+            "time": "2024-01-29T08:57:36+00:00"
         },
         {
             "name": "lucatume/args",
@@ -4715,5 +4715,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
