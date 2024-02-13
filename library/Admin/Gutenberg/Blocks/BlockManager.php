@@ -27,81 +27,81 @@ class BlockManager
         if (function_exists('acf_register_block_type')) {
             // register a button block.
             acf_register_block_type(array(
-                'name'              => 'button',
-                'title'             => __('Button', 'municipio'),
-                'description'       => __('A button block', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'design',
-                'icon'              => 'button',
-                'keywords'          => array('button', 'link'),
-                'supports'          => [
+                'name'            => 'button',
+                'title'           => __('Button', 'municipio'),
+                'description'     => __('A button block', 'municipio'),
+                'render_callback' => array($this, 'renderCallback'),
+                'category'        => 'design',
+                'icon'            => 'button',
+                'keywords'        => array('button', 'link'),
+                'supports'        => [
                     'align' => true,
-                    'jsx' => true
+                    'jsx'   => true
                 ],
-                'view'              => 'button'
+                'view'            => 'button'
             ));
 
             // register a button block (inner).
             acf_register_block_type(array(
-                'name'              => 'innerButton',
-                'title'             => __('Button (Inner)', 'municipio'),
-                'description'       => __('A button block', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'design',
-                'icon'              => 'design',
-                'keywords'          => array('button', 'link'),
-                'parent'            => ['acf/button'],
-                'supports'          => [
+                'name'            => 'innerButton',
+                'title'           => __('Button (Inner)', 'municipio'),
+                'description'     => __('A button block', 'municipio'),
+                'render_callback' => array($this, 'renderCallback'),
+                'category'        => 'design',
+                'icon'            => 'design',
+                'keywords'        => array('button', 'link'),
+                'parent'          => ['acf/button'],
+                'supports'        => [
                     'align' => false,
-                    'jsx' => true
+                    'jsx'   => true
                 ],
-                'view'              => 'button'
+                'view'            => 'button'
             ));
 
             acf_register_block_type(array(
-                'name'              => 'classic',
-                'title'             => __('Classic', 'municipio'),
-                'description'       => __('A block that lets you create and edit articles', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'text',
-                'icon'              => 'text',
-                'keywords'          => array('editor', 'classic'),
-                'supports'          => [
+                'name'            => 'classic',
+                'title'           => __('Classic', 'municipio'),
+                'description'     => __('A block that lets you create and edit articles', 'municipio'),
+                'render_callback' => array($this, 'renderCallback'),
+                'category'        => 'text',
+                'icon'            => 'text',
+                'keywords'        => array('editor', 'classic'),
+                'supports'        => [
                     'align' => true
                 ],
-                'view'              => 'classic'
+                'view'            => 'classic'
             ));
 
             // register a margin block.
             acf_register_block_type(array(
-                'name'              => 'margin',
-                'title'             => __('Margin', 'municipio'),
-                'description'       => __('A margin block', 'municipio'),
-                'render_callback'   => array($this, 'renderCallback'),
-                'category'          => 'design',
-                'icon'              => 'fullscreen-exit-alt',
-                'keywords'          => array('margin', 'space', 'whitespace', 'padding', 'air'),
-                'supports'          => [
+                'name'            => 'margin',
+                'title'           => __('Margin', 'municipio'),
+                'description'     => __('A margin block', 'municipio'),
+                'render_callback' => array($this, 'renderCallback'),
+                'category'        => 'design',
+                'icon'            => 'fullscreen-exit-alt',
+                'keywords'        => array('margin', 'space', 'whitespace', 'padding', 'air'),
+                'supports'        => [
                     'align' => true,
-                    'jsx' => true
+                    'jsx'   => true
                 ],
-                'view' => 'margin'
+                'view'            => 'margin'
             ));
 
             // register a container block.
             acf_register_block_type(array(
-                'name'              => 'container',
-                'title'             => __('Container', 'municipio'),
-                'description'       => __('A container block', 'municipio'),
-                'render_callback'   => array($this, 'renderContainerCallback'),
-                'category'          => 'design',
-                'icon'              => 'archive',
-                'keywords'          => array('container', 'wrapper', 'background'),
-                'supports'          => [
+                'name'            => 'container',
+                'title'           => __('Container', 'municipio'),
+                'description'     => __('A container block', 'municipio'),
+                'render_callback' => array($this, 'renderContainerCallback'),
+                'category'        => 'design',
+                'icon'            => 'archive',
+                'keywords'        => array('container', 'wrapper', 'background'),
+                'supports'        => [
                     'align' => true,
-                    'jsx' => true
+                    'jsx'   => true
                 ],
-                'view' => 'container'
+                'view'            => 'container'
             ));
         }
     }
@@ -114,7 +114,7 @@ class BlockManager
      */
     public function renderCallback($block)
     {
-        $data = $this->buildData($block['data']);
+        $data              = $this->buildData($block['data']);
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
 
@@ -139,14 +139,14 @@ class BlockManager
         if ($this->validateFields($block['data']) || in_array($block['name'], $this->noValidationRequired)) {
             $data['style'] = [];
 
-            if (!empty($data['color']) && isset ($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
+            if (!empty($data['color']) && isset($data['background_color_type']) && $data['background_color_type'] != 'gradient') {
                 $data['style'][] = "background-color:{$data['color']}";
             }
             if (!empty($data['text_color'])) {
                 $data['style'][] = "color:{$data['text_color']}";
             }
 
-            if ($this->blockHasBackgroundGradient($data))  {
+            if ($this->blockHasBackgroundGradient($data)) {
                 $data['style'][] = $this->getBlockBackgroundGradientStyles($data);
             }
 
@@ -174,22 +174,24 @@ class BlockManager
                 'default',
                 [
                     'blockTitle' => $block['title'],
-                    'message' => __('Please fill in all required fields.', 'municipio')
+                    'message'    => __('Please fill in all required fields.', 'municipio')
                 ]
             );
         }
     }
 
-    private function blockHasBackgroundGradient($data):bool {
+    private function blockHasBackgroundGradient($data): bool
+    {
         return !empty($data['background_gradient']) && $data['background_color_type'] == 'gradient';
     }
 
-    private function getBlockBackgroundGradientStyles($data):string {
-        $styles = "";
+    private function getBlockBackgroundGradientStyles($data): string
+    {
+        $styles         = "";
         $gradientValues = "";
-        $gradientArr = $data['background_gradient'];
-        $angle = $data['background_gradient_angle'] ?? '0';
-        $type = $data['background_gradient_type'];
+        $gradientArr    = $data['background_gradient'];
+        $angle          = $data['background_gradient_angle'] ?? '0';
+        $type           = $data['background_gradient_type'];
 
         if ($type == 'advanced') {
             usort($gradientArr, function ($a, $b) {
@@ -202,9 +204,9 @@ class BlockManager
 
             if ($key !== array_key_last($gradientArr)) {
                 $gradientValues .= ', ';
-            } 
+            }
         }
-        
+
         if (!empty($gradientValues)) {
             $styles = "background: linear-gradient({$angle}deg, $gradientValues);";
         }
@@ -212,7 +214,8 @@ class BlockManager
         return $styles;
     }
 
-    private function handleGradientStopValues($gradient, $type) {
+    private function handleGradientStopValues($gradient, $type)
+    {
         if ($type == 'advanced') {
             return ' ' . $gradient['stop'] . '%';
         }
