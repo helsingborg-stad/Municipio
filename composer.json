@@ -3,7 +3,7 @@
     "description": "A bootstrap theme for creating municipality sites.",
     "license": "MIT",
     "type": "wordpress-theme",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Kristoffer Svanmark",
@@ -31,7 +31,7 @@
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "helsingborg-stad/blade-engine-wrapper": "^1.0.0",
         "pragmarx/ia-arr": "^7.3",
-        "wpackagist-plugin/kirki": "^5.0",
+        "helsingborg-stad/kirki": "~5.0.0",
         "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4"
@@ -68,5 +68,5 @@
             "Municipio\\": "library/"
         }
     },
-    "version": "3.63.1"
+    "version": "3.65.0"
 }
