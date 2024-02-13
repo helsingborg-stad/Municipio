@@ -35,8 +35,9 @@ class BlockManager
                 'icon'            => 'button',
                 'keywords'        => array('button', 'link'),
                 'supports'        => [
-                    'align' => true,
-                    'jsx'   => true
+                    'align'  => true,
+                    'jsx'    => true,
+                    'anchor' => true,
                 ],
                 'view'            => 'button'
             ));
@@ -52,8 +53,9 @@ class BlockManager
                 'keywords'        => array('button', 'link'),
                 'parent'          => ['acf/button'],
                 'supports'        => [
-                    'align' => false,
-                    'jsx'   => true
+                    'align'  => false,
+                    'jsx'    => true,
+                    'anchor' => true,
                 ],
                 'view'            => 'button'
             ));
@@ -67,7 +69,8 @@ class BlockManager
                 'icon'            => 'text',
                 'keywords'        => array('editor', 'classic'),
                 'supports'        => [
-                    'align' => true
+                    'align'  => true,
+                    'anchor' => true,
                 ],
                 'view'            => 'classic'
             ));
@@ -82,8 +85,9 @@ class BlockManager
                 'icon'            => 'fullscreen-exit-alt',
                 'keywords'        => array('margin', 'space', 'whitespace', 'padding', 'air'),
                 'supports'        => [
-                    'align' => true,
-                    'jsx'   => true
+                    'align'  => true,
+                    'jsx'    => true,
+                    'anchor' => true,
                 ],
                 'view'            => 'margin'
             ));
@@ -98,8 +102,9 @@ class BlockManager
                 'icon'            => 'archive',
                 'keywords'        => array('container', 'wrapper', 'background'),
                 'supports'        => [
-                    'align' => true,
-                    'jsx'   => true
+                    'align'  => true,
+                    'jsx'    => true,
+                    'anchor' => true,
                 ],
                 'view'            => 'container'
             ));
@@ -164,6 +169,8 @@ class BlockManager
             } else {
                 $data['style'] = '';
             }
+
+            $data['anchor'] = $block['anchor'] ?? '';
 
             echo render_blade_view(
                 $block['view'],
