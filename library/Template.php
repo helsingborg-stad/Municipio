@@ -2,15 +2,16 @@
 
 namespace Municipio;
 
-use ComponentLibrary\Init as ComponentLibraryInit;
+use HelsingborgStad\BladeService\BladeServiceInterface;
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
 class Template
 {
-    private $bladeEngine = null;
-    private $viewPaths = null;
+    private ?BladeServiceInterface $bladeEngine = null;
+    private ?array $viewPaths = null;
 
     public function __construct()
     {
@@ -241,7 +242,7 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            $markup = $this->bladeEngine->make(
+            $markup = $this->bladeEngine->makeView(
                 $view,
                 array_merge(
                     $data,
@@ -398,8 +399,7 @@ class Template
     public function initializeBlade()
     {
         $this->viewPaths = $this->registerViewPaths();
-        $init = new ComponentLibraryInit($this->viewPaths);
-        $this->bladeEngine = $init->getEngine();
+        $this->bladeEngine = GlobalBladeService::getInstance($this->viewPaths);
     }
 
     /**
