@@ -1,10 +1,10 @@
 <li role="menuitem">
     @button([
-        'text' => $item['text'],
+        'text' => $item['text'] ?? false,
         'style' => 'outlined',
         'color' => 'primary',
         'href' => $item['href'] ?? false,
-        'icon' => $item['icon'],
+        'icon' => $item['icon'] ?? false,
         'size' => 'sm',
         'attributeList' => array_merge($item['attributeList'] ?? [], [
             'onClick' => $item['script'] ?? '',
