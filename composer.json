@@ -26,10 +26,8 @@
     ],
     "require": {
         "composer/installers": "^1.0",
-        "helsingborg-stad/global-blade-engine": "^4.0.2",
         "symfony/polyfill-mbstring": "1.17.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "helsingborg-stad/blade-engine-wrapper": "^2.0.1",
         "pragmarx/ia-arr": "^7.3",
         "wpackagist-plugin/kirki": "^5.0",
         "ouun/kirki-module-fonts_upload": "^1.0.1",
