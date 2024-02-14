@@ -48,10 +48,37 @@ class PdfHelper implements PdfHelperInterface
             }
         }
 
+        $googleFontString = $this->createGoogleFontString([$base, $heading]);
+
         return [
-            'base'    => $base,
-            'heading' => $heading,
+            'googleFonts' => $googleFontString,
+            'base'        => $base,
+            'heading'     => $heading,
         ];
+    }
+
+    /**
+     * Creates a string with the google fonts
+     *
+     * @param array $fonts
+     * @return string
+     */
+    private function createGoogleFontString(array $fonts): string
+    {
+
+        $str = "";
+        foreach ($fonts as $font) {
+            if (!empty($font['font-family'])) {
+                $str .= 'family=' . str_replace(' ', '+', $font['font-family']) .
+                ':ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&';
+            }
+        }
+
+        if (!empty($str)) {
+            $str = 'https://fonts.googleapis.com/css2?' . $str . '&display=swap';
+        }
+
+        return $str;
     }
 
     /**
