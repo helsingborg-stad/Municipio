@@ -57,7 +57,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The array of schema parameters.
      */
-    protected function setSchemaParams(): array
+    protected function schemaParams(): array
     {
         $params = [
             'name'         => [
@@ -103,120 +103,89 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
         return $params;
     }
+
     /**
-     * Get school-related structured data for a specific post.
+     * Get the schema entity for the School content type.
      *
-     * @param int $postId The ID of the post.
-     * @return void
+     * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
+     * @return mixed The schema entity.
      */
-    public function getStructuredData(int $postId): ?array
+    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
     {
-        $schemaParams = (array) $this->getSchemaParams();
-        $schemaData   = (array) get_field('schema', $postId);
+        return $graph->school(); // Return the specific schema entity for School
+    }
 
-        if (empty($schemaParams) || empty($schemaData)) {
-            return [];
-        }
-
-        $graph = new \Spatie\SchemaOrg\Graph();
-        $graph->school();
-
-        foreach ($schemaParams as $key => $param) {
-            $value = $schemaData[$key] ?? null;
-
-            if (empty($value)) {
-                continue;
-            }
-
-            switch ($key) {
-                case 'name':
-                    $graph->school()->name($value);
-                    break;
-                case 'description':
-                    $graph->school()->description($value);
-                    break;
-                case 'openingHours':
-                    $graph->school()->openingHours($value);
-                    break;
-                case 'image':
-                    $graph->school()->image($value);
-                    break;
-                case 'url':
-                    $graph->school()->url($value);
-                    break;
-                case 'address':
-                    $graph->school()->address($value);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return $graph->toArray();
+    /**
+     * @param int $postId The ID of the post.
+     * @return array The array of structured data.
+     */
+    protected function legacyGetStructuredData(int $postId): array
+    {
+        return [];
     }
     /**
-     * Get the school address for a specific post.
-     *
-     * @param int $postId The ID of the post.
-     * @return array The array of school addresses.
-     */
-    protected function getSchoolAddress(int $postId): array
-    {
-        $addressesData = WP::getField('PostalAddress', $postId);
-        $addresses     = [];
+    //  * Get the school address for a specific post.
+    //  *
+    //  * @param int $postId The ID of the post.
+    //  * @return array The array of school addresses.
+    //  */
+    // protected function getSchoolAddress(int $postId): array
+    // {
+    //     $addressesData = WP::getField('PostalAddress', $postId);
+    //     $addresses     = [];
 
-        if (!empty($addressesData) && is_array($addressesData)) {
-            foreach ($addressesData as $addressData) {
-                $address = new \Spatie\SchemaOrg\PostalAddress();
+    //     if (!empty($addressesData) && is_array($addressesData)) {
+    //         foreach ($addressesData as $addressData) {
+    //             $address = new \Spatie\SchemaOrg\PostalAddress();
 
-                // Define valid parameters for a School address according to Schema.org
-                $validParams = [
-                    'streetAddress',
-                    'postalCode',
-                    'addressLocality',
-                    'addressRegion',
-                    'addressCountry'
-                ];
+    //             // Define valid parameters for a School address according to Schema.org
+    //             $validParams = [
+    //                 'streetAddress',
+    //                 'postalCode',
+    //                 'addressLocality',
+    //                 'addressRegion',
+    //                 'addressCountry'
+    //             ];
 
-                // Loop through each parameter and set it if it's valid for School
-                foreach ($addressData as $param => $value) {
-                    if (in_array($param, $validParams) && method_exists($address, $param)) {
-                        $address->$param($value);
-                    }
-                }
+    //             // Loop through each parameter and set it if it's valid for School
+    //             foreach ($addressData as $param => $value) {
+    //                 if (in_array($param, $validParams) && method_exists($address, $param)) {
+    //                     $address->$param($value);
+    //                 }
+    //             }
 
-                $addresses[] = $address;
-            }
-        }
+    //             $addresses[] = $address;
+    //         }
+    //     }
 
-        return $addresses;
-    }
+    //     return $addresses;
+    // }
     /**
-     * Handle visiting addresses and mark the method as deprecated.
-     *
-     * @param int $postId The ID of the post.
-     * @return array An array of \Spatie\SchemaOrg\PostalAddress objects.
-     */
-    protected function legacyVisitingAddress(int $postId): array
-    {
-        _doing_it_wrong(__METHOD__, 'Using visiting_address is deprecated 
-        and will be removed in future versions. Use the new address format, see https://schema.org for 
-        valid parameters and naming conventions. Note that parameter keys are case sensitive.', '3.61.8');
+    //  * Handle visiting addresses and mark the method as deprecated.
+    //  *
+    //  * @param int $postId The ID of the post.
+    //  * @return array An array of \Spatie\SchemaOrg\PostalAddress objects.
+    //  */
+    // protected function legacyVisitingAddress(int $postId): array
+    // {
+    //     _doing_it_wrong(__METHOD__, 'Using visiting_address is deprecated
+    //     and will be removed in future versions. Use the new address format, see https://schema.org for
+    //     valid parameters and naming conventions. Note that parameter keys are case sensitive.', '3.61.8');
 
-        $visitingAddresses = WP::getField('visiting_address', $postId);
-        $addresses         = [];
+    //     $visitingAddresses = WP::getField('visiting_address', $postId);
+    //     $addresses         = [];
 
-        if (!empty($visitingAddresses) && is_array($visitingAddresses)) {
-            foreach ($visitingAddresses as $visitingAddress) {
-                $address = new \Spatie\SchemaOrg\PostalAddress();
-                $address->streetAddress($visitingAddress['address']['name']);
-                $address->postalCode($visitingAddress['address']['post_code']);
-                $address->addressLocality($visitingAddress['address']['city']);
-                $address->addressCountry($visitingAddress['address']['country']);
-                $addresses[] = $address;
-            }
-        }
+    //     if (!empty($visitingAddresses) && is_array($visitingAddresses)) {
+    //         foreach ($visitingAddresses as $visitingAddress) {
+    //             $address = new \Spatie\SchemaOrg\PostalAddress();
+    //             $address->streetAddress($visitingAddress['address']['name']);
+    //             $address->postalCode($visitingAddress['address']['post_code']);
+    //             $address->addressLocality($visitingAddress['address']['city']);
+    //             $address->addressCountry($visitingAddress['address']['country']);
+    //             $addresses[] = $address;
+    //         }
+    //     }
 
-        return $addresses;
-    }
+    //     return $addresses;
+    // }
 }

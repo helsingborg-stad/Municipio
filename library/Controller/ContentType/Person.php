@@ -11,6 +11,9 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Person extends ContentTypeFactory
 {
+    /**
+     * Constructor method for the Person content type.
+     */
     public function __construct()
     {
         $this->key   = 'person';
@@ -21,16 +24,27 @@ class Person extends ContentTypeFactory
         parent::__construct($this->key, $this->label);
     }
 
+    /**
+     * Initialize the Person controller.
+     */
     public function init(): void
     {
         $this->addHooks();
     }
 
+    /**
+     * Add hooks.
+     */
     public function addHooks(): void
     {
     }
 
-    protected function setSchemaParams(): array
+    /**
+     * Get the schema parameters.
+     *
+     * @return array The schema parameters.
+     */
+    protected function schemaParams(): array
     {
         return [
             'jobTitle'   => [
@@ -59,20 +73,12 @@ class Person extends ContentTypeFactory
             ],
         ];
     }
-    public function getStructuredData(int $postId): array
+    /**
+     * @param int $postId The ID of the post.
+     * @return array The structured data.
+     */
+    public function legacyGetStructuredData(int $postId): array
     {
-
-        $structuredData = [
-            '@type' => 'Person',
-            'name'  => get_the_title($postId),
-        ];
-
-        $meta = [
-            'jobTitle',
-            'email',
-            'telephone'
-        ];
-
-        return ContentTypeHelper::getStructuredData($postId, $structuredData, $meta);
+        return [];
     }
 }

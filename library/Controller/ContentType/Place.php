@@ -25,20 +25,6 @@ class Place extends ContentTypeFactory
     }
 
     /**
-     * Get the schema parameters for the Place content type.
-     *
-     * @return array The schema parameters.
-     */
-    protected function setSchemaParams(): array
-    {
-        return [
-            'geo' => [
-                'schemaType' => 'GeoCoordinates',
-                'label'      => __('Address', 'municipio')
-            ],
-        ];
-    }
-    /**
      * Add hooks for the Place content type.
      *
      * @return void
@@ -48,7 +34,72 @@ class Place extends ContentTypeFactory
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
+    /**
+     * Get the schema parameters for the Place content type.
+     *
+     * @return array The schema parameters.
+     */
+    protected function schemaParams(): array
+    {
+        return [
+            'geo' => [
+                'schemaType' => 'GeoCoordinates',
+                'label'      => __('Address', 'municipio')
+            ],
+        ];
+    }
+    /**
+     * Get structured data for a Place post based on location meta keys.
+     *
+     * @param int $postId The ID of the Place post.
+     *
+     * @return array The structured data for the Place post.
+     */
+    public function legacyGetStructuredData(int $postId): ?array
+    {
 
+        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
+        $structuredData   = [];
+
+        foreach ($locationMetaKeys as $key) {
+            $location = get_post_meta($postId, $key, true);
+            if (empty($location)) {
+                continue;
+            }
+
+            // General address
+            if (!empty($location['formatted_address'])) {
+                $structuredData['location'][] = [
+                    '@type'   => 'Place',
+                    'address' => $location['formatted_address'],
+                ];
+            } elseif (!empty($location['address'])) {
+                $structuredData['location'][] = [
+                    '@type'   => 'Place',
+                    'address' => $location['address'],
+                ];
+            }
+
+            // Coordinates
+            if (!empty($location['lat']) && !empty($location['lng'])) {
+                $structuredData['location'][] = [
+                    '@type'     => 'GeoCoordinates',
+                    'latitude'  => $location['lat'],
+                    'longitude' => $location['lng'],
+                ];
+            }
+
+            // Country
+            if (!empty($location['country'])) {
+                $structuredData['location'][] = [
+                    '@type'          => 'PostalAddress',
+                    'addressCountry' => $location['country'],
+                ];
+            }
+        }
+
+        return $structuredData;
+    }
     /**
      * Append location-related list items to the listing array.
      *
@@ -99,59 +150,5 @@ class Place extends ContentTypeFactory
             . ','
             . $location['lng']
             . '&travelmode=transit';
-    }
-
-
-    /**
-     * Get structured data for a Place post based on location meta keys.
-     *
-     * @param int $postId The ID of the Place post.
-     *
-     * @return array The structured data for the Place post.
-     */
-    public function getStructuredData(int $postId): ?array
-    {
-
-        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        $structuredData   = [];
-
-        foreach ($locationMetaKeys as $key) {
-            $location = get_post_meta($postId, $key, true);
-            if (empty($location)) {
-                continue;
-            }
-
-            // General address
-            if (!empty($location['formatted_address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['formatted_address'],
-                ];
-            } elseif (!empty($location['address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['address'],
-                ];
-            }
-
-            // Coordinates
-            if (!empty($location['lat']) && !empty($location['lng'])) {
-                $structuredData['location'][] = [
-                    '@type'     => 'GeoCoordinates',
-                    'latitude'  => $location['lat'],
-                    'longitude' => $location['lng'],
-                ];
-            }
-
-            // Country
-            if (!empty($location['country'])) {
-                $structuredData['location'][] = [
-                    '@type'          => 'PostalAddress',
-                    'addressCountry' => $location['country'],
-                ];
-            }
-        }
-
-        return $structuredData;
     }
 }

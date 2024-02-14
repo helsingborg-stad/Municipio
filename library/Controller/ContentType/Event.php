@@ -13,6 +13,9 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+    /**
+     * Constructor method the Event content type.
+     */
     public function __construct()
     {
         $this->key   = 'event';
@@ -24,11 +27,30 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 
         parent::__construct($this->key, $this->label);
     }
+    /**
+     * Add hooks for the Event content type.
+     */
     public function addHooks(): void
     {
     }
-
-    protected function setSchemaParams(): array
+    /**
+     * addSecondaryContentType
+     *
+     * @param ContentTypeComponentInterface $contentType
+     * @return void
+     */
+    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
+    {
+        if (ContentTypeHelper::validateSimpleContentType($contentType, $this)) {
+            $this->secondaryContentType[] = $contentType;
+        }
+    }
+    /**
+     * Returns an array of schema parameters for the Event content type.
+     *
+     * @return array The schema parameters.
+     */
+    protected function schemaParams(): array
     {
         $params = [
             'startDate' => [
@@ -62,29 +84,14 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 
         return $params;
     }
+
     /**
-     * addSecondaryContentType
+     * Get the structured data for a legacy event.
      *
-     * @param ContentTypeComponentInterface $contentType
-     * @return void
+     * @param int $postId The ID of the event post.
+     * @return array The structured data array.
      */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
-    {
-        if (ContentTypeHelper::validateSimpleContentType($contentType, $this)) {
-            $this->secondaryContentType[] = $contentType;
-        }
-    }
-    /**
-     * Appends the structured data array (used for schema.org markup) with additional data for events.
-     * Will be printed in the head of the html document.
-     *
-     * @param array $structuredData The structured data to append event data to.
-     * @param string $postType The post type of the post.
-     * @param int $postId The ID of the post to retrieve event data for.
-     *
-     * @return array The updated structured data.
-     */
-    public function getStructuredData(int $postId): array
+    public function legacyGetStructuredData(int $postId): array
     {
 
         $post = \Municipio\Helper\Post::preparePostObject(get_post($postId));

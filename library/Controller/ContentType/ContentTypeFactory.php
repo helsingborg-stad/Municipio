@@ -60,7 +60,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      */
     protected function applySchemaParamsFilter(): array
     {
-        $params = $this->setSchemaParams();
+        $params = $this->schemaParams();
 
         return apply_filters('Municipio/ContentType/schemaParams', $params, $this->key);
     }
@@ -105,22 +105,58 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         return $this->schemaParams;
     }
 
-    /**
-     * Abstract method to set schema parameters.
-     * Must be implemented by subclasses to define their specific schema parameters.
-     *
-     * @return array The schema parameters.
-     */
-    abstract protected function setSchemaParams(): array;
 
     /**
-     * Get the structured data for a post.
-     *
-     * @param int $postId The ID of the post.
-     * @return array|null The structured data for the post.
+     * Define schema parameters in subclasses.
+     */
+    abstract protected function schemaParams(): array;
+
+    /**
+     * Template method for getting structured data, with legacy fallback.
      */
     public function getStructuredData(int $postId): ?array
     {
-        return [];
+        $schemaParams = $this->schemaParams();
+        $schemaData   = (array) get_field('schema', $postId);
+
+        // Fallback to legacy method if schema parameters or data are empty
+        if (empty($schemaParams) || empty($schemaData)) {
+            return $this->legacyGetStructuredData($postId);
+        }
+
+        $graph  = new \Spatie\SchemaOrg\Graph();
+        $entity = $this->getSchemaEntity($graph);
+
+        try {
+            foreach ($schemaParams as $key => $param) {
+                $value = $schemaData[$key] ?? null;
+                if (empty($value)) {
+                    continue;
+                }
+
+                if (method_exists($entity, $key)) {
+                    call_user_func([$entity, $key], $value);
+                }
+            }
+            return $graph->toArray();
+        } catch (\Exception $e) {
+            // Log the error or handle it as needed
+            // Fallback to legacy method in case of an error
+            return $this->legacyGetStructuredData($postId);
+        }
     }
+
+    /**
+     * Get the specific schema entity for the content type.
+     * Subclasses should override this method to return the correct Spatie schema entity.
+     */
+    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
+    {
+        return $graph; // Default implementation, should be overridden
+    }
+    /**
+     * Legacy method for getting structured data.
+     * This method should be implemented to handle structured data according to the old logic.
+     */
+    abstract protected function legacyGetStructuredData(int $postId): ?array;
 }

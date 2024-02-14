@@ -39,7 +39,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array
      */
-    protected function setSchemaParams(): array
+    protected function schemaParams(): array
     {
         $params = [
             'name'        => [
@@ -87,62 +87,16 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         return $params;
     }
     /**
-     * Get school-related structured data for a specific post.
+     * Get the schema entity.
      *
-     * @param int $postId The ID of the post.
+     * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
      * @return void
      */
-    public function getStructuredData(int $postId): ?array
+    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
     {
-        $schemaParams = (array) $this->getSchemaParams();
-        $schemaData   = (array) get_field('schema', $postId);
-
-        if (empty($schemaParams) || empty($schemaData)) {
-            return $this->legacyGetStructuredData($postId);
-        }
-
-        $graph = new \Spatie\SchemaOrg\Graph();
-        $graph->project();
-
-        foreach ($schemaParams as $key => $param) {
-            $value = $schemaData[$key] ?? null;
-
-            if (empty($value)) {
-                continue;
-            }
-
-            switch ($key) {
-                case 'name':
-                    $graph->school()->name($value);
-                    break;
-                case 'description':
-                    $graph->school()->description($value);
-                    break;
-                case 'image':
-                    $graph->school()->image($value);
-                    break;
-                case 'url':
-                    $graph->school()->url($value);
-                    break;
-                case 'address':
-                    $graph->school()->address($value);
-                    break;
-                case 'founder':
-                    $graph->school()->founder($value);
-                    break;
-                case 'brand':
-                    $graph->school()->brand($value);
-                    break;
-                case 'department':
-                    $graph->school()->department($value);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return $graph->toArray();
+        return $graph->project(); // Return the specific schema entity for Project
     }
+
     /**
      * Appends the structured data array (used for schema.org markup) with additional data
      *
