@@ -121,6 +121,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      */
     protected function legacyGetStructuredData(int $postId): array
     {
+
         $structuredData = [
             '@type'       => 'School',
             'name'        => get_the_title($postId),
@@ -128,7 +129,8 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         ];
 
         $meta = [
-            'openingHours',
+            'open_hours',
+            'open_hours_leisure_center'
         ];
 
         foreach ($meta as $key) {
