@@ -36,8 +36,8 @@ class SingularContentType extends \Municipio\Controller\Singular
         // $currentContentType = new $contentType();
         $this->contentType->addHooks();
 
-        if (!empty($this->contentType->secondaryContentType)) {
-            foreach ($this->contentType->secondaryContentType as $secondaryContentType) {
+        if (!empty($this->contentType->getSecondaryContentType())) {
+            foreach ($this->contentType->getSecondaryContentType() as $secondaryContentType) {
                 $secondaryContentType->addHooks();
             }
         }
