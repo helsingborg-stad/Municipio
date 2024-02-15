@@ -219,30 +219,6 @@
 
     @endif
 
-    @if ($socialMediaLinks)
-
-        @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{ $socialMediaLinksTitle }}
-        @endtypography
-
-        <div>
-
-            @foreach ($socialMediaLinks as $socialMediaLink)
-                @button([
-                    'text' => $socialMediaLink['text'],
-                    'color' => 'primary',
-                    'style' => 'basic',
-                    'size' => 'lg',
-                    'href' => $socialMediaLink['href'],
-                    'icon' => $socialMediaLink['icon'],
-                    'reversePositions' => 'true',
-                    'classList' => ['u-margin__right--3'],
-                ])
-                @endbutton
-            @endforeach
-        </div>
-    @endif
-
     @if ($pages)
         @collection(['classList' => ['o-grid', 'o-grid--half-gutter']])
             @foreach ($pages as $page)
@@ -268,6 +244,30 @@
                 @endcollection__item
             @endforeach
         @endcollection
+    @endif
+
+@if ($socialMediaLinks)
+
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{ $socialMediaLinksTitle }}
+        @endtypography
+
+        <div>
+
+            @foreach ($socialMediaLinks as $socialMediaLink)
+                @button([
+                    'text' => $socialMediaLink['text'],
+                    'color' => 'primary',
+                    'style' => 'basic',
+                    'size' => 'lg',
+                    'href' => $socialMediaLink['href'],
+                    'icon' => $socialMediaLink['icon'],
+                    'reversePositions' => 'true',
+                    'classList' => ['u-margin__right--3'],
+                ])
+                @endbutton
+            @endforeach
+        </div>
     @endif
 
     @if ($visitingDataTitle)
