@@ -8,11 +8,20 @@ use Municipio\Helper\Image;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 use Municipio\Helper\FileConverters\FileConverterInterface;
 
+/**
+ * Class CreatePdf
+*/
 class CreatePdf
 {
     private PdfHelperInterface $pdfHelper;
     private FileConverterInterface $woffHelper;
 
+    /**
+     * CreatePdf construct
+     *
+     * @param PdfHelperInterface $pdfHelper PdfHelper instance.
+     * @param FileConverterInterface $woffHelper FileConverter instance.
+    */
     public function __construct(PdfHelperInterface $pdfHelper, FileConverterInterface $woffHelper)
     {
         $this->pdfHelper  = $pdfHelper;
@@ -59,7 +68,7 @@ class CreatePdf
      *
      * @return array Language-related information.
      */
-    private function getLang()
+    private function getLang(): array
     {
         $lang = [
             'generatedPdf' => __('Generated PDF', 'municipio')
