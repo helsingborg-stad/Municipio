@@ -55,8 +55,10 @@ class Place extends ContentTypeFactory
      *
      * @return array The structured data for the Place post.
      */
-    public function legacyGetStructuredData(int $postId): ?array
+    public function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): ?array
     {
+
+        $entity = $this->getSchemaEntity($graph);
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
         $structuredData   = [];

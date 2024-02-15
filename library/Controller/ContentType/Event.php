@@ -91,81 +91,45 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param int $postId The ID of the event post.
      * @return array The structured data array.
      */
-    public function legacyGetStructuredData(int $postId): array
+    public function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): ?array
     {
 
-        $post = \Municipio\Helper\Post::preparePostObject(get_post($postId));
+        $entity = $this->getSchemaEntity($graph);
+        $post   = \Municipio\Helper\Post::preparePostObject(get_post($postId));
 
-       // Build the schema.org event data
-        $eventData = [
-            '@type'       => 'Event',
-            'name'        => $post->postTitle,
-            'description' => $post->postExcerpt,
-            'offers'      => [],
-        ];
+        $entity->name($post->postTitle);
+        $entity->description($post->postExcerpt);
 
-        $eventMeta = get_post_meta($postId);
+        $eventMeta = \Municipio\Helper\WP::getFields($postId);
 
-       // Event dates
-        $occasions = $eventMeta['occasions_complete'][0] ?? null;
-        $startDate = $occasions ? $occasions[0]['start_date'] ?? '' : '';
-        $endDate   = $occasions ? $occasions[0]['end_date'] ?? '' : '';
-
-        if ($startDate) {
-            $eventData['startDate'] = $startDate;
-        }
-        if ($endDate) {
-            $eventData['endDate'] = $endDate;
+        $occasions = $eventMeta['occasions_complete'] ?? [];
+        if (!empty($occasions)) {
+            $entity->startDate($occasions[0]['start_date']);
+            $entity->endDate($occasions[0]['end_date']);
         }
 
-       // Event image
-        $imageUrl = wp_get_attachment_url($eventMeta['_thumbnail_id'][0] ?? null);
-        if ($imageUrl) {
-            $eventData['image'] = [$imageUrl];
-        }
+        $imageUrl           = wp_get_attachment_url($eventMeta['_thumbnail_id'] ?? null);
+        $eventData['image'] = [$imageUrl];
 
-       // Event tickets
-        $bookingLink = $eventMeta['booking_link'][0] ?? null;
+        $bookingLink = $eventMeta['booking_link'] ?? false;
         if ($bookingLink) {
-            $eventData['offers'][] = [
-            '@type' => 'Offer',
-            'name'  => 'ticket',
-            'url'   => $bookingLink,
-            ];
+            $entity->offers([
+                '@type' => 'Offer',
+                'name'  => 'ticket',
+                'url'   => $bookingLink,
+            ]);
         }
 
-        $adultPrice = $eventMeta['price_adult'][0] ?? null;
-        if ($adultPrice) {
-            $eventData['offers'][] = [
-            '@type'         => 'Offer',
-            'name'          => 'ticket',
-            'price'         => $adultPrice,
-            'priceCurrency' => 'SEK',
-            ];
-        }
-
-       // Additional ticket types
-        $additionalTypes = $eventMeta['additional_ticket_types'][0] ?? null;
-        if ($additionalTypes) {
-            $ticketTypes = maybe_unserialize($additionalTypes);
-            foreach ($ticketTypes as $type) {
-                $ticketName   = $type['ticket_name'] ?? null;
-                $maximumPrice = $type['maximum_price'] ?? null;
-                if ($ticketName && $maximumPrice) {
-                    $eventData['offers'][] = [
-                    '@type'         => 'Offer',
-                    'name'          => $ticketName,
-                    'price'         => $maximumPrice,
-                    'priceCurrency' => 'SEK',
-                    ];
-                }
-            }
-        }
-
-        if (empty($eventData['offers'])) {
-            unset($eventData['offers']);
-        }
-       // Append the event data to the structured data
-        return $eventData;
+        return $entity->toArray();
+    }
+    /**
+     * Get the schema entity for the Event content type.
+     *
+     * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
+     * @return mixed The schema entity.
+     */
+    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
+    {
+        return $graph->event(); // Return the specific schema entity for Event
     }
 }

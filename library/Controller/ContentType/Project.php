@@ -106,7 +106,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The modified structured data array.
      */
-    protected function legacyGetStructuredData(int $postId): array
+    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): array
     {
         $post           = \Municipio\Helper\WP::getPost($postId);
         $structuredData = [];

@@ -119,7 +119,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param int $postId The ID of the post.
      * @return array The array of structured data.
      */
-    protected function legacyGetStructuredData(int $postId): array
+    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): array
     {
 
         $structuredData = [

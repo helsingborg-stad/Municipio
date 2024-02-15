@@ -86,19 +86,14 @@ class WP
     public static function getFields(int $postId = 0)
     {
         $fields = [];
-
-        if (function_exists('get_fields')) {
-            $fields = get_fields($postId);
-        } else {
-            $meta = get_post_meta($postId);
-            foreach ($meta as $key => $value) {
-                // get_post_meta() wraps values in an array, so we unwrap them here.
-                // Check if it's a serialized value; if so, unserialize it.
-                if (is_array($value) && count($value) === 1) {
-                    $fields[$key] = maybe_unserialize($value[0]);
-                } else {
-                    $fields[$key] = $value;
+        $meta   = get_post_meta($postId);
+        foreach ($meta as $key => $value) {
+            if (!empty($value) && is_array($value)) {
+                foreach ($value as $_key => $_value) {
+                    $fields[$key] = maybe_unserialize($_value);
                 }
+            } else {
+                $fields[$key] = $value;
             }
         }
 

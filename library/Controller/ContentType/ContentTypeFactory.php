@@ -119,12 +119,13 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         $schemaParams = $this->schemaParams();
         $schemaData   = (array) get_field('schema', $postId);
 
+        $graph = new \Spatie\SchemaOrg\Graph();
+
         // Fallback to legacy method if schema parameters or data are empty
         if (empty($schemaParams) || empty($schemaData)) {
-            return $this->legacyGetStructuredData($postId);
+            return $this->legacyGetStructuredData($postId, $graph);
         }
 
-        $graph  = new \Spatie\SchemaOrg\Graph();
         $entity = $this->getSchemaEntity($graph);
 
         try {
@@ -142,7 +143,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         } catch (\Exception $e) {
             // Log the error or handle it as needed
             // Fallback to legacy method in case of an error
-            return $this->legacyGetStructuredData($postId);
+            return $this->legacyGetStructuredData($postId, $graph);
         }
     }
 
@@ -158,5 +159,5 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      * Legacy method for getting structured data.
      * This method should be implemented to handle structured data according to the old logic.
      */
-    abstract protected function legacyGetStructuredData(int $postId): ?array;
+    abstract protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): ?array;
 }
