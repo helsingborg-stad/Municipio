@@ -77,6 +77,33 @@ class WP
 
         return $fieldValue;
     }
+    /**
+     * Get all custom fields for a given post using ACF get_fields() with a fallback to standard WordPress get_post_meta().
+     *
+     * @param int $postId The ID of the post to get the custom fields from.
+     * @return array An associative array of custom field values indexed by their field names.
+     */
+    public static function getFields(int $postId = 0)
+    {
+        $fields = [];
+
+        if (function_exists('get_fields')) {
+            $fields = get_fields($postId);
+        } else {
+            $meta = get_post_meta($postId);
+            foreach ($meta as $key => $value) {
+                // get_post_meta() wraps values in an array, so we unwrap them here.
+                // Check if it's a serialized value; if so, unserialize it.
+                if (is_array($value) && count($value) === 1) {
+                    $fields[$key] = maybe_unserialize($value[0]);
+                } else {
+                    $fields[$key] = $value;
+                }
+            }
+        }
+
+        return $fields;
+    }
 
     /**
      * Get the meta value for a specific key from a post.
