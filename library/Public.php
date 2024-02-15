@@ -22,7 +22,7 @@ if (!function_exists('render_blade_view')) {
         $bladeEngine = $init->getEngine();
 
         try {
-            $markup = $bladeEngine->make(
+            $markup = $bladeEngine->makeView(
                 $view,
                 array_merge(
                     $data,

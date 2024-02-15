@@ -2,6 +2,7 @@
 
 namespace Municipio\Widget\Source;
 
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Philo\Blade\Blade as Blade;
 
 abstract class WidgetTemplate extends \WP_Widget
@@ -104,8 +105,9 @@ abstract class WidgetTemplate extends \WP_Widget
         $this->afterViewController();
         $this->widgetAttributes();
 
-        $blade = new Blade($this->viewPath, $this->cachePath);
-        echo $blade->view()->make('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
+        $blade = GlobalBladeService::getInstance();
+        $blade->addViewPath($this->viewPath);
+        echo $blade->makeView('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
     }
 
     public function beforeViewController()
