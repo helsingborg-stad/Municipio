@@ -25,6 +25,7 @@
         }
     ],
     "require": {
+        "php": "^7.4|^8.0",
         "composer/installers": "^1.0",
         "symfony/polyfill-mbstring": "1.17.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
@@ -33,7 +34,6 @@
         "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4",
-        "php": "^8.3",
         "helsingborg-stad/blade": "^3.2"
     },
     "extra": {
