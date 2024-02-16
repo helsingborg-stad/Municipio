@@ -246,7 +246,7 @@
         @endcollection
     @endif
 
-@if ($socialMediaLinks)
+    @if ($socialMediaLinks)
 
         @typography(['element' => 'h2', 'variant' => 'h2'])
             {{ $socialMediaLinksTitle }}
