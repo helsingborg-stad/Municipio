@@ -259,13 +259,17 @@
                     @typography([
                         'element' => 'h3', 
                         'variant' => 'h4',
-                        'classList' => ['u-color__text--default']
+                        'classList' => ['u-color__text--primary-contrasting']
                     ])
                         {{ $page['title'] }}
                     @endtypography
 
                     @slot('secondary')
-                        @icon(['icon' => 'arrow_forward', 'size' => 'md', 'color' => 'default'])
+                        @icon([
+                            'icon' => 'arrow_forward', 
+                            'size' => 'md', 
+                            'classList' => ['u-color__text--primary-contrasting']
+                        ])
                         @endicon
                     @endslot
 
