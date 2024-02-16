@@ -23,8 +23,7 @@ class Posts
               [
                 'type'    => 'modifier',
                 'context' => [
-                  'module.posts.index',
-                  'module.manual-input.accordion'
+                  'module.posts.index'
                 ]
               ]
           ],
@@ -70,7 +69,10 @@ class Posts
           'output'   => [
               [
                 'type'    => 'modifier',
-                'context' => ['module.posts.expandablelist']
+                'context' => [
+                  'module.posts.expandablelist',
+                  'module.manual-input.accordion'
+                ]
               ]
           ],
         ]);
