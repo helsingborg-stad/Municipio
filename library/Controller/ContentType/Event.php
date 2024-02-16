@@ -91,11 +91,13 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param int $postId The ID of the event post.
      * @return array The structured data array.
      */
-    public function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): ?array
+    public function legacyGetStructuredData(int $postId, $entity): ?array
     {
 
-        $entity = $this->getSchemaEntity($graph);
-        $post   = \Municipio\Helper\Post::preparePostObject(get_post($postId));
+        if (empty($entity)) {
+            return [];
+        }
+        $post = \Municipio\Helper\Post::preparePostObject(get_post($postId));
 
         $entity->name($post->postTitle);
         $entity->description($post->postExcerpt);

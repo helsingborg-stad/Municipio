@@ -103,26 +103,15 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
         return $params;
     }
-
-    /**
-     * Get the schema entity for the School content type.
-     *
-     * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
-     * @return mixed The schema entity.
-     */
-    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
-    {
-        return $graph->school(); // Return the specific schema entity for School
-    }
-
     /**
      * @param int $postId The ID of the post.
      * @return array The array of structured data.
      */
-    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): array
+    protected function legacyGetStructuredData(int $postId, $entity): ?array
     {
-
-        $entity = $this->getSchemaEntity($graph);
+        if (empty($entity)) {
+            return [];
+        }
 
         $entity->name(get_the_title($postId));
         $entity->description(get_the_excerpt($postId));
@@ -134,7 +123,7 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         ];
         foreach ($metaKeysOpenHours as $key) {
             $value = WP::getField($key, $postId);
-            if (!empty($value) && (isset($value->open) && isset($value->close))) {
+            if (!empty($value->open) && !empty($value->close)) {
                 $open  = \Municipio\Helper\DateFormat::stripSeconds($value->open);
                 $close = \Municipio\Helper\DateFormat::stripSeconds($value->close);
                 $entity->openingHours("Mo-Fr {$open}-{$close}");

@@ -92,10 +92,10 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
      * @return void
      */
-    protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
-    {
-        return $graph->project(); // Return the specific schema entity for Project
-    }
+    // protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
+    // {
+    //     return $graph->project(); // Return the specific schema entity for Project
+    // }
 
     /**
      * Appends the structured data array (used for schema.org markup) with additional data
@@ -106,8 +106,18 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
      *
      * @return array The modified structured data array.
      */
-    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): array
+    protected function legacyGetStructuredData(int $postId, $entity): ?array
     {
+        if (empty($entity)) {
+            return [];
+        }
+
+        $entity->name(get_the_title($postId));
+        $entity->description(get_the_excerpt($postId));
+        $entity->url(get_permalink($postId));
+
+        return $entity->toArray();
+
         $post           = \Municipio\Helper\WP::getPost($postId);
         $structuredData = [];
 

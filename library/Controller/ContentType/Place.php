@@ -55,52 +55,42 @@ class Place extends ContentTypeFactory
      *
      * @return array The structured data for the Place post.
      */
-    public function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): ?array
+    public function legacyGetStructuredData(int $postId, $entity): ?array
     {
 
-        $entity = $this->getSchemaEntity($graph);
+        if (empty($entity)) {
+            return [];
+        }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        $structuredData   = [];
+        // $structuredData   = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);
+
             if (empty($location)) {
                 continue;
             }
 
             // General address
             if (!empty($location['formatted_address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['formatted_address'],
-                ];
+                $generalAddress = $location['formatted_address'];
             } elseif (!empty($location['address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['address'],
-                ];
+                $generalAddress = $location['address'];
             }
+            $entity->address($generalAddress);
 
             // Coordinates
             if (!empty($location['lat']) && !empty($location['lng'])) {
-                $structuredData['location'][] = [
+                $entity->geo([
                     '@type'     => 'GeoCoordinates',
                     'latitude'  => $location['lat'],
                     'longitude' => $location['lng'],
-                ];
-            }
-
-            // Country
-            if (!empty($location['country'])) {
-                $structuredData['location'][] = [
-                    '@type'          => 'PostalAddress',
-                    'addressCountry' => $location['country'],
-                ];
+                ]);
             }
         }
 
-        return $structuredData;
+        return $entity->toArray();
     }
     /**
      * Append location-related list items to the listing array.

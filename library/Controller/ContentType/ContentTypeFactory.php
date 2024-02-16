@@ -31,19 +31,19 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     protected array $secondaryContentType = [];
     protected array $schemaParams;
 
-        /**
-         * ContentTypeFactory constructor.
-         *
-         * @param string $key   The key of the content type.
-         * @param string $label The label of the content type.
-         */
+    /**
+     * ContentTypeFactory constructor.
+     *
+     * @param string $key   The key of the content type.
+     * @param string $label The label of the content type.
+     */
+
     public function __construct(string $key, string $label)
     {
         $this->key          = $key;
         $this->label        = $label;
         $this->schemaParams = $this->applySchemaParamsFilter();
     }
-
     /**
      * Get the secondary content type.
      *
@@ -64,7 +64,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         return apply_filters('Municipio/ContentType/schemaParams', $params, $this->key);
     }
-
     /**
      * Get the label of the content type.
      *
@@ -74,7 +73,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return $this->label;
     }
-
     /**
      * Get the key of the content type.
      *
@@ -84,7 +82,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return $this->key;
     }
-
     /**
      * Get the view for the content type.
      *
@@ -94,7 +91,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return "content-type-{$this->getKey()}";
     }
-
     /**
      * Get the schema parameters.
      *
@@ -104,8 +100,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         return $this->schemaParams;
     }
-
-
     /**
      * Define schema parameters in subclasses.
      */
@@ -119,14 +113,13 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         $schemaParams = $this->schemaParams();
         $schemaData   = (array) get_field('schema', $postId);
 
-        $graph = new \Spatie\SchemaOrg\Graph();
+        $graph  = new \Spatie\SchemaOrg\Graph();
+        $entity = $this->getSchemaEntity($graph);
 
         // Fallback to legacy method if schema parameters or data are empty
         if (empty($schemaParams) || empty($schemaData)) {
-            return $this->legacyGetStructuredData($postId, $graph);
+            return $this->legacyGetStructuredData($postId, $entity);
         }
-
-        $entity = $this->getSchemaEntity($graph);
 
         try {
             foreach ($schemaParams as $key => $param) {
@@ -141,23 +134,24 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
             }
             return $graph->toArray();
         } catch (\Exception $e) {
-            // Log the error or handle it as needed
             // Fallback to legacy method in case of an error
-            return $this->legacyGetStructuredData($postId, $graph);
+            return $this->legacyGetStructuredData($postId, $entity);
         }
     }
-
     /**
-     * Get the specific schema entity for the content type.
-     * Subclasses should override this method to return the correct Spatie schema entity.
+     * Get the schema entity from the graph.
+     *
+     * @param \Spatie\SchemaOrg\Graph $graph The schema graph.
+     * @return \Spatie\SchemaOrg\BaseType The schema entity corresponding to this content type.
      */
     protected function getSchemaEntity(\Spatie\SchemaOrg\Graph $graph)
     {
-        return $graph; // Default implementation, should be overridden
+        $methodName = $this->getKey();
+        return $graph->$methodName();
     }
     /**
      * Legacy method for getting structured data.
      * This method should be implemented to handle structured data according to the old logic.
      */
-    abstract protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): ?array;
+    abstract protected function legacyGetStructuredData(int $postId, $entity): ?array;
 }

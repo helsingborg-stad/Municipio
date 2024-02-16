@@ -77,7 +77,7 @@ class Person extends ContentTypeFactory
      * @param int $postId The ID of the post.
      * @return array The structured data.
      */
-    public function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): ?array
+    public function legacyGetStructuredData(int $postId, $entity): ?array
     {
         return [];
     }
