@@ -86,7 +86,10 @@
         @typography(['element' => 'h2'])
             {{ $visitUs['title'] }}
         @endtypography
+
+        @typography(['element' => 'p'])
         {!! $visitUs['content'] !!}
+        @endtypography
     @endif
 
 
