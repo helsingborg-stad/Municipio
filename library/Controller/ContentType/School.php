@@ -119,29 +119,31 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
      * @param int $postId The ID of the post.
      * @return array The array of structured data.
      */
-    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $entity): array
+    protected function legacyGetStructuredData(int $postId, \Spatie\SchemaOrg\Graph $graph): array
     {
 
-        $structuredData = [
-            '@type'       => 'School',
-            'name'        => get_the_title($postId),
-            'description' => get_the_excerpt($postId),
-        ];
+        $entity = $this->getSchemaEntity($graph);
 
-        $meta = [
+        $entity->name(get_the_title($postId));
+        $entity->description(get_the_excerpt($postId));
+        $entity->url(get_permalink($postId));
+
+        $metaKeysOpenHours = [
             'open_hours',
             'open_hours_leisure_center'
         ];
-
-        foreach ($meta as $key) {
+        foreach ($metaKeysOpenHours as $key) {
             $value = WP::getField($key, $postId);
-            if (!empty($value)) {
-                $structuredData[$key] = $value;
+            if (!empty($value) && (isset($value->open) && isset($value->close))) {
+                $open  = \Municipio\Helper\DateFormat::stripSeconds($value->open);
+                $close = \Municipio\Helper\DateFormat::stripSeconds($value->close);
+                $entity->openingHours("Mo-Fr {$open}-{$close}");
             }
         }
 
-        $structuredData['address'] = $this->legacyVisitingAddress($postId);
-        return $structuredData;
+        $entity->address($this->legacyVisitingAddress($postId));
+
+        return $entity->toArray();
     }
 
     /**
