@@ -495,7 +495,7 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return bool True if the featured image should be displayed, false otherwise.
      */
-    private function displayFeaturedImageOnSinglePost(int $postId = 0)
+    private function displayFeaturedImageOnSinglePost($postId = false)
     {
         return (bool) apply_filters(
             'Municipio/Controller/Singular/displayFeaturedImageOnSinglePost',
@@ -511,7 +511,7 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return bool True if the page title should be shown on a one-page post, false otherwise.
      */
-    private function showPageTitleOnOnePage(int $postId = 0)
+    private function showPageTitleOnOnePage($postId = false)
     {
         return (bool) apply_filters(
             'Municipio/Controller/Singular/showTitleOnOnePage',
@@ -547,11 +547,11 @@ class Singular extends \Municipio\Controller\BaseController
     public function getRelatedPosts(int $postId = 0)
     {
         $taxonomies = get_post_taxonomies($postId);
-        $postTypes = get_post_types(
+        $postTypes  = get_post_types(
             [
-                'public' => true, 
+                'public'   => true,
                 '_builtin' => false
-            ], 
+            ],
             'objects'
         );
 
@@ -560,7 +560,7 @@ class Singular extends \Municipio\Controller\BaseController
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
-                    if( $term instanceof \WP_Term ) {
+                    if ($term instanceof \WP_Term) {
                         $arr[$taxonomy][] = $term->term_id;
                     }
                 }
@@ -574,10 +574,10 @@ class Singular extends \Municipio\Controller\BaseController
         $posts = [];
         foreach ($postTypes as $postType) {
             $args = [
-                'numberposts' => 3,
-                'post_type' => $postType->name,
+                'numberposts'  => 3,
+                'post_type'    => $postType->name,
                 'post__not_in' => [$postId],
-                'tax_query' => [
+                'tax_query'    => [
                     'relation' => 'OR',
                 ],
             ];
@@ -585,8 +585,8 @@ class Singular extends \Municipio\Controller\BaseController
             foreach ($arr as $tax => $ids) {
                 $args['tax_query'][] = [
                 'taxonomy' => $tax,
-                'field' => 'term_id',
-                'terms' => $ids,
+                'field'    => 'term_id',
+                'terms'    => $ids,
                 'operator' => 'IN',
                 ];
             }
@@ -595,12 +595,12 @@ class Singular extends \Municipio\Controller\BaseController
 
             if (!empty($result)) {
                 foreach ($result as &$post) {
-                    $post = \Municipio\Helper\Post::preparePostObject($post);
+                    $post                    = \Municipio\Helper\Post::preparePostObject($post);
                     $posts[$postType->label] = $result;
                 }
             }
         }
 
         return $posts;
-    }    
+    }
 }
