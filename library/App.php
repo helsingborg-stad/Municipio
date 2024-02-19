@@ -177,6 +177,9 @@ class App
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
+        $uploads = new \Municipio\Admin\Uploads();
+        $uploads->addHooks();
+
         /**
          * Api
          */
