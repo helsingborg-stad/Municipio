@@ -3,6 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{{!empty($cover['heading']) ? $cover['heading'] : $lang['generatedPdf']}}</title>
+
+    @if (!empty($fonts['googleFonts']))
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="{{$fonts['googleFonts']}}" rel="stylesheet">
+    @endif
+
     @include('partials.content.pdf.typography')
     @include('partials.content.pdf.style')
 </head>

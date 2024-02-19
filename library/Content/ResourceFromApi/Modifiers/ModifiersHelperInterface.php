@@ -3,7 +3,7 @@
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
 use Municipio\Content\ResourceFromApi\ResourceInterface;
-use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
+use Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistryInterface;
 use WP_Query;
 
 interface ModifiersHelperInterface
