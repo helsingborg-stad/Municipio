@@ -495,7 +495,7 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return bool True if the featured image should be displayed, false otherwise.
      */
-    private function displayFeaturedImageOnSinglePost($postId = false)
+    private function displayFeaturedImageOnSinglePost(int $postId)
     {
         return (bool) apply_filters(
             'Municipio/Controller/Singular/displayFeaturedImageOnSinglePost',
@@ -511,7 +511,7 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return bool True if the page title should be shown on a one-page post, false otherwise.
      */
-    private function showPageTitleOnOnePage($postId = false)
+    private function showPageTitleOnOnePage(int $postId)
     {
         return (bool) apply_filters(
             'Municipio/Controller/Singular/showTitleOnOnePage',
@@ -544,7 +544,7 @@ class Singular extends \Municipio\Controller\BaseController
      *
      * @return array|bool An array of related posts or false if no related posts are found.
      */
-    public function getRelatedPosts(int $postId = 0)
+    public function getRelatedPosts(int $postId)
     {
         $taxonomies = get_post_taxonomies($postId);
         $postTypes  = get_post_types(
