@@ -31,12 +31,12 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayFeaturedImage']   = $this->displayFeaturedImageOnSinglePost($this->data['post']->ID);
-        $this->data['showPageTitleOnOnePage'] = $this->showPageTitleOnOnePage($this->data['post']->ID);
+        $this->data['displayFeaturedImage']   = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
+        $this->data['showPageTitleOnOnePage'] = $this->showPageTitleOnOnePage($this->data['post']->id);
 
         $this->data['quicklinksPlacement']           = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
-        $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->ID, [1366, 910]);
+        $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature();
@@ -46,12 +46,12 @@ class Singular extends \Municipio\Controller\BaseController
 
         //Comments
         if (get_option('comment_moderation') === '1') {
-            $this->data['comments'] = get_approved_comments($this->data['post']->ID, array(
+            $this->data['comments'] = get_approved_comments($this->data['post']->id, array(
                 'order' => get_option('comment_order')
             ));
         } else {
             $this->data['comments'] = get_comments(array(
-                'post_id' => $this->data['post']->ID,
+                'post_id' => $this->data['post']->id,
                 'order'   => get_option('comment_order')
             ));
         }
@@ -84,7 +84,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->ID);
+        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         // Related posts (based on taxonomies)
         $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
@@ -114,7 +114,7 @@ class Singular extends \Municipio\Controller\BaseController
             return $data;
         }
 
-        $data['displaySecondaryMap']  = get_field('display_secondary_map', $this->data['post']->ID);
+        $data['displaySecondaryMap']  = get_field('display_secondary_map', $this->data['post']->id);
         $data['secondaryQuery']->pins = $this->getSecondaryQueryPins($data['secondaryQuery']);
 
         $queryStr = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
@@ -317,7 +317,7 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getSignature(): object
     {
-        $postId        = $this->data['post']->ID;
+        $postId        = $this->data['post']->id;
         $displayAuthor = get_field('page_show_author', 'option');
         $displayAvatar = get_field('page_show_author_image', 'option');
         $linkAuthor    = get_field('page_link_to_author_archive', 'option');
@@ -326,11 +326,11 @@ class Singular extends \Municipio\Controller\BaseController
         $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
 
         if ($displayPublish) {
-            $published = $this->getPostDates($this->data['post']->ID)->published;
+            $published = $this->getPostDates($this->data['post']->id)->published;
         }
 
         if ($displayUpdated) {
-            $updated = $this->getPostDates($this->data['post']->ID)->updated;
+            $updated = $this->getPostDates($this->data['post']->id)->updated;
         }
 
         return (object) [
