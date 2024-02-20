@@ -27,7 +27,6 @@ class FormatObject
         }
     }
 
-
     /**
      * Camelcase snake_case object or array
      *
@@ -51,11 +50,11 @@ class FormatObject
      */
     public static function camelCaseString(string $string): string
     {
-        if (preg_match('/^[a-zA-Z0-9]*$/', $string)) {
+        if (preg_match('/^[a-z]+([A-Z][a-z]*)*$/m', $string)) {
             return $string;
         }
 
-        return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', $string)))));
+        return lcfirst(implode('', array_map('ucfirst', explode('_', str_replace('-', '_', strtolower($string))))));
     }
 
     /**
