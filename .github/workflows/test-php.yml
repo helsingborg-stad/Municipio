@@ -19,7 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          php-version: '7.4'
+          php-version: '8.2'
           tools: composer:v2
 
       - name: Install dependencies
