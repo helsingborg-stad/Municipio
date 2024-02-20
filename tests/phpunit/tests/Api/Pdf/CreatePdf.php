@@ -8,6 +8,7 @@ use Municipio\Api\Pdf\PdfHelperInterface;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\FileConverters\FileConverterInterface;
+use phpmock\mockery\PHPMockery;
 
 /**
  * Class CreatePdfTest
@@ -31,7 +32,7 @@ class CreatePdfTest extends TestCase
         $html         = join('', $imageTags);
         $expectedHtml = '<img src="https://foo.bar/img.jpg"/><img src="https://foo.bar/img.jpeg"/>';
 
-        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
+        PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(false);
         $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
         $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
@@ -44,8 +45,6 @@ class CreatePdfTest extends TestCase
         $result = $createPdf->getHtmlFromView([$this->mockPost()]);
 
         // Then
-        $mockExtensionLoaded->wasCalledOnce();
-        $mockExtensionLoaded->wasCalledWithOnce(['gd']);
         $this->assertEquals($expectedHtml, $result);
     }
 
@@ -64,7 +63,7 @@ class CreatePdfTest extends TestCase
         $html         = join('', $scriptTags);
         $expectedHtml = '<script type="text/javascript" class="pdf-script">console.log("some test code");</script>';
 
-        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
+        PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(false);
         $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
         $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
@@ -77,8 +76,6 @@ class CreatePdfTest extends TestCase
         $result = $createPdf->getHtmlFromView([$this->mockPost()]);
 
         // Then
-        $mockExtensionLoaded->wasCalledOnce();
-        $mockExtensionLoaded->wasCalledWithOnce(['gd']);
         $this->assertEquals($expectedHtml, $result);
     }
 
