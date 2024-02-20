@@ -1,17 +1,18 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
+namespace Municipio\Controller\ContentType\Complex;
 
-use Municipio\Controller\ContentType\School\SchoolDataPreparer;
+use Municipio\Controller\ContentType\Complex\School\SchoolDataPreparer;
+use Municipio\Controller\ContentType;
 use Municipio\Helper\WP;
 
 /**
  * Class School
  * @package Municipio\Controller\ContentType
  */
-class School extends ContentTypeFactory implements ContentTypeComplexInterface
+class School extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
 {
-    use Traits\AddSecondaryContentType;
+    use ContentType\Traits\AddSecondaryContentType;
 
     protected object $postMeta;
 
@@ -23,8 +24,8 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->key   = 'school';
         $this->label = __('School', 'municipio');
 
-        $this->addSecondaryContentType(new Place());
-        $this->addSecondaryContentType(new Person());
+        $this->addSecondaryContentType(new ContentType\Simple\Place());
+        $this->addSecondaryContentType(new ContentType\Simple\Person());
 
         $this->schemaParams = $this->applySchemaParamsFilter();
 

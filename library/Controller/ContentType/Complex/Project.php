@@ -1,14 +1,16 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
+namespace Municipio\Controller\ContentType\Complex;
+
+use Municipio\Controller\ContentType;
 
 /**
  * Class Project
  * @package Municipio\Controller\ContentType
  */
-class Project extends ContentTypeFactory implements ContentTypeComplexInterface
+class Project extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
 {
-    use Traits\AddSecondaryContentType;
+    use ContentType\Traits\AddSecondaryContentType;
 
     /**
      * Class constructor.
@@ -18,7 +20,7 @@ class Project extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->key   = 'project';
         $this->label = __('Project', 'municipio');
 
-        $this->addSecondaryContentType(new Place());
+        $this->addSecondaryContentType(new ContentType\Simple\Place());
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
+namespace Municipio\Controller\ContentType\Complex;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
+use Municipio\Controller\ContentType;
 
 /**
  * Class Event
@@ -11,9 +11,9 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  *
  * @package Municipio\Controller\ContentType
  */
-class Event extends ContentTypeFactory implements ContentTypeComplexInterface
+class Event extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
 {
-    use Traits\AddSecondaryContentType;
+    use ContentType\Traits\AddSecondaryContentType;
 
     /**
      * Constructor method the Event content type.
@@ -23,7 +23,7 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->key   = 'event';
         $this->label = __('Event', 'municipio');
 
-        $this->addSecondaryContentType(new Place());
+        $this->addSecondaryContentType(new ContentType\Simple\Place());
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);

@@ -25,29 +25,28 @@ class ContentType
     public static function getRegisteredContentTypes(bool $includeExtras = false): array
     {
         $contentTypes = [];
+        $subDirs      = ['Simple', 'Complex']; // Define the subdirectories to search in
 
         foreach (ControllerHelper::getControllerPaths() as $path) {
-            if (is_dir($dir = $path . DIRECTORY_SEPARATOR . 'ContentType')) {
-                foreach (glob("$dir/*.php") as $filename) {
-                    // Skip files with Factory or Interface in the filename
-                    if (preg_match('[Factory|Interface|Test]', $filename)) {
-                        continue;
-                    }
+            foreach ($subDirs as $subDir) {
+                $dirPath = $path . DIRECTORY_SEPARATOR . 'ContentType' . DIRECTORY_SEPARATOR . $subDir;
+                if (is_dir($dirPath)) {
+                    foreach (glob("$dirPath/*.php") as $filename) {
+                        $namespace              = ControllerHelper::getNamespace($filename);
+                        $className              = basename($filename, '.php');
+                        $classNameWithNamespace = $namespace . '\\' . $className;
 
-                    $namespace              = ControllerHelper::getNamespace($filename);
-                    $className              = basename($filename, '.php');
-                    $classNameWithNamespace = $namespace . '\\' . $className;
+                        $instance = new $classNameWithNamespace();
 
-                    $instance = new $classNameWithNamespace();
-
-                    if ($includeExtras) {
-                        $contentTypes[$instance->getKey()] = [
-                            'instance'  => $instance,
-                            'className' => $classNameWithNamespace,
-                            'path'      => $filename
-                        ];
-                    } else {
-                        $contentTypes[$instance->getKey()] = $instance->getLabel();
+                        if ($includeExtras) {
+                            $contentTypes[$instance->getKey()] = [
+                                'instance'  => $instance,
+                                'className' => $classNameWithNamespace,
+                                'path'      => $filename
+                            ];
+                        } else {
+                            $contentTypes[$instance->getKey()] = $instance->getLabel();
+                        }
                     }
                 }
             }
@@ -55,6 +54,7 @@ class ContentType
 
         return apply_filters('Municipio/ContentType/getRegisteredContentTypes', $contentTypes);
     }
+
 
     /**
      * Get the content type instance for a given type.

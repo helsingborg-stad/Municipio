@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
+namespace Municipio\Controller\ContentType\Simple;
 
 /**
  * Class Place
@@ -9,7 +9,7 @@ namespace Municipio\Controller\ContentType;
  *
  * @package Municipio\Controller\ContentType
  */
-class Place extends ContentTypeFactory
+class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
 {
     /**
      * Constructor method to set key and label for the Place content type.

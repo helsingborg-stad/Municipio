@@ -1,9 +1,10 @@
 <?php
 
-namespace Municipio\Controller\ContentType\School;
+namespace Municipio\Controller\ContentType\Complex\School;
 
 use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
+use Municipio\Controller\ContentType\Complex\School\DataPrepearerInterface;
 
 /**
  * Class SchoolDataPreparer

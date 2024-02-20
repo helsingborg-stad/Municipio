@@ -1,13 +1,13 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
+namespace Municipio\Controller\ContentType\Simple;
 
 /**
  * Class Person
  *
  * @package Municipio\Controller\ContentType
  */
-class Person extends ContentTypeFactory
+class Person extends \Municipio\Controller\ContentType\ContentTypeFactory
 {
     /**
      * Constructor method for the Person content type.
