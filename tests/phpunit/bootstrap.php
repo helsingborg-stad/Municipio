@@ -1,7 +1,5 @@
 <?php
 
-use tad\FunctionMocker\FunctionMocker;
-
 require_once dirname(__DIR__) . '/../vendor/autoload.php';
 
 // Bootstrap Patchwork
@@ -19,8 +17,4 @@ WP_Mock::userFunction('is_wp_error', [
     'return' => function ($object) {
         return $object instanceof WP_Error;
     }
-]);
-
-FunctionMocker::init([
-    'include' => [dirname(__DIR__)]
 ]);

@@ -7,6 +7,7 @@ use WP_Mock\Tools\TestCase;
 use WP_Mock;
 use Mockery;
 use Municipio\Helper\FileConverters\FileConverterInterface;
+use phpmock\mockery\PHPMockery;
 
 /**
  * Class PdfHelperTest
@@ -135,15 +136,14 @@ class PdfHelperTest extends TestCase
     public function testSystemHasSuggestedDependenciesReturnsFalseIfMissingGD()
     {
         // Given
-        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', false);
-        $pdfHelper           = new PdfHelper();
+        PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(false);
+        $pdfHelper = new PdfHelper();
 
         // When
         $result = $pdfHelper->systemHasSuggestedDependencies();
 
         // Then
         $this->assertFalse($result);
-        $mockExtensionLoaded->wasCalledWithTimes(['gd'], 1);
     }
 
     /**
@@ -152,14 +152,13 @@ class PdfHelperTest extends TestCase
     public function testSystemHasSuggestedDependenciesReturnsTrueIfNotMissingDependencies()
     {
         // Given
-        $mockExtensionLoaded = \tad\FunctionMocker\FunctionMocker::replace('extension_loaded', true);
-        $pdfHelper           = new PdfHelper();
+        PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(true);
+        $pdfHelper = new PdfHelper();
 
         // When
         $pdfHelper->systemHasSuggestedDependencies();
 
         // Then
-        $mockExtensionLoaded->wasCalledWithTimes(['gd'], 1);
         $this->assertTrue($pdfHelper->systemHasSuggestedDependencies());
     }
 
