@@ -115,14 +115,14 @@ class ContentTypeMetaFieldManager
                             $postalAddressParams['schemaType'] = 'PostalAddress';
 
                             if (!empty($this->getGoogleApiKey())) {
-                                $fields[]                       = $this->getSubFieldSettings(
+                                $fields[] = $this->getSubFieldSettings(
                                     'geo',
                                     $fieldParams,
                                     $contentType['instance']->getKey()
                                 );
-                                $postalAddressParams['wrapper'] = [
-                                    'class' => 'hidden',
-                                ];
+                                // $postalAddressParams['wrapper'] = [
+                                //     'class' => 'hidden',
+                                // ];
                             }
 
                             $fields[] = $this->getSubFieldSettings(

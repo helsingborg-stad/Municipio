@@ -25,5 +25,5 @@ interface ContentTypeComplexInterface
      * @param ContentTypeComponentInterface $contentType The ContentTypeComponentInterface instance to add.
      * @return void
      */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void;
+    // public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void;
 }

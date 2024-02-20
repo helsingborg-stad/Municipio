@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\ContentType;
 
+require_once 'Traits/AddSecondaryContentType.php';
+
 /**
  * The ContentTypeFactory Class
  * ----------------------------
@@ -99,6 +101,12 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     public function getSchemaParams(): ?array
     {
         return $this->schemaParams;
+    }
+    /**
+     * Add hooks for the content type.
+     */
+    public function addHooks(): void
+    {
     }
     /**
      * Define schema parameters in subclasses.

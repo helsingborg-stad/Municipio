@@ -13,6 +13,8 @@ use Municipio\Helper\ContentType as ContentTypeHelper;
  */
 class Event extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+    use Traits\AddSecondaryContentType;
+
     /**
      * Constructor method the Event content type.
      */
@@ -22,29 +24,11 @@ class Event extends ContentTypeFactory implements ContentTypeComplexInterface
         $this->label = __('Event', 'municipio');
 
         $this->addSecondaryContentType(new Place());
-
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
     }
-    /**
-     * Add hooks for the Event content type.
-     */
-    public function addHooks(): void
-    {
-    }
-    /**
-     * addSecondaryContentType
-     *
-     * @param ContentTypeComponentInterface $contentType
-     * @return void
-     */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
-    {
-        if (ContentTypeHelper::validateSimpleContentType($contentType, $this)) {
-            $this->secondaryContentType[] = $contentType;
-        }
-    }
+
     /**
      * Returns an array of schema parameters for the Event content type.
      *

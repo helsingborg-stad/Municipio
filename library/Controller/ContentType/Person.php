@@ -2,8 +2,6 @@
 
 namespace Municipio\Controller\ContentType;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
-
 /**
  * Class Person
  *
@@ -22,21 +20,6 @@ class Person extends ContentTypeFactory
         $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
-    }
-
-    /**
-     * Initialize the Person controller.
-     */
-    public function init(): void
-    {
-        $this->addHooks();
-    }
-
-    /**
-     * Add hooks.
-     */
-    public function addHooks(): void
-    {
     }
 
     /**

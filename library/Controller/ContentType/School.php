@@ -11,6 +11,8 @@ use Municipio\Helper\WP;
  */
 class School extends ContentTypeFactory implements ContentTypeComplexInterface
 {
+    use Traits\AddSecondaryContentType;
+
     protected object $postMeta;
 
     /**
@@ -40,18 +42,6 @@ class School extends ContentTypeFactory implements ContentTypeComplexInterface
 
         add_filter('Municipio/viewData', [$dataPreparer, 'prepareData'], 10, 1);
     }
-
-    /**
-     * addSecondaryContentType
-     *
-     * @param ContentTypeComponentInterface $contentType
-     * @return void
-     */
-    public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void
-    {
-        $this->secondaryContentType[] = $contentType;
-    }
-
     /**
      * Set the schema parameters for the School content type.
      *
