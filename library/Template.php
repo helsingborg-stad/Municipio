@@ -11,7 +11,7 @@ use Municipio\Helper\Template as TemplateHelper;
 class Template
 {
     private ?BladeServiceInterface $bladeEngine = null;
-    private ?array $viewPaths = null;
+    private ?array $viewPaths                   = null;
 
     public function __construct()
     {
@@ -51,8 +51,8 @@ class Template
         }
 
         $isArchive = fn() => is_archive() || is_home();
-        $postType = get_post_type();
-        $template = $viewData['template'] ?? '';
+        $postType  = get_post_type();
+        $template  = $viewData['template'] ?? '';
 
         $filters = [
         // [string $filterTag, array $filterParams, bool $useFilter, bool $isDeprecated],
@@ -137,20 +137,20 @@ class Template
 
         // Controller conditions
         $isSingular = fn() => is_singular();
-        $isArchive = fn() => is_archive() || is_home();
+        $isArchive  = fn() => is_archive() || is_home();
 
-        $hasContentType = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
+        $hasContentType         = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
         $hasSpecificContentType = function (string $type): bool {
             return
                 ($contentType = ContentTypeHelper::getContentType(get_post_type() ?? '')) &&
                 $contentType->getKey() === $type;
         };
 
-        $templateController = fn() => ControllerHelper::camelCase($template);
-        $templateControllerPath = fn() => ControllerHelper::locateController($templateController());
+        $templateController          = fn() => ControllerHelper::camelCase($template);
+        $templateControllerPath      = fn() => ControllerHelper::locateController($templateController());
         $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
 
-        $controllers  = [
+        $controllers = [
             [
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,
@@ -258,9 +258,9 @@ class Template
                 $tidy = new \tidy();
 
                 $tidy->parseString($markup, [
-                    'indent'         => true,
-                    'output-xhtml'   => false,
-                    'wrap'           => PHP_INT_MAX
+                    'indent'       => true,
+                    'output-xhtml' => false,
+                    'wrap'         => PHP_INT_MAX
                 ], 'utf8');
 
                 $tidy->cleanRepair();
@@ -374,7 +374,7 @@ class Template
     public function accessProtected($obj, $prop)
     {
         $reflection = new \ReflectionClass($obj);
-        $property = $reflection->getProperty($prop);
+        $property   = $reflection->getProperty($prop);
         $property->setAccessible(true);
         return $property->getValue($obj);
     }
@@ -398,7 +398,7 @@ class Template
      */
     public function initializeBlade()
     {
-        $this->viewPaths = $this->registerViewPaths();
+        $this->viewPaths   = $this->registerViewPaths();
         $this->bladeEngine = GlobalBladeService::getInstance($this->viewPaths);
     }
 
@@ -439,7 +439,7 @@ class Template
     {
         if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
             $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
-            $viewPaths = array_merge($viewPaths, $externalViewPaths);
+            $viewPaths         = array_merge($viewPaths, $externalViewPaths);
 
             return $viewPaths;
         } else {

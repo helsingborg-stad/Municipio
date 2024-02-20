@@ -52,17 +52,19 @@ abstract class BaseWidget extends \WP_Widget
             $this->afterSetup();
         }
 
-        if (isset($this->config['id']) &&
+        if (
+            isset($this->config['id']) &&
             isset($this->config['name']) &&
             isset($this->config['description']) &&
-            isset($this->config['template'])) {
-            $this->viewPath = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
+            isset($this->config['template'])
+        ) {
+            $this->viewPath  = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
                 get_stylesheet_directory() . '/views/',
                 get_template_directory() . '/views/'
             ));
-            $this->viewPath = array_unique($this->viewPath);
+            $this->viewPath  = array_unique($this->viewPath);
             $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
-            $this->template = $this->config['template'];
+            $this->template  = $this->config['template'];
 
             parent::__construct(
                 $this->config['id'],
@@ -86,7 +88,7 @@ abstract class BaseWidget extends \WP_Widget
      */
     public function widget($args, $instance)
     {
-        $this->data['args'] = $args;
+        $this->data['args']     = $args;
         $this->data['instance'] = $instance;
 
         if (method_exists($this, 'beforeViewController')) {
@@ -114,7 +116,7 @@ abstract class BaseWidget extends \WP_Widget
     {
         $title = (isset($instance[ 'title' ])) ? $instance[ 'title' ] : __('New title', 'municipio');
 
-        $output = '';
+        $output  = '';
         $output .= '<p>';
         $output .= '<label for ="' . $this->get_field_id('title') . '">' . _e('Title:') . '</label>';
         $output .= '<input class="widefat" id="' . $this->get_field_id('title') . '" name="' . $this->get_field_id('title') . '" type="text" value="' . esc_attr($title) . '">';
@@ -138,7 +140,7 @@ abstract class BaseWidget extends \WP_Widget
      */
     public function update($new_instance, $old_instance)
     {
-        $instance = array();
+        $instance          = array();
         $instance['title'] = (! empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
         return $instance;
     }

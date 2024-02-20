@@ -71,7 +71,7 @@ class ColorTest extends TestCase
     {
         // Given
         $reflection = new \ReflectionClass(Color::class);
-        $namespace = $reflection->getNamespaceName();
+        $namespace  = $reflection->getNamespaceName();
         PHPMockery::mock($namespace, 'class_exists')->andReturn(false);
 
         // When

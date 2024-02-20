@@ -33,8 +33,8 @@ class CreatePdfTest extends TestCase
         $expectedHtml = '<img src="https://foo.bar/img.jpg"/><img src="https://foo.bar/img.jpeg"/>';
 
         PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(false);
-        $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
-        $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
+        $pdfHelper         = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
@@ -64,8 +64,8 @@ class CreatePdfTest extends TestCase
         $expectedHtml = '<script type="text/javascript" class="pdf-script">console.log("some test code");</script>';
 
         PHPMockery::mock('Municipio\Api\Pdf', 'extension_loaded')->with('gd')->andReturn(false);
-        $pdfHelper           = Mockery::mock(PdfHelperInterface::class);
-        $woffConverterMock   = Mockery::mock('alias:' . FileConverterInterface::class);
+        $pdfHelper         = Mockery::mock(PdfHelperInterface::class);
+        $woffConverterMock = Mockery::mock('alias:' . FileConverterInterface::class);
         $woffConverterMock->shouldReceive('convert')->andReturn('');
         $pdfHelper->shouldReceive('getThemeMods')->andReturn([]);
         $pdfHelper->shouldReceive('getFonts')->andReturn([]);
