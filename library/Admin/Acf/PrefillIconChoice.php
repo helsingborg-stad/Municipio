@@ -21,7 +21,7 @@ class PrefillIconChoice
             'menu_item_icon',
             'material_icon',
             'mega_menu_button_icon',
-            'box_icon',
+            'box_icon'
         ]);
 
         foreach ($fieldNames as $fieldName) {
