@@ -70,7 +70,7 @@ class OembedFilters
      * @param string    $src    Arbitrary embed url
      * @return string   $src    Correct embed url
      */
-    protected function buildEmbedUrl($src)
+        protected function buildEmbedUrl($src)
     {
         $srcParsed = parse_url($src);
 
@@ -86,7 +86,7 @@ class OembedFilters
                 query string.
                 */
                 $srcParsed['host'] = 'youtube.com';
-                $srcParsed['path'] = '/embed/';
+                $srcParsed['path'] = '/embed';
 
                 if (isset($srcParsed['query'])) {
                     parse_str($srcParsed['query'], $query);
@@ -99,7 +99,7 @@ class OembedFilters
             case 'youtu.be':
                 $srcParsed['host'] = 'youtube.com';
                 if (isset($srcParsed['path'])) {
-                    $srcParsed['path']  = '/embed/' . $srcParsed['path'];
+                    $srcParsed['path']  = '/embed' . $srcParsed['path'];
                     $srcParsed['query'] = $ytParams;
                 }
                 break;
