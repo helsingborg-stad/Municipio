@@ -74,6 +74,7 @@ class OembedFilters
     {
         $srcParsed = parse_url($src);
 
+        $ytEmbedPath = '/embed';
         $ytParams = 'autoplay=1&showinfo=0&rel=0&mute=1&modestbranding=1&cc_load_policy=1';
 
         switch ($srcParsed['host']) {
@@ -86,7 +87,7 @@ class OembedFilters
                 query string.
                 */
                 $srcParsed['host'] = 'youtube.com';
-                $srcParsed['path'] = '/embed';
+                $srcParsed['path'] = $ytEmbedPath;
 
                 if (isset($srcParsed['query'])) {
                     parse_str($srcParsed['query'], $query);
@@ -99,7 +100,7 @@ class OembedFilters
             case 'youtu.be':
                 $srcParsed['host'] = 'youtube.com';
                 if (isset($srcParsed['path'])) {
-                    $srcParsed['path']  = '/embed' . $srcParsed['path'];
+                    $srcParsed['path']  = $ytEmbedPath . $srcParsed['path'];
                     $srcParsed['query'] = $ytParams;
                 }
                 break;
@@ -114,7 +115,7 @@ class OembedFilters
             case 'www.spotify.com':
             case 'open.spotify.com':
                 $srcParsed['host']  = 'open.spotify.com';
-                $srcParsed['path']  = '/embed' . $srcParsed['path'];
+                $srcParsed['path']  = $ytEmbedPath . $srcParsed['path'];
                 $srcParsed['query'] = 'utm_source=oembed';
                 break;
             case 'soundcloud.com':
