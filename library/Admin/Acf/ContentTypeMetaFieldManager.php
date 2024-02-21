@@ -3,11 +3,6 @@
 namespace Municipio\Admin\Acf;
 
 /**
- * !TODO
- * Handle hidden 'address' values (populate from `geo` values) when updating schema data that contains both `geo` and `address` fields.
- *
-  */
-/**
  * Manages custom ACF field groups and fields for content types.
  * This class is responsible for registering field groups and fields based on content types,
  * ensuring fields are loaded correctly for each content type, and providing a mechanism to
@@ -28,8 +23,34 @@ class ContentTypeMetaFieldManager
     {
         add_action('acf/init', [$this, 'registerFieldGroup']);
         add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
+
+        add_action('acf/save_post', [$this, 'saveAddress'], 10, 1);
     }
 
+    /**
+     * Update the 'address' field when a post with 'geo' is saved.
+     *
+     * @param int $postId The post ID.
+     * @return void
+     */
+    public function saveAddress($postId)
+    {
+        $schemaData = get_field('schema', $postId);
+
+        if (empty($schemaData)) {
+            return;
+        }
+        if (empty($schemaData['geo'])) {
+            return;
+        }
+        $schemaData['address'] = [
+            'streetAddress'  => $schemaData['geo']['street_name'] . ' ' . $schemaData['geo']['street_number'],
+            'postalCode'     => $schemaData['geo']['post_code'],
+            'addressCountry' => $schemaData['geo']['country'],
+        ];
+
+        update_field('schema', $schemaData, $postId);
+    }
     /**
      * If a content type is set for the field,
      * only load the field if the current post types content type matches the field's content type.
@@ -111,18 +132,24 @@ class ContentTypeMetaFieldManager
                 foreach ($contentType['instance']->getSchemaParams() as $key => $fieldParams) {
                     switch ($fieldParams['schemaType']) {
                         case 'GeoCoordinates':
+                            // Always add the 'address' field (field type "group",
+                            // containing sub fields for streetAddress, postalCode
+                            // and addressCountry) to the schema field group.
                             $postalAddressParams               = $fieldParams;
                             $postalAddressParams['schemaType'] = 'PostalAddress';
 
+                            // If there's a Google API key,
+                            // add the 'geo' field (field type "google_map")
+                            // to the schema field group and hide the 'address' field from the UI.
                             if (!empty($this->getGoogleApiKey())) {
-                                $fields[] = $this->getSubFieldSettings(
+                                $fields[]                       = $this->getSubFieldSettings(
                                     'geo',
                                     $fieldParams,
                                     $contentType['instance']->getKey()
                                 );
-                                // $postalAddressParams['wrapper'] = [
-                                //     'class' => 'hidden',
-                                // ];
+                                $postalAddressParams['wrapper'] = [
+                                    'class' => 'hidden',
+                                ];
                             }
 
                             $fields[] = $this->getSubFieldSettings(
