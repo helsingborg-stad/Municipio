@@ -185,11 +185,13 @@ class ContentTypeMetaFieldManager
     {
         $schemaType = $fieldParams['schemaType'];
         if ($schemaType === 'PostalAddress') {
-            $fieldParams['type']       = $this->getFieldTypeBySchema($schemaType);
             $fieldParams['sub_fields'] = $this->getPostalAddressSubFields();
-        } else {
-            $fieldParams['type'] = $this->getFieldTypeBySchema($schemaType);
+        } elseif ($schemaType === 'ImageObject') {
+            $fieldParams['return_format'] = 'id';
         }
+
+        $fieldParams['type'] = $this->getFieldTypeBySchema($schemaType);
+
 
         $fieldSettings = [
             'key'         => 'field_' . $key,

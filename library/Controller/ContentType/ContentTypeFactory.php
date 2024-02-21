@@ -134,6 +134,19 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
                     continue;
                 }
 
+                /**
+                 * If schema type is 'ImageObject' retrieve the image URL.
+                 */
+                if ($param['schemaType'] === 'ImageObject') {
+                    if (isset($value['ID'])) {
+                        $attachmentId = $value['ID'];
+                    }
+                    $value = wp_get_attachment_image_url($attachmentId, 'full');
+                    if (!$value) {
+                        continue;
+                    }
+                }
+
                 if (method_exists($entity, $key)) {
                     call_user_func([$entity, $key], $value);
                 }
