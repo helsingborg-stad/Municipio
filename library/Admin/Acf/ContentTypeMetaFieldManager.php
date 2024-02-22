@@ -28,51 +28,36 @@ class ContentTypeMetaFieldManager
     }
 
     /**
-     * Update the 'address' field when a post with 'geo' is saved.
+     * Checks if a field should be loaded based on the current post type and field properties.
      *
-     * @param int $postId The post ID.
-     * @return void
-     */
-    public function saveAddress($postId)
-    {
-        $schemaData = get_field('schema', $postId);
-
-        if (empty($schemaData)) {
-            return;
-        }
-        if (empty($schemaData['geo'])) {
-            return;
-        }
-        $schemaData['address'] = [
-            'streetAddress'  => $schemaData['geo']['street_name'] . ' ' . $schemaData['geo']['street_number'],
-            'postalCode'     => $schemaData['geo']['post_code'],
-            'addressCountry' => $schemaData['geo']['country'],
-        ];
-
-        update_field('schema', $schemaData, $postId);
-    }
-    /**
-     * If a content type is set for the field,
-     * only load the field if the current post types content type matches the field's content type.
-     *
-     * @param array $field The field to load.
-     * @return array|false The loaded field or false if not applicable.
+     * @param array $field The field to check.
+     * @return mixed The field if it should be loaded, false otherwise.
      */
     public function maybeLoadField($field)
     {
         $postType = \Municipio\Helper\WP::getCurrentPostType();
 
-        if (empty($field['contentType']) || empty($postType)) {
+        if (
+            // this is the main 'schema' field group, always load it:
+            $field['key'] === $this->fieldKey
+            // this is the description field for the 'schema' field group, always load it:
+            || !str_contains($field['key'], "{$this->groupName}_description")
+            // this is a field that doesn't belong to the 'schema' field group, always load it:
+            || !str_contains($field['id'], $this->groupName)
+            // if for some reason no post type is returned, bail out:
+            || empty($postType)
+        ) {
             return $field;
         }
 
         $postContentType = \Municipio\Helper\ContentType::getContentType($postType);
 
-        if ($postContentType->getKey() === $field['contentType']) {
-            return $field;
+        if (!str_contains($field['id'], $postContentType->getKey())) {
+            // this is a 'schema' sub field that doesn't belong to the current content type, don't load it:
+            return false;
         }
 
-        return false;
+        return $field;
     }
 
     /**
@@ -102,6 +87,7 @@ class ContentTypeMetaFieldManager
             'key'      => $this->fieldGroupKey,
             'title'    => __('Schema.org Data', 'municipio'),
             'location' => $locationRules,
+
             'fields'   => [
                 [
                     'key'       => 'field_message_schema_description',
@@ -204,12 +190,11 @@ class ContentTypeMetaFieldManager
 
 
         $fieldSettings = [
-            'key'         => 'field_' . $key,
-            'label'       => $fieldParams['label'] ??
+            'key'   => 'field_' . $key . '_' . $contentType,
+            'label' => $fieldParams['label'] ??
             sprintf(__('Automatically registered field (%s, %s)'), $key, $schemaType),
-            'type'        => $fieldParams['type'],
-            'name'        => $key,
-            'contentType' => $contentType,
+            'type'  => $fieldParams['type'],
+            'name'  => $key,
         ];
 
         if (!empty($fieldParams['wrapper'])) {
@@ -299,5 +284,30 @@ class ContentTypeMetaFieldManager
             default:
                 return 'text';
         }
+    }
+
+    /**
+     * Update the 'address' field when a post with 'geo' is saved.
+     *
+     * @param int $postId The post ID.
+     * @return void
+     */
+    public function saveAddress($postId)
+    {
+        $schemaData = get_field('schema', $postId);
+
+        if (empty($schemaData)) {
+            return;
+        }
+        if (empty($schemaData['geo'])) {
+            return;
+        }
+        $schemaData['address'] = [
+            'streetAddress'  => $schemaData['geo']['street_name'] . ' ' . $schemaData['geo']['street_number'],
+            'postalCode'     => $schemaData['geo']['post_code'],
+            'addressCountry' => $schemaData['geo']['country'],
+        ];
+
+        update_field('schema', $schemaData, $postId);
     }
 }
