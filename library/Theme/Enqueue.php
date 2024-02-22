@@ -100,14 +100,27 @@ class Enqueue
     {
         //Download and use material icons
         $this->getMaterialIcons(null); //Create self handle
+
+        wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
+        wp_enqueue_style('acf-css');
     }
-    public function adminScripts() : void {
+
+     /**
+     * Enqueue admin script
+     * @return void
+     */
+    public function adminScripts(): void
+    {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
             wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
         }
     }
 
+     /**
+     * Enqueue gutenberg style
+     * @return void
+     */
     public function gutenbergStyle()
     {
         // Load styleguide css
@@ -151,9 +164,9 @@ class Enqueue
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
             ),
-            'messages' => array(
+            'messages'   => array(
                 'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError' => __('Something went wrong, please try again later', 'municipio'),
+                'onError'       => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
 
@@ -216,7 +229,7 @@ class Enqueue
     public function moveScriptsToFooter()
     {
         global $wp_scripts;
-        $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
+        $notInFooter           = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
     }
 
@@ -230,7 +243,7 @@ class Enqueue
     public function removeScriptVersion($src)
     {
         $siteUrlComponents = parse_url(get_site_url());
-        $urlComponents = parse_url($src);
+        $urlComponents     = parse_url($src);
 
         // Check if the URL is internal or external
         if (
@@ -277,7 +290,7 @@ class Enqueue
         }
 
         $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', ['readspeaker', 'jquery-core', 'jquery-migrate'], $handle);
-        $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
+        $disableDeferedLoading  = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
 
         if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
             return $tag;
