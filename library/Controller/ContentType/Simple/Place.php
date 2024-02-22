@@ -100,7 +100,6 @@ class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
      *
      * @return array The updated listing array.
      */
-    // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
         // Street name linked to Google Maps

@@ -21,11 +21,4 @@ require_once 'Traits/AddSecondaryContentType.php';
 
 interface ContentTypeComplexInterface
 {
-    /**
-     * Adds a ContentTypeComponentInterface instance to the collection.
-     *
-     * @param ContentTypeComponentInterface $contentType The ContentTypeComponentInterface instance to add.
-     * @return void
-     */
-    // public function addSecondaryContentType(ContentTypeComponentInterface $contentType): void;
 }
