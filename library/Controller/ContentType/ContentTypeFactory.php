@@ -111,9 +111,9 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      */
     abstract protected function schemaParams(): array;
 
-    /**
-     * Template method for getting structured data, with legacy fallback.
-     */
+/**
+ * Template method for getting structured data, with legacy fallback.
+ */
     public function getStructuredData(int $postId): ?array
     {
         $schemaParams = $this->schemaParams();
@@ -134,17 +134,9 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
                     continue;
                 }
 
-                /**
-                 * If schema type is 'ImageObject' retrieve the image URL.
-                 */
-                if ($param['schemaType'] === 'ImageObject') {
-                    if (isset($value['ID'])) {
-                        $attachmentId = $value['ID'];
-                    }
-                    $value = wp_get_attachment_image_url($attachmentId, 'full');
-                    if (!$value) {
-                        continue;
-                    }
+                // Handle ImageObject schema type
+                if ($param['schemaType'] === 'ImageObject' && !$this->processImageObject($value)) {
+                    continue;
                 }
 
                 if (method_exists($entity, $key)) {
@@ -157,6 +149,22 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
             return $this->legacyGetStructuredData($postId, $entity);
         }
     }
+
+/**
+ * Processes an ImageObject, returning the image URL or false if unavailable.
+ *
+ * @param mixed $value The value to process, expected to be an array with an 'ID' key.
+ * @return mixed The image URL if successful, or false if not.
+ */
+    protected function processImageObject(&$value)
+    {
+        if (isset($value['ID'])) {
+            $attachmentId = $value['ID'];
+            $value        = wp_get_attachment_image_url($attachmentId, 'full');
+        }
+        return $value ? $value : false;
+    }
+
     /**
      * Get the schema entity from the graph.
      *
