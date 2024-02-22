@@ -194,7 +194,7 @@ class ContentTypeMetaFieldManager
     protected function getGoogleApiKey()
     {
         $apiKey = acf_get_setting('google_api_key');
-        return $apiKey ?: ($api = apply_filters('acf/fields/google_map/api', []))['key'] ?? null;
+        return $apiKey ?: apply_filters('acf/fields/google_map/api', [])['key'] ?? null;
     }
 
     /**
