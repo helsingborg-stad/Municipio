@@ -100,15 +100,25 @@ class ContentTypeMetaFieldManager
 
         acf_add_local_field_group([
             'key'      => $this->fieldGroupKey,
-            'title'    => __('Structured Data (schema.org)', 'municipio'),
+            'title'    => __('Schema.org Data', 'municipio'),
             'location' => $locationRules,
-            'fields'   => [[
-                'key'        => $this->fieldKey,
-                'label'      => null,
-                'name'       => $this->groupName,
-                'type'       => 'group',
-                'sub_fields' => $this->setupSubFields(),
-            ]]
+            'fields'   => [
+                [
+                    'key'       => 'field_message_schema_description',
+                    'label'     => '',
+                    'name'      => '',
+                    'type'      => 'message',
+                    'message'   => __("Use these fields to enhance visibility in search results.", 'municipio'),
+                    'new_lines' => '',
+                ],
+                [
+                    'key'        => $this->fieldKey,
+                    'label'      => null,
+                    'name'       => $this->groupName,
+                    'type'       => 'group',
+                    'sub_fields' => $this->setupSubFields(),
+                ]
+            ]
         ]);
     }
 
