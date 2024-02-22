@@ -7,8 +7,6 @@ namespace Municipio\Admin\Acf;
  * This class is responsible for registering field groups and fields based on content types,
  * ensuring fields are loaded correctly for each content type, and providing a mechanism to
  * handle field registration dynamically.
- *
- * @since 3.61.8
  */
 class ContentTypeMetaFieldManager
 {
@@ -17,13 +15,12 @@ class ContentTypeMetaFieldManager
     protected $groupName     = 'schema';
 
     /**
-     * Class constructor.
+     * Constructor to hook into ACF and set up class functionality.
      */
     public function __construct()
     {
         add_action('acf/init', [$this, 'registerFieldGroup']);
         add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
-
         add_action('acf/save_post', [$this, 'saveAddress'], 10, 1);
     }
 
@@ -38,13 +35,9 @@ class ContentTypeMetaFieldManager
         $postType = \Municipio\Helper\WP::getCurrentPostType();
 
         if (
-            // this is the main 'schema' field group, always load it:
             $field['key'] === $this->fieldKey
-            // this is the description field for the 'schema' field group, always load it:
             || !str_contains($field['key'], "{$this->groupName}_description")
-            // this is a field that doesn't belong to the 'schema' field group, always load it:
             || !str_contains($field['id'], $this->groupName)
-            // if for some reason no post type is returned, bail out:
             || empty($postType)
         ) {
             return $field;
@@ -53,7 +46,6 @@ class ContentTypeMetaFieldManager
         $postContentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         if (!str_contains($field['id'], $postContentType->getKey())) {
-            // this is a 'schema' sub field that doesn't belong to the current content type, don't load it:
             return false;
         }
 
@@ -61,8 +53,7 @@ class ContentTypeMetaFieldManager
     }
 
     /**
-     * Register the field group for schema data.
-     * Display it on all posts of any registered content types.
+     * Registers the field group for schema data to be displayed on all posts of any registered content types.
      */
     public function registerFieldGroup()
     {
@@ -73,21 +64,13 @@ class ContentTypeMetaFieldManager
         }
 
         $locationRules = array_map(function ($key) {
-            return [
-            [
-                'param'    => 'content_type',
-                'operator' => '==',
-                'value'    => $key,
-            ],
-            ];
+            return [['param' => 'content_type', 'operator' => '==', 'value' => $key]];
         }, array_keys($contentTypes));
-
 
         acf_add_local_field_group([
             'key'      => $this->fieldGroupKey,
             'title'    => __('Schema.org Data', 'municipio'),
             'location' => $locationRules,
-
             'fields'   => [
                 [
                     'key'       => 'field_message_schema_description',
@@ -109,14 +92,15 @@ class ContentTypeMetaFieldManager
     }
 
     /**
-     * Set up the sub fields for the field group.
+     * Sets up the sub fields for the field group based on registered content types.
      *
-     * @return array The sub fields.
+     * @return array The configured sub fields.
      */
     public function setupSubFields()
     {
         $fields       = [];
         $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes(true);
+
         if (empty($contentTypes) || !is_array($contentTypes)) {
             return $fields;
         }
@@ -129,10 +113,10 @@ class ContentTypeMetaFieldManager
     }
 
     /**
-     * Process a single content type and return the fields.
+     * Processes a single content type to generate its schema fields.
      *
      * @param array $contentType The content type to process.
-     * @return array The fields for the content type.
+     * @return array The generated fields for the content type.
      */
     protected function processContentType($contentType)
     {
@@ -142,42 +126,22 @@ class ContentTypeMetaFieldManager
         }
 
         foreach ($contentType['instance']->getSchemaParams() as $key => $fieldParams) {
-            $fields = array_merge($fields, $this->processFieldParams($key, $fieldParams, $contentType));
-        }
-
-        return $fields;
-    }
-
-    /**
-     * Process field parameters and return the field settings.
-     *
-     * @param string $key The field key.
-     * @param array $fieldParams The field parameters.
-     * @param array $contentType The content type.
-     * @return array The field settings.
-     */
-    protected function processFieldParams($key, $fieldParams, $contentType)
-    {
-        $fields = [];
-        switch ($fieldParams['schemaType']) {
-            case 'GeoCoordinates':
-                $fields = $this->handleGeoCoordinates($fieldParams, $contentType);
-                break;
-
-            default:
+            if ($fieldParams['schemaType'] === 'GeoCoordinates') {
+                $fields = array_merge($fields, $this->handleGeoCoordinates($fieldParams, $contentType));
+            } else {
                 $fields[] = $this->getSubFieldSettings($key, $fieldParams, $contentType['instance']->getKey());
-                break;
+            }
         }
 
         return $fields;
     }
 
     /**
-     * Handle GeoCoordinates schema type.
+     * Handles the special case of GeoCoordinates schema type.
      *
-     * @param array $fieldParams The field parameters.
-     * @param array $contentType The content type.
-     * @return array The fields for GeoCoordinates.
+     * @param array $fieldParams The parameters for the GeoCoordinates field.
+     * @param array $contentType The content type being processed.
+     * @return array The fields configured for GeoCoordinates.
      */
     protected function handleGeoCoordinates($fieldParams, $contentType)
     {
@@ -195,68 +159,52 @@ class ContentTypeMetaFieldManager
     }
 
     /**
-     * Get the settings for a sub field.
+     * Gets the settings for a sub field based on its key and parameters.
      *
      * @param string $key The field key.
      * @param array $fieldParams The field parameters.
-     * @param string $contentType The content type.
-     * @return array The sub field settings.
+     * @param string $contentTypeKey The key for the content type.
+     * @return array The configured sub field settings.
      */
-    public function getSubFieldSettings(string $key, array $fieldParams, string $contentType): array
+    public function getSubFieldSettings(string $key, array $fieldParams, string $contentTypeKey): array
     {
-        $schemaType = $fieldParams['schemaType'];
-        if ($schemaType === 'PostalAddress') {
+        if ($fieldParams['schemaType'] === 'PostalAddress') {
             $fieldParams['sub_fields'] = $this->getPostalAddressSubFields();
-        } elseif ($schemaType === 'ImageObject') {
+        } elseif ($fieldParams['schemaType'] === 'ImageObject') {
             $fieldParams['return_format'] = 'id';
         }
 
-        $fieldParams['type'] = $this->getFieldTypeBySchema($schemaType);
+        $fieldParams['type'] = $this->getFieldTypeBySchema($fieldParams['schemaType']);
 
-
-        $fieldSettings = [
-            'key'   => 'field_' . $key . '_' . $contentType,
-            'label' => $fieldParams['label'] ??
-            sprintf(__('Automatically registered field (%s, %s)'), $key, $schemaType),
-            'type'  => $fieldParams['type'],
-            'name'  => $key,
+        return [
+            'key'        => 'field_' . $key . '_' . $contentTypeKey,
+            'label'      => $fieldParams['label'] ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $fieldParams['schemaType']),
+            'type'       => $fieldParams['type'],
+            'name'       => $key,
+            'wrapper'    => $fieldParams['wrapper'] ?? [],
+            'sub_fields' => $fieldParams['sub_fields'] ?? [],
         ];
-
-        if (!empty($fieldParams['wrapper'])) {
-            $fieldSettings['wrapper'] = $fieldParams['wrapper'];
-        }
-
-        if (!empty($fieldParams['sub_fields'])) {
-            $fieldSettings['sub_fields'] = $fieldParams['sub_fields'];
-        }
-
-        return $fieldSettings;
     }
 
     /**
-     * Get the Google API key.
+     * Retrieves the Google API key from ACF settings or filters.
      *
-     * @return string|null The Google API key.
+     * @return string|null The Google API key, if available.
      */
     protected function getGoogleApiKey()
     {
         $apiKey = acf_get_setting('google_api_key');
-        if (empty($apiKey)) {
-            $api    = apply_filters('acf/fields/google_map/api', []);
-            $apiKey = $api['key'] ?? null;
-        }
-
-        return $apiKey;
+        return $apiKey ?: ($api = apply_filters('acf/fields/google_map/api', []))['key'] ?? null;
     }
 
     /**
-     * Get the sub fields for the postal address field.
+     * Defines the sub fields for the postal address schema type.
      *
-     * @return array The sub fields for the postal address field.
+     * @return array The sub fields for the postal address.
      */
     protected function getPostalAddressSubFields(): array
     {
-        $fields = [
+        return [
             [
                 'key'          => 'field_streetAddress',
                 'label'        => __('Street Address', 'municipio'),
@@ -284,49 +232,40 @@ class ContentTypeMetaFieldManager
                 'placeholder'   => __('Enter country here', 'municipio'),
             ],
         ];
-
-        return $fields;
     }
+
     /**
-     * Determines the ACF field type based on the provided schema type.
+     * Maps a schema type to an ACF field type.
      *
-     * @param string $schemaType The schema type to convert to an ACF field type.
-     * @return string The ACF field type corresponding to the given schema type.
+     * @param string $schemaType The schema type.
+     * @return string The corresponding ACF field type.
      */
     protected function getFieldTypeBySchema(string $schemaType): string
     {
-        switch ($schemaType) {
-            case 'GeoCoordinates':
-                return 'google_map';
-            case 'PostalAddress':
-                return 'group';
-            case 'ImageObject':
-                return 'image';
-            case 'URL':
-                return 'url';
-            case 'Email':
-                return 'email';
-            default:
-                return 'text';
-        }
+        $fieldTypeMap = [
+            'GeoCoordinates' => 'google_map',
+            'PostalAddress'  => 'group',
+            'ImageObject'    => 'image',
+            'URL'            => 'url',
+            'Email'          => 'email',
+        ];
+
+        return $fieldTypeMap[$schemaType] ?? 'text';
     }
 
     /**
-     * Update the 'address' field when a post with 'geo' is saved.
+     * Saves the address data when a post with 'geo' field is saved.
      *
-     * @param int $postId The post ID.
-     * @return void
+     * @param int $postId The ID of the post being saved.
      */
     public function saveAddress($postId)
     {
         $schemaData = get_field('schema', $postId);
 
-        if (empty($schemaData)) {
+        if (empty($schemaData) || empty($schemaData['geo'])) {
             return;
         }
-        if (empty($schemaData['geo'])) {
-            return;
-        }
+
         $schemaData['address'] = [
             'streetAddress'  => $schemaData['geo']['street_name'] . ' ' . $schemaData['geo']['street_number'],
             'postalCode'     => $schemaData['geo']['post_code'],
