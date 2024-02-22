@@ -12,16 +12,13 @@ use Municipio\Helper\Listing as ListingHelper;
 class ContentType
 {
     /**
-     * Returns an array of all the content types that are registered in the system.
-     *
-     * @param bool $includeExtras Include additional information about the registered
-     * content types in the returned array.
-     *
-     * @return array Array of registered content types.
-     * If $includeExtras is true, each item in the array will be an array containing
-     * the content type class instance, the class name with namespace and the file path of the content type class.
-     * If $includeExtras is false, each item in the array will be the label of the content type instance.
-     */
+ * Returns an array of all the content types that are registered in the system.
+ *
+ * @param bool $includeExtras Include additional information about the registered
+ * content types in the returned array.
+ *
+ * @return array Array of registered content types.
+ */
     public static function getRegisteredContentTypes(bool $includeExtras = false): array
     {
         $contentTypes = [];
@@ -29,31 +26,68 @@ class ContentType
 
         foreach (ControllerHelper::getControllerPaths() as $path) {
             foreach ($subDirs as $subDir) {
-                $dirPath = $path . DIRECTORY_SEPARATOR . 'ContentType' . DIRECTORY_SEPARATOR . $subDir;
-                if (is_dir($dirPath)) {
-                    foreach (glob("$dirPath/*.php") as $filename) {
-                        $namespace              = ControllerHelper::getNamespace($filename);
-                        $className              = basename($filename, '.php');
-                        $classNameWithNamespace = $namespace . '\\' . $className;
-
-                        $instance = new $classNameWithNamespace();
-
-                        if ($includeExtras) {
-                            $contentTypes[$instance->getKey()] = [
-                                'instance'  => $instance,
-                                'className' => $classNameWithNamespace,
-                                'path'      => $filename
-                            ];
-                        } else {
-                            $contentTypes[$instance->getKey()] = $instance->getLabel();
-                        }
-                    }
-                }
+                $contentTypes = array_merge(
+                    $contentTypes,
+                    self::processSubDir($path, $subDir, $includeExtras)
+                );
             }
         }
 
         return apply_filters('Municipio/ContentType/getRegisteredContentTypes', $contentTypes);
     }
+
+/**
+ * Processes a subdirectory and returns content types found within.
+ *
+ * @param string $path Base path to the controller.
+ * @param string $subDir Name of the subdirectory.
+ * @param bool $includeExtras Whether to include extra information.
+ * @return array Content types found within the subdirectory.
+ */
+    protected static function processSubDir(string $path, string $subDir, bool $includeExtras): array
+    {
+        $contentTypes = [];
+        $dirPath      = $path . DIRECTORY_SEPARATOR . 'ContentType' . DIRECTORY_SEPARATOR . $subDir;
+
+        if (is_dir($dirPath)) {
+            foreach (glob("$dirPath/*.php") as $filename) {
+                $contentTypes = array_merge(
+                    $contentTypes,
+                    self::processContentTypeFile($filename, $includeExtras)
+                );
+            }
+        }
+
+        return $contentTypes;
+    }
+
+/**
+ * Processes a content type file and returns an array representing the content type.
+ *
+ * @param string $filename Path to the content type class file.
+ * @param bool $includeExtras Whether to include extra information.
+ * @return array An array representing the content type.
+ */
+    protected static function processContentTypeFile(string $filename, bool $includeExtras): array
+    {
+        $namespace              = ControllerHelper::getNamespace($filename);
+        $className              = basename($filename, '.php');
+        $classNameWithNamespace = $namespace . '\\' . $className;
+        $instance               = new $classNameWithNamespace();
+
+        if ($includeExtras) {
+            return [
+            $instance->getKey() => [
+                'instance'  => $instance,
+                'className' => $classNameWithNamespace,
+                'path'      => $filename
+            ]
+            ];
+        }
+
+        return [$instance->getKey() => $instance->getLabel()];
+    }
+
 
 
     /**
@@ -116,15 +150,13 @@ class ContentType
                 return true;
             }
 
-            if (!empty($contentType->secondaryContentType)) {
-                if (
-                    true === self::isSecondaryContentType(
-                        (array) $contentType->secondaryContentType,
-                        $contentTypeToCheckFor
-                    )
-                ) {
+            if (
+                !empty($contentType->secondaryContentType) && true === self::isSecondaryContentType(
+                    (array) $contentType->secondaryContentType,
+                    $contentTypeToCheckFor
+                )
+            ) {
                     return true;
-                }
             }
         }
 
@@ -249,7 +281,7 @@ class ContentType
             $error = new \WP_Error(
                 'invalid_content_type',
                 sprintf(
-                    __('%s tried to add %s as a secondary content type. 
+                    __('%s tried to add %s as a secondary content type.\n\n
                     Complex content types cannot add other complex content types.', 'municipio'),
                     get_class($parent),
                     get_class($contentType)
@@ -259,30 +291,6 @@ class ContentType
             return false;
         }
         return true;
-    }
-
-    /**
-     * TODO Deprecate this function
-     *
-     * Get structured data for a post based on specified meta keys.
-     *
-     * @param int $postId The ID of the post.
-     * @param array $structuredData An array containing existing structured data (optional).
-     * @param array $meta An array of meta keys to retrieve and include in the structured data.
-     *
-     * @return array The structured data for the post based on the specified meta keys.
-     */
-    public static function getStructuredData(int $postId, array $structuredData = [], array $meta = []): array
-    {
-
-        foreach ($meta as $key) {
-            $structuredData[$key] = \Municipio\Helper\WP::getField($key, $postId);
-
-            if (empty($structuredData[$key])) {
-                unset($structuredData[$key]);
-            }
-        }
-        return $structuredData;
     }
 
     /**
