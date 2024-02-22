@@ -33,7 +33,6 @@ class SingularContentType extends \Municipio\Controller\Singular
 
         $this->setContentTypeViewData();
 
-        // $currentContentType = new $contentType();
         $this->contentType->addHooks();
 
         if (!empty($this->contentType->getSecondaryContentType())) {

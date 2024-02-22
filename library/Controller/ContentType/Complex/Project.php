@@ -66,14 +66,9 @@ class Project extends ContentType\ContentTypeFactory implements ContentType\Cont
         ];
 
         foreach ($this->getSecondaryContentType() as $contentType) {
-            switch ($contentType->getKey()) {
-                case 'place':
-                    $placeParams       = $contentType->getSchemaParams();
-                    $params['address'] = $placeParams['geo'];
-                    break;
-
-                default:
-                    break;
+            if ($contentType->getKey() === 'place') {
+                $placeParams       = $contentType->getSchemaParams();
+                $params['address'] = $placeParams['geo'];
             }
         }
 
