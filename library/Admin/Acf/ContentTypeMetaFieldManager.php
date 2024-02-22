@@ -150,7 +150,11 @@ class ContentTypeMetaFieldManager
         $postalAddressParams['schemaType'] = 'PostalAddress';
 
         if (!empty($this->getGoogleApiKey())) {
-            $fields[]                       = $this->getSubFieldSettings('geo', $fieldParams, $contentType['instance']->getKey());
+            $fields[]                       = $this->getSubFieldSettings(
+                'geo',
+                $fieldParams,
+                $contentType['instance']->getKey()
+            );
             $postalAddressParams['wrapper'] = ['class' => 'hidden'];
         }
 
@@ -178,7 +182,9 @@ class ContentTypeMetaFieldManager
 
         return [
             'key'        => 'field_' . $key . '_' . $contentTypeKey,
-            'label'      => $fieldParams['label'] ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $fieldParams['schemaType']),
+            'label'      =>
+            $fieldParams['label']
+            ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $fieldParams['schemaType']),
             'type'       => $fieldParams['type'],
             'name'       => $key,
             'wrapper'    => $fieldParams['wrapper'] ?? [],
