@@ -55,14 +55,9 @@ class Event extends ContentType\ContentTypeFactory implements ContentType\Conten
             ],
         ];
         foreach ($this->getSecondaryContentType() as $contentType) {
-            switch ($contentType->getKey()) {
-                case 'place':
-                    $placeParams        = $contentType->getSchemaParams();
-                    $params['location'] = $placeParams['geo'];
-                    break;
-
-                default:
-                    break;
+            if ($contentType->getKey() === 'place') {
+                $placeParams        = $contentType->getSchemaParams();
+                $params['location'] = $placeParams['geo'];
             }
         }
 
