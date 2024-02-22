@@ -115,60 +115,85 @@ class ContentTypeMetaFieldManager
      */
     public function setupSubFields()
     {
-
-        $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes(true);
         $fields       = [];
-
+        $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes(true);
         if (empty($contentTypes) || !is_array($contentTypes)) {
-            return;
+            return $fields;
         }
 
         foreach ($contentTypes as $contentType) {
-            if (!empty($contentType['instance']->getSchemaParams())) {
-                foreach ($contentType['instance']->getSchemaParams() as $key => $fieldParams) {
-                    switch ($fieldParams['schemaType']) {
-                        case 'GeoCoordinates':
-                            // Always add the 'address' field (field type "group",
-                            // containing sub fields for streetAddress, postalCode
-                            // and addressCountry) to the schema field group.
-                            $postalAddressParams               = $fieldParams;
-                            $postalAddressParams['schemaType'] = 'PostalAddress';
-
-                            // If there's a Google API key,
-                            // add the 'geo' field (field type "google_map")
-                            // to the schema field group and hide the 'address' field from the UI.
-                            if (!empty($this->getGoogleApiKey())) {
-                                $fields[]                       = $this->getSubFieldSettings(
-                                    'geo',
-                                    $fieldParams,
-                                    $contentType['instance']->getKey()
-                                );
-                                $postalAddressParams['wrapper'] = [
-                                    'class' => 'hidden',
-                                ];
-                            }
-
-                            $fields[] = $this->getSubFieldSettings(
-                                'address',
-                                $postalAddressParams,
-                                $contentType['instance']->getKey()
-                            );
-                            break;
-
-                        default:
-                            $fields[] = $this->getSubFieldSettings(
-                                $key,
-                                $fieldParams,
-                                $contentType['instance']->getKey()
-                            );
-                            break;
-                    }
-                }
-            }
+            $fields = array_merge($fields, $this->processContentType($contentType));
         }
 
         return $fields;
     }
+
+    /**
+     * Process a single content type and return the fields.
+     *
+     * @param array $contentType The content type to process.
+     * @return array The fields for the content type.
+     */
+    protected function processContentType($contentType)
+    {
+        $fields = [];
+        if (empty($contentType['instance']->getSchemaParams())) {
+            return $fields;
+        }
+
+        foreach ($contentType['instance']->getSchemaParams() as $key => $fieldParams) {
+            $fields = array_merge($fields, $this->processFieldParams($key, $fieldParams, $contentType));
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Process field parameters and return the field settings.
+     *
+     * @param string $key The field key.
+     * @param array $fieldParams The field parameters.
+     * @param array $contentType The content type.
+     * @return array The field settings.
+     */
+    protected function processFieldParams($key, $fieldParams, $contentType)
+    {
+        $fields = [];
+        switch ($fieldParams['schemaType']) {
+            case 'GeoCoordinates':
+                $fields = $this->handleGeoCoordinates($fieldParams, $contentType);
+                break;
+
+            default:
+                $fields[] = $this->getSubFieldSettings($key, $fieldParams, $contentType['instance']->getKey());
+                break;
+        }
+
+        return $fields;
+    }
+
+    /**
+     * Handle GeoCoordinates schema type.
+     *
+     * @param array $fieldParams The field parameters.
+     * @param array $contentType The content type.
+     * @return array The fields for GeoCoordinates.
+     */
+    protected function handleGeoCoordinates($fieldParams, $contentType)
+    {
+        $fields                            = [];
+        $postalAddressParams               = $fieldParams;
+        $postalAddressParams['schemaType'] = 'PostalAddress';
+
+        if (!empty($this->getGoogleApiKey())) {
+            $fields[]                       = $this->getSubFieldSettings('geo', $fieldParams, $contentType['instance']->getKey());
+            $postalAddressParams['wrapper'] = ['class' => 'hidden'];
+        }
+
+        $fields[] = $this->getSubFieldSettings('address', $postalAddressParams, $contentType['instance']->getKey());
+        return $fields;
+    }
+
     /**
      * Get the settings for a sub field.
      *
