@@ -81,14 +81,9 @@ class School extends ContentType\ContentTypeFactory implements ContentType\Conte
             ],
         ];
         foreach ($this->getSecondaryContentType() as $contentType) {
-            switch ($contentType->getKey()) {
-                case 'place':
-                    $placeParams       = $contentType->getSchemaParams();
-                    $params['address'] = $placeParams['geo'];
-                    break;
-
-                default:
-                    break;
+            if ($contentType->getKey() === 'place') {
+                $placeParams       = $contentType->getSchemaParams();
+                $params['address'] = $placeParams['geo'];
             }
         }
 
@@ -127,11 +122,11 @@ class School extends ContentType\ContentTypeFactory implements ContentType\Conte
     }
 
     /**
-    //  * Handle visiting addresses and mark the method as deprecated.
-    //  *
-    //  * @param int $postId The ID of the post.
-    //  * @return array An array of \Spatie\SchemaOrg\PostalAddress objects.
-    //  */
+      * Handle visiting addresses and mark the method as deprecated.
+      *
+      * @param int $postId The ID of the post.
+      * @return array An array of \Spatie\SchemaOrg\PostalAddress objects.
+      */
     protected function legacyVisitingAddress(int $postId): array
     {
         _doing_it_wrong(__METHOD__, 'Using visiting_address is deprecated
