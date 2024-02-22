@@ -349,17 +349,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function getApplicationCtaTitle($post): string
     {
         if ($post instanceof \WP_Post) {
-            switch ($post->post_type) {
-                case 'pre-school':
-                    return sprintf(_x(
-                        'Do you want to join %s?',
-                        'Shown on pre-schools',
-                        'municipio'
-                    ), $post->post_title);
-                    break;
-                default:
-                    return sprintf(__('Do you want to apply to %s?', 'municipio'), $post->post_title);
-                    break;
+            if ($post->post_type === 'pre-school') {
+                // Code for 'pre-school' post type
+                return sprintf(_x(
+                    'Do you want to join %s?',
+                    'Shown on pre-schools',
+                    'municipio'
+                ), $post->post_title);
+            } else {
+                // Code for other post types
+                return sprintf(__('Do you want to apply to %s?', 'municipio'), $post->post_title);
             }
         } else {
             return __('Do you want to apply?', 'municipio');
