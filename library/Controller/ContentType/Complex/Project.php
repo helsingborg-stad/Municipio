@@ -75,13 +75,11 @@ class Project extends ContentType\ContentTypeFactory implements ContentType\Cont
         return $params;
     }
 
-
     /**
-     * Appends the structured data array (used for schema.org markup) with additional data
+     * Appends the structured data array (used for schema.org markup) with additional data.
      *
-     * @param array structuredData The structured data array that we're going to append to.
-     * @param string postType The post type of the current page.
-     * @param int postId The ID of the post you want to add structured data to.
+     * @param int $postId The ID of the post you want to add structured data to.
+     * @param object $entity The schema entity object to append data to.
      *
      * @return array The modified structured data array.
      */
@@ -95,33 +93,30 @@ class Project extends ContentType\ContentTypeFactory implements ContentType\Cont
         $entity->description(get_the_excerpt($postId));
         $entity->url(get_permalink($postId));
 
-        $founder     = get_the_terms($postId, 'organisation');
-        $brands      = get_the_terms($postId, 'participants');
-        $departments = get_the_terms($postId, 'operation');
-        $sponsors    = get_the_terms($postId, 'partner');
-
-
-        if (is_iterable($founder) && !is_wp_error($founder)) {
-            foreach ($founder as $founder) {
-                $entity->founder($founder);
-            }
-        }
-        if (is_iterable($brands) && !is_wp_error($brands)) {
-            foreach ($brands as $brand) {
-                $entity->brand($brand);
-            }
-        }
-        if (is_iterable($sponsors) && !is_wp_error($sponsors)) {
-            foreach ($sponsors as $sponsor) {
-                $entity->sponsor($sponsor);
-            }
-        }
-        if (is_iterable($departments) && !is_wp_error($departments)) {
-            foreach ($departments as $department) {
-                $entity->department($department);
-            }
-        }
+        $this->processEntityTerms($entity, $postId, 'organisation', 'founder');
+        $this->processEntityTerms($entity, $postId, 'participants', 'brand');
+        $this->processEntityTerms($entity, $postId, 'partner', 'sponsor');
+        $this->processEntityTerms($entity, $postId, 'operation', 'department');
 
         return $entity->toArray();
+    }
+
+    /**
+     * Processes and appends terms to the entity object for a given taxonomy.
+     *
+     * @param object $entity The entity to append terms to.
+     * @param int $postId The ID of the post to get terms for.
+     * @param string $taxonomy The taxonomy to retrieve terms from.
+     * @param string $method The method of the entity to call for each term.
+     */
+    protected function processEntityTerms($entity, int $postId, string $taxonomy, string $method)
+    {
+        $terms = get_the_terms($postId, $taxonomy);
+
+        if (is_iterable($terms) && !is_wp_error($terms)) {
+            foreach ($terms as $term) {
+                $entity->$method($term);
+            }
+        }
     }
 }
