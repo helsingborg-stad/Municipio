@@ -278,7 +278,7 @@ class BaseController
             'updated'               => __('Updated', 'municipio'),
             'noResult'              => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
             'readMore'              => __('Read more', 'municipio'),
-            'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items)),
+            'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
             'fromDate'              => __('Choose a from date', 'municipio'),
             'toDate'                => __('Choose a to date', 'municipio'),
             'dateInvalid'           => __('Select a valid date', 'municipio'),
