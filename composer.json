@@ -70,5 +70,5 @@
     "suggest": {
         "helsingborg-stad/component-library": "Required to render components in the theme."
     },
-    "version": "4.1.3"
+    "version": "4.1.4"
 }
