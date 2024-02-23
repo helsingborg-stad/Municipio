@@ -2,6 +2,7 @@
 
 namespace Municipio;
 
+use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Municipio\Helper\Controller as ControllerHelper;
@@ -242,13 +243,9 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            $markup = $this->bladeEngine->makeView(
-                $view,
-                array_merge(
-                    $data,
-                    array('errorMessage' => false)
-                )
-            )->render();
+            $markup = $this->bladeEngine
+                ->makeView( $view, array_merge( $data, array('errorMessage' => false) ), [], $this->viewPaths )
+                ->render();
 
             // Adds the option to make html more readable.
             // This is a option that is intended for permanent
@@ -399,7 +396,8 @@ class Template
     public function initializeBlade()
     {
         $this->viewPaths   = $this->registerViewPaths();
-        $this->bladeEngine = GlobalBladeService::getInstance($this->viewPaths);
+        $componentLibrary = new Init([]);
+        $this->bladeEngine = $componentLibrary->getEngine();
     }
 
     /**
