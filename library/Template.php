@@ -432,17 +432,17 @@ class Template
     /**
      * Register paths where views may be added
      * @return void
+     * @throws \Exception
      */
     public function registerViewPaths(): array
     {
-        if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
-            $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
-            $viewPaths         = array_merge($viewPaths, $externalViewPaths);
+        $viewPaths = \Municipio\Helper\Template::getViewPaths();
 
+        if( is_array($viewPaths) && !empty($viewPaths) ) {
             return $viewPaths;
-        } else {
-            wp_die("No view paths registered, please register at least one.");
         }
+
+        throw new \Exception("No view paths registered, please register at least one.");
     }
 
     /**
