@@ -244,7 +244,7 @@ class Template
     {
         try {
             $markup = $this->bladeEngine
-                ->makeView( $view, array_merge( $data, array('errorMessage' => false) ), [], $this->viewPaths )
+                ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
                 ->render();
 
             // Adds the option to make html more readable.
@@ -396,7 +396,7 @@ class Template
     public function initializeBlade()
     {
         $this->viewPaths   = $this->registerViewPaths();
-        $componentLibrary = new Init([]);
+        $componentLibrary  = new Init([]);
         $this->bladeEngine = $componentLibrary->getEngine();
     }
 
@@ -438,7 +438,7 @@ class Template
     {
         $viewPaths = \Municipio\Helper\Template::getViewPaths();
 
-        if( is_array($viewPaths) && !empty($viewPaths) ) {
+        if (is_array($viewPaths) && !empty($viewPaths)) {
             return $viewPaths;
         }
 

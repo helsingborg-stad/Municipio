@@ -30,8 +30,8 @@ class Template
         }, 999);
 
         return (object) array(
-            'name' => $templateName,
-            'path' => $templateFile,
+            'name'     => $templateName,
+            'path'     => $templateFile,
             'fullPath' => $templatePath
         );
     }
