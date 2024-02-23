@@ -33,8 +33,7 @@
         "helsingborg-stad/kirki": "~5.0.0",
         "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
-        "dompdf/dompdf": "^2.0.4",
-        "helsingborg-stad/blade": "^3.2"
+        "dompdf/dompdf": "^2.0.4"
     },
     "extra": {
         "installer-paths": {
@@ -67,6 +66,9 @@
         "psr-4": {
             "Municipio\\": "library/"
         }
+    },
+    "suggest": {
+        "helsingborg-stad/component-library": "Required to render components in the theme."
     },
     "version": "4.1.1"
 }
