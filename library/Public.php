@@ -17,12 +17,12 @@ if (!function_exists('render_blade_view')) {
         }
 
         $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
-        $viewPaths = array_merge($viewPaths, $externalViewPaths);
-        $init = new ComponentLibraryInit($viewPaths);
-        $bladeEngine = $init->getEngine();
+        $viewPaths         = array_merge($viewPaths, $externalViewPaths);
+        $init              = new ComponentLibraryInit($viewPaths);
+        $bladeEngine       = $init->getEngine();
 
         try {
-            $markup = $bladeEngine->make(
+            $markup = $bladeEngine->makeView(
                 $view,
                 array_merge(
                     $data,
@@ -71,8 +71,8 @@ if (!function_exists('municipio_get_thumbnail_source')) {
         }
 
         //Get post thumbnail id (Default value for src)
-        $thumbnail_id   = get_post_thumbnail_id($post_id);
-        $src            = false;
+        $thumbnail_id = get_post_thumbnail_id($post_id);
+        $src          = false;
 
         //Get default vale
         if (isset($size[0]) && isset($size[1])) {
@@ -120,8 +120,8 @@ if (!function_exists('municipio_get_logotype')) {
             $logoText = $siteName;
         }
 
-        $classes = apply_filters('Municipio/logotype_class', array('logotype'));
-        $tooltip = apply_filters('Municipio/logotype_tooltip', $tooltip);
+        $classes     = apply_filters('Municipio/logotype_class', array('logotype'));
+        $tooltip     = apply_filters('Municipio/logotype_tooltip', $tooltip);
         $taglineHtml = '';
 
         if ($tagline === true) {
@@ -136,13 +136,13 @@ if (!function_exists('municipio_get_logotype')) {
 
         // Build the markup
         $logoData = [
-            'url'               => home_url(),
-            'src'               => $logotype,
-            'text'              => $logoText,
-            'classList'         => implode(' ', $classes),
-            'attributeList'     => ($tooltip !== false && !empty($tooltip)) ?
+            'url'           => home_url(),
+            'src'           => $logotype,
+            'text'          => $logoText,
+            'classList'     => implode(' ', $classes),
+            'attributeList' => ($tooltip !== false && !empty($tooltip)) ?
                 ['data-tooltip' => $tooltip] : [],
-            'tagline'           => $taglineHtml
+            'tagline'       => $taglineHtml
         ];
 
         return $logoData;

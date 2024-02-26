@@ -140,24 +140,29 @@ class Post
 
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
-            $excerpt = self::getPostExcerpt($postObject);
+            [$excerptContent, $hasExcerpt] = self::getPostExcerpt($postObject);
             //Create excerpt if not defined by editor
-            $postObject->excerpt = wp_trim_words(
-                $excerpt,
+            $postObject->excerpt =
+            $hasExcerpt ? $excerptContent :
+            wp_trim_words(
+                $excerptContent,
                 apply_filters('Municipio/Helper/Post/ExcerptLenght', 55),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
 
             //Create excerpt if not defined by editor
-            $postObject->excerpt_short = wp_trim_words(
-                $excerpt,
+            $postObject->excerpt_short =
+            $hasExcerpt ? $excerptContent :
+            wp_trim_words(
+                $excerptContent,
                 apply_filters('Municipio/Helper/Post/ExcerptLenghtShort', 20),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
 
             $postObject->excerpt_shorter =
+            $hasExcerpt ? $excerptContent :
             wp_trim_words(
-                $excerpt,
+                $excerptContent,
                 apply_filters('Municipio/Helper/Post/ExcerptLenghtShorter', 10),
                 apply_filters('Municipio/Helper/Post/MoreTag', "...")
             );
@@ -210,7 +215,7 @@ class Post
         //Get post tumbnail image
         $postObject->images                    = [];
         $postObject->images['thumbnail_16:9']  = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->images['thumbnail_4:3']   = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->images['thumbnail_4:3']   = self::getFeaturedImage($postObject->ID, [520, 390]);
         $postObject->images['thumbnail_1:1']   = self::getFeaturedImage($postObject->ID, [500, 500]);
         $postObject->images['thumbnail_3:4']   = self::getFeaturedImage($postObject->ID, [240, 320]);
         $postObject->images['featuredImage']   = self::getFeaturedImage($postObject->ID, [1080, false]);
@@ -234,9 +239,9 @@ class Post
         }
 
         if (in_array('post_language', $appendFields)) {
-            $siteLang = strtolower(get_bloginfo('language'));
-            $postLang = strtolower(get_field('lang', $postObject->ID));
-            if ($postLang && ($postLang !== $siteLang)) {
+            $siteLang = strtolower(get_bloginfo('language') ?? '');
+            $postLang = strtolower(get_field('lang', $postObject->ID) ?? $siteLang);
+            if ($postLang !== $siteLang) {
                 $postObject->post_language = $postLang;
             }
         }
@@ -324,20 +329,20 @@ class Post
     * is returned after stripping shortcodes .
     *
     * @param object $postObject The WP_Post object .
-    * @return string The post excerpt .
+    * @return array[string, bool] .
     */
-    private static function getPostExcerpt($postObject)
+    private static function getPostExcerpt($postObject): array
     {
         if ($postObject->post_excerpt) {
-            return strip_shortcodes($postObject->post_excerpt);
+            return [strip_shortcodes($postObject->post_excerpt), true];
         }
 
         if (!empty($postObject->post_content) && strpos($postObject->post_content, '<!--more-->')) {
                 $divided = explode('<!--more-->', $postObject->post_content);
-                return !empty($divided[0]) ? $divided[0] : $postObject->post_content;
+                return !empty($divided[0]) ? [$divided[0], true] : [$postObject->post_content, false];
         }
 
-        return strip_shortcodes($postObject->post_content);
+        return [strip_shortcodes($postObject->post_content), false];
     }
 
     /**

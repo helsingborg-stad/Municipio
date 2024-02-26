@@ -4,7 +4,10 @@
         'name' => 'report',
         'size' => 'md',
         'color' => 'primary'
-    ]
+    ],
+    'attributeList' => [
+        'id' => $anchor ?? '',
+    ],
 ])
-    {!! '<b>' . $blockTitle . '</b>'. ': ' . $message !!}
+    {!! '<strong>' . $blockTitle . '</strong>'. ': ' . $message !!}
 @endnotice

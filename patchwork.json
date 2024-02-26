@@ -2,5 +2,6 @@
     "redefinable-internals": [
         "extension_loaded",
         "md5_file"
+        "class_exists"
     ]
 }

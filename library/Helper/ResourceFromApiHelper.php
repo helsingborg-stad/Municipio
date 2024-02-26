@@ -3,7 +3,7 @@
 namespace Municipio\Helper;
 
 use Municipio\Content\ResourceFromApi\ResourceInterface;
-use Municipio\Content\ResourceFromApi\ResourceRegistry;
+use Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistryInterface;
 use Municipio\Content\ResourceFromApi\ResourceType;
 
 /**
@@ -12,7 +12,7 @@ use Municipio\Content\ResourceFromApi\ResourceType;
  */
 class ResourceFromApiHelper
 {
-    private static ?ResourceRegistry $registry = null;
+    private static ?ResourceRegistryInterface $registry = null;
 
     /**
      * Initializes the helper class.
@@ -20,7 +20,7 @@ class ResourceFromApiHelper
      * @param ResourceRegistry $registry The registry of resources.
      * @return void
      */
-    public static function initialize(ResourceRegistry $registry): void
+    public static function initialize(ResourceRegistryInterface $registry): void
     {
         self::$registry = $registry;
     }

@@ -3,6 +3,7 @@
 namespace Municipio\Content\ResourceFromApi\Api;
 
 use Municipio\Helper\ResourceFromApiHelper;
+use Municipio\Helper\WP;
 use WP_Error;
 use WP_REST_Controller;
 use WP_REST_Server;
@@ -50,18 +51,22 @@ class ResourceFromApiRestController extends WP_REST_Controller
      */
     public function update_item($request) // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     {
-        $id = (int) $request['id'];
+        $id   = (int) $request['id'];
+        $post = null;
 
         if (ResourceFromApiHelper::isRemotePostID($id)) {
             $post = get_post($id);
-
-            clean_post_cache($post);
         } else {
             $posts = get_posts(['post_type' => $this->resource_name, 'post__in' => [$id], 'suppress_filters' => false]);
 
             if (!empty($posts)) {
-                clean_post_cache($posts[0]);
+                $post = $posts[0];
             }
+        }
+
+        if (is_a($post, 'WP_Post')) {
+            $this->purgePostFromObjectCache($post->ID);
+            $this->purgePostFromPageCache($post->ID);
         }
 
         $updatedPosts = get_posts([
@@ -75,6 +80,37 @@ class ResourceFromApiRestController extends WP_REST_Controller
         }
 
         return rest_ensure_response($updatedPosts[0]);
+    }
+
+    /**
+     * Purges the given post from the object cache.
+     */
+    private function purgePostFromObjectCache($postId): void
+    {
+        clean_post_cache($postId);
+    }
+
+    /**
+     * Purges the given post from the page cache.
+     */
+    private function purgePostFromPageCache($postId): void
+    {
+        $url = WP::getPermalink($postId);
+
+        // Vegify url that $url is a url
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            return;
+        }
+
+        wp_remote_request(
+            $url,
+            array(
+                'method'      => 'PURGE',
+                'timeout'     => 2,
+                'redirection' => 0,
+                'blocking'    => false
+            )
+        );
     }
 
     /**

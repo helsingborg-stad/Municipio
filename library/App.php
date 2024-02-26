@@ -77,13 +77,16 @@ class App
 
         // Set up registry.
 
-        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
 
         add_action('init', function () use ($resourceRegistry) {
 
             $resourceRegistry->registerResources();
 
-            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
+
+            foreach ($sortedPostTypeResources as $resource) {
                 $registrar = new PostTypeFromResource($resource);
                 $registrar->register();
             }
@@ -173,6 +176,9 @@ class App
         new \Municipio\Admin\UI\Editor();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
+
+        $uploads = new \Municipio\Admin\Uploads();
+        $uploads->addHooks();
 
         /**
          * Api
