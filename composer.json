@@ -70,5 +70,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "4.1.9"
+    "version": "4.1.10"
 }
