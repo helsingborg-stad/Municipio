@@ -159,7 +159,7 @@ class OembedFilters
         $dom = new \DOMDocument();
         // Suppress errors due to malformed HTML
         libxml_use_internal_errors(true);
-        $dom->loadHTML($html);
+        $dom->loadHTML($html, LIBXML_NOERROR);
         // Clear errors
         libxml_clear_errors();
         $xpath = new \DOMXPath($dom);
