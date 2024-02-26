@@ -157,7 +157,7 @@ class Image
     */
     public static function getAttachmentByRemoteUrl(string $remoteUrl)
     {
-        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        self::includeFile();
         $file = download_url($remoteUrl);
 
         if (is_wp_error($file)) {
@@ -182,6 +182,14 @@ class Image
         }
 
         return $foundPosts[0];
+    }
+
+    /**
+     * Requires file.php from wp-admin
+     */
+    protected static function includeFile()
+    {
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
     }
 
     /**
