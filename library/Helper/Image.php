@@ -6,13 +6,18 @@ use WP_Error;
 use WP_Post;
 use WP_Query;
 use Municipio\Helper\File as FileHelper;
+
+/**
+ * Class Image
+ * @package Municipio\Helper
+ */
 class Image
 {
     public const SIDELOADED_IDENTIFIER_KEY = "sideloaded_identifier";
 
     /**
      * Resizes an image to a specified size
-     * @param  integer|string  $originalImage Attachment id, path or url
+     * @param  integer|string  $originalImage Attachment id or url
      * @param  integer         $width         Target width
      * @param  integer         $height        Target height
      * @param  boolean         $crop          Crop or not?
@@ -20,40 +25,55 @@ class Image
      */
     public static function resize($originalImage, $width, $height, $crop = true)
     {
-        $imagePath = false;
-
-        // Image from attachment id
-        if (is_numeric($originalImage)) {
-            $imagePath = wp_get_attachment_url($originalImage);
-        } elseif (in_array(substr($originalImage, 0, 7), array('https:/', 'http://'))) {
-            $imagePath = self::urlToPath($originalImage);
-        }
-
-        if (!$imagePath) {
-            return false;
-        }
-
+        $imagePath = self::getImagePath($originalImage);
         $imagePath = self::removeImageSize($imagePath);
 
-        if (!FileHelper::fileExists($imagePath)) {
+        if (empty($imagePath) || !FileHelper::fileExists($imagePath)) {
             return false;
         }
 
-        $imagePathInfo = pathinfo($imagePath);
+        $destinationPath = self::createDestinationPath($imagePath, $height, $width);
 
-        $ext       = $imagePathInfo['extension'];
-        $suffix    = "{$width}x{$height}";
-        $destPath = "{$imagePathInfo['dirname']}/{$imagePathInfo['filename']}-{$suffix}.{$ext}";
-
-        if (FileHelper::fileExists($destPath)) {
-            return self::pathToUrl($destPath);
-        }
-
-        if (image_make_intermediate_size($imagePath, $width, $height, $crop)) {
-            return self::pathToUrl($destPath);
+        if (
+            (FileHelper::fileExists($destinationPath) ||
+            image_make_intermediate_size($imagePath, $width, $height, $crop)) &&
+            $newImage = self::pathToUrl($destinationPath)
+        ) {
+            return $newImage;
         }
 
         return $originalImage;
+    }
+
+    /**
+     * Creates the path
+     * @param  string|int $image Image ID or URL
+     * @return string
+     */
+    private static function getImagePath($image): string
+    {
+        if (is_numeric($image)) {
+            $image = wp_get_attachment_url($image);
+        }
+
+        if (filter_var($image, FILTER_VALIDATE_URL)) {
+            return self::urlToPath($image);
+        }
+
+        return "";
+    }
+
+    /**
+     * Creates the path
+     * @param  string $path Location to image
+     * @return string
+     */
+    private static function createDestinationPath(string $path, int $width, int $height): string
+    {
+        $imagePathInfo = pathinfo($path);
+
+        return $imagePathInfo['dirname'] . '/' . $imagePathInfo['filename'] . '-' . $width . 'x' . $height . '.'
+        . $imagePathInfo['extension'];
     }
 
     /**
@@ -61,7 +81,7 @@ class Image
      * @param  string $filename Filename
      * @return string           Filename
      */
-    public static function removeImageSize($filename)
+    private static function removeImageSize(string $filename): string
     {
         return preg_replace('/-(\d+)x(\d+).(jpg|png|gif|bmp|tif)$/i', ".$3", $filename);
     }
@@ -70,13 +90,15 @@ class Image
      * A very simple way of making a url into a path.
      * This presumes that your url has the same strucutre as your path (i.e does not handle url rewrites)
      * @param  string $url The url to make into a path
-     * @return string      Path
+     * @return string|null path if server is defined
      */
-    public static function urlToPath($url)
+    public static function urlToPath(string $url)
     {
-        $path = str_replace('http://', '', $url);
-        $path = str_replace('https://', '', $path);
-        $path = str_replace($_SERVER['HTTP_HOST'], '', $path);
+        if (!isset($_SERVER['HTTP_HOST']) || !isset($_SERVER['DOCUMENT_ROOT'])) {
+            return null;
+        }
+
+        $path = str_replace(['http://', 'https://', $_SERVER['HTTP_HOST']], '', $url);
 
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
@@ -89,10 +111,14 @@ class Image
      * A very simple way of making a path into a url.
      * This persumes that your path has the same structure as your url (i.e does not handle url rewrites)
      * @param  string $path Path
-     * @return string       Url
+     * @return string|null Url if $_SERVER is defined
      */
-    public static function pathToUrl($path)
+    public static function pathToUrl(string $path)
     {
+        if (!isset($_SERVER['DOCUMENT_ROOT']) || !isset($_SERVER['HTTP_HOST'])) {
+            return null;
+        }
+
         $url = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path);
         return '//' . $_SERVER['HTTP_HOST'] . $url;
     }
@@ -108,14 +134,14 @@ class Image
     {
         $file = get_attached_file($attachmentId);
 
-        if ($file === false) {
-            return new WP_Error('file-not-found', __('File not found when setting sideloaded identifier.'));
+        if (empty($file) || $file === false) {
+            return new \WP_Error('file-not-found', __('File not found when setting sideloaded identifier.'));
         }
 
         $fileHash = md5_file($file);
 
         if ($fileHash === false) {
-            return new WP_Error('identifier-not-generated', __('Could not generate sideloaded identifier for file.'));
+            return new \WP_Error('identifier-not-generated', __('Could not generate sideloaded identifier for file.'));
         }
 
         update_post_meta($attachmentId, self::SIDELOADED_IDENTIFIER_KEY, $fileHash);
@@ -145,10 +171,10 @@ class Image
         }
 
         $foundPosts = get_posts(array(
-            'post_type' => 'attachment',
-            'meta_key'   => self::SIDELOADED_IDENTIFIER_KEY,
-            'meta_value' => $fileHash,
-            'posts_per_page' => 1
+        'post_type'      => 'attachment',
+        'meta_key'       => self::SIDELOADED_IDENTIFIER_KEY,
+        'meta_value'     => $fileHash,
+        'posts_per_page' => 1
         ));
 
         if (empty($foundPosts)) {
@@ -165,26 +191,27 @@ class Image
      * @param array|string $size Size should be an array containing two int values (height and width). Can also be a string matching predefined sizes (ex. medium).
      * @return array
      */
-    public static function getImageAttachmentData($id, $size = 'full') { 
-        $imageSrc           = wp_get_attachment_image_src($id, $size);
+    public static function getImageAttachmentData($id, $size = 'full')
+    {
+        $imageSrc = wp_get_attachment_image_src($id, $size);
 
         if (empty($imageSrc[0])) {
             return false;
         }
 
-        $imageAlt           = get_post_meta($id, '_wp_attachment_image_alt', true);
-        $imageTitle         = get_the_title($id);
-        $imageCaption       = get_post_field('post_excerpt', $id);
-        $imageDescription   = get_post_field('post_content', $id);
-        $imageByline        = get_post_meta($id, 'byline', true);
+        $imageAlt         = get_post_meta($id, '_wp_attachment_image_alt', true);
+        $imageTitle       = get_the_title($id);
+        $imageCaption     = get_post_field('post_excerpt', $id);
+        $imageDescription = get_post_field('post_content', $id);
+        $imageByline      = get_post_meta($id, 'byline', true);
 
         $image = [
-            'src'           => $imageSrc[0],
-            'alt'           => $imageAlt ? $imageAlt : null,
-            'title'         => $imageTitle ? $imageTitle : null,
-            'caption'       => $imageCaption ? $imageCaption : null,
-            'description'   => $imageDescription ? $imageDescription : null,
-            'byline'        => $imageByline ? $imageByline : null
+        'src'         => $imageSrc[0],
+        'alt'         => $imageAlt ? $imageAlt : null,
+        'title'       => $imageTitle ? $imageTitle : null,
+        'caption'     => $imageCaption ? $imageCaption : null,
+        'description' => $imageDescription ? $imageDescription : null,
+        'byline'      => $imageByline ? $imageByline : null
         ];
 
         return $image;

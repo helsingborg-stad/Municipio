@@ -2,9 +2,12 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class Html
+ * @package Municipio\Helper
+ */
 class Html
 {
-
     /**
      * Create a grid class
      *
@@ -12,7 +15,7 @@ class Html
      * @param string  $mediaQuery       Target size
      * @return string
      */
-    public static function createGridClass($numberOfColumns = 1, $mediaQuery = null)
+    public static function createGridClass(float $numberOfColumns = 1, string $mediaQuery = null): string
     {
         $baseColumns = 12;
 
@@ -38,15 +41,15 @@ class Html
      * @param  boolean $closeTags Set to false to exclude closing tags
      * @return array       Htmltags
      */
-    public static function getHtmlTags($content, $closeTags = true)
+    public static function getHtmlTags(string $content, bool $closeTags = true): array
     {
         if ($closeTags == true) {
-            $re = '@<[^>]*>@';
+            $regex = '@<[^>]*>@';
         } else {
-            $re = '@<[^>/]*>@';
+            $regex = '@<[^>/]*>@';
         }
 
-        preg_match_all($re, $content, $matches, PREG_SET_ORDER, 0);
+        preg_match_all($regex, $content, $matches, PREG_SET_ORDER, 0);
 
         if (isset($matches) && !empty($matches)) {
             $tags = array();
@@ -59,7 +62,7 @@ class Html
             return $tags;
         }
 
-        return;
+        return [];
     }
 
     /**
@@ -80,7 +83,7 @@ class Html
                 continue;
             }
 
-            $values = (is_array($value)) ? implode(' ', array_unique($value)) : $value;
+            $values       = (is_array($value)) ? implode(' ', array_unique($value)) : $value;
             $attributes[] = $attribute . '="' . $values . '"';
         }
 
@@ -92,12 +95,11 @@ class Html
      * @param string $content String to get HTML attributes from
      * @return array       Attributes
      */
-    public static function getHtmlAttributes($content)
+    public static function getHtmlAttributes(string $content): array
     {
         $content = self::getHtmlTags($content, false);
-
-        if (!is_array($content) || empty($content)) {
-            return;
+        if (empty($content)) {
+            return [];
         }
 
         $content = implode($content);
@@ -115,18 +117,19 @@ class Html
             return $atts;
         }
 
-        return;
+        return [];
     }
 
     /**
      * Strip tags & attributes from String
      * @param string $content String to get HTML attributes from
+     * @allowedTags
      * @return array       Attributes
      */
-    public static function stripTagsAndAtts($content, $allowedTags = '', $allowedAtts = '')
+    public static function stripTagsAndAtts(string $content, array $allowedTags = [], array $allowedAtts = [])
     {
-        if (isset($allowedTags) && is_array($allowedTags)) {
-            $content = strip_tags($content, implode($allowedTags));
+        if (!empty($allowedTags)) {
+            $content = strip_tags($content, $allowedTags);
         } else {
             $content = strip_tags($content);
         }
@@ -135,7 +138,7 @@ class Html
         $atts = \Municipio\Helper\Html::getHtmlAttributes($content);
 
         if ($atts && !empty($atts)) {
-            if (isset($allowedAtts) && is_array($allowedAtts)) {
+            if (!empty($allowedAtts)) {
                 foreach ($allowedAtts as $attribute) {
                     unset($atts[$attribute]);
                 }

@@ -1,17 +1,22 @@
 <?php
 
-namespace Municipio\Content\ResourceFromApi;
+namespace Municipio\Content\ResourceFromApi\ResourceRegistry;
 
+use Municipio\Content\ResourceFromApi\AttachmentResource;
+use Municipio\Content\ResourceFromApi\PostTypeResource;
+use Municipio\Content\ResourceFromApi\ResourceRegistry\SortByParentPostType;
+use Municipio\Content\ResourceFromApi\ResourceType;
+use Municipio\Content\ResourceFromApi\TaxonomyResource;
 use Municipio\Helper\WP;
 
 /**
  * Class ResourceRegistry
  * Represents a registry of resources obtained from an API.
  */
-class ResourceRegistry implements ResourceRegistryInterface
+class ResourceRegistry extends SortByParentPostType implements ResourceRegistryInterface
 {
     /**
-     * @var ResourceInterface[] $registry
+     * @var \Municipio\Content\ResourceFromApi\ResourceInterface[] $registry
      */
     private array $registry               = [];
     private string $resourcePostTypeName  = 'api-resource';
@@ -20,7 +25,7 @@ class ResourceRegistry implements ResourceRegistryInterface
     /**
      * Returns the registry.
      *
-     * @return ResourceInterface[] The registry.
+     * @return \Municipio\Content\ResourceFromApi\ResourceInterface[] The registry.
      */
     public function getRegistry(): array
     {
@@ -31,7 +36,7 @@ class ResourceRegistry implements ResourceRegistryInterface
      * Returns a resource by its ID.
      *
      * @param int $id The ID of the resource.
-     * @return ResourceInterface|null The resource.
+     * @return \Municipio\Content\ResourceFromApi\ResourceInterface|null The resource.
      */
     public function getByName(string $name): array
     {
@@ -44,7 +49,7 @@ class ResourceRegistry implements ResourceRegistryInterface
      * Returns a resource by its ID.
      *
      * @param int $id The ID of the resource.
-     * @return ResourceInterface|null The resource.
+     * @return \Municipio\Content\ResourceFromApi\ResourceInterface|null The resource.
      */
     public function registerResources()
     {
@@ -144,7 +149,7 @@ class ResourceRegistry implements ResourceRegistryInterface
      * Returns a resource by its ID.
      *
      * @param int $id The ID of the resource.
-     * @return ResourceInterface[]|null The resource.
+     * @return \Municipio\Content\ResourceFromApi\ResourceInterface[]|null The resource.
      */
     public function getByType(string $type): array
     {

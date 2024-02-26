@@ -13,8 +13,13 @@
         @endnotice
     @endif
 
-    @if ($post->postExcerpt)
-        {!! $post->postExcerpt !!}
+    @if ($post->excerpt)
+        @typography([
+            'classList' => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0'],
+            'element' => 'div'
+        ])
+            {!! $post->excerpt !!}
+        @endtypography
     @endif
 
     @if ($facadeSliderItems)
@@ -81,7 +86,10 @@
         @typography(['element' => 'h2'])
             {{ $visitUs['title'] }}
         @endtypography
+
+        @typography(['element' => 'p'])
         {!! $visitUs['content'] !!}
+        @endtypography
     @endif
 
 
@@ -144,7 +152,7 @@
                         {{ $contact->name }}
                     @endtypography
 
-                    @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                    @typography(['element' => 'p', 'classList' => ['u-margin__top--0']])
                         {{ $contact->professionalTitle }}
                     @endtypography
 
@@ -175,7 +183,7 @@
                     @else
                         <div class="o-grid-4@md">
                     @endif
-                        @typography(['element' => 'p', 'variant' => 'p', 'classList' => ['u-margin__top--0']])
+                        @typography(['element' => 'p', 'classList' => ['u-margin__top--0']])
                             @if ($visitingAddress['description'])
                                 <strong>{{ $visitingAddress['description'] }}</strong>
                                 <br/>
@@ -202,38 +210,16 @@
         ])
             @foreach ($accordionListItems as $listItem)
                 @accordion__item([
+                    'beforeHeading' => '<span id="' . $listItem['anchor'] . '">',
+                    'afterHeading' => '</span>',
                     'heading' => $listItem['heading'],
-                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0']
+                    'classList' => ['u-color__bg--lightest', 'u-box-shadow--3', 'u-margin__bottom--1', 'u-padding--2', 'u-border--0'],
                 ])
                     {!! $listItem['content'] !!}
                 @endaccordion__item
             @endforeach
         @endaccordion
 
-    @endif
-
-    @if ($socialMediaLinks)
-
-        @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{ $socialMediaLinksTitle }}
-        @endtypography
-
-        <div>
-
-            @foreach ($socialMediaLinks as $socialMediaLink)
-                @button([
-                    'text' => $socialMediaLink['text'],
-                    'color' => 'primary',
-                    'style' => 'basic',
-                    'size' => 'lg',
-                    'href' => $socialMediaLink['href'],
-                    'icon' => $socialMediaLink['icon'],
-                    'reversePositions' => 'true',
-                    'classList' => ['u-margin__right--3'],
-                ])
-                @endbutton
-            @endforeach
-        </div>
     @endif
 
     @if ($pages)
@@ -261,6 +247,30 @@
                 @endcollection__item
             @endforeach
         @endcollection
+    @endif
+
+    @if ($socialMediaLinks)
+
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{ $socialMediaLinksTitle }}
+        @endtypography
+
+        <div>
+
+            @foreach ($socialMediaLinks as $socialMediaLink)
+                @button([
+                    'text' => $socialMediaLink['text'],
+                    'color' => 'primary',
+                    'style' => 'basic',
+                    'size' => 'lg',
+                    'href' => $socialMediaLink['href'],
+                    'icon' => $socialMediaLink['icon'],
+                    'reversePositions' => 'true',
+                    'classList' => ['u-margin__right--3'],
+                ])
+                @endbutton
+            @endforeach
+        </div>
     @endif
 
     @if ($visitingDataTitle)

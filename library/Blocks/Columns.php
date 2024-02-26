@@ -53,7 +53,7 @@ class Columns
     private function processBlockColumns(string $content, array $gridClasses) {
         //Load doc as string
         $doc = new \DOMDocument();
-        $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+        $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content, LIBXML_NOERROR);
 
         //Get the columns and its contents
         $modifiedColumns = [];

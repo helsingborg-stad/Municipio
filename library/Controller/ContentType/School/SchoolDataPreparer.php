@@ -304,19 +304,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $this->data['application'] = [];
 
+        $this->data['application']['displayOnWebsite'] =
+        (bool) $this->postMeta->ctaApplication->display_on_website ?? true;
 
-        $this->data['application']['displayOnWebsite'] = true;
-        if (
-            false === $this->postMeta->ctaApplication->display_on_website ||
-            0 === $this->postMeta->ctaApplication->display_on_website
-        ) {
-            $this->data['application']['displayOnWebsite'] = false;
-        }
+        $this->data['application']['title'] =
+        $this->postMeta->ctaApplication->title
+        ?: $this->getApplicationCtaTitle(get_queried_object());
 
-        $this->data['application']['title']       = $this->postMeta->ctaApplication->title ?: sprintf(
-            __('Do you want to apply to %s?', 'municipio'),
-            get_queried_object()->post_title
-        );
         $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
         $this->data['application']['apply']       = null;
         $this->data['application']['howToApply']  = null;
@@ -328,8 +322,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             !empty($this->postMeta->ctaApplication->cta_apply_here->title)
         ) {
             $this->data['application']['apply'] = [
-                'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-                'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
+            'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
+            'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
             ];
         }
 
@@ -340,12 +334,36 @@ class SchoolDataPreparer implements DataPrepearerInterface
             !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
         ) {
             $this->data['application']['howToApply'] = [
-                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-                'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
+            'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
+            'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
             ];
         }
     }
-
+        /**
+     * Retrieves the application title based on the post type.
+     *
+     * @param \WP_Post|null $post The post object.
+     * @return string The application title.
+     */
+    private function getApplicationCtaTitle($post): string
+    {
+        if ($post instanceof \WP_Post) {
+            switch ($post->post_type) {
+                case 'pre-school':
+                    return sprintf(_x(
+                        'Do you want to join %s?',
+                        'Shown on pre-schools',
+                        'municipio'
+                    ), $post->post_title);
+                    break;
+                default:
+                    return sprintf(__('Do you want to apply to %s?', 'municipio'), $post->post_title);
+                    break;
+            }
+        } else {
+            return __('Do you want to apply?', 'municipio');
+        }
+    }
     /**
      * Appends data for the accordion section.
      */
@@ -409,7 +427,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         return [
             'heading' => $heading ?? '',
-            'content' => wpautop($text ?? '')
+            'content' => wpautop($text ?? ''),
+            'anchor'  => sanitize_title($heading),
         ];
     }
 
@@ -432,7 +451,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $streetNumber  = $address->address->street_number ?? '';
             $postCode      = $address->address->post_code ?? '';
             $city          = $address->address->city ?? '';
-            $lineBreak     = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
+            $lineBreak     = sizeof($visitingAddresses) > 1 ? ', <br>' : ', ';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
                 'title'      => $this->data['post']->postTitle ?? null,
@@ -610,7 +629,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'layout'         => 'bottom',
             'containerColor' => 'transparent',
             'textColor'      => 'white',
-            'heroStyle'      => true
+            'heroStyle'      => true,
+            'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
         $sliderItem['text']          = $attachment['caption'];
