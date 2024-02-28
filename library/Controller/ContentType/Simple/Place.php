@@ -63,7 +63,6 @@ class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
         }
 
         $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        // $structuredData   = [];
 
         foreach ($locationMetaKeys as $key) {
             $location = get_post_meta($postId, $key, true);
