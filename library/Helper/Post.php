@@ -215,7 +215,7 @@ class Post
         //Get post tumbnail image
         $postObject->images                    = [];
         $postObject->images['thumbnail_16:9']  = self::getFeaturedImage($postObject->ID, [400, 225]);
-        $postObject->images['thumbnail_4:3']   = self::getFeaturedImage($postObject->ID, [390, 520]);
+        $postObject->images['thumbnail_4:3']   = self::getFeaturedImage($postObject->ID, [520, 390]);
         $postObject->images['thumbnail_1:1']   = self::getFeaturedImage($postObject->ID, [500, 500]);
         $postObject->images['thumbnail_3:4']   = self::getFeaturedImage($postObject->ID, [240, 320]);
         $postObject->images['featuredImage']   = self::getFeaturedImage($postObject->ID, [1080, false]);
@@ -239,9 +239,9 @@ class Post
         }
 
         if (in_array('post_language', $appendFields)) {
-            $siteLang = strtolower(get_bloginfo('language'));
-            $postLang = strtolower(get_field('lang', $postObject->ID));
-            if ($postLang && ($postLang !== $siteLang)) {
+            $siteLang = strtolower(get_bloginfo('language') ?? '');
+            $postLang = strtolower(get_field('lang', $postObject->ID) ?? $siteLang);
+            if ($postLang !== $siteLang) {
                 $postObject->post_language = $postLang;
             }
         }

@@ -27,7 +27,7 @@ class Images
 
         if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument();
-            $dom->loadHTML($encoding . $content);
+            $dom->loadHTML($encoding . $content , LIBXML_NOERROR);
 
             $links = $dom->getElementsByTagName('a');
             if(is_object($links) && !empty($links)) {

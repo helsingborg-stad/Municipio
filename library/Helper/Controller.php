@@ -96,7 +96,7 @@ class Controller
      */
     public static function camelCase($string)
     {
-        $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array('self', 'camelCaseParts'), $string);
+        $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array(self::class, 'camelCaseParts'), $string);
 
         if (!empty($cc)) {
             return $cc;

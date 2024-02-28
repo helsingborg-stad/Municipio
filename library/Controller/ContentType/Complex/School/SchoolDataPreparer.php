@@ -260,7 +260,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
             // Get usp taxonomy terms
-            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY);
+            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY, ['orderby' => 'include', 'include' => $this->postMeta->usp]);
 
             // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
             $uspTerms   = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));

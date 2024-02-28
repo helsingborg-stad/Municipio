@@ -6,6 +6,7 @@ use Mockery;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Image;
+use phpmock\mockery\PHPMockery;
 
 /**
  * Class ImageTest
@@ -58,6 +59,31 @@ class ImageTest extends TestCase
 
         // Then
         $this->assertEquals('//test.url/test-100x100.jpg', $result);
+    }
+
+    /**
+     * @testdox resize returns a original image
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testResizeReturnsOriginalImage()
+    {
+        // Given
+        $this->mockUpDataForImage();
+        Mockery::mock('alias:' . \Municipio\Helper\File::class)
+            ->shouldReceive('fileExists')
+            ->andReturn(true, false);
+
+        WP_Mock::userFunction('image_make_intermediate_size', [
+            'times'  => 1,
+            'return' => false
+        ]);
+
+        // When
+        $result = Image::resize('https://test.url/test.jpg', 100, 100);
+
+        // Then
+        $this->assertEquals('https://test.url/test.jpg', $result);
     }
 
     /**
@@ -175,8 +201,177 @@ class ImageTest extends TestCase
     }
 
     /**
+     * @testdox addSideloadedIdentifierToAttachment Returns WP_Error if no file found.
+     */
+    public function testAddSideloadedIdentifierToAttachmentReturnsWPErrorIfNoFileFound()
+    {
+        // Given
+        $this->mockUpDataForImage(false);
+        Mockery::mock(\WP_Error::class);
+
+        // When
+        $result = Image::addSideloadedIdentifierToAttachment(1);
+
+        // Then
+        $this->assertInstanceOf('WP_Error', $result);
+    }
+
+    /**
+     * @testdox addSideloadedIdentifierToAttachment Returns WP_Error if hash couldnt be created from file.
+    */
+    public function testAddSideloadedIdentifierToAttachmentReturnsFalseIfNoHash()
+    {
+        // Given
+        $this->mockUpDataForImage('/test/path');
+        Mockery::mock(\WP_Error::class);
+
+        // When
+        $result = Image::addSideloadedIdentifierToAttachment(1);
+
+        // Then
+        $this->assertInstanceOf('WP_Error', $result);
+    }
+
+    /**
+     * @testdox addSideloadedIdentifierToAttachment Updates post and returns nothing when
+     * file found and hash calculated.
+    */
+    public function testAddSideloadedIdentifierToAttachmentUpdatesPost()
+    {
+        // Given
+        $this->mockUpDataForImage('/test/path', 'testHash');
+
+        WP_Mock::userFunction('get_attached_file', [
+            'return' => 'https://test.url/test.jpg'
+        ]);
+
+        WP_Mock::userFunction('update_post_meta', [
+            'times'  => 1,
+            'return' => true
+
+        ]);
+
+        // When
+        $result = Image::addSideloadedIdentifierToAttachment(1);
+
+        // Then
+        $this->assertNull($result);
+    }
+
+    /**
+     * @testdox getAttachmentByRemoteUrl Returns WP_Error when no download url is found.
+    */
+    public function testGetAttachmentByRemoteUrlReturnsWpErrorIfNoDownloadUrl()
+    {
+        // Given
+        $wpError = Mockery::mock(\WP_Error::class);
+        $this->mockedDataForGetAttachmentByRemoteUrl($wpError, true);
+
+        // When
+        $result = Image::getAttachmentByRemoteUrl(1);
+
+        // Then
+        $this->assertInstanceOf('WP_Error', $result);
+    }
+
+    /**
+     * @testdox getAttachmentByRemoteUrl Returns null if no file hash.
+    */
+    public function testGetAttachmentByRemoteUrlReturnsNullIfNoFileHash()
+    {
+        // Given
+        $this->mockedDataForGetAttachmentByRemoteUrl('https://test.com', false, false);
+
+        // When
+        $result = Image::getAttachmentByRemoteUrl(1);
+
+        // Then
+        $this->assertNull($result);
+    }
+
+    /**
+     * @testdox getAttachmentByRemoteUrl Returns null if no posts found
+    */
+    public function testGetAttachmentByRemoteUrlReturnsNullIfNoPostsFound()
+    {
+        // Given
+        $this->mockedDataForGetAttachmentByRemoteUrl(
+            'https://test.com',
+            false,
+            "testHash",
+            []
+        );
+
+        // When
+        $result = Image::getAttachmentByRemoteUrl(1);
+
+        // Then
+        $this->assertNull($result);
+    }
+
+    /**
+     * @testdox getAttachmentByRemoteUrl Returns first post if posts found.
+    */
+    public function testGetAttachmentByRemoteUrlReturnsFirstPostIfPostsFound()
+    {
+        // Given
+        $this->mockedDataForGetAttachmentByRemoteUrl(
+            'https://test.com',
+            false,
+            "testHash",
+            [$this->getMockedPost(), $this->getMockedPost()]
+        );
+
+        // When
+        $result = Image::getAttachmentByRemoteUrl(1);
+
+        // Then
+        $this->assertInstanceOf('WP_Post', $result);
+    }
+
+    /**
+     * Mocked post
+    */
+    private function getMockedPost()
+    {
+        $post     = Mockery::mock('WP_Post');
+        $post->ID = 1;
+
+        return $post;
+    }
+
+    /**
      * Mockup data
     */
+    private function mockedDataForGetAttachmentByRemoteUrl(
+        $downloadUrl = 'test',
+        $isWpError = false,
+        $md5File = false,
+        $getPosts = []
+    ) {
+        $mock = $this->mockStaticMethod('Municipio\Helper\Image', 'includeFile');
+        $mock->once()->andReturn(true);
+
+        $reflection = new \ReflectionClass(Image::class);
+        $namespace  = $reflection->getNamespaceName();
+        PHPMockery::mock($namespace, 'md5_file')->andReturn($md5File);
+
+        WP_Mock::userFunction('download_url', [
+            'return' => $downloadUrl
+        ]);
+
+        WP_Mock::userFunction('is_wp_error', [
+            'return' => $isWpError
+        ]);
+
+        WP_Mock::userFunction('get_posts', [
+            'return' => $getPosts
+        ]);
+    }
+
+    /**
+     * Mockup data
+     */
     private function mockUpDataForImage()
     {
         WP_Mock::userFunction('wp_get_attachment_url', [
@@ -186,6 +381,10 @@ class ImageTest extends TestCase
         WP_Mock::userFunction('wp_cache_get', [
             'return' => true
         ]);
+
+        $reflection = new \ReflectionClass(Image::class);
+        $namespace  = $reflection->getNamespaceName();
+        PHPMockery::mock($namespace, 'md5_file')->andReturn(true);
 
         $_SERVER                  = [];
         $_SERVER['DOCUMENT_ROOT'] = 'root';

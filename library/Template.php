@@ -2,15 +2,17 @@
 
 namespace Municipio;
 
-use ComponentLibrary\Init as ComponentLibraryInit;
+use ComponentLibrary\Init;
+use HelsingborgStad\BladeService\BladeServiceInterface;
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
 class Template
 {
-    private $bladeEngine = null;
-    private $viewPaths   = null;
+    private ?BladeServiceInterface $bladeEngine = null;
+    private ?array $viewPaths                   = null;
 
     public function __construct()
     {
@@ -241,13 +243,9 @@ class Template
     public function renderView($view, $data = array())
     {
         try {
-            $markup = $this->bladeEngine->make(
-                $view,
-                array_merge(
-                    $data,
-                    array('errorMessage' => false)
-                )
-            )->render();
+            $markup = $this->bladeEngine
+                ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
+                ->render();
 
             // Adds the option to make html more readable.
             // This is a option that is intended for permanent
@@ -398,8 +396,8 @@ class Template
     public function initializeBlade()
     {
         $this->viewPaths   = $this->registerViewPaths();
-        $init              = new ComponentLibraryInit($this->viewPaths);
-        $this->bladeEngine = $init->getEngine();
+        $componentLibrary  = new Init([]);
+        $this->bladeEngine = $componentLibrary->getEngine();
     }
 
     /**
@@ -434,17 +432,17 @@ class Template
     /**
      * Register paths where views may be added
      * @return void
+     * @throws \Exception
      */
     public function registerViewPaths(): array
     {
-        if ($viewPaths = \Municipio\Helper\Template::getViewPaths()) {
-            $externalViewPaths = apply_filters('Municipio/blade/view_paths', array());
-            $viewPaths         = array_merge($viewPaths, $externalViewPaths);
+        $viewPaths = \Municipio\Helper\Template::getViewPaths();
 
+        if (is_array($viewPaths) && !empty($viewPaths)) {
             return $viewPaths;
-        } else {
-            wp_die("No view paths registered, please register at least one.");
         }
+
+        throw new \Exception("No view paths registered, please register at least one.");
     }
 
     /**

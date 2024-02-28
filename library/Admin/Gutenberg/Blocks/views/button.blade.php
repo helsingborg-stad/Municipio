@@ -1,7 +1,7 @@
 
 {{-- Only wrap top level block --}}
 @if($blockType == 'acf/button')
-    <div class="{!! $classList !!}">
+    <div class="{!! $classList !!}" id="{{ $anchor }}">
 @endif
 
     @button([
@@ -10,7 +10,10 @@
         'style' => $style,
         'size' => $size,
         'href' => $link,
-        'classList' => ['t-block-button']
+        'classList' => ['t-block-button'],
+        'attributeList' => [
+            'id' => $anchor ?? '',
+        ]
     ])
     @endbutton
 
