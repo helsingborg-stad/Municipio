@@ -208,5 +208,9 @@ class App
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
+
+        add_action('init', function () {
+            register_block_type(__DIR__ . '/../blocks/hello/build');
+        });
     }
 }

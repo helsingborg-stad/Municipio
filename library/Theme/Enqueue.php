@@ -21,6 +21,9 @@ class Enqueue
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
 
+        add_action('admin_enqueue_scripts', array($this, 'enqueueWebComponentScripts'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueWebComponentScripts'));
+
         // Enqueue customizer scripts and styles
         add_action('customize_controls_enqueue_scripts', array($this, 'customizeScript'));
 
@@ -101,7 +104,8 @@ class Enqueue
         //Download and use material icons
         $this->getMaterialIcons(null); //Create self handle
     }
-    public function adminScripts() : void {
+    public function adminScripts(): void
+    {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
             wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
@@ -140,6 +144,16 @@ class Enqueue
         $this->getMaterialIcons('municipio-css');
     }
 
+    public function enqueueWebComponentScripts()
+    {
+        $themeDir = get_template_directory_uri();
+        wp_enqueue_script('web-components', $themeDir . '/assets/source/web-components/card.js',);
+
+        add_filter('script_loader_tag', function ($tag, $handle, $src) {
+            return 'web-components' === $handle ? '<script type="module" src="' . esc_url($src) . '"></script>' : $tag;
+        }, 10, 3);
+    }
+
     /**
      * Enqueue scripts
      * @return void
@@ -151,9 +165,9 @@ class Enqueue
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
             ),
-            'messages' => array(
+            'messages'   => array(
                 'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError' => __('Something went wrong, please try again later', 'municipio'),
+                'onError'       => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
 
@@ -216,7 +230,7 @@ class Enqueue
     public function moveScriptsToFooter()
     {
         global $wp_scripts;
-        $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
+        $notInFooter           = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
     }
 
@@ -230,7 +244,7 @@ class Enqueue
     public function removeScriptVersion($src)
     {
         $siteUrlComponents = parse_url(get_site_url());
-        $urlComponents = parse_url($src);
+        $urlComponents     = parse_url($src);
 
         // Check if the URL is internal or external
         if (
@@ -277,7 +291,7 @@ class Enqueue
         }
 
         $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', ['readspeaker', 'jquery-core', 'jquery-migrate'], $handle);
-        $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
+        $disableDeferedLoading  = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
 
         if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
             return $tag;
