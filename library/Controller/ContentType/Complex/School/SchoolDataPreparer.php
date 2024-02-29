@@ -278,6 +278,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Quick facts', 'municipio');
             $this->data['quickFacts']      = $quickFacts;
+        } else {
+            $this->data['quickFacts'] = false;
         }
     }
 
@@ -306,13 +308,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['application'] = [];
 
         $this->data['application']['displayOnWebsite'] =
-        (bool) $this->postMeta->ctaApplication->display_on_website ?? true;
+            isset($this->postMeta->ctaApplication->display_on_website) ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
 
         $this->data['application']['title'] =
-        $this->postMeta->ctaApplication->title
-        ?: $this->getApplicationCtaTitle(get_queried_object());
+            isset($this->postMeta->ctaApplication->title) ? $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
 
-        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
+        $this->data['application']['description'] = isset($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
         $this->data['application']['apply']       = null;
         $this->data['application']['howToApply']  = null;
 
@@ -472,13 +473,13 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }, $visitingAddresses);
 
-        if (!empty($visitingData)) {
-            $this->data['visitingAddresses']               = $visitingData;
-            $this->data['visitingAddressMapPins']          = $mapPins;
-            $this->data['visitingAddressMapStartPosition'] = $this->getMapStartPosition($mapPins);
-            $this->data['visitingDataTitle']               = sizeof($visitingData) === 1
-                ? __('Visiting address', 'municipio')
-                : __('Visiting addresses', 'municipio');
+        $this->data['visitingAddresses'] = !empty($visitingData) ? $visitingData : false;
+        $this->data['visitingAddressMapPins'] = !empty($mapPins) ? $mapPins : false;
+        $this->data['visitingAddressMapStartPosition'] = !empty($mapPins) ? $this->getMapStartPosition($mapPins) : false;
+        if (sizeof($visitingData) <= 1) {
+            $this->data['visitingDataTitle'] = __('Visiting address', 'municipio');
+        } else {
+            $this->data['visitingDataTitle'] = __('Visiting addresses', 'municipio');
         }
     }
 
