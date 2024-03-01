@@ -109,7 +109,7 @@ class CreatePdf
             'isHtml5ParserEnabled' => true,
         ]);
 
-        $dompdf->loadHtml($html, LIBXML_NOERROR);
+        $dompdf->loadHtml($html, $detectedEncoding ?? 'UTF-8');
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
