@@ -913,10 +913,10 @@ class Navigation
         $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
 
         if ($archiveLink) {
-            $label = get_post_type_object(get_post_type($queriedObj))->label;
+            $label = get_post_type_object(get_post_type($queriedObj))->label ?? __("Untitled page", 'municipio');
 
             if (is_archive()) {
-                $label = $queriedObj->label;
+                $label = $queriedObj->label ?? __("Untitled page", 'municipio');
             }
 
             array_push($pageData, array(
