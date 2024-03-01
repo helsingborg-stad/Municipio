@@ -92,6 +92,19 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
         return "content-type-{$this->getKey()}";
     }
     /**
+     * Add a secondary content type.
+     *
+     * @param \Municipio\Controller\ContentType\ContentTypeFactory $contentType The content type to add.
+     * @return void
+     */
+    public function addSecondaryContentType(
+        \Municipio\Controller\ContentType\ContentTypeFactory $contentType
+    ): void {
+        if (\Municipio\Helper\ContentType::validateSimpleContentType($contentType, $this)) {
+            $this->secondaryContentType[] = $contentType;
+        }
+    }
+    /**
      * Get the schema parameters.
      *
      * @return array|null The schema parameters.

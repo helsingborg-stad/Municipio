@@ -10,7 +10,6 @@ use Municipio\Controller\ContentType;
  */
 class Project extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
 {
-    use ContentType\Traits\AddSecondaryContentType;
 
     /**
      * Class constructor.

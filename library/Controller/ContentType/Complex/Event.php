@@ -13,7 +13,6 @@ use Municipio\Controller\ContentType;
  */
 class Event extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
 {
-    use ContentType\Traits\AddSecondaryContentType;
 
     /**
      * Constructor method the Event content type.

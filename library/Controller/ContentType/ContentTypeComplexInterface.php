@@ -2,8 +2,6 @@
 
 namespace Municipio\Controller\ContentType;
 
-require_once 'Traits/AddSecondaryContentType.php';
-
 /**
  *
  * 'ContentTypeComplexInterface' is designed to be used by classes that
