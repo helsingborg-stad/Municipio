@@ -109,6 +109,7 @@ class CreatePdf
             'isHtml5ParserEnabled' => true,
         ]);
 
+        $detectedEncoding = mb_detect_encoding($html, mb_detect_order(), true);
         $dompdf->loadHtml($html, $detectedEncoding ?? 'UTF-8');
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
