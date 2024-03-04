@@ -76,10 +76,12 @@ class School extends ContentType\ContentTypeFactory {
                 'label'      => __('Opening hours', 'municipio')
             ],
         ];
-        foreach ($this->getSecondaryContentType() as $contentType) {
-            if ($contentType->getKey() === 'place') {
-                $placeParams       = $contentType->getSchemaParams();
-                $params['address'] = $placeParams['geo'];
+        if( !empty($this->getSecondaryContentType())) {
+            foreach ($this->getSecondaryContentType() as $contentType) {
+                if ($contentType->getKey() === 'place') {
+                    $placeParams       = $contentType->getSchemaParams();
+                    $params['address'] = $placeParams['geo'];
+                }
             }
         }
 

@@ -63,10 +63,12 @@ class Project extends ContentType\ContentTypeFactory
         ],
         ];
 
-        foreach ($this->getSecondaryContentType() as $contentType) {
-            if ($contentType->getKey() === 'place') {
-                $placeParams       = $contentType->getSchemaParams();
-                $params['address'] = $placeParams['geo'];
+        if( !empty($this->getSecondaryContentType())) {
+            foreach ($this->getSecondaryContentType() as $contentType) {
+                if ($contentType->getKey() === 'place') {
+                    $placeParams       = $contentType->getSchemaParams();
+                    $params['address'] = $placeParams['geo'];
+                }
             }
         }
 

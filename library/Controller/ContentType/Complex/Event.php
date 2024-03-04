@@ -23,7 +23,7 @@ class Event extends ContentType\ContentTypeFactory
         $this->label = __('Event', 'municipio');
 
         $this->addSecondaryContentType(new ContentType\Simple\Place());
-        
+
         parent::__construct($this->key, $this->label);
     }
 
@@ -52,10 +52,13 @@ class Event extends ContentType\ContentTypeFactory
                 'label'      => __('Offers', 'municipio')
             ],
         ];
-        foreach ($this->getSecondaryContentType() as $contentType) {
-            if ($contentType->getKey() === 'place') {
-                $placeParams       = $contentType->getSchemaParams();
-                $params['location'] = $placeParams['geo'];
+
+        if( !empty($this->getSecondaryContentType())) {
+            foreach ($this->getSecondaryContentType() as $contentType) {
+                if ($contentType->getKey() === 'place') {
+                    $placeParams       = $contentType->getSchemaParams();
+                    $params['location'] = $placeParams['geo'];
+                }
             }
         }
 
