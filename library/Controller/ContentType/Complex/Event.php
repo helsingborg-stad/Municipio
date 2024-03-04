@@ -23,8 +23,7 @@ class Event extends ContentType\ContentTypeFactory
         $this->label = __('Event', 'municipio');
 
         $this->addSecondaryContentType(new ContentType\Simple\Place());
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
+        
         parent::__construct($this->key, $this->label);
     }
 

@@ -13,14 +13,11 @@ namespace Municipio\Controller\ContentType;
  * Simple content types:
  * ---------------------
  * A simple content type class that doesn't need to load other types
- * should extend this class to gain basic functionality.
  * An example of a simple content type is the default type 'Place'.
  *
  * Complex content types:
  * ----------------------
- * A complex content type is a class that needs to load other types and
- * it should extend this class but also implement the 'ContentTypeComplexInterface'
- * interface.
+ * A complex content type is a class that needs to load other types
  * An example of a complex purpose is the default 'Event'.
  *
  */
@@ -60,9 +57,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      */
     protected function applySchemaParamsFilter(): array
     {
-        $params = $this->schemaParams();
-
-        return apply_filters('Municipio/ContentType/schemaParams', $params, $this->key);
+        return apply_filters('Municipio/ContentType/schemaParams', $this->schemaParams(), $this->key);
     }
     /**
      * Get the label of the content type.

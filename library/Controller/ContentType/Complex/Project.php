@@ -20,7 +20,6 @@ class Project extends ContentType\ContentTypeFactory
         $this->label = __('Project', 'municipio');
 
         $this->addSecondaryContentType(new ContentType\Simple\Place());
-        $this->schemaParams = $this->applySchemaParamsFilter();
 
         parent::__construct($this->key, $this->label);
     }

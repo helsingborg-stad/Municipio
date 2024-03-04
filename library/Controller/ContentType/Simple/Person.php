@@ -17,8 +17,6 @@ class Person extends \Municipio\Controller\ContentType\ContentTypeFactory
         $this->key   = 'person';
         $this->label = __('Person', 'municipio');
 
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
         parent::__construct($this->key, $this->label);
     }
 

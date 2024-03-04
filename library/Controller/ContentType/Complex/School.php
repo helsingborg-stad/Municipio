@@ -25,8 +25,6 @@ class School extends ContentType\ContentTypeFactory {
         $this->addSecondaryContentType(new ContentType\Simple\Place());
         $this->addSecondaryContentType(new ContentType\Simple\Person());
 
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
         parent::__construct($this->key, $this->label);
     }
 

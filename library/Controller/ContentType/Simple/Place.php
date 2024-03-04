@@ -19,8 +19,6 @@ class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
         $this->key   = 'place';
         $this->label = __('Place', 'municipio');
 
-        $this->schemaParams = $this->applySchemaParamsFilter();
-
         parent::__construct($this->key, $this->label);
     }
 
