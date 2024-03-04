@@ -10,8 +10,7 @@ use Municipio\Helper\WP;
  * Class School
  * @package Municipio\Controller\ContentType
  */
-class School extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
-{
+class School extends ContentType\ContentTypeFactory {
 
     protected object $postMeta;
 

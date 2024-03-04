@@ -11,7 +11,7 @@ use Municipio\Controller\ContentType;
  *
  * @package Municipio\Controller\ContentType
  */
-class Event extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
+class Event extends ContentType\ContentTypeFactory
 {
 
     /**

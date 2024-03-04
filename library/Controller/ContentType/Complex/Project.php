@@ -8,7 +8,7 @@ use Municipio\Controller\ContentType;
  * Class Project
  * @package Municipio\Controller\ContentType
  */
-class Project extends ContentType\ContentTypeFactory implements ContentType\ContentTypeComplexInterface
+class Project extends ContentType\ContentTypeFactory 
 {
 
     /**
