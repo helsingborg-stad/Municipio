@@ -142,7 +142,13 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         try {
             foreach ($schemaParams as $key => $param) {
+
+                if('geo' === $key) {
+                    $key = 'address';
+                }
+
                 $value = $schemaData[$key] ?? null;
+                
                 if (empty($value)) {
                     continue;
                 }
