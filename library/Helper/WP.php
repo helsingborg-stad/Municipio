@@ -411,7 +411,7 @@ class WP
         }
 
         // Check the global $post variable - set when editing a post
-        if ($post && $post->post_type) {
+        if (\is_a($post, 'WP_Post') && !empty($post->post_type)) {
             return $post->post_type;
         }
 
@@ -427,7 +427,7 @@ class WP
         }
 
         // Check the current screen object - set in screen settings
-        if ($current_screen && $current_screen->post_type) {
+        if (\is_a($current_screen, 'WP_Screen') && !empty($current_screen->post_type)) {
             return $current_screen->post_type;
         }
 
