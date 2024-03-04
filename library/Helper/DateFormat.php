@@ -32,4 +32,28 @@ class DateFormat
                 return $dateFormat . ' ' . $timeFormat;
         }
     }
+    /**
+     * Strip the seconds from a time string.
+     *
+     * @param string $timeString The time string to strip seconds from.
+     * @return string The time string without seconds.
+     */
+    public static function stripSeconds($timeString)
+    {
+        // Create a DateTime object from the time string
+        $dateTime = \DateTime::createFromFormat('H:i:s', $timeString);
+
+        // If the DateTime object was successfully created, it means the string had seconds
+        if ($dateTime) {
+            return $dateTime->format('H:i');
+        } else {
+            // If the creation failed, it means the string was already in the 'H:i' format or invalid
+            $dateTime = \DateTime::createFromFormat('H:i', $timeString);
+            if ($dateTime) {
+                // If valid, return the original string
+                return $timeString;
+            }
+        }
+        return '';
+    }
 }
