@@ -87,6 +87,11 @@ class WP
     {
         $fields = [];
         $meta   = get_post_meta($postId);
+
+        if(!is_array($meta) || empty($meta)) {
+            return $fields;
+        }
+
         foreach ($meta as $key => $value) {
             if (!empty($value) && is_array($value)) {
                 foreach ($value as $_key => $_value) {
