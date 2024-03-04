@@ -405,33 +405,34 @@ class WP
     {
         global $post, $typenow, $current_screen;
 
+        $postType = null;
+
         // Check the global $typenow - set in admin.php
         if ($typenow) {
-            return $typenow;
+            $postType = $typenow;
         }
 
         // Check the global $post variable - set when editing a post
         if (\is_a($post, 'WP_Post') && !empty($post->post_type)) {
-            return $post->post_type;
+            $postType = $post->post_type;
         }
 
         // Check the query string - set when creating a new post
         if (isset($_REQUEST['post_type'])) {
-            return sanitize_text_field($_REQUEST['post_type']);
+            $postType = sanitize_text_field($_REQUEST['post_type']);
         }
 
         // Lastly check the post_type in the edit page's query string
         if (isset($_REQUEST['post'])) {
             $postId = intval($_REQUEST['post']);
-            return get_post_type($postId);
+            $postType = get_post_type($postId);
         }
 
         // Check the current screen object - set in screen settings
         if (\is_a($current_screen, 'WP_Screen') && !empty($current_screen->post_type)) {
-            return $current_screen->post_type;
+            $postType = $current_screen->post_type;
         }
 
-        // Default fallback
-        return null;
+        return $postType;
     }
 }
