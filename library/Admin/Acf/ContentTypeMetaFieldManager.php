@@ -36,7 +36,7 @@ class ContentTypeMetaFieldManager
 
         if (
             $field['key'] === $this->fieldKey
-            || !str_contains($field['key'], "{$this->groupName}_description")
+            || str_contains($field['key'], "{$this->groupName}_description")
             || !str_contains($field['id'], $this->groupName)
             || empty($postType)
         ) {
