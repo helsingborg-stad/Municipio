@@ -254,6 +254,7 @@ class ContentTypeMetaFieldManager
             'ImageObject'    => 'image',
             'URL'            => 'url',
             'Email'          => 'email',
+            'Date'           => 'date_time_picker',
         ];
 
         return $fieldTypeMap[$schemaType] ?? 'text';
