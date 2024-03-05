@@ -39,7 +39,10 @@ module.exports = {
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',   
-        'js/options-reading': './assets/source/3.0/js/admin/optionsReading.ts',     
+        'js/options-reading': './assets/source/3.0/js/admin/optionsReading.ts',  
+        
+        /* Admin css */
+        'css/acf': './assets/source/3.0/sass/admin/acf.scss',
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
