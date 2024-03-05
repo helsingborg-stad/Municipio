@@ -439,6 +439,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         return $diff->days;
     }
+    
     /**
      * If the post type is set to display age notification, and the post is older than the set number
      * of days, return a string with the number of days
@@ -449,13 +450,14 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getPostAgeNotice(object $post)
     {
-        if (! is_object($post)) {
+        if (!is_object($post)) {
             return false;
         }
 
         if (function_exists('get_field')) {
             $postTypes = (array) get_field('avabile_dynamic_post_types', 'option');
-
+            $postTypes = array_filter($postTypes); 
+            
             if (is_array($postTypes) && !empty($postTypes)) {
                 foreach ($postTypes as $type) {
                     $thisType = get_post_type_object($post->postType)->rewrite['slug'] ?? '';

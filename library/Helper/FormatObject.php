@@ -88,7 +88,7 @@ class FormatObject
     public static function createNodeFromString(DOMDocument $doc, string $str)
     {
         $d = new \DOMDocument();
-        $d->loadHTML('<?xml encoding="utf-8" ?>' . $str);
+        $d->loadHTML('<?xml encoding="utf-8" ?>' . $str, LIBXML_NOERROR);
         return $doc->importNode($d->documentElement, true);
     }
 }

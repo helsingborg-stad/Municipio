@@ -278,7 +278,7 @@ class BaseController
             'updated'               => __('Updated', 'municipio'),
             'noResult'              => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
             'readMore'              => __('Read more', 'municipio'),
-            'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items)),
+            'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
             'fromDate'              => __('Choose a from date', 'municipio'),
             'toDate'                => __('Choose a to date', 'municipio'),
             'dateInvalid'           => __('Select a valid date', 'municipio'),
@@ -326,6 +326,9 @@ class BaseController
         //Quicklinks placement is set in Singular
         $this->data['displayQuicklinksAfterContent'] = false;
 
+        //Secondary query is set in Singular
+        $this->data['displaySecondaryQuery'] = false;
+
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
@@ -345,7 +348,14 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
-            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+            if(!is_array($data['image'])) {
+                $data['image'] = [];
+            }
+            if ($this->getEmblem()) {
+                $data['image']['src'] = $this->getEmblem();
+            } else {
+                $data['image']['src'] = get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+            }
         }
         return $data;
     }

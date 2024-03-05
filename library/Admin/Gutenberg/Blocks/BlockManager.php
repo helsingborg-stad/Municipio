@@ -297,7 +297,9 @@ class BlockManager
             if (str_contains($value, 'field_')) {
                 $newData[$key] = get_field($value);
             } else {
-                $newData[get_field_object($key)['name']] = $value;
+                if ($fieldObject = get_field_object($key)) {
+                    $newData[$fieldObject['name']] = $value;
+                }
             }
         }
 

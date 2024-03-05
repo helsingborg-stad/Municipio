@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\ContentType\School;
+namespace Municipio\Controller\ContentType\Complex\School;
 
 interface DataPrepearerInterface
 {

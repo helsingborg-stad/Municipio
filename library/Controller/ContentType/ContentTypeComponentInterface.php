@@ -27,10 +27,4 @@ interface ContentTypeComponentInterface
      */
     public function getKey(): string;
 
-    /**
-     * Gets the view for the content type component.
-     *
-     * @return string The view.
-     */
-    public function getView(): string;
 }

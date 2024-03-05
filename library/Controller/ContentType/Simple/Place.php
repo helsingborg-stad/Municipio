@@ -1,20 +1,16 @@
 <?php
 
-namespace Municipio\Controller\ContentType;
-
-use Municipio\Helper\ContentType as ContentTypeHelper;
+namespace Municipio\Controller\ContentType\Simple;
 
 /**
  * Class Place
  *
- * Used to represent physical places such as buildings, parks, etc.
+ * Used to represent physical places.
  *
  * @package Municipio\Controller\ContentType
  */
-class Place extends ContentTypeFactory
+class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
 {
-    public $secondaryContentType = [];
-
     /**
      * Constructor method to set key and label for the Place content type.
      */
@@ -36,9 +32,63 @@ class Place extends ContentTypeFactory
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
     }
+    /**
+     * Get the schema parameters for the Place content type.
+     *
+     * @return array The schema parameters.
+     */
+    protected function schemaParams(): array
+    {
+        return [
+            'geo' => [
+                'schemaType' => 'GeoCoordinates',
+                'label'      => __('Address', 'municipio')
+            ],
+        ];
+    }
+    /**
+     * Get structured data for a Place post based on location meta keys.
+     *
+     * @param int $postId The ID of the Place post.
+     *
+     * @return array The structured data for the Place post.
+     */
+    public function legacyGetStructuredData(int $postId, $entity): ?array
+    {
 
+        if (empty($entity)) {
+            return [];
+        }
 
+        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
 
+        foreach ($locationMetaKeys as $key) {
+            $location = get_post_meta($postId, $key, true);
+
+            if (empty($location)) {
+                continue;
+            }
+
+            // General address
+            if (!empty($location['formatted_address'])) {
+                $generalAddress = $location['formatted_address'];
+            } elseif (!empty($location['address'])) {
+                $generalAddress = $location['address'];
+            }
+            $entity->address($generalAddress);
+
+            // Coordinates
+            if (!empty($location['lat']) && !empty($location['lng'])) {
+                $entity->geo([
+                    '@type'     => 'GeoCoordinates',
+                    'latitude'  => $location['lat'],
+                    'longitude' => $location['lng'],
+                ]);
+            }
+        }
+
+        return $entity->toArray();
+    }
     /**
      * Append location-related list items to the listing array.
      *
@@ -47,7 +97,6 @@ class Place extends ContentTypeFactory
      *
      * @return array The updated listing array.
      */
-    // TODO - Move to a more appropriate place
     public function appendListItems($listing, $fields)
     {
         // Street name linked to Google Maps
@@ -83,60 +132,11 @@ class Place extends ContentTypeFactory
         if (empty($location) || empty($location['lng']) || empty($location['lat'])) {
             return false;
         }
-        return 'https://www.google.com/maps/dir/?api=1&destination=' . $location['lat'] . ',' . $location['lng'] . '&travelmode=transit';
-    }
-
-
-    /**
-     * Get structured data for a Place post based on location meta keys.
-     *
-     * @param int $postId The ID of the Place post.
-     *
-     * @return array The structured data for the Place post.
-     */
-    public function getStructuredData(int $postId): array
-    {
-
-        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-        $structuredData   = [];
-
-        foreach ($locationMetaKeys as $key) {
-            $location = get_post_meta($postId, $key, true);
-            if (empty($location)) {
-                continue;
-            }
-
-            // General address
-            if (!empty($location['formatted_address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['formatted_address'],
-                ];
-            } elseif (!empty($location['address'])) {
-                $structuredData['location'][] = [
-                    '@type'   => 'Place',
-                    'address' => $location['address'],
-                ];
-            }
-
-            // Coordinates
-            if (!empty($location['lat']) && !empty($location['lng'])) {
-                $structuredData['location'][] = [
-                    '@type'     => 'GeoCoordinates',
-                    'latitude'  => $location['lat'],
-                    'longitude' => $location['lng'],
-                ];
-            }
-
-            // Country
-            if (!empty($location['country'])) {
-                $structuredData['location'][] = [
-                    '@type'          => 'PostalAddress',
-                    'addressCountry' => $location['country'],
-                ];
-            }
-        }
-
-        return $structuredData;
+        return
+        'https://www.google.com/maps/dir/?api=1&destination='
+            . $location['lat']
+            . ','
+            . $location['lng']
+            . '&travelmode=transit';
     }
 }
