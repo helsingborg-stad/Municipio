@@ -106,12 +106,19 @@
                     if ( typeof top.tinymce !== 'undefined') {
                         //Standard WP editor
                         $('head')
-                            .append('<link rel="stylesheet" type="text/css" href="' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet + '">');
+                            .append('<link rel="stylesheet" type="text/css" href="' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet.styleguideUrl + '">');
+
+                        $('head')
+                            .append('<style type="text/css">' + top.tinymce.activeEditor.windowManager.getParams().stylesSheet.inlineStyles + '"</style>');
                     } else {
                         //Modularity iFrame editor
                         $('head')
-                            .append('<link rel="stylesheet" type="text/css" href="' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet + '">');
+                            .append('<link rel="stylesheet" type="text/css" href="' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet.styleguideUrl + '">');
+
+                        $('head')
+                            .append('<style type="text/css">' + window.parent.tinymce.activeEditor.windowManager.getParams().stylesSheet.inlineStyles + '"</style>');
                     }
+
                     $('#btnText').keyup(function() {
                         $("#preview a span span").html($('#btnText').val());
                     });
