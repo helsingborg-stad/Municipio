@@ -19,9 +19,14 @@ class ContentTypeMetaFieldManager
      */
     public function __construct()
     {
-        add_action('acf/init', [$this, 'registerFieldGroup']);
+        
         add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
         add_action('acf/save_post', [$this, 'saveAddress'], 10, 1);
+
+        add_action('acf/init', [$this, 'registerFieldGroup']);
+        if(\function_exists('acf_add_local_field_group')) {
+            do_action('acf/init');
+        }
     }
 
     /**
