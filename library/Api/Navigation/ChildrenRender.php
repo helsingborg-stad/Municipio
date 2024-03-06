@@ -5,6 +5,7 @@ namespace Municipio\Api\Navigation;
 use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
+use Municipio\Helper\TranslatedLabels;
 
 class ChildrenRender extends RestApiEndpoint
 {
@@ -29,6 +30,7 @@ class ChildrenRender extends RestApiEndpoint
             $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
             $depth = !empty($params['depth']) ? $params['depth'] : '0';
+            $lang = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {
                 $navigationInstance = new \Municipio\Helper\Navigation($identifier);
@@ -41,6 +43,7 @@ class ChildrenRender extends RestApiEndpoint
                         'menuItems' => $items,
                         'homeUrl' => esc_url(get_home_url()),
                         'depth' => $depth,
+                        'lang' => $lang
                     ])
                 ));
             }
