@@ -36,15 +36,20 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@master
       with:
+        type: zip
         filename: 'full-release.zip'
 
-    - name: Release
-      uses: docker://antonyurchenko/git-release:latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DRAFT_RELEASE: "false"
-        PRE_RELEASE: "false"
-        CHANGELOG_FILE: "none"
+    - name: Get latest release version
+      id: get-version
+      run: |
+        echo "LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')" >> $GITHUB_ENV
+
+    - name: Upload release
+      uses: helsingborg-stad/upload-artifact@1.0.0
       with:
-        args: |
-            full-release.zip
+        artifact: "full-release.zip"
+        gh_token: ${{ secrets.GITHUB_TOKEN }}
+        release: ${{ env.LATEST_RELEASE }}
+        repo: ${{ github.repository }}
+        artifact_mime_type: application/zip
+        
