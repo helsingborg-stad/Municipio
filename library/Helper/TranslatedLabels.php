@@ -2,8 +2,18 @@
 
 namespace Municipio\Helper;
 
-
+/**
+ *
+ * The TranslatedLabels class provides a method to retrieve translated labels.
+ */
 class TranslatedLabels {
+    /**
+     * Get translated labels.
+     *
+     * @param array $labels Custom labels.
+     *
+     * @return object
+     */
     public static function getLang($labels = []) {
         $lang = array(
             'goToHomepage'          => __("Go to homepage", 'municipio'),
