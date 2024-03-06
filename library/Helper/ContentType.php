@@ -12,13 +12,13 @@ use Municipio\Helper\Listing as ListingHelper;
 class ContentType
 {
     /**
- * Returns an array of all the content types that are registered in the system.
- *
- * @param bool $includeExtras Include additional information about the registered
- * content types in the returned array.
- *
- * @return array Array of registered content types.
- */
+     * Returns an array of all the content types that are registered in the system.
+     *
+     * @param bool $includeExtras Include additional information about the registered
+     * content types in the returned array.
+     *
+     * @return array Array of registered content types.
+     */
     public static function getRegisteredContentTypes(bool $includeExtras = false): array
     {
         $contentTypes = [];
@@ -36,14 +36,14 @@ class ContentType
         return apply_filters('Municipio/ContentType/getRegisteredContentTypes', $contentTypes);
     }
 
-/**
- * Processes a subdirectory and returns content types found within.
- *
- * @param string $path Base path to the controller.
- * @param string $subDir Name of the subdirectory.
- * @param bool $includeExtras Whether to include extra information.
- * @return array Content types found within the subdirectory.
- */
+    /**
+     * Processes a subdirectory and returns content types found within.
+     *
+     * @param string $path Base path to the controller.
+     * @param string $subDir Name of the subdirectory.
+     * @param bool $includeExtras Whether to include extra information.
+     * @return array Content types found within the subdirectory.
+     */
     protected static function processSubDir(string $path, string $subDir, bool $includeExtras): array
     {
         $contentTypes = [];
@@ -61,13 +61,13 @@ class ContentType
         return $contentTypes;
     }
 
-/**
- * Processes a content type file and returns an array representing the content type.
- *
- * @param string $filename Path to the content type class file.
- * @param bool $includeExtras Whether to include extra information.
- * @return array An array representing the content type.
- */
+    /**
+     * Processes a content type file and returns an array representing the content type.
+     *
+     * @param string $filename Path to the content type class file.
+     * @param bool $includeExtras Whether to include extra information.
+     * @return array An array representing the content type.
+     */
     protected static function processContentTypeFile(string $filename, bool $includeExtras): array
     {
         $namespace              = ControllerHelper::getNamespace($filename);
@@ -87,9 +87,6 @@ class ContentType
 
         return [$instance->getKey() => $instance->getLabel()];
     }
-
-
-
     /**
      * Get the content type instance for a given type.
      *
@@ -215,30 +212,9 @@ class ContentType
         return false;
     }
 
-    /**
-     * Get the current type based on the queried object.
-     *
-     * @param string $current The current queried object. Defaults to an empty string.
-     *
-     * @return string The current type (post type or taxonomy).
-     */
-    private static function getCurrentType(string $current = ''): string
+    public static function getCurrentType(): string
     {
-        if (!$current) {
-            $current = get_queried_object();
-        }
-
-        if (is_a($current, 'WP_Post_Type')) {
-            $type = $current->name;
-        } elseif (is_a($current, 'WP_Post')) {
-            $type = $current->post_type;
-        } elseif (is_a($current, 'WP_Term')) {
-            $type = $current->taxonomy;
-        } else {
-            return '';
-        }
-
-        return $type;
+        return \Municipio\Helper\WP::getCurrentPostType();
     }
 
     /**
