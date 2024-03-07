@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Municipio\Admin\Acf\ContentTypeSchema;
 
@@ -7,9 +7,15 @@ use \Municipio\Admin\Acf\ContentTypeMetaFieldManager as FieldManager;
 use \Municipio\Helper\WP;
 use \Municipio\Helper\ContentType;
 
+/**
+ * Functionality to run on prepare_field filter
+ */
 class PrepareField {
     private $fieldManager;
 
+    /**
+     * Constructor
+     */
     public function __construct(FieldManager $fieldManager) {
         $this->fieldManager = $fieldManager;
     }

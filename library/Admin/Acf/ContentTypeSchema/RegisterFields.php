@@ -1,12 +1,19 @@
-<?php 
+<?php
 
 namespace Municipio\Admin\Acf\ContentTypeSchema;
 
 use Municipio\Admin\Acf\ContentTypeMetaFieldManager as FieldManager;
 
+/**
+ * Registers the field group for schema data to be displayed on all posts of any registered content types.
+
+ */
 class RegisterFields {
     private $fieldManager;
 
+    /**
+     * Constructor
+     */
     public function __construct(FieldManager $fieldManager) {
         $this->fieldManager = $fieldManager;
     }

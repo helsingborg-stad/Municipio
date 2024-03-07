@@ -1,9 +1,12 @@
-<?php 
+<?php
 
 namespace Municipio\Admin\Acf\ContentTypeSchema;
 
 use Municipio\Helper\WP;
 
+/**
+ * Functionality to run on save_post action.
+ */
 class SavePost {
 
     /**
