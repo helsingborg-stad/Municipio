@@ -78,7 +78,8 @@ class WP
         return $fieldValue;
     }
     /**
-     * Get all custom fields for a given post using ACF get_fields() with a fallback to standard WordPress get_post_meta().
+     * Get all custom fields for a given post using ACF get_field()
+     *  with a fallback to standard WordPress get_post_meta().
      *
      * @param int $postId The ID of the post to get the custom fields from.
      * @return array An associative array of custom field values indexed by their field names.
@@ -94,7 +95,7 @@ class WP
 
         foreach ($meta as $key => $value) {
             if (!empty($value) && is_array($value)) {
-                foreach ($value as $_key => $_value) {
+                foreach ($value as $_value) {
                     $fields[$key] = maybe_unserialize($_value);
                 }
             } else {
@@ -292,10 +293,9 @@ class WP
      * to the remote resource where it can be found.
      *
      * @param int $id The attachment id.
-     * @param string $postType The post type of the attachment.
      * @return int The remote attachment id.
      */
-    public static function getRemoteAttachmentId(int $id, string $postType): int
+    public static function getRemoteAttachmentId(int $id): int
     {
 
         if (ResourceFromApiHelper::isRemotePostID($id)) {
