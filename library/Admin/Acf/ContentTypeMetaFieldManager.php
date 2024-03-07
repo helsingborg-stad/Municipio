@@ -14,19 +14,9 @@ class ContentTypeMetaFieldManager
     protected $fieldKey      = 'field_schema';
     protected $groupName     = 'schema';
 
-    /**
-     * Constructor to hook into ACF and set up class functionality.
-     */
-    public function __construct()
-    {
-        
+    public function addHooks():void {
         add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
         add_action('acf/save_post', [$this, 'saveAddress'], 10, 1);
-
-        add_action('acf/init', [$this, 'registerFieldGroup']);
-        if(\function_exists('acf_add_local_field_group')) {
-            do_action('acf/init');
-        }
     }
 
     /**
@@ -62,6 +52,10 @@ class ContentTypeMetaFieldManager
      */
     public function registerFieldGroup()
     {
+        if( !function_exists('acf_add_local_field_group') ) {
+            return;
+        }
+
         $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes();
 
         if (empty($contentTypes)) {

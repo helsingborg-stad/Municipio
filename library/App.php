@@ -167,7 +167,8 @@ class App
         new \Municipio\Admin\Acf\PrefillIconChoice();
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
-        new \Municipio\Admin\Acf\ContentTypeMetaFieldManager();
+        $contentTypeMetaFieldManager = new \Municipio\Admin\Acf\ContentTypeMetaFieldManager();
+        $contentTypeMetaFieldManager->addHooks();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
