@@ -46,7 +46,7 @@ module.exports = {
         
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
-        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
     },
     /**
      * Output settings  
@@ -139,30 +139,12 @@ module.exports = {
                     },
                 ],
             },
-
-            /**
-             * Fonts
-             */
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
-                            outputPath: 'fonts',
-                            publicPath: '../fonts',
-                        },
-                    },
-                ],
-            }
         ],
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: removeEmpty([
-
         /**
          * BrowserSync
          */
