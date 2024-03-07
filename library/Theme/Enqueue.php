@@ -98,9 +98,6 @@ class Enqueue
      */
     public function adminStyle()
     {
-        //Download and use material icons
-        $this->getMaterialIcons(null); //Create self handle
-
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
     }
@@ -130,9 +127,6 @@ class Enqueue
         // Load local municipio css
         wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
-
-        //Download and use material icons
-        $this->getMaterialIcons('municipio-css');
     }
 
     /**
@@ -148,9 +142,6 @@ class Enqueue
         // Load local municipio css
         wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
-
-        //Download and use material icons
-        $this->getMaterialIcons('municipio-css');
     }
 
     /**
@@ -340,30 +331,5 @@ class Enqueue
         }
 
         return array_unique($dependencies);
-    }
-
-    /**
-     * Download a local copy of material icons and enqueue it inline
-     *
-     * @param string $enqueueAfter  A exising css handle to enqueue the font to
-     * @return void
-     */
-    private function getMaterialIcons($enqueueAfter = 'municipio-css')
-    {
-        //Create fake handle if not set
-        if (is_null($enqueueAfter)) {
-            $enqueueAfter = 'material-icons-handle';
-            wp_register_style($enqueueAfter, false);
-            wp_enqueue_style($enqueueAfter);
-        }
-
-        //Download and use material icons
-        $webFontDownloader = new \Kirki\Module\Webfonts\Downloader();
-        wp_add_inline_style(
-            $enqueueAfter,
-            $webFontDownloader->get_styles(
-                'https://fonts.googleapis.com/icon?family=Material+Icons'
-            )
-        );
     }
 }

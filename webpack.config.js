@@ -139,23 +139,6 @@ module.exports = {
                     },
                 ],
             },
-
-            /**
-             * Fonts
-             */
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
-                            outputPath: 'fonts',
-                            publicPath: '../fonts',
-                        },
-                    },
-                ],
-            }
         ],
     },
     resolve: {
