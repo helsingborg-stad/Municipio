@@ -297,7 +297,14 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendUspTerms(&$quickFacts)
     {
         if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
-            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY, ['orderby' => 'include', 'include' => $this->postMeta->usp]);
+            $uspTerms = wp_get_post_terms(
+                $this->data['post']->id,
+                self::USP_TAXONOMY,
+                [
+                    'orderby' => 'include',
+                    'include' => $this->postMeta->usp
+                ]
+            );
             $uspTerms = array_slice($uspTerms, 0, 9 - count($quickFacts));
             foreach ($uspTerms as $uspTerm) {
                 $quickFacts[] = ['label' => $uspTerm->name];
@@ -345,12 +352,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['application'] = [];
 
         $this->data['application']['displayOnWebsite'] =
-            isset($this->postMeta->ctaApplication->display_on_website) ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
+            isset(
+                $this->postMeta->ctaApplication->display_on_website)
+                ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
 
         $this->data['application']['title'] =
-            isset($this->postMeta->ctaApplication->title) ? $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
+            isset($this->postMeta->ctaApplication->title) ?
+                $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
 
-        $this->data['application']['description'] = isset($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
+        $this->data['application']['description'] =
+            isset($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
         $this->data['application']['apply']       = null;
         $this->data['application']['howToApply']  = null;
 
@@ -408,50 +419,56 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information        = $this->postMeta->information;
+        $information = $this->postMeta->information;
 
-        if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('About the school', 'municipio'),
-                $information->about_us
-            );
-        }
+        // Consolidated adding of accordion items
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->how_we_work,
+            __('About the school', 'municipio'),
+            $information->about_us
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems, $information->how_we_work,
+            __('How we work', 'municipio'),
+            $information->how_we_work
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->orientation,
+            __('Orientation', 'municipio'),
+            $information->orientation
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->our_leisure_center,
+            __('Our leisure center', 'municipio'),
+            $information->our_leisure_center
+        );
 
-        if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('How we work', 'municipio'),
-                $information->how_we_work
-            );
-        }
-
-        if (isset($information->orientation) && !empty($information->orientation)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('Orientation', 'municipio'),
-                $information->orientation
-            );
-        }
-
-        if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('Our leisure center', 'municipio'),
-                $information->our_leisure_center
-            );
-        }
-
+        // Process optional information
         if (isset($information->optional) && !empty($information->optional)) {
             foreach ($information->optional as $optional) {
-                if (empty($optional->heading) && empty($optional->content)) {
-                    continue;
-                }
-
-                $accordionListItems[] = $this->getAccordionListItem(
-                    $optional->heading,
-                    $optional->content
-                );
+                $this->addAccordionItemIfExists($accordionListItems, $optional, $optional->heading, $optional->content);
             }
         }
 
         $this->data['accordionListItems'] = $accordionListItems;
+    }
+
+    /**
+     * Adds an accordion item to the list if the given property exists and is not empty.
+     *
+     * @param array &$accordionListItems The array of accordion list items.
+     * @param mixed $property The property to check for existence and non-emptiness.
+     * @param string $heading The heading for the accordion item.
+     * @param string $content The content for the accordion item.
+     */
+    private function addAccordionItemIfExists(&$accordionListItems, $property, string $heading, string $content): void
+    {
+        if (isset($property) && !empty($property)) {
+            $accordionListItems[] = $this->getAccordionListItem($heading, $content);
+        }
     }
 
     /**
@@ -482,7 +499,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(
+            fn($visitingAddress) => $visitingAddress->address, $visitingAddresses
+        );
         $visitingData = array_map(function ($address) use (&$mapPins, $visitingAddresses) {
             $mapsUrl       = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
             $street        = $address->address->street_name ?? '';
@@ -512,7 +531,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['visitingAddresses'] = !empty($visitingData) ? $visitingData : false;
         $this->data['visitingAddressMapPins'] = !empty($mapPins) ? $mapPins : false;
-        $this->data['visitingAddressMapStartPosition'] = !empty($mapPins) ? $this->getMapStartPosition($mapPins) : false;
+
+        $this->data['visitingAddressMapStartPosition'] =
+        !empty($mapPins) ? $this->getMapStartPosition($mapPins) : false;
+
         if (sizeof($visitingData) <= 1) {
             $this->data['visitingDataTitle'] = __('Visiting address', 'municipio');
         } else {
