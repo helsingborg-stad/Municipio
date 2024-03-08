@@ -12,7 +12,7 @@
  * @global $contentTypeMetaFieldManager Instance of ContentTypeMetaFieldManager for field registration.
  */
 
-use Municipio\Admin\Acf\ContentTypeMetaFieldManager;
+use Municipio\Admin\Acf\ContentTypeSchema\FieldsRegistrar;
 
-$contentTypeMetaFieldManager = new ContentTypeMetaFieldManager();
-$contentTypeMetaFieldManager->registerFields();
+$contentTypeSchemaFieldsRegistrar = new FieldsRegistrar('group_schema', 'field_schema', 'schema');
+$contentTypeSchemaFieldsRegistrar->registerFields();

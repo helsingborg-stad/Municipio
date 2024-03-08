@@ -2,25 +2,28 @@
 
 namespace Municipio\Admin\Acf\ContentTypeSchema;
 
-use Municipio\Admin\Acf\ContentTypeMetaFieldManager as FieldManager;
-
 /**
  * Registers the field group for schema data to be displayed on all posts of any registered content types.
 
  */
-class RegisterFields {
-    private $fieldManager;
+class FieldsRegistrar {
+    private string $fieldGroupKey;
+    private string $fieldKey;
+    private string $groupName;
 
     /**
      * Constructor
      */
-    public function __construct(FieldManager $fieldManager) {
-        $this->fieldManager = $fieldManager;
+    public function __construct(string $fieldGroupKey, string $fieldKey, string $groupName) {
+        $this->fieldGroupKey = $fieldGroupKey;
+        $this->fieldKey = $fieldKey;
+        $this->groupName = $groupName;
     }
+
     /**
      * Registers the field group for schema data to be displayed on all posts of any registered content types.
      */
-    public function setup()
+    public function registerFields()
     {
         if( !function_exists('acf_add_local_field_group') ) {
             return;
@@ -37,7 +40,7 @@ class RegisterFields {
         }, array_keys($contentTypes));
 
         acf_add_local_field_group([
-            'key'      => $this->fieldManager->getFieldGroupKey(),
+            'key'      => $this->fieldGroupKey,
             'title'    => __('Schema.org Data', 'municipio'),
             'location' => $locationRules,
             'fields'   => [
@@ -50,9 +53,9 @@ class RegisterFields {
                     'new_lines' => '',
                 ],
                 [
-                    'key'        => $this->fieldManager->getFieldKey(),
+                    'key'        => $this->fieldKey,
                     'label'      => null,
-                    'name'       => $this->fieldManager->getGroupName(),
+                    'name'       => $this->groupName,
                     'type'       => 'group',
                     'sub_fields' => $this->setupSubFields(),
                 ]

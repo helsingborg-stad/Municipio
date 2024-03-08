@@ -9,6 +9,10 @@ use Municipio\Helper\WP;
  */
 class SavePost {
 
+    public function addHooks():void {
+        add_action('acf/save_post', [$this, 'updatePostSchemaWithAddress'], 10, 1);
+    }
+
     /**
      * Saves the address data when a post with 'geo' field is saved.
      *

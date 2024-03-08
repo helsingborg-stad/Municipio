@@ -168,8 +168,11 @@ class App
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
         
-        $contentTypeMetaFieldManager = new \Municipio\Admin\Acf\ContentTypeMetaFieldManager();
-        $contentTypeMetaFieldManager->addHooks();
+        // Register Content Type Schema fields
+        $prepareContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentTypeSchema\PrepareField('field_schema', 'schema');
+        $prepareContentTypeSchemaMetaFields->addHooks();
+        $saveContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentTypeSchema\SavePost();
+        $saveContentTypeSchemaMetaFields->addHooks();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();

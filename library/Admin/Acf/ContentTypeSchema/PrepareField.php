@@ -2,8 +2,6 @@
 
 namespace Municipio\Admin\Acf\ContentTypeSchema;
 
-use \Municipio\Admin\Acf\ContentTypeMetaFieldManager as FieldManager;
-
 use \Municipio\Helper\WP;
 use \Municipio\Helper\ContentType;
 
@@ -11,13 +9,19 @@ use \Municipio\Helper\ContentType;
  * Functionality to run on prepare_field filter
  */
 class PrepareField {
-    private $fieldManager;
+    private string $fieldKey;
+    private string $groupName;
 
     /**
      * Constructor
      */
-    public function __construct(FieldManager $fieldManager) {
-        $this->fieldManager = $fieldManager;
+    public function __construct(string $fieldKey, string $groupName) {
+        $this->fieldKey = $fieldKey;
+        $this->groupName = $groupName;
+    }
+
+    public function addHooks():void {
+        add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
     }
 
     /**
@@ -31,9 +35,9 @@ class PrepareField {
         $postType = WP::getCurrentPostType();
 
         if (
-            $field['key'] === $this->fieldManager->getFieldKey()
-            || str_contains($field['key'], "{$this->fieldManager->getGroupName()}_description")
-            || !str_contains($field['id'], $this->fieldManager->getGroupName())
+            $field['key'] === $this->fieldKey
+            || str_contains($field['key'], "{$this->groupName}_description")
+            || !str_contains($field['id'], $this->groupName)
             || empty($postType)
         ) {
             return $field;
