@@ -528,8 +528,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
      */
     private function getMapStartPosition(array $mapPins): array
     {
-        $lats   = array_map(fn ($pin) => $pin['lat'], $mapPins);
-        $lngs   = array_map(fn ($pin) => $pin['lng'], $mapPins);
+        $lats   = array_map(fn ($pin) => (float) $pin['lat'], $mapPins);
+        $lngs   = array_map(fn ($pin) => (float) $pin['lng'], $mapPins);
         $maxLat = max($lats);
         $minLat = min($lats);
         $maxLng = max($lngs);
