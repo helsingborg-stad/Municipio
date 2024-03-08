@@ -2,6 +2,7 @@
 
 namespace Municipio;
 
+use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -167,7 +168,16 @@ class App
         new \Municipio\Admin\Acf\PrefillIconChoice();
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
-        new \Municipio\Admin\Acf\ContentTypeMetaFieldManager();
+        
+        // Register Content Type Schema fields
+        $prepareContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\PrepareField(
+            ContentTypeSchemaFieldOptions::FIELD_KEY,
+            ContentTypeSchemaFieldOptions::GROUP_NAME
+        );
+
+        $prepareContentTypeSchemaMetaFields->addHooks();
+        $saveContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\SavePost();
+        $saveContentTypeSchemaMetaFields->addHooks();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();

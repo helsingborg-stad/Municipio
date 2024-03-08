@@ -1,67 +1,34 @@
 <?php
 
-namespace Municipio\Admin\Acf;
+namespace Municipio\Admin\Acf\ContentType;
 
 /**
- * Manages custom ACF field groups and fields for content types.
- * This class is responsible for registering field groups and fields based on content types,
- * ensuring fields are loaded correctly for each content type, and providing a mechanism to
- * handle field registration dynamically.
+ * Registers the field group for schema data to be displayed on all posts of any registered content types.
+
  */
-class ContentTypeMetaFieldManager
-{
-    protected $fieldGroupKey = 'group_schema';
-    protected $fieldKey      = 'field_schema';
-    protected $groupName     = 'schema';
+class FieldsRegistrar {
+    private string $fieldGroupKey;
+    private string $fieldKey;
+    private string $groupName;
 
     /**
-     * Constructor to hook into ACF and set up class functionality.
+     * Constructor
      */
-    public function __construct()
-    {
-        
-        add_filter('acf/prepare_field', [$this, 'maybeLoadField'], 10, 2);
-        add_action('acf/save_post', [$this, 'saveAddress'], 10, 1);
-
-        add_action('acf/init', [$this, 'registerFieldGroup']);
-        if(\function_exists('acf_add_local_field_group')) {
-            do_action('acf/init');
-        }
-    }
-
-    /**
-     * Checks if a field should be loaded based on the current post type and field properties.
-     *
-     * @param array $field The field to check.
-     * @return mixed The field if it should be loaded, false otherwise.
-     */
-    public function maybeLoadField($field)
-    {
-        $postType = \Municipio\Helper\WP::getCurrentPostType();
-
-        if (
-            $field['key'] === $this->fieldKey
-            || str_contains($field['key'], "{$this->groupName}_description")
-            || !str_contains($field['id'], $this->groupName)
-            || empty($postType)
-        ) {
-            return $field;
-        }
-
-        $postContentType = \Municipio\Helper\ContentType::getContentType($postType);
-
-        if (!str_contains($field['id'], $postContentType->getKey())) {
-            return false;
-        }
-
-        return $field;
+    public function __construct(string $fieldGroupKey, string $fieldKey, string $groupName) {
+        $this->fieldGroupKey = $fieldGroupKey;
+        $this->fieldKey = $fieldKey;
+        $this->groupName = $groupName;
     }
 
     /**
      * Registers the field group for schema data to be displayed on all posts of any registered content types.
      */
-    public function registerFieldGroup()
+    public function registerFields()
     {
+        if( !function_exists('acf_add_local_field_group') ) {
+            return;
+        }
+
         $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes();
 
         if (empty($contentTypes)) {
@@ -196,18 +163,6 @@ class ContentTypeMetaFieldManager
             'sub_fields' => $fieldParams['sub_fields'] ?? [],
         ];
     }
-
-    /**
-     * Retrieves the Google API key from ACF settings or filters.
-     *
-     * @return string|null The Google API key, if available.
-     */
-    protected function getGoogleApiKey()
-    {
-        $apiKey = acf_get_setting('google_api_key');
-        return $apiKey ?: apply_filters('acf/fields/google_map/api', [])['key'] ?? null;
-    }
-
     /**
      * Defines the sub fields for the postal address schema type.
      *
@@ -244,7 +199,6 @@ class ContentTypeMetaFieldManager
             ],
         ];
     }
-
     /**
      * Maps a schema type to an ACF field type.
      *
@@ -264,26 +218,14 @@ class ContentTypeMetaFieldManager
 
         return $fieldTypeMap[$schemaType] ?? 'text';
     }
-
     /**
-     * Saves the address data when a post with 'geo' field is saved.
+     * Retrieves the Google API key from ACF settings or filters.
      *
-     * @param int $postId The ID of the post being saved.
+     * @return string|null The Google API key, if available.
      */
-    public function saveAddress($postId)
+    protected function getGoogleApiKey()
     {
-        $schemaData = get_field('schema', $postId);
-
-        if (empty($schemaData) || empty($schemaData['geo'])) {
-            return;
-        }
-
-        $schemaData['address'] = [
-            'streetAddress'  => $schemaData['geo']['street_name'] . ' ' . $schemaData['geo']['street_number'],
-            'postalCode'     => $schemaData['geo']['post_code'],
-            'addressCountry' => $schemaData['geo']['country'],
-        ];
-
-        update_field('schema', $schemaData, $postId);
+        $apiKey = acf_get_setting('google_api_key');
+        return $apiKey ?: apply_filters('acf/fields/google_map/api', [])['key'] ?? null;
     }
 }
