@@ -101,8 +101,8 @@ class Enqueue
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
         
-        wp_register_style('material-symbols-css', self::getAssetWithCacheBust('css/material-symbols.css'));
-        wp_enqueue_style('material-symbols-css');
+        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
+        wp_enqueue_style('material-symbols-fonts');
     }
 
      /**
@@ -145,6 +145,10 @@ class Enqueue
         // Load local municipio css
         wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
+
+        // Load Material symbols
+        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
+        wp_enqueue_style('material-symbols-fonts');
     }
 
     /**
