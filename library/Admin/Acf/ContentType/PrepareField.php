@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Acf\ContentTypeSchema;
+namespace Municipio\Admin\Acf\ContentType;
 
 use \Municipio\Helper\WP;
 use \Municipio\Helper\ContentType;

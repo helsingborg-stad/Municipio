@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Acf\ContentTypeSchema;
+namespace Municipio\Admin\Acf\ContentType;
 
 /**
  * Registers the field group for schema data to be displayed on all posts of any registered content types.
