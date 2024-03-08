@@ -5,8 +5,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "cross-env NODE_ENV=development webpack --watch",
-        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json && cp ./node_modules/@helsingborg-stad/styleguide/node_modules/material-symbols/*.woff2 ./assets/dist/fonts",
-        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json && cp ./node_modules/@helsingborg-stad/styleguide/node_modules/material-symbols/*.woff2 ./assets/dist/fonts",
+        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json && mv ./assets/dist/*.woff2 ./assets/dist/fonts",
+        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json && mv ./assets/dist/*.woff2 ./assets/dist/fonts",
         "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
         "i18n:build": "wp i18n make-mo languages/sv_SE.po"
     },
