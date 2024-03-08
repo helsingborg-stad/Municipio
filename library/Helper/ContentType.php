@@ -96,18 +96,16 @@ class ContentType
      */
     public static function getContentType(string $type = '')
     {
-        if (!$type) {
-            $type = self::getCurrentType();
+        if (!$type && !$type = self::getCurrentType()) {
+            return false;
         }
 
-        $contentTypeInstance = false;
         $contentTypeKey      = get_option("options_contentType_{$type}", false);
-
         if ($contentTypeKey) {
-            $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
+            return self::getContentTypeInstance($contentTypeKey);
         }
 
-        return $contentTypeInstance;
+        return false;
     }
 
     /**
@@ -212,7 +210,7 @@ class ContentType
         return false;
     }
 
-    public static function getCurrentType(): string
+    public static function getCurrentType(): ?string
     {
         return \Municipio\Helper\WP::getCurrentPostType();
     }
