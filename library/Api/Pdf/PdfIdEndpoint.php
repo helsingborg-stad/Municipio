@@ -84,8 +84,10 @@ class PdfIdEndpoint extends RestApiEndpoint
      */
     private function getPostsById(array $ids): array
     {
-        $posts     = [];
-        $postTypes = [];
+        $posts          = [];
+        $postTypes      = [];
+        $sortedPosts    = [];
+
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
                 $id   = trim($id);
@@ -105,7 +107,7 @@ class PdfIdEndpoint extends RestApiEndpoint
                 }
             }
         }
-        return [$posts, $postTypes];
+        return [[$posts], $postTypes];
     }
 
     /**
