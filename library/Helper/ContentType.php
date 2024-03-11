@@ -86,22 +86,22 @@ class ContentType
         }
 
         return [$instance->getKey() => $instance->getLabel()];
-    }
-    /**
-     * Get the content type instance for a given type.
-     *
-     * @param string $type The type of content type to get.
-     *
-     * @return mixed The content type instance for the given type, or false if no content type is set.
-     */
-    public static function getContentType(string $type = '')
+    }/**
+    * Get the content type instance for a given post type.
+    *
+    * @param string $postType The post type of content type to get. Defaults to the current post type if not specified.
+    *
+    * @return mixed The content type instance for the given post type, or false if no content type is set.
+    */
+    public static function getContentType(string $postType = '')
     {
-        if (!$type) {
-            $type = self::getCurrentType();
+        if (!$postType) {
+            $postType = self::getCurrentType(); // Assuming this method correctly identifies the current post type
         }
 
         $contentTypeInstance = false;
-        $contentTypeKey      = get_option("options_contentType_{$type}", false);
+        $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
+        $contentTypeKey = get_theme_mod($themeModName, false);
 
         if ($contentTypeKey) {
             $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
@@ -109,6 +109,7 @@ class ContentType
 
         return $contentTypeInstance;
     }
+
 
     /**
      * Get an instance of a content type
