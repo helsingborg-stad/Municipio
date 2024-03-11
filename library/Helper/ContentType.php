@@ -219,16 +219,22 @@ class ContentType
     }
 
     /**
-     * Checks if the user has opted to skip the content type template for a specific type.
+     * Checks if the user has opted to skip the content type template for a specific post type.
      *
-     * @param string $type The type of template to check (post type or taxonomy). Defaults to an empty string.
+     * @param string $postType The post type to check. Defaults to the current post type if not specified.
      *
-     * @return bool A boolean value indicating whether the user has opted to skip the content type template.
+     * @return bool A boolean value indicating whether the user has opted to skip the content type template for the specified post type.
      */
     public static function skipContentTypeTemplate(string $postType = ''): bool
     {
-        return (bool) get_option("skip_content_type_template_{$postType}", false);
+        if (!$postType) {
+            $postType = self::getCurrentType();
+        }
+
+        $themeModName = "municipio_customizer_panel_content_types_{$postType}_skip_content_type_template";
+        return (bool) get_theme_mod($themeModName, false);
     }
+
 
     /**
      *
