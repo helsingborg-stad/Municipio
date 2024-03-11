@@ -2,6 +2,8 @@
 
 namespace Municipio\Customizer;
 
+use Municipio\Helper\ContentType as ContentTypeHelper;
+
 class PanelsRegistry
 {
     private static $instance = null;
@@ -67,6 +69,7 @@ class PanelsRegistry
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();
+        self::registerContentTypesPanel();
     }
 
     public static function registerDesignLibraryPanel()
@@ -84,6 +87,64 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
             )->register();
     }
+   /* Content type panel */
+   public static function registerContentTypesPanel()
+    {
+        $panelID = 'municipio_customizer_panel_content_types';
+        // Fetching public post types and excluding 'attachment'
+        $postTypes = get_post_types(['public' => true], 'objects');
+        unset($postTypes['attachment']);
+
+        $sections = array_map(function ($postType) use ($panelID) {
+            $sectionId = "{$panelID}_{$postType->name}";
+            $contentTypes = ContentTypeHelper::getRegisteredContentTypes(); // Assuming this returns an associative array of content types
+
+            // Convert content types to choices for the dropdown
+            $choices = array_reduce(array_keys($contentTypes), function ($carry, $key) use ($contentTypes) {
+                $carry[$key] = $contentTypes[$key];
+                return $carry;
+            }, []);
+
+            // Fetching a single post ID for the post type to use as a preview URL
+            $posts = get_posts(['post_type' => $postType->name, 'numberposts' => 1]);
+            $previewUrl = !empty($posts) ? get_permalink($posts[0]->ID) : '';
+            return KirkiPanelSection::create()
+                ->setID($sectionId)
+                ->setPanel($panelID)
+                ->setTitle($postType->labels->name) // Using plural label
+                ->setDescription(esc_html__('Select the content type for this post type and additional options.', 'municipio'))
+                ->setPreviewUrl($previewUrl) // Setting preview URL to a single post of this post type
+                ->setFieldsCallback(function() use ($sectionId, $choices) {
+                    // Dropdown for selecting content type
+                    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                        'type'     => 'select',
+                        'settings' => $sectionId . '_content_type',
+                        'label'    => esc_html__('Content Type', 'municipio'),
+                        'section'  => $sectionId,
+                        'default'  => '',
+                        'choices'  => $choices,
+                    ]);
+
+                    // Checkbox for opting out of content type page template
+                    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                        'type'        => 'checkbox',
+                        'settings'    => $sectionId . '_skip_content_type_template',
+                        'label'       => esc_html__('Do not use the content type page template for this post type', 'municipio'),
+                        'section'     => $sectionId,
+                        'default'     => '0',
+                    ]);
+                });
+        }, $postTypes);
+
+        KirkiPanel::create()
+            ->setID($panelID)
+            ->setTitle(esc_html__('Content Type Settings', 'municipio'))
+            ->setDescription(esc_html__('Configure settings for different content types and their options.', 'municipio'))
+            ->setPriority(1000) // Adjust the priority as needed
+            ->addSections($sections)
+            ->register();
+    }
+
 
     public static function registerArchivePanel()
     {
@@ -107,6 +168,8 @@ class PanelsRegistry
             ->addSections($sections)
             ->register();
     }
+
+
 
     /* Module panel */
     public static function registerModulePanel()
