@@ -87,8 +87,7 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
             )->register();
     }
-   /* Content type panel */
-   public static function registerContentTypesPanel()
+    public static function registerContentTypesPanel()
     {
         $panelID = 'municipio_customizer_panel_content_types';
         // Fetching public post types and excluding 'attachment'
@@ -97,13 +96,21 @@ class PanelsRegistry
 
         $sections = array_map(function ($postType) use ($panelID) {
             $sectionId = "{$panelID}_{$postType->name}";
-            $contentTypes = ContentTypeHelper::getRegisteredContentTypes(); // Assuming this returns an associative array of content types
+            $contentTypes = ContentTypeHelper::getRegisteredContentTypes();
 
-            // Convert content types to choices for the dropdown
-            $choices = array_reduce(array_keys($contentTypes), function ($carry, $key) use ($contentTypes) {
+            if (empty($contentTypes)) {
+                return false;
+            }
+
+            // Convert content types to choices for the dropdown and include a 'None' option
+            $choices = ['' => esc_html__('None', 'municipio')] + array_reduce(array_keys($contentTypes), function ($carry, $key) use ($contentTypes) {
                 $carry[$key] = $contentTypes[$key];
                 return $carry;
             }, []);
+
+            if(empty($choices)) {
+                return false;
+            }
 
             // Fetching a single post ID for the post type to use as a preview URL
             $posts = get_posts(['post_type' => $postType->name, 'numberposts' => 1]);
@@ -144,6 +151,7 @@ class PanelsRegistry
             ->addSections($sections)
             ->register();
     }
+
 
 
     public static function registerArchivePanel()
