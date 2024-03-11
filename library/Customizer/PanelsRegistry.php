@@ -118,15 +118,15 @@ class PanelsRegistry
             return KirkiPanelSection::create()
                 ->setID($sectionId)
                 ->setPanel($panelID)
-                ->setTitle($postType->labels->name) // Using plural label
-                ->setDescription(esc_html__('Select the content type for this post type and additional options.', 'municipio'))
-                ->setPreviewUrl($previewUrl) // Setting preview URL to a single post of this post type
-                ->setFieldsCallback(function() use ($sectionId, $choices) {
+                ->setTitle($postType->labels->name)
+                ->setPreviewUrl($previewUrl)
+                ->setFieldsCallback(function() use ($sectionId, $choices, $postType) {
                     // Dropdown for selecting content type
                     \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                         'type'     => 'select',
                         'settings' => $sectionId . '_content_type',
                         'label'    => esc_html__('Content Type', 'municipio'),
+                        'description' => esc_html__('Select the content type for this post type.', 'municipio'),
                         'section'  => $sectionId,
                         'default'  => '',
                         'choices'  => $choices,
@@ -136,7 +136,8 @@ class PanelsRegistry
                     \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
                         'type'        => 'checkbox',
                         'settings'    => $sectionId . '_skip_content_type_template',
-                        'label'       => esc_html__('Do not use the content type page template for this post type', 'municipio'),
+                        'label'       => esc_html__('Do not use template', 'municipio'),
+                        'description' => sprintf(esc_html__('Do not use the custom template from the content type for this post type.', 'municipio')),
                         'section'     => $sectionId,
                         'default'     => '0',
                     ]);
