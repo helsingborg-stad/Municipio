@@ -95,11 +95,10 @@ class ContentType
     */
     public static function getContentType(string $postType = '')
     {
-        if (!$type && !$type = self::getCurrentType()) {
+        if (!$postType && !$postType = self::getCurrentType()) {
             return false;
         }
 
-        $contentTypeInstance = false;
         $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
         $contentTypeKey = get_theme_mod($themeModName, false);
 
