@@ -172,6 +172,52 @@ class PdfGenerator
                         'layout'            => 'horizontal',
                         'toggle'            => 0,
                         'save_custom'       => 0,
+                    ],
+                    [
+                        'key'               => 'field_pdf_sort_posts_by_term',
+                        'label'             => __('Sorts posts based on term', 'municipio'),
+                        'name'              => 'pdf_sort_based_on_taxonomies',
+                        'type'              => 'true_false',
+                        'instructions'      => '',
+                        'required'          => 0,
+                        'conditional_logic' => 0,
+                        'wrapper'           => array(
+                            'width' => '',
+                            'class' => '',
+                            'id'    => '',
+                        ),
+                        'message'           => '',
+                        'default_value'     => 0,
+                        'ui_on_text'        => '',
+                        'ui_off_text'       => '',
+                        'ui'                => 1,
+                    ],       
+                    [
+                        'key'               => 'field_pdf_sort_posts_without_term_label',
+                        'label'             => __('Label for posts missing terms', 'municipio'),
+                        'name'              => 'pdf_sort_label_posts_without_term',
+                        'type'              => 'text',
+                        'instructions'      => __('When sorting, if a post is missing a term. It will fall under this label.', 'municipio'),
+                        'required'          => 0,
+                        'conditional_logic' => array(
+                            0 => array(
+                                0 => array(
+                                    'field' => 'field_pdf_sort_posts_by_term',
+                                    'operator' => '==',
+                                    'value' => 1,
+                                ),
+                            ),
+                        ),
+                        'wrapper'           => array(
+                            'width' => '',
+                            'class' => '',
+                            'id'    => '',
+                        ),
+                        'message'           => '',
+                        'default_value'     => __('Other', 'municipio'),
+                        'ui_on_text'        => '',
+                        'ui_off_text'       => '',
+                        'ui'                => 1,
                     ]
                 ],
                 'location'              => array(
