@@ -86,7 +86,6 @@ class PdfIdEndpoint extends RestApiEndpoint
     {
         $posts          = [];
         $postTypes      = [];
-        $sortedPosts    = [];
 
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
