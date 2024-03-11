@@ -95,8 +95,8 @@ class ContentType
     */
     public static function getContentType(string $postType = '')
     {
-        if (!$postType) {
-            $postType = self::getCurrentType(); // Assuming this method correctly identifies the current post type
+        if (!$type && !$type = self::getCurrentType()) {
+            return false;
         }
 
         $contentTypeInstance = false;
@@ -104,10 +104,10 @@ class ContentType
         $contentTypeKey = get_theme_mod($themeModName, false);
 
         if ($contentTypeKey) {
-            $contentTypeInstance = self::getContentTypeInstance($contentTypeKey);
+            return self::getContentTypeInstance($contentTypeKey);
         }
 
-        return $contentTypeInstance;
+        return false;
     }
 
 
@@ -213,7 +213,7 @@ class ContentType
         return false;
     }
 
-    public static function getCurrentType(): string
+    public static function getCurrentType(): ?string
     {
         return \Municipio\Helper\WP::getCurrentPostType();
     }
