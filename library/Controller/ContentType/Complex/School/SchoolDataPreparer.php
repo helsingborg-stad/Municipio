@@ -353,44 +353,38 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $this->data['application'] = [];
 
+        // Using null-coalescing operator to simplify the assignment
         $this->data['application']['displayOnWebsite'] =
-            isset(
-                $this->postMeta->ctaApplication->display_on_website)
-                ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
+            (bool) ($this->postMeta->ctaApplication->display_on_website ?? true);
 
         $this->data['application']['title'] =
-            isset($this->postMeta->ctaApplication->title) ?
-                $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
+            $this->postMeta->ctaApplication->title ?? $this->getApplicationCtaTitle(get_queried_object());
 
         $this->data['application']['description'] =
-            isset($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
-        $this->data['application']['apply']       = null;
-        $this->data['application']['howToApply']  = null;
+            $this->postMeta->ctaApplication->description ?? '';
 
-        if (
-            isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
-            !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
-            isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
-            !empty($this->postMeta->ctaApplication->cta_apply_here->title)
-        ) {
+        // Initialize as null; will be updated only if conditions are met
+        $this->data['application']['apply'] = null;
+        $this->data['application']['howToApply'] = null;
+
+        // Checking and assigning 'apply' and 'howToApply' if conditions are met
+        if (!empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
+            !empty($this->postMeta->ctaApplication->cta_apply_here->title)) {
             $this->data['application']['apply'] = [
-            'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-            'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
+                'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
+                'url' => $this->postMeta->ctaApplication->cta_apply_here->url,
             ];
         }
 
-        if (
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-            !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
-            !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
-        ) {
+        if (!empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
+            !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)) {
             $this->data['application']['howToApply'] = [
-            'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-            'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
+                'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
+                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url,
             ];
         }
     }
+
         /**
      * Retrieves the application title based on the post type.
      *
