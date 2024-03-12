@@ -157,6 +157,22 @@ class PanelsRegistry
                         'section'     => $sectionId,
                         'default'     => '0',
                     ]);
+
+                    // New checkbox for displaying a map on single posts
+                    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+                        'type'        => 'checkbox',
+                        'settings'    => $sectionId . '_display_map',
+                        'label'       => sprintf(esc_html__('Display map on single %s', 'municipio'), lcfirst( $postType->labels->name)),
+                        'section'     => $sectionId,
+                        'default'     => '0',
+                        'active_callback' => [
+                            [
+                                'setting'  => $sectionId . '_content_type',
+                                'operator' => '===',
+                                'value'    => 'place',
+                            ],
+                        ],
+                    ]);
                 });
         }, $postTypes);
 
