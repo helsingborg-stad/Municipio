@@ -87,12 +87,28 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
             )->register();
     }
-    public static function registerContentTypesPanel()
-    {
+    /**
+     * Fetch public post types and exclude 'attachment'
+     */
+    public static function getPostTypes($args = [], $returnType = 'objects', $exclude = []) {
+        $postTypes = get_post_types($args, $returnType);
+        foreach ($exclude as $excludedType) {
+            if (isset($postTypes[$excludedType])) {
+                unset($postTypes[$excludedType]);
+            }
+        }
+        return $postTypes;
+    }
+    /**
+     * Register the content types panel
+     */
+    public static function registerContentTypesPanel() {
         $panelID = 'municipio_customizer_panel_content_types';
-        // Fetching public post types and excluding 'attachment'
-        $postTypes = get_post_types(['public' => true], 'objects');
-        unset($postTypes['attachment']);
+        $postTypes = self::getPostTypes(
+            ['public' => true],
+            'objects',
+            ['attachment']
+        );
 
         $sections = array_map(function ($postType) use ($panelID) {
             $sectionId = "{$panelID}_{$postType->name}";
@@ -152,6 +168,7 @@ class PanelsRegistry
             ->addSections($sections)
             ->register();
     }
+
 
 
 
