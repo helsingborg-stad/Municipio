@@ -421,42 +421,47 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information = $this->postMeta->information;
+        $information = $this->postMeta->information ?? new stdClass(); // Ensure $information is an object
 
-        // Consolidated adding of accordion items
+        // Consolidated adding of accordion items with checks for existence
         $this->addAccordionItemIfExists(
             $accordionListItems,
-            $information->how_we_work,
+            $information->how_we_work ?? null,
             __('About the school', 'municipio'),
-            $information->about_us
+            $information->about_us ?? null
         );
         $this->addAccordionItemIfExists(
-            $accordionListItems, $information->how_we_work,
+            $accordionListItems,
+            $information->how_we_work ?? null,
             __('How we work', 'municipio'),
-            $information->how_we_work
+            $information->how_we_work ?? null
         );
         $this->addAccordionItemIfExists(
             $accordionListItems,
-            $information->orientation,
+            $information->orientation ?? null,
             __('Orientation', 'municipio'),
-            $information->orientation
+            $information->orientation ?? null
         );
         $this->addAccordionItemIfExists(
             $accordionListItems,
-            $information->our_leisure_center,
+            $information->our_leisure_center ?? null,
             __('Our leisure center', 'municipio'),
-            $information->our_leisure_center
+            $information->our_leisure_center ?? null
         );
 
-        // Process optional information
-        if (isset($information->optional) && !empty($information->optional)) {
+        // Process optional information if it exists and is not empty
+        if (!empty($information->optional)) {
             foreach ($information->optional as $optional) {
-                $this->addAccordionItemIfExists($accordionListItems, $optional, $optional->heading, $optional->content);
+                // Ensure optional item has both heading and content
+                if (isset($optional->heading) && isset($optional->content)) {
+                    $this->addAccordionItemIfExists($accordionListItems, $optional, $optional->heading, $optional->content);
+                }
             }
         }
 
         $this->data['accordionListItems'] = $accordionListItems;
     }
+
 
     /**
      * Adds an accordion item to the list if the given property exists and is not empty.
