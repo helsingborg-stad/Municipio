@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2023-10-11 14:03+0200\n"
-"PO-Revision-Date: 2024-03-11 12:03+0000\n"
+"PO-Revision-Date: 2024-03-12 15:05+0000\n"
 "Last-Translator: \n"
-"Language-Team: Swedish\n"
+"Language-Team: Svenska\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,6 +83,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">10k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">10k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">10k</span>\n"
 
 #: library/AcfFields/php/term-icon-and-colour.php:97
 msgid ""
@@ -90,6 +93,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">10mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">10mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">10mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:98
 msgid ""
@@ -97,6 +103,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">11mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">11mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">11mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:99
 msgid ""
@@ -104,6 +113,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">123</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">123</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">123</span>\n"
 
 #: library/AcfFields/php/term-icon-and-colour.php:100
 msgid ""
@@ -111,6 +123,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">12mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">12mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">12mp</span>\n"
 
 #: library/AcfFields/php/term-icon-and-colour.php:101
 msgid ""
@@ -118,6 +133,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">13mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">13mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">13mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:102
 msgid ""
@@ -125,6 +143,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">14mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">14mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">14mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:103
 msgid ""
@@ -132,6 +153,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">15mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">15mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">15mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:104
 msgid ""
@@ -139,6 +163,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">16mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">16mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">16mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:105
 msgid ""
@@ -146,6 +173,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">17mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">17mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">17mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:106
 msgid ""
@@ -153,6 +183,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">18_up_rating</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">18_up_rating</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">18_up_rating</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:107
 msgid ""
@@ -160,6 +193,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">18mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">18mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">18mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:108
 msgid ""
@@ -167,6 +203,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">19mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">19mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">19mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:109
 msgid ""
@@ -174,6 +213,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">1k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">1k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">1k</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:110
 msgid ""
@@ -181,6 +223,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">1k_plus</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">1k_plus</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">1k_plus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:111
 msgid ""
@@ -188,6 +233,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">1x_mobiledata</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">1x_mobiledata</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">1x_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:112
 msgid ""
@@ -195,6 +243,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">20mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">20mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">20mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:113
 msgid ""
@@ -202,6 +253,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">21mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">21mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">21mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:114
 msgid ""
@@ -209,6 +263,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">22mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">22mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">22mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:115
 msgid ""
@@ -216,6 +273,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">23mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">23mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">23mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:116
 msgid ""
@@ -223,6 +283,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">24mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">24mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">24mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:117
 msgid ""
@@ -230,6 +293,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">2k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">2k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">2k</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:118
 msgid ""
@@ -237,6 +303,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">2k_plus</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">2k_plus</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">2k_plus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:119
 msgid ""
@@ -244,6 +313,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">2mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">2mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">2mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:120
 msgid ""
@@ -251,6 +323,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">30fps</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">30fps</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">30fps</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:121
 msgid ""
@@ -258,6 +333,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">30fps_select</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">30fps_select</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">30fps_select</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:122
 msgid ""
@@ -265,6 +343,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">360</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">360</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">360</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:123
 msgid ""
@@ -272,6 +353,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3d_rotation</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3d_rotation</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3d_rotation</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:124
 msgid ""
@@ -279,6 +363,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3g_mobiledata</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3g_mobiledata</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3g_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:125
 msgid ""
@@ -286,6 +373,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3k</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:126
 msgid ""
@@ -293,6 +383,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3k_plus</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3k_plus</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3k_plus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:127
 msgid ""
@@ -300,6 +393,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:128
 msgid ""
@@ -307,6 +403,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">3p</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">3p</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">3p</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:129
 msgid ""
@@ -314,6 +413,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">4g_mobiledata</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">4g_mobiledata</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">4g_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:130
 msgid ""
@@ -321,6 +423,9 @@ msgid ""
 "<span style=\"height: 24px; display: inline-block; line-height: 24px; margin-"
 "left: 8px;\">4g_plus_mobiledata</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">4g_plus_mobiledata</i> "
+"<span style=\"height: 24px; display: inline-block; line-height: 24px; margin-"
+"left: 8px;\">4g_plus_mobiledata</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:131
 msgid ""
@@ -328,6 +433,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">4k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">4k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">4k</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:132
 msgid ""
@@ -335,6 +443,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">4k_plus</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">4k_plus</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">4k_plus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:133
 msgid ""
@@ -342,6 +453,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">4mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">4mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">4mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:134
 msgid ""
@@ -349,6 +463,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">5g</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">5g</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">5g</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:135
 msgid ""
@@ -356,6 +473,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">5k</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">5k</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">5k</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:136
 msgid ""
@@ -363,6 +483,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">5k_plus</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">5k_plus</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">5k_plus</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:137
 msgid ""
@@ -370,6 +493,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">5mp</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">5mp</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">5mp</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:138
 msgid ""
@@ -377,6 +503,9 @@ msgid ""
 "style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
 "8px;\">60fps</span>"
 msgstr ""
+"<i class=\"material-icons\" style=\"float: left;\">60fps</i> <span "
+"style=\"height: 24px; display: inline-block; line-height: 24px; margin-left: "
+"8px;\">60fps</span>"
 
 #: library/AcfFields/php/term-icon-and-colour.php:139
 msgid ""
@@ -15027,7 +15156,7 @@ msgstr ""
 msgid "A margin block"
 msgstr "Ett marginalblock"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:428
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:430
 msgid "About the school"
 msgstr "Om oss"
 
@@ -15275,7 +15404,7 @@ msgstr ""
 "Inställningen ”klibbig” ska inte användas i kombination med ett klibbigt "
 "sidhuvud."
 
-#: library/Customizer/PanelsRegistry.php:291
+#: library/Customizer/PanelsRegistry.php:324
 msgid ""
 "Adjust the roundness of corners on the site overall. The sizes are applied "
 "where they are suitable, additional component adjustments can be made under "
@@ -15539,7 +15668,7 @@ msgstr "appar"
 msgid "archive"
 msgstr "archive"
 
-#: library/Customizer/PanelsRegistry.php:174
+#: library/Customizer/PanelsRegistry.php:207
 msgid "Archive Apperance"
 msgstr "Arkiv"
 
@@ -16147,7 +16276,7 @@ msgstr "border_top"
 msgid "border_vertical"
 msgstr "border_vertical"
 
-#: library/Customizer/PanelsRegistry.php:285
+#: library/Customizer/PanelsRegistry.php:318
 msgid "Borders"
 msgstr "Kantlinjer"
 
@@ -16300,7 +16429,7 @@ msgstr "Knapp: Sekundärfärg"
 msgid "Button: Third color"
 msgstr "Knapp: Tertiärfärg"
 
-#: library/Customizer/PanelsRegistry.php:340
+#: library/Customizer/PanelsRegistry.php:373
 msgid "Buttons"
 msgstr "Knappar"
 
@@ -16801,7 +16930,7 @@ msgstr "Färgrik"
 msgid "colorize"
 msgstr "colorize"
 
-#: library/Customizer/PanelsRegistry.php:268
+#: library/Customizer/PanelsRegistry.php:301
 #: library/Customizer/Sections/FooterSub.php:12
 #: library/Customizer/Sections/Divider.php:59
 msgid "Colors"
@@ -16866,7 +16995,7 @@ msgstr "Komplementfärger"
 msgid "Complementary"
 msgstr "Komplementär"
 
-#: library/Customizer/PanelsRegistry.php:316
+#: library/Customizer/PanelsRegistry.php:349
 msgid "Component Apperance"
 msgstr "Komponentutseende"
 
@@ -16882,7 +17011,7 @@ msgstr "Komprimerad"
 msgid "computer"
 msgstr "computer"
 
-#: library/Customizer/PanelsRegistry.php:150
+#: library/Customizer/PanelsRegistry.php:182
 msgid "Configure settings for different content types and their options."
 msgstr "Konfigurera inställningar för innehållstyper."
 
@@ -16926,7 +17055,7 @@ msgstr "contact_support"
 msgid "contactless"
 msgstr "contactless"
 
-#: library/Customizer/PanelsRegistry.php:192
+#: library/Customizer/PanelsRegistry.php:225
 msgid "Contacts"
 msgstr "Kontakter"
 
@@ -16978,7 +17107,7 @@ msgstr "Innehållsförfattare"
 msgid "Content horizontal alignment"
 msgstr "Innehållsjustering horisontellt"
 
-#: library/Customizer/PanelsRegistry.php:128
+#: library/Customizer/PanelsRegistry.php:144
 #: library/Admin/Options/ContentType.php:67
 #| msgid "Content"
 msgid "Content Type"
@@ -16995,7 +17124,7 @@ msgstr "Innehållstyp"
 msgid "Content type - %s (sidebar)"
 msgstr "Innehållstyp (%s) (sidomeny)"
 
-#: library/Customizer/PanelsRegistry.php:149
+#: library/Customizer/PanelsRegistry.php:181
 msgid "Content Type Settings"
 msgstr "Innehållstyper"
 
@@ -17295,7 +17424,7 @@ msgstr ""
 msgid "Date"
 msgstr "Datum"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:772
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:779
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr "Datum och tid: %s kl. %s"
@@ -17643,6 +17772,11 @@ msgstr "Visa Google Maps-länk"
 msgid "Display map"
 msgstr "Visa karta"
 
+#: library/Customizer/PanelsRegistry.php:165
+#, php-format
+msgid "Display map on single %s"
+msgstr "Visa karta på enskilda %s"
+
 #: library/AcfFields/php/widget-header-common.php:12
 msgid "Display options"
 msgstr "Visningsinställningar"
@@ -17665,7 +17799,7 @@ msgstr "Visa termikon"
 msgid "Display the notice after this many days"
 msgstr "Visa notisen på inlägg äldre än så här många dagar"
 
-#: library/Customizer/PanelsRegistry.php:401
+#: library/Customizer/PanelsRegistry.php:434
 #: library/Customizer/Sections/Borders.php:14
 #: library/Customizer/Sections/Colors.php:208
 #: library/Customizer/Sections/Divider.php:65
@@ -17694,22 +17828,22 @@ msgstr "Använd inte"
 msgid "Do not use content type template"
 msgstr "Använd inte anpassad mall för innehållstyp"
 
-#: library/Customizer/PanelsRegistry.php:139
+#: library/Customizer/PanelsRegistry.php:155
 msgid "Do not use template"
 msgstr "Använd inte mall"
 
-#: library/Customizer/PanelsRegistry.php:140
+#: library/Customizer/PanelsRegistry.php:156
 msgid ""
 "Do not use the custom template from the content type for this post type."
 msgstr ""
 "Använd inte den anpassade mallen från innehållstypen för denna inläggstyp."
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:410
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:412
 #, php-format
 msgid "Do you want to apply to %s?"
 msgstr "Vill du välja %s?"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:413
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:415
 msgid "Do you want to apply?"
 msgstr "Vill du ansöka?"
 
@@ -17801,7 +17935,7 @@ msgstr "Utfällbar meny (drawer)"
 msgid "drive_eta"
 msgstr "drive_eta"
 
-#: library/Customizer/PanelsRegistry.php:301
+#: library/Customizer/PanelsRegistry.php:334
 msgid "Drop Shadows"
 msgstr "Skuggor"
 
@@ -18068,7 +18202,7 @@ msgstr "event_note"
 msgid "event_seat"
 msgstr "event_seat"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:780
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:787
 msgid "Events"
 msgstr "Evenemang"
 
@@ -18281,7 +18415,7 @@ msgstr "fiber_pin"
 msgid "fiber_smart_record"
 msgstr "fiber_smart_record"
 
-#: library/Customizer/PanelsRegistry.php:413
+#: library/Customizer/PanelsRegistry.php:446
 msgid "Field"
 msgstr "Formulär & Fält"
 
@@ -18412,8 +18546,8 @@ msgstr "filter_vintage"
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:516
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:528
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:523
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:535
 msgid "Find directions"
 msgstr "Hitta hit"
 
@@ -18531,7 +18665,7 @@ msgstr "folder_shared"
 msgid "folder_special"
 msgstr "folder_special"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:625
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:632
 msgid "Follow us in social media"
 msgstr "Följ oss i sociala medier"
 
@@ -18539,7 +18673,7 @@ msgstr "Följ oss i sociala medier"
 msgid "font_download"
 msgstr "font_download"
 
-#: library/Customizer/PanelsRegistry.php:384
+#: library/Customizer/PanelsRegistry.php:417
 msgid "Footer"
 msgstr "Sidfot"
 
@@ -18775,7 +18909,7 @@ msgstr "gavel"
 msgid "GDPR"
 msgstr "GDPR"
 
-#: library/Customizer/PanelsRegistry.php:251
+#: library/Customizer/PanelsRegistry.php:284
 msgid "General Apperance"
 msgstr "Generellt utseende"
 
@@ -18783,7 +18917,7 @@ msgstr "Generellt utseende"
 msgid "General cover settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:262
+#: library/Customizer/PanelsRegistry.php:295
 msgid "General settings"
 msgstr "Generella inställningar"
 
@@ -18933,7 +19067,7 @@ msgstr "hdr_strong"
 msgid "hdr_weak"
 msgstr "hdr_weak"
 
-#: library/Customizer/PanelsRegistry.php:322
+#: library/Customizer/PanelsRegistry.php:355
 msgid "Header"
 msgstr "Sidhuvud"
 
@@ -19046,7 +19180,7 @@ msgstr "Hjälpmeny"
 msgid "help_outline"
 msgstr "help_outline"
 
-#: library/Customizer/PanelsRegistry.php:407 library/Theme/Sidebars.php:123
+#: library/Customizer/PanelsRegistry.php:440 library/Theme/Sidebars.php:123
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
@@ -19062,7 +19196,7 @@ msgstr "Stil på herosökknapp"
 msgid "Hero search position"
 msgstr "Hero sökposition"
 
-#: library/Customizer/PanelsRegistry.php:376
+#: library/Customizer/PanelsRegistry.php:409
 msgid "Hero slider"
 msgstr "Slider (Hero)"
 
@@ -19236,7 +19370,7 @@ msgstr "Hur texten i kolumnerna ska justeras."
 msgid "How to align the text in the pre-footer."
 msgstr "Hur texten före sidfoten ska justeras."
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:433
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:436
 msgid "How we work"
 msgstr "Så arbetar vi"
 
@@ -19444,7 +19578,7 @@ msgstr "Öka"
 msgid "indeterminate_check_box"
 msgstr "indeterminate_check_box"
 
-#: library/Customizer/PanelsRegistry.php:198
+#: library/Customizer/PanelsRegistry.php:231
 #: library/Customizer/Sections/Module/Posts.php:12
 #: library/Customizer/Sections/Module/Index.php:12
 msgid "Index"
@@ -19462,7 +19596,7 @@ msgstr "Information"
 msgid "Information"
 msgstr "Information"
 
-#: library/Customizer/PanelsRegistry.php:204
+#: library/Customizer/PanelsRegistry.php:237
 #: library/Customizer/Sections/Module/Inlay.php:12
 msgid "Inlay list"
 msgstr "Lista"
@@ -19955,7 +20089,7 @@ msgstr "Ladda in en design"
 msgid "Local"
 msgstr "Lokal miljö"
 
-#: library/Customizer/PanelsRegistry.php:210
+#: library/Customizer/PanelsRegistry.php:243
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 msgid "Local Event"
 msgstr "Lokala evenemang"
@@ -20129,7 +20263,7 @@ msgstr "Justering för logotyp"
 msgid "Logotype height"
 msgstr "Storlek på logotyp (höjd)"
 
-#: library/Customizer/PanelsRegistry.php:257
+#: library/Customizer/PanelsRegistry.php:290
 msgid "Logotypes"
 msgstr "Logotyper"
 
@@ -20210,7 +20344,7 @@ msgstr "mail_outline"
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Customizer/PanelsRegistry.php:388
+#: library/Customizer/PanelsRegistry.php:421
 msgid "Main footer"
 msgstr "Primär sidfot"
 
@@ -20218,11 +20352,11 @@ msgstr "Primär sidfot"
 msgid "Make post type available for selection in navigation menus."
 msgstr "Tillåt inläggstypen att kunna visas i menyer."
 
-#: library/Customizer/PanelsRegistry.php:175
+#: library/Customizer/PanelsRegistry.php:208
 msgid "Manage apperance options on archives."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:317
+#: library/Customizer/PanelsRegistry.php:350
 msgid "Manage design options on component level."
 msgstr "Hantera design på komponentnivå."
 
@@ -20230,7 +20364,7 @@ msgstr "Hantera design på komponentnivå."
 msgid "Manage post types"
 msgstr "Hantera posttyper"
 
-#: library/Customizer/PanelsRegistry.php:252
+#: library/Customizer/PanelsRegistry.php:285
 msgid "Manage site general design options."
 msgstr "Hantera generella inställningar för design."
 
@@ -20258,7 +20392,7 @@ msgstr "Startzoom för karta"
 msgid "Map style"
 msgstr "Stil på karta"
 
-#: library/Customizer/PanelsRegistry.php:216
+#: library/Customizer/PanelsRegistry.php:249
 msgid "Maps"
 msgstr "Kartor"
 
@@ -20361,7 +20495,7 @@ msgid "meeting_room"
 msgstr "meeting_room"
 
 #: library/Helper/TranslatedLabels.php:45
-#: library/Customizer/PanelsRegistry.php:352 library/Theme/Navigation.php:29
+#: library/Customizer/PanelsRegistry.php:385 library/Theme/Navigation.php:29
 #: library/Customizer/Sections/Search.php:136
 #: library/AcfFields/php/options-theme-google-translate.php:59
 #: library/AcfFields/php/options-menu-mega.php:8
@@ -20391,11 +20525,11 @@ msgstr "Meny (Meny-ID: 2)"
 msgid "Menu alignment"
 msgstr "Meny justering"
 
-#: library/Customizer/PanelsRegistry.php:432
+#: library/Customizer/PanelsRegistry.php:465
 msgid "Menu behaviour"
 msgstr "Menybeteende"
 
-#: library/Customizer/PanelsRegistry.php:433
+#: library/Customizer/PanelsRegistry.php:466
 msgid "Menu behaviour settings."
 msgstr "Inställningar för menybeteende."
 
@@ -20660,7 +20794,7 @@ msgstr "modal-content"
 msgid "mode_comment"
 msgstr "mode_comment"
 
-#: library/Customizer/PanelsRegistry.php:188
+#: library/Customizer/PanelsRegistry.php:221
 msgid "Module Apperance"
 msgstr "Modulutseende"
 
@@ -20847,7 +20981,7 @@ msgstr "Navigationsinställningar"
 msgid "Navigation widget"
 msgstr "Navigationswidget"
 
-#: library/Customizer/PanelsRegistry.php:346
+#: library/Customizer/PanelsRegistry.php:379
 msgid "Navigations"
 msgstr "Navigeringar"
 
@@ -20940,7 +21074,7 @@ msgstr "no_meeting_room"
 msgid "no_sim"
 msgstr "no_sim"
 
-#: library/Customizer/PanelsRegistry.php:106
+#: library/Customizer/PanelsRegistry.php:122
 #: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/FooterSub.php:54
 #: library/Customizer/Sections/FooterMain.php:59
@@ -21165,7 +21299,7 @@ msgstr "Öppna extern"
 msgid "Open menu"
 msgstr "Öppna meny"
 
-#: library/Customizer/PanelsRegistry.php:359
+#: library/Customizer/PanelsRegistry.php:392
 msgid "Open Street Map"
 msgstr "Open Street MAp"
 
@@ -21198,7 +21332,7 @@ msgstr "Inställning i huvudmeny"
 msgid "Option in mobile menu"
 msgstr "Inställning i mobilmeny"
 
-#: library/Customizer/PanelsRegistry.php:274
+#: library/Customizer/PanelsRegistry.php:307
 msgid ""
 "Options for various Typography elements. This support BOF (Bring your own "
 "font). Simply upload your font in the media library, and it will be "
@@ -21220,11 +21354,11 @@ msgstr "Ordna efter"
 msgid "Order direction"
 msgstr "Riktning"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:439
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:442
 msgid "Orientation"
 msgstr "Inskolning"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:445
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:448
 msgid "Our leisure center"
 msgstr "Vårt fritidshem"
 
@@ -21261,7 +21395,7 @@ msgstr "Utfälld"
 msgid "Overflow top"
 msgstr "Svämma över uppåt"
 
-#: library/Customizer/PanelsRegistry.php:296
+#: library/Customizer/PanelsRegistry.php:329
 #: library/Customizer/Sections/FooterSub.php:107
 #: library/Customizer/Sections/FooterMain.php:34
 msgid "Padding"
@@ -21288,7 +21422,7 @@ msgstr "Standard (Sida)"
 msgid "Page Attributes"
 msgstr "Sidattribut"
 
-#: library/Customizer/PanelsRegistry.php:279
+#: library/Customizer/PanelsRegistry.php:312
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
@@ -21758,7 +21892,7 @@ msgstr "post_add"
 msgid "Postal Code"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:222
+#: library/Customizer/PanelsRegistry.php:255
 msgid "Posts"
 msgstr "Inlägg"
 
@@ -21988,7 +22122,7 @@ msgstr "queue_play_next"
 msgid "Quick facts"
 msgstr "Snabba fakta"
 
-#: library/Customizer/PanelsRegistry.php:334
+#: library/Customizer/PanelsRegistry.php:367
 #: library/AcfFields/php/options-page-quicklinks-placement.php:8
 msgid "Quicklinks"
 msgstr "Snabblänkar"
@@ -22028,7 +22162,7 @@ msgstr "rate_review"
 
 #: library/Helper/TranslatedLabels.php:58
 #: library/Helper/TranslatedLabels.php:73
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:594
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:601
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -22064,7 +22198,7 @@ msgstr "refresh"
 msgid "Regular (400)"
 msgstr "Normal (400)"
 
-#: library/Customizer/PanelsRegistry.php:370
+#: library/Customizer/PanelsRegistry.php:403
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
@@ -22262,7 +22396,7 @@ msgstr "rotate_right"
 msgid "Rounded"
 msgstr "Rundad"
 
-#: library/Customizer/PanelsRegistry.php:290
+#: library/Customizer/PanelsRegistry.php:323
 #: library/Customizer/Sections/Siteselector.php:109
 msgid "Rounded corners"
 msgstr "Rundade hörn"
@@ -22364,7 +22498,7 @@ msgstr "screen_rotation"
 msgid "screen_share"
 msgstr "screen_share"
 
-#: library/Customizer/PanelsRegistry.php:228
+#: library/Customizer/PanelsRegistry.php:261
 #: library/Customizer/Sections/Module/Script.php:14
 msgid "Script"
 msgstr "Skript"
@@ -22383,7 +22517,7 @@ msgstr "sd_storage"
 
 #: library/Helper/TranslatedLabels.php:41
 #: library/Helper/TranslatedLabels.php:77
-#: library/Customizer/PanelsRegistry.php:306 library/Search/General.php:55
+#: library/Customizer/PanelsRegistry.php:339 library/Search/General.php:55
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
 #: library/Admin/Options/ContentType.php:88
 #: library/Widget/Navigation/Navigation.php:66
@@ -22483,7 +22617,7 @@ msgstr "sekunder"
 msgid "Section Split"
 msgstr "Sektion: Tvådelad"
 
-#: library/Customizer/PanelsRegistry.php:234
+#: library/Customizer/PanelsRegistry.php:267
 msgid "Sections Split"
 msgstr "Sektioner: Tvådelad"
 
@@ -22568,7 +22702,7 @@ msgstr "Välj mellan fördefinierade färger, eller välj en helt fritt."
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: library/Customizer/PanelsRegistry.php:129
+#: library/Customizer/PanelsRegistry.php:145
 msgid "Select the content type for this post type."
 msgstr "Välj innehållstyp för denna posttyp."
 
@@ -22625,7 +22759,7 @@ msgstr "sentiment_very_satisfied"
 msgid "Seperate the words with a comma"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:280
+#: library/Customizer/PanelsRegistry.php:313
 msgid "Set the maximum page withs of different page types."
 msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
 
@@ -22652,11 +22786,11 @@ msgstr "Ställer in stilen för huvudobjekten"
 msgid "Settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:360
+#: library/Customizer/PanelsRegistry.php:393
 msgid "Settings for Open Street Maps."
 msgstr "Inställningar för Open Street Map."
 
-#: library/Customizer/PanelsRegistry.php:377
+#: library/Customizer/PanelsRegistry.php:410
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
@@ -22819,7 +22953,7 @@ msgstr "Visa utvald bild i singel-template"
 msgid "show_chart"
 msgstr "show_chart"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:403
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:405
 #, php-format
 msgctxt "Shown on pre-schools"
 msgid "Do you want to join %s?"
@@ -22909,7 +23043,7 @@ msgstr "single_bed"
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Customizer/PanelsRegistry.php:328 library/Theme/Navigation.php:35
+#: library/Customizer/PanelsRegistry.php:361 library/Theme/Navigation.php:35
 #: library/AcfFields/php/options-theme-google-translate.php:65
 msgid "Siteselector"
 msgstr "Webbplatsväljare"
@@ -22952,7 +23086,7 @@ msgstr ""
 msgid "Slide overlay"
 msgstr "Övertäckning slider"
 
-#: library/Customizer/PanelsRegistry.php:366
+#: library/Customizer/PanelsRegistry.php:399
 msgid "Slider"
 msgstr "Bildspel"
 
@@ -23266,7 +23400,7 @@ msgstr ""
 msgid "Su"
 msgstr "Sö"
 
-#: library/Customizer/PanelsRegistry.php:394
+#: library/Customizer/PanelsRegistry.php:427
 msgid "Sub footer"
 msgstr "Sekundär sidfot"
 
@@ -23434,7 +23568,7 @@ msgstr "Utseende på taggar"
 msgid "tag_faces"
 msgstr "tag_faces"
 
-#: library/Customizer/PanelsRegistry.php:419
+#: library/Customizer/PanelsRegistry.php:452
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
 msgid "Tags"
 msgstr "Taggar"
@@ -23508,7 +23642,7 @@ msgstr "terrain"
 msgid "Test"
 msgstr "Test"
 
-#: library/Customizer/PanelsRegistry.php:240
+#: library/Customizer/PanelsRegistry.php:273
 #: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
@@ -23967,7 +24101,7 @@ msgstr "Typ"
 msgid "Type of taxonomy"
 msgstr "Typ av taxonomi"
 
-#: library/Customizer/PanelsRegistry.php:273
+#: library/Customizer/PanelsRegistry.php:306
 msgid "Typography"
 msgstr "Typografi"
 
@@ -24288,7 +24422,7 @@ msgstr "visibility_off"
 msgid "Visit"
 msgstr "Besök"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:339
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:341
 msgid "Visit us"
 msgstr "Besök oss"
 
@@ -24304,11 +24438,11 @@ msgstr "Besökt"
 msgid "Visited hover"
 msgstr "Besökt (fokuserad)"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:539
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:546
 msgid "Visiting address"
 msgstr "Adress"
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:541
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:548
 msgid "Visiting addresses"
 msgstr "Adresser"
 
