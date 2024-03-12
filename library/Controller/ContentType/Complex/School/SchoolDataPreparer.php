@@ -358,8 +358,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
             (bool) ($this->postMeta->ctaApplication->display_on_website ?? true);
 
         $this->data['application']['title'] =
-            $this->postMeta->ctaApplication->title ?? $this->getApplicationCtaTitle(get_queried_object());
-
+        $this->getApplicationCtaTitle(
+            get_queried_object(),
+            $this->postMeta->ctaApplication->title ?? false
+        );
         $this->data['application']['description'] =
             $this->postMeta->ctaApplication->description ?? '';
 
@@ -384,15 +386,19 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }
     }
-
-        /**
-     * Retrieves the application title based on the post type.
+    /**
+     * Retrieves the application title based on the post type or a default value.
      *
      * @param \WP_Post|null $post The post object.
-     * @return string The application title.
+     * @param mixed $defaultValue Default value to return if title is not set specifically.
+     * @return string The application title or the default value.
      */
-    private function getApplicationCtaTitle($post): string
+    private function getApplicationCtaTitle($post, $defaultValue = ''): string
     {
+        if ($defaultValue !== false) {
+            return $defaultValue;
+        }
+
         if ($post instanceof \WP_Post) {
             if ($post->post_type === 'pre-school') {
                 // Code for 'pre-school' post type
