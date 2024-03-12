@@ -32,6 +32,10 @@ class PrepareField {
      */
     public function maybeLoadField($field)
     {
+        if (!is_array($field)) {
+            return $field;
+        }
+
         $postType = WP::getCurrentPostType();
 
         if (
