@@ -471,7 +471,7 @@ class ResourcePostType
     }
 
     /**
-     * Removes the 'custom-short-link' post type from the ACF post query.
+     * Removes the 'api-resource' post type from the ACF post query.
      *
      * @param array $args The arguments for the post query.
      * @param string $field The ACF field name.
