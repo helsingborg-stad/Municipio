@@ -220,7 +220,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
             $gradeTerms = wp_get_post_terms($this->data['post']->id, self::GRADE_TAXONOMY);
-            if (!empty($gradeTerms)) {
+            if (!empty($gradeTerms) && !is_wp_error($gradeTerms)) {
                 $quickFacts[] = ['label' => $gradeTerms[0]->name];
             }
         }
@@ -305,9 +305,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     'include' => $this->postMeta->usp
                 ]
             );
-            $uspTerms = array_slice($uspTerms, 0, 9 - count($quickFacts));
-            foreach ($uspTerms as $uspTerm) {
-                $quickFacts[] = ['label' => $uspTerm->name];
+            if(!empty($uspTerms) && !is_wp_error($uspTerms)) {
+                $uspTerms = array_slice($uspTerms, 0, 9 - count($quickFacts));
+                foreach ($uspTerms as $uspTerm) {
+                    $quickFacts[] = ['label' => $uspTerm->name];
+                }
             }
         }
     }
