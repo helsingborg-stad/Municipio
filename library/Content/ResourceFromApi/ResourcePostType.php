@@ -31,6 +31,7 @@ class ResourcePostType
         add_action('acf/save_post', [$this, 'setApiMeta'], 10);
         add_filter('acf/update_value/name=post_type_key', [$this, 'sanitizePostTypeKeyBeforeSave'], 10, 4);
         add_filter('acf/update_value/name=taxonomy_key', [$this, 'sanitizeTaxonomyKeyBeforeSave'], 10, 4);
+        add_filter('acf/fields/post_object/query', [$this, 'removeFromAcfPostQuery'], 99, 3);
     }
 
     /**
@@ -467,5 +468,24 @@ class ResourcePostType
     public function sanitizeTaxonomyKeyBeforeSave($value, $postId, $field, $originalValue): string
     {
         return sanitize_title(substr($value, 0, 31));
+    }
+
+    /**
+     * Removes the 'custom-short-link' post type from the ACF post query.
+     *
+     * @param array $args The arguments for the post query.
+     * @param string $field The ACF field name.
+     * @param int $id The post ID.
+     * @return array The modified arguments for the post query.
+     */
+    public function removeFromAcfPostQuery($args, $field, $id) 
+    {
+        $key = array_search('api-resource', $args['post_type'] ?? []);
+
+        if ($key !== false) {
+            unset($args['post_type'][$key]);
+        }
+
+        return $args;
     }
 }
