@@ -86,27 +86,29 @@ class ContentType
         }
 
         return [$instance->getKey() => $instance->getLabel()];
-    }
-    /**
-     * Get the content type instance for a given type.
-     *
-     * @param string $type The type of content type to get.
-     *
-     * @return mixed The content type instance for the given type, or false if no content type is set.
-     */
-    public static function getContentType(string $type = '')
+    }/**
+    * Get the content type instance for a given post type.
+    *
+    * @param string $postType The post type of content type to get. Defaults to the current post type if not specified.
+    *
+    * @return mixed The content type instance for the given post type, or false if no content type is set.
+    */
+    public static function getContentType(string $postType = '')
     {
-        if (!$type && !$type = self::getCurrentType()) {
+        if (!$postType && !$postType = self::getCurrentType()) {
             return false;
         }
 
-        $contentTypeKey      = get_option("options_contentType_{$type}", false);
+        $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
+        $contentTypeKey = get_theme_mod($themeModName, false);
+
         if ($contentTypeKey) {
             return self::getContentTypeInstance($contentTypeKey);
         }
 
         return false;
     }
+
 
     /**
      * Get an instance of a content type
@@ -216,16 +218,22 @@ class ContentType
     }
 
     /**
-     * Checks if the user has opted to skip the content type template for a specific type.
+     * Checks if the user has opted to skip the content type template for a specific post type.
      *
-     * @param string $type The type of template to check (post type or taxonomy). Defaults to an empty string.
+     * @param string $postType The post type to check. Defaults to the current post type if not specified.
      *
-     * @return bool A boolean value indicating whether the user has opted to skip the content type template.
+     * @return bool A boolean value indicating whether the user has opted to skip the content type template for the specified post type.
      */
     public static function skipContentTypeTemplate(string $postType = ''): bool
     {
-        return (bool) get_option("skip_content_type_template_{$postType}", false);
+        if (!$postType) {
+            $postType = self::getCurrentType();
+        }
+
+        $themeModName = "municipio_customizer_panel_content_types_{$postType}_skip_content_type_template";
+        return (bool) get_theme_mod($themeModName, false);
     }
+
 
     /**
      *
