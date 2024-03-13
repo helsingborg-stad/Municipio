@@ -345,19 +345,17 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['application'] = [];
 
         $this->data['application']['displayOnWebsite'] =
-            isset($this->postMeta->ctaApplication->display_on_website) ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
+            !empty($this->postMeta->ctaApplication->display_on_website) ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
 
-        $this->data['application']['title'] =
-            isset($this->postMeta->ctaApplication->title) ? $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
+        $this->data['application']['title'] = !empty($this->postMeta->ctaApplication->title) ? $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
 
-        $this->data['application']['description'] = isset($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
+        $this->data['application']['description'] = !empty($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
+
         $this->data['application']['apply']       = null;
         $this->data['application']['howToApply']  = null;
 
         if (
-            isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
             !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
-            isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
             !empty($this->postMeta->ctaApplication->cta_apply_here->title)
         ) {
             $this->data['application']['apply'] = [
@@ -367,9 +365,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         if (
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
             !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
             !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
         ) {
             $this->data['application']['howToApply'] = [
@@ -377,6 +373,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
             ];
         }
+
     }
         /**
      * Retrieves the application title based on the post type.
