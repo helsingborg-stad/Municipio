@@ -390,15 +390,10 @@ class SchoolDataPreparer implements DataPrepearerInterface
      * Retrieves the application title based on the post type or a default value.
      *
      * @param \WP_Post|null $post The post object.
-     * @param mixed $defaultValue Default value to return if title is not set specifically.
      * @return string The application title or the default value.
      */
-    private function getApplicationCtaTitle($post, $defaultValue = ''): string
+    private function getApplicationCtaTitle($post): string
     {
-        if ($defaultValue !== false) {
-            return $defaultValue;
-        }
-
         if ($post instanceof \WP_Post) {
             if ($post->post_type === 'pre-school') {
                 // Code for 'pre-school' post type
@@ -411,9 +406,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
                 // Code for other post types
                 return sprintf(__('Do you want to apply to %s?', 'municipio'), $post->post_title);
             }
-        } else {
-            return __('Do you want to apply?', 'municipio');
         }
+        
+		return __('Do you want to apply?', 'municipio');
     }
     /**
      * Appends data for the accordion section.
