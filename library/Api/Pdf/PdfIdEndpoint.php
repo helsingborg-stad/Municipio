@@ -29,8 +29,9 @@ class PdfIdEndpoint extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods'  => 'GET',
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => 'GET',
+            'callback'            => array($this, 'handleRequest'),
+            'permission_callback' => '__return_true'
         ));
     }
 
