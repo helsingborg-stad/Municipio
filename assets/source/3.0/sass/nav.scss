@@ -5,24 +5,20 @@
     margin-top: calc(#{$base} * 2);
     margin-bottom: calc(#{$base} * 2);
     align-items: start;
+    flex-direction: column;
+    gap: calc(#{$base} * 2);
 
     @include mq('md') {
         margin-top: calc(#{$base} * 4);
         margin-bottom: calc(#{$base} * 4);
-    }  
+    } 
 
-    .nav-accessibility a,
-    .nav-accessibility a:visited,
-    .nav-accessibility a:hover {
-        color:#000;
-        text-decoration: none;
-    }
-
-    .nav-accessibility .c-icon {
-        position: relative;
-        top: 5px;
+    @include mq('sm') {
+        flex-direction: row;
+        gap: 0;
     }
 }
+
 @media print {
     .nav-helper {
         display:none;

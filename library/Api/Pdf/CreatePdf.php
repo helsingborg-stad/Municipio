@@ -8,14 +8,23 @@ use Municipio\Helper\Image;
 use Municipio\Api\Pdf\PdfHelper as PDFHelper;
 use Municipio\Helper\FileConverters\FileConverterInterface;
 
+/**
+ * Class CreatePdf
+*/
 class CreatePdf
 {
     private PdfHelperInterface $pdfHelper;
     private FileConverterInterface $woffHelper;
 
+    /**
+     * CreatePdf construct
+     *
+     * @param PdfHelperInterface $pdfHelper PdfHelper instance.
+     * @param FileConverterInterface $woffHelper FileConverter instance.
+    */
     public function __construct(PdfHelperInterface $pdfHelper, FileConverterInterface $woffHelper)
     {
-        $this->pdfHelper = $pdfHelper;
+        $this->pdfHelper  = $pdfHelper;
         $this->woffHelper = $woffHelper;
     }
 
@@ -26,25 +35,26 @@ class CreatePdf
      * @param array|false $cover     Cover information or false if not available.
      * @param string      $fileName  Name of the PDF file.
      */
-    public function getHtmlFromView($posts = false, $cover = false):string {
+    public function getHtmlFromView($posts = false, $cover = false): string
+    {
         $styles = $this->pdfHelper->getThemeMods();
-        $fonts = $this->pdfHelper->getFonts($styles, $this->woffHelper);
-        $lang = $this->getLang();
+        $fonts  = $this->pdfHelper->getFonts($styles, $this->woffHelper);
+        $lang   = $this->getLang();
 
         if (!empty($posts)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'posts'                 => $posts,
-                'styles'                => $styles,
-                'cover'                 => $cover,
-                'fonts'                 => $fonts,
-                'lang'                  => $lang,
-                'hasMoreThanOnePost'    => count($posts) > 1
+                'posts'              => $posts,
+                'styles'             => $styles,
+                'cover'              => $cover,
+                'fonts'              => $fonts,
+                'lang'               => $lang,
+                'hasMoreThanOnePost' => count($posts) > 1
             ]);
 
-            $html = $this->replaceHtmlFromRegex( [ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html );
+            $html = $this->replaceHtmlFromRegex([ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html);
 
-            if( !extension_loaded('gd') ) {
-                $html = $this->replaceHtmlFromRegex( [ '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s', ], $html );
+            if (!extension_loaded('gd')) {
+                $html = $this->replaceHtmlFromRegex([ '/<img(?![^>]*?\.jp(e)?g)[^>]*>/s', ], $html);
             }
 
             return $html;
@@ -58,7 +68,8 @@ class CreatePdf
      *
      * @return array Language-related information.
      */
-    private function getLang() {
+    private function getLang(): array
+    {
         $lang = [
             'generatedPdf' => __('Generated PDF', 'municipio')
         ];
@@ -73,7 +84,8 @@ class CreatePdf
      *
      * @return string Modified HTML content.
      */
-    private function replaceHtmlFromRegex(array $patterns, string $html = '') {
+    private function replaceHtmlFromRegex(array $patterns, string $html = '')
+    {
         if (isset($patterns) && is_array($patterns)) {
             foreach ($patterns as $pattern) {
                 $html = preg_replace($pattern, '', $html);
@@ -89,18 +101,18 @@ class CreatePdf
      * @param string $html     HTML content.
      * @param string $fileName Name of the PDF file.
      */
-    public function renderPdf(string $html, string $fileName = 'print') {
+    public function renderPdf(string $html, string $fileName = 'print')
+    {
         $dompdf = new Dompdf([
-            'isRemoteEnabled' => true,
-            'isPhpEnabled' => true,
+            'isRemoteEnabled'      => true,
+            'isPhpEnabled'         => true,
             'isHtml5ParserEnabled' => true,
         ]);
-        
+
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        
+
         $dompdf->stream($fileName, ['Attachment' => 0]);
     }
 }
-

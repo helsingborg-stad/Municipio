@@ -1,9 +1,10 @@
 <?php
 
-namespace Municipio\Controller\ContentType\School;
+namespace Municipio\Controller\ContentType\Complex\School;
 
 use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
+use Municipio\Controller\ContentType\Complex\School\DataPrepearerInterface;
 
 /**
  * Class SchoolDataPreparer
@@ -188,97 +189,145 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $quickFacts = [];
 
-        if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
-            $gradeTerms = wp_get_post_terms($this->data['post']->id, self::GRADE_TAXONOMY);
-
-            if (!empty($gradeTerms)) {
-                $quickFacts[] = ['label' => $gradeTerms[0]->name];
-            }
-        }
-
-        if (!empty($this->postMeta->numberOfChildren)) {
-            $value        = absint($this->postMeta->numberOfChildren);
-            $label        = sprintf(__('Ca %d children', 'municipio'), $value);
-            $quickFacts[] = ['label' => $label];
-        }
-
-        if (!empty($this->postMeta->numberOfStudents)) {
-            $value        = absint($this->postMeta->numberOfStudents);
-            $label        = sprintf(__('Ca %d students', 'municipio'), $value);
-            $quickFacts[] = ['label' => $label];
-        }
-
-        if (!empty($this->postMeta->numberOfUnits)) {
-            $value        = absint($this->postMeta->numberOfUnits);
-            $label        = sprintf(__('%d units', 'municipio'), $value);
-            $quickFacts[] = ['label' => $label];
-        }
-
-        if (!empty($this->postMeta->area) && taxonomy_exists(self::AREA_TAXONOMY)) {
-            $areaTerms = wp_get_post_terms($this->data['post']->id, self::AREA_TAXONOMY);
-
-            if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
-                $quickFacts[] = ['label' => $areaTerms[0]->name];
-            }
-        }
-
-        if (!empty($this->postMeta->numberOfProfiles)) {
-            $value        = absint($this->postMeta->numberOfProfiles);
-            $label        = sprintf(__('%s profiles', 'municipio'), $value);
-            $quickFacts[] = ['label' => $label];
-        }
-
-        if (isset($this->postMeta->openHours) && !empty($this->postMeta->openHours)) {
-            $timezone = new \DateTimeZone('GMT');
-
-            $open  = wp_date('H:i', strtotime($this->postMeta->openHours->open), $timezone);
-            $close = wp_date('H:i', strtotime($this->postMeta->openHours->close), $timezone);
-
-            if (!empty($open) && !empty($close)) {
-                $timeString   = "$open - $close";
-                $label        = sprintf(__('Opening hours: %s', 'municipio'), $timeString);
-                $quickFacts[] = ['label' => $label];
-            }
-        }
-
-        if (isset($this->postMeta->openHoursLeisureCenter) && !empty($this->postMeta->openHoursLeisureCenter)) {
-            $timezone = new \DateTimeZone('GMT');
-
-            $open  = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->open), $timezone);
-            $close = wp_date('H:i', strtotime($this->postMeta->openHoursLeisureCenter->close), $timezone);
-
-            if (!empty($open) && !empty($close)) {
-                $timeString = "$open - $close";
-                $label      = sprintf(__('Leisure center: %s', 'municipio'), $timeString);
-            } else {
-                $label = __('Leisure center', 'municipio');
-            }
-
-            $quickFacts[] = ['label' => $label];
-        }
-
-        if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
-            // Get usp taxonomy terms
-            $uspTerms = wp_get_post_terms($this->data['post']->id, self::USP_TAXONOMY);
-
-            // quickFacts may only contain 9 items totally. Append the appropriate amount of uspTerms to quickfacts.
-            $uspTerms   = array_slice($uspTerms, 0, 9 - sizeof($quickFacts));
-            $quickFacts = array_merge($quickFacts, array_map(function ($uspTerm) {
-                return ['label' => $uspTerm->name];
-            }, $uspTerms));
-        }
+        $this->appendGradeTerms($quickFacts);
+        $this->appendNumericFacts($quickFacts, 'numberOfChildren', __('Ca %d children', 'municipio'));
+        $this->appendNumericFacts($quickFacts, 'numberOfStudents', __('Ca %d students', 'municipio'));
+        $this->appendNumericFacts($quickFacts, 'numberOfUnits', __('%d units', 'municipio'));
+        $this->appendAreaTerms($quickFacts);
+        $this->appendNumericFacts($quickFacts, 'numberOfProfiles', __('%s profiles', 'municipio'));
+        $this->appendOpenHours($quickFacts, 'openHours', __('Opening hours: %s', 'municipio'));
+        $this->appendOpenHours($quickFacts, 'openHoursLeisureCenter', __('Leisure center: %s', 'municipio'));
+        $this->appendUspTerms($quickFacts);
 
         // Split quickFacts into 3 columns
-        $numberOfColumns = ceil(sizeof($quickFacts) / 3);
-        if ($numberOfColumns > 0) {
-            $quickFacts = array_chunk($quickFacts, $numberOfColumns);
-        }
+        $this->splitIntoColumns($quickFacts);
 
         if (!empty($quickFacts)) {
             $this->data['quickFactsTitle'] = __('Quick facts', 'municipio');
             $this->data['quickFacts']      = $quickFacts;
+        } else {
+            $this->data['quickFacts'] = false;
         }
     }
+
+    /**
+     * Appends grade terms to the given quick facts array.
+     *
+     * @param array $quickFacts The quick facts array to append grade terms to.
+     * @return void
+     */
+    private function appendGradeTerms(&$quickFacts)
+    {
+        if (!empty($this->postMeta->grades) && taxonomy_exists(self::GRADE_TAXONOMY)) {
+            $gradeTerms = wp_get_post_terms($this->data['post']->id, self::GRADE_TAXONOMY);
+            if (!empty($gradeTerms) && !is_wp_error($gradeTerms)) {
+                $quickFacts[] = ['label' => $gradeTerms[0]->name];
+            }
+        }
+    }
+
+    /**
+     * Appends numeric facts to the given quick facts array.
+     *
+     * @param array $quickFacts The array to append the facts to.
+     * @param string $metaKey The meta key to retrieve the numeric value from.
+     * @param string $labelFormat The format string for the label of the fact.
+     * @return void
+     */
+    private function appendNumericFacts(&$quickFacts, $metaKey, $labelFormat)
+    {
+        if (!empty($this->postMeta->$metaKey)) {
+            $value = absint($this->postMeta->$metaKey);
+            $label = sprintf($labelFormat, $value);
+            $quickFacts[] = ['label' => $label];
+        }
+    }
+
+    /**
+     * Appends area terms to the given $quickFacts array.
+     *
+     * @param array $quickFacts The array to which the area terms will be appended.
+     * @return void
+     */
+    private function appendAreaTerms(&$quickFacts)
+    {
+        if (!empty($this->postMeta->area) && taxonomy_exists(self::AREA_TAXONOMY)) {
+            $areaTerms = wp_get_post_terms($this->data['post']->id, self::AREA_TAXONOMY);
+            if (!empty($areaTerms) && !is_wp_error($areaTerms)) {
+                $quickFacts[] = ['label' => $areaTerms[0]->name];
+            }
+        }
+    }
+
+    /**
+     * Appends open hours to the quick facts array.
+     *
+     * This method takes the quick facts array, the open hours key, and the label format as parameters.
+     * It appends the open hours to the quick facts array using the provided open hours key and label format.
+     *
+     * @param array $quickFacts The quick facts array to append the open hours to.
+     * @param string $openHoursKey The key to use for the open hours in the quick facts array.
+     * @param string $labelFormat The format to use for the label of the open hours in the quick facts array.
+     * @return void
+     */
+    private function appendOpenHours(&$quickFacts, $openHoursKey, $labelFormat)
+    {
+        if (isset($this->postMeta->$openHoursKey) && !empty($this->postMeta->$openHoursKey)) {
+            $timezone = new \DateTimeZone('GMT');
+            $open  = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->open), $timezone);
+            $close = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->close), $timezone);
+
+            if (!empty($open) && !empty($close)) {
+                $timeString = "$open - $close";
+                $label = sprintf($labelFormat, $timeString);
+            } else {
+                $label = __('Leisure center', 'municipio'); // Adjust based on the context
+            }
+
+            $quickFacts[] = ['label' => $label];
+        }
+    }
+
+    /**
+     * Appends USP terms to the given quick facts array.
+     *
+     * @param array $quickFacts The array of quick facts to append USP terms to.
+     * @return void
+     */
+    private function appendUspTerms(&$quickFacts)
+    {
+        if (!empty($this->postMeta->usp) && taxonomy_exists(self::USP_TAXONOMY)) {
+            $uspTerms = wp_get_post_terms(
+                $this->data['post']->id,
+                self::USP_TAXONOMY,
+                [
+                    'orderby' => 'include',
+                    'include' => $this->postMeta->usp
+                ]
+            );
+            if(!empty($uspTerms) && !is_wp_error($uspTerms)) {
+                $uspTerms = array_slice($uspTerms, 0, 9 - count($quickFacts));
+                foreach ($uspTerms as $uspTerm) {
+                    $quickFacts[] = ['label' => $uspTerm->name];
+                }
+            }
+        }
+    }
+
+    /**
+     * Splits the given array of quick facts into columns.
+     *
+     * @param array $quickFacts The array of quick facts to be split into columns.
+     * @return void
+     */
+    private function splitIntoColumns(&$quickFacts)
+    {
+        $numberOfColumns = ceil(count($quickFacts) / 3);
+        if ($numberOfColumns > 0) {
+            $quickFacts = array_chunk($quickFacts, $numberOfColumns);
+        }
+    }
+
 
     /**
      * Appends data for the "Visit Us" section.
@@ -304,98 +353,123 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         $this->data['application'] = [];
 
+        // Using null-coalescing operator to simplify the assignment
+        $this->data['application']['displayOnWebsite'] =
+            !empty($this->postMeta->ctaApplication->display_on_website) ? (bool) $this->postMeta->ctaApplication->display_on_website : true;
 
-        $this->data['application']['displayOnWebsite'] = true;
-        if (
-            false === $this->postMeta->ctaApplication->display_on_website ||
-            0 === $this->postMeta->ctaApplication->display_on_website
-        ) {
-            $this->data['application']['displayOnWebsite'] = false;
-        }
+        $this->data['application']['title'] = !empty($this->postMeta->ctaApplication->title) ? $this->postMeta->ctaApplication->title : $this->getApplicationCtaTitle(get_queried_object());
 
-        $this->data['application']['title']       = $this->postMeta->ctaApplication->title ?: sprintf(
-            __('Do you want to apply to %s?', 'municipio'),
-            get_queried_object()->post_title
-        );
-        $this->data['application']['description'] = $this->postMeta->ctaApplication->description ?: '';
+        $this->data['application']['description'] = !empty($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
+
         $this->data['application']['apply']       = null;
         $this->data['application']['howToApply']  = null;
 
         if (
-            isset($this->postMeta->ctaApplication->cta_apply_here->url) &&
             !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
-            isset($this->postMeta->ctaApplication->cta_apply_here->title) &&
             !empty($this->postMeta->ctaApplication->cta_apply_here->title)
         ) {
             $this->data['application']['apply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-                'url'  => $this->postMeta->ctaApplication->cta_apply_here->url
+                'url' => $this->postMeta->ctaApplication->cta_apply_here->url,
             ];
         }
 
         if (
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
             !empty($this->postMeta->ctaApplication->cta_how_to_apply->url) &&
-            isset($this->postMeta->ctaApplication->cta_how_to_apply->title) &&
             !empty($this->postMeta->ctaApplication->cta_how_to_apply->title)
         ) {
             $this->data['application']['howToApply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-                'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url
+                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url,
             ];
         }
-    }
 
+    }
+    /**
+     * Retrieves the application title based on the post type or a default value.
+     *
+     * @param \WP_Post|null $post The post object.
+     * @return string The application title or the default value.
+     */
+    private function getApplicationCtaTitle($post): string
+    {
+        if ($post instanceof \WP_Post) {
+            if ($post->post_type === 'pre-school') {
+                // Code for 'pre-school' post type
+                return sprintf(_x(
+                    'Do you want to join %s?',
+                    'Shown on pre-schools',
+                    'municipio'
+                ), $post->post_title);
+            } else {
+                // Code for other post types
+                return sprintf(__('Do you want to apply to %s?', 'municipio'), $post->post_title);
+            }
+        }
+
+		return __('Do you want to apply?', 'municipio');
+    }
     /**
      * Appends data for the accordion section.
      */
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information        = $this->postMeta->information;
+        $information = $this->postMeta->information ?? new stdClass(); // Ensure $information is an object
 
-        if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('About the school', 'municipio'),
-                $information->about_us
-            );
-        }
+        // Consolidated adding of accordion items with checks for existence
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->how_we_work ?? null,
+            __('About the school', 'municipio'),
+            $information->about_us ?? null
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->how_we_work ?? null,
+            __('How we work', 'municipio'),
+            $information->how_we_work ?? null
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->orientation ?? null,
+            __('Orientation', 'municipio'),
+            $information->orientation ?? null
+        );
+        $this->addAccordionItemIfExists(
+            $accordionListItems,
+            $information->our_leisure_center ?? null,
+            __('Our leisure center', 'municipio'),
+            $information->our_leisure_center ?? null
+        );
 
-        if (isset($information->how_we_work) && !empty($information->how_we_work)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('How we work', 'municipio'),
-                $information->how_we_work
-            );
-        }
-
-        if (isset($information->orientation) && !empty($information->orientation)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('Orientation', 'municipio'),
-                $information->orientation
-            );
-        }
-
-        if (isset($information->our_leisure_center) && !empty($information->our_leisure_center)) {
-            $accordionListItems[] = $this->getAccordionListItem(
-                __('Our leisure center', 'municipio'),
-                $information->our_leisure_center
-            );
-        }
-
-        if (isset($information->optional) && !empty($information->optional)) {
+        // Process optional information if it exists and is not empty
+        if (!empty($information->optional)) {
             foreach ($information->optional as $optional) {
-                if (empty($optional->heading) && empty($optional->content)) {
-                    continue;
+                // Ensure optional item has both heading and content
+                if (isset($optional->heading) && isset($optional->content)) {
+                    $this->addAccordionItemIfExists($accordionListItems, $optional, $optional->heading, $optional->content);
                 }
-
-                $accordionListItems[] = $this->getAccordionListItem(
-                    $optional->heading,
-                    $optional->content
-                );
             }
         }
 
         $this->data['accordionListItems'] = $accordionListItems;
+    }
+
+
+    /**
+     * Adds an accordion item to the list if the given property exists and is not empty.
+     *
+     * @param array &$accordionListItems The array of accordion list items.
+     * @param mixed $property The property to check for existence and non-emptiness.
+     * @param string $heading The heading for the accordion item.
+     * @param string $content The content for the accordion item.
+     */
+    private function addAccordionItemIfExists(&$accordionListItems, $property, string $heading, string $content): void
+    {
+        if (isset($property) && !empty($property)) {
+            $accordionListItems[] = $this->getAccordionListItem($heading, $content);
+        }
     }
 
     /**
@@ -409,7 +483,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         return [
             'heading' => $heading ?? '',
-            'content' => wpautop($text ?? '')
+            'content' => wpautop($text ?? ''),
+            'anchor'  => sanitize_title($heading),
         ];
     }
 
@@ -425,14 +500,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
             return;
         }
 
-        $visitingData = array_map(fn($visitingAddress) => $visitingAddress->address, $visitingAddresses);
+        $visitingData = array_map(
+            fn($visitingAddress) => $visitingAddress->address, $visitingAddresses
+        );
         $visitingData = array_map(function ($address) use (&$mapPins, $visitingAddresses) {
             $mapsUrl       = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
             $street        = $address->address->street_name ?? '';
             $streetNumber  = $address->address->street_number ?? '';
             $postCode      = $address->address->post_code ?? '';
             $city          = $address->address->city ?? '';
-            $lineBreak     = sizeof($visitingAddresses) > 1 ? ',<br>' : ',';
+            $lineBreak     = sizeof($visitingAddresses) > 1 ? ', <br>' : ', ';
             $addressString = $street . ' ' . $streetNumber . $lineBreak . $postCode . ' ' . $city;
             $mapPinTooltip = [
                 'title'      => $this->data['post']->postTitle ?? null,
@@ -453,13 +530,16 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }, $visitingAddresses);
 
-        if (!empty($visitingData)) {
-            $this->data['visitingAddresses']               = $visitingData;
-            $this->data['visitingAddressMapPins']          = $mapPins;
-            $this->data['visitingAddressMapStartPosition'] = $this->getMapStartPosition($mapPins);
-            $this->data['visitingDataTitle']               = sizeof($visitingData) === 1
-                ? __('Visiting address', 'municipio')
-                : __('Visiting addresses', 'municipio');
+        $this->data['visitingAddresses'] = !empty($visitingData) ? $visitingData : false;
+        $this->data['visitingAddressMapPins'] = !empty($mapPins) ? $mapPins : false;
+
+        $this->data['visitingAddressMapStartPosition'] =
+        !empty($mapPins) ? $this->getMapStartPosition($mapPins) : false;
+
+        if (sizeof($visitingData) <= 1) {
+            $this->data['visitingDataTitle'] = __('Visiting address', 'municipio');
+        } else {
+            $this->data['visitingDataTitle'] = __('Visiting addresses', 'municipio');
         }
     }
 
@@ -471,8 +551,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
      */
     private function getMapStartPosition(array $mapPins): array
     {
-        $lats   = array_map(fn ($pin) => $pin['lat'], $mapPins);
-        $lngs   = array_map(fn ($pin) => $pin['lng'], $mapPins);
+        $lats   = array_map(fn ($pin) => (float) $pin['lat'], $mapPins);
+        $lngs   = array_map(fn ($pin) => (float) $pin['lng'], $mapPins);
         $maxLat = max($lats);
         $minLat = min($lats);
         $maxLng = max($lngs);
@@ -610,7 +690,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
             'layout'         => 'bottom',
             'containerColor' => 'transparent',
             'textColor'      => 'white',
-            'heroStyle'      => true
+            'heroStyle'      => true,
+            'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
         $sliderItem['text']          = $attachment['caption'];

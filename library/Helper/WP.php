@@ -77,6 +77,34 @@ class WP
 
         return $fieldValue;
     }
+    /**
+     * Get all custom fields for a given post using ACF get_field()
+     *  with a fallback to standard WordPress get_post_meta().
+     *
+     * @param int $postId The ID of the post to get the custom fields from.
+     * @return array An associative array of custom field values indexed by their field names.
+     */
+    public static function getFields(int $postId = 0)
+    {
+        $fields = [];
+        $meta   = get_post_meta($postId);
+
+        if(!is_array($meta) || empty($meta)) {
+            return $fields;
+        }
+
+        foreach ($meta as $key => $value) {
+            if (!empty($value) && is_array($value)) {
+                foreach ($value as $_value) {
+                    $fields[$key] = maybe_unserialize($_value);
+                }
+            } else {
+                $fields[$key] = $value;
+            }
+        }
+
+        return $fields;
+    }
 
     /**
      * Get the meta value for a specific key from a post.
@@ -265,10 +293,9 @@ class WP
      * to the remote resource where it can be found.
      *
      * @param int $id The attachment id.
-     * @param string $postType The post type of the attachment.
      * @return int The remote attachment id.
      */
-    public static function getRemoteAttachmentId(int $id, string $postType): int
+    public static function getRemoteAttachmentId(int $id): int
     {
 
         if (ResourceFromApiHelper::isRemotePostID($id)) {
@@ -367,5 +394,45 @@ class WP
         }
 
         return wp_get_attachment_caption($postId);
+    }
+
+    /**
+     * Get the current post type.
+     *
+     * @return string|null The current post type or null if not found.
+     */
+    public static function getCurrentPostType()
+    {
+        global $post, $typenow, $current_screen;
+
+        $postType = null;
+
+        // Check the global $typenow - set in admin.php
+        if ($typenow) {
+            $postType = $typenow;
+        }
+
+        // Check the global $post variable - set when editing a post
+        if (\is_a($post, 'WP_Post') && !empty($post->post_type)) {
+            $postType = $post->post_type;
+        }
+
+        // Check the query string - set when creating a new post
+        if (isset($_REQUEST['post_type'])) {
+            $postType = sanitize_text_field($_REQUEST['post_type']);
+        }
+
+        // Lastly check the post_type in the edit page's query string
+        if (isset($_REQUEST['post'])) {
+            $postId = intval($_REQUEST['post']);
+            $postType = get_post_type($postId);
+        }
+
+        // Check the current screen object - set in screen settings
+        if (\is_a($current_screen, 'WP_Screen') && !empty($current_screen->post_type)) {
+            $postType = $current_screen->post_type;
+        }
+
+        return $postType;
     }
 }

@@ -10,8 +10,6 @@ use Throwable;
  */
 class Enqueue
 {
-    private $scriptsExcludedFromDefer = ['wp-i18n'];
-
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -40,9 +38,6 @@ class Enqueue
 
         //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
-
-        //Enable defered loading
-        add_filter('script_loader_tag', array($this, 'deferedLoadingJavascript'), 10, 2);
 
         //Remove jqmigrate (creates console log error)
         add_action('wp_default_scripts', function ($scripts) {
@@ -100,14 +95,27 @@ class Enqueue
     {
         //Download and use material icons
         $this->getMaterialIcons(null); //Create self handle
+
+        wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
+        wp_enqueue_style('acf-css');
     }
-    public function adminScripts() : void {
+
+     /**
+     * Enqueue admin script
+     * @return void
+     */
+    public function adminScripts(): void
+    {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
             wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
         }
     }
 
+     /**
+     * Enqueue gutenberg style
+     * @return void
+     */
     public function gutenbergStyle()
     {
         // Load styleguide css
@@ -151,9 +159,9 @@ class Enqueue
             'printbreak' => array(
                 'tooltip' => __('Insert Print Page Break tag', 'municipio')
             ),
-            'messages' => array(
+            'messages'   => array(
                 'deleteComment' => __('Are you sure you want to delete the comment?', 'municipio'),
-                'onError' => __('Something went wrong, please try again later', 'municipio'),
+                'onError'       => __('Something went wrong, please try again later', 'municipio'),
             )
         ));
 
@@ -216,7 +224,7 @@ class Enqueue
     public function moveScriptsToFooter()
     {
         global $wp_scripts;
-        $notInFooter = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
+        $notInFooter           = array_diff($wp_scripts->queue, $wp_scripts->in_footer);
         $wp_scripts->in_footer = array_merge($wp_scripts->in_footer, $notInFooter);
     }
 
@@ -230,7 +238,7 @@ class Enqueue
     public function removeScriptVersion($src)
     {
         $siteUrlComponents = parse_url(get_site_url());
-        $urlComponents = parse_url($src);
+        $urlComponents     = parse_url($src);
 
         // Check if the URL is internal or external
         if (
@@ -244,60 +252,6 @@ class Enqueue
         } else {
             return $src;
         }
-    }
-
-    /**
-     * Making deffered loading of scripts a posibillity (removes unwanted renderblocking js)
-     *
-     * @param string $tag    HTML Script tag
-     * @param string $handle Script handle
-     *
-     * @return string         The script tag
-     */
-    public function deferedLoadingJavascript($tag, $handle)
-    {
-        if (in_array($handle, $this->getAllScriptsToBeExcludedFromDefer())) {
-            return $tag;
-        }
-
-        if (is_admin()) {
-            return $tag;
-        }
-
-        if (isset($_GET['preview']) && $_GET['preview'] == 'true') {
-            return $tag;
-        }
-
-        global $wp_customize;
-        if (isset($wp_customize)) {
-            add_filter('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', function ($handles) {
-                $handles[] = 'webfont-loader';
-                return $handles;
-            }, 10, 3);
-        }
-
-        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', ['readspeaker', 'jquery-core', 'jquery-migrate'], $handle);
-        $disableDeferedLoading = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
-
-        if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
-            return $tag;
-        }
-
-        return str_replace(' src', ' defer="defer" src', $tag);
-    }
-
-    private function getAllScriptsToBeExcludedFromDefer(): array
-    {
-        $excluded = $this->scriptsExcludedFromDefer;
-        foreach ($excluded as $script) {
-            try {
-                $excluded = array_merge($excluded, $this->getScriptDependencies($script));
-            } catch (\Exception $e) {
-                // Do nothing
-            }
-        }
-
-        return $excluded;
     }
 
     /**

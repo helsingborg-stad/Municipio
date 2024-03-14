@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-16 07:21+0000\n"
+"POT-Creation-Date: 2024-03-11 11:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -21,20 +21,21 @@ msgstr ""
 msgid "#FFFFFF"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:181
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:195
 msgid "%d units"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:199
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:197
 #, php-format
 msgid "%s profiles"
 msgstr ""
 
-#: library/Helper/ContentType.php:224
+#: library/Helper/ContentType.php:266
 #, php-format
 msgid ""
-"%s tried to add %s as a secondary content type. Complex content types cannot "
-"add other complex content types."
+"%s tried to add %s as a secondary content type.\\n\\n\n"
+"                    Complex content types cannot add other complex content "
+"types."
 msgstr ""
 
 #: library/Theme/Navigation.php:112
@@ -45,7 +46,7 @@ msgstr ""
 msgid "(sidebar)"
 msgstr ""
 
-#: library/Helper/ReadingTime.php:28
+#: library/Helper/ReadingTime.php:33
 msgid "1 minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
@@ -14968,7 +14969,7 @@ msgstr ""
 msgid "@"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:64
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:74
 msgid "A block that lets you create and edit articles"
 msgstr ""
 
@@ -14978,12 +14979,12 @@ msgid ""
 "Modularity Plugin."
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:32
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:48
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:40
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:57
 msgid "A button block"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:95
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:107
 msgid "A container block"
 msgstr ""
 
@@ -15001,16 +15002,11 @@ msgid ""
 "themself"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:79
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:90
 msgid "A margin block"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:245
-#: library/AcfFields/php/resource-fields.php:779
-msgid "A short descriptive summary of what the post type is."
-msgstr ""
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:325
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:428
 msgid "About the school"
 msgstr ""
 
@@ -15027,16 +15023,16 @@ msgid "ac_unit"
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:159
-#: library/Customizer/Sections/Module/LocalEvent.php:19
-#: library/Customizer/Sections/Module/Video.php:21
-#: library/Customizer/Sections/Module/Map.php:21
-#: library/Customizer/Sections/Module/Posts.php:19
-#: library/Customizer/Sections/Module/Posts.php:40
-#: library/Customizer/Sections/Module/Posts.php:61
-#: library/Customizer/Sections/Module/Inlay.php:19
-#: library/Customizer/Sections/Module/Text.php:19
-#: library/Customizer/Sections/Module/Script.php:21
 #: library/Customizer/Sections/Module/Contacts.php:38
+#: library/Customizer/Sections/Module/Text.php:19
+#: library/Customizer/Sections/Module/Posts.php:19
+#: library/Customizer/Sections/Module/Posts.php:42
+#: library/Customizer/Sections/Module/Posts.php:66
+#: library/Customizer/Sections/Module/Video.php:21
+#: library/Customizer/Sections/Module/LocalEvent.php:19
+#: library/Customizer/Sections/Module/Inlay.php:19
+#: library/Customizer/Sections/Module/Script.php:21
+#: library/Customizer/Sections/Module/Map.php:21
 msgid "Accented"
 msgstr ""
 
@@ -15171,8 +15167,8 @@ msgstr ""
 msgid "Add post type"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:222
 #: library/AcfFields/php/options-api-resources-apis.php:30
+#: library/AcfFields/php/block-container.php:222
 msgid "Add Row"
 msgstr ""
 
@@ -15233,6 +15229,7 @@ msgid "add_to_queue"
 msgstr ""
 
 #: library/AcfFields/php/widget-contact.php:100
+#: library/Controller/ContentType/Simple/Place.php:45
 msgid "Address"
 msgstr ""
 
@@ -15252,7 +15249,7 @@ msgid ""
 "the page. This option should not be used in combination with a sticky header."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:219
+#: library/Customizer/PanelsRegistry.php:291
 msgid ""
 "Adjust the roundness of corners on the site overall. The sizes are applied "
 "where they are suitable, additional component adjustments can be made under "
@@ -15275,7 +15272,7 @@ msgstr ""
 msgid "After first block"
 msgstr ""
 
-#: library/Controller/BaseController.php:236
+#: library/Helper/TranslatedLabels.php:25
 msgid "ago"
 msgstr ""
 
@@ -15331,6 +15328,10 @@ msgstr ""
 msgid "airport_shuttle"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:321
+msgid "Aktiverar posttypsarkiv."
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:67
 msgid "alarm"
 msgstr ""
@@ -15357,8 +15358,8 @@ msgid "All %s"
 msgstr ""
 
 #: library/Controller/Search.php:13
-#: library/AcfFields/php/options-activate-gutenberg.php:25
 #: library/Customizer/Sections/Quicklinks.php:207
+#: library/AcfFields/php/options-activate-gutenberg.php:25
 msgid "All pages"
 msgstr ""
 
@@ -15376,6 +15377,11 @@ msgstr ""
 
 #: library/Customizer/Sections/Colors.php:306
 msgid "Alpha colors"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:551
+#: library/AcfFields/php/resource-fields.php:1022
+msgid "Alternativ för url-omskrivning"
 msgstr ""
 
 #: library/Customizer/Sections/Shadow.php:33
@@ -15434,15 +15440,11 @@ msgstr ""
 msgid "apartment"
 msgstr ""
 
-#: library/Content/ResourceFromApi/ResourcePostType.php:31
+#: library/Content/ResourceFromApi/ResourcePostType.php:48
 msgid "API Resource"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:8
-msgid "Api Resource fields"
-msgstr ""
-
-#: library/Content/ResourceFromApi/ResourcePostType.php:29
+#: library/Content/ResourceFromApi/ResourcePostType.php:46
 msgid "API Resources"
 msgstr ""
 
@@ -15461,13 +15463,17 @@ msgstr ""
 msgid "API Source URL"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:8
+msgid "Api-resursfält"
+msgstr ""
+
 #: library/AcfFields/php/options-api-resources-apis.php:12
 msgid "Api:s"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:16
 #: library/Customizer/Sections/Quicklinks.php:16
 #: library/Customizer/Sections/Field.php:15
-#: library/Customizer/Sections/MegaMenu.php:16
 msgid "Appearance"
 msgstr ""
 
@@ -15500,7 +15506,7 @@ msgstr ""
 msgid "archive"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:104
+#: library/Customizer/PanelsRegistry.php:174
 msgid "Archive Apperance"
 msgstr ""
 
@@ -15512,7 +15518,7 @@ msgstr ""
 msgid "Archive lead text"
 msgstr ""
 
-#: library/Controller/BaseController.php:294
+#: library/Helper/TranslatedLabels.php:81
 msgid "Archive navigation"
 msgstr ""
 
@@ -15520,16 +15526,12 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: library/Theme/Enqueue.php:147
+#: library/Theme/Enqueue.php:168
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: library/AcfFields/php/content-type-place.php:16
-msgid "Area or street address of the location."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:125
-msgid "area: https://skolor.helsingborg.io/wp-json/wp/v2/area"
+#: library/AcfFields/php/resource-fields.php:664
+msgid "Argument för taxonomi"
 msgstr ""
 
 #: library/Theme/Icon.php:80 library/Theme/Icon.php:82
@@ -15688,7 +15690,7 @@ msgstr ""
 msgid "attach_money"
 msgstr ""
 
-#: library/Theme/Icon.php:130 library/AcfFields/php/resource-fields.php:27
+#: library/Theme/Icon.php:130
 msgid "Attachment"
 msgstr ""
 
@@ -15697,19 +15699,15 @@ msgstr ""
 msgid "attachment"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:80
-msgid "attachment: https://api.helsingborg.se/event/json/wp/v2/media"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:71
-msgid "attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media"
+#: library/AcfFields/php/resource-fields.php:1135
+msgid "Attachment arguments"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:108
 msgid "audiotrack"
 msgstr ""
 
-#: library/Controller/Singular.php:307
+#: library/Controller/Singular.php:338
 #: library/AcfFields/php/options-theme-author.php:8
 msgid "Author"
 msgstr ""
@@ -15746,11 +15744,11 @@ msgstr ""
 msgid "Available post types"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:45
-#: library/Customizer/Sections/FooterSub.php:18
 #: library/Customizer/Sections/MegaMenu.php:37
+#: library/Customizer/Sections/FooterSub.php:18
 #: library/Customizer/Sections/Colors.php:111
 #: library/Customizer/Sections/Colors.php:141
+#: library/Customizer/Sections/Siteselector.php:45
 msgid "Background"
 msgstr ""
 
@@ -15767,13 +15765,13 @@ msgstr ""
 msgid "Background card - Hover"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:112
 #: library/Customizer/Sections/Card.php:29
-#: library/Customizer/Sections/Divider.php:196
 #: library/Customizer/Sections/Quicklinks.php:42
+#: library/Customizer/Sections/Collection.php:29
 #: library/Customizer/Sections/Field.php:65
 #: library/Customizer/Sections/Header.php:108
-#: library/Customizer/Sections/Collection.php:29
+#: library/Customizer/Sections/Divider.php:196
+#: library/AcfFields/php/block-container.php:112
 msgid "Background color"
 msgstr ""
 
@@ -15826,7 +15824,6 @@ msgid "bar_chart"
 msgstr ""
 
 #: library/Customizer/Sections/SliderHero.php:108
-#: library/Customizer/Sections/Typography.php:31
 #: library/Customizer/Sections/Colors.php:22
 #: library/Customizer/Sections/Colors.php:66
 #: library/Customizer/Sections/Colors.php:171
@@ -15835,6 +15832,7 @@ msgstr ""
 #: library/Customizer/Sections/Colors.php:387
 #: library/Customizer/Sections/Colors.php:431
 #: library/Customizer/Sections/Colors.php:475
+#: library/Customizer/Sections/Typography.php:31
 msgid "Base"
 msgstr ""
 
@@ -15843,11 +15841,11 @@ msgstr ""
 msgid "Base Contrasting"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:157
-#: library/AcfFields/php/block-button.php:96
 #: library/Customizer/Sections/FooterMain.php:20
 #: library/Customizer/Sections/Header.php:232
 #: library/Customizer/Sections/Header.php:266
+#: library/AcfFields/php/block-button.php:96
+#: library/AcfFields/php/block-container.php:157
 msgid "Basic"
 msgstr ""
 
@@ -15939,8 +15937,17 @@ msgstr ""
 msgid "Below Users"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:236
+#: library/AcfFields/php/resource-fields.php:778
+msgid "Beskrivning"
+msgstr ""
+
 #: library/Admin/UI/BackEnd.php:31
 msgid "Beta"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:27
+msgid "Bifoga"
 msgstr ""
 
 #: library/Theme/Icon.php:131
@@ -16000,8 +16007,8 @@ msgstr ""
 msgid "blur_on"
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:133
 #: library/Customizer/Sections/MegaMenu.php:79
+#: library/Customizer/Sections/Quicklinks.php:133
 msgid "Body"
 msgstr ""
 
@@ -16017,7 +16024,7 @@ msgstr ""
 msgid "book"
 msgstr ""
 
-#: library/Controller/BaseController.php:270
+#: library/Helper/TranslatedLabels.php:59
 msgid "Book here"
 msgstr ""
 
@@ -16038,8 +16045,8 @@ msgstr ""
 msgid "Border"
 msgstr ""
 
-#: library/Customizer/Sections/Divider.php:197
 #: library/Customizer/Sections/Field.php:66
+#: library/Customizer/Sections/Divider.php:197
 msgid "Border color"
 msgstr ""
 
@@ -16105,12 +16112,12 @@ msgstr ""
 msgid "border_vertical"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:213
+#: library/Customizer/PanelsRegistry.php:285
 msgid "Borders"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:124
 #: library/Customizer/Sections/Hero.php:71
+#: library/Customizer/Sections/Search.php:124
 msgid "Bottom"
 msgstr ""
 
@@ -16210,15 +16217,15 @@ msgstr ""
 msgid "business_center"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:105
+#: library/Customizer/Sections/Borders.php:99
 #: library/AcfFields/php/options-theme-editor-formats.php:39
 #: library/AcfFields/php/options-menu-style.php:25
-#: library/Customizer/Sections/Borders.php:99
-#: library/Customizer/Sections/MegaMenu.php:105
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:31
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:39
 msgid "Button"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:47
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:56
 msgid "Button (Inner)"
 msgstr ""
 
@@ -16258,7 +16265,7 @@ msgstr ""
 msgid "Button: Third color"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:268
+#: library/Customizer/PanelsRegistry.php:340
 msgid "Buttons"
 msgstr ""
 
@@ -16266,11 +16273,11 @@ msgstr ""
 msgid "Byline"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:169
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:193
 msgid "Ca %d children"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:175
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:194
 msgid "Ca %d students"
 msgstr ""
 
@@ -16375,11 +16382,6 @@ msgstr ""
 msgid "cancel_schedule_send"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:507
-#: library/AcfFields/php/resource-fields.php:992
-msgid "Capabilities"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Capitalize"
 msgstr ""
@@ -16443,20 +16445,12 @@ msgstr ""
 msgid "category"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:128
-msgid "category: https://api.helsingborg.se/event/json/wp/v2/categories"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:122
-msgid "category: https://skolor.helsingborg.io/wp-json/wp/v2/categories"
-msgstr ""
-
-#: library/Customizer/Sections/Divider.php:138
 #: library/Customizer/Sections/FooterSub.php:162
+#: library/Customizer/Sections/Header.php:37
 #: library/Customizer/Sections/Hero.php:44
 #: library/Customizer/Sections/Hero.php:70
 #: library/Customizer/Sections/Hero.php:96
-#: library/Customizer/Sections/Header.php:37
+#: library/Customizer/Sections/Divider.php:138
 msgid "Center"
 msgstr ""
 
@@ -16540,6 +16534,12 @@ msgstr ""
 msgid "Checked"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:161
+msgid ""
+"Checked post types will not use the PDF generator and will use the built in "
+"print function instead."
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:208
 msgid "chevron_left"
 msgstr ""
@@ -16578,11 +16578,11 @@ msgstr ""
 msgid "Choose a font color for the collection component."
 msgstr ""
 
-#: library/Controller/BaseController.php:287
+#: library/Helper/TranslatedLabels.php:74
 msgid "Choose a from date"
 msgstr ""
 
-#: library/Controller/BaseController.php:288
+#: library/Helper/TranslatedLabels.php:75
 msgid "Choose a to date"
 msgstr ""
 
@@ -16594,12 +16594,21 @@ msgstr ""
 msgid "Choose animation type"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:440
+msgid "Choose another frontpage"
+msgstr ""
+
 #: library/AcfFields/php/brand-widget.php:39
 msgid "Choose the max width of the logo."
 msgstr ""
 
 #: library/Customizer/Sections/Button.php:118
 msgid "Choose the shape of the buttons."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:1169
+msgid ""
+"Choose which post types that should use this source for their attachments."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:212
@@ -16610,7 +16619,7 @@ msgstr ""
 msgid "class"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:63
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:73
 msgid "Classic"
 msgstr ""
 
@@ -16627,7 +16636,7 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
-#: library/Controller/BaseController.php:261
+#: library/Helper/TranslatedLabels.php:50
 msgid "Close"
 msgstr ""
 
@@ -16675,8 +16684,8 @@ msgstr ""
 msgid "code"
 msgstr ""
 
-#: library/Customizer/Sections/Collection.php:16
 #: library/Customizer/Sections/Archive.php:51
+#: library/Customizer/Sections/Collection.php:16
 msgid "Collection"
 msgstr ""
 
@@ -16692,10 +16701,10 @@ msgstr ""
 msgid "collections_bookmark"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:227
-#: library/AcfFields/php/block-button.php:53
 #: library/Customizer/Sections/Card.php:99
 #: library/Customizer/Sections/Collection.php:99
+#: library/AcfFields/php/block-button.php:53
+#: library/AcfFields/php/block-container.php:227
 msgid "Color"
 msgstr ""
 
@@ -16727,9 +16736,9 @@ msgstr ""
 msgid "Color of the button"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:76
-#: library/Customizer/Sections/Quicklinks.php:154
 #: library/Customizer/Sections/MegaMenu.php:196
+#: library/Customizer/Sections/Quicklinks.php:154
+#: library/Customizer/Sections/Siteselector.php:76
 msgid "Color scheme"
 msgstr ""
 
@@ -16745,9 +16754,9 @@ msgstr ""
 msgid "colorize"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:196
-#: library/Customizer/Sections/Divider.php:59
+#: library/Customizer/PanelsRegistry.php:268
 #: library/Customizer/Sections/FooterSub.php:12
+#: library/Customizer/Sections/Divider.php:59
 msgid "Colors"
 msgstr ""
 
@@ -16765,8 +16774,8 @@ msgstr ""
 msgid "Column"
 msgstr ""
 
-#: library/AcfFields/php/options-customize-footer.php:69
 #: library/Customizer/Sections/FooterMain.php:21
+#: library/AcfFields/php/options-customize-footer.php:69
 msgid "Columns"
 msgstr ""
 
@@ -16810,7 +16819,7 @@ msgstr ""
 msgid "Complementary"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:244
+#: library/Customizer/PanelsRegistry.php:316
 msgid "Component Apperance"
 msgstr ""
 
@@ -16824,6 +16833,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:235
 msgid "computer"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:150
+msgid "Configure settings for different content types and their options."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:236
@@ -16846,7 +16859,7 @@ msgstr ""
 msgid "Contact person"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:147
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:181
 msgid "Contact us"
 msgstr ""
 
@@ -16866,7 +16879,7 @@ msgstr ""
 msgid "contactless"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:120
+#: library/Customizer/PanelsRegistry.php:192
 msgid "Contacts"
 msgstr ""
 
@@ -16874,7 +16887,7 @@ msgstr ""
 msgid "contacts"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:94
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:106
 msgid "Container"
 msgstr ""
 
@@ -16882,8 +16895,8 @@ msgstr ""
 msgid "Container Block"
 msgstr ""
 
-#: library/Customizer/Sections/SliderHero.php:43
 #: library/Customizer/Sections/SliderDefault.php:84
+#: library/Customizer/Sections/SliderHero.php:43
 msgid "Container colour"
 msgstr ""
 
@@ -16918,6 +16931,7 @@ msgstr ""
 msgid "Content horizontal alignment"
 msgstr ""
 
+#: library/Customizer/PanelsRegistry.php:128
 #: library/Admin/Options/ContentType.php:67
 msgid "Content Type"
 msgstr ""
@@ -16930,6 +16944,10 @@ msgstr ""
 #: library/Theme/Navigation.php:142
 #, php-format
 msgid "Content type - %s (sidebar)"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:149
+msgid "Content Type Settings"
 msgstr ""
 
 #: library/Admin/Options/ContentType.php:19
@@ -17002,7 +17020,12 @@ msgstr ""
 msgid "Could not verify that you are human."
 msgstr ""
 
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:192
+msgid "Country"
+msgstr ""
+
 #: library/Customizer/Sections/MegaMenu.php:229
+#: library/Api/Pdf/PdfGenerator.php:387
 msgid "Cover"
 msgstr ""
 
@@ -17083,17 +17106,18 @@ msgstr ""
 msgid "CSS input"
 msgstr ""
 
-#: library/Upgrade.php:780
+#: library/Upgrade.php:802
 msgid "Current database version must be a number."
 msgstr ""
 
 #: library/Customizer/Sections/FooterSub.php:57
+#: library/Api/Pdf/PdfGenerator.php:428
 msgid "Custom"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:23
 #: library/Customizer/Sections/Quicklinks.php:23
 #: library/Customizer/Sections/Field.php:22
-#: library/Customizer/Sections/MegaMenu.php:23
 msgid "Custom appearance"
 msgstr ""
 
@@ -17109,10 +17133,10 @@ msgstr ""
 msgid "Custom color"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:40
+#: library/Customizer/Sections/MegaMenu.php:30
 #: library/Customizer/Sections/Quicklinks.php:37
 #: library/Customizer/Sections/Field.php:60
-#: library/Customizer/Sections/MegaMenu.php:30
+#: library/Customizer/Sections/Siteselector.php:40
 msgid "Custom colors"
 msgstr ""
 
@@ -17176,7 +17200,6 @@ msgstr ""
 msgid "Danger colors"
 msgstr ""
 
-#: library/Customizer/Sections/OpenStreetMap.php:22
 #: library/Customizer/Sections/Colors.php:23
 #: library/Customizer/Sections/Colors.php:67
 #: library/Customizer/Sections/Colors.php:344
@@ -17184,6 +17207,7 @@ msgstr ""
 #: library/Customizer/Sections/Colors.php:432
 #: library/Customizer/Sections/Colors.php:476
 #: library/Customizer/Sections/Colors.php:566
+#: library/Customizer/Sections/OpenStreetMap.php:22
 msgid "Dark"
 msgstr ""
 
@@ -17200,8 +17224,8 @@ msgid "dashboard"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:117
-#: library/Customizer/Sections/Divider.php:40
 #: library/Customizer/Sections/Collection.php:117
+#: library/Customizer/Sections/Divider.php:40
 msgid "Dashed"
 msgstr ""
 
@@ -17209,7 +17233,7 @@ msgstr ""
 msgid "data_usage"
 msgstr ""
 
-#: library/Upgrade.php:785
+#: library/Upgrade.php:807
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 
@@ -17218,7 +17242,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:616
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:772
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr ""
@@ -17251,11 +17275,11 @@ msgstr ""
 msgid "date_range"
 msgstr ""
 
-#: library/Controller/BaseController.php:245
+#: library/Helper/TranslatedLabels.php:34
 msgid "day"
 msgstr ""
 
-#: library/Controller/BaseController.php:244
+#: library/Helper/TranslatedLabels.php:33
 #: library/AcfFields/php/options-theme-custom-post-type.php:388
 msgid "days"
 msgstr ""
@@ -17276,32 +17300,34 @@ msgstr ""
 msgid "Decrease"
 msgstr ""
 
-#: library/AcfFields/php/options-page-quicklinks-placement.php:25
-#: library/AcfFields/php/widget-header-links.php:360
-#: library/AcfFields/php/options-menu-style.php:24
-#: library/AcfFields/php/block-container.php:100
-#: library/AcfFields/php/block-button.php:67
-#: library/AcfFields/php/navigation-widget.php:352
-#: library/AcfFields/php/widget-header-menu.php:50
-#: library/Customizer/Sections/OpenStreetMap.php:20
-#: library/Customizer/Sections/Quicklinks.php:186
-#: library/Customizer/Sections/Quicklinks.php:239
-#: library/Customizer/Sections/Field.php:35
 #: library/Customizer/Sections/MegaMenu.php:104
 #: library/Customizer/Sections/MegaMenu.php:164
-#: library/Customizer/Sections/Search.php:143
-#: library/Customizer/Sections/Search.php:152
+#: library/Customizer/Sections/Quicklinks.php:186
+#: library/Customizer/Sections/Quicklinks.php:239
 #: library/Customizer/Sections/Width.php:15
+#: library/Customizer/Sections/Tags.php:18
+#: library/Customizer/Sections/Tags.php:44
+#: library/Customizer/Sections/Field.php:35
 #: library/Customizer/Sections/Header.php:91
 #: library/Customizer/Sections/Header.php:114
 #: library/Customizer/Sections/Header.php:135
 #: library/Customizer/Sections/Header.php:215
 #: library/Customizer/Sections/Header.php:249
-#: library/Customizer/Sections/Tags.php:18
-#: library/Customizer/Sections/Tags.php:44
+#: library/Customizer/Sections/Search.php:143
+#: library/Customizer/Sections/Search.php:152
+#: library/Customizer/Sections/OpenStreetMap.php:20
+#: library/Api/Pdf/PdfGenerator.php:328 library/Api/Pdf/PdfGenerator.php:426
+#: library/AcfFields/php/widget-header-menu.php:50
+#: library/AcfFields/php/options-page-quicklinks-placement.php:25
+#: library/AcfFields/php/block-button.php:67
+#: library/AcfFields/php/widget-header-links.php:360
+#: library/AcfFields/php/options-menu-style.php:24
+#: library/AcfFields/php/navigation-widget.php:352
+#: library/AcfFields/php/block-container.php:100
 msgid "Default"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:430
 #: library/AcfFields/php/options-page-quicklinks-placement.php:29
 #: library/AcfFields/php/block-container.php:103
 msgid "default"
@@ -17327,6 +17353,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Button.php:89
 msgid "Default Contrasting"
+msgstr ""
+
+#: library/Api/Pdf/PdfGenerator.php:414
+msgid "Default frontpage"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-post-types.php:8
@@ -17359,14 +17389,20 @@ msgstr ""
 msgid "delete_sweep"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:477
+msgid ""
+"Den position i menyordningen som inläggstypen ska visas. show_in_menu måste "
+"vara true."
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:270
 msgid "departure_board"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-description.php:12
-#: library/AcfFields/php/resource-fields.php:241
-#: library/AcfFields/php/resource-fields.php:775
 #: library/AcfFields/php/term-icon-and-colour.php:2266
+#: library/Controller/ContentType/Complex/School.php:56
+#: library/Controller/ContentType/Complex/Project.php:42
 msgid "Description"
 msgstr ""
 
@@ -17378,7 +17414,7 @@ msgstr ""
 msgid "Description."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:76
+#: library/Customizer/PanelsRegistry.php:79
 #: library/Customizer/Panels/DesignLibrary.php:13
 msgid "Design Library"
 msgstr ""
@@ -17435,8 +17471,8 @@ msgstr ""
 msgid "dialpad"
 msgstr ""
 
-#: library/AcfFields/php/widget-header-common.php:92
 #: library/Customizer/Sections/FooterSub.php:127
+#: library/AcfFields/php/widget-header-common.php:92
 msgid "Direction"
 msgstr ""
 
@@ -17496,12 +17532,12 @@ msgstr ""
 msgid "Disable script"
 msgstr ""
 
-#: library/AcfFields/php/options-activate-gutenberg.php:24
-#: library/Customizer/Sections/Divider.php:88
-#: library/Customizer/Sections/Divider.php:164
 #: library/Customizer/Sections/MegaMenu.php:248
 #: library/Customizer/Sections/Colors.php:173
+#: library/Customizer/Sections/Divider.php:88
+#: library/Customizer/Sections/Divider.php:164
 #: library/Customizer/Sections/Menu.php:86
+#: library/AcfFields/php/options-activate-gutenberg.php:24
 msgid "Disabled"
 msgstr ""
 
@@ -17525,7 +17561,7 @@ msgstr ""
 msgid "Display age notification on posts"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Posts.php:76
+#: library/Customizer/Sections/Module/Posts.php:84
 msgid "Display an icon on the post if the post has a term with an icon set"
 msgstr ""
 
@@ -17563,7 +17599,7 @@ msgstr ""
 msgid "Display settings"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Posts.php:75
+#: library/Customizer/Sections/Module/Posts.php:83
 msgid "Display term icon"
 msgstr ""
 
@@ -17571,11 +17607,11 @@ msgstr ""
 msgid "Display the notice after this many days"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:329
+#: library/Customizer/PanelsRegistry.php:401
 #: library/Customizer/Sections/Borders.php:14
-#: library/Customizer/Sections/Navigation.php:201
-#: library/Customizer/Sections/Divider.php:65
 #: library/Customizer/Sections/Colors.php:208
+#: library/Customizer/Sections/Divider.php:65
+#: library/Customizer/Sections/Navigation.php:201
 msgid "Divider"
 msgstr ""
 
@@ -17599,9 +17635,22 @@ msgstr ""
 msgid "Do not use content type template"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:288
+#: library/Customizer/PanelsRegistry.php:139
+msgid "Do not use template"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:140
+msgid ""
+"Do not use the custom template from the content type for this post type."
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:410
 #, php-format
 msgid "Do you want to apply to %s?"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:413
+msgid "Do you want to apply?"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:296
@@ -17637,8 +17686,8 @@ msgid "Dot"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:116
-#: library/Customizer/Sections/Divider.php:39
 #: library/Customizer/Sections/Collection.php:116
+#: library/Customizer/Sections/Divider.php:39
 msgid "Dotted"
 msgstr ""
 
@@ -17692,7 +17741,7 @@ msgstr ""
 msgid "drive_eta"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:229
+#: library/Customizer/PanelsRegistry.php:301
 msgid "Drop Shadows"
 msgstr ""
 
@@ -17738,11 +17787,6 @@ msgstr ""
 msgid "Editor formats"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:526
-#: library/AcfFields/php/resource-fields.php:1011
-msgid "eg. \"manage_options\"..."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:314
 msgid "eject"
 msgstr ""
@@ -17751,13 +17795,9 @@ msgstr ""
 msgid "elementary-school"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:78
-msgid ""
-"elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-"
-"school"
-msgstr ""
-
 #: library/AcfFields/php/widget-contact.php:81
+#: library/Controller/ContentType/Complex/School.php:64
+#: library/Controller/ContentType/Simple/Person.php:37
 msgid "Email"
 msgstr ""
 
@@ -17767,6 +17807,7 @@ msgstr ""
 
 #: library/Customizer/Sections/Logo.php:42
 #: library/Customizer/Sections/Header.php:198
+#: library/Api/Pdf/PdfGenerator.php:210
 msgid "Emblem"
 msgstr ""
 
@@ -17806,6 +17847,11 @@ msgstr ""
 msgid "emoji_transportation"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:240
+#: library/AcfFields/php/resource-fields.php:782
+msgid "En kort beskrivande sammanfattning av vad inläggstypen är."
+msgstr ""
+
 #: library/Helper/KirkiConditional.php:48
 #: library/AcfFields/php/options-theme-author.php:24
 #: library/AcfFields/php/options-theme-author.php:43
@@ -17830,23 +17876,39 @@ msgstr ""
 msgid "Enable visitors to browse this taxonomy"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:247
 #: library/Customizer/Sections/Divider.php:87
 #: library/Customizer/Sections/Divider.php:163
-#: library/Customizer/Sections/MegaMenu.php:247
 #: library/Customizer/Sections/Menu.php:85
 msgid "Enabled"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:325
-msgid "Enables post type archives."
 msgstr ""
 
 #: library/Customizer/Sections/Header.php:307
 msgid "Enables text to the right of the header logotype."
 msgstr ""
 
+#: library/Controller/ContentType/Complex/Event.php:44
+msgid "End date"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:325
 msgid "enhanced_encryption"
+msgstr ""
+
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:198
+msgid "Enter country here"
+msgstr ""
+
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:195
+msgid "Enter the country name."
+msgstr ""
+
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:187
+msgid "Enter the postal code."
+msgstr ""
+
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:179
+msgid "Enter the street address."
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-css.php:20
@@ -17886,6 +17948,16 @@ msgstr ""
 msgid "error_outline"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:196
+#: library/AcfFields/php/resource-fields.php:717
+msgid "Etikett (plural)"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:216
+#: library/AcfFields/php/resource-fields.php:737
+msgid "Etikett (singular)"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:329
 msgid "euro"
 msgstr ""
@@ -17898,7 +17970,7 @@ msgstr ""
 msgid "ev_station"
 msgstr ""
 
-#: library/Controller/ContentType/Event.php:22
+#: library/Controller/ContentType/Complex/Event.php:23
 msgid "Event"
 msgstr ""
 
@@ -17910,22 +17982,12 @@ msgstr ""
 msgid "Event (above archive posts)"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:81
-msgid "event: https://api.helsingborg.se/event/json/wp/v2/event"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:333
 msgid "event_available"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:334
 msgid "event_busy"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:131
-msgid ""
-"event_categories: https://api.helsingborg."
-"se/event/json/wp/v2/event_categories"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:335
@@ -17936,11 +17998,7 @@ msgstr ""
 msgid "event_seat"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:132
-msgid "event_tags: https://api.helsingborg.se/event/json/wp/v2/event_tags"
-msgstr ""
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:624
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:780
 msgid "Events"
 msgstr ""
 
@@ -17950,10 +18008,6 @@ msgstr ""
 
 #: library/Customizer/Sections/LoadDesign.php:43
 msgid "Exclude from import"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:341
-msgid "Exclude From Search"
 msgstr ""
 
 #: library/Search/Algolia.php:56
@@ -17983,7 +18037,7 @@ msgstr ""
 msgid "exit_to_app"
 msgstr ""
 
-#: library/Controller/BaseController.php:264
+#: library/Helper/TranslatedLabels.php:53
 msgid "Expand"
 msgstr ""
 
@@ -17999,7 +18053,7 @@ msgstr ""
 msgid "expand_more"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Posts.php:54
+#: library/Customizer/Sections/Module/Posts.php:59
 msgid "Expandable List"
 msgstr ""
 
@@ -18043,9 +18097,9 @@ msgstr ""
 msgid "extension"
 msgstr ""
 
-#: library/AcfFields/php/navigation-widget.php:62
 #: library/AcfFields/php/widget-media.php:65
 #: library/AcfFields/php/widget-media.php:102
+#: library/AcfFields/php/navigation-widget.php:62
 msgid "External link"
 msgstr ""
 
@@ -18053,14 +18107,14 @@ msgstr ""
 msgid "External links"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:27
 #: library/Customizer/Sections/Menu.php:121
+#: library/AcfFields/php/options-theme-editor-formats.php:27
 msgid "Extra large"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:115
 #: library/Customizer/Sections/Radius.php:12
 #: library/Customizer/Sections/Menu.php:117
+#: library/Customizer/Sections/Siteselector.php:115
 msgid "Extra small"
 msgstr ""
 
@@ -18136,11 +18190,6 @@ msgstr ""
 msgid "feedback"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:620
-#: library/AcfFields/php/resource-fields.php:1084
-msgid "Feeds"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:359
 msgid "fiber_dvr"
 msgstr ""
@@ -18161,7 +18210,7 @@ msgstr ""
 msgid "fiber_smart_record"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:341
+#: library/Customizer/PanelsRegistry.php:413
 msgid "Field"
 msgstr ""
 
@@ -18189,9 +18238,9 @@ msgstr ""
 msgid "Fill"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:98
 #: library/Customizer/Sections/Header.php:234
 #: library/Customizer/Sections/Header.php:268
+#: library/AcfFields/php/block-button.php:98
 msgid "Filled"
 msgstr ""
 
@@ -18203,8 +18252,8 @@ msgstr ""
 msgid "Filled button"
 msgstr ""
 
-#: library/Controller/BaseController.php:275
-#: library/Controller/BaseController.php:291
+#: library/Helper/TranslatedLabels.php:64
+#: library/Helper/TranslatedLabels.php:78
 msgid "Filter"
 msgstr ""
 
@@ -18292,7 +18341,8 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:403
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:516
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:528
 msgid "Find directions"
 msgstr ""
 
@@ -18310,6 +18360,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:388
 msgid "fireplace"
+msgstr ""
+
+#: library/Controller/ContentType/Simple/Person.php:45
+msgid "First name"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:389
@@ -18406,7 +18460,7 @@ msgstr ""
 msgid "folder_special"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:485
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:625
 msgid "Follow us in social media"
 msgstr ""
 
@@ -18414,7 +18468,7 @@ msgstr ""
 msgid "font_download"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:312
+#: library/Customizer/PanelsRegistry.php:384
 msgid "Footer"
 msgstr ""
 
@@ -18578,7 +18632,7 @@ msgstr ""
 msgid "Found"
 msgstr ""
 
-#: library/Theme/Enqueue.php:180
+#: library/Theme/Enqueue.php:201
 msgid "Fr"
 msgstr ""
 
@@ -18650,19 +18704,27 @@ msgstr ""
 msgid "GDPR"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:179
+#: library/Customizer/PanelsRegistry.php:251
 msgid "General Apperance"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:190
+#: library/Api/Pdf/PdfGenerator.php:206
+msgid "General cover settings"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:262
 msgid "General settings"
+msgstr ""
+
+#: library/Api/Pdf/CreatePdf.php:74
+msgid "Generated PDF"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:444
 msgid "gesture"
 msgstr ""
 
-#: library/Helper/Location.php:82
+#: library/Helper/Location.php:75
 msgid "Get directions on Google Maps"
 msgstr ""
 
@@ -18682,8 +18744,8 @@ msgstr ""
 msgid "Go back"
 msgstr ""
 
-#: library/Controller/BaseController.php:230 library/Controller/E404.php:37
-#: library/Widget/Header/Logo.php:46 library/Widget/Brand/Brand.php:47
+#: library/Helper/TranslatedLabels.php:19 library/Controller/E404.php:37
+#: library/Widget/Brand/Brand.php:47 library/Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
@@ -18709,10 +18771,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:451
 msgid "grade"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:127
-msgid "grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade"
 msgstr ""
 
 #: library/AcfFields/php/block-container.php:101
@@ -18768,24 +18826,19 @@ msgstr ""
 msgid "group_work"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:86
-msgid "guide: https://api.helsingborg.se/event/json/wp/v2/guide"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:134
-msgid "guidegroup: https://api.helsingborg.se/event/json/wp/v2/guidegroup"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:136
-msgid "guidetype: https://api.helsingborg.se/event/json/wp/v2/guidetype"
-msgstr ""
-
-#: library/Oembed/OembedFilters.php:28
+#: library/Oembed/OembedFilters.php:50
 msgid "Handling of personal data"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:321
-msgid "Has Archive"
+#: library/AcfFields/php/resource-fields.php:457
+#: library/AcfFields/php/resource-fields.php:555
+#: library/AcfFields/php/resource-fields.php:979
+#: library/AcfFields/php/resource-fields.php:1026
+msgid "Hantering av url-omskrivningar för denna posttyp."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:317
+msgid "Har arkiv"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:460
@@ -18808,7 +18861,7 @@ msgstr ""
 msgid "hdr_weak"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:250
+#: library/Customizer/PanelsRegistry.php:322
 msgid "Header"
 msgstr ""
 
@@ -18849,10 +18902,11 @@ msgstr ""
 msgid "Header tabs menu"
 msgstr ""
 
-#: library/Customizer/Sections/SliderHero.php:133
-#: library/Customizer/Sections/Quicklinks.php:134
 #: library/Customizer/Sections/MegaMenu.php:35
 #: library/Customizer/Sections/MegaMenu.php:80
+#: library/Customizer/Sections/Quicklinks.php:134
+#: library/Customizer/Sections/SliderHero.php:133
+#: library/Api/Pdf/PdfGenerator.php:352
 msgid "Heading"
 msgstr ""
 
@@ -18917,7 +18971,7 @@ msgstr ""
 msgid "help_outline"
 msgstr ""
 
-#: library/Theme/Sidebars.php:123 library/Customizer/PanelsRegistry.php:335
+#: library/Customizer/PanelsRegistry.php:407 library/Theme/Sidebars.php:123
 msgid "Hero"
 msgstr ""
 
@@ -18933,7 +18987,7 @@ msgstr ""
 msgid "Hero search position"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:304
+#: library/Customizer/PanelsRegistry.php:376
 msgid "Hero slider"
 msgstr ""
 
@@ -18942,12 +18996,17 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: library/AcfFields/php/options-page-navigation.php:23
+#: library/AcfFields/php/hidden-validation.php:8
+#: library/AcfFields/php/hidden-validation.php:12
+msgid "Hidden validation"
+msgstr ""
+
 #: library/Customizer/Sections/Archive.php:94
 #: library/Customizer/Sections/Archive.php:162
 #: library/Customizer/Sections/Archive.php:180
 #: library/Customizer/Sections/Archive.php:205
 #: library/Customizer/Sections/Archive.php:418
+#: library/AcfFields/php/options-page-navigation.php:23
 msgid "Hide"
 msgstr ""
 
@@ -18983,30 +19042,33 @@ msgstr ""
 msgid "Hide text"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:281
-#: library/AcfFields/php/resource-fields.php:816
 #: library/AcfFields/php/options-theme-custom-post-type.php:228
 msgid "Hierarchical"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:277
+#: library/AcfFields/php/resource-fields.php:819
+msgid "Hierarkisk"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:472
 msgid "high_quality"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:32
 #: library/Customizer/Sections/Borders.php:35
-#: library/Customizer/Sections/Module/Video.php:22
-#: library/Customizer/Sections/Module/Map.php:22
-#: library/Customizer/Sections/Module/SectionsSplit.php:18
-#: library/Customizer/Sections/Module/Posts.php:20
-#: library/Customizer/Sections/Module/Posts.php:41
-#: library/Customizer/Sections/Module/Posts.php:62
-#: library/Customizer/Sections/Module/Inlay.php:20
-#: library/Customizer/Sections/Module/Index.php:18
-#: library/Customizer/Sections/Module/Text.php:20
-#: library/Customizer/Sections/Module/Script.php:22
+#: library/AcfFields/php/options-theme-editor-formats.php:32
 #: library/Customizer/Sections/Module/Contacts.php:18
 #: library/Customizer/Sections/Module/Contacts.php:39
+#: library/Customizer/Sections/Module/Text.php:20
+#: library/Customizer/Sections/Module/Posts.php:20
+#: library/Customizer/Sections/Module/Posts.php:43
+#: library/Customizer/Sections/Module/Posts.php:67
+#: library/Customizer/Sections/Module/SectionsSplit.php:18
+#: library/Customizer/Sections/Module/Video.php:22
+#: library/Customizer/Sections/Module/Inlay.php:20
+#: library/Customizer/Sections/Module/Index.php:18
+#: library/Customizer/Sections/Module/Script.php:22
+#: library/Customizer/Sections/Module/Map.php:22
 msgid "Highlight"
 msgstr ""
 
@@ -19030,8 +19092,8 @@ msgstr ""
 msgid "home_work"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:96
 #: library/Customizer/Sections/FooterSub.php:132
+#: library/Customizer/Sections/Navigation.php:96
 msgid "Horizontal"
 msgstr ""
 
@@ -19047,7 +19109,7 @@ msgstr ""
 msgid "hotel"
 msgstr ""
 
-#: library/Controller/BaseController.php:247
+#: library/Helper/TranslatedLabels.php:36
 msgid "hour"
 msgstr ""
 
@@ -19059,7 +19121,7 @@ msgstr ""
 msgid "hourglass_full"
 msgstr ""
 
-#: library/Controller/BaseController.php:246
+#: library/Helper/TranslatedLabels.php:35
 msgid "hours"
 msgstr ""
 
@@ -19099,7 +19161,7 @@ msgstr ""
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:332
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:433
 msgid "How we work"
 msgstr ""
 
@@ -19131,18 +19193,31 @@ msgstr ""
 msgid "https://github.com/helsingborg-stad/Municipio"
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:19 library/Oembed/OembedFilters.php:25
+#: library/AcfFields/php/resource-fields.php:301
+#: library/AcfFields/php/resource-fields.php:843
+msgid ""
+"Huruvida ett standardgränssnitt ska genereras för hantering av denna "
+"inläggstyp."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:361
+#: library/AcfFields/php/resource-fields.php:883
+msgid ""
+"Huruvida förfrågningar kan utföras på frontend som en del av parse_request()."
+msgstr ""
+
+#: library/Oembed/OembedFilters.php:41 library/Oembed/OembedFilters.php:47
 msgid "I understand, continue."
 msgstr ""
 
+#: library/AcfFields/php/options-theme-favicon.php:153
+#: library/AcfFields/php/widget-header-links.php:33
+#: library/AcfFields/php/widget-header-links.php:120
 #: library/AcfFields/php/options-menu-icon.php:15
+#: library/AcfFields/php/options-theme-google-translate.php:97
 #: library/AcfFields/php/term-icon-and-colour.php:30
 #: library/AcfFields/php/term-icon-and-colour.php:60
 #: library/AcfFields/php/term-icon-and-colour.php:75
-#: library/AcfFields/php/widget-header-links.php:33
-#: library/AcfFields/php/widget-header-links.php:120
-#: library/AcfFields/php/options-theme-favicon.php:153
-#: library/AcfFields/php/options-theme-google-translate.php:97
 msgid "Icon"
 msgstr ""
 
@@ -19213,11 +19288,22 @@ msgid ""
 "Analytics (to the account specified under the Google Analytics settings)"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:417
+msgid "If there is no data attached. Which frontpage should it use?"
+msgstr ""
+
 #: library/AcfFields/php/options-page-navigation.php:34
 msgid ""
 "If you want to use a custom title for this page in the menu, add your custom "
 "title here. Leave this field blank if you want to use the original page "
 "title."
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School.php:72
+#: library/Controller/ContentType/Complex/Event.php:48
+#: library/Controller/ContentType/Complex/Project.php:46
+#: library/Controller/ContentType/Simple/Person.php:53
+msgid "Image"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:488
@@ -19273,7 +19359,7 @@ msgstr ""
 msgid "indeterminate_check_box"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:126
+#: library/Customizer/PanelsRegistry.php:198
 #: library/Customizer/Sections/Module/Posts.php:12
 #: library/Customizer/Sections/Module/Index.php:12
 msgid "Index"
@@ -19291,7 +19377,7 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:132
+#: library/Customizer/PanelsRegistry.php:204
 #: library/Customizer/Sections/Module/Inlay.php:12
 msgid "Inlay list"
 msgstr ""
@@ -19308,7 +19394,7 @@ msgstr ""
 msgid "Input colors"
 msgstr ""
 
-#: library/Theme/Enqueue.php:144
+#: library/Theme/Enqueue.php:165
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -19357,20 +19443,18 @@ msgstr ""
 msgid "Install plugin"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:87
-msgid ""
-"interactive_guide: https://api.helsingborg."
-"se/event/json/wp/v2/interactive_guide"
-msgstr ""
-
-#: library/AcfFields/php/navigation-widget.php:141
 #: library/AcfFields/php/widget-media.php:36
 #: library/AcfFields/php/widget-media.php:101
+#: library/AcfFields/php/navigation-widget.php:141
 msgid "Internal link"
 msgstr ""
 
 #: library/AcfFields/php/widget-header-links.php:115
 msgid "Internal links"
+msgstr ""
+
+#: library/Api/Pdf/PdfGenerator.php:367
+msgid "Introduction"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:506
@@ -19393,7 +19477,7 @@ msgstr ""
 msgid "Italic"
 msgstr ""
 
-#: library/Helper/Post.php:148
+#: library/Helper/Post.php:173
 msgid "Item is missing content"
 msgstr ""
 
@@ -19402,12 +19486,21 @@ msgstr ""
 msgid "JavaScript"
 msgstr ""
 
-#: library/Controller/BaseController.php:233
+#: library/Controller/ContentType/Simple/Person.php:33
+msgid "Job title"
+msgstr ""
+
+#: library/Helper/TranslatedLabels.php:22
 msgid "Jump to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:231
+#: library/Helper/TranslatedLabels.php:20
 msgid "Jump to the main menu"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:503
+#: library/AcfFields/php/resource-fields.php:995
+msgid "Kapacitet"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:110
@@ -19482,6 +19575,12 @@ msgstr ""
 msgid "Kontakter"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:41
+#: library/AcfFields/php/resource-fields.php:75
+#: library/AcfFields/php/resource-fields.php:109
+msgid "Källa"
+msgstr ""
+
 #: library/AcfFields/php/block-button.php:23
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:33
 msgid "Label"
@@ -19489,22 +19588,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:522
 msgid "label"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:714
-msgid "Label (Plural)"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:201
-msgid "Label (plural)"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:734
-msgid "Label (Singular)"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:221
-msgid "Label (singular)"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:523
@@ -19519,7 +19602,7 @@ msgstr ""
 msgid "landscape"
 msgstr ""
 
-#: library/Controller/BaseController.php:263
+#: library/Helper/TranslatedLabels.php:52
 #: library/Customizer/Sections/Navigation.php:69
 msgid "Language"
 msgstr ""
@@ -19553,23 +19636,27 @@ msgstr ""
 msgid "laptop_windows"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:26
-#: library/AcfFields/php/widget-header-links.php:362
-#: library/AcfFields/php/block-button.php:129
-#: library/AcfFields/php/navigation-widget.php:354
-#: library/AcfFields/php/widget-header-common.php:133
-#: library/AcfFields/php/widget-header-menu.php:52
-#: library/Customizer/Sections/Siteselector.php:118
-#: library/Customizer/Sections/Radius.php:75
 #: library/Customizer/Sections/Width.php:84
 #: library/Customizer/Sections/Width.php:100
 #: library/Customizer/Sections/Header.php:285
+#: library/Customizer/Sections/Radius.php:75
 #: library/Customizer/Sections/Menu.php:120
+#: library/Customizer/Sections/Siteselector.php:118
+#: library/AcfFields/php/options-theme-editor-formats.php:26
+#: library/AcfFields/php/widget-header-menu.php:52
+#: library/AcfFields/php/widget-header-common.php:133
+#: library/AcfFields/php/block-button.php:129
+#: library/AcfFields/php/widget-header-links.php:362
+#: library/AcfFields/php/navigation-widget.php:354
 msgid "Large"
 msgstr ""
 
 #: library/Admin/LoginTracking.php:32
 msgid "Last Login"
+msgstr ""
+
+#: library/Controller/ContentType/Simple/Person.php:49
+msgid "Last name"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:531
@@ -19600,14 +19687,14 @@ msgstr ""
 msgid "Leave a comment"
 msgstr ""
 
-#: library/AcfFields/php/widget-header-common.php:104
-#: library/Customizer/Sections/Divider.php:137
 #: library/Customizer/Sections/FooterSub.php:161
-#: library/Customizer/Sections/Hero.php:43
-#: library/Customizer/Sections/Hero.php:95
 #: library/Customizer/Sections/Width.php:78
 #: library/Customizer/Sections/Header.php:36
 #: library/Customizer/Sections/Header.php:64
+#: library/Customizer/Sections/Hero.php:43
+#: library/Customizer/Sections/Hero.php:95
+#: library/Customizer/Sections/Divider.php:137
+#: library/AcfFields/php/widget-header-common.php:104
 msgid "Left"
 msgstr ""
 
@@ -19623,11 +19710,11 @@ msgstr ""
 msgid "Left sidebar bottom"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:228
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:284
 msgid "Leisure center"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:226
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:199
 #, php-format
 msgid "Leisure center: %s"
 msgstr ""
@@ -19636,7 +19723,7 @@ msgstr ""
 msgid "lens"
 msgstr ""
 
-#: library/Helper/ReadingTime.php:26
+#: library/Helper/ReadingTime.php:31
 msgid "Less than a minute"
 msgstr ""
 
@@ -19708,8 +19795,8 @@ msgstr ""
 msgid "linear_scale"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:31
 #: library/Customizer/Sections/Colors.php:261
+#: library/AcfFields/php/block-button.php:31
 msgid "Link"
 msgstr ""
 
@@ -19725,8 +19812,8 @@ msgstr ""
 msgid "Link name to author archive"
 msgstr ""
 
-#: library/AcfFields/php/widget-header-links.php:348
 #: library/AcfFields/php/widget-header-menu.php:38
+#: library/AcfFields/php/widget-header-links.php:348
 msgid "Link size"
 msgstr ""
 
@@ -19747,11 +19834,11 @@ msgid "Links"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:49
+#: library/Customizer/Sections/Module/Contacts.php:31
+#: library/Customizer/Sections/Module/Text.php:12
+#: library/Customizer/Sections/Module/Posts.php:35
 #: library/Customizer/Sections/Module/Video.php:14
 #: library/Customizer/Sections/Module/Map.php:14
-#: library/Customizer/Sections/Module/Posts.php:33
-#: library/Customizer/Sections/Module/Text.php:12
-#: library/Customizer/Sections/Module/Contacts.php:31
 msgid "List"
 msgstr ""
 
@@ -19775,7 +19862,7 @@ msgstr ""
 msgid "live_tv"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:82
+#: library/Customizer/PanelsRegistry.php:85
 msgid "Load a design"
 msgstr ""
 
@@ -19783,7 +19870,7 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:138
+#: library/Customizer/PanelsRegistry.php:210
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 msgid "Local Event"
 msgstr ""
@@ -19908,25 +19995,13 @@ msgstr ""
 msgid "local_taxi"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-js.php:71
-#: library/AcfFields/php/content-type-place.php:8
-#: library/AcfFields/php/content-type-place.php:12
 #: library/Customizer/Sections/Quicklinks.php:200
+#: library/AcfFields/php/options-theme-custom-js.php:71
 msgid "Location"
 msgstr ""
 
 #: library/Theme/Icon.php:100 library/Theme/Icon.php:101
 msgid "Location point"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:82
-msgid "location: https://api.helsingborg.se/event/json/wp/v2/location"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:133
-msgid ""
-"location_categories: https://api.helsingborg."
-"se/event/json/wp/v2/location_categories"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:580
@@ -19953,8 +20028,8 @@ msgstr ""
 msgid "lock_open"
 msgstr ""
 
-#: library/Customizer/Sections/FooterMain.php:54
 #: library/Customizer/Sections/FooterSub.php:49
+#: library/Customizer/Sections/FooterMain.php:54
 msgid "Logotype"
 msgstr ""
 
@@ -19962,13 +20037,13 @@ msgstr ""
 msgid "Logotype alignment"
 msgstr ""
 
-#: library/Customizer/Sections/FooterMain.php:71
 #: library/Customizer/Sections/FooterSub.php:87
+#: library/Customizer/Sections/FooterMain.php:71
 #: library/Customizer/Sections/Header.php:172
 msgid "Logotype height"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:185
+#: library/Customizer/PanelsRegistry.php:257
 msgid "Logotypes"
 msgstr ""
 
@@ -20049,7 +20124,7 @@ msgstr ""
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:316
+#: library/Customizer/PanelsRegistry.php:388
 msgid "Main footer"
 msgstr ""
 
@@ -20057,11 +20132,11 @@ msgstr ""
 msgid "Make post type available for selection in navigation menus."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:105
+#: library/Customizer/PanelsRegistry.php:175
 msgid "Manage apperance options on archives."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:245
+#: library/Customizer/PanelsRegistry.php:317
 msgid "Manage design options on component level."
 msgstr ""
 
@@ -20069,7 +20144,7 @@ msgstr ""
 msgid "Manage post types"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:180
+#: library/Customizer/PanelsRegistry.php:252
 msgid "Manage site general design options."
 msgstr ""
 
@@ -20097,12 +20172,12 @@ msgstr ""
 msgid "Map style"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:144
+#: library/Customizer/PanelsRegistry.php:216
 msgid "Maps"
 msgstr ""
 
 #: library/AcfFields/php/widget-header-common.php:119
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:78
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:89
 msgid "Margin"
 msgstr ""
 
@@ -20170,6 +20245,11 @@ msgstr ""
 msgid "MD and up"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:600
+#: library/AcfFields/php/resource-fields.php:1071
+msgid "Med front"
+msgstr ""
+
 #: library/AcfFields/php/widget-media.php:89
 msgid "Media link"
 msgstr ""
@@ -20178,11 +20258,11 @@ msgstr ""
 msgid "Media widget"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:128
-#: library/Customizer/Sections/Siteselector.php:117
-#: library/Customizer/Sections/Radius.php:54
 #: library/Customizer/Sections/Header.php:284
+#: library/Customizer/Sections/Radius.php:54
 #: library/Customizer/Sections/Menu.php:119
+#: library/Customizer/Sections/Siteselector.php:117
+#: library/AcfFields/php/block-button.php:128
 msgid "Medium"
 msgstr ""
 
@@ -20194,26 +20274,21 @@ msgstr ""
 msgid "meeting_room"
 msgstr ""
 
-#: library/Theme/Navigation.php:29 library/Controller/BaseController.php:256
-#: library/Customizer/PanelsRegistry.php:280
-#: library/AcfFields/php/options-menu-mega.php:8
-#: library/AcfFields/php/options-theme-google-translate.php:59
+#: library/Helper/TranslatedLabels.php:45
+#: library/Customizer/PanelsRegistry.php:352 library/Theme/Navigation.php:29
 #: library/Customizer/Sections/Search.php:136
+#: library/AcfFields/php/options-theme-google-translate.php:59
+#: library/AcfFields/php/options-menu-mega.php:8
 msgid "Mega menu"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:85
-msgid ""
-"membership-card: https://api.helsingborg.se/event/json/wp/v2/membership-card"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:603
 msgid "memory"
 msgstr ""
 
-#: library/Theme/Icon.php:44 library/Controller/BaseController.php:259
-#: library/Widget/Navigation/Navigation.php:77
+#: library/Helper/TranslatedLabels.php:48 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
+#: library/Widget/Navigation/Navigation.php:77
 msgid "Menu"
 msgstr ""
 
@@ -20230,21 +20305,17 @@ msgstr ""
 msgid "Menu alignment"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:360
+#: library/Customizer/PanelsRegistry.php:432
 msgid "Menu behaviour"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:361
+#: library/Customizer/PanelsRegistry.php:433
 msgid "Menu behaviour settings."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:8
 #: library/AcfFields/php/options-theme-custom-post-type.php:97
 msgid "Menu icon"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:477
-msgid "Menu Position"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:125
@@ -20307,11 +20378,11 @@ msgstr ""
 msgid "Minus"
 msgstr ""
 
-#: library/Controller/BaseController.php:249
+#: library/Helper/TranslatedLabels.php:38
 msgid "minute"
 msgstr ""
 
-#: library/Controller/BaseController.php:248
+#: library/Helper/TranslatedLabels.php:37
 msgid "minutes"
 msgstr ""
 
@@ -20323,7 +20394,7 @@ msgstr ""
 msgid "mms"
 msgstr ""
 
-#: library/Theme/Enqueue.php:176
+#: library/Theme/Enqueue.php:197
 msgid "Mo"
 msgstr ""
 
@@ -20503,7 +20574,7 @@ msgstr ""
 msgid "mode_comment"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:116
+#: library/Customizer/PanelsRegistry.php:188
 msgid "Module Apperance"
 msgstr ""
 
@@ -20531,11 +20602,11 @@ msgstr ""
 msgid "Monotone colors"
 msgstr ""
 
-#: library/Controller/BaseController.php:241
+#: library/Helper/TranslatedLabels.php:30
 msgid "month"
 msgstr ""
 
-#: library/Controller/BaseController.php:240
+#: library/Helper/TranslatedLabels.php:29
 msgid "months"
 msgstr ""
 
@@ -20551,7 +20622,7 @@ msgstr ""
 msgid "more"
 msgstr ""
 
-#: library/Controller/BaseController.php:262
+#: library/Helper/TranslatedLabels.php:51
 msgid "More Languages"
 msgstr ""
 
@@ -20637,10 +20708,11 @@ msgstr ""
 
 #: library/AcfFields/php/options-customize-header.php:31
 #: library/AcfFields/php/options-customize-footer.php:31
+#: library/Controller/ContentType/Complex/School.php:52
 msgid "Name"
 msgstr ""
 
-#: library/Controller/BaseController.php:280
+#: library/Helper/TranslatedLabels.php:69
 msgid "Name (A-Z)"
 msgstr ""
 
@@ -20650,14 +20722,6 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:641
 msgid "nature_people"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:124
-msgid "nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:72
-msgid "nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:642
@@ -20696,11 +20760,7 @@ msgstr ""
 msgid "Navigation widget"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:135
-msgid "navigation: https://api.helsingborg.se/event/json/wp/v2/navigation"
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:274
+#: library/Customizer/PanelsRegistry.php:346
 msgid "Navigations"
 msgstr ""
 
@@ -20721,8 +20781,8 @@ msgstr ""
 msgid "New %s"
 msgstr ""
 
-#: library/Widget/Source/BaseWidget.php:113
-#: library/Widget/Source/WidgetTemplate.php:249
+#: library/Widget/Source/BaseWidget.php:117
+#: library/Widget/Source/WidgetTemplate.php:253
 msgid "New title"
 msgstr ""
 
@@ -20772,11 +20832,11 @@ msgstr ""
 msgid "No cover"
 msgstr ""
 
-#: library/Controller/BaseController.php:284
+#: library/Controller/BaseController.php:228
 msgid "No items found at this query."
 msgstr ""
 
-#: library/Controller/BaseController.php:277
+#: library/Helper/TranslatedLabels.php:66
 msgid "No items found."
 msgstr ""
 
@@ -20792,25 +20852,27 @@ msgstr ""
 msgid "no_sim"
 msgstr ""
 
-#: library/AcfFields/php/widget-header-common.php:134
+#: library/Customizer/PanelsRegistry.php:106
 #: library/Customizer/Sections/Card.php:124
-#: library/Customizer/Sections/FooterMain.php:59
 #: library/Customizer/Sections/FooterSub.php:54
-#: library/Customizer/Sections/Header.php:158
+#: library/Customizer/Sections/FooterMain.php:59
 #: library/Customizer/Sections/Collection.php:124
-#: library/Customizer/Sections/Module/LocalEvent.php:17
-#: library/Customizer/Sections/Module/Video.php:19
-#: library/Customizer/Sections/Module/Map.php:19
-#: library/Customizer/Sections/Module/SectionsSplit.php:17
-#: library/Customizer/Sections/Module/Posts.php:17
-#: library/Customizer/Sections/Module/Posts.php:38
-#: library/Customizer/Sections/Module/Posts.php:59
-#: library/Customizer/Sections/Module/Inlay.php:17
-#: library/Customizer/Sections/Module/Index.php:17
-#: library/Customizer/Sections/Module/Text.php:17
-#: library/Customizer/Sections/Module/Script.php:19
+#: library/Customizer/Sections/Header.php:158
+#: library/Api/Pdf/PdfGenerator.php:427
+#: library/AcfFields/php/widget-header-common.php:134
 #: library/Customizer/Sections/Module/Contacts.php:17
 #: library/Customizer/Sections/Module/Contacts.php:36
+#: library/Customizer/Sections/Module/Text.php:17
+#: library/Customizer/Sections/Module/Posts.php:17
+#: library/Customizer/Sections/Module/Posts.php:40
+#: library/Customizer/Sections/Module/Posts.php:64
+#: library/Customizer/Sections/Module/SectionsSplit.php:17
+#: library/Customizer/Sections/Module/Video.php:19
+#: library/Customizer/Sections/Module/LocalEvent.php:17
+#: library/Customizer/Sections/Module/Inlay.php:17
+#: library/Customizer/Sections/Module/Index.php:17
+#: library/Customizer/Sections/Module/Script.php:19
+#: library/Customizer/Sections/Module/Map.php:19
 msgid "None"
 msgstr ""
 
@@ -20873,8 +20935,8 @@ msgstr ""
 msgid "np-redirect"
 msgstr ""
 
-#: library/Customizer/Sections/FooterMain.php:238
 #: library/Customizer/Sections/Archive.php:128
+#: library/Customizer/Sections/FooterMain.php:238
 msgid "Number of columns to display"
 msgstr ""
 
@@ -20890,20 +20952,45 @@ msgstr ""
 msgid "Number of posts to display"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:754
-msgid "Object Type"
+#: library/AcfFields/php/resource-fields.php:176
+msgid "Nyckel"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:180
+msgid ""
+"Nyckel för posttyp. Max. 20 tecken, får inte innehålla versaler eller "
+"mellanslag."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:701
+#: library/AcfFields/php/resource-fields.php:721
+#: library/AcfFields/php/resource-fields.php:741
+msgid ""
+"Nyckel för posttyp. Max. 32 tecken, får inte innehålla versaler eller "
+"mellanslag."
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:161
 msgid "oembed_cache"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Posts.php:82
+#: library/Customizer/Sections/Module/Posts.php:90
 msgid "Off"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:219
+#: library/AcfFields/php/resource-fields.php:257
+#: library/AcfFields/php/resource-fields.php:799
 msgid "Offentlig"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:357
+#: library/AcfFields/php/resource-fields.php:879
+msgid "Offentligt sökbar"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/Event.php:52
+msgid "Offers"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:665
@@ -20914,11 +21001,35 @@ msgstr ""
 msgid "offline_pin"
 msgstr ""
 
-#: library/Customizer/Sections/Module/Posts.php:81
+#: library/AcfFields/php/resource-fields.php:341
+msgid "Om inläggstypen ska exkluderas från sökresultat."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:261
+#: library/AcfFields/php/resource-fields.php:803
+msgid "Om inläggstypen ska vara allmänt sökbar."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:281
+#: library/AcfFields/php/resource-fields.php:823
+msgid "Om inläggstypen är hierarkisk. Tillåter att Förälder anges."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:381
+#: library/AcfFields/php/resource-fields.php:903
+msgid "Om post_type är tillgänglig för val i navigeringsmenyer."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:453
+#: library/AcfFields/php/resource-fields.php:975
+msgid "Omskrivning"
+msgstr ""
+
+#: library/Customizer/Sections/Module/Posts.php:89
 msgid "On"
 msgstr ""
 
-#: library/Controller/BaseController.php:274
+#: library/Helper/TranslatedLabels.php:63
 msgid "on"
 msgstr ""
 
@@ -20966,7 +21077,7 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:287
+#: library/Customizer/PanelsRegistry.php:359
 msgid "Open Street Map"
 msgstr ""
 
@@ -20982,7 +21093,11 @@ msgstr ""
 msgid "open_with"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:212
+#: library/Controller/ContentType/Complex/School.php:76
+msgid "Opening hours"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:198
 #, php-format
 msgid "Opening hours: %s"
 msgstr ""
@@ -20995,7 +21110,7 @@ msgstr ""
 msgid "Option in mobile menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:202
+#: library/Customizer/PanelsRegistry.php:274
 msgid ""
 "Options for various Typography elements. This support BOF (Bring your own "
 "font). Simply upload your font in the media library, and it will be "
@@ -21014,15 +21129,11 @@ msgstr ""
 msgid "Order direction"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:83
-msgid "organizer: https://api.helsingborg.se/event/json/wp/v2/organizer"
-msgstr ""
-
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:339
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:439
 msgid "Orientation"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:346
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:445
 msgid "Our leisure center"
 msgstr ""
 
@@ -21035,9 +21146,9 @@ msgstr ""
 msgid "Outline"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:97
 #: library/Customizer/Sections/Header.php:233
 #: library/Customizer/Sections/Header.php:267
+#: library/AcfFields/php/block-button.php:97
 msgid "Outlined"
 msgstr ""
 
@@ -21059,9 +21170,9 @@ msgstr ""
 msgid "Overflow top"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:224
-#: library/Customizer/Sections/FooterMain.php:34
+#: library/Customizer/PanelsRegistry.php:296
 #: library/Customizer/Sections/FooterSub.php:107
+#: library/Customizer/Sections/FooterMain.php:34
 msgid "Padding"
 msgstr ""
 
@@ -21086,12 +21197,8 @@ msgstr ""
 msgid "Page Attributes"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:207
+#: library/Customizer/PanelsRegistry.php:279
 msgid "Page Widths"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:70
-msgid "page: https://skolor.helsingborg.io/wp-json/wp/v2/pages"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:674
@@ -21114,16 +21221,16 @@ msgstr ""
 msgid "pan_tool"
 msgstr ""
 
-#: library/Customizer/Sections/Module/LocalEvent.php:18
-#: library/Customizer/Sections/Module/Video.php:20
-#: library/Customizer/Sections/Module/Map.php:20
-#: library/Customizer/Sections/Module/Posts.php:18
-#: library/Customizer/Sections/Module/Posts.php:39
-#: library/Customizer/Sections/Module/Posts.php:60
-#: library/Customizer/Sections/Module/Inlay.php:18
-#: library/Customizer/Sections/Module/Text.php:18
-#: library/Customizer/Sections/Module/Script.php:20
 #: library/Customizer/Sections/Module/Contacts.php:37
+#: library/Customizer/Sections/Module/Text.php:18
+#: library/Customizer/Sections/Module/Posts.php:18
+#: library/Customizer/Sections/Module/Posts.php:41
+#: library/Customizer/Sections/Module/Posts.php:65
+#: library/Customizer/Sections/Module/Video.php:20
+#: library/Customizer/Sections/Module/LocalEvent.php:18
+#: library/Customizer/Sections/Module/Inlay.php:18
+#: library/Customizer/Sections/Module/Script.php:20
+#: library/Customizer/Sections/Module/Map.php:20
 msgid "Panel"
 msgstr ""
 
@@ -21150,17 +21257,6 @@ msgstr ""
 #: library/Content/CustomPostType.php:63
 #, php-format
 msgid "Parent %s"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:533
-msgid "Parent post types"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:537
-msgid ""
-"Parent post types are used to determine the permalink and the rewrite rules "
-"for this post type. Setting parent post types will affect the rewrite slug "
-"by prepending it with the parent post types slug."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:683
@@ -21190,6 +21286,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:688
 msgid "payment"
+msgstr ""
+
+#: library/Admin/Options/Theme.php:99 library/Admin/Options/Theme.php:100
+msgid "PDF Generator Settings"
 msgstr ""
 
 #: library/Theme/Icon.php:77
@@ -21240,22 +21340,20 @@ msgstr ""
 msgid "perm_scan_wifi"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-custom-post-type.php:55
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:56
+#: library/AcfFields/php/resource-fields.php:580
+#: library/AcfFields/php/resource-fields.php:1051
+#: library/AcfFields/php/options-theme-custom-post-type.php:55
 msgid "Permalänk"
 msgstr ""
 
-#: library/Controller/ContentType/Person.php:18
+#: library/Controller/ContentType/Simple/Person.php:18
 msgid "Person"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:700
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:196
 msgid "person"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:79
-msgid "person: https://skolor.helsingborg.io/wp-json/wp/v2/person"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:701
@@ -21284,6 +21382,7 @@ msgstr ""
 
 #: library/Theme/Icon.php:55 library/Theme/Icon.php:56
 #: library/Theme/Icon.php:57
+#: library/Controller/ContentType/Complex/School.php:68
 msgid "Phone"
 msgstr ""
 
@@ -21411,14 +21510,14 @@ msgstr ""
 msgid "pie_chart"
 msgstr ""
 
-#: library/Customizer/Sections/Siteselector.php:119
+#: library/Customizer/Sections/Tags.php:19
 #: library/Customizer/Sections/Search.php:153
 #: library/Customizer/Sections/Button.php:146
-#: library/Customizer/Sections/Tags.php:19
+#: library/Customizer/Sections/Siteselector.php:119
 msgid "Pill"
 msgstr ""
 
-#: library/Controller/ContentType/Place.php:20
+#: library/Controller/ContentType/Simple/Place.php:20
 msgid "Place"
 msgstr ""
 
@@ -21471,8 +21570,12 @@ msgstr ""
 msgid "playlist_play"
 msgstr ""
 
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:124
-#: library/Admin/Gutenberg/Blocks/BlockManager.php:177
+#: library/Admin/Acf/ImageAltTextValidation.php:26
+msgid "Please add an alt text to the image"
+msgstr ""
+
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:138
+#: library/Admin/Gutenberg/Blocks/BlockManager.php:205
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -21516,6 +21619,10 @@ msgstr ""
 msgid "portrait"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:473
+msgid "Position för meny"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:136
 msgid "post"
 msgstr ""
@@ -21528,60 +21635,48 @@ msgstr ""
 msgid "Post Formats"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:25
-msgid "Post Type"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:151
-msgid "Post Type Arguments"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-post-type.php:299
 msgid "Post type functions"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:181
-msgid "Post Type Key"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:34
 msgid "Post type name"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:41
-msgid "Post Type Source"
-msgstr ""
-
 #: library/Admin/Options/Theme.php:76
 msgid "Post Types"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:758
-msgid "Post Types to which this taxonomy should be connected to."
+#: library/AcfFields/php/resource-fields.php:1165
+msgid "Post types"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:69
-msgid "post: https://skolor.helsingborg.io/wp-json/wp/v2/posts"
+#: library/AcfFields/php/resource-fields.php:761
+msgid "Post Types to which this taxonomy should be connected to."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:751
 msgid "post_add"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:129
-msgid "post_tag: https://api.helsingborg.se/event/json/wp/v2/tags"
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:184
+msgid "Postal Code"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:123
-msgid "post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags"
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:150
+#: library/Customizer/PanelsRegistry.php:222
 msgid "Posts"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-google-translate.php:66
 msgid "Posts (above archive posts)"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:25
+msgid "Posttyp"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:143
+msgid "Posttypsargument"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:752
@@ -21608,13 +21703,9 @@ msgstr ""
 msgid "pre-school"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:77
-msgid "pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school"
-msgstr ""
-
+#: library/Customizer/Sections/MegaMenu.php:22
 #: library/Customizer/Sections/Quicklinks.php:22
 #: library/Customizer/Sections/Field.php:21
-#: library/Customizer/Sections/MegaMenu.php:22
 msgid "Predefined appearance"
 msgstr ""
 
@@ -21634,20 +21725,20 @@ msgstr ""
 msgid "present_to_all"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:65
-#: library/Customizer/Sections/FooterMain.php:60
-#: library/Customizer/Sections/Siteselector.php:82
-#: library/Customizer/Sections/Quicklinks.php:159
-#: library/Customizer/Sections/FooterSub.php:55
 #: library/Customizer/Sections/MegaMenu.php:162
 #: library/Customizer/Sections/MegaMenu.php:201
-#: library/Customizer/Sections/Search.php:144
+#: library/Customizer/Sections/FooterSub.php:55
+#: library/Customizer/Sections/Quicklinks.php:159
+#: library/Customizer/Sections/FooterMain.php:60
 #: library/Customizer/Sections/Header.php:115
 #: library/Customizer/Sections/Header.php:138
 #: library/Customizer/Sections/Header.php:196
 #: library/Customizer/Sections/Header.php:216
 #: library/Customizer/Sections/Header.php:250
+#: library/Customizer/Sections/Search.php:144
 #: library/Customizer/Sections/Button.php:24
+#: library/Customizer/Sections/Siteselector.php:82
+#: library/AcfFields/php/block-button.php:65
 msgid "Primary"
 msgstr ""
 
@@ -21676,12 +21767,12 @@ msgstr ""
 msgid "Primary menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:255
+#: library/Helper/TranslatedLabels.php:44
 #: library/Customizer/Sections/Navigation.php:56
 msgid "Primary navigation"
 msgstr ""
 
-#: library/Helper/Navigation.php:867
+#: library/Helper/Navigation.php:877 library/Api/Pdf/PdfGenerator.php:78
 msgid "Print"
 msgstr ""
 
@@ -21689,7 +21780,7 @@ msgstr ""
 msgid "print"
 msgstr ""
 
-#: library/Helper/Navigation.php:868
+#: library/Helper/Navigation.php:878 library/Api/Pdf/PdfGenerator.php:79
 msgid "Print this page"
 msgstr ""
 
@@ -21709,17 +21800,28 @@ msgstr ""
 msgid "Profile picture"
 msgstr ""
 
-#: library/Controller/ContentType/Project.php:17
+#: library/Controller/ContentType/Complex/Project.php:20
 msgid "Project"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:137
-msgid "property: https://api.helsingborg.se/event/json/wp/v2/property"
+#: library/Controller/ContentType/Complex/Project.php:58
+msgctxt "Project brand, commonly \"participants\""
+msgid "Brand"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:261
-#: library/AcfFields/php/resource-fields.php:796
-msgid "Public"
+#: library/Controller/ContentType/Complex/Project.php:62
+msgctxt "Project department"
+msgid "Department"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/Project.php:54
+msgctxt "Project founder, commonly \"organisation\"."
+msgid "Founder"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/Project.php:38
+msgctxt "Project name"
+msgid "Name"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:761
@@ -21734,25 +21836,20 @@ msgstr ""
 msgid "Public?"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:361
-#: library/AcfFields/php/resource-fields.php:876
-msgid "Publicly Queryable"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:762
 msgid "publish"
 msgstr ""
 
-#: library/Controller/BaseController.php:281
+#: library/Helper/TranslatedLabels.php:70
 msgid "Publish Date"
 msgstr ""
 
-#: library/Controller/BaseController.php:272
-#: library/Controller/BaseController.php:282
+#: library/Helper/TranslatedLabels.php:61
+#: library/Helper/TranslatedLabels.php:71
 msgid "Published"
 msgstr ""
 
-#: library/Controller/BaseController.php:273
+#: library/Helper/TranslatedLabels.php:62
 msgid "Published by"
 msgstr ""
 
@@ -21761,7 +21858,7 @@ msgid "px"
 msgstr ""
 
 #: library/AcfFields/php/resource-fields.php:642
-#: library/AcfFields/php/resource-fields.php:1106
+#: library/AcfFields/php/resource-fields.php:1113
 msgid "Query Var"
 msgstr ""
 
@@ -21789,11 +21886,11 @@ msgstr ""
 msgid "queue_play_next"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:258
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:206
 msgid "Quick facts"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:262
+#: library/Customizer/PanelsRegistry.php:334
 #: library/AcfFields/php/options-page-quicklinks-placement.php:8
 msgid "Quicklinks"
 msgstr ""
@@ -21806,9 +21903,8 @@ msgstr ""
 msgid "Quicklinks location."
 msgstr ""
 
-#: library/Theme/Navigation.php:33
+#: library/Theme/Navigation.php:33 library/Customizer/Sections/Search.php:137
 #: library/AcfFields/php/options-theme-google-translate.php:63
-#: library/Customizer/Sections/Search.php:137
 msgid "Quicklinks menu"
 msgstr ""
 
@@ -21824,7 +21920,7 @@ msgstr ""
 msgid "radio_button_unchecked"
 msgstr ""
 
-#: library/Controller/BaseController.php:279
+#: library/Helper/TranslatedLabels.php:68
 msgid "Random"
 msgstr ""
 
@@ -21832,13 +21928,13 @@ msgstr ""
 msgid "rate_review"
 msgstr ""
 
-#: library/Controller/BaseController.php:269
-#: library/Controller/BaseController.php:285
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:457
+#: library/Helper/TranslatedLabels.php:58
+#: library/Helper/TranslatedLabels.php:73
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:594
 msgid "Read more"
 msgstr ""
 
-#: library/Controller/BaseController.php:266
+#: library/Helper/TranslatedLabels.php:55
 msgid "Reading time"
 msgstr ""
 
@@ -21870,16 +21966,16 @@ msgstr ""
 msgid "Regular (400)"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:298
+#: library/Customizer/PanelsRegistry.php:370
 msgid "Regular Slider"
 msgstr ""
 
-#: library/Controller/BaseController.php:267
+#: library/Helper/TranslatedLabels.php:56
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
-#: library/Controller/BaseController.php:258
+#: library/Helper/TranslatedLabels.php:47
 msgid "Related links"
 msgstr ""
 
@@ -21927,6 +22023,10 @@ msgstr ""
 msgid "repeat_one"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:139
+msgid "Replace default Print with PDF generator"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:787
 msgid "replay"
 msgstr ""
@@ -21963,16 +22063,16 @@ msgstr ""
 msgid "report_problem"
 msgstr ""
 
-#: library/Controller/BaseController.php:295
+#: library/Helper/TranslatedLabels.php:82
 msgid "Reset"
 msgstr ""
 
-#: library/Controller/BaseController.php:276
-#: library/Controller/BaseController.php:293
+#: library/Helper/TranslatedLabels.php:65
+#: library/Helper/TranslatedLabels.php:80
 msgid "Reset filter"
 msgstr ""
 
-#: library/Controller/BaseController.php:292
+#: library/Helper/TranslatedLabels.php:79
 msgid "Reset search"
 msgstr ""
 
@@ -22012,16 +22112,6 @@ msgstr ""
 msgid "Revisions"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:457
-#: library/AcfFields/php/resource-fields.php:972
-msgid "Rewrite"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:554
-#: library/AcfFields/php/resource-fields.php:1018
-msgid "Rewrite options"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-post-type.php:76
 msgid "Rewrite with front"
 msgstr ""
@@ -22031,14 +22121,14 @@ msgstr ""
 msgid "Ridge"
 msgstr ""
 
-#: library/AcfFields/php/widget-header-common.php:105
-#: library/Customizer/Sections/Divider.php:139
 #: library/Customizer/Sections/FooterSub.php:163
-#: library/Customizer/Sections/Hero.php:45
-#: library/Customizer/Sections/Hero.php:97
 #: library/Customizer/Sections/Width.php:94
 #: library/Customizer/Sections/Header.php:38
 #: library/Customizer/Sections/Header.php:65
+#: library/Customizer/Sections/Hero.php:45
+#: library/Customizer/Sections/Hero.php:97
+#: library/Customizer/Sections/Divider.php:139
+#: library/AcfFields/php/widget-header-common.php:105
 msgid "Right"
 msgstr ""
 
@@ -22074,7 +22164,7 @@ msgstr ""
 msgid "Rounded"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:218
+#: library/Customizer/PanelsRegistry.php:290
 #: library/Customizer/Sections/Siteselector.php:109
 msgid "Rounded corners"
 msgstr ""
@@ -22095,6 +22185,11 @@ msgstr ""
 msgid "rowing"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:620
+#: library/AcfFields/php/resource-fields.php:1091
+msgid "RSS-flöde"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:810
 msgid "rss_feed"
 msgstr ""
@@ -22103,7 +22198,7 @@ msgstr ""
 msgid "rv_hookup"
 msgstr ""
 
-#: library/Theme/Enqueue.php:181
+#: library/Theme/Enqueue.php:202
 msgid "Sa"
 msgstr ""
 
@@ -22131,7 +22226,11 @@ msgstr ""
 msgid "schedule"
 msgstr ""
 
-#: library/Controller/ContentType/School.php:21
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:44
+msgid "Schema.org Data"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School.php:23
 msgid "School"
 msgstr ""
 
@@ -22167,7 +22266,7 @@ msgstr ""
 msgid "screen_share"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:156
+#: library/Customizer/PanelsRegistry.php:228
 #: library/Customizer/Sections/Module/Script.php:14
 msgid "Script"
 msgstr ""
@@ -22184,11 +22283,11 @@ msgstr ""
 msgid "sd_storage"
 msgstr ""
 
-#: library/Search/General.php:55 library/Controller/BaseController.php:252
-#: library/Controller/BaseController.php:290
-#: library/Customizer/PanelsRegistry.php:234
-#: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
-#: library/Admin/Options/Theme.php:52
+#: library/Helper/TranslatedLabels.php:41
+#: library/Helper/TranslatedLabels.php:77
+#: library/Customizer/PanelsRegistry.php:306 library/Search/General.php:55
+#: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
+#: library/Admin/Options/ContentType.php:88
 #: library/Widget/Navigation/Navigation.php:66
 msgid "Search"
 msgstr ""
@@ -22206,11 +22305,15 @@ msgstr ""
 msgid "Search for"
 msgstr ""
 
+#: library/Controller/BaseController.php:227
+msgid "Search for content"
+msgstr ""
+
 #: library/Customizer/Sections/Search.php:95
 msgid "Search form shape"
 msgstr ""
 
-#: library/Controller/BaseController.php:253
+#: library/Helper/TranslatedLabels.php:42
 msgid "Search on"
 msgstr ""
 
@@ -22223,24 +22326,24 @@ msgid ""
 "Sebastian Thulin @ Helsingborg stad, Kristoffer Svanmark @ Lexicon IT-Konsult"
 msgstr ""
 
-#: library/Controller/BaseController.php:251
+#: library/Helper/TranslatedLabels.php:40
 msgid "second"
 msgstr ""
 
-#: library/AcfFields/php/block-button.php:66
-#: library/Customizer/Sections/FooterMain.php:61
-#: library/Customizer/Sections/Siteselector.php:83
-#: library/Customizer/Sections/Quicklinks.php:160
-#: library/Customizer/Sections/FooterSub.php:56
 #: library/Customizer/Sections/MegaMenu.php:163
 #: library/Customizer/Sections/MegaMenu.php:202
-#: library/Customizer/Sections/Search.php:145
+#: library/Customizer/Sections/FooterSub.php:56
+#: library/Customizer/Sections/Quicklinks.php:160
+#: library/Customizer/Sections/FooterMain.php:61
 #: library/Customizer/Sections/Header.php:116
 #: library/Customizer/Sections/Header.php:139
 #: library/Customizer/Sections/Header.php:197
 #: library/Customizer/Sections/Header.php:217
 #: library/Customizer/Sections/Header.php:251
 #: library/Customizer/Sections/Colors.php:172
+#: library/Customizer/Sections/Search.php:145
+#: library/Customizer/Sections/Siteselector.php:83
+#: library/AcfFields/php/block-button.php:66
 msgid "Secondary"
 msgstr ""
 
@@ -22273,7 +22376,7 @@ msgstr ""
 msgid "Secondary navigation position"
 msgstr ""
 
-#: library/Controller/BaseController.php:250
+#: library/Helper/TranslatedLabels.php:39
 msgid "seconds"
 msgstr ""
 
@@ -22281,7 +22384,7 @@ msgstr ""
 msgid "Section Split"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:162
+#: library/Customizer/PanelsRegistry.php:234
 msgid "Sections Split"
 msgstr ""
 
@@ -22289,7 +22392,7 @@ msgstr ""
 msgid "security"
 msgstr ""
 
-#: library/Controller/Singular.php:237 library/Controller/Archive.php:475
+#: library/Controller/Singular.php:268 library/Controller/Archive.php:474
 msgid "Select"
 msgstr ""
 
@@ -22302,7 +22405,7 @@ msgstr ""
 msgid "Select a design"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:77
+#: library/Customizer/PanelsRegistry.php:80
 #: library/Customizer/Panels/DesignLibrary.php:14
 msgid "Select a design made by other municipio users."
 msgstr ""
@@ -22315,7 +22418,7 @@ msgstr ""
 msgid "Select a key/value to order by."
 msgstr ""
 
-#: library/Controller/BaseController.php:289
+#: library/Helper/TranslatedLabels.php:76
 msgid "Select a valid date"
 msgstr ""
 
@@ -22343,14 +22446,14 @@ msgstr ""
 msgid "Select decending or ascending order."
 msgstr ""
 
-#: library/Customizer/Sections/Quicklinks.php:129
 #: library/Customizer/Sections/MegaMenu.php:74
+#: library/Customizer/Sections/Quicklinks.php:129
 msgid "Select font"
 msgstr ""
 
+#: library/Customizer/Sections/MegaMenu.php:17
 #: library/Customizer/Sections/Quicklinks.php:17
 #: library/Customizer/Sections/Field.php:16
-#: library/Customizer/Sections/MegaMenu.php:17
 msgid ""
 "Select if you want to use one of the predefined appearance, or customize "
 "freely."
@@ -22363,6 +22466,10 @@ msgstr ""
 
 #: library/Customizer/Sections/Archive.php:355
 msgid "Select source of timestamp for post"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:129
+msgid "Select the content type for this post type."
 msgstr ""
 
 #: library/AcfFields/php/options-content-types.php:43
@@ -22417,7 +22524,7 @@ msgstr ""
 msgid "Seperate the words with a comma"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:208
+#: library/Customizer/PanelsRegistry.php:280
 msgid "Set the maximum page withs of different page types."
 msgstr ""
 
@@ -22431,21 +22538,20 @@ msgstr ""
 msgid "Sets the color of the button. The custom color will be ignored."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:646
-#: library/AcfFields/php/resource-fields.php:1110
-msgid "Sets the query_var key for this post type."
-msgstr ""
-
 #: library/Customizer/Sections/MegaMenu.php:100
 #: library/Customizer/Sections/MegaMenu.php:119
 msgid "Sets the style of the main items"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:288
+#: library/Api/Pdf/PdfGenerator.php:135
+msgid "Settings"
+msgstr ""
+
+#: library/Customizer/PanelsRegistry.php:360
 msgid "Settings for Open Street Maps."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:305
+#: library/Customizer/PanelsRegistry.php:377
 msgid "Settings for the slider in the hero area."
 msgstr ""
 
@@ -22549,11 +22655,7 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:856
-msgid "Show Admin Column"
-msgstr ""
-
-#: library/Controller/BaseController.php:268 library/Controller/E404.php:47
+#: library/Helper/TranslatedLabels.php:57 library/Controller/E404.php:47
 msgid "Show all"
 msgstr ""
 
@@ -22581,21 +22683,6 @@ msgstr ""
 msgid "Show icon after label"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:429
-#: library/AcfFields/php/resource-fields.php:944
-msgid "Show In Admin Bar"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:401
-#: library/AcfFields/php/resource-fields.php:916
-msgid "Show In Menu"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:381
-#: library/AcfFields/php/resource-fields.php:896
-msgid "Show In Nav Menus"
-msgstr ""
-
 #: library/Customizer/Sections/MegaMenu.php:242
 msgid "Show on mobile"
 msgstr ""
@@ -22620,13 +22707,14 @@ msgstr ""
 msgid "Show title in One Page template"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:301
-#: library/AcfFields/php/resource-fields.php:836
-msgid "Show UI"
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:859
 msgid "show_chart"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:403
+#, php-format
+msgctxt "Shown on pre-schools"
+msgid "Do you want to join %s?"
 msgstr ""
 
 #: library/Theme/Icon.php:107
@@ -22697,7 +22785,7 @@ msgstr ""
 msgid "sim_card"
 msgstr ""
 
-#: library/Controller/BaseController.php:237
+#: library/Helper/TranslatedLabels.php:26
 msgid "since"
 msgstr ""
 
@@ -22709,11 +22797,11 @@ msgstr ""
 msgid "single_bed"
 msgstr ""
 
-#: library/Controller/BaseController.php:260
+#: library/Helper/TranslatedLabels.php:49
 msgid "Site emblem"
 msgstr ""
 
-#: library/Theme/Navigation.php:35 library/Customizer/PanelsRegistry.php:256
+#: library/Customizer/PanelsRegistry.php:328 library/Theme/Navigation.php:35
 #: library/AcfFields/php/options-theme-google-translate.php:65
 msgid "Siteselector"
 msgstr ""
@@ -22723,15 +22811,15 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: library/Controller/BaseController.php:232
+#: library/Helper/TranslatedLabels.php:21
 msgid "Skip to the main content"
 msgstr ""
 
-#: library/Controller/BaseController.php:234
+#: library/Helper/TranslatedLabels.php:23
 msgid "Skip to the main menu"
 msgstr ""
 
-#: library/Controller/BaseController.php:235
+#: library/Helper/TranslatedLabels.php:24
 msgid "Skip to the side menu"
 msgstr ""
 
@@ -22749,12 +22837,12 @@ msgid ""
 "inkluderas på samtliga sidor."
 msgstr ""
 
-#: library/Customizer/Sections/SliderHero.php:87
 #: library/Customizer/Sections/SliderDefault.php:146
+#: library/Customizer/Sections/SliderHero.php:87
 msgid "Slide overlay"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:294
+#: library/Customizer/PanelsRegistry.php:366
 msgid "Slider"
 msgstr ""
 
@@ -22766,25 +22854,20 @@ msgstr ""
 msgid "slow_motion_video"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:580
-#: library/AcfFields/php/resource-fields.php:1044
-msgid "Slug"
-msgstr ""
-
 #: library/AcfFields/php/widget-header-common.php:159
 msgid "SM and up"
 msgstr ""
 
-#: library/AcfFields/php/options-theme-editor-formats.php:25
-#: library/AcfFields/php/widget-header-links.php:361
-#: library/AcfFields/php/block-button.php:127
-#: library/AcfFields/php/navigation-widget.php:353
-#: library/AcfFields/php/widget-header-common.php:132
-#: library/AcfFields/php/widget-header-menu.php:51
-#: library/Customizer/Sections/Siteselector.php:116
-#: library/Customizer/Sections/Radius.php:33
 #: library/Customizer/Sections/Header.php:283
+#: library/Customizer/Sections/Radius.php:33
 #: library/Customizer/Sections/Menu.php:118
+#: library/Customizer/Sections/Siteselector.php:116
+#: library/AcfFields/php/options-theme-editor-formats.php:25
+#: library/AcfFields/php/widget-header-menu.php:51
+#: library/AcfFields/php/widget-header-common.php:132
+#: library/AcfFields/php/block-button.php:127
+#: library/AcfFields/php/widget-header-links.php:361
+#: library/AcfFields/php/navigation-widget.php:353
 msgid "Small"
 msgstr ""
 
@@ -22813,12 +22896,12 @@ msgid "snooze"
 msgstr ""
 
 #: library/Customizer/Sections/Card.php:118
-#: library/Customizer/Sections/Divider.php:38
 #: library/Customizer/Sections/Collection.php:118
+#: library/Customizer/Sections/Divider.php:38
 msgid "Solid"
 msgstr ""
 
-#: library/Theme/Enqueue.php:148
+#: library/Theme/Enqueue.php:169
 msgid "Something went wrong, please try again later"
 msgstr ""
 
@@ -22826,7 +22909,7 @@ msgstr ""
 msgid "sort"
 msgstr ""
 
-#: library/Controller/BaseController.php:278
+#: library/Helper/TranslatedLabels.php:67
 msgid "Sort by"
 msgstr ""
 
@@ -22862,16 +22945,16 @@ msgstr ""
 msgid "speaker_phone"
 msgstr ""
 
+#: library/Api/Pdf/PdfGenerator.php:264
+msgid "Specific cover settings"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:892
 msgid "speed"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:893
 msgid "spellcheck"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:84
-msgid "sponsor: https://api.helsingborg.se/event/json/wp/v2/sponsor"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:894
@@ -22946,9 +23029,9 @@ msgstr ""
 msgid "square_foot"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:46
-#: library/Customizer/Sections/Button.php:145
 #: library/Customizer/Sections/Colors.php:519
+#: library/Customizer/Sections/Button.php:145
+#: library/AcfFields/php/block-container.php:46
 msgid "Standard"
 msgstr ""
 
@@ -22970,6 +23053,10 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:914
 msgid "stars"
+msgstr ""
+
+#: library/Controller/ContentType/Complex/Event.php:40
+msgid "Start date"
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:915
@@ -23034,6 +23121,10 @@ msgstr ""
 msgid "straighten"
 msgstr ""
 
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:176
+msgid "Street Address"
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:926
 msgid "streetview"
 msgstr ""
@@ -23042,13 +23133,13 @@ msgstr ""
 msgid "strikethrough_s"
 msgstr ""
 
-#: library/AcfFields/php/options-menu-style.php:12
-#: library/AcfFields/php/block-button.php:84
-#: library/AcfFields/php/navigation-widget.php:316
 #: library/Customizer/Sections/Card.php:112
-#: library/Customizer/Sections/Header.php:152
-#: library/Customizer/Sections/Collection.php:112
 #: library/Customizer/Sections/Archive.php:42
+#: library/Customizer/Sections/Collection.php:112
+#: library/Customizer/Sections/Header.php:152
+#: library/AcfFields/php/block-button.php:84
+#: library/AcfFields/php/options-menu-style.php:12
+#: library/AcfFields/php/navigation-widget.php:316
 msgid "Style"
 msgstr ""
 
@@ -23056,11 +23147,16 @@ msgstr ""
 msgid "style"
 msgstr ""
 
-#: library/Theme/Enqueue.php:175
+#: library/AcfFields/php/resource-fields.php:646
+#: library/AcfFields/php/resource-fields.php:1117
+msgid "Ställer in query_var-nyckeln för denna inläggstyp."
+msgstr ""
+
+#: library/Theme/Enqueue.php:196
 msgid "Su"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:322
+#: library/Customizer/PanelsRegistry.php:394
 msgid "Sub footer"
 msgstr ""
 
@@ -23177,6 +23273,11 @@ msgstr ""
 msgid "Sök utlösare"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:522
+#: library/AcfFields/php/resource-fields.php:1014
+msgid "t.ex. \"manage_options\"..."
+msgstr ""
+
 #: library/AcfFields/php/options-menu-icon.php:951
 msgid "tab"
 msgstr ""
@@ -23221,7 +23322,7 @@ msgstr ""
 msgid "tag_faces"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:347
+#: library/Customizer/PanelsRegistry.php:419
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
 msgid "Tags"
 msgstr ""
@@ -23260,28 +23361,24 @@ msgstr ""
 msgid "tap_and_play"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:26
+msgid "Taxonomi"
+msgstr ""
+
 #: library/Admin/Options/Theme.php:84
 msgid "Taxonomies"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:26
-msgid "Taxonomy"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:664
-msgid "Taxonomy Arguments"
+#: library/AcfFields/php/resource-fields.php:697
+msgid "Taxonominyckel"
 msgstr ""
 
 #: library/Customizer/Sections/Archive.php:297
 msgid "Taxonomy display"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:694
-msgid "Taxonomy key"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:101
-msgid "Taxonomy Source"
+#: library/Controller/ContentType/Simple/Person.php:41
+msgid "Telephone"
 msgstr ""
 
 #: library/Admin/Options/ContentType.php:92
@@ -23293,14 +23390,14 @@ msgid "terrain"
 msgstr ""
 
 #: library/Admin/UI/BackEnd.php:27
-#: library/Controller/ContentType/ContentTypeComplex.Test.php:21
+#: library/Controller/ContentType/Complex/School/ContentTypeComplex.TestExcl.php:21
 msgid "Test"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:168
+#: library/Customizer/PanelsRegistry.php:240
+#: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
-#: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/options-theme-google-translate.php:96
 msgid "Text"
 msgstr ""
@@ -23309,19 +23406,19 @@ msgstr ""
 msgid "text"
 msgstr ""
 
-#: library/Customizer/Sections/SliderHero.php:65
-#: library/Customizer/Sections/FooterMain.php:111
-#: library/Customizer/Sections/Divider.php:132
-#: library/Customizer/Sections/Hero.php:38
 #: library/Customizer/Sections/SliderDefault.php:115
+#: library/Customizer/Sections/FooterMain.php:111
+#: library/Customizer/Sections/SliderHero.php:65
+#: library/Customizer/Sections/Hero.php:38
+#: library/Customizer/Sections/Divider.php:132
 msgid "Text alignment"
 msgstr ""
 
-#: library/AcfFields/php/block-container.php:276
-#: library/Customizer/Sections/FooterMain.php:265
-#: library/Customizer/Sections/Divider.php:107
 #: library/Customizer/Sections/Quicklinks.php:44
+#: library/Customizer/Sections/FooterMain.php:265
 #: library/Customizer/Sections/Header.php:129
+#: library/Customizer/Sections/Divider.php:107
+#: library/AcfFields/php/block-container.php:276
 msgid "Text color"
 msgstr ""
 
@@ -23377,7 +23474,7 @@ msgstr ""
 msgid "texture"
 msgstr ""
 
-#: library/Theme/Enqueue.php:179
+#: library/Theme/Enqueue.php:200
 msgid "Th"
 msgstr ""
 
@@ -23424,20 +23521,6 @@ msgstr ""
 msgid "The hero area"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:185
-msgid ""
-"The key of the post type. Max. 20 characters, cannot contain capital letters "
-"or spaces."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:698
-#: library/AcfFields/php/resource-fields.php:718
-#: library/AcfFields/php/resource-fields.php:738
-msgid ""
-"The key of the post type. Max. 32 characters, cannot contain capital letters "
-"or spaces."
-msgstr ""
-
 #: library/Theme/Sidebars.php:191
 msgid "The left sidebar area"
 msgstr ""
@@ -23450,10 +23533,10 @@ msgstr ""
 msgid "The password entered is not correct."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:481
+#: library/Api/Pdf/PdfGenerator.php:47
 msgid ""
-"The position in the menu order the post type should appear. show_in_menu "
-"must be true."
+"The PDF generator is missing some suggested dependencies. Please install the "
+"following PHP extensions: GD"
 msgstr ""
 
 #: library/Theme/Sidebars.php:176
@@ -23486,7 +23569,7 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: library/Controller/Singular.php:443
+#: library/Controller/Singular.php:476
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -23504,14 +23587,14 @@ msgstr ""
 msgid "This it the test-environment. Your content will not be published."
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:18
+#: library/Oembed/OembedFilters.php:40
 #, php-format
 msgid ""
 "This part of the website shows content from %s. By continuing, <a "
 "href=\"%s\"> you are accepting GDPR and privacy policy</a>."
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:24
+#: library/Oembed/OembedFilters.php:46
 #, php-format
 msgid ""
 "This part of the website shows content from another website (%s). By "
@@ -23580,7 +23663,7 @@ msgstr ""
 msgid "title"
 msgstr ""
 
-#: library/Upgrade.php:776
+#: library/Upgrade.php:798
 msgid "To be installed database version must be a number."
 msgstr ""
 
@@ -23616,8 +23699,8 @@ msgstr ""
 msgid "tonality"
 msgstr ""
 
-#: library/Customizer/Sections/Search.php:122
 #: library/Customizer/Sections/Hero.php:69
+#: library/Customizer/Sections/Search.php:122
 msgid "Top"
 msgstr ""
 
@@ -23705,18 +23788,11 @@ msgstr ""
 msgid "Trigger button type"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:461
-#: library/AcfFields/php/resource-fields.php:558
-#: library/AcfFields/php/resource-fields.php:976
-#: library/AcfFields/php/resource-fields.php:1022
-msgid "Triggers the handling of rewrites for this post type."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:1003
 msgid "trip_origin"
 msgstr ""
 
-#: library/Theme/Enqueue.php:177
+#: library/Theme/Enqueue.php:198
 msgid "Tu"
 msgstr ""
 
@@ -23745,8 +23821,15 @@ msgid "Twitter username"
 msgstr ""
 
 #: library/AcfFields/php/resource-fields.php:12
-#: library/AcfFields/php/term-icon-and-colour.php:47
+msgid "Typ"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:757
+msgid "Typ av objekt"
+msgstr ""
+
 #: library/AcfFields/php/options-theme-favicon.php:31
+#: library/AcfFields/php/term-icon-and-colour.php:47
 msgid "Type"
 msgstr ""
 
@@ -23754,7 +23837,7 @@ msgstr ""
 msgid "Type of taxonomy"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:201
+#: library/Customizer/PanelsRegistry.php:273
 msgid "Typography"
 msgstr ""
 
@@ -23782,7 +23865,8 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: library/Helper/Navigation.php:640 library/Helper/Navigation.php:933
+#: library/Helper/Navigation.php:650 library/Helper/Navigation.php:916
+#: library/Helper/Navigation.php:919 library/Helper/Navigation.php:943
 msgid "Untitled page"
 msgstr ""
 
@@ -23790,8 +23874,8 @@ msgstr ""
 msgid "update"
 msgstr ""
 
-#: library/Controller/BaseController.php:271
-#: library/Controller/BaseController.php:283
+#: library/Helper/TranslatedLabels.php:60
+#: library/Helper/TranslatedLabels.php:72
 msgid "Updated"
 msgstr ""
 
@@ -23827,6 +23911,8 @@ msgstr ""
 
 #: library/AcfFields/php/widget-header-links.php:86
 #: library/AcfFields/php/widget-header-links.php:173
+#: library/Controller/ContentType/Complex/School.php:60
+#: library/Controller/ContentType/Complex/Project.php:50
 msgid "URL"
 msgstr ""
 
@@ -23874,28 +23960,38 @@ msgstr ""
 msgid "Use the same font as base but preferably with an italic style"
 msgstr ""
 
-#: library/Controller/BaseController.php:257
-msgid "Useful links"
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:52
+msgid "Use these fields to enhance visibility in search results."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:130
-msgid "user_groups: https://api.helsingborg.se/event/json/wp/v2/user_groups"
+#: library/Helper/TranslatedLabels.php:46
+msgid "Useful links"
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:162
 msgid "user_request"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:126
-msgid "usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp"
+#: library/AcfFields/php/resource-fields.php:337
+msgid "Uteslut från sök"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:429
+#: library/AcfFields/php/resource-fields.php:951
+msgid "Var inläggstypen ska visas i adminfältet. show_in_menu måste vara true."
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:401
+#: library/AcfFields/php/resource-fields.php:923
+msgid "Var posttypen ska visas i adminmenyn. show_ui måste vara true."
 msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1016
 msgid "verified_user"
 msgstr ""
 
-#: library/Customizer/Sections/Navigation.php:100
 #: library/Customizer/Sections/FooterSub.php:133
+#: library/Customizer/Sections/Navigation.php:100
 msgid "Vertical"
 msgstr ""
 
@@ -24012,6 +24108,30 @@ msgstr ""
 msgid "vignette"
 msgstr ""
 
+#: library/AcfFields/php/resource-fields.php:859
+msgid "Visa admin-kolumn"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:297
+#: library/AcfFields/php/resource-fields.php:839
+msgid "Visa användargränssnitt"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:425
+#: library/AcfFields/php/resource-fields.php:947
+msgid "Visa i adminfältet"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:397
+#: library/AcfFields/php/resource-fields.php:919
+msgid "Visa i menyn"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:377
+#: library/AcfFields/php/resource-fields.php:899
+msgid "Visa i navigeringsmenyer"
+msgstr ""
+
 #: library/AcfFields/php/widget-header-common.php:29
 msgid "Visibility"
 msgstr ""
@@ -24024,15 +24144,15 @@ msgstr ""
 msgid "visibility_off"
 msgstr ""
 
-#: library/Controller/BaseController.php:301
+#: library/Controller/BaseController.php:236
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:269
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:339
 msgid "Visit us"
 msgstr ""
 
-#: library/Helper/ContentTypePlace.php:38
+#: library/Helper/ContentType.php:322
 msgid "Visit website"
 msgstr ""
 
@@ -24044,11 +24164,11 @@ msgstr ""
 msgid "Visited hover"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:412
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:539
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/ContentType/School/SchoolDataPreparer.php:413
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:541
 msgid "Visiting addresses"
 msgstr ""
 
@@ -24108,7 +24228,7 @@ msgstr ""
 msgid "wallpaper"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:83
+#: library/Customizer/PanelsRegistry.php:86
 msgid ""
 "Want a new fresh design to your site? Use one of the options below to serve "
 "as a boilerplate!"
@@ -24163,11 +24283,11 @@ msgstr ""
 msgid "wc"
 msgstr ""
 
-#: library/Theme/Enqueue.php:178
+#: library/Theme/Enqueue.php:199
 msgid "We"
 msgstr ""
 
-#: library/Oembed/OembedFilters.php:17 library/Oembed/OembedFilters.php:23
+#: library/Oembed/OembedFilters.php:39 library/Oembed/OembedFilters.php:45
 msgid "We need your consent to continue"
 msgstr ""
 
@@ -24183,11 +24303,11 @@ msgstr ""
 msgid "web_asset"
 msgstr ""
 
-#: library/Controller/BaseController.php:243
+#: library/Helper/TranslatedLabels.php:32
 msgid "week"
 msgstr ""
 
-#: library/Controller/BaseController.php:242
+#: library/Helper/TranslatedLabels.php:31
 msgid "weeks"
 msgstr ""
 
@@ -24199,7 +24319,7 @@ msgstr ""
 msgid "Wether to display the estimated reading time for each post"
 msgstr ""
 
-#: library/Controller/BaseController.php:254
+#: library/Helper/TranslatedLabels.php:43
 msgid "What are you searching for?"
 msgstr ""
 
@@ -24228,17 +24348,6 @@ msgstr ""
 msgid "Where to show Google Translate"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:433
-#: library/AcfFields/php/resource-fields.php:948
-msgid ""
-"Where to show the post type in the admin bar. show_in_menu must be true."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:405
-#: library/AcfFields/php/resource-fields.php:920
-msgid "Where to show the post type in the admin menu. show_ui must be true."
-msgstr ""
-
 #: library/AcfFields/php/options-menu-icon.php:1067
 msgid "where_to_vote"
 msgstr ""
@@ -24249,42 +24358,15 @@ msgid ""
 "when adding multiple selections for facetting."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:385
-#: library/AcfFields/php/resource-fields.php:900
-msgid "Whether post_type is available for selection in navigation menus."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:365
-#: library/AcfFields/php/resource-fields.php:880
-msgid ""
-"Whether queries can be performed on the front end as part of parse_request()."
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-post-type.php:240
 msgid ""
 "Whether the post type is hierarchical (e.g. page). Allows Parent to be "
 "specified."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:285
-#: library/AcfFields/php/resource-fields.php:820
-msgid "Whether the post type is hierarchical. Allows Parent to be specified."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:265
-#: library/AcfFields/php/resource-fields.php:800
-msgid "Whether the post type should be publicly queryable."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:345
 #: library/AcfFields/php/options-theme-custom-post-type.php:198
 msgid ""
 "Whether to exclude posts with this post type from front end search results."
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:305
-#: library/AcfFields/php/resource-fields.php:840
-msgid "Whether to generate a default UI for managing this post type."
 msgstr ""
 
 #: library/Customizer/Sections/OpenStreetMap.php:44
@@ -24361,11 +24443,6 @@ msgstr ""
 msgid "Will default to \"Select <name of taxonomy>\"."
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:600
-#: library/AcfFields/php/resource-fields.php:1064
-msgid "With front"
-msgstr ""
-
 #: library/AcfFields/php/navigation-widget.php:27
 msgid "Wordpress menu"
 msgstr ""
@@ -24386,10 +24463,6 @@ msgstr ""
 msgid "wp_block"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:73
-msgid "wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:166
 msgid "wp_global_styles"
 msgstr ""
@@ -24398,25 +24471,12 @@ msgstr ""
 msgid "wp_navigation"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:76
-msgid "wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:164
 msgid "wp_template"
 msgstr ""
 
-#: library/AcfFields/php/resource-fields.php:74
-msgid "wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates"
-msgstr ""
-
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:165
 msgid "wp_template_part"
-msgstr ""
-
-#: library/AcfFields/php/resource-fields.php:75
-msgid ""
-"wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts"
 msgstr ""
 
 #: library/Customizer/Sections/Divider.php:158
@@ -24427,11 +24487,11 @@ msgstr ""
 msgid "wrap_text"
 msgstr ""
 
-#: library/Controller/BaseController.php:239
+#: library/Helper/TranslatedLabels.php:28
 msgid "year"
 msgstr ""
 
-#: library/Controller/BaseController.php:238
+#: library/Helper/TranslatedLabels.php:27
 msgid "years"
 msgstr ""
 
@@ -24443,7 +24503,7 @@ msgstr ""
 msgid "Yes, disable posts."
 msgstr ""
 
-#: library/Controller/BaseController.php:265
+#: library/Helper/TranslatedLabels.php:54
 msgid "You are here: "
 msgstr ""
 
@@ -24477,6 +24537,18 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-icon.php:1080
 msgid "zoom_out_map"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:530
+msgid "Överordnade inläggstyper"
+msgstr ""
+
+#: library/AcfFields/php/resource-fields.php:534
+msgid ""
+"Överordnade inläggstyper används för att bestämma permalänken och "
+"omskrivningsreglerna för denna inläggstyp. Om du anger överordnade "
+"inläggstyper påverkas omskrivningssluggen genom att den inleds med sluggen "
+"för överordnade inläggstyper."
 msgstr ""
 
 #: library/Widget/Navigation/Navigation.php:82

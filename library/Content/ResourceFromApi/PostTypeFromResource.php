@@ -59,25 +59,19 @@ class PostTypeFromResource implements TypeRegistrarInterface
         }
 
         foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-            if ($arguments['hierarchical'] === true || empty($arguments['parent_post_types'])) {
-                return;
+            $parentPostTypeObject = get_post_type_object($parentPostTypeName);
+
+            if (!is_a($parentPostTypeObject, WP_Post_Type::class)) {
+                continue;
             }
 
-            foreach ($arguments['parent_post_types'] as $parentPostTypeName) {
-                $parentPostTypeObject = get_post_type_object($parentPostTypeName);
+            $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
 
-                if (empty($parentPostTypeObject)) {
-                    continue;
-                }
-
-                $parentRewriteSlug = $parentPostTypeObject->rewrite['slug'];
-
-                add_rewrite_rule(
-                    $parentRewriteSlug . '/(.*)/(.*)',
-                    'index.php?' . $postTypeName . '=$matches[2]',
-                    'top'
-                );
-            }
+            add_rewrite_rule(
+                $parentRewriteSlug . '/(.*)/(.*)',
+                'index.php?' . $postTypeName . '=$matches[2]',
+                'top'
+            );
         }
     }
 

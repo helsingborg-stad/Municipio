@@ -13,19 +13,19 @@ namespace Municipio\Helper;
 class Navigation
 {
     private static $db;
-    private $postId = null;
-    private $cache = [];
+    private $postId         = null;
+    private $cache          = [];
     private $masterPostType = 'page';
-    private $identifier = '';
-    private $context = '';
+    private $identifier     = '';
+    private $context        = '';
 
-    private $cacheGroup = 'municipioNavMenu';
+    private $cacheGroup  = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
     public function __construct(string $identifier = '', string $context = 'municipio')
     {
         $this->identifier = $identifier;
-        $this->context = $context;
+        $this->context    = $context;
         $this->globalToLocal('wpdb', 'db');
     }
 
@@ -239,7 +239,7 @@ class Navigation
     private function getAncestors(int $postId, $includeTopLevel = true): array
     {
         //Definitions
-        $ancestorStack = array($postId);
+        $ancestorStack  = array($postId);
         $fetchAncestors = true;
 
         //Fetch ancestors
@@ -278,7 +278,7 @@ class Navigation
                 }
 
                 //Prepare for next iteration
-                $postId           = $ancestorID;
+                $postId = $ancestorID;
             }
         }
 
@@ -500,8 +500,8 @@ class Navigation
     private function transformObject(array $array): array
     {
         //Move post_title to label key
-        $array['label'] = $array['post_title'];
-        $array['id'] = (int) $array['ID'];
+        $array['label']       = $array['post_title'];
+        $array['id']          = (int) $array['ID'];
         $array['post_parent'] = (int) $array['post_parent'];
 
         //Unset data not needed
@@ -511,14 +511,14 @@ class Navigation
         //Sort & return
         return array_merge(
             array(
-                'id' => null,
+                'id'          => null,
                 'post_parent' => null,
-                'post_type' => null,
-                'active' => null,
-                'ancestor' => null,
-                'label' => null,
-                'href' => null,
-                'children' => null
+                'post_type'   => null,
+                'active'      => null,
+                'ancestor'    => null,
+                'label'       => null,
+                'href'        => null,
+                'children'    => null
             ),
             $array
         );
@@ -527,8 +527,8 @@ class Navigation
     /**
      * Get a list of hidden post id's
      *
-     * Optimzing: It may be faster on smaller databases 
-     * to not use a join. This will however slow down larger sites. 
+     * Optimzing: It may be faster on smaller databases
+     * to not use a join. This will however slow down larger sites.
      *
      * This is a calculated risk that should be caught
      * by the object cache. Tests have been made to enshure
@@ -548,14 +548,17 @@ class Navigation
 
         //Get meta
         $hiddenPages = (array) self::$db->get_col(
-            self::$db->prepare("
+            self::$db->prepare(
+                "
                 SELECT post_id
                 FROM " . self::$db->postmeta . " AS pm 
                 JOIN " . self::$db->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
-                AND meta_value = '1' 
+                AND meta_value = '1'
                 AND post_status = 'publish'
-            ", $metaKey)
+            ",
+                $metaKey
+            )
         );
 
         //Do not let the array return be empty
@@ -573,8 +576,8 @@ class Navigation
     /**
      * Get a list of custom page titles
      *
-     * Optimzing: It may be faster on smaller databases 
-     * to not use a join. This will however slow down larger sites. 
+     * Optimzing: It may be faster on smaller databases
+     * to not use a join. This will however slow down larger sites.
      *
      * This is a calculated risk that should be caught
      * by the object cache. Tests have been made to enshure
@@ -594,14 +597,17 @@ class Navigation
 
         //Get meta
         $result = (array) self::$db->get_results(
-            self::$db->prepare("
+            self::$db->prepare(
+                "
                 SELECT post_id, meta_value
                 FROM " . self::$db->postmeta . " as pm
                 JOIN " . self::$db->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
-                AND meta_value != '',
+                AND meta_value != ''
                 AND post_status = 'publish'
-            ", $metaKey)
+            ",
+                $metaKey
+            )
         );
 
         //Declare result
@@ -669,24 +675,24 @@ class Navigation
                 );
 
                 foreach ($menuItems as $item) {
-                    $isAncestor = in_array($item->ID, $ancestors);
+                    $isAncestor        = in_array($item->ID, $ancestors);
                     $result[$item->ID] = apply_filters('Municipio/Navigation/Item', [
-                        'id' => $item->ID,
+                        'id'          => $item->ID,
                         'post_parent' => $item->menu_item_parent,
-                        'post_type' => $item->object,
-                        'active' => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url) ? true : false,
-                        'ancestor' => $isAncestor,
-                        'label' => $item->title,
-                        'href' => $item->url,
-                        'children' => false,
-                        'icon' => [
-                          'icon' => get_field('menu_item_icon', $item->ID),
-                          'size' => 'md',
+                        'post_type'   => $item->object,
+                        'active'      => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url) ? true : false,
+                        'ancestor'    => $isAncestor,
+                        'label'       => $item->title,
+                        'href'        => $item->url,
+                        'children'    => false,
+                        'icon'        => [
+                          'icon'      => get_field('menu_item_icon', $item->ID),
+                          'size'      => 'md',
                           'classList' => ['c-nav__icon']
                         ],
-                        'style' => get_field('menu_item_style', $item->ID) ?? 'default',
+                        'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
                         'description' => get_field('menu_item_description', $item->ID) ?? '',
-                        'xfn' => $item->xfn ?? false
+                        'xfn'         => $item->xfn ?? false
                     ], $this->identifier, true);
                 }
             } else {
@@ -759,7 +765,7 @@ class Navigation
 
         //Definitions
         $fetchAncestors = true;
-        $ancestorStack = [$id];
+        $ancestorStack  = [$id];
 
         //Fetch ancestors
         while ($fetchAncestors) {
@@ -865,11 +871,11 @@ class Navigation
         $items = [];
         if (is_single() || is_page()) {
             $items['print'] =  array(
-                'icon' => 'print',
-                'href' => '#',
+                'icon'   => 'print',
+                'href'   => '#',
                 'script' => 'window.print();return false;',
-                'text' => __('Print', 'municipio'),
-                'label' => __('Print this page', 'municipio')
+                'text'   => __('Print', 'municipio'),
+                'label'  => __('Print this page', 'municipio')
             );
         }
 
@@ -896,28 +902,28 @@ class Navigation
 
         //Homepage
         $pageData[get_option('page_on_front')] = array(
-            'label' => __("Home"),
-            'href' => get_home_url(),
+            'label'   => __("Home"),
+            'href'    => get_home_url(),
             'current' => is_front_page() ? true : false,
-            'icon' => 'home'
+            'icon'    => 'home'
         );
 
-        $queriedObj = get_queried_object();
-        $archiveLink = get_post_type_archive_link(get_post_type($queriedObj));
+        $queriedObj         = get_queried_object();
+        $archiveLink        = get_post_type_archive_link(get_post_type($queriedObj));
         $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
 
         if ($archiveLink) {
-            $label = get_post_type_object(get_post_type($queriedObj))->label;
+            $label = get_post_type_object(get_post_type($queriedObj))->label ?? __("Untitled page", 'municipio');
 
             if (is_archive()) {
-                $label = $queriedObj->label;
+                $label = $queriedObj->label ?? __("Untitled page", 'municipio');
             }
 
             array_push($pageData, array(
-                    'label' => __($label),
-                    'href' => $archiveLink,
+                    'label'   => __($label),
+                    'href'    => $archiveLink,
                     'current' => false,
-                    'icon' => 'chevron_right'
+                    'icon'    => 'chevron_right'
             ));
         }
 
@@ -933,7 +939,7 @@ class Navigation
                 //Add items
                 foreach ($ancestors as $id) {
                     if (!in_array($id, $pageForPostTypeIds)) {
-                        $title = WP::getTheTitle($id);
+                        $title                    = WP::getTheTitle($id);
                         $pageData[$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
                         $pageData[$id]['href']    = WP::getPermalink($id);
                         $pageData[$id]['current'] = false;
@@ -965,7 +971,7 @@ class Navigation
 
         //Only supported for hierarchical
         $postTypes = get_post_types([
-            'public' => true,
+            'public'       => true,
             'hierarchical' => true
         ]);
 

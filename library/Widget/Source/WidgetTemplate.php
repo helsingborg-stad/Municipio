@@ -2,6 +2,7 @@
 
 namespace Municipio\Widget\Source;
 
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Philo\Blade\Blade as Blade;
 
 abstract class WidgetTemplate extends \WP_Widget
@@ -60,17 +61,19 @@ abstract class WidgetTemplate extends \WP_Widget
 
         $this->utilityFields();
 
-        if (isset($this->config['id']) &&
+        if (
+            isset($this->config['id']) &&
             isset($this->config['name']) &&
             isset($this->config['description']) &&
-            isset($this->config['template'])) {
-            $this->viewPath = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
+            isset($this->config['template'])
+        ) {
+            $this->viewPath  = apply_filters('Municipio/Widget/Source/BaseWidget/viewPath', array(
                 get_stylesheet_directory() . '/views/',
                 get_template_directory() . '/views/'
             ));
-            $this->viewPath = array_unique($this->viewPath);
+            $this->viewPath  = array_unique($this->viewPath);
             $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
-            $this->template = $this->config['template'];
+            $this->template  = $this->config['template'];
 
             parent::__construct(
                 $this->config['id'],
@@ -95,8 +98,8 @@ abstract class WidgetTemplate extends \WP_Widget
     public function widget($args, $instance)
     {
         $this->wrapperAttributes = new \Municipio\Helper\ElementAttribute();
-        $this->data['args'] = $args;
-        $this->data['instance'] = $instance;
+        $this->data['args']      = $args;
+        $this->data['instance']  = $instance;
 
         $this->commonFields();
         $this->beforeViewController();
@@ -104,8 +107,9 @@ abstract class WidgetTemplate extends \WP_Widget
         $this->afterViewController();
         $this->widgetAttributes();
 
-        $blade = new Blade($this->viewPath, $this->cachePath);
-        echo $blade->view()->make('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
+        $blade = GlobalBladeService::getInstance();
+        $blade->addViewPath($this->viewPath);
+        echo $blade->makeView('widget.' . str_replace(array('widget.', '.blade.php'), '', $this->template), $this->data)->render();
     }
 
     public function beforeViewController()
@@ -133,7 +137,7 @@ abstract class WidgetTemplate extends \WP_Widget
 
     public function utilityFields()
     {
-        if (!isset($this->config['id']) || !is_string($this->config['id']) || !isset($this->config['fields']) || !is_array($this->config['fields']) || empty($this->config['fields'])|| !in_array('utilityFields', $this->config['fields'])) {
+        if (!isset($this->config['id']) || !is_string($this->config['id']) || !isset($this->config['fields']) || !is_array($this->config['fields']) || empty($this->config['fields']) || !in_array('utilityFields', $this->config['fields'])) {
             return;
         }
 
@@ -168,7 +172,7 @@ abstract class WidgetTemplate extends \WP_Widget
 
     public function visibilityUtilities()
     {
-         if (!$this->get_field('widget_utility_visibility') || !is_array($this->get_field('widget_utility_visibility')) || empty($this->get_field('widget_utility_visibility'))) {
+        if (!$this->get_field('widget_utility_visibility') || !is_array($this->get_field('widget_utility_visibility')) || empty($this->get_field('widget_utility_visibility'))) {
             return false;
         }
 
@@ -234,7 +238,7 @@ abstract class WidgetTemplate extends \WP_Widget
             $this->wrapperAttributes->addClass(explode(' ', $defaultClasses[0][1]));
         }
 
-        $classString = $classString[0][0];
+        $classString                         = $classString[0][0];
         $this->data['args']['before_widget'] = str_replace($classString, $this->wrapperAttributes->outputAttributes(), $this->data['args']['before_widget']);
     }
 
@@ -251,12 +255,12 @@ abstract class WidgetTemplate extends \WP_Widget
         // Widget admin form?>
         <p>
             <label for="<?php echo $this->get_field_id('title');
-        ?>"><?php _e('Title:');
-        ?></label>
+            ?>"><?php _e('Title:');
+?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('title');
-        ?>" name="<?php echo $this->get_field_name('title');
-        ?>" type="text" value="<?php echo esc_attr($title);
-        ?>" />
+            ?>" name="<?php echo $this->get_field_name('title');
+?>" type="text" value="<?php echo esc_attr($title);
+?>" />
         </p>
         <?php
     }
@@ -276,7 +280,7 @@ abstract class WidgetTemplate extends \WP_Widget
      */
     public function update($new_instance, $old_instance)
     {
-        $instance = array();
+        $instance          = array();
         $instance['title'] = (! empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
         return $instance;
     }

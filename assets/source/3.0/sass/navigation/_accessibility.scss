@@ -1,13 +1,12 @@
 .nav-accessibility.nav-horizontal {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    column-gap: calc($base * 2);
+    row-gap: calc($base * 1);
 
     li {
-        margin-left: 16px;
         white-space: nowrap;
-        &:first-of-type {
-            margin-left: 0;
-        }
     }
 
     /* Dropdown accessibility menu items */

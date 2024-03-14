@@ -3,6 +3,7 @@
 namespace Municipio\Controller;
 
 use Municipio\Helper\FormatObject;
+use Municipio\Helper\TranslatedLabels;
 
 class BaseController
 {
@@ -221,74 +222,13 @@ class BaseController
         $this->data['mainContentPadding'] = ['md' => 0, 'lg' => 0]; //Used to define view vars, used in singular controller.
 
         //Language
-        $this->data['lang'] = (object) array(
-            'goToHomepage'          => __("Go to homepage", 'municipio'),
-            'jumpToMainMenu'        => __("Jump to the main menu", 'municipio'),
-            'skipToMainContent'     => __("Skip to the main content", 'municipio'),
-            'jumpToMainContent'     => __("Jump to the main content", 'municipio'),
-            'skipToMainMenu'        => __("Skip to the main menu", 'municipio'),
-            'skipToSideMenu'        => __("Skip to the side menu", 'municipio'),
-            'ago'                   => __("ago", 'municipio'),
-            'since'                 => __("since", 'municipio'),
-            'years'                 => __("years", 'municipio'),
-            'year'                  => __("year", 'municipio'),
-            'months'                => __("months", 'municipio'),
-            'month'                 => __("month", 'municipio'),
-            'weeks'                 => __("weeks", 'municipio'),
-            'week'                  => __("week", 'municipio'),
-            'days'                  => __("days", 'municipio'),
-            'day'                   => __("day", 'municipio'),
-            'hours'                 => __("hours", 'municipio'),
-            'hour'                  => __("hour", 'municipio'),
-            'minutes'               => __("minutes", 'municipio'),
-            'minute'                => __("minute", 'municipio'),
-            'seconds'               => __("seconds", 'municipio'),
-            'second'                => __("second", 'municipio'),
-            'search'                => __("Search", 'municipio'),
-            'searchOn'              => __("Search on", 'municipio'),
-            'searchQuestion'        => __("What are you searching for?", 'municipio'),
-            'primaryNavigation'     => __("Primary navigation", 'municipio'),
-            'megaNavigation'        => __("Mega menu", 'municipio'),
-            'quicklinksNavigation'  => __("Useful links", 'municipio'),
-            'relatedLinks'          => __("Related links", 'municipio'),
-            'menu'                  => __("Menu", 'municipio'),
-            'emblem'                => __("Site emblem", 'municipio'),
-            'close'                 => __("Close", 'municipio'),
-            'moreLanguages'         => __("More Languages", 'municipio'),
-            'changeLanguage'        => __("Language", 'municipio'),
-            'expand'                => __("Expand", 'municipio'),
-            'breadcrumbPrefix'       => __("You are here: ", 'municipio'),
-            'readingTime'           => __('Reading time', 'municipio'),
-            'related'               => _x('Related', 'Related (name of posttype)', 'municipio'),
-            'showAll'               => __('Show all', 'municipio'),
-            'readMore'              => __('Read more', 'municipio'),
-            'bookHere'              => __('Book here', 'municipio'),
-            'updated'               => __('Updated', 'municipio'),
-            'publish'               => __('Published', 'municipio'),
-            'by'                    => __('Published by', 'municipio'),
-            'on'                    => __('on', 'municipio'),
-            'filterBtn'              => __('Filter', 'municipio'),
-            'resetFilterBtn'        => __('Reset filter', 'municipio'),
-            'noResult'              => __('No items found.', 'municipio'),
-            'sortBy'                => __('Sort by', 'municipio'),
-            'sortRandom'            => __('Random', 'municipio'),
-            'sortName'              => __('Name (A-Z)', 'municipio'),
-            'sortPublishDate'       => __('Publish Date', 'municipio'),
-            'published'             => __('Published', 'municipio'),
-            'updated'               => __('Updated', 'municipio'),
-            'noResult'              => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
-            'readMore'              => __('Read more', 'municipio'),
-            'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items)),
-            'fromDate'              => __('Choose a from date', 'municipio'),
-            'toDate'                => __('Choose a to date', 'municipio'),
-            'dateInvalid'           => __('Select a valid date', 'municipio'),
-            'searchBtn'             => __('Search', 'municipio'),
-            'filterBtn'              => __('Filter', 'municipio'),
-            'resetSearchBtn'        => __('Reset search', 'municipio'),
-            'resetFilterBtn'        => __('Reset filter', 'municipio'),
-            'archiveNav'            => __('Archive navigation', 'municipio'),
-            'resetFacetting'        => __('Reset', 'municipio'),
+        $this->data['lang'] = TranslatedLabels::getLang(
+            [
+                'searchFor'             => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
+                'noResult'              => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
+            ]
         );
+
         $this->data['labels'] = (array) $this->data['lang'];
 
         add_filter('ComponentLibrary/Component/Lang', function ($obj) {
@@ -326,6 +266,9 @@ class BaseController
         //Quicklinks placement is set in Singular
         $this->data['displayQuicklinksAfterContent'] = false;
 
+        //Secondary query is set in Singular
+        $this->data['displaySecondaryQuery'] = false;
+
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
@@ -345,7 +288,14 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
-            $data['image']['src'] = $this->getEmblem() ?: get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+            if(!is_array($data['image'])) {
+                $data['image'] = [];
+            }
+            if ($this->getEmblem()) {
+                $data['image']['src'] = $this->getEmblem();
+            } else {
+                $data['image']['src'] = get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
+            }
         }
         return $data;
     }

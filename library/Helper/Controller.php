@@ -36,29 +36,54 @@ class Controller
         return false;
     }
 
-    /**
-     * Creates view paths dynamicly
-     * @param  array    $viewPaths   All view paths that are statically entered.
-     * @return array    $viewPaths  Contains all view paths avabile.
-     */
+  /**
+ * Creates view paths dynamically
+ * @param  array    $viewPaths   All view paths that are statically entered.
+ * @return array    $viewPaths  Contains all view paths available.
+ */
     public static function getControllerPaths($controllerPaths = array())
     {
         $versions = apply_filters('Municipio/blade/controllerVersions', array_reverse(array("", "v3")));
 
         foreach ($versions as $versionKey => $version) {
             $controllerPaths[] = rtrim(
-                get_stylesheet_directory()  . DIRECTORY_SEPARATOR  . "library" . DIRECTORY_SEPARATOR . "Controller" . DIRECTORY_SEPARATOR . $version,
+                get_stylesheet_directory()
+                . DIRECTORY_SEPARATOR
+                . "library"
+                . DIRECTORY_SEPARATOR
+                . "Controller"
+                . DIRECTORY_SEPARATOR
+                . $version,
                 DIRECTORY_SEPARATOR
             );
         }
+
+        // Temporary array to hold ContentType paths
+        $contentTypePaths = [];
+
         // Check all registered controller paths for subdirectory "ContentType"
         foreach ($controllerPaths as $controllerPath) {
-            if (is_dir($controllerPath . DIRECTORY_SEPARATOR . "ContentType")) {
-                $controllerPaths[] = $controllerPath . DIRECTORY_SEPARATOR . "ContentType";
+            $contentTypeBasePath = $controllerPath . DIRECTORY_SEPARATOR . "ContentType";
+            if (is_dir($contentTypeBasePath)) {
+                // Add ContentType base directory
+                $contentTypePaths[] = $contentTypeBasePath;
+
+                // Check for 'Complex' and 'Simple' subdirectories
+                $subDirs = ['Complex', 'Simple'];
+                foreach ($subDirs as $subDir) {
+                    $subDirPath = $contentTypeBasePath . DIRECTORY_SEPARATOR . $subDir;
+                    if (is_dir($subDirPath)) {
+                        // Add 'Complex' and 'Simple' directories to paths
+                        $contentTypePaths[] = $subDirPath;
+                    }
+                }
             }
         }
 
-        return apply_filters('Municipio/controllerPaths', array_unique($controllerPaths));
+        // Merge and remove duplicates
+        $controllerPaths = array_unique(array_merge($controllerPaths, $contentTypePaths));
+
+        return apply_filters('Municipio/controllerPaths', $controllerPaths);
     }
 
     /**
@@ -71,7 +96,7 @@ class Controller
      */
     public static function camelCase($string)
     {
-        $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array('self', 'camelCaseParts'), $string);
+        $cc = preg_replace_callback('/(?:^|-|_|\s)(.?)/', array(self::class, 'camelCaseParts'), $string);
 
         if (!empty($cc)) {
             return $cc;

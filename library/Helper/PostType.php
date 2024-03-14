@@ -54,11 +54,15 @@ class PostType
      */
     public static function postTypeDetails()
     {
-        $postTypeDetails = (object) \Municipio\Helper\FormatObject::camelCase(
-            get_post_type_object(self::getPostType())
-        );
+        $postType = self::getPostType();
+        if(!is_null($postType)) {
+            $postTypeObject = get_post_type_object($postType);
 
-        return apply_filters('Municipio/postTypeDetails', $postTypeDetails);
+            if ($postTypeObject instanceof \WP_Post_Type) {
+                return (object) \Municipio\Helper\FormatObject::camelCase($postTypeObject);
+            }
+        }
+        return false;
     }
 
     /**

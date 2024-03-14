@@ -1,18 +1,15 @@
 <li role="menuitem">
-    @link([
-        'href' => $item['href'] ?? null,
+    @button([
+        'text' => $item['text'] ?? false,
+        'style' => 'outlined',
+        'color' => 'primary',
+        'href' => $item['href'] ?? false,
+        'icon' => $item['icon'] ?? false,
+        'size' => 'sm',
         'attributeList' => array_merge($item['attributeList'] ?? [], [
             'onClick' => $item['script'] ?? '',
             'aria-label' => $item['label'] ?? '',
-        ]),
+        ])
     ])
-    @icon([
-        'icon' => $item['icon'],
-        'size' => $item['size'] ?? 'md',
-        'filled' => $item['filled'] ?? true,
-        'classList' => $item['classList'] ?? []
-    ])
-    @endicon
-    {{ $item['text'] }}
-    @endlink
+    @endbutton
 </li>

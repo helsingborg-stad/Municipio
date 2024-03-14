@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\ResourceFromApi\Modifiers;
 
-use Municipio\Content\ResourceFromApi\ResourceRegistryInterface;
+use Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistryInterface;
 
 /**
  * Class HooksAdder

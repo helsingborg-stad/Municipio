@@ -2,6 +2,7 @@
 
 namespace Municipio;
 
+use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -77,13 +78,16 @@ class App
 
         // Set up registry.
 
-        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry();
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
 
         add_action('init', function () use ($resourceRegistry) {
 
             $resourceRegistry->registerResources();
 
-            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
+
+            foreach ($sortedPostTypeResources as $resource) {
                 $registrar = new PostTypeFromResource($resource);
                 $registrar->register();
             }
@@ -164,6 +168,16 @@ class App
         new \Municipio\Admin\Acf\PrefillIconChoice();
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
+        
+        // Register Content Type Schema fields
+        $prepareContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\PrepareField(
+            ContentTypeSchemaFieldOptions::FIELD_KEY,
+            ContentTypeSchemaFieldOptions::GROUP_NAME
+        );
+
+        $prepareContentTypeSchemaMetaFields->addHooks();
+        $saveContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\SavePost();
+        $saveContentTypeSchemaMetaFields->addHooks();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -173,6 +187,9 @@ class App
         new \Municipio\Admin\UI\Editor();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
+
+        $uploads = new \Municipio\Admin\Uploads();
+        $uploads->addHooks();
 
         /**
          * Api
