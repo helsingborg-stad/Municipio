@@ -102,11 +102,6 @@ class ContentType
         $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
         $contentTypeKey = get_theme_mod($themeModName, false);
 
-        if(!$contentTypeKey) {
-            // handle the case where the content type is not set in the customizer but in the options table
-            $contentTypeKey = get_option("options_contentType_{$postType}", false);
-        }
-
         if ($contentTypeKey) {
             return self::getContentTypeInstance($contentTypeKey);
         }

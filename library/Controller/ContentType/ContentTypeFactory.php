@@ -39,7 +39,13 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         $this->key          = $key;
         $this->label        = $label;
+
         $this->schemaParams = $this->applySchemaParamsFilter();
+
+        $this->handleLegacySettings();
+    }
+    public function handleLegacySettings(): void
+    {
     }
     /**
      * Get the secondary content type.
@@ -137,14 +143,14 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         try {
             foreach ($schemaParams as $key => $param) {
-            
+
                 $value = $schemaData[$key] ?? null;
-                
+
                 if(empty($value) && ('geo' === $key || 'location' === $key)) {
                     $value = $schemaData['address'] ?? null;
                 }
 
-                if (empty($value)) {   
+                if (empty($value)) {
                     continue;
                 }
 
