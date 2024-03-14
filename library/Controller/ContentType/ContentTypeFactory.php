@@ -42,10 +42,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         $this->schemaParams = $this->applySchemaParamsFilter();
 
-        $this->handleLegacySettings();
-    }
-    public function handleLegacySettings(): void
-    {
     }
     /**
      * Get the secondary content type.
