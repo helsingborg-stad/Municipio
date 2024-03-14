@@ -1,17 +1,12 @@
 <?php
 
 namespace Municipio\Navigation\Builders;
-
-use function Patchwork\Stack\push;
-
 class BreadCrumbsBuilder implements BuilderInterface {
 
     /**
      * @param MenuItem[] $menuItems
      */
-    public function __construct(private array $menuItems)
-    {
-    }
+    public function __construct(private array $menuItems){}
 
     public function build():array {
       $seenIds = [];
