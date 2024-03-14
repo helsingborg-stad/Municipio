@@ -57,7 +57,7 @@ class Event extends ContentType\ContentTypeFactory
             foreach ($this->getSecondaryContentType() as $contentType) {
                 if ($contentType->getKey() === 'place') {
                     $placeParams       = $contentType->getSchemaParams();
-                    $params['location'] = $placeParams['geo'];
+                    $params['location'] = $placeParams['geo'] ?? false;
                 }
             }
         }

@@ -415,7 +415,11 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information = $this->postMeta->information ?? new stdClass(); // Ensure $information is an object
+        $information = !empty($this->postMeta->information) ? $this->postMeta->information : false;
+
+        if(!$information) {
+            return;
+        }
 
         // Consolidated adding of accordion items with checks for existence
         $this->addAccordionItemIfExists(
