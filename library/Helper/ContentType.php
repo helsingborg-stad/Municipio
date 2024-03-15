@@ -131,21 +131,20 @@ class ContentType
         }
     }
     /**
-     * Checks if a $type has a specific content type set.
+     * Checks if a $postType has a specific content type set.
      *
-     * @param string $content typeToCheckFor The content type to check for.
-     * @param string $typeToCheck The type of content type to check.
-     * @param boolean $includeSecondary If you want to include secondary content types in the check.
+     * @param string $contentTypeToCheckFor The content type to check for.
+     * @param string $postTypeToCheck The post type to check.
      *
      * @return boolean
      */
 
-    public static function hasContentType(
+    public static function hasSpecificContentType(
         string $contentTypeToCheckFor = '',
-        string $typeToCheck = ''
+        string $postTypeToCheck = ''
     ): bool {
 
-        $contentType = self::getContentType($typeToCheck);
+        $contentType = self::getContentType($postTypeToCheck);
 
         if ($contentType) {
             if (true === self::isMainContentType($contentType, $contentTypeToCheckFor)) {
@@ -204,13 +203,13 @@ class ContentType
     }
 
     /**
-     * Checks if a $type has any content type set.
+     * Checks if a $postType has any content type set.
      *
      * @param string type The type to check (post type or taxonomy). Defaults to the current type if left empty.
      */
-    public static function hasAnyContentType(string $type = ''): bool
+    public static function hasAnyContentType(string $postType = ''): bool
     {
-        $contentType = self::getContentType($type);
+        $contentType = self::getContentType($postType);
         if (!empty($contentType)) {
             return true;
         }

@@ -32,8 +32,8 @@ class LocationRulesContentType extends \ACF_Location // @codingStandardsIgnoreLi
         }
 
         // Compare the post attribute to rule value.
-        $hasContentType = \Municipio\Helper\ContentType::hasContentType($rule['value'], $type);
-        
-        return $hasContentType;
+        $hasSpecificContentType = \Municipio\Helper\ContentType::hasSpecificContentType($rule['value'], $type);
+
+        return $hasSpecificContentType;
     }
 }

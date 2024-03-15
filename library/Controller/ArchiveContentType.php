@@ -15,7 +15,7 @@ class ArchiveContentType extends \Municipio\Controller\Archive
 
         $this->data['displayArchiveLoop'] = (bool) ($this->data['archiveProps']->displayArchiveLoop ?? true);
 
-        if (ContentType::hasContentType('place', get_post_type(), true)) {
+        if (ContentType::hasSpecificContentType('place', get_post_type(), true)) {
             $this->setupOpenStreetMap();
         }
     }
