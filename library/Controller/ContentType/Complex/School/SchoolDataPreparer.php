@@ -456,16 +456,15 @@ class SchoolDataPreparer implements DataPrepearerInterface
         $this->data['accordionListItems'] = $accordionListItems;
     }
 
-
     /**
      * Adds an accordion item to the list if the given property exists and is not empty.
-     *
-     * @param array &$accordionListItems The array of accordion list items.
+     * @param array $accordionListItems The array of accordion list items.
      * @param mixed $property The property to check for existence and non-emptiness.
      * @param string $heading The heading for the accordion item.
      * @param string $content The content for the accordion item.
+     * @return void
      */
-    private function addAccordionItemIfExists(&$accordionListItems, $property, string $heading, string $content): void
+    private function addAccordionItemIfExists(&$accordionListItems, $property, ?string $heading, ?string $content): void
     {
         if (isset($property) && !empty($property)) {
             $accordionListItems[] = $this->getAccordionListItem($heading, $content);
