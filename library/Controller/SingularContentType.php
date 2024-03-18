@@ -3,8 +3,7 @@
 namespace Municipio\Controller;
 
 /**
- * Class SingularContentType
- * @package Municipio\Controller
+ * Handles singular content types, setting up necessary view data and hooks.
  */
 class SingularContentType extends \Municipio\Controller\Singular
 {
@@ -13,7 +12,7 @@ class SingularContentType extends \Municipio\Controller\Singular
     protected $contentType;
 
     /**
-     * SingularContentType construct
+     * Constructs the SingularContentType object, sets up content type information and view data.
      */
     public function __construct()
     {
@@ -21,29 +20,14 @@ class SingularContentType extends \Municipio\Controller\Singular
 
         $this->postId = $this->data['post']->id;
 
-        /**
-         * Retrieves the content type of the current post typr.
-         *
-         * @return string The content type of the current post.
-         */
-
+        // Retrieves the content type of the current post.
         $postType = $this->data['post']->postType;
-
         $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         $this->setContentTypeViewData();
+        $this->addContentTypeHooks();
 
-        $this->contentType->addHooks();
-
-        if (!empty($this->contentType->getSecondaryContentType())) {
-            foreach ($this->contentType->getSecondaryContentType() as $secondaryContentType) {
-                $secondaryContentType->addHooks();
-            }
-        }
-
-        /**
-         * Check if the content type template should be skipped and set the view accordingly if not.
-         */
+        // Checks if the content type template should be skipped and sets the view accordingly.
         if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($postType)) {
             $this->view = $this->contentType->getView();
         }
@@ -52,29 +36,28 @@ class SingularContentType extends \Municipio\Controller\Singular
     }
 
     /**
-     * Initiate the controller.
-     *
-     * @return array The data to send to the view.
+     * Initializes the controller.
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
     }
 
-     /**
-     * Append structured data to the view data.
-     * @return string The structured data as a JSON string.
+    /**
+     * Appends structured data to the view data.
+     *
+     * @return string|null The structured data as a JSON string, or null if not applicable.
      */
     public function appendStructuredData(): ?string
     {
         return \Municipio\Helper\Data::normalizeStructuredData(
-            $this->contentType->getStructuredData(
-                $this->postId
-            )
+            $this->contentType->getStructuredData($this->postId)
         );
     }
+
     /**
-     * Set up view data based on the content type of the current post.
+     * Sets up view data based on the content type of the current post.
+     *
      * @return void
      */
     private function setContentTypeViewData(): void
@@ -85,7 +68,7 @@ class SingularContentType extends \Municipio\Controller\Singular
             return;
         }
 
-        // Handle specific content types
+        // Handles specific content types
         switch ($contentType) {
             case 'place':
                 $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post']);
@@ -93,4 +76,22 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
     }
 
+    /**
+     * Adds hooks for the primary and secondary content types.
+     *
+     * @return void
+     */
+    protected function addContentTypeHooks(): void
+    {
+        if ($this->contentType) {
+            $this->contentType->addHooks();
+        }
+
+        $secondaryContentTypes = $this->contentType->getSecondaryContentType() ?? [];
+        foreach ($secondaryContentTypes as $secondary) {
+            if ($secondary) {
+                $secondary->addHooks();
+            }
+        }
+    }
 }
