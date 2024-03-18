@@ -87,7 +87,6 @@ add_action('init', function () {
         'options-api-resources-apis'                => 'group_653a1673dc501',
         'options-customize-header'                  => 'group_5afa93c0a25e1',
         'options-customize-footer'                  => 'group_5afa94c88e1aa',
-        'options-content-types'                     => 'group_63e3852d91646',
         'resource-fields'                           => 'group_653a509450198',
         'user-author-image'                         => 'group_56c714b46105e',
         'widget-contact'                            => 'group_56c58bade87dc',

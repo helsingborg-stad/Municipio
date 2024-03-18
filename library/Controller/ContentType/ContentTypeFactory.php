@@ -39,7 +39,9 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         $this->key          = $key;
         $this->label        = $label;
+
         $this->schemaParams = $this->applySchemaParamsFilter();
+
     }
     /**
      * Get the secondary content type.
@@ -151,7 +153,7 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
                 if(in_array($key, ['address', 'geo', 'location'])) {
                     $value = $schemaData['address'] ?? null;
                 }
-
+              
                 if (empty($value)) {
                     continue;
                 }
