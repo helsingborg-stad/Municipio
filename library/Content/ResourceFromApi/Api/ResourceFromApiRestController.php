@@ -23,7 +23,7 @@ class ResourceFromApiRestController extends WP_REST_Controller
      */
     public function __construct(string $resourceName)
     {
-        $this->namespace     = '/wp/v2';
+        $this->namespace     = 'wp/v2';
         $this->resource_name = $resourceName;
     }
 
