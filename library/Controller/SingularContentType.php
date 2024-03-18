@@ -67,11 +67,13 @@ class SingularContentType extends \Municipio\Controller\Singular
      */
     public function appendStructuredData(): ?string
     {
-        return \Municipio\Helper\Data::normalizeStructuredData(
-            $this->contentType->getStructuredData(
-                $this->postId
-            )
-        );
+        $structuredData = (array) $this->contentType->getStructuredData($this->postId);
+
+        if(!empty($structuredData['description'])) {
+            $structuredData['description'] = wp_strip_all_tags($structuredData['description']);
+        }
+
+        return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
     }
 
      /**
