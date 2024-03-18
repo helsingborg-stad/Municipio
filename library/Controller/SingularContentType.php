@@ -73,25 +73,24 @@ class SingularContentType extends \Municipio\Controller\Singular
             )
         );
     }
-
-     /**
+    /**
      * Set up view data based on the content type of the current post.
-     *
-     * If the content type is "place," the post data is complemented using
-     * \Municipio\Helper\ContentType::complementPlacePost() method with the complement flag set to false.
-     *
      * @return void
      */
-    private function setContentTypeViewData()
+    private function setContentTypeViewData(): void
     {
-        if (empty($this->contentType->getKey())) {
+        $contentType = $this->contentType->getKey();
+
+        if (empty($contentType)) {
             return;
         }
 
-        $contentType = $this->contentType->getKey();
-
-        if ($contentType === 'place') {
-            $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post'], false);
+        // Handle specific content types
+        switch ($contentType) {
+            case 'place':
+                $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post']);
+                break;
         }
     }
+
 }

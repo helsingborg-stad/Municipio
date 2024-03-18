@@ -86,7 +86,8 @@ class ContentType
         }
 
         return [$instance->getKey() => $instance->getLabel()];
-    }/**
+    }
+    /**
     * Get the content type instance for a given post type.
     *
     * @param string $postType The post type of content type to get. Defaults to the current post type if not specified.
@@ -113,8 +114,6 @@ class ContentType
 
         return false;
     }
-
-
     /**
      * Get an instance of a content type
      *
@@ -163,7 +162,6 @@ class ContentType
 
         return false;
     }
-
     /**
      * Check if the provided main content type matches the specified content type to check for.
      *
@@ -179,7 +177,6 @@ class ContentType
         }
         return false;
     }
-
     /**
      * Check if any secondary content type within the provided array matches the specified content type to check for.
      *
@@ -201,7 +198,6 @@ class ContentType
         }
         return false;
     }
-
     /**
      * Checks if a $postType has any content type set.
      *
@@ -215,12 +211,15 @@ class ContentType
         }
         return false;
     }
-
+    /**
+     * Get the current post type.
+     *
+     * @return string|null The current post type, or null if the current post type cannot be determined.
+     */
     public static function getCurrentType(): ?string
     {
         return \Municipio\Helper\WP::getCurrentPostType();
     }
-
     /**
      * Checks if the user has opted to skip the content type template for a specific post type.
      *
@@ -237,8 +236,6 @@ class ContentType
         $themeModName = "municipio_customizer_panel_content_types_{$postType}_skip_content_type_template";
         return (bool) get_theme_mod($themeModName, false);
     }
-
-
     /**
      *
      * @param ContentTypeFactory $contentType
@@ -252,7 +249,6 @@ class ContentType
             class_implements($contentType)
         );
     }
-
     /**
      *
      * Ensure that the content type is not complex.
@@ -278,25 +274,33 @@ class ContentType
         }
         return true;
     }
-
     /**
-     * Complement a place post with additional information if needed.
+     * Complement a place post with additional information.
      *
      * @param mixed $post The post object or post ID to complement.
-     * @param bool $complementPost Flag indicating whether to complement the post (default is true).
      *
      * @return mixed The complemented post object.
      */
-    public static function complementPlacePost($post, $complementPost = true)
+    public static function complementPlacePost($post)
     {
-        if ($complementPost) {
-            $post = \Municipio\Helper\Post::preparePostObject($post);
+        // Check if $post is a post ID and not a WP_Post object
+        if (!($post instanceof WP_Post)) {
+            // Assume $post is a post ID, attempt to fetch the corresponding WP_Post object
+            $post = get_post($post);
         }
 
-        $fields = get_fields($post->id);
+        // Proceed only if $post is a valid WP_Post object
+        if ($post instanceof WP_Post) {
+            // Prepare the post object if necessary
+            $post = \Municipio\Helper\Post::preparePostObject($post);
 
-        $post->bookingLink = $fields['booking_link'] ?? false;
-        $post->placeInfo   = self::createPlaceInfoList($fields);
+            // Fetch custom fields for the post
+            $fields = get_fields($post->ID); // Note: Using $post->ID to ensure we're using the WP_Post ID
+
+            // Assign additional information to the post object
+            $post->bookingLink = $fields['booking_link'] ?? false;
+            $post->placeInfo   = self::createPlaceInfoList($fields);
+        }
 
         return $post;
     }

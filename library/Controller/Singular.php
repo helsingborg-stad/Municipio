@@ -204,7 +204,7 @@ class Singular extends \Municipio\Controller\BaseController
             foreach ($query->posts as &$post) {
                 $contentType = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
                 if (is_object($contentType) && $contentType->getKey() == 'place') {
-                    $post = \Municipio\Helper\ContentType::complementPlacePost($post, true);
+                    $post = \Municipio\Helper\ContentType::complementPlacePost($post);
                 } else {
                     $post = \Municipio\Helper\Post::preparePostObject($post);
                 }
@@ -439,7 +439,7 @@ class Singular extends \Municipio\Controller\BaseController
 
         return $diff->days;
     }
-    
+
     /**
      * If the post type is set to display age notification, and the post is older than the set number
      * of days, return a string with the number of days
@@ -456,8 +456,8 @@ class Singular extends \Municipio\Controller\BaseController
 
         if (function_exists('get_field')) {
             $postTypes = (array) get_field('avabile_dynamic_post_types', 'option');
-            $postTypes = array_filter($postTypes); 
-            
+            $postTypes = array_filter($postTypes);
+
             if (is_array($postTypes) && !empty($postTypes)) {
                 foreach ($postTypes as $type) {
                     $thisType = get_post_type_object($post->postType)->rewrite['slug'] ?? '';
