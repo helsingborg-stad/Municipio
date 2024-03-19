@@ -76,7 +76,7 @@ class BaseController
         $this->data['emblem']               = $this->getEmblem();
         $this->data['showEmblemInHero']     = $this->data['customizer']->showEmblemInHero ?? true;
         $this->data['brandText']            = $this->getMultilineTextAsArray(get_option('brand_text', ''));
-        $this->data['headerBrandEnabled']   = $this->data['customizer']->headerBrandEnabled && !empty($this->data['brandText']); 
+        $this->data['headerBrandEnabled']   = $this->data['customizer']->headerBrandEnabled && !empty($this->data['brandText']);
 
         // Footer
         [$footerStyle, $footerColumns, $footerAreas] = $this->getFooterSettings();
@@ -120,7 +120,7 @@ class BaseController
         //Main Navigation
         $this->data['primaryMenuItems']             = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
         $this->data['secondaryMenuItems'] = null;
-        
+
         /**
          * Get the secondary menu items based on the content type or post type.
          * If a content type is found, it will look for a secondary menu with the key {content_type}-secondary-menu.
@@ -129,7 +129,7 @@ class BaseController
          *
          * @return void
          */
-        $contentType = \Municipio\Helper\ContentType::getContentType(get_post_type());   
+        $contentType = \Municipio\Helper\ContentType::getContentType(get_post_type());
         $contentTypeSecondaryMenu = false;
 
         if($contentType) {
@@ -138,9 +138,9 @@ class BaseController
                 $this->data['secondaryMenuItems'] = $contentTypeSecondaryMenu;
             }
         }
-        
+
         if(!$contentTypeSecondaryMenu) {
-            
+
             $posttypeSecondaryMenuItems  = $secondary->getMenuItems( get_post_type() . '-secondary-menu', $this->getPageID());
             if(!empty($posttypeSecondaryMenuItems)) {
                 $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
@@ -148,8 +148,8 @@ class BaseController
                 $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
             }
         }
-        
-        
+
+
         $this->data['mobileMenuItems']              = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['megaMenuItems']           = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
 
@@ -210,7 +210,7 @@ class BaseController
         $this->data['hasSideMenu'] = $this->hasSideMenu();
         $this->data['hasMainMenu'] = $this->hasMainMenu();
 
-        $this->data['structuredData'] = \Municipio\Helper\Data::prepareStructuredData([]);
+        $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
         //Notice storage
         $this->data['notice']               = [];
 
@@ -235,10 +235,10 @@ class BaseController
             $lang = [
                 'visit' => __('Visit', 'municipio'),
             ];
-            
+
             return (object) array_merge((array) $obj, $lang);
         }, 10, 1);
-        
+
         if (!empty($_SERVER['HTTP_HOST'])) {
             add_filter("ComponentLibrary/Component/Attribute", function ($attributes) {
                 if (!empty($attributes['href'])) {
@@ -252,7 +252,7 @@ class BaseController
                 return $attributes;
             }, 10, 1);
         }
-        
+
         //Wordpress hooks
         $this->data['hook'] = (object) array(
         'innerLoopStart' => $this->hook('inner_loop_start'),
@@ -273,7 +273,7 @@ class BaseController
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Segment/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
-        
+
         $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
         $this->init();
@@ -430,13 +430,13 @@ class BaseController
             ]
         );
     }
- 
+
     /**
      * Get mega menu labels
      *
      * @return object
      */
-    public function getmegaMenuLabels(): object 
+    public function getmegaMenuLabels(): object
     {
         $menuObject = wp_get_nav_menu_object(get_nav_menu_locations()['mega-menu'] ?? '');
 
@@ -555,7 +555,7 @@ class BaseController
      * Check if any posts in the given array has an image
      */
     protected function anyPostHasImage(array $posts)
-    {   
+    {
         foreach ($posts as $post) {
             if (!empty( $post->images['thumbnail16:9']['src'])) {
                 return true;
@@ -812,7 +812,7 @@ class BaseController
     public function getMultilineTextAsArray(string $text)
     {
         $trimmed = trim($text);
-        
+
         if( empty($trimmed) ) {
             return null;
         }
