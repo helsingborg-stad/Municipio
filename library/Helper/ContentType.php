@@ -90,10 +90,11 @@ class ContentType
     * Get the content type instance for a given post type.
     *
     * @param string $postType The post type of content type to get. Defaults to the current post type if not specified.
+    * @param boolean $returnInstance Whether to return the content type instance or just the key.
     *
     * @return mixed The content type instance for the given post type, or false if no content type is set.
     */
-    public static function getContentType(string $postType = '')
+    public static function getContentType(string $postType = '', $returnInstance = true)
     {
         if (!$postType && !$postType = self::getCurrentType()) {
             return false;
@@ -103,7 +104,11 @@ class ContentType
         $contentTypeKey = get_theme_mod($themeModName, false);
 
         if ($contentTypeKey) {
-            return self::getContentTypeInstance($contentTypeKey);
+            if($returnInstance) {
+                return self::getContentTypeInstance($contentTypeKey);
+            } else {
+                return $contentTypeKey;
+            }
         }
 
         return false;
