@@ -87,6 +87,11 @@ body.mega-menu-open {
             width: 100%;
             overflow: auto;
             position: fixed;
+            max-height: calc(100vh - 120px);
+        }
+
+        .c-megamenu.c-megamenu--cover {
+            min-height: calc(100vh - 120px);
         }
     }
 
