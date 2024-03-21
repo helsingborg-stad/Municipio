@@ -69,10 +69,8 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         // Handles specific content types
-        switch ($contentType) {
-            case 'place':
-                $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post']);
-                break;
+        if('place' === $contentType) {
+            $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post']);
         }
     }
 
