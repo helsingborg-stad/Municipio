@@ -340,8 +340,12 @@ class PostFilters
      */
     public function postsPerPage($value, $name)
     {
-        return get_theme_mod('archive_post_post_count', $value);
+        if($postsPerPage = get_theme_mod('archive_post_post_count', $value)) {
+            return $postsPerPage; 
+        }
+        return 10;
     }
+    
     /**
      * Get current post type
      * @param  object $query Query object
