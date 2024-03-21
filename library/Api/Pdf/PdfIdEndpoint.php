@@ -29,8 +29,9 @@ class PdfIdEndpoint extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods'  => 'GET',
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => 'GET',
+            'callback'            => array($this, 'handleRequest'),
+            'permission_callback' => '__return_true'
         ));
     }
 
@@ -84,8 +85,9 @@ class PdfIdEndpoint extends RestApiEndpoint
      */
     private function getPostsById(array $ids): array
     {
-        $posts     = [];
-        $postTypes = [];
+        $posts          = [];
+        $postTypes      = [];
+
         if (!empty($ids) && is_array($ids)) {
             foreach ($ids as $id) {
                 $id   = trim($id);
@@ -105,7 +107,7 @@ class PdfIdEndpoint extends RestApiEndpoint
                 }
             }
         }
-        return [$posts, $postTypes];
+        return [[$posts], $postTypes];
     }
 
     /**

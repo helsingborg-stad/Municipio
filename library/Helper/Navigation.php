@@ -680,6 +680,7 @@ class Navigation
                         'id'          => $item->ID,
                         'post_parent' => $item->menu_item_parent,
                         'post_type'   => $item->object,
+                        'page_id'     => $item->object_id,
                         'active'      => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url) ? true : false,
                         'ancestor'    => $isAncestor,
                         'label'       => $item->title,

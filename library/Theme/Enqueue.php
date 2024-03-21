@@ -10,8 +10,6 @@ use Throwable;
  */
 class Enqueue
 {
-    private $scriptsExcludedFromDefer = ['wp-i18n'];
-
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -40,9 +38,6 @@ class Enqueue
 
         //Move scripts to footer
         add_action('wp_print_scripts', array($this, 'moveScriptsToFooter'));
-
-        //Enable defered loading
-        add_filter('script_loader_tag', array($this, 'deferedLoadingJavascript'), 10, 2);
 
         //Remove jqmigrate (creates console log error)
         add_action('wp_default_scripts', function ($scripts) {
@@ -255,60 +250,6 @@ class Enqueue
         } else {
             return $src;
         }
-    }
-
-    /**
-     * Making deffered loading of scripts a posibillity (removes unwanted renderblocking js)
-     *
-     * @param string $tag    HTML Script tag
-     * @param string $handle Script handle
-     *
-     * @return string         The script tag
-     */
-    public function deferedLoadingJavascript($tag, $handle)
-    {
-        if (in_array($handle, $this->getAllScriptsToBeExcludedFromDefer())) {
-            return $tag;
-        }
-
-        if (is_admin()) {
-            return $tag;
-        }
-
-        if (isset($_GET['preview']) && $_GET['preview'] == 'true') {
-            return $tag;
-        }
-
-        global $wp_customize;
-        if (isset($wp_customize)) {
-            add_filter('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', function ($handles) {
-                $handles[] = 'webfont-loader';
-                return $handles;
-            }, 10, 3);
-        }
-
-        $scriptsHandlesToIgnore = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/handlesToIgnore', ['readspeaker', 'jquery-core', 'jquery-migrate'], $handle);
-        $disableDeferedLoading  = apply_filters('Municipio/Theme/Enqueue/deferedLoadingJavascript/disableDeferedLoading', false);
-
-        if (in_array($handle, $scriptsHandlesToIgnore) || $disableDeferedLoading) {
-            return $tag;
-        }
-
-        return str_replace(' src', ' defer="defer" src', $tag);
-    }
-
-    private function getAllScriptsToBeExcludedFromDefer(): array
-    {
-        $excluded = $this->scriptsExcludedFromDefer;
-        foreach ($excluded as $script) {
-            try {
-                $excluded = array_merge($excluded, $this->getScriptDependencies($script));
-            } catch (\Exception $e) {
-                // Do nothing
-            }
-        }
-
-        return $excluded;
     }
 
     /**

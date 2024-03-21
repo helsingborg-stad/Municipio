@@ -19,7 +19,7 @@ class PostFilters
         add_action('pre_get_posts', array($this, 'doPostOrderDirection'));
         add_action('parse_query', array($this, 'handleQuery'));
 
-        add_filter('option_posts_per_page', array($this, 'postsPerPage'), 999, 2);
+        add_filter('option_posts_per_page', array($this, 'postsPerPage'), 1, 2);
 
         remove_filter('content_save_pre', 'wp_filter_post_kses');
         remove_filter('excerpt_save_pre', 'wp_filter_post_kses');
@@ -89,7 +89,7 @@ class PostFilters
         }
 
         foreach ($taxonomies as $key => $item) {
-           
+
             if(!$tax = get_taxonomy($item)) {
                 continue;
             }
@@ -131,7 +131,7 @@ class PostFilters
             $grouped = json_decode(json_encode($grouped));
             return $grouped;
         }
-        
+
         return $ungrouped;
     }
 
@@ -188,7 +188,7 @@ class PostFilters
             if (!isset($_GET[$key]) || empty($_GET[$key]) || $_GET[$key] === '-1') {
                 continue;
             }
-            
+
             $taxQuery[] = array(
                 'taxonomy' => $key,
                 'field' => 'slug',
@@ -340,8 +340,12 @@ class PostFilters
      */
     public function postsPerPage($value, $name)
     {
-        return get_theme_mod('archive_post_post_count', $value);
+        if($postsPerPage = get_theme_mod('archive_post_post_count', $value)) {
+            return $postsPerPage; 
+        }
+        return 10;
     }
+    
     /**
      * Get current post type
      * @param  object $query Query object
@@ -365,7 +369,7 @@ class PostFilters
         if ($known === true) {
             return get_query_var($queryString, false);
         }
-        
+
         if (isset($_GET[$queryString]) && !empty($_GET[$queryString])) {
             if (is_array($_GET[$queryString])) {
                 $sanitizedTerms = [];

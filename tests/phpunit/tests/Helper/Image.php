@@ -10,12 +10,12 @@ use phpmock\mockery\PHPMockery;
 
 /**
  * Class ImageTest
+ * @runTestsInSeparateProcesses
  */
 class ImageTest extends TestCase
 {
     /**
      * @testdox resize returns false if there is no image ID or Url
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testResizeReturnsFalseIfNoImage()
@@ -29,7 +29,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox resize returns a resized image when a correct image ID is present.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testResizeReturnsImageIfImageIdIsPresent()
@@ -46,7 +45,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox resize returns a resized image when a correct image URL is present.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testResizeReturnsImageIfImageUrlIsPresent()
@@ -88,7 +86,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox urlToPath Null if global server variable isnt available.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testUrlToPathReturnsNullIfGlobalServerIsNotSet()
@@ -102,7 +99,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox urlToPath Path url is provided.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testUrlToPathReturnsPathIfUrlIsProvided()
@@ -119,7 +115,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox pathToUrl Returns Null if global server variable isnt available.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testPathToUrlReturnsNullIfGlobalServerIsNotSet()
@@ -133,7 +128,6 @@ class ImageTest extends TestCase
 
     /**
      * @testdox pathToUrl Returns URL when path is provided.
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
     */
     public function testPathToUrlReturnsUrlWhenPathProvided()

@@ -1,5 +1,11 @@
 (function () {
     if (typeof tinymce !== 'undefined') {
+        let inlineStyles = document.querySelector('#kirki_inline_styles');
+
+        if (inlineStyles) {
+            inlineStyles = inlineStyles.innerHTML;
+        }
+
         tinymce.PluginManager.add('mce_hbg_buttons', function (editor, url) {
             editor.addButton('mce_hbg_buttons', {
                 text: 'Button',
@@ -46,8 +52,8 @@
                         ],
                     },
                     {
-                        stylesSheet: mce_hbg_buttons.styleSheet,
-                    }
+                        stylesSheet: {styleguideUrl: mce_hbg_buttons.styleSheet ?? "", inlineStyles: inlineStyles ?? ""},
+                    },
                 );
             });
         });

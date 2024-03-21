@@ -20,11 +20,23 @@
     
     @includeWhen(!empty($cover), 'partials.content.pdf.frontpage')
 
-    @if (!empty($posts) && is_array($posts)) 
+    @if (!empty($sortedPostsArray) && is_array($sortedPostsArray)) 
         @includeWhen($hasMoreThanOnePost, 'partials.content.pdf.table-of-contents')
-    @foreach ($posts as $index => $post)
-        @include('partials.content.pdf.post')
-    @endforeach
+
+        @php
+            $postIndex = 0;
+        @endphp
+
+        @foreach ($sortedPostsArray as $postType => $sortedPosts)
+            @foreach ($sortedPosts as $post)
+                @include('partials.content.pdf.post', ['postIndex' => $postIndex])
+                
+                @php
+                    $postIndex++;
+                @endphp
+            @endforeach
+        @endforeach
+
         @if ($hasMoreThanOnePost)
             <script class="pdf-script" type="text/php">
                 for ($i = 0; $i <= $GLOBALS['max_object']; $i++) {
