@@ -295,7 +295,7 @@ class ContentType
             $post = \Municipio\Helper\Post::preparePostObject($post);
 
             // Fetch custom fields for the post
-            $fields = get_fields($post->ID); // Note: Using $post->ID to ensure we're using the WP_Post ID
+            $fields = get_fields($post->id);
 
             // Assign additional information to the post object
             $post->bookingLink = $fields['booking_link'] ?? false;
