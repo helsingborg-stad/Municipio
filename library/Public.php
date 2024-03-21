@@ -56,96 +56,37 @@ if (!function_exists('municipio_show_posts_pag')) {
 
 /**
  * Get a posts featured image thumbnail by post id
+ *
+ * @deprecated 4.6.8
+ *
  * @param  int|null $post_id Post id or null
  * @param array $size Set image width/height eg array(400, 300)
  * @param string $ratio Sets the image ratio
  * @return string            Thumbnail url
  */
 if (!function_exists('municipio_get_thumbnail_source')) {
-    function municipio_get_thumbnail_source($post_id = null, $size = array(), $ratio = '16:9')
+    function municipio_get_thumbnail_source($post_id = null, $size = array(), $ratio = '16:9'): void
     {
+        _doing_it_wrong(__FUNCTION__, 'This function is deprecated. Use get_the_post_thumbnail_url instead.', '4.6.8');
 
-        //Use current id as default
-        if (is_null($post_id)) {
-            $post_id = get_the_id();
-        }
+        return;
 
-        //Get post thumbnail id (Default value for src)
-        $thumbnail_id = get_post_thumbnail_id($post_id);
-        $src          = false;
-
-        //Get default vale
-        if (isset($size[0]) && isset($size[1])) {
-            $src = wp_get_attachment_image_src(
-                $thumbnail_id,
-                municipio_to_aspect_ratio($ratio, array($size[0], $size[1]))
-            );
-        } else {
-            $src = wp_get_attachment_image_src($thumbnail_id, 'medium');
-        }
-
-        //Get url from array
-        $src = isset($src[0]) ? $src[0] : false;
-
-        //Force get attachment url (full size)
-        if (!$src) {
-            $src = wp_get_attachment_url($thumbnail_id);
-        }
-
-        return $src;
     }
 }
-
 /**
  * Gets the html markup for the logotype
+ *
+ * @deprecated 4.6.8
+ *
  * @param  string  $type    Logotype source
  * @param  boolean $tooltip Show tooltip or not
  * @return string           HTML markup
  */
 if (!function_exists('municipio_get_logotype')) {
-    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false, $use_text_replacement = true)
+    function municipio_get_logotype($type = 'standard', $tooltip = false, $logo_include = true, $tagline = false, $use_text_replacement = true): void
     {
-        if ($type == '') {
-            $type = 'standard';
-        }
-
-        $siteName = apply_filters('Municipio/logotype_text', get_bloginfo('name'));
-        $logotype = array(
-            'standard' => get_theme_mod('logotype', ''),
-            'negative' => get_theme_mod('logotype_negative', '')
-        );
-
-        // Get the symbol to use (blog name or image)
-        if ($use_text_replacement) {
-            $logoText = $siteName;
-        }
-
-        $classes     = apply_filters('Municipio/logotype_class', array('logotype'));
-        $tooltip     = apply_filters('Municipio/logotype_tooltip', $tooltip);
-        $taglineHtml = '';
-
-        if ($tagline === true) {
-            $taglineText = get_bloginfo('description');
-
-            if (get_field('header_tagline_type', 'option') == 'custom') {
-                $taglineText = get_field('header_tagline_text', 'option');
-            }
-
-            $taglineHtml = $taglineText;
-        }
-
-        // Build the markup
-        $logoData = [
-            'url'           => home_url(),
-            'src'           => $logotype,
-            'text'          => $logoText,
-            'classList'     => implode(' ', $classes),
-            'attributeList' => ($tooltip !== false && !empty($tooltip)) ?
-                ['data-tooltip' => $tooltip] : [],
-            'tagline'       => $taglineHtml
-        ];
-
-        return $logoData;
+        _doing_it_wrong(__FUNCTION__, 'This function is deprecated.', '4.6.8');
+        return;
     }
 }
 
