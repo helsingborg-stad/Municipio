@@ -45,7 +45,10 @@ module.exports = {
 
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
-        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
+
+        /* Fonts */
+        'fonts/material-symbols': './assets/source/3.0/sass/admin/material-symbols.scss',
     },
     /**
      * Output settings
@@ -104,7 +107,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2
+                            importLoaders: 2,
                         },
                     },
                     {
@@ -138,23 +141,6 @@ module.exports = {
                     },
                 ],
             },
-
-            /**
-             * Fonts
-             */
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
-                            outputPath: 'fonts',
-                            publicPath: '../fonts',
-                        },
-                    },
-                ],
-            }
         ],
     },
     resolve: {
