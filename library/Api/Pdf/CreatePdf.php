@@ -40,7 +40,7 @@ class CreatePdf
         $styles = $this->pdfHelper->getThemeMods();
         $fonts  = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang   = $this->getLang();
-        if (!empty($sortedPostsArray) && reset($sortedPostsArray)) {
+        if (!empty($sortedPostsArray) && is_array($sortedPostsArray) && reset($sortedPostsArray)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'sortedPostsArray'        => $sortedPostsArray,
                 'styles'             => $styles,
