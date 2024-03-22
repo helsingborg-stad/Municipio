@@ -40,14 +40,14 @@ class CreatePdf
         $styles = $this->pdfHelper->getThemeMods();
         $fonts  = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang   = $this->getLang();
-        if (!empty($sortedPostsArray) && reset($sortedPostsArray)) {
+        if (!empty($sortedPostsArray) && is_array($sortedPostsArray) && reset($sortedPostsArray)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'sortedPostsArray'        => $sortedPostsArray,
                 'styles'             => $styles,
                 'cover'              => $cover,
                 'fonts'              => $fonts,
                 'lang'               => $lang,
-                'hasMoreThanOnePost' => $this->hasMoreThanOneItem($sortedPostsArray)
+                'hasMoreThanOnePost' => count($sortedPostsArray) > 1 || count(reset($sortedPostsArray)) > 1
             ]);
 
             $html = $this->replaceHtmlFromRegex([ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html);
@@ -60,20 +60,6 @@ class CreatePdf
         }
 
         return "";
-    }
-
-    /**
-     * Checks if the given sorted posts array has more than one item.
-     *
-     * @param array $sortedPostsArray The sorted posts array to check.
-     * @return bool Returns true if the sorted posts array has more than one item, false otherwise.
-     */
-    private function hasMoreThanOneItem($sortedPostsArray) 
-    {
-        return 
-            is_array($sortedPostsArray) ? 
-            (count($sortedPostsArray) > 1 || count(reset($sortedPostsArray)) > 1) : 
-            false;
     }
 
     /**
