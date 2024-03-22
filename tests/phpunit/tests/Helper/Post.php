@@ -7,8 +7,6 @@ use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Post;
 
-use function Patchwork\Config\merge;
-
 /**
  * Class PostTest
  * @runTestsInSeparateProcesses
@@ -175,8 +173,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
-     * post_excerpt and post_content.
+     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
     {
@@ -194,8 +191,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty
-     * post_excerpt and post_content.
+     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
     {
@@ -229,7 +225,7 @@ class PostTest extends TestCase
         $result = Post::complementObject($post, [ 'excerpt']);
 
         // Then
-        $this->assertEquals($result->post_excerpt, 'Some text. ');
+        $this->assertEquals('Some text. ', $result->excerpt);
     }
 
     /**
@@ -313,9 +309,9 @@ class PostTest extends TestCase
         $this->assertIsString($result->reading_time);
     }
 
-    /**
-     * @testdox ComplementObject Returns complemented call to action items keys.
-     */
+    // /**
+    //  * @testdox ComplementObject Returns complemented call to action items keys.
+    //  */
     public function testComplementObjectReturnsComplementedPostCallToActionItemsKeys()
     {
         // Given
@@ -329,9 +325,9 @@ class PostTest extends TestCase
         $this->assertIsArray($result->call_to_action_items);
     }
 
-    /**
-     * @testdox ComplementObject Returns complemented term icon keys.
-     */
+    // /**
+    //  * @testdox ComplementObject Returns complemented term icon keys.
+    //  */
     public function testComplementObjectReturnsComplementedPostTermIconKeys()
     {
         // Given
@@ -549,6 +545,10 @@ class PostTest extends TestCase
         WP_Mock::userFunction('get_object_taxonomies', [
             'return' => (object) ['icon' => 'test']
         ]);
+        
+        WP_Mock::userFunction('get_option', [
+            'return' => 'test'
+        ]);
 
         WP_Mock::userFunction('get_the_terms', [
             'return' => (object) ['icon' => 'test']
@@ -571,7 +571,7 @@ class PostTest extends TestCase
         andReturn(['src' => 'test', 'type' => 'icon'])->
         shouldReceive('getTermColor')->
         andReturn('blue');
-
+        
         Mockery::mock('alias:' . \Municipio\Helper\Navigation::class)->
         shouldReceive('getQuicklinksPlacement')->
         andReturn('after_first_block')->

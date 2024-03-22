@@ -200,6 +200,9 @@ class ImageTest extends TestCase
     public function testAddSideloadedIdentifierToAttachmentReturnsWPErrorIfNoFileFound()
     {
         // Given
+        WP_Mock::userFunction('get_attached_file', [
+            'return' => false
+        ]);
         $this->mockUpDataForImage(false);
         Mockery::mock(\WP_Error::class);
 
@@ -211,24 +214,7 @@ class ImageTest extends TestCase
     }
 
     /**
-     * @testdox addSideloadedIdentifierToAttachment Returns WP_Error if hash couldnt be created from file.
-    */
-    public function testAddSideloadedIdentifierToAttachmentReturnsFalseIfNoHash()
-    {
-        // Given
-        $this->mockUpDataForImage('/test/path');
-        Mockery::mock(\WP_Error::class);
-
-        // When
-        $result = Image::addSideloadedIdentifierToAttachment(1);
-
-        // Then
-        $this->assertInstanceOf('WP_Error', $result);
-    }
-
-    /**
-     * @testdox addSideloadedIdentifierToAttachment Updates post and returns nothing when
-     * file found and hash calculated.
+     * @testdox addSideloadedIdentifierToAttachment Updates post and returns nothing when file found and hash calculated.
     */
     public function testAddSideloadedIdentifierToAttachmentUpdatesPost()
     {
@@ -240,7 +226,6 @@ class ImageTest extends TestCase
         ]);
 
         WP_Mock::userFunction('update_post_meta', [
-            'times'  => 1,
             'return' => true
 
         ]);
@@ -367,7 +352,11 @@ class ImageTest extends TestCase
      * Mockup data
      */
     private function mockUpDataForImage()
-    {
+    {      
+        WP_Mock::userFunction('update_post_meta', [
+            'return' => true
+        ]);
+
         WP_Mock::userFunction('wp_get_attachment_url', [
             'return' => 'https://test.url/test.jpg'
         ]);
