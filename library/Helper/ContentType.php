@@ -279,13 +279,13 @@ class ContentType
     public static function complementPlacePost($post)
     {
         // Check if $post is a post ID and not a WP_Post object
-        if (!($post instanceof WP_Post)) {
+        if (!($post instanceof \WP_Post)) {
             // Assume $post is a post ID, attempt to fetch the corresponding WP_Post object
             $post = get_post($post);
         }
 
         // Proceed only if $post is a valid WP_Post object
-        if ($post instanceof WP_Post) {
+        if ($post instanceof \WP_Post) {
             // Prepare the post object if necessary
             $post = \Municipio\Helper\Post::preparePostObject($post);
 
