@@ -77,9 +77,7 @@ class PostTypeTest extends TestCase
         $result = PostType::postTypeDetails();
 
         // Then
-        $objectVars = get_object_vars($result);
-        $this->assertIsObject($result);
-        $this->assertCount(0, $objectVars);
+        $this->assertFalse($result);
     }
 
     /**
