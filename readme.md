@@ -1,8 +1,8 @@
 # Municipio 3
 
 ## Download theme.
-To download a complete out of the box working plugin without the need to compile or fetch dependencies.  
-Go [here](https://github.com/helsingborg-stad/Municipio/releases) and download the `full-release.zip` from the latest version.  
+To download a complete out of the box working plugin without the need to compile or fetch dependencies.
+Go [here](https://github.com/helsingborg-stad/Municipio/releases) and download the `full-release.zip` from the latest version.
 
 ## Getting started
 It is recommended to install the bundled version of municipio trough our build management repository. [This can be found here.](https://github.com/municipio-se/municipio-deployment)
@@ -90,21 +90,21 @@ define('MUNICIPIO_STYLEGUIDE_URI', '//example.com/style/guide');
 ```
 
 ### Load specific version of styleguide
-Constants that lock version of the styleguide. Comes in handy when you want to enshure maximum stability of a site. 
+Constants that lock version of the styleguide. Comes in handy when you want to enshure maximum stability of a site.
 
 ```
 define('STYLEGUIDE_VERSION', 1.0.32);
 ```
 
 ### Load specific developement version of styleguide
-Constant that load local verrsion of the styleguide. 
+Constant that load local verrsion of the styleguide.
 
 ```
 define('DEV_MODE', true);
 ```
 
 ### CSS class in BEMIT style for theme name
-Constant that contains the current theme name in BEM format. Usable when you wnat to connect component styling directly to the theme.You cannot change this. 
+Constant that contains the current theme name in BEM format. Usable when you wnat to connect component styling directly to the theme.You cannot change this.
 
 ```
 MUNICIPIO_BEM_THEME_NAME
@@ -174,7 +174,7 @@ apply_filters("Municipio/Template/{$postType}/archive/viewData", $viewData, $tem
 - `Municipio/viewData`
 
 ### Municipio/theme/key
-Filters the theme/styleguide asset key. 
+Filters the theme/styleguide asset key.
 
 - ```@param string $key``` - The key of the styleguide theme
 
@@ -232,7 +232,7 @@ apply_filters('Municipio/favicon_tag', $tag, $icon);
 ### Municipio/header_grid_size
 Applied to classes string for header sizes.
 
-- ```@param string $classes``` - 
+- ```@param string $classes``` -
 
 ```php
 apply_filters('Municipio/header_grid_size', $classes);
@@ -240,7 +240,7 @@ apply_filters('Municipio/header_grid_size', $classes);
 
 
 ### Municipio/mobile_menu_breakpoint
-Applied to classes string for mobile hamburger menu breakpoint. 
+Applied to classes string for mobile hamburger menu breakpoint.
 
 - ```@param string $classes``` - The default site name
 
@@ -368,16 +368,16 @@ apply_filters('Municipio/oembed/should_filter_markup', true, $url, $postId);
 
 
 ### Municipio/Menu/Vertical/EnabledSidebars
-Dictates what sidebars that sould be active on the current page to show the vertical menu. Simple array containing the sidebar id's. 
+Dictates what sidebars that sould be active on the current page to show the vertical menu. Simple array containing the sidebar id's.
 
-- ```@param array $sidebars``` - An flat array with sidebar id's. 
+- ```@param array $sidebars``` - An flat array with sidebar id's.
 
 ```php
 apply_filters('Municipio/Menu/Vertical/EnabledSidebars', $sidebars);
 ```
 
 ### Municipio/archive/tax_query
-Additional taxonomy queries. 
+Additional taxonomy queries.
 
 - ```@param array $taxQuery``` - Holds the taxonomy query.
 - ```@param object $query``` - Current query object.
@@ -387,7 +387,7 @@ apply_filters('Municipio/archive/tax_query', $taxQuery, $query);
 ```
 
 ### Municipio/taxonomy/tag_style
-Adds custom style to taxonomy labels. 
+Adds custom style to taxonomy labels.
 
 - ```@param string $style``` - Custom CSS.
 - ```@param string $term``` - The term.
@@ -398,19 +398,55 @@ apply_filters('Municipio/taxonomy/tag_style', $style, $term, $taxonomy);
 ```
 
 ### Municipio/Menu/Vertical/Items
-Items that should be visible in the vertical navigation menus. Represented as dots with hover-labels. 
+Items that should be visible in the vertical navigation menus. Represented as dots with hover-labels.
 
-- ```@param array $items``` - An array with items representing links. 
+- ```@param array $items``` - An array with items representing links.
 
 ```php
 apply_filters('Municipio/Menu/Vertical/EnabledSidebars', array(array('title' => 'Page section title', 'link' => '#anchorlink'));
 ```
 
+### Municipio/ContentType/schemaParams
+
+Modify the schema parameters for a content type. This filter is applied to the array of schema parameters associated with a content type, allowing for the extension or modification of the structured data (schema.org) attributes for that content type.
+
+- `@param array $schemaParams` - The default schema parameters for the content type.
+- `@param string $contentTypeKey` - The key identifying the content type.
+
+```php
+add_filter('Municipio/ContentType/schemaParams', function($schemaParams, $contentTypeKey) {
+    if ($contentTypeKey === 'yourContentTypeKey') {
+        $schemaParams['newParameter'] = [
+            'schemaType' => 'Text',
+            'value' => 'Custom Value'
+        ];
+    }
+
+    return $schemaParams;
+}, 10, 2);
+```
+### Municipio/Controller/SingularContentType/listing
+
+Modifies the listing array for the Place content type by appending location-related list items. This allows for the inclusion of additional information such as street name or a Google Maps link directly within the listing display.
+
+- `@param array $listing` - The existing listing array that will be modified.
+- `@param array $fields` - The fields associated with the post, used to extract location information.
+
+```php
+add_filter('Municipio/Controller/SingularContentType/listing', function($listing, $fields) {
+    // Example modification to the listing array
+    if (!empty($fields['custom_field'])) {
+        $listing['custom_field'] = $fields['custom_field'];
+    }
+
+    return $listing;
+}, 10, 2);
+```
 ## REST routes
 The following REST API routes are available from the theme.
 
 ### ```[GET] municipio/v1/view/render/{view}```
-Returns html for the 
+Returns html for the
 * ```@param string $view``` - Path to the blade view to be rendered. Appended to the route.
 * ```@param object $data``` - Data to be passed to the view.
 
@@ -428,19 +464,19 @@ define('DEV_MODE', true);
 ```
 
 ## Theme fonts
-Municipio is integrated with google web-fonts. It enables smart loading of fonts preventing invisible fonts using Google & Adobe webfont loader. 
+Municipio is integrated with google web-fonts. It enables smart loading of fonts preventing invisible fonts using Google & Adobe webfont loader.
 
 ```php
 define('WEB_FONT', 'Roboto'); //The google fonts name (without weights)
 define('WEB_FONT_REMOTE', true); //Load font kit from cdn
 ```
 # Version 2.0
-The goal of version 2.0 is to restructure the theme frontend and move towards the BEM (IT) standard for markup. More filters will be added in a automatic manner, mutch like ACF doe's it. These will for now, be documented below. 
+The goal of version 2.0 is to restructure the theme frontend and move towards the BEM (IT) standard for markup. More filters will be added in a automatic manner, mutch like ACF doe's it. These will for now, be documented below.
 
 ## Deprecated functionality (notice phase)
-Version 2.0 will introduce some warnings aboute the removal of some prevoius functionality. According to plan, this functionality will be actually be removed in version 3.0. Functions that will be removed in 3.0 are. 
+Version 2.0 will introduce some warnings aboute the removal of some prevoius functionality. According to plan, this functionality will be actually be removed in version 3.0. Functions that will be removed in 3.0 are.
 
-- Gravitiforms optimizations 
+- Gravitiforms optimizations
 - Honeypot functionality for comments (this will be moved to separate plugin). Will also include google recaptcha.
 - Contact widget (replacement avabile in modularity)
 - RichText Widget (replacement embedded in core)
@@ -455,26 +491,26 @@ Version 2.0 will introduce some warnings aboute the removal of some prevoius fun
 - Modularity/CoreTemplatesSearchPaths
 
 ### Blade view filter
-All variables sent (created) in a controller will automatically go trough a filter named with the variable key. 
+All variables sent (created) in a controller will automatically go trough a filter named with the variable key.
 
 ```php
 apply_filters('Municipio/{{KEY}}', $var);
 ```
 
 ## Global view filter
-You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old  filter. 
+You may prefer to get a full array of everything sent to a view. After the filter above has run, a global filter will be applied. This replaces the old  filter.
 
 ```php
 apply_filters('Municipio/viewData', $var);
 ```
-## Constants 
-MUNICIPIO_FRAGMENT_CACHE - Set to false to remove fragment cache. 
+## Constants
+MUNICIPIO_FRAGMENT_CACHE - Set to false to remove fragment cache.
 
 ## Theme view structure
 
 ```
-bem-views 
-│   [Main folder for  theme views, containing WordPress templates like page.blade.php] 
+bem-views
+│   [Main folder for  theme views, containing WordPress templates like page.blade.php]
 │
 └───components
 │   │   [Components for the theme like card.blade.php]
@@ -507,9 +543,9 @@ Run `composer test` in the terminal.
 Run `composer test:coverage` in the terminal. This will generate a code coverage report in the `tests/phpunit/.coverage` folder.
 
 ## Image compression
-Municipio supports image compression with shortpixel. This will enque a cronjob with a slight delay to compress newly uploaded images. Simpley define SHORTPIXEL_API_KEY constant in your config file and that's it! 
+Municipio supports image compression with shortpixel. This will enque a cronjob with a slight delay to compress newly uploaded images. Simpley define SHORTPIXEL_API_KEY constant in your config file and that's it!
 
-Compression level will be medium/glossy for high quality photos. 
+Compression level will be medium/glossy for high quality photos.
 
 ## Tested with support from BrowserStack
 This software is tested with the awesome tools from Browserstack.

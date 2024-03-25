@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-11 11:59+0000\n"
+"POT-Creation-Date: 2024-03-20 11:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: municipio\n"
@@ -15249,7 +15249,7 @@ msgid ""
 "the page. This option should not be used in combination with a sticky header."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:291
+#: library/Customizer/PanelsRegistry.php:308
 msgid ""
 "Adjust the roundness of corners on the site overall. The sizes are applied "
 "where they are suitable, additional component adjustments can be made under "
@@ -15506,7 +15506,7 @@ msgstr ""
 msgid "archive"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:174
+#: library/Customizer/PanelsRegistry.php:191
 msgid "Archive Apperance"
 msgstr ""
 
@@ -15526,7 +15526,7 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#: library/Theme/Enqueue.php:168
+#: library/Theme/Enqueue.php:163
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
@@ -16112,7 +16112,7 @@ msgstr ""
 msgid "border_vertical"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:285
+#: library/Customizer/PanelsRegistry.php:302
 msgid "Borders"
 msgstr ""
 
@@ -16265,7 +16265,7 @@ msgstr ""
 msgid "Button: Third color"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:340
+#: library/Customizer/PanelsRegistry.php:357
 msgid "Buttons"
 msgstr ""
 
@@ -16754,7 +16754,7 @@ msgstr ""
 msgid "colorize"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:268
+#: library/Customizer/PanelsRegistry.php:285
 #: library/Customizer/Sections/FooterSub.php:12
 #: library/Customizer/Sections/Divider.php:59
 msgid "Colors"
@@ -16819,7 +16819,7 @@ msgstr ""
 msgid "Complementary"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:316
+#: library/Customizer/PanelsRegistry.php:333
 msgid "Component Apperance"
 msgstr ""
 
@@ -16835,7 +16835,7 @@ msgstr ""
 msgid "computer"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:150
+#: library/Customizer/PanelsRegistry.php:166
 msgid "Configure settings for different content types and their options."
 msgstr ""
 
@@ -16879,7 +16879,7 @@ msgstr ""
 msgid "contactless"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:192
+#: library/Customizer/PanelsRegistry.php:209
 msgid "Contacts"
 msgstr ""
 
@@ -16931,13 +16931,12 @@ msgstr ""
 msgid "Content horizontal alignment"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:128
+#: library/Customizer/PanelsRegistry.php:144
 #: library/Admin/Options/ContentType.php:67
 msgid "Content Type"
 msgstr ""
 
 #: library/Admin/Acf/LocationRulesContentType.php:8
-#: library/AcfFields/php/options-content-types.php:12
 msgid "Content type"
 msgstr ""
 
@@ -16946,13 +16945,12 @@ msgstr ""
 msgid "Content type - %s (sidebar)"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:149
+#: library/Customizer/PanelsRegistry.php:165
 msgid "Content Type Settings"
 msgstr ""
 
 #: library/Admin/Options/ContentType.php:19
 #: library/Admin/Options/ContentType.php:20
-#: library/AcfFields/php/options-content-types.php:8
 msgid "Content types"
 msgstr ""
 
@@ -17242,7 +17240,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:772
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:776
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr ""
@@ -17607,7 +17605,7 @@ msgstr ""
 msgid "Display the notice after this many days"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:401
+#: library/Customizer/PanelsRegistry.php:418
 #: library/Customizer/Sections/Borders.php:14
 #: library/Customizer/Sections/Colors.php:208
 #: library/Customizer/Sections/Divider.php:65
@@ -17635,21 +17633,21 @@ msgstr ""
 msgid "Do not use content type template"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:139
+#: library/Customizer/PanelsRegistry.php:155
 msgid "Do not use template"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:140
+#: library/Customizer/PanelsRegistry.php:156
 msgid ""
 "Do not use the custom template from the content type for this post type."
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:410
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:406
 #, php-format
 msgid "Do you want to apply to %s?"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:413
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:410
 msgid "Do you want to apply?"
 msgstr ""
 
@@ -17741,7 +17739,7 @@ msgstr ""
 msgid "drive_eta"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:301
+#: library/Customizer/PanelsRegistry.php:318
 msgid "Drop Shadows"
 msgstr ""
 
@@ -17998,7 +17996,7 @@ msgstr ""
 msgid "event_seat"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:780
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:784
 msgid "Events"
 msgstr ""
 
@@ -18210,7 +18208,7 @@ msgstr ""
 msgid "fiber_smart_record"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:413
+#: library/Customizer/PanelsRegistry.php:430
 msgid "Field"
 msgstr ""
 
@@ -18341,8 +18339,8 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:516
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:528
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:520
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:532
 msgid "Find directions"
 msgstr ""
 
@@ -18460,7 +18458,7 @@ msgstr ""
 msgid "folder_special"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:625
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:629
 msgid "Follow us in social media"
 msgstr ""
 
@@ -18468,7 +18466,7 @@ msgstr ""
 msgid "font_download"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:384
+#: library/Customizer/PanelsRegistry.php:401
 msgid "Footer"
 msgstr ""
 
@@ -18632,7 +18630,7 @@ msgstr ""
 msgid "Found"
 msgstr ""
 
-#: library/Theme/Enqueue.php:201
+#: library/Theme/Enqueue.php:196
 msgid "Fr"
 msgstr ""
 
@@ -18704,7 +18702,7 @@ msgstr ""
 msgid "GDPR"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:251
+#: library/Customizer/PanelsRegistry.php:268
 msgid "General Apperance"
 msgstr ""
 
@@ -18712,7 +18710,7 @@ msgstr ""
 msgid "General cover settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:262
+#: library/Customizer/PanelsRegistry.php:279
 msgid "General settings"
 msgstr ""
 
@@ -18861,7 +18859,7 @@ msgstr ""
 msgid "hdr_weak"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:322
+#: library/Customizer/PanelsRegistry.php:339
 msgid "Header"
 msgstr ""
 
@@ -18971,7 +18969,7 @@ msgstr ""
 msgid "help_outline"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:407 library/Theme/Sidebars.php:123
+#: library/Customizer/PanelsRegistry.php:424 library/Theme/Sidebars.php:123
 msgid "Hero"
 msgstr ""
 
@@ -18987,7 +18985,7 @@ msgstr ""
 msgid "Hero search position"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:376
+#: library/Customizer/PanelsRegistry.php:393
 msgid "Hero slider"
 msgstr ""
 
@@ -19161,7 +19159,7 @@ msgstr ""
 msgid "How to align the text in the pre-footer."
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:433
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:434
 msgid "How we work"
 msgstr ""
 
@@ -19359,7 +19357,7 @@ msgstr ""
 msgid "indeterminate_check_box"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:198
+#: library/Customizer/PanelsRegistry.php:215
 #: library/Customizer/Sections/Module/Posts.php:12
 #: library/Customizer/Sections/Module/Index.php:12
 msgid "Index"
@@ -19377,7 +19375,7 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:204
+#: library/Customizer/PanelsRegistry.php:221
 #: library/Customizer/Sections/Module/Inlay.php:12
 msgid "Inlay list"
 msgstr ""
@@ -19394,7 +19392,7 @@ msgstr ""
 msgid "Input colors"
 msgstr ""
 
-#: library/Theme/Enqueue.php:165
+#: library/Theme/Enqueue.php:160
 msgid "Insert Print Page Break tag"
 msgstr ""
 
@@ -19870,7 +19868,7 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:210
+#: library/Customizer/PanelsRegistry.php:227
 #: library/Customizer/Sections/Module/LocalEvent.php:12
 msgid "Local Event"
 msgstr ""
@@ -20043,7 +20041,7 @@ msgstr ""
 msgid "Logotype height"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:257
+#: library/Customizer/PanelsRegistry.php:274
 msgid "Logotypes"
 msgstr ""
 
@@ -20124,7 +20122,7 @@ msgstr ""
 msgid "Main container bottom"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:388
+#: library/Customizer/PanelsRegistry.php:405
 msgid "Main footer"
 msgstr ""
 
@@ -20132,11 +20130,11 @@ msgstr ""
 msgid "Make post type available for selection in navigation menus."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:175
+#: library/Customizer/PanelsRegistry.php:192
 msgid "Manage apperance options on archives."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:317
+#: library/Customizer/PanelsRegistry.php:334
 msgid "Manage design options on component level."
 msgstr ""
 
@@ -20144,7 +20142,7 @@ msgstr ""
 msgid "Manage post types"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:252
+#: library/Customizer/PanelsRegistry.php:269
 msgid "Manage site general design options."
 msgstr ""
 
@@ -20172,7 +20170,7 @@ msgstr ""
 msgid "Map style"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:216
+#: library/Customizer/PanelsRegistry.php:233
 msgid "Maps"
 msgstr ""
 
@@ -20275,7 +20273,7 @@ msgid "meeting_room"
 msgstr ""
 
 #: library/Helper/TranslatedLabels.php:45
-#: library/Customizer/PanelsRegistry.php:352 library/Theme/Navigation.php:29
+#: library/Customizer/PanelsRegistry.php:369 library/Theme/Navigation.php:29
 #: library/Customizer/Sections/Search.php:136
 #: library/AcfFields/php/options-theme-google-translate.php:59
 #: library/AcfFields/php/options-menu-mega.php:8
@@ -20305,11 +20303,11 @@ msgstr ""
 msgid "Menu alignment"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:432
+#: library/Customizer/PanelsRegistry.php:449
 msgid "Menu behaviour"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:433
+#: library/Customizer/PanelsRegistry.php:450
 msgid "Menu behaviour settings."
 msgstr ""
 
@@ -20394,7 +20392,7 @@ msgstr ""
 msgid "mms"
 msgstr ""
 
-#: library/Theme/Enqueue.php:197
+#: library/Theme/Enqueue.php:192
 msgid "Mo"
 msgstr ""
 
@@ -20574,7 +20572,7 @@ msgstr ""
 msgid "mode_comment"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:188
+#: library/Customizer/PanelsRegistry.php:205
 msgid "Module Apperance"
 msgstr ""
 
@@ -20760,7 +20758,7 @@ msgstr ""
 msgid "Navigation widget"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:346
+#: library/Customizer/PanelsRegistry.php:363
 msgid "Navigations"
 msgstr ""
 
@@ -20852,7 +20850,7 @@ msgstr ""
 msgid "no_sim"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:106
+#: library/Customizer/PanelsRegistry.php:122
 #: library/Customizer/Sections/Card.php:124
 #: library/Customizer/Sections/FooterSub.php:54
 #: library/Customizer/Sections/FooterMain.php:59
@@ -21049,7 +21047,7 @@ msgstr ""
 msgid "Only applies if you enable the option to publish your taxonomy."
 msgstr ""
 
-#: library/Admin/General.php:113
+#: library/Admin/General.php:115
 msgid "Only for logged in users"
 msgstr ""
 
@@ -21077,7 +21075,7 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:359
+#: library/Customizer/PanelsRegistry.php:376
 msgid "Open Street Map"
 msgstr ""
 
@@ -21110,7 +21108,7 @@ msgstr ""
 msgid "Option in mobile menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:274
+#: library/Customizer/PanelsRegistry.php:291
 msgid ""
 "Options for various Typography elements. This support BOF (Bring your own "
 "font). Simply upload your font in the media library, and it will be "
@@ -21129,11 +21127,11 @@ msgstr ""
 msgid "Order direction"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:439
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:440
 msgid "Orientation"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:445
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:446
 msgid "Our leisure center"
 msgstr ""
 
@@ -21170,7 +21168,7 @@ msgstr ""
 msgid "Overflow top"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:296
+#: library/Customizer/PanelsRegistry.php:313
 #: library/Customizer/Sections/FooterSub.php:107
 #: library/Customizer/Sections/FooterMain.php:34
 msgid "Padding"
@@ -21197,7 +21195,7 @@ msgstr ""
 msgid "Page Attributes"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:279
+#: library/Customizer/PanelsRegistry.php:296
 msgid "Page Widths"
 msgstr ""
 
@@ -21663,7 +21661,7 @@ msgstr ""
 msgid "Postal Code"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:222
+#: library/Customizer/PanelsRegistry.php:239
 msgid "Posts"
 msgstr ""
 
@@ -21890,7 +21888,7 @@ msgstr ""
 msgid "Quick facts"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:334
+#: library/Customizer/PanelsRegistry.php:351
 #: library/AcfFields/php/options-page-quicklinks-placement.php:8
 msgid "Quicklinks"
 msgstr ""
@@ -21930,7 +21928,7 @@ msgstr ""
 
 #: library/Helper/TranslatedLabels.php:58
 #: library/Helper/TranslatedLabels.php:73
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:594
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:598
 msgid "Read more"
 msgstr ""
 
@@ -21966,7 +21964,7 @@ msgstr ""
 msgid "Regular (400)"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:370
+#: library/Customizer/PanelsRegistry.php:387
 msgid "Regular Slider"
 msgstr ""
 
@@ -22164,7 +22162,7 @@ msgstr ""
 msgid "Rounded"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:290
+#: library/Customizer/PanelsRegistry.php:307
 #: library/Customizer/Sections/Siteselector.php:109
 msgid "Rounded corners"
 msgstr ""
@@ -22198,7 +22196,7 @@ msgstr ""
 msgid "rv_hookup"
 msgstr ""
 
-#: library/Theme/Enqueue.php:202
+#: library/Theme/Enqueue.php:197
 msgid "Sa"
 msgstr ""
 
@@ -22266,7 +22264,7 @@ msgstr ""
 msgid "screen_share"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:228
+#: library/Customizer/PanelsRegistry.php:245
 #: library/Customizer/Sections/Module/Script.php:14
 msgid "Script"
 msgstr ""
@@ -22285,7 +22283,7 @@ msgstr ""
 
 #: library/Helper/TranslatedLabels.php:41
 #: library/Helper/TranslatedLabels.php:77
-#: library/Customizer/PanelsRegistry.php:306 library/Search/General.php:55
+#: library/Customizer/PanelsRegistry.php:323 library/Search/General.php:55
 #: library/Admin/Options/Theme.php:51 library/Admin/Options/Theme.php:52
 #: library/Admin/Options/ContentType.php:88
 #: library/Widget/Navigation/Navigation.php:66
@@ -22384,7 +22382,7 @@ msgstr ""
 msgid "Section Split"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:234
+#: library/Customizer/PanelsRegistry.php:251
 msgid "Sections Split"
 msgstr ""
 
@@ -22468,12 +22466,8 @@ msgstr ""
 msgid "Select source of timestamp for post"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:129
+#: library/Customizer/PanelsRegistry.php:145
 msgid "Select the content type for this post type."
-msgstr ""
-
-#: library/AcfFields/php/options-content-types.php:43
-msgid "Select to override the default post template for this post type."
 msgstr ""
 
 #: library/AcfFields/php/options-theme-custom-post-type.php:129
@@ -22524,7 +22518,7 @@ msgstr ""
 msgid "Seperate the words with a comma"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:280
+#: library/Customizer/PanelsRegistry.php:297
 msgid "Set the maximum page withs of different page types."
 msgstr ""
 
@@ -22547,11 +22541,11 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:360
+#: library/Customizer/PanelsRegistry.php:377
 msgid "Settings for Open Street Maps."
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:377
+#: library/Customizer/PanelsRegistry.php:394
 msgid "Settings for the slider in the hero area."
 msgstr ""
 
@@ -22711,7 +22705,7 @@ msgstr ""
 msgid "show_chart"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:403
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:399
 #, php-format
 msgctxt "Shown on pre-schools"
 msgid "Do you want to join %s?"
@@ -22801,7 +22795,7 @@ msgstr ""
 msgid "Site emblem"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:328 library/Theme/Navigation.php:35
+#: library/Customizer/PanelsRegistry.php:345 library/Theme/Navigation.php:35
 #: library/AcfFields/php/options-theme-google-translate.php:65
 msgid "Siteselector"
 msgstr ""
@@ -22842,7 +22836,7 @@ msgstr ""
 msgid "Slide overlay"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:366
+#: library/Customizer/PanelsRegistry.php:383
 msgid "Slider"
 msgstr ""
 
@@ -22901,7 +22895,7 @@ msgstr ""
 msgid "Solid"
 msgstr ""
 
-#: library/Theme/Enqueue.php:169
+#: library/Theme/Enqueue.php:164
 msgid "Something went wrong, please try again later"
 msgstr ""
 
@@ -23152,11 +23146,11 @@ msgstr ""
 msgid "Ställer in query_var-nyckeln för denna inläggstyp."
 msgstr ""
 
-#: library/Theme/Enqueue.php:196
+#: library/Theme/Enqueue.php:191
 msgid "Su"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:394
+#: library/Customizer/PanelsRegistry.php:411
 msgid "Sub footer"
 msgstr ""
 
@@ -23322,7 +23316,7 @@ msgstr ""
 msgid "tag_faces"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:419
+#: library/Customizer/PanelsRegistry.php:436
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:109
 msgid "Tags"
 msgstr ""
@@ -23394,7 +23388,7 @@ msgstr ""
 msgid "Test"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:240
+#: library/Customizer/PanelsRegistry.php:257
 #: library/AcfFields/php/block-button.php:12
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
@@ -23474,7 +23468,7 @@ msgstr ""
 msgid "texture"
 msgstr ""
 
-#: library/Theme/Enqueue.php:200
+#: library/Theme/Enqueue.php:195
 msgid "Th"
 msgstr ""
 
@@ -23792,7 +23786,7 @@ msgstr ""
 msgid "trip_origin"
 msgstr ""
 
-#: library/Theme/Enqueue.php:198
+#: library/Theme/Enqueue.php:193
 msgid "Tu"
 msgstr ""
 
@@ -23837,7 +23831,7 @@ msgstr ""
 msgid "Type of taxonomy"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:273
+#: library/Customizer/PanelsRegistry.php:290
 msgid "Typography"
 msgstr ""
 
@@ -23928,10 +23922,6 @@ msgstr ""
 msgid "Use"
 msgstr ""
 
-#: library/AcfFields/php/options-content-types.php:52
-msgid "Use content type template"
-msgstr ""
-
 #: library/Customizer/Sections/Menu.php:64
 msgid "Use page tree as fallback for mega menu"
 msgstr ""
@@ -23946,10 +23936,6 @@ msgstr ""
 
 #: library/Customizer/Sections/Menu.php:32
 msgid "Use page tree as fallback for secondary menu"
-msgstr ""
-
-#: library/AcfFields/php/options-content-types.php:39
-msgid "Use template"
 msgstr ""
 
 #: library/Customizer/Sections/Typography.php:112
@@ -24148,7 +24134,7 @@ msgstr ""
 msgid "Visit"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:339
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:341
 msgid "Visit us"
 msgstr ""
 
@@ -24164,11 +24150,11 @@ msgstr ""
 msgid "Visited hover"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:539
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:543
 msgid "Visiting address"
 msgstr ""
 
-#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:541
+#: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:545
 msgid "Visiting addresses"
 msgstr ""
 
@@ -24283,7 +24269,7 @@ msgstr ""
 msgid "wc"
 msgstr ""
 
-#: library/Theme/Enqueue.php:199
+#: library/Theme/Enqueue.php:194
 msgid "We"
 msgstr ""
 

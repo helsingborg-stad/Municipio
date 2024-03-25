@@ -230,17 +230,25 @@
                     'link' => $page['link'],
                     'classList' => [
                         'o-grid-' . $pagesNumberOfColumns . '@md',
-                        'u-color__bg--lightest',
+                        'u-color__bg--primary',
                         'u-box-shadow--3',
                         'u-padding--2'
                     ]
                 ])
-                    @typography(['element' => 'h3', 'variant' => 'h4'])
+                    @typography([
+                        'element' => 'h3', 
+                        'variant' => 'h4',
+                        'classList' => ['u-color__text--primary-contrasting']
+                    ])
                         {{ $page['title'] }}
                     @endtypography
 
                     @slot('secondary')
-                        @icon(['icon' => 'arrow_forward', 'size' => 'md', 'color' => 'primary'])
+                        @icon([
+                            'icon' => 'arrow_forward', 
+                            'size' => 'md', 
+                            'classList' => ['u-color__text--primary-contrasting']
+                        ])
                         @endicon
                     @endslot
 

@@ -38,18 +38,20 @@ module.exports = {
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
-        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',   
-        'js/options-reading': './assets/source/3.0/js/admin/optionsReading.ts',  
-        
+        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
+
         /* Admin css */
         'css/acf': './assets/source/3.0/sass/admin/acf.scss',
-        
+
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
-        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js'
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
+
+        /* Fonts */
+        'fonts/material-symbols': './assets/source/3.0/sass/admin/material-symbols.scss',
     },
     /**
-     * Output settings  
+     * Output settings
      */
     output: {
         filename: ifProduction('[name].[contenthash].js', '[name].js'),
@@ -105,7 +107,7 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 2
+                            importLoaders: 2,
                         },
                     },
                     {
@@ -139,23 +141,6 @@ module.exports = {
                     },
                 ],
             },
-
-            /**
-             * Fonts
-             */
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
-                            outputPath: 'fonts',
-                            publicPath: '../fonts',
-                        },
-                    },
-                ],
-            }
         ],
     },
     resolve: {

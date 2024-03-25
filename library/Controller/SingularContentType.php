@@ -67,13 +67,18 @@ class SingularContentType extends \Municipio\Controller\Singular
      */
     public function appendStructuredData(): ?string
     {
-        $structuredData = (array) $this->contentType->getStructuredData($this->postId);
+        $structuredData = apply_filters('Municipio/preStructuredData', [], $this->postId);
 
-        if(!empty($structuredData['description'])) {
-            $structuredData['description'] = wp_strip_all_tags($structuredData['description']);
+        if(empty($structuredData) ) {
+            $structuredData = $this->contentType->getStructuredData($this->postId);
         }
 
-        return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
+        if(!empty($structuredData)) {
+            if(!empty($structuredData['description'])) {
+              $structuredData['description'] = wp_strip_all_tags($structuredData['description']);
+            }
+            return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
+        }
     }
 
      /**
