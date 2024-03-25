@@ -25,7 +25,7 @@ class Post
      *
      * @return object Transformed WP_Post object
      */
-    public static function preparePostObject($post, $data = null)
+    public static function preparePostObject(\WP_Post $post, $data = null): object
     {
         $post = self::complementObject(
             $post,
@@ -43,6 +43,7 @@ class Post
             ],
             $data
         );
+
         return \Municipio\Helper\FormatObject::camelCase($post);
     }
 
@@ -52,7 +53,7 @@ class Post
      * @param object $post WP_Post object
      * @param mixed $data Additional data for post object
      */
-    public static function preparePostObjectSingular($post, $data = null)
+    public static function preparePostObjectSingular(\WP_Post $post, $data = null): void
     {
         self::preparePostObject($post, $data);
     }
@@ -66,7 +67,7 @@ class Post
      *
      * @return  object   $post    Transformed WP_Post object
      */
-    public static function preparePostObjectArchive($post, $data = null)
+    public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
     {
         $post = self::complementObject(
             $post,
@@ -81,6 +82,7 @@ class Post
             ],
             $data
         );
+
         return \Municipio\Helper\FormatObject::camelCase($post);
     }
 
@@ -88,18 +90,13 @@ class Post
      * Add post data on post object
      *
      * @param   object   $postObject    The post object
-     * @param   object   $appendFields  Data to append on object
+     * @param   array   $appendFields  Data to append on object
      *
      * @return  object   $postObject    The post object, with appended data
      */
-    public static function complementObject($postObject, $appendFields = [], $data = null)
+    public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): \WP_Post
     {
         //Check that a post object is entered
-        if (!is_a($postObject, 'WP_Post')) {
-            return $postObject;
-            throw new \WP_Error("Complement object must recive a WP_Post class");
-        }
-
         $appendFields = apply_filters(
             'Municipio/Helper/Post/complementPostObject',
             array_merge([], $appendFields) //Ability to add default
@@ -234,7 +231,7 @@ class Post
             $postObject->termsUnlinked = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
         }
 
-        if (!empty($postObject->terms) && in_array('term_icon', $appendFields)) {
+        if (in_array('term_icon', $appendFields) && !empty($postObject->terms) && !empty($postObject->post_type)) {
             $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
         }
 
@@ -245,12 +242,14 @@ class Post
                 $postObject->post_language = $postLang;
             }
         }
+
         if ($passwordRequired) {
             $postObject->post_content          = get_the_password_form($postObject);
             $postObject->post_content_filtered = get_the_password_form($postObject);
             $postObject->post_excerpt          = get_the_password_form($postObject);
             $postObject->excerpt               = get_the_password_form($postObject);
             $postObject->excerpt_short         = get_the_password_form($postObject);
+            $postObject->excerpt_shorter       = get_the_password_form($postObject);
         }
 
         if (in_array('call_to_action_items', $appendFields)) {
@@ -263,7 +262,7 @@ class Post
 
         /* Get location data */
         $postObject->location = get_field('location', $postObject->ID);
-        if (!empty($postObject->location)) {
+        if (!empty($postObject->location['pin'])) {
             $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
         }
 
@@ -385,9 +384,11 @@ class Post
                 }
             }
         }
+
         if (empty($termIcon) && !empty($termColor)) {
             $termIcon['backgroundColor'] = $color;
         }
+
         return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
     }
 
@@ -472,13 +473,16 @@ class Post
     /**
      * Get the post featured image
      *
-     * @param integer   $postId
-     * @return array    $featuredImage  The post thumbnail image, with alt and title
+     * @param integer $postId               Post ID
+     * @param string|array $size            Since as a string (full) or an array [400, 400]
+     *
+     * @return array|false $featuredImage  The post thumbnail image, with alt and title
      */
     public static function getFeaturedImage($postId, $size = 'full')
     {
-        $featuredImageID = get_post_thumbnail_id($postId);
-        $featuredImage   = Image::getImageAttachmentData($featuredImageID, $size);
+        $thumbnailId   = get_post_thumbnail_id($postId);
+        $featuredImage = !empty($thumbnailId) ? Image::getImageAttachmentData($thumbnailId, $size) : false;
+
 
         return \apply_filters('Municipio/Helper/Post/FeaturedImage', $featuredImage);
     }
@@ -492,7 +496,7 @@ class Post
      * @param  string $posttype The posttype
      * @return array            Meta keys as array
      */
-    public static function getPosttypeMetaKeys($postType)
+    public static function getPosttypeMetaKeys(string $postType)
     {
         if (!isset(self::$runtimeCache['getPostTypeMetaKeys'])) {
             self::$runtimeCache['getPostTypeMetaKeys'] = [];
@@ -526,7 +530,7 @@ class Post
     /**
      * Lists all meta-keys existing for the given post
      *
-     * @param  string $post     The post id
+     * @param  string $postId   The post id
      * @return array            Meta keys as array
      */
     public static function getPostMetaKeys($postId)

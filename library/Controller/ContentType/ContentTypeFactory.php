@@ -39,7 +39,9 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
     {
         $this->key          = $key;
         $this->label        = $label;
+
         $this->schemaParams = $this->applySchemaParamsFilter();
+
     }
     /**
      * Get the secondary content type.
@@ -119,16 +121,22 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      */
     abstract protected function schemaParams(): array;
 
-/**
- * Template method for getting structured data, with legacy fallback.
- */
+    /**
+     * Template method for getting structured data, with legacy fallback.
+     */
     public function getStructuredData(int $postId): ?array
     {
         $schemaParams = $this->schemaParams();
         $schemaData   = (array) get_field('schema', $postId);
 
         $graph  = new \Spatie\SchemaOrg\Graph();
-        $entity = $this->getSchemaEntity($graph);
+
+        try {
+            $entity = $this->getSchemaEntity($graph);
+        } catch (\BadMethodCallException $e) {
+            error_log("Error in ContentTypeFactory: " . $e->getMessage());
+            return [];
+        }
 
         // Fallback to legacy method if schema parameters or data are empty
         if (empty($schemaParams) || empty($schemaData)) {
@@ -137,7 +145,6 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
         try {
             foreach ($schemaParams as $key => $param) {
-
                 if(!is_array($param)) {
                     continue;
                 }
@@ -163,14 +170,19 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
 
                 if (method_exists($entity, $key)) {
                     call_user_func([$entity, $key], $value);
+                } else {
+                    // Log error when method does not exist
+                    error_log("Method {$key} does not exist on " . get_class($entity));
                 }
             }
             return $graph->toArray();
         } catch (\Exception $e) {
-            // Fallback to legacy method in case of an error
+            // Log any other exceptions and fallback to legacy method
+            error_log("Error in ContentTypeFactory: " . $e->getMessage());
             return $this->legacyGetStructuredData($postId, $entity);
         }
     }
+
 
 /**
  * Processes an ImageObject, returning the image URL or false if unavailable.

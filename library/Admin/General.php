@@ -41,6 +41,8 @@ class General
         add_action('add_meta_boxes', array($this, 'removeUnwantedModuleMetaboxes'));
 
         add_action('admin_footer', array($this, 'setIrisDefaultColorPalette'));
+
+
     }
 
     /**

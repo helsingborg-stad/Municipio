@@ -123,7 +123,7 @@ class Singular extends \Municipio\Controller\BaseController
             unset($queries['paged']);
         }
         $queryStr                              = build_query($queries);
-        $data['secondaryPaginationLinkPrefix'] = $queryStr . '&paged=' ?? 'paged=';
+        $data['secondaryPaginationLinkPrefix'] = $queryStr . 'paged' ?? 'paged';
 
         $secondaryPostType = $data['secondaryQuery']->query['post_type'];
 

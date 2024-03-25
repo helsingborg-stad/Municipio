@@ -31,24 +31,23 @@ class CreatePdf
     /**
      * Renders a PDF view for the specified posts and cover information.
      *
-     * @param array|false $posts     Array of posts or false if not available.
+     * @param array|false $sortedPostsArray     Array of posts or false if not available.
      * @param array|false $cover     Cover information or false if not available.
      * @param string      $fileName  Name of the PDF file.
      */
-    public function getHtmlFromView($posts = false, $cover = false): string
+    public function getHtmlFromView($sortedPostsArray = false, $cover = false): string
     {
         $styles = $this->pdfHelper->getThemeMods();
         $fonts  = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang   = $this->getLang();
-
-        if (!empty($posts)) {
+        if (!empty($sortedPostsArray) && is_array($sortedPostsArray) && reset($sortedPostsArray)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'posts'              => $posts,
+                'sortedPostsArray'        => $sortedPostsArray,
                 'styles'             => $styles,
                 'cover'              => $cover,
                 'fonts'              => $fonts,
                 'lang'               => $lang,
-                'hasMoreThanOnePost' => count($posts) > 1
+                'hasMoreThanOnePost' => count($sortedPostsArray) > 1 || count(reset($sortedPostsArray)) > 1
             ]);
 
             $html = $this->replaceHtmlFromRegex([ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html);

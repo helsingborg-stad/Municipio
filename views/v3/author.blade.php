@@ -29,7 +29,7 @@
         'list' => $paginationList,
         'classList' => ['u-margin__top--4'],
         'current' => isset($_GET['paged']) ? $_GET['paged'] : 1,
-        'linkPrefix' => '?paged='
+        'linkPrefix' => 'paged'
     ])
     @endpagination
 @stop

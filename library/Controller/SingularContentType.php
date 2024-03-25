@@ -50,9 +50,16 @@ class SingularContentType extends \Municipio\Controller\Singular
      */
     public function appendStructuredData(): ?string
     {
-        return \Municipio\Helper\Data::normalizeStructuredData(
-            $this->contentType->getStructuredData($this->postId)
-        );
+        $structuredData = apply_filters('Municipio/preStructuredData', [], $this->postId);
+
+        if(empty($structuredData) ) {
+            $structuredData = $this->contentType->getStructuredData($this->postId);
+        }
+
+        if(!empty($structuredData)) {
+            return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
+        }
+
     }
 
     /**

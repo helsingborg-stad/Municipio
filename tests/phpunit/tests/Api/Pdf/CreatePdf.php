@@ -42,7 +42,7 @@ class CreatePdfTest extends TestCase
         $createPdf = new CreatePdf($pdfHelper, $woffConverterMock);
 
         // When
-        $result = $createPdf->getHtmlFromView([$this->mockPost()]);
+        $result = $createPdf->getHtmlFromView(['key' => [$this->mockPost()]]);
 
         // Then
         $this->assertEquals($expectedHtml, $result);
@@ -73,7 +73,7 @@ class CreatePdfTest extends TestCase
         $createPdf = new CreatePdf($pdfHelper, $woffConverterMock);
 
         // When
-        $result = $createPdf->getHtmlFromView([$this->mockPost()]);
+        $result = $createPdf->getHtmlFromView(['key' => [$this->mockPost()]]);
 
         // Then
         $this->assertEquals($expectedHtml, $result);

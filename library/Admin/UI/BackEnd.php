@@ -9,6 +9,40 @@ class BackEnd
         add_action('admin_footer', array($this, 'hostingEnviroment'));
         add_action('admin_title', array($this, 'prefixTitle'));
         add_action('wp_title', array($this, 'prefixTitle'));
+        
+        // Adds inline styles (css variables) to backend and block editor.
+        add_filter('kirki_inline_styles', array($this, 'addKirkiStylesToOption'), 99, 1);
+        add_action('customize_save_after', array($this, 'customizeSaveAfter'));
+        add_action('admin_head', array($this, 'addCssVarsToBackend'));
+    }
+
+    /**
+     * If the option contains data we add it to the DOM.
+     */
+    public function addCssVarsToBackend() {
+        $styles = get_option('kirki_inline_styles');
+        if (!empty($styles)) {
+            echo '<style type="text/css" id="kirki_inline_styles">' . $styles . '</style>';
+        }
+    }
+
+    /**
+     * Used to save the inline styles when the option is empty.
+     */
+    public function addKirkiStylesToOption($styles) {
+        $customizerInlineStyles = get_option('kirki_inline_styles');
+        if (empty($customizerInlineStyles) && !empty($styles)) {
+            update_option('kirki_inline_styles', $styles);
+        }
+
+        return $styles;
+    }
+
+    /**
+     * When the customizer is saved we remove data from the option
+     */
+    public function customizeSaveAfter($el) {
+        update_option('kirki_inline_styles', null);
     }
 
     public function prefixTitle($title)

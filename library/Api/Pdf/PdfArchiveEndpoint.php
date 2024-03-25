@@ -140,17 +140,36 @@ class PdfArchiveEndpoint extends RestApiEndpoint
 
         $query = new \WP_Query($args);
 
+        $postsWithTerms = [];
+        $postsWithoutTerms = [];
         if (!empty($query->posts)) {
-            foreach ($query->posts as &$post) {
-                $post = \Municipio\Helper\Post::preparePostObject($post);
+            $sortByTerm = get_field('field_pdf_sort_posts_by_term', 'option');
+            $data = null;
+
+            if (!empty($sortByTerm)) {
+                $data = ['taxonomiesToDisplay' => get_object_taxonomies($postType)];
+            }
+
+            foreach ($query->posts as $post) {
+                $post = \Municipio\Helper\Post::preparePostObject($post, $data);
 
                 if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
                     $post->images = false;
                 }
+                if (!empty($sortByTerm) && !empty($post->termsUnlinked[0]['label'])) {
+                    $postsWithTerms[$post->termsUnlinked[0]['label']][] = $post;
+                } else {
+                    $postsWithoutTerms[] = $post;
+                }
+            }
+            
+            if (!empty($postsWithoutTerms)) {
+                $postsWithoutTerms = get_field('field_pdf_sort_posts_without_term_label', 'option');
+                $postsWithTerms[$postsWithoutTerms ?? __('Other', 'Municipio')] = $postsWithoutTerms;
             }
         }
 
-        return $query->posts;
+        return $postsWithTerms;
     }
 
     /**
