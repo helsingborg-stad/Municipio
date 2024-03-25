@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Class Icons
+ */
 class Icons
 {
     /**

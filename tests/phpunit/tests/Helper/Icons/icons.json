@@ -1,0 +1,44 @@
+{
+    "host": "fonts.gstatic.com",
+    "asset_url_pattern": "/s/i/{family}/{icon}/v{version}/{asset}",
+    "families": [
+      "Material Icons",
+      "Material Icons Outlined",
+      "Material Icons Round",
+      "Material Icons Sharp",
+      "Material Icons Two Tone"
+    ],
+    "icons": [
+      {
+        "name": "10k",
+        "version": 10,
+        "popularity": 1138,
+        "codepoint": 59729,
+        "unsupported_families": [],
+        "categories": [
+          "av"
+        ],
+        "tags": [
+          "10000",
+          "10K",
+          "alphabet",
+          "character",
+          "digit",
+          "display",
+          "font",
+          "letter",
+          "number",
+          "pixel",
+          "pixels",
+          "resolution",
+          "symbol",
+          "text",
+          "type",
+          "video"
+        ],
+        "sizes_px": [
+          24
+        ]
+      }
+    ]
+}
