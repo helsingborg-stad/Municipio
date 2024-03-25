@@ -74,9 +74,11 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         if(!empty($structuredData)) {
+            if(!empty($structuredData['description'])) {
+              $structuredData['description'] = wp_strip_all_tags($structuredData['description']);
+            }
             return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
         }
-
     }
 
      /**
