@@ -83,7 +83,6 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
-
         $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         // Related posts (based on taxonomies)

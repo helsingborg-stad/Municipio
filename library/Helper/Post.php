@@ -96,15 +96,17 @@ class Post
      */
     public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): \WP_Post
     {
+
         //Check that a post object is entered
         $appendFields = apply_filters(
             'Municipio/Helper/Post/complementPostObject',
             array_merge([], $appendFields) //Ability to add default
         );
-
+        
         $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID);
         $postObject->hasQuicklinksAfterFirstBlock  = false;
         $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
+
         if (
             !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
             && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
