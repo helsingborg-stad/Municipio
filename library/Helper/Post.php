@@ -102,9 +102,10 @@ class Post
             array_merge([], $appendFields) //Ability to add default
         );
 
-        $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID);
+        $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID, true);
         $postObject->hasQuicklinksAfterFirstBlock  = false;
-        $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
+        $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID, 'post');
+
         if (
             !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
             && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
@@ -130,7 +131,7 @@ class Post
                 }
             }
         } else {
-            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
+            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID, 'post2');
         }
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
