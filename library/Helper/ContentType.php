@@ -278,24 +278,12 @@ class ContentType
      */
     public static function complementPlacePost($post)
     {
-        // Check if $post is a post ID and not a WP_Post object
-        if (!($post instanceof \WP_Post)) {
-            // Assume $post is a post ID, attempt to fetch the corresponding WP_Post object
-            $post = get_post($post);
-        }
+        // Fetch custom fields for the post
+        $fields = get_fields($post->id);
 
-        // Proceed only if $post is a valid WP_Post object
-        if ($post instanceof \WP_Post) {
-            // Prepare the post object if necessary
-            $post = \Municipio\Helper\Post::preparePostObject($post);
-
-            // Fetch custom fields for the post
-            $fields = get_fields($post->id);
-
-            // Assign additional information to the post object
-            $post->bookingLink = $fields['booking_link'] ?? false;
-            $post->placeInfo   = self::createPlaceInfoList($fields);
-        }
+        // Assign additional information to the post object
+        $post->bookingLink = $fields['booking_link'] ?? false;
+        $post->placeInfo   = self::createPlaceInfoList($fields);
 
         return $post;
     }

@@ -1021,16 +1021,11 @@ class Navigation
      *
      * @return bool|string The value of the 'quicklinks_placement' field for the given post.
      */
-    public static function getQuicklinksPlacement($postId = 0, $test = false)
+    public static function getQuicklinksPlacement(int $postId = 0)
     {
-
-        if ($test) {
-            // var_dump($postId);
-        }
         if (!function_exists('get_field')) {
             return false;
         }
-
         return apply_filters(
             'Municipio/Helper/Navigation/getQuicklinksPlacement',
             get_field('quicklinks_placement', $postId),
@@ -1045,13 +1040,10 @@ class Navigation
      *
      * @return boolean True if the quicklinks should be displayed below the content.
      */
-    public static function displayQuicklinksAfterContent($postId = 0, $name = "")
+    public static function displayQuicklinksAfterContent(int $postId = 0)
     {
         if (!function_exists('get_field')) {
             return false;
-        }
-        if (!is_int($postId)) {
-            var_dump($postId, $name);
         }
         return apply_filters(
             'Municipio/Helper/Navigation/displayQuicklinksAfterContent',
