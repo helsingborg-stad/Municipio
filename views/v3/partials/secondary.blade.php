@@ -135,7 +135,7 @@
                                                 ])
                                                     {!! $place->postTitle !!}
                                                 @endtypography
-                                                @if(is_array($place->callToActionItems['floating']))
+                                                @if(!empty($place->callToActionItems['floating']))
                                                     @icon($place->callToActionItems['floating'])
                                                     @endicon
                                                 @endif
