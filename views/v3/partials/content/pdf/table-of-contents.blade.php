@@ -4,7 +4,7 @@
     $GLOBALS['max_object'] = 0;
 </script>
 
-<h2 class="pdf-heading--h1">Table of Contents</h2>
+<h2 class="pdf-heading--h1" style="margin-bottom:-4px;">{{ $lang['tableOfContents'] }}</h2>
 <ul class="pdf-toc__list">
     @php
         $tableOfContentsPostIndex = 0;

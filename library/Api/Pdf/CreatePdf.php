@@ -70,7 +70,8 @@ class CreatePdf
     private function getLang(): array
     {
         $lang = [
-            'generatedPdf' => __('Generated PDF', 'municipio')
+            'generatedPdf' => __('Generated PDF', 'municipio'),
+            'tableOfContents' => __('Table of Contents', 'municipio'),
         ];
         return $lang;
     }
