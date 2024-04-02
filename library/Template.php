@@ -267,6 +267,9 @@ class Template
                 echo $markup;
             }
         } catch (\Throwable $e) {
+
+            $sourceFileContentsAsArray = file($e->getFile()); 
+
             printf('
                 <style>
                     .error-table {
@@ -334,7 +337,9 @@ class Template
                 $e->getLine(),
                 $e->getFile(),
                 $e->getLine(),
-                trim(file($e->getFile())[$e->getLine()]),
+                htmlspecialchars(trim($sourceFileContentsAsArray[$e->getLine()-2])) . "<br/>" . 
+                "<mark>" . htmlspecialchars(trim($sourceFileContentsAsArray[$e->getLine()-1])) . "</mark><br/>" . 
+                htmlspecialchars(trim($sourceFileContentsAsArray[$e->getLine()])),
                 $e->getTraceAsString(),
                 implode(PHP_EOL, $this->viewPaths ?? [])
             );
