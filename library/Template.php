@@ -267,11 +267,77 @@ class Template
                 echo $markup;
             }
         } catch (\Throwable $e) {
-            echo '<pre style="border: 3px solid #f00; padding: 10px;">';
-            echo '<strong>' . $e->getMessage() . '</strong>';
-            echo '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
-            echo $e->getTraceAsString();
-            echo '</pre>';
+            printf('
+                <style>
+                    .error-table {
+                        font-family: sans-serif;
+                        width: calc(100%% - 32px);
+                        border-collapse: collapse;
+                        margin: 16px;
+                        background: #fff;
+                        box-shadow: 0 0 16px rgb(0,0,0,.25);
+                        border-radius: 4px;
+                        overflow: hidden;
+                        outline: 2px solid #f00;
+                        outline-offset: -2px;
+                        box-sizing: border-box;
+                    }
+
+                    .error-table pre {
+                        font-family: inherit;
+                        white-space: pre-wrap;
+                        margin: 0;
+                    }
+                    
+                    .error-table, 
+                    .error-table tr,
+                    .error-table td {
+                        border: 2px solid #f00;
+                        padding: 8px 16px;
+                    }
+                    .error-table td.stacktrace {
+                        padding: 16px;
+                    }
+                </style>
+
+                <table class="error-table">
+                    <tr>
+                        <td><strong>Error Message:</strong></td>
+                        <td>%s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Line:</strong></td>
+                        <td>%s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error File:</strong></td>
+                        <td>%s</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Source code (line %s):</strong></td>
+                        <td>
+                            <pre>%s</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td><strong>Stacktrace:</strong></td>
+                        <td class="stacktrace">
+                            <pre>%s</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>View paths:</strong></td>
+                        <td>%s</td>
+                    </tr>
+                </table>',
+                $e->getMessage(),
+                $e->getLine(),
+                $e->getFile(),
+                $e->getLine(),
+                trim(file($e->getFile())[$e->getLine()]),
+                $e->getTraceAsString(),
+                implode(PHP_EOL, $this->viewPaths ?? [])
+            );
         }
 
         return false;
