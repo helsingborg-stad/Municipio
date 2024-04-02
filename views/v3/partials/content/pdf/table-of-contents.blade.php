@@ -11,7 +11,7 @@
     @endphp
     @foreach ($sortedPostsArray as $key => $sortedPosts)
         @if(count($sortedPostsArray) > 1)
-            <h3 style="margin-bottom: 8px;">{{$key}}</h3>
+            <h3 style="margin-bottom: 12px; margin-top: 4px;">{{$key}}</h3>
         @endif
         @foreach ($sortedPosts as $post)
             <li class="pdf-toc__list-item">
