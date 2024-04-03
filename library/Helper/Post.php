@@ -4,6 +4,7 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
+use Municipio\Schema\PostDecorator\Place\Place;
 use WP_Error;
 use WP_Post;
 
@@ -96,6 +97,8 @@ class Post
      */
     public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): \WP_Post
     {
+        // Adds schemaData key to post object
+        $postObject->schemaData = [];
 
         //Check that a post object is entered
         $appendFields = apply_filters(
@@ -262,16 +265,17 @@ class Post
             );
         }
 
-        /* Get location data */
-        $postObject->location = get_field('location', $postObject->ID);
-        if (!empty($postObject->location['pin'])) {
-            $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
-        }
-
         if (!empty($postObject->post_type)) {
             $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType(
                 $postObject->post_type
             );
+        }
+
+        /* Add modified schema data */
+        $schemaData = get_field('schema', $postObject->ID);
+        if (!empty($schemaData) && !empty($postObject->contentType)) {
+            $place = new Place($schemaData);
+            $postObject = $place->appendData($postObject);
         }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
