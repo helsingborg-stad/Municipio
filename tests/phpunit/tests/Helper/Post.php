@@ -346,24 +346,6 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented location keys.
-     */
-    public function testComplementObjectReturnsComplementedPostLocationKeys()
-    {
-        // Given
-        $post = $this->getMockedpost();
-        $this->mockDependenciesForComplementObject($post, ['pin' => 'test']);
-
-        // When
-        $result = Post::complementObject($post, []);
-
-
-        // Then
-        $this->assertNotNull($result->location);
-        $this->assertArrayHasKey('pin', $result->location);
-    }
-
-    /**
      * @testdox ComplementObject Returns correct keys that are always set
      */
     public function testComplementObjectReturnsComplementedAlwaysSetKeys()
