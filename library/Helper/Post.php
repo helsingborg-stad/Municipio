@@ -262,16 +262,19 @@ class Post
             );
         }
 
-        /* Get location data */
-        $postObject->location = get_field('location', $postObject->ID);
-        if (!empty($postObject->location['pin'])) {
-            $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
-        }
-
         if (!empty($postObject->post_type)) {
             $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType(
                 $postObject->post_type
             );
+        }
+
+        $schemaData = get_field('schema', $postObject->ID);
+
+        if (!empty($schemaData)) {
+            if (!empty($schemaData['geo'])) {
+                $postObject->location = $schemaData['geo'];
+                $postObject->location['pin'] = \Municipio\Helper\Location::createMapMarker($postObject);
+            }
         }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
