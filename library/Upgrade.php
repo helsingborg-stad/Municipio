@@ -580,14 +580,13 @@ class Upgrade
         ];
 
         $posts = get_posts($args);
-
         if (!empty($posts) && is_array($posts)) {
             foreach ($posts as $post) {
-                $schemaField = get_field('schema', $post->ID);
-                if (isset($schemaField['geo'])) {
+                $schemaField = get_field('schema', $post->ID) ?? [];
+                if (is_array($schemaField)) {
                     $locationField = get_post_meta($post->ID, 'location', true);
-                    
-                    $schemaField['geo'] = $locationField;
+                    $schemaField['geo'] = !empty($schemaField['geo']) ? $schemaField['geo'] : $locationField;
+
                     update_field('schema', $schemaField, $post->ID);
                 }
             }
