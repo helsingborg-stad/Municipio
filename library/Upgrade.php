@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion    = 28; //The db version we want to achive
+    private $dbVersion    = 29; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -567,6 +567,32 @@ class Upgrade
                 }
             }
         }
+        return true;
+    }
+
+    private function v_29($db): bool 
+    {
+        $args = [
+            'posts_per_page' => -1,
+            'meta_key' => 'location',
+            'post_type' => 'any',
+            'post_status' => 'publish'
+        ];
+
+        $posts = get_posts($args);
+
+        if (!empty($posts) && is_array($posts)) {
+            foreach ($posts as $post) {
+                $schemaField = get_field('schema', $post->ID);
+                if (isset($schemaField['geo'])) {
+                    $locationField = get_post_meta($post->ID, 'location', true);
+                    
+                    $schemaField['geo'] = $locationField;
+                    update_field('schema', $schemaField, $post->ID);
+                }
+            }
+        }
+
         return true;
     }
 
