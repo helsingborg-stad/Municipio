@@ -2,6 +2,9 @@
 
 namespace Municipio\Admin\Acf\ContentType;
 
+use Municipio\Admin\Acf\ContentType\Schema\Subfields\SchemaBasedAcfSubfieldsHandler;
+use Municipio\Admin\Acf\ContentType\Schema\SchemaBasedAcfFieldTypeSettings;
+
 /**
  * Registers the field group for schema data to be displayed on all posts of any registered content types.
 
@@ -127,10 +130,12 @@ class FieldsRegistrar {
                 $fieldParams,
                 $contentType['instance']->getKey()
             );
+
             $postalAddressParams['wrapper'] = ['class' => 'hidden'];
         }
 
         $fields[] = $this->getSubFieldSettings('address', $postalAddressParams, $contentType['instance']->getKey());
+        
         return $fields;
     }
 
@@ -144,80 +149,23 @@ class FieldsRegistrar {
      */
     public function getSubFieldSettings(string $key, array $fieldParams, string $contentTypeKey): array
     {
-        if ($fieldParams['schemaType'] === 'PostalAddress') {
-            $fieldParams['sub_fields'] = $this->getPostalAddressSubFields();
-        } elseif ($fieldParams['schemaType'] === 'ImageObject') {
-            $fieldParams['return_format'] = 'id';
-        }
+        $schemaBasedSubFieldsHandler        = new SchemaBasedAcfSubfieldsHandler($fieldParams['schemaType'] ?? '');
+        $schemaBasedFieldSettingsHandler    = new SchemaBasedAcfFieldTypeSettings($fieldParams['schemaType'] ?? '');
 
-        $fieldParams['type'] = $this->getFieldTypeBySchema($fieldParams['schemaType']);
-
-        return [
+        $field = [
             'key'        => 'field_' . $key . '_' . $contentTypeKey,
-            'label'      =>
-            $fieldParams['label']
-            ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $fieldParams['schemaType']),
-            'type'       => $fieldParams['type'],
+            'label'      => $fieldParams['label'] ?? sprintf(__('Automatically registered field (%s, %s)'), $key, $fieldParams['schemaType']),
+            'type'       => $schemaBasedFieldSettingsHandler->getFieldType(),
             'name'       => $key,
             'wrapper'    => $fieldParams['wrapper'] ?? [],
-            'sub_fields' => $fieldParams['sub_fields'] ?? [],
-        ];
-    }
-    /**
-     * Defines the sub fields for the postal address schema type.
-     *
-     * @return array The sub fields for the postal address.
-     */
-    protected function getPostalAddressSubFields(): array
-    {
-        return [
-            [
-                'key'          => 'field_streetAddress',
-                'label'        => __('Street Address', 'municipio'),
-                'name'         => 'streetAddress',
-                'type'         => 'text',
-                'instructions' => __('Enter the street address.', 'municipio'),
-                'required'     => 0,
-            ],
-            [
-                'key'          => 'field_postalCode',
-                'label'        => __('Postal Code', 'municipio'),
-                'name'         => 'postalCode',
-                'type'         => 'text',
-                'instructions' => __('Enter the postal code.', 'municipio'),
-                'required'     => 0,
-            ],
-            [
-                'key'           => 'field_addressCountry',
-                'label'         => __('Country', 'municipio'),
-                'name'          => 'addressCountry',
-                'type'          => 'text',
-                'instructions'  => __('Enter the country name.', 'municipio'),
-                'required'      => 0,
-                'default_value' => '',
-                'placeholder'   => __('Enter country here', 'municipio'),
-            ],
-        ];
-    }
-    /**
-     * Maps a schema type to an ACF field type.
-     *
-     * @param string $schemaType The schema type.
-     * @return string The corresponding ACF field type.
-     */
-    protected function getFieldTypeBySchema(string $schemaType): string
-    {
-        $fieldTypeMap = [
-            'GeoCoordinates' => 'google_map',
-            'PostalAddress'  => 'group',
-            'ImageObject'    => 'image',
-            'URL'            => 'url',
-            'Email'          => 'email',
-            'Date'           => 'date_time_picker',
+            'sub_fields' => $schemaBasedSubFieldsHandler->getSubfields(),
         ];
 
-        return $fieldTypeMap[$schemaType] ?? 'text';
+        $field = array_merge($field, $schemaBasedFieldSettingsHandler->getFieldTypeSettings());
+
+        return $field;
     }
+
     /**
      * Retrieves the Google API key from ACF settings or filters.
      *
