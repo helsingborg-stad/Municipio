@@ -50,7 +50,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             $woffHelper  = new WoffConverterHelper();
             $queryParams = $request->get_query_params();
 
-            $posts = $this->getArchivePosts($postType, $queryParams);
+            $posts = $this->handleArchivePosts($postType, $queryParams);
 
             if (!empty($posts)) {
                 $cover = $pdfHelper->getCoverFieldsForPostType($postType);
@@ -86,7 +86,46 @@ class PdfArchiveEndpoint extends RestApiEndpoint
      *
      * @return array The retrieved posts.
      */
-    private function getArchivePosts($postType = false, $queryParams = false)
+    private function handleArchivePosts($postType = '', $queryParams = false)
+    {
+        $posts = $this->getPostsFromArchiveQuery($postType);
+
+        $postsWithTerms = [];
+        $postsWithoutTerms = [];
+        if (!empty($posts)) {
+            $sortByTerm = get_field('field_pdf_sort_posts_by_term', 'option');
+            $data = null;
+
+            if (!empty($sortByTerm)) {
+                $data = ['taxonomiesToDisplay' => get_object_taxonomies($postType)];
+            }
+
+            foreach ($posts as $post) {
+                $post = \Municipio\Helper\Post::preparePostObject($post, $data);
+
+                if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
+                    $post->images = false;
+                }
+                if (!empty($sortByTerm) && !empty($post->termsUnlinked[0]['label'])) {
+                    $postsWithTerms[$post->termsUnlinked[0]['label']][] = $post;
+                } else {
+                    $postsWithoutTerms[] = $post;
+                }
+            }
+
+            // sort based on the term name.
+            ksort($postsWithTerms);
+
+            if (!empty($postsWithoutTerms)) {
+                $postsWithoutTermsName = get_field('field_pdf_sort_posts_without_term_label', 'option');
+                $postsWithTerms[$postsWithoutTermsName ?? __('Other', 'Municipio')] = $postsWithoutTerms;
+            }
+        }
+
+        return $postsWithTerms;
+    }
+
+    private function getPostsFromArchiveQuery($postType = '') 
     {
         $orderBy   = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         $order     = get_theme_mod('archive_' . $postType . '_order_direction');
@@ -140,39 +179,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
 
         $query = new \WP_Query($args);
 
-        $postsWithTerms = [];
-        $postsWithoutTerms = [];
-        if (!empty($query->posts)) {
-            $sortByTerm = get_field('field_pdf_sort_posts_by_term', 'option');
-            $data = null;
-
-            if (!empty($sortByTerm)) {
-                $data = ['taxonomiesToDisplay' => get_object_taxonomies($postType)];
-            }
-
-            foreach ($query->posts as $post) {
-                $post = \Municipio\Helper\Post::preparePostObject($post, $data);
-
-                if (!empty($post->id) && empty(get_field('post_single_show_featured_image', $post->id))) {
-                    $post->images = false;
-                }
-                if (!empty($sortByTerm) && !empty($post->termsUnlinked[0]['label'])) {
-                    $postsWithTerms[$post->termsUnlinked[0]['label']][] = $post;
-                } else {
-                    $postsWithoutTerms[] = $post;
-                }
-            }
-
-            // sort based on the term name.
-            ksort($postsWithTerms);
-
-            if (!empty($postsWithoutTerms)) {
-                $postsWithoutTermsName = get_field('field_pdf_sort_posts_without_term_label', 'option');
-                $postsWithTerms[$postsWithoutTermsName ?? __('Other', 'Municipio')] = $postsWithoutTerms;
-            }
-        }
-
-        return $postsWithTerms;
+        return $query->posts;
     }
 
     /**
