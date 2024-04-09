@@ -162,7 +162,10 @@ class PdfArchiveEndpoint extends RestApiEndpoint
                     $postsWithoutTerms[] = $post;
                 }
             }
-            
+
+            // sort based on the term name.
+            ksort($postsWithTerms);
+
             if (!empty($postsWithoutTerms)) {
                 $postsWithoutTermsName = get_field('field_pdf_sort_posts_without_term_label', 'option');
                 $postsWithTerms[$postsWithoutTermsName ?? __('Other', 'Municipio')] = $postsWithoutTerms;
