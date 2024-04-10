@@ -51,7 +51,7 @@ export function themeIdIsValid(id: any): id is string {
 }
 
 export async function getRemoteSiteDesignData(id: string) {
-    return fetch(`https://customizer.helsingborg.io/id/${id}`)
+    return fetch(`https://customizer.municipio.tech/id/${id}`)
         .then(response => response.json())
         .catch(error => {
             alert(error);
