@@ -7,7 +7,6 @@ class CreateGoogleMapsLink {
 
     public function createGoogleMapsLink() 
     {
-        echo '<pre>' . print_r( $this->schemaData, true ) . '</pre>';
         if (empty($this->schemaData['geo']['lat'] || empty($this->schemaData['geo']['lng']))) {
             return null;
         }
