@@ -140,6 +140,9 @@ class Post
         //Generate excerpt
         if (!$passwordRequired && in_array('excerpt', $appendFields)) {
             [$excerptContent, $hasExcerpt] = self::getPostExcerpt($postObject);
+
+            $excerptContent = nl2br($excerptContent);
+
             //Create excerpt if not defined by editor
             $postObject->excerpt =
             $hasExcerpt ? $excerptContent :
