@@ -20,7 +20,7 @@ class LoadDesign
 
     public function __construct(string $sectionID)
     {
-        if (defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true) {
+        if ($this->designShareDisabled() || !$this->isBlogPublished() {
             return;
         }
 
@@ -62,6 +62,26 @@ class LoadDesign
                 wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
+    }
+
+    /**
+     * Check if design share is disabled
+     */
+    private function designShareDisabled(): bool
+    {
+        return defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true;
+    }
+
+    /**
+     * Check if blog is published
+     */
+    private function isBlogPublished(): bool
+    {
+        if(!is_multisite()) {
+            return true;
+        }
+
+        return get_blog_status(get_current_blog_id(), 'public') === 1;
     }
 
     private function getCustomizerSectionsAsOptions(): array
