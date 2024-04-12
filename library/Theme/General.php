@@ -28,7 +28,7 @@ class General
 
         add_filter('Modularity\Module\Sites\image_rendered', array($this, 'sitesGridImage'), 10, 2);
         add_filter('Modularity\ModularityIconsLibrary', function () {
-            return MUNICIPIO_PATH . "assets/dist/data/ico.json";
+            return MUNICIPIO_PATH . "assets/generated/icon.json";
         }, 10, 0);
 
         remove_filter('template_redirect', 'redirect_canonical');
