@@ -14,7 +14,7 @@ class Icons
      */
     private static function getIconPath(): string
     {
-        return MUNICIPIO_PATH . "assets/dist/data/ico.json";
+        return MUNICIPIO_PATH . "assets/generated/icon.json";
     }
 
     /**
@@ -26,14 +26,9 @@ class Icons
     {
         if (file_exists(self::getIconPath())) {
             if ($contents = file_get_contents(self::getIconPath())) {
-                $contents = json_decode($contents);
-
-                if (isset($contents->icons) && !empty($contents->icons)) {
-                    return array_column(
-                        (array) $contents->icons,
-                        'name'
-                    );
-                }
+                $icons = json_decode($contents);
+        
+                return $icons;
             }
         }
 

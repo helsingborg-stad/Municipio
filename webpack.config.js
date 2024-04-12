@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 
+const fs = require('fs');
 const webpack = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
@@ -15,6 +16,8 @@ const autoprefixer = require('autoprefixer');
 
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
+
+createIconsJson();    
 
 module.exports = {
     mode: ifProduction('production', 'development'),
@@ -265,4 +268,48 @@ module.exports = {
     ]).filter(Boolean),
     devtool: 'source-map',
     stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
+};
+
+function createIconsJson() {    
+    const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
+    
+    fs.readFile(filePath, 'utf8', function (err, data) {
+        if (err) {
+            console.error('Error reading icon file')
+            return
+        }
+
+        if (!data) {
+            console.error('No data in icon file');
+            return;
+        }
+
+        const startIndex = data.indexOf('[');
+        const endIndex = data.indexOf(']');
+
+        if (startIndex === -1 || endIndex === -1) {
+            console.error('Could not find icon data');
+            return;
+        }
+
+        const materialSymbolsString = data.substring(startIndex, endIndex + 1);
+
+        let iconArray = [];
+        try {
+            iconArray = JSON.parse(materialSymbolsString);
+        } catch (parseError) {
+            console.error('Error parsing icon data: ' + parseError);
+        }
+
+        const json = JSON.stringify(iconArray, null, 2);
+
+        fs.writeFile(path.resolve(__dirname, 'assets', 'generated', 'icon.json'), json, err => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log('Icon JSON file created successfully');
+        })
+    });
 };

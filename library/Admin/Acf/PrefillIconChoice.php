@@ -48,10 +48,10 @@ class PrefillIconChoice
         if (empty($field['value']) && !empty($field['default_value'])) {
             $field['value'] = $field['default_value'];
         }
-
+        
         if (is_array($choices) && !empty($choices)) {
             foreach ($choices as $choice) {
-                $field['choices'][$choice] = '<i class="material-symbols-outlined" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . $choice . '</span>';
+                $field['choices'][$choice] = '<i class="material-symbols-outlined" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $choice) . '</span>';
             }
         } else {
             $field['choices'] = [];
