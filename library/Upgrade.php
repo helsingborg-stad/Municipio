@@ -843,11 +843,17 @@ class Upgrade
             while ($currentDbVersion <= $this->dbVersion) {
                 $currentDbVersion++;
                 $funcName = 'v_' . (string) $currentDbVersion;
-                if (method_exists($this, $funcName)) {
+
+                $lockKey = 'upgrade_lock_v' . $currentDbVersion;
+                $isLocked = get_transient($lockKey);
+                if (!$isLocked && method_exists($this, $funcName)) {
+                    set_transient($lockKey, time(), 600);
                     if ($this->{$funcName}($this->db)) {
                         update_option($this->dbVersionKey, (int) $currentDbVersion);
                         wp_cache_flush();
                     }
+
+                    delete_transient($lockKey);
                 }
             }
         }
