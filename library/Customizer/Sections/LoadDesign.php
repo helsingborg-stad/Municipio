@@ -20,7 +20,7 @@ class LoadDesign
 
     public function __construct(string $sectionID)
     {
-        if ($this->designShareDisabled() || !$this->isBlogPublished() {
+        if ($this->designShareDisabled() || !$this->isBlogPublished()) {
             return;
         }
 
@@ -80,8 +80,7 @@ class LoadDesign
         if(!is_multisite()) {
             return true;
         }
-
-        return get_blog_status(get_current_blog_id(), 'public') === 1;
+        return get_blog_status(get_current_blog_id(), 'public') == 1;
     }
 
     private function getCustomizerSectionsAsOptions(): array
