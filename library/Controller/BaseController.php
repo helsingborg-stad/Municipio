@@ -107,7 +107,7 @@ class BaseController
         //Breadcrumb items
         $this->data['breadcrumbItems']      = $breadcrumb->getBreadcrumbItems($this->getPageID());
         // Accessibility items
-        $this->data['accessibilityItems']   = $accessibility->getAccessibilityItems($this->getPageID());
+        $this->data['accessibilityItems']   = $accessibility->getAccessibilityItems();
 
         /* Navigation parameters
         string $menu,
