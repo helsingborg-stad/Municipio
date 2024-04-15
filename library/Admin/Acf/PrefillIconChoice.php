@@ -24,7 +24,15 @@ class PrefillIconChoice
             'box_icon'
         ]);
 
+        
         foreach ($fieldNames as $fieldName) {
+            add_filter(
+                'acf/prepare_field/name=' . $fieldName, 
+                array($this, 'setDefaultIconIfEmpty'), 
+                10, 
+                1
+            );
+
             add_filter(
                 'acf/load_field/name=' . $fieldName,
                 array($this, 'addIconsList'),
@@ -45,16 +53,20 @@ class PrefillIconChoice
     {
         $choices = \Municipio\Helper\Icons::getIcons();
 
-        if (empty($field['value']) && !empty($field['default_value'])) {
-            $field['value'] = $field['default_value'];
-        }
-        
         if (is_array($choices) && !empty($choices)) {
             foreach ($choices as $choice) {
                 $field['choices'][$choice] = '<i class="material-symbols-outlined" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $choice) . '</span>';
             }
         } else {
             $field['choices'] = [];
+        }
+
+        return $field;
+    }
+
+    public function setDefaultIconIfEmpty($field) {
+        if (empty($field['value']) && !empty($field['default_value'])) {
+            $field['value'] = $field['default_value'];
         }
 
         return $field;
