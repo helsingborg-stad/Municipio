@@ -303,7 +303,7 @@ const fs = require('fs');
                 } catch (err) {
                     console.error(err);
                 }
-            }
+            })
         },
     ]).filter(Boolean),
     devtool: 'source-map',
