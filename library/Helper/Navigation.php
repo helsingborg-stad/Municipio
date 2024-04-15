@@ -867,7 +867,7 @@ class Navigation
      *
      * @return An array of items.
      */
-    public function getAccessibilityItems($pageId)
+    public function getAccessibilityItems()
     {
         $items = [];
         if (is_single() || is_page()) {
