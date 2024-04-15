@@ -17,8 +17,6 @@ const autoprefixer = require('autoprefixer');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
 
-createIconsJson();    
-
 module.exports = {
     mode: ifProduction('production', 'development'),
     /**
@@ -182,6 +180,7 @@ module.exports = {
                   fn: function(event, file) {
                     if (event === "change") {
                       const bs = require('browser-sync').get('bs-webpack-plugin');
+const fs = require('fs');
                       bs.reload("*.css");
                     }
                   }
@@ -264,52 +263,62 @@ module.exports = {
                     },
                 ],
             },
-        }))
+        })),
+
+        /** Parse the icon specification */
+        function () {    
+            const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
+            
+            fs.readFile(filePath, 'utf8', function (err, data) {
+                
+                if (err) {
+                    console.error('Error reading icon file: ' + filePath + '[' + err + ']')
+                    return
+                }
+        
+                if (!data) {
+                    console.error('No data in icon file: ' + filePath);
+                    return;
+                }
+        
+                const startIndex    = data.indexOf('[');
+                const endIndex      = data.indexOf(']');
+        
+                if (startIndex === -1 || endIndex === -1) {
+                    console.error('Could not parse source file. Source file malformed.');
+                    return;
+                }
+        
+                const materialSymbolsString = data.substring(startIndex, endIndex + 1);
+        
+                let iconArray = [];
+                try {
+                    iconArray = JSON.parse(materialSymbolsString);
+                } catch (parseError) {
+                    console.error('Error parsing icon data: ' + parseError);
+                }
+        
+                const json = JSON.stringify(iconArray, null, 2);
+
+                const resultDirectory   = path.resolve(__dirname, 'assets', 'generated');
+                const resultFilename    = "icon.json"; 
+                const resultFilepath    = path.resolve(resultDirectory, resultFilename);
+
+                try {
+                    fs.mkdirSync(
+                        resultDirectory, 
+                        {recursive: true}
+                    );
+                    fs.writeFileSync(
+                        resultFilepath, 
+                        json
+                    );
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+        },
     ]).filter(Boolean),
     devtool: 'source-map',
     stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
-};
-
-function createIconsJson() {    
-    const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
-    
-    fs.readFile(filePath, 'utf8', function (err, data) {
-        if (err) {
-            console.error('Error reading icon file')
-            return
-        }
-
-        if (!data) {
-            console.error('No data in icon file');
-            return;
-        }
-
-        const startIndex = data.indexOf('[');
-        const endIndex = data.indexOf(']');
-
-        if (startIndex === -1 || endIndex === -1) {
-            console.error('Could not find icon data');
-            return;
-        }
-
-        const materialSymbolsString = data.substring(startIndex, endIndex + 1);
-
-        let iconArray = [];
-        try {
-            iconArray = JSON.parse(materialSymbolsString);
-        } catch (parseError) {
-            console.error('Error parsing icon data: ' + parseError);
-        }
-
-        const json = JSON.stringify(iconArray, null, 2);
-
-        fs.writeFile(path.resolve(__dirname, 'assets', 'generated', 'icon.json'), json, err => {
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            console.log('Icon JSON file created successfully');
-        })
-    });
 };
