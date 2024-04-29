@@ -21,6 +21,10 @@ class ImageAltTextValidation
             $altIsEmpty = empty($this->getAltText($value)) ? "Please add alt texts to the images." : false;
         }
 
+        if ($this->focusFieldHasValue($field, $value)) {
+            $altIsEmpty = empty($this->getAltText($value['id'])) ? "Please add an alt text to the image." : false;
+        }
+
         if ($altIsEmpty) {
             acf_add_validation_error($_POST['acf']['field_654a2a58ca4e9'], $altIsEmpty );
             return __('Please add an alt text to the image', 'municipio');
@@ -35,6 +39,10 @@ class ImageAltTextValidation
 
     private function imageFieldHasValue($field, $value) {
         return !empty($field['type']) && $field['type'] == 'image' && !empty($value) && is_numeric($value);
+    }
+
+    private function focusFieldHasValue($field, $value) {
+        return !empty($field['type']) && $field['type'] == 'focuspoint' && !empty($value) && is_array($value);
     }
 
     private function getAltText($id) {
