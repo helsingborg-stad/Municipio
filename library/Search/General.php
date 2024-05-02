@@ -43,12 +43,15 @@ class General
                 "active" => false,
                 "ancestor" => false,
                 "children" => false,
-                "label" => "",
+                "label" => __('Search', 'municipio'),
                 "href" => "#search",
                 "icon" => [
                     'icon' => 'search',
                     'size' => 'md',
-                    'classList' => ['c-nav__icon']
+                    'classList' => ['c-nav__icon'],
+                    'attributeList' => [
+                        'aria-label' => __("Search", 'municipio'),
+                    ]
                 ],
                 "isSearch" => true,
                 "attributeList" => [
