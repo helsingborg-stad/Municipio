@@ -8,6 +8,14 @@
         width: calc(#{$base} * 34);
         top: 100%;
         right: 0;
+
+        @media screen and (max-width: 600px) {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            right: 0;
+            top: unset;
+        }
     }
 
     .site-language-menu__more {
