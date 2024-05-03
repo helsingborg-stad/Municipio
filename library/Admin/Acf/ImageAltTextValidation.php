@@ -50,7 +50,7 @@ class ImageAltTextValidation
 
         //Not a post action
         if (empty($postData) || !is_array($postData)) {
-            return;
+            return $valid;
         }
 
         //Featured image
