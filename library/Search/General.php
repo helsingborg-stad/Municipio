@@ -38,17 +38,23 @@ class General
 
             $data[] = [
                 "id" => "search-icon",
+                "style" => "button",
+                "buttonStyle" => "basic",
+                "buttonColor" => "default",
                 "post_parent" => null,
                 "post_type" => null,
                 "active" => false,
                 "ancestor" => false,
                 "children" => false,
-                "label" => "",
-                "href" => "#search",
+                "label" => __('Search', 'municipio'),
+                "href" => null,
                 "icon" => [
                     'icon' => 'search',
                     'size' => 'md',
-                    'classList' => ['c-nav__icon']
+                    'classList' => ['c-nav__icon'],
+                    'attributeList' => [
+                        'aria-label' => __("Search", 'municipio'),
+                    ]
                 ],
                 "isSearch" => true,
                 "attributeList" => [
