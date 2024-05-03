@@ -26,7 +26,7 @@ class ImageAltTextValidation
      *
      * @return array|null The post data, or null if it is empty.
      */
-    private function getPostData(): ?string {
+    private function getPostData(): ?array {
         if (empty($_POST) || !is_array($_POST)) {
             return null;
         }
