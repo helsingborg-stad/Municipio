@@ -6,19 +6,102 @@ class ImageAltTextValidation
 {
     public function __construct()
     {
-        add_filter('acf/validate_value', array($this, 'checkAttachedImagesAltTexts'), 10, 4);
+        //Filter for hidden field, to check if the featured image has an alt text
+        add_filter('acf/validate_value/key=field_654a2a58ca4e9', array(
+            $this, 
+            'checkFeaturedImageField'
+        ), 10, 4);
+        
+        //Filter for standard image field
+        add_filter('acf/validate_value/type=image', array(
+            $this, 
+            'checkImageField'
+        ), 10, 4);
+
+        //Filter for focus image field
+        add_filter('acf/validate_value/type=focuspoint', array(
+            $this, 
+            'checkImageField'
+        ), 10, 4);
     }
 
     /**
-     * Retrieves the language strings.
+     * Checks if the image field has an alt text.
      *
-     * @return object The language strings.
+     * @param bool $valid The current validation status.
+     * @param mixed $value The value of the field.
+     * @param array $field The field array.
+     * @param string $input The input name.
+     * @return bool Returns true if the image field has an alt text, false otherwise.
      */
-    private function lang(): object {
-        return (object) [
-            'altTextFeaturedImage'  => __("Please add an alt text to the featured image.", 'municipio'),
-            'altTextSingular'       => __("Please add an alt text to the image.", 'municipio')
-        ];
+    private function checkImageField($valid, $value, $field, $input) {
+        if ($this->imageFieldHasValue($field, $value)) {
+            $fieldImageAltText = $this->getAltText($value);
+
+            if(is_null($fieldImageAltText)) {
+                return $this->lang()->altTextSingular;
+            }
+        }
+        return $valid;
+    }
+
+    /**
+     * Checks if an image field has a valid value.
+     *
+     * @param array $field The image field array.
+     * @param mixed $value The value of the image field.
+     * @return bool Returns true if the image field has a valid value, false otherwise.
+     */
+    private function imageFieldHasValue($field, $value): bool
+    {
+        if(empty($value) || !is_numeric($value)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the focus field has an alt text.
+     *
+     * @param bool $valid The current validation status.
+     * @param mixed $value The value of the field.
+     * @param array $field The field array.
+     * @param string $input The input name.
+     * @return bool Returns true if the focus field has an alt text, false otherwise.
+     */
+    public function checkFocusField($valid, $value, $field, $input) {
+        if ($this->focusFieldHasValue($field, $value)) {
+            $fieldImageAltText = $this->getAltText($value['id']);
+
+            if(is_null($fieldImageAltText)) {
+                return $this->lang()->altTextSingular;
+            }
+        }
+        return $valid;
+    }
+
+    /**
+     * Checks if the focus field has a valid value.
+     *
+     * @param array $field The field array.
+     * @param mixed $value The value of the field.
+     * @return bool Returns true if the focus field has a valid value, false otherwise.
+     */
+    private function focusFieldHasValue($field, $value): bool
+    {
+        if(empty($value) || !is_array($value)) {
+            return false;
+        }
+        
+        if(empty($value['id'])) {
+            return false;
+        }
+
+        if(!is_numeric($value['id'])) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -42,10 +125,9 @@ class ImageAltTextValidation
      * @param string $name The field name.
      * @return bool Returns true if the alt text is set for the featured image and the image field, false otherwise.
      */
-    public function checkAttachedImagesAltTexts($valid, $value, $field, $name) {
+    public function checkFeaturedImageField($valid, $value, $field, $name) {
     
-        //Declare vars.
-        $validationErrorMessage = false;
+        //Get post data
         $postData               = $this->getPostData();
 
         //Not a post action
@@ -53,41 +135,13 @@ class ImageAltTextValidation
             return $valid;
         }
 
-        //Featured image
         if ($this->postHasFeaturedImage($field, $postData)) {
             $thumbnailID            = $postData['_thumbnail_id'];
             $thumbnailImageAltText  = $this->getAltText($thumbnailID);
 
             if(is_null($thumbnailImageAltText)) {
-                $validationErrorMessage = $this->lang()->altTextFeaturedImage;
+                return $this->lang()->altTextFeaturedImage;
             }
-        }
-        
-        //Image field
-        if ($this->imageFieldHasValue($field, $value)) {
-            $fieldImageAltText = $this->getAltText($value);
-
-            if(is_null($fieldImageAltText)) {
-                $validationErrorMessage = $this->lang()->altTextSingular;
-            }
-        }
-
-        //Focus field
-        if ($this->focusFieldHasValue($field, $value)) {
-            $fieldImageAltText = $this->getAltText($value['id']);
-
-            if(is_null($fieldImageAltText)) {
-                $validationErrorMessage = $this->lang()->altTextSingular;
-            }
-        }
-
-        //Check if there is a message, if so add it to the validation errors.
-        if ($validationErrorMessage !== false) {
-            acf_add_validation_error(
-                $_POST['acf']['field_654a2a58ca4e9'], 
-                $validationErrorMessage
-            );
-            return $validationErrorMessage;
         }
 
         return $valid;
@@ -102,63 +156,11 @@ class ImageAltTextValidation
      */
     private function postHasFeaturedImage($field, $post)
     {
-        if(!isset($field['key'])) {
-            return false;
-        }
-
-        if($field['key'] !== 'field_654a2a58ca4e9') {
-            return false;
-        }
-
         if(empty($post) || empty($post['_thumbnail_id'])) {
             return false;
         }
 
         if($post['_thumbnail_id'] === '-1') {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if an image field has a valid value.
-     *
-     * @param array $field The image field array.
-     * @param mixed $value The value of the image field.
-     * @return bool Returns true if the image field has a valid value, false otherwise.
-     */
-    private function imageFieldHasValue($field, $value): bool
-    {
-        if($field['type'] !== 'image') {
-            return false;
-        }
-
-        if(empty($value) || !is_numeric($value)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if the focus field has a valid value.
-     *
-     * @param array $field The field array.
-     * @param mixed $value The value of the field.
-     * @return bool Returns true if the focus field has a valid value, false otherwise.
-     */
-    private function focusFieldHasValue($field, $value): bool
-    {
-        if($field['type'] !== 'focuspoint') {
-            return false;
-        }
-
-        if(empty($value) || !is_array($value)) {
-            return false;
-        }
-
-        if(empty($value['id']) || !is_numeric($value['id'])) {
             return false;
         }
 
@@ -178,5 +180,17 @@ class ImageAltTextValidation
             return $altText;
         }
         return null;
+    }
+
+    /**
+     * Retrieves the language strings.
+     *
+     * @return object The language strings.
+     */
+    private function lang(): object {
+        return (object) [
+            'altTextFeaturedImage'  => __("Please add an alt text to the featured image.", 'municipio'),
+            'altTextSingular'       => __("Please add an alt text to the image.", 'municipio')
+        ];
     }
 }
