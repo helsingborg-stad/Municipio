@@ -21,7 +21,7 @@ class ImageAltTextValidation
         //Filter for focus image field
         add_filter('acf/validate_value/type=focuspoint', array(
             $this, 
-            'checkImageField'
+            'checkFocusField'
         ), 10, 4);
     }
 
@@ -34,7 +34,7 @@ class ImageAltTextValidation
      * @param string $input The input name.
      * @return bool Returns true if the image field has an alt text, false otherwise.
      */
-    private function checkImageField($valid, $value, $field, $input) {
+    public function checkImageField($valid, $value, $field, $input) {
         if ($this->imageFieldHasValue($field, $value)) {
             $fieldImageAltText = $this->getAltText($value);
 
@@ -135,7 +135,7 @@ class ImageAltTextValidation
             return $valid;
         }
 
-        if ($this->postHasFeaturedImage($field, $postData)) {
+        if ($this->postHasFeaturedImage($postData)) {
             $thumbnailID            = $postData['_thumbnail_id'];
             $thumbnailImageAltText  = $this->getAltText($thumbnailID);
 
@@ -154,13 +154,13 @@ class ImageAltTextValidation
      * @param array $post The post array.
      * @return bool Returns true if the post has a featured image, false otherwise.
      */
-    private function postHasFeaturedImage($field, $post)
+    private function postHasFeaturedImage($postData)
     {
-        if(empty($post) || empty($post['_thumbnail_id'])) {
+        if(empty($postData) || empty($postData['_thumbnail_id'])) {
             return false;
         }
 
-        if($post['_thumbnail_id'] === '-1') {
+        if($postData['_thumbnail_id'] === '-1') {
             return false;
         }
 
