@@ -87,7 +87,7 @@ class ImageAltTextValidation
                 $_POST['acf']['field_654a2a58ca4e9'], 
                 $validationErrorMessage
             );
-            return false;
+            return $validationErrorMessage;
         }
 
         return $valid;
