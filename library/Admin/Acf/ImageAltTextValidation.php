@@ -6,7 +6,7 @@ class ImageAltTextValidation
 {
     public function __construct()
     {
-        add_action( 'acf/validate_value', array($this, 'checkAttachedImagesAltTexts'), 10, 4);
+        add_filter('acf/validate_value', array($this, 'checkAttachedImagesAltTexts'), 10, 4);
     }
 
     /**
@@ -81,12 +81,16 @@ class ImageAltTextValidation
             }
         }
 
+        //Check if there is a message, if so add it to the validation errors.
         if ($validationErrorMessage !== false) {
             acf_add_validation_error(
                 $_POST['acf']['field_654a2a58ca4e9'], 
                 $validationErrorMessage
             );
+            return false;
         }
+
+        return $valid;
     }
 
     /**
