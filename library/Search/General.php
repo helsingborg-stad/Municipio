@@ -38,13 +38,16 @@ class General
 
             $data[] = [
                 "id" => "search-icon",
+                "style" => "button",
+                "buttonStyle" => "basic",
+                "buttonColor" => "default",
                 "post_parent" => null,
                 "post_type" => null,
                 "active" => false,
                 "ancestor" => false,
                 "children" => false,
                 "label" => __('Search', 'municipio'),
-                "href" => "#search",
+                "href" => null,
                 "icon" => [
                     'icon' => 'search',
                     'size' => 'md',
