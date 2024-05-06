@@ -31,11 +31,7 @@ if (!function_exists('render_blade_view')) {
             )->render();
         } catch (\Throwable $e) {
             if ($formatError === true) {
-                $markup .= '<pre style="border: 3px solid #f00; padding: 10px;">';
-                $markup .= '<strong>' . $e->getMessage() . '</strong>';
-                $markup .= '<hr style="background: #000; outline: none; border:none; display: block; height: 1px;"/>';
-                $markup .= $e->getTraceAsString();
-                $markup .= '</pre>';
+                $bladeEngine->errorHandler($e)->print();
             } else {
                 throw $e;
             }
