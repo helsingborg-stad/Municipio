@@ -5,7 +5,7 @@
         {
             "key": "field_6639e9abdbe59",
             "label": "Enable branded e-mails",
-            "name": "branded_emails",
+            "name": "mun_branded_emails_enabled",
             "aria-label": "",
             "type": "true_false",
             "instructions": "All e-mails sent from WordPress will be branded using the theme appearance settings.",
@@ -21,6 +21,61 @@
             "ui_on_text": "Enabled",
             "ui_off_text": "Disabled",
             "ui": 1
+        },
+        {
+            "key": "field_663a1a9ae9398",
+            "label": "Mail from",
+            "name": "mun_branded_emails_get_email_from",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Controls the sender e-mail address for outgoing e-mails.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6639e9abdbe59",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_663a1ae0e9399",
+            "label": "From name",
+            "name": "mun_branded_emails_get_email_from_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Controls the sender name for outgoing e-mails.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6639e9abdbe59",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [

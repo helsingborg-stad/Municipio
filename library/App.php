@@ -219,5 +219,38 @@ class App
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
+
+        /**
+         * Branded emails
+         */
+        $this->trySetupBrandedEmails();
+    }
+
+    /**
+     * Branded emails setup
+     * 
+     * Enables branded html emails if enabled from theme options page.
+     * Uses theme appearance to apply branding to all outgoing emails.
+     */
+    private function trySetupBrandedEmails():void {
+        
+        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
+
+        if( $configService->isEnabled() === false ) {
+            return;
+        }
+
+        $setMailContentType = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
+        $setMailContentType->addHooks();
+
+        $setMailFrom = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
+        $setMailFrom->addHooks();
+
+        $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
+        $setMailFromName->addHooks();
+
+        add_action('wp_loaded', function() {
+            $this->wpService->mail('foo@bar.baz', 'Test subject', 'Test message');
+        });
     }
 }
