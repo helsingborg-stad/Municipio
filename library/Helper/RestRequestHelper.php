@@ -21,6 +21,7 @@ class RestRequestHelper
             }
 
             $body = wp_remote_retrieve_body($response);
+            $body = nl2br($body);
             $data = json_decode($body, false);
         } catch (\Exception $e) {
             return new \WP_Error('rest_error', $e->getMessage());

@@ -4,9 +4,8 @@ namespace Municipio\Tests\Helper;
 
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Icons;
-use WP_Mock;
-use Mockery;
-use tad\FunctionMocker\FunctionMocker;
+use phpmock\mockery\PHPMockery;
+use ReflectionClass;
 
 /**
  * Class IconTest
@@ -15,7 +14,7 @@ class IconsTest extends TestCase
 {
     /**
      * @testdox getIcons returns false if missing file
-    */
+     */
     public function testGetIconsReturnsFalse()
     {
         // Given
@@ -30,25 +29,25 @@ class IconsTest extends TestCase
 
     /**
      * @testdox getIcons returns an array with icon names.
-    */
+     */
     public function testGetIcons()
     {
         // Given
         $this->mockedData();
-        $icons           = file_get_contents(__DIR__ . '/icons.json');
-        $fileExistsMock  = FunctionMocker::replace('file_exists', true);
-        $fileGetContents = FunctionMocker::replace('file_get_contents', $icons);
+        $iconsFileContent = '["iconName"]';
+        PHPMockery::mock('Municipio\Helper', "file_exists")->andReturn(true);
+        PHPMockery::mock('Municipio\Helper', "file_get_contents")->andReturn($iconsFileContent);
 
         // When
         $result = Icons::getIcons();
 
         // Then
-        $this->assertEquals('10k', $result[0]);
+        $this->assertEquals('iconName', $result[0]);
     }
 
     /**
      * Mocked data
-    */
+     */
     private function mockedData()
     {
         if (!defined('MUNICIPIO_PATH')) {
