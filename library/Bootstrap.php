@@ -4,6 +4,9 @@
  * Composer autoloader from municipio
  */
 
+use AcfService\Implementations\NativeAcfService;
+use WpService\Implementations\NativeWpService;
+
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
     require_once MUNICIPIO_PATH . 'vendor/autoload.php';
 }
@@ -108,7 +111,7 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    new Municipio\App();
+    new Municipio\App(new NativeWpService(), new NativeAcfService());
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {
         if (is_admin()) {

@@ -2,6 +2,7 @@
 
 namespace Municipio;
 
+use AcfService\AcfService;
 use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
@@ -11,6 +12,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
+use WpService\WpService;
 
 /**
  * Class App
@@ -21,7 +23,7 @@ class App
     /**
      * App constructor.
      */
-    public function __construct()
+    public function __construct(private WpService $wpService, private AcfService $acfService)
     {
         /**
          * Upgrade
