@@ -3,6 +3,7 @@ import Fab from './fab';
 import Comments from './comments';
 import './nav';
 import './hide';
+import { initializeLanguageMenu } from './languageMenu';
 
 //Ponyfill for supporting css variables in IE
 cssVars({
@@ -22,6 +23,8 @@ cssVars({
 const fab = new Fab();
 
 fab.showOnScroll();
+
+initializeLanguageMenu();
 
 new Comments();
    
