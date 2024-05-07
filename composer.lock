@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04e2a076883efb376118500c60f93577",
+    "content-hash": "9a83b8f90ad17507d1279603dfccec77",
     "packages": [
         {
             "name": "composer/installers",
@@ -254,6 +254,94 @@
                 "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
             },
             "time": "2023-05-25T07:56:58+00:00"
+        },
+        {
+            "name": "helsingborg-stad/acfservice",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/acfservice.git",
+                "reference": "38bc3d52c678adadd20330a13be1f15957758ca3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/38bc3d52c678adadd20330a13be1f15957758ca3",
+                "reference": "38bc3d52c678adadd20330a13be1f15957758ca3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "helsingborg-stad/phpcs": "^0.3.5",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AcfService\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thor Brink",
+                    "email": "thor.brink@helsingborg.se"
+                }
+            ],
+            "description": "Simplifies ACF integration by providing a centralized AcfService that exposes global ACF functions in a streamlined manner. Simplify your development workflow and enhance ACF integration with ease.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/acfservice/issues",
+                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.1.2"
+            },
+            "time": "2024-04-24T08:10:26+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpservice",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpservice.git",
+                "reference": "e45213236fe63a4ff39d99a8ab0d6ed9c327a5e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/e45213236fe63a4ff39d99a8ab0d6ed9c327a5e9",
+                "reference": "e45213236fe63a4ff39d99a8ab0d6ed9c327a5e9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "helsingborg-stad/phpcs": "^0.3.5",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WpService\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thor Brink",
+                    "email": "thor.brink@helsingborg.se"
+                }
+            ],
+            "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpservice/issues",
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.7.0"
+            },
+            "time": "2024-05-07T08:21:34+00:00"
         },
         {
             "name": "masterminds/html5",
