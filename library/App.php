@@ -12,6 +12,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
+use PHPMailer\PHPMailer\PHPMailer;
 use WpService\WpService;
 
 /**
@@ -242,15 +243,15 @@ class App
 
         $setMailContentType = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
         $setMailContentType->addHooks();
-
+        
         $setMailFrom = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
         $setMailFrom->addHooks();
-
+        
         $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
         $setMailFromName->addHooks();
 
-        add_action('wp_loaded', function() {
-            $this->wpService->mail('foo@bar.baz', 'Test subject', 'Test message');
-        });
+        $emailHtmlTemplate = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate();
+        $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
+        $applyMailHtmlTemplate->addHooks();
     }
 }
