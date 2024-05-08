@@ -11,6 +11,7 @@ class Language
     {
         add_filter('Municipio/Navigation/Item', array($this, 'addSourceUrl'), 10, 3);
         add_filter('Municipio/Navigation/Item', array($this, 'addLangAttribute'), 10, 3);
+        add_filter('Municipio/Navigation/Item', array($this, 'addXfn'), 10, 3);
         add_filter('the_title', [$this, 'excludeTitleFromGoogleTranslate'], 10, 2);
         add_filter('the_content', [$this, 'excludeTitleFromGoogleTranslate']);
     }
@@ -102,6 +103,27 @@ class Language
             }
         }
 
+        return $item;
+    }
+
+    /**
+     * Adds the source url to language service menu items
+     *
+     * @param array $item The menu item.
+     * @param string $identifier The identifier for the menu.
+     * @param bool $bool A boolean flag.
+     * @return array The modified menu item.
+     */
+    public function addXfn(array $item, string $identifier, bool $bool)
+    {
+        if ($identifier != 'language') {
+            return $item;
+        }
+
+        if (empty($item['xfn'])) {
+            $item['xfn'] = 'nofollow';
+        }
+        
         return $item;
     }
 
