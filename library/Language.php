@@ -49,7 +49,15 @@ class Language
         return $filteredString;
     }
 
-    public function addLangAttribute($item, $identifier, $bool)
+    /**
+     * Adds the source url to language service menu items
+     *
+     * @param array $item The menu item.
+     * @param string $identifier The identifier for the menu.
+     * @param bool $bool A boolean flag.
+     * @return array The modified menu item.
+     */
+    public function addLangAttribute(array $item, string $identifier, bool $bool)
     {
         if ($identifier != 'language' || !isset($item['href'])) {
             return $item;
@@ -67,7 +75,6 @@ class Language
 
         return $item;
     }
-
 
     /**
      * Adds the source url to language service menu items
