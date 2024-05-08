@@ -250,7 +250,8 @@ class App
         $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
         $setMailFromName->addHooks();
 
-        $emailHtmlTemplate = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate();
+        $htmlTemplateConfig = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->acfService);
+        $emailHtmlTemplate = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig);
         $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
         $applyMailHtmlTemplate->addHooks();
     }

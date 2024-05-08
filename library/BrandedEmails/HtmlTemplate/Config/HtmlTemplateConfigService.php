@@ -1,8 +1,6 @@
 <?php
 
-namespace Municipio\BrandedEmails\HtmlTemplate\Config\Services;
-
-use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfig;
+namespace Municipio\BrandedEmails\HtmlTemplate\Config;
 
 class HtmlTemplateConfigService implements HtmlTemplateConfig
 {

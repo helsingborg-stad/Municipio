@@ -2,29 +2,21 @@
 
 namespace Municipio\BrandedEmails\HtmlTemplate;
 
+use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfig;
+
 class DefaultHtmlTemplate implements HtmlTemplate
 {
+    public function __construct(private HtmlTemplateConfig $config)
+    {
+    }
+
     public function getHeader(): string
     {
-        $html  = '<html>';
-        $html .= '<head>';
-        $html .= '<style>';
-        $html .= '/* CSS styles for the email header */';
-        $html .= '</style>';
-        $html .= '</head>';
-        $html .= '<body>';
-        $html .= '<header>';
-        $html .= '<h1>Welcome to our newsletter!</h1>';
-        $html .= '</header>';
-
-        return $html;
+        return file_get_contents(__DIR__ . '/views/Default.Header.php');
     }
 
     public function getFooter(): string
     {
-        $html  = '</body>';
-        $html .= '</html>';
-
-        return $html;
+        return file_get_contents(__DIR__ . '/views/Default.Footer.php');
     }
 }
