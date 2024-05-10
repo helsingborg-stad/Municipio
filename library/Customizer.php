@@ -119,10 +119,6 @@ class Customizer
      */
     public function init()
     {
-        if (!defined("WEB_FONT_DISABLE_INLINE")) {
-            define("WEB_FONT_DISABLE_INLINE", true);
-        }
-
         Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
@@ -130,7 +126,9 @@ class Customizer
         ));
 
         // Custom fonts support (parse uploaded fonts)
-        new \Kirki\Module\FontUploads();
+        if(class_exists('\Kirki\Module\FontUploads')) {
+            new \Kirki\Module\FontUploads();
+        }
 
         //Applicators [Stuff that make effect on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
