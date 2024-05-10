@@ -3,6 +3,7 @@
 namespace Municipio;
 
 use AcfService\AcfService;
+use HelsingborgStad\BladeService\BladeService;
 use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
@@ -12,6 +13,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
+use PHPMailer\PHPMailer\PHPMailer;
 use WpService\WpService;
 
 /**
@@ -250,9 +252,20 @@ class App
         $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
         $setMailFromName->addHooks();
 
+        $bladeService = new BladeService([__DIR__ . '/BrandedEmails/HtmlTemplate/views']);
         $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
-        $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService);
+        $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
         $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
         $applyMailHtmlTemplate->addHooks();
+
+        add_action( 'phpmailer_init', function(PHPMailer $phpMailer) {
+            $phpMailer->Host = 'mailhog';
+            $phpMailer->Port = 1025;
+            $phpMailer->IsSMTP();
+        } ); 
+
+        add_action('wp_loaded', function() {
+            $this->wpService->mail('foo@bar.baz', 'Test subject', 'Test message');
+        });
     }
 }

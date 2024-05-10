@@ -5,14 +5,14 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                color: <?php echo $textColor; ?>;
-                background-color: <?php echo $backgroundColor; ?>;
+                color: {{ $styles['textColor'] }};
+                background-color: {{ $styles['backgroundColor'] }};
                 margin: 0;
                 padding: 0;
             }
 
             #header {
-                background-color: <?php echo $headerBackgroundColor; ?>;
+                background-color: {{ $styles['headerBackgroundColor'] }};
                 padding: 30px;
             }
 
@@ -29,11 +29,11 @@
                 padding: 40px 30px;
                 margin: 0 auto;
                 width: 550px;
-                background-color: <?php echo $backgroundColor; ?>;
+                background-color: {{ $styles['backgroundColor'] }};
             }
 
             #footer {
-                background-color: <?php echo $footerBackgroundColor; ?>;
+                background-color: {{ $styles['footerBackgroundColor'] }};
                 padding: 30px;
             }
 
@@ -41,12 +41,12 @@
                 font-size: 14px;
                 margin: 0 auto;
                 width: 550px;
-                color: <?php echo $footerTextColor; ?>;
+                color: {{ $styles['footerTextColor'] }};
                 line-height: 1.5;
             }
 
             #footer-content a {
-                color: <?php echo $footerTextColor; ?>;
+                color: {{ $styles['footerTextColor'] }};
             }
 
         </style>
@@ -56,12 +56,22 @@
     <body>
         <div id="header">
             <div id="header-content">
-                <img src="<?php echo $logoSrc; ?>"/>
+                <img src="{{ $logoSrc }}"/>
             </div>
         </div>
 
         <div id="content">
 
-            <h1>
-                The subject of this email
-            </h1>
+            <h1>{{ $subject }}</h1>
+
+            {!! $content !!}
+
+        </div>
+        
+        <div id="footer">
+            <div id="footer-content">
+                <p>{!! $footerText !!}</p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -18,10 +18,10 @@ class ApplyMailHtmlTemplate implements Hookable
 
     public function apply(array $args): array
     {
-        $message = $args['message'];
-        $message = $this->template->getHeader() . $message . $this->template->getFooter();
+        $this->template->setSubject($args['subject']);
+        $this->template->setContent($args['message']);
 
-        $args['message'] = $message;
+        $args['message'] = $this->template->getHtml();
 
         return $args;
     }
