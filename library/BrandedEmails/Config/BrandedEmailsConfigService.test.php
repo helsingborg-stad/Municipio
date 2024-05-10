@@ -8,6 +8,33 @@ use PHPUnit\Framework\TestCase;
 class BrandedEmailsConfigServiceTest extends TestCase
 {
     /**
+     * @testdox ACF json file exists
+     */
+    public function testAcfConfig()
+    {
+        $acfJsonFile = __DIR__ . '/../../AcfFields/json/options-branded-emails.json';
+
+        $this->assertFileExists($acfJsonFile);
+    }
+
+    /**
+     * @testdox ACF json file contains options for branded emails
+     */
+    public function testAcfConfigContainsOptions()
+    {
+        $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/options-branded-emails.json');
+        $json             = json_decode($jsonFileContents, true);
+        $fields           = $json[0]['fields'];
+        $fieldNames       = array_map(fn($field) => $field['name'], $fields);
+
+        $config = new BrandedEmailsConfigService($this->getAcfService(([])));
+
+        $this->assertContains($config::OPTION_ENABLED_KEY, $fieldNames);
+        $this->assertContains($config::OPTION_MAIL_FROM_KEY, $fieldNames);
+        $this->assertContains($config::OPTION_MAIL_FROM_NAME_KEY, $fieldNames);
+    }
+
+    /**
      * @testdox isEnabled() returns true if value is truthy
      * @covers \Municipio\BrandedEmails\Config\BrandedEmailsConfigService::isEnabled
      * @testWith [true]
