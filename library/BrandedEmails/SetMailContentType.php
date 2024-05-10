@@ -2,6 +2,7 @@
 
 namespace Municipio\BrandedEmails;
 
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 
 class SetMailContentType implements Hookable

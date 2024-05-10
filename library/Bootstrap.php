@@ -5,6 +5,7 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
+use Municipio\HooksRegistrar\HooksRegistrar;
 use WpService\Implementations\NativeWpService;
 
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
@@ -111,7 +112,10 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    new Municipio\App(new NativeWpService(), new NativeAcfService());
+    new Municipio\App(
+        new NativeWpService(),
+        new NativeAcfService(),
+        new HooksRegistrar());
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {
         if (is_admin()) {

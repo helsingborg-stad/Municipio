@@ -13,7 +13,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
-use PHPMailer\PHPMailer\PHPMailer;
+use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use WpService\WpService;
 
 /**
@@ -25,8 +25,11 @@ class App
     /**
      * App constructor.
      */
-    public function __construct(private WpService $wpService, private AcfService $acfService)
-    {
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+        private HooksRegistrarInterface $hooksRegistrar
+    ) {
         /**
          * Upgrade
          */
@@ -243,19 +246,17 @@ class App
             return;
         }
 
-        $setMailContentType = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
-        $setMailContentType->addHooks();
-
-        $setMailFrom = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
-        $setMailFrom->addHooks();
-
-        $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
-        $setMailFromName->addHooks();
-
+        $setMailContentType    = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
+        $setMailFrom           = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
+        $setMailFromName       = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
         $bladeService          = new BladeService([__DIR__ . '/BrandedEmails/HtmlTemplate/views']);
         $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
         $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
         $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
-        $applyMailHtmlTemplate->addHooks();
+
+        $this->hooksRegistrar->register($setMailContentType);
+        $this->hooksRegistrar->register($setMailFrom);
+        $this->hooksRegistrar->register($setMailFromName);
+        $this->hooksRegistrar->register($applyMailHtmlTemplate);
     }
 }

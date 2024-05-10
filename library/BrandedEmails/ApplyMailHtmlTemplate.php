@@ -3,6 +3,7 @@
 namespace Municipio\BrandedEmails;
 
 use Municipio\BrandedEmails\HtmlTemplate\HtmlTemplate;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 
 class ApplyMailHtmlTemplate implements Hookable

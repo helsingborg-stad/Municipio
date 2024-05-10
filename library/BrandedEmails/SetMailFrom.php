@@ -3,6 +3,7 @@
 namespace Municipio\BrandedEmails;
 
 use Municipio\BrandedEmails\Config\GetMailFrom;
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 
 class SetMailFrom implements Hookable
