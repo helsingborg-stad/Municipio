@@ -249,6 +249,7 @@ class App
         $setMailContentType    = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
         $setMailFrom           = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
         $setMailFromName       = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
+        $convertMessageToHtml  = new \Municipio\BrandedEmails\ConvertMessageToHtml($this->wpService);
         $bladeService          = new BladeService([__DIR__ . '/BrandedEmails/HtmlTemplate/views']);
         $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
         $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
@@ -257,6 +258,7 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($setMailFrom);
         $this->hooksRegistrar->register($setMailFromName);
+        $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
     }
 }
