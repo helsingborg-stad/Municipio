@@ -257,15 +257,5 @@ class App
         $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
         $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
         $applyMailHtmlTemplate->addHooks();
-
-        add_action('phpmailer_init', function (PHPMailer $phpMailer) {
-            $phpMailer->Host = 'mailhog';
-            $phpMailer->Port = 1025;
-            $phpMailer->IsSMTP();
-        });
-
-        add_action('wp_loaded', function () {
-            $this->wpService->mail('foo@bar.baz', 'Test subject', 'Test message');
-        });
     }
 }
