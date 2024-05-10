@@ -4,7 +4,7 @@
         'style' => 'outlined',
         'color' => 'primary',
         'href' => $item['href'] ?? false,
-        'icon' => $item['icon'] ?? false,
+        'icon' => $item['icon'] ?? null,
         'size' => 'sm',
         'attributeList' => array_merge($item['attributeList'] ?? [], [
             'onClick' => $item['script'] ?? '',
