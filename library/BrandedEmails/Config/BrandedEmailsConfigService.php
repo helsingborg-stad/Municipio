@@ -2,23 +2,24 @@
 
 namespace Municipio\BrandedEmails\Config;
 
-use AcfService\AcfService;
+use AcfService\Contracts\GetField;
 
 class BrandedEmailsConfigService implements BrandedEmailsConfig
 {
-    public function __construct(private AcfService $acfService)
+    public function __construct(private GetField $acfService)
     {
     }
 
     public function isEnabled(): bool
     {
         $value = $this->acfService->getField('mun_branded_emails_enabled', 'option');
-        return in_array($value, ['1', true], true);
+        return (int)$value === 1; // $value can be true, "1" or 1, otherwise false
     }
 
     public function getMailFrom(): ?string
     {
-        return $this->acfService->getField('mun_branded_emails_get_email_from', 'option') ?: null;
+        $value = $this->acfService->getField('mun_branded_emails_get_email_from', 'option') ?: null;
+        return filter_var($value, FILTER_VALIDATE_EMAIL) ?: null;
     }
 
     public function getMailFromName(): ?string
