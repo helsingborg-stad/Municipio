@@ -14,23 +14,25 @@ class ApplyMailHtmlTemplateTest extends TestCase
     public function testApplyAppliesHtmlTemplate()
     {
         $applyMailHtmlTemplate = new ApplyMailHtmlTemplate($this->getHtmlTemplate(), $this->getWpService());
+        $result                = $applyMailHtmlTemplate->apply([]);
 
-        $result = $applyMailHtmlTemplate->apply(['message' => 'message']);
-
-        $this->assertEquals('headermessagefooter', $result['message']);
+        $this->assertEquals('html', $result['message']);
     }
 
     private function getHtmlTemplate(): HtmlTemplate
     {
         return new class implements HtmlTemplate {
-            public function getHeader(): string
+            public function setSubject(string $content): void
             {
-                return 'header';
             }
 
-            public function getFooter(): string
+            public function setContent(string $content): void
             {
-                return 'footer';
+            }
+
+            public function getHtml(): string
+            {
+                return 'html';
             }
         };
     }
