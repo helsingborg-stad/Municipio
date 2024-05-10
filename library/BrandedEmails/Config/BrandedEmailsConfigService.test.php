@@ -71,7 +71,8 @@ class BrandedEmailsConfigServiceTest extends TestCase
     /**
      * @testdox getMailFromName() returns value if value is set
      */
-    public function testGetMailFromNameReturnsValueIfValueIsSet() {
+    public function testGetMailFromNameReturnsValueIfValueIsSet()
+    {
         $acfService = $this->getAcfService(['getField' => 'foo']);
         $config     = new BrandedEmailsConfigService($acfService);
 
@@ -84,7 +85,8 @@ class BrandedEmailsConfigServiceTest extends TestCase
      *           [""]
      *           [null]
      */
-    public function testGetMailFromNameReturnsNullIfValueIsNotSet($value) {
+    public function testGetMailFromNameReturnsNullIfValueIsNotSet($value)
+    {
         $acfService = $this->getAcfService(['getField' => $value]);
         $config     = new BrandedEmailsConfigService($acfService);
 

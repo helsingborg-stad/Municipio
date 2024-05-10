@@ -12,7 +12,6 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
-use PHPMailer\PHPMailer\PHPMailer;
 use WpService\WpService;
 
 /**
@@ -229,29 +228,30 @@ class App
 
     /**
      * Branded emails setup
-     * 
+     *
      * Enables branded html emails if enabled from theme options page.
      * Uses theme appearance to apply branding to all outgoing emails.
      */
-    private function trySetupBrandedEmails():void {
-        
+    private function trySetupBrandedEmails(): void
+    {
+
         $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
 
-        if( $configService->isEnabled() === false ) {
+        if ($configService->isEnabled() === false) {
             return;
         }
 
         $setMailContentType = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
         $setMailContentType->addHooks();
-        
+
         $setMailFrom = new \Municipio\BrandedEmails\SetMailFrom($configService, $this->wpService);
         $setMailFrom->addHooks();
-        
+
         $setMailFromName = new \Municipio\BrandedEmails\SetMailFromName($configService, $this->wpService);
         $setMailFromName->addHooks();
 
-        $htmlTemplateConfig = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
-        $emailHtmlTemplate = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService);
+        $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
+        $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService);
         $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
         $applyMailHtmlTemplate->addHooks();
     }
