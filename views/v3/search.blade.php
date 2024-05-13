@@ -1,6 +1,19 @@
 @extends('templates.master')
 @section('layout')
 
+    <section class="o-container u-margin__top--6">
+        <div class="o-grid">
+            <div class="o-grid-12">
+                @typography([
+                    'variant' => 'h1',
+                    'element' => 'h1'
+                ])
+                    {{ $lang->searchResults }}
+                @endtypography
+            </div>
+        </div>
+    </section>
+
     @if($hook->customSearchPage) 
         <section class="o-container t-customsearchpage u-margin__top--6">
             <div class="o-grid">
