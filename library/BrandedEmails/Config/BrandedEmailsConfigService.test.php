@@ -30,8 +30,6 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $config = new BrandedEmailsConfigService($this->getAcfService(([])));
 
         $this->assertContains($config::OPTION_ENABLED_KEY, $fieldNames);
-        $this->assertContains($config::OPTION_MAIL_FROM_KEY, $fieldNames);
-        $this->assertContains($config::OPTION_MAIL_FROM_NAME_KEY, $fieldNames);
     }
 
     /**
@@ -64,60 +62,6 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $config     = new BrandedEmailsConfigService($acfService);
 
         $this->assertFalse($config->isEnabled());
-    }
-
-    /**
-     * @testdox getMailFrom() returns value if value is set
-     * @covers \Municipio\BrandedEmails\Config\BrandedEmailsConfigService::getMailFrom
-     */
-    public function testGetMailFromReturnsValueIfValueIsSet()
-    {
-        $acfService = $this->getAcfService(['getField' => 'foo@bar.baz']);
-        $config     = new BrandedEmailsConfigService($acfService);
-
-        $this->assertEquals('foo@bar.baz', $config->getMailFrom());
-    }
-
-
-    /**
-     * @testdox getMailFrom() returns null if value is not set or is not an email
-     * @covers \Municipio\BrandedEmails\Config\BrandedEmailsConfigService::getMailFrom
-     * @testWith [false]
-     *           [""]
-     *           [null]
-     *           ["foo@bar"]
-     */
-    public function testGetMailFromReturnsNull($value)
-    {
-        $acfService = $this->getAcfService(['getField' => $value]);
-        $config     = new BrandedEmailsConfigService($acfService);
-
-        $this->assertNull($config->getMailFrom());
-    }
-
-    /**
-     * @testdox getMailFromName() returns value if value is set
-     */
-    public function testGetMailFromNameReturnsValueIfValueIsSet()
-    {
-        $acfService = $this->getAcfService(['getField' => 'foo']);
-        $config     = new BrandedEmailsConfigService($acfService);
-
-        $this->assertEquals('foo', $config->getMailFromName());
-    }
-
-    /**
-     * @testdox getMailFromName() returns null if value is not set
-     * @testWith [false]
-     *           [""]
-     *           [null]
-     */
-    public function testGetMailFromNameReturnsNullIfValueIsNotSet($value)
-    {
-        $acfService = $this->getAcfService(['getField' => $value]);
-        $config     = new BrandedEmailsConfigService($acfService);
-
-        $this->assertNull($config->getMailFromName());
     }
 
     private function getAcfService(array $data): GetField

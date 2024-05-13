@@ -2,9 +2,6 @@
 
 namespace Municipio\BrandedEmails\Config;
 
-interface BrandedEmailsConfig extends
-    IsEnabled,
-    GetMailFrom,
-    GetMailFromName
+interface BrandedEmailsConfig extends IsEnabled
 {
 }

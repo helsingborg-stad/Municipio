@@ -25,61 +25,6 @@
             'ui_off_text' => __('Disabled', 'municipio'),
             'ui' => 1,
         ),
-        1 => array(
-            'key' => 'field_663a1a9ae9398',
-            'label' => __('Mail from', 'municipio'),
-            'name' => 'mun_branded_emails_get_email_from',
-            'aria-label' => '',
-            'type' => 'email',
-            'instructions' => __('Controls the sender e-mail address for outgoing e-mails.', 'municipio'),
-            'required' => 0,
-            'conditional_logic' => array(
-                0 => array(
-                    0 => array(
-                        'field' => 'field_6639e9abdbe59',
-                        'operator' => '==',
-                        'value' => '1',
-                    ),
-                ),
-            ),
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
-        ),
-        2 => array(
-            'key' => 'field_663a1ae0e9399',
-            'label' => __('From name', 'municipio'),
-            'name' => 'mun_branded_emails_get_email_from_name',
-            'aria-label' => '',
-            'type' => 'text',
-            'instructions' => __('Controls the sender name for outgoing e-mails.', 'municipio'),
-            'required' => 0,
-            'conditional_logic' => array(
-                0 => array(
-                    0 => array(
-                        'field' => 'field_6639e9abdbe59',
-                        'operator' => '==',
-                        'value' => '1',
-                    ),
-                ),
-            ),
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => '',
-            'maxlength' => '',
-            'placeholder' => '',
-            'prepend' => '',
-            'append' => '',
-        ),
     ),
     'location' => array(
         0 => array(
