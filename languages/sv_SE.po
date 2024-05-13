@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2024-04-02 13:22+0200\n"
-"PO-Revision-Date: 2024-04-02 13:25+0200\n"
+"POT-Creation-Date: 2024-05-13 15:53+0200\n"
+"PO-Revision-Date: 2024-05-13 15:53+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -4796,7 +4796,7 @@ msgstr ""
 #: library/AcfFields/php/options-theme-google-translate.php:57
 #: library/Customizer/PanelsRegistry.php:369
 #: library/Customizer/Sections/Search.php:136
-#: library/Helper/TranslatedLabels.php:45 library/Theme/Navigation.php:29
+#: library/Helper/TranslatedLabels.php:46 library/Theme/Navigation.php:29
 msgid "Mega menu"
 msgstr "Megameny"
 
@@ -4916,8 +4916,8 @@ msgid "Below page content"
 msgstr "Efter sidinnehållet"
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:337
-#: library/Customizer/PanelsRegistry.php:509 library/Upgrade.php:593
+#: library/Controller/Singular.php:338
+#: library/Customizer/PanelsRegistry.php:509 library/Upgrade.php:618
 msgid "Author"
 msgstr "Författare"
 
@@ -27842,49 +27842,57 @@ msgstr "Ladda upp bild"
 msgid "Media link"
 msgstr "Medialänk"
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:44
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:47
 msgid "Schema.org Data"
 msgstr "Schema.org-data"
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:52
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:55
 msgid "Use these fields to enhance visibility in search results."
 msgstr "Använd dessa fält för att förbättra synligheten i sökresultaten."
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:159
+#: library/Admin/Acf/ContentType/FieldsRegistrar.php:157
 #, php-format
 msgid "Automatically registered field (%s, %s)"
 msgstr ""
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:176
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:11
 msgid "Street Address"
 msgstr "Gatuadress"
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:179
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:14
 msgid "Enter the street address."
 msgstr "Ange gatuadressen."
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:184
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:19
 msgid "Postal Code"
 msgstr "Postnummer"
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:187
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:22
 msgid "Enter the postal code."
 msgstr "Ange postnummer."
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:192
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:27
 msgid "Country"
 msgstr "Land"
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:195
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:30
 msgid "Enter the country name."
 msgstr "Ange landets namn."
 
-#: library/Admin/Acf/ContentType/FieldsRegistrar.php:198
+#: library/Admin/Acf/ContentType/Schema/Subfields/PostalAddress.php:33
 msgid "Enter country here"
 msgstr "Ange land här"
 
-#: library/Admin/Acf/ImageAltTextValidation.php:26
-msgid "Please add an alt text to the image"
+#: library/Admin/Acf/ImageAltTextValidation.php:192
+#, fuzzy
+#| msgid "Please add an alt text to the image"
+msgid "Please add an alt text to the featured image."
+msgstr "Lägg till en alt-text till bilden"
+
+#: library/Admin/Acf/ImageAltTextValidation.php:193
+#, fuzzy
+#| msgid "Please add an alt text to the image"
+msgid "Please add an alt text to the image."
 msgstr "Lägg till en alt-text till bilden"
 
 #: library/Admin/Acf/LocationRulesContentType.php:8
@@ -27962,7 +27970,8 @@ msgstr "Välj innehållstyp"
 #: library/Admin/Options/ContentType.php:88 library/Admin/Options/Theme.php:51
 #: library/Admin/Options/Theme.php:52 library/Customizer/PanelsRegistry.php:323
 #: library/Helper/TranslatedLabels.php:41
-#: library/Helper/TranslatedLabels.php:77 library/Search/General.php:55
+#: library/Helper/TranslatedLabels.php:79 library/Search/General.php:49
+#: library/Search/General.php:56 library/Search/General.php:61
 #: library/Widget/Navigation/Navigation.php:66
 msgid "Search"
 msgstr "Sök"
@@ -28088,7 +28097,7 @@ msgstr "Genererad PDF"
 msgid "Table of Contents"
 msgstr "Innehållsförteckning"
 
-#: library/Api/Pdf/PdfArchiveEndpoint.php:168
+#: library/Api/Pdf/PdfArchiveEndpoint.php:121
 #: library/Api/Pdf/PdfGenerator.php:217
 #, fuzzy
 #| msgid "Lighther"
@@ -28309,7 +28318,7 @@ msgstr "API-resurser"
 msgid "API Resource"
 msgstr "API-resurs"
 
-#: library/Controller/Archive.php:474 library/Controller/Singular.php:267
+#: library/Controller/Archive.php:474 library/Controller/Singular.php:268
 msgid "Select"
 msgstr "Välj"
 
@@ -28477,8 +28486,8 @@ msgid "Visiting addresses"
 msgstr "Adresser"
 
 #: library/Controller/ContentType/Complex/School/SchoolDataPreparer.php:598
-#: library/Helper/TranslatedLabels.php:58
-#: library/Helper/TranslatedLabels.php:73
+#: library/Helper/TranslatedLabels.php:59
+#: library/Helper/TranslatedLabels.php:75
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -28528,7 +28537,7 @@ msgstr "Gå bakåt"
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: library/Controller/E404.php:47 library/Helper/TranslatedLabels.php:57
+#: library/Controller/E404.php:47 library/Helper/TranslatedLabels.php:58
 msgid "Show all"
 msgstr "Visa alla"
 
@@ -28572,7 +28581,7 @@ msgstr "reply"
 msgid "Log in to Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:476
+#: library/Controller/Singular.php:477
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -29841,7 +29850,7 @@ msgid "Apply rounded corners to content"
 msgstr "Lägg till rundade kanter på innehåll"
 
 #: library/Customizer/Sections/LoadDesign.php:30
-#: library/Customizer/Sections/LoadDesign.php:121
+#: library/Customizer/Sections/LoadDesign.php:140
 msgid "Select a design"
 msgstr "Välj en design"
 
@@ -29853,11 +29862,11 @@ msgstr "Exkludera från import"
 msgid "Selected local settings will not be overriden on import."
 msgstr "Valda lokala inställningar kommer inte att skrivas över vid import."
 
-#: library/Customizer/Sections/LoadDesign.php:70
+#: library/Customizer/Sections/LoadDesign.php:89
 msgid "Additional CSS"
 msgstr ""
 
-#: library/Customizer/Sections/LoadDesign.php:130
+#: library/Customizer/Sections/LoadDesign.php:149
 msgid "Error loading options"
 msgstr "Kunde inte ladda in alternativen"
 
@@ -30041,12 +30050,12 @@ msgid "Drawer navigation, secondary"
 msgstr "Panelnavigation, sekundär"
 
 #: library/Customizer/Sections/Navigation.php:56
-#: library/Helper/TranslatedLabels.php:44
+#: library/Helper/TranslatedLabels.php:45
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
 #: library/Customizer/Sections/Navigation.php:69
-#: library/Helper/TranslatedLabels.php:52
+#: library/Helper/TranslatedLabels.php:53
 msgid "Language"
 msgstr "Språk"
 
@@ -30463,10 +30472,6 @@ msgstr ""
 msgid "Tailor"
 msgstr "Specialanpassa"
 
-#: library/Helper/Location.php:75
-msgid "Get directions on Google Maps"
-msgstr "Få vägbeskrivning via Google Maps"
-
 #: library/Helper/Navigation.php:650 library/Helper/Navigation.php:917
 #: library/Helper/Navigation.php:920 library/Helper/Navigation.php:944
 msgid "Untitled page"
@@ -30476,7 +30481,7 @@ msgstr "Namnlös sida"
 msgid "Home"
 msgstr ""
 
-#: library/Helper/Post.php:172
+#: library/Helper/Post.php:178
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
@@ -30579,122 +30584,130 @@ msgstr "Sök på"
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: library/Helper/TranslatedLabels.php:46
+#: library/Helper/TranslatedLabels.php:44
+msgid "Searchresults"
+msgstr "Sökresultat"
+
+#: library/Helper/TranslatedLabels.php:47
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: library/Helper/TranslatedLabels.php:47
+#: library/Helper/TranslatedLabels.php:48
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: library/Helper/TranslatedLabels.php:48 library/Theme/Icon.php:44
+#: library/Helper/TranslatedLabels.php:49 library/Theme/Icon.php:44
 #: library/Widget/Header/Links.php:68
 #: library/Widget/Navigation/Navigation.php:77
 msgid "Menu"
 msgstr "Meny"
 
-#: library/Helper/TranslatedLabels.php:49
+#: library/Helper/TranslatedLabels.php:50
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: library/Helper/TranslatedLabels.php:50
+#: library/Helper/TranslatedLabels.php:51
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Helper/TranslatedLabels.php:51
+#: library/Helper/TranslatedLabels.php:52
 msgid "More Languages"
 msgstr "Fler språk"
 
-#: library/Helper/TranslatedLabels.php:53
+#: library/Helper/TranslatedLabels.php:54
 msgid "Expand"
 msgstr "Expandera"
 
-#: library/Helper/TranslatedLabels.php:54
+#: library/Helper/TranslatedLabels.php:55
 msgid "You are here: "
 msgstr "Du är här: "
 
-#: library/Helper/TranslatedLabels.php:55
+#: library/Helper/TranslatedLabels.php:56
 msgid "Reading time"
 msgstr "Lästid"
 
-#: library/Helper/TranslatedLabels.php:56
+#: library/Helper/TranslatedLabels.php:57
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr "Relaterade"
 
-#: library/Helper/TranslatedLabels.php:59
+#: library/Helper/TranslatedLabels.php:60
 msgid "Book here"
 msgstr "Boka här"
 
-#: library/Helper/TranslatedLabels.php:60
-#: library/Helper/TranslatedLabels.php:72
+#: library/Helper/TranslatedLabels.php:61
+#: library/Helper/TranslatedLabels.php:74
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: library/Helper/TranslatedLabels.php:61
-#: library/Helper/TranslatedLabels.php:71
+#: library/Helper/TranslatedLabels.php:62
+#: library/Helper/TranslatedLabels.php:73
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Helper/TranslatedLabels.php:62
+#: library/Helper/TranslatedLabels.php:63
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: library/Helper/TranslatedLabels.php:63
+#: library/Helper/TranslatedLabels.php:64
 msgid "on"
 msgstr "på"
 
-#: library/Helper/TranslatedLabels.php:64
-#: library/Helper/TranslatedLabels.php:78
+#: library/Helper/TranslatedLabels.php:65
+msgid "of"
+msgstr ""
+
+#: library/Helper/TranslatedLabels.php:66
+#: library/Helper/TranslatedLabels.php:80
 msgid "Filter"
 msgstr "Filtrera"
 
-#: library/Helper/TranslatedLabels.php:65
-#: library/Helper/TranslatedLabels.php:80
+#: library/Helper/TranslatedLabels.php:67
+#: library/Helper/TranslatedLabels.php:82
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: library/Helper/TranslatedLabels.php:66
+#: library/Helper/TranslatedLabels.php:68
 msgid "No items found."
 msgstr "Inga hittades."
 
-#: library/Helper/TranslatedLabels.php:67
+#: library/Helper/TranslatedLabels.php:69
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: library/Helper/TranslatedLabels.php:68
+#: library/Helper/TranslatedLabels.php:70
 msgid "Random"
 msgstr "Slumpmässig"
 
-#: library/Helper/TranslatedLabels.php:69
+#: library/Helper/TranslatedLabels.php:71
 msgid "Name (A-Z)"
 msgstr "Namn (A-Ö)"
 
-#: library/Helper/TranslatedLabels.php:70
+#: library/Helper/TranslatedLabels.php:72
 msgid "Publish Date"
 msgstr "Publiceringsdatum"
 
-#: library/Helper/TranslatedLabels.php:74
+#: library/Helper/TranslatedLabels.php:76
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: library/Helper/TranslatedLabels.php:75
+#: library/Helper/TranslatedLabels.php:77
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: library/Helper/TranslatedLabels.php:76
+#: library/Helper/TranslatedLabels.php:78
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: library/Helper/TranslatedLabels.php:79
+#: library/Helper/TranslatedLabels.php:81
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: library/Helper/TranslatedLabels.php:81
+#: library/Helper/TranslatedLabels.php:83
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
-#: library/Helper/TranslatedLabels.php:82
+#: library/Helper/TranslatedLabels.php:84
 msgid "Reset"
 msgstr "Återställ"
 
@@ -30727,6 +30740,10 @@ msgstr ""
 #: library/Oembed/OembedFilters.php:50
 msgid "Handling of personal data"
 msgstr "Hantering av personlig data"
+
+#: library/Schema/PostDecorator/Place/CreateMarkerData.php:23
+msgid "Get directions on Google Maps"
+msgstr "Få vägbeskrivning via Google Maps"
 
 #: library/Search/Algolia.php:56
 msgid "Exclude from search"
@@ -31241,15 +31258,15 @@ msgstr "Ovanför innehållskolumner"
 msgid "Sidebar that sits just before the columns grid."
 msgstr "Yta som befinner sig precis kolumnytan vilken håller huvudinnehållet."
 
-#: library/Upgrade.php:798
+#: library/Upgrade.php:823
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:802
+#: library/Upgrade.php:827
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:808
+#: library/Upgrade.php:833
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 "Databasversionen som ska uppnås, kan inte vara lägre än den version som är "
