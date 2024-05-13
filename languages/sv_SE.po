@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2024-05-13 15:53+0200\n"
-"PO-Revision-Date: 2024-05-13 15:53+0200\n"
+"PO-Revision-Date: 2024-05-13 16:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -27884,16 +27884,12 @@ msgid "Enter country here"
 msgstr "Ange land här"
 
 #: library/Admin/Acf/ImageAltTextValidation.php:192
-#, fuzzy
-#| msgid "Please add an alt text to the image"
 msgid "Please add an alt text to the featured image."
-msgstr "Lägg till en alt-text till bilden"
+msgstr "Var god och lägg till en alt-text till bilden."
 
 #: library/Admin/Acf/ImageAltTextValidation.php:193
-#, fuzzy
-#| msgid "Please add an alt text to the image"
 msgid "Please add an alt text to the image."
-msgstr "Lägg till en alt-text till bilden"
+msgstr "Var god och lägg till en alt-text till bilden."
 
 #: library/Admin/Acf/LocationRulesContentType.php:8
 msgid "Content type"
@@ -28099,10 +28095,8 @@ msgstr "Innehållsförteckning"
 
 #: library/Api/Pdf/PdfArchiveEndpoint.php:121
 #: library/Api/Pdf/PdfGenerator.php:217
-#, fuzzy
-#| msgid "Lighther"
 msgid "Other"
-msgstr "Ljusare"
+msgstr "Annat"
 
 #: library/Api/Pdf/PdfGenerator.php:47
 msgid ""
@@ -28572,10 +28566,8 @@ msgid "View page"
 msgstr "Visa sida"
 
 #: library/Controller/Singular.php:63
-#, fuzzy
-#| msgid "reply"
 msgid "Reply"
-msgstr "reply"
+msgstr "Svara"
 
 #: library/Controller/Singular.php:64
 msgid "Log in to Reply"
@@ -28593,10 +28585,8 @@ msgid "Kirki Customizer framework is required"
 msgstr ""
 
 #: library/Customizer.php:27
-#, fuzzy
-#| msgid "Please fill in all required fields."
 msgid "Plugin install required"
-msgstr "Vänligen fyll i alla obligatoriska fält."
+msgstr "Installera nödvändiga plugin"
 
 #: library/Customizer.php:30
 msgid "Install plugin"
@@ -29913,10 +29903,8 @@ msgid "Select font"
 msgstr "Välj typsnitt"
 
 #: library/Customizer/Sections/MegaMenu.php:75
-#, fuzzy
-#| msgid "Sets the style of the main items"
 msgid "Sets the font for the main items."
-msgstr "Ställer in stilen för huvudobjekten"
+msgstr "Ställer in typsnitt för huvudobjekten"
 
 #: library/Customizer/Sections/MegaMenu.php:79
 #: library/Customizer/Sections/Quicklinks.php:133
@@ -30345,10 +30333,8 @@ msgstr "Färg för behållare"
 
 #: library/Customizer/Sections/SliderDefault.php:89
 #: library/Customizer/Sections/SliderHero.php:48
-#, fuzzy
-#| msgid "translate"
 msgid "Transparent"
-msgstr "translate"
+msgstr "Genomskinligt"
 
 #: library/Customizer/Sections/SliderDefault.php:90
 #: library/Customizer/Sections/SliderHero.php:49
@@ -30775,55 +30761,51 @@ msgstr "Något gick fel, vänligen försök igen senare"
 
 #: library/Theme/Enqueue.php:174
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 #: library/Theme/Enqueue.php:175
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 #: library/Theme/Enqueue.php:176
-#, fuzzy
-#| msgid "Search"
 msgid "March"
-msgstr "Sök"
+msgstr "Mars"
 
 #: library/Theme/Enqueue.php:177
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: library/Theme/Enqueue.php:178
-#, fuzzy
-#| msgid "day"
 msgid "May"
-msgstr "dag"
+msgstr "Maj"
 
 #: library/Theme/Enqueue.php:179
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #: library/Theme/Enqueue.php:180
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: library/Theme/Enqueue.php:181
 msgid "August"
-msgstr ""
+msgstr "Augusti"
 
 #: library/Theme/Enqueue.php:182
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: library/Theme/Enqueue.php:183
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #: library/Theme/Enqueue.php:184
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: library/Theme/Enqueue.php:185
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: library/Theme/Enqueue.php:189
 msgid "Su"
@@ -30858,17 +30840,17 @@ msgid ""
 "This content is password protected. To view it please enter your password "
 "below:"
 msgstr ""
+"Detta innehållet är lösenordsskyddat. För att se det behöver du ange ett "
+"lösenord nedan:"
 
 #: library/Theme/Forms.php:20
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: library/Theme/Forms.php:21
-#, fuzzy
-#| msgid "Center"
 msgctxt "post password form"
 msgid "Enter"
-msgstr "Centrerad"
+msgstr "Enter"
 
 #: library/Theme/Forms.php:43
 msgid "The password entered is not correct."
@@ -31169,10 +31151,8 @@ msgid "Footer area"
 msgstr "Sidfot"
 
 #: library/Theme/Sidebars.php:97
-#, fuzzy
-#| msgid "The top of footer area"
 msgid "The footer area "
-msgstr "Översta delen av sifoten"
+msgstr "Sidfoten"
 
 #: library/Theme/Sidebars.php:110
 msgid "Footer bottom"
@@ -31283,19 +31263,17 @@ msgstr "Ny titel"
 
 #: library/Widget/Source/BaseWidget.php:121
 #: library/Widget/Source/WidgetTemplate.php:258
-#, fuzzy
-#| msgid "title"
 msgid "Title:"
-msgstr "title"
+msgstr "Titel:"
 
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
 msgid "Export with AcfExportManager"
-msgstr ""
+msgstr "Exportera med AcfExportManager"
 
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:408
 #, php-format
 msgid "Exported %d fieldgroup(s)."
-msgstr ""
+msgstr "Exporterade %d fältgrupp(er)."
 
 #: views/v3/partials/search/search-modal.blade.php:3
 msgid "Cancel"
