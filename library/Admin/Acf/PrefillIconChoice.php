@@ -84,7 +84,7 @@ class PrefillIconChoice
      * @param array $customIcons The array of custom icons.
      * @return array The filtered array of custom icons.
      */
-    private function filterCustomIcons($customIcons) 
+    private function filterCustomIcons(array $customIcons): array
     {
         return array_filter($customIcons, function($key) {
             return strpos($key, 'Filled') === false;
