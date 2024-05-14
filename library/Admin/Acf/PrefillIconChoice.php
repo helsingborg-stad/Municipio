@@ -2,6 +2,9 @@
 
 namespace Municipio\Admin\Acf;
 
+use ComponentLibrary\Helper\Icons;
+use ComponentLibrary\Cache\WpCache;
+
 /**
  * Class PrefillIconChoice
  *
@@ -52,23 +55,21 @@ class PrefillIconChoice
     public function addIconsList($field): array
     {
         $materialIcons = \Municipio\Helper\Icons::getIcons();
-        $customIcons = wp_cache_get('icons');
+        $customIcons = (new Icons(new WpCache()))->getIcons();
+
         if (is_array($materialIcons) && !empty($materialIcons)) {
             foreach ($materialIcons as $materialIcon) {
                 $field['choices'][$materialIcon] = '<i class="material-symbols-outlined" style="float: left;">' . $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
             }
         } 
 
-        if (is_array($customIcons) && !empty($customIcons) && false) {
+        if (is_array($customIcons) && !empty($customIcons)) {
             $customIcons = $this->filterCustomIcons($customIcons);
             foreach ($customIcons as $key => $customIcon) {
-                $svgPath = wp_cache_get('facebookFilled', 'iconsPathsElements');
-                // var_dump($svgPath);
-                $field['choices'][$key] = ($svgPath ? '<span class="material-symbols-outlined" style="float: left;">' . $svgPath . '</span>' : "") . 
+                $field['choices'][$key] = '<span class="material-symbols-outlined" style="float: left;">' . $customIcon . '</span>' . 
                 '<span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $key) . '</span>';
             }
         }
-        
         
         if (empty($field['choices'])) {
             $field['choices'] = [];
