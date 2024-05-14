@@ -621,7 +621,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             $socialMediaLinks[] = [
                 'href' => $this->postMeta->linkInstagram,
                 'text' => 'Instagram',
-                'icon' => 'camera_alt'
+                'icon' => 'instagram'
             ];
         }
 
