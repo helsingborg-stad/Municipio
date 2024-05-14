@@ -52,7 +52,7 @@ class PrefillIconChoice
      *
      * @return array $field Field definition with choices
      */
-    public function addIconsList($field): array
+    public function addIconsList($field):array
     {
         $materialIcons = \Municipio\Helper\Icons::getIcons();
         $customIcons = (new Icons(new WpCache()))->getIcons();
@@ -84,7 +84,7 @@ class PrefillIconChoice
      * @param array $customIcons The array of custom icons.
      * @return array The filtered array of custom icons.
      */
-    private function filterCustomIcons(array $customIcons): array
+    private function filterCustomIcons(array $customIcons):array
     {
         return array_filter($customIcons, function($key) {
             return strpos($key, 'Filled') === false;
