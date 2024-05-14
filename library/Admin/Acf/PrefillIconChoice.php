@@ -51,17 +51,43 @@ class PrefillIconChoice
      */
     public function addIconsList($field): array
     {
-        $choices = \Municipio\Helper\Icons::getIcons();
-
-        if (is_array($choices) && !empty($choices)) {
-            foreach ($choices as $choice) {
-                $field['choices'][$choice] = '<i class="material-symbols-outlined" style="float: left;">' . $choice . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $choice) . '</span>';
+        $materialIcons = \Municipio\Helper\Icons::getIcons();
+        $customIcons = wp_cache_get('icons');
+        if (is_array($materialIcons) && !empty($materialIcons)) {
+            foreach ($materialIcons as $materialIcon) {
+                $field['choices'][$materialIcon] = '<i class="material-symbols-outlined" style="float: left;">' . $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
             }
-        } else {
+        } 
+
+        if (is_array($customIcons) && !empty($customIcons) && false) {
+            $customIcons = $this->filterCustomIcons($customIcons);
+            foreach ($customIcons as $key => $customIcon) {
+                $svgPath = wp_cache_get('facebookFilled', 'iconsPathsElements');
+                // var_dump($svgPath);
+                $field['choices'][$key] = ($svgPath ? '<span class="material-symbols-outlined" style="float: left;">' . $svgPath . '</span>' : "") . 
+                '<span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $key) . '</span>';
+            }
+        }
+        
+        
+        if (empty($field['choices'])) {
             $field['choices'] = [];
         }
 
         return $field;
+    }
+
+    /**
+     * Filters out custom icons that have 'Filled' in their key.
+     *
+     * @param array $customIcons The array of custom icons.
+     * @return array The filtered array of custom icons.
+     */
+    private function filterCustomIcons($customIcons) 
+    {
+        return array_filter($customIcons, function($key) {
+            return strpos($key, 'Filled') === false;
+        }, ARRAY_FILTER_USE_KEY);
     }
 
     public function setDefaultIconIfEmpty($field) {
