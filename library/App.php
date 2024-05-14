@@ -2,6 +2,8 @@
 
 namespace Municipio;
 
+use AcfService\AcfService;
+use HelsingborgStad\BladeService\BladeService;
 use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
@@ -11,6 +13,8 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
+use Municipio\HooksRegistrar\HooksRegistrarInterface;
+use WpService\WpService;
 
 /**
  * Class App
@@ -21,8 +25,11 @@ class App
     /**
      * App constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private WpService $wpService,
+        private AcfService $acfService,
+        private HooksRegistrarInterface $hooksRegistrar
+    ) {
         /**
          * Upgrade
          */
@@ -217,5 +224,37 @@ class App
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
+
+        /**
+         * Branded emails
+         */
+        $this->trySetupBrandedEmails();
+    }
+
+    /**
+     * Branded emails setup
+     *
+     * Enables branded html emails if enabled from theme options page.
+     * Uses theme appearance to apply branding to all outgoing emails.
+     */
+    private function trySetupBrandedEmails(): void
+    {
+
+        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
+
+        if ($configService->isEnabled() === false) {
+            return;
+        }
+
+        $setMailContentType    = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
+        $convertMessageToHtml  = new \Municipio\BrandedEmails\ConvertMessageToHtml($this->wpService);
+        $bladeService          = new BladeService([__DIR__ . '/BrandedEmails/HtmlTemplate/views']);
+        $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
+        $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
+        $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
+
+        $this->hooksRegistrar->register($setMailContentType);
+        $this->hooksRegistrar->register($convertMessageToHtml);
+        $this->hooksRegistrar->register($applyMailHtmlTemplate);
     }
 }
