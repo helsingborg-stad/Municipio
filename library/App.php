@@ -229,6 +229,11 @@ class App
          * Branded emails
          */
         $this->trySetupBrandedEmails();
+
+        /**
+         * External content
+         */
+        $this->trySetupExternalContent();
     }
 
     /**
@@ -256,5 +261,18 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
+    }
+
+    private function trySetupExternalContent(): void
+    {
+        // TODO: Add functionality to enable/disable this feature
+        $file = '/var/www/html/wp-content/shemaobjects.json';
+        $fileSystem = new \WpService\FileSystem\BaseFileSystem();
+        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
+        $fileSourceService = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($file, $fileSystem, $jsonToSchemaObjects);
+
+        $object = $fileSourceService->getObjects();
+        echo '<pre>' . print_r($object, true) . '</pre>';
+        die();
     }
 }
