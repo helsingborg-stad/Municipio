@@ -54,6 +54,12 @@ class PrefillIconChoice
      */
     public function addIconsList($field):array
     {
+        //Bail out early if the Icons class does not exist
+        if(class_exists('\ComponentLibrary\Helper\Icons') === false) {
+            error_log('Municipio: The Icons class does not exist, make sure the ComponentLibrary is installed and activated.');
+            return $field;
+        }
+
         $materialIcons = \Municipio\Helper\Icons::getIcons();
         $customIcons = (new Icons(new WpCache()))->getIcons();
 
