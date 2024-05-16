@@ -163,6 +163,8 @@ class App
 
         new \Municipio\Admin\ExternalDeptendents();
 
+        new \Municipio\Admin\MunicipioMenuItems\MunicipioMenuItems();
+
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\Favicon();
