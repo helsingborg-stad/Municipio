@@ -11,39 +11,28 @@ class MunicipioMenuItems {
     {
         add_filter( 'nav_menu_meta_box_object', array($this, 'addMunicipioMenuItemsMetaBox'), 10, 1);
 
-        add_filter('Municipio/Navigation/Items', function($items, $identifier) {
+        add_filter('Municipio/Navigation/Nested', function($items, $identifier, $pageId) {
             if (!empty($items)) {
                 $menus = [];
-                $currentMenu = null;
+                $i = 0;
             
                 foreach ($items as &$item) {
                     if ($item['post_type'] === 'separator') {
-                        if ($currentMenu !== null) {
-                            $menus[] = $currentMenu;
-                        }
-            
-                        $currentMenu = [
-                            'title' => $item['label'],
-                            'items' => []
-                        ];
+                        $i++;
+                        $menus[$i]['title'] = $item['label'];
+                        $menus[$i]['items'][] = $item; 
                     } else {
-                        if ($currentMenu !== null) {
-                            $currentMenu['items'][] = $item;
-                        }
+                        $menus[$i]['items'][] = $item;
                     }
                 }
             
-                if ($currentMenu !== null) {
-                    $menus[] = $currentMenu;
-                }
-            
                 if ($identifier === 'mobile') {
-                    echo '<pre>' . print_r($menus, true) . '</pre>';
+                    echo '<pre>' . print_r((object) $menus, true) . '</pre>';
                 }
             }
             
-            return $items;
-        }, 10, 2);
+            return !empty($menus) && count($menus) > 1 ? (object) $menus : $items;
+        }, 10, 3);
     }
 
     public function addMunicipioMenuItemsMetaBox($object) 
