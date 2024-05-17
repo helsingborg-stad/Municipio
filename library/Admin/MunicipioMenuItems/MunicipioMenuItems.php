@@ -10,6 +10,40 @@ class MunicipioMenuItems {
     public function __construct()
     {
         add_filter( 'nav_menu_meta_box_object', array($this, 'addMunicipioMenuItemsMetaBox'), 10, 1);
+
+        add_filter('Municipio/Navigation/Items', function($items, $identifier) {
+            if (!empty($items)) {
+                $menus = [];
+                $currentMenu = null;
+            
+                foreach ($items as &$item) {
+                    if ($item['post_type'] === 'separator') {
+                        if ($currentMenu !== null) {
+                            $menus[] = $currentMenu;
+                        }
+            
+                        $currentMenu = [
+                            'title' => $item['label'],
+                            'items' => []
+                        ];
+                    } else {
+                        if ($currentMenu !== null) {
+                            $currentMenu['items'][] = $item;
+                        }
+                    }
+                }
+            
+                if ($currentMenu !== null) {
+                    $menus[] = $currentMenu;
+                }
+            
+                if ($identifier === 'mobile') {
+                    echo '<pre>' . print_r($menus, true) . '</pre>';
+                }
+            }
+            
+            return $items;
+        }, 10, 2);
     }
 
     public function addMunicipioMenuItemsMetaBox($object) 
