@@ -270,7 +270,7 @@ class App
         $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
         $fileSourceService   = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($file, $fileSystem, $jsonToSchemaObjects);
 
-        $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\Config\TypesenseConfigProvider();
+        $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseConfigProvider();
         $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClient($typesenseConfig, 'jobpostings');
         $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClientWithCache($typesenseClient);
         $typesenseJsonConverter = new \Municipio\ExternalContent\JsonToSchemaObjects\TypesenseJsonConverter($jsonToSchemaObjects);

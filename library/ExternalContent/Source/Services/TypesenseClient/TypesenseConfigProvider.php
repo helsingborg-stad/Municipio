@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source\Services\Config;
+namespace Municipio\ExternalContent\Source\Services\TypesenseClient;
 
 class TypesenseConfigProvider implements TypesenseConfig
 {

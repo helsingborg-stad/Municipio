@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\Source\Services\TypesenseClient;
 
-use Municipio\ExternalContent\Source\Services\Config\TypesenseConfig;
 use Typesense\Client;
 
 class TypesenseClient implements ITypesenseClient
