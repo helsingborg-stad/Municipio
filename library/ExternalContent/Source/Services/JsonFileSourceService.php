@@ -14,7 +14,7 @@ class JsonFileSourceService implements SchemaSourceReader {
     {
     }
 
-    public function getObject(string|int $id): ?Thing
+    public function getObject(string|int $id): ?object
     {
         $fileContent = $this->fileSystem->getFileContent($this->fileLocation);
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );

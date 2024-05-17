@@ -265,14 +265,15 @@ class App
 
     private function trySetupExternalContent(): void
     {
-        // TODO: Add functionality to enable/disable this feature
-        $file = '/var/www/html/wp-content/shemaobjects.json';
-        $fileSystem = new \WpService\FileSystem\BaseFileSystem();
+        $file                = '/var/www/html/wp-content/shemaobjects.json';
+        $fileSystem          = new \WpService\FileSystem\BaseFileSystem();
         $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
-        $fileSourceService = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($file, $fileSystem, $jsonToSchemaObjects);
+        $fileSourceService   = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($file, $fileSystem, $jsonToSchemaObjects);
 
-        $object = $fileSourceService->getObjects();
-        echo '<pre>' . print_r($object, true) . '</pre>';
-        die();
+        $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\Config\TypesenseConfigProvider();
+        $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClient($typesenseConfig, 'jobpostings');
+        $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClientWithCache($typesenseClient);
+        $typesenseJsonConverter = new \Municipio\ExternalContent\JsonToSchemaObjects\TypesenseJsonConverter($jsonToSchemaObjects);
+        $typesenseSourceService = new \Municipio\ExternalContent\Source\Services\TypesenseSourceService($file, $typesenseClient, $typesenseJsonConverter);
     }
 }

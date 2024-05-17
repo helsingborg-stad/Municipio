@@ -6,11 +6,11 @@ use Spatie\SchemaOrg\Thing;
 
 interface SchemaSourceReader
 {
-    public function getObject(string|int $id): ?Thing;
+    public function getObject(string|int $id): ?object;
 
     /**
      * @param SchemaSourceFilter|null $filter
-     * @return Thing[]
+     * @return object[]
      */
     public function getObjects(?SchemaSourceFilter $filter = null): array;
 };

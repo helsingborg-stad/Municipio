@@ -2,6 +2,8 @@
 
 namespace Municipio\ExternalContent\JsonToSchemaObjects;
 
+use Spatie\SchemaOrg\Schema;
+
 class SimpleJsonConverter implements JsonToSchemaObjects {
     
     public function transform(string $json): array
@@ -12,10 +14,9 @@ class SimpleJsonConverter implements JsonToSchemaObjects {
         return $objects;
     }
 
-    private function typeFromString(string $type)
+    private function typeFromString(string $type): object
     {
-        $className = 'Spatie\SchemaOrg\\' . ucfirst($type);
-        return new $className();
+        return Schema::{lcfirst($type)}();
     }
 
     private function generateSchemaObject(array $jsonObject): object
