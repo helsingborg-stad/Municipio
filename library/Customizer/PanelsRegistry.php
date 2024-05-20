@@ -64,6 +64,7 @@ class PanelsRegistry
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
+        self::registerPostTypePanel();
         self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
@@ -87,6 +88,7 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
             )->register();
     }
+
     /**
      * Fetch public post types and exclude 'attachment'
      */
@@ -99,6 +101,7 @@ class PanelsRegistry
         }
         return $postTypes;
     }
+
     /**
      * Register the content types panel
      */
@@ -169,9 +172,6 @@ class PanelsRegistry
             ->register();
     }
 
-
-
-
     public static function registerArchivePanel()
     {
         $panelID = 'municipio_customizer_panel_archive';
@@ -195,7 +195,27 @@ class PanelsRegistry
             ->register();
     }
 
+    public static function registerPostTypePanel()
+    {
+        $panelID = 'municipio_customizer_panel_post_type';
+        $filteredPostTypes = self::getArchives();
+        $sections = array_map(function ($postType) use ($panelID) {
+            $id = "{$panelID}_{$postType->name}";
+            return KirkiPanelSection::create()
+                ->setID($id)
+                ->setPanel($panelID)
+                ->setTitle($postType->label)
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
+        }, $filteredPostTypes);
 
+        KirkiPanel::create()
+            ->setID($panelID)
+            ->setTitle(esc_html__('Post Types', 'municipio'))
+            ->setDescription(esc_html__('Manage post types settings', 'municipio'))
+            ->setPriority(2000)
+            ->addSections($sections)
+            ->register();
+    }
 
     /* Module panel */
     public static function registerModulePanel()

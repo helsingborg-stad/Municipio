@@ -229,6 +229,33 @@ class App
          * Branded emails
          */
         $this->trySetupBrandedEmails();
+
+
+        // add_action('wp', function() {
+        //     echo '<pre>' . print_r( get_post_type(), true ) . '</pre>';
+        //     echo '<pre>' . print_r( get_theme_mod('news_primary_colors'), true ) . '</pre>';
+            
+
+        //     die;
+        // });
+        add_filter('kirki_inline_styles', function ($styles) {
+                $postType = get_post_type();
+
+                if (empty($postType)) {
+                    return;
+                }
+                
+                if (get_theme_mod($postType . '__appearance_type') !== 'custom') {
+                    return;
+                }
+
+                
+                echo '<pre>' . print_r( get_post_type(), true ) . '</pre>';
+                echo '<pre>' . print_r( get_theme_mods(), true ) . '</pre>';
+                
+            // die;
+            return $styles;
+        }, 10, 1);
     }
 
     /**
