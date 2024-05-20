@@ -8,8 +8,13 @@ class SimpleJsonConverter implements JsonToSchemaObjects {
     
     public function transform(string $json): array
     {
-        $json = json_decode($json, true);
-        $objects = array_map([$this, 'generateSchemaObject'], $json);
+        $decoded = json_decode($json, true);
+
+        if( empty($decoded) ) {
+            return [];
+        }
+
+        $objects = array_map([$this, 'generateSchemaObject'], $decoded);
 
         return $objects;
     }

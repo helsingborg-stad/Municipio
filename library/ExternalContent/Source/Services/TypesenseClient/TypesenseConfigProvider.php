@@ -4,24 +4,33 @@ namespace Municipio\ExternalContent\Source\Services\TypesenseClient;
 
 class TypesenseConfigProvider implements TypesenseConfig
 {
+    public function __construct(
+        private string $apiKey,
+        private string $host,
+        private string $port = '443',
+        private string $protocol = 'https',
+        private int $connectionTimeoutSeconds = 2
+    ) {
+    }
+
     public function getApiKey(): string
     {
-        return 'XF006aj4uJQtIoTypJhcniXoG0gr6MT8';
+        return $this->apiKey;
     }
     public function getHost(): string
     {
-        return 'n58fatmzu7yve4qbp-1.a1.typesense.net';
+        return $this->host;
     }
     public function getPort(): string
     {
-        return '443';
+        return $this->port;
     }
     public function getProtocol(): string
     {
-        return 'https';
+        return $this->protocol;
     }
     public function getConnectionTimeoutSeconds(): int
     {
-        return 2;
+        return $this->connectionTimeoutSeconds;
     }
 }

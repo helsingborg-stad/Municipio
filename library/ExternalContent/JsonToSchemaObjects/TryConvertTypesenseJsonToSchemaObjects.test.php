@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\JsonToSchemaObjects;
 
 use PHPUnit\Framework\TestCase;
 
-class TypesenseJsonConverterTest extends TestCase {
+class TryConvertTypesenseJsonToSchemaObjectsTest extends TestCase {
     /**
      * @testdox converts Typesense formatted api response to schema objects
      */
@@ -19,7 +19,7 @@ class TypesenseJsonConverterTest extends TestCase {
             ]    
         }';
 
-        $converter = new TypesenseJsonConverter();
+        $converter = new TryConvertTypesenseJsonToSchemaObjects();
         $result = $converter->transform($json);
 
         $this->assertEquals('Thing', $result[0]->getProperty('@type'));
@@ -42,7 +42,7 @@ class TypesenseJsonConverterTest extends TestCase {
             ]    
         }';
 
-        $converter = new TypesenseJsonConverter();
+        $converter = new TryConvertTypesenseJsonToSchemaObjects();
         $result = $converter->transform($json);
 
         $this->assertCount(1, $result);
@@ -55,7 +55,7 @@ class TypesenseJsonConverterTest extends TestCase {
     public function testEmptyJson() {
         $json = '';
 
-        $converter = new TypesenseJsonConverter();
+        $converter = new TryConvertTypesenseJsonToSchemaObjects();
         $result = $converter->transform($json);
 
         $this->assertEquals([], $result);
