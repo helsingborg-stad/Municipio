@@ -4,6 +4,8 @@
         @includeWhen(!empty($menu['items']), 'partials.navigation.mobile',
         [
             'menuItems' => $menu['items'],
+            'attributeList' => $menu['attributeList'] ?? [],
+            'title' => $menu['title'] ?? null,
             'classList' => [
                 'c-nav--drawer',
                 'site-nav-mobile__primary',
@@ -20,7 +22,10 @@
         'includeToggle' => true,
         'classList' => $classList,
         'depth' => $depth ?? 1,
-        'expandLabel' => $lang->expand
+        'expandLabel' => $lang->expand,
+        'attributeList' => $attributeList ?? [],
+        'title' => $title ?? null,
+
     ])
     @endnav
 @endif
