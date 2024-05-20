@@ -3,13 +3,13 @@
 namespace Municipio\ExternalContent\Source\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Source\SchemaSourceFilter;
-use Municipio\ExternalContent\Source\SchemaSourceReader;
+use Municipio\ExternalContent\Source\ISchemaSourceFilter;
+use Municipio\ExternalContent\Source\ISchemaSource;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceService implements SchemaSourceReader {
+class JsonFileSourceService implements ISchemaSource {
 
     public function __construct(private string $fileLocation, private GetFileContent $fileSystem, private JsonToSchemaObjects $jsonToSchemaObjects)
     {
@@ -29,7 +29,7 @@ class JsonFileSourceService implements SchemaSourceReader {
         return null;
     }
 
-    public function getObjects(?SchemaSourceFilter $filter = null): array
+    public function getObjects(?ISchemaSourceFilter $filter = null): array
     {
         return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->fileLocation) );
     }

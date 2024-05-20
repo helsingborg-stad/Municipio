@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Source;
 
-interface SchemaSourceFilter
+interface ISchemaSourceFilter
 {
     public function getFilter(): array;
 };

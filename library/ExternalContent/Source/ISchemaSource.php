@@ -6,7 +6,7 @@ use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;
 use Spatie\SchemaOrg\Thing;
 
-interface SchemaSourceReader
+interface ISchemaSource
 {
     public function getObject(string|int $id): null|Thing|Event|JobPosting;
 
@@ -14,5 +14,5 @@ interface SchemaSourceReader
      * @param SchemaSourceFilter|null $filter
      * @return (Thing|Event|JobPosting)[]
      */
-    public function getObjects(?SchemaSourceFilter $filter = null): array;
+    public function getObjects(?ISchemaSourceFilter $filter = null): array;
 };
