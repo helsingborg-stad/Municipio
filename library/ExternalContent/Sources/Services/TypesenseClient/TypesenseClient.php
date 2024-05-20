@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source\Services\TypesenseClient;
+namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
 use Typesense\Client;
 
@@ -8,8 +8,14 @@ class TypesenseClient implements ITypesenseClient
 {
     private ?Client $client = null;
 
-    public function __construct(private TypesenseConfig $config, private string $collectionName)
-    {
+    public function __construct(
+        private string $apiKey,
+        private string $host,
+        private string $collectionName,
+        private string $port = '443',
+        private string $protocol = 'https',
+        private int $connectionTimeoutSeconds = 2
+    ) {
     }
 
     protected function trySetupClient(): void
@@ -19,13 +25,13 @@ class TypesenseClient implements ITypesenseClient
         }
 
         $this->client = new Client([
-            'api_key'                    => $this->config->getApiKey(),
-            'connection_timeout_seconds' => $this->config->getConnectionTimeoutSeconds(),
+            'api_key'                    => $this->apiKey,
+            'connection_timeout_seconds' => $this->connectionTimeoutSeconds,
             'nodes'                      => [
                 [
-                    'host'     => $this->config->getHost(),
-                    'port'     => $this->config->getPort(),
-                    'protocol' => $this->config->getProtocol(),
+                    'host'     => $this->host,
+                    'port'     => $this->port,
+                    'protocol' => $this->protocol,
                 ],
             ],
         ]);

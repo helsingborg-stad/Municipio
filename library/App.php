@@ -284,27 +284,37 @@ class App
             ],
         ];
 
-        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
-        $sources             = [];
+        $fileSystem          = new \WpService\FileSystem\BaseFileSystem();
+        $sourceRegistry      = new \Municipio\ExternalContent\Sources\SchemaSourceRegistry();
+        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects(
+            new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter()
+        );
 
         foreach ($dbValues['origins'] as $source) {
             if ($source['type'] === 'jsonfile') {
-                $fileSystem        = new \WpService\FileSystem\BaseFileSystem();
-                $fileSourceService = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($source['file'], $fileSystem, $jsonToSchemaObjects);
-                $sources[]         = $fileSourceService;
+                $sourceRegistry->registerSource(
+                    new \Municipio\ExternalContent\Sources\Services\JsonFileSourceService($source['file'], $fileSystem, $jsonToSchemaObjects)
+                );
             } elseif ($source['type'] === 'typesense') {
-                $typesenseJsonConverter = new \Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects($jsonToSchemaObjects);
-                $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseConfigProvider($source['apiKey'], $source['host']);
-                $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClient($typesenseConfig, $source['collection']);
-                $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClientWithCache($typesenseClient);
-                $typesenseSourceService = new \Municipio\ExternalContent\Source\Services\TypesenseSourceService($typesenseClient, $typesenseJsonConverter);
-                $sources[]              = $typesenseSourceService;
+                $sourceRegistry->registerSource(
+                    new \Municipio\ExternalContent\Sources\Services\TypesenseSourceService(
+                        new \Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClientWithCache(
+                            new \Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient($source['apiKey'], $source['host'], $source['collection'])
+                        ),
+                        $jsonToSchemaObjects
+                    )
+                );
             }
         }
 
-        $schemaObjects = array_merge(...array_map(function ($source) {
-            return $source->getObjects();
-        }, $sources));
+        $schemaObjects = [];
+        foreach ($sourceRegistry->getSources() as $sourceId => $source) {
+            foreach ($source->getObjects() as $object) {
+                $identifier = $sourceId . $object['@id'];
+                $object->identifier($identifier);
+                $schemaObjects[] = $object;
+            }
+        }
 
         $posts = array_map(function ($schemaObject) {
             $toWpPostTransformer = new \Municipio\ExternalContent\SchemaObjectToWpPost\SchemaObjectToWpPost($schemaObject);

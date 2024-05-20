@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source;
+namespace Municipio\ExternalContent\Sources;
 
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;

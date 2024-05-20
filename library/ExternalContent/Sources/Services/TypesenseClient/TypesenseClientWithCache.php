@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source\Services\TypesenseClient;
+namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
 class TypesenseClientWithCache implements ITypesenseClient
 {

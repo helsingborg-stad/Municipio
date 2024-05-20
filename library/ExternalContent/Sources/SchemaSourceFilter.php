@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source;
+namespace Municipio\ExternalContent\Sources;
 
 interface ISchemaSourceFilter
 {

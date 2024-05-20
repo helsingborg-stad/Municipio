@@ -1,11 +1,11 @@
 <?php
 
-namespace Municipio\ExternalContent\Source\Services;
+namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Source\ISchemaSource;
-use Municipio\ExternalContent\Source\ISchemaSourceFilter;
-use Municipio\ExternalContent\Source\Services\TypesenseClient\ITypesenseClient;
+use Municipio\ExternalContent\Sources\ISchemaSource;
+use Municipio\ExternalContent\Sources\ISchemaSourceFilter;
+use Municipio\ExternalContent\Sources\Services\TypesenseClient\ITypesenseClient;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;
 use Spatie\SchemaOrg\Thing;

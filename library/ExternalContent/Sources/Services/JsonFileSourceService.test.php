@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Source\Services;
+namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
