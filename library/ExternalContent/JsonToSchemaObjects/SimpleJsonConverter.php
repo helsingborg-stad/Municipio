@@ -6,6 +6,9 @@ use Spatie\SchemaOrg\Schema;
 
 class SimpleJsonConverter implements JsonToSchemaObjects {
     
+    /**
+     * @inheritDoc
+     */
     public function transform(string $json): array
     {
         $decoded = json_decode($json, true);

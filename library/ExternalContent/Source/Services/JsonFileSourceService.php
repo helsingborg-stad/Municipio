@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Source\Services;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Source\SchemaSourceFilter;
 use Municipio\ExternalContent\Source\SchemaSourceReader;
+use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
 use WpService\FileSystem\GetFileContent;
 
@@ -14,7 +15,7 @@ class JsonFileSourceService implements SchemaSourceReader {
     {
     }
 
-    public function getObject(string|int $id): ?object
+    public function getObject(string|int $id): null|Thing|Event
     {
         $fileContent = $this->fileSystem->getFileContent($this->fileLocation);
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );

@@ -8,6 +8,9 @@ class TryConvertTypesenseJsonToSchemaObjects implements JsonToSchemaObjects {
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function transform(string $json): array
     {
         $decoded = json_decode($json, true);

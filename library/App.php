@@ -265,15 +265,53 @@ class App
 
     private function trySetupExternalContent(): void
     {
-        $file                = '/var/www/html/wp-content/shemaobjects.json';
-        $fileSystem          = new \WpService\FileSystem\BaseFileSystem();
-        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
-        $fileSourceService   = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($file, $fileSystem, $jsonToSchemaObjects);
+        $dbValues = [
+            'origins' => [
+                [
+                    'type' => 'jsonfile',
+                    'file' => '/var/www/html/wp-content/shemaobjects.json',
+                ],
+                [
+                    'type' => 'jsonfile',
+                    'file' => '/var/www/html/wp-content/thingshemaobjects.json',
+                ],
+                // [
+                //     'type'       => 'typesense',
+                //     'apiKey'     => 'XF006aj4uJQtIoTypJhcniXoG0gr6MT8',
+                //     'host'       => 'n58fatmzu7yve4qbp-1.a1.typesense.net',
+                //     'collection' => 'jobpostings',
+                // ],
+            ],
+        ];
 
-        $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseConfigProvider();
-        $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClient($typesenseConfig, 'jobpostings');
-        $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClientWithCache($typesenseClient);
-        $typesenseJsonConverter = new \Municipio\ExternalContent\JsonToSchemaObjects\TypesenseJsonConverter($jsonToSchemaObjects);
-        $typesenseSourceService = new \Municipio\ExternalContent\Source\Services\TypesenseSourceService($file, $typesenseClient, $typesenseJsonConverter);
+        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter();
+        $sources             = [];
+
+        foreach ($dbValues['origins'] as $source) {
+            if ($source['type'] === 'jsonfile') {
+                $fileSystem        = new \WpService\FileSystem\BaseFileSystem();
+                $fileSourceService = new \Municipio\ExternalContent\Source\Services\JsonFileSourceService($source['file'], $fileSystem, $jsonToSchemaObjects);
+                $sources[]         = $fileSourceService;
+            } elseif ($source['type'] === 'typesense') {
+                $typesenseJsonConverter = new \Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects($jsonToSchemaObjects);
+                $typesenseConfig        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseConfigProvider($source['apiKey'], $source['host']);
+                $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClient($typesenseConfig, $source['collection']);
+                $typesenseClient        = new \Municipio\ExternalContent\Source\Services\TypesenseClient\TypesenseClientWithCache($typesenseClient);
+                $typesenseSourceService = new \Municipio\ExternalContent\Source\Services\TypesenseSourceService($typesenseClient, $typesenseJsonConverter);
+                $sources[]              = $typesenseSourceService;
+            }
+        }
+
+        $schemaObjects = array_merge(...array_map(function ($source) {
+            return $source->getObjects();
+        }, $sources));
+
+        $posts = array_map(function ($schemaObject) {
+            $toWpPostTransformer = new \Municipio\ExternalContent\SchemaObjectToWpPost\SchemaObjectToWpPost($schemaObject);
+            return $toWpPostTransformer->toWpPost();
+        }, $schemaObjects);
+
+        echo '<pre>' . print_r($posts, true) . '</pre>';
+        die();
     }
 }

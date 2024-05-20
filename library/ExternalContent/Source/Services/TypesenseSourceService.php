@@ -6,20 +6,20 @@ use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Source\SchemaSourceFilter;
 use Municipio\ExternalContent\Source\SchemaSourceReader;
 use Municipio\ExternalContent\Source\Services\TypesenseClient\ITypesenseClient;
+use Spatie\SchemaOrg\Event;
+use Spatie\SchemaOrg\JobPosting;
+use Spatie\SchemaOrg\Thing;
 use Typesense\Client;
 
 class TypesenseSourceService implements SchemaSourceReader
 {
-    private ?Client $client = null;
-
     public function __construct(
-        private string $fileLocation,
         private ITypesenseClient $iTypesenseClient,
         private JsonToSchemaObjects $jsonToSchemaObjects
     ) {
     }
 
-    public function getObject(string|int $id): ?object
+    public function getObject(string|int $id): null|Thing|Event|JobPosting
     {
         $result  = $this->iTypesenseClient->getSingleBySchemaId($id);
         $json    = json_encode($result);
@@ -29,6 +29,9 @@ class TypesenseSourceService implements SchemaSourceReader
         return $objects[$index] ?? null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getObjects(?SchemaSourceFilter $filter = null): array
     {
         $result = $this->iTypesenseClient->getAll();
