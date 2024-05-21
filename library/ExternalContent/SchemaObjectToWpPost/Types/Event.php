@@ -17,7 +17,7 @@ class Event implements ISchemaObjectToWpPost
 
     public function toWpPost(): WP_Post
     {
-        $this->post->ID           = $this->schemaObject->getProperty('identifier');
+        $this->post->ID           = $this->schemaObject->getProperty('identifier') ?? $this->schemaObject->getProperty('@id');
         $this->post->post_title   = $this->schemaObject->getProperty('name');
         $this->post->post_content = $this->schemaObject->getProperty('description');
         $this->post->post_type    = 'event';

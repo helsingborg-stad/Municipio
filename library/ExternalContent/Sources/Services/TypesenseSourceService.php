@@ -3,14 +3,14 @@
 namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\ISchemaSource;
-use Municipio\ExternalContent\Sources\ISchemaSourceFilter;
+use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\ISourceFilter;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\ITypesenseClient;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;
 use Spatie\SchemaOrg\Thing;
 
-class TypesenseSourceService implements ISchemaSource
+class TypesenseSourceService implements ISource
 {
     public function __construct(
         private ITypesenseClient $iTypesenseClient,
@@ -31,7 +31,7 @@ class TypesenseSourceService implements ISchemaSource
     /**
      * @inheritDoc
      */
-    public function getObjects(?ISchemaSourceFilter $filter = null): array
+    public function getObjects(?ISourceFilter $filter = null): array
     {
         $result = $this->iTypesenseClient->getAll();
         return $this->jsonToSchemaObjects->transform(json_encode($result));

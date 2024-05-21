@@ -2,20 +2,16 @@
 
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
+use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
+use Municipio\ExternalContent\Config\TypesenseSourceConfig;
 use Typesense\Client;
 
 class TypesenseClient implements ITypesenseClient
 {
     private ?Client $client = null;
 
-    public function __construct(
-        private string $apiKey,
-        private string $host,
-        private string $collectionName,
-        private string $port = '443',
-        private string $protocol = 'https',
-        private int $connectionTimeoutSeconds = 2
-    ) {
+    public function __construct(private ITypesenseSourceConfig $config)
+    {
     }
 
     protected function trySetupClient(): void
@@ -25,13 +21,13 @@ class TypesenseClient implements ITypesenseClient
         }
 
         $this->client = new Client([
-            'api_key'                    => $this->apiKey,
-            'connection_timeout_seconds' => $this->connectionTimeoutSeconds,
+            'api_key'                    => $this->config->getApiKey(),
+            'connection_timeout_seconds' => $this->config->getConnectionTimeoutSeconds(),
             'nodes'                      => [
                 [
-                    'host'     => $this->host,
-                    'port'     => $this->port,
-                    'protocol' => $this->protocol,
+                    'host'     => $this->config->getHost(),
+                    'port'     => $this->config->getPort(),
+                    'protocol' => $this->config->getProtocol(),
                 ],
             ],
         ]);
@@ -40,7 +36,7 @@ class TypesenseClient implements ITypesenseClient
     public function search(array $searchParams): array
     {
         $this->trySetupClient();
-        return $this->client->collections[$this->collectionName]->documents->search($searchParams);
+        return $this->client->collections[$this->config->getCollectionName()]->documents->search($searchParams);
     }
 
     public function getAll(): array

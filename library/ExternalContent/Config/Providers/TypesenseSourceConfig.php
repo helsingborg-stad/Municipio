@@ -1,0 +1,51 @@
+<?php
+
+namespace Municipio\ExternalContent\Config\Providers;
+
+use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
+
+class TypesenseSourceConfig extends SourceConfig implements ITypesenseSourceConfig
+{
+    public function __construct(
+        protected $postType,
+        protected $schemaObjectType,
+        protected $apiKey,
+        protected $host,
+        protected $collectionName,
+        protected string $port = '443',
+        protected string $protocol = 'https',
+        protected int $connectionTimeoutSeconds = 5
+    ) {
+        parent::__construct($postType, $schemaObjectType);
+    }
+
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    public function getHost(): string
+    {
+        return $this->host;
+    }
+
+    public function getCollectionName(): string
+    {
+        return $this->collectionName;
+    }
+
+    public function getPort(): string
+    {
+        return $this->port;
+    }
+
+    public function getProtocol(): string
+    {
+        return $this->protocol;
+    }
+
+    public function getConnectionTimeoutSeconds(): int
+    {
+        return $this->connectionTimeoutSeconds;
+    }
+}

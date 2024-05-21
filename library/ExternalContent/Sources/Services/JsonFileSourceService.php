@@ -2,22 +2,27 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
+use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\ISchemaSourceFilter;
-use Municipio\ExternalContent\Sources\ISchemaSource;
+use Municipio\ExternalContent\Sources\ISourceFilter;
+use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceService implements ISchemaSource {
+class JsonFileSourceService implements ISource {
 
-    public function __construct(private string $fileLocation, private GetFileContent $fileSystem, private JsonToSchemaObjects $jsonToSchemaObjects)
+    public function __construct(
+        private IJsonFileSourceConfig $config,
+        private GetFileContent $fileSystem,
+        private JsonToSchemaObjects $jsonToSchemaObjects
+        )
     {
     }
 
     public function getObject(string|int $id): null|Thing|Event
     {
-        $fileContent = $this->fileSystem->getFileContent($this->fileLocation);
+        $fileContent = $this->fileSystem->getFileContent($this->config->getFile());
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );
 
         foreach($objects as $object) {
@@ -29,8 +34,8 @@ class JsonFileSourceService implements ISchemaSource {
         return null;
     }
 
-    public function getObjects(?ISchemaSourceFilter $filter = null): array
+    public function getObjects(?ISourceFilter $filter = null): array
     {
-        return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->fileLocation) );
+        return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->config->getFile()) );
     }
 }

@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
 class TypesenseClientWithCache implements ITypesenseClient
 {
-    private $cache = [];
+    private static $cache = [];
 
     public function __construct(
         private ITypesenseClient $client
@@ -15,34 +15,28 @@ class TypesenseClientWithCache implements ITypesenseClient
     {
         $cacheKey = md5(json_encode($searchParams));
 
-        if ($cached = $this->cache[$cacheKey] ?? null) {
+        if ($cached = self::$cache[$cacheKey] ?? null) {
             return $cached;
         }
 
-        $result                 = $this->client->search($searchParams);
-        $this->cache[$cacheKey] = $result;
-        return $result;
+        return self::$cache[$cacheKey] = $this->client->search($searchParams);
     }
 
     public function getAll(): array
     {
-        if ($cached = $this->cache['all'] ?? null) {
+        if ($cached = self::$cache['all'] ?? null) {
             return $cached;
         }
 
-        $all                = $this->client->getAll();
-        $this->cache['all'] = $all;
-        return $all;
+        return self::$cache['all'] = $this->client->getAll();
     }
 
     public function getSingleBySchemaId(string $id): array
     {
-        if ($cached = $this->cache[$id] ?? null) {
+        if ($cached = self::$cache[$id] ?? null) {
             return $cached;
         }
 
-        $result           = $this->client->getSingleBySchemaId($id);
-        $this->cache[$id] = $result;
-        return $result;
+        return self::$cache[$id] = $this->client->getSingleBySchemaId($id);
     }
 }

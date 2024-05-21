@@ -12,8 +12,10 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\ExternalContent\Sources\SourceRegistry;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
+use Predis\Command\Redis\TYPE;
 use WpService\WpService;
 
 /**
@@ -244,7 +246,6 @@ class App
      */
     private function trySetupBrandedEmails(): void
     {
-
         $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
 
         if ($configService->isEnabled() === false) {
@@ -265,63 +266,30 @@ class App
 
     private function trySetupExternalContent(): void
     {
-        $dbValues = [
-            'origins' => [
-                [
-                    'type' => 'jsonfile',
-                    'file' => '/var/www/html/wp-content/shemaobjects.json',
-                ],
-                [
-                    'type' => 'jsonfile',
-                    'file' => '/var/www/html/wp-content/thingshemaobjects.json',
-                ],
-                // [
-                //     'type'       => 'typesense',
-                //     'apiKey'     => 'XF006aj4uJQtIoTypJhcniXoG0gr6MT8',
-                //     'host'       => 'n58fatmzu7yve4qbp-1.a1.typesense.net',
-                //     'collection' => 'jobpostings',
-                // ],
-            ],
+        $sourceConfigurations = [
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('thing', 'Thing', '/var/www/html/wp-content/shemaobjects.json'),
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('event', 'Event', '/var/www/html/wp-content/thingshemaobjects.json'),
+            // new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('jobpostings', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
         ];
 
-        $fileSystem          = new \WpService\FileSystem\BaseFileSystem();
-        $sourceRegistry      = new \Municipio\ExternalContent\Sources\SchemaSourceRegistry();
-        $jsonToSchemaObjects = new \Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects(
-            new \Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter()
-        );
+        SourceRegistry::setupRegistry($sourceConfigurations, new \Municipio\ExternalContent\Sources\SourceFactory());
 
-        foreach ($dbValues['origins'] as $source) {
-            if ($source['type'] === 'jsonfile') {
-                $sourceRegistry->registerSource(
-                    new \Municipio\ExternalContent\Sources\Services\JsonFileSourceService($source['file'], $fileSystem, $jsonToSchemaObjects)
-                );
-            } elseif ($source['type'] === 'typesense') {
-                $sourceRegistry->registerSource(
-                    new \Municipio\ExternalContent\Sources\Services\TypesenseSourceService(
-                        new \Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClientWithCache(
-                            new \Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient($source['apiKey'], $source['host'], $source['collection'])
-                        ),
-                        $jsonToSchemaObjects
-                    )
-                );
+        add_action('after_setup_theme', function () {
+            
+            $posts = [];
+
+            foreach (SourceRegistry::getSources() as $sourceId => $source) {
+                foreach ($source->getObjects() as $schemaObject) {
+                    $toWpPostTransformer = new \Municipio\ExternalContent\SchemaObjectToWpPost\SchemaObjectToWpPost($schemaObject);
+                    $post                = $toWpPostTransformer->toWpPost();
+                    $post                = (new \Municipio\ExternalContent\WpPostDecorators\ApplySourceIdToPost($post, $sourceId))->apply();
+                    $posts[]             = $post;
+                }
             }
-        }
 
-        $schemaObjects = [];
-        foreach ($sourceRegistry->getSources() as $sourceId => $source) {
-            foreach ($source->getObjects() as $object) {
-                $identifier = $sourceId . $object['@id'];
-                $object->identifier($identifier);
-                $schemaObjects[] = $object;
-            }
-        }
+            echo '<pre>' . print_r($posts, true) . '</pre>';
+            die();
 
-        $posts = array_map(function ($schemaObject) {
-            $toWpPostTransformer = new \Municipio\ExternalContent\SchemaObjectToWpPost\SchemaObjectToWpPost($schemaObject);
-            return $toWpPostTransformer->toWpPost();
-        }, $schemaObjects);
-
-        echo '<pre>' . print_r($posts, true) . '</pre>';
-        die();
+        }, 10);
     }
 }
