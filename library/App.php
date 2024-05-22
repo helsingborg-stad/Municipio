@@ -234,18 +234,6 @@ class App
          * Imported post type design
          */
         new \Municipio\PostTypeDesign\PostTypeDesign();
-        
-
-        add_filter("option_theme_mods_municipio", function ($value, $option) {
-            $postType = get_post_type();
-            if (empty($postType) || empty(get_option('post_type_design')[$postType])) {
-                return $value;
-            }
-            $design = get_option('post_type_design')[$postType];
-            $value = array_replace($value, (array) $design);
-
-            return $value;
-        }, 10, 2);
     }
 
     /**

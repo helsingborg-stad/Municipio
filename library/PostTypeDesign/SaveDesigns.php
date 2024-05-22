@@ -6,7 +6,7 @@ use Municipio\PostTypeDesign\ConfigFromPageId;
 use Municipio\PostTypeDesign\ConfigTransformer;
 
 class SaveDesigns {
-    public function __construct() 
+    public function __construct(private string $optionName) 
     {
         add_action('customize_save_after', array($this, 'storeDesign'));
     }
