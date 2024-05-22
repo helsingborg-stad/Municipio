@@ -230,32 +230,22 @@ class App
          */
         $this->trySetupBrandedEmails();
 
+        /**
+         * Imported post type design
+         */
+        new \Municipio\PostTypeDesign\PostTypeDesign();
+        
 
-        // add_action('wp', function() {
-        //     echo '<pre>' . print_r( get_post_type(), true ) . '</pre>';
-        //     echo '<pre>' . print_r( get_theme_mod('news_primary_colors'), true ) . '</pre>';
-            
+        add_filter("option_theme_mods_municipio", function ($value, $option) {
+            $postType = get_post_type();
+            if (empty($postType) || empty(get_option('post_type_design')[$postType])) {
+                return $value;
+            }
+            $design = get_option('post_type_design')[$postType];
+            $value = array_replace($value, (array) $design);
 
-        //     die;
-        // });
-        add_filter('kirki_inline_styles', function ($styles) {
-                $postType = get_post_type();
-
-                if (empty($postType)) {
-                    return;
-                }
-                
-                if (get_theme_mod($postType . '__appearance_type') !== 'custom') {
-                    return;
-                }
-
-                
-                echo '<pre>' . print_r( get_post_type(), true ) . '</pre>';
-                echo '<pre>' . print_r( get_theme_mods(), true ) . '</pre>';
-                
-            // die;
-            return $styles;
-        }, 10, 1);
+            return $value;
+        }, 10, 2);
     }
 
     /**
