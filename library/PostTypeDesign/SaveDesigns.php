@@ -4,7 +4,6 @@ namespace Municipio\PostTypeDesign;
 
 use Municipio\PostTypeDesign\ConfigFromPageId;
 use Municipio\PostTypeDesign\ConfigSanitizer;
-use Kirki\Compatibility\Kirki;
 
 class SaveDesigns {
     public function __construct(private string $optionName) 
@@ -19,26 +18,6 @@ class SaveDesigns {
             return;
         }
 
-        $fields = Kirki::$all_fields;
-
-        // echo '<pre>' . print_r( $fields, true ) . '</pre>';
-        if (!empty($fields)) {
-
-            foreach ($fields as $key => $field) {
-                echo '<pre>' . print_r( $field, true ) . '</pre>';
-            }
-            // die;
-            // $fields = array_map(function($value, $key) {
-            //     if (!preg_match('/\[.*?\]/', $key)) {
-            //         return $value;
-            //     }
-            // }, $fields, array_keys($fields));
-        }
-
-        // echo '<pre>' . print_r( $fields, true ) . '</pre>';
-        // die;
-
-        
         $designOption   = get_option('post_type_design');
         foreach ($postTypes as $postType) {
             $design = get_theme_mod($postType . '_load_design');
