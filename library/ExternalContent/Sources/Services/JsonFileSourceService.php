@@ -4,10 +4,10 @@ namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\ISourceFilter;
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
+use WP_Query;
 use WpService\FileSystem\GetFileContent;
 
 class JsonFileSourceService implements ISource {
@@ -43,7 +43,7 @@ class JsonFileSourceService implements ISource {
         return null;
     }
 
-    public function getObjects(?ISourceFilter $filter = null): array
+    public function getObjects(?WP_Query $query = null): array
     {
         return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->config->getFile()) );
     }

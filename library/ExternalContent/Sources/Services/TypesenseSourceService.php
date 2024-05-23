@@ -4,11 +4,9 @@ namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Sources\ISourceFilter;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\ITypesenseClient;
-use Spatie\SchemaOrg\Event;
-use Spatie\SchemaOrg\JobPosting;
-use Spatie\SchemaOrg\Thing;
+use Spatie\SchemaOrg\BaseType;
+use WP_Query;
 
 class TypesenseSourceService implements ISource
 {
@@ -17,6 +15,7 @@ class TypesenseSourceService implements ISource
         private string $postType,
         private string $schemaType,
         private JsonToSchemaObjects $jsonToSchemaObjects,
+        private 
         private ?ISource $inner = null
     ) {
         if ($this->inner === null) {
@@ -29,7 +28,7 @@ class TypesenseSourceService implements ISource
         return $this->inner->getId();
     }
 
-    public function getObject(string|int $id): null|Thing|Event|JobPosting
+    public function getObject(string|int $id): null|BaseType
     {
         $result  = $this->typesenseClient->getSingleBySchemaId($id);
         $json    = json_encode($result);
@@ -42,7 +41,7 @@ class TypesenseSourceService implements ISource
     /**
      * @inheritDoc
      */
-    public function getObjects(?ISourceFilter $filter = null): array
+    public function getObjects(?WP_Query $query = null): array
     {
         $result = $this->typesenseClient->getAll();
         return $this->jsonToSchemaObjects->transform(json_encode($result));

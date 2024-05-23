@@ -7,7 +7,7 @@ interface JsonToSchemaObjects {
     /**
      * @param string $json
      * 
-     * @return (Thing|Event|JobPosting)[]
+     * @return (BaseType)[]
      */
     public function transform(string $json): array;
 }

@@ -8,6 +8,7 @@ use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;
+use WP_Query;
 
 class DecorateSchemaObjectsWithLocalIds implements ISource
 {
@@ -20,7 +21,7 @@ class DecorateSchemaObjectsWithLocalIds implements ISource
         return $this->inner->getId();
     }
 
-    public function getObject(string|int $id): null|Thing|Event|JobPosting
+    public function getObject(string|int $id): null|BaseType
     {
         $object = $this->inner->getObject($id);
 
@@ -31,9 +32,9 @@ class DecorateSchemaObjectsWithLocalIds implements ISource
         return $this->setLocalIdOnObject($object);
     }
 
-    public function getObjects(?ISourceFilter $filter = null): array
+    public function getObjects(?WP_Query $query = null): array
     {
-        $objects = $this->inner->getObjects($filter);
+        $objects = $this->inner->getObjects($query);
         return array_map(fn(BaseType $object) => $this->setLocalIdOnObject($object), $objects);
     }
 

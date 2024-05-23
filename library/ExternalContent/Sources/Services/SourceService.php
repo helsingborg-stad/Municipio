@@ -2,10 +2,10 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
-use Municipio\ExternalContent\Sources\ISourceFilter;
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
+use WP_Query;
 
 class SourceService implements ISource
 {
@@ -29,7 +29,7 @@ class SourceService implements ISource
         return null;
     }
 
-    public function getObjects(?ISourceFilter $filter = null): array
+    public function getObjects(?WP_Query $query = null): array
     {
         return [];
     }

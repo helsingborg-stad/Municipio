@@ -2,19 +2,18 @@
 
 namespace Municipio\ExternalContent\Sources;
 
-use Spatie\SchemaOrg\Event;
-use Spatie\SchemaOrg\JobPosting;
-use Spatie\SchemaOrg\Thing;
+use Spatie\SchemaOrg\BaseType;
+use WP_Query;
 
 interface ISource
 {
-    public function getObject(string|int $id): null|Thing|Event|JobPosting;
+    public function getObject(string|int $id): null|BaseType;
 
     /**
      * @param SchemaSourceFilter|null $filter
-     * @return (Thing|Event|JobPosting)[]
+     * @return (BaseType)[]
      */
-    public function getObjects(?ISourceFilter $filter = null): array;
+    public function getObjects(?WP_Query $query = null): array;
     public function getPostType(): string;
     public function getType(): string;
     public function getId(): int;
