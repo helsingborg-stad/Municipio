@@ -21,16 +21,22 @@ class SaveDesigns {
 
         $fields = Kirki::$all_fields;
 
-        echo '<pre>' . print_r( $fields, true ) . '</pre>';
+        // echo '<pre>' . print_r( $fields, true ) . '</pre>';
         if (!empty($fields)) {
-            $fields = array_filter($fields, function($value, $key) {
-                
-                return !preg_match('/\[.*?\]/', $key);
-            }, ARRAY_FILTER_USE_BOTH);
+
+            foreach ($fields as $key => $field) {
+                echo '<pre>' . print_r( $field, true ) . '</pre>';
+            }
+            // die;
+            // $fields = array_map(function($value, $key) {
+            //     if (!preg_match('/\[.*?\]/', $key)) {
+            //         return $value;
+            //     }
+            // }, $fields, array_keys($fields));
         }
 
-        echo '<pre>' . print_r( $fields, true ) . '</pre>';
-        die;
+        // echo '<pre>' . print_r( $fields, true ) . '</pre>';
+        // die;
 
         
         $designOption   = get_option('post_type_design');
