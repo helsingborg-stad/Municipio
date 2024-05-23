@@ -3,12 +3,13 @@
 namespace Municipio\PostTypeDesign;
 
 use Municipio\PostTypeDesign\ConfigFromPageId;
-use Municipio\PostTypeDesign\ConfigTransformer;
+use Municipio\PostTypeDesign\ConfigSanitizer;
+use Kirki\Compatibility\Kirki;
 
 class SaveDesigns {
     public function __construct(private string $optionName) 
     {
-        add_action('customize_save_after', array($this, 'storeDesign'));
+        add_action('wp', array($this, 'storeDesign'));
     }
 
     public function storeDesign($customizerManager = null) 
@@ -17,6 +18,20 @@ class SaveDesigns {
         if (empty($postTypes)) {
             return;
         }
+
+        $fields = Kirki::$all_fields;
+
+        echo '<pre>' . print_r( $fields, true ) . '</pre>';
+        if (!empty($fields)) {
+            $fields = array_filter($fields, function($value, $key) {
+                
+                return !preg_match('/\[.*?\]/', $key);
+            }, ARRAY_FILTER_USE_BOTH);
+        }
+
+        echo '<pre>' . print_r( $fields, true ) . '</pre>';
+        die;
+
         
         $designOption   = get_option('post_type_design');
         foreach ($postTypes as $postType) {
@@ -28,8 +43,9 @@ class SaveDesigns {
 
             $designConfig = (new ConfigFromPageId($design))->get();
 
-            $configTransformerInstance = new ConfigTransformer($designConfig);
+            $configTransformerInstance = new ConfigSanitizer($designConfig);
             $configTransformerInstance->setKeys(MultiColorKeys::get());
+            $configTransformerInstance->setKeys(ColorKeys::get());
             $designConfig = $configTransformerInstance->transform();
 
             if (!empty($designConfig)) {

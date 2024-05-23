@@ -2,7 +2,7 @@
 
 namespace Municipio\PostTypeDesign;
 
-class ConfigTransformer {
+class ConfigSanitizer {
     private array $keys = [];
 
     public function __construct(private ?array $config) {}
