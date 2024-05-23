@@ -367,16 +367,16 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.12.2",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "1e10dd26316d9a1831c289b87563711140814044"
+                "reference": "4274a9123e8d49a1857ab76b3c55cd9249c6425a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/1e10dd26316d9a1831c289b87563711140814044",
-                "reference": "1e10dd26316d9a1831c289b87563711140814044",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/4274a9123e8d49a1857ab76b3c55cd9249c6425a",
+                "reference": "4274a9123e8d49a1857ab76b3c55cd9249c6425a",
                 "shasum": ""
             },
             "require": {
@@ -405,9 +405,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.12.2"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.13.0"
             },
-            "time": "2024-05-15T06:44:10+00:00"
+            "time": "2024-05-22T05:29:46+00:00"
         },
         {
             "name": "masterminds/html5",

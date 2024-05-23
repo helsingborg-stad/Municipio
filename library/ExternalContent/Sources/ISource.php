@@ -15,4 +15,7 @@ interface ISource
      * @return (Thing|Event|JobPosting)[]
      */
     public function getObjects(?ISourceFilter $filter = null): array;
+    public function getPostType(): string;
+    public function getType(): string;
+    public function getId(): int;
 };

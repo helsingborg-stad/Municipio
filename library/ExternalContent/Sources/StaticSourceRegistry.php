@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\Sources;
 
 use Municipio\ExternalContent\Sources\ISource;
 
-class SourceRegistry implements ISourceRegistry
+class StaticSourceRegistry implements ISourceRegistry
 {
     private const ID_RANGE_START  = 100;
     private static array $sources = [];
@@ -13,30 +13,30 @@ class SourceRegistry implements ISourceRegistry
      * @param \Municipio\ExternalContent\Config\ISourceConfig[] $sourceConfigurations
      * @param \Municipio\ExternalContent\Sources\ISourceFactory $sourceFactory
      */
-    public static function setupRegistry(array $sourceConfigurations, ISourceFactory $sourceFactory)
+    public function __construct(array $sourceConfigurations, ISourceFactory $sourceFactory)
     {
         foreach ($sourceConfigurations as $sourceConfiguration) {
-            self::registerSource($sourceFactory->createSource($sourceConfiguration));
+            self::registerSource($sourceFactory->createSource(self::getNextId(), $sourceConfiguration));
         }
     }
 
-    private static function registerSource(ISource $source): void
+    private function registerSource(ISource $source): void
     {
-        self::$sources[self::getNextId()] = $source;
+        self::$sources[] = $source;
     }
 
-    private static function getNextId(): string
+    private function getNextId(): int
     {
         $nextId  = count(self::$sources);
         $nextId += self::ID_RANGE_START;
         $nextId  = $nextId * -1;
-        return (string)$nextId++;
+        return $nextId++;
     }
 
     /**
      * @inheritDoc
      */
-    public static function getSources(): array
+    public function getSources(): array
     {
         return self::$sources;
     }
@@ -44,8 +44,14 @@ class SourceRegistry implements ISourceRegistry
     /**
      * @inheritDoc
      */
-    public static function getSourceById(string $id): ISource
+    public function getSourceById(int $id): ?ISource
     {
-        return self::$sources[$id];
+        foreach (self::$sources as $source) {
+            if ($source->getId() === $id) {
+                return $source;
+            }
+        }
+
+        return null;
     }
 }

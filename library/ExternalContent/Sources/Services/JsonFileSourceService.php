@@ -15,9 +15,18 @@ class JsonFileSourceService implements ISource {
     public function __construct(
         private IJsonFileSourceConfig $config,
         private GetFileContent $fileSystem,
-        private JsonToSchemaObjects $jsonToSchemaObjects
+        private JsonToSchemaObjects $jsonToSchemaObjects,
+        private ?ISource $inner = null
         )
     {
+        if( $this->inner === null ) {
+            $this->inner = new SourceService($this->config->getPostType(), $this->config->getSchemaObjectType());
+        }
+    }
+
+    public function getId(): int
+    {
+        return $this->inner->getId();
     }
 
     public function getObject(string|int $id): null|Thing|Event
@@ -37,5 +46,15 @@ class JsonFileSourceService implements ISource {
     public function getObjects(?ISourceFilter $filter = null): array
     {
         return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->config->getFile()) );
+    }
+
+    public function getPostType(): string
+    {
+        return $this->inner->getPostType();
+    }
+
+    public function getType(): string
+    {
+        return $this->inner->getType();
     }
 }

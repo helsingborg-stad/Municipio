@@ -13,7 +13,7 @@ class ApplySourceIdToPost
 
     public function apply(): WP_Post
     {
-        $this->inner->ID = $this->sourceId . $this->inner->ID;
+        $this->inner->ID = (int)($this->sourceId . $this->inner->ID);
         return $this->inner;
     }
 }

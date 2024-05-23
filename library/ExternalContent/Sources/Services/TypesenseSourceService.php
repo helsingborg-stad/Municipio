@@ -13,14 +13,25 @@ use Spatie\SchemaOrg\Thing;
 class TypesenseSourceService implements ISource
 {
     public function __construct(
-        private ITypesenseClient $iTypesenseClient,
-        private JsonToSchemaObjects $jsonToSchemaObjects
+        private ITypesenseClient $typesenseClient,
+        private string $postType,
+        private string $schemaType,
+        private JsonToSchemaObjects $jsonToSchemaObjects,
+        private ?ISource $inner = null
     ) {
+        if ($this->inner === null) {
+            $this->inner = new SourceService($this->postType, $this->schemaType);
+        }
+    }
+
+    public function getId(): int
+    {
+        return $this->inner->getId();
     }
 
     public function getObject(string|int $id): null|Thing|Event|JobPosting
     {
-        $result  = $this->iTypesenseClient->getSingleBySchemaId($id);
+        $result  = $this->typesenseClient->getSingleBySchemaId($id);
         $json    = json_encode($result);
         $objects = $this->jsonToSchemaObjects->transform($json);
         $index   = array_search($id, array_column($objects, '@id'));
@@ -33,7 +44,17 @@ class TypesenseSourceService implements ISource
      */
     public function getObjects(?ISourceFilter $filter = null): array
     {
-        $result = $this->iTypesenseClient->getAll();
+        $result = $this->typesenseClient->getAll();
         return $this->jsonToSchemaObjects->transform(json_encode($result));
+    }
+
+    public function getPostType(): string
+    {
+        return $this->inner->getPostType();
+    }
+
+    public function getType(): string
+    {
+        return $this->inner->getType();
     }
 }

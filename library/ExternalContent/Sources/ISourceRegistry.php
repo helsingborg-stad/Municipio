@@ -7,6 +7,6 @@ interface ISourceRegistry
     /**
      * @return ISource[]
      */
-    public static function getSources(): array;
-    public static function getSourceById(string $id): ISource;
+    public function getSources(): array;
+    public function getSourceById(int $id): ?ISource;
 }
