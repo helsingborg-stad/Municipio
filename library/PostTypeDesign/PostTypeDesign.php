@@ -9,7 +9,9 @@ class PostTypeDesign {
 
     public function __construct()
     {
-        new SaveDesigns($this->optionName);
+        $saveDesignInstance = new SaveDesigns($this->optionName);
+        $saveDesignInstance->addHooks();
+        
         new SetDesigns($this->optionName);
     }
 }
