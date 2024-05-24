@@ -20,7 +20,7 @@ class ConfigSanitizer {
     public function transform():array
     {
         if (empty($this->config) || empty($this->keys)) {
-            return $this->config;
+            return $this->config ?? [];
         }
 
         foreach ($this->config as $key => $value) {
