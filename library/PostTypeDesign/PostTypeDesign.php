@@ -12,6 +12,7 @@ class PostTypeDesign {
         $saveDesignInstance = new SaveDesigns($this->optionName);
         $saveDesignInstance->addHooks();
         
-        new SetDesigns($this->optionName);
+        $setDesignInstance = new SetDesigns($this->optionName);
+        $setDesignInstance->addHooks();
     }
 }

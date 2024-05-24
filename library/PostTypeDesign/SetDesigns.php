@@ -3,7 +3,9 @@
 namespace Municipio\PostTypeDesign;
 
 class SetDesigns {
-    public function __construct(private string $optionName)
+    public function __construct(private string $optionName) {}
+
+    public function addHooks()
     {
         add_filter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
         add_filter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
