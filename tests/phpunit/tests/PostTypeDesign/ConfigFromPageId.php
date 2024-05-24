@@ -26,12 +26,13 @@ class ConfigFromPageIdTest extends TestCase
     //     $this->assertEquals(null, $result);
     // }
 
+    /**
+     * @runInSeparateProcess
+    */
     public function testGetReturnsTwoValuesWhenNotFailing()
     {
         $configFromPageId = new ConfigFromPageId('test');
         
-        
-
         WP_Mock::userFunction('wp_remote_get');
         WP_Mock::userFunction('wp_remote_retrieve_body')
         ->andReturn(json_encode([]));
@@ -40,7 +41,9 @@ class ConfigFromPageIdTest extends TestCase
         $this->assertCount(2, $result);
     }
 
-
+    /**
+     * @runInSeparateProcess
+    */
     public function testGetReturnsModsAndCss()
     {
         $configFromPageId = new ConfigFromPageId('test');
