@@ -15,6 +15,5 @@ interface ISource
      */
     public function getObjects(?WP_Query $query = null): array;
     public function getPostType(): string;
-    public function getType(): string;
     public function getId(): int;
 };

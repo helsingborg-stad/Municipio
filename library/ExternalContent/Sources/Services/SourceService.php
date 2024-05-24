@@ -13,7 +13,7 @@ class SourceService implements ISource
     private static int $instanceCount = 0;
     private int $id;
 
-    public function __construct(private string $postType, private string $schemaType)
+    public function __construct(private string $postType)
     {
         self::$instanceCount++;
         $this->id = self::$instanceCount + self::ID_RANGE_START;
@@ -37,10 +37,5 @@ class SourceService implements ISource
     public function getPostType(): string
     {
         return $this->postType;
-    }
-
-    public function getType(): string
-    {
-        return $this->schemaType;
     }
 }

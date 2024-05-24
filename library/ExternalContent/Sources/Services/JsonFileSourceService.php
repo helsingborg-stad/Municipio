@@ -20,7 +20,7 @@ class JsonFileSourceService implements ISource {
         )
     {
         if( $this->inner === null ) {
-            $this->inner = new SourceService($this->config->getPostType(), $this->config->getSchemaObjectType());
+            $this->inner = new SourceService($this->config->getPostType());
         }
     }
 
@@ -51,10 +51,5 @@ class JsonFileSourceService implements ISource {
     public function getPostType(): string
     {
         return $this->inner->getPostType();
-    }
-
-    public function getType(): string
-    {
-        return $this->inner->getType();
     }
 }

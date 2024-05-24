@@ -271,8 +271,8 @@ class App
     private function trySetupExternalContent(): void
     {
         $sourceRegistry = new StaticSourceRegistry([
-            // new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'Event', '/var/www/html/wp-content/shemaobjects.json'),
-            // new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'Thing', '/var/www/html/wp-content/thingshemaobjects.json'),
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'Event', '/var/www/html/wp-content/shemaobjects.json'),
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'Thing', '/var/www/html/wp-content/thingshemaobjects.json'),
             new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
         ], new \Municipio\ExternalContent\Sources\SourceFactory());
 
@@ -286,17 +286,22 @@ class App
             ]);
         });
 
-        $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyDefaultProperties($this->wpService);
-        $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\AddMetaPropertyWithSchemaData($convertSchemaObjectToPost);
-        $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyJobPostingProperties($convertSchemaObjectToPost);
-        $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostType($sourceRegistry, new \Municipio\ExternalContent\SchemaObjectToWpPost\Helpers\Helpers(), $convertSchemaObjectToPost);
-        $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostNameFromTitle($convertSchemaObjectToPost, $this->wpService);
+        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyDefaultProperties($this->wpService);
+        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\AddMetaPropertyWithSchemaData($convertSchemaObjectToPost);
+        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyJobPostingProperties($convertSchemaObjectToPost);
+        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostType($sourceRegistry, new \Municipio\ExternalContent\SchemaObjectToWpPost\Helpers\Helpers(), $convertSchemaObjectToPost);
+        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostNameFromTitle($convertSchemaObjectToPost, $this->wpService);
 
-        $postsResultsHelpers                = new \Municipio\ExternalContent\PostsResults\Helpers\Helpers($sourceRegistry);
-        $populateWpQueryWithExternalContent = new PopulateWpQueryWithExternalContent($this->wpService, $postsResultsHelpers, $convertSchemaObjectToPost);
-        $addExternalContentToWpCache        = new AddExternalContentToWpCache($this->wpService, $postsResultsHelpers);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
+        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSourceToLocal($wpPostFactory, $this->wpService);
+        // $syncSourceToLocal->sync($sourceRegistry->getSources()[0]);
 
-        $this->hooksRegistrar->register($populateWpQueryWithExternalContent);
-        $this->hooksRegistrar->register($addExternalContentToWpCache);
+        // $postsResultsHelpers                = new \Municipio\ExternalContent\PostsResults\Helpers\Helpers($sourceRegistry);
+        // $populateWpQueryWithExternalContent = new PopulateWpQueryWithExternalContent($this->wpService, $postsResultsHelpers, $convertSchemaObjectToPost);
+        // $addExternalContentToWpCache        = new AddExternalContentToWpCache($this->wpService, $postsResultsHelpers);
+
+        // $this->hooksRegistrar->register($populateWpQueryWithExternalContent);
+        // $this->hooksRegistrar->register($addExternalContentToWpCache);
     }
 }

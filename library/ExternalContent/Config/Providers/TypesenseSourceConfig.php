@@ -8,7 +8,6 @@ class TypesenseSourceConfig extends SourceConfig implements ITypesenseSourceConf
 {
     public function __construct(
         protected $postType,
-        protected $schemaObjectType,
         protected $apiKey,
         protected $host,
         protected $collectionName,
@@ -16,7 +15,7 @@ class TypesenseSourceConfig extends SourceConfig implements ITypesenseSourceConf
         protected string $protocol = 'https',
         protected int $connectionTimeoutSeconds = 5
     ) {
-        parent::__construct($postType, $schemaObjectType);
+        parent::__construct($postType);
     }
 
     public function getApiKey(): string

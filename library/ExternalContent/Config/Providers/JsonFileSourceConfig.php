@@ -6,9 +6,9 @@ use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
 
 class JsonFileSourceConfig extends SourceConfig implements IJsonFileSourceConfig
 {
-    public function __construct(protected $postType, protected $schemaObjectType, protected $file)
+    public function __construct(protected $postType, protected $file)
     {
-        parent::__construct($postType, $schemaObjectType);
+        parent::__construct($postType);
     }
 
     public function getFile(): string

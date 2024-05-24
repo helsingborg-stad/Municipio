@@ -13,13 +13,11 @@ class TypesenseSourceService implements ISource
     public function __construct(
         private ITypesenseClient $typesenseClient,
         private string $postType,
-        private string $schemaType,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private 
         private ?ISource $inner = null
     ) {
         if ($this->inner === null) {
-            $this->inner = new SourceService($this->postType, $this->schemaType);
+            $this->inner = new SourceService($this->postType);
         }
     }
 
@@ -50,10 +48,5 @@ class TypesenseSourceService implements ISource
     public function getPostType(): string
     {
         return $this->inner->getPostType();
-    }
-
-    public function getType(): string
-    {
-        return $this->inner->getType();
     }
 }
