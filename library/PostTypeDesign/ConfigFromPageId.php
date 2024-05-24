@@ -17,7 +17,10 @@ class ConfigFromPageId {
             $body = wp_remote_retrieve_body($response);
             $body = json_decode($body, true);
 
-            return !empty($body['mods']) ? $body['mods'] : [];
+            return [
+                !empty($body['mods']) ? $body['mods'] : [], 
+                !empty($body['css']) ? $body['css'] : null
+            ];
         }
     }
 }

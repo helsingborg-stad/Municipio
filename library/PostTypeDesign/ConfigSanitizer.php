@@ -29,6 +29,8 @@ class ConfigSanitizer {
             }
         }
 
+        $this->config = array_merge(array_fill_keys($this->keys, null), $this->config);
+
         return $this->config;
     }
 }
