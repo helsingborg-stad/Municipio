@@ -226,14 +226,35 @@ class App
         });
 
         /**
+         * Imported post type design
+         */
+        $this->setupPostTypeDesign();
+
+        /**
          * Branded emails
          */
         $this->trySetupBrandedEmails();
+    }
 
-        /**
-         * Imported post type design
-         */
-        new \Municipio\PostTypeDesign\PostTypeDesign();
+    /**
+     * Sets up the post type design.
+     *
+     * This method initializes the post type design by creating instances of the
+     * SaveDesigns and SetDesigns classes and passing the option name and the
+     * WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupPostTypeDesign(): void
+    {
+        $optionName = 'post_type_design';
+        new \Municipio\PostTypeDesign\SaveDesigns(
+            $optionName,
+            $this->wpService,
+            new \Municipio\PostTypeDesign\ConfigFromPageId($this->wpService)
+        );
+        
+        new \Municipio\PostTypeDesign\SetDesigns($optionName, $this->wpService);
     }
 
     /**

@@ -21,7 +21,7 @@ class ColorKeys implements KeysInterface
             'hero_content_bg_color',
             'hero_contrast_color',
             'drop_shadow_color',
-            
+
         ];
     }
 }

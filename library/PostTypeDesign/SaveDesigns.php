@@ -4,27 +4,39 @@ namespace Municipio\PostTypeDesign;
 
 use Municipio\PostTypeDesign\ConfigFromPageId;
 use Municipio\PostTypeDesign\ConfigSanitizer;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\GetPostTypes;
+use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\UpdateOption;
 
-class SaveDesigns {
-    public function __construct(private string $optionName) {}
-    
-    public function addHooks()
-    {
-        add_action('customize_save_after', array($this, 'storeDesign'));
+class SaveDesigns
+{
+    public function __construct(
+        private string $optionName,
+        private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
+        private ConfigFromPageId $configFromPageId
+    ) {
+        $this->addHooks();
     }
 
-    public function storeDesigns(\WP_Customize_Manager $customizerManager = null): void
+    public function addHooks()
     {
-        
-        $postTypes = get_post_types(['public' => true], 'names');
+        // $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
+    }
+
+    public function storeDesigns(): void
+    {
+        $postTypes = $this->wpService->getPostTypes(['public' => true], 'names');
         if (empty($postTypes)) {
             return;
         }
-        
-        $designOption   = get_option('post_type_design');
+
+        $designOption = $this->wpService->getOption('post_type_design');
 
         foreach ($postTypes as $postType) {
-            $design = get_theme_mod($postType . '_load_design');
+            $design = $this->wpService->getThemeMod($postType . '_load_design');
 
             if ($this->hasDesignOrAlreadySetValue($design, $designOption, $postType)) {
                 $this->maybeRemoveOptionKey($design, $designOption, $postType);
@@ -37,17 +49,17 @@ class SaveDesigns {
 
     public function tryUpdateOptionWithDesign(mixed $design, mixed $designOption, string $postType): void
     {
-        [$designConfig, $css]   = (new ConfigFromPageId($design))->get();
-        $sanitizedDesignConfig  = $this->getDesignConfig($designConfig);
+        [$designConfig, $css]  = $this->configFromPageId->get($design);
+        $sanitizedDesignConfig = $this->getDesignConfig($designConfig);
 
         if (!empty($sanitizedDesignConfig)) {
             $designOption[$postType] = [
-                'design' => $sanitizedDesignConfig, 
-                'css' => $css, 
+                'design'   => $sanitizedDesignConfig,
+                'css'      => $css,
                 'designId' => $design
             ];
 
-            update_option('post_type_design', $designOption);
+            $this->wpService->updateOption('post_type_design', $designOption);
         }
     }
 
@@ -55,14 +67,20 @@ class SaveDesigns {
     {
         if (empty($design) && isset($designOption[$postType])) {
             unset($designOption[$postType]);
-            update_option('post_type_design', $designOption);
+            $this->wpService->updateOption('post_type_design', $designOption);
         }
     }
 
     private function hasDesignOrAlreadySetValue(mixed $design, mixed $designOption, string $postType): bool
     {
-        return empty($design) || 
-            (isset($designOption[$postType]) && 
+        $shouldUpdate = $this->wpService->getThemeMod($postType . '_post_type_update_design');
+
+        if ($shouldUpdate && !empty($design)) {
+            return false;
+        }
+
+        return empty($design) ||
+            (isset($designOption[$postType]) &&
             $designOption[$postType]['designId'] === $design);
     }
 

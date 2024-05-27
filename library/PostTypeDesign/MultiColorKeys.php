@@ -2,8 +2,9 @@
 
 namespace Municipio\PostTypeDesign;
 
-class MultiColorKeys implements KeysInterface {
-    public static function get():array 
+class MultiColorKeys implements KeysInterface
+{
+    public static function get(): array
     {
         return [
             'color_button_primary',

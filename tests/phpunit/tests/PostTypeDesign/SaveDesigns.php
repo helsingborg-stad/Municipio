@@ -22,7 +22,7 @@ class testSaveDesigns extends TestCase
     {
         $saveDesignsInstance = new SaveDesigns('name');
         WP_Mock::userFunction('get_post_types', [
-            'args' => [['public' => true], 'names'],
+            'args'   => [['public' => true], 'names'],
             'return' => []
         ]);
 
@@ -41,13 +41,13 @@ class testSaveDesigns extends TestCase
     public function testTryUpdateOptionWithDesignDoesntUpdateOptionIfNoDesign()
     {
         $saveDesignsInstance = new SaveDesigns('name');
-        $mock = Mockery::mock('overload:Municipio\PostTypeDesign\ConfigFromPageId');
+        $mock                = Mockery::mock('overload:Municipio\PostTypeDesign\ConfigFromPageId');
         $mock->shouldReceive('get')->andReturn([[], null]);
 
         WP_Mock::userFunction('update_option', [
             'times' => '0'
         ]);
-        
+
         $result = $saveDesignsInstance->tryUpdateOptionWithDesign('designId', [], 'postType');
 
         $this->assertTrue(true);
@@ -59,13 +59,13 @@ class testSaveDesigns extends TestCase
     public function testTryUpdateOptionWithDesignUpdateOptionDesign()
     {
         $saveDesignsInstance = new SaveDesigns('name');
-        $mock = Mockery::mock('overload:Municipio\PostTypeDesign\ConfigFromPageId');
+        $mock                = Mockery::mock('overload:Municipio\PostTypeDesign\ConfigFromPageId');
         $mock->shouldReceive('get')->andReturn([['abc'], null]);
 
         WP_Mock::userFunction('update_option', [
             'times' => '1'
         ]);
-        
+
         $result = $saveDesignsInstance->tryUpdateOptionWithDesign('designId', [], 'postType');
 
         $this->assertTrue(true);

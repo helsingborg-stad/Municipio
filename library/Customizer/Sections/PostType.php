@@ -6,9 +6,9 @@ use Kirki\Compatibility\Kirki;
 
 class PostType
 {
-    private const API_URL                   = 'https://customizer.municipio.tech/';
-    private const LOAD_DESIGN_KEY           = 'load_design';
-    private const EXCLUDE_LOAD_DESIGN_KEY   = 'exclude_load_design';
+    private const API_URL           = 'https://customizer.municipio.tech/';
+    private const LOAD_DESIGN_KEY   = 'load_design';
+    private const UPDATE_DESIGN     = 'post_type_update_design';
     private $uniqueId               = null;
 
     public function __construct(private string $sectionID, private object $postType)
@@ -24,10 +24,16 @@ class PostType
             'transport'   => 'postMessage'
         ]);
 
-        //Store on save
-
-        //Cron action to trigger
-
+        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            'type'        => 'checkbox',
+            'settings'    => $this->postType->name . '_' . self::UPDATE_DESIGN,
+            'label'       => esc_html__('Update design', 'municipio'),
+            'description' => esc_html__('Update design to a newer version.', 'municipio'),
+            'section'     => $this->sectionID,
+            'default'     => false,
+            'priority'    => 10,
+            'transport'   => 'postMessage'
+        ]);
     }
 
     private function loadOptions(): array

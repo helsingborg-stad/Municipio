@@ -2,22 +2,25 @@
 
 namespace Municipio\PostTypeDesign;
 
-class ConfigSanitizer {
+class ConfigSanitizer
+{
     private array $keys = [];
 
-    public function __construct(private ?array $config) {}
+    public function __construct(private ?array $config)
+    {
+    }
 
-    public function setKey(string $key):void
+    public function setKey(string $key): void
     {
         $this->keys[] = $key;
     }
 
-    public function setKeys(array $keys):void
+    public function setKeys(array $keys): void
     {
         $this->keys = array_merge($keys, $this->keys);
     }
 
-    public function transform():array
+    public function transform(): array
     {
         if (empty($this->config) || empty($this->keys)) {
             return $this->config ?? [];
