@@ -8,22 +8,13 @@ use Municipio\ExternalContent\Sources\Services\TypesenseClient\ITypesenseClient;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-class TypesenseSourceService implements ISource
+class TypesenseSourceServiceDecorator implements ISource
 {
     public function __construct(
         private ITypesenseClient $typesenseClient,
-        private string $postType,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ?ISource $inner = null
+        private ISource $inner = new NullSourceService(),
     ) {
-        if ($this->inner === null) {
-            $this->inner = new SourceService($this->postType);
-        }
-    }
-
-    public function getId(): int
-    {
-        return $this->inner->getId();
     }
 
     public function getObject(string|int $id): null|BaseType
@@ -48,5 +39,10 @@ class TypesenseSourceService implements ISource
     public function getPostType(): string
     {
         return $this->inner->getPostType();
+    }
+
+    public function getId(): string
+    {
+        return $this->inner->getId();
     }
 }

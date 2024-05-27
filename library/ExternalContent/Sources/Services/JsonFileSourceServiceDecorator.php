@@ -10,23 +10,15 @@ use Spatie\SchemaOrg\Thing;
 use WP_Query;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceService implements ISource {
+class JsonFileSourceServiceDecorator implements ISource {
 
     public function __construct(
         private IJsonFileSourceConfig $config,
         private GetFileContent $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ?ISource $inner = null
+        private ISource $inner = new NullSourceService()
         )
     {
-        if( $this->inner === null ) {
-            $this->inner = new SourceService($this->config->getPostType());
-        }
-    }
-
-    public function getId(): int
-    {
-        return $this->inner->getId();
     }
 
     public function getObject(string|int $id): null|Thing|Event
@@ -40,7 +32,7 @@ class JsonFileSourceService implements ISource {
             }
         }
 
-        return null;
+        return $this->inner->getObject($id);
     }
 
     public function getObjects(?WP_Query $query = null): array
@@ -51,5 +43,10 @@ class JsonFileSourceService implements ISource {
     public function getPostType(): string
     {
         return $this->inner->getPostType();
+    }
+
+    public function getId(): string
+    {
+        return $this->inner->getId();
     }
 }

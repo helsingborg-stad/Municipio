@@ -2,6 +2,8 @@
 
 namespace Municipio\ExternalContent\WpPostMetaFactory;
 
+use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
@@ -16,7 +18,7 @@ class WpPostMetaFactoryOriginIdDecoratorTest extends TestCase
         $schemaObject->setProperty('@id', 'foo');
         $factory = new WpPostMetaFactoryOriginIdDecorator($this->getInnerFactory());
 
-        $result = $factory->create($schemaObject);
+        $result = $factory->create($schemaObject, new NullSourceService());
 
         $this->assertEquals('foo', $result['originId']);
     }
@@ -24,7 +26,7 @@ class WpPostMetaFactoryOriginIdDecoratorTest extends TestCase
     private function getInnerFactory(): WpPostMetaFactoryInterface
     {
         return new class implements WpPostMetaFactoryInterface {
-            public function create(BaseType $schemaObject): array
+            public function create(BaseType $schemaObject, ISource $source): array
             {
                 return [];
             }

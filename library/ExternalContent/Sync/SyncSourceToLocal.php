@@ -19,20 +19,26 @@ class SyncSourceToLocal implements ISyncSourceToLocal
 
     public function sync(ISource $source): void
     {
-        $posts = array_map([$this, 'getPostArrayToInsert'], $source->getObjects());
-        $posts = array_map(fn($post) => $this->setPostTypeFromSourceAndReturnPost($source, $post), $posts);
+        $posts = array_map(function (BaseType $schemaObject) use ($source) {
+            return $this->getPostArrayToInsert($schemaObject, $source);
+        }, $source->getObjects());
+
+        $posts = array_map(function (array $postData) use ($source) {
+            return $this->setPostTypeFromSourceAndReturnPost($postData, $source);
+        }, $posts);
+
         array_map([$this->wpService, 'insertPost'], $posts);
     }
 
-    private function getPostArrayToInsert(BaseType $schemaObject): array
+    private function getPostArrayToInsert(BaseType $schemaObject, ISource $source): array
     {
-        $postData               = $this->wpPostFactory->create($schemaObject)->to_array();
-        $postData['meta_input'] = $this->wpPostMetaFactory->create($schemaObject);
+        $postData               = $this->wpPostFactory->create($schemaObject, $source)->to_array();
+        $postData['meta_input'] = $this->wpPostMetaFactory->create($schemaObject, $source);
 
         return $postData;
     }
 
-    private function setPostTypeFromSourceAndReturnPost(ISource $source, array $postData): array
+    private function setPostTypeFromSourceAndReturnPost(array $postData, ISource $source): array
     {
         $postData['post_type'] = $source->getPostType();
         return $postData;

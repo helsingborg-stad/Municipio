@@ -281,30 +281,18 @@ class App
                 'label'        => 'Foo',
                 'public'       => true,
                 'show_in_rest' => true,
-                'supports'     => ['thumbnail'],
+                'supports'     => ['thumbnail', 'custom-fields'],
                 'has_archive'  => true,
             ]);
         });
-
-        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyDefaultProperties($this->wpService);
-        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\AddMetaPropertyWithSchemaData($convertSchemaObjectToPost);
-        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyJobPostingProperties($convertSchemaObjectToPost);
-        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostType($sourceRegistry, new \Municipio\ExternalContent\SchemaObjectToWpPost\Helpers\Helpers(), $convertSchemaObjectToPost);
-        // $convertSchemaObjectToPost = new \Municipio\ExternalContent\SchemaObjectToWpPost\ApplyPostNameFromTitle($convertSchemaObjectToPost, $this->wpService);
 
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactory();
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactorySourceIdDecorator($wpPostMetaFactory);
         $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSourceToLocal($wpPostFactory, $wpPostMetaFactory, $this->wpService);
         // $syncSourceToLocal->sync($sourceRegistry->getSources()[0]);
-
-        // $postsResultsHelpers                = new \Municipio\ExternalContent\PostsResults\Helpers\Helpers($sourceRegistry);r
-        // $populateWpQueryWithExternalContent = new PopulateWpQueryWithExternalContent($this->wpService, $postsResultsHelpers, $convertSchemaObjectToPost);
-        // $addExternalContentToWpCache        = new AddExternalContentToWpCache($this->wpService, $postsResultsHelpers);
-
-        // $this->hooksRegistrar->register($populateWpQueryWithExternalContent);
-        // $this->hooksRegistrar->register($addExternalContentToWpCache);
     }
 }

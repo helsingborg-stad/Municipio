@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostMetaFactory;
 
+use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
@@ -13,11 +14,10 @@ class WpPostMetaFactoryThumbnailDecorator implements WpPostMetaFactoryInterface
     {
     }
 
-    public function create(BaseType $schemaObject): array
+    public function create(BaseType $schemaObject, ISource $source): array
     {
-        $meta     = $this->inner->create($schemaObject);
+        $meta     = $this->inner->create($schemaObject, $source);
         $imageUrl = $this->getImageUrl($schemaObject);
-
 
         if (!empty($imageUrl)) {
             $attachmentId = $this->getAttachmentBySourceUrl($imageUrl);

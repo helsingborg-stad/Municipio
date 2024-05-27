@@ -7,10 +7,11 @@ use Municipio\ExternalContent\Config\ISourceConfig;
 use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\Services\DecorateSchemaObjectsWithLocalIds;
-use Municipio\ExternalContent\Sources\Services\JsonFileSourceService;
+use Municipio\ExternalContent\Sources\Services\JsonFileSourceServiceDecorator;
+use Municipio\ExternalContent\Sources\Services\SourceServiceWithPostType;
+use Municipio\ExternalContent\Sources\Services\SourceServiceWithSourceId;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
-use Municipio\ExternalContent\Sources\Services\TypesenseSourceService;
+use Municipio\ExternalContent\Sources\Services\TypesenseSourceServiceDecorator;
 use WpService\FileSystem\BaseFileSystem;
 
 class SourceFactory implements ISourceFactory
@@ -18,13 +19,30 @@ class SourceFactory implements ISourceFactory
     public function createSource(int $id, ISourceConfig $sourceConfig): ISource
     {
         if ($sourceConfig instanceof ITypesenseSourceConfig) {
-            return new TypesenseSourceService(
+            $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getHost() . $sourceConfig->getCollectionName();
+            $souceServiceId = md5($souceServiceId);
+
+            return new TypesenseSourceServiceDecorator(
                 new TypesenseClient($sourceConfig),
-                $sourceConfig->getPostType(),
-                new TryConvertTypesenseJsonToSchemaObjects()
+                new TryConvertTypesenseJsonToSchemaObjects(),
+                new SourceServiceWithPostType(
+                    $sourceConfig->getPostType(),
+                    new SourceServiceWithSourceId($souceServiceId)
+                )
             );
         } elseif ($sourceConfig instanceof IJsonFileSourceConfig) {
-            return new JsonFileSourceService($sourceConfig, new BaseFileSystem(), new SimpleJsonConverter());
+            $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getFile();
+            $souceServiceId = md5($souceServiceId);
+
+            return new JsonFileSourceServiceDecorator(
+                $sourceConfig,
+                new BaseFileSystem(),
+                new SimpleJsonConverter(),
+                new SourceServiceWithPostType(
+                    $sourceConfig->getPostType(),
+                    new SourceServiceWithSourceId($souceServiceId)
+                )
+            );
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\WpPostMetaFactory;
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 
-class WpPostMetaFactoryOriginIdDecorator implements WpPostMetaFactoryInterface
+class WpPostMetaFactorySourceIdDecorator implements WpPostMetaFactoryInterface
 {
     public function __construct(private WpPostMetaFactoryInterface $inner)
     {
@@ -14,7 +14,7 @@ class WpPostMetaFactoryOriginIdDecorator implements WpPostMetaFactoryInterface
     public function create(BaseType $schemaObject, ISource $source): array
     {
         $meta             = $this->inner->create($schemaObject, $source);
-        $meta['originId'] = $schemaObject['@id'];
+        $meta['sourceId'] = $source->getId();
 
         return $meta;
     }

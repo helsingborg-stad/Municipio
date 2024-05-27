@@ -2,12 +2,13 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
+use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 use WP_Post;
 
 class WpPostFactory implements WpPostFactoryInterface
 {
-    public function create(BaseType $schemaObject): WP_Post
+    public function create(BaseType $schemaObject, ISource $source): WP_Post
     {
         $post               = new WP_Post((object) []);
         $post->post_title   = $schemaObject['name'] ?? '';

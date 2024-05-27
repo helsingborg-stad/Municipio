@@ -67,7 +67,6 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
     private function getWpService(array $db = []): MediaSideloadImage&GetPosts
     {
         return new class ($db) implements MediaSideloadImage, GetPosts {
-
             public array $calls = ['mediaSideloadImage' => []];
             public function __construct(private array $db)
             {
@@ -78,7 +77,7 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
                 $this->calls['mediaSideloadImage'][] = func_get_args();
                 return 1;
             }
-            
+
             public function getPosts(array $args): array
             {
                 return $this->db['getPosts'] ?? [];

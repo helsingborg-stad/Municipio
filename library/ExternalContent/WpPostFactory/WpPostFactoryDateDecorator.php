@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
+use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
 use WP_Post;
@@ -12,9 +13,9 @@ class WpPostFactoryDateDecorator implements WpPostFactoryInterface
     {
     }
 
-    public function create(BaseType $schemaObject): WP_Post
+    public function create(BaseType $schemaObject, ISource $source): WP_Post
     {
-        $post = $this->inner->create($schemaObject);
+        $post = $this->inner->create($schemaObject, $source);
 
         $post->post_date     = $schemaObject['datePublished'] ?? null;
         $post->post_modified = $schemaObject['dateModified'] ?? null;
