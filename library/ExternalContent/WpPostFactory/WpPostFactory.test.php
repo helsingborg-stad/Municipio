@@ -26,7 +26,8 @@ class WpPostFactoryTest extends TestCase
     /**
      * @testdox WP_Post is created with post_status publish
      */
-    public function testCreateWithPublishStatus() {
+    public function testCreateWithPublishStatus()
+    {
         $schemaObject  = $this->getBaseTypeInstance();
         $wpPostFactory = new WpPostFactory();
 
