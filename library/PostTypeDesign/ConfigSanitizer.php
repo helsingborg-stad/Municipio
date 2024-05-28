@@ -4,20 +4,8 @@ namespace Municipio\PostTypeDesign;
 
 class ConfigSanitizer
 {
-    private array $keys = [];
-
-    public function __construct(private ?array $config)
+    public function __construct(private ?array $config, private array $keys = [])
     {
-    }
-
-    public function setKey(string $key): void
-    {
-        $this->keys[] = $key;
-    }
-
-    public function setKeys(array $keys): void
-    {
-        $this->keys = array_merge($keys, $this->keys);
     }
 
     public function transform(): array

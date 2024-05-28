@@ -2,7 +2,6 @@
 
 namespace Municipio\PostTypeDesign;
 
-use Municipio\PostTypeDesign\ConfigFromPageId;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetOption;
@@ -15,15 +14,15 @@ class SaveDesigns
     public function __construct(
         private string $optionName,
         private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
-        private ConfigFromPageId $configFromPageId
+        private ConfigFromPageIdInterface $configFromPageId
     ) {
         $this->addHooks();
     }
 
     public function addHooks()
     {
-        // $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
-        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
+        $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        // $this->wpService->addAction('wp', array($this, 'storeDesigns'));
     }
 
     public function storeDesigns(): void
@@ -49,7 +48,8 @@ class SaveDesigns
 
     public function tryUpdateOptionWithDesign(mixed $design, mixed $designOption, string $postType): void
     {
-        [$designConfig, $css]  = $this->configFromPageId->get($design);
+        [$designConfig, $css] = $this->configFromPageId->get($design);
+
         $sanitizedDesignConfig = $this->getDesignConfig($designConfig);
 
         if (!empty($sanitizedDesignConfig)) {
@@ -86,10 +86,12 @@ class SaveDesigns
 
     private function getDesignConfig(array $designConfig): array
     {
-        $configTransformerInstance = new ConfigSanitizer($designConfig);
-        $configTransformerInstance->setKeys(MultiColorKeys::get());
-        $configTransformerInstance->setKeys(ColorKeys::get());
-        $configTransformerInstance->setKeys(BackgroundKeys::get());
+        $keys = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
+
+        $configTransformerInstance = new ConfigSanitizer(
+            $designConfig,
+            $keys
+        );
 
         return $configTransformerInstance->transform();
     }

@@ -3,24 +3,24 @@
 namespace Municipio\PostTypeDesign;
 
 use WpService\Contracts\IsWPError;
-use WpService\Contracts\WpRemoteGet;
-use WpService\Contracts\WpRemoteRetrieveBody;
+use WpService\Contracts\RemoteGet;
+use WpService\Contracts\RemoteRetrieveBody;
 
-class ConfigFromPageId
+class ConfigFromPageId implements ConfigFromPageIdInterface
 {
     private $apiUrl = 'https://customizer.municipio.tech/id/';
 
-    public function __construct(private IsWPError&WpRemoteGet&WpRemoteRetrieveBody $wpService)
+    public function __construct(private IsWPError&RemoteGet&RemoteRetrieveBody $wpService)
     {
     }
 
-    public function get($designId): array
+    public function get(string $designId): array
     {
-        $response = $this->wpService->wpRemoteGet($this->apiUrl . $designId);
+        $response = $this->wpService->remoteGet($this->apiUrl . $designId);
         if ($this->wpService->isWPError($response)) {
-            return [];
+            return [[], null];
         } else {
-            $body = $this->wpService->wpRemoteRetrieveBody($response);
+            $body = $this->wpService->remoteRetrieveBody($response);
             $body = json_decode($body, true);
 
             return [

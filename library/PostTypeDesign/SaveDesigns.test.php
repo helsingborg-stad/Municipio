@@ -4,18 +4,12 @@ namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\PostTypeDesign\SaveDesigns;
-/* SaveDesigns */
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\UpdateOption;
-/* ConfigFromPageId */
-use Municipio\PostTypeDesign\ConfigFromPageId;
-use WpService\Contracts\IsWPError;
-use WpService\Contracts\WpRemoteGet;
-use WpService\Contracts\WpRemoteRetrieveBody;
-use WP_Error;
+use Municipio\PostTypeDesign\ConfigFromPageIdInterface;
 
 class SaveDesignsTest extends TestCase
 {
@@ -23,7 +17,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService();
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, new ConfigFromPageId($wpService));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
 
         $saveDesignsInstance->addHooks();
 
@@ -32,21 +26,97 @@ class SaveDesignsTest extends TestCase
 
     public function testStoreDesignsReturnsIfNoPostTypes()
     {
-        $wpService = $this->getWpService(['postTypes' => ['post']]);
+        $wpService = $this->getWpService(['postTypes' => []]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, new ConfigFromPageId($wpService));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(0, $wpService->getOptionRanTimes);
+        $this->assertCount(0, $wpService->getOptionCalls);
+    }
+
+    public function testStoreDesignsSkipsIfDesignExists()
+    {
+        $wpService = $this->getWpService([
+            'postTypes' => ['post'],
+            'getOption' => ['post_type_design' => ['post' => '123']]
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
+
+        $saveDesignsInstance->storeDesigns();
+
+        $this->assertCount(2, $wpService->getThemeModCalls);
+        $this->assertCount(1, $wpService->getOptionCalls);
+        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+    }
+
+    public function testStoreDesignsUpdatesIfAutoUpdate()
+    {
+        $wpService = $this->getWpService([
+            'postTypes'   => ['post'],
+            'getOption'   => ['post_type_design' => ['post' => '123']],
+            'getThemeMod' => '123'
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
+
+        $saveDesignsInstance->storeDesigns();
+
+        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+    }
+
+    public function testStoreDesignsUpdatesDesignIfCssOrMods()
+    {
+        $wpService = $this->getWpService([
+            'postTypes'   => ['post'],
+            'getOption'   => ['post_type_design' => ['post' => '123']],
+            'getThemeMod' => '123'
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['mods'], 'css']));
+
+        $saveDesignsInstance->storeDesigns();
+
+        $this->assertCount(1, $wpService->getUpdateOptionCalls);
     }
 
 
+    public function testStoreDesignsDoesNothingIfNoCssOrMods()
+    {
+        $wpService = $this->getWpService([
+            'postTypes'   => ['post'],
+            'getOption'   => ['post_type_design' => ['post' => '123']],
+            'getThemeMod' => '123'
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig());
+
+        $saveDesignsInstance->storeDesigns();
+
+        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+    }
+
+    private function getConfig($returnValue = null)
+    {
+        return new class ($returnValue) implements ConfigFromPageIdInterface {
+            public function __construct(private $returnValue)
+            {
+            }
+            public function get(string $design): array
+            {
+                return $this->returnValue ?? [[], ''];
+            }
+        };
+    }
+
     private function getWpService(array $db = []): AddAction
     {
-        return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption, IsWPError, WpRemoteGet, WpRemoteRetrieveBody {
-            public array $calls             = ['addFilter' => []];
-            public array $getOptionRanTimes = [];
+        return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
+            public array $calls                = ['addFilter' => []];
+            public array $getOptionCalls       = [];
+            public array $getThemeModCalls     = [];
+            public array $getUpdateOptionCalls = [];
 
             public function __construct(private array $db)
             {
@@ -60,13 +130,14 @@ class SaveDesignsTest extends TestCase
 
             public function getOption(string $option, mixed $defaultValue = false): mixed
             {
-                $this->getOptionRanTimes[] = "ran";
-                return $this->db['option'] = null;
+                $this->getOptionCalls[] = "ran";
+                return $this->db['getOption'] ?? null;
             }
 
             public function getThemeMod(string $name, mixed $default = false): mixed
             {
-                return $default;
+                $this->getThemeModCalls[] = "ran";
+                return $this->db['getThemeMod'] ?? $default;
             }
 
             public function getPostTypes(
@@ -79,22 +150,8 @@ class SaveDesignsTest extends TestCase
 
             public function updateOption(string $option, mixed $value, string|bool $autoload = null): bool
             {
+                $this->getUpdateOptionCalls[] = "ran";
                 return true;
-            }
-
-            public function isWPError(mixed $thing): bool
-            {
-                return false;
-            }
-
-            public function wpRemoteGet(string $url, array $args = []): array|WP_Error
-            {
-                return [];
-            }
-
-            public function wpRemoteRetrieveBody(array|WP_Error $response): string
-            {
-                return "";
             }
         };
     }
