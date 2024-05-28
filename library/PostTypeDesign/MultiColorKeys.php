@@ -2,8 +2,18 @@
 
 namespace Municipio\PostTypeDesign;
 
+/**
+ * Class MultiColorKeys
+ *
+ * Represents a class that implements the KeysInterface and provides an array of color keys.
+ */
 class MultiColorKeys implements KeysInterface
 {
+    /**
+     * Get the array of color keys.
+     *
+     * @return array The array of color keys.
+     */
     public static function get(): array
     {
         return [

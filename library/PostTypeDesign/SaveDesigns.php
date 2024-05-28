@@ -9,8 +9,20 @@ use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\UpdateOption;
 
+/**
+ * Class SaveDesigns
+ *
+ * This class is responsible for saving designs for post types.
+ */
 class SaveDesigns
 {
+    /**
+     * SaveDesigns constructor.
+     *
+     * @param string $optionName
+     * @param AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService
+     * @param ConfigFromPageIdInterface $configFromPageId
+     */
     public function __construct(
         private string $optionName,
         private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
@@ -19,12 +31,18 @@ class SaveDesigns
         $this->addHooks();
     }
 
+    /**
+     * Add hooks for saving designs.
+     */
     public function addHooks()
     {
         $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
         // $this->wpService->addAction('wp', array($this, 'storeDesigns'));
     }
 
+    /**
+     * Store designs for post types.
+     */
     public function storeDesigns(): void
     {
         $postTypes = $this->wpService->getPostTypes(['public' => true], 'names');
@@ -46,6 +64,13 @@ class SaveDesigns
         }
     }
 
+    /**
+     * Try to update the option with the design.
+     *
+     * @param mixed $design
+     * @param mixed $designOption
+     * @param string $postType
+     */
     public function tryUpdateOptionWithDesign(mixed $design, mixed $designOption, string $postType): void
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
@@ -63,6 +88,13 @@ class SaveDesigns
         }
     }
 
+    /**
+     * Remove the option key if necessary.
+     *
+     * @param mixed $design
+     * @param mixed $designOption
+     * @param string $postType
+     */
     private function maybeRemoveOptionKey(mixed $design, mixed $designOption, string $postType): void
     {
         if (empty($design) && isset($designOption[$postType])) {
@@ -71,6 +103,14 @@ class SaveDesigns
         }
     }
 
+    /**
+     * Check if the design exists or already has a value.
+     *
+     * @param mixed $design
+     * @param mixed $designOption
+     * @param string $postType
+     * @return bool
+     */
     private function hasDesignOrAlreadySetValue(mixed $design, mixed $designOption, string $postType): bool
     {
         $shouldUpdate = $this->wpService->getThemeMod($postType . '_post_type_update_design');
@@ -84,6 +124,12 @@ class SaveDesigns
             $designOption[$postType]['designId'] === $design);
     }
 
+    /**
+     * Get the sanitized design configuration.
+     *
+     * @param array $designConfig
+     * @return array
+     */
     private function getDesignConfig(array $designConfig): array
     {
         $keys = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
