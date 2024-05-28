@@ -6,29 +6,29 @@ use Kirki\Compatibility\Kirki;
 
 class PostType
 {
-    private const API_URL           = 'https://customizer.municipio.tech/';
-    private const LOAD_DESIGN_KEY   = 'load_design';
-    private const UPDATE_DESIGN     = 'post_type_update_design';
-    private $uniqueId               = null;
+    private const API_URL         = 'https://customizer.municipio.tech/';
+    private const LOAD_DESIGN_KEY = 'load_design';
+    private const UPDATE_DESIGN   = 'post_type_update_design';
+    private $uniqueId             = null;
 
     public function __construct(private string $sectionID, private object $postType)
     {
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => $this->postType->name . '_' . self::LOAD_DESIGN_KEY,
-            'label'       => esc_html__('Select a design', 'municipio'),
-            'section'     => $this->sectionID,
-            'default'     => false,
-            'priority'    => 10,
-            'choices'     => $this->loadOptions(),
-            'transport'   => 'postMessage'
+            'type'      => 'select',
+            'settings'  => $this->postType->name . '_' . self::LOAD_DESIGN_KEY,
+            'label'     => esc_html__('Select a design', 'municipio'),
+            'section'   => $this->sectionID,
+            'default'   => false,
+            'priority'  => 10,
+            'choices'   => $this->loadOptions(),
+            'transport' => 'postMessage'
         ]);
 
         Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
             'type'        => 'checkbox',
             'settings'    => $this->postType->name . '_' . self::UPDATE_DESIGN,
-            'label'       => esc_html__('Update design', 'municipio'),
-            'description' => esc_html__('Update design to a newer version.', 'municipio'),
+            'label'       => esc_html__('Follow the design', 'municipio'),
+            'description' => esc_html__('Keeps updating to the new design every time the customizer is saved.', 'municipio'),
             'section'     => $this->sectionID,
             'default'     => false,
             'priority'    => 10,
