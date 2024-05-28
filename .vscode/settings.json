@@ -9,5 +9,8 @@
     "editor.defaultFormatter": "valeryanm.vscode-phpsab",
     "[php]": {
         "editor.defaultFormatter": "valeryanm.vscode-phpsab"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
     }
 }

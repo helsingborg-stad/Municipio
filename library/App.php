@@ -271,23 +271,25 @@ class App
     private function trySetupExternalContent(): void
     {
         $sourceRegistry = new StaticSourceRegistry([
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
             new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/shemaobjects.json'),
             new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/thingshemaobjects.json'),
             new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
         ], new \Municipio\ExternalContent\Sources\SourceFactory());
 
         add_action('init', function () {
-            register_post_type('foo', [
-                'label'        => 'Foo',
+            register_post_type('job', [
+                'label'        => 'Jobs',
                 'public'       => true,
                 'show_in_rest' => true,
-                'supports'     => ['thumbnail', 'custom-fields'],
+                'supports'     => false,
                 'has_archive'  => true,
             ]);
         });
 
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryJobPostingDecorator($wpPostFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactory();
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
