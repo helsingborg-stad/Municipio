@@ -292,6 +292,7 @@ class App
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactorySourceIdDecorator($wpPostMetaFactory);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryVersionDecorator($wpPostMetaFactory);
         $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSourceToLocal($wpPostFactory, $wpPostMetaFactory, $this->wpService);
         // $syncSourceToLocal->sync($sourceRegistry->getSources()[0]);
     }

@@ -14,6 +14,6 @@ class NullSourceServiceTest extends TestCase
         $this->assertNull($nullSourceService->getObject(0));
         $this->assertEmpty($nullSourceService->getObjects());
         $this->assertEmpty($nullSourceService->getPostType());
-        $this->assertEquals(0, $nullSourceService->getId());
+        $this->assertEquals('', $nullSourceService->getId());
     }
 }
