@@ -11,6 +11,7 @@ use phpmock\mockery\PHPMockery;
 /**
  * Class ImageTest
  * @runTestsInSeparateProcesses
+ * @group wp_mock
  */
 class ImageTest extends TestCase
 {
@@ -352,7 +353,7 @@ class ImageTest extends TestCase
      * Mockup data
      */
     private function mockUpDataForImage()
-    {      
+    {
         WP_Mock::userFunction('update_post_meta', [
             'return' => true
         ]);

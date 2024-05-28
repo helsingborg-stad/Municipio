@@ -9,6 +9,7 @@ use WP_Mock;
 
 /**
  * Class GoogleTranslate
+ * @group wp_mock
  */
 class GoogleTranslateTest extends TestCase
 {

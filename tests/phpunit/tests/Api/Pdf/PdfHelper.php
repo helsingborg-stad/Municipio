@@ -11,6 +11,7 @@ use phpmock\mockery\PHPMockery;
 
 /**
  * Class PdfHelperTest
+ * @group wp_mock
  */
 class PdfHelperTest extends TestCase
 {

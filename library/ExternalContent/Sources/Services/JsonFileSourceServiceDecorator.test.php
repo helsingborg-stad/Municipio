@@ -2,11 +2,12 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
+use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceServiceTest extends TestCase {
+class JsonFileSourceServiceDecoratorTest extends TestCase {
     
     /**
      * @testdox getObject() returns ThingContract on success
@@ -21,7 +22,8 @@ class JsonFileSourceServiceTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $service = new JsonFileSourceService('fileLocation', $fileSystem, $jsonToSchemaObjects);
+        $config = $this->getConfig(['file' => 'fileLocation']);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
         
         $thing = $service->getObject('123');
 
@@ -41,7 +43,8 @@ class JsonFileSourceServiceTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $service = new JsonFileSourceService('fileLocation', $fileSystem, $jsonToSchemaObjects);
+        $config = $this->getConfig(['file' => 'fileLocation']);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
         
         $thing = $service->getObject('456');
 
@@ -65,7 +68,8 @@ class JsonFileSourceServiceTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $service = new JsonFileSourceService('fileLocation', $fileSystem, $jsonToSchemaObjects);
+        $config = $this->getConfig(['file' => 'fileLocation']);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
         
         $things = $service->getObjects(null);
 
@@ -84,6 +88,27 @@ class JsonFileSourceServiceTest extends TestCase {
             public function getFileContent(string $path): string|false
             {
                 return $this->fileContent;
+            }
+
+
+        };
+    }
+
+    private function getConfig(array $values): IJsonFileSourceConfig {
+        return new class ($values) implements IJsonFileSourceConfig {
+            
+            public function __construct(private array $values)
+            {
+            }
+
+            public function getFile(): string
+            {
+                return $this->values['file'];
+            }
+
+            public function getPostType(): string
+            {
+                return $this->values['postType'];
             }
         };
     }

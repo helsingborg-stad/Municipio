@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
+use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use WP_Post;
@@ -22,7 +23,7 @@ class WpPostFactoryDateDecoratorTest extends TestCase
         $inner->method('create')->willReturn(new WP_Post((object)[]));
 
         $wpPostFactory = new WpPostFactoryDateDecorator($inner);
-        $wpPost        = $wpPostFactory->create($schemaObject);
+        $wpPost        = $wpPostFactory->create($schemaObject, new NullSourceService());
 
         $this->assertEquals('2021-01-01', $wpPost->post_date);
         $this->assertEquals('2021-01-02', $wpPost->post_modified);

@@ -8,6 +8,7 @@ use WP_Mock\Tools\TestCase;
 
 /**
  * Class SortByParentPostTypeTest
+ * @group wp_mock
  */
 class SortByParentPostTypeTest extends TestCase
 {

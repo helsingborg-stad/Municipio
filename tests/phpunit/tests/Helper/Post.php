@@ -10,6 +10,7 @@ use Municipio\Helper\Post;
 /**
  * Class PostTest
  * @runTestsInSeparateProcesses
+ * @group wp_mock
  */
 class PostTest extends TestCase
 {
@@ -527,7 +528,7 @@ class PostTest extends TestCase
         WP_Mock::userFunction('get_object_taxonomies', [
             'return' => (object) ['icon' => 'test']
         ]);
-        
+
         WP_Mock::userFunction('get_option', [
             'return' => 'test'
         ]);
@@ -553,7 +554,7 @@ class PostTest extends TestCase
         andReturn(['src' => 'test', 'type' => 'icon'])->
         shouldReceive('getTermColor')->
         andReturn('blue');
-        
+
         Mockery::mock('alias:' . \Municipio\Helper\Navigation::class)->
         shouldReceive('getQuicklinksPlacement')->
         andReturn('after_first_block')->

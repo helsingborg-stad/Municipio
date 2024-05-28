@@ -8,6 +8,7 @@ use Municipio\Helper\Post;
 
 /**
  * Class GetFilteredContentTest
+ * @group wp_mock
  */
 class GetFilteredContentTest extends TestCase
 {

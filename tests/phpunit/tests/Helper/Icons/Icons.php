@@ -9,6 +9,7 @@ use ReflectionClass;
 
 /**
  * Class IconTest
+ * @group wp_mock
  */
 class IconsTest extends TestCase
 {

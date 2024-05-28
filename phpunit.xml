@@ -23,12 +23,12 @@
     </report>
   </coverage>
 
-  <testsuites>
-    <testsuite name="default">
-      <directory suffix=".php">./tests/phpunit/tests</directory>
-      <directory suffix=".test.php">./library</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="default">
+          <directory suffix=".php">./tests/phpunit/tests</directory>
+          <directory suffix=".test.php">./library</directory>
+        </testsuite>
+    </testsuites>
 
   <php>
     <ini name="error_reporting" value="E_ALL" />

@@ -64,7 +64,7 @@ class WpPostFactoryTest extends TestCase
             {
                 return '';
             }
-            public function getId(): int
+            public function getId(): string
             {
                 return 0;
             }
