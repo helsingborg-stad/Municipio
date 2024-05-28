@@ -5,8 +5,7 @@ namespace Municipio\ExternalContent\Sources\Services;
 use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\ISource;
-use Spatie\SchemaOrg\Event;
-use Spatie\SchemaOrg\Thing;
+use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 use WpService\FileSystem\GetFileContent;
 
@@ -21,7 +20,7 @@ class JsonFileSourceServiceDecorator implements ISource {
     {
     }
 
-    public function getObject(string|int $id): null|Thing|Event
+    public function getObject(string|int $id): BaseType
     {
         $fileContent = $this->fileSystem->getFileContent($this->config->getFile());
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );

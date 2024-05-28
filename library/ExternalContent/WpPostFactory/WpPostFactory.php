@@ -14,6 +14,7 @@ class WpPostFactory implements WpPostFactoryInterface
         $post->post_title   = $schemaObject['name'] ?? '';
         $post->post_content = $schemaObject['description'] ?? '';
         $post->post_status  = 'publish';
+        $post->post_type    = $source->getPostType();
 
         return $post;
     }

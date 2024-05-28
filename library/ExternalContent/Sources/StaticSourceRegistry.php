@@ -44,7 +44,7 @@ class StaticSourceRegistry implements ISourceRegistry
     /**
      * @inheritDoc
      */
-    public function getSourceById(int $id): ?ISource
+    public function getSourceById(string $id): ?ISource
     {
         foreach (self::$sources as $source) {
             if ($source->getId() === $id) {

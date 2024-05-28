@@ -289,13 +289,18 @@ class App
 
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryIdDecorator($wpPostFactory, $this->wpService);
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryJobPostingDecorator($wpPostFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactory();
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactorySourceIdDecorator($wpPostMetaFactory);
         $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryVersionDecorator($wpPostMetaFactory);
-        $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSourceToLocal($wpPostFactory, $wpPostMetaFactory, $this->wpService);
-        // $syncSourceToLocal->sync($sourceRegistry->getSources()[0]);
+
+        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        // $syncSourceToLocal->sync();
+
+        $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        $syncSingleSourceToLocalByPostId->sync();
     }
 }

@@ -7,7 +7,7 @@ interface JsonToSchemaObjects {
     /**
      * @param string $json
      * 
-     * @return (BaseType)[]
+     * @return Spatie\SchemaOrg\BaseType[]
      */
     public function transform(string $json): array;
 }

@@ -2,10 +2,10 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Modularity\Module\Posts\Helper\GetPosts;
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 use WP_Post;
+use WpService\Contracts\GetPosts;
 
 /**
  * Decorates WP_Post with ID to indicate that this post is to be updated and is not a new post.
@@ -22,14 +22,27 @@ class WpPostFactoryIdDecorator implements WpPostFactoryInterface
 
         if (!empty($schemaObject['@id'])) {
             $postWithSameOriginId = $this->wpService->getPosts([
-                'post_type'      => 'any',
+                'post_type'      => $source->getPostType(),
                 'posts_per_page' => 1,
-                'meta_key'       => 'originId',
-                'meta_value'     => $schemaObject['@id'],
+                'fields'         => 'ids',
+                'meta_query'     => [
+                    'meta_compare' => 'AND',
+                    [
+                        'key'     => 'originId',
+                        'value'   => $schemaObject['@id'],
+                        'compare' => '='
+                    ],
+                    [
+                        'key'     => 'sourceId',
+                        'value'   => $source->getId(),
+                        'compare' => '='
+                    ]
+                ]
+
             ]);
 
             if (!empty($postWithSameOriginId)) {
-                $post->ID = $postWithSameOriginId[0]->ID;
+                $post->ID = $postWithSameOriginId[0];
             }
         }
 
