@@ -17,7 +17,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService();
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->addHooks();
 
@@ -28,7 +28,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService(['postTypes' => []]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
@@ -42,27 +42,12 @@ class SaveDesignsTest extends TestCase
             'getOption' => ['post_type_design' => ['post' => '123']]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
         $this->assertCount(2, $wpService->getThemeModCalls);
         $this->assertCount(1, $wpService->getOptionCalls);
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
-    }
-
-    public function testStoreDesignsUpdatesIfAutoUpdate()
-    {
-        $wpService = $this->getWpService([
-            'postTypes'   => ['post'],
-            'getOption'   => ['post_type_design' => ['post' => '123']],
-            'getThemeMod' => '123'
-        ]);
-
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig('123'));
-
-        $saveDesignsInstance->storeDesigns();
-
         $this->assertCount(0, $wpService->getUpdateOptionCalls);
     }
 
@@ -74,7 +59,7 @@ class SaveDesignsTest extends TestCase
             'getThemeMod' => '123'
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['mods'], 'css']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['abc' => ''], null]));
 
         $saveDesignsInstance->storeDesigns();
 
@@ -93,6 +78,26 @@ class SaveDesignsTest extends TestCase
         $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig());
 
         $saveDesignsInstance->storeDesigns();
+
+        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+    }
+
+    public function testTryUpdateOptionWithDesignUpdatesIfDesign()
+    {
+        $wpService           = $this->getWpService();
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['mod' => 'mod'], '123']));
+
+        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
+
+        $this->assertCount(1, $wpService->getUpdateOptionCalls);
+    }
+
+    public function testTryUpdateOptionWithDesignDoesNotUpdateIfNoDesign()
+    {
+        $wpService           = $this->getWpService();
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '']));
+
+        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
 
         $this->assertCount(0, $wpService->getUpdateOptionCalls);
     }
