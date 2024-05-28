@@ -37,7 +37,7 @@ class ModifyTermsPreQuery
     {
         $queryVars = $termQuery->query_vars;
 
-        if (!isset($queryVars['taxonomy'])) {
+        if (!isset($queryVars['taxonomy']) || !isset($queryVars['taxonomy'][0])) {
             return $terms;
         }
 

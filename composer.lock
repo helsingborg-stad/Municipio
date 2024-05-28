@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9191b5d60d40b1978f65d73d41df0b09",
+    "content-hash": "5572e7d7e8a72ceb2526d72313288c4c",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -367,16 +367,16 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.16.1",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "790ac16b71e9d9305ec0e8f0a8e5282b0cdc000a"
+                "reference": "0911aba75c61d27264bcd9381d1a8bb6b1e07b2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/790ac16b71e9d9305ec0e8f0a8e5282b0cdc000a",
-                "reference": "790ac16b71e9d9305ec0e8f0a8e5282b0cdc000a",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/0911aba75c61d27264bcd9381d1a8bb6b1e07b2d",
+                "reference": "0911aba75c61d27264bcd9381d1a8bb6b1e07b2d",
                 "shasum": ""
             },
             "require": {
@@ -405,9 +405,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.16.1"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.22.0"
             },
-            "time": "2024-05-27T07:57:28+00:00"
+            "time": "2024-05-27T14:34:41+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -2631,16 +2631,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.11",
+            "version": "1.6.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "81a161d0b135df89951abd52296adf97deb0723d"
+                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/81a161d0b135df89951abd52296adf97deb0723d",
-                "reference": "81a161d0b135df89951abd52296adf97deb0723d",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/1f4efdd7d3beafe9807b08156dfcb176d18f1699",
+                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699",
                 "shasum": ""
             },
             "require": {
@@ -2710,7 +2710,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2024-03-21T18:34:15+00:00"
+            "time": "2024-05-16T03:13:13+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3278,22 +3278,22 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "c457da9dabb60eb7106dd5e3c05132b1a6539c6a"
+                "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/c457da9dabb60eb7106dd5e3c05132b1a6539c6a",
-                "reference": "c457da9dabb60eb7106dd5e3c05132b1a6539c6a",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/87b233b00daf83fb70f40c9a28692be017ea7c6c",
+                "reference": "87b233b00daf83fb70f40c9a28692be017ea7c6c",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1 || ^0.5 || ^0.6.2 || ^0.7 || ^1.0",
                 "php": ">=5.4",
-                "squizlabs/php_codesniffer": "^3.9.0 || 4.0.x-dev@dev"
+                "squizlabs/php_codesniffer": "^3.10.0 || 4.0.x-dev@dev"
             },
             "require-dev": {
                 "ext-filter": "*",
@@ -3362,7 +3362,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-24T11:47:18+00:00"
+            "time": "2024-05-20T13:34:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4751,16 +4751,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.2",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/8f90f7a53ce271935282967f53d0894f8f1ff877",
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877",
                 "shasum": ""
             },
             "require": {
@@ -4827,7 +4827,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-23T20:25:34+00:00"
+            "time": "2024-05-22T21:24:41+00:00"
         },
         {
             "name": "theseer/tokenizer",
