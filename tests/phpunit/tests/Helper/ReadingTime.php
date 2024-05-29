@@ -8,6 +8,7 @@ use WP_Mock;
 
 /**
  * Class ListingTest
+ * @group wp_mock
  */
 class ReadingTimeTest extends TestCase
 {

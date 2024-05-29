@@ -4,4 +4,9 @@
     <file>./tests</file>
     <exclude-pattern>./library/AcfFields</exclude-pattern>
     <rule ref="Hbg-WordPress"></rule>
+    
+    <rule ref="Squiz.Commenting.FunctionComment.Missing">
+        <exclude-pattern>./library/**/*.test.php</exclude-pattern>
+        <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
+    </rule>
 </ruleset>

@@ -9,6 +9,7 @@ use Mockery;
 
 /**
  * Class PostTypeTest
+ * @group wp_mock
  */
 class PostTypeTest extends TestCase
 {

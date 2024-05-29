@@ -12,8 +12,14 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\ExternalContent\PostsResults\AddExternalContentToWpCache;
+use Municipio\ExternalContent\PostsResults\PopulateWpQueryWithExternalContent;
+use Municipio\ExternalContent\Sources\SourceRegistry;
+use Municipio\ExternalContent\Sources\StaticSourceRegistry;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
+use Predis\Command\Redis\TYPE;
+use WP_Query;
 use WpService\WpService;
 
 /**
@@ -80,53 +86,53 @@ class App
          * Resources from API
          */
 
-        // Register the actual post type to be used for resources.
-        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
-        $resourcePostType->addHooks();
+        // // Register the actual post type to be used for resources.
+        // $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        // $resourcePostType->addHooks();
 
-        // Set up registry.
+        // // Set up registry.
 
-        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
+        // $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
 
-        add_action('init', function () use ($resourceRegistry) {
+        // add_action('init', function () use ($resourceRegistry) {
 
-            $resourceRegistry->registerResources();
+        //     $resourceRegistry->registerResources();
 
-            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
-            $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
+        //     $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+        //     $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
 
-            foreach ($sortedPostTypeResources as $resource) {
-                $registrar = new PostTypeFromResource($resource);
-                $registrar->register();
-            }
+        //     foreach ($sortedPostTypeResources as $resource) {
+        //         $registrar = new PostTypeFromResource($resource);
+        //         $registrar->register();
+        //     }
 
-            foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
-                $registrar = new TaxonomyFromResource($resource);
-                $registrar->register();
-            }
-        });
+        //     foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
+        //         $registrar = new TaxonomyFromResource($resource);
+        //         $registrar->register();
+        //     }
+        // });
 
-        // Make resources available to the helper class.
-        ResourceFromApiHelper::initialize($resourceRegistry);
+        // // Make resources available to the helper class.
+        // ResourceFromApiHelper::initialize($resourceRegistry);
 
-        // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
-        $modifiersHelper = new ModifiersHelper($resourceRegistry);
-        $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
-        $hooksAdder->addHooks();
+        // // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
+        // $modifiersHelper = new ModifiersHelper($resourceRegistry);
+        // $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
+        // $hooksAdder->addHooks();
 
-        // Add REST API endpoints for resources.
-        add_action('rest_api_init', function () use ($resourceRegistry) {
-            $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+        // // Add REST API endpoints for resources.
+        // add_action('rest_api_init', function () use ($resourceRegistry) {
+        //     $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
 
-            if (empty($resources)) {
-                return;
-            }
+        //     if (empty($resources)) {
+        //         return;
+        //     }
 
-            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-                $controller = new ResourceFromApiRestController($resource->getName());
-                $controller->register_routes();
-            }
-        });
+        //     foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+        //         $controller = new ResourceFromApiRestController($resource->getName());
+        //         $controller->register_routes();
+        //     }
+        // });
 
         /**
          * Oembed
@@ -229,6 +235,11 @@ class App
          * Branded emails
          */
         $this->trySetupBrandedEmails();
+
+        /**
+         * External content
+         */
+        $this->trySetupExternalContent();
     }
 
     /**
@@ -239,7 +250,6 @@ class App
      */
     private function trySetupBrandedEmails(): void
     {
-
         $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
 
         if ($configService->isEnabled() === false) {
@@ -256,5 +266,41 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
+    }
+
+    private function trySetupExternalContent(): void
+    {
+        $sourceRegistry = new StaticSourceRegistry([
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/shemaobjects.json'),
+            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/thingshemaobjects.json'),
+            new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
+        ], new \Municipio\ExternalContent\Sources\SourceFactory());
+
+        add_action('init', function () {
+            register_post_type('job', [
+                'label'        => 'Jobs',
+                'public'       => true,
+                'show_in_rest' => true,
+                'supports'     => false,
+                'has_archive'  => true,
+            ]);
+        });
+
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryIdDecorator($wpPostFactory, $this->wpService);
+        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryJobPostingDecorator($wpPostFactory);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactory();
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactorySourceIdDecorator($wpPostMetaFactory);
+        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryVersionDecorator($wpPostMetaFactory);
+
+        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        // $syncSourceToLocal->sync();
+
+        $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        $syncSingleSourceToLocalByPostId->sync();
     }
 }

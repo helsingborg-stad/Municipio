@@ -9,6 +9,7 @@ use Municipio\Helper\Html;
 
 /**
  * Class HtmlTest
+ * @group wp_mock
  */
 class HtmlTest extends TestCase
 {

@@ -9,6 +9,7 @@ use WP_Mock;
 /**
  * Class ListingTest
  * @runTestsInSeparateProcesses
+ * @group wp_mock
  */
 class ListingTest extends TestCase
 {
