@@ -47,13 +47,13 @@ class SetDesigns implements Hookable
      */
     public function setCss(string $css, string $stylesheet): string
     {
-        $postType = $this->wpService->getPostType();
+        self::$postType = self::$postType ?: $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['css'])) {
+        if (empty(self::$postType) || empty($this->wpService->getOption($this->optionName)[self::$postType]['css'])) {
             return $css;
         }
 
-        return $this->wpService->getOption($this->optionName)[$postType]['css'];
+        return $this->wpService->getOption($this->optionName)[self::$postType]['css'];
     }
 
     /**
