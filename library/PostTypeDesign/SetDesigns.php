@@ -63,13 +63,13 @@ class SetDesigns implements Hookable
      */
     public function setDesign(mixed $value, string $option): mixed
     {
-        $postType = $this->wpService->getPostType();
+        self::$postType = self::$postType ?: $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['design'])) {
+        if (empty(self::$postType) || empty($this->wpService->getOption($this->optionName)[self::$postType]['design'])) {
             return $value;
         }
 
-        $design = $this->wpService->getOption($this->optionName)[$postType]['design'];
+        $design = $this->wpService->getOption($this->optionName)[self::$postType]['design'];
         $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;
