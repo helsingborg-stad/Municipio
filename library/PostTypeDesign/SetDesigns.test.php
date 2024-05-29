@@ -14,7 +14,7 @@ class SetDesignsTest extends TestCase
     public function testFiltersAdded()
     {
         $wpService           = $this->getWpService();
-        $saveDesignsInstance = new SetDesigns('name', $wpService);
+        $saveDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $saveDesignsInstance->addHooks();
 
@@ -25,7 +25,7 @@ class SetDesignsTest extends TestCase
     public function testSetCssReturnsOldCssIfNoPostType()
     {
         $wpService          = $this->getWpService(['getPostType' => false]);
-        $setDesignsInstance = new SetDesigns('name', $wpService);
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
@@ -35,7 +35,7 @@ class SetDesignsTest extends TestCase
     public function testSetCssReturnsOldCssIfNoCorrespondingPostType()
     {
         $wpService          = $this->getWpService(['getPostType' => 'non-matching-post-type']);
-        $setDesignsInstance = new SetDesigns('name', $wpService);
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
@@ -45,7 +45,7 @@ class SetDesignsTest extends TestCase
     public function testSetCssReturnsNewCssIfCorrespondingPostType()
     {
         $wpService          = $this->getWpService(['getPostType' => 'post']);
-        $setDesignsInstance = new SetDesigns('name', $wpService);
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $result = $setDesignsInstance->setCss('oldCss', 'stylesheet');
 
@@ -55,7 +55,7 @@ class SetDesignsTest extends TestCase
     public function testSetDesignReturnsValueIfNoPostTypeOrOption()
     {
         $wpService          = $this->getWpService(['getPostType' => '']);
-        $setDesignsInstance = new SetDesigns('name', $wpService);
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $result = $setDesignsInstance->setDesign('value', 'option');
 
@@ -75,7 +75,7 @@ class SetDesignsTest extends TestCase
             ]
         ]);
 
-        $setDesignsInstance = new SetDesigns('name', $wpService);
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
 
         $result = $setDesignsInstance->setDesign('value', 'post_type_design');
 

@@ -9,7 +9,7 @@ class ConfigSanitizerTest extends TestCase
 {
     public function testTransformReturnsEmptyArrayIfNoConfigOrKeys()
     {
-        $instance = new ConfigSanitizer(null);
+        $instance = new ConfigSanitizer([]);
         $result   = $instance->transform();
 
         $this->assertEmpty($result);
