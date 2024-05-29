@@ -2,6 +2,7 @@
 
 namespace Municipio\PostTypeDesign;
 
+use Municipio\Customizer\PanelsRegistry;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
@@ -36,7 +37,8 @@ class SaveDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        // $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
     }
 
     /**
@@ -49,7 +51,8 @@ class SaveDesigns implements Hookable
             return;
         }
 
-        $designOption = $this->wpService->getOption($this->optionName);
+        // $designOption = $this->wpService->getOption($this->optionName);
+        $designOption = [];
 
         foreach ($postTypes as $postType) {
             $design = $this->wpService->getThemeMod($postType . '_load_design');
@@ -74,13 +77,14 @@ class SaveDesigns implements Hookable
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
 
-        $sanitizedDesignConfig = $this->getDesignConfig($designConfig);
+        [$sanitizedDesignConfig, $test] = $this->getDesignConfig($designConfig);
 
         if (!empty($sanitizedDesignConfig)) {
             $designOption[$postType] = [
                 'design'   => $sanitizedDesignConfig,
                 'css'      => $css,
-                'designId' => $design
+                'designId' => $design,
+                'test'     => $test
             ];
 
             $this->wpService->updateOption($this->optionName, $designOption);
@@ -131,13 +135,46 @@ class SaveDesigns implements Hookable
      */
     private function getDesignConfig(array $designConfig): array
     {
-        $keys = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
-
+        $keys                      = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
+        $test                      = $this->getKeysFromRegisteredFields($designConfig);
         $configTransformerInstance = new ConfigSanitizer(
             $designConfig,
             $keys
         );
 
-        return $configTransformerInstance->transform();
+        return [$configTransformerInstance->transform(), $test];
+    }
+
+    private function getKeysFromRegisteredFields(array $designConfig): array
+    {
+        $fields = PanelsRegistry::getInstance()->getRegisteredFields();
+
+        if (empty($fields) || !is_array($fields)) {
+            return [];
+        }
+
+        $multiColorFields = array_filter($fields, function ($field) {
+            return $field['type'] === 'multicolor';
+        });
+
+        $multiColorKeys = [];
+        foreach ($multiColorFields as $field) {
+            if (empty($designConfig[$field['settings']]) || empty($field['output'])) {
+                continue;
+            }
+
+            $designConfigField = $designConfig[$field['settings']];
+
+            foreach ($field['output'] as $output) {
+                if (empty($designConfigField[$output['choice']])) {
+                    continue;
+                }
+
+                $multiColorKeys[$output['property']] = $designConfigField[$output['choice']];
+            }
+        }
+
+
+        return array_merge($multiColorKeys, []);
     }
 }

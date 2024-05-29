@@ -14,6 +14,7 @@ use WpService\Contracts\GetPostType;
  */
 class SetDesigns implements Hookable
 {
+    private static $postType = false;
     /**
      * Class SetDesigns
      *
@@ -34,6 +35,19 @@ class SetDesigns implements Hookable
     {
         $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
+        add_action('wp_head', function () {
+            // echo '<pre>' . print_r($this->wpService->getOption($this->optionName), true) . '</pre>';
+                $colors    = $this->wpService->getOption($this->optionName)['event']['test'];
+                $cssString = '';
+            foreach ($colors as $key => $value) {
+                $cssString .= "$key: $value;";
+            }
+            ?>
+                <style>
+                    .post-type-event {<?php echo $cssString; ?>}
+                </style>
+            <?php
+        });
     }
 
     /**
