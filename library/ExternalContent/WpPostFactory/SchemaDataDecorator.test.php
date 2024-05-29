@@ -1,13 +1,12 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
-class WpPostMetaFactoryTest extends TestCase
+class SchemaDataDecoratorTest extends TestCase
 {
     /**
      * @testdox returns an array with schemaData key containing the schemaObject as an array
@@ -15,11 +14,11 @@ class WpPostMetaFactoryTest extends TestCase
     public function testCreate()
     {
         $schemaObject = $this->getSchemaObject();
-        $factory      = new WpPostMetaFactory();
+        $factory      = new SchemaDataDecorator(new WpPostFactory());
 
         $result = $factory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals($schemaObject->toArray(), $result['schemaData']);
+        $this->assertEquals($schemaObject->toArray(), $result['meta_input']['schemaData']);
     }
 
     private function getSchemaObject(): BaseType

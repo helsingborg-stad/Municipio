@@ -2,13 +2,11 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
-use WP_Post;
 
-class WpPostFactoryDateDecoratorTest extends TestCase
+class DateDecoratorTest extends TestCase
 {
     /**
      * @testdox Sets post_date and post_modified to datePublished and dateModified from schemaObject
@@ -21,13 +19,13 @@ class WpPostFactoryDateDecoratorTest extends TestCase
         ]);
 
         $inner = $this->createMock(WpPostFactoryInterface::class);
-        $inner->method('create')->willReturn(new WP_Post((object)[]));
+        $inner->method('create')->willReturn([]);
 
-        $wpPostFactory = new WpPostFactoryDateDecorator($inner);
+        $wpPostFactory = new DateDecorator($inner);
         $wpPost        = $wpPostFactory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals('2021-01-01', $wpPost->post_date);
-        $this->assertEquals('2021-01-02', $wpPost->post_modified);
+        $this->assertEquals('2021-01-01', $wpPost['post_date']);
+        $this->assertEquals('2021-01-02', $wpPost['post_modified']);
     }
 
 

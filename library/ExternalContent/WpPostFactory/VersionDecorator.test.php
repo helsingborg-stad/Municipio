@@ -1,29 +1,28 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Thing;
 
-class WpPostMetaFactoryVersionDecoratorTest extends TestCase
+class VersionDecoratorTest extends TestCase
 {
     public function testAppliesVersionIfFound()
     {
         $schemaObject = new Thing();
         $schemaObject->setProperty('@version', '1.2.3');
-        $factory = new WpPostMetaFactoryVersionDecorator(new WpPostMetaFactory());
+        $factory = new VersionDecorator(new WpPostFactory());
 
         $result = $factory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals('1.2.3', $result['version']);
+        $this->assertEquals('1.2.3', $result['meta_input']['version']);
     }
 
     public function testAppliesNothingIfNotFound()
     {
         $schemaObject = new Thing();
-        $factory      = new WpPostMetaFactoryVersionDecorator(new WpPostMetaFactory());
+        $factory      = new VersionDecorator(new WpPostFactory());
 
         $result = $factory->create($schemaObject, new Source('', ''));
 

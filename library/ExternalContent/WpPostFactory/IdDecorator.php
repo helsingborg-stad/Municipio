@@ -4,19 +4,18 @@ namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
-use WP_Post;
 use WpService\Contracts\GetPosts;
 
 /**
  * Decorates WP_Post with ID to indicate that this post is to be updated and is not a new post.
  */
-class WpPostFactoryIdDecorator implements WpPostFactoryInterface
+class IdDecorator implements WpPostFactoryInterface
 {
     public function __construct(private WpPostFactoryInterface $inner, private GetPosts $wpService)
     {
     }
 
-    public function create(BaseType $schemaObject, ISource $source): WP_Post
+    public function create(BaseType $schemaObject, ISource $source): array
     {
         $post = $this->inner->create($schemaObject, $source);
 
@@ -42,7 +41,7 @@ class WpPostFactoryIdDecorator implements WpPostFactoryInterface
             ]);
 
             if (!empty($postWithSameOriginId)) {
-                $post->ID = $postWithSameOriginId[0];
+                $post['ID'] = $postWithSameOriginId[0];
             }
         }
 

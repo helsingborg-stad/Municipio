@@ -2,24 +2,23 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\JobPosting;
 
-class WpPostFactoryJobPostingDecoratorTest extends TestCase
+class JobPostingDecoratorTest extends TestCase
 {
     /**
      * @testdox Sets title from schemaObject['title'] if is JobPosting
      */
     public function testSetsTitleFromNameIfTitleIsMissing()
     {
-        $factory      = new WpPostFactoryJobPostingDecorator(new WpPostFactory());
+        $factory      = new JobPostingDecorator(new WpPostFactory());
         $schemaObject = new JobPosting();
 
         $schemaObject->title('Job title');
         $post = $factory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals('Job title', $post->post_title);
+        $this->assertEquals('Job title', $post['post_title']);
     }
 }

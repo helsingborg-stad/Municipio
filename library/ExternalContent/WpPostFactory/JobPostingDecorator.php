@@ -5,12 +5,11 @@ namespace Municipio\ExternalContent\WpPostFactory;
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\JobPosting;
-use WP_Post;
 
 /**
  * Decorate specifically for JobPosting schema type.
  */
-class WpPostFactoryJobPostingDecorator implements WpPostFactoryInterface
+class JobPostingDecorator implements WpPostFactoryInterface
 {
     /**
      * Class constructor.
@@ -24,7 +23,7 @@ class WpPostFactoryJobPostingDecorator implements WpPostFactoryInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, ISource $source): WP_Post
+    public function create(BaseType $schemaObject, ISource $source): array
     {
         $post = $this->inner->create($schemaObject, $source);
 
@@ -35,14 +34,14 @@ class WpPostFactoryJobPostingDecorator implements WpPostFactoryInterface
         return $post;
     }
 
-    private function applyPropertiesFromJobPosting(WP_Post $post, JobPosting $schemaObject): WP_Post
+    private function applyPropertiesFromJobPosting(array $post, JobPosting $schemaObject): array
     {
         if (!empty($schemaObject['title'])) {
-            $post->post_title = $schemaObject['title'];
+            $post['post_title'] = $schemaObject['title'];
         }
 
         if (!empty($schemaObject['datePosted'])) {
-            $post->post_date = $schemaObject['datePosted'];
+            $post['post_date'] = $schemaObject['datePosted'];
         }
 
         return $post;

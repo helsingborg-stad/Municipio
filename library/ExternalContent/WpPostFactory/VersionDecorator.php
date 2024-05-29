@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
@@ -8,14 +8,14 @@ use Spatie\SchemaOrg\BaseType;
 /**
  * Class WpPostMetaFactoryVersionDecorator
  */
-class WpPostMetaFactoryVersionDecorator implements WpPostMetaFactoryInterface
+class VersionDecorator implements WpPostFactoryInterface
 {
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
      *
      * @param WpPostMetaFactoryInterface $inner
      */
-    public function __construct(private WpPostMetaFactoryInterface $inner)
+    public function __construct(private WpPostFactoryInterface $inner)
     {
     }
 
@@ -24,12 +24,12 @@ class WpPostMetaFactoryVersionDecorator implements WpPostMetaFactoryInterface
      */
     public function create(BaseType $schemaObject, ISource $source): array
     {
-        $meta = $this->inner->create($schemaObject, $source);
+        $post = $this->inner->create($schemaObject, $source);
 
         if (isset($schemaObject['@version'])) {
-            $meta['version'] = $schemaObject['@version'] ?? null;
+            $post['meta_input']['version'] = $schemaObject['@version'] ?? null;
         }
 
-        return $meta;
+        return $post;
     }
 }

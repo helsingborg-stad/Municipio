@@ -22,6 +22,7 @@ use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Predis\Command\Redis\TYPE;
+use WP_Post_Type;
 use WP_Query;
 use WpService\WpService;
 
@@ -273,10 +274,6 @@ class App
 
     private function trySetupExternalContent(): void
     {
-        $map = [
-
-        ];
-
         $sourceRegistry = new StaticSourceRegistry(
             [
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', 'JobPosting', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
@@ -299,34 +296,46 @@ class App
             )
         ], $sourceRegistry, $this->wpService));
 
-        add_action('init', function () use ($sourceRegistry, $map) {
+        add_action('init', function () {
 
-            register_post_type('job', [
+            $postType = new WP_Post_Type('job', [
                 'label'        => 'Jobs',
                 'public'       => true,
                 'show_in_rest' => true,
                 'supports'     => false,
-                'has_archive'  => true
+                'has_archive'  => true,
+            ]);
+
+            $postType->cap->create_posts = 'do_not_allow';
+            $postType->cap->delete_post  = 'do_not_allow';
+            $postType->cap->edit_post    = 'do_not_allow';
+
+            register_post_type($postType->name, [
+                'label'        => $postType->label,
+                'public'       => $postType->public,
+                'show_in_rest' => $postType->show_in_rest,
+                'supports'     => $postType->supports,
+                'has_archive'  => $postType->has_archive,
+                'capabilities' => (array)$postType->cap,
             ]);
         });
 
-        // TODO: Create taxonomies from sources.
         // TODO: Create terms from sources.
 
-        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
-        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
-        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryIdDecorator($wpPostFactory, $this->wpService);
-        $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryJobPostingDecorator($wpPostFactory);
-        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactory();
-        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryOriginIdDecorator($wpPostMetaFactory);
-        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryThumbnailDecorator($wpPostMetaFactory, $this->wpService);
-        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactorySourceIdDecorator($wpPostMetaFactory);
-        $wpPostMetaFactory = new \Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryVersionDecorator($wpPostMetaFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\DateDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\IdDecorator($wpPostFactory, $this->wpService);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\JobPostingDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SchemaDataDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\OriginIdDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
 
-        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $this->wpService);
         // $syncSourceToLocal->sync();
 
-        $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $wpPostMetaFactory, $this->wpService);
+        $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
         // $syncSingleSourceToLocalByPostId->sync();
     }
 }

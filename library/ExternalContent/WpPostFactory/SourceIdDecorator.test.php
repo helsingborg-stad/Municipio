@@ -1,14 +1,13 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
-use Municipio\ExternalContent\Sources\Services\Source;
+use Municipio\ExternalContent\Sources\Services\NullSource;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
-class WpPostMetaFactorySourceIdDecoratorTest extends TestCase
+class SourceIdDecoratorTest extends TestCase
 {
     /**
      * @testdox returns an array with the sourceId from the source
@@ -17,11 +16,11 @@ class WpPostMetaFactorySourceIdDecoratorTest extends TestCase
     {
         $schemaObject = $this->getSchemaObject();
         $source       = $this->getSource();
-        $factory      = new WpPostMetaFactorySourceIdDecorator(new WpPostMetaFactory());
+        $factory      = new SourceIdDecorator(new WpPostFactory());
 
         $result = $factory->create($schemaObject, $source);
 
-        $this->assertEquals('foo', $result['sourceId']);
+        $this->assertEquals('foo', $result['meta_input']['sourceId']);
     }
 
     private function getSchemaObject(): BaseType
@@ -32,10 +31,7 @@ class WpPostMetaFactorySourceIdDecoratorTest extends TestCase
 
     private function getSource(): ISource
     {
-        return new class extends Source {
-            public function __construct()
-            {
-            }
+        return new class extends NullSource {
             public function getId(): string
             {
                 return 'foo';

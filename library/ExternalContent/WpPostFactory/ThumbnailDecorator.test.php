@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
+use Municipio\ExternalContent\WpPostFactory\WpPostFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
@@ -11,7 +11,7 @@ use WP_Error;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
 
-class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
+class ThumbnailDecoratorTest extends TestCase
 {
     /**
      * @testdox Sideloads image from url
@@ -22,12 +22,12 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $wpService    = $this->getWpService();
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
-        $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new Source('', ''));
+        $post = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
-        $this->assertEquals(1, $meta['_thumbnail_id']);
+        $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
     }
 
     /**
@@ -41,12 +41,12 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $wpService    = $this->getWpService();
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $imageProperty);
-        $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new Source('', ''));
+        $post = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
-        $this->assertEquals(1, $meta['_thumbnail_id']);
+        $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
     }
 
     /**
@@ -58,12 +58,12 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $wpService    = $this->getWpService(['getPosts' => [(object)['ID' => 123]]]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
-        $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new Source('', ''));
+        $post = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEmpty($wpService->calls['mediaSideloadImage']);
-        $this->assertEquals(123, $meta['_thumbnail_id']);
+        $this->assertEquals(123, $post['meta_input']['_thumbnail_id']);
     }
 
     private function getWpService(array $db = []): MediaSideloadImage&GetPosts

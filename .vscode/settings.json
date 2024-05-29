@@ -6,6 +6,7 @@
     "phpsab.allowedAutoRulesets": [
         "phpcs.xml"
     ],
+    "phpsab.snifferMode": "onSave",
     "editor.defaultFormatter": "valeryanm.vscode-phpsab",
     "[php]": {
         "editor.defaultFormatter": "valeryanm.vscode-phpsab"

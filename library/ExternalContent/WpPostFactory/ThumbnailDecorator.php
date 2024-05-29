@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostMetaFactory;
+namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
@@ -8,15 +8,15 @@ use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
 
-class WpPostMetaFactoryThumbnailDecorator implements WpPostMetaFactoryInterface
+class ThumbnailDecorator implements WpPostFactoryInterface
 {
-    public function __construct(private WpPostMetaFactoryInterface $inner, private MediaSideloadImage&GetPosts $wpService)
+    public function __construct(private WpPostFactoryInterface $inner, private MediaSideloadImage&GetPosts $wpService)
     {
     }
 
     public function create(BaseType $schemaObject, ISource $source): array
     {
-        $meta     = $this->inner->create($schemaObject, $source);
+        $post     = $this->inner->create($schemaObject, $source);
         $imageUrl = $this->getImageUrl($schemaObject);
 
         if (!empty($imageUrl)) {
@@ -26,10 +26,10 @@ class WpPostMetaFactoryThumbnailDecorator implements WpPostMetaFactoryInterface
                 $attachmentId = $this->wpService->mediaSideloadImage($imageUrl, 0, null, 'id');
             }
 
-            $meta['_thumbnail_id'] = $attachmentId;
+            $post['meta_input']['_thumbnail_id'] = $attachmentId;
         }
 
-        return $meta;
+        return $post;
     }
 
     private function getAttachmentBySourceUrl(string $sourceUrl): ?int

@@ -6,6 +6,13 @@
     <rule ref="Hbg-WordPress"></rule>
     
     <rule ref="Squiz.Commenting.FunctionComment.Missing">
+        <type>warning</type>
+        <exclude-pattern>./library/**/*.test.php</exclude-pattern>
+        <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
+    </rule>
+    
+    <rule ref="Squiz.Commenting.ClassComment.Missing">
+        <type>warning</type>
         <exclude-pattern>./library/**/*.test.php</exclude-pattern>
         <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
     </rule>

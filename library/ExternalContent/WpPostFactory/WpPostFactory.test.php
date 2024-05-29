@@ -3,17 +3,14 @@
 namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Sources\Services\NullSourceService;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
-use WP_Post;
-use WP_Query;
 
 class WpPostFactoryTest extends TestCase
 {
     /**
-     * @testdox WP_Post is created with title and content
+     * @testdox array is created with title and content
      */
     public function testCreate()
     {
@@ -22,9 +19,8 @@ class WpPostFactoryTest extends TestCase
 
         $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
 
-        $this->assertInstanceOf(WP_Post::class, $wpPost);
-        $this->assertEquals('Title', $wpPost->post_title);
-        $this->assertEquals('Content', $wpPost->post_content);
+        $this->assertEquals('Title', $wpPost['post_title']);
+        $this->assertEquals('Content', $wpPost['post_content']);
     }
 
     /**
@@ -38,7 +34,7 @@ class WpPostFactoryTest extends TestCase
 
         $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
 
-        $this->assertEquals('publish', $wpPost->post_status);
+        $this->assertEquals('publish', $wpPost['post_status']);
     }
 
     private function getBaseTypeInstance(array $properties = []): BaseType

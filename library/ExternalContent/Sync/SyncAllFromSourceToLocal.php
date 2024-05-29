@@ -13,7 +13,6 @@ class SyncAllFromSourceToLocal implements ISyncSourceToLocal
     public function __construct(
         private ISource $source,
         private WpPostFactoryInterface $wpPostFactory,
-        private WpPostMetaFactoryInterface $wpPostMetaFactory,
         private InsertPost $wpService
     ) {
     }
@@ -32,9 +31,6 @@ class SyncAllFromSourceToLocal implements ISyncSourceToLocal
      */
     private function getPostArrayToInsert(BaseType $schemaObject): array
     {
-        $postData               = $this->wpPostFactory->create($schemaObject, $this->source)->to_array();
-        $postData['meta_input'] = $this->wpPostMetaFactory->create($schemaObject, $this->source);
-
-        return $postData;
+        return $this->wpPostFactory->create($schemaObject, $this->source);
     }
 }
