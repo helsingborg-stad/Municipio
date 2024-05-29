@@ -14,6 +14,9 @@ use WpService\Contracts\GetPostType;
  */
 class SetDesigns implements Hookable
 {
+    /**
+     * @var string|false $postType Current post type.
+     */
     private static $postType = false;
 
     /**
