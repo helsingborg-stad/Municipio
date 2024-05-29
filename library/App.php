@@ -12,10 +12,13 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\ExternalContent\Config\ISourceConfig;
 use Municipio\ExternalContent\PostsResults\AddExternalContentToWpCache;
 use Municipio\ExternalContent\PostsResults\PopulateWpQueryWithExternalContent;
+use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\Sources\SourceRegistry;
 use Municipio\ExternalContent\Sources\StaticSourceRegistry;
+use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Predis\Command\Redis\TYPE;
@@ -270,22 +273,45 @@ class App
 
     private function trySetupExternalContent(): void
     {
-        $sourceRegistry = new StaticSourceRegistry([
-            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
-            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/shemaobjects.json'),
-            new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', '/var/www/html/wp-content/thingshemaobjects.json'),
-            new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
-        ], new \Municipio\ExternalContent\Sources\SourceFactory());
+        $map = [
 
-        add_action('init', function () {
+        ];
+
+        $sourceRegistry = new StaticSourceRegistry(
+            [
+                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', 'JobPosting', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
+                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/shemaobjects.json'),
+                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/thingshemaobjects.json'),
+                new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
+            ],
+            new \Municipio\ExternalContent\Sources\SourceFactory(),
+            $this->wpService
+        );
+
+        $this->hooksRegistrar->register(new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar([
+            new TaxonomyItem(
+                'JobPosting',
+                'relevantOccupation',
+                'relevant_occupation',
+                $this->wpService->__('Relevant occupation', 'municipio'),
+                $this->wpService->__('Relevant occupations', 'municipio'),
+                $this->wpService
+            )
+        ], $sourceRegistry, $this->wpService));
+
+        add_action('init', function () use ($sourceRegistry, $map) {
+
             register_post_type('job', [
                 'label'        => 'Jobs',
                 'public'       => true,
                 'show_in_rest' => true,
                 'supports'     => false,
-                'has_archive'  => true,
+                'has_archive'  => true
             ]);
         });
+
+        // TODO: Create taxonomies from sources.
+        // TODO: Create terms from sources.
 
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
         $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactoryDateDecorator($wpPostFactory);
@@ -301,6 +327,6 @@ class App
         // $syncSourceToLocal->sync();
 
         $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $wpPostMetaFactory, $this->wpService);
-        $syncSingleSourceToLocalByPostId->sync();
+        // $syncSingleSourceToLocalByPostId->sync();
     }
 }

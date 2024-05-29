@@ -4,6 +4,7 @@ namespace Municipio\ExternalContent\WpPostMetaFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
@@ -31,7 +32,10 @@ class WpPostMetaFactorySourceIdDecoratorTest extends TestCase
 
     private function getSource(): ISource
     {
-        return new class extends NullSourceService {
+        return new class extends Source {
+            public function __construct()
+            {
+            }
             public function getId(): string
             {
                 return 'foo';

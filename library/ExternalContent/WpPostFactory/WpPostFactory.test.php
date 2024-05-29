@@ -3,6 +3,8 @@
 namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use WP_Post;
@@ -18,7 +20,7 @@ class WpPostFactoryTest extends TestCase
         $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title', 'description' => 'Content', ]);
         $wpPostFactory = new WpPostFactory();
 
-        $wpPost = $wpPostFactory->create($schemaObject, $this->getNullSource());
+        $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
 
         $this->assertInstanceOf(WP_Post::class, $wpPost);
         $this->assertEquals('Title', $wpPost->post_title);
@@ -31,10 +33,10 @@ class WpPostFactoryTest extends TestCase
     public function testCreateWithPublishStatus()
     {
         $schemaObject  = $this->getBaseTypeInstance();
-        $source        = $this->getNullSource();
+        $source        = $this->getSource();
         $wpPostFactory = new WpPostFactory();
 
-        $wpPost = $wpPostFactory->create($schemaObject, $this->getNullSource());
+        $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
 
         $this->assertEquals('publish', $wpPost->post_status);
     }
@@ -49,25 +51,8 @@ class WpPostFactoryTest extends TestCase
         };
     }
 
-    private function getNullSource(): ISource
+    private function getSource(): ISource
     {
-        return new class implements ISource {
-            public function getObject(string|int $id): null|BaseType
-            {
-                return null;
-            }
-            public function getObjects(?WP_Query $query = null): array
-            {
-                return [];
-            }
-            public function getPostType(): string
-            {
-                return '';
-            }
-            public function getId(): string
-            {
-                return 0;
-            }
-        };
+        return new Source('', '');
     }
 }

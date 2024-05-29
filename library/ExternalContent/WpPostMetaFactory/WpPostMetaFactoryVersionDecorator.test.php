@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\WpPostMetaFactory;
 
 use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Thing;
 
@@ -14,7 +15,7 @@ class WpPostMetaFactoryVersionDecoratorTest extends TestCase
         $schemaObject->setProperty('@version', '1.2.3');
         $factory = new WpPostMetaFactoryVersionDecorator(new WpPostMetaFactory());
 
-        $result = $factory->create($schemaObject, new NullSourceService());
+        $result = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertEquals('1.2.3', $result['version']);
     }
@@ -24,7 +25,7 @@ class WpPostMetaFactoryVersionDecoratorTest extends TestCase
         $schemaObject = new Thing();
         $factory      = new WpPostMetaFactoryVersionDecorator(new WpPostMetaFactory());
 
-        $result = $factory->create($schemaObject, new NullSourceService());
+        $result = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertArrayNotHasKey('version', $result);
     }

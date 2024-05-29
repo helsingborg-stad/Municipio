@@ -13,7 +13,7 @@ class TypesenseSourceServiceDecorator implements ISource
     public function __construct(
         private ITypesenseClient $typesenseClient,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ISource $inner = new NullSourceService(),
+        private ISource $inner,
     ) {
     }
 
@@ -44,5 +44,10 @@ class TypesenseSourceServiceDecorator implements ISource
     public function getId(): string
     {
         return $this->inner->getId();
+    }
+
+    public function getSchemaObjectType(): string
+    {
+        return $this->inner->getSchemaObjectType();
     }
 }

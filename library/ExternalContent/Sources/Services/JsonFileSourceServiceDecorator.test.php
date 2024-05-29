@@ -23,7 +23,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('123');
 
@@ -44,7 +44,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('456');
 
@@ -69,7 +69,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects);
+        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $things = $service->getObjects(null);
 
@@ -109,6 +109,11 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
             public function getPostType(): string
             {
                 return $this->values['postType'];
+            }
+
+            public function getSchemaObjectType(): string
+            {
+                return $this->values['schemaObjectType'] ?? '';
             }
         };
     }

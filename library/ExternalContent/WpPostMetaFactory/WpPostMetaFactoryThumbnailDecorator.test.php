@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\WpPostMetaFactory;
 
 use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
@@ -23,7 +24,7 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $schemaObject->setProperty('image', $url);
         $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new NullSourceService());
+        $meta = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $meta['_thumbnail_id']);
@@ -42,7 +43,7 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $schemaObject->setProperty('image', $imageProperty);
         $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new NullSourceService());
+        $meta = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $meta['_thumbnail_id']);
@@ -59,7 +60,7 @@ class WpPostMetaFactoryThumbnailDecoratorTest extends TestCase
         $schemaObject->setProperty('image', $url);
         $decorator = new WpPostMetaFactoryThumbnailDecorator(new WpPostMetaFactory(), $wpService);
 
-        $meta = $decorator->create($schemaObject, new NullSourceService());
+        $meta = $decorator->create($schemaObject, new Source('', ''));
 
         $this->assertEmpty($wpService->calls['mediaSideloadImage']);
         $this->assertEquals(123, $meta['_thumbnail_id']);

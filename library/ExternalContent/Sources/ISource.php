@@ -7,7 +7,7 @@ use WP_Query;
 
 interface ISource
 {
-    public function getObject(string|int $id): null|BaseType;
+    public function getObject(string|int $id): ?BaseType;
 
     /**
      * @param SchemaSourceFilter|null $filter
@@ -16,4 +16,5 @@ interface ISource
     public function getObjects(?WP_Query $query = null): array;
     public function getPostType(): string;
     public function getId(): string;
+    public function getSchemaObjectType(): string;
 };

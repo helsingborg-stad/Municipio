@@ -7,15 +7,16 @@ use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
 class TypesenseSourceConfig extends SourceConfig implements ITypesenseSourceConfig
 {
     public function __construct(
-        protected $postType,
-        protected $apiKey,
-        protected $host,
-        protected $collectionName,
+        protected string $postType,
+        protected string $schemaObjectType,
+        protected string $apiKey,
+        protected string $host,
+        protected string $collectionName,
         protected string $port = '443',
         protected string $protocol = 'https',
         protected int $connectionTimeoutSeconds = 5
     ) {
-        parent::__construct($postType);
+        parent::__construct($postType, $schemaObjectType);
     }
 
     public function getApiKey(): string

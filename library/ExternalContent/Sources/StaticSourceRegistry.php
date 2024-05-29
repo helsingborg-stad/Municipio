@@ -3,34 +3,38 @@
 namespace Municipio\ExternalContent\Sources;
 
 use Municipio\ExternalContent\Sources\ISource;
+use WpService\Contracts\DoAction;
 
 class StaticSourceRegistry implements ISourceRegistry
 {
-    private const ID_RANGE_START  = 100;
     private static array $sources = [];
 
     /**
      * @param \Municipio\ExternalContent\Config\ISourceConfig[] $sourceConfigurations
      * @param \Municipio\ExternalContent\Sources\ISourceFactory $sourceFactory
      */
-    public function __construct(array $sourceConfigurations, ISourceFactory $sourceFactory)
-    {
+    public function __construct(
+        private array $sourceConfigurations,
+        private ISourceFactory $sourceFactory,
+        private DoAction $wpService
+    ) {
         foreach ($sourceConfigurations as $sourceConfiguration) {
-            self::registerSource($sourceFactory->createSource(self::getNextId(), $sourceConfiguration));
+            $source = $sourceFactory->createSource($sourceConfiguration);
+            self::registerSource($source);
+
+            /**
+             * Fires when a source has been registered.
+             *
+             * @param Municipio\ExternalContent\Sources\ISource $source The source that has been registered.
+             * @param Municipio\ExternalContent\Config\ISourceConfig $sourceConfiguration The source configuration used to create the source.
+             */
+            $this->wpService->doAction('Municipio/ExternalContent/Sources/SourceRegistered', $source, $sourceConfiguration);
         }
     }
 
     private function registerSource(ISource $source): void
     {
         self::$sources[] = $source;
-    }
-
-    private function getNextId(): int
-    {
-        $nextId  = count(self::$sources);
-        $nextId += self::ID_RANGE_START;
-        $nextId  = $nextId * -1;
-        return $nextId++;
     }
 
     /**

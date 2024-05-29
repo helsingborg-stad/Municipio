@@ -6,5 +6,5 @@ use Municipio\ExternalContent\Config\ISourceConfig;
 
 interface ISourceFactory
 {
-    public function createSource(int $id, ISourceConfig $sourceConfig): ISource;
+    public function createSource(ISourceConfig $sourceConfig): ISource;
 }

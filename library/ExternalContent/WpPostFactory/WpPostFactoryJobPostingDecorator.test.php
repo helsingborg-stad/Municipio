@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\JobPosting;
 
@@ -17,7 +18,7 @@ class WpPostFactoryJobPostingDecoratorTest extends TestCase
         $schemaObject = new JobPosting();
 
         $schemaObject->title('Job title');
-        $post = $factory->create($schemaObject, new NullSourceService());
+        $post = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertEquals('Job title', $post->post_title);
     }

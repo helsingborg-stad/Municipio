@@ -15,12 +15,12 @@ class JsonFileSourceServiceDecorator implements ISource {
         private IJsonFileSourceConfig $config,
         private GetFileContent $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ISource $inner = new NullSourceService()
+        private ISource $inner
         )
     {
     }
 
-    public function getObject(string|int $id): BaseType
+    public function getObject(string|int $id): ?BaseType
     {
         $fileContent = $this->fileSystem->getFileContent($this->config->getFile());
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );
@@ -47,5 +47,10 @@ class JsonFileSourceServiceDecorator implements ISource {
     public function getId(): string
     {
         return $this->inner->getId();
+    }
+
+    public function getSchemaObjectType(): string
+    {
+        return $this->inner->getSchemaObjectType();
     }
 }

@@ -10,10 +10,9 @@ class SourceServiceWithSourceId implements ISource
 {
     public static $idRegistry = [];
 
-    public function __construct(private string $id, private ISource $inner = new NullSourceService())
+    public function __construct(private string $id, private ISource $inner)
     {
         self::$idRegistry[] = $this->id = $this->ensureIdIsUnique();
-        ;
     }
 
     private function ensureIdIsUnique(): string
@@ -45,5 +44,10 @@ class SourceServiceWithSourceId implements ISource
     public function getPostType(): string
     {
         return $this->inner->getPostType();
+    }
+
+    public function getSchemaObjectType(): string
+    {
+        return $this->inner->getSchemaObjectType();
     }
 }

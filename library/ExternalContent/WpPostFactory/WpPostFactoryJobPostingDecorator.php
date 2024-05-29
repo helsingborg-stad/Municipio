@@ -4,6 +4,7 @@ namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\JobPosting;
 use WP_Post;
 
 /**
@@ -27,8 +28,21 @@ class WpPostFactoryJobPostingDecorator implements WpPostFactoryInterface
     {
         $post = $this->inner->create($schemaObject, $source);
 
-        if ($schemaObject->getType() === 'JobPosting' && !empty($schemaObject['title'])) {
+        if ($schemaObject instanceof JobPosting) {
+            $post = $this->applyPropertiesFromJobPosting($post, $schemaObject);
+        }
+
+        return $post;
+    }
+
+    private function applyPropertiesFromJobPosting(WP_Post $post, JobPosting $schemaObject): WP_Post
+    {
+        if (!empty($schemaObject['title'])) {
             $post->post_title = $schemaObject['title'];
+        }
+
+        if (!empty($schemaObject['datePosted'])) {
+            $post->post_date = $schemaObject['datePosted'];
         }
 
         return $post;

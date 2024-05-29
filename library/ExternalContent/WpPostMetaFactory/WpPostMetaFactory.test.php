@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\WpPostMetaFactory;
 
 use Municipio\ExternalContent\Sources\Services\NullSourceService;
+use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
@@ -16,7 +17,7 @@ class WpPostMetaFactoryTest extends TestCase
         $schemaObject = $this->getSchemaObject();
         $factory      = new WpPostMetaFactory();
 
-        $result = $factory->create($schemaObject, new NullSourceService());
+        $result = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($schemaObject->toArray(), $result['schemaData']);
     }

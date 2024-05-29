@@ -8,6 +8,7 @@ use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\Services\JsonFileSourceServiceDecorator;
+use Municipio\ExternalContent\Sources\Services\Source;
 use Municipio\ExternalContent\Sources\Services\SourceServiceWithPostType;
 use Municipio\ExternalContent\Sources\Services\SourceServiceWithSourceId;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
@@ -16,7 +17,7 @@ use WpService\FileSystem\BaseFileSystem;
 
 class SourceFactory implements ISourceFactory
 {
-    public function createSource(int $id, ISourceConfig $sourceConfig): ISource
+    public function createSource(ISourceConfig $sourceConfig): ISource
     {
         if ($sourceConfig instanceof ITypesenseSourceConfig) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getHost() . $sourceConfig->getCollectionName();
@@ -25,10 +26,10 @@ class SourceFactory implements ISourceFactory
             return new TypesenseSourceServiceDecorator(
                 new TypesenseClient($sourceConfig),
                 new TryConvertTypesenseJsonToSchemaObjects(),
-                new SourceServiceWithPostType(
+                new SourceServiceWithSourceId($souceServiceId, new Source(
                     $sourceConfig->getPostType(),
-                    new SourceServiceWithSourceId($souceServiceId)
-                )
+                    $sourceConfig->getSchemaObjectType()
+                ))
             );
         } elseif ($sourceConfig instanceof IJsonFileSourceConfig) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getFile();
@@ -38,10 +39,10 @@ class SourceFactory implements ISourceFactory
                 $sourceConfig,
                 new BaseFileSystem(),
                 new SimpleJsonConverter(),
-                new SourceServiceWithPostType(
+                new SourceServiceWithSourceId($souceServiceId, new Source(
                     $sourceConfig->getPostType(),
-                    new SourceServiceWithSourceId($souceServiceId)
-                )
+                    $sourceConfig->getSchemaObjectType()
+                ))
             );
         }
     }

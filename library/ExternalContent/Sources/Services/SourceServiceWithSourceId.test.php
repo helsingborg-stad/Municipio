@@ -11,9 +11,10 @@ class SourceServiceWithSourceIdTest extends TestCase
      */
     public function testSetsUniqueIdIfIdIsAlreadyInUse()
     {
-        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo');
-        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo');
-        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo');
+        $inner                     = new Source('', '');
+        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo', $inner);
+        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo', $inner);
+        $sourceServiceWithSourceId = new SourceServiceWithSourceId('foo', $inner);
 
         // Assert that no duplicates are in the idRegistry
         $this->assertCount(3, array_unique(SourceServiceWithSourceId::$idRegistry));
