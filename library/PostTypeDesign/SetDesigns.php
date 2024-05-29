@@ -47,11 +47,11 @@ class SetDesigns
     {
         $postType = $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption('post_type_design')[$postType]['css'])) {
+        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['css'])) {
             return $css;
         }
 
-        return $this->wpService->getOption('post_type_design')[$postType]['css'];
+        return $this->wpService->getOption($this->optionName)[$postType]['css'];
     }
 
     /**
@@ -65,11 +65,11 @@ class SetDesigns
     {
         $postType = $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption('post_type_design')[$postType]['design'])) {
+        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['design'])) {
             return $value;
         }
 
-        $design = $this->wpService->getOption('post_type_design')[$postType]['design'];
+        $design = $this->wpService->getOption($this->optionName)[$postType]['design'];
         $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;

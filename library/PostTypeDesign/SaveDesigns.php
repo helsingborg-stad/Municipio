@@ -37,7 +37,6 @@ class SaveDesigns
     public function addHooks()
     {
         $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
-        // $this->wpService->addAction('wp', array($this, 'storeDesigns'));
     }
 
     /**
@@ -50,7 +49,7 @@ class SaveDesigns
             return;
         }
 
-        $designOption = $this->wpService->getOption('post_type_design');
+        $designOption = $this->wpService->getOption($this->optionName);
 
         foreach ($postTypes as $postType) {
             $design = $this->wpService->getThemeMod($postType . '_load_design');
@@ -84,7 +83,7 @@ class SaveDesigns
                 'designId' => $design
             ];
 
-            $this->wpService->updateOption('post_type_design', $designOption);
+            $this->wpService->updateOption($this->optionName, $designOption);
         }
     }
 
@@ -99,7 +98,7 @@ class SaveDesigns
     {
         if (empty($design) && isset($designOption[$postType])) {
             unset($designOption[$postType]);
-            $this->wpService->updateOption('post_type_design', $designOption);
+            $this->wpService->updateOption($this->optionName, $designOption);
         }
     }
 

@@ -253,7 +253,7 @@ class App
             $this->wpService,
             new \Municipio\PostTypeDesign\ConfigFromPageId($this->wpService)
         );
-        
+
         new \Municipio\PostTypeDesign\SetDesigns($optionName, $this->wpService);
     }
 
