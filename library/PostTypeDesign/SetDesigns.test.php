@@ -52,6 +52,37 @@ class SetDesignsTest extends TestCase
         $this->assertEquals('newCssValue', $result);
     }
 
+    public function testSetDesignReturnsValueIfNoPostTypeOrOption()
+    {
+        $wpService          = $this->getWpService(['getPostType' => '']);
+        $setDesignsInstance = new SetDesigns('name', $wpService);
+
+        $result = $setDesignsInstance->setDesign('value', 'option');
+
+        $this->assertEquals('value', $result);
+    }
+
+    public function testSetDesignReturnsOptionValueIfFound()
+    {
+        $wpService = $this->getWpService([
+            'getPostType' => 'post',
+            'getOption'   => [
+                'post' => [
+                    'design' => [
+                        'mod1' => 'value1'
+                    ]
+                ]
+            ]
+        ]);
+
+        $setDesignsInstance = new SetDesigns('name', $wpService);
+
+        $result = $setDesignsInstance->setDesign('value', 'post_type_design');
+
+        $this->assertEquals('value1', $result['mod1']);
+    }
+
+
     private function getWpService(array $db = []): AddFilter&GetOption&GetPostType
     {
         return new class ($db) implements AddFilter, GetOption, GetPostType {
@@ -69,13 +100,13 @@ class SetDesignsTest extends TestCase
 
             public function getOption(string $option, mixed $defaultValue = false): mixed
             {
-                return [
+                return  $this->db['getOption'] ?? [
                     'post_type_design' => [
                         'post' => [
                             'css' => 'newCssValue'
                         ]
                     ]
-                ][$option] ?? false;
+                ][$option];
             }
 
             public function getPostType(int|WP_Post|null $post = null): string|false

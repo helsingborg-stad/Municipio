@@ -70,7 +70,7 @@ class SetDesigns
         }
 
         $design = $this->wpService->getOption('post_type_design')[$postType]['design'];
-        $value  = array_replace($value, (array) $design);
+        $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;
     }
