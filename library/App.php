@@ -248,13 +248,18 @@ class App
     private function setupPostTypeDesign(): void
     {
         $optionName = 'post_type_design';
-        new \Municipio\PostTypeDesign\SaveDesigns(
+        $apiUrl     = 'https://customizer.municipio.tech/id/';
+
+        $saveDesigns =  new \Municipio\PostTypeDesign\SaveDesigns(
             $optionName,
             $this->wpService,
-            new \Municipio\PostTypeDesign\ConfigFromPageId($this->wpService)
+            new \Municipio\PostTypeDesign\ConfigFromPageId($this->wpService, $apiUrl)
         );
 
-        new \Municipio\PostTypeDesign\SetDesigns($optionName, $this->wpService);
+        $setDesigns = new \Municipio\PostTypeDesign\SetDesigns($optionName, $this->wpService);
+
+        $this->hooksRegistrar->register($saveDesigns);
+        $this->hooksRegistrar->register($setDesigns);
     }
 
     /**

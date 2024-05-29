@@ -2,6 +2,7 @@
 
 namespace Municipio\PostTypeDesign;
 
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
@@ -11,7 +12,7 @@ use WpService\Contracts\GetPostType;
  *
  * This class represents a set of designs for a specific post type.
  */
-class SetDesigns
+class SetDesigns implements Hookable
 {
     /**
      * Class SetDesigns
@@ -20,7 +21,6 @@ class SetDesigns
      */
     public function __construct(private string $optionName, private AddFilter&GetPostType&GetOption $wpService)
     {
-        $this->addHooks();
     }
 
     /**
@@ -30,7 +30,7 @@ class SetDesigns
      *
      * @return void
      */
-    public function addHooks()
+    public function addHooks(): void
     {
         $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);

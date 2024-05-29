@@ -15,7 +15,7 @@ class ConfigSanitizer
      * @param array|null $config The configuration data to be sanitized.
      * @param array $keys The keys to be used for sanitization.
      */
-    public function __construct(private ?array $config, private array $keys = [])
+    public function __construct(private array $config = [], private array $keys = [])
     {
     }
 
@@ -28,17 +28,18 @@ class ConfigSanitizer
     public function transform(): array
     {
         if (empty($this->config) || empty($this->keys)) {
-            return $this->config ?? [];
+            return $this->config;
         }
 
-        foreach ($this->config as $key => $value) {
+        $sanitizedConfig = $this->config;
+        foreach ($sanitizedConfig as $key => $value) {
             if (!in_array($key, $this->keys)) {
-                unset($this->config[$key]);
+                unset($sanitizedConfig[$key]);
             }
         }
 
-        $this->config = array_merge(array_fill_keys($this->keys, null), $this->config);
+        $sanitizedConfig = array_merge(array_fill_keys($this->keys, null), $sanitizedConfig);
 
-        return $this->config;
+        return $sanitizedConfig;
     }
 }

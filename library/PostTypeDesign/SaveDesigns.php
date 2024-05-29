@@ -2,6 +2,7 @@
 
 namespace Municipio\PostTypeDesign;
 
+use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetOption;
@@ -14,7 +15,7 @@ use WpService\Contracts\UpdateOption;
  *
  * This class is responsible for saving designs for post types.
  */
-class SaveDesigns
+class SaveDesigns implements Hookable
 {
     /**
      * SaveDesigns constructor.
@@ -28,13 +29,12 @@ class SaveDesigns
         private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
         private ConfigFromPageIdInterface $configFromPageId
     ) {
-        $this->addHooks();
     }
 
     /**
      * Add hooks for saving designs.
      */
-    public function addHooks()
+    public function addHooks(): void
     {
         $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
     }

@@ -13,14 +13,12 @@ use WpService\Contracts\RemoteRetrieveBody;
  */
 class ConfigFromPageId implements ConfigFromPageIdInterface
 {
-    private $apiUrl = 'https://customizer.municipio.tech/id/';
-
     /**
      * ConfigFromPageId constructor.
      *
      * @param IsWPError&RemoteGet&RemoteRetrieveBody $wpService The WordPress service instance.
      */
-    public function __construct(private IsWPError&RemoteGet&RemoteRetrieveBody $wpService)
+    public function __construct(private IsWPError&RemoteGet&RemoteRetrieveBody $wpService, private string $apiUrl = '')
     {
     }
 
