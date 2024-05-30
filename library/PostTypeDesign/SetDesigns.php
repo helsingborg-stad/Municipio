@@ -15,6 +15,11 @@ use WpService\Contracts\GetPostType;
 class SetDesigns implements Hookable
 {
     /**
+     * @var string|false $postType Current post type.
+     */
+    private $postType = false;
+
+    /**
      * Class SetDesigns
      *
      * Represents a class that sets the designs for a post type.
@@ -45,13 +50,13 @@ class SetDesigns implements Hookable
      */
     public function setCss(string $css, string $stylesheet): string
     {
-        $postType = $this->wpService->getPostType();
+        $this->postType = $this->postType ?: $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['css'])) {
+        if (empty($this->postType) || empty($this->wpService->getOption($this->optionName)[$this->postType]['css'])) {
             return $css;
         }
 
-        return $this->wpService->getOption($this->optionName)[$postType]['css'];
+        return $this->wpService->getOption($this->optionName)[$this->postType]['css'];
     }
 
     /**
@@ -63,13 +68,13 @@ class SetDesigns implements Hookable
      */
     public function setDesign(mixed $value, string $option): mixed
     {
-        $postType = $this->wpService->getPostType();
+        $this->postType = $this->postType ?: $this->wpService->getPostType();
 
-        if (empty($postType) || empty($this->wpService->getOption($this->optionName)[$postType]['design'])) {
+        if (empty($this->postType) || empty($this->wpService->getOption($this->optionName)[$this->postType]['design'])) {
             return $value;
         }
 
-        $design = $this->wpService->getOption($this->optionName)[$postType]['design'];
+        $design = $this->wpService->getOption($this->optionName)[$this->postType]['design'];
         $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;
