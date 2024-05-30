@@ -5,18 +5,25 @@ namespace Municipio\ExternalContent\Sync;
 use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\Sources\ISourceRegistry;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
+use Municipio\HooksRegistrar\Hookable;
 use Spatie\SchemaOrg\BaseType;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\InsertPost;
 
-class SyncSingleFromSourceToLocalByPostId implements ISyncSourceToLocal
+class SyncSingleFromSourceToLocalByPostId implements ISyncSourceToLocal, Hookable
 {
     public function __construct(
         private int|string $postId,
         private ISourceRegistry $sourceRegistry,
         private WpPostFactoryInterface $wpPostFactory,
-        private InsertPost&GetPostMeta $wpService
+        private InsertPost&GetPostMeta&AddAction $wpService
     ) {
+    }
+
+    public function addHooks(): void
+    {
+        $this->wpService->addAction('init', [$this, 'sync']);
     }
 
     /**

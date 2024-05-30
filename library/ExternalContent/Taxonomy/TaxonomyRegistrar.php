@@ -11,6 +11,8 @@ use WpService\Contracts\TaxonomyExists;
 
 class TaxonomyRegistrar implements ITaxonomyRegistrar, Hookable
 {
+    private array $registeredTaxonomyItems = [];
+
     /**
      * Class constructor.
      *
@@ -37,6 +39,11 @@ class TaxonomyRegistrar implements ITaxonomyRegistrar, Hookable
         }
     }
 
+    public function getRegisteredTaxonomyItems(): array
+    {
+        return $this->registeredTaxonomyItems;
+    }
+
     private function tryRegisterTaxonomy(ITaxonomyItem $taxonomyItem): void
     {
         foreach ($this->sourceRegistry->getSources() as $source) {
@@ -52,6 +59,7 @@ class TaxonomyRegistrar implements ITaxonomyRegistrar, Hookable
             $this->wpService->registerTaxonomyForObjectType($taxonomyItem->getName(), $postType);
         } else {
             $this->wpService->registerTaxonomy($taxonomyItem->getName(), $postType, $taxonomyItem->getTaxonomyArgs());
+            $this->registeredTaxonomyItems[] = $taxonomyItem;
         }
     }
 }

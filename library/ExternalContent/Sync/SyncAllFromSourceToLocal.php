@@ -4,7 +4,6 @@ namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
-use Municipio\ExternalContent\WpPostMetaFactory\WpPostMetaFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\InsertPost;
 

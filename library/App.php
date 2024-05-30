@@ -285,7 +285,7 @@ class App
             $this->wpService
         );
 
-        $this->hooksRegistrar->register(new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar([
+        $taxonomyRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar([
             new TaxonomyItem(
                 'JobPosting',
                 'relevantOccupation',
@@ -294,7 +294,9 @@ class App
                 $this->wpService->__('Relevant occupations', 'municipio'),
                 $this->wpService
             )
-        ], $sourceRegistry, $this->wpService));
+        ], $sourceRegistry, $this->wpService);
+
+        $this->hooksRegistrar->register($taxonomyRegistrar);
 
         add_action('init', function () {
 
@@ -331,11 +333,12 @@ class App
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $this->wpService, $wpPostFactory);
 
         $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $this->wpService);
         // $syncSourceToLocal->sync();
 
         $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
-        // $syncSingleSourceToLocalByPostId->sync();
+        $syncSingleSourceToLocalByPostId->addHooks();
     }
 }
