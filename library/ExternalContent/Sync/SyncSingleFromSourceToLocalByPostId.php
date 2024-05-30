@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Sync;
 use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\Sources\ISourceRegistry;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
+use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Municipio\HooksRegistrar\Hookable;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\AddAction;

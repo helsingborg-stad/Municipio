@@ -293,6 +293,30 @@ class App
                 $this->wpService->__('Relevant occupation', 'municipio'),
                 $this->wpService->__('Relevant occupations', 'municipio'),
                 $this->wpService
+            ),
+            new TaxonomyItem(
+                'JobPosting',
+                'employmentType',
+                'employment_type',
+                $this->wpService->__('Employment type', 'municipio'),
+                $this->wpService->__('Employment types', 'municipio'),
+                $this->wpService
+            ),
+            new TaxonomyItem(
+                'JobPosting',
+                'hiringOrganization',
+                'hiring_organization',
+                $this->wpService->__('Hiring organization', 'municipio'),
+                $this->wpService->__('Hiring organizations', 'municipio'),
+                $this->wpService
+            ),
+            new TaxonomyItem(
+                'JobPosting',
+                'applicationContact',
+                'application_contact',
+                $this->wpService->__('Application contact', 'municipio'),
+                $this->wpService->__('Application contacts', 'municipio'),
+                $this->wpService
             )
         ], $sourceRegistry, $this->wpService);
 
@@ -323,6 +347,8 @@ class App
         });
 
         // TODO: Create terms from sources.
+        $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
+        $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
 
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\DateDecorator($wpPostFactory);
@@ -333,12 +359,12 @@ class App
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $this->wpService, $wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
 
         $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $this->wpService);
-        // $syncSourceToLocal->sync();
+        $syncSourceToLocal->addHooks();
 
         $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
-        $syncSingleSourceToLocalByPostId->addHooks();
+        // $syncSingleSourceToLocalByPostId->addHooks();
     }
 }

@@ -35,6 +35,14 @@ class SimpleJsonConverter implements JsonToSchemaObjects {
 
             if( is_array($value) && isset($value['@type']) ) {
                 $value = $this->generateSchemaObject($value);
+            } else if(is_array($value)) {
+                $convertedValue = [];
+                foreach($value as $index => $item) {
+                    if( is_array($item) && isset($item['@type']) ) {
+                        $convertedValue[$index] = $this->generateSchemaObject($item);
+                    }
+                }
+                $value = $convertedValue;
             }
 
             $object->{$key}($value);

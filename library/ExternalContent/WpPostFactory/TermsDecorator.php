@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\WpPostFactory;
 use Municipio\ExternalContent\Sources\ISource;
 use Municipio\ExternalContent\Taxonomy\ITaxonomyItem;
 use Municipio\ExternalContent\Taxonomy\ITaxonomyRegistrar;
+use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\InsertTerm;
 use WpService\Contracts\TermExists;
@@ -22,6 +23,7 @@ class TermsDecorator implements WpPostFactoryInterface
      */
     public function __construct(
         private ITaxonomyRegistrar $taxonomyRegistrar,
+        private WpTermFactoryInterface $wpTermFactory,
         private InsertTerm&TermExists $wpService,
         private WpPostFactoryInterface $inner
     ) {
@@ -35,18 +37,17 @@ class TermsDecorator implements WpPostFactoryInterface
         $post                  = $this->inner->create($schemaObject, $source);
         $matchingTaxonomyItems = $this->tryGetMatchingTaxonomyItems($schemaObject);
 
-        if (empty($matchingTaxonomyItems)) {
-            return $post;
-        }
-
         if (!isset($post['tax_input'])) {
             $post['tax_input'] = [];
         }
 
         foreach ($matchingTaxonomyItems as $taxonomyItem) {
             $propertyValue                               = $schemaObject->getProperty($taxonomyItem->getSchemaObjectProperty());
-            $termNames                                   = is_array($propertyValue) ? $propertyValue : [$propertyValue];
-            $termIds                                     = $this->getTermIdsFromTermNames($termNames, $taxonomyItem->getName());
+            $terms                                       = is_array($propertyValue) ? $propertyValue : [$propertyValue];
+            $wpTerms                                     = array_map(function ($term) use ($taxonomyItem) {
+                return $this->wpTermFactory->create($term, $taxonomyItem->getName());
+            }, $terms);
+            $termIds                                     = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
             $post['tax_input'][$taxonomyItem->getName()] = $termIds;
         }
 
@@ -63,24 +64,32 @@ class TermsDecorator implements WpPostFactoryInterface
         );
     }
 
-    private function getTermIdsFromTermNames(array $termNames, string $taxonomy): array
+    /**
+     * Get term ids from terms.
+     * If term does not exist, it will be created.
+     *
+     * @param WP_Term[] $terms
+     * @param string $taxonomy
+     * @return int[]
+     */
+    private function getTermIdsFromTerms(array $terms, string $taxonomy): array
     {
-        $termIds = array_map(function ($termName) use ($taxonomy) {
+        $termIds = array_map(function ($term) use ($taxonomy) {
 
-            $termExists = $this->wpService->termExists($termName, $taxonomy);
+            $termExists = $this->wpService->termExists($term->name, $taxonomy);
 
             if (!empty($termExists) && is_array($termExists) && isset($termExists['term_id'])) {
                 return $termExists['term_id'];
             }
 
-            $insertedTerm = $this->wpService->insertTerm($termName, $taxonomy);
+            $insertedTerm = $this->wpService->insertTerm($term->name, $taxonomy);
 
             if (is_array($insertedTerm) && isset($insertedTerm['term_id'])) {
                 return $insertedTerm['term_id'];
             }
 
             return null;
-        }, $termNames);
+        }, $terms);
 
         return array_filter(array_map('intval', $termIds));
     }

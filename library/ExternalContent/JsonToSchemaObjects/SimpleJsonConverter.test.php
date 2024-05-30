@@ -63,4 +63,31 @@ class SimpleJsonConverterTest extends TestCase {
         $this->assertInstanceOf('Spatie\SchemaOrg\Thing', $schemaObjects[0]);
         $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image'));
     }
+
+    /**
+     * @testdox returns nested array types
+     */
+    public function testTransformNestedArrayTypes() {
+        $json = '[
+            {
+                "@type": "Thing",
+                "image": [
+                    {
+                        "@type": "ImageObject",
+                        "url": "http://example.com/image1.jpg"
+                    },
+                    {
+                        "@type": "ImageObject",
+                        "url": "http://example.com/image2.jpg"
+                    }
+                ]
+            }
+        ]';
+
+        $converter = new SimpleJsonConverter();
+        $schemaObjects = $converter->transform($json);
+
+        $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image')[0]);
+        $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image')[1]);
+    }
 }
