@@ -624,7 +624,7 @@ class Colors
             ],
         ];
 
-        PanelsRegistry::getInstance()->setFields($fields);
+        PanelsRegistry::getInstance()->setRegisteredFields($fields);
 
         foreach ($fields as $field) {
             \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $field);

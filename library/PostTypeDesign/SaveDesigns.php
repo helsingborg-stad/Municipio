@@ -3,6 +3,7 @@
 namespace Municipio\PostTypeDesign;
 
 use Municipio\Customizer\PanelsRegistry;
+use Municipio\PostTypeDesign\GetFields;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
@@ -52,7 +53,8 @@ class SaveDesigns implements Hookable
         }
 
         // $designOption = $this->wpService->getOption($this->optionName);
-        $designOption = [];
+        $designOption      = [];
+        $getFieldsInstance = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
 
         foreach ($postTypes as $postType) {
             $design = $this->wpService->getThemeMod($postType . '_load_design');
@@ -62,7 +64,7 @@ class SaveDesigns implements Hookable
                 continue;
             }
 
-            $this->tryUpdateOptionWithDesign($design, $designOption, $postType);
+            $this->tryUpdateOptionWithDesign($design, $designOption, $postType, $getFieldsInstance);
         }
     }
 
@@ -73,18 +75,22 @@ class SaveDesigns implements Hookable
      * @param mixed $designOption
      * @param string $postType
      */
-    public function tryUpdateOptionWithDesign(mixed $design, mixed $designOption, string $postType): void
-    {
+    public function tryUpdateOptionWithDesign(
+        mixed $design,
+        mixed $designOption,
+        string $postType,
+        GetFieldsInterface $getFieldsInstance
+    ): void {
         [$designConfig, $css] = $this->configFromPageId->get($design);
 
-        [$sanitizedDesignConfig, $test] = $this->getDesignConfig($designConfig);
+        $sanitizedDesignConfig = $this->getDesignConfig($designConfig, $getFieldsInstance);
 
         if (!empty($sanitizedDesignConfig)) {
             $designOption[$postType] = [
                 'design'   => $sanitizedDesignConfig,
                 'css'      => $css,
                 'designId' => $design,
-                'test'     => $test
+                // 'test'     => $test
             ];
 
             $this->wpService->updateOption($this->optionName, $designOption);
@@ -133,16 +139,16 @@ class SaveDesigns implements Hookable
      * @param array $designConfig
      * @return array
      */
-    private function getDesignConfig(array $designConfig): array
+    private function getDesignConfig(array $designConfig, GetFieldsInterface $getFieldsInstance): array
     {
-        $keys                      = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
-        $test                      = $this->getKeysFromRegisteredFields($designConfig);
+        $keys = $getFieldsInstance->getFieldKeys();
+        // $test                      = $this->getKeysFromRegisteredFields($designConfig);
         $configTransformerInstance = new ConfigSanitizer(
             $designConfig,
             $keys
         );
 
-        return [$configTransformerInstance->transform(), $test];
+        return $configTransformerInstance->transform();
     }
 
     private function getKeysFromRegisteredFields(array $designConfig): array

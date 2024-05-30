@@ -139,8 +139,6 @@ class Customizer
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
 
-        // PanelsRegistry::getInstance()->build();
-        $instance = PanelsRegistry::getInstance();
-        $instance->build();
+        PanelsRegistry::getInstance()->build();
     }
 }
