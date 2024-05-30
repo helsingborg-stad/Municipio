@@ -3,6 +3,7 @@
 namespace Municipio\PostTypeDesign;
 
 use Municipio\Customizer\PanelsRegistry;
+use Municipio\PostTypeDesign\InlineCssGenerator;
 use Municipio\PostTypeDesign\GetFields;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
@@ -83,8 +84,11 @@ class SaveDesigns implements Hookable
     ): void {
         [$designConfig, $css] = $this->configFromPageId->get($design);
 
-        $sanitizedDesignConfig = $this->getDesignConfig($designConfig, $getFieldsInstance);
+        $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys());
+        $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields());
 
+        $sanitizedDesignConfig = $sanitizedDesignConfigInstance->sanitize();
+        $inlineCss             = $inlineCssInstance->generate();
         if (!empty($sanitizedDesignConfig)) {
             $designOption[$postType] = [
                 'design'   => $sanitizedDesignConfig,
@@ -131,24 +135,6 @@ class SaveDesigns implements Hookable
         return empty($design) ||
             (isset($designOption[$postType]) &&
             $designOption[$postType]['designId'] === $design);
-    }
-
-    /**
-     * Get the sanitized design configuration.
-     *
-     * @param array $designConfig
-     * @return array
-     */
-    private function getDesignConfig(array $designConfig, GetFieldsInterface $getFieldsInstance): array
-    {
-        $keys = $getFieldsInstance->getFieldKeys();
-        // $test                      = $this->getKeysFromRegisteredFields($designConfig);
-        $configTransformerInstance = new ConfigSanitizer(
-            $designConfig,
-            $keys
-        );
-
-        return $configTransformerInstance->transform();
     }
 
     private function getKeysFromRegisteredFields(array $designConfig): array

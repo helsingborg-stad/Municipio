@@ -44,7 +44,7 @@ class GetFields implements GetFieldsInterface
         $colorFieldTypes = ['multicolor', 'color', 'background'];
 
         foreach ($colorFieldTypes as $colorFieldType) {
-            $sanitizedFields = array_merge(array_filter($this->fields, function ($field) use ($colorFieldType) {
+            $sanitizedFields = array_merge(array_filter($this->allFields, function ($field) use ($colorFieldType) {
                 return $field['type'] === $colorFieldType;
             }), $sanitizedFields);
         }
