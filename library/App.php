@@ -234,6 +234,11 @@ class App
          * Branded emails
          */
         $this->trySetupBrandedEmails();
+
+        /**
+         * Apply schema.org data to posts
+         */
+        $this->setupSchemaDataFeature();
     }
 
     /**
@@ -287,5 +292,17 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
+    }
+
+    private function setupSchemaDataFeature(): void
+    {
+        // TODO: Register acf field group.
+        $schemaTypes   = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
+        $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFieldGroup($this->acfService, $schemaTypes, $this->wpService);
+        $this->hooksRegistrar->register($acfFieldGroup);
+
+        // TODO: Populate field in field group with all available schema.org types.
+        // TODO: Populate post with schema.org type.
+        // TODO:
     }
 }
