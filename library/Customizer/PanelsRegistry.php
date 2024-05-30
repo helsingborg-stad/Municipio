@@ -44,9 +44,9 @@ class PanelsRegistry
         return $this->sections;
     }
 
-    public function setRegisteredFields(array $fields): void
+    public function addRegisteredField(array $field): void
     {
-        $this->fields = array_merge($this->fields, $fields);
+        $this->fields[] = $field;
     }
 
     public function getRegisteredFields(): array
