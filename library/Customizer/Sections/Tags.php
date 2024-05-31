@@ -2,11 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Tags
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'tags_style_settings',
             'label'       => esc_html__('Tag styling', 'municipio'),
@@ -15,16 +17,16 @@ class Tags
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
-                ''   => esc_html__('Default', 'municipio'),
+                ''     => esc_html__('Default', 'municipio'),
                 'pill' => esc_html__('Pill', 'municipio')
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'tagsStyle',
                     'context' => [
                         [
-                            'context' => 'component.tags',
+                            'context'  => 'component.tags',
                             'operator' => '==',
                         ],
                     ]
@@ -32,7 +34,7 @@ class Tags
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'tags_markings_style',
             'label'       => esc_html__('Tag icon', 'municipio'),
@@ -41,16 +43,16 @@ class Tags
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
-                ''   => esc_html__("Default", 'municipio'),
+                ''                => esc_html__("Default", 'municipio'),
                 'taxonomy-colors' => esc_html__('Dot', 'municipio')
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'tagsMarker',
                     'context' => [
                         [
-                            'context' => 'component.tags',
+                            'context'  => 'component.tags',
                             'operator' => '==',
                         ],
                     ]
@@ -58,7 +60,7 @@ class Tags
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'tags_compress',
             'label'       => esc_html__('Compress tags', 'municipio'),
@@ -72,11 +74,11 @@ class Tags
             ],
             'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => "compress",
                     'context' => [
                         [
-                            'context' => 'component.tags',
+                            'context'  => 'component.tags',
                             'operator' => '==',
                         ],
                     ]

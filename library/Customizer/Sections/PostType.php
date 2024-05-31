@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\KirkiField;
 
 class PostType
 {
@@ -13,7 +13,7 @@ class PostType
 
     public function __construct(private string $sectionID, private object $postType)
     {
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'      => 'select',
             'settings'  => $this->postType->name . '_' . self::LOAD_DESIGN_KEY,
             'label'     => esc_html__('Select a design', 'municipio'),
@@ -24,7 +24,7 @@ class PostType
             'transport' => 'postMessage'
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'checkbox',
             'settings'    => $this->postType->name . '_' . self::UPDATE_DESIGN,
             'label'       => esc_html__('Follow the design', 'municipio'),

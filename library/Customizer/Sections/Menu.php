@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\KirkiField;
 
 class Menu
 {
@@ -10,7 +10,7 @@ class Menu
 
     public function __construct(string $sectionID)
     {
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'switch',
             'settings' => 'primary_menu_pagetree_fallback',
             'label'    => esc_html__('Use page tree as fallback for primary menu', 'municipio'),
@@ -26,7 +26,7 @@ class Menu
             ]
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'switch',
             'settings' => 'secondary_menu_pagetree_fallback',
             'label'    => esc_html__('Use page tree as fallback for secondary menu', 'municipio'),
@@ -42,7 +42,7 @@ class Menu
             ]
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'switch',
             'settings' => 'mobile_menu_pagetree_fallback',
             'label'    => esc_html__('Use page tree as fallback for mobile menu', 'municipio'),
@@ -58,7 +58,7 @@ class Menu
             ]
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'switch',
             'settings' => 'mega_menu_pagetree_fallback',
             'label'    => esc_html__('Use page tree as fallback for mega menu', 'municipio'),
@@ -74,7 +74,7 @@ class Menu
             ]
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'switch',
             'settings' => 'primary_menu_dropdown',
             'label'    => esc_html__('Show subitems as dropdown in main menu', 'municipio'),
@@ -90,7 +90,7 @@ class Menu
             ]
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, $this->getDrawerScreenSizesFieldArguments($sectionID));
+        KirkiField::addField($this->getDrawerScreenSizesFieldArguments($sectionID));
     }
 
     public function getDrawerScreenSizesFieldArguments(string $sectionID)
