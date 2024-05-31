@@ -2,11 +2,11 @@
 
     <!-- Title -->
     @section('article.title.before')@show
-    @if ($postTitleFiltered || isset($callToActionItems['floating']))
+    @if (!empty($postTitleFiltered) || isset($callToActionItems['floating']))
         @group([
             'justifyContent' => 'space-between'
         ])
-            @if ($postTitleFiltered)
+            @if (!empty($postTitleFiltered))
                 @typography([
                     'element' => 'h1', 
                     'variant' => 'h1', 
@@ -34,7 +34,7 @@
     )
 
     <!-- Featured image -->
-    @if ($displayFeaturedImage && $featuredImage['src'])
+    @if ($displayFeaturedImage && is_array($featuredImage) && $featuredImage['src'])
         @section('article.featuredimage.before')@show
         @if (!empty($featuredImage['src']))
             @image([
@@ -63,7 +63,10 @@
         ])
         @endnotice
     @endif
-    {!! $postContentFiltered !!}
+
+    @if (isset($postContentFiltered))
+        {!! $postContentFiltered !!}
+    @endif
     @section('article.content.after')@show
 
     <!-- Terms -->
