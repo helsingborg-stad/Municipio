@@ -5,10 +5,6 @@ namespace Municipio\SchemaData\Acf;
 use AcfService\Contracts\AddLocalFieldGroup;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\SchemaData\Acf\Utils\SchemaTypes;
-use ReflectionClass;
-use ReflectionMethod;
-use Spatie\SchemaOrg\Schema;
-use Spatie\SchemaOrg\Thing;
 use WpService\Contracts\AddAction;
 
 class RegisterFieldGroup implements Hookable
@@ -38,7 +34,9 @@ class RegisterFieldGroup implements Hookable
                     'type'          => 'select',
                     'choices'       => $this->getAllSchemaTypes(),
                     'return_format' => 'value',
-                    'ui'            => 1,
+                    'default_value' => '',
+                    'ui'            => 0,
+                    "required"      => 0,
                 )
             ),
             'location' => array (
@@ -55,14 +53,11 @@ class RegisterFieldGroup implements Hookable
 
     private function getAllSchemaTypes(): array
     {
-        $schemaClass = new ReflectionClass(Schema::class);
-        $methods     = $schemaClass->getMethods(ReflectionMethod::IS_STATIC);
-        $options     = [];
-
         foreach ($this->schemaTypes->getSchemaTypes() as $type) {
             $options[$type] = $type;
         }
 
-        return $options;
+        asort($options, SORT_NATURAL | SORT_FLAG_CASE);
+        return array('' => 'None') + $options;
     }
 }
