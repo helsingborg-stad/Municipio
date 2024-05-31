@@ -39,8 +39,8 @@ class SaveDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        // $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
-        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
+        $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        // $this->wpService->addAction('wp', array($this, 'storeDesigns'));
     }
 
     /**
@@ -91,10 +91,10 @@ class SaveDesigns implements Hookable
         $inlineCss             = $inlineCssInstance->generate();
         if (!empty($sanitizedDesignConfig)) {
             $designOption[$postType] = [
-                'design'   => $sanitizedDesignConfig,
-                'css'      => $css,
-                'designId' => $design,
-                // 'test'     => $test
+                'design'    => $sanitizedDesignConfig,
+                'css'       => $css,
+                'designId'  => $design,
+                'inlineCss' => $inlineCss
             ];
 
             $this->wpService->updateOption($this->optionName, $designOption);
@@ -135,38 +135,5 @@ class SaveDesigns implements Hookable
         return empty($design) ||
             (isset($designOption[$postType]) &&
             $designOption[$postType]['designId'] === $design);
-    }
-
-    private function getKeysFromRegisteredFields(array $designConfig): array
-    {
-        $fields = PanelsRegistry::getInstance()->getRegisteredFields();
-
-        if (empty($fields) || !is_array($fields)) {
-            return [];
-        }
-
-        $multiColorFields = array_filter($fields, function ($field) {
-            return $field['type'] === 'multicolor';
-        });
-
-        $multiColorKeys = [];
-        foreach ($multiColorFields as $field) {
-            if (empty($designConfig[$field['settings']]) || empty($field['output'])) {
-                continue;
-            }
-
-            $designConfigField = $designConfig[$field['settings']];
-
-            foreach ($field['output'] as $output) {
-                if (empty($designConfigField[$output['choice']])) {
-                    continue;
-                }
-
-                $multiColorKeys[$output['property']] = $designConfigField[$output['choice']];
-            }
-        }
-
-
-        return array_merge($multiColorKeys, []);
     }
 }

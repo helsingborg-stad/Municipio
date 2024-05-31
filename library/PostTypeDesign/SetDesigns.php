@@ -34,17 +34,31 @@ class SetDesigns implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
+
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
         add_action('wp_head', function () {
-            // echo '<pre>' . print_r($this->wpService->getOption($this->optionName), true) . '</pre>';
-                $colors    = $this->wpService->getOption($this->optionName)['event']['test'];
-                $cssString = '';
-            foreach ($colors as $key => $value) {
-                $cssString .= "$key: $value;";
+            $postTypeDesigns = $this->wpService->getOption($this->optionName);
+
+            if (empty($postTypeDesigns)) {
+                return;
             }
+
+            $cssString = '';
+            foreach ($postTypeDesigns as $postType => $design) {
+                if (empty($design['inlineCss'])) {
+                    continue;
+                }
+
+                $cssString = ".post-type-$postType {";
+                foreach ($design['inlineCss'] as $property => $value) {
+                    $cssString .= "$property: $value; ";
+                }
+                $cssString .= "}";
+            }
+
             ?>
                 <style>
-                    .post-type-event {<?php echo $cssString; ?>}
+                    <?php echo $cssString; ?>
                 </style>
             <?php
         });
