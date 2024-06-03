@@ -38,8 +38,7 @@ class SaveDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        // $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
-        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
+        $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
     }
 
     /**
@@ -52,8 +51,7 @@ class SaveDesigns implements Hookable
             return;
         }
 
-        // $this->designOption = $this->wpService->getOption($this->optionName) ?? [];
-        $this->designOption = [];
+        $this->designOption = $this->wpService->getOption($this->optionName) ?? [];
         $getFieldsInstance  = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
 
         foreach ($postTypes as $postType) {
@@ -84,7 +82,6 @@ class SaveDesigns implements Hookable
         if (empty($this->designOption)) {
             return;
         }
-
         $this->designOption['inlineCss'] = '';
         foreach ($this->designOption as $design) {
             $this->designOption['inlineCss'] .= $design['inlineCss'] ?? '';
