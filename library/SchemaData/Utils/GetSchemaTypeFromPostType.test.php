@@ -5,7 +5,7 @@ namespace Municipio\SchemaData\Utils;
 use AcfService\Contracts\GetField;
 use PHPUnit\Framework\TestCase;
 
-class GetSchemaTypeFromPostType extends TestCase
+class GetSchemaTypeFromPostTypeTest extends TestCase
 {
     public function testReturnsNullIfEmptyString()
     {

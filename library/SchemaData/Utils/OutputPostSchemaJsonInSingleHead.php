@@ -25,8 +25,7 @@ class OutputPostSchemaJsonInSingleHead implements Hookable
     public function print(): void
     {
         if ($this->wpService->isSingle()) {
-            $schemaObject = $this->schemaJsonFromPost->create($this->wpService->getPost());
-            echo $schemaObject->toScript();
+            echo ($this->schemaJsonFromPost->create($this->wpService->getPost()))->toScript();
         }
     }
 }
