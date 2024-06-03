@@ -57,7 +57,7 @@ class SetDesigns implements Hookable
             }
 
             ?>
-                <style>
+                <style type="text/css">
                     <?php echo $cssString; ?>
                 </style>
             <?php
