@@ -2,11 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Module;
 
+use Municipio\Customizer\KirkiField;
+
 class Posts
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_index_modifier',
           'label'    => esc_html__('Index', 'municipio'),
@@ -29,7 +31,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_list_modifier',
           'label'    => esc_html__('List', 'municipio'),
@@ -53,7 +55,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_expandablelist_modifier',
           'label'    => esc_html__('Expandable List', 'municipio'),
@@ -77,7 +79,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'        => 'switch',
           'settings'    => 'mod_posts_display_post_icon',
           'label'       => esc_html__('Display term icon', 'municipio'),

@@ -32,74 +32,75 @@ class SaveDesignsTest extends TestCase
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(0, $wpService->getOptionCalls);
+        $this->assertCount(0, $wpService->calls['getOption']);
     }
 
-    public function testStoreDesignsSkipsIfDesignExists()
+    public function testStoreSkipsIfNoDesign()
     {
         $wpService = $this->getWpService([
-            'postTypes' => ['post'],
-            'getOption' => ['post_type_design' => ['post' => '123']]
+            'postTypes'   => ['post'],
+            'getThemeMod' => [false, true],
         ]);
 
         $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(2, $wpService->getThemeModCalls);
-        $this->assertCount(1, $wpService->getOptionCalls);
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+        $this->assertEmpty($saveDesignsInstance->designOption);
     }
 
-    public function testStoreDesignsUpdatesDesignIfCssOrMods()
+    public function testStoreDesignRemovesDesignIfEmpty()
     {
         $wpService = $this->getWpService([
             'postTypes'   => ['post'],
-            'getOption'   => ['post_type_design' => ['post' => '123']],
-            'getThemeMod' => '123'
+            'getThemeMod' => [false, true],
+            'getOption'   => ['post' => ['mods']]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['abc' => ''], null]));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(1, $wpService->getUpdateOptionCalls);
+        $this->assertEmpty($saveDesignsInstance->designOption);
     }
 
-
-    public function testStoreDesignsDoesNothingIfNoCssOrMods()
+    public function testStoreDesignCreatesInlineCss()
     {
         $wpService = $this->getWpService([
             'postTypes'   => ['post'],
-            'getOption'   => ['post_type_design' => ['post' => '123']],
-            'getThemeMod' => '123'
+            'getThemeMod' => ['123', true],
+            'getOption'   => [
+                'post'  => [
+                    'mods'      => ['key' => 'value'],
+                    'designId'  => '123',
+                    'inlineCss' => 'post: css;'
+                ],
+                'post2' => [
+                    'mods'      => ['key' => 'value'],
+                    'designId'  => '321',
+                    'inlineCss' => 'post2: css;'
+                ]
+            ]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig());
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+
+        $saveDesignsInstance->storeDesigns();
+        $this->assertEquals('post: css;post2: css;', $saveDesignsInstance->designOption['inlineCss']);
+    }
+
+
+    public function testStoreDesignAlwaysUpdatesOptionIfPostTypesExists()
+    {
+        $wpService = $this->getWpService([
+            'postTypes' => ['post']
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
-    }
-
-    public function testTryUpdateOptionWithDesignUpdatesIfDesign()
-    {
-        $wpService           = $this->getWpService();
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['mod' => 'mod'], '123']));
-
-        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
-
-        $this->assertCount(1, $wpService->getUpdateOptionCalls);
-    }
-
-    public function testTryUpdateOptionWithDesignDoesNotUpdateIfNoDesign()
-    {
-        $wpService           = $this->getWpService();
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '']));
-
-        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
-
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+        $this->assertCount(1, $wpService->calls['updateOption']);
     }
 
     private function getConfig($returnValue = null)
@@ -118,10 +119,7 @@ class SaveDesignsTest extends TestCase
     private function getWpService(array $db = []): AddAction
     {
         return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
-            public array $calls                = ['addFilter' => []];
-            public array $getOptionCalls       = [];
-            public array $getThemeModCalls     = [];
-            public array $getUpdateOptionCalls = [];
+            public array $calls = ['addFilter' => [], 'getOption' => [], 'updateOption' => []];
 
             public function __construct(private array $db)
             {
@@ -135,14 +133,19 @@ class SaveDesignsTest extends TestCase
 
             public function getOption(string $option, mixed $defaultValue = false): mixed
             {
-                $this->getOptionCalls[] = "ran";
+                $this->calls['getOption'][] = "ran";
                 return $this->db['getOption'] ?? null;
             }
 
             public function getThemeMod(string $name, mixed $default = false): mixed
             {
-                $this->getThemeModCalls[] = "ran";
-                return $this->db['getThemeMod'] ?? $default;
+                $themeMod = false;
+
+                if (!empty($this->db['getThemeMod'][0])) {
+                    $themeMod = $this->db['getThemeMod'][0];
+                    unset($this->db['getThemeMod'][0]);
+                }
+                return $themeMod;
             }
 
             public function getPostTypes(
@@ -155,7 +158,7 @@ class SaveDesignsTest extends TestCase
 
             public function updateOption(string $option, mixed $value, string|bool $autoload = null): bool
             {
-                $this->getUpdateOptionCalls[] = "ran";
+                $this->calls['updateOption'][] = "ran";
                 return true;
             }
         };

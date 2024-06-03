@@ -25,7 +25,7 @@ class ConfigSanitizer
      *
      * @return array The transformed configuration array.
      */
-    public function transform(): array
+    public function sanitize(): array
     {
         if (empty($this->config) || empty($this->keys)) {
             return $this->config;

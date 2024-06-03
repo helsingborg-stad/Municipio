@@ -2,11 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Padding
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'main_content_padding',
             'label'       => esc_html__('Amount of padding around columns.', 'municipio'),
@@ -23,7 +25,7 @@ class Padding
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'organism_grid_gap',
             'label'       => esc_html__('Amount of padding in grids.', 'municipio'),
@@ -44,7 +46,7 @@ class Padding
             ]
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'radio_buttonset',
             'settings'    => 'flat_ui_design',
             'label'       => esc_html__('Air in cards', 'municipio'),

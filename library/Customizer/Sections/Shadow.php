@@ -2,53 +2,55 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Shadow
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'drop_shadow_amount',
             'label'       => esc_html__('Amount of shadows', 'municipio'),
             'description' => esc_html__('The shadow sizes will automatically be multiplied from the value below. A value of 0 will completly turn off shadows.', 'municipio'),
             'section'     => $sectionID,
-            'transport' => 'auto',
+            'transport'   => 'auto',
             'default'     => 1,
             'choices'     => [
                 'min'  => 0,
                 'max'  => 4,
                 'step' => 0.1,
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--drop-shadow-amount',
+                    'element'  => ':root',
+                    'property' => '--drop-shadow-amount',
                 ]
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'detail_shadow_amount',
             'label'       => esc_html__('Amount of detail shadow', 'municipio'),
             'description' => esc_html__('The detail shadow size will affect smaller components. A value of 0 will turn of the shadow completely.', 'municipio'),
             'section'     => $sectionID,
-            'transport' => 'auto',
+            'transport'   => 'auto',
             'default'     => 0.5,
             'choices'     => [
                 'min'  => 0,
                 'max'  => 1,
                 'step' => 0.1,
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--detail-shadow-amount',
+                    'element'  => ':root',
+                    'property' => '--detail-shadow-amount',
                 ]
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'color',
             'settings'    => 'drop_shadow_color',
             'label'       => esc_html__('Color of shadows', 'municipio'),
@@ -59,10 +61,10 @@ class Shadow
             'choices'     => [
                 'alpha' => true,
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--drop-shadow-color',
+                    'element'  => ':root',
+                    'property' => '--drop-shadow-color',
                 ]
             ],
         ]);

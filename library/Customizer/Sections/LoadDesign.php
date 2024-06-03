@@ -2,19 +2,19 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\KirkiField;
 use Municipio\Customizer\Panel;
 use Municipio\Customizer\PanelsRegistry;
 
 class LoadDesign
 {
-    private const API_URL                   = 'https://customizer.municipio.tech/';
-    private const LOAD_DESIGN_KEY           = 'load_design';
-    private const EXCLUDE_LOAD_DESIGN_KEY   = 'exclude_load_design';
-    private $uniqueId               = null;
+    private const API_URL                 = 'https://customizer.municipio.tech/';
+    private const LOAD_DESIGN_KEY         = 'load_design';
+    private const EXCLUDE_LOAD_DESIGN_KEY = 'exclude_load_design';
+    private $uniqueId                     = null;
 
     private $apiActions = [
-        'post'  =>  "",
+        'post'   =>  "",
         'single' => 'id' . DIRECTORY_SEPARATOR
     ];
 
@@ -24,18 +24,18 @@ class LoadDesign
             return;
         }
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => self::LOAD_DESIGN_KEY,
-            'label'       => esc_html__('Select a design', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => false,
-            'priority'    => 10,
-            'choices'     => $this->loadOptions(),
-            'transport'   => 'postMessage'
+        KirkiField::addField([
+            'type'      => 'select',
+            'settings'  => self::LOAD_DESIGN_KEY,
+            'label'     => esc_html__('Select a design', 'municipio'),
+            'section'   => $sectionID,
+            'default'   => false,
+            'priority'  => 10,
+            'choices'   => $this->loadOptions(),
+            'transport' => 'postMessage'
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, array(
+        KirkiField::addField(array(
             'settings'    => self::EXCLUDE_LOAD_DESIGN_KEY,
             'section'     => $sectionID,
             'type'        => 'select',
@@ -77,7 +77,7 @@ class LoadDesign
      */
     private function isBlogPublished(): bool
     {
-        if(!is_multisite()) {
+        if (!is_multisite()) {
             return true;
         }
         return get_blog_status(get_current_blog_id(), 'public') == 1;
@@ -87,7 +87,7 @@ class LoadDesign
     {
         // Add core section due to unavalability through PanelsRegistry.
         $options = ['custom_css' => __('Additional CSS')];
-        $panels = PanelsRegistry::getInstance()->getRegisteredPanels();
+        $panels  = PanelsRegistry::getInstance()->getRegisteredPanels();
 
         foreach ($panels as $panel) {
             $this->generateOptionsFromPanel($panel, $options);
@@ -101,10 +101,10 @@ class LoadDesign
 
         if (!empty($sections = $panel->getSections())) {
             $optionGroupPanelPrefix = '';
-            $optionGroupLabel = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
+            $optionGroupLabel       = empty($label = $panel->getTitle()) ? $panel->getID() : $label;
 
             if (!empty($parentPanelID = $panel->getPanel())) {
-                $parentPanelTitle = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
+                $parentPanelTitle       = PanelsRegistry::getInstance()->getRegisteredPanels()[$parentPanelID]->getTitle();
                 $optionGroupPanelPrefix = "{$parentPanelTitle} / ";
             }
 
@@ -165,9 +165,9 @@ class LoadDesign
                 $this->apiActions['post'] .
                 '?cacheBust=' . uniqid(),
             [
-                'method' => 'POST',
+                'method'  => 'POST',
                 'timeout' => 5,
-                'body' => $this->getSiteData(),
+                'body'    => $this->getSiteData(),
                 'headers' => 'CLIENT-SITE-ID: ' . md5(NONCE_KEY . NONCE_SALT . get_current_blog_id())
             ]
         );

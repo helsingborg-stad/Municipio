@@ -2,6 +2,9 @@
 
 namespace Municipio\PostTypeDesign;
 
+use Municipio\Customizer\PanelsRegistry;
+use Municipio\PostTypeDesign\InlineCssGenerator;
+use Municipio\PostTypeDesign\GetFields;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
@@ -17,18 +20,17 @@ use WpService\Contracts\UpdateOption;
  */
 class SaveDesigns implements Hookable
 {
+    public array $designOption;
+
     /**
      * SaveDesigns constructor.
-     *
-     * @param string $optionName
-     * @param AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService
-     * @param ConfigFromPageIdInterface $configFromPageId
      */
     public function __construct(
         private string $optionName,
         private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
         private ConfigFromPageIdInterface $configFromPageId
     ) {
+        $this->designOption = [];
     }
 
     /**
@@ -49,41 +51,68 @@ class SaveDesigns implements Hookable
             return;
         }
 
-        $designOption = $this->wpService->getOption($this->optionName);
+        $this->designOption = $this->wpService->getOption($this->optionName) ?? [];
+        $getFieldsInstance  = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
 
         foreach ($postTypes as $postType) {
             $design = $this->wpService->getThemeMod($postType . '_load_design');
 
-            if ($this->hasDesignOrAlreadySetValue($design, $designOption, $postType)) {
-                $this->maybeRemoveOptionKey($design, $designOption, $postType);
+            if ($this->hasDesignOrAlreadySetValue($design, $postType)) {
+                $this->maybeRemoveOptionKey($design, $postType);
                 continue;
             }
 
-            $this->tryUpdateOptionWithDesign($design, $designOption, $postType);
+            $this->tryUpdateDesign($design, $postType, $getFieldsInstance);
+        }
+
+        $this->createInlineCssString();
+        $this->wpService->updateOption($this->optionName, $this->designOption);
+    }
+
+    /**
+     * Creates an inline CSS string based on the design options.
+     *
+     * If the design options are empty, the method returns early.
+     * The method iterates over each design option and appends the inline CSS to the 'inlineCss' property.
+     *
+     * @return void
+     */
+    private function createInlineCssString(): void
+    {
+        if (empty($this->designOption)) {
+            return;
+        }
+        $this->designOption['inlineCss'] = '';
+        foreach ($this->designOption as $design) {
+            $this->designOption['inlineCss'] .= $design['inlineCss'] ?? '';
         }
     }
+
 
     /**
      * Try to update the option with the design.
      *
      * @param mixed $design
-     * @param mixed $designOption
      * @param string $postType
+     * @param GetFieldsInterface $getFieldsInstance
      */
-    public function tryUpdateOptionWithDesign(mixed $design, mixed $designOption, string $postType): void
+    private function tryUpdateDesign(mixed $design, string $postType, GetFieldsInterface $getFieldsInstance): void
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
 
-        $sanitizedDesignConfig = $this->getDesignConfig($designConfig);
+        $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys());
+        $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields());
+
+        $sanitizedDesignConfig = $sanitizedDesignConfigInstance->sanitize();
+        $inlineCssString       = $inlineCssInstance->generateCssString();
 
         if (!empty($sanitizedDesignConfig)) {
-            $designOption[$postType] = [
-                'design'   => $sanitizedDesignConfig,
-                'css'      => $css,
-                'designId' => $design
+            $this->designOption[$postType] = [
+                'design'    => $sanitizedDesignConfig,
+                'css'       => $css,
+                'designId'  => $design,
+                'inlineCss' => ".s-post-type-{$postType} { {$inlineCssString} }"
             ];
-
-            $this->wpService->updateOption($this->optionName, $designOption);
         }
     }
 
@@ -91,14 +120,12 @@ class SaveDesigns implements Hookable
      * Remove the option key if necessary.
      *
      * @param mixed $design
-     * @param mixed $designOption
      * @param string $postType
      */
-    private function maybeRemoveOptionKey(mixed $design, mixed $designOption, string $postType): void
+    private function maybeRemoveOptionKey(mixed $design, string $postType): void
     {
-        if (empty($design) && isset($designOption[$postType])) {
-            unset($designOption[$postType]);
-            $this->wpService->updateOption($this->optionName, $designOption);
+        if (empty($design) && isset($this->designOption[$postType])) {
+            unset($this->designOption[$postType]);
         }
     }
 
@@ -106,11 +133,10 @@ class SaveDesigns implements Hookable
      * Check if the design exists or already has a value.
      *
      * @param mixed $design
-     * @param mixed $designOption
      * @param string $postType
      * @return bool
      */
-    private function hasDesignOrAlreadySetValue(mixed $design, mixed $designOption, string $postType): bool
+    private function hasDesignOrAlreadySetValue(mixed $design, string $postType): bool
     {
         $shouldUpdate = $this->wpService->getThemeMod($postType . '_post_type_update_design');
 
@@ -119,25 +145,7 @@ class SaveDesigns implements Hookable
         }
 
         return empty($design) ||
-            (isset($designOption[$postType]) &&
-            $designOption[$postType]['designId'] === $design);
-    }
-
-    /**
-     * Get the sanitized design configuration.
-     *
-     * @param array $designConfig
-     * @return array
-     */
-    private function getDesignConfig(array $designConfig): array
-    {
-        $keys = array_merge(MultiColorKeys::get(), ColorKeys::get(), BackgroundKeys::get());
-
-        $configTransformerInstance = new ConfigSanitizer(
-            $designConfig,
-            $keys
-        );
-
-        return $configTransformerInstance->transform();
+        (isset($this->designOption[$postType]) &&
+        $this->designOption[$postType]['designId'] === $design);
     }
 }

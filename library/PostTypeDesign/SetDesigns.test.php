@@ -8,6 +8,7 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WP_Post;
+use WpService\Contracts\AddAction;
 
 class SetDesignsTest extends TestCase
 {
@@ -20,6 +21,7 @@ class SetDesignsTest extends TestCase
 
         $this->assertEquals('option_theme_mods_municipio', $wpService->calls['addFilter'][0][0]);
         $this->assertEquals('wp_get_custom_css', $wpService->calls['addFilter'][1][0]);
+        $this->assertEquals('wp_head', $wpService->calls['addAction'][0][0]);
     }
 
     public function testSetCssReturnsOldCssIfNoPostType()
@@ -82,11 +84,45 @@ class SetDesignsTest extends TestCase
         $this->assertEquals('value1', $result['mod1']);
     }
 
-
-    private function getWpService(array $db = []): AddFilter&GetOption&GetPostType
+    public function testInlineCssSkippedIfEmpty()
     {
-        return new class ($db) implements AddFilter, GetOption, GetPostType {
-            public array $calls = ['addFilter' => []];
+        $wpService = $this->getWpService([
+            'getOption' => [
+                'inlineCss' => '',
+            ]
+        ]);
+
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        ob_start();
+        $setDesignsInstance->addInlineCss();
+        $output = ob_get_clean();
+
+        $this->assertEmpty($output);
+    }
+
+    public function testInlineCssAddsIfNotEmpty()
+    {
+        $wpService = $this->getWpService([
+            'getOption' => [
+                'inlineCss' => 'css',
+            ]
+        ]);
+
+        $setDesignsInstance = new SetDesigns('post_type_design', $wpService);
+        ob_start();
+        $setDesignsInstance->addInlineCss();
+        $output = ob_get_clean();
+
+
+
+        $this->assertTrue(str_contains($output, 'css'));
+    }
+
+
+    private function getWpService(array $db = []): AddFilter&AddAction&GetOption&GetPostType
+    {
+        return new class ($db) implements AddFilter, AddAction, GetOption, GetPostType {
+            public array $calls = ['addFilter' => [], 'addAction' => []];
 
             public function __construct(private array $db)
             {
@@ -95,6 +131,12 @@ class SetDesignsTest extends TestCase
             public function addFilter(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
             {
                 $this->calls['addFilter'][] = func_get_args();
+                return true;
+            }
+
+            public function addAction(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
+            {
+                $this->calls['addAction'][] = func_get_args();
                 return true;
             }
 

@@ -3,6 +3,7 @@
 namespace Municipio\PostTypeDesign;
 
 use Municipio\HooksRegistrar\Hookable;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
@@ -24,8 +25,10 @@ class SetDesigns implements Hookable
      *
      * Represents a class that sets the designs for a post type.
      */
-    public function __construct(private string $optionName, private AddFilter&GetPostType&GetOption $wpService)
-    {
+    public function __construct(
+        private string $optionName,
+        private AddFilter&AddAction&GetPostType&GetOption $wpService
+    ) {
     }
 
     /**
@@ -39,6 +42,7 @@ class SetDesigns implements Hookable
     {
         $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
+        $this->wpService->addAction('wp_head', array($this, 'addInlineCss'));
     }
 
     /**
@@ -78,5 +82,27 @@ class SetDesigns implements Hookable
         $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;
+    }
+
+    /**
+     * Adds inline CSS to the page.
+     *
+     * This method retrieves the 'inlineCss' option from the WordPress service and adds it as inline CSS to the page.
+     * If the 'inlineCss' option is empty, no CSS is added.
+     *
+     * @return void
+     */
+    public function addInlineCss(): void
+    {
+        $postTypeDesigns = $this->wpService->getOption($this->optionName);
+        if (empty($postTypeDesigns['inlineCss'])) {
+            return;
+        }
+
+        ?>
+            <style type="text/css">
+                <?php echo $postTypeDesigns['inlineCss'] ?>
+            </style>
+        <?php
     }
 }
