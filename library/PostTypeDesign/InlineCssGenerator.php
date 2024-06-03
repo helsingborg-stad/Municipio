@@ -4,6 +4,8 @@ namespace Municipio\PostTypeDesign;
 
 class InlineCssGenerator 
 {
+    private array $acceptedFieldTypes = [];
+
     /**
      * InlineCssGenerator constructor.
      *
@@ -11,7 +13,9 @@ class InlineCssGenerator
      * @param array $fields The fields array.
      */
     public function __construct(private array $designConfig, private array $fields)
-    {}
+    {
+        $this->acceptedFieldTypes = ['color', 'multicolor'];
+    }
     
     /**
      * Generate an array of inline CSS based on the design configuration and fields.
@@ -27,18 +31,24 @@ class InlineCssGenerator
         }
 
         foreach ($this->fields as $field) {
-            if (empty($this->designConfig[$field['settings']]) || empty($field['output'])) {
+            if ($this->isNotValidField($field)) {
                 continue;
             }
 
             $designConfigField = $this->designConfig[$field['settings']];
-
-            if ($field['type'] === 'multicolor' || $field['type'] === 'color') {
-                $inlineCss = array_merge($this->getMultiColorCss($field, $designConfigField), $inlineCss);
-            }
+            $inlineCss = array_merge($this->getMultiColorCss($field, $designConfigField), $inlineCss);
         }
 
         return $inlineCss;
+    }
+
+    private function isNotValidField($field) 
+    {
+        return 
+            empty($this->designConfig[$field['settings']]) || 
+            empty($field['output']) || 
+            empty($field['type']) ||
+            !in_array($field['type'], $this->acceptedFieldTypes);
     }
 
     /**
@@ -49,12 +59,12 @@ class InlineCssGenerator
     public function generateCssString(): string|false
     {
         $inlineCssArray = $this->generateCssArray();
+        $cssString = '';
 
         if (empty($inlineCssArray)) {
-            return false;
+            return $cssString;
         }
 
-        $cssString = '';
         foreach ($inlineCssArray as $property => $value) {
             $cssString .= "$property: $value; ";
         }

@@ -10,7 +10,6 @@ use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\UpdateOption;
 use Municipio\PostTypeDesign\ConfigFromPageIdInterface;
-use Municipio\Customizer\PanelsRegistry;
 
 class SaveDesignsTest extends TestCase
 {
@@ -33,7 +32,7 @@ class SaveDesignsTest extends TestCase
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(0, $wpService->getOptionCalls);
+        $this->assertCount(0, $wpService->calls['getOption']);
     }
 
     public function testStoreSkipsIfNoDesign()
@@ -101,7 +100,7 @@ class SaveDesignsTest extends TestCase
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(1, $wpService->getUpdateOptionCalls);
+        $this->assertCount(1, $wpService->calls['updateOption']);
     }
 
     private function getConfig($returnValue = null)
@@ -120,9 +119,7 @@ class SaveDesignsTest extends TestCase
     private function getWpService(array $db = []): AddAction
     {
         return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
-            public array $calls                = ['addFilter' => []];
-            public array $getOptionCalls       = [];
-            public array $getUpdateOptionCalls = [];
+            public array $calls = ['addFilter' => [], 'getOption' => [], 'updateOption' => []];
 
             public function __construct(private array $db)
             {
@@ -136,7 +133,7 @@ class SaveDesignsTest extends TestCase
 
             public function getOption(string $option, mixed $defaultValue = false): mixed
             {
-                $this->getOptionCalls[] = "ran";
+                $this->calls['getOption'][] = "ran";
                 return $this->db['getOption'] ?? null;
             }
 
@@ -161,7 +158,7 @@ class SaveDesignsTest extends TestCase
 
             public function updateOption(string $option, mixed $value, string|bool $autoload = null): bool
             {
-                $this->getUpdateOptionCalls[] = "ran";
+                $this->calls['updateOption'][] = "ran";
                 return true;
             }
         };
