@@ -26,7 +26,7 @@ class Customizer
                 __("Kirki Customizer framework is required"),
                 __("Plugin install required"),
                 [
-                    'link_url'  => "https://github.com/kirki-framework/kirki.git",
+                    'link_url'  => "https://github.com/helsingborg-stad/kirki",
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
