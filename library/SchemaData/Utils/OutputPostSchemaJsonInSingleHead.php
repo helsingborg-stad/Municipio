@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\Utils;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\SchemaData\SchemaJsonFromPost\SchemaJsonFromPostInterface;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPost;
 use WpService\Contracts\IsSingle;
@@ -11,7 +11,7 @@ use WpService\Contracts\IsSingle;
 class OutputPostSchemaJsonInSingleHead implements Hookable
 {
     public function __construct(
-        private SchemaJsonFromPostInterface $schemaJsonFromPost, 
+        private SchemaObjectFromPostInterface $schemaJsonFromPost, 
         private AddAction&IsSingle&GetPost $wpService
         )
     {
@@ -25,7 +25,8 @@ class OutputPostSchemaJsonInSingleHead implements Hookable
     public function print(): void
     {
         if ($this->wpService->isSingle()) {
-            echo '<script type="application/ld+json">' . $this->schemaJsonFromPost->create($this->wpService->getPost()) . '</script>';
+            $schemaObject = $this->schemaJsonFromPost->create($this->wpService->getPost());
+            echo $schemaObject->toScript();
         }
     }
 }

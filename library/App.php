@@ -299,12 +299,17 @@ class App
         // Register field group for schema.org data that shows up on admin post list pages.
         $schemaTypes   = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
         $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFieldGroup($this->acfService, $schemaTypes, $this->wpService);
-        $this->hooksRegistrar->register($acfFieldGroup);
 
         // Apply schema data to single posts.
         $getSchemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
-        $schemaJsonFromPost        = new \Municipio\SchemaData\SchemaJsonFromPost\SchemaJsonFromPost($getSchemaTypeFromPostType);
-        $outputInSingleHead        = new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaJsonFromPost, $this->wpService);
+        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
+        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+
+        // Outout schemadata in head of single posts.
+        $outputInSingleHead = new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService);
+
+        // Register hooks from above instances.
+        $this->hooksRegistrar->register($acfFieldGroup);
         $this->hooksRegistrar->register($outputInSingleHead);
     }
 }
