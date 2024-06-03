@@ -4,10 +4,21 @@ namespace Municipio\PostTypeDesign;
 
 class InlineCssGenerator 
 {
+    /**
+     * InlineCssGenerator constructor.
+     *
+     * @param array $designConfig The design configuration array.
+     * @param array $fields The fields array.
+     */
     public function __construct(private array $designConfig, private array $fields)
     {}
     
-    public function generate(): array
+    /**
+     * Generate an array of inline CSS based on the design configuration and fields.
+     *
+     * @return array The generated inline CSS array.
+     */
+    public function generateCssArray(): array
     {
         $inlineCss = [];
         
@@ -30,6 +41,34 @@ class InlineCssGenerator
         return $inlineCss;
     }
 
+    /**
+     * Generate a string of inline CSS based on the generated CSS array.
+     *
+     * @return string|false The generated inline CSS string, or false if no CSS is generated.
+     */
+    public function generateCssString(): string|false
+    {
+        $inlineCssArray = $this->generateCssArray();
+
+        if (empty($inlineCssArray)) {
+            return false;
+        }
+
+        $cssString = '';
+        foreach ($inlineCssArray as $property => $value) {
+            $cssString .= "$property: $value; ";
+        }
+        
+        return $cssString;
+    }
+
+    /**
+     * Get the multi-color CSS properties and values based on the field and design configuration.
+     *
+     * @param array $field The field array.
+     * @param array $designConfigField The design configuration field array.
+     * @return array The multi-color CSS properties and values.
+     */
     private function getMultiColorCss($field, $designConfigField): array
     {
         $multiColorKeys = [];
@@ -45,6 +84,14 @@ class InlineCssGenerator
         return $multiColorKeys;
     }
 
+    /**
+     * Check if the color field is valid based on the field, design configuration, and output.
+     *
+     * @param array $field The field array.
+     * @param array $designConfigField The design configuration field array.
+     * @param array $output The output array.
+     * @return bool True if the color field is valid, false otherwise.
+     */
     private function isValidColorField($field, $designConfigField, $output)
     {
         return 

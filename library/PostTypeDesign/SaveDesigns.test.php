@@ -10,6 +10,7 @@ use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\UpdateOption;
 use Municipio\PostTypeDesign\ConfigFromPageIdInterface;
+use Municipio\Customizer\PanelsRegistry;
 
 class SaveDesignsTest extends TestCase
 {
@@ -35,71 +36,72 @@ class SaveDesignsTest extends TestCase
         $this->assertCount(0, $wpService->getOptionCalls);
     }
 
-    public function testStoreDesignsSkipsIfDesignExists()
+    public function testStoreSkipsIfNoDesign()
     {
         $wpService = $this->getWpService([
-            'postTypes' => ['post'],
-            'getOption' => ['post_type_design' => ['post' => '123']]
+            'postTypes'   => ['post'],
+            'getThemeMod' => [false, true],
         ]);
 
         $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(2, $wpService->getThemeModCalls);
-        $this->assertCount(1, $wpService->getOptionCalls);
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
+        $this->assertEmpty($saveDesignsInstance->designOption);
     }
 
-    public function testStoreDesignsUpdatesDesignIfCssOrMods()
+    public function testStoreDesignRemovesDesignIfEmpty()
     {
         $wpService = $this->getWpService([
             'postTypes'   => ['post'],
-            'getOption'   => ['post_type_design' => ['post' => '123']],
-            'getThemeMod' => '123'
+            'getThemeMod' => [false, true],
+            'getOption'   => ['post' => ['mods']]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['abc' => ''], null]));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+
+        $saveDesignsInstance->storeDesigns();
+
+        $this->assertEmpty($saveDesignsInstance->designOption);
+    }
+
+    public function testStoreDesignCreatesInlineCss()
+    {
+        $wpService = $this->getWpService([
+            'postTypes'   => ['post'],
+            'getThemeMod' => ['123', true],
+            'getOption'   => [
+                'post'  => [
+                    'mods'      => ['key' => 'value'],
+                    'designId'  => '123',
+                    'inlineCss' => 'post: css;'
+                ],
+                'post2' => [
+                    'mods'      => ['key' => 'value'],
+                    'designId'  => '321',
+                    'inlineCss' => 'post2: css;'
+                ]
+            ]
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+
+        $saveDesignsInstance->storeDesigns();
+        $this->assertEquals('post: css;post2: css;', $saveDesignsInstance->designOption['inlineCss']);
+    }
+
+
+    public function testStoreDesignAlwaysUpdatesOptionIfPostTypesExists()
+    {
+        $wpService = $this->getWpService([
+            'postTypes' => ['post']
+        ]);
+
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
         $this->assertCount(1, $wpService->getUpdateOptionCalls);
-    }
-
-
-    public function testStoreDesignsDoesNothingIfNoCssOrMods()
-    {
-        $wpService = $this->getWpService([
-            'postTypes'   => ['post'],
-            'getOption'   => ['post_type_design' => ['post' => '123']],
-            'getThemeMod' => '123'
-        ]);
-
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig());
-
-        $saveDesignsInstance->storeDesigns();
-
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
-    }
-
-    public function testTryUpdateOptionWithDesignUpdatesIfDesign()
-    {
-        $wpService           = $this->getWpService();
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([['mod' => 'mod'], '123']));
-
-        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
-
-        $this->assertCount(1, $wpService->getUpdateOptionCalls);
-    }
-
-    public function testTryUpdateOptionWithDesignDoesNotUpdateIfNoDesign()
-    {
-        $wpService           = $this->getWpService();
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '']));
-
-        $saveDesignsInstance->tryUpdateOptionWithDesign('123', ['post_type_design' => ['post' => '123']], 'post');
-
-        $this->assertCount(0, $wpService->getUpdateOptionCalls);
     }
 
     private function getConfig($returnValue = null)
@@ -120,7 +122,6 @@ class SaveDesignsTest extends TestCase
         return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
             public array $calls                = ['addFilter' => []];
             public array $getOptionCalls       = [];
-            public array $getThemeModCalls     = [];
             public array $getUpdateOptionCalls = [];
 
             public function __construct(private array $db)
@@ -141,8 +142,13 @@ class SaveDesignsTest extends TestCase
 
             public function getThemeMod(string $name, mixed $default = false): mixed
             {
-                $this->getThemeModCalls[] = "ran";
-                return $this->db['getThemeMod'] ?? $default;
+                $themeMod = false;
+
+                if (!empty($this->db['getThemeMod'][0])) {
+                    $themeMod = $this->db['getThemeMod'][0];
+                    unset($this->db['getThemeMod'][0]);
+                }
+                return $themeMod;
             }
 
             public function getPostTypes(
