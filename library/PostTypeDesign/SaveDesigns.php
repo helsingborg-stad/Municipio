@@ -82,8 +82,13 @@ class SaveDesigns implements Hookable
         if (empty($this->designOption)) {
             return;
         }
+
         $this->designOption['inlineCss'] = '';
-        foreach ($this->designOption as $design) {
+        foreach ($this->designOption as $postType => $design) {
+            if (!$this->wpService->getThemeMod($postType . '_style_globally') || empty($design['inlineCss'])) {
+                continue;
+            }
+
             $this->designOption['inlineCss'] .= $design['inlineCss'] ?? '';
         }
     }
@@ -100,20 +105,24 @@ class SaveDesigns implements Hookable
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
 
-        $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys());
-        $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields());
+        $filter = $this->wpService->getThemeMod($postType . '_copy_styles');
+
+        $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields($filter));
+        $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys($filter));
 
         $sanitizedDesignConfig = $sanitizedDesignConfigInstance->sanitize();
-        $inlineCssString       = $inlineCssInstance->generateCssString();
+        $inlineCss             = $inlineCssInstance->generateCssString();
 
-        if (!empty($sanitizedDesignConfig)) {
-            $this->designOption[$postType] = [
-                'design'    => $sanitizedDesignConfig,
-                'css'       => $css,
-                'designId'  => $design,
-                'inlineCss' => ".s-post-type-{$postType} { {$inlineCssString} }"
-            ];
+        if (empty($sanitizedDesignConfig)) {
+            return;
         }
+
+        $this->designOption[$postType] = [
+            'design'    => $sanitizedDesignConfig,
+            'css'       => $css,
+            'designId'  => $design,
+            'inlineCss' => ".s-post-type-{$postType} { {$inlineCss} }"
+        ];
     }
 
     /**

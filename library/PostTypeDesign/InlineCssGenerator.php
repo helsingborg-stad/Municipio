@@ -54,9 +54,9 @@ class InlineCssGenerator
     /**
      * Generate a string of inline CSS based on the generated CSS array.
      *
-     * @return string|false The generated inline CSS string, or false if no CSS is generated.
+     * @return string The generated inline CSS string.
      */
-    public function generateCssString(): string|false
+    public function generateCssString(): string
     {
         $inlineCssArray = $this->generateCssArray();
         $cssString = '';
