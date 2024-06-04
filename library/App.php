@@ -301,9 +301,21 @@ class App
         $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFieldGroup($this->acfService, $schemaTypes, $this->wpService);
 
         // Apply schema data to single posts.
+        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\SchemaObjectFromPost\Utils\GetSchemaPropertiesWithParamTypes();
+        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
+        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
+        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\PostalAddressFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\ArraySanitizer($schemaPropertyValueSanitizer);
+
         $getSchemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
         $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
         $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata(
+            $getSchemaPropertiesWithParamTypes,
+            $this->wpService,
+            $schemaPropertyValueSanitizer,
+            $schemaObjectFromPost
+        );
 
         // Outout schemadata in head of single posts.
         $outputInSingleHead = new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService);
@@ -311,5 +323,7 @@ class App
         // Register hooks from above instances.
         $this->hooksRegistrar->register($acfFieldGroup);
         $this->hooksRegistrar->register($outputInSingleHead);
+
+        // TODO: Enable functionality for template from Schema Type
     }
 }
