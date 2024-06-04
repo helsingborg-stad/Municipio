@@ -14,6 +14,12 @@ class StringSanitizer implements SchemaPropertyValueSanitizer
             return $value;
         }
 
+        if (is_array($value) && in_array('string[]', $allowedTypes)) {
+            return array_map(function ($value) {
+                return $this->sanitize($value, ['string']);
+            }, array_filter($value, 'is_string'));
+        }
+
         return $this->inner->sanitize($value, $allowedTypes);
     }
 }

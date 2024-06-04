@@ -305,7 +305,6 @@ class App
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\PostalAddressFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\ArraySanitizer($schemaPropertyValueSanitizer);
 
         $getSchemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
         $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
@@ -323,7 +322,5 @@ class App
         // Register hooks from above instances.
         $this->hooksRegistrar->register($acfFieldGroup);
         $this->hooksRegistrar->register($outputInSingleHead);
-
-        // TODO: Enable functionality for template from Schema Type
     }
 }

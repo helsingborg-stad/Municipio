@@ -2,8 +2,6 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
-use Municipio\Admin\Acf\ContentType\Schema\Subfields\PostalAddress;
-
 class PostalAddressFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizer
 {
     private mixed $value;
@@ -20,6 +18,12 @@ class PostalAddressFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValu
 
         if ($this->shouldSanitize()) {
             return $this->getPostalAddressFromValue();
+        }
+
+        if (is_array($value) && in_array('PostalAddress[]', $allowedTypes)) {
+            return array_map(function ($value) {
+                return $this->sanitize($value, ['PostalAddress']);
+            }, $value);
         }
 
         return $this->inner->sanitize($value, $allowedTypes);

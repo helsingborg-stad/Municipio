@@ -2,13 +2,15 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
-use Exception;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\PostalAddress;
 
 class PostalAddressFromAcfGoogleMapsFieldSanitizerTest extends TestCase
 {
-    public function testConvertsToPostalAddress()
+    /**
+     * @testdox Converts single ACF Google Maps field to postal address
+     */
+    public function testConvertsSingleToPostalAddress()
     {
         $sanitizer = new PostalAddressFromAcfGoogleMapsFieldSanitizer();
         $result    = $sanitizer->sanitize($this->getValidMetaData(), ['PostalAddress']);
@@ -22,6 +24,23 @@ class PostalAddressFromAcfGoogleMapsFieldSanitizerTest extends TestCase
         $this->assertEquals('Sverige', $result['addressCountry']);
         $this->assertEquals(56.05794299999999, $result['geo']['latitude']);
         $this->assertEquals(12.805653, $result['geo']['longitude']);
+    }
+
+    /**
+     * @testdox Converts array of ACF Google Maps fields to array of postal addresses
+     */
+    public function testConvertsArrayOfPostalAddresses()
+    {
+        $sanitizer = new PostalAddressFromAcfGoogleMapsFieldSanitizer();
+        $addresses = [$this->getValidMetaData(), $this->getValidMetaData()];
+        $result    = $sanitizer->sanitize($addresses, ['PostalAddress', 'PostalAddress[]']);
+
+        $this->assertIsArray($result);
+        $this->assertCount(2, $result);
+        $this->assertInstanceOf(PostalAddress::class, $result[0]);
+        $this->assertInstanceOf(PostalAddress::class, $result[1]);
+        $this->assertEquals('Hjortsby Torp', $result[0]['name']);
+        $this->assertEquals('Hjortsby Torp', $result[1]['name']);
     }
 
     private function getValidMetaData(): array
