@@ -174,16 +174,6 @@ class App
         new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
-        // Register Content Type Schema fields
-        $prepareContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\PrepareField(
-            ContentTypeSchemaFieldOptions::FIELD_KEY,
-            ContentTypeSchemaFieldOptions::GROUP_NAME
-        );
-
-        $prepareContentTypeSchemaMetaFields->addHooks();
-        $saveContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\SavePost();
-        $saveContentTypeSchemaMetaFields->addHooks();
-
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
 
@@ -298,13 +288,13 @@ class App
     {
         // Register field group for schema.org data that shows up on admin post list pages.
         $schemaTypes   = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
-        $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFieldGroup($this->acfService, $schemaTypes, $this->wpService);
+        $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService);
 
         // Apply schema data to single posts.
-        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\SchemaObjectFromPost\Utils\GetSchemaPropertiesWithParamTypes();
+        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\PostalAddressFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
 
         $getSchemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
         $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
@@ -319,8 +309,15 @@ class App
         // Outout schemadata in head of single posts.
         $outputInSingleHead = new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService);
 
+        // Register form for schema properties on posts.
+        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers();
+        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField($formFieldFactory);
+        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
+        $schemaPropertiesForm = new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $getSchemaTypeFromPostType, $getSchemaPropertiesWithParamTypes, $formFieldFactory);
+
         // Register hooks from above instances.
         $this->hooksRegistrar->register($acfFieldGroup);
         $this->hooksRegistrar->register($outputInSingleHead);
+        $this->hooksRegistrar->register($schemaPropertiesForm);
     }
 }

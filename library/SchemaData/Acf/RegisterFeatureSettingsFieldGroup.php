@@ -7,7 +7,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\SchemaData\Acf\Utils\SchemaTypes;
 use WpService\Contracts\AddAction;
 
-class RegisterFieldGroup implements Hookable
+class RegisterFeatureSettingsFieldGroup implements Hookable
 {
     public function __construct(
         private AddLocalFieldGroup $acfService,

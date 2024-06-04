@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\SchemaData\SchemaObjectFromPost\Utils;
+namespace Municipio\SchemaData\Utils;
 
 use ReflectionClass;
 use ReflectionMethod;

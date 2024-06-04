@@ -3,42 +3,40 @@
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\PostalAddress;
+use Spatie\SchemaOrg\GeoCoordinates;
 
-class PostalAddressFromAcfGoogleMapsFieldSanitizerTest extends TestCase
+class GeoCoordinatesFromAcfGoogleMapsFieldSanitizerTest extends TestCase
 {
     /**
      * @testdox Converts single ACF Google Maps field to postal address
      */
-    public function testConvertsSingleToPostalAddress()
+    public function testConvertsSingleToGeoCoordinates()
     {
-        $sanitizer = new PostalAddressFromAcfGoogleMapsFieldSanitizer();
-        $result    = $sanitizer->sanitize($this->getValidMetaData(), ['PostalAddress']);
+        $sanitizer = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer();
+        $result    = $sanitizer->sanitize($this->getValidMetaData(), ['GeoCoordinates']);
 
-        $this->assertInstanceOf(PostalAddress::class, $result);
+        $this->assertInstanceOf(GeoCoordinates::class, $result);
+        $this->assertEquals(56.05794299999999, $result['latitude']);
+        $this->assertEquals(12.805653, $result['longitude']);
         $this->assertEquals('Hjortsby Torp', $result['name']);
-        $this->assertEquals('500 Hjortshögsvägen', $result['streetAddress']);
-        $this->assertEquals('Mörarp', $result['addressLocality']);
-        $this->assertEquals('Skåne län', $result['addressRegion']);
+        $this->assertEquals('Hjortsby Torp, Hjortshögsvägen, Mörarp, Sverige', $result['address']);
         $this->assertEquals('253 54', $result['postalCode']);
         $this->assertEquals('Sverige', $result['addressCountry']);
-        $this->assertEquals(56.05794299999999, $result['geo']['latitude']);
-        $this->assertEquals(12.805653, $result['geo']['longitude']);
     }
 
     /**
      * @testdox Converts array of ACF Google Maps fields to array of postal addresses
      */
-    public function testConvertsArrayOfPostalAddresses()
+    public function testConvertsArrayOfGeoCoordinates()
     {
-        $sanitizer = new PostalAddressFromAcfGoogleMapsFieldSanitizer();
+        $sanitizer = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer();
         $addresses = [$this->getValidMetaData(), $this->getValidMetaData()];
-        $result    = $sanitizer->sanitize($addresses, ['PostalAddress', 'PostalAddress[]']);
+        $result    = $sanitizer->sanitize($addresses, ['GeoCoordinates', 'GeoCoordinates[]']);
 
         $this->assertIsArray($result);
         $this->assertCount(2, $result);
-        $this->assertInstanceOf(PostalAddress::class, $result[0]);
-        $this->assertInstanceOf(PostalAddress::class, $result[1]);
+        $this->assertInstanceOf(GeoCoordinates::class, $result[0]);
+        $this->assertInstanceOf(GeoCoordinates::class, $result[1]);
         $this->assertEquals('Hjortsby Torp', $result[0]['name']);
         $this->assertEquals('Hjortsby Torp', $result[1]['name']);
     }
