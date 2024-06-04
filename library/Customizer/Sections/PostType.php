@@ -2,20 +2,18 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\KirkiField;
 
 class PostType
 {
-    private const API_URL         = 'https://customizer.municipio.tech/';
-    private const LOAD_DESIGN_KEY = 'load_design';
-    private const UPDATE_DESIGN   = 'post_type_update_design';
-    private $uniqueId             = null;
+    private const API_URL = 'https://customizer.municipio.tech/';
+    private $uniqueId     = null;
 
     public function __construct(private string $sectionID, private object $postType)
     {
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'      => 'select',
-            'settings'  => $this->postType->name . '_' . self::LOAD_DESIGN_KEY,
+            'settings'  => $this->postType->name . '_load_design',
             'label'     => esc_html__('Select a design', 'municipio'),
             'section'   => $this->sectionID,
             'default'   => false,
@@ -24,15 +22,36 @@ class PostType
             'transport' => 'postMessage'
         ]);
 
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
+            'type'        => 'select',
+            'settings'    => $this->postType->name . '_copy_styles',
+            'label'       => esc_html__('Styles to copy.', 'municipio'),
+            'description' => esc_html__('Select the styles to copy from the selected design.', 'municipio'),
+            'section'     => $this->sectionID,
+            'default'     => 'colors',
+            'multiple'    => true,
+            'choices'     => [
+                'colors'    => esc_html__('Colors', 'municipio'),
+                'logotypes' => esc_html__('Logotypes', 'municipio'),
+            ]
+        ]);
+
+        KirkiField::addField([
             'type'        => 'checkbox',
-            'settings'    => $this->postType->name . '_' . self::UPDATE_DESIGN,
+            'settings'    => $this->postType->name . '_post_type_update_design',
             'label'       => esc_html__('Follow the design', 'municipio'),
             'description' => esc_html__('Keeps updating to the new design every time the customizer is saved.', 'municipio'),
             'section'     => $this->sectionID,
             'default'     => false,
-            'priority'    => 10,
-            'transport'   => 'postMessage'
+        ]);
+
+        KirkiField::addField([
+            'type'        => 'checkbox',
+            'settings'    => $this->postType->name . '_style_globally',
+            'label'       => esc_html__('Style globally', 'municipio'),
+            'description' => esc_html__('This will style modules to have the same color scheme as the loaded design.', 'municipio'),
+            'section'     => $this->sectionID,
+            'default'     => false,
         ]);
     }
 
