@@ -6,13 +6,14 @@ use AcfService\Contracts\AddLocalFieldGroup;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\SchemaData\Acf\Utils\SchemaTypes;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\ApplyFilters;
 
 class RegisterFeatureSettingsFieldGroup implements Hookable
 {
     public function __construct(
         private AddLocalFieldGroup $acfService,
         private SchemaTypes $schemaTypes,
-        private AddAction $wpService
+        private AddAction&ApplyFilters $wpService
     ) {
     }
 
@@ -53,7 +54,10 @@ class RegisterFeatureSettingsFieldGroup implements Hookable
 
     private function getAllSchemaTypes(): array
     {
-        foreach ($this->schemaTypes->getSchemaTypes() as $type) {
+        $schemaTypes = $this->schemaTypes->getSchemaTypes();
+        $schemaTypes = $this->wpService->applyFilters('Municipio/SchemaData/SchemaTypes', $schemaTypes);
+
+        foreach ($schemaTypes as $type) {
             $options[$type] = $type;
         }
 

@@ -285,6 +285,10 @@ class App
 
     private function setupSchemaDataFeature(): void
     {
+        $limitSchemaTypesAndProperties = new \Municipio\SchemaData\LimitSchemaTypesAndProperties([
+            'Place' => ['geo', 'telephone', 'url'],
+        ], $this->wpService);
+
         // Register field group for schema.org data that shows up on admin post list pages.
         $schemaTypes   = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
         $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService);
@@ -315,6 +319,7 @@ class App
         $schemaPropertiesForm = new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $getSchemaTypeFromPostType, $getSchemaPropertiesWithParamTypes, $formFieldFactory);
 
         // Register hooks from above instances.
+        $this->hooksRegistrar->register($limitSchemaTypesAndProperties);
         $this->hooksRegistrar->register($acfFieldGroup);
         $this->hooksRegistrar->register($outputInSingleHead);
         $this->hooksRegistrar->register($schemaPropertiesForm);

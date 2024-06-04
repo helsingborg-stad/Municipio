@@ -28,7 +28,7 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
 
         foreach ($schemaProperties as $propertyName => $acceptedPropertyTypes) {
             if (isset($postMeta[$metaKeyPrefix . $propertyName])) {
-                $schema[$propertyName] = $this->schemaPropertyValueSanitizer->sanitize(maybe_unserialize($postMeta[$metaKeyPrefix . $propertyName][0]), $acceptedPropertyTypes);
+                $schema->setProperty($propertyName, $this->schemaPropertyValueSanitizer->sanitize(maybe_unserialize($postMeta[$metaKeyPrefix . $propertyName][0]), $acceptedPropertyTypes));
             }
         }
 
