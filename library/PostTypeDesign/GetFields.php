@@ -109,14 +109,13 @@ class GetFields implements GetFieldsInterface
                 }
             }
         }
-
         foreach ($filterables as $filterable) {
             if (empty($filterable)) {
                 continue;
             }
 
             foreach ($filterable['value'] as $value) {
-                if (!empty($filterable['key']) && $field[$filterable['key']] === $value) {
+                if (isset($field[$filterable['key']]) && $field[$filterable['key']] === $value) {
                     return true;
                 }
             }

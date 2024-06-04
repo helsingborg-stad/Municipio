@@ -28,7 +28,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService(['postTypes' => []]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([, '123']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
