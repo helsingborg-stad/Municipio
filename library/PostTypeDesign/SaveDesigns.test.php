@@ -17,7 +17,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService();
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '123']));
 
         $saveDesignsInstance->addHooks();
 
@@ -28,7 +28,7 @@ class SaveDesignsTest extends TestCase
     {
         $wpService = $this->getWpService(['postTypes' => []]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([, '123']));
 
         $saveDesignsInstance->storeDesigns();
 
@@ -42,7 +42,7 @@ class SaveDesignsTest extends TestCase
             'getThemeMod' => [false, true],
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
@@ -57,7 +57,7 @@ class SaveDesignsTest extends TestCase
             'getOption'   => ['post' => ['mods']]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
@@ -67,14 +67,20 @@ class SaveDesignsTest extends TestCase
     public function testStoreDesignAlwaysUpdatesOptionIfPostTypesExists()
     {
         $wpService = $this->getWpService([
-            'postTypes' => ['post']
+            'postTypes'   => ['post'],
+            'getThemeMod' => ['123', true, ['abc']]
         ]);
 
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
+        $key                 = 'color_palette_primary';
+        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig([[$key => [
+            'base' => '#000'
+        ]
+        ], '123']));
 
         $saveDesignsInstance->storeDesigns();
 
-        $this->assertCount(1, $wpService->calls['updateOption']);
+
+        $this->assertArrayHasKey($key, $saveDesignsInstance->designOption['post']['design']);
     }
 
     private function getConfig($returnValue = null)
