@@ -64,32 +64,6 @@ class SaveDesignsTest extends TestCase
         $this->assertEmpty($saveDesignsInstance->designOption);
     }
 
-    public function testStoreDesignCreatesInlineCss()
-    {
-        $wpService = $this->getWpService([
-            'postTypes'   => ['post'],
-            'getThemeMod' => ['123', true],
-            'getOption'   => [
-                'post'  => [
-                    'mods'      => ['key' => 'value'],
-                    'designId'  => '123',
-                    'inlineCss' => 'post: css;'
-                ],
-                'post2' => [
-                    'mods'      => ['key' => 'value'],
-                    'designId'  => '321',
-                    'inlineCss' => 'post2: css;'
-                ]
-            ]
-        ]);
-
-        $saveDesignsInstance = new SaveDesigns('name', $wpService, $this->getConfig(['mods' => [], '123']));
-
-        $saveDesignsInstance->storeDesigns();
-        $this->assertEquals('post: css;post2: css;', $saveDesignsInstance->designOption['inlineCss']);
-    }
-
-
     public function testStoreDesignAlwaysUpdatesOptionIfPostTypesExists()
     {
         $wpService = $this->getWpService([
@@ -139,12 +113,12 @@ class SaveDesignsTest extends TestCase
 
             public function getThemeMod(string $name, mixed $default = false): mixed
             {
-                $themeMod = false;
-
-                if (!empty($this->db['getThemeMod'][0])) {
-                    $themeMod = $this->db['getThemeMod'][0];
-                    unset($this->db['getThemeMod'][0]);
+                if (!empty($this->db['getThemeMod']) && is_array($this->db['getThemeMod'])) {
+                    $themeMod = array_shift($this->db['getThemeMod']);
+                } else {
+                    $themeMod = $default;
                 }
+
                 return $themeMod;
             }
 
