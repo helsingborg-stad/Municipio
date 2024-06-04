@@ -26,7 +26,7 @@ class Customizer
                 __("Kirki Customizer framework is required"),
                 __("Plugin install required"),
                 [
-                    'link_url' => "https://github.com/kirki-framework/kirki.git",
+                    'link_url'  => "https://github.com/helsingborg-stad/kirki",
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
@@ -85,8 +85,8 @@ class Customizer
      */
     public function loadEmbeddedKirkiPro()
     {
-        if(function_exists('kirki_pro_load_controls')) {
-            kirki_pro_load_controls(); 
+        if (function_exists('kirki_pro_load_controls')) {
+            kirki_pro_load_controls();
         }
     }
 
@@ -126,7 +126,7 @@ class Customizer
         ));
 
         // Custom fonts support (parse uploaded fonts)
-        if(class_exists('\Kirki\Module\FontUploads')) {
+        if (class_exists('\Kirki\Module\FontUploads')) {
             new \Kirki\Module\FontUploads();
         }
 

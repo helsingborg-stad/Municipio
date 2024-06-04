@@ -113,7 +113,6 @@ class OembedFilters
             case 'www.spotify.com':
             case 'open.spotify.com':
                 $srcParsed['host']  = 'open.spotify.com';
-                $srcParsed['path']  = $ytEmbedPath . $srcParsed['path'];
                 $srcParsed['query'] = 'utm_source=oembed';
                 break;
             case 'soundcloud.com':

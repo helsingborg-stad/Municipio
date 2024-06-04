@@ -2,13 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class OpenStreetMap
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(
-            \Municipio\Customizer::KIRKI_CONFIG,
-            [
+        KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'map_style',
             'label'       => esc_html__('Map style', 'municipio'),
@@ -17,27 +17,26 @@ class OpenStreetMap
             'default'     => 'default',
             'priority'    => 10,
             'choices'     => [
-                'default'   => esc_html__('Default', 'municipio'),
-                'pale' => esc_html__('Pale', 'municipio'),
-                'dark' => esc_html__('Dark', 'municipio'),
-                'color' => esc_html__('Colorful', 'municipio')
+                'default' => esc_html__('Default', 'municipio'),
+                'pale'    => esc_html__('Pale', 'municipio'),
+                'dark'    => esc_html__('Dark', 'municipio'),
+                'color'   => esc_html__('Colorful', 'municipio')
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'mapStyle',
                     'context' => [
                         [
-                            'context' => 'component.openstreetmap',
+                            'context'  => 'component.openstreetmap',
                             'operator' => '==',
                         ],
                     ]
                 ]
             ],
-            ]
-        );
+            ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'text',
             'settings'    => 'map_start_lat_lng',
             'label'       => esc_html__('Map start center', 'municipio'),
@@ -45,20 +44,20 @@ class OpenStreetMap
             'section'     => $sectionID,
             'default'     => '56.04388993324803, 12.695627213683235',
             'priority'    => 10,
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'mapStartLatLng',
                     'context' => [
                         [
-                            'context' => 'component.openstreetmap',
+                            'context'  => 'component.openstreetmap',
                             'operator' => '==',
                         ],
                     ]
                 ]
             ],
         ]);
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'number',
             'settings'    => 'map_start_zoom',
             'label'       => esc_html__('Map start zoom', 'municipio'),
@@ -66,13 +65,13 @@ class OpenStreetMap
             'section'     => $sectionID,
             'default'     => 14,
             'priority'    => 10,
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'mapStartZoom',
                     'context' => [
                         [
-                            'context' => 'component.openstreetmap',
+                            'context'  => 'component.openstreetmap',
                             'operator' => '==',
                         ],
                     ]

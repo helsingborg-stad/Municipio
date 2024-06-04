@@ -284,6 +284,10 @@ class WP
             $post = self::getPost($post);
         }
 
+        if (get_post_status($post) !== 'publish') {
+            return null;
+        }
+
         return get_permalink($post, $leavename);
     }
 

@@ -149,11 +149,12 @@ abstract class Panel
 
     public function addSections(array $sections): Panel
     {
-
         foreach ($sections as $section) {
-            $this->addSection($section);
+            if (is_a($section, 'Municipio\Customizer\PanelSection')) {
+                $this->addSection($section);
+                continue;
+            }
         }
-
         return $this;
     }
 
