@@ -105,6 +105,7 @@ class SaveDesigns implements Hookable
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
         $filter               = $this->wpService->getThemeMod($postType . '_copy_styles');
+        $filter               = !empty($filter) ? $filter : [];
 
         $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields($filter));
         $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys($filter));
