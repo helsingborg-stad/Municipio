@@ -67,7 +67,8 @@ abstract class ContentTypeFactory implements ContentTypeComponentInterface
      */
     public function getView(): string
     {
-        return "content-type-{$this->getKey()}";
+        $lowercaseKey = strtolower($this->getKey());
+        return "single-{$lowercaseKey}";
     }
 
     /**

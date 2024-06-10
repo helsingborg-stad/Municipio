@@ -4,7 +4,6 @@ namespace Municipio\Controller\ContentType\Complex;
 
 use Municipio\Controller\ContentType\Complex\School\SchoolDataPreparer;
 use Municipio\Controller\ContentType;
-use Municipio\Helper\WP;
 
 /**
  * Class School
