@@ -100,7 +100,7 @@ class ContentType
             return false;
         }
 
-        $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
+        $themeModName   = "municipio_customizer_panel_content_types_{$postType}_content_type";
         $contentTypeKey = get_theme_mod($themeModName, false);
 
         if ($contentTypeKey) {
@@ -279,7 +279,7 @@ class ContentType
     public static function complementPlacePost($post)
     {
         // Fetch custom fields for the post
-        $fields = get_fields($post->id);
+        $fields = get_fields($post->ID ?? null);
 
         // Assign additional information to the post object
         $post->bookingLink = $fields['booking_link'] ?? false;
