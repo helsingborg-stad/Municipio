@@ -163,8 +163,6 @@ class App
 
         new \Municipio\Admin\ExternalDeptendents();
 
-        new \Municipio\Admin\MunicipioMenuItems\MunicipioMenuItems();
-
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\Favicon();
@@ -226,6 +224,11 @@ class App
             $paths[] = get_template_directory() . '/views/v3';
             return $paths;
         });
+
+        /**
+         * Municipio specific menu items
+         */
+        new \Municipio\MunicipioMenuItems\MunicipioMenuItems($this->wpService, $this->acfService);
 
         /**
          * Imported post type design

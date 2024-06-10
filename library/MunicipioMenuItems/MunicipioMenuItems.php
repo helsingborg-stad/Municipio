@@ -1,6 +1,9 @@
 <?php
 
-namespace Municipio\Admin\MunicipioMenuItems;
+namespace Municipio\MunicipioMenuItems;
+
+use AcfService\AcfService;
+use WpService\WpService;
 
 class MunicipioMenuItems
 {
@@ -8,14 +11,14 @@ class MunicipioMenuItems
         'separator'
     ];
 
-    public function __construct()
+    public function __construct(private WpService $wpService, private AcfService $acfService)
     {
-        add_filter('nav_menu_meta_box_object', array($this, 'addMunicipioMenuItemsMetaBox'), 10, 1);
+        $this->wpService->addFilter('nav_menu_meta_box_object', array($this, 'addMunicipioMenuItemsMetaBox'), 10, 1);
 
         foreach ($this->menuItems as $menuItem) {
-            $className = 'Municipio\Admin\MunicipioMenuItems\\' . ucfirst($menuItem);
+            $className = 'Municipio\MunicipioMenuItems\\' . ucfirst($menuItem);
             if (class_exists($className)) {
-                new $className();
+                new $className($this->wpService, $this->acfService);
             }
         }
     }
@@ -50,7 +53,7 @@ class MunicipioMenuItems
                 </span>
             </p>
     
-        </div><!-- /.categorydiv -->
+        </div>
         <?php
     }
 

@@ -1,14 +1,15 @@
 <?php
 
-namespace Municipio\Admin\MunicipioMenuItems;
+namespace Municipio\MunicipioMenuItems;
 
-use Illuminate\Support\Arr;
+use AcfService\Contracts\GetFields;
+use WpService\Contracts\AddFilter;
 
 class Separator
 {
-    public function __construct()
+    public function __construct(private AddFilter $wpService, private GetFields $acfService)
     {
-        add_filter('Municipio/Navigation/Nested', array($this, 'separateMenus'), 10, 3);
+        $this->wpService->addFilter('Municipio/Navigation/Nested', array($this, 'separateMenus'), 10, 3);
     }
 
     public function separateMenus($items, $identifier, $pageId)
@@ -16,7 +17,7 @@ class Separator
         if (!empty($items)) {
             foreach ($items as $index => &$item) {
                 if ($item['post_type'] === 'separator') {
-                    $fields                         = get_fields($item['id']);
+                    $fields                         = $this->acfService->getFields($item['id']);
                     $item['attributeList']['style'] = $this->setNavigationColorVariables($fields);
                     if (!empty($item['children'])) {
                         $children = $item['children'];
