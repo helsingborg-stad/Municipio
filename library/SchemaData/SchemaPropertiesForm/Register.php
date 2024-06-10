@@ -33,6 +33,11 @@ class Register implements Hookable
         }
 
         $schemaType = $this->getSchemaTypeFromPostType->getSchemaTypeFromPostType($screen->post_type);
+
+        if (empty($schemaType)) {
+            return;
+        }
+
         $this->acfService->addLocalFieldGroup($this->getAcfFieldGroupBySchemaType->getAcfFieldGroup($schemaType));
     }
 }

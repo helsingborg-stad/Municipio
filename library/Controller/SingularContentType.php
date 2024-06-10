@@ -21,18 +21,13 @@ class SingularContentType extends \Municipio\Controller\Singular
         $this->postId = $this->data['post']->id;
 
         // Retrieves the content type of the current post.
-        $postType = $this->data['post']->postType;
+        $postType          = $this->data['post']->postType;
         $this->contentType = \Municipio\Helper\ContentType::getContentType($postType);
 
         $this->setContentTypeViewData();
         $this->addContentTypeHooks();
 
-        // Checks if the content type template should be skipped and sets the view accordingly.
-        if (!\Municipio\Helper\ContentType::skipContentTypeTemplate($postType)) {
-            $this->view = $this->contentType->getView();
-        }
-
-        $this->data['structuredData'] = $this->appendStructuredData();
+        $this->view = $this->contentType->getView();
     }
 
     /**
@@ -41,27 +36,6 @@ class SingularContentType extends \Municipio\Controller\Singular
     public function init(): void
     {
         parent::init();
-    }
-
-    /**
-     * Appends structured data to the view data.
-     *
-     * @return string|null The structured data as a JSON string, or null if not applicable.
-     */
-    public function appendStructuredData(): ?string
-    {
-        $structuredData = apply_filters('Municipio/preStructuredData', [], $this->postId);
-
-        if(empty($structuredData) ) {
-            $structuredData = $this->contentType->getStructuredData($this->postId);
-        }
-
-        if(!empty($structuredData)) {
-            if(!empty($structuredData['description'])) {
-              $structuredData['description'] = wp_strip_all_tags($structuredData['description']);
-            }
-            return \Municipio\Helper\Data::normalizeStructuredData($structuredData);
-        }
     }
 
     /**
@@ -78,7 +52,7 @@ class SingularContentType extends \Municipio\Controller\Singular
         }
 
         // Handles specific content types
-        if('place' === $contentType) {
+        if ('Place' === $contentType) {
             $this->data['post'] = \Municipio\Helper\ContentType::complementPlacePost($this->data['post']);
         }
     }
@@ -92,13 +66,6 @@ class SingularContentType extends \Municipio\Controller\Singular
     {
         if ($this->contentType) {
             $this->contentType->addHooks();
-        }
-
-        $secondaryContentTypes = $this->contentType->getSecondaryContentType() ?? [];
-        foreach ($secondaryContentTypes as $secondary) {
-            if ($secondary) {
-                $secondary->addHooks();
-            }
         }
     }
 }

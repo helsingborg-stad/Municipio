@@ -237,8 +237,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendNumericFacts(&$quickFacts, $metaKey, $labelFormat)
     {
         if (!empty($this->postMeta->$metaKey)) {
-            $value = absint($this->postMeta->$metaKey);
-            $label = sprintf($labelFormat, $value);
+            $value        = absint($this->postMeta->$metaKey);
+            $label        = sprintf($labelFormat, $value);
             $quickFacts[] = ['label' => $label];
         }
     }
@@ -274,12 +274,12 @@ class SchoolDataPreparer implements DataPrepearerInterface
     {
         if (isset($this->postMeta->$openHoursKey) && !empty($this->postMeta->$openHoursKey)) {
             $timezone = new \DateTimeZone('GMT');
-            $open  = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->open), $timezone);
-            $close = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->close), $timezone);
+            $open     = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->open), $timezone);
+            $close    = wp_date('H:i', strtotime($this->postMeta->$openHoursKey->close), $timezone);
 
             if (!empty($open) && !empty($close)) {
                 $timeString = "$open - $close";
-                $label = sprintf($labelFormat, $timeString);
+                $label      = sprintf($labelFormat, $timeString);
             } else {
                 $label = __('Leisure center', 'municipio'); // Adjust based on the context
             }
@@ -305,7 +305,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
                     'include' => $this->postMeta->usp
                 ]
             );
-            if(!empty($uspTerms) && !is_wp_error($uspTerms)) {
+            if (!empty($uspTerms) && !is_wp_error($uspTerms)) {
                 $uspTerms = array_slice($uspTerms, 0, 9 - count($quickFacts));
                 foreach ($uspTerms as $uspTerm) {
                     $quickFacts[] = ['label' => $uspTerm->name];
@@ -361,8 +361,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
 
         $this->data['application']['description'] = !empty($this->postMeta->ctaApplication->description) ? $this->postMeta->ctaApplication->description : '';
 
-        $this->data['application']['apply']       = null;
-        $this->data['application']['howToApply']  = null;
+        $this->data['application']['apply']      = null;
+        $this->data['application']['howToApply'] = null;
 
         if (
             !empty($this->postMeta->ctaApplication->cta_apply_here->url) &&
@@ -370,7 +370,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ) {
             $this->data['application']['apply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_apply_here->title,
-                'url' => $this->postMeta->ctaApplication->cta_apply_here->url,
+                'url'  => $this->postMeta->ctaApplication->cta_apply_here->url,
             ];
         }
 
@@ -380,10 +380,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
         ) {
             $this->data['application']['howToApply'] = [
                 'text' => $this->postMeta->ctaApplication->cta_how_to_apply->title,
-                'url' => $this->postMeta->ctaApplication->cta_how_to_apply->url,
+                'url'  => $this->postMeta->ctaApplication->cta_how_to_apply->url,
             ];
         }
-
     }
     /**
      * Retrieves the application title based on the post type or a default value.
@@ -407,7 +406,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             }
         }
 
-		return __('Do you want to apply?', 'municipio');
+        return __('Do you want to apply?', 'municipio');
     }
     /**
      * Appends data for the accordion section.
@@ -415,9 +414,9 @@ class SchoolDataPreparer implements DataPrepearerInterface
     private function appendViewAccordionData(): void
     {
         $accordionListItems = [];
-        $information = !empty($this->postMeta->information) ? $this->postMeta->information : false;
+        $information        = !empty($this->postMeta->information) ? $this->postMeta->information : false;
 
-        if(!$information) {
+        if (!$information) {
             return;
         }
 
@@ -504,7 +503,8 @@ class SchoolDataPreparer implements DataPrepearerInterface
         }
 
         $visitingData = array_map(
-            fn($visitingAddress) => $visitingAddress->address, $visitingAddresses
+            fn($visitingAddress) => $visitingAddress->address,
+            $visitingAddresses
         );
         $visitingData = array_map(function ($address) use (&$mapPins, $visitingAddresses) {
             $mapsUrl       = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($address->address->address);
@@ -533,7 +533,7 @@ class SchoolDataPreparer implements DataPrepearerInterface
             ];
         }, $visitingAddresses);
 
-        $this->data['visitingAddresses'] = !empty($visitingData) ? $visitingData : false;
+        $this->data['visitingAddresses']      = !empty($visitingData) ? $visitingData : false;
         $this->data['visitingAddressMapPins'] = !empty($mapPins) ? $mapPins : false;
 
         $this->data['visitingAddressMapStartPosition'] =

@@ -3,7 +3,6 @@
 namespace Municipio\Helper;
 
 use Municipio\Helper\Controller as ControllerHelper;
-use Municipio\Controller\ContentType\ContentTypeFactory as ContentTypeFactory;
 use Municipio\Helper\Listing as ListingHelper;
 
 /**
@@ -100,8 +99,7 @@ class ContentType
             return false;
         }
 
-        $themeModName = "municipio_customizer_panel_content_types_{$postType}_content_type";
-        $contentTypeKey = get_theme_mod($themeModName, false);
+        $contentTypeKey = get_field('schema', $postType . '_options');
 
         if ($contentTypeKey) {
             return self::getContentTypeInstance($contentTypeKey);
@@ -215,60 +213,7 @@ class ContentType
     {
         return \Municipio\Helper\WP::getCurrentPostType();
     }
-    /**
-     * Checks if the user has opted to skip the content type template for a specific post type.
-     *
-     * @param string $postType The post type to check. Defaults to the current post type if not specified.
-     *
-     * @return bool A boolean value indicating whether the user has opted to skip the content type template for the specified post type.
-     */
-    public static function skipContentTypeTemplate(string $postType = ''): bool
-    {
-        if (!$postType) {
-            $postType = self::getCurrentType();
-        }
 
-        $themeModName = "municipio_customizer_panel_content_types_{$postType}_skip_content_type_template";
-        return (bool) get_theme_mod($themeModName, false);
-    }
-    /**
-     *
-     * @param ContentTypeFactory $contentType
-     * @return boolean
-     *
-     */
-    public static function isComplexContentType(ContentTypeFactory $contentType): bool
-    {
-        return in_array(
-            'Municipio\\Controller\\ContentType\\ContentTypeComplexInterface',
-            class_implements($contentType)
-        );
-    }
-    /**
-     *
-     * Ensure that the content type is not complex.
-     *
-     * @param ContentTypeFactory $contentType
-     * @return boolean
-     *
-     */
-    public static function validateSimpleContentType(ContentTypeFactory $contentType, $parent): bool
-    {
-        if (self::isComplexContentType($contentType)) {
-            $error = new \WP_Error(
-                'invalid_content_type',
-                sprintf(
-                    __('%s tried to add %s as a secondary content type.\n\n
-                    Complex content types cannot add other complex content types.', 'municipio'),
-                    get_class($parent),
-                    get_class($contentType)
-                )
-            );
-            error_log($error->get_error_message());
-            return false;
-        }
-        return true;
-    }
     /**
      * Complement a place post with additional information.
      *

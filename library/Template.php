@@ -163,11 +163,6 @@ class Template
                 'controllerPath'  => ControllerHelper::locateController('SingularContentType'),
             ],
             [
-                'condition'       => $hasSpecificContentType('school') && $isArchive(),
-                'controllerClass' => \Municipio\Controller\SchoolArchiveContentType::class,
-                'controllerPath'  => ControllerHelper::locateController('SchoolArchiveContentType'),
-            ],
-            [
                 'condition'       => $hasContentType() && $isArchive(),
                 'controllerClass' => \Municipio\Controller\ArchiveContentType::class,
                 'controllerPath'  => ControllerHelper::locateController('ArchiveContentType'),

@@ -16,7 +16,7 @@ class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
      */
     public function __construct()
     {
-        $this->key   = 'place';
+        $this->key   = 'Place';
         $this->label = __('Place', 'municipio');
 
         parent::__construct($this->key, $this->label);
@@ -31,63 +31,6 @@ class Place extends \Municipio\Controller\ContentType\ContentTypeFactory
     {
         // Append location link to listing items
         add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
-    }
-    /**
-     * Get the schema parameters for the Place content type.
-     *
-     * @return array The schema parameters.
-     */
-    protected function schemaParams(): array
-    {
-        return [
-            'geo' => [
-                'schemaType' => 'GeoCoordinates',
-                'label'      => __('Address', 'municipio')
-            ],
-        ];
-    }
-    /**
-     * Get structured data for a Place post based on location meta keys.
-     *
-     * @param int $postId The ID of the Place post.
-     *
-     * @return array The structured data for the Place post.
-     */
-    public function legacyGetStructuredData(int $postId, $entity): ?array
-    {
-
-        if (empty($entity)) {
-            return [];
-        }
-
-        $locationMetaKeys = ['map', 'location']; // Post meta keys we'l check for location data.
-
-        foreach ($locationMetaKeys as $key) {
-            $location = get_post_meta($postId, $key, true);
-
-            if (empty($location)) {
-                continue;
-            }
-
-            // General address
-            if (!empty($location['formatted_address'])) {
-                $generalAddress = $location['formatted_address'];
-            } elseif (!empty($location['address'])) {
-                $generalAddress = $location['address'];
-            }
-            $entity->address($generalAddress);
-
-            // Coordinates
-            if (!empty($location['lat']) && !empty($location['lng'])) {
-                $entity->geo([
-                    '@type'     => 'GeoCoordinates',
-                    'latitude'  => $location['lat'],
-                    'longitude' => $location['lng'],
-                ]);
-            }
-        }
-
-        return $entity->toArray();
     }
     /**
      * Append location-related list items to the listing array.

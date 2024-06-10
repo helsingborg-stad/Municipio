@@ -4,7 +4,6 @@ namespace Municipio;
 
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
-use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -58,7 +57,6 @@ class App
         new \Municipio\Theme\Navigation();
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
-        new \Municipio\Theme\ThemeMods();
 
 
         new \Municipio\Search\General();
@@ -171,7 +169,6 @@ class App
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
-        new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General();
@@ -294,7 +291,10 @@ class App
         /**
          * Limit schema types and properties.
          */
-        $allowedSchemaTypes = [ 'Place' => ['geo', 'telephone', 'url'] ];
+        $allowedSchemaTypes = [
+            'Place'  => ['geo', 'telephone', 'url'],
+            'School' => []
+        ];
         $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($allowedSchemaTypes, $this->wpService));
 
         /**
