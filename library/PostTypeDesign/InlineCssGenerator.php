@@ -21,7 +21,7 @@ class InlineCssGenerator
         $this->extraCssVariables = [
             '--c-nav-v-color-contrasting' => '--color-secondary-contrasting',
             '--c-nav-v-color-contrasting-active' => '--color-secondary-contrasting',
-            '--c-nav-item-background-color' => '--color-secondary',
+            '--c-nav-v-item-background' => '--color-secondary',
             '--c-nav-v-background-active' => '--color-secondary-dark'
         ];
     }
