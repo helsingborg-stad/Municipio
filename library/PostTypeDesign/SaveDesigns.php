@@ -38,7 +38,7 @@ class SaveDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp', array($this, 'storeDesigns'));
+        $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
     }
 
     /**
@@ -92,7 +92,6 @@ class SaveDesigns implements Hookable
             $this->designOption['inlineCss'] .= $design['inlineCss'] ?? '';
         }
     }
-
 
     /**
      * Try to update the option with the design.

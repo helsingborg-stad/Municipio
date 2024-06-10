@@ -16,10 +16,13 @@ class InlineCssGenerator
     public function __construct(private array $designConfig, private array $fields)
     {
         $this->acceptedFieldTypes = ['color', 'multicolor'];
+        
+        // These are manually added CSS variables to enhance the inline design.
         $this->extraCssVariables = [
-            '--c-nav-v-color-contrasting' => '--color-primary-contrasting',
-            '--c-nav-v-color-contrasting-active' => '--color-primary-contrasting',
-            '--c-nav-item-background-color' => '--color-primary'
+            '--c-nav-v-color-contrasting' => '--color-secondary-contrasting',
+            '--c-nav-v-color-contrasting-active' => '--color-secondary-contrasting',
+            '--c-nav-item-background-color' => '--color-secondary',
+            '--c-nav-v-background-active' => '--color-secondary-dark'
         ];
     }
     
