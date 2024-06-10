@@ -36,7 +36,7 @@ class InlineCssGenerator
             }
 
             $designConfigField = $this->designConfig[$field['settings']];
-            $inlineCss = array_merge($this->getMultiColorCss($field, $designConfigField), $inlineCss);
+            $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
 
         return $inlineCss;
@@ -54,9 +54,9 @@ class InlineCssGenerator
     /**
      * Generate a string of inline CSS based on the generated CSS array.
      *
-     * @return string|false The generated inline CSS string, or false if no CSS is generated.
+     * @return string The generated inline CSS string.
      */
-    public function generateCssString(): string|false
+    public function generateCssString(): string
     {
         $inlineCssArray = $this->generateCssArray();
         $cssString = '';
@@ -79,7 +79,7 @@ class InlineCssGenerator
      * @param array $designConfigField The design configuration field array.
      * @return array The multi-color CSS properties and values.
      */
-    private function getMultiColorCss($field, $designConfigField): array
+    private function getColorFieldsCss($field, $designConfigField): array
     {
         $multiColorKeys = [];
 
