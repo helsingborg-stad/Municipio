@@ -6,7 +6,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Spatie\SchemaOrg\BaseType;
 
-class GetSchemaPropertiesWithParamTypes implements IGetSchemaPropertiesWithParamTypes
+class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamTypesInterface
 {
     public function getSchemaPropertiesWithParamTypes(string $schemaType): array
     {

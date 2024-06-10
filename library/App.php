@@ -285,44 +285,44 @@ class App
 
     private function setupSchemaDataFeature(): void
     {
-        $limitSchemaTypesAndProperties = new \Municipio\SchemaData\LimitSchemaTypesAndProperties([
-            'Place' => ['geo', 'telephone', 'url'],
-        ], $this->wpService);
-
-        // Register field group for schema.org data that shows up on admin post list pages.
-        $schemaTypes   = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
-        $acfFieldGroup = new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService);
-
-        // Apply schema data to single posts.
+        /**
+         * Shared dependencies.
+         */
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+        $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
 
-        $getSchemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
-        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
-        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
-        $schemaObjectFromPost      = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata(
-            $getSchemaPropertiesWithParamTypes,
-            $this->wpService,
-            $schemaPropertyValueSanitizer,
-            $schemaObjectFromPost
-        );
+        /**
+         * Limit schema types and properties.
+         */
+        $allowedSchemaTypes = [ 'Place' => ['geo', 'telephone', 'url'] ];
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($allowedSchemaTypes, $this->wpService));
 
-        // Outout schemadata in head of single posts.
-        $outputInSingleHead = new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService);
+        /**
+         * Register field group for schema.org data that shows up on admin post list pages.
+         */
+        $schemaTypes = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService));
 
-        // Register form for schema properties on posts.
-        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers();
-        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField($formFieldFactory);
-        $formFieldFactory     = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
-        $schemaPropertiesForm = new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $getSchemaTypeFromPostType, $getSchemaPropertiesWithParamTypes, $formFieldFactory);
+        /**
+         * Output schemadata in head of single posts.
+         */
+        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
+        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
+        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
+        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
+        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $this->wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService));
 
-        // Register hooks from above instances.
-        $this->hooksRegistrar->register($limitSchemaTypesAndProperties);
-        $this->hooksRegistrar->register($acfFieldGroup);
-        $this->hooksRegistrar->register($outputInSingleHead);
-        $this->hooksRegistrar->register($schemaPropertiesForm);
+        /**
+         * Register form for schema properties on posts.
+         */
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers();
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField($formFieldFactory);
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
+        $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
+        $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $getSchemaTypeFromPostType));
     }
 }

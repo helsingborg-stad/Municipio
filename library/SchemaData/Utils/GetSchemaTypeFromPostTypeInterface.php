@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\Utils;
 
-interface IGetSchemaTypeFromPostType
+interface GetSchemaTypeFromPostTypeInterface
 {
     /**
      * Get the schema type from post type.

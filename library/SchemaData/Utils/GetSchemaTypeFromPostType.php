@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\Utils;
 
 use AcfService\Contracts\GetField;
 
-class GetSchemaTypeFromPostType implements IGetSchemaTypeFromPostType
+class GetSchemaTypeFromPostType implements GetSchemaTypeFromPostTypeInterface
 {
     public function __construct(private GetField $acfService)
     {

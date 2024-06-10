@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\Utils;
 
-interface IGetSchemaPropertiesWithParamTypes
+interface GetSchemaPropertiesWithParamTypesInterface
 {
     /**
      * Get the schema properties with param types.

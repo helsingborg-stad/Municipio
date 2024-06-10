@@ -2,14 +2,14 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
-use Municipio\SchemaData\Utils\IGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Schema;
 use WP_Post;
 
 class SchemaObjectFromPost implements SchemaObjectFromPostInterface
 {
-    public function __construct(private IGetSchemaTypeFromPostType $util)
+    public function __construct(private GetSchemaTypeFromPostTypeInterface $util)
     {
     }
 

@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\SchemaData\Utils\IGetSchemaPropertiesWithParamTypes;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Post;
 use WpService\Contracts\GetPostMeta;
@@ -11,7 +12,7 @@ use WpService\Contracts\GetPostMeta;
 class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInterface
 {
     public function __construct(
-        private IGetSchemaPropertiesWithParamTypes $getSchemaPropertiesWithParamTypes,
+        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
         private GetPostMeta $wpService,
         private SchemaPropertyValueSanitizer $schemaPropertyValueSanitizer,
         private SchemaObjectFromPostInterface $inner
