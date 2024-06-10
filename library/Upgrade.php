@@ -9,7 +9,7 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion    = 29; //The db version we want to achive
+    private $dbVersion    = 30; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -570,13 +570,13 @@ class Upgrade
         return true;
     }
 
-    private function v_29($db): bool 
+    private function v_29($db): bool
     {
         $args = [
             'posts_per_page' => -1,
-            'meta_key' => 'location',
-            'post_type' => 'any',
-            'post_status' => 'publish'
+            'meta_key'       => 'location',
+            'post_type'      => 'any',
+            'post_status'    => 'publish'
         ];
 
         $posts = get_posts($args);
@@ -584,12 +584,29 @@ class Upgrade
             foreach ($posts as $post) {
                 $schemaField = get_field('schema', $post->ID) ?? [];
                 if (is_array($schemaField)) {
-                    $locationField = get_post_meta($post->ID, 'location', true);
+                    $locationField      = get_post_meta($post->ID, 'location', true);
                     $schemaField['geo'] = !empty($schemaField['geo']) ? $schemaField['geo'] : $locationField;
 
                     update_field('schema', $schemaField, $post->ID);
                 }
             }
+        }
+
+        return true;
+    }
+
+    private function v_30($db): bool
+    {
+        // Move content type settings.
+        foreach (get_post_types() as $postType) {
+            $themeModName   = "municipio_customizer_panel_content_types_{$postType}_content_type";
+            $contentTypeKey = get_theme_mod($themeModName, false);
+
+            if (empty($contentTypeKey)) {
+                continue;
+            }
+
+            update_field('schema', ucfirst($contentTypeKey), $postType . '_options');
         }
 
         return true;
@@ -844,7 +861,7 @@ class Upgrade
                 $currentDbVersion++;
                 $funcName = 'v_' . (string) $currentDbVersion;
 
-                $lockKey = 'upgrade_lock_v' . $currentDbVersion;
+                $lockKey  = 'upgrade_lock_v' . $currentDbVersion;
                 $isLocked = get_transient($lockKey);
                 if (!$isLocked && method_exists($this, $funcName)) {
                     set_transient($lockKey, time(), 600);
