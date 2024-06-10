@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Mockery;
-use Municipio\SchemaData\Utils\IGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
@@ -47,9 +47,9 @@ class SchemaObjectFromPostTest extends TestCase
         $this->assertInstanceOf(Event::class, $schemaObject);
     }
 
-    private function getUtil(string $schemaType = ''): IGetSchemaTypeFromPostType
+    private function getUtil(string $schemaType = ''): GetSchemaTypeFromPostTypeInterface
     {
-        return new class ($schemaType) implements IGetSchemaTypeFromPostType {
+        return new class ($schemaType) implements GetSchemaTypeFromPostTypeInterface {
             public function __construct(private string $schemaType)
             {
             }
