@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\MunicipioMenuItems;
 
+use Illuminate\Support\Arr;
+
 class Separator
 {
     public function __construct()
@@ -12,26 +14,23 @@ class Separator
     public function separateMenus($items, $identifier, $pageId)
     {
         if (!empty($items)) {
-            $menus = [];
-            $i     = 0;
-
-            foreach ($items as &$item) {
+            foreach ($items as $index => &$item) {
                 if ($item['post_type'] === 'separator') {
-                    $i++;
-                    $menus[$i]['title'] = $item['label'];
-                    $fields             = get_fields($item['id']);
-
-                    $menus[$i]['attributeList']['style'] = $this->setNavigationColorVariables($fields);
-                } else {
-                    $menus[$i]['items'][] = $item;
+                    $fields                         = get_fields($item['id']);
+                    $item['attributeList']['style'] = $this->setNavigationColorVariables($fields);
+                    if (!empty($item['children'])) {
+                        $children = $item['children'];
+                        foreach ($children as &$child) {
+                            $child['attributeList']['style'] = $this->setNavigationColorVariables($fields);
+                        }
+                        array_splice($items, $index + 1, 0, $children);
+                        $item['children'] = null;
+                    }
                 }
-            }
-
-            if ($identifier === 'mobile') {
             }
         }
 
-            return !empty($menus) && count($menus) > 1 ? (object) $menus : $items;
+            return $items;
     }
 
     private function setNavigationColorVariables($fields)
@@ -41,17 +40,10 @@ class Separator
             $style .= '--c-nav-v-color-contrasting: ' . $fields['text_color'] . ';';
         }
 
-        if (!empty($fields['expanded_background_color'])) {
-            $style .= '--c-nav-v-background-expanded: ' . $fields['expanded_background_color'] . ';';
-        }
-
         if (!empty($fields['background_color'])) {
             $style .= 'background-color: ' . $fields['background_color'] . ';';
         }
 
-        if (!empty($fields['active_background_color'])) {
-            $style .= '--c-nav-v-background-active: ' . $fields['active_background_color'] . ';';
-        }
         return $style;
     }
 }

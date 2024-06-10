@@ -5,6 +5,7 @@ namespace Municipio\PostTypeDesign;
 class InlineCssGenerator 
 {
     private array $acceptedFieldTypes = [];
+    private array $extraCssVariables = [];
 
     /**
      * InlineCssGenerator constructor.
@@ -15,6 +16,11 @@ class InlineCssGenerator
     public function __construct(private array $designConfig, private array $fields)
     {
         $this->acceptedFieldTypes = ['color', 'multicolor'];
+        $this->extraCssVariables = [
+            '--c-nav-v-color-contrasting' => '--color-primary-contrasting',
+            '--c-nav-v-color-contrasting-active' => '--color-primary-contrasting',
+            '--c-nav-item-background-color' => '--color-primary'
+        ];
     }
     
     /**
@@ -38,17 +44,23 @@ class InlineCssGenerator
             $designConfigField = $this->designConfig[$field['settings']];
             $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
+        
+        $inlineCss = array_merge($inlineCss, $this->addExtraCssVariables($inlineCss));
 
         return $inlineCss;
     }
 
-    private function isNotValidField($field) 
+    private function addExtraCssVariables(array $inlineCss): array
     {
-        return 
-            empty($this->designConfig[$field['settings']]) || 
-            empty($field['output']) || 
-            empty($field['type']) ||
-            !in_array($field['type'], $this->acceptedFieldTypes);
+        foreach ($this->extraCssVariables as $variable => $value) {
+            if (empty($inlineCss[$value])) {
+                continue;
+            }
+
+            $inlineCss[$variable] = $inlineCss[$value];
+        }
+
+        return $inlineCss;
     }
 
     /**
@@ -81,17 +93,17 @@ class InlineCssGenerator
      */
     private function getColorFieldsCss($field, $designConfigField): array
     {
-        $multiColorKeys = [];
+        $colorKeys = [];
 
         foreach ($field['output'] as $output) {
             if ($this->isValidColorField($field, $designConfigField, $output)) {
                 continue;
             }
 
-            $multiColorKeys[$output['property']] = $designConfigField[$output['choice']];
+            $colorKeys[$output['property']] = $designConfigField[$output['choice']];
         }
 
-        return $multiColorKeys;
+        return $colorKeys;
     }
 
     /**
@@ -108,5 +120,14 @@ class InlineCssGenerator
             empty($output['choice']) || 
             empty($designConfigField[$output['choice']]) || 
             empty($output['property']);
+    }
+
+    private function isNotValidField($field) 
+    {
+        return 
+            empty($this->designConfig[$field['settings']]) || 
+            empty($field['output']) || 
+            empty($field['type']) ||
+            !in_array($field['type'], $this->acceptedFieldTypes);
     }
 }
