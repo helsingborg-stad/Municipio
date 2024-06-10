@@ -41,7 +41,7 @@ class Separator
         }
 
         if (!empty($fields['background_color'])) {
-            $style .= 'background-color: ' . $fields['background_color'] . ';';
+            $style .= '--c-nav-v-item-background: ' . $fields['background_color'] . ';';
         }
 
         return $style;
