@@ -120,7 +120,7 @@ class SingularPlace extends \Municipio\Controller\Singular
     private function complementPlacePost($post)
     {
         // Fetch custom fields for the post
-        $fields = get_fields($post->id);
+        $fields = get_fields($post->ID ?? null);
 
         // Assign additional information to the post object
         $post->bookingLink = $fields['booking_link'] ?? false;
