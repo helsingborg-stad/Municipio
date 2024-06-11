@@ -3,27 +3,27 @@
 namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
-use Municipio\PostTypeDesign\InlineCssGenerator;
+use Municipio\PostTypeDesign\InlineCss;
 
-class InlineCssGeneratorTest extends TestCase
+class InlineCssTest extends TestCase
 {
     public function testGenerateCssArrayReturnsEmptyArrayIfFaultyValues()
     {
-        $inlineCssGeneratorInstance = new InlineCssGenerator(['setting' => 'value'], [
+        $InlineCssInstance = new InlineCss(['setting' => 'value'], [
             [
                 'type' => 'faultyFieldType',
                 'settings' => 'setting'
             ]
         ]);
 
-        $result = $inlineCssGeneratorInstance->generateCssArray();
+        $result = $InlineCssInstance->generateCssArray();
 
         $this->assertEmpty($result);
     }
 
     public function testGenerateCssArrayReturnsArrayIfCorrectValues()
     {
-        $inlineCssGeneratorInstance = new InlineCssGenerator([
+        $InlineCssInstance = new InlineCss([
             'name' => [
                 'color' => '#000'
             ]], 
@@ -44,14 +44,14 @@ class InlineCssGeneratorTest extends TestCase
             ]
         ]);
 
-        $result = $inlineCssGeneratorInstance->generateCssArray();
+        $result = $InlineCssInstance->generateCssArray();
         
         $this->assertEquals($result, ["--color" => "#000"]);
     }
 
     public function testGenerateCssStringReturnsEmptyStringIfFaultyData()
     {
-        $inlineCssGeneratorInstance = new InlineCssGenerator([
+        $InlineCssInstance = new InlineCss([
             'name' => [
                 'color' => '#000'
             ]], 
@@ -61,7 +61,7 @@ class InlineCssGeneratorTest extends TestCase
             ]
         ]);
 
-        $result = $inlineCssGeneratorInstance->generateCssString();
+        $result = $InlineCssInstance->generateCssString();
         
         $this->assertEquals($result, '');
     }

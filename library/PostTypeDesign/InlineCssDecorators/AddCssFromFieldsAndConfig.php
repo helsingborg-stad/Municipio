@@ -1,31 +1,15 @@
 <?php
 
-namespace Municipio\PostTypeDesign;
+namespace Municipio\PostTypeDesign\InlineCssDecorators;
 
-class InlineCssGenerator 
-{
-    private array $acceptedFieldTypes = [];
+class AddCssFromFieldsAndConfig implements InlineCssDecoratorInterface {
+    private array $acceptedFieldTypes = ['color', 'multicolor'];
 
-    /**
-     * InlineCssGenerator constructor.
-     *
-     * @param array $designConfig The design configuration array.
-     * @param array $fields The fields array.
-     */
     public function __construct(private array $designConfig, private array $fields)
+    {}
+
+    public function decorate(array $inlineCss): array
     {
-        $this->acceptedFieldTypes = ['color', 'multicolor'];
-    }
-    
-    /**
-     * Generate an array of inline CSS based on the design configuration and fields.
-     *
-     * @return array The generated inline CSS array.
-     */
-    public function generateCssArray(): array
-    {
-        $inlineCss = [];
-        
         if (empty($this->designConfig) || empty($this->fields)) {
             return $inlineCss;
         }
@@ -38,38 +22,8 @@ class InlineCssGenerator
             $designConfigField = $this->designConfig[$field['settings']];
             $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
-
-        return $inlineCss;
-    }
-
-    private function isNotValidField($field) 
-    {
-        return 
-            empty($this->designConfig[$field['settings']]) || 
-            empty($field['output']) || 
-            empty($field['type']) ||
-            !in_array($field['type'], $this->acceptedFieldTypes);
-    }
-
-    /**
-     * Generate a string of inline CSS based on the generated CSS array.
-     *
-     * @return string The generated inline CSS string.
-     */
-    public function generateCssString(): string
-    {
-        $inlineCssArray = $this->generateCssArray();
-        $cssString = '';
-
-        if (empty($inlineCssArray)) {
-            return $cssString;
-        }
-
-        foreach ($inlineCssArray as $property => $value) {
-            $cssString .= "$property: $value; ";
-        }
         
-        return $cssString;
+        return $inlineCss;
     }
 
     /**
@@ -81,18 +35,19 @@ class InlineCssGenerator
      */
     private function getColorFieldsCss($field, $designConfigField): array
     {
-        $multiColorKeys = [];
+        $colorKeys = [];
 
         foreach ($field['output'] as $output) {
             if ($this->isValidColorField($field, $designConfigField, $output)) {
                 continue;
             }
 
-            $multiColorKeys[$output['property']] = $designConfigField[$output['choice']];
+            $colorKeys[$output['property']] = $designConfigField[$output['choice']];
         }
 
-        return $multiColorKeys;
+        return $colorKeys;
     }
+
 
     /**
      * Check if the color field is valid based on the field, design configuration, and output.
@@ -108,5 +63,14 @@ class InlineCssGenerator
             empty($output['choice']) || 
             empty($designConfigField[$output['choice']]) || 
             empty($output['property']);
+    }
+
+    private function isNotValidField($field) 
+    {
+        return 
+            empty($this->designConfig[$field['settings']]) || 
+            empty($field['output']) || 
+            empty($field['type']) ||
+            !in_array($field['type'], $this->acceptedFieldTypes);
     }
 }

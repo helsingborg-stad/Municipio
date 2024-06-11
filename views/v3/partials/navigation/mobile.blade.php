@@ -1,4 +1,4 @@
-@if (!empty($menuItems)) 
+@if (!empty($menuItems))
     @nav([
         'id' => 'menu-mobile',
         'items' => $menuItems,
@@ -6,9 +6,10 @@
         'includeToggle' => true,
         'classList' => $classList,
         'depth' => $depth ?? 1,
-        'expandLabel' => $lang->expand
+        'expandLabel' => $lang->expand,
+        'attributeList' => $attributeList ?? [],
+        'title' => $title ?? null,
+
     ])
     @endnav
-@else
-    {{-- No menu items found --}}
 @endif
