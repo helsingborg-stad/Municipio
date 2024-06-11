@@ -2,8 +2,6 @@
 
 namespace Municipio\Customizer;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
-
 class PanelsRegistry
 {
     private static $instance             = null;
