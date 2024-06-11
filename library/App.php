@@ -37,7 +37,7 @@ class App
         /**
          * Template
          */
-        new \Municipio\Template();
+        new \Municipio\Template($this->acfService);
 
         /**
          * Theme
@@ -54,7 +54,7 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation();
+        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -291,11 +291,8 @@ class App
         /**
          * Limit schema types and properties.
          */
-        $allowedSchemaTypes = [
-            'Place'  => ['geo', 'telephone', 'url'],
-            'School' => []
-        ];
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($allowedSchemaTypes, $this->wpService));
+        $enabledSchemaTypes = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($enabledSchemaTypes->getEnabledSchemaTypesAndProperties(), $this->wpService));
 
         /**
          * Register field group for schema.org data that shows up on admin post list pages.

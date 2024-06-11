@@ -1,17 +1,16 @@
 <?php
 
-namespace Municipio\Controller\ContentType\Complex\School;
+namespace Municipio\Controller\Utils;
 
 use Municipio\Helper\Controller;
 use Municipio\Helper\WP;
-use Municipio\Controller\ContentType\Complex\School\DataPrepearerInterface;
 
 /**
  * Class SchoolDataPreparer
  *
  * This class prepares data for the School content type.
  */
-class SchoolDataPreparer implements DataPrepearerInterface
+class SingularSchoolData
 {
     private object $postMeta;
     private array $data;
