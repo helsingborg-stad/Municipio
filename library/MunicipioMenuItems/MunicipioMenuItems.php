@@ -25,7 +25,7 @@ class MunicipioMenuItems
 
     public function addMunicipioMenuItemsMetaBox($object)
     {
-        add_meta_box('municipio_menu_items_meta_box', __('Municipio items'), array($this, 'municipioMenuItemsMetaBox'), 'nav-menus', 'side', 'default');
+        add_meta_box('municipio_menu_items_meta_box', __('Municipio items', 'municipio'), array($this, 'municipioMenuItemsMetaBox'), 'nav-menus', 'side', 'default');
 
         return $object;
     }
@@ -48,7 +48,7 @@ class MunicipioMenuItems
     
             <p class="button-controls wp-clearfix">
                 <span class="add-to-menu">
-                    <input type="submit"<?php wp_nav_menu_disabled_check($nav_menu_selected_id); ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e('Add to Menu'); ?>" name="add-municipio-item-menu-item" id="submit-municipio-item" />
+                    <input type="submit"<?php wp_nav_menu_disabled_check($nav_menu_selected_id); ?> class="button-secondary submit-add-to-menu right" value="<?php __('Add to Menu', 'municipio'); ?>" name="add-municipio-item-menu-item" id="submit-municipio-item" />
                     <span class="spinner"></span>
                 </span>
             </p>

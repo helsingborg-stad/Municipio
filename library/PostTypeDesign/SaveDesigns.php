@@ -3,7 +3,7 @@
 namespace Municipio\PostTypeDesign;
 
 use Municipio\Customizer\PanelsRegistry;
-use Municipio\PostTypeDesign\InlineCssGenerator;
+use Municipio\PostTypeDesign\InlineCss;
 use Municipio\PostTypeDesign\GetFields;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
@@ -103,10 +103,11 @@ class SaveDesigns implements Hookable
     private function tryUpdateDesign(mixed $design, string $postType, GetFieldsInterface $getFieldsInstance): void
     {
         [$designConfig, $css] = $this->configFromPageId->get($design);
-        $filter               = $this->wpService->getThemeMod($postType . '_copy_styles');
-        $filter               = !empty($filter) ? $filter : [];
 
-        $inlineCssInstance             = new InlineCssGenerator($designConfig, $getFieldsInstance->getFields($filter));
+        $filter = $this->wpService->getThemeMod($postType . '_copy_styles');
+        $filter = !empty($filter) ? $filter : [];
+
+        $inlineCssInstance             = new InlineCss($designConfig, $getFieldsInstance->getFields($filter));
         $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys($filter));
 
         $sanitizedDesignConfig = $sanitizedDesignConfigInstance->sanitize();

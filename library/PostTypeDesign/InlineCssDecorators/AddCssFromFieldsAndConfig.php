@@ -1,40 +1,15 @@
 <?php
 
-namespace Municipio\PostTypeDesign;
+namespace Municipio\PostTypeDesign\InlineCssDecorators;
 
-class InlineCssGenerator 
-{
-    private array $acceptedFieldTypes = [];
-    private array $extraCssVariables = [];
+class AddCssFromFieldsAndConfig implements InlineCssDecoratorInterface {
+    private array $acceptedFieldTypes = ['color', 'multicolor'];
 
-    /**
-     * InlineCssGenerator constructor.
-     *
-     * @param array $designConfig The design configuration array.
-     * @param array $fields The fields array.
-     */
     public function __construct(private array $designConfig, private array $fields)
+    {}
+
+    public function decorate(array $inlineCss): array
     {
-        $this->acceptedFieldTypes = ['color', 'multicolor'];
-        
-        // These are manually added CSS variables to enhance the inline design.
-        $this->extraCssVariables = [
-            '--c-nav-v-color-contrasting' => '--color-secondary-contrasting',
-            '--c-nav-v-color-contrasting-active' => '--color-secondary-contrasting',
-            '--c-nav-v-item-background' => '--color-secondary',
-            '--c-nav-v-background-active' => '--color-secondary-dark'
-        ];
-    }
-    
-    /**
-     * Generate an array of inline CSS based on the design configuration and fields.
-     *
-     * @return array The generated inline CSS array.
-     */
-    public function generateCssArray(): array
-    {
-        $inlineCss = [];
-        
         if (empty($this->designConfig) || empty($this->fields)) {
             return $inlineCss;
         }
@@ -48,43 +23,7 @@ class InlineCssGenerator
             $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
         
-        $inlineCss = array_merge($inlineCss, $this->addExtraCssVariables($inlineCss));
-
         return $inlineCss;
-    }
-
-    private function addExtraCssVariables(array $inlineCss): array
-    {
-        foreach ($this->extraCssVariables as $variable => $value) {
-            if (empty($inlineCss[$value])) {
-                continue;
-            }
-
-            $inlineCss[$variable] = $inlineCss[$value];
-        }
-
-        return $inlineCss;
-    }
-
-    /**
-     * Generate a string of inline CSS based on the generated CSS array.
-     *
-     * @return string The generated inline CSS string.
-     */
-    public function generateCssString(): string
-    {
-        $inlineCssArray = $this->generateCssArray();
-        $cssString = '';
-
-        if (empty($inlineCssArray)) {
-            return $cssString;
-        }
-
-        foreach ($inlineCssArray as $property => $value) {
-            $cssString .= "$property: $value; ";
-        }
-        
-        return $cssString;
     }
 
     /**
@@ -108,6 +47,7 @@ class InlineCssGenerator
 
         return $colorKeys;
     }
+
 
     /**
      * Check if the color field is valid based on the field, design configuration, and output.
