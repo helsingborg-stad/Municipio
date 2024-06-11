@@ -13,6 +13,8 @@ use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use WP_Post;
 use WpService\WpService;
 
 /**
@@ -27,7 +29,8 @@ class App
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
-        private HooksRegistrarInterface $hooksRegistrar
+        private HooksRegistrarInterface $hooksRegistrar,
+        private SchemaObjectFromPostInterface $schemaObjectFromPost
     ) {
         /**
          * Upgrade
@@ -72,6 +75,17 @@ class App
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
         new \Municipio\Content\IframePosterImage();
+
+        /**
+         * Post decorators
+         */
+        $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
+
+            $decorator = new \Municipio\PostDecorators\ApplySchemaObject($this->schemaObjectFromPost);
+            $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData($decorator);
+
+            return $decorator->apply($post);
+        }, 10, 1);
 
 
         /**
@@ -303,14 +317,7 @@ class App
         /**
          * Output schemadata in head of single posts.
          */
-        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
-        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
-        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
-        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
-        $schemaObjectFromPost         = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $this->wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($this->schemaObjectFromPost, $this->wpService));
 
         /**
          * Register form for schema properties on posts.
