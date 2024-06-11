@@ -694,7 +694,7 @@ class Navigation
                         'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
                         'description' => get_field('menu_item_description', $item->ID) ?? '',
                         'xfn'         => $item->xfn ?? false,
-                        'classList'   => ["s-post-type-$item->object"]
+                        'classList'   => array_merge($item->classes ?? [], ["s-post-type-$item->object"])
                     ], $this->identifier, true);
                 }
             } else {

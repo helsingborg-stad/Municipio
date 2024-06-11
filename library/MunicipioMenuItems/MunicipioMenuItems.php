@@ -62,7 +62,7 @@ class MunicipioMenuItems
         $menuItems = [];
         foreach ($this->menuItems as $menuItem) {
             $menuItems[] = (object) [
-                'classes'          => ['menu-item-' . $menuItem],
+                'classes'          => ['s-menu-item-' . $menuItem],
                 'type'             => $menuItem,
                 'type_label'       => ucfirst($menuItem),
                 'object_id'        => $menuItem,

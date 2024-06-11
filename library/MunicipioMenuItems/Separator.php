@@ -39,10 +39,12 @@ class Separator
         $style = '';
         if (!empty($fields['text_color'])) {
             $style .= '--c-nav-v-color-contrasting: ' . $fields['text_color'] . ';';
+            $style .= '--c-nav-v-color-contrasting-active: ' . $fields['text_color'] . ';';
         }
 
         if (!empty($fields['background_color'])) {
             $style .= '--c-nav-v-item-background: ' . $fields['background_color'] . ';';
+            $style .= '--c-nav-v-background-active: ' . $fields['background_color'] . ';';
         }
 
         return $style;
