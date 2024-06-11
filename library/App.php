@@ -11,6 +11,7 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\Helper\Listing;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
@@ -83,10 +84,11 @@ class App
 
             $decorator = new \Municipio\PostDecorators\ApplySchemaObject($this->schemaObjectFromPost);
             $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData($decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace($this->acfService, new Listing(), $decorator);
 
             return $decorator->apply($post);
         }, 10, 1);
-
 
         /**
          * Resources from API
