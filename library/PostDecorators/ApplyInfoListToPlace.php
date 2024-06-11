@@ -19,7 +19,7 @@ class ApplyInfoListToPlace implements PostDecorator
     {
         $post = $this->inner->apply($post);
 
-        if (!empty($post->schemaObject) && $post->schemaObject['@type'] !== 'Place') {
+        if (empty($post->schemaObject) || $post->schemaObject->getType() !== 'Place') {
             return $post;
         }
 
