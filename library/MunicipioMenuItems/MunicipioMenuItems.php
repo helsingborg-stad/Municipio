@@ -25,7 +25,7 @@ class MunicipioMenuItems
 
     public function addMunicipioMenuItemsMetaBox($object)
     {
-        add_meta_box('municipio_menu_items_meta_box', __('Municipio items', 'municipio'), array($this, 'municipioMenuItemsMetaBox'), 'nav-menus', 'side', 'default');
+        $this->wpService->addMetaBox('municipio_menu_items_meta_box', __('Municipio items', 'municipio'), array($this, 'municipioMenuItemsMetaBox'), 'nav-menus', 'side', 'default');
 
         return $object;
     }
@@ -41,14 +41,14 @@ class MunicipioMenuItems
             <div id="tabs-panel-municipio-item-all" class="tabs-panel tabs-panel-view-all tabs-panel-active">
                 <ul id="municipio-item-checklist-all" class="categorychecklist form-no-clear">
                 <?php
-                    echo walk_nav_menu_tree(array_map('wp_setup_nav_menu_item', $this->getMunicipioMenuItems()), 0, (object) array( 'walker' => $walker));
+                    echo $this->wpService->walkNavMenuTree(array_map('wp_setup_nav_menu_item', $this->getMunicipioMenuItems()), 0, (object) array( 'walker' => $walker));
                 ?>
                 </ul>
             </div>
     
             <p class="button-controls wp-clearfix">
                 <span class="add-to-menu">
-                    <input type="submit"<?php wp_nav_menu_disabled_check($nav_menu_selected_id); ?> class="button-secondary submit-add-to-menu right" value="<?php __('Add to Menu', 'municipio'); ?>" name="add-municipio-item-menu-item" id="submit-municipio-item" />
+                    <input type="submit"<?php $this->wpService->navMenuDisabledCheck($nav_menu_selected_id); ?> class="button-secondary submit-add-to-menu right" value="<?php echo __('Add to Menu', 'municipio'); ?>" name="add-municipio-item-menu-item" id="submit-municipio-item" />
                     <span class="spinner"></span>
                 </span>
             </p>
