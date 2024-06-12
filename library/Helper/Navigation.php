@@ -309,6 +309,7 @@ class Navigation
         if (is_array($elements) && !empty($elements)) {
             foreach ($elements as $element) {
                 if (!isset($element['post_parent']) || !isset($element['id'])) {
+                    $branch[] = $element;
                     continue;
                 }
 
