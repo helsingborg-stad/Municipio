@@ -61,8 +61,17 @@ class App
         new \Municipio\Theme\ThemeMods();
 
 
+        /**
+         * Search
+         */
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
+
+        /**
+         * Navigation
+         */
+        $drawer = new \Municipio\Navigation\Drawer($this->wpService);
+        $this->hooksRegistrar->register($drawer);
 
         /**
          * Content

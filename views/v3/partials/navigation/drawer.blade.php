@@ -14,13 +14,16 @@
         'attributeList' => [
             'data-toggle-icon' => 'close',
             'data-js-toggle-group' => 'drawer'
-        ]
+        ],
+        'classList' => 
+            ($customizer->headerApperance === 'business' && ($customizer->headerDrawerLocation ?? "") === 'bottom') ? 
+            ['u-display--none@lg', 'u-display--none@xl'] : []
     ],
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
-        's-drawer-menu'
+        's-drawer-menu',
     ],
     'label' => $lang->close,
     'screenSizes' => $customizer->drawerScreenSizes

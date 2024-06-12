@@ -10,6 +10,17 @@ class Header
 {
     public function __construct(string $sectionID)
     {
+        $this->addHeaderAppearanceFields($sectionID);
+
+        $this->addDrawerLocationFields($sectionID);
+
+        $this->addBrandFields($sectionID);
+
+        $this->addTabMenuFields($sectionID);
+    }
+
+    private function addHeaderAppearanceFields(string $sectionID)
+    {
         KirkiField::addField([
             'type'     => 'select',
             'settings' => 'header_apperance',
@@ -203,8 +214,52 @@ class Header
                 ['type' => 'controller']
             ]
         ]);
+    }
 
-        $this->addBrandFields($sectionID);
+    private function addDrawerLocationFields(string $sectionID)
+    {
+        $condition = [
+            [
+                'setting'  => 'header_apperance',
+                'operator' => '==',
+                'value'    => 'business',
+            ]
+        ];
+
+        KirkiField::addProField(new \Kirki\Pro\Field\Divider(
+            [
+                'settings'        => 'header_drawer_divider',
+                'section'         => $sectionID,
+                'active_callback' => $condition,
+            ]
+        ));
+
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'header_drawer_location',
+            'label'           => esc_html__('Drawer location', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'top',
+            'priority'        => 10,
+            'choices'         => [
+                'top'    => esc_html__('top', 'municipio'),
+                'bottom' => esc_html__('bottom', 'municipio'),
+            ],
+            'active_callback' => $condition,
+            'output'          => [
+                ['type' => 'controller']
+            ],
+        ]);
+    }
+
+    private function addTabMenuFields(string $sectionID)
+    {
+        KirkiField::addProField(new \Kirki\Pro\Field\Divider(
+            [
+                'settings' => 'header_tab_menu_divider',
+                'section'  => $sectionID,
+            ]
+        ));
 
         KirkiField::addField([
             'type'     => 'select',
@@ -405,14 +460,6 @@ class Header
                 ],
             ]
         ]);
-
-        KirkiField::addProField(new \Kirki\Pro\Field\Divider(
-            [
-                'settings'        => 'header_brand_divider_bottom',
-                'section'         => $sectionID,
-                'active_callback' => $this->getHeaderBrandEnabledActiveCallback(),
-            ]
-        ));
     }
 
     private function getHeaderBrandEnabledActiveCallback(): array
