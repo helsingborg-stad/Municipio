@@ -10,6 +10,15 @@ class Header
 {
     public function __construct(string $sectionID)
     {
+        $this->addHeaderAppearanceFields($sectionID);
+
+        $this->addBrandFields($sectionID);
+
+        $this->addTabMenuFields($sectionID);
+    }
+
+    private function addHeaderAppearanceFields(string $sectionID)
+    {
         KirkiField::addField([
             'type'     => 'select',
             'settings' => 'header_apperance',
@@ -20,6 +29,7 @@ class Header
             'choices'  => [
                 'casual'   => esc_html__('Casual (Small sites)', 'municipio'),
                 'business' => esc_html__('Business (large sites)', 'municipio'),
+                'modern'   => esc_html__('Modern', 'municipio'),
             ],
             'output'   => [
                 ['type' => 'controller']
@@ -203,9 +213,10 @@ class Header
                 ['type' => 'controller']
             ]
         ]);
+    }
 
-        $this->addBrandFields($sectionID);
-
+    private function addTabMenuFields(string $sectionID)
+    {
         KirkiField::addField([
             'type'     => 'select',
             'settings' => 'tabmenu_button_color',

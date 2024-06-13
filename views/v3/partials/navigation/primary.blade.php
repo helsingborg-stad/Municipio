@@ -9,7 +9,7 @@
             ['s-nav-primary']
         ),
         'context' => ['site.header.nav', 'site.header.casual.nav'],
-        'height' => 'lg',
+        'height' => $primaryMenuHeight ?? 'lg',
         'expandLabel' => $lang->expand,
         'includeToggle' => $customizer->primaryMenuDropdown ?? false
     ])
