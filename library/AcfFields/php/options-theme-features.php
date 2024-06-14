@@ -3,15 +3,35 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_6639e9aa1409f',
-    'title' => __('Branded E-mails', 'municipio'),
+    'title' => __('Theme features', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_6639e9abdbe59',
-            'label' => __('Enable branded e-mails', 'municipio'),
+            'label' => __('Branded e-mails', 'municipio'),
             'name' => 'mun_branded_emails_enabled',
             'aria-label' => '',
             'type' => 'true_false',
             'instructions' => __('All e-mails sent from WordPress will be branded using the theme appearance settings.', 'municipio'),
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => '',
+            'default_value' => 0,
+            'ui_on_text' => __('Enabled', 'municipio'),
+            'ui_off_text' => __('Disabled', 'municipio'),
+            'ui' => 1,
+        ),
+        1 => array(
+            'key' => 'field_666bd2536d776',
+            'label' => __('Schema.org data', 'municipio'),
+            'name' => 'mun_schemadata_enabled',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => __('Allows setting Schema.org formatted data to posts.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(

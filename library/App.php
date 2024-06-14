@@ -299,6 +299,13 @@ class App
     private function setupSchemaDataFeature(): void
     {
         /**
+         * Feature enabled/disabled
+         */
+        if ($this->acfService->getField('mun_schemadata_enabled', 'options') !== true) {
+            return;
+        }
+
+        /**
          * Shared dependencies.
          */
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();

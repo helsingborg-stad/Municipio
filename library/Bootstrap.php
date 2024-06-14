@@ -46,7 +46,7 @@ add_action('init', function () {
         'block-margin'                               => 'group_61bc6134601a0',
         'block-container'                            => 'group_63cfdba21f7fc',
         'options-activate-gutenberg'                 => 'group_60b496c06687c',
-        'options-branded-emails'                     => 'group_6639e9aa1409f',
+        'options-theme-features'                     => 'group_6639e9aa1409f',
         // Terms
         'term-icon-and-colour'                       => 'group_63e6002cc129c',
         // Options

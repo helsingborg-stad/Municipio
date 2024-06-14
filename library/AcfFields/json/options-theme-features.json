@@ -1,14 +1,34 @@
 [{
     "key": "group_6639e9aa1409f",
-    "title": "Branded E-mails",
+    "title": "Theme features",
     "fields": [
         {
             "key": "field_6639e9abdbe59",
-            "label": "Enable branded e-mails",
+            "label": "Branded e-mails",
             "name": "mun_branded_emails_enabled",
             "aria-label": "",
             "type": "true_false",
             "instructions": "All e-mails sent from WordPress will be branded using the theme appearance settings.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Enabled",
+            "ui_off_text": "Disabled",
+            "ui": 1
+        },
+        {
+            "key": "field_666bd2536d776",
+            "label": "Schema.org data",
+            "name": "mun_schemadata_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Allows setting Schema.org formatted data to posts.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
