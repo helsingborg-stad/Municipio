@@ -20,6 +20,8 @@ class Header
             'choices'  => [
                 'casual'   => esc_html__('Casual (Small sites)', 'municipio'),
                 'business' => esc_html__('Business (large sites)', 'municipio'),
+                'modern'   => esc_html__('Modern', 'municipio'),
+                'flexible' => esc_html__('Flexible', 'municipio'),
             ],
             'output'   => [
                 ['type' => 'controller']
