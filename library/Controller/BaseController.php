@@ -44,8 +44,8 @@ class BaseController
         $this->data['wpFooter'] = $this->getWpFooter();
 
         //Basic
-        $this->data['ajaxUrl'] = $this->getAjaxUrl();
-        // $this->data['bodyClass'] = $this->getBodyClass();
+        $this->data['ajaxUrl']            = $this->getAjaxUrl();
+        $this->data['bodyClass']          = $this->getBodyClass();
         $this->data['bodyClass']          = '';
         $this->data['languageAttributes'] = $this->getLanguageAttrs();
         $this->data['homeUrl']            = $this->getHomeUrl();
