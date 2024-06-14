@@ -8,9 +8,12 @@ Post types can be configured to use a specific type of schema data.
 Select which Schema type should be used with each post type on the post list page for the post type in the WordPress admin area.  
 This will add the schema data to the post type's archive page and single post pages.
 
-## How is schema properties added to the post type?
-All metadata belonging to the post will be scanned and added to the schema data if it has a format that is supported by the schema type and the property sanitizers in place.  
-The name of the meta key needs to be the same as the schema property name, alternatively the meta key can be prefixed with `schema_` to be included in the schema data.
+## Adding Schema Data to a post
+* First you need to enable this feature, which can be done at the Theme Options admin page.
+* Next, go to the post list page for the post type you want to add schema data to.
+* In the Schema.org meta box, select the schema type you want to use for the post type.
+* When you have selected a schema type, a number of meta fields will appear on the post edit page of the current post type.
+* Fill in the fields with the appropriate data.
 
 ## Note
 If no schema type is selected for a post type, the default schema type (Thing) will be used.
