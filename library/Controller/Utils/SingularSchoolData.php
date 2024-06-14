@@ -148,7 +148,7 @@ class SingularSchoolData
             'suppress_filters' => false
         ));
 
-        $this->data['contacts'] = !empty($persons) ? array_map(function ($contact) use ($persons) {
+        $this->data['contacts'] = !empty($persons) ? array_map(function ($contact) {
 
             $personPosts = get_posts([
                 'post_type'        => self::PERSON_POST_TYPE,
