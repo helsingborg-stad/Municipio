@@ -29,7 +29,7 @@ class Post
     public static function preparePostObject(\WP_Post $post, $data = null): object
     {
         // Create a unique cache key based on the post ID and serialized data
-        $cacheKey = $post->ID . '_' . serialize($data);
+        $cacheKey = md5($post->ID . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObject'])) {
             self::$runtimeCache['preparePostObject'] = [];
@@ -84,7 +84,7 @@ class Post
      */
     public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
     {
-        $cacheKey = $post->ID . '_' . serialize($data);
+        $cacheKey = md5($post->ID . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObjectArchive'])) {
             self::$runtimeCache['preparePostObjectArchive'] = [];
@@ -93,7 +93,7 @@ class Post
         if (isset(self::$runtimeCache['preparePostObjectArchive'][$cacheKey])) {
             return self::$runtimeCache['preparePostObjectArchive'][$cacheKey];
         }
-        
+
         $post = self::complementObject(
             $post,
             [
