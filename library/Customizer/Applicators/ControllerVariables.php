@@ -18,6 +18,15 @@ class ControllerVariables
    */
     public function get($stack = [])
     {
+        /* FIX  */
+         // Check if the result is already cached
+         $cache_key = 'municipio_customizer_controller_vars';
+         $cached_result = wp_cache_get($cache_key, 'municipio');
+ 
+         if ($cached_result !== false && !isset($_GET['applicator'])) {
+             return $cached_result;
+         } 
+        /* ENDFIX */ 
 
         //Get field definition
         $fields = \Kirki::$all_fields;
@@ -80,10 +89,19 @@ class ControllerVariables
             }
         }
 
-        //Camel case response keys, and return
-        return \Municipio\Helper\FormatObject::camelCase(
+        /* FIX */ 
+
+        // Camel case response keys, and return
+        $result = \Municipio\Helper\FormatObject::camelCase(
             (object) $stack
         );
+
+        // Cache the result for 12 hours
+        wp_cache_set($cache_key, $result, 'municipio', 12 * HOUR_IN_SECONDS);
+
+        /* ENDFIX */ 
+
+        return $result;
     }
 
   /**
