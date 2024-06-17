@@ -15,7 +15,7 @@ class ControllerVariables
     /**
      * Calculate controller vars on save of customizer
      * 
-     * @return void
+     * @return array
      */
     public function storeControllerVars($manager = null) {
         $controllerVars = $this->get();
@@ -31,6 +31,8 @@ class ControllerVariables
     /**
      * Populate controller vars from stored data, if available. 
      * Otherwise, calculate, store and try again.
+     * 
+     * @return array
      */
     public function applicateStoredControllerVars()
     {
