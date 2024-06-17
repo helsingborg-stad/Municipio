@@ -4,9 +4,42 @@ namespace Municipio\Customizer\Applicators;
 
 class ControllerVariables
 {
+    private $controllerVarsOptionKey = 'theme_mod_municipio_controller_vars';
+
     public function __construct()
     {
-        add_filter('Municipio/Controller/Customizer', array($this, 'get'));
+        add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
+        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+    }
+
+    /**
+     * Calculate controller vars on save of customizer
+     * 
+     * @return array
+     */
+    public function storeControllerVars($manager = null) {
+        $controllerVars = $this->get();
+
+        update_option(
+            $this->controllerVarsOptionKey, 
+            $controllerVars
+        );
+
+        return $controllerVars;
+    }
+
+    /**
+     * Populate controller vars from stored data, if available. 
+     * Otherwise, calculate, store and try again.
+     * 
+     * @return array
+     */
+    public function applicateStoredControllerVars()
+    {
+        if ($controllerVars = get_option($this->controllerVarsOptionKey, false)) {
+            return $controllerVars;
+        }
+        return $this->storeControllerVars(); // Fallback to calculate and store
     }
 
   /**
@@ -18,7 +51,6 @@ class ControllerVariables
    */
     public function get($stack = [])
     {
-
         //Get field definition
         $fields = \Kirki::$all_fields;
 
@@ -79,8 +111,7 @@ class ControllerVariables
                 }
             }
         }
-
-        //Camel case response keys, and return
+        // Camel case response keys, and return
         return \Municipio\Helper\FormatObject::camelCase(
             (object) $stack
         );
