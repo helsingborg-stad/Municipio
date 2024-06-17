@@ -71,6 +71,12 @@ class OnTheFlyImages
         if(!$this->isImageMime($id)) {
             return $downsize;
         }
+
+        //Check if we have a cached image, fetch it.
+        $cacheKey = $this->createCacheKey($id, $requestedSize);
+        if($cachedImage = $this->getCachedImage($cacheKey)) {
+            return $cachedImage;
+        }
         
         //Normalize requested size
         $requestedSize = $this->normalizeSizeFalsy($requestedSize);
@@ -111,7 +117,7 @@ class OnTheFlyImages
             return $downsize;
         }
 
-        return [
+        $resizedImage =  [
             $this->resizeImage(
                 $id, 
                 $requestedSize, 
@@ -121,6 +127,11 @@ class OnTheFlyImages
             $requestedSize[1],
             true
         ];
+
+        return $this->cachePipeReturn(
+            $cacheKey, 
+            $resizedImage
+        );
     }
 
     /**
@@ -469,6 +480,68 @@ class OnTheFlyImages
 
         // Fallback to full size
         return $requestedImageName['sourceUrl'];
+    }
+
+    /**
+     * Retrieve a cached image from the WordPress cache.
+     *
+     * This function retrieves an image from the WordPress cache using the provided cache key.
+     * If the image is found in the cache, it is returned; otherwise, the function returns false.
+     *
+     * @param string $cacheKey The cache key used to store the image in the WordPress cache.
+     *
+     * @return mixed The cached image if found, or false if not found.
+     */
+    private function getCachedImage($cacheKey) {
+        if ($cachedImage = wp_cache_get($cacheKey)) {
+            return $cachedImage;
+        }
+        return false;
+    }
+
+    /**
+     * Cache an image in the WordPress cache using the provided cache key.
+     *
+     * This function caches an image in the WordPress cache using the provided cache key.
+     * The image is then returned to the caller.
+     *
+     * @param string $cacheKey The cache key to use when storing the image in the WordPress cache.
+     * @param mixed $image The image to cache.
+     *
+     * @return mixed The cached image.
+     */
+    private function cachePipeReturn($cacheKey, $image) {
+        $this->setCachedImage($cacheKey, $image);
+        return $image;
+    }
+
+    /**
+     * Cache an image in the WordPress cache using the provided cache key.
+     *
+     * This function caches an image in the WordPress cache using the provided cache key.
+     *
+     * @param string $cacheKey The cache key to use when storing the image in the WordPress cache.
+     * @param mixed $image The image to cache.
+     *
+     * @return void
+     */
+    private function setCachedImage($cacheKey, $image) {
+        wp_cache_set($cacheKey, $image);
+    }
+
+    /**
+     * Create a unique cache key for a requested image size based on the given image ID.
+     *
+     * This function generates unique cache keys for resized versions of the original image
+     * based on the requested width and height dimensions.
+     *
+     * @param int $id The ID of the original image.
+     * @param array $requestedSize An array containing the requested width and height dimensions.
+     *
+     * @return string The unique cache key for the requested image size.
+     */
+    private function createCacheKey($id, $requestedSize) {
+        return "mun_otfi_" . $id . "_" . implode('x', $requestedSize ?? []);
     }
 
     /**
