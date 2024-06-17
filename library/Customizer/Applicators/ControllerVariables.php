@@ -4,9 +4,40 @@ namespace Municipio\Customizer\Applicators;
 
 class ControllerVariables
 {
+    private $controllerVarsOptionKey = 'theme_mod_municipio_controller_vars';
+
     public function __construct()
     {
-        add_filter('Municipio/Controller/Customizer', array($this, 'get'));
+        add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
+        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+    }
+
+    /**
+     * Calculate controller vars on save of customizer
+     * 
+     * @return void
+     */
+    public function storeControllerVars($manager = null) {
+        $controllerVars = $this->get();
+
+        update_option(
+            $this->controllerVarsOptionKey, 
+            $controllerVars
+        );
+
+        return $controllerVars;
+    }
+
+    /**
+     * Populate controller vars from stored data, if available. 
+     * Otherwise, calculate, store and try again.
+     */
+    public function applicateStoredControllerVars()
+    {
+        if ($controllerVars = get_option($this->controllerVarsOptionKey, false)) {
+            return $controllerVars;
+        }
+        return $this->storeControllerVars(); // Fallback to calculate and store
     }
 
   /**
@@ -18,16 +49,6 @@ class ControllerVariables
    */
     public function get($stack = [])
     {
-        /* FIX  */
-         // Check if the result is already cached
-         $cache_key = 'municipio_customizer_controller_vars';
-         $cached_result = wp_cache_get($cache_key, 'municipio');
- 
-         if ($cached_result !== false && !isset($_GET['applicator'])) {
-             return $cached_result;
-         } 
-        /* ENDFIX */ 
-
         //Get field definition
         $fields = \Kirki::$all_fields;
 
@@ -88,20 +109,10 @@ class ControllerVariables
                 }
             }
         }
-
-        /* FIX */ 
-
         // Camel case response keys, and return
-        $result = \Municipio\Helper\FormatObject::camelCase(
+        return \Municipio\Helper\FormatObject::camelCase(
             (object) $stack
         );
-
-        // Cache the result for 12 hours
-        wp_cache_set($cache_key, $result, 'municipio', 12 * HOUR_IN_SECONDS);
-
-        /* ENDFIX */ 
-
-        return $result;
     }
 
   /**
