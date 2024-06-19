@@ -9,6 +9,7 @@
             padding-bottom: map-get($spacers, "2"); 
         }
     }
+    
     .c-header__menu.c-header__menu--secondary {
         background-color: $color-primary;
 
@@ -16,5 +17,4 @@
             color: white;
         }
     }
-
 }
