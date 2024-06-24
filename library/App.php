@@ -301,7 +301,11 @@ class App
         /**
          * Feature enabled/disabled
          */
-        if ($this->acfService->getField('mun_schemadata_enabled', 'options') !== true) {
+        if (
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== true &&
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== "1" &&
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== 1
+        ) {
             return;
         }
 
