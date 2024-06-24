@@ -2,7 +2,6 @@
 
 namespace Municipio;
 
-use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
@@ -14,7 +13,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 30; //The db version we want to achive
+    private $dbVersion    = 29; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -597,34 +596,6 @@ class Upgrade
                     update_field('schema', $schemaField, $post->ID);
                 }
             }
-        }
-
-        return true;
-    }
-
-    public function v_30($db): bool
-    {
-        $migrations = [];
-
-        foreach ($this->wpService->getPostTypes() as $postType) {
-            $themeModName   = "municipio_customizer_panel_content_types_{$postType}_content_type";
-            $contentTypeKey = $this->wpService->getThemeMod($themeModName, false);
-
-            if (empty($contentTypeKey)) {
-                continue;
-            }
-
-            $migrations[$postType . '_options'] = ucfirst($contentTypeKey);
-        }
-
-        if (empty($migrations)) {
-            return true;
-        }
-
-        $this->acfService->updateField('mun_schemadata_enabled', true, 'options');
-
-        foreach ($migrations as $postId => $value) {
-            $this->acfService->updateField('schema', $value, $postId);
         }
 
         return true;
