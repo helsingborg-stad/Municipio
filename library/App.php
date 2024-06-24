@@ -36,7 +36,7 @@ class App
         /**
          * Upgrade
          */
-        new \Municipio\Upgrade();
+        new \Municipio\Upgrade($this->wpService, $this->acfService);
 
         /**
          * Template

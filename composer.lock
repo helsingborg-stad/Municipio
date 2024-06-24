@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b0ddb78cd3ddbe381796be771e86054",
+    "content-hash": "fc1fcfbcd4dbc874b95bab459f844816",
     "packages": [
         {
             "name": "composer/installers",
@@ -257,16 +257,16 @@
         },
         {
             "name": "helsingborg-stad/acfservice",
-            "version": "0.4.0",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acfservice.git",
-                "reference": "bcef55b4db315d1f7fce544211a4976f3544b941"
+                "reference": "5c21c363fcdd5943d8a69b3216b2847445ff33dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/bcef55b4db315d1f7fce544211a4976f3544b941",
-                "reference": "bcef55b4db315d1f7fce544211a4976f3544b941",
+                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/5c21c363fcdd5943d8a69b3216b2847445ff33dc",
+                "reference": "5c21c363fcdd5943d8a69b3216b2847445ff33dc",
                 "shasum": ""
             },
             "require": {
@@ -295,9 +295,9 @@
             "description": "Simplifies ACF integration by providing a centralized AcfService that exposes global ACF functions in a streamlined manner. Simplify your development workflow and enhance ACF integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acfservice/issues",
-                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.4.0"
+                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.5.0"
             },
-            "time": "2024-05-30T12:19:40+00:00"
+            "time": "2024-06-24T07:41:05+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3687,5 +3687,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

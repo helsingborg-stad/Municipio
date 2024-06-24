@@ -2,6 +2,11 @@
 
 namespace Municipio;
 
+use AcfService\Contracts\GetField;
+use AcfService\Contracts\UpdateField;
+use WpService\Contracts\GetPostTypes;
+use WpService\Contracts\GetThemeMod;
+
 /**
  * Class App
  *
@@ -16,8 +21,10 @@ class Upgrade
     /**
      * App constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private GetThemeMod&GetPostTypes $wpService,
+        private UpdateField $acfService
+    ) {
         //Development tools
         //WARNING: Do not use in PROD. This will destroy your db.
         /*add_action('init', array($this, 'reset'), 1);
@@ -595,18 +602,29 @@ class Upgrade
         return true;
     }
 
-    private function v_30($db): bool
+    public function v_30($db): bool
     {
-        // Move content type settings.
-        foreach (get_post_types() as $postType) {
+        $migrations = [];
+
+        foreach ($this->wpService->getPostTypes() as $postType) {
             $themeModName   = "municipio_customizer_panel_content_types_{$postType}_content_type";
-            $contentTypeKey = get_theme_mod($themeModName, false);
+            $contentTypeKey = $this->wpService->getThemeMod($themeModName, false);
 
             if (empty($contentTypeKey)) {
                 continue;
             }
 
-            update_field('schema', ucfirst($contentTypeKey), $postType . '_options');
+            $migrations[$postType . '_options'] = ucfirst($contentTypeKey);
+        }
+
+        if (empty($migrations)) {
+            return true;
+        }
+
+        $this->acfService->updateField('mun_schemadata_enabled', true, 'options');
+
+        foreach ($migrations as $postId => $value) {
+            $this->acfService->updateField('schema', $value, $postId);
         }
 
         return true;
