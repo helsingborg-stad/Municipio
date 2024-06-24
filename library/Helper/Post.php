@@ -26,24 +26,38 @@ class Post
      */
     public static function preparePostObject(\WP_Post $post, $data = null): object
     {
+        // Create a unique cache key based on the post ID and serialized data
+        $cacheKey = md5($post->ID . '_' . serialize($data));
+
+        if (!isset(self::$runtimeCache['preparePostObject'])) {
+            self::$runtimeCache['preparePostObject'] = [];
+        }
+
+        if (isset(self::$runtimeCache['preparePostObject'][$cacheKey])) {
+            return self::$runtimeCache['preparePostObject'][$cacheKey];
+        }
+
+        // Perform the original operations
         $post = self::complementObject(
             $post,
             [
-            'excerpt',
-            'post_content_filtered',
-            'post_title_filtered',
-            'permalink',
-            'terms',
-            'post_language',
-            'reading_time',
-            'quicklinks',
-            'call_to_action_items',
-            'term_icon'
+                'excerpt',
+                'post_content_filtered',
+                'post_title_filtered',
+                'permalink',
+                'terms',
+                'post_language',
+                'reading_time',
+                'quicklinks',
+                'call_to_action_items',
+                'term_icon'
             ],
             $data
         );
 
-        return \Municipio\Helper\FormatObject::camelCase($post);
+        return self::$runtimeCache['preparePostObject'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
+            $post
+        );
     }
 
      /**
@@ -68,6 +82,16 @@ class Post
      */
     public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
     {
+        $cacheKey = md5($post->ID . '_' . serialize($data));
+
+        if (!isset(self::$runtimeCache['preparePostObjectArchive'])) {
+            self::$runtimeCache['preparePostObjectArchive'] = [];
+        }
+
+        if (isset(self::$runtimeCache['preparePostObjectArchive'][$cacheKey])) {
+            return self::$runtimeCache['preparePostObjectArchive'][$cacheKey];
+        }
+
         $post = self::complementObject(
             $post,
             [
@@ -82,7 +106,9 @@ class Post
             $data
         );
 
-        return \Municipio\Helper\FormatObject::camelCase($post);
+        return self::$runtimeCache['preparePostObjectArchive'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
+            $post
+        );
     }
 
     /**
