@@ -21,8 +21,11 @@ class ResourcePostType
     {
         add_action('init', [$this, 'addPostType']);
         add_action('init', [$this, 'addOptionsPage']);
+        // add_filter('acf/load_field/key=field_653a52d126e03', [$this, 'loadPostTypeSourceOptions']);
         add_filter('acf/load_field/name=post_type_source', [$this, 'loadPostTypeSourceOptions']);
+        // add_filter('acf/load_field/key=field_653a539bb2fc9', [$this, 'loadTaxonomySourceOptions']);
         add_filter('acf/load_field/name=taxonomy_source', [$this, 'loadTaxonomySourceOptions']);
+        // add_filter('acf/load_field/key=field_6558779730ac2', [$this, 'loadAttachmentSourceOptions']);
         add_filter('acf/load_field/name=attachment_source', [$this, 'loadAttachmentSourceOptions']);
         add_filter('acf/load_field/key=field_655878bfc1a9a', [$this, 'loadAttachmentArgumentsPostTypes']);
         add_action('acf/save_post', [$this, 'setPostTypeResourcePostTitleFromAcf'], 10);
@@ -84,7 +87,6 @@ class ResourcePostType
      */
     public function loadPostTypeSourceOptions($field): ?array
     {
-
         $choices = [];
 
         if (!function_exists('get_field')) {
