@@ -63,8 +63,4 @@
 
     @includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
 
-    @includeWhen($displaySecondaryQuery, 'partials.secondary', [
-        'posts' => $secondaryQuery->posts ?? [],
-        'postType' => $secondaryPostType ?? null,
-    ])
 @stop

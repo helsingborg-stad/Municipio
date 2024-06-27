@@ -266,9 +266,6 @@ class BaseController
         //Quicklinks placement is set in Singular
         $this->data['displayQuicklinksAfterContent'] = false;
 
-        //Secondary query is set in Singular
-        $this->data['displaySecondaryQuery'] = false;
-
         // Add filters to add emblem on blocks and cards with placeholders
         add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
         add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
