@@ -29,7 +29,8 @@ class Post
     public static function preparePostObject(\WP_Post $post, $data = null): object
     {
         // Create a unique cache key based on the post ID and serialized data
-        $cacheKey = md5($post->ID . $post->post_date . '_' . serialize($data));
+        $serializedPost = serialize($post);
+        $cacheKey = md5($serializedPost . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObject'])) {
             self::$runtimeCache['preparePostObject'] = [];

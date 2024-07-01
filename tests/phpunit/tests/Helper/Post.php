@@ -31,7 +31,7 @@ class PostTest extends TestCase
     }
     
     /**
-     * @testdox preparePostObject: runtimeCache can add multiple posts with the same ID by also using post_date as a key.
+     * @testdox preparePostObject: runtimeCache can add multiple posts with the same ID.
     */
     public function testPreparePostObjectCanAddMultiplePostsToRuntimeCacheUsingSameID()
     {
