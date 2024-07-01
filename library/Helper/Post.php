@@ -29,7 +29,7 @@ class Post
     public static function preparePostObject(\WP_Post $post, $data = null): object
     {
         // Create a unique cache key based on the post ID and serialized data
-        $serializedPost = serialize($post);
+        $serializedPost = serialize(get_object_vars($post));
         $cacheKey = md5($serializedPost . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObject'])) {
