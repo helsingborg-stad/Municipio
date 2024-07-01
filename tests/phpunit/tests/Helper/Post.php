@@ -29,6 +29,25 @@ class PostTest extends TestCase
         // Then
         $this->assertIsObject($result);
     }
+    
+    /**
+     * @testdox preparePostObject: runtimeCache can add multiple posts with the same ID by also using post_date as a key.
+    */
+    public function testPreparePostObjectCanAddMultiplePostsToRuntimeCacheUsingSameID()
+    {
+        // Given
+        $post1 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-02 00:00:00']);
+        $post2 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-01 00:00:00']);
+        $mock = $this->mockStaticMethod('\Municipio\Helper\Post', 'complementObject');
+        $mock->andReturnUsing(fn ($post) => $post);
+
+        // When
+        \Municipio\Helper\Post::preparePostObject($post1);
+        \Municipio\Helper\Post::preparePostObject($post2);
+
+        // Then
+        $this->assertCount(2, \Municipio\Helper\Post::$runtimeCache['preparePostObject']);
+    }
 
      /**
      * @testdox preparePostObjectArchive returns a post if it $post is an instance of WP_Post.
