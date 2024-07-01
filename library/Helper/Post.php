@@ -13,7 +13,7 @@ use WP_Post;
 class Post
 {
     //Stores cache in runtime
-    private static $runtimeCache = [];
+    public static $runtimeCache = [];
 
     /**
      * Prepare post object before sending to view
@@ -27,7 +27,8 @@ class Post
     public static function preparePostObject(\WP_Post $post, $data = null): object
     {
         // Create a unique cache key based on the post ID and serialized data
-        $cacheKey = md5($post->ID . '_' . serialize($data));
+        $serializedPost = serialize(get_object_vars($post));
+        $cacheKey = md5($serializedPost . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObject'])) {
             self::$runtimeCache['preparePostObject'] = [];
