@@ -31,8 +31,8 @@
             'name' => 'mun_schemadata_enabled',
             'aria-label' => '',
             'type' => 'true_false',
-            'instructions' => __('Allows setting Schema.org formatted data to posts.<br>
-<strong>ℹ️ Note that this feature will not work as expected if opCache is enabled and opCache.saveComments is set to "Off".</strong>', 'municipio'),
+            'instructions' => __('Allows setting Schema.org formatted data to posts.<br><br>
+<span class="dashicons dashicons-info-outline"></span> This feature will not work as expected if opCache is enabled and <code>opCache.saveComments</code> is set to "Off".', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
