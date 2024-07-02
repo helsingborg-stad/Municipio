@@ -301,29 +301,6 @@ class App
     private function setupSchemaDataFeature(): void
     {
         /**
-         * Allow enabling/disabling the feature from the options page.
-         * Prevents the feature from running if requirements are not met.
-         */
-        $iniService                          = new IniService();
-        $systemCanReadDocCommentsRequirement = new \Municipio\SchemaData\FeatureRequirements\SystemReadDocCommentFeatureRequirement($iniService);
-        // $adminNotice                         = new \Municipio\AdminNotice\AdminNotice(
-        //     $systemCanReadDocCommentsRequirement->getRequirementDescription(),
-        //     !$systemCanReadDocCommentsRequirement->isMet(),
-        //     AdminNoticeLevels::WARNING,
-        //     true
-        // );
-        // $this->hooksRegistrar->register($adminNotice);
-
-        add_filter('acf/update_value/name=mun_schemadata_enabled', function ($value, $post_id, $field) use ($systemCanReadDocCommentsRequirement) {
-
-            if (!$systemCanReadDocCommentsRequirement->isMet()) {
-                return false;
-            }
-
-            return $value;
-        }, 10, 3);
-
-        /**
          * Feature enabled/disabled
          */
         if (

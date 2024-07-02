@@ -28,7 +28,7 @@
             "name": "mun_schemadata_enabled",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "Allows setting Schema.org formatted data to posts.",
+            "instructions": "Allows setting Schema.org formatted data to posts.<br>\r\n<strong>\u2139\ufe0f Note that this feature will not work as expected if opCache is enabled and opCache.saveComments is set to \"Off\".<\/strong>",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
