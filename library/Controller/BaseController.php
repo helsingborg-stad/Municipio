@@ -123,8 +123,17 @@ class BaseController
         //Main Navigation
         $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
         $this->data['secondaryMenuItems'] = null;
-        $this->data['mobileMenuItems']    = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-        $this->data['megaMenuItems']      = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
+
+        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
+
+        if (!empty($posttypeSecondaryMenuItems)) {
+            $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
+        } else {
+            $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
+        }
+
+        $this->data['mobileMenuItems'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $this->data['megaMenuItems']   = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
