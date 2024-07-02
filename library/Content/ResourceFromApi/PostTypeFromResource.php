@@ -150,7 +150,10 @@ class PostTypeFromResource implements TypeRegistrarInterface
      */
     private function prepareParentPostTypes(array $arguments): array
     {
-        if (!$arguments['hierarchical'] && !empty($arguments['parent_post_types'])) {
+        $parentPostTypes = is_array($arguments['parent_post_types']) ? $arguments['parent_post_types'] : [];
+        $parentPostTypes = array_filter($parentPostTypes);
+
+        if (!$arguments['hierarchical'] && !empty($parentPostTypes)) {
             $parentSlug = '/%parentPost%';
             $slug       = '';
 

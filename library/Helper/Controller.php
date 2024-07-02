@@ -58,30 +58,8 @@ class Controller
             );
         }
 
-        // Temporary array to hold ContentType paths
-        $contentTypePaths = [];
-
-        // Check all registered controller paths for subdirectory "ContentType"
-        foreach ($controllerPaths as $controllerPath) {
-            $contentTypeBasePath = $controllerPath . DIRECTORY_SEPARATOR . "ContentType";
-            if (is_dir($contentTypeBasePath)) {
-                // Add ContentType base directory
-                $contentTypePaths[] = $contentTypeBasePath;
-
-                // Check for 'Complex' and 'Simple' subdirectories
-                $subDirs = ['Complex', 'Simple'];
-                foreach ($subDirs as $subDir) {
-                    $subDirPath = $contentTypeBasePath . DIRECTORY_SEPARATOR . $subDir;
-                    if (is_dir($subDirPath)) {
-                        // Add 'Complex' and 'Simple' directories to paths
-                        $contentTypePaths[] = $subDirPath;
-                    }
-                }
-            }
-        }
-
         // Merge and remove duplicates
-        $controllerPaths = array_unique(array_merge($controllerPaths, $contentTypePaths));
+        $controllerPaths = array_unique($controllerPaths);
 
         return apply_filters('Municipio/controllerPaths', $controllerPaths);
     }

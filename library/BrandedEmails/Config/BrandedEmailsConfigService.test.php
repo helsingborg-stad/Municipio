@@ -12,7 +12,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
      */
     public function testAcfConfig()
     {
-        $acfJsonFile = __DIR__ . '/../../AcfFields/json/options-branded-emails.json';
+        $acfJsonFile = __DIR__ . '/../../AcfFields/json/options-theme-features.json';
 
         $this->assertFileExists($acfJsonFile);
     }
@@ -22,7 +22,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
      */
     public function testAcfConfigContainsOptions()
     {
-        $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/options-branded-emails.json');
+        $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/options-theme-features.json');
         $json             = json_decode($jsonFileContents, true);
         $fields           = $json[0]['fields'];
         $fieldNames       = array_map(fn($field) => $field['name'], $fields);

@@ -84,7 +84,6 @@ class ResourcePostType
      */
     public function loadPostTypeSourceOptions($field): ?array
     {
-
         $choices = [];
 
         if (!function_exists('get_field')) {
@@ -108,7 +107,7 @@ class ResourcePostType
             $typesFromApi = RestRequestHelper::get(trailingslashit($url) . 'types');
 
             if (is_wp_error($typesFromApi) || empty($typesFromApi)) {
-                return null;
+                continue;
             }
 
             foreach ($typesFromApi as $type) {
