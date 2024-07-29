@@ -62,6 +62,13 @@ class OnTheFlyImages
             return $downsize;
         }
 
+        //Check if we have a cached image, fetch it.
+        $cacheKey = $this->createCacheKey($id, $requestedSize);
+        if($cachedImage = $this->getCachedImage($cacheKey)) {
+            echo "offi cache hit"; 
+            return $cachedImage;
+        }
+
         //This is not a request for resize
         if(!$this->shouldResize($requestedSize)) {
             return $downsize;
@@ -70,12 +77,6 @@ class OnTheFlyImages
         //Verify that this is an valid image type
         if(!$this->isImageMime($id)) {
             return $downsize;
-        }
-
-        //Check if we have a cached image, fetch it.
-        $cacheKey = $this->createCacheKey($id, $requestedSize);
-        if($cachedImage = $this->getCachedImage($cacheKey)) {
-            return $cachedImage;
         }
         
         //Normalize requested size
@@ -541,6 +542,9 @@ class OnTheFlyImages
      * @return string The unique cache key for the requested image size.
      */
     private function createCacheKey($id, $requestedSize) {
+        if(is_string($requestedSize)) {
+            return "mun_otfi_" . $id . "_" . $requestedSize;
+        }
         return "mun_otfi_" . $id . "_" . implode('x', $requestedSize ?? []);
     }
 
