@@ -2,9 +2,12 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use Kirki\Compatibility\Kirki;
+
 abstract class AbstractApplicator
 {
     private static $contextCache = [];
+    private static $allFields = null;
 
     /**
      * Determines if should be handled as a modifier.
@@ -26,6 +29,19 @@ abstract class AbstractApplicator
         }
 
         return false;
+    }
+
+    /**
+     * Get all fields
+     *
+     * @return array
+     */
+    public function getAllFields(): array
+    {
+        if(self::$allFields === null) {
+            self::$allFields = Kirki::$all_fields;
+        }
+        return self::$allFields;
     }
 
     private function fieldHasOutput(array $field): bool

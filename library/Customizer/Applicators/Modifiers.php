@@ -2,6 +2,7 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use Kirki\Compatibility\Kirki;
 
 class Modifiers extends AbstractApplicator
 {
@@ -19,9 +20,8 @@ class Modifiers extends AbstractApplicator
     {
 
         //Get field definition
-        $fields = \Kirki::$all_fields;
+        $fields = $this->getAllFields();
 
-        
         //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {

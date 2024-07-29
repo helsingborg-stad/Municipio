@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Applicators;
 
-class Css
+class Css extends AbstractApplicator
 {
   private $baseFontSize = '16px';
 

@@ -2,18 +2,11 @@
 
 namespace Municipio\Customizer\Applicators;
 
-use Kirki\Compatibility\Kirki;
-
 class ComponentData extends AbstractApplicator
 {
     public function __construct()
     {
         add_action('wp', array($this, 'applyComponentData'));
-    }
-
-    public function getAllFields()
-    {
-        return Kirki::$all_fields;
     }
 
     public function applyComponentData()

@@ -2,14 +2,14 @@
 
 namespace Municipio\Customizer\Applicators;
 
-class ControllerVariables
+class ControllerVariables extends AbstractApplicator
 {
     private $controllerVarsOptionKey = 'theme_mod_municipio_controller_vars';
 
     public function __construct()
     {
-        add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
-        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+        //add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
+        //add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
     }
 
     /**
@@ -52,7 +52,7 @@ class ControllerVariables
     public function get($stack = [])
     {
         //Get field definition
-        $fields = \Kirki::$all_fields;
+        $fields = $this->getAllFields();
 
         //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
@@ -115,20 +115,6 @@ class ControllerVariables
         return \Municipio\Helper\FormatObject::camelCase(
             (object) $stack
         );
-    }
-
-  /**
-   * Validate PHP operator
-   *
-   * @param string $operator
-   * @return bool
-   */
-    private function isValidOperator($operator): bool
-    {
-        if (in_array((string) $operator, ['contains', '==', '===', '!=', '<>', '!==', '>', '<', '>=', '<=', '<=>'])) {
-            return true;
-        }
-        return false;
     }
 
   /**
