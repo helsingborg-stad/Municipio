@@ -8,8 +8,8 @@ class ControllerVariables extends AbstractApplicator
 
     public function __construct()
     {
-        //add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
-        //add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+        add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
+        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
     }
 
     /**
@@ -34,9 +34,10 @@ class ControllerVariables extends AbstractApplicator
      * 
      * @return array
      */
-    public function applicateStoredControllerVars()
+    public function applicateStoredControllerVars(): object
     {
-        if ($controllerVars = get_option($this->controllerVarsOptionKey, false)) {
+        $controllerVars = get_option($this->controllerVarsOptionKey, false);
+        if($controllerVars !== false) {
             return $controllerVars;
         }
         return $this->storeControllerVars(); // Fallback to calculate and store
