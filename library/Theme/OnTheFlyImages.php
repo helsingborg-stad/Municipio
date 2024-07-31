@@ -450,7 +450,7 @@ class OnTheFlyImages
      */
     public function registerFoundSize($postId, $size) {
         $size = $this->createRelativePath($size);
-        update_post_meta($postId, 'municipio_otfi_size' . md5($size), $size);
+        update_post_meta($postId, 'municipio_otfi_size_' . md5($size), $size);
     }
 
     /**
@@ -466,7 +466,7 @@ class OnTheFlyImages
      */
     public function getFoundSize($postId, $size): bool {
         $size = $this->createRelativePath($size);
-        if(get_post_meta($postId, 'municipio_otfi_size' . md5($size), true)) {
+        if(get_post_meta($postId, 'municipio_otfi_size_' . md5($size), true)) {
             return true;
         }
         return false;
