@@ -160,9 +160,7 @@ class App
         new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
-
-        new \Municipio\Admin\ExternalDeptendents();
-
+        
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\Favicon();
