@@ -422,6 +422,56 @@ class OnTheFlyImages
         return $size;
     }
 
+    /**
+     * Create a relative path from a full URL.
+     *
+     * This function takes a full URL and creates a relative path by replacing the base directory
+     * path of the WordPress uploads directory with an empty string.
+     *
+     * @param string $url The full URL to convert to a relative path.
+     *
+     * @return string The relative path of the URL.
+     */
+    public function createRelativePath($url) {
+        return str_replace(wp_upload_dir()['basedir'], '', $url);
+    }
+
+    /**
+     * 
+     * Register that a requested image size has been found.
+     * 
+     * This function registers that a requested image size has been found by storing the relative path
+     * of the requested size in the post metadata of the specified post ID.
+     * 
+     * @param int    $postId The ID of the post where the requested image size was found.
+     * @param string $size   The full path of the requested image size.
+     * 
+     * @return void
+     */
+    public function registerFoundSize($postId, $size) {
+        $size = $this->createRelativePath($size);
+        update_post_meta($postId, 'municipio_otfi_size' . md5($size), $size);
+    }
+
+    /**
+     * Check if a requested image size has been found.
+     * 
+     * This function checks if a requested image size has been found by looking up the
+     * specified post ID and the relative path of the requested size in the post metadata.
+     * 
+     * @param int    $postId The ID of the post to check.
+     * @param string $size   The full path of the requested image size.
+     * 
+     * @return bool Returns true if the requested image size has been found, false otherwise.
+     */
+    public function getFoundSize($postId, $size): bool {
+        $size = $this->createRelativePath($size);
+        if(get_post_meta($postId, 'municipio_otfi_size' . md5($size), true)) {
+            return true;
+        }
+        return false;
+    }
+
     /* Resize image on the fly
      *
      * @param  int     $attachment_id Attachment ID
@@ -436,8 +486,23 @@ class OnTheFlyImages
         //Create name
         $requestedImageName = $this->createRequestedImageName($id, $requestedSize); 
 
-        // If file exists: do nothing
+        // If file exists: do nothing (db lookup)
+        // This is a s3 optimized lookup that does not require a filesystem lookup. 
+        // In other words; it will avoid a curl request to s3.
+        if($this->getFoundSize($id, $requestedImageName['path'])) {
+            return $requestedImageName['url']; //Return url
+        }
+
+        // If file exists: do nothing (filesystem lookup)
         if (FileHelper::fileExists($requestedImageName['path'])) {
+
+            //File was found, register in db lookup metadata.
+            //This will avoid a filesystem lookup next time.
+            //We are not doing this upon image generation, 
+            //due to the fact that we have loads of images already generated. 
+            $this->registerFoundSize($id, $requestedImageName['path']);
+
+            //Return url
             return $requestedImageName['url'];
         }
 
