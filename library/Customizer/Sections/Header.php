@@ -2,9 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Field\Radio as RadioField;
 use Municipio\Customizer\KirkiField;
-use Kirki\Compatibility\Kirki;
 
 class Header
 {
@@ -27,6 +25,54 @@ class Header
                 ['type' => 'controller']
             ],
         ]);
+
+        KirkiField::addField(
+            [
+                'type'            => 'sortable',
+                'settings'        => 'header_sortable_section_main_upper',
+                'label'           => __('Upper main area', 'kirki'),
+                'section'         => $sectionID,
+                'default'         => [ 'option3', 'option1', 'option4' ],
+                'priority'        => 10,
+                'choices'         => $this->buildFlexibleMainLowerSection(),
+                'active_callback' => [
+                    [
+                        'setting'  => 'header_apperance',
+                        'operator' => '==',
+                        'value'    => 'flexible',
+                    ]
+                ],
+                'output'          => [
+                    [
+                        'type' => 'controller',
+                    ],
+                ],
+            ]
+        );
+
+        KirkiField::addField(
+            [
+                'type'            => 'sortable',
+                'settings'        => 'header_sortable_section_main_lower',
+                'label'           => __('Lower main area', 'kirki'),
+                'section'         => $sectionID,
+                'default'         => [ 'option3', 'option1', 'option4' ],
+                'priority'        => 10,
+                'choices'         => $this->buildFlexibleMainLowerSection(),
+                'active_callback' => [
+                    [
+                        'setting'  => 'header_apperance',
+                        'operator' => '==',
+                        'value'    => 'flexible',
+                    ]
+                ],
+                'output'          => [
+                    [
+                        'type' => 'controller',
+                    ],
+                ],
+            ]
+        );
 
         KirkiField::addField([
             'type'            => 'select',
@@ -415,6 +461,23 @@ class Header
                 'active_callback' => $this->getHeaderBrandEnabledActiveCallback(),
             ]
         ));
+    }
+
+    private function buildFlexibleMainLowerSection(): array
+    {
+        $availableMenus = [
+            'primary'            => 'Primary menu',
+            'mega-menu'          => 'Mega Menu',
+            'drawer'             => 'Drawer menu',
+            'tab'                => 'Tab Menu',
+            'language'           => 'Language Menu',
+            'siteselector'       => 'Siteselector Menu',
+            'header-search-form' => 'Search Form',
+            'search-modal'       => 'Search Button',
+            'logotype'           => 'Logotype'
+        ];
+
+        return $availableMenus;
     }
 
     private function getHeaderBrandEnabledActiveCallback(): array

@@ -34,13 +34,38 @@
 
 .item2, .item3 {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     position: relative;
 }
     </style>
+
+@dump(get_theme_mod('header_sortable_section_main_lower'))
   <div class="o-container grid-container">
-        <div class="item1">Item 1</div>
-        <div class="item2">Item 2</div>
-        <div class="item3">Item 3</div>
+        <div class="item1">Logo</div>
+        <div class="item2">            
+            <?php
+                $upper = get_theme_mod('header_sortable_section_main_upper');
+            ?>
+            @if($upper)
+                @foreach($upper as $menu)
+                    @includeIf('partials.header.components.' . $menu)
+                @endforeach
+            @endif</div>
+        <div class="item3">
+            <?php
+                $lower = get_theme_mod('header_sortable_section_main_lower');
+            ?>
+            @if($lower)
+                @foreach($lower as $menu)
+                    @includeIf('partials.header.components.' . $menu)
+                @endforeach
+            @endif
+        </div>
     </div>
+    @if(in_array('mega-menu', $lower) || in_array('mega-menu', $upper))
+        @include('partials.navigation.megamenu')
+    @endif
+    @if(in_array('search-modal', $lower) || in_array('search-modal', $upper))
+        @include('partials.search.search-modal')
+    @endif
