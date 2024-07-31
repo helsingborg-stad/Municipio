@@ -3,6 +3,8 @@
 namespace Municipio;
 
 use Kirki\Compatibility\Kirki;
+use Kirki\Module\CSS;
+use Kirki\Module\CSS\Generator;
 use Municipio\Customizer\PanelsRegistry;
 
 class Customizer
@@ -52,6 +54,41 @@ class Customizer
 
         add_filter('kirki_get_value', [$this, 'kirkiGetValue'], 11, 3);
         add_filter('kirki_values_get_value', [$this, 'kirkiValuesGetValue'], 11, 2);
+
+        /**
+         * Render kirki custom css in head, a staticly version of the css. 
+         */
+        add_action('kirki_dynamic_css', [$this, 'renderKirkiStaticCss']);
+        add_action('wp_head', [$this, 'generateKirkiStaticCss']);
+    }
+    
+    public function generateKirkiStaticCss()
+    {
+        $cachedCss = get_transient('kirki_dynamic_cache_css');
+
+        if ($cachedCss) {
+            return $cachedCss;
+        }
+
+        $freshCss = CSS::loop_controls('municipio_config');
+
+        set_transient('kirki_dynamic_cache_css', $freshCss, 60 * 60 * 6);
+
+        return $freshCss;
+    }
+
+    /**
+     * Render kirki custom css in head, a staticly version of the css. 
+     * 
+     * @return void
+     */
+    public function renderKirkiStaticCss(): void
+    {
+        $styles = $this->generateKirkiStaticCss(); // get_option('kirki_dynamic_css', false);
+        $styles = apply_filters( "kirki_municipio_config_dynamic_css", $styles ); // TODO: Remove static naming? "kirki_{$config_id}_dynamic_css"
+        if (!empty($styles)) {
+            echo wp_strip_all_tags($styles);
+        }
     }
 
     public function kirkiGetValue($value, $option, $default)
