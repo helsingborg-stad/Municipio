@@ -40,7 +40,6 @@ class Css
    * @return string
    */
   private function getDynamic() {
-    echo "Got dynamic";
     return $this->filterStyles(
       KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
     );
