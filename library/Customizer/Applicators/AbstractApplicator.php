@@ -7,8 +7,6 @@ use Kirki\Util\Helper as KirkiHelper;
 
 abstract class AbstractApplicator
 {
-    private static $contextCache = [];
-
     /**
      * Get fields.
      * 
@@ -131,42 +129,5 @@ abstract class AbstractApplicator
         }
 
         return $output['type'] === $type;
-    }
-
-
-    /** TODO: Refactor, move. */
-    protected function hasFilterContexts(array $contexts, array $filterContexts): bool
-    {
-
-        $cacheKey = md5(serialize($contexts) . serialize($filterContexts));
-
-        if (isset(self::$contextCache[$cacheKey])) {
-            return self::$contextCache[$cacheKey];
-        }
-
-        $hasContext = [];
-        foreach ($filterContexts as $context) {
-
-            // Handle malformed configuration
-            if(is_string($context)) {
-                $context = [
-                    'context' => $context,
-                    'operator' => '=='
-                ];
-                error_log('Malformed context configuration detected. Please update your configuration to match the new format.');
-            }
-
-            // Verify that context is a string and format it for eval
-            if (is_string($context['context'])) {
-                $context['context'] = '"' . $context['context'] . '"';
-            } else {
-                trigger_error("Provided context value in context for modifier is not a string.", E_USER_ERROR);
-            }
-
-            // Check if provided context exists in context array and compare using operator
-            $hasContext[] = (bool) eval('return in_array(' . $context['context'] . ', $contexts) ' . $context['operator'] . ' true;');
-        }
-
-        return (bool) self::$contextCache[$cacheKey] = array_product($hasContext);
     }
 }

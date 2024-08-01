@@ -66,7 +66,7 @@ class ComponentData extends AbstractApplicator
                                     }
 
                                     // Operator ==
-                                    if (isset($filterContext['context']) && in_array($filterContext['context'], $contexts)) {
+                                    if ($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) {
                                         $data = array_replace_recursive(
                                             $data, 
                                             $filter['data']
@@ -74,15 +74,7 @@ class ComponentData extends AbstractApplicator
                                         break;
                                     }
 
-                                    // Operator !=
-                                    if ($filterContext['operator'] == "==" && !in_array($filterContext['context'], $contexts)) {
-                                        $data = array_replace_recursive(
-                                            $data, 
-                                            $filter['data']
-                                        );
-                                        break;
-                                    }
-
+                                    // Operator ==
                                     if ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts)) {
                                         $data = array_replace_recursive(
                                             $data, 
