@@ -8,7 +8,7 @@ use Kirki\Module\CSS\Generator;
 class Css
 {
   private $baseFontSize = '16px';
-  private $staticCssOptionKey = 'theme_mod_municipio_static_css';
+  private $staticCssOptionKey = 'theme_mod_municipio_static_css_1';
 
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
@@ -16,6 +16,8 @@ class Css
     /* Save dynamic css on customizer save to static value */
     add_action('customize_save_after', array($this, 'storeStaticStyles'), 50, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
+
+    
   }
 
   /**
@@ -38,6 +40,7 @@ class Css
    * @return string
    */
   private function getDynamic() {
+    echo "Got dynamic";
     return $this->filterStyles(
       KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
     );
@@ -50,19 +53,28 @@ class Css
    */
   private function getStatic(): string
   {
-    return $this->filterStyles(
-      get_option($this->staticCssOptionKey, false)
-    );
+    $styles = get_option($this->staticCssOptionKey, false);
+    if($styles) {
+      return $this->filterStyles(
+        $styles
+      );
+    }
+    return "";
   }
 
   /**
-   * Get hybrid css, create static if not exists
+   * Get hybrid css, create static if not exists.
+   * 
+   * The reason we are storing static css is to be 
+   * backwards compatible. Some sites may not have
+   * the dynamic css stored in the database.
    * 
    * @return string
    */
   private function getHybrid(): string
   {
-    if($static = $this->getStatic()) {
+    $static = $this->getStatic();
+    if (!empty($static)) {
       return $static;
     }
     return $this->storeStaticStyles();
