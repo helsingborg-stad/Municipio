@@ -46,10 +46,10 @@ class ComponentData extends AbstractApplicator
                             add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
 
                                 // Normalize context
-                                $contexts = is_string($data['context']) ? [$data['context']] : $data['context'];
+                                $contexts = !is_array($data['context']) ? [$data['context']] : $data['context'];
 
                                 //Component has no context, do not apply filter
-                                if(!is_array($contexts) || empty($data['context'])) {
+                                if(empty($data['context'])) {
                                     return $data;
                                 }
 
