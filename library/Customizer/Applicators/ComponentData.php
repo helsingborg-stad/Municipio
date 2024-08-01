@@ -53,11 +53,41 @@ class ComponentData extends AbstractApplicator
                                     return $data;
                                 }
 
+                                foreach($filter['contexts'] as $filterContext) {
 
-                                foreach($contexts as $context) {
-                                    if (in_array($context, $filter['contexts'])) {
-                                        echo "match"; 
-                                        $data = array_replace_recursive($data, $filter['data']);
+                                    // Operator and context must be set
+                                    if(!isset($filterContext['operator']) || !isset($filterContext['context'])) {
+                                        continue;
+                                    }
+
+                                    // Operator must be != or ==
+                                    if(!in_array($filterContext['operator'], ["!=","=="])) {
+                                        continue;
+                                    }
+
+                                    // Operator ==
+                                    if (isset($filterContext['context']) && in_array($filterContext['context'], $contexts)) {
+                                        $data = array_replace_recursive(
+                                            $data, 
+                                            $filter['data']
+                                        );
+                                        break;
+                                    }
+
+                                    // Operator !=
+                                    if ($filterContext['operator'] == "==" && !in_array($filterContext['context'], $contexts)) {
+                                        $data = array_replace_recursive(
+                                            $data, 
+                                            $filter['data']
+                                        );
+                                        break;
+                                    }
+
+                                    if ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts)) {
+                                        $data = array_replace_recursive(
+                                            $data, 
+                                            $filter['data']
+                                        );
                                         break;
                                     }
                                 }
