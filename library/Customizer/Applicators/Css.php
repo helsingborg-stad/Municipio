@@ -99,7 +99,7 @@ class Css
    * @return string
    */
   private function filterStyles($styles) {
-    $styles = $styles = apply_filters("kirki_" . \Municipio\Customizer::KIRKI_CONFIG . "_dynamic_css", $styles);
+    $styles = apply_filters("kirki_" . \Municipio\Customizer::KIRKI_CONFIG . "_dynamic_css", $styles);
     $styles = wp_strip_all_tags($styles);
     if(!empty($styles)) {
       return $styles;
