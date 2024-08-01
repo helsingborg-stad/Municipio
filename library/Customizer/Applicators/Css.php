@@ -7,7 +7,7 @@ use Kirki\Module\CSS as KirkiCSS;
 class Css
 {
   private $baseFontSize = '16px';
-  private $staticCssOptionKey = 'theme_mod_municipio_static_css_1';
+  private $staticCssOptionKey = 'theme_mod_municipio_static_css';
 
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
