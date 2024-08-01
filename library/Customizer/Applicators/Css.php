@@ -16,7 +16,7 @@ class Css
     define('KIRKI_NO_OUTPUT', true);
 
     /* Save dynamic css on customizer save to static value */
-    add_action('customize_save_after', array($this, 'storeStaticStyles'), 50, 1);
+    add_action('customize_save_after', array($this, 'storeStaticStyles'), 60, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
   }
 
