@@ -3,7 +3,6 @@
 namespace Municipio\Customizer\Applicators;
 
 use Kirki\Module\CSS as KirkiCSS;
-use Kirki\Module\CSS\Generator;
 
 class Css
 {
@@ -13,11 +12,12 @@ class Css
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
 
+    /* Disable dynamic css */
+    define('KIRKI_NO_OUTPUT', true);
+
     /* Save dynamic css on customizer save to static value */
     add_action('customize_save_after', array($this, 'storeStaticStyles'), 50, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
-
-    
   }
 
   /**
