@@ -8,20 +8,7 @@ class ComponentData extends AbstractApplicator
 {
     public function __construct()
     {
-        add_action('wp', array($this, 'applyComponentData'));
-    }
-
-    public function getAllFields()
-    {
-        return Kirki::$all_fields;
-    }
-
-    public function applyComponentData()
-    {
-        //Get field definition
-        $fields = $this->getAllFields();
-
-        $this->handleFields($fields);
+        add_action('wp', array($this, 'handleFields'));
     }
 
     /**
@@ -31,52 +18,55 @@ class ComponentData extends AbstractApplicator
      */
     public function handleFields($fields)
     {
-        //Determine what's a component var, fetch it
+        $fields = $this->getFields(); 
+
+        // Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
+
+                // Check if field is a controller
                 if (!$this->isFieldType($field, 'component_data')) {
                     continue;
                 }
 
-
-                if (isset($field['output']) && is_array($field['output']) &&  !empty($field['output']) && !$this->activeCallbackHandler($field)) {
+                if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
                     foreach ($field['output'] as $output) {
-
                         if (isset($output['context'])) {
                             $filterData = $this->buildFilterData(
-                                $output['dataKey'],
+                                $output['dataKey'], 
                                 \Kirki::get_option($key)
                             );
 
-
                             $filter = [
-                                'contexts'  => $output['context'],
-                                'data'      => $filterData
+                                'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
+                                'data' => $filterData,
                             ];
+
+                            // Add the filter here
+                            add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
+
+                                // Normalize context
+                                $contexts = is_string($data['context']) ? [$data['context']] : $data['context'];
+
+                                //Component has no context, do not apply filter
+                                if(!is_array($contexts) || empty($data['context'])) {
+                                    return $data;
+                                }
+
+
+                                foreach($contexts as $context) {
+                                    if (in_array($context, $filter['contexts'])) {
+                                        echo "match"; 
+                                        $data = array_replace_recursive($data, $filter['data']);
+                                        break;
+                                    }
+                                }
+
+                                return $data;
+                            }, 10, 2);
                         }
                     }
                 }
-
-                add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
-                    $contexts = is_string($data['context']) ? [$data['context']] : $data['context'];
-
-                    if (is_array($contexts) && !empty($contexts)) {
-                        foreach ($contexts as $context) {
-                            if (in_array($context, $filter['contexts'])) {
-                                $data = array_replace_recursive($data, $filter['data']);
-                                break;
-                            }
-                        }
-                        // Check if contexts filter is multidimensional (new format)
-                        if (count($filter['contexts']) !== count($filter['contexts'], COUNT_RECURSIVE)) {
-                            if ($this->hasFilterContexts($contexts, $filter['contexts'])) {
-                                $data = array_replace_recursive($data, $filter['data']);
-                            }
-                        }
-                    }
-
-                    return $data;
-                }, 10, 2);
             }
         }
     }
@@ -92,14 +82,17 @@ class ComponentData extends AbstractApplicator
         $filterData = [];
         $previousArr = &$filterData;
         $fields = explode('.', $dataKey);
-        for ($i = 0; $i < count($fields); $i++) {
+
+        foreach ($fields as $i => $field) {
             if ($i === count($fields) - 1) {
-                $previousArr[$fields[$i]] = $value;
-                break;
+                $previousArr[$field] = $value;
+            } else {
+                $previousArr[$field] = [];
+                $previousArr = &$previousArr[$field];
             }
-            $previousArr[$fields[$i]] = [];
-            $previousArr = &$previousArr[$fields[$i]];
         }
+
         return $filterData;
     }
+
 }

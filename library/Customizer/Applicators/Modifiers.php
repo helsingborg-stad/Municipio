@@ -7,7 +7,7 @@ class Modifiers extends AbstractApplicator
 {
     public function __construct()
     {
-        add_action('wp', array($this, 'applyModifiers'));
+        //add_action('wp', array($this, 'applyModifiers'));
     }
 
     /**
