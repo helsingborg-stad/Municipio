@@ -3,6 +3,7 @@
 namespace Municipio\Customizer\Applicators;
 
 use Kirki\Compatibility\Kirki;
+use Error;
 
 class ComponentData extends AbstractApplicator
 {
@@ -53,35 +54,39 @@ class ComponentData extends AbstractApplicator
                                     return $data;
                                 }
 
+                                $passFilterRules = false;
+
                                 foreach($filter['contexts'] as $filterContext) {
+
+                                    //Catch bad data. TODO: Fix bad data in field config.
+                                    if(is_string($filterContext)) {
+                                        $filterContext = [
+                                            'operator' => '==',
+                                            'context' => $filterContext
+                                        ];
+                                    }
 
                                     // Operator and context must be set
                                     if(!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                                        continue;
+                                        throw new Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
                                     }
 
                                     // Operator must be != or ==
                                     if(!in_array($filterContext['operator'], ["!=","=="])) {
-                                        continue;
+                                        throw new Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
                                     }
 
-                                    // Operator ==
-                                    if ($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) {
-                                        $data = array_replace_recursive(
-                                            $data, 
-                                            $filter['data']
-                                        );
-                                        break;
+                                    if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
+                                        ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
+                                        $passFilterRules = true;
                                     }
+                                }
 
-                                    // Operator ==
-                                    if ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts)) {
-                                        $data = array_replace_recursive(
-                                            $data, 
-                                            $filter['data']
-                                        );
-                                        break;
-                                    }
+                                if($passFilterRules) {
+                                    $data = array_replace_recursive(
+                                        $data, 
+                                        $filter['data']
+                                    );
                                 }
 
                                 return $data;
