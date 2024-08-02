@@ -4,10 +4,10 @@ namespace Municipio\Customizer\Applicators;
 
 use Kirki\Module\CSS as KirkiCSS;
 
-class Css
+class Css extends AbstractApplicator
 {
   private $baseFontSize = '16px';
-  private $staticCssOptionKey = 'theme_mod_municipio_static_css';
+  public  $optionKey = 'css';
 
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
@@ -26,12 +26,10 @@ class Css
    * @return array
    */
   public function storeStaticStyles($manager = null) {
-    $styles = $this->getDynamic();
-    update_option(
-        $this->staticCssOptionKey, 
-        $styles
+    $this->setStatic(
+      $dynamicStyles = $this->getDynamic()
     );
-    return $styles;
+    return $dynamicStyles;
   }
 
   /**
@@ -50,9 +48,9 @@ class Css
    * 
    * @return string
    */
-  private function getStatic(): string
+  private function getStaticCss(): string
   {
-    $styles = get_option($this->staticCssOptionKey, false);
+    $styles = $this->getStatic();
     if($styles) {
       return $this->filterStyles(
         $styles
@@ -72,7 +70,7 @@ class Css
    */
   private function getHybrid(): string
   {
-    $static = $this->getStatic();
+    $static = $this->getStaticCss();
     if (!empty($static)) {
       return $static;
     }
