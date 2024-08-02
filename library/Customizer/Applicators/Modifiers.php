@@ -4,22 +4,87 @@ namespace Municipio\Customizer\Applicators;
 
 class Modifiers extends AbstractApplicator
 {
+    private $modifiersOptionKey = 'theme_mod_municipio_modifiers';
+
     public function __construct()
     {
-        add_action('wp', array($this, 'applyModifiers'));
+        add_action('customize_save_after', array($this, 'storeModifiers'), 50);
+        add_filter('ComponentLibrary/Component/Modifier', array($this, 'applyStoredModifiers'), 10, 2);
     }
 
     /**
-     * Apply modifiers
-     *
+     * Calculate and store modifiers on save of customizer
+     * 
      * @return void
      */
-    public function applyModifiers()
+    public function storeModifiers($manager = null)
     {
-        // Get field definition
-        $fields = $this->getFields();
+        $modifiers = $this->calculateModifiers();
+        update_option($this->modifiersOptionKey, $modifiers);
+    }
 
-        // Determine what's a controller var, fetch it
+    /**
+     * Apply stored modifiers
+     *
+     * @param array $modifiers
+     * @param array $contexts
+     * @return array
+     */
+    public function applyStoredModifiers($modifiers, $contexts)
+    {
+        $storedModifiers = get_option($this->modifiersOptionKey, false);
+
+        // If storedModifiers is empty, calculate and store them
+        if ($storedModifiers === false) {
+            $storedModifiers = $this->storeModifiers();
+        }
+
+        if (!is_array($contexts)) {
+            $contexts = [$contexts];
+        }
+
+        if (!is_array($modifiers)) {
+            $modifiers = [$modifiers];
+        }
+
+        foreach ($storedModifiers as $filter) {
+            $passFilterRules = false;
+
+            foreach ($filter['contexts'] as $filterContext) {
+                // Operator and context must be set
+                if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
+                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
+                }
+
+                // Operator must be != or ==
+                if (!in_array($filterContext['operator'], ["!=", "=="])) {
+                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
+                }
+
+                if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
+                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
+                    $passFilterRules = true;
+                }
+            }
+
+            if ($passFilterRules) {
+                $modifiers[] = $filter['value'];
+            }
+        }
+
+        return $modifiers;
+    }
+
+    /**
+     * Calculate modifiers based on fields
+     *
+     * @return array
+     */
+    private function calculateModifiers()
+    {
+        $fields = $this->getFields();
+        $modifiers = [];
+
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
                 if (!$this->isFieldType($field, 'modifier')) {
@@ -27,18 +92,15 @@ class Modifiers extends AbstractApplicator
                 }
 
                 if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
-                    // Check if the field has an 'output' key
                     if (!isset($field['output']) || !is_array($field['output'])) {
                         continue;
                     }
 
                     foreach ($field['output'] as $output) {
-                        // Check if the output has a 'context' key
                         if (!isset($output['context']) || !is_array($output['context'])) {
                             continue;
                         }
 
-                        // Ensure context is correctly formatted. TODO: Correct faulty config.
                         foreach ($output['context'] as $contextKey => $context) {
                             if (!is_array($context)) {
                                 $output['context'][$contextKey] = [
@@ -48,49 +110,15 @@ class Modifiers extends AbstractApplicator
                             }
                         }
 
-                        // Prepare the filter for the add_filter call
-                        $filter = [
+                        $modifiers[] = [
                             'contexts' => $output['context'],
-                            'value' => $key,
+                            'value' => \Kirki::get_option($key),
                         ];
-
-                        add_filter('ComponentLibrary/Component/Modifier', function ($modifiers, $contexts) use ($filter) {
-                            if (!is_array($contexts)) {
-                                $contexts = [$contexts];
-                            }
-
-                            if (!is_array($modifiers)) {
-                                $modifiers = [$modifiers];
-                            }
-
-                            $passFilterRules = false;
-
-                            foreach ($filter['contexts'] as $filterContext) {
-                                // Operator and context must be set
-                                if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
-                                }
-
-                                // Operator must be != or ==
-                                if (!in_array($filterContext['operator'], ["!=", "=="])) {
-                                    throw new \Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
-                                }
-
-                                if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
-                                    $passFilterRules = true;
-                                }
-                            }
-
-                            if ($passFilterRules) {
-                                $modifiers[] =  \Kirki::get_option($filter['value']);
-                            }
-
-                            return $modifiers;
-                        }, 10, 2);
                     }
                 }
             }
         }
+
+        return $modifiers;
     }
 }
