@@ -7,102 +7,135 @@ use Error;
 
 class ComponentData extends AbstractApplicator
 {
+    private $componentDataOptionKey = 'theme_mod_municipio_component_data';
+
     public function __construct()
     {
-        add_action('wp', array($this, 'handleFields'));
+        add_action('customize_save_after', array($this, 'storeComponentData'), 50);
+        add_filter('ComponentLibrary/Component/Data', array($this, 'applyStoredComponentData'), 10);
     }
 
     /**
-     * Apply component data
-     *
+     * Calculate and store component data on save of customizer
+     * 
      * @return void
      */
-    public function handleFields($fields)
+    public function storeComponentData($manager = null)
     {
-        $fields = $this->getFields(); 
+        $componentData = $this->calculateComponentData();
+        update_option($this->componentDataOptionKey, $componentData);
+        return $componentData;
+    }
 
-        // Determine what's a controller var, fetch it
+    /**
+     * Apply stored component data
+     *
+     * @param array $data
+     * @return array
+     */
+    public function applyStoredComponentData($data)
+    {
+        $storedComponentData = get_option($this->componentDataOptionKey, false);
+
+        // If storedComponentData is empty, calculate and store it
+        if ($storedComponentData === false) {
+            $storedComponentData = $this->storeComponentData();
+        }
+
+        $contexts = isset($data['context']) ? (array) $data['context'] : [];
+
+        foreach ($storedComponentData as $filter) {
+            $passFilterRules = false;
+
+            foreach ($filter['contexts'] as $filterContext) {
+                // Correct faulty context configurations
+                if (is_string($filterContext)) {
+                    $filterContext = [
+                        'operator' => '==',
+                        'context' => $filterContext
+                    ];
+                }
+
+                // Operator and context must be set
+                if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
+                    throw new Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
+                }
+
+                // Operator must be != or ==
+                if (!in_array($filterContext['operator'], ["!=", "=="])) {
+                    throw new Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
+                }
+
+                if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
+                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
+                    $passFilterRules = true;
+                }
+            }
+
+            if ($passFilterRules) {
+                $data = array_replace_recursive($data, $filter['data']);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Calculate component data based on fields
+     *
+     * @return array
+     */
+    private function calculateComponentData()
+    {
+        $fields = $this->getFields();
+        $componentData = [];
+
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
-
-                // Check if field is a controller
                 if (!$this->isFieldType($field, 'component_data')) {
                     continue;
                 }
 
                 if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
+                    if (!isset($field['output']) || !is_array($field['output'])) {
+                        continue;
+                    }
+
                     foreach ($field['output'] as $output) {
-                        if (isset($output['context'])) {
-                            $filterData = $this->buildFilterData(
-                                $output['dataKey'], 
-                                \Kirki::get_option($key)
-                            );
-
-                            $filter = [
-                                'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
-                                'data' => $filterData,
-                            ];
-
-                            // Add the filter here
-                            add_filter('ComponentLibrary/Component/Data', function ($data) use ($filter) {
-
-                                // Normalize context
-                                $contexts = !is_array($data['context']) ? [$data['context']] : $data['context'];
-
-                                //Component has no context, do not apply filter
-                                if(empty($data['context'])) {
-                                    return $data;
-                                }
-
-                                $passFilterRules = false;
-
-                                foreach($filter['contexts'] as $filterContext) {
-
-                                    //Catch bad data. TODO: Fix bad data in field config.
-                                    if(is_string($filterContext)) {
-                                        $filterContext = [
-                                            'operator' => '==',
-                                            'context' => $filterContext
-                                        ];
-                                    }
-
-                                    // Operator and context must be set
-                                    if(!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                                        throw new Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
-                                    }
-
-                                    // Operator must be != or ==
-                                    if(!in_array($filterContext['operator'], ["!=","=="])) {
-                                        throw new Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
-                                    }
-
-                                    if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                                        ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
-                                        $passFilterRules = true;
-                                    }
-                                }
-
-                                if($passFilterRules) {
-                                    $data = array_replace_recursive(
-                                        $data, 
-                                        $filter['data']
-                                    );
-                                }
-
-                                return $data;
-                            }, 10, 2);
+                        if (!isset($output['context']) || !is_array($output['context'])) {
+                            continue;
                         }
+
+                        // Correct faulty context configurations
+                        foreach ($output['context'] as $contextKey => $context) {
+                            if (is_string($context)) {
+                                $output['context'][$contextKey] = [
+                                    'operator' => '==',
+                                    'context' => $context
+                                ];
+                            }
+                        }
+
+                        $filterData = $this->buildFilterData($output['dataKey'], \Kirki::get_option($key));
+
+                        $componentData[] = [
+                            'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
+                            'data' => $filterData,
+                        ];
                     }
                 }
             }
         }
+
+        return $componentData;
     }
 
     /**
+     * Build filter data from the given data key and value
+     *
      * @param string $dataKey
      * @param mixed $value
-     * 
-     * @return array Component data array
+     * @return array
      */
     public function buildFilterData(string $dataKey, $value): array
     {
@@ -121,5 +154,4 @@ class ComponentData extends AbstractApplicator
 
         return $filterData;
     }
-
 }
