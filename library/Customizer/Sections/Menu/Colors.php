@@ -1,10 +1,10 @@
 <?php
 
-namespace Municipio\Customizer\Sections;
+namespace Municipio\Customizer\Sections\Menu;
 
 use Municipio\Customizer\KirkiField;
 
-class Navigation
+class Colors
 {
     private function getScopes(): array
     {
