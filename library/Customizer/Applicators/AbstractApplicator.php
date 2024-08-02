@@ -7,6 +7,11 @@ use Kirki\Util\Helper as KirkiHelper;
 
 abstract class AbstractApplicator
 {
+    public $optionKeyBasename = "theme_mod_applicator_cache";
+    public $optionKey = null;
+    protected $signature = null;
+    protected $runtimeCache = [];
+
     /**
      * Get fields.
      * 
@@ -23,6 +28,83 @@ abstract class AbstractApplicator
             );
 		}
         return $fields;
+    }
+
+    /**
+     * Get static.
+     * 
+     * @return mixed
+     */
+    protected function getStatic() {
+        if(is_null($this->signature)) {
+            $this->signature = $this->getFieldSignature($this->getFields());
+            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
+        }
+
+        if(isset($this->runtimeCache[$this->optionKey])) {
+            return $this->runtimeCache[$this->optionKey];
+        }
+
+        return $this->runtimeCache[$this->optionKey] = get_option($this->optionKey, false);
+    }
+
+    /**
+     * Set static.
+     * 
+     * @param mixed $data The data to set.
+     * 
+     * @return boolean
+     */
+    protected function setStatic($data) {
+        if(is_null($this->signature)) {
+            $this->signature = $this->getFieldSignature($this->getFields());
+            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
+        }
+        return update_option($this->optionKey, $data);
+    }
+
+    /**
+     * Get storage key.
+     * 
+     * @param string $basename The basename to get the storage key for.
+     * 
+     * @return string
+     */
+    protected function getStorageKey($basename): string
+    {
+        return $basename . "_" . $this->getFieldSignature(
+            $this->getFields()
+        );
+    }
+
+    /**
+     * Get field signature.
+     * 
+     * @param array $fields The fields to get the signature for.
+     * 
+     * @return string
+     */
+    protected function getFieldSignature($fields): string
+    {
+        $supportedHashes = hash_algos() ?? []; 
+        if(in_array('xxh3', $supportedHashes)) {
+            $hash = hash('sha256', json_encode($fields)); 
+        }
+        $hash = hash('md5', json_encode($fields)); 
+
+        return $this->shortenHash($hash);
+    }
+
+    /**
+     * Shorten hash.
+     * 
+     * @param string $hash The hash to shorten.
+     * 
+     * @return string
+     */
+    protected function shortenHash($hash): string
+    {
+        return substr($hash, 0, 8);
     }
 
     /**

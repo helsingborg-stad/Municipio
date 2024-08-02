@@ -4,7 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 class Modifiers extends AbstractApplicator
 {
-    private $modifiersOptionKey = 'theme_mod_municipio_modifiers';
+    public $optionKey = 'modifiers';
 
     public function __construct()
     {
@@ -19,8 +19,10 @@ class Modifiers extends AbstractApplicator
      */
     public function storeModifiers($manager = null)
     {
-        $modifiers = $this->calculateModifiers();
-        update_option($this->modifiersOptionKey, $modifiers);
+        $this->setStatic(
+            $storedModifiers = $this->calculateModifiers()
+        );
+        return $storedModifiers;
     }
 
     /**
@@ -32,7 +34,7 @@ class Modifiers extends AbstractApplicator
      */
     public function applyStoredModifiers($modifiers, $contexts)
     {
-        $storedModifiers = get_option($this->modifiersOptionKey, false);
+        $storedModifiers = $this->getStatic();
 
         // If storedModifiers is empty, calculate and store them
         if ($storedModifiers === false) {

@@ -7,7 +7,7 @@ use Error;
 
 class ComponentData extends AbstractApplicator
 {
-    private $componentDataOptionKey = 'theme_mod_municipio_component_data';
+    public $optionKey = 'component';
 
     public function __construct()
     {
@@ -22,8 +22,9 @@ class ComponentData extends AbstractApplicator
      */
     public function storeComponentData($manager = null)
     {
-        $componentData = $this->calculateComponentData();
-        update_option($this->componentDataOptionKey, $componentData);
+        $this->setStatic(
+            $componentData = $this->calculateComponentData()
+        );
         return $componentData;
     }
 
@@ -35,9 +36,7 @@ class ComponentData extends AbstractApplicator
      */
     public function applyStoredComponentData($data)
     {
-        $storedComponentData = get_option($this->componentDataOptionKey, false);
-
-        // If storedComponentData is empty, calculate and store it
+        $storedComponentData = $this->getStatic();
         if ($storedComponentData === false) {
             $storedComponentData = $this->storeComponentData();
         }
@@ -48,13 +47,6 @@ class ComponentData extends AbstractApplicator
             $passFilterRules = false;
 
             foreach ($filter['contexts'] as $filterContext) {
-                // Correct faulty context configurations
-                if (is_string($filterContext)) {
-                    $filterContext = [
-                        'operator' => '==',
-                        'context' => $filterContext
-                    ];
-                }
 
                 // Operator and context must be set
                 if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {

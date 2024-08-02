@@ -4,7 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 class ControllerVariables extends AbstractApplicator
 {
-    private $controllerVarsOptionKey = 'theme_mod_municipio_controller_vars';
+    public $optionKey = 'controller';
 
     public function __construct()
     {
@@ -18,13 +18,9 @@ class ControllerVariables extends AbstractApplicator
      * @return array
      */
     public function storeControllerVars($manager = null) {
-        $controllerVars = $this->get();
-
-        update_option(
-            $this->controllerVarsOptionKey, 
-            $controllerVars
+        $this->setStatic(
+            $controllerVars = $this->get()
         );
-
         return $controllerVars;
     }
 
@@ -36,8 +32,8 @@ class ControllerVariables extends AbstractApplicator
      */
     public function applicateStoredControllerVars()
     {
-        if ($controllerVars = get_option($this->controllerVarsOptionKey, false)) {
-            //return $controllerVars;
+        if ($controllerVars = $this->getStatic()) {
+            return $controllerVars;
         }
         return $this->storeControllerVars(); // Fallback to calculate and store
     }
