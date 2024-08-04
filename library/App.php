@@ -224,6 +224,11 @@ class App
         });
 
         /**
+         * Municipio specific menu items
+         */
+        new \Municipio\MunicipioMenuItems\MunicipioMenuItems($this->wpService, $this->acfService);
+
+        /**
          * Imported post type design
          */
         $this->setupPostTypeDesign();

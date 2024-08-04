@@ -11,6 +11,11 @@ class LocationRules
                 include_once('LocationRulesContentType.php');
                 acf_register_location_type('LocationRulesContentType');
             }
+
+            if (function_exists('acf_register_location_type')) {
+                include_once('LocationRulesMunicipioMenuItem.php');
+                acf_register_location_type('LocationRulesMunicipioMenuItem');
+            }
         });
     }
 }
