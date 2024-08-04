@@ -1,0 +1,31 @@
+.c-header.c-header--modern {
+
+    .c-header__menu.c-header__menu--primary {
+        background-color: $color-white;
+    }
+
+    .c-header__menu.c-header__menu--secondary {
+        background-color: $color-secondary;
+        height: calc($base * 8);
+        min-height: calc($base * 8);
+    }
+
+    .c-header__menu-container {
+        flex: 1 1 50%;
+    }
+
+    .c-header__logotype-link {
+        width: calc(#{$base} * 12);
+    }
+
+    .c-header__logotype {
+        height: 100%;
+        width: 100%;
+    }
+
+    .c-header__brand-text {
+        margin-left: calc(#{$base} * 14);
+        align-self: center;
+        color: $color-secondary-contrasting;
+    }
+}
