@@ -7,7 +7,7 @@ use Kirki\Util\Helper as KirkiHelper;
 
 abstract class AbstractApplicator
 {
-    public $optionKeyBasename = "theme_mod_applicator_cache";
+    public $optionKeyBasename = "theme_mod_applicator_cache_4";
     public $optionKey = null;
     protected $signature = null;
     protected $runtimeCache = [];
@@ -70,10 +70,10 @@ abstract class AbstractApplicator
      * 
      * @return mixed
      */
-    protected function setRuntimeCache($value)
+    protected function setRuntimeCache($identifier, $value)
     {
         $this->runtimeCache[
-            md5(get_class($this))
+            md5($identifier)
         ] = $value;
         return $value;
     }
@@ -83,10 +83,10 @@ abstract class AbstractApplicator
      * 
      * @return mixed
      */
-    protected function getRuntimeCache()
+    protected function getRuntimeCache($identifier)
     {
         return $this->runtimeCache[
-            md5(get_class($this))
+            md5($identifier)
         ] ?? null;
     }
 

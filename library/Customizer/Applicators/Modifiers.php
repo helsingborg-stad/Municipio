@@ -34,10 +34,6 @@ class Modifiers extends AbstractApplicator
      */
     public function applyStoredModifiers($modifiers, $contexts)
     {
-        if($runtimeCache = $this->getRuntimeCache()) {
-            return $runtimeCache;
-        }
-
         if (!is_array($contexts)) {
             $contexts = [$contexts];
         }
@@ -78,7 +74,7 @@ class Modifiers extends AbstractApplicator
             }
         }
 
-        return $this->setRuntimeCache($modifiers);
+        return $modifiers;
     }
 
     /**
@@ -88,6 +84,10 @@ class Modifiers extends AbstractApplicator
      */
     private function calculateModifiers()
     {
+        if($runtimeCache = $this->getRuntimeCache('modifiersRuntimeCache')) {
+            return $runtimeCache;
+        }
+
         $fields = $this->getFields();
         $modifiers = [];
 
@@ -125,6 +125,9 @@ class Modifiers extends AbstractApplicator
             }
         }
 
-        return $modifiers;
+        return $this->setRuntimeCache(
+            'modifiersRuntimeCache', 
+            $modifiers
+        );
     }
 }

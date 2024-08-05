@@ -79,7 +79,7 @@ class ComponentData extends AbstractApplicator
      */
     private function calculateComponentData()
     {
-        if($runtimeCache = $this->getRuntimeCache()) {
+        if($runtimeCache = $this->getRuntimeCache('componentDataRuntimeCache')) {
             return $runtimeCache;
         }
 
@@ -124,6 +124,7 @@ class ComponentData extends AbstractApplicator
         }
 
         return $this->setRuntimeCache(
+            'componentDataRuntimeCache',
             $componentData
         );
     }

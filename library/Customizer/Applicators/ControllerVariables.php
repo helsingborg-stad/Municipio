@@ -47,7 +47,7 @@ class ControllerVariables extends AbstractApplicator
    */
     public function get($stack = [])
     {
-        if($runtimeCache = $this->getRuntimeCache()) {
+        if($runtimeCache = $this->getRuntimeCache('controllerVarsRuntimeCache')) {
             return $runtimeCache;
         }
 
@@ -83,6 +83,7 @@ class ControllerVariables extends AbstractApplicator
         }
         // Camel case response keys, and return
         return $this->setRuntimeCache(
+            'controllerVarsRuntimeCache',
             \Municipio\Helper\FormatObject::camelCase(
                 (object) $stack
             )
