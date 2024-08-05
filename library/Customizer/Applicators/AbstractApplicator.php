@@ -7,7 +7,7 @@ use Kirki\Util\Helper as KirkiHelper;
 
 abstract class AbstractApplicator
 {
-    public $optionKeyBasename = "theme_mod_applicator_cache_4";
+    public $optionKeyBasename = "theme_mod_applicator_cache";
     public $optionKey = null;
     protected $signature = null;
     protected $runtimeCache = [];
