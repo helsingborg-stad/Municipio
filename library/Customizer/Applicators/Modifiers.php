@@ -17,7 +17,7 @@ class Modifiers extends AbstractApplicator
      * 
      * @return void
      */
-    public function storeModifiers($manager = null)
+    public function storeModifiers($manager = null) : array
     {
         $this->setStatic(
             $storedModifiers = $this->calculateModifiers()
@@ -34,11 +34,8 @@ class Modifiers extends AbstractApplicator
      */
     public function applyStoredModifiers($modifiers, $contexts)
     {
-        $storedModifiers = $this->getStatic();
-
-        // If storedModifiers is empty, calculate and store them
-        if ($storedModifiers === false) {
-            $storedModifiers = $this->storeModifiers();
+        if($runtimeCache = $this->getRuntimeCache()) {
+            return $runtimeCache;
         }
 
         if (!is_array($contexts)) {
@@ -47,6 +44,13 @@ class Modifiers extends AbstractApplicator
 
         if (!is_array($modifiers)) {
             $modifiers = [$modifiers];
+        }
+
+        $storedModifiers = $this->getStatic();
+
+        // If storedModifiers is empty, calculate and store them
+        if ($storedModifiers === false) {
+            $storedModifiers = $this->storeModifiers();
         }
 
         foreach ($storedModifiers as $filter) {
@@ -74,7 +78,7 @@ class Modifiers extends AbstractApplicator
             }
         }
 
-        return $modifiers;
+        return $this->setRuntimeCache($modifiers);
     }
 
     /**

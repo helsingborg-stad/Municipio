@@ -64,6 +64,33 @@ abstract class AbstractApplicator
     }
 
     /**
+     * Set runtime cache.
+     * 
+     * @param mixed $value The value to set.
+     * 
+     * @return mixed
+     */
+    protected function setRuntimeCache($value)
+    {
+        $this->runtimeCache[
+            md5(get_class($this))
+        ] = $value;
+        return $value;
+    }
+
+    /**
+     * Get runtime cache.
+     * 
+     * @return mixed
+     */
+    protected function getRuntimeCache()
+    {
+        return $this->runtimeCache[
+            md5(get_class($this))
+        ] ?? null;
+    }
+
+    /**
      * Get storage key.
      * 
      * @param string $basename The basename to get the storage key for.

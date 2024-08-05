@@ -47,6 +47,10 @@ class ControllerVariables extends AbstractApplicator
    */
     public function get($stack = [])
     {
+        if($runtimeCache = $this->getRuntimeCache()) {
+            return $runtimeCache;
+        }
+
         //Get field definition
         $fields = $this->getFields();
 
@@ -78,8 +82,10 @@ class ControllerVariables extends AbstractApplicator
             }
         }
         // Camel case response keys, and return
-        return \Municipio\Helper\FormatObject::camelCase(
-            (object) $stack
+        return $this->setRuntimeCache(
+            \Municipio\Helper\FormatObject::camelCase(
+                (object) $stack
+            )
         );
     }
 

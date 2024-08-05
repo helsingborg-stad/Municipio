@@ -38,8 +38,14 @@ class Css extends AbstractApplicator
    * @return string
    */
   private function getDynamic() {
-    return $this->filterStyles(
-      KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
+    if($runtimeCache = $this->getRuntimeCache()) {
+      return $runtimeCache;
+    }
+
+    return $this->setRuntimeCache(
+      $this->filterStyles(
+        KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
+      )
     );
   }
 
