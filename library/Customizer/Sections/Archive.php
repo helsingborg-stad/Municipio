@@ -228,7 +228,7 @@ class Archive
             'multiple'          => 6,
             'section'           => $sectionID,
             // Below prevents Kirki bugg from using faulty default sanitize_callback.
-            'sanitize_callback' => fn($values) => $values,
+            'sanitize_callback' => [$this, 'sanitizeCallback'],
             'default'           => [],
             'choices'           => array_merge(
                 [
@@ -302,7 +302,7 @@ class Archive
                 'section'           => $sectionID,
                 'choices'           => $archive->taxonomies,
                 // Below prevents Kirki bugg from using faulty default sanitize_callback.
-                'sanitize_callback' => fn($values) => $values,
+                'sanitize_callback' => [$this, 'sanitizeCallback'],
                 'output'            => [
                     [
                         'type'      => 'controller',
@@ -426,5 +426,10 @@ class Archive
                 ]
             ]
         ]);
+    }
+
+    private function sanitizeCallback($value)
+    {
+        return $value;
     }
 }
