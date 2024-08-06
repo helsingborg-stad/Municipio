@@ -17,7 +17,13 @@ class PanelsRegistry
     {
         //Fallback to theme_mod if field is not found in Kirki
         //This fix, allows us to disable panel registry, if not needed (eg. outside customizer).
-        add_filter('kirki_values_get_value', function($value, $field_id ) {
+        add_filter('kirki_values_get_value', function($value, $field_id) {
+
+            //Detect if fields are registered, then this is not needed.
+            if(!empty(\Kirki::$all_fields)) {
+                return $value;
+            }
+
             if (!isset(\Kirki::$all_fields[$field_id])) {
                 return get_theme_mod($field_id); 
             }

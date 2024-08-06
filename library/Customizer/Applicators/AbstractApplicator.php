@@ -41,8 +41,8 @@ abstract class AbstractApplicator
         } elseif(!empty($fields) && is_customize_preview()) {
             update_option(
                 self::OPTION_KEY_BASENAME . self::OPTION_KEY_CONF_SUFFIX,
-                $fields)
-            ;
+                $fields
+            );
         }
 
         return $fields;
