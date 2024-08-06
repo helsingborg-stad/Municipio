@@ -140,6 +140,7 @@ class Customizer
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
 
+        //Build panels (build function will only apply, in customizer)
         PanelsRegistry::getInstance()->build();
     }
 }
