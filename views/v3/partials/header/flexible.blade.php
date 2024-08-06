@@ -40,32 +40,34 @@
 }
     </style>
 
-@dump(get_theme_mod('header_sortable_section_main_lower'))
+@if (!empty($headerData))
   <div class="o-container grid-container">
-        <div class="item1">Logo</div>
+        <div class="item1">
+            @if(!empty($headerData['logotypeItems']))
+                @foreach($headerData['logotypeItems'] as $item)
+                    @includeIf('partials.header.components.' . $item)
+                @endforeach
+            @endif
+        </div>
         <div class="item2">            
-            <?php
-                $upper = get_theme_mod('header_sortable_section_main_upper');
-            ?>
-            @if($upper)
-                @foreach($upper as $menu)
-                    @includeIf('partials.header.components.' . $menu)
+            @if(!empty($headerData['mainUpperItems']))
+                @foreach($headerData['mainUpperItems'] as $item)
+                    @includeIf('partials.header.components.' . $item)
                 @endforeach
             @endif</div>
         <div class="item3">
-            <?php
-                $lower = get_theme_mod('header_sortable_section_main_lower');
-            ?>
-            @if($lower)
-                @foreach($lower as $menu)
-                    @includeIf('partials.header.components.' . $menu)
+            @if(!empty($headerData['mainLowerItems']))
+                @foreach($headerData['mainLowerItems'] as $item)
+                    @includeIf('partials.header.components.' . $item)
                 @endforeach
             @endif
         </div>
     </div>
-    @if(in_array('mega-menu', $lower) || in_array('mega-menu', $upper))
+    
+    @if(!empty($megaMenuItems) && (in_array('mega-menu', $headerData['mainLowerItems']) || in_array('mega-menu', $headerData['mainUpperItems'])))
         @include('partials.navigation.megamenu')
     @endif
-    @if(in_array('search-modal', $lower) || in_array('search-modal', $upper))
+    @if(in_array('search-modal', $headerData['mainLowerItems']) || in_array('search-modal', $headerData['mainUpperItems']))
         @include('partials.search.search-modal')
     @endif
+@endif
