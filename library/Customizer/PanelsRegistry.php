@@ -3,6 +3,7 @@
 namespace Municipio\Customizer;
 
 use Municipio\Helper\ContentType as ContentTypeHelper;
+use Municipio\Customizer\Applicators\AbstractApplicator;
 
 class PanelsRegistry
 {
@@ -14,6 +15,15 @@ class PanelsRegistry
 
     private function __construct()
     {
+        //Fallback to theme_mod if field is not found in Kirki
+        //This fix, allows us to disable panel registry, if not needed (eg. outside customizer).
+        add_filter('kirki_values_get_value', function($value, $field_id ) {
+            if (!isset(\Kirki::$all_fields[$field_id])) {
+                return get_theme_mod($field_id); 
+            }
+            return $value;  
+        }, 10, 2);
+
         add_action('municipio_customizer_panel_registered', array($this, 'addPanelToRegistry'));
         add_action('municipio_customizer_section_registered', array($this, 'addSectionToRegistry'));
     }
@@ -63,8 +73,32 @@ class PanelsRegistry
         return self::$instance;
     }
 
+    //Load cached configuration, if exists
+    //This avoiuds resource intensive operations
+    //on every page load. The cache is refreshed whenever
+    //the customizer is loaded, or when the cache is non existent.
+    private function shouldRegisterFields(): bool
+    {
+        if(is_customize_preview()) {
+            return true;
+        }
+
+        $optionKeyBasename          = AbstractApplicator::OPTION_KEY_BASENAME;
+        $optionKeyConfSuffix        = AbstractApplicator::OPTION_KEY_CONF_SUFFIX;
+        $staticFieldConfiguration   = get_option($optionKeyBasename . $optionKeyConfSuffix);
+
+        if(!is_customize_preview() && !$staticFieldConfiguration) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function build(): void
     {
+        if (!$this->shouldRegisterFields()) {
+            return;
+        }
 
         if (self::$registerInvoked) {
             $method = __METHOD__;
