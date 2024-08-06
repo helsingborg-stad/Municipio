@@ -22,6 +22,16 @@ class Navigation
     private $cacheGroup  = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
+    //Static cache for ancestors
+    private static $runtimeCache = [
+        'ancestors' => [
+            [
+                'toplevel' => [],
+                'notoplevel' => []
+            ]
+        ]
+    ];
+
     public function __construct(string $identifier = '', string $context = 'municipio')
     {
         $this->identifier = $identifier;
@@ -238,6 +248,12 @@ class Navigation
      */
     private function getAncestors(int $postId, $includeTopLevel = true): array
     {
+
+        $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
+        if (isset(self::$runtimeCache['ancestors'][$cacheSubKey][$postId])) {
+            return self::$runtimeCache['ancestors'][$cacheSubKey][$postId];
+        }
+
         //Definitions
         $ancestorStack  = array($postId);
         $fetchAncestors = true;
@@ -290,7 +306,8 @@ class Navigation
             );
         }
 
-        return $ancestorStack;
+        //Return and cache result
+        return self::$runtimeCache['ancestors'][$cacheSubKey][$postId] = $ancestorStack;
     }
 
     /**
