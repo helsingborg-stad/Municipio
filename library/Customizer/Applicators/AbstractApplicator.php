@@ -36,6 +36,7 @@ abstract class AbstractApplicator
      * @return mixed
      */
     protected function getStatic() {
+        
         if(is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
@@ -43,6 +44,10 @@ abstract class AbstractApplicator
 
         if(isset($this->runtimeCache[$this->optionKey])) {
             return $this->runtimeCache[$this->optionKey];
+        }
+
+        if(is_customize_preview()) {
+            return false;
         }
 
         return $this->runtimeCache[$this->optionKey] = get_option($this->optionKey, false);
