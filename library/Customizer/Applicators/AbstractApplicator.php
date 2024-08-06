@@ -7,7 +7,9 @@ use Kirki\Util\Helper as KirkiHelper;
 
 abstract class AbstractApplicator
 {
-    public $optionKeyBasename = "theme_mod_applicator_cache";
+    const OPTION_KEY_BASENAME       = "theme_mod_applicator_cache";
+    const OPTION_KEY_CONF_SUFFIX    = "_field_configuration";
+    
     public $optionKey = null;
     protected $signature = null;
     protected $runtimeCache = [];
@@ -27,6 +29,22 @@ abstract class AbstractApplicator
                 $fields
             );
 		}
+
+        // If no fields are found, try to get them from the option.
+        // If in customizer preview, update the option with the fields.
+        // A check in panelsReistry.php will make sure the fields are 
+        // updated in the customizer.
+        if(empty($fields)) {
+            $fields = get_option(
+                self::OPTION_KEY_BASENAME . self::OPTION_KEY_CONF_SUFFIX
+            );
+        } elseif(!empty($fields) && is_customize_preview()) {
+            update_option(
+                self::OPTION_KEY_BASENAME . self::OPTION_KEY_CONF_SUFFIX,
+                $fields)
+            ;
+        }
+
         return $fields;
     }
 
@@ -39,7 +57,7 @@ abstract class AbstractApplicator
         
         if(is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
-            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
+            $this->optionKey = sprintf('%s_%s_%s', self::OPTION_KEY_BASENAME, $this->optionKey, $this->signature);
         }
 
         if(isset($this->runtimeCache[$this->optionKey])) {
@@ -63,7 +81,7 @@ abstract class AbstractApplicator
     protected function setStatic($data) {
         if(is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
-            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
+            $this->optionKey = sprintf('%s_%s_%s', self::OPTION_KEY_BASENAME, $this->optionKey, $this->signature);
         }
         return update_option($this->optionKey, $data);
     }
