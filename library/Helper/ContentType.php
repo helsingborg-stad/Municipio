@@ -11,6 +11,10 @@ use Municipio\Helper\Listing as ListingHelper;
  */
 class ContentType
 {
+    private static $runtimeCache = [
+        'getContentType' => []
+    ];
+
     /**
      * Returns an array of all the content types that are registered in the system.
      *
@@ -100,11 +104,15 @@ class ContentType
             return false;
         }
 
+        if (isset(self::$runtimeCache['getContentType'][$postType])) {
+            return self::$runtimeCache['getContentType'][$postType];
+        }
+
         $themeModName   = "municipio_customizer_panel_content_types_{$postType}_content_type";
         $contentTypeKey = get_theme_mod($themeModName, false);
 
         if ($contentTypeKey) {
-            return self::getContentTypeInstance($contentTypeKey);
+            return self::$runtimeCache['getContentType'][$postType] = self::getContentTypeInstance($contentTypeKey);
         }
 
         return false;
