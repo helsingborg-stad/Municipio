@@ -1,6 +1,6 @@
 {
     "name": "municipio",
-    "version": "5.5.11",
+    "version": "5.5.13",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
