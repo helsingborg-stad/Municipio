@@ -37,6 +37,7 @@ module.exports = {
         'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
         'js/design-share': './assets/source/3.0/js/admin/designShare.ts',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
+        'js/customizer-flexible-header': './assets/source/3.0/js/admin/customizerFlexibleHeader.ts',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',

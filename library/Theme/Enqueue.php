@@ -79,6 +79,14 @@ class Enqueue
         );
 
         wp_enqueue_script(
+            'customizer-flexible-header',
+            self::getAssetWithCacheBust('js/customizer-flexible-header.js'),
+            array('jquery', 'customize-controls'),
+            false,
+            true
+        );
+
+        wp_enqueue_script(
             'customizer-error-handling',
             self::getAssetWithCacheBust('js/customizer-error-handling.js'),
             array('jquery', 'customize-controls'),
@@ -95,7 +103,7 @@ class Enqueue
     {
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
-        
+
         wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
         wp_enqueue_style('material-symbols-fonts');
     }
