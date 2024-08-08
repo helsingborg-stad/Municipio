@@ -1,4 +1,3 @@
-@dump($classList)
 @header([
     'id' => 'site-header',
     'classList' => array_merge(
