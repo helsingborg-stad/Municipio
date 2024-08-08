@@ -13,6 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScripts = require('webpack-remove-empty-scripts');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const crypto = require('crypto');
 
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
@@ -23,10 +24,10 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
-        'js/styleguide': './assets/source/3.0/js/styleguide.js',
-        'css/municipio': './assets/source/3.0/sass/main.scss',
-        'js/municipio': './assets/source/3.0/js/municipio.js',
+        //'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+        //'js/styleguide': './assets/source/3.0/js/styleguide.js',
+        //'css/municipio': './assets/source/3.0/sass/main.scss',
+        //'js/municipio': './assets/source/3.0/js/municipio.js',
         'js/instantpage': './node_modules/instant.page/instantpage.js',
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
@@ -162,8 +163,37 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[hash].[ext]',
-                            outputPath: 'fonts/',
+                            name: (resourcePath) => {
+                                // Define the mapping of font weights
+                                const weightMap = {
+                                    'font-200': 'light',
+                                    'font-400': 'medium',
+                                    'font-600': 'bold',
+                                };
+
+                                // Extract the directory containing the weight
+                                const dirName = path.dirname(resourcePath).split(path.sep);
+                                const weightKey = dirName.find((part) => weightMap[part]);
+                                const weight = weightMap[weightKey] || 'unknown';
+
+                                // Extract the base name of the file (e.g., 'material-symbols-rounded')
+                                const baseName = path.basename(resourcePath, path.extname(resourcePath));
+
+                                // Transform the base name to the desired format (e.g., 'outline')
+                                const transformedName = baseName.replace('material-symbols-', '');
+
+                                // Generate a hash from the path
+                                const hash = crypto
+                                    .createHash('md5')
+                                    .update(resourcePath)
+                                    .digest('hex')
+                                    .substring(0, 8); // Get first 8 chars of the hash
+
+                                // Construct the final path
+                                return `${weight}/${transformedName}.[contenthash].[ext]`;
+                            },
+                            outputPath: '/fonts/material/', // Adjust output path if necessary
+                            publicPath: './', // Adjust public path if necessary
                         },
                     },
                 ],
