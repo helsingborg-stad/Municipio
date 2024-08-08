@@ -1,19 +1,19 @@
 require('dotenv').config();
 
-const path = require('path');
+const path                          = require('path');
 
-const fs = require('fs');
-const webpack = require('webpack');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const fs                            = require('fs');
+const webpack                       = require('webpack');
+const { WebpackManifestPlugin }     = require('webpack-manifest-plugin');
+const WebpackNotifierPlugin         = require('webpack-notifier');
+const { CleanWebpackPlugin }        = require('clean-webpack-plugin');
+const BrowserSyncPlugin             = require('browser-sync-webpack-plugin');
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const RemoveEmptyScripts = require('webpack-remove-empty-scripts');
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const crypto = require('crypto');
+const MiniCssExtractPlugin          = require('mini-css-extract-plugin');
+const RemoveEmptyScripts            = require('webpack-remove-empty-scripts');
+const CssMinimizerWebpackPlugin     = require('css-minimizer-webpack-plugin');
+const autoprefixer                  = require('autoprefixer');
+
 
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);

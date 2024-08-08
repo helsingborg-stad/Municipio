@@ -15,8 +15,10 @@ class Enqueue
         if (!defined('ASSETS_DIST_PATH')) {
             define('ASSETS_DIST_PATH', '/assets/dist/');
         }
+
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
+        add_action('wp_enqueue_scripts', array($this, 'icons'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
 
         // Enqueue customizer scripts and styles
@@ -140,10 +142,21 @@ class Enqueue
         // Load local municipio css
         wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
+    }
 
+    /**
+     * Enqueue icons
+     */
+    public function icons() {
+
+        $weight = "light"; //TODO: Make this configurable
+        $style = "sharp";  //TODO: Make this configurable
+        
         // Load Material symbols
-        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
-        wp_enqueue_style('material-symbols-fonts');
+        wp_register_style('material-symbols', self::getAssetWithCacheBust(
+            sprintf('fonts/material/%s/%s.css', $weight, $style)
+        ));
+        wp_enqueue_style('material-symbols');
     }
 
     /**
