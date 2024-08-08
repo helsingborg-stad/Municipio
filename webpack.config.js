@@ -66,7 +66,7 @@ module.exports = {
      * Output settings
      */
     output: {
-        filename: ifProduction('[name].[contenthash].js', '[name].js'),
+        filename: ifProduction('[name].[contenthash:8].js', '[name].js'),
         path: path.resolve(__dirname, 'assets', 'dist'),
         publicPath: '',
     },
@@ -182,18 +182,11 @@ module.exports = {
                                 // Transform the base name to the desired format (e.g., 'outline')
                                 const transformedName = baseName.replace('material-symbols-', '');
 
-                                // Generate a hash from the path
-                                const hash = crypto
-                                    .createHash('md5')
-                                    .update(resourcePath)
-                                    .digest('hex')
-                                    .substring(0, 8); // Get first 8 chars of the hash
-
                                 // Construct the final path
-                                return `${weight}/${transformedName}.[contenthash].[ext]`;
+                                return `${weight}/${transformedName}.[contenthash:8].[ext]`;
                             },
-                            outputPath: '/fonts/material/', // Adjust output path if necessary
-                            publicPath: './', // Adjust public path if necessary
+                            outputPath: '/fonts/material/',
+                            publicPath: './',
                         },
                     },
                 ],
