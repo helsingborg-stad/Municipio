@@ -31,12 +31,12 @@
                     @endif
                 </div>
         </div>
-{{-- 
-        @if(!empty($megaMenuItems) && (in_array('mega-menu', $headerData['mainLowerItems']) || in_array('mega-menu', $headerData['mainUpperItems'])))
+        
+        @if(!empty($megaMenuItems) && (isset($headerData['mainLowerItems']['mega-menu']) || isset($headerData['mainUpperItems']['mega-menu'])))
             @include('partials.navigation.megamenu')
         @endif
-        @if(in_array('search-modal', $headerData['mainLowerItems']) || in_array('search-modal', $headerData['mainUpperItems']))
+        @if (isset($headerData['mainLowerItems']['search-modal']) || isset($headerData['mainUpperItems']['search-modal']))
             @include('partials.search.search-modal')
-        @endif --}}
+        @endif
     @endif
 @endsection
