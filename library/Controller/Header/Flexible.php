@@ -2,34 +2,35 @@
 
 namespace Municipio\Controller\Header;
 
+use Municipio\Controller\Header\MenuOrderTransformer;
+
 class Flexible implements HeaderInterface
 {
+    private bool $isResponsive;
+    private MenuOrderTransformer $menuOrderTransformerInstance;
+
     public function __construct(private object $customizer)
     {
+        $this->isResponsive                 = !empty($this->customizer->headerEnableResponsiveOrder);
+        $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
     }
 
     public function getHeaderData(): array
     {
-        $headerData                   = [];
-        $headerData['mainUpperItems'] = $this->getMainUpperItems();
-        $headerData['mainLowerItems'] = $this->getMainLowerItems();
-        $headerData['logotypeItems']  = $this->getLogotypeItems();
-
-        return $headerData;
+        return [
+            'mainUpperItems' => $this->getItems('MainUpper'),
+            'mainLowerItems' => $this->getItems('MainLower'),
+            'logotypeItems'  => $this->getItems('Logotype'),
+        ];
     }
 
-    private function getLogotypeItems(): array
+    private function getItems(string $section): array
     {
-        return isset($this->customizer->headerSortableSectionLogotype) ? $this->customizer->headerSortableSectionLogotype : [];
-    }
+        $desktopOrderedItems = $this->customizer->{'headerSortableSection' . $section} ?? [];
+        $mobileOrderedItems  = ($this->isResponsive && isset($this->customizer->{'headerSortableSection' . $section . 'Responsive'}))
+            ? $this->customizer->{'headerSortableSection' . $section . 'Responsive'}
+            : [];
 
-    private function getMainLowerItems(): array
-    {
-        return isset($this->customizer->headerSortableSectionMainLower) ? $this->customizer->headerSortableSectionMainLower : [];
-    }
-
-    private function getMainUpperItems(): array
-    {
-        return isset($this->customizer->headerSortableSectionMainUpper) ? $this->customizer->headerSortableSectionMainUpper : [];
+        return $this->menuOrderTransformerInstance->transform($desktopOrderedItems, $mobileOrderedItems);
     }
 }
