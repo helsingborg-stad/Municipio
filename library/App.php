@@ -163,7 +163,6 @@ class App
         
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
-        new \Municipio\Admin\Options\Favicon();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
