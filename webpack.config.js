@@ -48,8 +48,18 @@ module.exports = {
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
         'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
 
-        /* Fonts */
-        'fonts/material-symbols': './assets/source/3.0/sass/admin/material-symbols.scss',
+        /* Icons */
+        'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
+        'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
+        'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
+
+        'fonts/material/normal/sharp': './assets/source/3.0/sass/icons/normal/sharp.scss',
+        'fonts/material/normal/outlined': './assets/source/3.0/sass/icons/normal/outlined.scss',
+        'fonts/material/normal/rounded': './assets/source/3.0/sass/icons/normal/rounded.scss',
+
+        'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
+        'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
+        'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
     },
     /**
      * Output settings
@@ -138,6 +148,22 @@ module.exports = {
                             name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
                             outputPath: 'images',
                             publicPath: '../images',
+                        },
+                    },
+                ],
+            },
+
+            /**
+             * Material icons font
+             */
+            {
+                test: /\.(woff(2)?|ttf|eot|svg|otf)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[hash].[ext]',
+                            outputPath: 'fonts/',
                         },
                     },
                 ],
