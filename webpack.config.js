@@ -180,7 +180,7 @@ module.exports = {
                   fn: function(event, file) {
                     if (event === "change") {
                       const bs = require('browser-sync').get('bs-webpack-plugin');
-const fs = require('fs');
+                      const fs = require('fs');
                       bs.reload("*.css");
                     }
                   }
@@ -264,47 +264,6 @@ const fs = require('fs');
                 ],
             },
         })),
-
-        /** Parse the icon specification */
-        function () {
-            const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
-            
-            fs.readFile(filePath, 'utf8', (err, data) => {
-                if (err || !data) {
-                    console.error(err ? `Error reading icon file: ${filePath} [${err}]` : `No data in icon file: ${filePath}`);
-                    return;
-                }
-        
-                const [startIndex, endIndex] = [
-                    data.indexOf('['), 
-                    data.indexOf(']')
-                ];
-                
-                if (startIndex === -1 || endIndex === -1) {
-                    console.error('Could not parse source file. Source file malformed.');
-                    return;
-                }
-        
-                let iconArray = [];
-                try {
-                    iconArray = JSON.parse(data.substring(startIndex, endIndex + 1));
-                } catch (parseError) {
-                    console.error(`Error parsing icon data: ${parseError}`);
-                    return;
-                }
-        
-                const json = JSON.stringify(iconArray, null, 2);
-                const resultDirectory = path.resolve(__dirname, 'assets', 'generated');
-                const resultFilepath = path.resolve(resultDirectory, 'icon.json');
-        
-                try {
-                    fs.mkdirSync(resultDirectory, { recursive: true });
-                    fs.writeFileSync(resultFilepath, json);
-                } catch (err) {
-                    console.error(err);
-                }
-            })
-        },
     ]).filter(Boolean),
     devtool: 'source-map',
     stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
