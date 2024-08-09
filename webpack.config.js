@@ -24,39 +24,39 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        //'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
-        //'js/styleguide': './assets/source/3.0/js/styleguide.js',
-        //'css/municipio': './assets/source/3.0/sass/main.scss',
-        //'js/municipio': './assets/source/3.0/js/municipio.js',
+        /*'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+        'js/styleguide': './assets/source/3.0/js/styleguide.js',
+        'css/municipio': './assets/source/3.0/sass/main.scss',
+        'js/municipio': './assets/source/3.0/js/municipio.js',
         'js/instantpage': './node_modules/instant.page/instantpage.js',
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
         'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
-        'js/pdf': './assets/source/3.0/js/pdf.ts',
+        'js/pdf': './assets/source/3.0/js/pdf.ts',*/ 
 
         /* Admin js */
-        'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
+        /*'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
         'js/design-share': './assets/source/3.0/js/admin/designShare.ts',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
-        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
+        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',*/ 
 
         /* Admin css */
-        'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+        //'css/acf': './assets/source/3.0/sass/admin/acf.scss',
 
         /* Legacy 2.0  */
-        'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
-        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
+        //'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
+        //'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
 
         /* Icons */
         'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
         'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
         'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
 
-        'fonts/material/normal/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
-        'fonts/material/normal/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
-        'fonts/material/normal/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
+        'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+        'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+        'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
 
         'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
         'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
@@ -106,6 +106,39 @@ module.exports = {
                 loader: 'ts-loader',
                 options: { allowTsInNodeModules: true }
             },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg|otf)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: (pathData) => {
+                        const resourcePath = pathData.path || pathData.filename || '';
+
+                        // Define the mapping of font weights
+                        const weightMap = {
+                            'font-200': 'light',
+                            'font-400': 'medium',
+                            'font-600': 'bold',
+                        };
+
+                        // Extract the directory containing the weight
+                        const dirNames = path.dirname(resourcePath).split(path.sep);
+
+                        // Find the weight key in the directories
+                        const weightKey = dirNames.find((part) => weightMap[part]);
+                        const weight = weightMap[weightKey] || 'unknown';
+
+                        // Extract and transform the base name of the file
+                        const baseName = path.basename(resourcePath, path.extname(resourcePath));
+
+                        // Transform the base name to remove 'material-symbols-' and any additional text
+                        const transformedName = baseName.replace(/^material-symbols-/, '');
+
+                        // Construct the final path
+                        return `fonts/material/${weight}/${transformedName}.[contenthash:8][ext]`;
+                    },
+                    publicPath: '/',
+                }
+            },
             /**
              * Styles
              */
@@ -120,6 +153,14 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 2,
+                            url: {
+                                filter: (url, resourcePath) => {
+                                    if (url.match(/\.(woff(2)?|ttf|eot|svg|otf)$/)) {
+                                        return true; // Handle with custom loader
+                                    }
+                                    return true;
+                                },
+                              },
                         },
                     },
                     {
@@ -154,43 +195,7 @@ module.exports = {
                 ],
             },
 
-            /**
-             * Material icons font
-             */
-            {
-                test: /\.(woff(2)?|ttf|eot|svg|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: (resourcePath) => {
-                                // Define the mapping of font weights
-                                const weightMap = {
-                                    'font-200': 'light',
-                                    'font-400': 'medium',
-                                    'font-600': 'bold',
-                                };
-
-                                // Extract the directory containing the weight
-                                const dirName = path.dirname(resourcePath).split(path.sep);
-                                const weightKey = dirName.find((part) => weightMap[part]);
-                                const weight = weightMap[weightKey] || 'unknown';
-
-                                // Extract the base name of the file (e.g., 'material-symbols-rounded')
-                                const baseName = path.basename(resourcePath, path.extname(resourcePath));
-
-                                // Transform the base name to the desired format (e.g., 'outline')
-                                const transformedName = baseName.replace('material-symbols-', '');
-
-                                // Construct the final path
-                                return `${weight}/${transformedName}.[contenthash:8].[ext]`;
-                            },
-                            outputPath: '/fonts/material/',
-                            publicPath: './',
-                        },
-                    },
-                ],
-            },
+            
         ],
     },
     resolve: {
@@ -271,24 +276,13 @@ module.exports = {
                 if (file.path.match(/\.(map)$/)) {
                     return false;
                 }
+                if (file.path.match(/\.(woff2)$/)) {
+                    return false;
+                }
                 return true;
             },
             // Custom mapping of manifest item goes here
             map: function(file) {
-                // Fix incorrect key for fonts
-                if (
-                    file.isAsset &&
-                    file.isModuleAsset &&
-                    file.path.match(/\.(woff|woff2|eot|ttf|otf)$/)
-                ) {
-                    const pathParts = file.path.split('.');
-                    const nameParts = file.name.split('.');
-
-                    // Compare extensions
-                    if (pathParts[pathParts.length - 1] !== nameParts[nameParts.length - 1]) {
-                        file.name = pathParts[0].concat('.', pathParts[pathParts.length - 1]);
-                    }
-                }
                 return file;
             },
         }),

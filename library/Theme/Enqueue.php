@@ -151,16 +151,12 @@ class Enqueue
      * @return void
      */
     public function icons() {
-        echo $weight = get_theme_mod('icon_weight') ?? "medium";
-        echo $style  = get_theme_mod('icon_style') ?? "rounded";
+        $weight = get_theme_mod('icon_weight') ?? "medium";
+        $style  = get_theme_mod('icon_style') ?? "rounded";
         
-        // Load Material symbols
         wp_register_style('material-symbols', self::getAssetWithCacheBust(
             $x = sprintf('fonts/material/%s/%s.css', $weight, $style)
         ));
-
-        echo $x; 
-
         wp_enqueue_style('material-symbols');
     }
 
