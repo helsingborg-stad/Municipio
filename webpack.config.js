@@ -54,9 +54,9 @@ module.exports = {
         'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
         'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
 
-        'fonts/material/normal/sharp': './assets/source/3.0/sass/icons/normal/sharp.scss',
-        'fonts/material/normal/outlined': './assets/source/3.0/sass/icons/normal/outlined.scss',
-        'fonts/material/normal/rounded': './assets/source/3.0/sass/icons/normal/rounded.scss',
+        'fonts/material/normal/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+        'fonts/material/normal/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+        'fonts/material/normal/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
 
         'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
         'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',

@@ -16,7 +16,7 @@ class Icons
             'default'  => 'rounded',
             'priority' => 10,
             'choices'  => [
-                'outline'   => esc_html__('Outlined', 'municipio'),
+                'outlined'   => esc_html__('Outlined', 'municipio'),
                 'rounded' => esc_html__('Rounded', 'municipio'),
                 'sharp' => esc_html__('Sharp', 'municipio'),
             ],
