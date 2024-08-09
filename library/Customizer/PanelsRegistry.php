@@ -524,19 +524,14 @@ class PanelsRegistry
                 continue;
             }
 
-            //No need to populate fields if not in customizer
-            if(is_customize_preview()) {
+            //Taxonomies
+            $args->taxonomies = self::getTaxonomies($postType);
 
-                //Taxonomies
-                $args->taxonomies = self::getTaxonomies($postType);
+            //Order By
+            $args->orderBy = self::getOrderBy($postType);
 
-                //Order By
-                $args->orderBy = self::getOrderBy($postType);
-
-                //Date source
-                $args->dateSource = self::getDateSource($postType);
-
-            }
+            //Date source
+            $args->dateSource = self::getDateSource($postType);
 
             //Add args to stack
             $postTypes[$postType] = $args;
