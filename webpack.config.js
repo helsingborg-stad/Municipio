@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const fs = require('fs');
 
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -155,6 +156,48 @@ module.exports = {
         new webpack.ProvidePlugin({
             process: 'process/browser',
         }),
+        
+
+        /** Parse the icon specification */
+        function () {
+            const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
+            
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err || !data) {
+                    console.error(err ? `Error reading icon file: ${filePath} [${err}]` : `No data in icon file: ${filePath}`);
+                    return;
+                }
+        
+                const [startIndex, endIndex] = [
+                    data.indexOf('['), 
+                    data.indexOf(']')
+                ];
+                
+                if (startIndex === -1 || endIndex === -1) {
+                    console.error('Could not parse source file. Source file malformed.');
+                    return;
+                }
+        
+                let iconArray = [];
+                try {
+                    iconArray = JSON.parse(data.substring(startIndex, endIndex + 1));
+                } catch (parseError) {
+                    console.error(`Error parsing icon data: ${parseError}`);
+                    return;
+                }
+        
+                const json = JSON.stringify(iconArray, null, 2);
+                const resultDirectory = path.resolve(__dirname, 'assets', 'generated');
+                const resultFilepath = path.resolve(resultDirectory, 'icon.json');
+        
+                try {
+                    fs.mkdirSync(resultDirectory, { recursive: true });
+                    fs.writeFileSync(resultFilepath, json);
+                } catch (err) {
+                    console.error(err);
+                }
+            })
+        }
     ].filter(Boolean),
     devtool: 'source-map',
     stats: { children: false },
