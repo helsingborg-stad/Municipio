@@ -24,7 +24,7 @@ module.exports = {
      * Add your entry files here
      */
     entry: {
-        /*'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+        'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
         'js/styleguide': './assets/source/3.0/js/styleguide.js',
         'css/municipio': './assets/source/3.0/sass/main.scss',
         'js/municipio': './assets/source/3.0/js/municipio.js',
@@ -32,22 +32,22 @@ module.exports = {
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
         'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
-        'js/pdf': './assets/source/3.0/js/pdf.ts',*/ 
+        'js/pdf': './assets/source/3.0/js/pdf.ts',
 
         /* Admin js */
-        /*'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
+        'js/color-picker': './assets/source/3.0/js/admin/colorPicker.js',
         'js/design-share': './assets/source/3.0/js/admin/designShare.ts',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
-        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',*/ 
+        'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
 
         /* Admin css */
-        //'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+        'css/acf': './assets/source/3.0/sass/admin/acf.scss',
 
         /* Legacy 2.0  */
-        //'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
-        //'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
+        'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
+        'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
 
         /* Icons */
         'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
