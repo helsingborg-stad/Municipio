@@ -1,0 +1,46 @@
+.c-header.c-header--flexible {
+    .grid-container {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    // Content Areas
+    .c-header__logotype-area {
+        grid-row: span 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .c-header__main-upper-area,
+    .c-header__main-lower-area,
+    .c-header__main-logotype-area {
+        gap: calc($base * 2);
+    }    
+
+    .c-header__main-upper-area::after {
+        background-color: white;
+    }
+    .c-header__main-lower-area::after {
+        background-color: pink;
+    }
+
+    .c-header__main-upper-area,
+    .c-header__main-lower-area {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 300vw;
+            left: 0;
+            right: 0;
+            transform: translateX(-50%);
+            height: 100%;
+            z-index: -1;
+        }
+    }
+}
