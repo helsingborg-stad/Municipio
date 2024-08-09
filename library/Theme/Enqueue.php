@@ -146,11 +146,13 @@ class Enqueue
 
     /**
      * Enqueue icons
+     * Enqueues the selected icon font style.
+     * 
+     * @return void
      */
     public function icons() {
-
-        $weight = "light"; //TODO: Make this configurable
-        $style = "sharp";  //TODO: Make this configurable
+        $weight = get_theme_mod('icon_weight') ?? "medium";
+        $style  = get_theme_mod('icon_style') ?? "sharp";
         
         // Load Material symbols
         wp_register_style('material-symbols', self::getAssetWithCacheBust(
