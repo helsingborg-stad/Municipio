@@ -7,6 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const fs = require('fs');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -156,9 +157,25 @@ module.exports = {
         new webpack.ProvidePlugin({
             process: 'process/browser',
         }),
-        
 
-        /** Parse the icon specification */
+        new WebpackManifestPlugin({
+            // Filter manifest items
+            filter: function(file) {
+                // Don't include source maps
+                if (file.path.match(/\.(map)$/)) {
+                    return false;
+                }
+                if (file.path.match(/\.(woff2)$/)) {
+                    return false;
+                }
+                return true;
+            },
+            // Custom mapping of manifest item goes here
+            map: function(file) {
+                return file;
+            },
+        }),
+        /** Parse the icon specification in material-symbols, make json */
         function () {
             const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
             

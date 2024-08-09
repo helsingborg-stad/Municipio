@@ -28,7 +28,7 @@ class Icons
             'settings' => 'icon_weight',
             'label'    => esc_html__('Weight', 'municipio'),
             'section'  => $sectionID,
-            'default'  => 'medium',
+            'default'  => '400',
             'priority' => 20,
             'choices'  => [
                 '200'   => esc_html__('Light', 'municipio'),
