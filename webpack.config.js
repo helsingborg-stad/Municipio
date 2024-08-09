@@ -153,14 +153,6 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 2,
-                            url: {
-                                filter: (url, resourcePath) => {
-                                    if (url.match(/\.(woff(2)?|ttf|eot|svg|otf)$/)) {
-                                        return true; // Handle with custom loader
-                                    }
-                                    return true;
-                                },
-                              },
                         },
                     },
                     {
