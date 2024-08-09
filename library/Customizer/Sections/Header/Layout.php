@@ -18,30 +18,6 @@ class Layout
         KirkiField::addField(
             [
                 'type'            => 'sortable',
-                'settings'        => 'header_sortable_section_logotype',
-                'label'           => __('Logotype area', 'kirki'),
-                'section'         => $sectionID,
-                'priority'        => 10,
-                'tab'             => 'flexible',
-                'choices'         => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting'  => 'header_apperance',
-                        'operator' => '==',
-                        'value'    => 'flexible',
-                    ]
-                ],
-                'output'          => [
-                    [
-                        'type' => 'controller',
-                    ],
-                ],
-            ]
-        );
-
-        KirkiField::addField(
-            [
-                'type'            => 'sortable',
                 'settings'        => 'header_sortable_section_main_upper',
                 'label'           => __('Upper main area', 'kirki'),
                 'section'         => $sectionID,
@@ -114,30 +90,6 @@ class Layout
         KirkiField::addField(
             [
                 'type'            => 'sortable',
-                'settings'        => 'header_sortable_section_logotype_responsive',
-                'label'           => __('Logotype area (Responsive)', 'kirki'),
-                'section'         => $sectionID,
-                'priority'        => 10,
-                'tab'             => 'flexible',
-                'choices'         => $this->buildFlexibleMainLowerSection(),
-                'active_callback' => [
-                    [
-                        'setting'  => 'header_enable_responsive_order',
-                        'operator' => '==',
-                        'value'    => true,
-                    ]
-                ],
-                'output'          => [
-                    [
-                        'type' => 'controller',
-                    ],
-                ],
-            ]
-        );
-
-        KirkiField::addField(
-            [
-                'type'            => 'sortable',
                 'settings'        => 'header_sortable_section_main_upper_responsive',
                 'label'           => __('Upper main area (Responsive)', 'kirki'),
                 'section'         => $sectionID,
@@ -176,6 +128,22 @@ class Layout
                     ]
                 ],
                 'output'          => [
+                    [
+                        'type' => 'controller',
+                    ],
+                ],
+            ]
+        );
+
+        KirkiField::addField(
+            [
+                'type'     => 'textarea',
+                'settings' => 'header_sortable_hidden_storage',
+                'label'    => __('Hidden', 'kirki'),
+                'section'  => $sectionID,
+                'priority' => 10,
+                'tab'      => 'flexible',
+                'output'   => [
                     [
                         'type' => 'controller',
                     ],

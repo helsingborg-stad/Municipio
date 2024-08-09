@@ -3,16 +3,7 @@
 @section('primary-navigation')
     @if (!empty($headerData))
         <div class="o-container grid-container">
-                <div class="c-header__logotype-area">
-                    @if(!empty($headerData['logotypeItems']))
-                        @foreach($headerData['logotypeItems'] as $name => $data)
-                            <div class="{{implode(' ', $data)}}">
-                                @includeIf('partials.header.components.' . $name)
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-                <div class="c-header__main-upper-area">            
+                <div class="c-header__main-upper-area">   
                     @if(!empty($headerData['mainUpperItems']))
                         @foreach($headerData['mainUpperItems'] as $name => $data)
                             <div class="{{implode(' ', $data)}}">
@@ -24,9 +15,9 @@
                 <div class="c-header__main-lower-area">
                     @if(!empty($headerData['mainLowerItems']))
                         @foreach($headerData['mainLowerItems'] as $name => $data)
-                        <div class="{{implode(' ', $data)}}">
-                            @includeIf('partials.header.components.' . $name)
-                        </div>
+                            <div class="{{implode(' ', $data)}}">
+                                @includeIf('partials.header.components.' . $name)
+                            </div>
                         @endforeach
                     @endif
                 </div>

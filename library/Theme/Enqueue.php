@@ -86,6 +86,12 @@ class Enqueue
             true
         );
 
+        wp_localize_script(
+            'customizer-flexible-header',
+            'hiddenSettingSavedValue',
+            get_theme_mod('header_sortable_hidden_storage')
+        );
+
         wp_enqueue_script(
             'customizer-error-handling',
             self::getAssetWithCacheBust('js/customizer-error-handling.js'),

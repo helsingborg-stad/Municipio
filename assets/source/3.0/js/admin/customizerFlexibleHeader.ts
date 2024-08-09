@@ -1,133 +1,36 @@
-interface FlexibleHeaderSortPair {
-    setting: HTMLElement;
-    responsive: HTMLElement;
-}
+import Sortable from "./flexibleHeader/sortable";
+import HiddenSetting from "./flexibleHeader/hiddenSetting";
+import { addEditIconToSortables } from "./flexibleHeader/helpers/addSortableIcons";
+import { getSettingsKeys } from "./flexibleHeader/helpers/getSettingsKeys";
+import { FlexibleHeaderFieldKeys } from "./flexibleHeader/interfaces";
+import GetSortableItems from "./flexibleHeader/helpers/getSortableItems";
+import { initializeEdit } from "./flexibleHeader/edit";
+import Storage from "./flexibleHeader/storage";
 
-interface StructuredItems {
-    [key: string]: HTMLElement;
-}
+declare const hiddenSettingSavedValue: any;
 
-class FlexibleHeaderResponsive {
-    private mainItems: StructuredItems;
-    private responsiveItems: StructuredItems;
-    constructor(private pair: FlexibleHeaderSortPair) {
-        const [mainItems, responsiveItems] = this.getAllSortableItems();
-
-        this.mainItems = mainItems;
-        this.responsiveItems = responsiveItems;
-
-        if (this.mainItems, this.responsiveItems) {
-            this.handleHidden();
-            this.setMainItemsListeners();
-        }
-    }
-
-    private setMainItemsListeners() {
-        for (const key in this.mainItems) {
-            const visibilityElement = this.mainItems[key].querySelector('.visibility');
-
-            if (!visibilityElement || !this.responsiveItems[key]) {
-                continue;
-            }
-
-            visibilityElement.addEventListener('click', () => {
-                if (this.mainItems[key].classList.contains('invisible')) {
-                    this.hide(this.responsiveItems[key]);
-                } else {
-                    this.show(this.responsiveItems[key]);
-                }
-            });
-        }
-    }
-
-    private hide(item: HTMLElement) {
-        item.style.display = 'none';
-
-        if (!item.classList.contains('invisible')) {
-            (item.querySelector('.visibility') as HTMLElement)?.click();
-        }
-    }
-
-    private show(item: HTMLElement) {
-        item.style.display = 'list-item';
-
-        if (item.classList.contains('invisible')) {
-            (item.querySelector('.visibility') as HTMLElement)?.click();
-        }
-    }
-
-    private handleHidden() {
-        for (const key in this.mainItems) {
-            if (!this.responsiveItems[key]) {
-                continue;
-            }
-
-            this.removeVisibilityIconButton(this.responsiveItems[key]);
-
-            if (!this.mainItems[key].classList.contains('invisible')) {
-                this.show(this.responsiveItems[key]);
-                continue;
-            }
-            console.log("HELLO");
-            this.hide(this.responsiveItems[key]);
-        }
-    }
-
-    private removeVisibilityIconButton(item: HTMLElement) {
-        const visibilityElement = item.querySelector('.visibility');
-
-        if (visibilityElement) {
-            (visibilityElement as HTMLElement).style.display = 'none';
-        }
-    }
-
-    private getAllSortableItems() {
-        const mainItems       = this.structureSortableItems([...this.pair.setting.querySelectorAll('.kirki-sortable-item')] as HTMLElement[]);
-        const responsiveItems = this.structureSortableItems([...this.pair.responsive.querySelectorAll('.kirki-sortable-item')] as HTMLElement[]);
-
-        return [mainItems, responsiveItems];
-    }
-
-    private structureSortableItems(items: HTMLElement[]) {
-        let structuredItems = {} as StructuredItems;
-
-        items.forEach(item => {
-            if (!item.getAttribute('data-value')) {
-                return;
-            }
-
-            const key = item.getAttribute('data-value') as string;
-
-            structuredItems[key] = item;
-        });
-
-        return structuredItems;
-    }
-}
-
+// Gets all the sortable settings
 wp.customize.bind('ready', function() {
-    const customizerControls = document.querySelector('#customize-theme-controls');
-    const flexibleAreaNames = [
-        'header_sortable_section_logotype',
-        'header_sortable_section_main_upper',
-        'header_sortable_section_main_lower'
-    ];
+    const { flexibleAreaNames, hiddenName, responsiveNameKey, kirkiAttributeName }: FlexibleHeaderFieldKeys  = getSettingsKeys();
 
-    if (!customizerControls) {
-        return;
-    }
+    const hiddenSettingInstance = new HiddenSetting(hiddenSettingSavedValue, hiddenName, kirkiAttributeName);
 
-    const responsiveNameKey = '_responsive';
-    const kirkiAttributeName = 'data-kirki-setting';
+    // const storageInstance = new Storage(hiddenSettingInstance);
 
-    flexibleAreaNames.forEach(name => {
-        const setting = customizerControls.querySelector(`[${kirkiAttributeName}="${name}"]`);
-        const responsiveSetting = customizerControls.querySelector(`[${kirkiAttributeName}="${name}${responsiveNameKey}"]`);
+    let editInstances = [];
+
+    // Initialize per area
+    flexibleAreaNames.forEach(key => {
+        const setting = document.querySelector(`[${kirkiAttributeName}="${key}"]`) as HTMLElement;
+        const responsiveSetting = document.querySelector(`[${kirkiAttributeName}="${key}${responsiveNameKey}"]`) as HTMLElement;
 
         if (!setting || !responsiveSetting) {
             return;
         }
 
-        new FlexibleHeaderResponsive({setting: setting as HTMLElement, responsive: responsiveSetting as HTMLElement});
+        const getSortableItemsInstance = new GetSortableItems(setting, responsiveSetting);
+        addEditIconToSortables(setting);
+        new Sortable(getSortableItemsInstance.getSortableItems(), getSortableItemsInstance.getSortableResponsiveItems());
+        initializeEdit(getSortableItemsInstance.getSortableItems(), hiddenSettingInstance, key);
     });
 });
