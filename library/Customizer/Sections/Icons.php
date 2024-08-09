@@ -31,11 +31,17 @@ class Icons
             'default'  => 'medium',
             'priority' => 20,
             'choices'  => [
-                'light'   => esc_html__('Light', 'municipio'),
-                'medium' => esc_html__('Medium', 'municipio'),
-                'bold' => esc_html__('Bold', 'municipio'),
+                '200'   => esc_html__('Light', 'municipio'),
+                '400' => esc_html__('Medium', 'municipio'),
+                '600' => esc_html__('Bold', 'municipio'),
             ],
             'description' => esc_html__( 'Set the boldness of the icons.', 'kirki' ),
+            'output' => [
+                [
+                    'element' => ':root',
+                    'property' => '--current-material-symbols-weight',
+                ],
+            ],
         ]);
     }
 }

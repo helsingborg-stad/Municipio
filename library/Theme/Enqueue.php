@@ -151,11 +151,21 @@ class Enqueue
      * @return void
      */
     public function icons() {
-        $weight = get_theme_mod('icon_weight') ?? "medium";
+        $weight = get_theme_mod('icon_weight') ?? "400";
         $style  = get_theme_mod('icon_style') ?? "rounded";
+
+        $weightTranslationTable = [
+            '200' => 'light',
+            '400' => 'medium',
+            '600' => 'bold',
+        ];
         
         wp_register_style('material-symbols', self::getAssetWithCacheBust(
-            $x = sprintf('fonts/material/%s/%s.css', $weight, $style)
+            sprintf(
+                'fonts/material/%s/%s.css', 
+                $weightTranslationTable[$weight] ?? 'medium', 
+                $style
+            )
         ));
         wp_enqueue_style('material-symbols');
     }
