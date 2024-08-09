@@ -13,6 +13,7 @@ const MiniCssExtractPlugin          = require('mini-css-extract-plugin');
 const RemoveEmptyScripts            = require('webpack-remove-empty-scripts');
 const CssMinimizerWebpackPlugin     = require('css-minimizer-webpack-plugin');
 const autoprefixer                  = require('autoprefixer');
+const StringReplacePlugin = require('string-replace-webpack-plugin');
 
 
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
@@ -187,8 +188,50 @@ module.exports = {
                 ],
             },
 
-            
-        ],
+            /**
+             * Replace classnames in icons css output
+             */
+            {
+                test: /\.scss$/,
+                include: [
+                  path.resolve(__dirname, 'assets/source/3.0/sass/icons')
+                ],
+                use: [
+                  'style-loader',
+                  'css-loader',
+                  {
+                    loader: 'sass-loader',
+                    options: {
+                      sourceMap: true,
+                    },
+                  },
+                  {
+                    loader: StringReplacePlugin.replace({
+                      replacements: [
+                        {
+                            pattern: /material-symbols-outlined/g,
+                            replacement: (match, p1, offset, string) => {
+                                return 'material-symbols material-symbols--outlined';
+                            }
+                        },
+                        {
+                            pattern: /material-symbols-sharp/g,
+                            replacement: (match, p1, offset, string) => {
+                                return 'material-symbols material-symbols--sharp';
+                            }
+                        },
+                        {
+                            pattern: /material-symbols-rounded/g,
+                            replacement: (match, p1, offset, string) => {
+                                return 'material-symbols material-symbols--rounded';
+                            }
+                        }
+                      ]
+                    })
+                  }
+                ]
+            },  
+        ]
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -240,6 +283,8 @@ module.exports = {
               }
         ) : null
         ,
+
+        new StringReplacePlugin(),
 
         /**
          * Fix CSS entry chunks generating js file
