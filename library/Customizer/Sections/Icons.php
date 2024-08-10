@@ -43,5 +43,31 @@ class Icons
                 ],
             ],
         ]);
+
+        KirkiField::addField([
+            'type'     => 'switch',
+            'settings' => 'icon_filled',
+            'label'    => esc_html__('Filled icons', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => true,
+            'priority' => 30,
+            'choices'  => [
+                true  => esc_html__('Filled', 'kirki'),
+                false => esc_html__('Outlined', 'kirki'),
+            ],
+            'description' => esc_html__('Determines if icons should be filled as a default, or not. If the icon component has any value set, that will be used instead. This settly do not apply to all icons, only those with support.', 'kirki' ),
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'filled',
+                    'context' => [
+                        [
+                            'context'  => 'component.icon',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 }
