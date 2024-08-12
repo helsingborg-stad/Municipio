@@ -6,8 +6,7 @@ export function getMenuIconHtml() {
 
 export function getDropdownHtml(sortableStorage: SortableItemsStorage) {
     return `
-        <div style="display:none;width:100%;left:0;height:200px;position:absolute;">
-           
+        <div data-js-flexible-dropdown style="display:none;width:100%;left:0;height:200px;position:absolute;z-index:9999;background-color:#fff;border:1px solid #333;">
         </div>
     `;
 }

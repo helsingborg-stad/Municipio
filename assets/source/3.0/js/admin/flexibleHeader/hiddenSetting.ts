@@ -21,7 +21,7 @@ class HiddenSetting {
         });
     }
 
-    public getCurrentHiddenFieldValue(): SettingsStorage {
+    public getHiddenFieldSavedValues(): SettingsStorage {
         let localHiddenSettingSavedValue = this.hiddenSettingSavedValue;
         if (!localHiddenSettingSavedValue || typeof localHiddenSettingSavedValue !== "string") {
             return {};

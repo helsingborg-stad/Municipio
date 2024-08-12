@@ -5,21 +5,18 @@ import { getSettingsKeys } from "./flexibleHeader/helpers/getSettingsKeys";
 import { FlexibleHeaderFieldKeys } from "./flexibleHeader/interfaces";
 import GetSortableItems from "./flexibleHeader/helpers/getSortableItems";
 import { initializeEdit } from "./flexibleHeader/edit";
-import Storage from "./flexibleHeader/storage";
+import Edit from "./flexibleHeader/edit";
 
 declare const hiddenSettingSavedValue: any;
 
-// Gets all the sortable settings
 wp.customize.bind('ready', function() {
     const { flexibleAreaNames, hiddenName, responsiveNameKey, kirkiAttributeName }: FlexibleHeaderFieldKeys  = getSettingsKeys();
 
     const hiddenSettingInstance = new HiddenSetting(hiddenSettingSavedValue, hiddenName, kirkiAttributeName);
-
-    // const storageInstance = new Storage(hiddenSettingInstance);
-
+    
+    let store = hiddenSettingInstance.getHiddenFieldSavedValues();
     let editInstances = [];
 
-    // Initialize per area
     flexibleAreaNames.forEach(key => {
         const setting = document.querySelector(`[${kirkiAttributeName}="${key}"]`) as HTMLElement;
         const responsiveSetting = document.querySelector(`[${kirkiAttributeName}="${key}${responsiveNameKey}"]`) as HTMLElement;
@@ -28,9 +25,14 @@ wp.customize.bind('ready', function() {
             return;
         }
 
+        if (!store.hasOwnProperty(key)) {
+            store[key] = {};
+        }
+
         const getSortableItemsInstance = new GetSortableItems(setting, responsiveSetting);
         addEditIconToSortables(setting);
         new Sortable(getSortableItemsInstance.getSortableItems(), getSortableItemsInstance.getSortableResponsiveItems());
-        initializeEdit(getSortableItemsInstance.getSortableItems(), hiddenSettingInstance, key);
+        const editInstancesFromSetting = initializeEdit(getSortableItemsInstance.getSortableItems(), hiddenSettingInstance, store[key]);
+        editInstances.push({[key]: editInstancesFromSetting});
     });
 });

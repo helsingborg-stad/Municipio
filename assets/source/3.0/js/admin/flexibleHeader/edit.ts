@@ -5,28 +5,27 @@ import { getDropdownHtml } from './helpers/html';
 class Edit {
     constructor(
         private sortableItem: HTMLElement,
+        private dropdownElement: HTMLElement,
+        private editButton: HTMLElement,
         private hiddenSettingInstance: HiddenSetting,
-        private settingKey: string,
-        private sortableItemKey: string
+        private sortableItemStore: any,
     ) {
-        const editButton = this.sortableItem.querySelector('[data-js-sortable-edit]');
-
-        if (editButton) {
-            this.setEditListener(editButton as HTMLElement);
-        }
+        this.setEditButtonListener();
     }
 
-    private setEditListener(editButton: HTMLElement) {
-        editButton.addEventListener('click', () => {
-            console.log("click");
+    private setEditButtonListener() {
+        this.editButton.addEventListener('click', () => {
+            this.dropdownElement.style.display = 'block';
         });
     }
 }
 
+export default Edit;
+
 export function initializeEdit(
     sortableItems: HTMLElement[], 
-    hiddenSettingInstance: HiddenSetting, 
-    settingKey: string,
+    hiddenSettingInstance: HiddenSetting,
+    settingStore: any
 ): Edit[] {
     let instancesInitialized: Edit[] = [];
     sortableItems.forEach(sortableItem => {
@@ -35,13 +34,20 @@ export function initializeEdit(
             return;
         }
 
-        // if (!storageInstance.getSortableStorage(settingKey, sortableItemKey)) {
-        //     storageInstance.setValues(settingKey, sortableItemKey, defaultEditValues);
-        // }
+        if (!settingStore.hasOwnProperty(sortableItemKey)) {
+            settingStore[sortableItemKey] = defaultEditValues;
+        }
 
-        // sortableItem.insertAdjacentHTML('beforeend', getDropdownHtml());
+        sortableItem.insertAdjacentHTML('beforeend', getDropdownHtml(settingStore));
+        
+        const dropdownElement = sortableItem.querySelector('[data-js-flexible-dropdown]') as HTMLElement;
+        const editButton = sortableItem.querySelector('[data-js-sortable-edit]') as HTMLElement;
 
-        const editInstance = new Edit(sortableItem, hiddenSettingInstance, settingKey, sortableItemKey);
+        if (!dropdownElement || !editButton) {
+            return;
+        }
+
+        const editInstance = new Edit(sortableItem, dropdownElement, editButton, hiddenSettingInstance, settingStore[sortableItemKey]);
         instancesInitialized.push(editInstance);
     });
 
