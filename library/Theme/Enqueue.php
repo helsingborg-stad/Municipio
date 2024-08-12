@@ -151,8 +151,8 @@ class Enqueue
      * @return void
      */
     public function icons() {
-        $weight = get_theme_mod('icon_weight') ?? "400";
-        $style  = get_theme_mod('icon_style') ?? "rounded";
+        $weight = get_theme_mod('icon_weight') ?: "400";
+        $style  = get_theme_mod('icon_style') ?: "rounded";
 
         $weightTranslationTable = [
             '200' => 'light',
