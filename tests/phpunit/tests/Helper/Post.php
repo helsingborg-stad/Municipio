@@ -29,7 +29,7 @@ class PostTest extends TestCase
         // Then
         $this->assertIsObject($result);
     }
-    
+
     /**
      * @testdox preparePostObject: runtimeCache can add multiple posts with the same ID.
     */
@@ -38,7 +38,7 @@ class PostTest extends TestCase
         // Given
         $post1 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-02 00:00:00']);
         $post2 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-01 00:00:00']);
-        $mock = $this->mockStaticMethod('\Municipio\Helper\Post', 'complementObject');
+        $mock  = $this->mockStaticMethod('\Municipio\Helper\Post', 'complementObject');
         $mock->andReturnUsing(fn ($post) => $post);
 
         // When
@@ -479,6 +479,7 @@ class PostTest extends TestCase
         $termMock           = Mockery::mock('WP_Term');
         $termMock->term_id  = 1;
         $termMock->taxonomy = 'test-taxonomy';
+        $termMock->slug     = 'test-slug';
 
         return $termMock;
     }
@@ -546,7 +547,7 @@ class PostTest extends TestCase
         WP_Mock::userFunction('get_object_taxonomies', [
             'return' => (object) ['icon' => 'test']
         ]);
-        
+
         WP_Mock::userFunction('get_option', [
             'return' => 'test'
         ]);
@@ -572,7 +573,7 @@ class PostTest extends TestCase
         andReturn(['src' => 'test', 'type' => 'icon'])->
         shouldReceive('getTermColor')->
         andReturn('blue');
-        
+
         Mockery::mock('alias:' . \Municipio\Helper\Navigation::class)->
         shouldReceive('getQuicklinksPlacement')->
         andReturn('after_first_block')->
