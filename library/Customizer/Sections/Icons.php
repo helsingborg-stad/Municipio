@@ -13,7 +13,7 @@ class Icons
             'settings' => 'icon_style',
             'label'    => esc_html__('Style', 'municipio'),
             'section'  => $sectionID,
-            'default'  => 'rounded',
+            'default'  => 'outlined',
             'priority' => 10,
             'choices'  => [
                 'outlined'   => esc_html__('Outlined', 'municipio'),
@@ -49,7 +49,7 @@ class Icons
             'settings' => 'icon_filled',
             'label'    => esc_html__('Filled icons', 'municipio'),
             'section'  => $sectionID,
-            'default'  => true,
+            'default'  => false,
             'priority' => 30,
             'choices'  => [
                 true  => esc_html__('Filled', 'kirki'),
