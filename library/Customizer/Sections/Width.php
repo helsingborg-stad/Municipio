@@ -44,7 +44,7 @@ class Width
                 ],
                 'output'   => [
                     [
-                        'element'  => 'width',
+                        'element'  => ':root',
                         'property' => $args['css'],
                         'units'    => 'px',
                     ]

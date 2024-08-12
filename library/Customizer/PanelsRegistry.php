@@ -281,6 +281,11 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_search')
                     ->setTitle(esc_html__('Search', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Search('municipio_customizer_section_search'))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_icons')
+                    ->setTitle(esc_html__('Icons', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Icons('municipio_customizer_section_icons'))
             )->register();
     }
 
