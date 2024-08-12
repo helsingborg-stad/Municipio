@@ -4,19 +4,20 @@ namespace Municipio\Customizer;
 
 abstract class PanelSection
 {
-    public string $id = '';
-    public int $priority = 160;
-    public string $panel = '';
-    public string $capability = '';
-    public array $themeSupports = [];
-    public string $title = '';
-    public string $description = '';
-    public string $type = '';
-    public string $previewUrl = '';
+    public string $id              = '';
+    public int $priority           = 160;
+    public string $panel           = '';
+    public string $capability      = '';
+    public array $themeSupports    = [];
+    public string $title           = '';
+    public string $description     = '';
+    public string $type            = '';
+    public string $previewUrl      = '';
     public bool $descriptionHidden = false;
-    public array $sections = [];
-    public $activeCallback = null;
-    public $fieldsCallback = null;
+    public array $sections         = [];
+    public $activeCallback         = null;
+    public $fieldsCallback         = null;
+    public array $tabs             = [];
 
     public static function create()
     {
@@ -155,6 +156,17 @@ abstract class PanelSection
     public function getPanel(): string
     {
         return $this->panel;
+    }
+
+    public function getTabs(): array
+    {
+        return $this->tabs;
+    }
+
+    public function setTabs(array $tabs): PanelSection
+    {
+        $this->tabs = $tabs;
+        return $this;
     }
 
     public function addSection(PanelSection $section): PanelSection

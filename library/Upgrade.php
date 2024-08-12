@@ -13,7 +13,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 29; //The db version we want to achive
+    private $dbVersion    = 30; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -598,6 +598,29 @@ class Upgrade
             }
         }
 
+        return true;
+    }
+
+    //Retires custom favicon in favour of native functionality
+    private function v_30($db): bool {
+        $nativeFaviconKey   = "site_icon"; 
+        $nativeFavicon      = get_option($nativeFaviconKey, false);
+        if (!$nativeFavicon) {
+
+            foreach(['152', '144', 'fav'] as $type) {
+                for($i = 0; $i < 10; $i++) {
+                    $iconType = get_option('options_favicons_'.$i.'_favicon_type'); 
+                    if($iconType == $type) {
+                        $iconId = get_option('options_favicons_'.$i.'_favicon_icon'); 
+                        if(is_numeric($iconId)) {
+                            update_option($nativeFaviconKey, $iconId); 
+                        }
+                        break 2; 
+                    }
+                }
+            }
+        }
+        
         return true;
     }
 

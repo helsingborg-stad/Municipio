@@ -435,7 +435,9 @@ class Post
                     foreach ($terms as $term) {
                         $item = [];
 
-                        $item['label'] = $term->name ?? '';
+                        $item['label']      = $term->name ?? '';
+                        $item['slug']       = $term->slug;
+                        $item['taxonomy']   = $term->taxonomy;
 
                         if ($includeLink) {
                             $item['href'] = get_term_link($term->term_id);
@@ -543,6 +545,8 @@ class Post
         });
 
         return self::$runtimeCache['getPostTypeMetaKeys'][$postType] = $metaKeys;
+
+       
     }
 
     /**

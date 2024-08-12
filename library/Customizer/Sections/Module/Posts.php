@@ -96,15 +96,15 @@ class Posts
                 'type'    => 'component_data',
                 'dataKey' => 'displayIcon',
                 'context' => [
-                  'module.posts.index',
-                  'module.posts.segment',
-                  'module.posts.block',
-                  'module.posts.collection__item',
-                  'module.manual-input.card',
-                  'module.manual-input.collection__item',
-                  'module.manual-input.block',
-                  'module.manual-input.segment'
-                ]
+                  ['context' => 'module.posts.segment', 'operator' => '=='],
+                  ['context' => 'module.posts.block', 'operator' => '=='],
+                  ['context' => 'module.posts.collection__item', 'operator' => '=='],
+                  ['context' => 'module.manual-input.card', 'operator' => '=='],
+                  ['context' => 'module.manual-input.collection__item', 'operator' => '=='],
+                  ['context' => 'module.manual-input.block', 'operator' => '=='],
+                  ['context' => 'module.manual-input.segment', 'operator' => '=='],
+                  ['context' => 'module.posts.index', 'operator' => '==']
+                ],
               ],
           ],
         ]);

@@ -49,7 +49,7 @@ class SliderHero
             'output'   => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['sidebar.slider-area.module.slider-item']
+                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
                 ]
             ],
         ]);
@@ -71,7 +71,7 @@ class SliderHero
             'output'   => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['sidebar.slider-area.module.slider-item']
+                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
                 ]
             ],
         ]);
@@ -93,7 +93,7 @@ class SliderHero
                 [
                     'type'    => 'component_data',
                     'dataKey' => 'overlay',
-                    'context' => ['sidebar.slider-area.module.slider-item']
+                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
                 ]
             ],
         ]);
