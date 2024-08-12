@@ -12,7 +12,7 @@ class KirkiSwatches
      *
      * @var array|null
      */
-    private static $cachedColors = null;
+    public static $cachedColors = null;
 
     /**
      * Returns a color swatch array.
@@ -28,7 +28,6 @@ class KirkiSwatches
 
         // Compute colors if not cached
         if (function_exists('get_theme_mod')) {
-
             $colorPalettePrimary    = get_theme_mod('color_palette_primary');
             $colorPaletterSecondary = get_theme_mod('color_palette_secondary');
             $colorBackground        = get_theme_mod('color_background')['background'];
