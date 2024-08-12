@@ -2,17 +2,18 @@
 
 namespace Municipio\Theme;
 
+use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
+
 /**
  * Class Navigation
  * @package Municipio\Theme
  */
 class Navigation
 {
-
     /**
      * Navigation constructor.
      */
-    public function __construct()
+    public function __construct(private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes)
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
@@ -20,19 +21,20 @@ class Navigation
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleButtons'), 10, 2);
     }
 
-    public static function getMenuLocations() {
+    public static function getMenuLocations()
+    {
         return array(
-            'help-menu' => __('Help menu', 'municipio'),
-            'header-tabs-menu' => __('Header tabs menu', 'municipio'),
-            'main-menu' => __('Primary menu', 'municipio'),
-            'secondary-menu' => __('Secondary menu & drawer menu', 'municipio'),
-            'mega-menu' => __('Mega menu', 'municipio'),
+            'help-menu'           => __('Help menu', 'municipio'),
+            'header-tabs-menu'    => __('Header tabs menu', 'municipio'),
+            'main-menu'           => __('Primary menu', 'municipio'),
+            'secondary-menu'      => __('Secondary menu & drawer menu', 'municipio'),
+            'mega-menu'           => __('Mega menu', 'municipio'),
             'dropdown-links-menu' => __('Dropdown menu', 'municipio'),
-            'floating-menu' => __('Floating menu', 'municipio'),
-            'language-menu' => __('Language menu', 'municipio'),
-            'quicklinks-menu' => __('Quicklinks menu', 'municipio'),
-            'mobile-drawer' => __('Drawer (bottom)', 'municipio'),
-            'siteselector-menu' => __('Siteselector', 'municipio'),
+            'floating-menu'       => __('Floating menu', 'municipio'),
+            'language-menu'       => __('Language menu', 'municipio'),
+            'quicklinks-menu'     => __('Quicklinks menu', 'municipio'),
+            'mobile-drawer'       => __('Drawer (bottom)', 'municipio'),
+            'siteselector-menu'   => __('Siteselector', 'municipio'),
         );
     }
 
@@ -47,11 +49,11 @@ class Navigation
             return $item;
         }
 
-        if(isset($item['style'])) {
+        if (isset($item['style'])) {
             $item['style'] = 'tiles';
         }
 
-        return $item; 
+        return $item;
     }
 
     /**
@@ -65,11 +67,11 @@ class Navigation
             return $item;
         }
 
-        if(isset($item['style'])) {
+        if (isset($item['style'])) {
             $item['style'] = 'button';
         }
 
-        return $item; 
+        return $item;
     }
 
     /**
@@ -81,7 +83,7 @@ class Navigation
 
         //Append dynamic menus
         $menus = array_merge($menus, $this->getArchiveMenus());
-        $menus = array_merge($menus, $this->getContentTypeMenus());
+        $menus = array_merge($menus, $this->getSchemaTypeMenus());
 
         //Register menus
         register_nav_menus($menus);
@@ -95,17 +97,16 @@ class Navigation
      */
     private function getArchiveMenus(): array
     {
-        $archiveMenu = array();
+        $archiveMenu     = array();
         $publicPostTypes = \Municipio\Helper\PostType::getPublic();
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postTypeSlug => $postType) {
-
                 if ($postType->has_archive !== true && ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))) {
                     continue;
                 }
 
-                $archiveMenu[$postType->name . '-menu'] = implode(
+                $archiveMenu[$postType->name . '-menu']           = implode(
                     ' ',
                     array(
                         $postType->label,
@@ -126,27 +127,28 @@ class Navigation
     }
 
     /**
-     * Get all content types
+     * Get all schema types menus.
      * Create a menu specification for each of these.
      *
      * @return array
      */
-    private function getContentTypeMenus(): array
+    private function getSchemaTypeMenus(): array
     {
-        $contentTypeMenu = array();
-        $contentTypes = \Municipio\Helper\ContentType::getRegisteredContentTypes();
+        $schemaTypeMenus    = array();
+        $enabledSchemaTypes = $this->getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();
 
-        if (is_array($contentTypes) && !empty($contentTypes)) {
-            foreach ($contentTypes as $key => $label) {
-                $contentTypeMenu[$key . '-secondary-menu'] = sprintf(
+        if (!empty($enabledSchemaTypes)) {
+            foreach ($enabledSchemaTypes as $type => $props) {
+                $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(
                     __('Content type - %s (sidebar)', 'municipio'),
-                    $label
+                    $type
                 );
             }
         }
 
-        return $contentTypeMenu;
+        return $schemaTypeMenus;
     }
+
     public function appendFetchUrl($item, $identifier)
     {
         $targetMenuIdentifiers = ['mobile', 'sidebar'];
@@ -196,7 +198,7 @@ class Navigation
 
         //Get depth
         while ($parentId > 0) {
-            $page = get_post($parentId);
+            $page     = get_post($parentId);
             $parentId = $page->post_parent;
             $depth++;
         }
