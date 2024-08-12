@@ -2,30 +2,16 @@
 
 namespace Municipio\SchemaData\Utils;
 
-use AcfService\Contracts\GetField;
+use AcfService\Implementations\FakeAcfService;
 use PHPUnit\Framework\TestCase;
 
 class GetSchemaTypeFromPostTypeTest extends TestCase
 {
     public function testReturnsNullIfEmptyString()
     {
-        $acfService                = $this->getAcfService();
+        $returnCallback            = fn($selector, $postId) => $postId  === 'post_type_without_schema_type_options' && $selector === 'schema' ? '' : null;
+        $acfService                = new FakeAcfService(['getField' => $returnCallback]);
         $getSchemaTypeFromPostType = new GetSchemaTypeFromPostType($acfService);
         $this->assertNull($getSchemaTypeFromPostType->getSchemaTypeFromPostType('post_type_without_schema_type'));
-    }
-
-    private function getAcfService(): GetField
-    {
-        return new class implements GetField {
-            public function getField(string $selector, int|false|string $postId = false, bool $formatValue = true, bool $escapeHtml = false)
-            {
-                return [
-                    'schema' => [
-                        'post_type_without_schema_type' => '',
-                        'post_type_with_schema_type'    => 'Airline',
-                    ]
-                ][$selector][$postId] ?? null;
-            }
-        };
     }
 }

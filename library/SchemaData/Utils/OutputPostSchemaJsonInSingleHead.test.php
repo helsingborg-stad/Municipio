@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\Utils;
 
 use Mockery;
-use Municipio\HooksRegistrar\Hookable;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;

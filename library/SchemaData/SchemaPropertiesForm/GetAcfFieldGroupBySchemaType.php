@@ -2,9 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm;
 
-use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FormFieldFromSchemaProperty;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
-use Municipio\SchemaData\Utils\IGetSchemaPropertiesWithParamTypes;
 use Spatie\SchemaOrg\Schema;
 use WpService\Contracts\ApplyFilters;
 
