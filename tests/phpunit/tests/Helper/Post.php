@@ -192,7 +192,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     * @testdox returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
     {
@@ -210,7 +210,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     * @testdox Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
     {
