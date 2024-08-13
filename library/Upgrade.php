@@ -13,7 +13,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 30; //The db version we want to achive
+    private $dbVersion    = 31; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -621,6 +621,11 @@ class Upgrade
             }
         }
         
+        return true;
+    }
+
+    private function v_31($db): bool {
+        $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed%'");
         return true;
     }
 
