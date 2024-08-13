@@ -25,8 +25,6 @@ use Predis\Command\Redis\TYPE;
 use WP_Post_Type;
 use WP_Query;
 use Municipio\Helper\Listing;
-use Municipio\Helper\ResourceFromApiHelper;
-use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\IniService\IniService;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use WP_Post;
@@ -365,7 +363,7 @@ class App
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', 'JobPosting', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/shemaobjects.json'),
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/thingshemaobjects.json'),
-                new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
+                // new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
             ],
             new \Municipio\ExternalContent\Sources\SourceFactory(),
             $this->wpService
