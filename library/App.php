@@ -4,7 +4,7 @@ namespace Municipio;
 
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
-use Municipio\Admin\Acf\ContentType\FieldOptions as ContentTypeSchemaFieldOptions;
+use Municipio\AdminNotice\AdminNoticeLevels;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -24,6 +24,12 @@ use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Predis\Command\Redis\TYPE;
 use WP_Post_Type;
 use WP_Query;
+use Municipio\Helper\Listing;
+use Municipio\Helper\ResourceFromApiHelper;
+use Municipio\HooksRegistrar\HooksRegistrarInterface;
+use Municipio\IniService\IniService;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use WP_Post;
 use WpService\WpService;
 
 /**
@@ -38,17 +44,18 @@ class App
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
-        private HooksRegistrarInterface $hooksRegistrar
+        private HooksRegistrarInterface $hooksRegistrar,
+        private SchemaObjectFromPostInterface $schemaObjectFromPost
     ) {
         /**
          * Upgrade
          */
-        new \Municipio\Upgrade();
+        new \Municipio\Upgrade($this->wpService, $this->acfService);
 
         /**
          * Template
          */
-        new \Municipio\Template();
+        new \Municipio\Template($this->acfService);
 
         /**
          * Theme
@@ -65,10 +72,9 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation();
+        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
-        new \Municipio\Theme\ThemeMods();
 
 
         new \Municipio\Search\General();
@@ -85,6 +91,18 @@ class App
         new \Municipio\Content\Cache();
         new \Municipio\Content\IframePosterImage();
 
+        /**
+         * Post decorators
+         */
+        $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
+
+            $decorator = new \Municipio\PostDecorators\ApplySchemaObject($this->schemaObjectFromPost);
+            $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData($decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace($this->acfService, new Listing(), $decorator);
+
+            return $decorator->apply($post);
+        }, 10, 1);
 
         /**
          * Resources from API
@@ -171,28 +189,14 @@ class App
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
-        new \Municipio\Admin\ExternalDeptendents();
-
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
-        new \Municipio\Admin\Options\Favicon();
         new \Municipio\Admin\Options\GoogleTranslate();
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
-        new \Municipio\Admin\Acf\LocationRules();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
-
-        // Register Content Type Schema fields
-        $prepareContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\PrepareField(
-            ContentTypeSchemaFieldOptions::FIELD_KEY,
-            ContentTypeSchemaFieldOptions::GROUP_NAME
-        );
-
-        $prepareContentTypeSchemaMetaFields->addHooks();
-        $saveContentTypeSchemaMetaFields = new \Municipio\Admin\Acf\ContentType\SavePost();
-        $saveContentTypeSchemaMetaFields->addHooks();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -236,14 +240,49 @@ class App
         });
 
         /**
+         * Imported post type design
+         */
+        $this->setupPostTypeDesign();
+
+        /**
          * Branded emails
          */
         $this->trySetupBrandedEmails();
 
         /**
+         * Apply schema.org data to posts
+         */
+        $this->setupSchemaDataFeature();
+
+        /**
          * External content
          */
         $this->trySetupExternalContent();
+    }
+
+    /**
+     * Sets up the post type design.
+     *
+     * This method initializes the post type design by creating instances of the
+     * SaveDesigns and SetDesigns classes and passing the option name and the
+     * WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupPostTypeDesign(): void
+    {
+        $optionName  = 'post_type_design';
+        $apiUrl      = 'https://customizer.municipio.tech/id/';
+        $saveDesigns =  new \Municipio\PostTypeDesign\SaveDesigns(
+            $optionName,
+            $this->wpService,
+            new \Municipio\PostTypeDesign\ConfigFromPageId($this->wpService, $apiUrl)
+        );
+
+        $setDesigns = new \Municipio\PostTypeDesign\SetDesigns($optionName, $this->wpService);
+
+        $this->hooksRegistrar->register($saveDesigns);
+        $this->hooksRegistrar->register($setDesigns);
     }
 
     /**
@@ -270,6 +309,53 @@ class App
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
+    }
+
+    private function setupSchemaDataFeature(): void
+    {
+        /**
+         * Feature enabled/disabled
+         */
+        if (
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== true &&
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== "1" &&
+            $this->acfService->getField('mun_schemadata_enabled', 'options') !== 1
+        ) {
+            return;
+        }
+
+        /**
+         * Shared dependencies.
+         */
+        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
+        $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
+
+        /**
+         * Limit schema types and properties.
+         */
+        $enabledSchemaTypes = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($enabledSchemaTypes->getEnabledSchemaTypesAndProperties(), $this->wpService));
+
+        /**
+         * Register field group for schema.org data that shows up on admin post list pages.
+         */
+        $schemaTypes = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService));
+
+        /**
+         * Output schemadata in head of single posts.
+         */
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($this->schemaObjectFromPost, $this->wpService));
+
+        /**
+         * Register form for schema properties on posts.
+         */
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers();
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField($formFieldFactory);
+        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
+        $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
+        $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $getSchemaTypeFromPostType));
     }
 
     private function trySetupExternalContent(): void

@@ -2,11 +2,13 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Divider
 {
     public function __construct($sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'divider_thickness',
             'label'       => esc_html__('Divider thickness', 'municipio'),
@@ -27,7 +29,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'divider_border_style',
             'label'       => esc_html__('Border style', 'municipio'),
@@ -53,7 +55,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'multicolor',
             'settings'    => 'divider_colors',
             'label'       => esc_html__('Colors', 'municipio'),
@@ -76,7 +78,7 @@ class Divider
             ]
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'switch',
             'settings'    => 'divider_custom_font',
             'label'       => esc_html__('Customize text color', 'municipio'),
@@ -101,7 +103,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'color',
             'settings'    => 'divider_color_text',
             'label'       => esc_html__('Text color', 'municipio'),
@@ -126,7 +128,7 @@ class Divider
             ]
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'divider_title_alignment',
             'label'       => esc_html__('Text alignment', 'municipio'),
@@ -152,7 +154,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'switch',
             'settings'    => 'divider_title_frame',
             'label'       => esc_html__('Wrap title in frame', 'municipio'),
@@ -177,7 +179,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'multicolor',
             'settings'    => 'divider_frame_colors',
             'label'       => esc_html__('Frame colors', 'municipio'),
@@ -214,7 +216,7 @@ class Divider
             ]
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'divider_title_border_radius',
             'label'       => esc_html__('Frame border radius', 'municipio'),
@@ -242,7 +244,7 @@ class Divider
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'divider_title_border_width',
             'label'       => esc_html__('Frame border width', 'municipio'),

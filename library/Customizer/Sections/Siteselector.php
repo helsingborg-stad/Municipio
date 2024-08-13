@@ -1,14 +1,14 @@
 <?php
 
 namespace Municipio\Customizer\Sections;
-use Municipio\Customizer as Customizer;
-use Kirki as Kirki;
+
+use Municipio\Customizer\KirkiField;
 
 class Siteselector
 {
     public function __construct(string $sectionID)
     {
-        Kirki::add_field(Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'        => 'radio',
           'settings'    => 'siteselector_color_source',
           'label'       => esc_html__('Select color source', 'municipio'),
@@ -20,13 +20,13 @@ class Siteselector
             'default' => esc_html__('Predefined colors', 'municipio'),
             'custom'  => esc_html__('Custom color', 'municipio'),
           ],
-          'output' => [
+          'output'      => [
             [
-              'type' => 'component_data',
+              'type'    => 'component_data',
               'dataKey' => 'colorMode',
               'context' => [
                 [
-                    'context' => 'component.siteselector',
+                    'context'  => 'component.siteselector',
                     'operator' => '==',
                 ],
               ]
@@ -34,129 +34,128 @@ class Siteselector
           ],
         ]);
 
-        Kirki::add_field(Customizer::KIRKI_CONFIG, [
-          'type'        => 'multicolor',
-          'settings'    => 'custom_colors',
-          'label'       => esc_html__('Custom colors', 'municipio'),
-          'section'     => $sectionID,
-          'priority'    => 10,
-          'transport' => 'auto',
-          'choices'     => [
-            'background'    => esc_html__('Background', 'municipio'),
-            'contrasting'    => esc_html__('Contrasting', 'municipio')
+        KirkiField::addField([
+          'type'            => 'multicolor',
+          'settings'        => 'custom_colors',
+          'label'           => esc_html__('Custom colors', 'municipio'),
+          'section'         => $sectionID,
+          'priority'        => 10,
+          'transport'       => 'auto',
+          'choices'         => [
+            'background'  => esc_html__('Background', 'municipio'),
+            'contrasting' => esc_html__('Contrasting', 'municipio')
           ],
-          'default'     => [
-            'background'    => '#eee',
-            'contrasting'    => '#000'
+          'default'         => [
+            'background'  => '#eee',
+            'contrasting' => '#000'
           ],
-          'output' => [
+          'output'          => [
             [
-                'choice'    => 'background',
-                'element'   => ':root',
-                'property'  => '--c-siteselector-background'
+                'choice'   => 'background',
+                'element'  => ':root',
+                'property' => '--c-siteselector-background'
             ],
             [
-                'choice'    => 'contrasting',
-                'element'   => ':root',
-                'property'  => '--c-siteselector-contrast'
+                'choice'   => 'contrasting',
+                'element'  => ':root',
+                'property' => '--c-siteselector-contrast'
             ]
           ],
-          'active_callback'  => [
+          'active_callback' => [
             [
               'setting'  => 'siteselector_color_source',
               'operator' => '===',
               'value'    => 'custom',
             ]
           ]
-      ]);
+        ]);
 
-      Kirki::add_field(Customizer::KIRKI_CONFIG, [
-        'type'        => 'select',
-        'settings'    => 'siteselector_color_scheme',
-        'label'       => esc_html__('Color scheme', 'municipio'),
-        'description' => esc_html__('Select color scheme to use for this component.', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => '',
-        'priority'    => 10,
-        'choices'     => [
+        KirkiField::addField([
+        'type'            => 'select',
+        'settings'        => 'siteselector_color_scheme',
+        'label'           => esc_html__('Color scheme', 'municipio'),
+        'description'     => esc_html__('Select color scheme to use for this component.', 'municipio'),
+        'section'         => $sectionID,
+        'default'         => '',
+        'priority'        => 10,
+        'choices'         => [
           'primary'   => esc_html__('Primary', 'municipio'),
           'secondary' => esc_html__('Secondary', 'municipio')
         ],
-        'output' => [
+        'output'          => [
           [
-            'type' => 'component_data',
+            'type'    => 'component_data',
             'dataKey' => 'color',
             'context' => [
               [
-                  'context' => 'component.siteselector',
+                  'context'  => 'component.siteselector',
                   'operator' => '==',
               ],
             ]
           ]
         ],
-        'active_callback'  => [
+        'active_callback' => [
           [
             'setting'  => 'siteselector_color_source',
             'operator' => '===',
             'value'    => 'default',
           ]
         ],
-      ]);
+        ]);
 
-      Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-        'type'        => 'select',
-        'settings'    => 'siteselector_border_radius',
-        'label'       => esc_html__('Rounded corners', 'municipio'),
-        'description' => esc_html__('Select amount of border radius', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => 'pill',
-        'priority'    => 10,
-        'choices'     => [
-          'xs' => esc_html__('Extra small', 'municipio'),
-          'sm' => esc_html__('Small', 'municipio'),
-          'md' => esc_html__('Medium', 'municipio'),
-          'lg' => esc_html__('Large', 'municipio'),
-          'pill' => esc_html__('Pill', 'municipio')
-        ],
-        'output' => [
-          [
-            'type' => 'component_data',
-            'dataKey' => 'radius',
-            'context' => [
-              [
-                  'context' => 'component.siteselector',
-                  'operator' => '==',
-              ],
+        KirkiField::addField([
+          'type'        => 'select',
+          'settings'    => 'siteselector_border_radius',
+          'label'       => esc_html__('Rounded corners', 'municipio'),
+          'description' => esc_html__('Select amount of border radius', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => 'pill',
+          'priority'    => 10,
+          'choices'     => [
+            'xs'   => esc_html__('Extra small', 'municipio'),
+            'sm'   => esc_html__('Small', 'municipio'),
+            'md'   => esc_html__('Medium', 'municipio'),
+            'lg'   => esc_html__('Large', 'municipio'),
+            'pill' => esc_html__('Pill', 'municipio')
+          ],
+          'output'      => [
+            [
+              'type'    => 'component_data',
+              'dataKey' => 'radius',
+              'context' => [
+                [
+                    'context'  => 'component.siteselector',
+                    'operator' => '==',
+                ],
+              ]
             ]
-          ]
-        ],
-      ]);
+          ],
+        ]);
 
-      Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-        'type'        => 'slider',
-        'settings'    => 'siteselector_max_items',
-        'label'       => esc_html__('Number of items', 'municipio'),
-        'description' => esc_html__('The maximum number of items to display, before folding to a dropdown.', 'municipio'),
-        'section'     => $sectionID,
-        'default'     => 3,
-        'choices'     => [
-            'min'  => 2,
-            'max'  => 7,
-            'step' => 1,
-        ],
-        'output' => [
-          [
-            'type' => 'component_data',
-            'dataKey' => 'maxItems',
-            'context' => [
-              [
-                  'context' => 'component.siteselector',
-                  'operator' => '==',
-              ],
+        KirkiField::addField([
+          'type'        => 'slider',
+          'settings'    => 'siteselector_max_items',
+          'label'       => esc_html__('Number of items', 'municipio'),
+          'description' => esc_html__('The maximum number of items to display, before folding to a dropdown.', 'municipio'),
+          'section'     => $sectionID,
+          'default'     => 3,
+          'choices'     => [
+              'min'  => 2,
+              'max'  => 7,
+              'step' => 1,
+          ],
+          'output'      => [
+            [
+              'type'    => 'component_data',
+              'dataKey' => 'maxItems',
+              'context' => [
+                [
+                    'context'  => 'component.siteselector',
+                    'operator' => '==',
+                ],
+              ]
             ]
-          ]
-        ],
-      ]);
-
+          ],
+        ]);
     }
 }

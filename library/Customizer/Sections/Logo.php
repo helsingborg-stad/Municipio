@@ -2,21 +2,19 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki\Compatibility\Kirki;
-use Kirki\Field\Upload as UploadField;
-use Kirki\Field\TextArea as TextareaField;
+use Municipio\Customizer\KirkiField;
 
 class Logo
 {
     public function __construct(string $sectionID)
     {
-        $primaryDescription = esc_html__('Only accepts .svg-files (Scalable Vector Graphics).', 'municipio');
+        $primaryDescription   = esc_html__('Only accepts .svg-files (Scalable Vector Graphics).', 'municipio');
         $secondaryDescription = esc_html__(
             'Upload your secondary logotype in .svg format (Scalable Vector Graphics).
             The secondary logotype is usually 100% white and can be used on dark or colored backgrounds.',
             'municipio'
         );
-        $emblemDescription = esc_html__(
+        $emblemDescription    = esc_html__(
             'Upload an emblem in .svg format (Scalable Vector Graphics).
             The emblem will be used to strengthen the website brand, when a sub brand is used.',
             'municipio'
@@ -43,24 +41,26 @@ class Logo
             $emblemDescription
         );
 
-        Kirki::add_field($primaryLogoField);
-        Kirki::add_field($secondaryLogoField);
-        Kirki::add_field($emblemField);
+        KirkiField::addField($primaryLogoField);
+        KirkiField::addField($secondaryLogoField);
+        KirkiField::addField($emblemField);
     }
 
-    private function getImageField(string $sectionID, string $setting, string $label, string $description): UploadField
+    private function getImageField(string $sectionID, string $setting, string $label, string $description): array
     {
-        return new UploadField([
-        'mime_type' => 'image/svg+xml',
-        'settings'          => $setting,
-        'label'             => $label,
-        'description'       => $description,
-        'section'           => $sectionID,
-        'output'            => [
-            [
-                'type' => 'controller',
-                'as_object' => false,
+        return [
+            'type'        => 'upload',
+            'mime_type'   => 'image/svg+xml',
+            'settings'    => $setting,
+            'label'       => $label,
+            'description' => $description,
+            'section'     => $sectionID,
+            'output'      => [
+                [
+                    'type'      => 'controller',
+                    'as_object' => false,
+                ]
             ]
-        ]]);
+        ];
     }
 }

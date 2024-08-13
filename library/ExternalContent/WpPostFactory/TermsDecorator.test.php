@@ -7,11 +7,10 @@ use Municipio\ExternalContent\Sources\Services\NullSource;
 use Municipio\ExternalContent\Taxonomy\ITaxonomyItem;
 use Municipio\ExternalContent\Taxonomy\ITaxonomyRegistrar;
 use Municipio\ExternalContent\Taxonomy\NullTaxonomyItem;
+use Municipio\ExternalContent\WpTermFactory\WpTermFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
-use WP_Error;
-use WpService\Contracts\InsertTerm;
-use WpService\Contracts\TermExists;
+use WpService\Implementations\FakeWpService;
 
 class TermsDecoratorTest extends TestCase
 {
@@ -22,13 +21,13 @@ class TermsDecoratorTest extends TestCase
     {
         $taxonomyRegistrar        = $this->getTaxonomyRegistrar([$this->getTaxonomyItem()]);
         $schemaObject             = new Event();
-        $schemaObject['keywords'] = ['foo', 'bar'];
-        $wpService                = $this->getWpService();
-        $termsDecorator           = new TermsDecorator($taxonomyRegistrar, $wpService, new WpPostFactory());
+        $schemaObject['keywords'] = ['foo'];
+        $wpService                = new FakeWpService(['termExists' => null, 'insertTerm' => ['term_id' => 1]]);
+        $termsDecorator           = new TermsDecorator($taxonomyRegistrar, new WpTermFactory(), $wpService, new WpPostFactory());
 
         $postData = $termsDecorator->create($schemaObject, $this->getSource());
 
-        $this->assertEquals([1, 2], $postData['tax_input']['test_taxonomy']);
+        $this->assertEquals([1], $postData['tax_input']['test_taxonomy']);
     }
 
     /**
@@ -38,13 +37,18 @@ class TermsDecoratorTest extends TestCase
     {
         $taxonomyRegistrar        = $this->getTaxonomyRegistrar([$this->getTaxonomyItem()]);
         $schemaObject             = new Event();
-        $schemaObject['keywords'] = ['baz', 'qux'];
-        $wpService                = $this->getWpService();
-        $termsDecorator           = new TermsDecorator($taxonomyRegistrar, $wpService, new WpPostFactory());
+        $schemaObject['keywords'] = ['baz'];
+        $wpService                = new FakeWpService(['termExists' => ['term_id' => 3]]);
+        $termsDecorator           = new TermsDecorator(
+            $taxonomyRegistrar,
+            new WpTermFactory(),
+            $wpService,
+            new WpPostFactory()
+        );
 
         $postData = $termsDecorator->create($schemaObject, $this->getSource());
 
-        $this->assertEquals([3, 4], $postData['tax_input']['test_taxonomy']);
+        $this->assertEquals([3], $postData['tax_input']['test_taxonomy']);
     }
 
     private function getTaxonomyItem(): ITaxonomyItem
@@ -70,30 +74,6 @@ class TermsDecoratorTest extends TestCase
     private function getSource(): ISource
     {
         return new NullSource();
-    }
-
-    private function getWpService(): InsertTerm&TermExists
-    {
-        return new class implements InsertTerm, TermExists {
-            private int $termsCreatedCount = 0;
-            private array $existingTerms   = [
-                'test_taxonomy' => [
-                    'baz' => ['term_id' => 3],
-                    'qux' => ['term_id' => 4]
-                ]
-            ];
-
-            public function insertTerm(string $term, string $taxonomy = "", array $args = []): array|WP_Error
-            {
-                $this->termsCreatedCount++;
-                return ['term_id' => $this->termsCreatedCount];
-            }
-
-            public function termExists(int|string $term, string $taxonomy = "", ?int $parentTerm = null): null|int|array
-            {
-                return $this->existingTerms[$taxonomy][$term] ?? null;
-            }
-        };
     }
 
     private function getTaxonomyRegistrar(array $taxonomyItems): ITaxonomyRegistrar

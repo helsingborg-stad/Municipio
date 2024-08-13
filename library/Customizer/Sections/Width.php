@@ -2,104 +2,94 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Width
 {
-    private $variations = []; 
-    private $base = 8; 
+    private $variations = [];
+    private $base       = 8;
 
     public function __construct($sectionID)
     {
         $this->variations = [
             [
-              'key' => '',
-              'label' => esc_html__("Default", 'municipio'),
-              'default' => ($this->base * 160),
+              'key'      => '',
+              'css'      => '--container-width',
+              'label'    => esc_html__("Container", 'municipio'),
+              'default'  => ($this->base * 160),
               'minWidth' => ($this->base * 113),
               'maxWidth' => ($this->base * 205)
             ],
             [
-                'key' => '_frontpage',
-                'label' => esc_html__("Front Page", 'municipio'),
-                'default' => ($this->base * 160),
-                'minWidth' => ($this->base * 113),
-                'maxWidth' => ($this->base * 205)
-            ],
-            [
-              'key' => '_archive',
-              'label' => esc_html__("Archives", 'municipio'),
-              'default' => ($this->base * 160),
-              'minWidth' => ($this->base * 113),
-              'maxWidth' => ($this->base * 205)
-            ],
-            [
-              'key' => '_content',
-              'label' => esc_html__("Content", 'municipio'),
-              'default' => ($this->base * 88),
+              'key'      => '_content',
+              'css'      => '--container-width-content',
+              'label'    => esc_html__("Content", 'municipio'),
+              'default'  => ($this->base * 88),
               'minWidth' => ($this->base * 50),
               'maxWidth' => ($this->base * 113)
             ]
-        ]; 
+        ];
 
         foreach ($this->variations as $key => $args) {
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                'type'        => 'slider',
-                'settings'    => 'container' . $args['key'],
-                'label'       => $args['label'],
-                'section'     => $sectionID,
-                'default'     => $args['default'],
-                'choices'     => [
+            KirkiField::addField([
+                'type'     => 'slider',
+                'settings' => 'container' . $args['key'],
+                'label'    => $args['label'],
+                'section'  => $sectionID,
+                'default'  => $args['default'],
+                'choices'  => [
                     'min'  => $args['minWidth'],
                     'max'  => $args['maxWidth'],
                     'step' => $this->base,
                 ],
-                'output' => [
+                'output'   => [
                     [
-                        'element'   => 'width',
-                        'property'  => empty($args['key']) ? 'default' : ltrim($args['key'], "_"),
+                        'element'  => ':root',
+                        'property' => $args['css'],
                         'units'    => 'px',
                     ]
                 ],
             ]);
         }
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'custom',
-            'settings'    => 'heading_width',
-            'section'     => $sectionID,
-            'default'     => '
-                                <h2>' . esc_html__('Width of page columns', 'municipio') .' </h2> 
+        KirkiField::addField([
+            'type'     => 'custom',
+            'settings' => 'heading_width',
+            'section'  => $sectionID,
+            'default'  => '
+                                <h2>' . esc_html__('Width of page columns', 'municipio') . ' </h2> 
                                 <p class="description customize-section-description">' . esc_html__('Set the width of left & right columns. The middle (content) column will use whatever space left.', 'municipio') . '</p>
                             ',
-        ] );
+        ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'column_size_left',
-            'label'       => esc_html__('Left', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'normal',
-            'priority'    => 15,
-            'choices'     => [
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'column_size_left',
+            'label'    => esc_html__('Left', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'normal',
+            'priority' => 15,
+            'choices'  => [
                 'normal' => esc_html__('Normal', 'municipio'),
-                'large' => esc_html__('Large', 'municipio'),
+                'large'  => esc_html__('Large', 'municipio'),
             ],
-            'output' => [
+            'output'   => [
                 ['type' => 'controller']
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'column_size_right',
-            'label'       => esc_html__('Right', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'normal',
-            'priority'    => 20,
-            'choices'     => [
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'column_size_right',
+            'label'    => esc_html__('Right', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'normal',
+            'priority' => 20,
+            'choices'  => [
                 'normal' => esc_html__('Normal', 'municipio'),
-                'large' => esc_html__('Large', 'municipio'),
+                'large'  => esc_html__('Large', 'municipio'),
             ],
-            'output' => [
+            'output'   => [
                 ['type' => 'controller']
             ],
         ]);

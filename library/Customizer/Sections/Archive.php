@@ -2,41 +2,43 @@
 
 namespace Municipio\Customizer\Sections;
 
+use Municipio\Customizer\KirkiField;
+
 class Archive
 {
     public $sectionId;
 
     public function __construct(string $sectionID, object $archive)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'text',
             'settings' => 'archive_' . $archive->name . '_heading',
             'label'    => esc_html__('Archive heading', 'municipio'),
             'section'  => $sectionID,
             'default'  => '',
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'textarea',
             'settings' => 'archive_' . $archive->name . '_body',
             'label'    => esc_html__('Archive lead text', 'municipio'),
             'section'  => $sectionID,
             'default'  => '',
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'     => 'select',
             'settings' => 'archive_' . $archive->name . '_style',
             'label'    => esc_html__('Style', 'municipio'),
@@ -44,33 +46,33 @@ class Archive
             'default'  => 'cards',
             'choices'  => [
                 'compressed' => esc_html__('Compressed', 'municipio'),
-                'cards' => esc_html__('Cards', 'municipio'),
-                'newsitem' => esc_html__('News', 'municipio'),
-                'list' => esc_html__('List', 'municipio'),
-                'grid' => esc_html__('Blocks', 'municipio'),
+                'cards'      => esc_html__('Cards', 'municipio'),
+                'newsitem'   => esc_html__('News', 'municipio'),
+                'list'       => esc_html__('List', 'municipio'),
+                'grid'       => esc_html__('Blocks', 'municipio'),
                 'collection' => esc_html__('Collection', 'municipio')
             ],
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'select',
-            'settings' => 'archive_' . $archive->name . '_format',
-            'label'    => esc_html__('Format', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => 'tall',
-            'choices'  => [
-                'tall'      => esc_html__('Tall', 'municipio'),
-                'square'    => esc_html__('Square', 'municipio')
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'archive_' . $archive->name . '_format',
+            'label'           => esc_html__('Format', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'tall',
+            'choices'         => [
+                'tall'   => esc_html__('Tall', 'municipio'),
+                'square' => esc_html__('Square', 'municipio')
             ],
-            'output' => [
+            'output'          => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
@@ -83,19 +85,19 @@ class Archive
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'switch',
-            'settings' => 'archive_' . $archive->name . '_display_featured_image',
-            'label'    => esc_html__('Display featured image', 'municipio'),
-            'section'  => $sectionID,
-            'default'     => 1,
-            'choices' => [
-                1  => esc_html__('Show', 'municipio'),
+        KirkiField::addField([
+            'type'            => 'switch',
+            'settings'        => 'archive_' . $archive->name . '_display_featured_image',
+            'label'           => esc_html__('Display featured image', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 1,
+            'choices'         => [
+                1 => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),
             ],
-            'output' => [
+            'output'          => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
@@ -107,7 +109,7 @@ class Archive
                 ]
             ],
         ]);
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'archive_' . $archive->name . '_post_count',
             'label'       => esc_html__('Number of posts to display', 'municipio'),
@@ -122,22 +124,22 @@ class Archive
             ]
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'slider',
-            'settings'    => 'archive_' . $archive->name . '_number_of_columns',
-            'label'       => esc_html__('Number of columns to display', 'municipio'),
-            'description' => esc_html__('How many columns that the posts should be divided in.', 'municipio'),
-            'section'     => $sectionID,
-            'transport'   => 'refresh',
-            'default'     => 4,
-            'choices'     => [
+        KirkiField::addField([
+            'type'            => 'slider',
+            'settings'        => 'archive_' . $archive->name . '_number_of_columns',
+            'label'           => esc_html__('Number of columns to display', 'municipio'),
+            'description'     => esc_html__('How many columns that the posts should be divided in.', 'municipio'),
+            'section'         => $sectionID,
+            'transport'       => 'refresh',
+            'default'         => 4,
+            'choices'         => [
                 'min'  => 1,
                 'max'  => 4,
                 'step' => 1,
             ],
-            'output' => [
+            'output'          => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
@@ -150,38 +152,38 @@ class Archive
             ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'switch',
-            'settings' => 'archive_' . $archive->name . '_display_openstreetmap',
-            'label'    => esc_html__('Display map', 'municipio'),
+        KirkiField::addField([
+            'type'        => 'switch',
+            'settings'    => 'archive_' . $archive->name . '_display_openstreetmap',
+            'label'       => esc_html__('Display map', 'municipio'),
             'description' => esc_html__('Display an Open Street Map on the archive if applicable.', 'municipio'),
-            'section'  => $sectionID,
+            'section'     => $sectionID,
             'default'     => 0,
-            'choices' => [
-                1  => esc_html__('Show', 'municipio'),
+            'choices'     => [
+                1 => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
         ]);
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'switch',
-            'settings' => 'archive_' . $archive->name . '_display_archive_loop',
-            'label'    => esc_html__('Keep the regular loop', 'municipio'),
-            'description' => esc_html__('Keep the regular loop of posts on the archive?', 'municipio'),
-            'section'  => $sectionID,
-            'default'     => 0,
-            'choices' => [
-                1  => esc_html__('Show', 'municipio'),
+        KirkiField::addField([
+            'type'            => 'switch',
+            'settings'        => 'archive_' . $archive->name . '_display_archive_loop',
+            'label'           => esc_html__('Keep the regular loop', 'municipio'),
+            'description'     => esc_html__('Keep the regular loop of posts on the archive?', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 0,
+            'choices'         => [
+                1 => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),
             ],
-            'output' => [
+            'output'          => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
@@ -193,20 +195,20 @@ class Archive
                 ]
             ],
         ]);
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'     => 'switch',
-            'settings' => 'archive_' . $archive->name . '_display_google_maps_link',
-            'label'    => esc_html__('Display Google Maps-link', 'municipio'),
-            'description' => esc_html__('Display a link to Google Maps on each marker on the map?', 'municipio'),
-            'section'  => $sectionID,
-            'default'     => 0,
-            'choices' => [
-                1  => esc_html__('Show', 'municipio'),
+        KirkiField::addField([
+            'type'            => 'switch',
+            'settings'        => 'archive_' . $archive->name . '_display_google_maps_link',
+            'label'           => esc_html__('Display Google Maps-link', 'municipio'),
+            'description'     => esc_html__('Display a link to Google Maps on each marker on the map?', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 0,
+            'choices'         => [
+                1 => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),
             ],
-            'output' => [
+            'output'          => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ],
             ],
@@ -218,46 +220,46 @@ class Archive
                 ]
             ],
         ]);
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'archive_' . $archive->name . '_enabled_filters',
-            'label'       => esc_html__('Filters', 'municipio'),
-            'description' => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
-            'multiple'    => 6,
-            'section'     => $sectionID,
+        KirkiField::addField([
+            'type'              => 'select',
+            'settings'          => 'archive_' . $archive->name . '_enabled_filters',
+            'label'             => esc_html__('Filters', 'municipio'),
+            'description'       => esc_html__('Add filters to let the user browse partial content.', 'municipio'),
+            'multiple'          => 6,
+            'section'           => $sectionID,
             // Below prevents Kirki bugg from using faulty default sanitize_callback.
             'sanitize_callback' => fn($values) => $values,
-            'default' => [],
-            'choices'     => array_merge(
+            'default'           => [],
+            'choices'           => array_merge(
                 [
                     'text_search' => esc_html__('Text search', 'municipio'),
-                    'date_range' => esc_html__('Date range', 'municipio'),
+                    'date_range'  => esc_html__('Date range', 'municipio'),
                 ],
                 (array) isset($archive->taxonomies) && !empty($archive->taxonomies) ? $archive->taxonomies : []
             ),
-            'output' => [
+            'output'            => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ],
         ]);
         if (!empty($archive->taxonomies)) {
             foreach ($archive->taxonomies as $key => $label) :
-                \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                'type'        => 'select',
-                'settings'    => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
-                'label'       => $label,
-                'description' => sprintf(esc_html__('What field type to use for the %s filter.', 'municipio'), $label),
-                'section'     => $sectionID,
-                'choices'     => [
-                    'multi' => esc_html__('Multiselect', 'municipio'),
+                KirkiField::addField([
+                'type'            => 'select',
+                'settings'        => 'archive_' . $archive->name . '_' . $key . '_filter_field_type',
+                'label'           => $label,
+                'description'     => sprintf(esc_html__('What field type to use for the %s filter.', 'municipio'), $label),
+                'section'         => $sectionID,
+                'choices'         => [
+                    'multi'  => esc_html__('Multiselect', 'municipio'),
                     'single' => esc_html__('Single select', 'municipio'),
                 ],
-                'default'     => 'multi',
-                'output' => [
+                'default'         => 'multi',
+                'output'          => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
@@ -271,7 +273,7 @@ class Archive
                 ]);
             endforeach;
         }
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_filter_type',
             'label'       => esc_html__('Facetting type', 'municipio'),
@@ -279,31 +281,31 @@ class Archive
             'section'     => $sectionID,
             'default'     => 'or',
             'choices'     => [
-                'or' => esc_html__('OR', 'municipio'),
-                'and'  => esc_html__('AND', 'municipio'),
+                'or'  => esc_html__('OR', 'municipio'),
+                'and' => esc_html__('AND', 'municipio'),
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ]
         ]);
 
         if (!empty($archive->taxonomies)) {
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                'type'        => 'select',
-                'settings'    => 'archive_' . $archive->name . '_taxonomies_to_display',
-                'label'       => esc_html__('Taxonomy display', 'municipio'),
-                'description' => esc_html__('What taxonomies should be displayed?', 'municipio'),
-                'multiple'    => 4,
-                'section'     => $sectionID,
-                'choices'     => $archive->taxonomies,
+            KirkiField::addField([
+                'type'              => 'select',
+                'settings'          => 'archive_' . $archive->name . '_taxonomies_to_display',
+                'label'             => esc_html__('Taxonomy display', 'municipio'),
+                'description'       => esc_html__('What taxonomies should be displayed?', 'municipio'),
+                'multiple'          => 4,
+                'section'           => $sectionID,
+                'choices'           => $archive->taxonomies,
                 // Below prevents Kirki bugg from using faulty default sanitize_callback.
                 'sanitize_callback' => fn($values) => $values,
-                'output' => [
+                'output'            => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
@@ -311,7 +313,7 @@ class Archive
         }
 
         if (!empty($archive->orderBy)) {
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            KirkiField::addField([
                 'type'        => 'select',
                 'settings'    => 'archive_' . $archive->name . '_order_by',
                 'label'       => esc_html__('Order By', 'municipio'),
@@ -319,15 +321,15 @@ class Archive
                 'section'     => $sectionID,
                 'choices'     => $archive->orderBy,
                 'default'     => 'post_date',
-                'output' => [
+                'output'      => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
             ]);
 
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+            KirkiField::addField([
                 'type'        => 'select',
                 'settings'    => 'archive_' . $archive->name . '_order_direction',
                 'label'       => esc_html__('Order direction', 'municipio'),
@@ -335,12 +337,12 @@ class Archive
                 'section'     => $sectionID,
                 'default'     => 'desc',
                 'choices'     => [
-                    'asc' => __("Ascending", 'municipio'),
+                    'asc'  => __("Ascending", 'municipio'),
                     'desc' => __("Decending", 'municipio')
                 ],
-                'output' => [
+                'output'      => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
@@ -348,20 +350,20 @@ class Archive
         }
 
         if (!empty($archive->dateSource)) {
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                'type'        => 'select',
-                'settings'    => 'archive_' . $archive->name . '_date_field',
-                'label'       => esc_html__('Date', 'municipio'),
-                'description' => esc_html__('Select source of timestamp for post', 'municipio'),
-                'section'     => $sectionID,
-                'default'     => 'none',
-                'choices'     => array_merge(
+            KirkiField::addField([
+                'type'            => 'select',
+                'settings'        => 'archive_' . $archive->name . '_date_field',
+                'label'           => esc_html__('Date', 'municipio'),
+                'description'     => esc_html__('Select source of timestamp for post', 'municipio'),
+                'section'         => $sectionID,
+                'default'         => 'none',
+                'choices'         => array_merge(
                     ['none' => esc_html__('Hide date', 'municipio')],
                     $archive->dateSource
                 ),
-                'output' => [
+                'output'          => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
@@ -374,21 +376,21 @@ class Archive
                 ],
             ]);
 
-            \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                'type'        => 'select',
-                'settings'    => 'archive_' . $archive->name . '_date_format',
-                'label'       => esc_html__('Date format', 'municipio'),
-                'description' => esc_html__('In what format to display date', 'municipio'),
-                'section'     => $sectionID,
-                'default'     => 'date',
-                'choices'     => [
-                    'date' => esc_html__('Date', 'municipio'),
-                    'date-time' => esc_html__('Date, Time', 'municipio'),
+            KirkiField::addField([
+                'type'            => 'select',
+                'settings'        => 'archive_' . $archive->name . '_date_format',
+                'label'           => esc_html__('Date format', 'municipio'),
+                'description'     => esc_html__('In what format to display date', 'municipio'),
+                'section'         => $sectionID,
+                'default'         => 'date',
+                'choices'         => [
+                    'date'       => esc_html__('Date', 'municipio'),
+                    'date-time'  => esc_html__('Date, Time', 'municipio'),
                     'date-badge' => esc_html__('Date badge', 'municipio')
                 ],
-                'output' => [
+                'output'          => [
                     [
-                        'type' => 'controller',
+                        'type'      => 'controller',
                         'as_object' => true,
                     ]
                 ],
@@ -406,20 +408,20 @@ class Archive
                 ],
             ]);
         }
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'switch',
             'settings'    => 'archive_' . $archive->name . '_reading_time',
             'label'       => esc_html__('Display reading time', 'municipio'),
             'description' => esc_html__('Wether to display the estimated reading time for each post', 'municipio'),
             'section'     => $sectionID,
             'default'     => 0,
-            'choices' => [
-                1  => esc_html__('Show', 'municipio'),
+            'choices'     => [
+                1 => esc_html__('Show', 'municipio'),
                 0 => esc_html__('Hide', 'municipio'),
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'type' => 'controller',
+                    'type'      => 'controller',
                     'as_object' => true,
                 ]
             ]

@@ -26,7 +26,7 @@ class Customizer
                 __("Kirki Customizer framework is required"),
                 __("Plugin install required"),
                 [
-                    'link_url' => "https://github.com/kirki-framework/kirki.git",
+                    'link_url'  => "https://github.com/helsingborg-stad/kirki",
                     'link_text' => __("Install plugin", 'municipio')
                 ]
             );
@@ -85,8 +85,8 @@ class Customizer
      */
     public function loadEmbeddedKirkiPro()
     {
-        if(function_exists('kirki_pro_load_controls')) {
-            kirki_pro_load_controls(); 
+        if (function_exists('kirki_pro_load_controls')) {
+            kirki_pro_load_controls();
         }
     }
 
@@ -122,15 +122,16 @@ class Customizer
         Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
-            'gutenberg_support' => false
+            'gutenberg_support' => false,
+            'disable_output'    => true
         ));
 
         // Custom fonts support (parse uploaded fonts)
-        if(class_exists('\Kirki\Module\FontUploads')) {
+        if (class_exists('\Kirki\Module\FontUploads')) {
             new \Kirki\Module\FontUploads();
         }
 
-        //Applicators [Stuff that make effect on the frontend]
+        //Applicators [Applies settings on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
         new \Municipio\Customizer\Applicators\ComponentData();
         new \Municipio\Customizer\Applicators\ControllerVariables();

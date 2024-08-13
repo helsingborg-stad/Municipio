@@ -35,7 +35,7 @@
         "dompdf/dompdf": "^2.0.4",
         "spatie/schema-org": "^3.9",
         "helsingborg-stad/wpservice": "^1.7",
-        "helsingborg-stad/acfservice": "^0.1.2",
+        "helsingborg-stad/acfservice": "~0.4",
         "typesense/typesense-php": "^4.9",
         "symfony/http-client": "^7.0"
     },
@@ -82,5 +82,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "4.29.5"
+    "version": "5.8.0"
 }

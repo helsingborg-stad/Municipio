@@ -2,7 +2,7 @@
 
 namespace Municipio\Customizer\Sections;
 
-use Kirki as Kirki;
+use Municipio\Customizer\KirkiField;
 
 class SliderDefault
 {
@@ -11,29 +11,29 @@ class SliderDefault
         /**
          * Slider gap
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'slider',
-            'settings'    => 'slider_gap',
-            'label'       => esc_html__('Gap between slides', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 2,
-            'choices'     => [
+        KirkiField::addField([
+            'type'     => 'slider',
+            'settings' => 'slider_gap',
+            'label'    => esc_html__('Gap between slides', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 2,
+            'choices'  => [
                 'min'  => 0,
                 'max'  => 12,
                 'step' => 1,
             ],
-            'output'      => [
+            'output'   => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--c-slider-gap',
-                    'unit'      => ''
+                    'element'  => ':root',
+                    'property' => '--c-slider-gap',
+                    'unit'     => ''
                 ],
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'gap',
                     'context' => [
                         [
-                            'context' => 'component.slider',
+                            'context'  => 'component.slider',
                             'operator' => '==',
                         ],
                     ]
@@ -44,7 +44,7 @@ class SliderDefault
         /**
          * Slider padding
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
             'type'        => 'slider',
             'settings'    => 'slider_padding',
             'label'       => esc_html__('Amount of preview', 'municipio'),
@@ -58,16 +58,16 @@ class SliderDefault
             ],
             'output'      => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--c-slider-padding',
-                    'unit'      => ''
+                    'element'  => ':root',
+                    'property' => '--c-slider-padding',
+                    'unit'     => ''
                 ],
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => "padding",
                     'context' => [
                         [
-                            'context' => 'module.slider',
+                            'context'  => 'module.slider',
                             'operator' => '==',
                         ],
                     ]
@@ -78,27 +78,27 @@ class SliderDefault
         /**
          * Slider container colour
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'slider_container_color',
-            'label'       => esc_html__('Container colour', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'bg-transparent',
-            'choices' => array(
-                'bg-none' => __('None', 'modularity'),
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'slider_container_color',
+            'label'    => esc_html__('Container colour', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'bg-transparent',
+            'choices'  => array(
+                'bg-none'        => __('None', 'modularity'),
                 'bg-transparent' => __('Transparent', 'modularity'),
-                'bg-theme' => __('Theme', 'modularity'),
+                'bg-theme'       => __('Theme', 'modularity'),
             ),
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'modifier',
+                    'type'    => 'modifier',
                     'context' => [
                         [
-                            'context' => 'module.slider-item',
+                            'context'  => 'module.slider-item',
                             'operator' => '=='
                         ],
                         [
-                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'context'  => 'sidebar.slider-area.module.slider-item',
                             'operator' => '!='
                         ]
                     ]
@@ -109,27 +109,27 @@ class SliderDefault
         /**
          * Slider text alignment
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'slider_text_alignment',
-            'label'       => esc_html__('Text alignment', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'text-align-left',
-            'choices' => array(
-                'text-align-left' => __('Left', 'modularity'),
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'slider_text_alignment',
+            'label'    => esc_html__('Text alignment', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'text-align-left',
+            'choices'  => array(
+                'text-align-left'   => __('Left', 'modularity'),
                 'text-align-center' => __('Center', 'modularity'),
-                'text-align-right' => __('Right', 'modularity'),
+                'text-align-right'  => __('Right', 'modularity'),
             ),
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'modifier',
+                    'type'    => 'modifier',
                     'context' => [
                         [
-                            'context' => 'module.slider-item',
+                            'context'  => 'module.slider-item',
                             'operator' => '==',
                         ],
                         [
-                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'context'  => 'sidebar.slider-area.module.slider-item',
                             'operator' => '!=',
                         ]
                     ]
@@ -140,27 +140,27 @@ class SliderDefault
         /**
          * Slider overlay
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'slider_coverlay',
-            'label'       => esc_html__('Slide overlay', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'none',
-            'choices' => array(
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'slider_coverlay',
+            'label'    => esc_html__('Slide overlay', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'none',
+            'choices'  => array(
                 'none' => __('None', 'modularity'),
                 'dark' => __('Dark', 'modularity'),
             ),
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'overlay',
                     'context' => [
                         [
-                            'context' => 'module.slider-item',
+                            'context'  => 'module.slider-item',
                             'operator' => '==',
                         ],
                         [
-                            'context' => 'sidebar.slider-area.module.slider-item',
+                            'context'  => 'sidebar.slider-area.module.slider-item',
                             'operator' => '!=',
                         ]
                     ]
@@ -171,23 +171,23 @@ class SliderDefault
         /**
          * Slider button style
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'slider_arrow_button_style',
-            'label'       => esc_html__('Arrow button style', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'filled',
-            'choices' => array(
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'slider_arrow_button_style',
+            'label'    => esc_html__('Arrow button style', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'filled',
+            'choices'  => array(
                 'filled' => __('Filled', 'modularity'),
-                'basic' => __('Basic', 'modularity'),
+                'basic'  => __('Basic', 'modularity'),
             ),
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'arrowButtons.style',
                     'context' => [
                         [
-                            'context' => 'module.slider',
+                            'context'  => 'module.slider',
                             'operator' => '==',
                         ],
                     ]
@@ -198,23 +198,23 @@ class SliderDefault
         /**
          * Slider button color
          */
-        Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-            'type'        => 'select',
-            'settings'    => 'slider_arrow_button_color',
-            'label'       => esc_html__('Arrow button color', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => 'primary',
-            'choices' => array(
-                'primary' => __('Primary', 'modularity'),
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'slider_arrow_button_color',
+            'label'    => esc_html__('Arrow button color', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => 'primary',
+            'choices'  => array(
+                'primary'   => __('Primary', 'modularity'),
                 'secondary' => __('Secondary', 'modularity'),
             ),
-            'output' => [
+            'output'   => [
                 [
-                    'type' => 'component_data',
+                    'type'    => 'component_data',
                     'dataKey' => 'arrowButtons.color',
                     'context' => [
                         [
-                            'context' => 'module.slider',
+                            'context'  => 'module.slider',
                             'operator' => '==',
                         ],
                     ]

@@ -2,14 +2,13 @@
 
 namespace Municipio\Customizer;
 
-use Municipio\Helper\ContentType as ContentTypeHelper;
-
 class PanelsRegistry
 {
-    private static $instance = null;
+    private static $instance             = null;
     private static bool $registerInvoked = false;
-    private array $panels = [];
-    private array $sections = [];
+    private array $panels                = [];
+    private array $sections              = [];
+    public array $fields                 = [];
 
     private function __construct()
     {
@@ -43,6 +42,16 @@ class PanelsRegistry
         return $this->sections;
     }
 
+    public function addRegisteredField(array $field): void
+    {
+        $this->fields[] = $field;
+    }
+
+    public function getRegisteredFields(): array
+    {
+        return $this->fields;
+    }
+
     public static function getInstance(): PanelsRegistry
     {
         if (self::$instance === null) {
@@ -64,12 +73,12 @@ class PanelsRegistry
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
+        self::registerPostTypePanel();
         self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();
-        self::registerContentTypesPanel();
     }
 
     public static function registerDesignLibraryPanel()
@@ -87,10 +96,12 @@ class PanelsRegistry
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
             )->register();
     }
+
     /**
      * Fetch public post types and exclude 'attachment'
      */
-    public static function getPostTypes($args = [], $returnType = 'objects', $exclude = []) {
+    public static function getPostTypes($args = [], $returnType = 'objects', $exclude = [])
+    {
         $postTypes = get_post_types($args, $returnType);
         foreach ($exclude as $excludedType) {
             if (isset($postTypes[$excludedType])) {
@@ -99,82 +110,10 @@ class PanelsRegistry
         }
         return $postTypes;
     }
-    /**
-     * Register the content types panel
-     */
-    public static function registerContentTypesPanel() {
-        $panelID = 'municipio_customizer_panel_content_types';
-        $postTypes = self::getPostTypes(
-            ['public' => true],
-            'objects',
-            ['attachment']
-        );
-
-        $sections = array_map(function ($postType) use ($panelID) {
-            $sectionId = "{$panelID}_{$postType->name}";
-            $contentTypes = ContentTypeHelper::getRegisteredContentTypes();
-
-            if (empty($contentTypes)) {
-                return false;
-            }
-
-            // Convert content types to choices for the dropdown and include a 'None' option
-            $choices = ['' => esc_html__('None', 'municipio')] + array_reduce(array_keys($contentTypes), function ($carry, $key) use ($contentTypes) {
-                $carry[$key] = $contentTypes[$key];
-                return $carry;
-            }, []);
-
-            if(empty($choices)) {
-                return false;
-            }
-
-            // Fetching a single post ID for the post type to use as a preview URL
-            $posts = get_posts(['post_type' => $postType->name, 'numberposts' => 1]);
-            $previewUrl = !empty($posts) ? get_permalink($posts[0]->ID) : '';
-            return KirkiPanelSection::create()
-                ->setID($sectionId)
-                ->setPanel($panelID)
-                ->setTitle($postType->labels->name)
-                ->setPreviewUrl($previewUrl)
-                ->setFieldsCallback(function() use ($sectionId, $choices, $postType) {
-                    // Dropdown for selecting content type
-                    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                        'type'     => 'select',
-                        'settings' => $sectionId . '_content_type',
-                        'label'    => esc_html__('Content Type', 'municipio'),
-                        'description' => esc_html__('Select the content type for this post type.', 'municipio'),
-                        'section'  => $sectionId,
-                        'default'  => '',
-                        'choices'  => $choices,
-                    ]);
-
-                    // Checkbox for opting out of content type page template
-                    \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
-                        'type'        => 'checkbox',
-                        'settings'    => $sectionId . '_skip_content_type_template',
-                        'label'       => esc_html__('Do not use template', 'municipio'),
-                        'description' => sprintf(esc_html__('Do not use the custom template from the content type for this post type.', 'municipio')),
-                        'section'     => $sectionId,
-                        'default'     => '0',
-                    ]);
-                });
-        }, $postTypes);
-
-        KirkiPanel::create()
-            ->setID($panelID)
-            ->setTitle(esc_html__('Content Type Settings', 'municipio'))
-            ->setDescription(esc_html__('Configure settings for different content types and their options.', 'municipio'))
-            ->setPriority(1000) // Adjust the priority as needed
-            ->addSections($sections)
-            ->register();
-    }
-
-
-
 
     public static function registerArchivePanel()
     {
-        $panelID = 'municipio_customizer_panel_archive';
+        $panelID  = 'municipio_customizer_panel_archive';
         $archives = self::getArchives();
         $sections = array_map(function ($archive) use ($panelID) {
             $id = "{$panelID}_{$archive->name}";
@@ -195,7 +134,27 @@ class PanelsRegistry
             ->register();
     }
 
+    public static function registerPostTypePanel()
+    {
+        $panelID           = 'municipio_customizer_panel_post_type';
+        $filteredPostTypes = self::getArchives();
+        $sections          = array_map(function ($postType) use ($panelID) {
+            $id = "{$panelID}_{$postType->name}";
+            return KirkiPanelSection::create()
+                ->setID($id)
+                ->setPanel($panelID)
+                ->setTitle($postType->label)
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
+        }, $filteredPostTypes);
 
+        KirkiPanel::create()
+            ->setID($panelID)
+            ->setTitle(esc_html__('Post Types', 'municipio'))
+            ->setDescription(esc_html__('Manage post types settings', 'municipio'))
+            ->setPriority(2000)
+            ->addSections($sections)
+            ->register();
+    }
 
     /* Module panel */
     public static function registerModulePanel()
@@ -322,6 +281,11 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_search')
                     ->setTitle(esc_html__('Search', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Search('municipio_customizer_section_search'))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_icons')
+                    ->setTitle(esc_html__('Icons', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Icons('municipio_customizer_section_icons'))
             )->register();
     }
 
@@ -454,19 +418,19 @@ class PanelsRegistry
 
     public static function getArchivePanelSectionsConfiguaration(string $parentPanelID): array
     {
-        $archives = self::getArchives();
+        $archives        = self::getArchives();
         $archiveSections = [];
 
         if (is_array($archives) && !empty($archives)) {
             foreach ($archives as $archive) {
-                $panelID = $parentPanelID . "_" . $archive->name;
+                $panelID           = $parentPanelID . "_" . $archive->name;
                 $archiveSections[] =
                 [
-                    'id' => $panelID,
+                    'id'         => $panelID,
                     'initFields' => fn() => new \Municipio\Customizer\Sections\Archive($panelID, $archive),
-                    'args' => [
-                        'title' => $archive->label,
-                        'preview_url'   => get_post_type_archive_link($archive->name)
+                    'args'       => [
+                        'title'       => $archive->label,
+                        'preview_url' => get_post_type_archive_link($archive->name)
                     ]
                 ];
             }
@@ -492,22 +456,22 @@ class PanelsRegistry
             }
 
             //Taxonomies
-            $args->taxonomies   = self::getTaxonomies($postType);
+            $args->taxonomies = self::getTaxonomies($postType);
 
             //Order By
-            $args->orderBy      = self::getOrderBy($postType);
+            $args->orderBy = self::getOrderBy($postType);
 
             //Date source
-            $args->dateSource   = self::getDateSource($postType);
+            $args->dateSource = self::getDateSource($postType);
 
             //Add args to stack
             $postTypes[$postType] = $args;
         }
 
         $postTypes['author'] = (object) array(
-            'name' => 'author',
-            'label' => __('Author'),
-            'has_archive' => true,
+            'name'              => 'author',
+            'label'             => __('Author'),
+            'has_archive'       => true,
             'is_author_archive' => true
         );
 
@@ -522,7 +486,7 @@ class PanelsRegistry
      */
     private static function getTaxonomies($postType): array
     {
-        $stack = [];
+        $stack      = [];
         $taxonomies = get_object_taxonomies($postType, 'objects');
 
         if (is_array($taxonomies) && !empty($taxonomies)) {
@@ -547,9 +511,9 @@ class PanelsRegistry
     private static function getOrderBy($postType): array
     {
         $metaKeys = array(
-          'post_date'  => 'Date published',
+          'post_date'     => 'Date published',
           'post_modified' => 'Date modified',
-          'post_title' => 'Title',
+          'post_title'    => 'Title',
         );
 
         $metaKeysRaw = \Municipio\Helper\Post::getPosttypeMetaKeys($postType);
@@ -572,7 +536,7 @@ class PanelsRegistry
     private static function getDateSource($postType): array
     {
         $metaKeys = array(
-            'post_date'  => 'Date published',
+            'post_date'     => 'Date published',
             'post_modified' => 'Date modified',
         );
 

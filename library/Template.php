@@ -2,11 +2,10 @@
 
 namespace Municipio;
 
+use AcfService\Contracts\GetField;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
-use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use Municipio\Helper\Controller as ControllerHelper;
-use Municipio\Helper\ContentType as ContentTypeHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
 class Template
@@ -14,7 +13,7 @@ class Template
     private ?BladeServiceInterface $bladeEngine = null;
     private ?array $viewPaths                   = null;
 
-    public function __construct()
+    public function __construct(private GetField $acfService)
     {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -137,19 +136,17 @@ class Template
         );
 
         // Controller conditions
-        $isSingular = fn() => is_singular();
-        $isArchive  = fn() => is_archive() || is_home();
-
-        $hasContentType         = fn() => ContentTypeHelper::hasAnyContentType(get_post_type() ?? '');
-        $hasSpecificContentType = function (string $type): bool {
-            return
-                ($contentType = ContentTypeHelper::getContentType(get_post_type() ?? '')) &&
-                $contentType->getKey() === $type;
-        };
-
+        $isSingular                  = fn() => is_singular();
+        $isArchive                   = fn() => is_archive() || is_home();
+        $hasSchemaType               = fn() => $this->getCurrentPostSchemaType() !== null;
+        $schemaType                  = fn() => $this->getCurrentPostSchemaType();
         $templateController          = fn() => ControllerHelper::camelCase($template);
         $templateControllerPath      = fn() => ControllerHelper::locateController($templateController());
         $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
+        $shouldUseSchemaController   = fn() =>  $hasSchemaType() &&
+                                                $isSingular() &&
+                                                class_exists("Municipio\Controller\Singular{$schemaType()}") &&
+                                                (bool)ControllerHelper::locateController("Singular{$schemaType()}");
 
         $controllers = [
             [
@@ -158,19 +155,9 @@ class Template
                 'controllerPath'  => ControllerHelper::locateController('E404'),
             ],
             [
-                'condition'       => $hasContentType() && $isSingular(),
-                'controllerClass' => \Municipio\Controller\SingularContentType::class,
-                'controllerPath'  => ControllerHelper::locateController('SingularContentType'),
-            ],
-            [
-                'condition'       => $hasSpecificContentType('school') && $isArchive(),
-                'controllerClass' => \Municipio\Controller\SchoolArchiveContentType::class,
-                'controllerPath'  => ControllerHelper::locateController('SchoolArchiveContentType'),
-            ],
-            [
-                'condition'       => $hasContentType() && $isArchive(),
-                'controllerClass' => \Municipio\Controller\ArchiveContentType::class,
-                'controllerPath'  => ControllerHelper::locateController('ArchiveContentType'),
+                'condition'       => $shouldUseSchemaController(),
+                'controllerClass' => "Municipio\Controller\Singular{$schemaType()}",
+                'controllerPath'  => ControllerHelper::locateController("Singular{$schemaType()}")
             ],
             [
                 // If a controller for this specific WordPress template exists, use it.
@@ -196,6 +183,7 @@ class Template
             ]
         ];
 
+
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
                 $instance = self::createController($controller, $template);
@@ -212,6 +200,17 @@ class Template
         }
 
         return [];
+    }
+
+    /**
+     * Get the current post schema type
+     *
+     * @return string|null The schema type of the current post. Null if not found.
+     */
+    public function getCurrentPostSchemaType(): ?string
+    {
+        $postType = get_post_type();
+        return $this->acfService->getField("schema", "{$postType}_options") ?: null;
     }
     /**
      * It loads a controller class and returns an instance of it
@@ -340,7 +339,15 @@ class Template
                         }
                     }
 
-                    // Look for post type single page
+                    // Look for post with schema type single page
+                    $schemaType = $this->getCurrentPostSchemaType();
+                    if (is_single() && !empty($schemaType)) {
+                        $search = 'single-schema-' . strtolower($schemaType) . '.blade.php';
+                        if ($found = \Municipio\Helper\Template::locateTemplate($search)) {
+                            $templatePath = $found;
+                        }
+                    }
+
                     if (is_single() && isset($wp_query->query['post_type'])) {
                         $search = 'single-' . $wp_query->query['post_type'] . '.blade.php';
                         if ($found = \Municipio\Helper\Template::locateTemplate($search)) {

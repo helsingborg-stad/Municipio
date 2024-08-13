@@ -2,11 +2,13 @@
 
 namespace Municipio\Customizer\Sections\Module;
 
+use Municipio\Customizer\KirkiField;
+
 class Posts
 {
     public function __construct(string $sectionID)
     {
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_index_modifier',
           'label'    => esc_html__('Index', 'municipio'),
@@ -29,7 +31,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_list_modifier',
           'label'    => esc_html__('List', 'municipio'),
@@ -53,7 +55,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'     => 'select',
           'settings' => 'mod_posts_expandablelist_modifier',
           'label'    => esc_html__('Expandable List', 'municipio'),
@@ -77,7 +79,7 @@ class Posts
           ],
         ]);
 
-        \Kirki::add_field(\Municipio\Customizer::KIRKI_CONFIG, [
+        KirkiField::addField([
           'type'        => 'switch',
           'settings'    => 'mod_posts_display_post_icon',
           'label'       => esc_html__('Display term icon', 'municipio'),
@@ -94,15 +96,15 @@ class Posts
                 'type'    => 'component_data',
                 'dataKey' => 'displayIcon',
                 'context' => [
-                  'module.posts.index',
-                  'module.posts.segment',
-                  'module.posts.block',
-                  'module.posts.collection__item',
-                  'module.manual-input.card',
-                  'module.manual-input.collection__item',
-                  'module.manual-input.block',
-                  'module.manual-input.segment'
-                ]
+                  ['context' => 'module.posts.segment', 'operator' => '=='],
+                  ['context' => 'module.posts.block', 'operator' => '=='],
+                  ['context' => 'module.posts.collection__item', 'operator' => '=='],
+                  ['context' => 'module.manual-input.card', 'operator' => '=='],
+                  ['context' => 'module.manual-input.collection__item', 'operator' => '=='],
+                  ['context' => 'module.manual-input.block', 'operator' => '=='],
+                  ['context' => 'module.manual-input.segment', 'operator' => '=='],
+                  ['context' => 'module.posts.index', 'operator' => '==']
+                ],
               ],
           ],
         ]);

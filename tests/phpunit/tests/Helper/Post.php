@@ -31,6 +31,25 @@ class PostTest extends TestCase
         $this->assertIsObject($result);
     }
 
+    /**
+     * @testdox preparePostObject: runtimeCache can add multiple posts with the same ID.
+    */
+    public function testPreparePostObjectCanAddMultiplePostsToRuntimeCacheUsingSameID()
+    {
+        // Given
+        $post1 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-02 00:00:00']);
+        $post2 = $this->mockPost(['ID' => 1, 'post_date' => '2021-01-01 00:00:00']);
+        $mock  = $this->mockStaticMethod('\Municipio\Helper\Post', 'complementObject');
+        $mock->andReturnUsing(fn ($post) => $post);
+
+        // When
+        \Municipio\Helper\Post::preparePostObject($post1);
+        \Municipio\Helper\Post::preparePostObject($post2);
+
+        // Then
+        $this->assertCount(2, \Municipio\Helper\Post::$runtimeCache['preparePostObject']);
+    }
+
      /**
      * @testdox preparePostObjectArchive returns a post if it $post is an instance of WP_Post.
      */
@@ -174,7 +193,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     * @testdox returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerptAndPostContent()
     {
@@ -192,7 +211,7 @@ class PostTest extends TestCase
     }
 
     /**
-     * @testdox ComplementObject Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
+     * @testdox Returns complemented default post_excerpt keys when empty post_excerpt and post_content.
      */
     public function testComplementObjectReturnsDefaultValuesIfEmptyPostExcerpt()
     {
@@ -461,6 +480,7 @@ class PostTest extends TestCase
         $termMock           = Mockery::mock('WP_Term');
         $termMock->term_id  = 1;
         $termMock->taxonomy = 'test-taxonomy';
+        $termMock->slug     = 'test-slug';
 
         return $termMock;
     }
