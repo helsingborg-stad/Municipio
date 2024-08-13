@@ -8,10 +8,12 @@ class Storage {
         this.checkDefaultKeysExists();
     }
 
+    // Get current storage
     public getStorage() {
         return this.localSettingsStorage;
     }
 
+    // update stored data
     public updateStorage(areaKey: string, value: Settings|SortableItemsStorage, sortableItemKey: string|null = null) {
         if (sortableItemKey) {
             this.localSettingsStorage[areaKey][sortableItemKey] = value as Settings;
@@ -22,6 +24,7 @@ class Storage {
         this.hiddenSettingInstance.setHiddenFieldValue(this.localSettingsStorage);
     }
 
+    // check that the default setting keys exists in the storage.
     private checkDefaultKeysExists(): void {
         let wasUpdated = false;
         this.flexibleAreaNames.forEach(areaKey => {

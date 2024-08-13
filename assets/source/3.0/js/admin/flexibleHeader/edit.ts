@@ -20,6 +20,24 @@ class Edit {
         this.setSettingsListeners();
     }
 
+    // Updates the value of a setting.
+    private updateValue(key: string, value: string) {
+        this.localSettings[key] = value;
+    }
+
+    // Validates the value of a setting. And adds default value of possible.
+    private validateValue(settingElement: HTMLSelectElement, key: string): boolean {
+        if (this.localSettings.hasOwnProperty(key) || !this.defaultSettings[key]) {
+            return false;
+        }
+
+        settingElement.value = this.defaultSettings[key];
+        this.updateValue(key, this.defaultSettings[key]);
+
+        return true;
+    }
+
+    // Adds listener and update values in the global storage.
     private setSettingsListeners() {
         let wasUpdated: boolean[] = [];
         this.settingsElements.forEach(settingElement => {
@@ -39,26 +57,13 @@ class Edit {
             });
         });
 
+        // if changes happened during the validation. Update everything once.
         if (wasUpdated.includes(true)) {
             this.storageInstance.updateStorage(this.areaKey, this.localSettings, this.sortableItemKey);
         }
     }
 
-    private updateValue(key: string, value: string) {
-        this.localSettings[key] = value;
-    }
-
-    private validateValue(settingElement: HTMLSelectElement, key: string): boolean {
-        if (this.localSettings.hasOwnProperty(key) || !this.defaultSettings[key]) {
-            return false;
-        }
-
-        settingElement.value = this.defaultSettings[key];
-        this.updateValue(key, this.defaultSettings[key]);
-
-        return true;
-    }
-
+    // Handle edit button clicks.
     private setEditButtonListener() {
         this.editButton.addEventListener('click', () => {
             if (this.dropdownElement.classList.contains('is-active')) {
@@ -76,6 +81,7 @@ class Edit {
 
 export default Edit;
 
+// Get all needed element and handle each sortable as a separate Edit instance.
 export function initializeEdit(
     storageInstance: Storage,
     sortableItems: HTMLElement[], 

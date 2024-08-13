@@ -18,6 +18,7 @@ wp.customize.bind('ready', function() {
     const { flexibleAreaNames, hiddenName, responsiveNameKey, kirkiAttributeName }: FlexibleHeaderFieldKeys  = getSettingsKeys();
     const hiddenSettingInstance = new HiddenSetting(flexibleHeader.hiddenValue, hiddenName, kirkiAttributeName);
 
+    // Using interval since the fields might not be loaded yet.
     const intervalId = setInterval(() => {
         if (!hiddenSettingInstance.getHiddenSettingField()) {
             return;

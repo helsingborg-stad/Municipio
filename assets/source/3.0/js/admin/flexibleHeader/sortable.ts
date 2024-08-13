@@ -14,6 +14,7 @@ class Sortable {
         }
     }
 
+    // listen to the visitibility of the main items.
     private setMainItemsListeners() {
         for (const key in this.sortableItems) {
             const visibilityElement = this.sortableItems[key].querySelector('.visibility');
@@ -32,6 +33,7 @@ class Sortable {
         }
     }
 
+    // Hide the responsive items if the main items are hidden.
     private hide(item: HTMLElement) {
         item.style.display = 'none';
 
@@ -40,6 +42,7 @@ class Sortable {
         }
     }
 
+    // Show the responsive items if the main items are shown
     private show(item: HTMLElement) {
         item.style.display = 'list-item';
 
@@ -48,6 +51,7 @@ class Sortable {
         }
     }
 
+    // Handle hidden elements from start
     private handleHidden() {
         for (const key in this.sortableItems) {
             if (!this.sortableResponsiveItems[key]) {
@@ -65,6 +69,7 @@ class Sortable {
         }
     }
 
+    // Remove the visibility icon button from the responsive items
     private removeVisibilityIconButton(item: HTMLElement) {
         const visibilityElement = item.querySelector('.visibility');
 
@@ -73,6 +78,7 @@ class Sortable {
         }
     }
 
+    // Structure the sortable items correctly
     private structureSortableItems(items: HTMLElement[]) {
         let structuredItems = {} as StructuredItems;
 
