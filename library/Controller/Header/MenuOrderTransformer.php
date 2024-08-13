@@ -8,7 +8,8 @@ class MenuOrderTransformer
     {
     }
 
-    public function transform(array $desktopItems, array $mobileItems)
+    // Returns a structured array (menu-item-name => [classes])
+    public function transform(array $desktopItems, array $mobileItems): array
     {
         $items    = [];
         $modifier = $this->modifier;
