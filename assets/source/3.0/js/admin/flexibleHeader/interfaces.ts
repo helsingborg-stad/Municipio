@@ -14,20 +14,12 @@ export interface FlexibleHeaderFieldKeys {
     kirkiAttributeName: string;
 }
 
-export interface StorageInterface {
-    setValue(settingsKey: string, sortableKey: string, propertyKey: string, value: string): void;
-    setValues(settingsKey: string, sortableKey: string, values: SortableItemStorageValue): void;
-    getValues(): SettingsStorage;
-    getSettingStorage(settingsKey: string): SortableItemsStorage|null;
-    getSortableStorage(settingsKey: string, sortableKey: string): SortableItemStorageValue|null;
-}
-
-export interface SortableItemStorageValue {
+export interface Settings {
     [key: string]: string;
 }
 
 export interface SortableItemsStorage {
-    [key: string]: SortableItemStorageValue;
+    [key: string]: Settings;
 }
 
 export interface SettingsStorage {

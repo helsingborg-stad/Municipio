@@ -1,3 +1,5 @@
-export const defaultEditValues = {
-    'align': 'right'
+import { Settings } from "../interfaces"
+
+export const defaultEditValues: Settings = {
+    align: 'right'
 }

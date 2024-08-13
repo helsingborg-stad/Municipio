@@ -15,13 +15,13 @@ class HiddenSetting {
         return this.hiddenField;
     }
 
-    public setHiddenFieldValue(value: any): void {
+    public setHiddenFieldValue(value: SettingsStorage): void {
         wp.customize(this.hiddenName, (setting: any) => {
             setting.set(JSON.stringify(value));
         });
     }
 
-    public getHiddenFieldSavedValues(): SettingsStorage {
+    public getHiddenFieldValue(): SettingsStorage {
         let localHiddenSettingSavedValue = this.hiddenSettingSavedValue;
         if (!localHiddenSettingSavedValue || typeof localHiddenSettingSavedValue !== "string") {
             return {};

@@ -44,6 +44,7 @@ module.exports = {
 
         /* Admin css */
         'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+        'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
 
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',

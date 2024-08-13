@@ -26,6 +26,8 @@ class Enqueue
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
         // Admin scripts
         add_action('admin_enqueue_scripts', array($this, 'adminScripts'), 999);
+        // Customizer specific
+        add_action('customize_controls_enqueue_scripts', array($this, 'customizerScripts'), 999);
 
         // Removes version querystring from scripts and styles
         add_filter('script_loader_src', array($this, 'removeScriptVersion'), 15, 1);
@@ -88,8 +90,13 @@ class Enqueue
 
         wp_localize_script(
             'customizer-flexible-header',
-            'hiddenSettingSavedValue',
-            get_theme_mod('header_sortable_hidden_storage')
+            'flexibleHeader',
+            [
+                'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
+                'lang'        => [
+                    'alignment' => __('Alignment', 'municipio'),
+                ]
+            ]
         );
 
         wp_enqueue_script(
@@ -112,6 +119,16 @@ class Enqueue
 
         wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
         wp_enqueue_style('material-symbols-fonts');
+    }
+
+    /**
+     * Enqueue admin style
+     * @return void
+     */
+    public function customizerScripts()
+    {
+        wp_register_style('header-flexible', self::getAssetWithCacheBust('css/header-flexible.css'));
+        wp_enqueue_style('header-flexible');
     }
 
      /**

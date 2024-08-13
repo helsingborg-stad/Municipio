@@ -1,0 +1,29 @@
+.flexible-header-edit {
+    display: none;
+    width: 100%;
+    height: 200px;
+    left: 0;
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    border: 1px solid #333;
+    margin-top: 5px;
+    padding: 12px;
+
+    &.is-active {
+        display: block;
+    }
+}
+
+// #customize-save-button-wrapper {
+//     &::after {
+//         content: '';
+//         cursor: pointer;
+//         display: block;
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//     }
+// }

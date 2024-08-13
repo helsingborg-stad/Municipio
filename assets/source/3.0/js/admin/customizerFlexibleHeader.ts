@@ -5,34 +5,55 @@ import { getSettingsKeys } from "./flexibleHeader/helpers/getSettingsKeys";
 import { FlexibleHeaderFieldKeys } from "./flexibleHeader/interfaces";
 import GetSortableItems from "./flexibleHeader/helpers/getSortableItems";
 import { initializeEdit } from "./flexibleHeader/edit";
-import Edit from "./flexibleHeader/edit";
+import { SettingsStorage } from "./flexibleHeader/interfaces";
+import Storage from "./flexibleHeader/storage";
 
-declare const hiddenSettingSavedValue: any;
+declare const flexibleHeader: any;
 
 wp.customize.bind('ready', function() {
+    if (!flexibleHeader) {
+        return;
+    }
+
     const { flexibleAreaNames, hiddenName, responsiveNameKey, kirkiAttributeName }: FlexibleHeaderFieldKeys  = getSettingsKeys();
+    const hiddenSettingInstance = new HiddenSetting(flexibleHeader.hiddenValue, hiddenName, kirkiAttributeName);
 
-    const hiddenSettingInstance = new HiddenSetting(hiddenSettingSavedValue, hiddenName, kirkiAttributeName);
-    
-    let store = hiddenSettingInstance.getHiddenFieldSavedValues();
-    let editInstances = [];
-
-    flexibleAreaNames.forEach(key => {
-        const setting = document.querySelector(`[${kirkiAttributeName}="${key}"]`) as HTMLElement;
-        const responsiveSetting = document.querySelector(`[${kirkiAttributeName}="${key}${responsiveNameKey}"]`) as HTMLElement;
-
-        if (!setting || !responsiveSetting) {
+    const intervalId = setInterval(() => {
+        if (!hiddenSettingInstance.getHiddenSettingField()) {
             return;
+        } else {
+            clearInterval(intervalId);
         }
 
-        if (!store.hasOwnProperty(key)) {
-            store[key] = {};
-        }
+        let currentValue: SettingsStorage = hiddenSettingInstance.getHiddenFieldValue() ?? {};
+        const storageInstance = new Storage(flexibleAreaNames, currentValue, hiddenSettingInstance);
 
-        const getSortableItemsInstance = new GetSortableItems(setting, responsiveSetting);
-        addEditIconToSortables(setting);
-        new Sortable(getSortableItemsInstance.getSortableItems(), getSortableItemsInstance.getSortableResponsiveItems());
-        const editInstancesFromSetting = initializeEdit(getSortableItemsInstance.getSortableItems(), hiddenSettingInstance, store[key]);
-        editInstances.push({[key]: editInstancesFromSetting});
-    });
+        flexibleAreaNames.forEach(areaKey => {
+            const setting = document.querySelector(`[${kirkiAttributeName}="${areaKey}"]`) as HTMLElement;
+            const responsiveSetting = document.querySelector(`[${kirkiAttributeName}="${areaKey}${responsiveNameKey}"]`) as HTMLElement;
+
+            if (!setting || !responsiveSetting) {
+                return;
+            }
+            
+            const getSortableItemsInstance = new GetSortableItems(
+                setting, 
+                responsiveSetting
+            );
+
+            addEditIconToSortables(setting);
+
+            new Sortable(
+                getSortableItemsInstance.getSortableItems(), 
+                getSortableItemsInstance.getSortableResponsiveItems()
+            );
+
+            initializeEdit(
+                storageInstance, 
+                getSortableItemsInstance.getSortableItems(), 
+                areaKey,
+                flexibleHeader.lang
+            );
+        });
+    }, 1000);
 });
