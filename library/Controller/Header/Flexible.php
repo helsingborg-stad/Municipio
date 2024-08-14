@@ -3,19 +3,19 @@
 namespace Municipio\Controller\Header;
 
 use Municipio\Controller\Header\MenuOrderTransformer;
-use Municipio\Controller\Header\ClassesDecorator;
+use Municipio\Controller\Header\AlignmentTransformer;
 
 class Flexible implements HeaderInterface
 {
     private bool $isResponsive;
     private MenuOrderTransformer $menuOrderTransformerInstance;
-    private ClassesDecorator $classesDecoratorInstance;
+    private AlignmentTransformer $alignmentTransformerInstance;
 
     public function __construct(private object $customizer)
     {
         $this->isResponsive                 = !empty($this->customizer->headerEnableResponsiveOrder);
         $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
-        $this->classesDecoratorInstance     = new ClassesDecorator($this->getHiddenMenuItemsData());
+        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenMenuItemsData());
     }
 
     private function getHiddenMenuItemsData()
@@ -30,8 +30,8 @@ class Flexible implements HeaderInterface
     public function getHeaderData(): array
     {
         return [
-            'mainUpperItems' => $this->getItems('main_upper'),
-            'mainLowerItems' => $this->getItems('main_lower'),
+            'upper' => $this->getItems('main_upper'),
+            'lower' => $this->getItems('main_lower'),
         ];
     }
 
@@ -45,14 +45,8 @@ class Flexible implements HeaderInterface
             : [];
 
         $items = $this->menuOrderTransformerInstance->transform($desktopOrderedItems, $mobileOrderedItems);
+        $items = $this->alignmentTransformerInstance->decorate($items, $setting);
 
-        if (!empty($items)) {
-            foreach ($items as $menu => $classes) {
-                $classes = $this->classesDecoratorInstance->decorate($setting, $menu, $classes);
-            }
-        }
-        echo '<pre>' . print_r($items, true) . '</pre>';
-        die;
         return $items;
     }
 }

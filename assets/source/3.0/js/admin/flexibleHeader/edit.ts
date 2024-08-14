@@ -13,7 +13,8 @@ class Edit {
         settings: Settings,
         private defaultSettings: Settings,
         private sortableItemKey: string,
-        private areaKey: string
+        private areaKey: string,
+        private sortableItem: HTMLElement
     ) {
         this.localSettings = settings;
         this.setEditButtonListener();
@@ -66,16 +67,35 @@ class Edit {
     // Handle edit button clicks.
     private setEditButtonListener() {
         this.editButton.addEventListener('click', () => {
-            if (this.dropdownElement.classList.contains('is-active')) {
-                this.dropdownElement.classList.remove('is-active');
-                this.editButton.classList.add('dashicons-edit');
-                this.editButton.classList.remove('dashicons-no');
+            if (this.sortableItem.classList.contains('is-active')) {
+                this.hideDropdown(this.editButton, this.sortableItem);
             } else {
-                this.dropdownElement.classList.add('is-active');
-                this.editButton.classList.remove('dashicons-edit');
-                this.editButton.classList.add('dashicons-no');
+                this.closeAlreadyOpenDropdowns();
+                this.showDropdown();
             }
         });
+    }
+
+    private closeAlreadyOpenDropdowns() {
+        document.querySelectorAll('.kirki-sortable-item.is-active').forEach((sortableItem) => {
+            const editButton = sortableItem.querySelector('[data-js-sortable-edit]') as HTMLElement;
+            if (editButton && sortableItem !== this.sortableItem) {
+                this.hideDropdown(editButton, sortableItem as HTMLElement);
+            }
+        });
+    }
+
+    private showDropdown() {
+        this.sortableItem.classList.add('is-active');
+        this.editButton.classList.remove('dashicons-edit');
+        this.editButton.classList.add('dashicons-no');
+    }
+
+    private hideDropdown(editButton: HTMLElement, sortableItem: HTMLElement) {
+
+        sortableItem.classList.remove('is-active');
+        editButton.classList.add('dashicons-edit');
+        editButton.classList.remove('dashicons-no');
     }
 }
 
@@ -119,7 +139,8 @@ export function initializeEdit(
             storage[areaKey][sortableItemKey], 
             defaultEditValues,
             sortableItemKey,
-            areaKey
+            areaKey,
+            sortableItem
         );
     });
 }
