@@ -29,7 +29,8 @@ class Navigation
                 'toplevel' => [],
                 'notoplevel' => []
             ]
-        ]
+        ],
+        'complementObjects' => []
     ];
 
     public function __construct(string $identifier = '', string $context = 'municipio')
@@ -435,19 +436,35 @@ class Navigation
     {
         if (is_array($objects) && !empty($objects)) {
             foreach ($objects as $key => $item) {
-                $item = $this->transformObject(
-                    $this->hasChildren(
-                        $this->appendIsAncestorPost(
-                            $this->appendIsCurrentPost(
-                                $this->customTitle(
-                                    $this->appendHref($item)
+                // Generate a unique cache key for each item
+                $cacheKey = md5(serialize($item));
+
+                // Check if the item is already in the cache
+                if (!isset(self::$runtimeCache['complementObjects'][$cacheKey])) {
+                    // Process the item and add it to the cache
+                    $processedItem = $this->transformObject(
+                        $this->hasChildren(
+                            $this->appendIsAncestorPost(
+                                $this->appendIsCurrentPost(
+                                    $this->customTitle(
+                                        $this->appendHref($item)
+                                    )
                                 )
                             )
                         )
-                    )
-                );
+                    );
 
-                $objects[$key] = apply_filters('Municipio/Navigation/Item', $item, $this->identifier, false);
+                    // Store the processed item in the cache
+                    self::$runtimeCache['complementObjects'][$cacheKey] = apply_filters(
+                        'Municipio/Navigation/Item', 
+                        $processedItem, 
+                        $this->identifier, 
+                        false
+                    );
+                }
+
+                // Use the cached item
+                $objects[$key] = self::$runtimeCache['complementObjects'][$cacheKey];
             }
         }
 
