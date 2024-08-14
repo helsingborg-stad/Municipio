@@ -17,11 +17,10 @@
                     @include('partials.header.components.headerLoop', ['row' => 'lower', 'align' => 'right'])
                 </div>
         </div>
-        
-        @if(!empty($megaMenuItems) && (isset($headerData['lower']['mega-menu']) || isset($headerData['upper']['mega-menu'])))
+        @if(!empty($megaMenuItems) && $headerData['hasMegaMenu'])
             @include('partials.navigation.megamenu')
         @endif
-        @if (isset($headerData['lower']['search-modal']) || isset($headerData['upper']['search-modal']))
+        @if ($headerData['hasSearch'])
             @include('partials.search.search-modal')
         @endif
     @endif

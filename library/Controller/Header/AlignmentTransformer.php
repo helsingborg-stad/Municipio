@@ -8,7 +8,7 @@ class AlignmentTransformer
     {
     }
 
-    public function decorate(array $items, string $setting): array
+    public function transform(array $items, string $setting): array
     {
         $alignedItems = [];
         if (!empty($items)) {
