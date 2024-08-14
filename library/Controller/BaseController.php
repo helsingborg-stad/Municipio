@@ -46,7 +46,6 @@ class BaseController
         //Basic
         $this->data['ajaxUrl']            = $this->getAjaxUrl();
         $this->data['bodyClass']          = $this->getBodyClass();
-        $this->data['bodyClass']          = '';
         $this->data['languageAttributes'] = $this->getLanguageAttrs();
         $this->data['homeUrl']            = $this->getHomeUrl();
         $this->data['adminUrl']           = $this->getAdminUrl();
