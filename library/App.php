@@ -106,53 +106,53 @@ class App
          * Resources from API
          */
 
-        // // Register the actual post type to be used for resources.
-        // $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
-        // $resourcePostType->addHooks();
+        // Register the actual post type to be used for resources.
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType->addHooks();
 
-        // // Set up registry.
+        // Set up registry.
 
-        // $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
+        $resourceRegistry = new \Municipio\Content\ResourceFromApi\ResourceRegistry\ResourceRegistry();
 
-        // add_action('init', function () use ($resourceRegistry) {
+        add_action('init', function () use ($resourceRegistry) {
 
-        //     $resourceRegistry->registerResources();
+            $resourceRegistry->registerResources();
 
-        //     $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
-        //     $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
+            $postTypeResources       = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+            $sortedPostTypeResources = $resourceRegistry->sortByParentPostType($postTypeResources);
 
-        //     foreach ($sortedPostTypeResources as $resource) {
-        //         $registrar = new PostTypeFromResource($resource);
-        //         $registrar->register();
-        //     }
+            foreach ($sortedPostTypeResources as $resource) {
+                $registrar = new PostTypeFromResource($resource);
+                $registrar->register();
+            }
 
-        //     foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
-        //         $registrar = new TaxonomyFromResource($resource);
-        //         $registrar->register();
-        //     }
-        // });
+            foreach ($resourceRegistry->getByType(ResourceType::TAXONOMY) as $resource) {
+                $registrar = new TaxonomyFromResource($resource);
+                $registrar->register();
+            }
+        });
 
-        // // Make resources available to the helper class.
-        // ResourceFromApiHelper::initialize($resourceRegistry);
+        // Make resources available to the helper class.
+        ResourceFromApiHelper::initialize($resourceRegistry);
 
-        // // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
-        // $modifiersHelper = new ModifiersHelper($resourceRegistry);
-        // $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
-        // $hooksAdder->addHooks();
+        // Add hooks for modifiers. Modifiers are used to modify the output of resources through filters and actions.
+        $modifiersHelper = new ModifiersHelper($resourceRegistry);
+        $hooksAdder      = new HooksAdder($resourceRegistry, $modifiersHelper);
+        $hooksAdder->addHooks();
 
-        // // Add REST API endpoints for resources.
-        // add_action('rest_api_init', function () use ($resourceRegistry) {
-        //     $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
+        // Add REST API endpoints for resources.
+        add_action('rest_api_init', function () use ($resourceRegistry) {
+            $resources = $resourceRegistry->getByType(ResourceType::POST_TYPE);
 
-        //     if (empty($resources)) {
-        //         return;
-        //     }
+            if (empty($resources)) {
+                return;
+            }
 
-        //     foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
-        //         $controller = new ResourceFromApiRestController($resource->getName());
-        //         $controller->register_routes();
-        //     }
-        // });
+            foreach ($resourceRegistry->getByType(ResourceType::POST_TYPE) as $resource) {
+                $controller = new ResourceFromApiRestController($resource->getName());
+                $controller->register_routes();
+            }
+        });
 
         /**
          * Oembed
@@ -446,7 +446,7 @@ class App
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
 
         $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $this->wpService);
-        $syncSourceToLocal->addHooks();
+        // $syncSourceToLocal->addHooks();
 
         $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
         // $syncSingleSourceToLocalByPostId->addHooks();
