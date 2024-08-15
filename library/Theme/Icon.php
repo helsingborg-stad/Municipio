@@ -8,6 +8,10 @@ namespace Municipio\Theme;
  */
 class Icon
 {
+    private static $runtimeCache = [
+        'altText' => null
+    ];
+
     public function __construct()
     {
         add_filter(
@@ -39,7 +43,11 @@ class Icon
 
     public function altText($altText)
     {
-        return [
+        if (!is_null(self::$runtimeCache['altText'])) {
+            return self::$runtimeCache['altText'];
+        }
+
+        $altText = [
           'language' => __("Globe", 'municipio'),
           'menu' => __("Menu", 'municipio'),
           'date_range' => __("Calendar", 'municipio'),
@@ -143,6 +151,8 @@ class Icon
           'support_agent' => __('Support', 'municipio'),
           'home' => __('House', 'municipio'),
         ];
+
+        return self::$runtimeCache['altText'] = $altText; 
     }
 
     public function altTextUndefined($altTextUndefined)
