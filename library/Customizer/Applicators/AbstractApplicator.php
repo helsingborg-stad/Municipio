@@ -9,7 +9,7 @@ abstract class AbstractApplicator
 {
     public $optionKeyBasename = "theme_mod_applicator_cache";
     public $optionKey = null;
-    public $lastSignatureKey = 'last_signature';
+    public $lastSignatureKey = 'theme_mod_last_signature';
     protected $signature = null;
     protected $runtimeCache = [];
 
