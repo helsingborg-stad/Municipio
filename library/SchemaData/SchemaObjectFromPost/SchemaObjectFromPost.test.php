@@ -25,11 +25,10 @@ class SchemaObjectFromPostTest extends TestCase
 
     public function testReturnsThingIfSchemaTypeNotSet()
     {
-        $schemaType      = '';
         $post            = Mockery::mock(WP_Post::class);
         $post->post_type = 'post';
 
-        $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil($schemaType));
+        $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil(null));
         $schemaObject         = $schemaObjectFromPost->create($post);
 
         $this->assertInstanceOf(Thing::class, $schemaObject);
@@ -47,14 +46,14 @@ class SchemaObjectFromPostTest extends TestCase
         $this->assertInstanceOf(Event::class, $schemaObject);
     }
 
-    private function getUtil(string $schemaType = ''): GetSchemaTypeFromPostTypeInterface
+    private function getUtil(?string $schemaType = ''): GetSchemaTypeFromPostTypeInterface
     {
         return new class ($schemaType) implements GetSchemaTypeFromPostTypeInterface {
-            public function __construct(private string $schemaType)
+            public function __construct(private ?string $schemaType)
             {
             }
 
-            public function getSchemaTypeFromPostType(string $postType): string
+            public function getSchemaTypeFromPostType(string $postType): ?string
             {
                 return $this->schemaType;
             }
