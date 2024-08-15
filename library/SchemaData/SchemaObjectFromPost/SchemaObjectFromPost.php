@@ -17,7 +17,7 @@ class SchemaObjectFromPost implements SchemaObjectFromPostInterface
     {
         $schemaType = $this->util->getSchemaTypeFromPostType($post->post_type);
 
-        if (method_exists(Schema::class, $schemaType)) {
+        if (!empty($schemaType) && method_exists(Schema::class, $schemaType)) {
             return Schema::$schemaType();
         }
 
