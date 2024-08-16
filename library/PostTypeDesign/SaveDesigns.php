@@ -51,7 +51,12 @@ class SaveDesigns implements Hookable
             return;
         }
 
-        $this->designOption = $this->wpService->getOption($this->optionName) ?? [];
+        if(is_array($designOption = $this->wpService->getOption($this->optionName)) && !empty($designOption)) {
+            $this->designOption = $designOption;
+        } else {
+            $this->designOption = [];
+        }
+
         $getFieldsInstance  = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
 
         foreach ($postTypes as $postType) {

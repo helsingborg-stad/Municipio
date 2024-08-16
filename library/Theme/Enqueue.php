@@ -15,8 +15,10 @@ class Enqueue
         if (!defined('ASSETS_DIST_PATH')) {
             define('ASSETS_DIST_PATH', '/assets/dist/');
         }
+
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
+        add_action('wp_enqueue_scripts', array($this, 'icons'), 5);
         add_action('wp_enqueue_scripts', array($this, 'script'), 5);
 
         // Enqueue customizer scripts and styles
@@ -24,6 +26,8 @@ class Enqueue
 
         // Admin style
         add_action('admin_enqueue_scripts', array($this, 'adminStyle'), 999);
+        add_action('admin_enqueue_scripts', array($this, 'icons'), 5);
+
         // Admin scripts
         add_action('admin_enqueue_scripts', array($this, 'adminScripts'), 999);
         // Customizer specific
@@ -171,10 +175,32 @@ class Enqueue
         // Load local municipio css
         wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
         wp_enqueue_style('municipio-css');
+    }
 
-        // Load Material symbols
-        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
-        wp_enqueue_style('material-symbols-fonts');
+    /**
+     * Enqueue icons
+     * Enqueues the selected icon font style.
+     * 
+     * @return void
+     */
+    public function icons() {
+        $weight = get_theme_mod('icon_weight') ?: "400";
+        $style  = get_theme_mod('icon_style') ?: "rounded";
+
+        $weightTranslationTable = [
+            '200' => 'light',
+            '400' => 'medium',
+            '600' => 'bold',
+        ];
+        
+        wp_register_style('material-symbols', self::getAssetWithCacheBust(
+            sprintf(
+                'fonts/material/%s/%s.css', 
+                $weightTranslationTable[$weight] ?? 'medium', 
+                $style
+            )
+        ));
+        wp_enqueue_style('material-symbols');
     }
 
     /**

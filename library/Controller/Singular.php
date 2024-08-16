@@ -82,7 +82,7 @@ class Singular extends \Municipio\Controller\BaseController
         //Main content padder
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
-        $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
+        $this->data['postAgeNotice']               = $this->getPostAgeNotice($this->data['post']);
         $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         // Related posts (based on taxonomies)
@@ -100,18 +100,11 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function prepareQuery($query)
     {
-
         if (is_string($query) || empty($query)) {
             return false;
         }
         if ($query->have_posts()) {
             foreach ($query->posts as &$post) {
-                $contentType = \Municipio\Helper\ContentType::getContentType($post->post_type, true);
-                
-                if (is_object($contentType) && $contentType->getKey() == 'place') {
-                    $post = \Municipio\Helper\ContentType::complementPlacePost($post);
-                }
-                
                 $post = \Municipio\Helper\Post::preparePostObject($post);
             }
         }

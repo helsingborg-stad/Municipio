@@ -14,27 +14,15 @@ class Width
         $this->variations = [
             [
               'key'      => '',
-              'label'    => esc_html__("Default", 'municipio'),
-              'default'  => ($this->base * 160),
-              'minWidth' => ($this->base * 113),
-              'maxWidth' => ($this->base * 205)
-            ],
-            [
-                'key'      => '_frontpage',
-                'label'    => esc_html__("Front Page", 'municipio'),
-                'default'  => ($this->base * 160),
-                'minWidth' => ($this->base * 113),
-                'maxWidth' => ($this->base * 205)
-            ],
-            [
-              'key'      => '_archive',
-              'label'    => esc_html__("Archives", 'municipio'),
+              'css'      => '--container-width',
+              'label'    => esc_html__("Container", 'municipio'),
               'default'  => ($this->base * 160),
               'minWidth' => ($this->base * 113),
               'maxWidth' => ($this->base * 205)
             ],
             [
               'key'      => '_content',
+              'css'      => '--container-width-content',
               'label'    => esc_html__("Content", 'municipio'),
               'default'  => ($this->base * 88),
               'minWidth' => ($this->base * 50),
@@ -56,8 +44,8 @@ class Width
                 ],
                 'output'   => [
                     [
-                        'element'  => 'width',
-                        'property' => empty($args['key']) ? 'default' : ltrim($args['key'], "_"),
+                        'element'  => ':root',
+                        'property' => $args['css'],
                         'units'    => 'px',
                     ]
                 ],

@@ -4,8 +4,6 @@ namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
-use Municipio\Schema\PostDecorator\Place\Place;
-use WP_Error;
 use WP_Post;
 
 /**
@@ -124,15 +122,12 @@ class Post
      */
     public static function complementObject(\WP_Post $postObject, array $appendFields = [], $data = null): \WP_Post
     {
-        // Adds schemaData key to post object
-        $postObject->schemaData = [];
-
         //Check that a post object is entered
         $appendFields = apply_filters(
             'Municipio/Helper/Post/complementPostObject',
             array_merge([], $appendFields) //Ability to add default
         );
-        
+
         $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID);
         $postObject->hasQuicklinksAfterFirstBlock  = false;
         $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
@@ -141,11 +136,11 @@ class Post
             !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
             && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
         ) {
-            $postObject->displayQuicklinksAfterContent = false;
-            // Add quicklinks after first block
+                $postObject->displayQuicklinksAfterContent = false;
+                // Add quicklinks after first block
             foreach (parse_blocks($postObject->post_content) as $key => $block) {
                 if (0 == $key) {
-                    $postObject->post_content                     =
+                    $postObject->post_content                 =
                     render_block($block) .
                     render_blade_view(
                         'partials.navigation.fixed-after-block',
@@ -156,7 +151,7 @@ class Post
                         'lang'                => $data['lang'],
                         ]
                     );
-                        $postObject->hasQuicklinksAfterFirstBlock = true;
+                    $postObject->hasQuicklinksAfterFirstBlock = true;
                 } else {
                     $postObject->post_content .= render_block($block);
                 }
@@ -293,19 +288,6 @@ class Post
                 [],
                 $postObject
             );
-        }
-
-        if (!empty($postObject->post_type)) {
-            $postObject->contentType = \Modularity\Module\Posts\Helper\ContentType::getContentType(
-                $postObject->post_type
-            );
-        }
-
-        /* Add modified schema data */
-        $schemaData = get_field('schema', $postObject->ID);
-        if (!empty($schemaData) && !empty($postObject->contentType)) {
-            $place = new Place($schemaData);
-            $postObject = $place->appendData($postObject);
         }
 
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
@@ -563,6 +545,8 @@ class Post
         });
 
         return self::$runtimeCache['getPostTypeMetaKeys'][$postType] = $metaKeys;
+
+       
     }
 
     /**

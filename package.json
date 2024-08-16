@@ -1,12 +1,12 @@
 {
     "name": "municipio",
-    "version": "5.3.0",
+    "version": "5.8.8",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "cross-env NODE_ENV=development webpack --watch",
-        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/ && mv ./assets/dist/*.woff2 ./assets/dist/fonts",
-        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/ && mv ./assets/dist/*.woff2 ./assets/dist/fonts",
+        "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/",
+        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/",
         "i18n:update": "wp i18n make-pot . languages/municipio.pot --domain=municipio --location=false && wp i18n update-po languages/municipio.pot languages/sv_SE.po",
         "i18n:build": "wp i18n make-mo languages/sv_SE.po"
     },
@@ -39,6 +39,9 @@
         "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "@babel/preset-env": "^7.16.11",
         "@helsingborg-stad/styleguide": "^0.11.333",
+        "@material-symbols/font-200": "^0.22.0",
+        "@material-symbols/font-400": "^0.22.0",
+        "@material-symbols/font-600": "^0.22.0",
         "autoprefixer": "^10.4.2",
         "babel-loader": "^8.2.3",
         "body-parser": "^1.19.1",
@@ -52,12 +55,14 @@
         "eslint-config-hbg": "^0.1.1",
         "file-loader": "^6.2.0",
         "jquery": "^3.6.0",
+        "material-symbols": "^0.22.0",
         "mini-css-extract-plugin": "^2.5.3",
         "object-fit-images": "^3.2.4",
         "postcss-loader": "^6.2.1",
         "postcss-object-fit-images": "^1.1.2",
         "sass": "^1.49.7",
         "sass-loader": "^12.4.0",
+        "string-replace-webpack-plugin": "^0.1.3",
         "ts-loader": "^9.4.2",
         "typescript": "^4.9.4",
         "webpack": "^5.68.0",
@@ -72,7 +77,6 @@
         "@babel/plugin-transform-runtime": "^7.17.0",
         "css-vars-ponyfill": "^2.4.7",
         "instant.page": "^5.2.0",
-        "material-symbols": "^0.17.1",
         "process": "^0.11.10"
     },
     "browser": {

@@ -1,27 +1,16 @@
 require('dotenv').config();
 
 const path = require('path');
-
-const fs = require('fs');
 const webpack = require('webpack');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const RemoveEmptyScripts = require('webpack-remove-empty-scripts');
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-
-const { getIfUtils, removeEmpty } = require('webpack-config-utils');
-const { ifProduction, ifNotProduction } = getIfUtils(process.env.NODE_ENV);
+const fs = require('fs');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
-    mode: ifProduction('production', 'development'),
-    /**
-     * Add your entry files here
-     */
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     entry: {
         'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
         'js/styleguide': './assets/source/3.0/js/styleguide.js',
@@ -50,36 +39,36 @@ module.exports = {
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
         'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
 
-        /* Fonts */
-        'fonts/material-symbols': './assets/source/3.0/sass/admin/material-symbols.scss',
+        /* Icons */
+        'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
+        'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
+        'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
+
+        'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+        'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+        'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
+
+        'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
+        'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
+        'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
     },
-    /**
-     * Output settings
-     */
     output: {
-        filename: ifProduction('[name].[contenthash].js', '[name].js'),
+        filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].js' : '[name].js',
         path: path.resolve(__dirname, 'assets', 'dist'),
         publicPath: '',
     },
-    /**
-     * Define external dependencies here
-     */
     externals: {
         jquery: 'jQuery',
         tinymce: 'tinymce'
     },
     module: {
         rules: [
-            /**
-             * Scripts
-             */
             {
                 test: /\.js$/,
-                exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        // Babel config goes here
                         presets: ['@babel/preset-env'],
                         plugins: [
                             '@babel/plugin-syntax-dynamic-import',
@@ -89,134 +78,88 @@ module.exports = {
                     }
                 }
             },
-            /**
-             * TypeScript
-             */
             {
                 test: /\.ts?$/,
                 loader: 'ts-loader',
                 options: { allowTsInNodeModules: true }
             },
-            /**
-             * Styles
-             */
+            {
+                test: /\.(woff(2)?|ttf|eot|svg|otf)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: (pathData) => {
+                        const resourcePath = pathData.path || pathData.filename || '';
+                        const weightMap = {
+                            'font-200': 'light',
+                            'font-400': 'medium',
+                            'font-600': 'bold',
+                        };
+                        const dirNames = path.dirname(resourcePath).split(path.sep);
+                        const weightKey = dirNames.find((part) => weightMap[part]);
+                        const weight = weightMap[weightKey] || 'unknown';
+                        const baseName = path.basename(resourcePath, path.extname(resourcePath));
+                        const transformedName = baseName.replace(/^material-symbols-/, '');
+                        return `fonts/material/${weight}/${transformedName}.[contenthash:8][ext]`;
+                    },
+                    publicPath: '',
+                }
+            },
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {}
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 2,
-                        },
-                    },
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
                     {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                plugins: [autoprefixer, require('postcss-object-fit-images')],
+                                plugins: [autoprefixer],
                             }
                         },
                     },
-                    {
-                        loader: 'sass-loader',
-                        options: {}
-                    }
+                    'sass-loader'
                 ],
             },
-
-            /**
-             * Images
-             */
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: ifProduction('[name].[contenthash:8].[ext]', '[name].[ext]'),
+                            name: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].[ext]' : '[name].[ext]',
                             outputPath: 'images',
                             publicPath: '../images',
                         },
                     },
                 ],
             },
-        ],
+        ]
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
-    plugins: removeEmpty([
-
-        /**
-         * BrowserSync
-         */
-        typeof process.env.BROWSER_SYNC_PROXY_URL !== 'undefined' ? new BrowserSyncPlugin(
-            // BrowserSync options
+    plugins: [
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css',
+        }),
+        process.env.BROWSER_SYNC_PROXY_URL ? new BrowserSyncPlugin(
             {
-                // browse to http://localhost:3000/ during development
                 host: 'localhost',
-                port: process.env.BROWSER_SYNC_PORT ? process.env.BROWSER_SYNC_PORT : 3000,
-                // proxy the Webpack Dev Server endpoint
-                // (which should be serving on http://localhost:3100/)
-                // through BrowserSync
+                port: process.env.BROWSER_SYNC_PORT || 3000,
                 proxy: process.env.BROWSER_SYNC_PROXY_URL,
                 injectCss: true,
                 injectChanges: true,
-                files: [{
-                  // Reload page
-                  match: ['views/**/*.blade.php', 'library/**/*.php', 'assets/dist/js/**/*.js'],
-                  fn: function(event, file) {
-                    if (event === "change") {
-                      const bs = require('browser-sync').get('bs-webpack-plugin');
-                      bs.reload();
-                    }
-                  }
-                },
-                {
-                  // Inject CSS
-                  match: ['assets/dist/css/**/*.css'],
-                  fn: function(event, file) {
-                    if (event === "change") {
-                      const bs = require('browser-sync').get('bs-webpack-plugin');
-const fs = require('fs');
-                      bs.reload("*.css");
-                    }
-                  }
-                }],
-              },
-              // plugin options
-              {
-                // prevent BrowserSync from reloading the page
-                // and let Webpack Dev Server take care of this
-                reload: false
-              }
-        ) : null
-        ,
-
-        /**
-         * Fix CSS entry chunks generating js file
-         */
-        new RemoveEmptyScripts(),
-
-        /**
-         * Clean dist folder
-         */
-        new CleanWebpackPlugin(),
-
-        /**
-         * Output CSS files
-         */
-        new MiniCssExtractPlugin({
-            filename: ifProduction('[name].[contenthash:8].css', '[name].css')
+                files: [
+                    { match: ['views/**/*.blade.php', 'library/**/*.php', 'assets/dist/js/**/*.js'] },
+                    { match: ['assets/dist/css/**/*.css'] }
+                ]
+            }
+        ) : null,
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
         }),
 
-        /**
-         * Output manifest.json for cache busting
-         */
         new WebpackManifestPlugin({
             // Filter manifest items
             filter: function(file) {
@@ -224,50 +167,17 @@ const fs = require('fs');
                 if (file.path.match(/\.(map)$/)) {
                     return false;
                 }
+                if (file.path.match(/\.(woff2)$/)) {
+                    return false;
+                }
                 return true;
             },
             // Custom mapping of manifest item goes here
             map: function(file) {
-                // Fix incorrect key for fonts
-                if (
-                    file.isAsset &&
-                    file.isModuleAsset &&
-                    file.path.match(/\.(woff|woff2|eot|ttf|otf)$/)
-                ) {
-                    const pathParts = file.path.split('.');
-                    const nameParts = file.name.split('.');
-
-                    // Compare extensions
-                    if (pathParts[pathParts.length - 1] !== nameParts[nameParts.length - 1]) {
-                        file.name = pathParts[0].concat('.', pathParts[pathParts.length - 1]);
-                    }
-                }
                 return file;
             },
         }),
-        new webpack.ProvidePlugin({
-            process: 'process/browser',
-        }),
-        /**
-         * Enable build OS notifications (when using watch command)
-         */
-        new WebpackNotifierPlugin({alwaysNotify: true, skipFirstNotification: true}),
-
-        /**
-         * Minimize CSS assets
-         */
-        ifProduction(new CssMinimizerWebpackPlugin({
-            minimizerOptions: {
-                preset: [
-                    "default",
-                    {
-                        discardComments: { removeAll: true },
-                    },
-                ],
-            },
-        })),
-
-        /** Parse the icon specification */
+        /** Parse the icon specification in material-symbols, make json */
         function () {
             const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
             
@@ -306,8 +216,8 @@ const fs = require('fs');
                     console.error(err);
                 }
             })
-        },
-    ]).filter(Boolean),
+        }
+    ].filter(Boolean),
     devtool: 'source-map',
-    stats: { children: false, loggingDebug: ifNotProduction(['sass-loader'], []), }
+    stats: { children: false },
 };

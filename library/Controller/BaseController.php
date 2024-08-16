@@ -31,6 +31,7 @@ class BaseController
      */
     public function __construct()
     {
+
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
@@ -50,6 +51,7 @@ class BaseController
         $this->data['adminUrl']           = $this->getAdminUrl();
         $this->data['homeUrlPath']        = parse_url(get_home_url(), PHP_URL_PATH);
         $this->data['siteName']           = $this->getSiteName();
+
 
         //View porperties
         $this->data['isFrontPage'] = is_front_page() || is_home() ? true : false;
@@ -131,37 +133,16 @@ class BaseController
         $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
         $this->data['secondaryMenuItems'] = null;
 
-        /**
-         * Get the secondary menu items based on the content type or post type.
-         * If a content type is found, it will look for a secondary menu with the key {content_type}-secondary-menu.
-         * If not found, it will look for a secondary menu with the key {post_type}-secondary-menu.
-         * If still not found, it will fallback to the secondary menu with the key 'secondary-menu'.
-         *
-         * @return void
-         */
-        $contentType              = \Municipio\Helper\ContentType::getContentType(get_post_type());
-        $contentTypeSecondaryMenu = false;
+        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
 
-        if ($contentType) {
-            $contentTypeSecondaryMenu = $secondary->getMenuItems($contentType->getKey() . '-secondary-menu', $this->getPageID());
-            if (!empty($contentTypeSecondaryMenu)) {
-                $this->data['secondaryMenuItems'] = $contentTypeSecondaryMenu;
-            }
+        if (!empty($posttypeSecondaryMenuItems)) {
+            $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
+        } else {
+            $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
-
-        if (!$contentTypeSecondaryMenu) {
-            $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
-            if (!empty($posttypeSecondaryMenuItems)) {
-                $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
-            } else {
-                $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
-            }
-        }
-
 
         $this->data['mobileMenuItems'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
         $this->data['megaMenuItems']   = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
-
 
         //Complementary navigations
         $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
@@ -235,18 +216,18 @@ class BaseController
             [
                 'searchFor' => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
                 'noResult'  => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
-            ]
+                ]
         );
 
-        $this->data['labels'] = (array) $this->data['lang'];
+            $this->data['labels'] = (array) $this->data['lang'];
 
-        add_filter('ComponentLibrary/Component/Lang', function ($obj) {
-            $lang = [
-                'visit' => __('Visit', 'municipio'),
-            ];
+            add_filter('ComponentLibrary/Component/Lang', function ($obj) {
+                $lang = [
+                    'visit' => __('Visit', 'municipio'),
+                ];
 
-            return (object) array_merge((array) $obj, $lang);
-        }, 10, 1);
+                return (object) array_merge((array) $obj, $lang);
+            }, 10, 1);
 
         if (!empty($_SERVER['HTTP_HOST'])) {
             add_filter("ComponentLibrary/Component/Attribute", function ($attributes) {
@@ -262,27 +243,27 @@ class BaseController
             }, 10, 1);
         }
 
-        //Wordpress hooks
-        $this->data['hook'] = (object) array(
-        'innerLoopStart'     => $this->hook('inner_loop_start'),
-        'innerLoopEnd'       => $this->hook('inner_loop_end'),
-        'loopStart'          => $this->hook('loop_start'),
-        'loopEnd'            => $this->hook('loop_end'),
-        'secondaryLoopStart' => $this->hook('secondary_loop_start'),
-        'secondaryLoopEnd'   => $this->hook('secondary_loop_end')
-        );
+            //Wordpress hooks
+            $this->data['hook'] = (object) array(
+                'innerLoopStart'     => $this->hook('inner_loop_start'),
+                'innerLoopEnd'       => $this->hook('inner_loop_end'),
+                'loopStart'          => $this->hook('loop_start'),
+                'loopEnd'            => $this->hook('loop_end'),
+                'secondaryLoopStart' => $this->hook('secondary_loop_start'),
+                'secondaryLoopEnd'   => $this->hook('secondary_loop_end')
+            );
 
-        //Quicklinks placement is set in Singular
-        $this->data['displayQuicklinksAfterContent'] = false;
+            //Quicklinks placement is set in Singular
+            $this->data['displayQuicklinksAfterContent'] = false;
 
-        // Add filters to add emblem on blocks and cards with placeholders
-        add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
-        add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
-        add_filter('ComponentLibrary/Component/Segment/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
+            // Add filters to add emblem on blocks and cards with placeholders
+            add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
+            add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
+            add_filter('ComponentLibrary/Component/Segment/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
 
-        $googleTranslate = new \Municipio\Helper\GoogleTranslate();
+            $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
-        $this->init();
+            $this->init();
     }
 
     /**

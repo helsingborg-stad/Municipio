@@ -22,6 +22,17 @@ class Navigation
     private $cacheGroup  = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
 
+    //Static cache for ancestors
+    private static $runtimeCache = [
+        'ancestors' => [
+            [
+                'toplevel' => [],
+                'notoplevel' => []
+            ]
+        ],
+        'complementObjects' => []
+    ];
+
     public function __construct(string $identifier = '', string $context = 'municipio')
     {
         $this->identifier = $identifier;
@@ -238,6 +249,12 @@ class Navigation
      */
     private function getAncestors(int $postId, $includeTopLevel = true): array
     {
+
+        $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
+        if (isset(self::$runtimeCache['ancestors'][$cacheSubKey][$postId])) {
+            return self::$runtimeCache['ancestors'][$cacheSubKey][$postId];
+        }
+
         //Definitions
         $ancestorStack  = array($postId);
         $fetchAncestors = true;
@@ -290,7 +307,8 @@ class Navigation
             );
         }
 
-        return $ancestorStack;
+        //Return and cache result
+        return self::$runtimeCache['ancestors'][$cacheSubKey][$postId] = $ancestorStack;
     }
 
     /**
@@ -418,19 +436,35 @@ class Navigation
     {
         if (is_array($objects) && !empty($objects)) {
             foreach ($objects as $key => $item) {
-                $item = $this->transformObject(
-                    $this->hasChildren(
-                        $this->appendIsAncestorPost(
-                            $this->appendIsCurrentPost(
-                                $this->customTitle(
-                                    $this->appendHref($item)
+                // Generate a unique cache key for each item
+                $cacheKey = md5(serialize($item));
+
+                // Check if the item is already in the cache
+                if (!isset(self::$runtimeCache['complementObjects'][$cacheKey])) {
+                    // Process the item and add it to the cache
+                    $processedItem = $this->transformObject(
+                        $this->hasChildren(
+                            $this->appendIsAncestorPost(
+                                $this->appendIsCurrentPost(
+                                    $this->customTitle(
+                                        $this->appendHref($item)
+                                    )
                                 )
                             )
                         )
-                    )
-                );
+                    );
 
-                $objects[$key] = apply_filters('Municipio/Navigation/Item', $item, $this->identifier, false);
+                    // Store the processed item in the cache
+                    self::$runtimeCache['complementObjects'][$cacheKey] = apply_filters(
+                        'Municipio/Navigation/Item', 
+                        $processedItem, 
+                        $this->identifier, 
+                        false
+                    );
+                }
+
+                // Use the cached item
+                $objects[$key] = self::$runtimeCache['complementObjects'][$cacheKey];
             }
         }
 
@@ -661,77 +695,70 @@ class Navigation
      */
     public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
-        //Check for existing wp menu
-        if (has_nav_menu($menu)) {
-            $menuItems = wp_get_nav_menu_items(get_nav_menu_locations()[$menu]);
+        $result = [];
+        $menuLocation = get_nav_menu_locations()[$menu] ?? null;
+        
+        if ($menuLocation && has_nav_menu($menu)) {
+            $menuItems = wp_get_nav_menu_items($menuLocation);
 
             if (is_array($menuItems) && !empty($menuItems)) {
-                $result = []; //Storage of result
-
-                //Get menu ancestors
                 $ancestors = $this->getWpMenuAncestors(
                     $menuItems,
                     $this->pageIdToMenuID($menuItems, $pageId)
                 );
 
                 foreach ($menuItems as $item) {
-                    $isAncestor        = in_array($item->ID, $ancestors);
-                    $result[$item->ID] = apply_filters('Municipio/Navigation/Item', [
-                        'id'          => $item->ID,
-                        'post_parent' => $item->menu_item_parent,
-                        'post_type'   => $item->object,
-                        'page_id'     => $item->object_id,
-                        'active'      => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url) ? true : false,
-                        'ancestor'    => $isAncestor,
-                        'label'       => $item->title,
-                        'href'        => $item->url,
-                        'children'    => false,
-                        'icon'        => [
-                          'icon'      => get_field('menu_item_icon', $item->ID),
-                          'size'      => 'md',
-                          'classList' => ['c-nav__icon']
-                        ],
-                        'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
-                        'description' => get_field('menu_item_description', $item->ID) ?? '',
-                        'xfn'         => $item->xfn ?? false
-                    ], $this->identifier, true);
+                    $isAncestor = in_array($item->ID, $ancestors);
+                    $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId);
                 }
-            } else {
-                $result = [];
             }
-        } else {
-            //Get page tree
-            if ($fallbackToPageTree === true && is_numeric($pageId)) {
-                $result =  $this->getNested($pageId);
-            } else {
-                $result = [];
-            }
+        } elseif ($fallbackToPageTree && is_numeric($pageId)) {
+            $result = $this->getNested($pageId);
         }
 
-        //Filter for appending and removing objects from navgation
         $result = apply_filters('Municipio/Navigation/Items', $result, $this->identifier);
 
-        //Create nested array
         if (!empty($result) && is_array($result)) {
-            //Wheter to include top level or not
-            if ($includeTopLevel === true) {
-                $pageStructure = $this->buildTree($result);
-            } else {
-                $pageStructure = $this->removeTopLevel(
-                    $this->buildTree($result)
-                );
-            }
-
-            //Wheter to return nested or not
-            if ($onlyKeepFirstLevel == true) {
+            $pageStructure = $includeTopLevel ? $this->buildTree($result) : $this->removeTopLevel($this->buildTree($result));
+            if ($onlyKeepFirstLevel) {
                 $pageStructure = $this->removeSubLevels($pageStructure);
             }
-
-            //Return result
             return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
         }
 
         return false;
+    }
+
+    /**
+     * Prepare menu item
+     * 
+     * @param object $item
+     * @param bool $isAncestor
+     * @param int $pageId
+     * 
+     * @return array
+     */
+    private function prepareMenuItem($item, $isAncestor, $pageId): array
+    {
+        return apply_filters('Municipio/Navigation/Item', [
+            'id'          => $item->ID,
+            'post_parent' => $item->menu_item_parent,
+            'post_type'   => $item->object,
+            'page_id'     => $item->object_id,
+            'active'      => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url),
+            'ancestor'    => $isAncestor,
+            'label'       => $item->title,
+            'href'        => $item->url,
+            'children'    => false,
+            'icon'        => [
+                'icon'      => get_field('menu_item_icon', $item->ID),
+                'size'      => 'md',
+                'classList' => ['c-nav__icon']
+            ],
+            'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
+            'description' => get_field('menu_item_description', $item->ID) ?? '',
+            'xfn'         => $item->xfn ?? false
+        ], $this->identifier, true);
     }
 
     /**

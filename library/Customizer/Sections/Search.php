@@ -51,13 +51,13 @@ class Search
          'priority'        => 10,
          'choices'         => $this->getHeroSearchButtonOptions(),
          'output'          => [
-             [
-                 'type'    => 'component_data',
-                 'dataKey' => 'color',
-                 'context' => [
-                     'hero.search.button',
-                 ]
-             ],
+            [
+                'type'    => 'component_data',
+                'dataKey' => 'color',
+                'context' => [
+                    ['context' => 'hero.search.button', 'operator' => "=="]
+                ]
+            ],
          ],
          'active_callback' => [
              [

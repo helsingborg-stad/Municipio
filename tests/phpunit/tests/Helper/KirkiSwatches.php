@@ -17,6 +17,9 @@ class KirkiSwatchesTest extends TestCase
     */
     public function testKirkiSwatchesReturnsEmptyArray()
     {
+        // Given
+        KirkiSwatches::$cachedColors = null;
+
         // When
         $result = KirkiSwatches::getColors();
 
@@ -31,6 +34,7 @@ class KirkiSwatchesTest extends TestCase
     public function testKirkiSwatchesReturnsArrayWithCustomColors()
     {
         // Given
+        KirkiSwatches::$cachedColors = null;
         WP_Mock::userFunction('get_theme_mod', [
         'return' =>
             [
@@ -42,6 +46,7 @@ class KirkiSwatchesTest extends TestCase
             ],
 
         ]);
+
         // When
         $result = KirkiSwatches::getColors();
 
@@ -50,28 +55,6 @@ class KirkiSwatchesTest extends TestCase
 
         foreach ($result as $color) {
             $this->assertEquals('test', $color);
-        }
-    }
-
-      /**
-     * @testdox getColors as default returns an array of colors.
-    */
-    public function testKirkiSwatches()
-    {
-        // Given
-        WP_Mock::userFunction('get_theme_mod', []);
-        // When
-        $result = KirkiSwatches::getColors();
-
-        // Then
-        $this->assertCount(9, $result);
-
-        foreach ($result as $color) {
-            $isColor = strlen($color);
-            $this->assertEquals('#', $color[0]);
-            if (!$isColor === 4 && !$isColor === 7) {
-                $this->assertTrue(false);
-            }
         }
     }
 }

@@ -46,7 +46,7 @@ add_action('init', function () {
         'block-margin'                               => 'group_61bc6134601a0',
         'block-container'                            => 'group_63cfdba21f7fc',
         'options-activate-gutenberg'                 => 'group_60b496c06687c',
-        'options-branded-emails'                     => 'group_6639e9aa1409f',
+        'options-theme-features'                     => 'group_6639e9aa1409f',
         // Terms
         'term-icon-and-colour'                       => 'group_63e6002cc129c',
         // Options
@@ -62,7 +62,6 @@ add_action('init', function () {
         'options-theme-custom-post-type'             => 'group_56b34353ef1eb',
         'options-theme-custom-taxonomy'              => 'group_56c5e23aa271c',
         'options-theme-editor-formats'               => 'group_57ff4f49ac8c1',
-        'options-theme-favicon'                      => 'group_56cc39aba8782',
         'options-theme-footer-icons'                 => 'group_56af210c945f0',
         'options-theme-footer-layout'                => 'group_56e804931bd1e',
         'options-theme-google-translate'             => 'group_56cc6f8fe86d3',
@@ -112,10 +111,24 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
+    $wpService  = new NativeWpService();
+    $acfService = new NativeAcfService();
+
+    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
+    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
+    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+    $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
+    $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($acfService);
+    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
+    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $wpService);
+    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
+
     new Municipio\App(
-        new NativeWpService(),
-        new NativeAcfService(),
-        new HooksRegistrar()
+        $wpService,
+        $acfService,
+        new HooksRegistrar(),
+        $schemaObjectFromPost
     );
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {

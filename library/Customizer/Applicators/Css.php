@@ -2,42 +2,114 @@
 
 namespace Municipio\Customizer\Applicators;
 
-class Css
+use Kirki\Module\CSS as KirkiCSS;
+
+class Css extends AbstractApplicator
 {
   private $baseFontSize = '16px';
+  public  $optionKey = 'css';
 
   public function __construct() {
-    add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterPageWidth'));
-    add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));   
+    add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
+
+    /* Disable dynamic css */
+    define('KIRKI_NO_OUTPUT', true);
+
+    /* Save dynamic css on customizer save to static value */
+    add_action('customize_save_after', array($this, 'storeStaticStyles'), 60, 1);
+    add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
   }
 
   /**
-   * Handle custom page width depending on page type
-   *
-   * @param array $styles Default styles array with separate width element
-   * @return array $styles Styles array with container width
+   * Calculate dynamic css on save of customizer
+   * 
+   * @return array
    */
-  public function filterPageWidth($styles) {
+  public function storeStaticStyles($manager = null) {
+    $this->setStatic(
+      $dynamicStyles = $this->getDynamic()
+    );
+    return $dynamicStyles;
+  }
 
-    //Pop width
-    if(isset($styles['global']['width'])) {
-      $width = $styles['global']['width'];
-      unset($styles['global']['width']); 
+  /**
+   * Get dynamic css from Kirki
+   * 
+   * @return string
+   */
+  private function getDynamic() {
+    if($runtimeCache = $this->getRuntimeCache('cssRuntimeCache')) {
+      return $runtimeCache;
     }
 
-    //Add content
-    $styles['global'][':root']['--container-width-content'] = $width['content'];
+    return $this->setRuntimeCache(
+      'cssRuntimeCache',
+      $this->filterStyles(
+        KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
+      )
+    );
+  }
 
-    //Determine & add container width
-    if(is_front_page()||is_home()) {
-      $styles['global'][':root']['--container-width'] = $width['frontpage'];
-    } elseif(is_archive()||is_tax()) {
-      $styles['global'][':root']['--container-width'] = $width['archive'];
-    } else {
-      $styles['global'][':root']['--container-width'] = $width['default'];
+  /**
+   * Get static css from option
+   * 
+   * @return string
+   */
+  private function getStaticCss(): string
+  {
+    $styles = $this->getStatic();
+    if($styles) {
+      return $this->filterStyles(
+        $styles
+      );
     }
- 
-    return $styles; 
+    return "";
+  }
+
+  /**
+   * Get hybrid css, create static if not exists.
+   * 
+   * The reason we are storing static css is to be 
+   * backwards compatible. Some sites may not have
+   * the dynamic css stored in the database.
+   * 
+   * @return string
+   */
+  private function getHybrid(): string
+  {
+    $static = $this->getStaticCss();
+    if (!empty($static)) {
+      return $static;
+    }
+    return $this->storeStaticStyles();
+  }
+
+  /**
+   * Render static css
+   * 
+   * @param string $styles
+   * @return void
+   */
+  public function renderKirkiStaticCss($styles) {
+    $styles = $this->getHybrid();
+    if (!empty($styles)) {
+      echo $styles;
+    }
+  }
+  
+  /**
+   * Filter styles
+   * 
+   * @param string $styles
+   * @return string
+   */
+  private function filterStyles($styles) {
+    $styles = apply_filters("kirki_" . \Municipio\Customizer::KIRKI_CONFIG . "_dynamic_css", $styles);
+    $styles = wp_strip_all_tags($styles);
+    if(!empty($styles)) {
+      return $styles;
+    }
+    return false;
   }
 
   /**

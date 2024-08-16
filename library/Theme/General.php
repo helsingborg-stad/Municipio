@@ -9,7 +9,6 @@ class General
         add_action('init', array($this, 'bemItClassDefinition'));
 
         add_filter('body_class', array($this, 'appendBEMITCssClass'));
-        add_filter('body_class', array($this, 'appendContentTypeCssClass'));
         add_filter('body_class', array($this, 'isChildTheme'));
         add_filter('body_class', array($this, 'e404classes'));
 
@@ -91,12 +90,12 @@ class General
 
         //Theme specific class
         $themeObject = wp_get_theme();
-        $classes[] = "t-" . sanitize_title($themeObject->get("Name"));
+        $classes[]   = "t-" . sanitize_title($themeObject->get("Name"));
 
         //Child theme specific class
         if (is_child_theme()) {
             $childThemeObject = wp_get_theme(get_template());
-            $classes[] = "t-" . sanitize_title($childThemeObject->get("Name"));
+            $classes[]        = "t-" . sanitize_title($childThemeObject->get("Name"));
         }
 
         //Define const for later use
@@ -213,9 +212,9 @@ class General
      */
     public function removeEmptyPTag($content)
     {
-        $content    = force_balance_tags($content);
-        $content    = preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
-        $content    = preg_replace('~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content);
+        $content = force_balance_tags($content);
+        $content = preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
+        $content = preg_replace('~\s?<p>(\s|&nbsp;)+</p>\s?~', '', $content);
 
         return $content;
     }
@@ -231,31 +230,6 @@ class General
     {
         if (defined('MUNICIPIO_BEM_THEME_NAME')) {
             $classes[] = MUNICIPIO_BEM_THEME_NAME;
-        }
-        return $classes;
-    }
-    /**
-     * It adds a CSS class to the body tag for each content type that is set in the admin
-     *
-     * @param classes The array of classes to be appended to.
-     *
-     * @return An array of classes.
-     */
-
-    public function appendContentTypeCssClass($classes)
-    {
-        if (\Municipio\Helper\ContentType::hasAnyContentType()) {
-            $contentType = \Municipio\Helper\ContentType::getContentType();
-            $classes = [
-                "content-type-{$contentType->getKey()}",
-                "primary-content-type-{$contentType->getKey()}"
-            ];
-
-            if (!empty($contentType->secondaryContentType)) {
-                foreach ($contentType->secondaryContentType as $secondaryContentType) {
-                        $classes[] = "secondary-content-type-{$secondaryContentType->getKey()}";
-                }
-            }
         }
         return $classes;
     }

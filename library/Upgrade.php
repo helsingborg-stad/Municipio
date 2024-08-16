@@ -2,6 +2,10 @@
 
 namespace Municipio;
 
+use AcfService\Contracts\UpdateField;
+use WpService\Contracts\GetPostTypes;
+use WpService\Contracts\GetThemeMod;
+
 /**
  * Class App
  *
@@ -9,15 +13,17 @@ namespace Municipio;
  */
 class Upgrade
 {
-    private $dbVersion    = 29; //The db version we want to achive
+    private $dbVersion    = 31; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
     /**
      * App constructor.
      */
-    public function __construct()
-    {
+    public function __construct(
+        private GetThemeMod&GetPostTypes $wpService,
+        private UpdateField $acfService
+    ) {
         //Development tools
         //WARNING: Do not use in PROD. This will destroy your db.
         /*add_action('init', array($this, 'reset'), 1);
@@ -570,13 +576,13 @@ class Upgrade
         return true;
     }
 
-    private function v_29($db): bool 
+    private function v_29($db): bool
     {
         $args = [
             'posts_per_page' => -1,
-            'meta_key' => 'location',
-            'post_type' => 'any',
-            'post_status' => 'publish'
+            'meta_key'       => 'location',
+            'post_type'      => 'any',
+            'post_status'    => 'publish'
         ];
 
         $posts = get_posts($args);
@@ -584,7 +590,7 @@ class Upgrade
             foreach ($posts as $post) {
                 $schemaField = get_field('schema', $post->ID) ?? [];
                 if (is_array($schemaField)) {
-                    $locationField = get_post_meta($post->ID, 'location', true);
+                    $locationField      = get_post_meta($post->ID, 'location', true);
                     $schemaField['geo'] = !empty($schemaField['geo']) ? $schemaField['geo'] : $locationField;
 
                     update_field('schema', $schemaField, $post->ID);
@@ -592,6 +598,34 @@ class Upgrade
             }
         }
 
+        return true;
+    }
+
+    //Retires custom favicon in favour of native functionality
+    private function v_30($db): bool {
+        $nativeFaviconKey   = "site_icon"; 
+        $nativeFavicon      = get_option($nativeFaviconKey, false);
+        if (!$nativeFavicon) {
+
+            foreach(['152', '144', 'fav'] as $type) {
+                for($i = 0; $i < 10; $i++) {
+                    $iconType = get_option('options_favicons_'.$i.'_favicon_type'); 
+                    if($iconType == $type) {
+                        $iconId = get_option('options_favicons_'.$i.'_favicon_icon'); 
+                        if(is_numeric($iconId)) {
+                            update_option($nativeFaviconKey, $iconId); 
+                        }
+                        break 2; 
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    private function v_31($db): bool {
+        $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed%'");
         return true;
     }
 
@@ -844,7 +878,7 @@ class Upgrade
                 $currentDbVersion++;
                 $funcName = 'v_' . (string) $currentDbVersion;
 
-                $lockKey = 'upgrade_lock_v' . $currentDbVersion;
+                $lockKey  = 'upgrade_lock_v' . $currentDbVersion;
                 $isLocked = get_transient($lockKey);
                 if (!$isLocked && method_exists($this, $funcName)) {
                     set_transient($lockKey, time(), 600);

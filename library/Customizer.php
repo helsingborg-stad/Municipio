@@ -122,7 +122,8 @@ class Customizer
         Kirki::add_config(self::KIRKI_CONFIG, array(
             'capability'        => 'edit_theme_options',
             'option_type'       => 'theme_mod',
-            'gutenberg_support' => false
+            'gutenberg_support' => false,
+            'disable_output'    => true
         ));
 
         // Custom fonts support (parse uploaded fonts)
@@ -130,7 +131,7 @@ class Customizer
             new \Kirki\Module\FontUploads();
         }
 
-        //Applicators [Stuff that make effect on the frontend]
+        //Applicators [Applies settings on the frontend]
         new \Municipio\Customizer\Applicators\Modifiers();
         new \Municipio\Customizer\Applicators\ComponentData();
         new \Municipio\Customizer\Applicators\ControllerVariables();
