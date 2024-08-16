@@ -18,6 +18,7 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
             'Place'      => array('geo', 'telephone', 'url'),
             'School'     => array(),
             'JobPosting' => array(
+                '@id',
                 'applicationContact',
                 'datePosted',
                 'description',

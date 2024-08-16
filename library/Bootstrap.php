@@ -122,11 +122,12 @@ if (function_exists('get_field')) {
     $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
     $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
     $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($acfService);
-    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
-    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $wpService);
-    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
-    $schemaObjectFromPost              = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent($wpService, $getEnabledSchemaTypes, $schemaObjectFromPost);
+
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $wpService);
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent($wpService, $getEnabledSchemaTypes, $schemaObjectFromPost);
 
     new Municipio\App(
         $wpService,

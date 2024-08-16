@@ -63,7 +63,9 @@
         ])
         @endnotice
     @endif
-    {!! $postContentFiltered !!}
+    @section('article.content')
+        {!! $postContentFiltered !!}
+    @show
     @section('article.content.after')@show
 
     <!-- Terms -->
