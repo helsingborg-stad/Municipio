@@ -9,6 +9,7 @@ abstract class AbstractApplicator
 {
     public $optionKeyBasename = "theme_mod_applicator_cache";
     public $optionKey = null;
+    public $lastSignatureKey = 'theme_mod_last_signature';
     protected $signature = null;
     protected $runtimeCache = [];
 
@@ -65,6 +66,9 @@ abstract class AbstractApplicator
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
         }
+
+        update_option($this->lastSignatureKey, $this->signature);
+
         return update_option($this->optionKey, $data);
     }
 
@@ -118,7 +122,14 @@ abstract class AbstractApplicator
      */
     protected function getFieldSignature($fields): string
     {
-        $supportedHashes = hash_algos() ?? []; 
+        $signature = get_option($this->lastSignatureKey, $this->getDefaultFieldSignature($fields));
+
+        return $signature;
+    }
+
+    protected function getDefaultFieldSignature($fields): string
+    {
+        $supportedHashes = hash_algos() ?? [];
         if(in_array('xxh3', $supportedHashes)) {
             $hash = hash('sha256', json_encode($fields)); 
         }

@@ -2,7 +2,7 @@
     'id' => 'site-header',
     'classList' => array_merge(
         ['site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
-        (array) isset($classList) ? $classList : []
+        isset($classList) ? (array) $classList : []
     ),
     'context' => 'site.header'
 ])
