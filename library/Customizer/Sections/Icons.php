@@ -59,7 +59,7 @@ class Icons
             'output'          => [
                 [
                     'type'    => 'component_data',
-                    'dataKey' => 'filled',
+                    'dataKey' => 'defaultFilled',
                     'context' => [
                         [
                             'context'  => 'component.icon',
