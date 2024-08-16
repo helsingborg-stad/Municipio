@@ -24,31 +24,11 @@ class Appearance
             'output'      => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['site.header']
+                    'context' => [
+                        'site.header',
+                        'site.header.flexible.lower',
+                    ]
                 ],
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type'        => 'select',
-            'settings'    => 'header_color',
-            'label'       => esc_html__('Text color', 'municipio'),
-            'description' => esc_html__('Select a font/text color to use in the header.', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => '',
-            'priority'    => 10,
-            'choices'     => [
-                ''               => esc_html__('Default', 'municipio'),
-                'text-white'     => esc_html__('White', 'municipio'),
-                'text-black'     => esc_html__('Black', 'municipio'),
-                'text-primary'   => esc_html__('Primary', 'municipio'),
-                'text-secondary' => esc_html__('Secondary', 'municipio')
-            ],
-            'output'      => [
-                [
-                    'type'    => 'modifier',
-                    'context' => ['site.header']
-                ]
             ],
         ]);
 
@@ -67,7 +47,10 @@ class Appearance
             'output'      => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['site.header']
+                    'context' => [
+                        'site.header',
+                        'site.header.flexible.lower',
+                    ]
                 ]
             ],
         ]);

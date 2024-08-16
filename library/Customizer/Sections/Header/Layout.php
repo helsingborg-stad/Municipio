@@ -213,7 +213,7 @@ class Layout
             'tab'             => 'standard',
             'choices'         => [
                 'casual-left'   => esc_html__('Left', 'municipio'),
-                'casual-center' => esc_html__('Center sdsad', 'municipio'),
+                'casual-center' => esc_html__('Center', 'municipio'),
                 'casual-right'  => esc_html__('Right', 'municipio'),
             ],
             'active_callback' => [
