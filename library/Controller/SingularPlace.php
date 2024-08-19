@@ -14,6 +14,10 @@ class SingularPlace extends \Municipio\Controller\Singular
     public function init()
     {
         parent::init();
+
+        $pageID                 = $this->getPageID();
+        $data['relatedPosts']   = $this->getRelatedPosts($pageID);
+
         $this->addHooks();
     }
 
@@ -29,6 +33,13 @@ class SingularPlace extends \Municipio\Controller\Singular
         add_filter('Municipio/viewData', [$this, 'populatePostWithAdditionalPlaceViewData'], 10, 1);
     }
 
+    /**
+     * Populate the view data with additional information for a place post.
+     *
+     * @param array $data The view data to populate.
+     *
+     * @return array The updated view data.
+     */
     public function populatePostWithAdditionalPlaceViewData($data)
     {
         $data['post'] = $this->complementPlacePost($data['post']);
