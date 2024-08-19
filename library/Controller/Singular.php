@@ -403,6 +403,7 @@ class Singular extends \Municipio\Controller\BaseController
             'post_type'    => $postType,
             'post__not_in' => [$postId],
             'tax_query'    => $taxQuery,
+            'orderby'      => 'rand'
         ];
 
         // Get the related posts
