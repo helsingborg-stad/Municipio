@@ -15,7 +15,7 @@ class AlignmentTransformer
             foreach ($items as $menu => $classes) {
                 if (!empty($this->data->{$setting}->{$menu})) {
                     foreach ($this->data->{$setting}->{$menu} as $name => $value) {
-                            $alignedItems[$value][$menu] = $classes;
+                        $alignedItems[$value][$menu] = $classes;
                     }
                 }
             }
