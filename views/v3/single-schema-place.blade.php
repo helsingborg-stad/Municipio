@@ -80,46 +80,37 @@
 
 @section('below')
     @if(!empty($relatedPosts))
-        @foreach ($relatedPosts as $postType => $posts)
-            <div class="o-grid">
-                @group([
-                    'justifyContent' => 'space-between'
-                ])
-                    @typography([
-                        'element' => 'h2'
+
+        @typography([
+            'element' => 'h2',
+            'variant' => 'h2',
+            'classList' => ['u-margin__bottom--4']
+        ])
+            {{ $lang->related }} {{ $postTypeDetails->labels->name }}
+        @endtypography
+
+        <div class="o-grid">
+            @foreach ($relatedPosts as $post)
+                <div class="o-grid-4@md u-margin__bottom--8">
+                    @segment([
+                        'layout' => 'card',
+                        'title' => $post->postTitleFiltered,
+                        'content' => !empty($post->excerptShorter) ? $post->excerptShorter : false,
+                        'image' => !empty($post->thumbnail['src']) ? $post->thumbnail['src'] : false,
+                        'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
+                        'tags' => !empty($post->termsUnlinked) ? $post->termsUnlinked : false,
+                        'meta' => !empty($post->readingTime) ? $post->readingTime : false,
+                        'icon' => !empty($post->termIcon['icon']) ? $post->termIcon : false
                     ])
-                        {{ $lang->related }} {{ $postType }}
-                    @endtypography
-                    @if (!empty(get_post_type_archive_link($postType)))
-                        @link([
-                            'href' => get_post_type_archive_link($postType)
-                        ])
-                            {{ $lang->showAll }}
-                        @endlink
+                    @if ($post->callToActionItems['floating'])
+                        @slot('floating')
+                            @icon($post->callToActionItems['floating'])
+                            @endicon
+                        @endslot
                     @endif
-                @endgroup
-                @foreach ($posts as $post)
-                    <div class="o-grid-4@md u-margin__bottom--8">
-                        @segment([
-                            'layout' => 'card',
-                            'title' => $post->postTitleFiltered,
-                            'content' => !empty($post->excerptShorter) ? $post->excerptShorter : false,
-                            'image' => !empty($post->thumbnail['src']) ? $post->thumbnail['src'] : false,
-                            'buttons' => [['text' => $labels['readMore'], 'href' => $post->permalink]],
-                            'tags' => !empty($post->termsUnlinked) ? $post->termsUnlinked : false,
-                            'meta' => !empty($post->readingTime) ? $post->readingTime : false,
-                            'icon' => !empty($post->termIcon['icon']) ? $post->termIcon : false
-                        ])
-                        @if ($post->callToActionItems['floating'])
-                            @slot('floating')
-                                @icon($post->callToActionItems['floating'])
-                                @endicon
-                            @endslot
-                        @endif
-                        @endsegment
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
+                    @endsegment
+                </div>
+            @endforeach
+        </div>
     @endif
 @stop

@@ -15,8 +15,8 @@ class SingularPlace extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $pageID                 = $this->getPageID();
-        $data['relatedPosts']   = $this->getRelatedPosts($pageID);
+        $pageID                         = $this->getPageID();
+        $this->data['relatedPosts']     = $this->getRelatedPosts($pageID);
 
         $this->addHooks();
     }
