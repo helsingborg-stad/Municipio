@@ -82,11 +82,11 @@ class Singular extends \Municipio\Controller\BaseController
         //Main content padder
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
+        //Get age of post 
         $this->data['postAgeNotice']               = $this->getPostAgeNotice($this->data['post']);
-        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
-        // Related posts (based on taxonomies)
-        $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
+        //Position of quicklinks
+        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         return $this->data;
     }
@@ -363,7 +363,7 @@ class Singular extends \Municipio\Controller\BaseController
         return $post instanceof WP_Post ? $post : null;
     }
 
- /**
+    /**
      * Get related posts based on the taxonomies of the current post.
      *
      * @param int $postId The ID of the current post.

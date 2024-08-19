@@ -263,7 +263,16 @@ class Enqueue
         wp_enqueue_script('municipio-js');
 
         //Load instant page
-        wp_register_script('instantpage-js', self::getAssetWithCacheBust('js/instantpage.js'));
+        wp_register_script(
+            'instantpage-js', 
+            self::getAssetWithCacheBust('js/instantpage.js'), 
+            [], 
+            null, 
+            [
+                'strategy' => 'defer', 
+                'in_footer' => true
+            ]
+        );
         wp_enqueue_script('instantpage-js');
 
         //Load pdf generator
