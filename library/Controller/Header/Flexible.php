@@ -12,6 +12,8 @@ class Flexible implements HeaderInterface
     private bool $hasSearch;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
+    private string $headerSettingKey = 'header_sortable_section_';
+    private string $headerSettingKeyResponsive = 'Responsive';
 
     public function __construct(private object $customizer)
     {
@@ -33,11 +35,47 @@ class Flexible implements HeaderInterface
 
     public function getHeaderData(): array
     {
+        $upperItems = $this->getItems('main_upper');
+        $lowerItems = $this->getItems('main_lower');
+        [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
+        
         return [
-            'upper'       => $this->getItems('main_upper'),
-            'lower'       => $this->getItems('main_lower'),
+            'upperHeader' => $upperHeader,
+            'lowerHeader' => $lowerHeader,
+            'upperItems'  => $upperItems,
+            'lowerItems'  => $lowerItems,
             'hasMegaMenu' => $this->hasMegaMenu,
             'hasSearch'   => $this->hasSearch,
+        ];
+    }
+
+    private function getHeaderSettings($upperItems, $lowerItems): array
+    {
+        $upperSettings = [];
+        $lowerSettings = [];
+
+        if (!empty($this->customizer->headerSticky)) {
+            $upperSettings['sticky'] = empty($lowerItems) ? true : false;
+            $upperSettings['sticky'] = true;
+        }
+
+        if (!empty($this->customizer->headerBackground)) {
+            $upperSettings['backgroundColor'] = empty($lowerItems) ? $this->customizer->headerBackground : 'default';
+            $lowerSettings['backgroundColor'] = $this->customizer->headerBackground;
+        }
+
+
+        return [
+            array_merge($this->defaultHeaderSettings(), $upperSettings),
+            array_merge($this->defaultHeaderSettings(), $lowerSettings)
+        ];
+    }
+
+    private function defaultHeaderSettings(): array 
+    {
+        return [
+            'sticky' => false,
+            'backgroundColor' => 'default',
         ];
     }
 
@@ -52,6 +90,7 @@ class Flexible implements HeaderInterface
         $items = $this->menuOrderTransformerInstance->transform($desktopOrderedItems, $mobileOrderedItems);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
 
+
         return $items;
     }
 
@@ -59,18 +98,18 @@ class Flexible implements HeaderInterface
     {
         return [
             $this->customizer->{$settingCamelCased} ?? [],
-            ($this->isResponsive && isset($this->customizer->{$settingCamelCased . 'Responsive'}))
-                ? $this->customizer->{$settingCamelCased . 'Responsive'}
+            ($this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}))
+                ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
                 : [],
         ];
     }
 
     private function getSettingName(string $section): array
     {
-        $setting = 'header_sortable_section_' . $section;
+        $setting = $this->headerSettingKey . $section;
         return [
-        $setting,
-        \Municipio\Helper\FormatObject::camelCaseString($setting),
+            $setting,
+            \Municipio\Helper\FormatObject::camelCaseString($setting),
         ];
     }
 }

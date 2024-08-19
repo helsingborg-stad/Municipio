@@ -26,8 +26,10 @@ class Appearance
                     'type'    => 'modifier',
                     'context' => [
                         'site.header',
-                        'site.header.flexible.lower',
                     ]
+                ],
+                [
+                    'type' => 'controller',
                 ],
             ],
         ]);

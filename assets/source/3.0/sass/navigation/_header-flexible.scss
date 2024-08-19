@@ -10,14 +10,6 @@
         gap: calc($base * 2);
     }
 
-    .c-header__main-upper-area-container {
-        background-color: white;
-    }
-
-    .c-header__main-lower-area-container {
-        background-color: pink;
-    }
-
     .c-header__main-upper-area,
     .c-header__main-lower-area {
         display: grid;

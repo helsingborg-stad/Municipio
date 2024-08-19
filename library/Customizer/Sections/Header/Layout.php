@@ -76,7 +76,7 @@ class Layout
                         'setting'  => 'header_apperance',
                         'operator' => '==',
                         'value'    => 'flexible',
-                    ]
+                    ],
                 ],
                 'output'          => [
                     [
@@ -101,6 +101,11 @@ class Layout
                         'setting'  => 'header_enable_responsive_order',
                         'operator' => '==',
                         'value'    => true,
+                    ],
+                    [
+                        'setting'  => 'header_apperance',
+                        'operator' => '==',
+                        'value'    => 'flexible',
                     ]
                 ],
                 'output'          => [
@@ -125,6 +130,11 @@ class Layout
                         'setting'  => 'header_enable_responsive_order',
                         'operator' => '==',
                         'value'    => true,
+                    ],
+                    [
+                        'setting'  => 'header_apperance',
+                        'operator' => '==',
+                        'value'    => 'flexible',
                     ]
                 ],
                 'output'          => [
