@@ -27,6 +27,7 @@ use WP_Query;
 use Municipio\Helper\Listing;
 use Municipio\IniService\IniService;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use WP_Meta_Query;
 use WP_Post;
 use WpService\WpService;
 
@@ -363,7 +364,7 @@ class App
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', 'JobPosting', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/shemaobjects.json'),
                 new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/thingshemaobjects.json'),
-                // new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('foo', 'JobPosting', TYPESENSE_API_KEY, TYPESENSE_HOST, 'jobpostings')
+                new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('job', 'JobPosting', constant('TYPESENSE_API_KEY'), 'schemadata.helsingborg.io', 'jobpostings')
             ],
             new \Municipio\ExternalContent\Sources\SourceFactory(),
             $this->wpService
@@ -445,10 +446,10 @@ class App
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
 
-        $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[0], $wpPostFactory, $this->wpService);
+        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[3], $wpPostFactory, $this->wpService);
         // $syncSourceToLocal->addHooks();
 
-        $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
+        // $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
         // $syncSingleSourceToLocalByPostId->addHooks();
     }
 }

@@ -41,10 +41,25 @@ class TypesenseClient implements ITypesenseClient
 
     public function getAll(): array
     {
-        return $this->search([
-            'q'        => '*',
-            'query_by' => '@id',
-        ]);
+        $page   = 1;
+        $result = ['hits' => []];
+
+        while (true) {
+            $response = $this->search([
+                'q'        => '*',
+                'per_page' => 250,
+                'page'     => $page,
+            ]);
+
+            if (empty($response['hits'])) {
+                break;
+            }
+
+            $result['hits'] = array_merge($result['hits'], $response['hits']);
+            $page++;
+        }
+
+        return $result;
     }
 
     public function getSingleBySchemaId(string $id): array

@@ -2,12 +2,10 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
-use Mockery;
 use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
-use WP;
 use WP_Post;
 
 class SchemaObjectFromPostTest extends TestCase

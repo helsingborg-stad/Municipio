@@ -44,9 +44,8 @@ class TermsDecorator implements WpPostFactoryInterface
         foreach ($matchingTaxonomyItems as $taxonomyItem) {
             $propertyValue                               = $schemaObject->getProperty($taxonomyItem->getSchemaObjectProperty());
             $terms                                       = is_array($propertyValue) ? $propertyValue : [$propertyValue];
-            $wpTerms                                     = array_map(function ($term) use ($taxonomyItem) {
-                return $this->wpTermFactory->create($term, $taxonomyItem->getName());
-            }, $terms);
+            $terms                                       = array_filter($terms);
+            $wpTerms                                     = array_map(fn ($term) => $this->wpTermFactory->create($term, $taxonomyItem->getName()), $terms);
             $termIds                                     = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
             $post['tax_input'][$taxonomyItem->getName()] = $termIds;
         }

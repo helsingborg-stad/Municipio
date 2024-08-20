@@ -36,43 +36,47 @@
 
     @endif
 
-    @typography(['element' => 'h3'])
-        {{$lang->contact}}
-    @endtypography
+    @if(!empty($post->schemaObject['applicationContact']))
 
-    @collection(['bordered' => true])
-        @foreach ($post->schemaObject['applicationContact'] as $contact)
-            @collection__item([])
-                
-                @if($contact['name'] ?? null)
-                    @typography(['element' => 'h4'])
-                        {{$contact['name']}}
-                    @endtypography
-                @endif
-                
-                @if($contact['contactType'] ?? null)
-                    @typography(['variant' => 'meta'])
-                        {{$contact['contactType']}}
-                    @endtypography
-                @endif
+        @typography(['element' => 'h3'])
+            {{$lang->contact}}
+        @endtypography
 
-                @if($contact['telephone'] ?? null)
-                    @link(['href' => "mailto:{$contact['telephone']}"])
-                        {{$contact['telephone']}}
-                    @endlink
-                @endif
+        @collection(['bordered' => true])
+            @foreach ($post->schemaObject['applicationContact'] as $contact)
+                @collection__item([])
+                    
+                    @if($contact['name'] ?? null)
+                        @typography(['element' => 'h4'])
+                            {{$contact['name']}}
+                        @endtypography
+                    @endif
+                    
+                    @if($contact['contactType'] ?? null)
+                        @typography(['variant' => 'meta'])
+                            {{$contact['contactType']}}
+                        @endtypography
+                    @endif
 
-                <span></span>
-                
-                @if($contact['email'] ?? null)
-                    @link(['href' => "mailto:{$contact['email']}"])
-                        {{$contact['email']}}
-                    @endlink
-                @endif
+                    @if($contact['telephone'] ?? null)
+                        @link(['href' => "mailto:{$contact['telephone']}"])
+                            {{$contact['telephone']}}
+                        @endlink
+                    @endif
 
-            @endcollection__item
-        @endforeach
-    @endcollection
+                    <span></span>
+                    
+                    @if($contact['email'] ?? null)
+                        @link(['href' => "mailto:{$contact['email']}"])
+                            {{$contact['email']}}
+                        @endlink
+                    @endif
+
+                @endcollection__item
+            @endforeach
+        @endcollection
+    
+    @endif
 
     @if($post->schemaObject['url'])
         @button([
