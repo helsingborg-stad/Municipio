@@ -31,6 +31,15 @@ class MenuConstructor {
         return $result;
     }
 
+
+    /**
+     * Recusivly traverse flat array and make a nested variant
+     *
+     * @param   array   $elements    A list of pages
+     * @param   integer $parentId    Parent id
+     *
+     * @return  array               Nested array representing page structure
+     */
     public function buildStructuredMenu(array $structuredMenuItems, $parentId = 0): array
     {
         $branch = array();

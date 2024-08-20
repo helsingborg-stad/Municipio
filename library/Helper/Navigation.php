@@ -316,41 +316,6 @@ class Navigation
     }
 
     /**
-     * Recusivly traverse flat array and make a nested variant
-     *
-     * @param   array   $elements    A list of pages
-     * @param   integer $parentId    Parent id
-     *
-     * @return  array               Nested array representing page structure
-     */
-
-    private function buildTree(array $elements, $parentId = 0): array
-    {
-        $branch = array();
-
-        if (is_array($elements) && !empty($elements)) {
-            foreach ($elements as $element) {
-                if (!isset($element['post_parent']) || !isset($element['id'])) {
-                    continue;
-                }
-
-                if ($element['post_parent'] == $parentId) {
-                    $children = $this->buildTree($elements, $element['id']);
-
-                    if ($children) {
-                        $element['children'] = $children;
-                    }
-
-                    $branch[] = $element;
-                }
-            }
-        }
-
-        return $branch;
-    }
-
-
-    /**
      * Get pages/posts
      *
      * @param   integer|array  $parent    Post parent
