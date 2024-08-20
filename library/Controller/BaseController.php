@@ -87,6 +87,16 @@ class BaseController
         $this->data['footerAreas']                   = $footerAreas;
         $this->data['footerTextAlignment']           = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerTextAlignment'];
 
+        // Header controllers
+        if (isset($this->data['customizer']->headerApperance)) {
+            $headerClassName = '\Municipio\Controller\Header\\' . ucfirst($this->data['customizer']->headerApperance);
+            if (class_exists($headerClassName)) {
+                $headerController = new $headerClassName($this->data['customizer']);
+            }
+        }
+
+        $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
+
         //Init class for menus
         $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility    = new \Municipio\Helper\Navigation('accessibility');
