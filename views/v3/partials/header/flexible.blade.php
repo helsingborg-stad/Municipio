@@ -11,10 +11,16 @@
         'context' => 'site.header.flexible.upper'
     ])
         <div class="c-header__main-upper-area-container">
-            <div class="c-header__main-upper-area o-container">   
-                @include('partials.header.components.headerLoop', ['key' => 'upperItems', 'align' => 'left'])
-                @include('partials.header.components.headerLoop', ['key' => 'upperItems', 'align' => 'center'])
-                @include('partials.header.components.headerLoop', ['key' => 'upperItems', 'align' => 'right'])
+            <div class="c-header__main-upper-area o-container">
+                @foreach (['left', 'center', 'right'] as $alignment) 
+                    @include('partials.header.components.headerLoop', 
+                        [
+                            'area' => 'upper', 
+                            'key' => 'upperItems', 
+                            'align' => $alignment
+                        ]
+                    )
+                @endforeach
             </div>
         </div>
     @endheader
@@ -32,9 +38,16 @@
         ])
             <div class="c-header__main-lower-area-container">
                 <div class="c-header__main-lower-area o-container">
-                    @include('partials.header.components.headerLoop', ['key' => 'lowerItems', 'align' => 'left'])
-                    @include('partials.header.components.headerLoop', ['key' => 'lowerItems', 'align' => 'center'])
-                    @include('partials.header.components.headerLoop', ['key' => 'lowerItems', 'align' => 'right'])
+                    @foreach (['left', 'center', 'right'] as $alignment) 
+                        @include('partials.header.components.headerLoop', 
+                            [
+                                'area' => 
+                                'lower', 'key' => 
+                                'upperItems', 
+                                'align' => $alignment
+                            ]
+                        )
+                    @endforeach
                 </div>
             </div>
         @endheader

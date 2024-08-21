@@ -1,4 +1,4 @@
-<div class="c-header__{{$key}}-{{$align}}">
+<div class="c-header__{{$area}}-{{$align}}">
     @if(!empty($headerData[$key][$align]))
         @foreach($headerData[$key][$align] as $name => $classes)
             <div class="{{implode(' ', $classes)}}">
