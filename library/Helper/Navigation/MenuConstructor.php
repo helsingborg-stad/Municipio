@@ -24,7 +24,7 @@ class MenuConstructor {
 
             foreach ($menuItems as $item) {
                 $isAncestor = in_array($item->ID, $ancestors);
-                $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId, $this->identifier);
+                $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId);
             }
         }
 
@@ -93,6 +93,7 @@ class MenuConstructor {
             ],
             'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
             'description' => get_field('menu_item_description', $item->ID) ?? '',
+            'top_level'   => $item->menu_item_parent == 0,
             'xfn'         => $item->xfn ?? false
         ], $this->identifier, true);
     }
