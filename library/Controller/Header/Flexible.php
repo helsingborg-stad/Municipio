@@ -12,7 +12,7 @@ class Flexible implements HeaderInterface
     private bool $hasSearch;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
-    private string $headerSettingKey = 'header_sortable_section_';
+    private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
 
     public function __construct(private object $customizer)
@@ -35,10 +35,10 @@ class Flexible implements HeaderInterface
 
     public function getHeaderData(): array
     {
-        $upperItems = $this->getItems('main_upper');
-        $lowerItems = $this->getItems('main_lower');
+        $upperItems                  = $this->getItems('main_upper');
+        $lowerItems                  = $this->getItems('main_lower');
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
-        
+
         return [
             'upperHeader' => $upperHeader,
             'lowerHeader' => $lowerHeader,
@@ -71,10 +71,10 @@ class Flexible implements HeaderInterface
         ];
     }
 
-    private function defaultHeaderSettings(): array 
+    private function defaultHeaderSettings(): array
     {
         return [
-            'sticky' => false,
+            'sticky'          => false,
             'backgroundColor' => 'default',
         ];
     }

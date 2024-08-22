@@ -41,9 +41,8 @@
                     @foreach (['left', 'center', 'right'] as $alignment) 
                         @include('partials.header.components.headerLoop', 
                             [
-                                'area' => 
-                                'lower', 'key' => 
-                                'upperItems', 
+                                'area' => 'lower', 
+                                'key' => 'lowerItems', 
                                 'align' => $alignment
                             ]
                         )
