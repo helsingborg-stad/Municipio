@@ -12,7 +12,6 @@ class TaxonomyItem implements ITaxonomyItem
     public function __construct(
         private string $schemaObjectType,
         private string $schemaObjectProperty,
-        private string $name,
         private string $singleLabel,
         private string $pluralLabel,
         private __ $wpService
@@ -40,7 +39,9 @@ class TaxonomyItem implements ITaxonomyItem
      */
     public function getName(): string
     {
-        return $this->name;
+        // Convert the schema object property to a taxonomy name by making it snake case from camelcase.
+        $snakeCasedObjectProperty = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $this->schemaObjectProperty));
+        return $snakeCasedObjectProperty;
     }
 
     /**
@@ -70,7 +71,7 @@ class TaxonomyItem implements ITaxonomyItem
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => ['slug' => $this->name]
+            'rewrite'           => ['slug' => $this->getName()],
         ];
     }
 

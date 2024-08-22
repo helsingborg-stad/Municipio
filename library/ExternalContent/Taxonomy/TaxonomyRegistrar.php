@@ -9,7 +9,7 @@ use WpService\Contracts\RegisterTaxonomy;
 use WpService\Contracts\RegisterTaxonomyForObjectType;
 use WpService\Contracts\TaxonomyExists;
 
-class TaxonomyRegistrar implements ITaxonomyRegistrar, Hookable
+class TaxonomyRegistrar implements ITaxonomyRegistrar
 {
     private array $registeredTaxonomyItems = [];
 
@@ -25,11 +25,6 @@ class TaxonomyRegistrar implements ITaxonomyRegistrar, Hookable
         private ISourceRegistry $sourceRegistry,
         private AddAction&RegisterTaxonomy&TaxonomyExists&RegisterTaxonomyForObjectType $wpService
     ) {
-    }
-
-    public function addHooks(): void
-    {
-        $this->wpService->addAction('init', [$this, 'register']);
     }
 
     public function register(): void

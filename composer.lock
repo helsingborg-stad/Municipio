@@ -323,16 +323,16 @@
         },
         {
             "name": "helsingborg-stad/acfservice",
-            "version": "0.7.0",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acfservice.git",
-                "reference": "596e9a1a10f56a482e10acbafcbfb6758837e682"
+                "reference": "e526cdc750b646baaa1e92bfc152b6b0960766b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/596e9a1a10f56a482e10acbafcbfb6758837e682",
-                "reference": "596e9a1a10f56a482e10acbafcbfb6758837e682",
+                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/e526cdc750b646baaa1e92bfc152b6b0960766b3",
+                "reference": "e526cdc750b646baaa1e92bfc152b6b0960766b3",
                 "shasum": ""
             },
             "require": {
@@ -361,9 +361,9 @@
             "description": "Simplifies ACF integration by providing a centralized AcfService that exposes global ACF functions in a streamlined manner. Simplify your development workflow and enhance ACF integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acfservice/issues",
-                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.7.0"
+                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.8.0"
             },
-            "time": "2024-07-04T12:28:04+00:00"
+            "time": "2024-08-20T05:58:42+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",

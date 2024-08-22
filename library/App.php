@@ -27,6 +27,7 @@ use WP_Query;
 use Municipio\Helper\Listing;
 use Municipio\IniService\IniService;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use Municipio\SchemaData\Utils\GetSchemaTypeFromPostType;
 use WP_Meta_Query;
 use WP_Post;
 use WpService\WpService;
@@ -252,11 +253,6 @@ class App
          * Apply schema.org data to posts
          */
         $this->setupSchemaDataFeature();
-
-        /**
-         * External content
-         */
-        $this->trySetupExternalContent();
     }
 
     /**
@@ -339,7 +335,7 @@ class App
          * Register field group for schema.org data that shows up on admin post list pages.
          */
         $schemaTypes = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\Acf\RegisterFeatureSettingsFieldGroup($this->acfService, $schemaTypes, $this->wpService));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Acf\RegisterSchemaTypeForm($this->acfService, $schemaTypes, $this->wpService));
 
         /**
          * Output schemadata in head of single posts.
@@ -355,101 +351,90 @@ class App
         $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
         $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
         $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $getSchemaTypeFromPostType));
+
+        /**
+         * External content
+         */
+        $this->setupExternalContent();
     }
 
-    private function trySetupExternalContent(): void
+    private function setupExternalContent(): void
     {
-        $sourceRegistry = new StaticSourceRegistry(
-            [
-                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('job', 'JobPosting', __DIR__ . '/ExternalContent/Fixtures/JobPosting.json'),
-                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/shemaobjects.json'),
-                new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig('foo', 'JobPosting', '/var/www/html/wp-content/thingshemaobjects.json'),
-                new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig('job', 'JobPosting', constant('TYPESENSE_API_KEY'), 'schemadata.helsingborg.io', 'jobpostings')
-            ],
-            new \Municipio\ExternalContent\Sources\SourceFactory(),
-            $this->wpService
-        );
+            $this->wpService->addAction(
+                'init',
+                function () {
 
-        $taxonomyRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar([
-            new TaxonomyItem(
-                'JobPosting',
-                'relevantOccupation',
-                'relevant_occupation',
-                $this->wpService->__('Relevant occupation', 'municipio'),
-                $this->wpService->__('Relevant occupations', 'municipio'),
-                $this->wpService
-            ),
-            new TaxonomyItem(
-                'JobPosting',
-                'employmentType',
-                'employment_type',
-                $this->wpService->__('Employment type', 'municipio'),
-                $this->wpService->__('Employment types', 'municipio'),
-                $this->wpService
-            ),
-            new TaxonomyItem(
-                'JobPosting',
-                'hiringOrganization',
-                'hiring_organization',
-                $this->wpService->__('Hiring organization', 'municipio'),
-                $this->wpService->__('Hiring organizations', 'municipio'),
-                $this->wpService
-            ),
-            new TaxonomyItem(
-                'JobPosting',
-                'applicationContact',
-                'application_contact',
-                $this->wpService->__('Application contact', 'municipio'),
-                $this->wpService->__('Application contacts', 'municipio'),
-                $this->wpService
-            )
-        ], $sourceRegistry, $this->wpService);
+                    $postType  = 'news';
+                    $acfConfig = $this->acfService->getField('external_content_source', $postType . '_options');
 
-        $this->hooksRegistrar->register($taxonomyRegistrar);
+                    $sourceConfig  = null;
+                    $taxonomyItems = [];
 
-        add_action('init', function () {
+                    if (empty($acfConfig)) {
+                        return;
+                    }
 
-            $postType = new WP_Post_Type('job', [
-                'label'        => 'Jobs',
-                'public'       => true,
-                'show_in_rest' => true,
-                'supports'     => false,
-                'has_archive'  => true,
-            ]);
+                    $schemaType = (new GetSchemaTypeFromPostType($this->acfService))->getSchemaTypeFromPostType($postType);
 
-            $postType->cap->create_posts = 'do_not_allow';
-            $postType->cap->delete_post  = 'do_not_allow';
-            $postType->cap->edit_post    = 'do_not_allow';
+                    if ($acfConfig['type'] === 'typesense') {
+                        $sourceConfig = new \Municipio\ExternalContent\Config\Providers\TypesenseSourceConfig(
+                            $postType,
+                            $schemaType,
+                            $acfConfig['typesense_api_key'],
+                            $acfConfig['typesense_host'],
+                            $acfConfig['typesense_collection']
+                        );
+                    } elseif ($acfConfig['type'] === 'localFile') {
+                        $sourceConfig = new \Municipio\ExternalContent\Config\Providers\JsonFileSourceConfig(
+                            $postType,
+                            $schemaType,
+                            $acfConfig['file_path']
+                        );
+                    }
 
-            register_post_type($postType->name, [
-                'label'        => $postType->label,
-                'public'       => $postType->public,
-                'show_in_rest' => $postType->show_in_rest,
-                'supports'     => $postType->supports,
-                'has_archive'  => $postType->has_archive,
-                'capabilities' => (array)$postType->cap,
-            ]);
-        });
+                    if ($sourceConfig === null) {
+                        return;
+                    }
 
-        // TODO: Create terms from sources.
-        $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
-        $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
+                    if (!empty($acfConfig['taxonomies'])) {
+                        $taxonomyItems = array_map(
+                            fn($itemConfig) =>
+                            new TaxonomyItem(
+                                $schemaType,
+                                $itemConfig['from_schema_property'],
+                                $itemConfig['singular_name'],
+                                $itemConfig['name'],
+                                $this->wpService
+                            ),
+                            $acfConfig['taxonomies']
+                        );
+                    }
 
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\DateDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\IdDecorator($wpPostFactory, $this->wpService);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\JobPostingDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SchemaDataDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\OriginIdDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
+                    $source            = (new \Municipio\ExternalContent\Sources\SourceFactory())->createSource($sourceConfig, $this->wpService);
+                    $sourceRegistry    = new StaticSourceRegistry([$sourceConfig], new \Municipio\ExternalContent\Sources\SourceFactory(), $this->wpService);
+                    $taxonomyRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($taxonomyItems, $sourceRegistry, $this->wpService);
+                    $taxonomyRegistrar->register();
+                    $wpTermFactory     = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
+                    $wpTermFactory     = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\DateDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\IdDecorator($wpPostFactory, $this->wpService);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\JobPostingDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\SchemaDataDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\OriginIdDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
+                    $wpPostFactory     = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
+                    $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $wpPostFactory, $this->wpService);
+                    // $syncSourceToLocal->sync();
+                },
+                11
+            );
 
-        // $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($sourceRegistry->getSources()[3], $wpPostFactory, $this->wpService);
-        // $syncSourceToLocal->addHooks();
 
-        // $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
-        // $syncSingleSourceToLocalByPostId->addHooks();
+
+            // $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
+            // $syncSingleSourceToLocalByPostId->addHooks();
     }
 }
