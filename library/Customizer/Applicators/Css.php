@@ -54,9 +54,7 @@ class Css extends AbstractApplicator
 
     return $this->setRuntimeCache(
       'cssRuntimeCache',
-      $this->filterStyles(
-        KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
-      )
+      KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
     );
   }
 
@@ -71,17 +69,17 @@ class Css extends AbstractApplicator
    */
   private function getHybrid(): string
   {
-    $savedCss = get_option($this->optionKey);
-
-    if (!empty($savedCss)) {
-      return $savedCss;
-    }
-    
     if (is_customize_preview()) {
-      return $this->getDynamic();
+      $css = $this->getDynamic();
+    } elseif ($savedCss = get_option($this->optionKey)) {
+      $css = $savedCss;
+    } else {
+      $css = $this->storeStaticStyles();
     }
 
-    return $this->storeStaticStyles();
+    return apply_filters('Municipio/Customizer/Css', 
+      $this->filterStyles($css)
+    );
   }
 
   /**

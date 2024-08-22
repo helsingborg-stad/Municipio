@@ -40,7 +40,7 @@ class SetDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
+        $this->wpService->addFilter("Municipio/Customizer/Css", array($this, 'setDesign'), 10, 1);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
         $this->wpService->addAction('wp_head', array($this, 'addInlineCss'));
     }
@@ -70,7 +70,7 @@ class SetDesigns implements Hookable
      * @param string $option The option to set the design for.
      * @return mixed The modified value with the design applied.
      */
-    public function setDesign(mixed $value, string $option): mixed
+    public function setDesign(mixed $value): mixed
     {
         $this->postType = $this->postType ?: $this->wpService->getPostType();
 
