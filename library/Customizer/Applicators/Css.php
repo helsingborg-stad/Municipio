@@ -16,8 +16,17 @@ class Css extends AbstractApplicator
     define('KIRKI_NO_OUTPUT', true);
 
     /* Save dynamic css on customizer save to static value */
-    add_action('customize_save_after', array($this, 'storeStaticStyles'), 60, 1);
+    add_action('customize_save_after', array($this, 'removeOption'), 60, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
+  }
+
+  /**
+   * Remove option from database
+   * 
+   * @return void
+   */
+  public function removeOption() {
+    delete_option($this->optionKey);
   }
 
   /**
@@ -26,9 +35,10 @@ class Css extends AbstractApplicator
    * @return array
    */
   public function storeStaticStyles($manager = null) {
-    $this->setStatic(
-      $dynamicStyles = $this->getDynamic()
-    );
+    $dynamicStyles = $this->getDynamic();
+
+    update_option($this->optionKey, $dynamicStyles);
+
     return $dynamicStyles;
   }
 
@@ -51,22 +61,6 @@ class Css extends AbstractApplicator
   }
 
   /**
-   * Get static css from option
-   * 
-   * @return string
-   */
-  private function getStaticCss(): string
-  {
-    $styles = $this->getStatic();
-    if($styles) {
-      return $this->filterStyles(
-        $styles
-      );
-    }
-    return "";
-  }
-
-  /**
    * Get hybrid css, create static if not exists.
    * 
    * The reason we are storing static css is to be 
@@ -77,10 +71,16 @@ class Css extends AbstractApplicator
    */
   private function getHybrid(): string
   {
-    $static = $this->getStaticCss();
-    if (!empty($static)) {
-      return $static;
+    $savedCss = get_option($this->optionKey);
+
+    if (!empty($savedCss)) {
+      return $savedCss;
     }
+    
+    if (is_customize_preview()) {
+      return $this->getDynamic();
+    }
+
     return $this->storeStaticStyles();
   }
 
