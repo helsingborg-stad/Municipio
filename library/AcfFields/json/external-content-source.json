@@ -1,7 +1,60 @@
 [{
     "key": "group_66c4849f0cbb1",
-    "title": "External Content Source",
+    "title": "Post type options",
     "fields": [
+        {
+            "key": "field_66c6d24ffbf6b",
+            "label": "Schema.org",
+            "name": "schema_data",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "acfe_seamless_style": 0,
+            "acfe_group_modal": 0,
+            "sub_fields": [
+                {
+                    "key": "field_66c6d2bffbf6c",
+                    "label": "Schema.org type",
+                    "name": "schema",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "": "None",
+                        "JobPosting": "JobPosting",
+                        "Place": "Place",
+                        "School": "School"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": ""
+                }
+            ],
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large"
+        },
         {
             "key": "field_66c484a02efea",
             "label": "External Content Source",
@@ -10,7 +63,14 @@
             "type": "group",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_66c6d2bffbf6c",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -269,8 +329,25 @@
                                 "id": ""
                             },
                             "choices": {
-                                "employmentType": "employmentType",
-                                "applicationContact": "applicationContact"
+                                "Place": {
+                                    "geo": "geo",
+                                    "telephone": "telephone",
+                                    "url": "url"
+                                },
+                                "JobPosting": {
+                                    "@id": "@id",
+                                    "applicationContact": "applicationContact",
+                                    "datePosted": "datePosted",
+                                    "description": "description",
+                                    "directApply": "directApply",
+                                    "employerOverview": "employerOverview",
+                                    "employmentType": "employmentType",
+                                    "employmentUnit": "employmentUnit",
+                                    "hiringOrganization": "hiringOrganization",
+                                    "relevantOccupation": "relevantOccupation",
+                                    "url": "url",
+                                    "validThrough": "validThrough"
+                                }
                             },
                             "default_value": false,
                             "return_format": "value",
@@ -281,27 +358,6 @@
                             "ui": 1,
                             "ajax": 0,
                             "placeholder": "",
-                            "parent_repeater": "field_66c6ca4a72ba1"
-                        },
-                        {
-                            "key": "field_66c6cae472ba3",
-                            "label": "Hierarchical",
-                            "name": "hierarchical",
-                            "aria-label": "",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 1,
-                            "ui": 0,
-                            "ui_on_text": "",
-                            "ui_off_text": "",
                             "parent_repeater": "field_66c6ca4a72ba1"
                         },
                         {

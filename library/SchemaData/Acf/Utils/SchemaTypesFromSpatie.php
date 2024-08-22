@@ -6,7 +6,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use Spatie\SchemaOrg\Schema;
 
-class SchemaTypesFromSpatie implements SchemaTypes
+class SchemaTypesFromSpatie implements GetSchemaTypesInterface
 {
     public function getSchemaTypes(): array
     {

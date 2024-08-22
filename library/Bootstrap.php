@@ -134,6 +134,7 @@ if (function_exists('get_field')) {
         $wpService,
         $acfService,
         new HooksRegistrar(),
+        new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
         $schemaObjectFromPost
     );
 } else {

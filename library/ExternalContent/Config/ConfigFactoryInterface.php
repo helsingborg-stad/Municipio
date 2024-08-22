@@ -6,8 +6,6 @@ interface ConfigFactoryInterface
 {
     /**
      * Build the configuration.
-     *
-     * @return \Municipio\ExternalContent\Config\ISourceConfig[]
      */
-    public function build(): array;
+    public function create(): ISourceConfig;
 }

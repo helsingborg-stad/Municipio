@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\Acf\Utils;
 
-interface SchemaTypes
+interface GetSchemaTypesInterface
 {
     /**
      * Get the schema types.

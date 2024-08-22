@@ -17,6 +17,13 @@ use WpService\FileSystem\BaseFileSystem;
 
 class SourceFactory implements ISourceFactory
 {
+    /**
+     * Create a source based on the given source configuration.
+     *
+     * @param ISourceConfig $sourceConfig The source configuration.
+     * @return ISource The created source.
+     * @throws \Exception If the source configuration type is unknown.
+     */
     public function createSource(ISourceConfig $sourceConfig): ISource
     {
         if ($sourceConfig instanceof ITypesenseSourceConfig) {
@@ -45,5 +52,7 @@ class SourceFactory implements ISourceFactory
                 ))
             );
         }
+
+        throw new \Exception('Unknown source config type');
     }
 }

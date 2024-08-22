@@ -12,7 +12,6 @@ class TaxonomyItem implements ITaxonomyItem
     public function __construct(
         private string $schemaObjectType,
         private string $schemaObjectProperty,
-        private bool $hierarchical,
         private string $singleLabel,
         private string $pluralLabel,
         private __ $wpService
@@ -68,7 +67,7 @@ class TaxonomyItem implements ITaxonomyItem
     {
         return [
             'labels'            => $this->getLabels(),
-            'hierarchical'      => $this->hierarchical,
+            'hierarchical'      => false,
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,

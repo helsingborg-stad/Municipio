@@ -3,9 +3,62 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_66c4849f0cbb1',
-    'title' => __('External Content Source', 'municipio'),
+    'title' => __('Post type options', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_66c6d24ffbf6b',
+            'label' => __('Schema.org', 'municipio'),
+            'name' => 'schema_data',
+            'aria-label' => '',
+            'type' => 'group',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'layout' => 'block',
+            'acfe_seamless_style' => 0,
+            'acfe_group_modal' => 0,
+            'sub_fields' => array(
+                0 => array(
+                    'key' => 'field_66c6d2bffbf6c',
+                    'label' => __('Schema.org type', 'municipio'),
+                    'name' => 'schema',
+                    'aria-label' => '',
+                    'type' => 'select',
+                    'instructions' => '',
+                    'required' => 0,
+                    'conditional_logic' => 0,
+                    'wrapper' => array(
+                        'width' => '',
+                        'class' => '',
+                        'id' => '',
+                    ),
+                    'choices' => array(
+                        '' => __('None', 'municipio'),
+                        'JobPosting' => __('JobPosting', 'municipio'),
+                        'Place' => __('Place', 'municipio'),
+                        'School' => __('School', 'municipio'),
+                    ),
+                    'default_value' => false,
+                    'return_format' => 'value',
+                    'multiple' => 0,
+                    'allow_custom' => 0,
+                    'search_placeholder' => '',
+                    'allow_null' => 0,
+                    'ui' => 0,
+                    'ajax' => 0,
+                    'placeholder' => '',
+                ),
+            ),
+            'acfe_group_modal_close' => 0,
+            'acfe_group_modal_button' => '',
+            'acfe_group_modal_size' => 'large',
+        ),
+        1 => array(
             'key' => 'field_66c484a02efea',
             'label' => __('External Content Source', 'municipio'),
             'name' => 'external_content_source',
@@ -13,7 +66,14 @@
             'type' => 'group',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+                0 => array(
+                    0 => array(
+                        'field' => 'field_66c6d2bffbf6c',
+                        'operator' => '!=empty',
+                    ),
+                ),
+            ),
             'wrapper' => array(
                 'width' => '',
                 'class' => '',
@@ -272,8 +332,25 @@
                                 'id' => '',
                             ),
                             'choices' => array(
-                                'employmentType' => __('employmentType', 'municipio'),
-                                'applicationContact' => __('applicationContact', 'municipio'),
+                                'Place' => array(
+                                    'geo' => __('geo', 'municipio'),
+                                    'telephone' => __('telephone', 'municipio'),
+                                    'url' => __('url', 'municipio'),
+                                ),
+                                'JobPosting' => array(
+                                    '@id' => __('@id', 'municipio'),
+                                    'applicationContact' => __('applicationContact', 'municipio'),
+                                    'datePosted' => __('datePosted', 'municipio'),
+                                    'description' => __('description', 'municipio'),
+                                    'directApply' => __('directApply', 'municipio'),
+                                    'employerOverview' => __('employerOverview', 'municipio'),
+                                    'employmentType' => __('employmentType', 'municipio'),
+                                    'employmentUnit' => __('employmentUnit', 'municipio'),
+                                    'hiringOrganization' => __('hiringOrganization', 'municipio'),
+                                    'relevantOccupation' => __('relevantOccupation', 'municipio'),
+                                    'url' => __('url', 'municipio'),
+                                    'validThrough' => __('validThrough', 'municipio'),
+                                ),
                             ),
                             'default_value' => false,
                             'return_format' => 'value',
@@ -287,27 +364,6 @@
                             'parent_repeater' => 'field_66c6ca4a72ba1',
                         ),
                         1 => array(
-                            'key' => 'field_66c6cae472ba3',
-                            'label' => __('Hierarchical', 'municipio'),
-                            'name' => 'hierarchical',
-                            'aria-label' => '',
-                            'type' => 'true_false',
-                            'instructions' => '',
-                            'required' => 0,
-                            'conditional_logic' => 0,
-                            'wrapper' => array(
-                                'width' => '',
-                                'class' => '',
-                                'id' => '',
-                            ),
-                            'message' => '',
-                            'default_value' => 1,
-                            'ui' => 0,
-                            'ui_on_text' => '',
-                            'ui_off_text' => '',
-                            'parent_repeater' => 'field_66c6ca4a72ba1',
-                        ),
-                        2 => array(
                             'key' => 'field_66c6cb2272ba4',
                             'label' => __('Name', 'municipio'),
                             'name' => 'name',
@@ -328,7 +384,7 @@
                             'append' => '',
                             'parent_repeater' => 'field_66c6ca4a72ba1',
                         ),
-                        3 => array(
+                        2 => array(
                             'key' => 'field_66c6cb7f72ba5',
                             'label' => __('Singular name', 'municipio'),
                             'name' => 'singular_name',
