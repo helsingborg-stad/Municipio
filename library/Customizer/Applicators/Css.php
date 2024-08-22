@@ -69,21 +69,16 @@ class Css extends AbstractApplicator
    */
   private function getHybrid(): string
   {
-    $savedCss = get_option($this->optionKey);
-    if (!empty($savedCss)) {
-      return $this->filterStyles(
-        $savedCss
-      );
-    }
-    
     if (is_customize_preview()) {
-      return $this->filterStyles(
-        $this->getDynamic()
-      );
+      $css = $this->getDynamic();
+    } elseif ($savedCss = get_option($this->optionKey)) {
+      $css = $savedCss;
+    } else {
+      $css = $this->storeStaticStyles();
     }
 
-    return $this->filterStyles(
-      $this->storeStaticStyles()
+    return apply_filters('Municipio/Customizer/Css', 
+      $this->filterStyles($css)
     );
   }
 
