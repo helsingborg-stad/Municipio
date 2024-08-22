@@ -8,6 +8,7 @@ use Municipio\PostTypeDesign\GetFields;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\PostTypeDesign\ConfigSanitizer;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
@@ -27,7 +28,7 @@ class SaveDesigns implements Hookable
      */
     public function __construct(
         private string $optionName,
-        private AddAction&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
+        private AddAction&AddFilter&GetOption&GetThemeMod&GetPostTypes&UpdateOption $wpService,
         private ConfigFromPageIdInterface $configFromPageId
     ) {
         $this->designOption = [];
@@ -39,6 +40,22 @@ class SaveDesigns implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('customize_save_after', array($this, 'storeDesigns'));
+        $this->wpService->addFilter('Municipio\Customizer\Applicators\Css\CssPostTypeCache', array($this, 'setPostTypeKeys'));
+    }
+
+    public function setPostTypeKeys()
+    {
+        $postTypes = $this->wpService->getPostTypes(['public' => true], 'names');
+
+        $postTypeDesign = [];
+        foreach ($postTypes as $postType) {
+            $value = $this->wpService->getThemeMod($postType . '_load_design');
+            if (!empty($value)) {
+                $postTypeDesign[$postType] = "";
+            }
+        }
+
+        return $postTypeDesign;
     }
 
     /**
@@ -51,13 +68,13 @@ class SaveDesigns implements Hookable
             return;
         }
 
-        if(is_array($designOption = $this->wpService->getOption($this->optionName)) && !empty($designOption)) {
+        if (is_array($designOption = $this->wpService->getOption($this->optionName)) && !empty($designOption)) {
             $this->designOption = $designOption;
         } else {
             $this->designOption = [];
         }
 
-        $getFieldsInstance  = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
+        $getFieldsInstance = new GetFields(PanelsRegistry::getInstance()->getRegisteredFields());
 
         foreach ($postTypes as $postType) {
             $design = $this->wpService->getThemeMod($postType . '_load_design');
