@@ -364,7 +364,7 @@ class App
                 'init',
                 function () {
 
-                    $postType  = 'news';
+                    $postType  = 'news'; // TODO: Make dynamic
                     $acfConfig = $this->acfService->getField('external_content_source', $postType . '_options');
 
                     $sourceConfig  = null;
@@ -402,6 +402,7 @@ class App
                             new TaxonomyItem(
                                 $schemaType,
                                 $itemConfig['from_schema_property'],
+                                $itemConfig['hierarchical'],
                                 $itemConfig['singular_name'],
                                 $itemConfig['name'],
                                 $this->wpService
