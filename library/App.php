@@ -352,6 +352,9 @@ class App
 
     private function setupExternalContent(): void
     {
+        /**
+         * Populate acf select with schema properties.
+         */
         $this->acfFieldContentModifierRegistrar->registerModifier(
             new PopulateTaxonomySchemaPropertyFieldOptions(
                 'external_content_source',
@@ -359,21 +362,50 @@ class App
             )
         );
 
+        $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
+            $this->wpService->submitButton(
+                __('Sync all posts from remote source'),
+                'primary',
+                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER,
+                false
+            );
+        });
+
+        $this->wpService->addAction('post_row_actions', function (array $actions, WP_Post $post) {
+            $urlParams = sprintf(
+                '&%s&%s=%s',
+                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER,
+                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_POST_ID,
+                $post->ID
+            );
+
+            $actions[\Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER] = sprintf(
+                '<a href="%s">%s</a>',
+                $urlParams,
+                __('Sync this post from remote source', 'municipio')
+            );
+
+            return $actions;
+        });
+
+        /**
+         * Trigger sync of external content.
+         */
+        $trigger = new \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger($this->wpService);
+        $trigger->trigger();
+
         $this->wpService->addAction(
-            'init',
-            function () {
-
-                $postType = 'news';
-
+            'Municipio/ExternalContent/Sync',
+            function (string $postType, ?int $postId = null) {
+                // var_dump($postType, $postId);
+                // die('sync');
                 $schemaTypeFromPostType      = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
                 $schemaType                  = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
                 $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($postType, $schemaType, $this->acfService);
-                $taxonomyItemsFromAcf        = new \Municipio\ExternalContent\Taxonomy\CreateTaxonomyItemsFromAcf($postType, $schemaType, $this->acfService, $this->wpService);
-                $taxonomyItems               = $taxonomyItemsFromAcf->create();
                 $sourceConfig                = $sourceConfigFactoryUsingAcf->create();
                 $source                      = (new \Municipio\ExternalContent\Sources\SourceFactory())->createSource($sourceConfig, $this->wpService);
                 $sourceRegistry              = new StaticSourceRegistry([$sourceConfig], new \Municipio\ExternalContent\Sources\SourceFactory(), $this->wpService);
-                $taxonomyRegistrar           = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($taxonomyItems, $sourceRegistry, $this->wpService);
+
 
                 $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
                 $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
@@ -389,16 +421,16 @@ class App
                 $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
                 $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
 
-                $syncSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $wpPostFactory, $this->wpService);
-                $taxonomyRegistrar->register();
-                // $syncSourceToLocal->sync();
+                if ($postId === null) {
+                    $syncFromSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $wpPostFactory, $this->wpService);
+                } else {
+                    $syncFromSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId($postId, $sourceRegistry, $wpPostFactory, $this->wpService);
+                }
+
+                $syncFromSourceToLocal->sync();
             },
-            11
+            10,
+            2
         );
-
-
-
-            // $syncSingleSourceToLocalByPostId = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(187, $sourceRegistry, $wpPostFactory, $this->wpService);
-            // $syncSingleSourceToLocalByPostId->addHooks();
     }
 }

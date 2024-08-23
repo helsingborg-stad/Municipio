@@ -12,19 +12,14 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\InsertPost;
 
-class SyncSingleFromSourceToLocalByPostId implements ISyncSourceToLocal, Hookable
+class SyncSingleFromSourceToLocalByPostId implements ISyncSourceToLocal
 {
     public function __construct(
         private int|string $postId,
         private ISourceRegistry $sourceRegistry,
         private WpPostFactoryInterface $wpPostFactory,
-        private InsertPost&GetPostMeta&AddAction $wpService
+        private InsertPost&GetPostMeta $wpService
     ) {
-    }
-
-    public function addHooks(): void
-    {
-        $this->wpService->addAction('init', [$this, 'sync']);
     }
 
     /**
