@@ -3,7 +3,9 @@
 namespace Municipio\Controller\Header;
 
 use Municipio\Controller\Header\MenuOrderTransformer;
+use Municipio\Controller\Header\MenuVisibilityTransformer;
 use Municipio\Controller\Header\AlignmentTransformer;
+use Municipio\Controller\Header\FlipKeyValueTransformer;
 
 class Flexible implements HeaderInterface
 {
@@ -12,16 +14,36 @@ class Flexible implements HeaderInterface
     private bool $hasSearch;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
-    private string $headerSettingKey = 'header_sortable_section_';
+    private FlipKeyValueTransformer $flipKeyValueTransformer;
+    private MenuVisibilityTransformer $menuVisibilityTransformerInstance;
+    private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
 
     public function __construct(private object $customizer)
     {
-        $this->isResponsive                 = !empty($this->customizer->headerEnableResponsiveOrder);
-        $this->hasMegaMenu                  = false;
-        $this->hasSearch                    = false;
-        $this->menuOrderTransformerInstance = new MenuOrderTransformer('@md');
-        $this->alignmentTransformerInstance = new AlignmentTransformer($this->getHiddenMenuItemsData());
+        $this->isResponsive                      = !empty($this->customizer->headerEnableResponsiveOrder);
+        $this->hasMegaMenu                       = false;
+        $this->hasSearch                         = false;
+        $this->flipKeyValueTransformer           = new FlipKeyValueTransformer();
+        $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
+        $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
+        $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
+    }
+
+    public function getHeaderData(): array
+    {
+        $upperItems                  = $this->getItems('main_upper');
+        $lowerItems                  = $this->getItems('main_lower');
+        [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
+
+        return [
+            'upperHeader' => $upperHeader,
+            'lowerHeader' => $lowerHeader,
+            'upperItems'  => $upperItems,
+            'lowerItems'  => $lowerItems,
+            'hasMegaMenu' => $this->hasMegaMenu,
+            'hasSearch'   => $this->hasSearch,
+        ];
     }
 
     private function getHiddenMenuItemsData()
@@ -31,22 +53,6 @@ class Flexible implements HeaderInterface
             "{}";
 
         return json_decode($hiddenData);
-    }
-
-    public function getHeaderData(): array
-    {
-        $upperItems = $this->getItems('main_upper');
-        $lowerItems = $this->getItems('main_lower');
-        [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
-        
-        return [
-            'upperHeader' => $upperHeader,
-            'lowerHeader' => $lowerHeader,
-            'upperItems'  => $upperItems,
-            'lowerItems'  => $lowerItems,
-            'hasMegaMenu' => $this->hasMegaMenu,
-            'hasSearch'   => $this->hasSearch,
-        ];
     }
 
     private function getHeaderSettings($upperItems, $lowerItems): array
@@ -71,27 +77,42 @@ class Flexible implements HeaderInterface
         ];
     }
 
-    private function defaultHeaderSettings(): array 
+    private function defaultHeaderSettings(): array
     {
         return [
-            'sticky' => false,
+            'sticky'          => false,
             'backgroundColor' => 'default',
         ];
     }
 
     private function getItems(string $section): array
     {
+        // Getting the items
         [$setting, $settingCamelCased]              = $this->getSettingName($section);
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
-        $this->hasMegaMenu = $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems);
-        $this->hasSearch   = $this->hasSearch || in_array('search-modal', $desktopOrderedItems);
+        $this->hasMegaMenu = $this->hasMegaMenu($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSearch   = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
 
-        $items = $this->menuOrderTransformerInstance->transform($desktopOrderedItems, $mobileOrderedItems);
+        // Building the items
+        $items = $this->flipKeyValueTransformer->transform($desktopOrderedItems, $mobileOrderedItems);
+        $items = $this->menuOrderTransformerInstance->transform($items);
+        $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
 
+        // echo '<pre>' . print_r($items, true) . '</pre>';
+        // die;
+        return $items['modified'] ?? [];
+    }
 
-        return $items;
+    private function hasSearch($desktopOrderedItems, $mobileOrderedItems): bool
+    {
+        return $this->hasSearch || in_array('search-modal', $desktopOrderedItems) || in_array('search-modal', $mobileOrderedItems);
+    }
+
+    private function hasMegaMenu($desktopOrderedItems, $mobileOrderedItems): bool
+    {
+        return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems) || in_array('mega-menu', $mobileOrderedItems);
     }
 
     private function getOrderedMenuItems(string $settingCamelCased): array

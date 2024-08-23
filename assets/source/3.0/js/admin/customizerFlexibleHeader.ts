@@ -1,4 +1,3 @@
-import Sortable from "./flexibleHeader/sortable";
 import HiddenSetting from "./flexibleHeader/hiddenSetting";
 import { addEditIconToSortables } from "./flexibleHeader/helpers/addSortableIcons";
 import { getSettingsKeys } from "./flexibleHeader/helpers/getSettingsKeys";
@@ -43,11 +42,6 @@ wp.customize.bind('ready', function() {
             );
 
             addEditIconToSortables(setting);
-
-            new Sortable(
-                getSortableItemsInstance.getSortableItems(), 
-                getSortableItemsInstance.getSortableResponsiveItems()
-            );
 
             initializeEdit(
                 storageInstance, 
