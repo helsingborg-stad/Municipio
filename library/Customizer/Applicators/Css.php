@@ -21,10 +21,10 @@ class Css extends AbstractApplicator
     add_action('customize_save_after', array($this, 'resetPostTypeCache'), 60, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
 
-    $this->option =  get_option($this->optionName) ?? [];
-
     /* Post type specific cache */
     add_action('wp', function () {
+      $this->option =  get_option($this->optionName) ?? [];
+      
       if (
         !empty($this->option) && 
         (count($this->option) !== 1 && isset($this->option[$this->postType]))
@@ -32,7 +32,7 @@ class Css extends AbstractApplicator
          $postType = get_post_type();
          $this->postType = isset($this->option[$postType]) ? $postType : $this->postType;
       }
-    });
+    }, 10);
   }
 
   /**
