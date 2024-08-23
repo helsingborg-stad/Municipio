@@ -13,7 +13,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 31; //The db version we want to achive
+    private $dbVersion    = 32; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -31,7 +31,7 @@ class Upgrade
         add_action('init', array($this, 'debugAfter'), 20);*/
 
         //Production hook
-        add_action('wp', array($this, 'initUpgrade'), 10);
+        add_action('wp', array($this, 'initUpgrade'), 1);
     }
 
     /**
@@ -602,30 +602,37 @@ class Upgrade
     }
 
     //Retires custom favicon in favour of native functionality
-    private function v_30($db): bool {
-        $nativeFaviconKey   = "site_icon"; 
-        $nativeFavicon      = get_option($nativeFaviconKey, false);
+    private function v_30($db): bool
+    {
+        $nativeFaviconKey = "site_icon";
+        $nativeFavicon    = get_option($nativeFaviconKey, false);
         if (!$nativeFavicon) {
-
-            foreach(['152', '144', 'fav'] as $type) {
-                for($i = 0; $i < 10; $i++) {
-                    $iconType = get_option('options_favicons_'.$i.'_favicon_type'); 
-                    if($iconType == $type) {
-                        $iconId = get_option('options_favicons_'.$i.'_favicon_icon'); 
-                        if(is_numeric($iconId)) {
-                            update_option($nativeFaviconKey, $iconId); 
+            foreach (['152', '144', 'fav'] as $type) {
+                for ($i = 0; $i < 10; $i++) {
+                    $iconType = get_option('options_favicons_' . $i . '_favicon_type');
+                    if ($iconType == $type) {
+                        $iconId = get_option('options_favicons_' . $i . '_favicon_icon');
+                        if (is_numeric($iconId)) {
+                            update_option($nativeFaviconKey, $iconId);
                         }
-                        break 2; 
+                        break 2;
                     }
                 }
             }
         }
-        
+
         return true;
     }
 
-    private function v_31($db): bool {
+    private function v_31($db): bool
+    {
         $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed%'");
+        return true;
+    }
+
+    private function v_32($db): bool
+    {
+        update_option('css', []);
         return true;
     }
 
