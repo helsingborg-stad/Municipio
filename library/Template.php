@@ -123,10 +123,10 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
-        if (!is_post_publicly_viewable() && !is_user_logged_in()) {
+        if (!is_post_publicly_viewable() && !is_user_logged_in() && !is_search()) {
             $template = '404';
         }
-        
+
         if (is_archive() && ($template === 'one-page' || $template === 'page-centered')) {
             $template = 'archive';
         }
