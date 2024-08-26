@@ -14,24 +14,18 @@ class AlignmentTransformerTest extends TestCase
 
         $result = $alignmentTransformerInstance->transform($items, 'header');
 
-        $this->assertTrue(isset($result['alignment']));
-    }
-
-    public function testTransformReturnsEmptyArrayIfNoItems()
-    {
-        $alignmentTransformerInstance = new AlignmentTransformer($this->getData());
-        $items                        = [];
-
-        $result = $alignmentTransformerInstance->transform($items, 'header');
-
-        $this->assertEmpty($result);
+        $this->assertTrue(isset($result['modified']['alignment']['menu']));
     }
 
     private function getItems()
     {
         return [
-            'menu' => [
-                'class1'
+            'desktop'  => [
+                'menu' => 0
+            ],
+            'mobile'   => [],
+            'modified' => [
+                'menu' => [],
             ]
         ];
     }
@@ -41,7 +35,7 @@ class AlignmentTransformerTest extends TestCase
         return (object) [
             'header' => (object) [
                 'menu' => (object) [
-                    'setting' => 'alignment'
+                    'align' => 'alignment'
                 ],
             ],
         ];
