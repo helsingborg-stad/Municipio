@@ -11,39 +11,34 @@ class MenuOrderTransformerTest extends TestCase
     {
         $menuOrderTransformerInstance = new MenuOrderTransformer('@modifier');
 
-        $desktopItems = ['desktopItem1', 'desktopItem2'];
-        $mobileItems  = ['desktopItem2', 'desktopItem1'];
+        $items = [
+            'desktop' => [
+                'item1' => 0,
+                'item2' => 1
+            ],
+            'mobile'  => [
+                'item2' => 0,
+                'item1' => 1
+            ],
+        ];
 
-        $result = $menuOrderTransformerInstance->transform($desktopItems, $mobileItems);
+        $result = $menuOrderTransformerInstance->transform($items);
 
-        $this->assertEquals($result['desktopItem1'], ['u-order--1', 'u-order--0@modifier']);
-        $this->assertEquals($result['desktopItem2'], ['u-order--0', 'u-order--1@modifier']);
+        $this->assertEquals($result['modified']['item1'], ['u-order--1', 'u-order--0@modifier']);
+        $this->assertEquals($result['modified']['item2'], ['u-order--0', 'u-order--1@modifier']);
     }
 
-    public function testTransformReturnsEmptyArrayIfNoDesktopItems()
+    public function testTransformReturnsItemsWithModifiedKey()
     {
         $menuOrderTransformerInstance = new MenuOrderTransformer('@modifier');
 
-        $desktopItems = [];
-        $mobileItems  = ['desktopItem2', 'desktopItem1'];
+        $items = [
+            'desktop' => [],
+            'mobile'  => [],
+        ];
 
-        $result = $menuOrderTransformerInstance->transform($desktopItems, $mobileItems);
+        $result = $menuOrderTransformerInstance->transform($items);
 
-        $this->assertEquals($result, []);
-    }
-
-    public function testTransformReturnsTransformedDesktopItems()
-    {
-        $menuOrderTransformerInstance = new MenuOrderTransformer('@modifier');
-
-        $desktopItems = ['desktopItem1', 'desktopItem2'];
-        $mobileItems  = [];
-
-        $result = $menuOrderTransformerInstance->transform($desktopItems, $mobileItems);
-
-        $this->assertEquals($result['desktopItem1'], ['u-order--0']);
-        $this->assertEquals(count($result['desktopItem1']), 1);
-        $this->assertEquals($result['desktopItem2'], ['u-order--1']);
-        $this->assertEquals(count($result['desktopItem2']), 1);
+        $this->assertEquals($result['modified'], []);
     }
 }
