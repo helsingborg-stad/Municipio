@@ -58,14 +58,14 @@ class Support
 
         if (isset($wp_post_types['post'])) {
             if (function_exists('get_field') && get_field('disable_default_blog_post_type', 'option')) {
-                // add_action('admin_menu', function () {
-                //     remove_menu_page('edit.php');
-                // });
+                add_action('admin_menu', function () {
+                     remove_menu_page('edit.php');
+                });
 
-                // add_action('wp_before_admin_bar_render', function () {
-                //     global $wp_admin_bar;
-                //     $wp_admin_bar->remove_menu('new-post');
-                // });
+                add_action('wp_before_admin_bar_render', function () {
+                    global $wp_admin_bar;
+                    $wp_admin_bar->remove_menu('new-post');
+                });
             }
         }
 

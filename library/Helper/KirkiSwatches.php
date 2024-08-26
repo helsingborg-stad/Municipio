@@ -30,7 +30,7 @@ class KirkiSwatches
         if (function_exists('get_theme_mod')) {
             $colorPalettePrimary    = get_theme_mod('color_palette_primary');
             $colorPaletterSecondary = get_theme_mod('color_palette_secondary');
-            $colorBackground        = get_theme_mod('color_background')['background'];
+            $colorBackground        = get_theme_mod('color_background')['background'] ?? null;
 
             self::$cachedColors = [
                 $colorPalettePrimary['base']           ?? '#ae0b05',

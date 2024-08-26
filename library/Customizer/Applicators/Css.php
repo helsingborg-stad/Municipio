@@ -7,17 +7,42 @@ use Kirki\Module\CSS as KirkiCSS;
 class Css extends AbstractApplicator
 {
   private $baseFontSize = '16px';
-  public  $optionKey = 'css';
+  public  $optionName = 'css';
+  private $postType = 'all';
+  private $option = [];
 
   public function __construct() {
     add_filter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', array($this, 'filterFontSize'));
 
     /* Disable dynamic css */
     define('KIRKI_NO_OUTPUT', true);
-
+    
     /* Save dynamic css on customizer save to static value */
-    add_action('customize_save_after', array($this, 'storeStaticStyles'), 60, 1);
+    add_action('customize_save_after', array($this, 'resetPostTypeCache'), 60, 1);
     add_action('kirki_dynamic_css', array($this, 'renderKirkiStaticCss'));
+
+    /* Post type specific cache */
+    add_action('wp', function () {
+      $this->option =  get_option($this->optionName) ?? [];
+      
+      if (
+        !empty($this->option) && 
+        (count($this->option) !== 1 && isset($this->option[$this->postType]))
+      ) {
+         $postType = get_post_type();
+         $this->postType = isset($this->option[$postType]) ? $postType : $this->postType;
+      }
+    }, 10);
+  }
+
+  /**
+   * Resets the post type cache option
+   * Sets filter to add post type specific cache
+   * 
+   * @return void
+   */
+  public function resetPostTypeCache() {
+    update_option($this->optionName, apply_filters('Municipio\Customizer\Applicators\Css\CssPostTypeCache', []));
   }
 
   /**
@@ -26,10 +51,11 @@ class Css extends AbstractApplicator
    * @return array
    */
   public function storeStaticStyles($manager = null) {
-    $this->setStatic(
-      $dynamicStyles = $this->getDynamic()
-    );
-    return $dynamicStyles;
+    $this->option[$this->postType] = $this->getDynamic();
+
+    update_option($this->optionName, $this->option);
+
+    return $this->option[$this->postType];
   }
 
   /**
@@ -51,22 +77,6 @@ class Css extends AbstractApplicator
   }
 
   /**
-   * Get static css from option
-   * 
-   * @return string
-   */
-  private function getStaticCss(): string
-  {
-    $styles = $this->getStatic();
-    if($styles) {
-      return $this->filterStyles(
-        $styles
-      );
-    }
-    return "";
-  }
-
-  /**
    * Get hybrid css, create static if not exists.
    * 
    * The reason we are storing static css is to be 
@@ -77,10 +87,16 @@ class Css extends AbstractApplicator
    */
   private function getHybrid(): string
   {
-    $static = $this->getStaticCss();
-    if (!empty($static)) {
-      return $static;
+    $savedCss = $this->option[$this->postType] ?? null;
+
+    if (!empty($savedCss)) {
+      return $savedCss;
     }
+    
+    if (is_customize_preview()) {
+      return $this->getDynamic();
+    }
+
     return $this->storeStaticStyles();
   }
 

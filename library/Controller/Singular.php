@@ -82,11 +82,11 @@ class Singular extends \Municipio\Controller\BaseController
         //Main content padder
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
+        //Get age of post 
         $this->data['postAgeNotice']               = $this->getPostAgeNotice($this->data['post']);
-        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
-        // Related posts (based on taxonomies)
-        $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
+        //Position of quicklinks
+        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
 
         return $this->data;
     }
@@ -363,7 +363,7 @@ class Singular extends \Municipio\Controller\BaseController
         return $post instanceof WP_Post ? $post : null;
     }
 
- /**
+    /**
      * Get related posts based on the taxonomies of the current post.
      *
      * @param int $postId The ID of the current post.
@@ -372,61 +372,53 @@ class Singular extends \Municipio\Controller\BaseController
      */
     public function getRelatedPosts(int $postId)
     {
+        // Get the taxonomies associated with the post
         $taxonomies = get_post_taxonomies($postId);
-        $postTypes  = get_post_types(
-            [
-                'public'   => true,
-                '_builtin' => false
-            ],
-            'objects'
-        );
 
-        $arr = [];
+        $taxQuery = [];
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    if ($term instanceof \WP_Term) {
-                        $arr[$taxonomy][] = $term->term_id;
-                    }
-                }
+                $termIds = wp_list_pluck($terms, 'term_id');
+                $taxQuery[] = [
+                    'taxonomy' => $taxonomy,
+                    'field'    => 'term_id',
+                    'terms'    => $termIds,
+                    'operator' => 'IN',
+                ];
             }
         }
 
-        if (empty($arr)) {
+        // If no terms were found, return false
+        if (empty($taxQuery)) {
             return false;
         }
 
-        $posts = [];
-        foreach ($postTypes as $postType) {
-            $args = [
-                'numberposts'  => 3,
-                'post_type'    => $postType->name,
-                'post__not_in' => [$postId],
-                'tax_query'    => [
-                    'relation' => 'OR',
-                ],
-            ];
+        // Get the current post type
+        $postType = get_post_type($postId);
 
-            foreach ($arr as $tax => $ids) {
-                $args['tax_query'][] = [
-                'taxonomy' => $tax,
-                'field'    => 'term_id',
-                'terms'    => $ids,
-                'operator' => 'IN',
-                ];
+        // Define the query arguments
+        $args = [
+            'numberposts'  => 3,
+            'post_type'    => $postType,
+            'post__not_in' => [$postId],
+            'tax_query'    => $taxQuery,
+            'orderby'      => 'rand'
+        ];
+
+        // Get the related posts
+        $relatedPosts = get_posts($args);
+
+        // If posts were found, prepare them
+        if (!empty($relatedPosts)) {
+            foreach ($relatedPosts as &$post) {
+                $post = \Municipio\Helper\Post::preparePostObject($post);
             }
-
-            $result = get_posts($args);
-
-            if (!empty($result)) {
-                foreach ($result as &$post) {
-                    $post                    = \Municipio\Helper\Post::preparePostObject($post);
-                    $posts[$postType->label] = $result;
-                }
-            }
+            return $relatedPosts;
         }
 
-        return $posts;
+        // Return false if no related posts were found
+        return false;
     }
+
 }

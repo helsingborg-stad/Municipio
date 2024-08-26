@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper;
 
+use \Municipio\Helper\Navigation\MenuConstructor as MenuConstructor;
+
 /**
 * Navigation items
 *
@@ -21,6 +23,7 @@ class Navigation
 
     private $cacheGroup  = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes
+    private MenuConstructor $menuConstructorInstance;
 
     //Static cache for ancestors
     private static $runtimeCache = [
@@ -37,6 +40,7 @@ class Navigation
     {
         $this->identifier = $identifier;
         $this->context    = $context;
+        $this->menuConstructorInstance = new MenuConstructor($this->identifier);
         $this->globalToLocal('wpdb', 'db');
     }
 
@@ -312,41 +316,6 @@ class Navigation
     }
 
     /**
-     * Recusivly traverse flat array and make a nested variant
-     *
-     * @param   array   $elements    A list of pages
-     * @param   integer $parentId    Parent id
-     *
-     * @return  array               Nested array representing page structure
-     */
-
-    private function buildTree(array $elements, $parentId = 0): array
-    {
-        $branch = array();
-
-        if (is_array($elements) && !empty($elements)) {
-            foreach ($elements as $element) {
-                if (!isset($element['post_parent']) || !isset($element['id'])) {
-                    continue;
-                }
-
-                if ($element['post_parent'] == $parentId) {
-                    $children = $this->buildTree($elements, $element['id']);
-
-                    if ($children) {
-                        $element['children'] = $children;
-                    }
-
-                    $branch[] = $element;
-                }
-            }
-        }
-
-        return $branch;
-    }
-
-
-    /**
      * Get pages/posts
      *
      * @param   integer|array  $parent    Post parent
@@ -500,7 +469,7 @@ class Navigation
     {
         if ($array['ID'] == $this->postId) {
             $array['active'] = true;
-        } elseif ($this->isCurrentUrl($array['href'])) {
+        } elseif (\Municipio\Helper\IsCurrentUrl::isCurrentUrl($array['href'])) {
             $array['active'] = true;
         } else {
             $array['active'] = false;
@@ -702,15 +671,7 @@ class Navigation
             $menuItems = wp_get_nav_menu_items($menuLocation);
 
             if (is_array($menuItems) && !empty($menuItems)) {
-                $ancestors = $this->getWpMenuAncestors(
-                    $menuItems,
-                    $this->pageIdToMenuID($menuItems, $pageId)
-                );
-
-                foreach ($menuItems as $item) {
-                    $isAncestor = in_array($item->ID, $ancestors);
-                    $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId);
-                }
+                $result = $this->menuConstructorInstance->structureMenuItems($menuItems, $pageId);
             }
         } elseif ($fallbackToPageTree && is_numeric($pageId)) {
             $result = $this->getNested($pageId);
@@ -719,129 +680,12 @@ class Navigation
         $result = apply_filters('Municipio/Navigation/Items', $result, $this->identifier);
 
         if (!empty($result) && is_array($result)) {
-            $pageStructure = $includeTopLevel ? $this->buildTree($result) : $this->removeTopLevel($this->buildTree($result));
-            if ($onlyKeepFirstLevel) {
+            $pageStructure = $includeTopLevel ? $this->menuConstructorInstance->buildStructuredMenu($result) : $this->removeTopLevel($this->menuConstructorInstance->buildStructuredMenu($result));
+            if (false) {
                 $pageStructure = $this->removeSubLevels($pageStructure);
             }
+
             return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
-        }
-
-        return false;
-    }
-
-    /**
-     * Prepare menu item
-     * 
-     * @param object $item
-     * @param bool $isAncestor
-     * @param int $pageId
-     * 
-     * @return array
-     */
-    private function prepareMenuItem($item, $isAncestor, $pageId): array
-    {
-        return apply_filters('Municipio/Navigation/Item', [
-            'id'          => $item->ID,
-            'post_parent' => $item->menu_item_parent,
-            'post_type'   => $item->object,
-            'page_id'     => $item->object_id,
-            'active'      => ($item->object_id == $pageId) || $this->isCurrentUrl($item->url),
-            'ancestor'    => $isAncestor,
-            'label'       => $item->title,
-            'href'        => $item->url,
-            'children'    => false,
-            'icon'        => [
-                'icon'      => get_field('menu_item_icon', $item->ID),
-                'size'      => 'md',
-                'classList' => ['c-nav__icon']
-            ],
-            'style'       => get_field('menu_item_style', $item->ID) ?? 'default',
-            'description' => get_field('menu_item_description', $item->ID) ?? '',
-            'xfn'         => $item->xfn ?? false
-        ], $this->identifier, true);
-    }
-
-    /**
-     * Translates a page id to a menu id
-     *
-     * @param array $menu
-     * @param integer $pageId
-     * @return integer
-     */
-    private function pageIdToMenuID($menu, $pageId)
-    {
-        $index = array_search($pageId, array_column($menu, 'object_id'));
-
-        if ($index !== false) {
-            return $menu[$index]->ID;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get a list of menu items with an ancestor relation to page id.
-     *
-     * @param string $menu The menu id to get
-     * @return bool|array
-     */
-    private function getWpMenuAncestors($menu, $id)
-    {
-        if (!$id) {
-            return [];
-        }
-
-        //Definitions
-        $fetchAncestors = true;
-        $ancestorStack  = [$id];
-
-        //Fetch ancestors
-        while ($fetchAncestors) {
-            //Get index where match exists
-            $parentIndex = array_search($id, array_column($menu, 'ID'));
-
-            //Top level, exit
-            if ($menu[$parentIndex]->menu_item_parent == 0) {
-                $fetchAncestors = false;
-            } else {
-                //Add to stack (with duplicate prevention)
-                $ancestorStack[] = (int) $menu[$parentIndex]->menu_item_parent;
-
-                //Prepare for next iteration
-                $id = (int) $menu[$parentIndex]->menu_item_parent;
-            }
-        }
-
-        return $ancestorStack;
-    }
-
-    /**
-     * Check if the url corresponds with current url
-     *
-     * @param string $url
-     * @return bool
-     */
-    private function isCurrentUrl(string $url): bool
-    {
-        $currentUrl = $this->sanitizePath($_SERVER['REQUEST_URI']);
-
-        //Check if urls match
-        if (parse_url($url, PHP_URL_PATH) !== null) {
-            $checkUrl = $this->sanitizePath(parse_url($url, PHP_URL_PATH));
-            if ($urlQuery = parse_url($url, PHP_URL_QUERY)) {
-                $checkUrl .=  '?' . $urlQuery;
-            }
-
-            if ($currentUrl == $checkUrl) {
-                return true;
-            }
-        }
-
-        //Check if querystrings match, path is empty
-        if (parse_url($url, PHP_URL_PATH) == null && !empty(parse_url($url, PHP_URL_QUERY))) {
-            if (parse_url($url, PHP_URL_QUERY) == trim(strstr($currentUrl, "?"), "?")) {
-                return true;
-            }
         }
 
         return false;

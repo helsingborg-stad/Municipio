@@ -100,7 +100,7 @@ class SetDesigns implements Hookable
         }
 
         ?>
-            <style type="text/css">
+            <style id="post-type-design-inline" type="text/css">
                 <?php echo $postTypeDesigns['inlineCss'] ?>
             </style>
         <?php
