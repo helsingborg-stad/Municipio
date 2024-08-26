@@ -4,10 +4,6 @@ namespace Municipio\Controller\Header;
 
 class MenuVisibilityTransformer
 {
-    public function __construct()
-    {
-    }
-
     public function transform(array $items)
     {
         if (empty($items['modified'])) {
@@ -21,15 +17,11 @@ class MenuVisibilityTransformer
 
             if (isset($items['desktop'][$menu])) {
                 $items['modified'][$menu][] = 'u-display--none';
-                $items['modified'][$menu][] = 'u-display--block@md';
-                $items['modified'][$menu][] = 'u-display--block@lg';
-                $items['modified'][$menu][] = 'u-display--block@xl';
+                $items['modified'][$menu]   = \Municipio\Controller\Header\Helper\ShowHideClasses::getShowDesktopClasses($items['modified'][$menu]);
             }
 
             if (isset($items['mobile'][$menu])) {
-                $items['modified'][$menu][] = 'u-display--none@md';
-                $items['modified'][$menu][] = 'u-display--none@lg';
-                $items['modified'][$menu][] = 'u-display--none@xl';
+                $items['modified'][$menu] = \Municipio\Controller\Header\Helper\ShowHideClasses::getHideDesktopClasses($items['modified'][$menu]);
             }
         }
 

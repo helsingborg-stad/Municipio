@@ -3,6 +3,7 @@
     @header([
         'classList' => array_merge(
             ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
+            $headerData['upperHeader']['classList'],
             isset($classList) ? (array) $classList : []
         ),
         'id' => 'site-header-flexible-upper',
@@ -29,6 +30,7 @@
         @header([
             'classList' => array_merge(
                 ['c-header--flexible', 'site-header', $customizer->megaMenuMobile ? 'mega-menu-mobile' : ''],
+                $headerData['lowerHeader']['classList'],
                 isset($classList) ? (array) $classList : []
         ),
             'id' => 'site-header-flexible-lower',

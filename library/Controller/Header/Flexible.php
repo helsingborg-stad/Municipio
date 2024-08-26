@@ -6,6 +6,7 @@ use Municipio\Controller\Header\MenuOrderTransformer;
 use Municipio\Controller\Header\MenuVisibilityTransformer;
 use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
+use Municipio\Controller\Header\HeaderVisibilityClasses;
 
 class Flexible implements HeaderInterface
 {
@@ -16,14 +17,17 @@ class Flexible implements HeaderInterface
     private AlignmentTransformer $alignmentTransformerInstance;
     private FlipKeyValueTransformer $flipKeyValueTransformer;
     private MenuVisibilityTransformer $menuVisibilityTransformerInstance;
+    private HeaderVisibilityClasses $headerVisibilityClassesInstance;
     private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
 
     public function __construct(private object $customizer)
     {
-        $this->isResponsive                      = !empty($this->customizer->headerEnableResponsiveOrder);
-        $this->hasMegaMenu                       = false;
-        $this->hasSearch                         = false;
+        $this->isResponsive = !empty($this->customizer->headerEnableResponsiveOrder);
+        $this->hasMegaMenu  = false;
+        $this->hasSearch    = false;
+
+        $this->headerVisibilityClassesInstance   = new HeaderVisibilityClasses();
         $this->flipKeyValueTransformer           = new FlipKeyValueTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
         $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
@@ -39,8 +43,8 @@ class Flexible implements HeaderInterface
         return [
             'upperHeader' => $upperHeader,
             'lowerHeader' => $lowerHeader,
-            'upperItems'  => $upperItems,
-            'lowerItems'  => $lowerItems,
+            'upperItems'  => $upperItems['modified'],
+            'lowerItems'  => $lowerItems['modified'],
             'hasMegaMenu' => $this->hasMegaMenu,
             'hasSearch'   => $this->hasSearch,
         ];
@@ -57,23 +61,27 @@ class Flexible implements HeaderInterface
 
     private function getHeaderSettings($upperItems, $lowerItems): array
     {
-        $upperSettings = [];
-        $lowerSettings = [];
+        $upperHeader = [];
+        $lowerHeader = [];
 
         if (!empty($this->customizer->headerSticky)) {
-            $upperSettings['sticky'] = empty($lowerItems) ? true : false;
-            $upperSettings['sticky'] = true;
+            $upperHeader['sticky'] = empty($lowerItems['modified']) ? true : false;
+            $upperHeader['sticky'] = true;
         }
 
         if (!empty($this->customizer->headerBackground)) {
-            $upperSettings['backgroundColor'] = empty($lowerItems) ? $this->customizer->headerBackground : 'default';
-            $lowerSettings['backgroundColor'] = $this->customizer->headerBackground;
+            $upperHeader['backgroundColor'] = empty($lowerItems['modified']) ? $this->customizer->headerBackground : 'default';
+            $lowerHeader['backgroundColor'] = $this->customizer->headerBackground;
         }
 
+        $upperHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($upperItems);
+        $lowerHeader['classList']   = $this->headerVisibilityClassesInstance->getHeaderClasses($lowerItems);
+        $upperHeader['classList'][] = !empty($upperItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
+        $lowerHeader['classList'][] = !empty($lowerItems['modified']['center']) ? 'c-header--flexible-has-centered-content' : '';
 
         return [
-            array_merge($this->defaultHeaderSettings(), $upperSettings),
-            array_merge($this->defaultHeaderSettings(), $lowerSettings)
+            array_merge($this->defaultHeaderSettings(), $upperHeader),
+            array_merge($this->defaultHeaderSettings(), $lowerHeader)
         ];
     }
 
@@ -100,9 +108,7 @@ class Flexible implements HeaderInterface
         $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
 
-        // echo '<pre>' . print_r($items, true) . '</pre>';
-        // die;
-        return $items['modified'] ?? [];
+        return $items;
     }
 
     private function hasSearch($desktopOrderedItems, $mobileOrderedItems): bool
