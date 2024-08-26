@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-class NullTaxonomyItem implements ITaxonomyItem
+class NullTaxonomyItem implements TaxonomyItemInterface
 {
     /**
      * Class constructor.

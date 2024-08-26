@@ -5,12 +5,12 @@ namespace Municipio\ExternalContent\Sources;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-interface ISource
+interface SourceInterface
 {
     public function getObject(string|int $id): ?BaseType;
 
     /**
-     * @param SchemaSourceFilter|null $filter
+     * @param WP_Query|null $query
      * @return (BaseType)[]
      */
     public function getObjects(?WP_Query $query = null): array;

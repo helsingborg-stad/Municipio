@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\Taxonomy;
 
 use WpService\Contracts\__;
 
-class TaxonomyItem implements ITaxonomyItem
+class TaxonomyItem implements TaxonomyItemInterface
 {
     /**
      * Class constructor.

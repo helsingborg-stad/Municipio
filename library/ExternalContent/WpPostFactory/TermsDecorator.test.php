@@ -2,10 +2,10 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Sources\Services\NullSource;
-use Municipio\ExternalContent\Taxonomy\ITaxonomyItem;
-use Municipio\ExternalContent\Taxonomy\ITaxonomyRegistrar;
+use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
+use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\Taxonomy\NullTaxonomyItem;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactory;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +51,7 @@ class TermsDecoratorTest extends TestCase
         $this->assertEquals([3], $postData['tax_input']['test_taxonomy']);
     }
 
-    private function getTaxonomyItem(): ITaxonomyItem
+    private function getTaxonomyItem(): TaxonomyItemInterface
     {
         return new class extends NullTaxonomyItem {
             public function getSchemaObjectType(): string
@@ -71,14 +71,14 @@ class TermsDecoratorTest extends TestCase
         };
     }
 
-    private function getSource(): ISource
+    private function getSource(): SourceInterface
     {
         return new NullSource();
     }
 
-    private function getTaxonomyRegistrar(array $taxonomyItems): ITaxonomyRegistrar
+    private function getTaxonomyRegistrar(array $taxonomyItems): TaxonomyRegistrarInterface
     {
-        return new class ($taxonomyItems) implements ITaxonomyRegistrar {
+        return new class ($taxonomyItems) implements TaxonomyRegistrarInterface {
             public function __construct(private array $taxonomyItems)
             {
             }

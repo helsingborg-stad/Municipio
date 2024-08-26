@@ -2,12 +2,12 @@
 
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
-class TypesenseClientWithCache implements ITypesenseClient
+class TypesenseClientWithCache implements TypesenseClientInterface
 {
     private static $cache = [];
 
     public function __construct(
-        private ITypesenseClient $client
+        private TypesenseClientInterface $client
     ) {
     }
 

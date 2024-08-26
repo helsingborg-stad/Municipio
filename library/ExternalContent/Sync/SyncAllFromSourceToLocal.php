@@ -2,15 +2,15 @@
 
 namespace Municipio\ExternalContent\Sync;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\InsertPost;
 
-class SyncAllFromSourceToLocal implements ISyncSourceToLocal
+class SyncAllFromSourceToLocal implements SyncSourceToLocalInterface
 {
     public function __construct(
-        private ISource $source,
+        private SourceInterface $source,
         private WpPostFactoryInterface $wpPostFactory,
         private InsertPost $wpService
     ) {
@@ -22,7 +22,10 @@ class SyncAllFromSourceToLocal implements ISyncSourceToLocal
     public function sync(): void
     {
         $posts = array_map([$this, 'getPostArrayToInsert'], $this->source->getObjects());
-        array_map([$this->wpService, 'insertPost'], $posts);
+
+        foreach ($posts as $post) {
+            $this->wpService->insertPost($post);
+        }
     }
 
     /**

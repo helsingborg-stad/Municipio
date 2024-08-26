@@ -2,11 +2,11 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-class Source implements ISource
+class Source implements SourceInterface
 {
     public function __construct(
         private string $postType,

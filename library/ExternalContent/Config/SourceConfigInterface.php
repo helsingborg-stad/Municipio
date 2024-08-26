@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
-interface ISourceConfig
+interface SourceConfigInterface
 {
     public function getSchemaObjectType(): string;
     public function getPostType(): string;

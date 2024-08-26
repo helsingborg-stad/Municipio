@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
-interface IJsonFileSourceConfig extends ISourceConfig
+interface JsonFileSourceConfigInterface extends SourceConfigInterface
 {
     public function getFile(): string;
 }

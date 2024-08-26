@@ -3,17 +3,17 @@
 namespace Municipio\ExternalContent\Sources\Services;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Sources\Services\TypesenseClient\ITypesenseClient;
+use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClientInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-class TypesenseSourceServiceDecorator implements ISource
+class TypesenseSourceServiceDecorator implements SourceInterface
 {
     public function __construct(
-        private ITypesenseClient $typesenseClient,
+        private TypesenseClientInterface $typesenseClient,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ISource $inner,
+        private SourceInterface $inner,
     ) {
     }
 

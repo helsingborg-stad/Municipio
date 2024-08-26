@@ -2,27 +2,27 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-use Municipio\ExternalContent\Sources\ISourceRegistry;
+use Municipio\ExternalContent\Sources\SourceRegistryInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\RegisterTaxonomy;
 use WpService\Contracts\RegisterTaxonomyForObjectType;
 use WpService\Contracts\TaxonomyExists;
 
-class TaxonomyRegistrar implements ITaxonomyRegistrar
+class TaxonomyRegistrar implements TaxonomyRegistrarInterface
 {
     private array $registeredTaxonomyItems = [];
 
     /**
      * Class constructor.
      *
-     * @param ITaxonomyItem[] $taxonomyItems
-     * @param ISourceRegistry $sourceRegistry
+     * @param TaxonomyItemInterface[] $taxonomyItems
+     * @param SourceRegistryInterface $sourceRegistry
      * @param AddAction&RegisterTaxonomy&TaxonomyExists&RegisterTaxonomyForObjectType $wpService
      */
     public function __construct(
         private array $taxonomyItems,
-        private ISourceRegistry $sourceRegistry,
+        private SourceRegistryInterface $sourceRegistry,
         private AddAction&RegisterTaxonomy&TaxonomyExists&RegisterTaxonomyForObjectType $wpService
     ) {
     }
@@ -39,7 +39,7 @@ class TaxonomyRegistrar implements ITaxonomyRegistrar
         return $this->registeredTaxonomyItems;
     }
 
-    private function tryRegisterTaxonomy(ITaxonomyItem $taxonomyItem): void
+    private function tryRegisterTaxonomy(TaxonomyItemInterface $taxonomyItem): void
     {
         foreach ($this->sourceRegistry->getSources() as $source) {
             if ($source->getSchemaObjectType() === $taxonomyItem->getSchemaObjectType()) {
@@ -48,7 +48,7 @@ class TaxonomyRegistrar implements ITaxonomyRegistrar
         }
     }
 
-    private function registerTaxonomy(ITaxonomyItem $taxonomyItem, string $postType): void
+    private function registerTaxonomy(TaxonomyItemInterface $taxonomyItem, string $postType): void
     {
         if (taxonomy_exists($taxonomyItem->getName())) {
             $this->wpService->registerTaxonomyForObjectType($taxonomyItem->getName(), $postType);

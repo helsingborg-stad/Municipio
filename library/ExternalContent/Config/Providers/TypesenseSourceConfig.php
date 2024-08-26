@@ -2,9 +2,9 @@
 
 namespace Municipio\ExternalContent\Config\Providers;
 
-use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
+use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
 
-class TypesenseSourceConfig extends SourceConfig implements ITypesenseSourceConfig
+class TypesenseSourceConfig extends SourceConfig implements TypesenseSourceConfigInterface
 {
     public function __construct(
         protected string $postType,

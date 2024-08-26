@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
-use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
+use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
 use WpService\FileSystem\GetFileContent;
@@ -94,8 +94,8 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         };
     }
 
-    private function getConfig(array $values): IJsonFileSourceConfig {
-        return new class ($values) implements IJsonFileSourceConfig {
+    private function getConfig(array $values): JsonFileSourceConfigInterface {
+        return new class ($values) implements JsonFileSourceConfigInterface {
             
             public function __construct(private array $values)
             {

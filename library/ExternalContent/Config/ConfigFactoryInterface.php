@@ -7,5 +7,5 @@ interface ConfigFactoryInterface
     /**
      * Build the configuration.
      */
-    public function create(): ISourceConfig;
+    public function create(): SourceConfigInterface;
 }

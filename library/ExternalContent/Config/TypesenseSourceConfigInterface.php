@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
-interface ITypesenseSourceConfig extends ISourceConfig
+interface TypesenseSourceConfigInterface extends SourceConfigInterface
 {
     public function getApiKey(): string;
     public function getHost(): string;

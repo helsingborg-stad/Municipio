@@ -2,9 +2,9 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Taxonomy\ITaxonomyItem;
-use Municipio\ExternalContent\Taxonomy\ITaxonomyRegistrar;
+use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
+use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\InsertTerm;
@@ -18,11 +18,11 @@ class TermsDecorator implements WpPostFactoryInterface
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
      *
-     * @param ITaxonomyItem[] $taxonomyItems
+     * @param TaxonomyItemInterface[] $taxonomyItems
      * @param WpPostMetaFactoryInterface $inner
      */
     public function __construct(
-        private ITaxonomyRegistrar $taxonomyRegistrar,
+        private TaxonomyRegistrarInterface $taxonomyRegistrar,
         private WpTermFactoryInterface $wpTermFactory,
         private InsertTerm&TermExists $wpService,
         private WpPostFactoryInterface $inner
@@ -32,7 +32,7 @@ class TermsDecorator implements WpPostFactoryInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, ISource $source): array
+    public function create(BaseType $schemaObject, SourceInterface $source): array
     {
         $post                  = $this->inner->create($schemaObject, $source);
         $matchingTaxonomyItems = $this->tryGetMatchingTaxonomyItems($schemaObject);
@@ -57,7 +57,7 @@ class TermsDecorator implements WpPostFactoryInterface
     {
         return array_filter(
             $this->taxonomyRegistrar->getRegisteredTaxonomyItems(),
-            fn(ITaxonomyItem $taxonomyItem) =>
+            fn(TaxonomyItemInterface $taxonomyItem) =>
                 $taxonomyItem->getSchemaObjectType() === $schemaObject->getType() &&
             $schemaObject->hasProperty($taxonomyItem->getSchemaObjectProperty())
         );

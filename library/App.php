@@ -355,12 +355,8 @@ class App
         /**
          * Populate acf select with schema properties.
          */
-        $this->acfFieldContentModifierRegistrar->registerModifier(
-            new PopulateTaxonomySchemaPropertyFieldOptions(
-                'external_content_source',
-                new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes()
-            )
-        );
+        $populateTaxonomySchemaPropertyFieldOptions = new PopulateTaxonomySchemaPropertyFieldOptions('external_content_source', new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
+        $this->acfFieldContentModifierRegistrar->registerModifier($populateTaxonomySchemaPropertyFieldOptions);
 
         $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
             $this->wpService->submitButton(
@@ -388,49 +384,49 @@ class App
             return $actions;
         });
 
-        /**
-         * Trigger sync of external content.
-         */
-        $trigger = new \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger($this->wpService);
-        $trigger->trigger();
+        add_action('init', function () {
 
-        $this->wpService->addAction(
-            'Municipio/ExternalContent/Sync',
-            function (string $postType, ?int $postId = null) {
-                // var_dump($postType, $postId);
-                // die('sync');
-                $schemaTypeFromPostType      = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
-                $schemaType                  = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
-                $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($postType, $schemaType, $this->acfService);
-                $sourceConfig                = $sourceConfigFactoryUsingAcf->create();
-                $source                      = (new \Municipio\ExternalContent\Sources\SourceFactory())->createSource($sourceConfig, $this->wpService);
-                $sourceRegistry              = new StaticSourceRegistry([$sourceConfig], new \Municipio\ExternalContent\Sources\SourceFactory(), $this->wpService);
+            /**
+             * Trigger sync of external content.
+             */
+            $trigger = new \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger($this->wpService);
+            $trigger->trigger();
 
+            $sourceConfigs          = [];
+            $schemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
+            $postTypes              = $this->wpService->getPostTypes();
 
-                $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
-                $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
+            foreach ($postTypes as $postType) {
+                $schemaType = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
 
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\WpPostFactory();
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\DateDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\IdDecorator($wpPostFactory, $this->wpService);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\JobPostingDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SchemaDataDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\OriginIdDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
-                $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($taxonomyRegistrar, $wpTermFactory, $this->wpService, $wpPostFactory);
-
-                if ($postId === null) {
-                    $syncFromSourceToLocal = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $wpPostFactory, $this->wpService);
-                } else {
-                    $syncFromSourceToLocal = new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId($postId, $sourceRegistry, $wpPostFactory, $this->wpService);
+                if ($schemaType === null) {
+                    continue;
                 }
 
-                $syncFromSourceToLocal->sync();
-            },
-            10,
-            2
-        );
+                $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($postType, $schemaType, $this->acfService);
+                $sourceConfigs[]             = $sourceConfigFactoryUsingAcf->create();
+            }
+
+            $sourceRegistry = new StaticSourceRegistry($sourceConfigs, new \Municipio\ExternalContent\Sources\SourceFactory(), $this->wpService);
+
+            foreach ($postTypes as $postType) {
+                $schemaType = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
+
+                if ($schemaType === null) {
+                    continue;
+                }
+
+                $taxonomyItemsFromAcf = new \Municipio\ExternalContent\Taxonomy\CreateTaxonomyItemsFromAcf($postType, $schemaType, $this->acfService, $this->wpService);
+                $taxonomyItems        = $taxonomyItemsFromAcf->create();
+                $taxonomyRegistrar    = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($taxonomyItems, $sourceRegistry, $this->wpService);
+                $taxonomyRegistrar->register();
+            }
+
+            /**
+             * Sync external content on event (action).
+             */
+            $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sourceRegistry, $taxonomyRegistrar, $this->wpService);
+            $this->hooksRegistrar->register($syncEventListener);
+        });
     }
 }

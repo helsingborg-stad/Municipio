@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Sources\Services\NullSource;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
@@ -29,7 +29,7 @@ class SourceIdDecoratorTest extends TestCase
         };
     }
 
-    private function getSource(): ISource
+    private function getSource(): SourceInterface
     {
         return new class extends NullSource {
             public function getId(): string

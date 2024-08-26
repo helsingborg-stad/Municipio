@@ -20,11 +20,11 @@ class TryCreateConfigUsingAcf implements ConfigFactoryInterface
     /**
      * Create the source config.
      *
-     * @return ISourceConfig The created source config.
+     * @return SourceConfigInterface The created source config.
      * @throws \Exception If the ACF configuration or schema type is missing.
      * @throws \Exception If the source config type is unknown.
      */
-    public function create(): ISourceConfig
+    public function create(): SourceConfigInterface
     {
         $acfConfig = $this->acfService->getField(self::ACF_FIELD_NAME, $this->postType . '_options');
 

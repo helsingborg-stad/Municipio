@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Sources\Services\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
@@ -47,7 +47,7 @@ class WpPostFactoryTest extends TestCase
         };
     }
 
-    private function getSource(): ISource
+    private function getSource(): SourceInterface
     {
         return new Source('', '');
     }

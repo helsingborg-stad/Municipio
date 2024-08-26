@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\GetPosts;
 
@@ -15,7 +15,7 @@ class IdDecorator implements WpPostFactoryInterface
     {
     }
 
-    public function create(BaseType $schemaObject, ISource $source): array
+    public function create(BaseType $schemaObject, SourceInterface $source): array
     {
         $post = $this->inner->create($schemaObject, $source);
 

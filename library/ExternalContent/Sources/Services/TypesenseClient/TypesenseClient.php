@@ -2,15 +2,15 @@
 
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
-use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
+use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
 use Municipio\ExternalContent\Config\TypesenseSourceConfig;
 use Typesense\Client;
 
-class TypesenseClient implements ITypesenseClient
+class TypesenseClient implements TypesenseClientInterface
 {
     private ?Client $client = null;
 
-    public function __construct(private ITypesenseSourceConfig $config)
+    public function __construct(private TypesenseSourceConfigInterface $config)
     {
     }
 

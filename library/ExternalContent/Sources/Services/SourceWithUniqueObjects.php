@@ -6,29 +6,15 @@ use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-class SourceServiceWithSourceId implements SourceInterface
+class SourceWithUniqueObjects implements SourceInterface
 {
-    public static $idRegistry = [];
-
-    public function __construct(private string $id, private SourceInterface $inner)
+    public function __construct(private SourceInterface $inner)
     {
-        self::$idRegistry[] = $this->id = $this->ensureIdIsUnique();
-    }
-
-    private function ensureIdIsUnique(): string
-    {
-        $this->id = md5($this->id);
-
-        if (in_array($this->id, self::$idRegistry)) {
-            return $this->ensureIdIsUnique();
-        }
-
-        return $this->id;
     }
 
     public function getId(): string
     {
-        return $this->id;
+        return $this->inner->getId();
     }
 
     public function getObject(string|int $id): null|BaseType
@@ -38,7 +24,18 @@ class SourceServiceWithSourceId implements SourceInterface
 
     public function getObjects(?WP_Query $query = null): array
     {
-        return $this->inner->getObjects($query);
+        $objects   = $this->inner->getObjects($query);
+        $schemaIds = [];
+
+        foreach ($objects as $index => $object) {
+            if (!empty($object->getProperty('@id')) && in_array($object->getProperty('@id'), $schemaIds)) {
+                unset($objects[$index]);
+            } else {
+                $schemaIds[] = $object->getProperty('@id');
+            }
+        }
+
+        return $objects;
     }
 
     public function getPostType(): string

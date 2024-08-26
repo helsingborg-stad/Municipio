@@ -2,35 +2,38 @@
 
 namespace Municipio\ExternalContent\Sources;
 
-use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
-use Municipio\ExternalContent\Config\ISourceConfig;
-use Municipio\ExternalContent\Config\ITypesenseSourceConfig;
+use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
+use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\Services\JsonFileSourceServiceDecorator;
 use Municipio\ExternalContent\Sources\Services\Source;
 use Municipio\ExternalContent\Sources\Services\SourceServiceWithPostType;
 use Municipio\ExternalContent\Sources\Services\SourceServiceWithSourceId;
+use Municipio\ExternalContent\Sources\Services\SourceWithUniqueObjects;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
 use Municipio\ExternalContent\Sources\Services\TypesenseSourceServiceDecorator;
 use WpService\FileSystem\BaseFileSystem;
 
-class SourceFactory implements ISourceFactory
+class SourceFactory implements SourceFactoryInterface
 {
     /**
      * Create a source based on the given source configuration.
      *
-     * @param ISourceConfig $sourceConfig The source configuration.
-     * @return ISource The created source.
+     * @param SourceConfigInterface $sourceConfig The source configuration.
+     * @return SourceInterface The created source.
      * @throws \Exception If the source configuration type is unknown.
      */
-    public function createSource(ISourceConfig $sourceConfig): ISource
+    public function createSource(SourceConfigInterface $sourceConfig): SourceInterface
     {
-        if ($sourceConfig instanceof ITypesenseSourceConfig) {
+        $source = null;
+
+        if ($sourceConfig instanceof TypesenseSourceConfigInterface) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getHost() . $sourceConfig->getCollectionName();
             $souceServiceId = md5($souceServiceId);
 
-            return new TypesenseSourceServiceDecorator(
+            $source = new TypesenseSourceServiceDecorator(
                 new TypesenseClient($sourceConfig),
                 new TryConvertTypesenseJsonToSchemaObjects(),
                 new SourceServiceWithSourceId($souceServiceId, new Source(
@@ -38,11 +41,11 @@ class SourceFactory implements ISourceFactory
                     $sourceConfig->getSchemaObjectType()
                 ))
             );
-        } elseif ($sourceConfig instanceof IJsonFileSourceConfig) {
+        } elseif ($sourceConfig instanceof JsonFileSourceConfigInterface) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getFile();
             $souceServiceId = md5($souceServiceId);
 
-            return new JsonFileSourceServiceDecorator(
+            $source = new JsonFileSourceServiceDecorator(
                 $sourceConfig,
                 new BaseFileSystem(),
                 new SimpleJsonConverter(),
@@ -51,6 +54,10 @@ class SourceFactory implements ISourceFactory
                     $sourceConfig->getSchemaObjectType()
                 ))
             );
+        }
+
+        if ($source !== null) {
+            return new SourceWithUniqueObjects($source);
         }
 
         throw new \Exception('Unknown source config type');

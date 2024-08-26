@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sync;
 
-interface ISyncSourceToLocal
+interface SyncSourceToLocalInterface
 {
     /**
      * Syncs from source to local.

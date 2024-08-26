@@ -7,7 +7,7 @@ interface TaxonomyItemsFactoryInterface
     /**
      * Create the taxonomies.
      *
-     * @return ITaxonomyItem[] The created taxonomies.
+     * @return TaxonomyItemInterface[] The created taxonomies.
      */
     public function create(): array;
 }

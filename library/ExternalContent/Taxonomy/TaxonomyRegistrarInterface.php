@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-interface ITaxonomyRegistrar
+interface TaxonomyRegistrarInterface
 {
     public function register(): void;
     public function getRegisteredTaxonomyItems(): array;

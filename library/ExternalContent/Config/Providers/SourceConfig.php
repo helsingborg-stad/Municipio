@@ -2,9 +2,9 @@
 
 namespace Municipio\ExternalContent\Config\Providers;
 
-use Municipio\ExternalContent\Config\ISourceConfig;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
 
-abstract class SourceConfig implements ISourceConfig
+abstract class SourceConfig implements SourceConfigInterface
 {
     public function __construct(protected string $postType, protected string $schemaObjectType)
     {

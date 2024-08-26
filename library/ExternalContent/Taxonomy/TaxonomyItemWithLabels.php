@@ -2,12 +2,12 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-class TaxonomyItemWithLabels implements ITaxonomyItem
+class TaxonomyItemWithLabels implements TaxonomyItemInterface
 {
     public function __construct(
         private string $singleLabel,
         private string $pluralLabel,
-        private ITaxonomyItem $inner
+        private TaxonomyItemInterface $inner
     ) {
     }
     /**

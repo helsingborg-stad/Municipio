@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\Sync;
 
-use Municipio\ExternalContent\Sources\ISource;
-use Municipio\ExternalContent\Sources\ISourceRegistry;
+use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\Sources\SourceRegistryInterface;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Municipio\HooksRegistrar\Hookable;
@@ -12,11 +12,11 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\InsertPost;
 
-class SyncSingleFromSourceToLocalByPostId implements ISyncSourceToLocal
+class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
 {
     public function __construct(
         private int|string $postId,
-        private ISourceRegistry $sourceRegistry,
+        private SourceRegistryInterface $sourceRegistry,
         private WpPostFactoryInterface $wpPostFactory,
         private InsertPost&GetPostMeta $wpService
     ) {

@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Sources\ISourceFilter;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
@@ -10,9 +10,9 @@ use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\JobPosting;
 use WP_Query;
 
-class DecorateSchemaObjectsWithLocalIds implements ISource
+class DecorateSchemaObjectsWithLocalIds implements SourceInterface
 {
-    public function __construct(private ISource $inner)
+    public function __construct(private SourceInterface $inner)
     {
     }
 

@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
-interface IExternalContentConfig
+interface ExternalContentConfigInterface
 {
     public function getSources(): array;
 }

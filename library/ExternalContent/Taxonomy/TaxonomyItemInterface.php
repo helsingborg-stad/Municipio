@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\Taxonomy;
 /**
      * Interface for taxonomy items.
      */
-interface ITaxonomyItem
+interface TaxonomyItemInterface
 {
     /**
      * Get the schema object type.

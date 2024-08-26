@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
-interface ITypesenseClient
+interface TypesenseClientInterface
 {
     public function search(array $searchParams): array;
     public function getAll(): array;

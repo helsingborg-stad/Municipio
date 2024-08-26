@@ -2,20 +2,20 @@
 
 namespace Municipio\ExternalContent\Sources\Services;
 
-use Municipio\ExternalContent\Config\IJsonFileSourceConfig;
+use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\ISource;
+use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceServiceDecorator implements ISource {
+class JsonFileSourceServiceDecorator implements SourceInterface {
 
     public function __construct(
-        private IJsonFileSourceConfig $config,
+        private JsonFileSourceConfigInterface $config,
         private GetFileContent $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
-        private ISource $inner
+        private SourceInterface $inner
         )
     {
     }
