@@ -4,6 +4,7 @@ namespace Municipio\Controller\Header\Helper;
 
 class ShowHideClasses
 {
+    // Classes for showing an element on desktop.
     public static function getShowDesktopClasses(array $classes = []): array
     {
         return array_merge($classes, [
@@ -13,6 +14,7 @@ class ShowHideClasses
         ]);
     }
 
+    // Classes for hiding an element on desktop
     public static function getHideDesktopClasses(array $classes = []): array
     {
         return array_merge($classes, [

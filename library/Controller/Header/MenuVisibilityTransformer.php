@@ -4,6 +4,7 @@ namespace Municipio\Controller\Header;
 
 class MenuVisibilityTransformer
 {
+    // Transforms the menu items to show or hide them on desktop and mobile.
     public function transform(array $items)
     {
         if (empty($items['modified'])) {

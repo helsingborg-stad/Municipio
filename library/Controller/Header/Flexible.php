@@ -34,6 +34,7 @@ class Flexible implements HeaderInterface
         $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
     }
 
+    // Gets the header data accessible in the view.
     public function getHeaderData(): array
     {
         $upperItems                  = $this->getItems('main_upper');
@@ -50,6 +51,7 @@ class Flexible implements HeaderInterface
         ];
     }
 
+    // Handles the hidden menu data in the customizer.
     private function getHiddenMenuItemsData()
     {
         $hiddenData = !empty($this->customizer->headerSortableHiddenStorage) ?
@@ -59,6 +61,7 @@ class Flexible implements HeaderInterface
         return json_decode($hiddenData);
     }
 
+    // Gets the header settings.
     private function getHeaderSettings($upperItems, $lowerItems): array
     {
         $upperHeader = [];
@@ -85,14 +88,17 @@ class Flexible implements HeaderInterface
         ];
     }
 
+    // Default settings.
     private function defaultHeaderSettings(): array
     {
         return [
             'sticky'          => false,
             'backgroundColor' => 'default',
+            'classList'       => []
         ];
     }
 
+    // Handles and returns the modified menu items.
     private function getItems(string $section): array
     {
         // Getting the items
@@ -111,16 +117,19 @@ class Flexible implements HeaderInterface
         return $items;
     }
 
+    // Checks if the search is present in the menu.
     private function hasSearch($desktopOrderedItems, $mobileOrderedItems): bool
     {
         return $this->hasSearch || in_array('search-modal', $desktopOrderedItems) || in_array('search-modal', $mobileOrderedItems);
     }
 
+    // Checks if the mega menu is present in the menu.
     private function hasMegaMenu($desktopOrderedItems, $mobileOrderedItems): bool
     {
         return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems) || in_array('mega-menu', $mobileOrderedItems);
     }
 
+    // Gets the ordered menu items from the customizer.
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
         return [
@@ -131,6 +140,7 @@ class Flexible implements HeaderInterface
         ];
     }
 
+    // Gets the camelCased setting name.
     private function getSettingName(string $section): array
     {
         $setting = $this->headerSettingKey . $section;

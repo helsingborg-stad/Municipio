@@ -4,12 +4,6 @@ namespace Municipio\Controller\Header;
 
 use Municipio\Controller\Header\AlignmentTransformer;
 use PHPUnit\Framework\TestCase;
-use Municipio\PostTypeDesign\GetFields;
-use WpService\Contracts\AddAction;
-use WpService\Contracts\GetOption;
-use WpService\Contracts\GetPostTypes;
-use WpService\Contracts\GetThemeMod;
-use WpService\Contracts\UpdateOption;
 
 class AlignmentTransformerTest extends TestCase
 {
