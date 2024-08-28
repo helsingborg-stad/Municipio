@@ -2,24 +2,36 @@
 
 namespace Municipio\ExternalContent\Sources;
 
+use Municipio\ExternalContent\Config\SourceConfigRegistryInterface;
 use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\HooksRegistrar\Hookable;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 
-class StaticSourceRegistry implements SourceRegistryInterface
+class StaticSourceRegistry implements SourceRegistryInterface, Hookable
 {
     private static array $sources = [];
 
     /**
-     * @param \Municipio\ExternalContent\Config\SourceConfigInterface[] $sourceConfigurations
+     * @param \Municipio\ExternalContent\Config\SourceConfigRegistryInterface $sourceConfigRegistry
      * @param \Municipio\ExternalContent\Sources\SourceFactoryInterface $sourceFactory
      */
     public function __construct(
-        private array $sourceConfigurations,
+        private SourceConfigRegistryInterface $sourceConfigRegistry,
         private SourceFactoryInterface $sourceFactory,
-        private DoAction $wpService
+        private DoAction&AddAction $wpService
     ) {
-        foreach ($sourceConfigurations as $sourceConfiguration) {
-            $source = $sourceFactory->createSource($sourceConfiguration);
+    }
+
+    public function addHooks(): void
+    {
+        $this->wpService->addAction('init', [$this, 'registerSources']);
+    }
+
+    public function registerSources(): void
+    {
+        foreach ($this->sourceConfigRegistry->getSourceConfigurations() as $sourceConfiguration) {
+            $source = $this->sourceFactory->createSource($sourceConfiguration);
             self::registerSource($source);
 
             /**

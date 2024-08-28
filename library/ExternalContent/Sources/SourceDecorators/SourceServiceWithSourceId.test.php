@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Sources\Services;
+namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use PHPUnit\Framework\TestCase;
 

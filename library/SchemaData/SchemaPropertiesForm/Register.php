@@ -3,9 +3,8 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm;
 
 use AcfService\Contracts\AddLocalFieldGroup;
+use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
-use Municipio\SchemaData\Utils\IGetSchemaTypeFromPostType;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetCurrentScreen;
 
@@ -15,7 +14,7 @@ class Register implements Hookable
         private AddLocalFieldGroup $acfService,
         private AddAction&GetCurrentScreen $wpService,
         private GetAcfFieldGroupBySchemaTypeInterface $getAcfFieldGroupBySchemaType,
-        private GetSchemaTypeFromPostTypeInterface $getSchemaTypeFromPostType,
+        private TryGetSchemaTypeFromPostType $configService,
     ) {
     }
 
@@ -32,7 +31,7 @@ class Register implements Hookable
             return;
         }
 
-        $schemaType = $this->getSchemaTypeFromPostType->getSchemaTypeFromPostType($screen->post_type);
+        $schemaType = $this->configService->tryGetSchemaTypeFromPostType($screen->post_type);
 
         if (empty($schemaType)) {
             return;

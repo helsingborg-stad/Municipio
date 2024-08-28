@@ -4,6 +4,6 @@ namespace Municipio\ExternalContent\Taxonomy;
 
 interface TaxonomyRegistrarInterface
 {
-    public function register(): void;
+    public function register(TaxonomyItem $taxonomyItem): void;
     public function getRegisteredTaxonomyItems(): array;
 }

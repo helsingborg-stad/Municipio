@@ -7,17 +7,20 @@ use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
-use Municipio\ExternalContent\Sources\Services\JsonFileSourceServiceDecorator;
-use Municipio\ExternalContent\Sources\Services\Source;
-use Municipio\ExternalContent\Sources\Services\SourceServiceWithPostType;
-use Municipio\ExternalContent\Sources\Services\SourceServiceWithSourceId;
-use Municipio\ExternalContent\Sources\Services\SourceWithUniqueObjects;
+use Municipio\ExternalContent\Sources\SourceDecorators\JsonFileSourceServiceDecorator;
+use Municipio\ExternalContent\Sources\SourceDecorators\SourceServiceWithSourceId;
+use Municipio\ExternalContent\Sources\SourceDecorators\FilterOutDuplicateObjectsFromSource;
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
-use Municipio\ExternalContent\Sources\Services\TypesenseSourceServiceDecorator;
+use Municipio\ExternalContent\Sources\SourceDecorators\TypesenseSourceServiceDecorator;
 use WpService\FileSystem\BaseFileSystem;
+use WpService\WpService;
 
 class SourceFactory implements SourceFactoryInterface
 {
+    public function __construct(private WpService $wpService)
+    {
+    }
+
     /**
      * Create a source based on the given source configuration.
      *
@@ -27,7 +30,10 @@ class SourceFactory implements SourceFactoryInterface
      */
     public function createSource(SourceConfigInterface $sourceConfig): SourceInterface
     {
-        $source = null;
+        $source = new Source(
+            $sourceConfig->getPostType(),
+            $sourceConfig->getSchemaObjectType()
+        );
 
         if ($sourceConfig instanceof TypesenseSourceConfigInterface) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getHost() . $sourceConfig->getCollectionName();
@@ -36,10 +42,7 @@ class SourceFactory implements SourceFactoryInterface
             $source = new TypesenseSourceServiceDecorator(
                 new TypesenseClient($sourceConfig),
                 new TryConvertTypesenseJsonToSchemaObjects(),
-                new SourceServiceWithSourceId($souceServiceId, new Source(
-                    $sourceConfig->getPostType(),
-                    $sourceConfig->getSchemaObjectType()
-                ))
+                new SourceServiceWithSourceId($souceServiceId, $source)
             );
         } elseif ($sourceConfig instanceof JsonFileSourceConfigInterface) {
             $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getFile();
@@ -49,17 +52,12 @@ class SourceFactory implements SourceFactoryInterface
                 $sourceConfig,
                 new BaseFileSystem(),
                 new SimpleJsonConverter(),
-                new SourceServiceWithSourceId($souceServiceId, new Source(
-                    $sourceConfig->getPostType(),
-                    $sourceConfig->getSchemaObjectType()
-                ))
+                new SourceServiceWithSourceId($souceServiceId, $source)
             );
         }
 
-        if ($source !== null) {
-            return new SourceWithUniqueObjects($source);
-        }
+        $source = new FilterOutDuplicateObjectsFromSource($source); // TODO: Rename to FilterOutDuplicateObjectsFromSource
 
-        throw new \Exception('Unknown source config type');
+        return $source;
     }
 }

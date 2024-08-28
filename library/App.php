@@ -6,6 +6,7 @@ use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\Api\RestApiEndpointsRegistry;
+use Municipio\Config\ConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
 use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
@@ -32,6 +33,7 @@ class App
      * App constructor.
      */
     public function __construct(
+        private ConfigInterface $config,
         private WpService $wpService,
         private AcfService $acfService,
         private HooksRegistrarInterface $hooksRegistrar,
@@ -299,29 +301,26 @@ class App
 
     private function setupSchemaDataFeature(): void
     {
-        /**
-         * Feature enabled/disabled
-         */
-        if (
-            $this->acfService->getField('mun_schemadata_enabled', 'options') !== true &&
-            $this->acfService->getField('mun_schemadata_enabled', 'options') !== "1" &&
-            $this->acfService->getField('mun_schemadata_enabled', 'options') !== 1
-        ) {
+        if (!$this->config->getSchemaDataConfig()->featureIsEnabled()) {
             return;
         }
+
+        /**
+         * Register options page
+         */
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\OptionsPage($this->wpService, $this->acfService));
 
         /**
          * Populate schema types acf select.
          */
         $getSchemaTypes = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
         $schemaTypes    = $getSchemaTypes->getSchemaTypes();
-        $this->acfFieldContentModifierRegistrar->registerModifier(new PopulateSchemaTypeFieldOptions('schema', $schemaTypes, $this->wpService));
+        $this->acfFieldContentModifierRegistrar->registerModifier(new PopulateSchemaTypeFieldOptions('field_66c6d2bffbf6c', $schemaTypes, $this->wpService));
 
         /**
          * Shared dependencies.
          */
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-        $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
 
         /**
          * Limit schema types and properties.
@@ -342,7 +341,7 @@ class App
         $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
         $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
         $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $getSchemaTypeFromPostType));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->config->getSchemaDataConfig()));
 
         /**
          * External content
@@ -352,17 +351,25 @@ class App
 
     private function setupExternalContent(): void
     {
+        if (!$this->config->getSchemaDataConfig()->featureIsEnabled()) {
+            return;
+        }
+
         /**
          * Populate acf select with schema properties.
          */
-        $populateTaxonomySchemaPropertyFieldOptions = new PopulateTaxonomySchemaPropertyFieldOptions('external_content_source', new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
-        $this->acfFieldContentModifierRegistrar->registerModifier($populateTaxonomySchemaPropertyFieldOptions);
+        $this->acfFieldContentModifierRegistrar->registerModifier(
+            new PopulateTaxonomySchemaPropertyFieldOptions(
+                'field_66c6ca5972ba2',
+                new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes()
+            )
+        );
 
         $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
             $this->wpService->submitButton(
                 __('Sync all posts from remote source'),
                 'primary',
-                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER,
+                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
                 false
             );
         });
@@ -370,12 +377,12 @@ class App
         $this->wpService->addAction('post_row_actions', function (array $actions, WP_Post $post) {
             $urlParams = sprintf(
                 '&%s&%s=%s',
-                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER,
-                \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_POST_ID,
+                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
+                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_POST_ID,
                 $post->ID
             );
 
-            $actions[\Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger::GET_PARAM_TRIGGER] = sprintf(
+            $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
                 '<a href="%s">%s</a>',
                 $urlParams,
                 __('Sync this post from remote source', 'municipio')
@@ -384,49 +391,50 @@ class App
             return $actions;
         });
 
-        add_action('init', function () {
+        /**
+         * Trigger sync of external content.
+         */
+        $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
 
-            /**
-             * Trigger sync of external content.
-             */
-            $trigger = new \Municipio\ExternalContent\Sync\Triggers\GetParamsTrigger($this->wpService);
-            $trigger->trigger();
+        $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($this->acfService, $this->config->getSchemaDataConfig());
+        $sourceConfigRegistry        = new \Municipio\ExternalContent\Config\SourceConfigRegistry($this->wpService, $this->config->getSchemaDataConfig(), $sourceConfigFactoryUsingAcf);
+        $this->hooksRegistrar->register($sourceConfigRegistry);
 
-            $sourceConfigs          = [];
-            $schemaTypeFromPostType = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($this->acfService);
-            $postTypes              = $this->wpService->getPostTypes();
+        $sourceRegistry = new StaticSourceRegistry($sourceConfigRegistry, new \Municipio\ExternalContent\Sources\SourceFactory($this->wpService), $this->wpService);
+        $this->hooksRegistrar->register($sourceRegistry);
 
-            foreach ($postTypes as $postType) {
-                $schemaType = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
+        /**
+         * Register taxonomies.
+         */
+        $taxonomyItemsFactory = new \Municipio\ExternalContent\Taxonomy\CreateTaxonomyItemsFromAcf($this->acfService, $this->wpService);
+        $taxonomyRegistrar    = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($sourceRegistry, $taxonomyItemsFactory, $this->wpService, $sourceRegistry);
+        $this->hooksRegistrar->register($taxonomyRegistrar);
 
-                if ($schemaType === null) {
+        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sourceRegistry, $taxonomyRegistrar, $this->wpService);
+        $this->hooksRegistrar->register($syncEventListener);
+
+        add_filter('register_post_type_args', function ($args, $postType) {
+
+            if (empty($this->config->getSchemaDataConfig()->getEnabledPostTypes())) {
+                return $args;
+            }
+
+            foreach ($this->config->getSchemaDataConfig() as $postTypeWithSchemaType) {
+                if ($postTypeWithSchemaType !== $postType) {
                     continue;
                 }
 
-                $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($postType, $schemaType, $this->acfService);
-                $sourceConfigs[]             = $sourceConfigFactoryUsingAcf->create();
+                $args['capabilities'] = [
+                    'edit_post'     => 'do_not_allow',
+                    'delete_post'   => 'do_not_allow',
+                    'publish_posts' => 'do_not_allow',
+                    'create_posts'  => 'do_not_allow',
+                ];
+
+                break;
             }
 
-            $sourceRegistry = new StaticSourceRegistry($sourceConfigs, new \Municipio\ExternalContent\Sources\SourceFactory(), $this->wpService);
-
-            foreach ($postTypes as $postType) {
-                $schemaType = $schemaTypeFromPostType->getSchemaTypeFromPostType($postType);
-
-                if ($schemaType === null) {
-                    continue;
-                }
-
-                $taxonomyItemsFromAcf = new \Municipio\ExternalContent\Taxonomy\CreateTaxonomyItemsFromAcf($postType, $schemaType, $this->acfService, $this->wpService);
-                $taxonomyItems        = $taxonomyItemsFromAcf->create();
-                $taxonomyRegistrar    = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($taxonomyItems, $sourceRegistry, $this->wpService);
-                $taxonomyRegistrar->register();
-            }
-
-            /**
-             * Sync external content on event (action).
-             */
-            $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sourceRegistry, $taxonomyRegistrar, $this->wpService);
-            $this->hooksRegistrar->register($syncEventListener);
-        });
+            return $args;
+        }, 11, 2);
     }
 }

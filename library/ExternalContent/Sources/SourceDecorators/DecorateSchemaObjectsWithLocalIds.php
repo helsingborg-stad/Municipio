@@ -1,13 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\Sources\Services;
+namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\Sources\ISourceFilter;
 use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Thing;
-use Spatie\SchemaOrg\Event;
-use Spatie\SchemaOrg\JobPosting;
 use WP_Query;
 
 class DecorateSchemaObjectsWithLocalIds implements SourceInterface
@@ -16,7 +12,7 @@ class DecorateSchemaObjectsWithLocalIds implements SourceInterface
     {
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->inner->getId();
     }
@@ -49,8 +45,8 @@ class DecorateSchemaObjectsWithLocalIds implements SourceInterface
         return $this->inner->getPostType();
     }
 
-    public function getType(): string
+    public function getSchemaObjectType(): string
     {
-        return $this->inner->getType();
+        return $this->inner->getSchemaObjectType();
     }
 }

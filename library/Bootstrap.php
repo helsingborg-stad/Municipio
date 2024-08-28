@@ -5,6 +5,10 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
+use Municipio\Config\ConfigService;
+use Municipio\Config\ConfigServiceFromAcf;
+use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
+use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use WpService\Implementations\NativeWpService;
 
@@ -112,8 +116,17 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    $wpService             = new NativeWpService();
-    $acfService            = new NativeAcfService();
+    $wpService  = new NativeWpService();
+    $acfService = new NativeAcfService();
+
+    $schemaDataAcfConfig                    = $acfService->getField('schema_org_settings', 'option') ?: [];
+    $schemaDataConfig                       = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($acfService);
+    $sourceConfigFactory                    = new SourceConfigFactory();
+    $externalContentPostTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory);
+    $externalContentPostTypeSettings        = array_map(fn($config) => $externalContentPostTypeSettingsFactory->create($config), $schemaDataAcfConfig);
+    $externalContentConfig                  = new \Municipio\Config\Features\ExternalContent\ExternalContentConfigService($schemaDataConfig, $acfService, $externalContentPostTypeSettings);
+    $configService                          = new ConfigService($schemaDataConfig, $externalContentConfig);
+
     $getEnabledSchemaTypes = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
 
     $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
@@ -122,15 +135,15 @@ if (function_exists('get_field')) {
     $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\DateTimeSanitizer($schemaPropertyValueSanitizer);
     $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
     $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-    $getSchemaTypeFromPostType         = new \Municipio\SchemaData\Utils\GetSchemaTypeFromPostType($acfService);
 
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($getSchemaTypeFromPostType);
+    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($configService->getSchemaDataConfig());
     $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
     $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $wpService);
     $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
     $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent($wpService, $getEnabledSchemaTypes, $schemaObjectFromPost);
 
     new Municipio\App(
+        $configService,
         $wpService,
         $acfService,
         new HooksRegistrar(),

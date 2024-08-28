@@ -7,5 +7,5 @@ interface ConfigFactoryInterface
     /**
      * Build the configuration.
      */
-    public function create(): SourceConfigInterface;
+    public function create(string $postType): SourceConfigInterface;
 }

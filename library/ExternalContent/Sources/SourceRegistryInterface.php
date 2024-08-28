@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\Sources;
 interface SourceRegistryInterface
 {
     /**
-     * @return ISource[]
+     * @return SourceInterface[]
      */
     public function getSources(): array;
     public function getSourceById(string $id): ?SourceInterface;

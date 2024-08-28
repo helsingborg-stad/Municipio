@@ -3,7 +3,6 @@
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
 use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
-use Municipio\ExternalContent\Config\TypesenseSourceConfig;
 use Typesense\Client;
 
 class TypesenseClient implements TypesenseClientInterface

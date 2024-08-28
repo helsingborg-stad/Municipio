@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Sources\Services;
+namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;

@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\ExternalContent\Sources\Services;
+namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 
-class SourceWithUniqueObjects implements SourceInterface
+class FilterOutDuplicateObjectsFromSource implements SourceInterface
 {
     public function __construct(private SourceInterface $inner)
     {

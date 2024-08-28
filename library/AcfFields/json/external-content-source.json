@@ -3,11 +3,11 @@
     "title": "Post type options",
     "fields": [
         {
-            "key": "field_66c6d24ffbf6b",
-            "label": "Schema.org",
-            "name": "schema_data",
+            "key": "field_66cdb0b95ce4b",
+            "label": "Schema.org settings",
+            "name": "schema_org_settings",
             "aria-label": "",
-            "type": "group",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,16 +16,21 @@
                 "class": "",
                 "id": ""
             },
+            "acfe_repeater_stylised_button": 0,
             "layout": "block",
-            "acfe_seamless_style": 0,
-            "acfe_group_modal": 0,
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_66c6d2bffbf6c",
-                    "label": "Schema.org type",
-                    "name": "schema",
+                    "key": "field_66c6d24ffbf6b",
+                    "label": "Schema.org",
+                    "name": "schema_data",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "group",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -34,389 +39,412 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": {
-                        "": "None",
-                        "JobPosting": "JobPosting",
-                        "Place": "Place",
-                        "School": "School"
-                    },
-                    "default_value": false,
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": ""
-                }
-            ],
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
-        },
-        {
-            "key": "field_66c484a02efea",
-            "label": "External Content Source",
-            "name": "external_content_source",
-            "aria-label": "",
-            "type": "group",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_66c6d2bffbf6c",
-                        "operator": "!=empty"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "block",
-            "acfe_seamless_style": 1,
-            "sub_fields": [
-                {
-                    "key": "field_66c484c72efeb",
-                    "label": "",
-                    "name": "enabled",
-                    "aria-label": "",
-                    "type": "true_false",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "message": "",
-                    "default_value": 0,
-                    "ui_on_text": "Enabled",
-                    "ui_off_text": "Disabled",
-                    "ui": 1
-                },
-                {
-                    "key": "field_66c4852f2efec",
-                    "label": "Type",
-                    "name": "type",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c484c72efeb",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "localFile": "Local json file",
-                        "typesense": "Typesense"
-                    },
-                    "default_value": "localFile",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
-                    "allow_custom": 0,
-                    "search_placeholder": ""
-                },
-                {
-                    "key": "field_66c4873b2f635",
-                    "label": "File path",
-                    "name": "file_path",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "Path to local json file containing an array of valid schema.org objects.",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c4852f2efec",
-                                "operator": "==",
-                                "value": "localFile"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_66c487112f634",
-                    "label": "API key",
-                    "name": "typesense_api_key",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c4852f2efec",
-                                "operator": "==",
-                                "value": "typesense"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_66c488042f638",
-                    "label": "Protocol",
-                    "name": "typesense_protocol",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c4852f2efec",
-                                "operator": "==",
-                                "value": "typesense"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "http": "http",
-                        "https": "https"
-                    },
-                    "default_value": "https",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": ""
-                },
-                {
-                    "key": "field_66c487812f636",
-                    "label": "Host",
-                    "name": "typesense_host",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c4852f2efec",
-                                "operator": "==",
-                                "value": "typesense"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "example.typesense.io",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_66c487e32f637",
-                    "label": "Collection",
-                    "name": "typesense_collection",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c4852f2efec",
-                                "operator": "==",
-                                "value": "typesense"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": ""
-                },
-                {
-                    "key": "field_66c6ca4a72ba1",
-                    "label": "Taxonomies",
-                    "name": "taxonomies",
-                    "aria-label": "",
-                    "type": "repeater",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66c484c72efeb",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "acfe_repeater_stylised_button": 1,
-                    "layout": "table",
-                    "pagination": 0,
-                    "min": 0,
-                    "max": 0,
-                    "collapsed": "",
-                    "button_label": "Add Row",
-                    "rows_per_page": 20,
+                    "layout": "block",
+                    "acfe_seamless_style": 0,
+                    "acfe_group_modal": 0,
                     "sub_fields": [
                         {
-                            "key": "field_66c6ca5972ba2",
-                            "label": "From schema property",
-                            "name": "from_schema_property",
+                            "key": "field_66cdb1245ce4c",
+                            "label": "Post Type",
+                            "name": "post_type",
+                            "aria-label": "",
+                            "type": "posttype_select",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "placeholder": "",
+                            "disabled": 0,
+                            "readonly": 0
+                        },
+                        {
+                            "key": "field_66c6d2bffbf6c",
+                            "label": "Schema.org type",
+                            "name": "schema",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "": "None",
+                                "JobPosting": "JobPosting",
+                                "Place": "Place",
+                                "School": "School"
+                            },
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "allow_custom": 0,
+                            "search_placeholder": ""
+                        }
+                    ],
+                    "acfe_group_modal_close": 0,
+                    "acfe_group_modal_button": "",
+                    "acfe_group_modal_size": "large",
+                    "parent_repeater": "field_66cdb0b95ce4b"
+                },
+                {
+                    "key": "field_66c484a02efea",
+                    "label": "External Content Source",
+                    "name": "external_content_source",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_66c6d2bffbf6c",
+                                "operator": "!=empty"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "block",
+                    "acfe_seamless_style": 1,
+                    "sub_fields": [
+                        {
+                            "key": "field_66c484c72efeb",
+                            "label": "",
+                            "name": "enabled",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 0,
+                            "ui_on_text": "Enabled",
+                            "ui_off_text": "Disabled",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_66c4852f2efec",
+                            "label": "Type",
+                            "name": "type",
                             "aria-label": "",
                             "type": "select",
                             "instructions": "",
                             "required": 1,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c484c72efeb",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
                                 "id": ""
                             },
                             "choices": {
-                                "Place": {
-                                    "geo": "geo",
-                                    "telephone": "telephone",
-                                    "url": "url"
-                                },
-                                "JobPosting": {
-                                    "@id": "@id",
-                                    "applicationContact": "applicationContact",
-                                    "datePosted": "datePosted",
-                                    "description": "description",
-                                    "directApply": "directApply",
-                                    "employerOverview": "employerOverview",
-                                    "employmentType": "employmentType",
-                                    "employmentUnit": "employmentUnit",
-                                    "hiringOrganization": "hiringOrganization",
-                                    "relevantOccupation": "relevantOccupation",
-                                    "url": "url",
-                                    "validThrough": "validThrough"
-                                }
+                                "localFile": "Local json file",
+                                "typesense": "Typesense"
                             },
-                            "default_value": false,
+                            "default_value": "localFile",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "allow_custom": 0,
+                            "search_placeholder": ""
+                        },
+                        {
+                            "key": "field_66c4873b2f635",
+                            "label": "File path",
+                            "name": "file_path",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Path to local json file containing an array of valid schema.org objects.",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c4852f2efec",
+                                        "operator": "==",
+                                        "value": "localFile"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_66c487112f634",
+                            "label": "API key",
+                            "name": "typesense_api_key",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c4852f2efec",
+                                        "operator": "==",
+                                        "value": "typesense"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_66c488042f638",
+                            "label": "Protocol",
+                            "name": "typesense_protocol",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c4852f2efec",
+                                        "operator": "==",
+                                        "value": "typesense"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "http": "http",
+                                "https": "https"
+                            },
+                            "default_value": "https",
                             "return_format": "value",
                             "multiple": 0,
                             "allow_custom": 0,
                             "search_placeholder": "",
                             "allow_null": 0,
-                            "ui": 1,
+                            "ui": 0,
                             "ajax": 0,
+                            "placeholder": ""
+                        },
+                        {
+                            "key": "field_66c487812f636",
+                            "label": "Host",
+                            "name": "typesense_host",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c4852f2efec",
+                                        "operator": "==",
+                                        "value": "typesense"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "example.typesense.io",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_66c487e32f637",
+                            "label": "Collection",
+                            "name": "typesense_collection",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c4852f2efec",
+                                        "operator": "==",
+                                        "value": "typesense"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
                             "placeholder": "",
-                            "parent_repeater": "field_66c6ca4a72ba1"
+                            "prepend": "",
+                            "append": ""
                         },
                         {
-                            "key": "field_66c6cb2272ba4",
-                            "label": "Name",
-                            "name": "name",
+                            "key": "field_66c6ca4a72ba1",
+                            "label": "Taxonomies",
+                            "name": "taxonomies",
                             "aria-label": "",
-                            "type": "text",
+                            "type": "repeater",
                             "instructions": "",
-                            "required": 1,
-                            "conditional_logic": 0,
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_66c484c72efeb",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "Post Tags",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_66c6ca4a72ba1"
-                        },
-                        {
-                            "key": "field_66c6cb7f72ba5",
-                            "label": "Singular name",
-                            "name": "singular_name",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 1,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "maxlength": "",
-                            "placeholder": "Post Tag",
-                            "prepend": "",
-                            "append": "",
-                            "parent_repeater": "field_66c6ca4a72ba1"
+                            "acfe_repeater_stylised_button": 1,
+                            "layout": "table",
+                            "pagination": 0,
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Row",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_66c6ca5972ba2",
+                                    "label": "From schema property",
+                                    "name": "from_schema_property",
+                                    "aria-label": "",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "choices": [],
+                                    "default_value": false,
+                                    "return_format": "value",
+                                    "multiple": 0,
+                                    "allow_custom": 0,
+                                    "search_placeholder": "",
+                                    "allow_null": 0,
+                                    "ui": 1,
+                                    "ajax": 0,
+                                    "placeholder": "",
+                                    "parent_repeater": "field_66c6ca4a72ba1"
+                                },
+                                {
+                                    "key": "field_66c6cb2272ba4",
+                                    "label": "Name",
+                                    "name": "name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "Post Tags",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_66c6ca4a72ba1"
+                                },
+                                {
+                                    "key": "field_66c6cb7f72ba5",
+                                    "label": "Singular name",
+                                    "name": "singular_name",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "placeholder": "Post Tag",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_66c6ca4a72ba1"
+                                }
+                            ]
                         }
-                    ]
+                    ],
+                    "acfe_group_modal": 0,
+                    "acfe_group_modal_close": 0,
+                    "acfe_group_modal_button": "",
+                    "acfe_group_modal_size": "large",
+                    "parent_repeater": "field_66cdb0b95ce4b"
                 }
-            ],
-            "acfe_group_modal": 0,
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
+            ]
         }
     ],
     "location": [
         [
             {
-                "param": "post_type_list",
+                "param": "options_page",
                 "operator": "==",
-                "value": "all"
+                "value": "schema-data"
             }
         ]
     ],

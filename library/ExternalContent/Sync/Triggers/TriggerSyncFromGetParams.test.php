@@ -13,7 +13,7 @@ class GetParamsTriggerTest extends TestCase
     public function testRunsInnerTriggerIfNoGetParamsAreSet()
     {
         $inner   = $this->getInner();
-        $trigger = new GetParamsTrigger(new FakeWpService(), $inner);
+        $trigger = new TriggerSyncFromGetParams(new FakeWpService(), $inner);
 
         $trigger->trigger();
 
