@@ -8,27 +8,30 @@ class MenuOrderTransformer
     {
     }
 
-    public function transform(array $desktopItems, array $mobileItems): array
+    public function transform(array $items): array
     {
-        $items    = [];
-        $modifier = $this->modifier;
+        $modifier          = $this->modifier;
+        $desktopItems      = $items['desktop'];
+        $mobileItems       = $items['mobile'];
+        $items['modified'] = [];
 
-        if (empty($desktopItems)) {
+        if (empty($desktopItems) && empty($mobileItems)) {
             return $items;
         }
 
         if (!empty($mobileItems)) {
-            foreach ($mobileItems as $key => $mobileItem) {
-                $items[$mobileItem][] = 'u-order--' . $key;
+            foreach ($mobileItems as $mobileItem => $order) {
+                $items['modified'][$mobileItem][] = 'u-order--' . $order;
             }
         } else {
             $modifier = '';
         }
 
-        foreach ($desktopItems as $key => $desktopItem) {
-            $items[$desktopItem][] = 'u-order--' . $key . $modifier;
+        if (!empty($desktopItems)) {
+            foreach ($desktopItems as $desktopItem => $order) {
+                $items['modified'][$desktopItem][] = 'u-order--' . $order . $modifier;
+            }
         }
-
 
         return $items;
     }

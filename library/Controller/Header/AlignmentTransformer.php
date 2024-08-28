@@ -8,11 +8,12 @@ class AlignmentTransformer
     {
     }
 
+    // Transforms the menu items to align them to the left, center or right.
     public function transform(array $items, string $setting): array
     {
         $alignedItems = [];
-        if (!empty($items)) {
-            foreach ($items as $menu => $classes) {
+        if (!empty($items['modified'])) {
+            foreach ($items['modified'] as $menu => $classes) {
                 if (!empty($this->data->{$setting}->{$menu})) {
                     foreach ($this->data->{$setting}->{$menu} as $name => $value) {
                         $alignedItems[$value][$menu] = $classes;
@@ -21,6 +22,8 @@ class AlignmentTransformer
             }
         }
 
-        return $alignedItems;
+        $items['modified'] = $alignedItems;
+
+        return $items;
     }
 }

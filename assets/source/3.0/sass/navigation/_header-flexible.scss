@@ -10,10 +10,18 @@
         gap: calc($base * 2);
     }
 
+    // Better responsive behavior if no centered content.
+    &.c-header--flexible-has-centered-content {
+        .c-header__main-upper-area,
+        .c-header__main-lower-area {
+            grid-template-columns: 1fr auto 1fr;
+        }
+    }
+
     .c-header__main-upper-area,
     .c-header__main-lower-area {
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: auto auto auto;
         align-items: center;
         position: relative;
     }
