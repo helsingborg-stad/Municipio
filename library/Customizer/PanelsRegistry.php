@@ -425,6 +425,12 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_breadcrumbs')
+                    ->setTitle(esc_html__('Breadcrumbs', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Breadcrumbs('municipio_customizer_section_breadcrumbs'))
+            )
+            ->addSection(
+                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_mega_menu')
                     ->setTitle(esc_html__('Mega menu', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\MegaMenu('municipio_customizer_section_mega_menu'))
