@@ -17,10 +17,10 @@ class Breadcrumbs
             'label'       => esc_html__('Truncate amount of letters', 'municipio'),
             'description' => esc_html__('The actual text will still be shown in a tooltip when hovered.', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 20,
+            'default'     => 30,
             'choices'     => [
                 'min'  => 0,
-                'max'  => 30,
+                'max'  => 50,
                 'step' => 1,
             ],
             'output'      => [
