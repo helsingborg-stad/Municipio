@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Taxonomy;
 
 use WpService\Contracts\__;
+use WpService\Contracts\RegisterTaxonomy;
 
 class TaxonomyItem implements TaxonomyItemInterface
 {
@@ -11,10 +12,11 @@ class TaxonomyItem implements TaxonomyItemInterface
      */
     public function __construct(
         private string $schemaObjectType,
+        private array $postTypes,
         private string $schemaObjectProperty,
         private string $singleLabel,
         private string $pluralLabel,
-        private __ $wpService
+        private __&RegisterTaxonomy $wpService
     ) {
     }
 
@@ -24,6 +26,11 @@ class TaxonomyItem implements TaxonomyItemInterface
     public function getSchemaObjectType(): string
     {
         return $this->schemaObjectType;
+    }
+
+    public function getPostTypes(): array
+    {
+        return $this->postTypes;
     }
 
     /**
@@ -73,6 +80,11 @@ class TaxonomyItem implements TaxonomyItemInterface
             'query_var'         => true,
             'rewrite'           => ['slug' => $this->getName()],
         ];
+    }
+
+    public function register(): void
+    {
+        $this->wpService->registerTaxonomy($this->getName(), $this->getPostTypes(), $this->getTaxonomyArgs());
     }
 
     /**

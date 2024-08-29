@@ -9,9 +9,11 @@ use WP_Query;
 class SourceServiceWithSourceId implements SourceInterface
 {
     public static $idRegistry = [];
+    private string $id;
 
-    public function __construct(private string $id, private SourceInterface $inner)
+    public function __construct(private SourceInterface $inner)
     {
+        $this->id           = $inner->getPostType();
         self::$idRegistry[] = $this->id = $this->ensureIdIsUnique();
     }
 

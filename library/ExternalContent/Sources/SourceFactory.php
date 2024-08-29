@@ -2,9 +2,8 @@
 
 namespace Municipio\ExternalContent\Sources;
 
-use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
-use Municipio\ExternalContent\Config\SourceConfigInterface;
-use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
+use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
+use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceDecorators\JsonFileSourceServiceDecorator;
@@ -13,49 +12,34 @@ use Municipio\ExternalContent\Sources\SourceDecorators\FilterOutDuplicateObjects
 use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
 use Municipio\ExternalContent\Sources\SourceDecorators\TypesenseSourceServiceDecorator;
 use WpService\FileSystem\BaseFileSystem;
-use WpService\WpService;
 
 class SourceFactory implements SourceFactoryInterface
 {
-    public function __construct(private WpService $wpService)
+    public function __construct(private ExternalContentConfigInterface $config)
     {
+        return $this;
     }
 
-    /**
-     * Create a source based on the given source configuration.
-     *
-     * @param SourceConfigInterface $sourceConfig The source configuration.
-     * @return SourceInterface The created source.
-     * @throws \Exception If the source configuration type is unknown.
-     */
-    public function createSource(SourceConfigInterface $sourceConfig): SourceInterface
+    public function createSources(): array
     {
-        $source = new Source(
-            $sourceConfig->getPostType(),
-            $sourceConfig->getSchemaObjectType()
-        );
+        $postTypeSettings = array_map([$this->config, 'getPostTypeSettings'], $this->config->getEnabledPostTypes());
+        $sources          = array_map(fn ($postTypeSetting) => $this->createSource($postTypeSetting), $postTypeSettings);
 
-        if ($sourceConfig instanceof TypesenseSourceConfigInterface) {
-            $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getHost() . $sourceConfig->getCollectionName();
-            $souceServiceId = md5($souceServiceId);
+        return $sources;
+    }
 
-            $source = new TypesenseSourceServiceDecorator(
-                new TypesenseClient($sourceConfig),
-                new TryConvertTypesenseJsonToSchemaObjects(),
-                new SourceServiceWithSourceId($souceServiceId, $source)
-            );
-        } elseif ($sourceConfig instanceof JsonFileSourceConfigInterface) {
-            $souceServiceId = $sourceConfig->getPostType() . $sourceConfig->getFile();
-            $souceServiceId = md5($souceServiceId);
+    private function createSource(ExternalContentPostTypeSettingsInterface $settings): SourceInterface
+    {
+        $source = new Source($settings->getPostType(), $settings->getSchemaType());
 
-            $source = new JsonFileSourceServiceDecorator(
-                $sourceConfig,
-                new BaseFileSystem(),
-                new SimpleJsonConverter(),
-                new SourceServiceWithSourceId($souceServiceId, $source)
-            );
+        if ($settings->getSourceConfig()->getType() === 'typesense') {
+            $typesenseClient = new TypesenseClient($settings->getSourceConfig());
+            $source          = new TypesenseSourceServiceDecorator($typesenseClient, new TryConvertTypesenseJsonToSchemaObjects(), $source);
+        } elseif ($settings->getSourceConfig()->getType() === 'json') {
+            $source = new JsonFileSourceServiceDecorator($settings->getSourceConfig(), new BaseFileSystem(), new SimpleJsonConverter(), $source);
         }
 
+        $source = new SourceServiceWithSourceId($source);
         $source = new FilterOutDuplicateObjectsFromSource($source); // TODO: Rename to FilterOutDuplicateObjectsFromSource
 
         return $source;

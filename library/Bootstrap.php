@@ -10,6 +10,7 @@ use Municipio\Config\ConfigServiceFromAcf;
 use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
 use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
 use Municipio\HooksRegistrar\HooksRegistrar;
+use Municipio\SchemaData\AcfFieldContentModifiers\PopulateSchemaTypeFieldOptions;
 use WpService\Implementations\NativeWpService;
 
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
@@ -106,7 +107,7 @@ add_action('init', function () {
         'widget-media'                               => 'group_5b2b70c0bde2f',
         'media-attachments'                          => 'group_650857c9f2cce',
         'hidden-validation'                          => 'group_654a2a57e6897',
-        'external-content-source'                    => 'group_66c4849f0cbb1'
+        'schema-post-type-settings'                  => 'group_66c4849f0cbb1'
     ));
 
     $acfExportManager->import();
@@ -116,16 +117,24 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    $wpService  = new NativeWpService();
-    $acfService = new NativeAcfService();
+    $wpService                        = new NativeWpService();
+    $acfService                       = new NativeAcfService();
+    $acfFieldContentModifierRegistrar = new \Municipio\AcfFieldContentModifiers\Registrar($wpService);
 
-    $schemaDataAcfConfig                    = $acfService->getField('schema_org_settings', 'option') ?: [];
-    $schemaDataConfig                       = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($acfService);
+    /**
+     * Populate schema types acf select.
+     * This must happen before getting the field with get_field, since it will then be applied and stored in cache.
+     */
+
+    $schemaDataAcfConfig = $acfService->getField('schema_org_settings', 'option') ?: [];
+    $schemaDataConfig    = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($acfService);
+
     $sourceConfigFactory                    = new SourceConfigFactory();
-    $externalContentPostTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory);
+    $externalContentPostTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory, $schemaDataConfig);
     $externalContentPostTypeSettings        = array_map(fn($config) => $externalContentPostTypeSettingsFactory->create($config), $schemaDataAcfConfig);
     $externalContentConfig                  = new \Municipio\Config\Features\ExternalContent\ExternalContentConfigService($schemaDataConfig, $acfService, $externalContentPostTypeSettings);
-    $configService                          = new ConfigService($schemaDataConfig, $externalContentConfig);
+
+    $configService = new ConfigService($schemaDataConfig, $externalContentConfig);
 
     $getEnabledSchemaTypes = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
 
@@ -147,7 +156,7 @@ if (function_exists('get_field')) {
         $wpService,
         $acfService,
         new HooksRegistrar(),
-        new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
+        $acfFieldContentModifierRegistrar,
         $schemaObjectFromPost
     );
 } else {

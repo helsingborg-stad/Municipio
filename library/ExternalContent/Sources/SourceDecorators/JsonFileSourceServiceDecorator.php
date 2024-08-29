@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
-use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
+use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -12,7 +12,7 @@ use WpService\FileSystem\GetFileContent;
 class JsonFileSourceServiceDecorator implements SourceInterface {
 
     public function __construct(
-        private JsonFileSourceConfigInterface $config,
+        private JsonSourceConfigInterface $config,
         private GetFileContent $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
         private SourceInterface $inner
@@ -22,7 +22,7 @@ class JsonFileSourceServiceDecorator implements SourceInterface {
 
     public function getObject(string|int $id): ?BaseType
     {
-        $fileContent = $this->fileSystem->getFileContent($this->config->getFile());
+        $fileContent = $this->fileSystem->getFileContent($this->config->getFilePath());
         $objects = $this->jsonToSchemaObjects->transform( $fileContent );
 
         foreach($objects as $object) {
@@ -36,7 +36,7 @@ class JsonFileSourceServiceDecorator implements SourceInterface {
 
     public function getObjects(?WP_Query $query = null): array
     {
-        return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->config->getFile()) );
+        return $this->jsonToSchemaObjects->transform( $this->fileSystem->getFileContent($this->config->getFilePath()) );
     }
 
     public function getPostType(): string

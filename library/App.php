@@ -311,13 +311,6 @@ class App
         $this->hooksRegistrar->register(new \Municipio\SchemaData\OptionsPage($this->wpService, $this->acfService));
 
         /**
-         * Populate schema types acf select.
-         */
-        $getSchemaTypes = new \Municipio\SchemaData\Acf\Utils\SchemaTypesFromSpatie();
-        $schemaTypes    = $getSchemaTypes->getSchemaTypes();
-        $this->acfFieldContentModifierRegistrar->registerModifier(new PopulateSchemaTypeFieldOptions('field_66c6d2bffbf6c', $schemaTypes, $this->wpService));
-
-        /**
          * Shared dependencies.
          */
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
@@ -396,21 +389,19 @@ class App
          */
         $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
 
-        $sourceConfigFactoryUsingAcf = new \Municipio\ExternalContent\Config\TryCreateConfigUsingAcf($this->acfService, $this->config->getSchemaDataConfig());
-        $sourceConfigRegistry        = new \Municipio\ExternalContent\Config\SourceConfigRegistry($this->wpService, $this->config->getSchemaDataConfig(), $sourceConfigFactoryUsingAcf);
-        $this->hooksRegistrar->register($sourceConfigRegistry);
-
-        $sourceRegistry = new StaticSourceRegistry($sourceConfigRegistry, new \Municipio\ExternalContent\Sources\SourceFactory($this->wpService), $this->wpService);
-        $this->hooksRegistrar->register($sourceRegistry);
+        /**
+         * Build sources
+         */
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($this->config->getExternalContentConfig()))->createSources();
 
         /**
          * Register taxonomies.
          */
-        $taxonomyItemsFactory = new \Municipio\ExternalContent\Taxonomy\CreateTaxonomyItemsFromAcf($this->acfService, $this->wpService);
-        $taxonomyRegistrar    = new \Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar($sourceRegistry, $taxonomyItemsFactory, $this->wpService, $sourceRegistry);
-        $this->hooksRegistrar->register($taxonomyRegistrar);
+        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($this->config->getExternalContentConfig(), $this->wpService);
+        $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
+        array_map(fn($item) => $item->register(), $taxonomyItems);
 
-        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sourceRegistry, $taxonomyRegistrar, $this->wpService);
+        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
         $this->hooksRegistrar->register($syncEventListener);
 
         add_filter('register_post_type_args', function ($args, $postType) {

@@ -22,7 +22,7 @@ class TermsDecorator implements WpPostFactoryInterface
      * @param WpPostMetaFactoryInterface $inner
      */
     public function __construct(
-        private TaxonomyRegistrarInterface $taxonomyRegistrar,
+        private array $taxonomyItems,
         private WpTermFactoryInterface $wpTermFactory,
         private InsertTerm&TermExists $wpService,
         private WpPostFactoryInterface $inner
@@ -56,8 +56,8 @@ class TermsDecorator implements WpPostFactoryInterface
     private function tryGetMatchingTaxonomyItems(BaseType $schemaObject): array
     {
         return array_filter(
-            $this->taxonomyRegistrar->getRegisteredTaxonomyItems(),
-            fn(TaxonomyItemInterface $taxonomyItem) =>
+            $this->taxonomyItems,
+            fn($taxonomyItem) =>
                 $taxonomyItem->getSchemaObjectType() === $schemaObject->getType() &&
             $schemaObject->hasProperty($taxonomyItem->getSchemaObjectProperty())
         );

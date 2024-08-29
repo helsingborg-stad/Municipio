@@ -78,12 +78,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": {
-                                "": "None",
-                                "JobPosting": "JobPosting",
-                                "Place": "Place",
-                                "School": "School"
-                            },
+                            "choices": [],
                             "default_value": false,
                             "return_format": "value",
                             "multiple": 0,

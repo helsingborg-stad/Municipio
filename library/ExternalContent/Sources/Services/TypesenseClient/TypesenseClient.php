@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Sources\Services\TypesenseClient;
 
-use Municipio\ExternalContent\Config\TypesenseSourceConfigInterface;
+use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
 use Typesense\Client;
 
 class TypesenseClient implements TypesenseClientInterface
@@ -21,7 +21,7 @@ class TypesenseClient implements TypesenseClientInterface
 
         $this->client = new Client([
             'api_key'                    => $this->config->getApiKey(),
-            'connection_timeout_seconds' => $this->config->getConnectionTimeoutSeconds(),
+            'connection_timeout_seconds' => 2,
             'nodes'                      => [
                 [
                     'host'     => $this->config->getHost(),
@@ -35,7 +35,7 @@ class TypesenseClient implements TypesenseClientInterface
     public function search(array $searchParams): array
     {
         $this->trySetupClient();
-        return $this->client->collections[$this->config->getCollectionName()]->documents->search($searchParams);
+        return $this->client->collections[$this->config->getCollection()]->documents->search($searchParams);
     }
 
     public function getAll(): array

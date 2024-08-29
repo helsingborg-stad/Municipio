@@ -3,20 +3,23 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\Sources\SourceRegistryInterface;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
-use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
-use Municipio\HooksRegistrar\Hookable;
-use Spatie\SchemaOrg\BaseType;
-use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\InsertPost;
 
 class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
 {
+    /**
+     * Class constructor
+     *
+     * @param int|string $postId
+     * @param SourceInterface[] $sources
+     * @param WpPostFactoryInterface $wpPostFactory
+     * @param InsertPost&GetPostMeta $wpService
+     */
     public function __construct(
         private int|string $postId,
-        private SourceRegistryInterface $sourceRegistry,
+        private array $sources,
         private WpPostFactoryInterface $wpPostFactory,
         private InsertPost&GetPostMeta $wpService
     ) {
@@ -34,7 +37,7 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
             return;
         }
 
-        $source = $this->sourceRegistry->getSourceById($sourceId);
+        $source = array_filter($this->sources, fn($source) => $source->getId() === $sourceId)[0] ?? null;
 
         if (!$source) {
             return;

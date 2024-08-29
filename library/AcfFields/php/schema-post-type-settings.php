@@ -82,10 +82,6 @@
                                 'id' => '',
                             ),
                             'choices' => array(
-                                '' => __('None', 'municipio'),
-                                'JobPosting' => __('JobPosting', 'municipio'),
-                                'Place' => __('Place', 'municipio'),
-                                'School' => __('School', 'municipio'),
                             ),
                             'default_value' => false,
                             'return_format' => 'value',

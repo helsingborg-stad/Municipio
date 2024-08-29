@@ -2,16 +2,21 @@
 
 namespace Municipio\ExternalContent\Sync;
 
-use Municipio\ExternalContent\Sources\SourceRegistryInterface;
-use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 
 class SyncEventListener implements Hookable
 {
+    /**
+     * Class constructor
+     *
+     * @param \Municipio\ExternalContent\Sources\SourceInterface[] $sources
+     * @param TaxonomyItemInterface[] $taxonomyItems
+     * @param AddAction $wpService
+     */
     public function __construct(
-        private SourceRegistryInterface $sourceRegistry,
-        private TaxonomyRegistrarInterface $taxonomyRegistrar,
+        private array $sources,
+        private array $taxonomyItems,
         private AddAction $wpService
     ) {
     }
@@ -23,7 +28,7 @@ class SyncEventListener implements Hookable
 
     public function sync(string $postType, ?int $postId = null): void
     {
-        $syncBuilder           = new \Municipio\ExternalContent\Sync\SyncBuilder($postType, $postId, $this->sourceRegistry, $this->taxonomyRegistrar, $this->wpService);
+        $syncBuilder           = new \Municipio\ExternalContent\Sync\SyncBuilder($postType, $postId, $this->sources, $this->taxonomyItems, $this->wpService);
         $syncFromSourceToLocal = $syncBuilder->build();
         $syncFromSourceToLocal->sync();
     }

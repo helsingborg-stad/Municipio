@@ -2,16 +2,17 @@
 
 namespace Municipio\AcfFieldContentModifiers;
 
-use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 
 class Registrar implements AcfFieldContentModifierRegistrarInterface
 {
-    public function __construct(private AddAction $wpService)
+    public function __construct(private AddFilter $wpService)
     {
     }
 
     public function registerModifier(AcfFieldContentModifierInterface $modifier): void
     {
-        $this->wpService->addAction("acf/load_field/key={$modifier->getFieldKey()}", [$modifier, 'modifyFieldContent']);
+        // $this->wpService->addFilter("acf/load_field/key={$modifier->getFieldKey()}", [$modifier, 'modifyFieldContent']);
+        $this->wpService->addFilter("acf/prepare_field/key={$modifier->getFieldKey()}", [$modifier, 'modifyFieldContent']);
     }
 }

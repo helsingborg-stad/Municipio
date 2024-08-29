@@ -15,6 +15,11 @@ interface TaxonomyItemInterface
     public function getSchemaObjectType(): string;
 
     /**
+     * Get the post types for which the taxonomy is registered.
+     */
+    public function getPostTypes(): array;
+
+    /**
      * Get the schema object property from which a taxonomy is populated.
      *
      * @return string The schema object property.
@@ -49,4 +54,9 @@ interface TaxonomyItemInterface
      * @return array The WordPress taxonomy arguments.
      */
     public function getTaxonomyArgs(): array;
+
+    /**
+     * Register the taxonomy.
+     */
+    public function register(): void;
 }

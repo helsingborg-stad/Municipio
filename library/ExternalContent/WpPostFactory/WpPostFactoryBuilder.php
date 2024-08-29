@@ -2,14 +2,20 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrar;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use WpService\WpService;
 
 class WpPostFactoryBuilder implements WpPostFactoryBuilderInterface
 {
+    /**
+     * Class constructor
+     *
+     * @param TaxonomyItemInterface[] $taxonomyItems
+     * @param WpTermFactoryInterface $wpTermFactory
+     * @param WpService $wpService
+     */
     public function __construct(
-        private TaxonomyRegistrar $taxonomyRegistrar,
+        private array $taxonomyItems,
         private WpTermFactoryInterface $wpTermFactory,
         private WpService $wpService
     ) {
@@ -26,7 +32,7 @@ class WpPostFactoryBuilder implements WpPostFactoryBuilderInterface
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\ThumbnailDecorator($wpPostFactory, $this->wpService);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\SourceIdDecorator($wpPostFactory);
         $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\VersionDecorator($wpPostFactory);
-        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($this->taxonomyRegistrar, $this->wpTermFactory, $this->wpService, $wpPostFactory);
+        $wpPostFactory = new \Municipio\ExternalContent\WpPostFactory\TermsDecorator($this->taxonomyItems, $this->wpTermFactory, $this->wpService, $wpPostFactory);
 
         return $wpPostFactory;
     }

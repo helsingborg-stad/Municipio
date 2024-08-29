@@ -2,14 +2,12 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
-
 interface TaxonomyItemsFactoryInterface
 {
     /**
-     * Create the taxonomies.
+     * Create taxonomy items.
      *
-     * @return TaxonomyItemInterface[] The created taxonomies.
+     * @return TaxonomyItemInterface[] The taxonomy items.
      */
-    public function create(SourceInterface $source): array;
+    public function createTaxonomyItems(): array;
 }
