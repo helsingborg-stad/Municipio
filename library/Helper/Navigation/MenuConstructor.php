@@ -2,9 +2,11 @@
 
 namespace Municipio\Helper\Navigation;
 
-class MenuConstructor {
+class MenuConstructor
+{
     public function __construct(private string $identifier = "")
-    {}
+    {
+    }
 
     /**
      * Get WordPress menu items (from default menu management)
@@ -18,12 +20,12 @@ class MenuConstructor {
 
         if (!empty($menuItems)) {
             $ancestors = $this->getWpMenuAncestors(
-                $menuItems, 
+                $menuItems,
                 $this->pageIdToMenuID($menuItems, $pageId)
             );
 
             foreach ($menuItems as $item) {
-                $isAncestor = in_array($item->ID, $ancestors);
+                $isAncestor        = in_array($item->ID, $ancestors);
                 $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId);
             }
         }
@@ -67,11 +69,11 @@ class MenuConstructor {
 
     /**
      * Prepare menu item
-     * 
+     *
      * @param object $item
      * @param bool $isAncestor
      * @param int $pageId
-     * 
+     *
      * @return array
      */
     private function prepareMenuItem($item, $isAncestor, $pageId): array
@@ -81,7 +83,7 @@ class MenuConstructor {
             'post_parent' => $item->menu_item_parent,
             'post_type'   => $item->object,
             'page_id'     => $item->object_id,
-            'active'      => ($item->object_id == $pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentUrl($item->url),
+            'active'      => ($item->object_id == $pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentUrl($item->url) || \Municipio\Helper\IsCurrentUrl::isCurrentUrlParent($item->url),
             'ancestor'    => $isAncestor,
             'label'       => $item->title,
             'href'        => $item->url,

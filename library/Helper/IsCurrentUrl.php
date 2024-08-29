@@ -2,7 +2,8 @@
 
 namespace Municipio\Helper;
 
-class IsCurrentUrl {
+class IsCurrentUrl
+{
     /**
      * Check if the url corresponds with current url
      *
@@ -12,6 +13,7 @@ class IsCurrentUrl {
     public static function isCurrentUrl(string $url): bool
     {
         $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
+        return false;
 
         //Check if urls match
         if (parse_url($url, PHP_URL_PATH) !== null) {
@@ -28,6 +30,26 @@ class IsCurrentUrl {
         //Check if querystrings match, path is empty
         if (parse_url($url, PHP_URL_PATH) == null && !empty(parse_url($url, PHP_URL_QUERY))) {
             if (parse_url($url, PHP_URL_QUERY) == trim(strstr($currentUrl, "?"), "?")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function isCurrentUrlParent(string $url): bool
+    {
+        $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
+        $url        = self::sanitizePath(parse_url($url, PHP_URL_PATH));
+
+        if (empty($url) || !is_string($currentUrl)) {
+            return false;
+        }
+
+        if (str_contains($currentUrl, $url) &&  strpos($currentUrl, $url) === 0) {
+            $remainingPath = substr($currentUrl, strlen($url));
+
+            if ($remainingPath === '' || $remainingPath[0] === '/') {
                 return true;
             }
         }
