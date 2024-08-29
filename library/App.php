@@ -14,6 +14,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\ExternalContent\AcfFieldContentModifiers\PopulateTaxonomySchemaPropertyFieldOptions;
+use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\ExternalContent\Sources\StaticSourceRegistry;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -401,31 +402,20 @@ class App
         $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
         array_map(fn($item) => $item->register(), $taxonomyItems);
 
+        /**
+         * Start sync if event is triggered.
+         */
         $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
         $this->hooksRegistrar->register($syncEventListener);
 
-        add_filter('register_post_type_args', function ($args, $postType) {
-
-            if (empty($this->config->getSchemaDataConfig()->getEnabledPostTypes())) {
-                return $args;
-            }
-
-            foreach ($this->config->getSchemaDataConfig() as $postTypeWithSchemaType) {
-                if ($postTypeWithSchemaType !== $postType) {
-                    continue;
-                }
-
-                $args['capabilities'] = [
-                    'edit_post'     => 'do_not_allow',
-                    'delete_post'   => 'do_not_allow',
-                    'publish_posts' => 'do_not_allow',
-                    'create_posts'  => 'do_not_allow',
-                ];
-
-                break;
-            }
-
-            return $args;
-        }, 11, 2);
+        /**
+         * Disable editing of post type using external content source.
+         */
+        $this->hooksRegistrar->register(
+            new DisableEditingOfPostTypeUsingExternalContentSource(
+                $this->config->getExternalContentConfig(),
+                $this->wpService
+            )
+        );
     }
 }

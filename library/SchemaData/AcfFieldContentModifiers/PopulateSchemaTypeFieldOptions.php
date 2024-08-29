@@ -13,10 +13,6 @@ class PopulateSchemaTypeFieldOptions implements AcfFieldContentModifierInterface
 
     public function modifyFieldContent(array $field): array
     {
-        if (get_post_type() === 'acf-field-group') {
-            return $field;
-        }
-
         $schemaTypes = $this->wpService->applyFilters('Municipio/SchemaData/SchemaTypes', $this->schemaTypes);
 
         foreach ($schemaTypes as $type) {
