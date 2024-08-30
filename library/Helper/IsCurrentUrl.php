@@ -36,7 +36,7 @@ class IsCurrentUrl
         return false;
     }
 
-    public static function isCurrentUrlParent(string $url): bool
+    public static function isCurrentOrParentUrl(string $url): bool
     {
         $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
         $url        = self::sanitizePath(parse_url($url, PHP_URL_PATH));
