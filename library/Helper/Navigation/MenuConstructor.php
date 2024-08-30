@@ -83,7 +83,7 @@ class MenuConstructor
             'post_parent' => $item->menu_item_parent,
             'post_type'   => $item->object,
             'page_id'     => $item->object_id,
-            'active'      => ($item->object_id == $pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentOrParentUrl($item->url),
+            'active'      => ($item->object_id == $pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($item->url),
             'ancestor'    => $isAncestor,
             'label'       => $item->title,
             'href'        => $item->url,
