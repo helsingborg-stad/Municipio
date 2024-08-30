@@ -13,7 +13,6 @@ class IsCurrentUrl
     public static function isCurrentUrl(string $url): bool
     {
         $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
-        return false;
 
         //Check if urls match
         if (parse_url($url, PHP_URL_PATH) !== null) {
