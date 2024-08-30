@@ -5,6 +5,7 @@ namespace Municipio;
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
+use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\Config\ConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
@@ -307,6 +308,20 @@ class App
         }
 
         /**
+         * Limit schema types and properties.
+         */
+        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($enabledSchemaTypes->getEnabledSchemaTypesAndProperties(), $this->wpService));
+
+        /**
+         * Register schema types in acf select.
+         */
+        $schemaTypes = array_keys($schemaTypesAndProperties);
+        $schemaTypes = array_combine($schemaTypes, $schemaTypes);
+        $this->acfFieldContentModifierRegistrar->registerModifier('field_66c6d2bffbf6c', new ModifyFieldChoices($schemaTypes));
+
+        /**
          * Register options page
          */
         $this->hooksRegistrar->register(new \Municipio\SchemaData\OptionsPage($this->wpService, $this->acfService));
@@ -315,12 +330,6 @@ class App
          * Shared dependencies.
          */
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-
-        /**
-         * Limit schema types and properties.
-         */
-        $enabledSchemaTypes = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($enabledSchemaTypes->getEnabledSchemaTypesAndProperties(), $this->wpService));
 
         /**
          * Output schemadata in head of single posts.
@@ -350,14 +359,12 @@ class App
         }
 
         /**
-         * Populate acf select with schema properties.
+         * Populate taxonomy schema property field options.
          */
-        $this->acfFieldContentModifierRegistrar->registerModifier(
-            new PopulateTaxonomySchemaPropertyFieldOptions(
-                'field_66c6ca5972ba2',
-                new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes()
-            )
-        );
+        $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
+        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn ($props) => array_combine($props, $props), $schemaTypesAndProperties);
+        $this->acfFieldContentModifierRegistrar->registerModifier('field_66c6ca5972ba2', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
 
         $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
             $this->wpService->submitButton(
@@ -368,7 +375,7 @@ class App
             );
         });
 
-        $this->wpService->addAction('post_row_actions', function (array $actions, WP_Post $post) {
+        $this->wpService->addAction('page_row_actions', function (array $actions, WP_Post $post) {
             $urlParams = sprintf(
                 '&%s&%s=%s',
                 \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
@@ -378,12 +385,12 @@ class App
 
             $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
                 '<a href="%s">%s</a>',
-                $urlParams,
+                $_SERVER['REQUEST_URI'] . $urlParams,
                 __('Sync this post from remote source', 'municipio')
             );
 
             return $actions;
-        });
+        }, 100, 2);
 
         /**
          * Trigger sync of external content.

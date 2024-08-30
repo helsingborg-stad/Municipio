@@ -11,11 +11,4 @@ interface AcfFieldContentModifierInterface
      * @return array The modified field.
      */
     public function modifyFieldContent(array $field): array;
-
-    /**
-     * Get the field key.
-     *
-     * @return string The field key.
-     */
-    public function getFieldKey(): string;
 }

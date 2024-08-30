@@ -13,19 +13,23 @@ class Registrar implements AcfFieldContentModifierRegistrarInterface
     {
     }
 
-    public function registerModifier(AcfFieldContentModifierInterface $modifier): void
+    public function registerModifier(string $fieldKey, AcfFieldContentModifierInterface $modifier): void
     {
-        $this->modifier = $modifier;
-        $this->wpService->addFilter("acf/prepare_field/key={$this->modifier->getFieldKey()}", [$this, 'applyModifier']);
+        $this->wpService->addFilter(
+            "acf/prepare_field/key={$fieldKey}",
+            function (array $field) use ($modifier) {
+                return $this->applyModifier($modifier, $field);
+            }
+        );
     }
 
-    public function applyModifier(array $field): array
+    public function applyModifier(AcfFieldContentModifierInterface $modifier, array $field): array
     {
         if ($this->wpService->getPostType() === 'acf-field-group') {
             // Don't run when on the field group edit screen.
             return $field;
         }
 
-        return $this->modifier->modifyFieldContent($field);
+        return $modifier->modifyFieldContent($field);
     }
 }
