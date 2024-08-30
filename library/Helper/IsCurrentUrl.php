@@ -38,7 +38,7 @@ class IsCurrentUrl
 
     public static function isCurrentOrAncestorUrl(string $url): bool
     {
-        $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
+        $currentUrl = self::sanitizePath(!empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "");
         $url        = self::sanitizePath(parse_url($url, PHP_URL_PATH));
 
         if (empty($url) || !is_string($currentUrl)) {
