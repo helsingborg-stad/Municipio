@@ -12,7 +12,7 @@ class IsCurrentUrl
      */
     public static function isCurrentUrl(string $url): bool
     {
-        $currentUrl = self::sanitizePath($_SERVER['REQUEST_URI']);
+        $currentUrl = self::sanitizePath(self::getRequestUri());
 
         //Check if urls match
         if (self::parseUrlSafe($url, PHP_URL_PATH) !== null) {
@@ -38,7 +38,7 @@ class IsCurrentUrl
 
     public static function isCurrentOrAncestorUrl(string $url): bool
     {
-        $currentUrl = self::sanitizePath(!empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "");
+        $currentUrl = self::sanitizePath(self::getRequestUri());
         $url        = self::sanitizePath(self::parseUrlSafe($url, PHP_URL_PATH));
 
         if (empty($url) || !is_string($currentUrl)) {
@@ -109,6 +109,9 @@ class IsCurrentUrl
 
     /**
      * Get the current request uri path, if it exists.
+     * 
+     * @param string $url           The URL to parse.
+     * @param int|string $method    The component to retrieve. Can be either a PHP_URL_* constant or a string with the name of the component (e.g. 'path', 'query', 'fragment', 'host', 'port', 'user', 'pass', 'scheme', 'full').
      * 
      * @return string
      */
