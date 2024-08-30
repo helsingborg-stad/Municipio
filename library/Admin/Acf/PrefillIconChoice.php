@@ -27,12 +27,12 @@ class PrefillIconChoice
             'box_icon'
         ]);
 
-        
+
         foreach ($fieldNames as $fieldName) {
             add_filter(
-                'acf/prepare_field/name=' . $fieldName, 
-                array($this, 'setDefaultIconIfEmpty'), 
-                10, 
+                'acf/prepare_field/name=' . $fieldName,
+                array($this, 'setDefaultIconIfEmpty'),
+                10,
                 1
             );
 
@@ -52,31 +52,31 @@ class PrefillIconChoice
      *
      * @return array $field Field definition with choices
      */
-    public function addIconsList($field):array
+    public function addIconsList($field): array
     {
         //Bail out early if the Icons class does not exist
-        if(class_exists('\ComponentLibrary\Helper\Icons') === false) {
+        if (class_exists('\ComponentLibrary\Helper\Icons') === false) {
             error_log('Municipio: The Icons class does not exist, make sure the ComponentLibrary is installed and activated.');
             return $field;
         }
 
         $materialIcons = \Municipio\Helper\Icons::getIcons();
-        $customIcons = (new Icons(new WpCache()))->getIcons();
+        $customIcons   = (new Icons(new WpCache()))->getIcons();
 
         if (is_array($materialIcons) && !empty($materialIcons)) {
             foreach ($materialIcons as $materialIcon) {
-                $field['choices'][$materialIcon] = '<i class="material-symbols-outlined" style="float: left;">' . $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
+                $field['choices'][$materialIcon] = '<i class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' . $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
             }
-        } 
+        }
 
         if (is_array($customIcons) && !empty($customIcons)) {
             $customIcons = $this->filterCustomIcons($customIcons);
             foreach ($customIcons as $key => $customIcon) {
-                $field['choices'][$key] = '<span class="material-symbols-outlined" style="float: left;">' . $customIcon . '</span>' . 
+                $field['choices'][$key] = '<span class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' . $customIcon . '</span>' .
                 '<span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $key) . '</span>';
             }
         }
-        
+
         if (empty($field['choices'])) {
             $field['choices'] = [];
         }
@@ -90,14 +90,15 @@ class PrefillIconChoice
      * @param array $customIcons The array of custom icons.
      * @return array The filtered array of custom icons.
      */
-    private function filterCustomIcons(array $customIcons):array
+    private function filterCustomIcons(array $customIcons): array
     {
-        return array_filter($customIcons, function($key) {
+        return array_filter($customIcons, function ($key) {
             return strpos($key, 'Filled') === false;
         }, ARRAY_FILTER_USE_KEY);
     }
 
-    public function setDefaultIconIfEmpty($field) {
+    public function setDefaultIconIfEmpty($field)
+    {
         if (empty($field['value']) && !empty($field['default_value'])) {
             $field['value'] = $field['default_value'];
         }
