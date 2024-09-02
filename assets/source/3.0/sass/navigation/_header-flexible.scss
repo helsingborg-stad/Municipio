@@ -1,4 +1,13 @@
 .c-header.c-header--flexible {
+
+    &#site-header-flexible-upper {
+        z-index: $level-8;
+    }
+
+    &#site-header-flexible-lower {
+        z-index: $level-6;
+    }
+
     .grid-container {
         display: grid;
         grid-template-rows: 1fr 1fr;

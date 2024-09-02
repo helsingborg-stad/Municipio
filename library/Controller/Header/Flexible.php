@@ -69,7 +69,7 @@ class Flexible implements HeaderInterface
 
         if (!empty($this->customizer->headerSticky)) {
             $upperHeader['sticky'] = empty($lowerItems['modified']) ? true : false;
-            $upperHeader['sticky'] = true;
+            $lowerHeader['sticky'] = empty($upperHeader['sticky']);
         }
 
         if (!empty($this->customizer->headerBackground)) {
