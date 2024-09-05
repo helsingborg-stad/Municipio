@@ -5,8 +5,8 @@
 
 .comment-respond .cancel-comment-reply-link {
     position: absolute;
-    top: calc(var(--base, 8px) * 2); 
-    right: calc(var(--base, 8px) * 3);
+    top: calc(var(--base, 8px) * 3); 
+    right: calc(var(--base, 8px) * 1);
     z-index: $level-1;
     display: none;
 }
