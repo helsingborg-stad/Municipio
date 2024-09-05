@@ -367,16 +367,16 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.34.1",
+            "version": "1.40.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "850a4d2e94bdf81d23e50dd6f04649a3f9d876c1"
+                "reference": "b5113a4f371f3a4c8f53bcf6e068bde7fa024288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/850a4d2e94bdf81d23e50dd6f04649a3f9d876c1",
-                "reference": "850a4d2e94bdf81d23e50dd6f04649a3f9d876c1",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/b5113a4f371f3a4c8f53bcf6e068bde7fa024288",
+                "reference": "b5113a4f371f3a4c8f53bcf6e068bde7fa024288",
                 "shasum": ""
             },
             "require": {
@@ -384,12 +384,14 @@
             },
             "require-dev": {
                 "helsingborg-stad/phpcs": "^0.3.5",
+                "php-stubs/wordpress-stubs": "^6.6",
                 "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "WpService\\": "src/"
+                    "WpService\\": "src/",
+                    "WpCronService\\": "src/WpCronService/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -405,9 +407,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.34.1"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.40.6"
             },
-            "time": "2024-08-29T12:41:51+00:00"
+            "time": "2024-09-04T11:36:05+00:00"
         },
         {
             "name": "masterminds/html5",

@@ -140,6 +140,31 @@
                             "ui": 1
                         },
                         {
+                            "key": "field_66d69aea9ddea",
+                            "label": "Sync interval",
+                            "name": "cron_interval",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "Will synchronize automatically from source on the selected time interval.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": [],
+                            "default_value": false,
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_custom": 0,
+                            "search_placeholder": "",
+                            "allow_null": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": ""
+                        },
+                        {
                             "key": "field_66c4852f2efec",
                             "label": "Type",
                             "name": "type",

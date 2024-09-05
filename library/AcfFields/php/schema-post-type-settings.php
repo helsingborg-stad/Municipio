@@ -144,6 +144,32 @@
                             'ui' => 1,
                         ),
                         1 => array(
+                            'key' => 'field_66d69aea9ddea',
+                            'label' => __('Sync interval', 'municipio'),
+                            'name' => 'cron_interval',
+                            'aria-label' => '',
+                            'type' => 'select',
+                            'instructions' => __('Will synchronize automatically from source on the selected time interval.', 'municipio'),
+                            'required' => 0,
+                            'conditional_logic' => 0,
+                            'wrapper' => array(
+                                'width' => '',
+                                'class' => '',
+                                'id' => '',
+                            ),
+                            'choices' => array(
+                            ),
+                            'default_value' => false,
+                            'return_format' => 'value',
+                            'multiple' => 0,
+                            'allow_custom' => 0,
+                            'search_placeholder' => '',
+                            'allow_null' => 0,
+                            'ui' => 0,
+                            'ajax' => 0,
+                            'placeholder' => '',
+                        ),
+                        2 => array(
                             'key' => 'field_66c4852f2efec',
                             'label' => __('Type', 'municipio'),
                             'name' => 'type',
@@ -179,7 +205,7 @@
                             'allow_custom' => 0,
                             'search_placeholder' => '',
                         ),
-                        2 => array(
+                        3 => array(
                             'key' => 'field_66c4873b2f635',
                             'label' => __('File path', 'municipio'),
                             'name' => 'file_path',
@@ -207,7 +233,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        3 => array(
+                        4 => array(
                             'key' => 'field_66c487112f634',
                             'label' => __('API key', 'municipio'),
                             'name' => 'typesense_api_key',
@@ -235,7 +261,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        4 => array(
+                        5 => array(
                             'key' => 'field_66c488042f638',
                             'label' => __('Protocol', 'municipio'),
                             'name' => 'typesense_protocol',
@@ -271,7 +297,7 @@
                             'ajax' => 0,
                             'placeholder' => '',
                         ),
-                        5 => array(
+                        6 => array(
                             'key' => 'field_66c487812f636',
                             'label' => __('Host', 'municipio'),
                             'name' => 'typesense_host',
@@ -299,7 +325,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        6 => array(
+                        7 => array(
                             'key' => 'field_66c487e32f637',
                             'label' => __('Collection', 'municipio'),
                             'name' => 'typesense_collection',
@@ -327,7 +353,7 @@
                             'prepend' => '',
                             'append' => '',
                         ),
-                        7 => array(
+                        8 => array(
                             'key' => 'field_66c6ca4a72ba1',
                             'label' => __('Taxonomies', 'municipio'),
                             'name' => 'taxonomies',

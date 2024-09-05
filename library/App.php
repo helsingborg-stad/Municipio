@@ -7,22 +7,20 @@ use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\Api\RestApiEndpointsRegistry;
-use Municipio\Config\ConfigInterface;
+use Municipio\Config\ConfigFactoryInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
 use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
-use Municipio\ExternalContent\AcfFieldContentModifiers\PopulateTaxonomySchemaPropertyFieldOptions;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
-use Municipio\ExternalContent\Sources\StaticSourceRegistry;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\SchemaData\AcfFieldContentModifiers\PopulateSchemaTypeFieldOptions;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use WP_Post;
+use WpCronService\WpCronJobManager;
 use WpService\WpService;
 
 /**
@@ -35,13 +33,15 @@ class App
      * App constructor.
      */
     public function __construct(
-        private ConfigInterface $config,
+        private ConfigFactoryInterface $configFactory,
         private WpService $wpService,
         private AcfService $acfService,
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
         private SchemaObjectFromPostInterface $schemaObjectFromPost
     ) {
+        // echo '<pre>' . print_r($this->wpService->getCronArray(), true) . '</pre>';
+        // die();
         /**
          * Upgrade
          */
@@ -303,7 +303,9 @@ class App
 
     private function setupSchemaDataFeature(): void
     {
-        if (!$this->config->getSchemaDataConfig()->featureIsEnabled()) {
+        $config = $this->configFactory->createConfig();
+
+        if (!$config->getSchemaDataConfig()->featureIsEnabled()) {
             return;
         }
 
@@ -344,7 +346,7 @@ class App
         $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
         $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
         $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->config->getSchemaDataConfig()));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $config->getSchemaDataConfig()));
 
         /**
          * External content
@@ -354,7 +356,9 @@ class App
 
     private function setupExternalContent(): void
     {
-        if (!$this->config->getSchemaDataConfig()->featureIsEnabled()) {
+        $config = $this->configFactory->createConfig();
+
+        if (!$config->getSchemaDataConfig()->featureIsEnabled()) {
             return;
         }
 
@@ -363,8 +367,15 @@ class App
          */
         $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
         $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn ($props) => array_combine($props, $props), $schemaTypesAndProperties);
+        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn($props) => array_combine($props, $props), $schemaTypesAndProperties);
         $this->acfFieldContentModifierRegistrar->registerModifier('field_66c6ca5972ba2', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
+
+        /**
+         * Populate cron_schedule field options.
+         */
+        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
+        array_unshift($scheduleOptions, __('Never', 'municipio'));
+        $this->acfFieldContentModifierRegistrar->registerModifier('field_66d69aea9ddea', new ModifyFieldChoices($scheduleOptions));
 
         $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
             $this->wpService->submitButton(
@@ -398,14 +409,25 @@ class App
         $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
 
         /**
+         * Setup cron jobs on config change.
+         */
+        $this->hooksRegistrar->register(
+            new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
+                $this->configFactory,
+                new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
+                $this->wpService
+            )
+        );
+
+        /**
          * Build sources
          */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($this->config->getExternalContentConfig()))->createSources();
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($config->getExternalContentConfig()))->createSources();
 
         /**
          * Register taxonomies.
          */
-        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($this->config->getExternalContentConfig(), $this->wpService);
+        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($config->getExternalContentConfig(), $this->wpService);
         $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
         array_map(fn($item) => $item->register(), $taxonomyItems);
 
@@ -418,11 +440,6 @@ class App
         /**
          * Disable editing of post type using external content source.
          */
-        $this->hooksRegistrar->register(
-            new DisableEditingOfPostTypeUsingExternalContentSource(
-                $this->config->getExternalContentConfig(),
-                $this->wpService
-            )
-        );
+        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($config->getExternalContentConfig(), $this->wpService));
     }
 }

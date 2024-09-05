@@ -10,8 +10,10 @@ use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 
 class ExternalContentPostTypeSettingsFactory
 {
-    public function __construct(private SourceConfigFactoryInterface $sourceConfigFactory, private TryGetSchemaTypeFromPostType $configService)
-    {
+    public function __construct(
+        private SourceConfigFactoryInterface $sourceConfigFactory,
+        private TryGetSchemaTypeFromPostType $configService
+    ) {
     }
 
     public function create(array $config): ExternalContentPostTypeSettingsInterface
@@ -21,12 +23,14 @@ class ExternalContentPostTypeSettingsFactory
         return new class (
             $config['schema_data']['post_type'],
             $config['external_content_source']['taxonomies'],
+            $config['external_content_source']['cron_interval'],
             $sourceConfig,
             $configService
         ) implements ExternalContentPostTypeSettingsInterface {
             public function __construct(
                 private string $postType,
                 private array $taxonomies,
+                private ?string $cronSchedule,
                 private SourceConfigInterface $sourceConfig,
                 private TryGetSchemaTypeFromPostType $configService
             ) {
@@ -56,6 +60,11 @@ class ExternalContentPostTypeSettingsFactory
                 }
 
                 throw new \Exception('Schema type not found');
+            }
+
+            public function getCronSchedule(): ?string
+            {
+                return $this->cronSchedule;
             }
         };
     }

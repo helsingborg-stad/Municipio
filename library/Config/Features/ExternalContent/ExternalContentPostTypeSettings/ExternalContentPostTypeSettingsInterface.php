@@ -11,4 +11,5 @@ interface ExternalContentPostTypeSettingsInterface
     public function getTaxonomies(): array;
     public function getSourceConfig(): TypesenseSourceConfigInterface|JsonSourceConfigInterface;
     public function getSchemaType(): string;
+    public function getCronSchedule(): ?string;
 }
