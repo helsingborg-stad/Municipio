@@ -260,7 +260,9 @@ class App
     {
 
         //Image convert config service
-        $imageConvertConfig = new \Municipio\ImageConvert\Config\ImageConvertConfig();
+        $imageConvertConfig = new \Municipio\ImageConvert\Config\ImageConvertConfig(
+            $this->wpService
+        );
 
         //Check if image convert is enabled
         if($imageConvertConfig->isEnabled() === false) {
