@@ -75,6 +75,11 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     );
   }
 
+  /**
+   * The internal filter priority for image conversion.
+   * 
+   * @return object
+   */
   public function internalFilterPriority(): object
   {
       return (object) [
