@@ -24,13 +24,36 @@ class ImageConvertConfig implements ImageConvertConfigInterface
   }
 
   /**
-   * The priority for image downsize.
+   * The maximum image dimension for image conversion.
+   */
+  public function maxImageDimension() : int 
+  {
+    return $this->wpService->applyFilters(
+      $this->createFilterKey(__FUNCTION__), 
+      2500
+    );
+  }
+
+  /**
+   * The default image dimensions. 
+   * If image dimensions cannot be found. 
+   */
+  public function defaultImageDimensions() : array
+  {
+    return $this->wpService->applyFilters(
+      $this->createFilterKey(__FUNCTION__), 
+      [1280, 720]
+    );
+  }
+
+  /**
+   * The priority to run ImageConvert on.
    */
   public function imageDownsizePriority() : int
   {
     return $this->wpService->applyFilters(
       $this->createFilterKey(__FUNCTION__), 
-      10
+      1
     );
   }
 

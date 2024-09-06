@@ -52,7 +52,7 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        new \Municipio\Theme\OnTheFlyImages();
+        //new \Municipio\Theme\OnTheFlyImages();
         new \Municipio\Theme\SharpenThumbnails();
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
@@ -251,14 +251,13 @@ class App
     /**
      * Sets up the post type design.
      *
-     * This method initializes functionality for handeling 
+     * This method initializes functionality for handling 
      * image conversion and resizing of images. 
      *
      * @return void
      */
     private function setupImageConvert(): void
     {
-
         //Image convert config service
         $imageConvertConfig = new \Municipio\ImageConvert\Config\ImageConvertConfig(
             $this->wpService
@@ -269,12 +268,37 @@ class App
             return;
         }
 
+        //Init image convert filter
+        $imageConvertFilter = new \Municipio\ImageConvert\ImageConvertFilter(
+            $this->wpService, 
+            $imageConvertConfig
+        );
+        $imageConvertFilter->addHooks();
+
         //Makes shure that the image has full dataset in order to resize image
         $normalizeImageSize = new \Municipio\ImageConvert\NormalizeImageSize(
             $this->wpService, 
             $imageConvertConfig
         );
         $normalizeImageSize->addHooks();
+
+        //Calculate image dimensions, if there are any missing. 
+        /*$calculateImageDimensions = new \Municipio\ImageConvert\CalculateImageDimensions(
+            $this->wpService, 
+            $imageConvertConfig
+        );
+        $calculateImageDimensions->addHooks();*/
+
+        // Make WebP
+
+        add_action('loop_start', function () use ($imageConvertConfig) {
+            $imageSrc = wp_get_attachment_image_src(4142782, [1000, 4000]);
+
+            var_dump($imageSrc);
+
+            sprintf('<img src="%s" alt="" width="%s" height="%s" />', $imageSrc[0], $imageSrc[1], $imageSrc[2]);
+        });
+
     }
 
     /**
