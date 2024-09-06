@@ -283,16 +283,16 @@ class App
         $normalizeImageSize->addHooks();
 
         //Calculate image dimensions, if there are any missing. 
-        /*$calculateImageDimensions = new \Municipio\ImageConvert\CalculateImageDimensions(
+        $resolveMissingImageSize = new \Municipio\ImageConvert\ResolveMissingImageSize(
             $this->wpService, 
             $imageConvertConfig
         );
-        $calculateImageDimensions->addHooks();*/
+        $resolveMissingImageSize->addHooks();
 
         // Make WebP
 
         add_action('loop_start', function () use ($imageConvertConfig) {
-            $imageSrc = wp_get_attachment_image_src(4142782, [1000, 4000]);
+            $imageSrc = wp_get_attachment_image_src(4142782, [false, 4000]);
 
             var_dump($imageSrc);
 

@@ -101,13 +101,15 @@ class ImageConvertConfig implements ImageConvertConfigInterface
   /**
    * The internal filter priority for image conversion.
    * 
+   * This is the prority that the internal filters will hook into.
+   * 
    * @return object
    */
   public function internalFilterPriority(): object
   {
       return (object) [
         'normalizeImageSize' => 10,
-        'imageDownsize' => 20,
+        'resolveMissingImageSize' => 20,
         'imageConvert' => 30,
       ];
   }

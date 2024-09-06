@@ -15,7 +15,7 @@ class NormalizeImageSize implements Hookable
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'normalizeImageSize'],
-            $this->config->imageDownsizePriority(),
+            $this->config->internalFilterPriority()->normalizeImageSize,
             3
         );
     }
