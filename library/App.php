@@ -241,6 +241,38 @@ class App
          * Apply schema.org data to posts
          */
         $this->setupSchemaDataFeature();
+
+        /**
+         * Image convert
+         */
+        $this->setupImageConvert();
+    }
+
+    /**
+     * Sets up the post type design.
+     *
+     * This method initializes functionality for handeling 
+     * image conversion and resizing of images. 
+     *
+     * @return void
+     */
+    private function setupImageConvert(): void
+    {
+
+        //Image convert config service
+        $imageConvertConfig = new \Municipio\BrandedEmails\Config\ImageConvertConfig();
+
+        //Check if image convert is enabled
+        if($imageConvertConfig->isEnabled() === false) {
+            return;
+        }
+
+        //Makes shure that the image has full dataset in order to resize image
+        $normalizeImageSize = new \Municipio\ImageConvert\NormalizeImageSize(
+            $this->wpService, 
+            $imageConvertConfig
+        );
+        $normalizeImageSize->addHooks();
     }
 
     /**
