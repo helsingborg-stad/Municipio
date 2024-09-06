@@ -17,7 +17,7 @@
                         'text' => get_comment_text($comment->comment_ID),
                         'icon' => 'face',
                         'bubble_color' => 'light',
-                        'date_suffix' => __('ago', 'municipio'),
+                        'date_suffix' => $lang->ago,
                         'date' => date("Y-m-d H:i:s", strtotime($comment->comment_date)),
                         'classList' => [
                             'comment-'.$comment->comment_ID, 
@@ -105,7 +105,7 @@
                                 'text' => get_comment_text($answer->comment_ID),
                                 'icon' => 'face',
                                 'bubble_color' => 'light',
-                                'date_suffix' => __('ago', 'municipio'),
+                                'date_suffix' => $lang->ago,
                                 'date' => date("Y-m-d H:i:s", strtotime($answer->comment_date)),
                                 'is_reply' => true,
                                 'classList' => [
