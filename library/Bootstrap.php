@@ -39,13 +39,19 @@ foreach ($kirkiFilePaths as $kirkiFilePath) {
 require_once MUNICIPIO_PATH . 'library/Public.php';
 
 /**
+ * Services.
+ */
+$wpService  = new NativeWpService();
+$acfService = new NativeAcfService();
+
+/**
  * Acf auto import and export
  */
-add_action('init', function () {
+add_action('init', function () use ($wpService) {
     $acfExportManager = new \AcfExportManager\AcfExportManager();
     $acfExportManager->setTextdomain('municipio');
     $acfExportManager->setExportFolder(MUNICIPIO_PATH . 'library/AcfFields');
-    $acfExportManager->autoExport(array(
+    $autoExportIds = $wpService->applyFilters('Municipio/AcfExportManager/autoExport', array(
         // Blocks
         'block-classic-editpr'                       => 'group_61556c32b3697',
         'block-button'                               => 'group_60acdac5158f2',
@@ -107,10 +113,10 @@ add_action('init', function () {
         'navigation-widget'                          => 'group_5ae64000dd723',
         'widget-media'                               => 'group_5b2b70c0bde2f',
         'media-attachments'                          => 'group_650857c9f2cce',
-        'hidden-validation'                          => 'group_654a2a57e6897',
-        'schema-post-type-settings'                  => 'group_66c4849f0cbb1'
+        'hidden-validation'                          => 'group_654a2a57e6897'
     ));
 
+    $acfExportManager->autoExport($autoExportIds);
     $acfExportManager->import();
 });
 
@@ -118,34 +124,13 @@ add_action('init', function () {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    $wpService                        = new NativeWpService();
-    $acfService                       = new NativeAcfService();
     $acfFieldContentModifierRegistrar = new \Municipio\AcfFieldContentModifiers\Registrar($wpService);
 
-    $configFactory = new ConfigFactory($acfService);
-    $config        = $configFactory->createConfig();
-
-    $getEnabledSchemaTypes             = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
-    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
-    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer($schemaPropertyValueSanitizer);
-    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\DateTimeSanitizer($schemaPropertyValueSanitizer);
-    $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
-    $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($config->getSchemaDataConfig());
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $wpService);
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
-    $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent($wpService, $getEnabledSchemaTypes, $schemaObjectFromPost);
-
     new Municipio\App(
-        $configFactory,
         $wpService,
         $acfService,
         new HooksRegistrar(),
-        $acfFieldContentModifierRegistrar,
-        $schemaObjectFromPost
+        $acfFieldContentModifierRegistrar
     );
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {

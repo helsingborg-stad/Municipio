@@ -8,7 +8,7 @@ use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactoryIn
 use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigInterface;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 
-class ExternalContentPostTypeSettingsFactory
+class ExternalContentPostTypeSettingsFactory implements ExternalContentPostTypeSettingsFactoryInterface
 {
     public function __construct(
         private SourceConfigFactoryInterface $sourceConfigFactory,
@@ -18,12 +18,12 @@ class ExternalContentPostTypeSettingsFactory
 
     public function create(array $config): ExternalContentPostTypeSettingsInterface
     {
-        $sourceConfig  = $this->sourceConfigFactory::create($config['external_content_source']);
+        $sourceConfig  = $this->sourceConfigFactory::create($config);
         $configService = $this->configService;
         return new class (
-            $config['schema_data']['post_type'],
-            $config['external_content_source']['taxonomies'],
-            $config['external_content_source']['cron_interval'],
+            $config['post_type'],
+            $config['taxonomies'] ?: [],
+            $config['automatic_import_schedule'],
             $sourceConfig,
             $configService
         ) implements ExternalContentPostTypeSettingsInterface {

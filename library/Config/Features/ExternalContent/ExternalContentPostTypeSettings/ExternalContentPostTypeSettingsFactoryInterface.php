@@ -4,5 +4,5 @@ namespace Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSetti
 
 interface ExternalContentPostTypeSettingsFactoryInterface
 {
-    public static function create(array $config): ExternalContentPostTypeSettingsInterface;
+    public function create(array $config): ExternalContentPostTypeSettingsInterface;
 }

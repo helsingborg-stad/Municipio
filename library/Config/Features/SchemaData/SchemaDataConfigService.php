@@ -15,7 +15,8 @@ class SchemaDataConfigService implements SchemaDataConfigInterface
     private function getSettings(): array
     {
         if (is_null($this->settings)) {
-            $this->settings = $this->acfService->getField('schema_org_settings', 'option') ?: [];
+            $settings       = $this->acfService->getField('post_type_schema_types', 'option');
+            $this->settings =  !is_array($settings) ? [] : $settings;
         }
 
         return $this->settings;
@@ -29,15 +30,15 @@ class SchemaDataConfigService implements SchemaDataConfigInterface
 
     public function getEnabledPostTypes(): array
     {
-        $postTypes = array_map(fn($row) => $row['schema_data']['post_type'] ?? null, $this->getSettings() ?? []);
+        $postTypes = array_map(fn($row) => $row['post_type'] ?? null, $this->getSettings() ?? []);
         return array_filter($postTypes);
     }
 
     public function tryGetSchemaTypeFromPostType(string $postType): ?string
     {
         foreach ($this->getSettings() as $row) {
-            if ($row['schema_data']['post_type'] === $postType) {
-                return $row['schema_data']['schema'];
+            if ($row['post_type'] === $postType) {
+                return $row['schema_type'];
             }
         }
 

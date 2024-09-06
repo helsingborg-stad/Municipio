@@ -9,18 +9,20 @@ use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 
 class ExternalContentConfigService implements ExternalContentConfigInterface
 {
-    /**
-     * ExternalContentConfigService constructor.
-     *
-     * @param SchemaDataConfigInterface $schemaDataConfig The schema data config.
-     * @param GetField $getField The get field service.
-     * @param ExternalContentPostTypeSettingsInterface[] $postTypeSettings The post type settings.
-     */
+    private array $postTypeSettings;
+
     public function __construct(
         private SchemaDataConfigInterface $schemaDataConfig,
-        private GetField $getField,
-        private array $postTypeSettings
+        private ExternalContentPostTypeSettingsFactoryInterface $postTypeSettingsFactory,
+        private GetField $acfService,
     ) {
+    }
+
+    private function getValuesFromAcf(): array
+    {
+        // TODO: cache this
+        $values = $this->acfService->getField('external_content_sources', 'option') ?: [];
+        return is_array($values) ? $values : [];
     }
 
     public function featureIsEnabled(): bool
@@ -30,11 +32,18 @@ class ExternalContentConfigService implements ExternalContentConfigInterface
 
     public function getEnabledPostTypes(): array
     {
-        return array_map(fn ($postTypeSetting) => $postTypeSetting->getPostType(), $this->postTypeSettings);
+        return array_map(fn ($row) => $row['post_type'], $this->getValuesFromAcf());
     }
 
     public function getPostTypeSettings(string $postType): ExternalContentPostTypeSettingsInterface
     {
+        if (!isset($this->postTypeSettings)) {
+            $this->postTypeSettings = array_map(
+                fn ($row) => $this->postTypeSettingsFactory->create($row),
+                $this->getValuesFromAcf()
+            );
+        }
+
         foreach ($this->postTypeSettings as $postTypeSetting) {
             if ($postTypeSetting->getPostType() === $postType) {
                 return $postTypeSetting;

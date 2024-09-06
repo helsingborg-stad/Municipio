@@ -6,16 +6,16 @@ class SourceConfigFactory implements SourceConfigFactoryInterface
 {
     public static function create(array $config): SourceConfigInterface
     {
-        switch ($config['type']) {
+        switch ($config['source_type']) {
             case 'json':
-                return new JsonSourceConfig($config['file_path']);
+                return new JsonSourceConfig($config['source_json_file_path']);
             case 'typesense':
                 return new TypesenseSourceConfig(
-                    $config['typesense_api_key'],
-                    $config['typesense_protocol'],
-                    $config['typesense_host'],
-                    $config['typesense_port'] ?? 443,
-                    $config['typesense_collection']
+                    $config['source_typesense_api_key'],
+                    $config['source_typesense_protocol'],
+                    $config['source_typesense_host'],
+                    $config['source_typesense_port'] ?? 443,
+                    $config['source_typesense_collection']
                 );
             default:
                 throw new \Exception('Invalid source config type');
