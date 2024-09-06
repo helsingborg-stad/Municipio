@@ -51,6 +51,30 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     );
   }
 
+  /**
+   * The suffixes for the mime types.
+   * 
+   * @return array
+   */
+  public function fileNameSuffixes() : array
+  {
+    $mimeTypes = $this->mimeTypes();
+
+    return array_map(function($mime) {
+      return str_replace('image/', '', $mime);
+    }, $mimeTypes);
+
+    //Add jpg as an alias for jpeg
+    if(in_array('jpeg', $mimeTypes)) {
+      $mimeTypes[] = 'jpg';
+    }
+
+    return $this->wpService->applyFilters(
+      $this->createFilterKey(__FUNCTION__), 
+      $mimeTypes
+    );
+  }
+
   public function internalFilterPriority(): object
   {
       return (object) [
