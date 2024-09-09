@@ -3,7 +3,13 @@
     'method'    => 'get',
     'action'    => $homeUrl,
     'classList' => $classList ?? [
-        'search-form', 'u-print-display--none', 'u-display--flex@lg', 'u-display--flex@xl', 'u-display--none@xs', 'u-display--none@sm', 'u-display--none@md'
+        'search-form', 
+        'u-print-display--none', 
+        'u-display--flex@lg', 
+        'u-display--flex@xl', 
+        'u-display--none@xs', 
+        'u-display--none@sm', 
+        'u-display--none@md'
     ]
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
