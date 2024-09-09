@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Mockery;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
@@ -12,7 +13,7 @@ class SchemaObjectWithNameFromTitleTest extends TestCase
 {
     public function testSetsTitleFromPostTitle()
     {
-        $post                          = new WP_Post((object) []);
+        $post                          = WpMockFactory::createWpPost();
         $post->post_title              = 'Title';
         $schemaObjectWithNameFromTitle = new SchemaObjectWithNameFromTitle($this->getInner());
         $schemaObject                  = $schemaObjectWithNameFromTitle->create($post);

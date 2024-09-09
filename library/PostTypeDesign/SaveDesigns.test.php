@@ -12,6 +12,9 @@ use WpService\Contracts\UpdateOption;
 use Municipio\PostTypeDesign\ConfigFromPageIdInterface;
 use WpService\Contracts\AddFilter;
 
+/**
+ * @group wp_mock
+ */
 class SaveDesignsTest extends TestCase
 {
     public function testActionsAdded()

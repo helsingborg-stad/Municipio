@@ -4,6 +4,9 @@ namespace Municipio\Tests;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group wp_mock
+ */
 class CustomizerTest extends TestCase
 {
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()

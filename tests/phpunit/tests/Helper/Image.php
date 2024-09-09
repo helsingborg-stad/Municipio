@@ -15,6 +15,13 @@ use phpmock\mockery\PHPMockery;
  */
 class ImageTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        WP_Mock::setUsePatchwork(true);
+        WP_Mock::setUp();
+    }
+
     /**
      * @testdox resize returns false if there is no image ID or Url
      * @preserveGlobalState disabled
@@ -294,6 +301,7 @@ class ImageTest extends TestCase
     */
     public function testGetAttachmentByRemoteUrlReturnsFirstPostIfPostsFound()
     {
+        // WP_Mock::bootstrap();
         // Given
         $this->mockedDataForGetAttachmentByRemoteUrl(
             'https://test.com',

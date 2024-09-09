@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
@@ -19,7 +20,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'JobPosting', 'name' => 'TestSchema']]);
         $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
 
-        $schema = $sut->create(new WP_Post((object) []));
+        $schema = $sut->create(WpMockFactory::createWpPost(['ID' => 1]));
 
         $this->assertEquals('JobPosting', $schema->getType());
         $this->assertEquals('TestSchema', $schema->getProperty('name'));
@@ -33,7 +34,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
         $wpService = new FakeWpService(['getPostMeta' => []]);
         $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
 
-        $schema = $sut->create(new WP_Post((object) []));
+        $schema = $sut->create(WpMockFactory::createWpPost(['ID' => 1]));
 
         $this->assertEquals('Thing', $schema->getType());
         $this->assertNull($schema->getProperty('name'));
@@ -47,7 +48,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'NotAllowedType', 'name' => 'TestSchema']]);
         $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
 
-        $schema = $sut->create(new WP_Post((object) ['ID' => 1]));
+        $schema = $sut->create(WpMockFactory::createWpPost(['ID' => 1]));
 
         $this->assertEquals('Thing', $schema->getType());
         $this->assertNull($schema->getProperty('name'));

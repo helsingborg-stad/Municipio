@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
@@ -14,7 +15,7 @@ class SchemaObjectFromPostTest extends TestCase
     public function testReturnsThingIfInvalidSchemaType()
     {
         $schemaType      = 'NonExistingSchemaType';
-        $post            = new WP_Post((object) []);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil($schemaType));
@@ -25,7 +26,7 @@ class SchemaObjectFromPostTest extends TestCase
 
     public function testReturnsThingIfSchemaTypeNotSet()
     {
-        $post            = new WP_Post((object) []);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil(null));
@@ -37,7 +38,7 @@ class SchemaObjectFromPostTest extends TestCase
     public function testReturnsMatchingSchemaTypeIfFound()
     {
         $schemaType      = 'Event';
-        $post            = new WP_Post((object) []);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil($schemaType));

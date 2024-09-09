@@ -8,8 +8,12 @@ use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\Taxonomy\NullTaxonomyItem;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactory;
+use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Event;
+use WP_Term;
 use WpService\Implementations\FakeWpService;
 
 class TermsDecoratorTest extends TestCase
@@ -22,7 +26,12 @@ class TermsDecoratorTest extends TestCase
         $schemaObject             = new Event();
         $schemaObject['keywords'] = ['foo'];
         $wpService                = new FakeWpService(['termExists' => null, 'insertTerm' => ['term_id' => 1]]);
-        $termsDecorator           = new TermsDecorator([$this->getTaxonomyItem()], new WpTermFactory(), $wpService, new WpPostFactory());
+        $termsDecorator           = new TermsDecorator(
+            [$this->getTaxonomyItem()],
+            $this->getWpTermFactory(),
+            $wpService,
+            new WpPostFactory()
+        );
 
         $postData = $termsDecorator->create($schemaObject, $this->getSource());
 
@@ -39,7 +48,7 @@ class TermsDecoratorTest extends TestCase
         $wpService                = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termsDecorator           = new TermsDecorator(
             [$this->getTaxonomyItem()],
-            new WpTermFactory(),
+            $this->getWpTermFactory(),
             $wpService,
             new WpPostFactory()
         );
@@ -47,6 +56,16 @@ class TermsDecoratorTest extends TestCase
         $postData = $termsDecorator->create($schemaObject, $this->getSource());
 
         $this->assertEquals([3], $postData['tax_input']['test_taxonomy']);
+    }
+
+    private function getWpTermFactory(): WpTermFactoryInterface
+    {
+        return new class implements WpTermFactoryInterface {
+            public function create(BaseType|string $schemaObject, string $taxonomy): WP_Term
+            {
+                return WpMockFactory::createWpTerm(['term_id' => 3, 'name' => $schemaObject]);
+            }
+        };
     }
 
     private function getTaxonomyItem(): TaxonomyItemInterface

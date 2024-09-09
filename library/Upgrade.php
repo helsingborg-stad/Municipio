@@ -4,6 +4,7 @@ namespace Municipio;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 
@@ -22,7 +23,7 @@ class Upgrade
      * App constructor.
      */
     public function __construct(
-        private GetThemeMod&GetPostTypes $wpService,
+        private GetThemeMod&GetPostTypes&AddAction $wpService,
         private UpdateField&GetField $acfService
     ) {
         //Development tools
@@ -32,7 +33,7 @@ class Upgrade
         add_action('init', array($this, 'debugAfter'), 20);*/
 
         //Production hook
-        add_action('wp', array($this, 'initUpgrade'), 1);
+        $this->wpService->addAction('wp', array($this, 'initUpgrade'), 1);
     }
 
     /**

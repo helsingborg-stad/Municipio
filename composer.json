@@ -49,9 +49,9 @@
     "scripts": {
         "test:all": [
             "@test",
-            "@test:deprecated-test-setup"
+            "@test:wp_mock"
         ],
-        "test:deprecated-test-setup": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
+        "test:wp_mock": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
         "test": "phpunit --testdox --no-coverage --exclude=wp_mock",
         "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
         "lint": "vendor/bin/phpcs",
@@ -76,6 +76,11 @@
     "autoload": {
         "psr-4": {
             "Municipio\\": "library/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Municipio\\TestUtils\\": "tests/phpunit/TestUtils/"
         }
     },
     "suggest": {
