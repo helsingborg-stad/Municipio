@@ -47,12 +47,12 @@
         }
     },
     "scripts": {
-        "test": [
-            "@test:wp_mock",
-            "@test:default"
+        "test:all": [
+            "@test",
+            "@test:deprecated-test-setup"
         ],
-        "test:wp_mock": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
-        "test:default": "phpunit --testdox --no-coverage --exclude=wp_mock",
+        "test:deprecated-test-setup": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
+        "test": "phpunit --testdox --no-coverage --exclude=wp_mock",
         "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
