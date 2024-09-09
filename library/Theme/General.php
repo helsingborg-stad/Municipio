@@ -47,6 +47,11 @@ class General
                 $html
             );
         });
+
+        add_filter('ComponentLibrary/Component/Date/Data', function ($data) {
+            $data['format'] = \Municipio\Helper\DateFormat::getDateFormat('date');
+            return $data;
+        });
     }
 
     /**
