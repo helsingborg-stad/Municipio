@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\InsertPost;
 
@@ -11,7 +11,7 @@ class SyncAllFromSourceToLocal implements SyncSourceToLocalInterface
 {
     public function __construct(
         private SourceInterface $source,
-        private WpPostFactoryInterface $wpPostFactory,
+        private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
         private InsertPost $wpService
     ) {
     }

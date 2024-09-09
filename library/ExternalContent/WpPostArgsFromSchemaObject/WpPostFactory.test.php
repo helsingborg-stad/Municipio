@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Sources\Source;
@@ -29,7 +29,6 @@ class WpPostFactoryTest extends TestCase
     public function testCreateWithPublishStatus()
     {
         $schemaObject  = $this->getBaseTypeInstance();
-        $source        = $this->getSource();
         $wpPostFactory = new WpPostFactory();
 
         $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());

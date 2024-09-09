@@ -1,11 +1,11 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
-class WpPostFactory implements WpPostFactoryInterface
+class WpPostFactory implements WpPostArgsFromSchemaObjectInterface
 {
     public function create(BaseType $schemaObject, SourceInterface $source): array
     {

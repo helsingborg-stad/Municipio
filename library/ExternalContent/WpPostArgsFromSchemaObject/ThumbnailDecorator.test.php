@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
-use Municipio\ExternalContent\WpPostFactory\WpPostFactory;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;

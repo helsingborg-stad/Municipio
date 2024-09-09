@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use PHPUnit\Framework\TestCase;

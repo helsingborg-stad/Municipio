@@ -1,13 +1,13 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
-class DateDecorator implements WpPostFactoryInterface
+class DateDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostFactoryInterface $inner)
+    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 

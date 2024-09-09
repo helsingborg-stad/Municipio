@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -8,14 +8,14 @@ use Spatie\SchemaOrg\BaseType;
 /**
  * Class WpPostMetaFactoryVersionDecorator
  */
-class VersionDecorator implements WpPostFactoryInterface
+class VersionDecorator implements WpPostArgsFromSchemaObjectInterface
 {
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
      *
      * @param WpPostMetaFactoryInterface $inner
      */
-    public function __construct(private WpPostFactoryInterface $inner)
+    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 

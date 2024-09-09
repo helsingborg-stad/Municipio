@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\InsertPost;
 
@@ -14,13 +14,13 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
      *
      * @param int|string $postId
      * @param SourceInterface[] $sources
-     * @param WpPostFactoryInterface $wpPostFactory
+     * @param WpPostArgsFromSchemaObjectInterface $wpPostFactory
      * @param InsertPost&GetPostMeta $wpService
      */
     public function __construct(
         private int|string $postId,
         private array $sources,
-        private WpPostFactoryInterface $wpPostFactory,
+        private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
         private InsertPost&GetPostMeta $wpService
     ) {
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class DateDecoratorTest extends TestCase
             'dateModified'  => '2021-01-02',
         ]);
 
-        $inner = $this->createMock(WpPostFactoryInterface::class);
+        $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
         $inner->method('create')->willReturn([]);
 
         $wpPostFactory = new DateDecorator($inner);

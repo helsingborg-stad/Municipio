@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -9,14 +9,14 @@ use Spatie\SchemaOrg\JobPosting;
 /**
  * Decorate specifically for JobPosting schema type.
  */
-class JobPostingDecorator implements WpPostFactoryInterface
+class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
 {
     /**
      * Class constructor.
      *
-     * @param WpPostFactoryInterface $inner The inner WpPostFactoryInterface instance.
+     * @param WpPostArgsFromSchemaObjectInterface $inner The inner WpPostArgsFromSchemaObjectInterface instance.
      */
-    public function __construct(private WpPostFactoryInterface $inner)
+    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 

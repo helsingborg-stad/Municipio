@@ -1,14 +1,14 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\WpPostFactory\WpPostFactoryInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
 
-class OriginIdDecorator implements WpPostFactoryInterface
+class OriginIdDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostFactoryInterface $inner)
+    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 

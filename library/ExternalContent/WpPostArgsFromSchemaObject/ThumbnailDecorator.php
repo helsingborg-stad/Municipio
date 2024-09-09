@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -8,9 +8,9 @@ use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
 
-class ThumbnailDecorator implements WpPostFactoryInterface
+class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostFactoryInterface $inner, private MediaSideloadImage&GetPosts $wpService)
+    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner, private MediaSideloadImage&GetPosts $wpService)
     {
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\WpPostFactory;
+namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
@@ -13,7 +13,7 @@ use WpService\Contracts\TermExists;
 /**
  * Class WpPostMetaFactoryVersionDecorator
  */
-class TermsDecorator implements WpPostFactoryInterface
+class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
 {
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
@@ -25,7 +25,7 @@ class TermsDecorator implements WpPostFactoryInterface
         private array $taxonomyItems,
         private WpTermFactoryInterface $wpTermFactory,
         private InsertTerm&TermExists $wpService,
-        private WpPostFactoryInterface $inner
+        private WpPostArgsFromSchemaObjectInterface $inner
     ) {
     }
 
