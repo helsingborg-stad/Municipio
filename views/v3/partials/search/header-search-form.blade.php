@@ -1,9 +1,10 @@
-
 @form([
     'id'        => 'header-search-form',
     'method'    => 'get',
     'action'    => $homeUrl,
-    'classList' => ['search-form', 'u-print-display--none', 'u-display--flex@lg', 'u-display--flex@xl', 'u-display--none@xs', 'u-display--none@sm', 'u-display--none@md']
+    'classList' => $classList ?? [
+        'search-form', 'u-print-display--none', 'u-display--flex@lg', 'u-display--flex@xl', 'u-display--none@xs', 'u-display--none@sm', 'u-display--none@md'
+    ]
 ])
     @group(['direction' => 'horizontal', 'classList' => ['u-margin--auto']])
         @field([

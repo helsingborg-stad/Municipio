@@ -23,7 +23,7 @@
         's-drawer-menu'
     ],
     'label' => $lang->close,
-    'screenSizes' => $customizer->drawerScreenSizes
+    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes
 ])
 
     @slot('search')
