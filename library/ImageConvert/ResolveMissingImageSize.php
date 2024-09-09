@@ -32,19 +32,23 @@ class ResolveMissingImageSize implements Hookable
     public function resolveMissingImageSize($false, $id, $size): mixed
     { 
 
+
+      var_dump($size);
+
+
       if(!$this->isSpecificImageSize($size)) {
         return $size;
       }
 
 
-        // Use the resolver chain to find the image dimensions
-        $sourceFileSize = $this->resolver->getAttachmentDimensions($id);
+      // Use the resolver chain to find the image dimensions
+      $sourceFileSize = $this->resolver->getAttachmentDimensions($id);
 
-        if ($sourceFileSize !== null) {
-            $size = $this->calculateRelativeSize($size, $sourceFileSize);
-        }
+      if ($sourceFileSize !== null) {
+          $size = $this->calculateRelativeSize($size, $sourceFileSize);
+      }
 
-        return $size;
+      return $size;
     }
 
     private function calculateRelativeSize(array $size, array $sizeFile): array

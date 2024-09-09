@@ -282,6 +282,9 @@ class App
         );
         $normalizeImageSize->addHooks();
 
+
+
+
         //Calculate image dimensions, if there are any missing. 
         $resolveMissingImageSize = new \Municipio\ImageConvert\ResolveMissingImageSize(
             $this->wpService, 

@@ -7,13 +7,8 @@ use Municipio\ImageConvert\Common\IsSizeSufficient;
 
 class ResolveMissingImageSizeByFile implements ResolveMissingImageSizeInterface
 {
-    private $wpService;
-    private ?ResolveMissingImageSizeInterface $inner;
-
-    public function __construct($wpService, ?ResolveMissingImageSizeInterface $inner = null)
+    public function __construct(private $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
     {
-        $this->wpService = $wpService;
-        // Default to ResolveMissingImageSizeDefault if no inner is provided
         $this->inner = $inner ?? new ResolveMissingImageSizeDefault();
     }
 
