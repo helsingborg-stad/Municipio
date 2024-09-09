@@ -5,14 +5,25 @@ namespace Municipio\AcfFieldContentModifiers;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPostType;
 
+/**
+ * Class Registrar
+ *
+ * @package Municipio\AcfFieldContentModifiers
+ */
 class Registrar implements AcfFieldContentModifierRegistrarInterface
 {
-    private AcfFieldContentModifierInterface $modifier;
-
+    /**
+     * Registrar constructor.
+     *
+     * @param AddFilter&GetPostType $wpService
+     */
     public function __construct(private AddFilter&GetPostType $wpService)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function registerModifier(string $fieldKey, AcfFieldContentModifierInterface $modifier): void
     {
         $this->wpService->addFilter(
@@ -23,6 +34,12 @@ class Registrar implements AcfFieldContentModifierRegistrarInterface
         );
     }
 
+    /**
+     * Apply a modifier to a field.
+     *
+     * @param AcfFieldContentModifierInterface $modifier
+     * @param array $field
+     */
     public function applyModifier(AcfFieldContentModifierInterface $modifier, array $field): array
     {
         if ($this->wpService->getPostType() === 'acf-field-group') {

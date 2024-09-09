@@ -11,7 +11,7 @@ class TriggerSync
     ) {
     }
 
-    protected function trigger(string $postType, ?int $postId = null): void
+    public function trigger(string $postType, ?int $postId = null): void
     {
         /**
          * Fires when external content should be synced.

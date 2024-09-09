@@ -8,58 +8,59 @@ use WpService\Implementations\FakeWpService;
 class RegistrarTest extends TestCase
 {
     /**
-     * @testdox Filter is added
+     * @testdox Adds prepare_field filter for field key.
      */
-    public function testFilterIsAdded()
+    public function testRegisterModifier()
     {
+        $modifier  = $this->getFakeModifier();
         $wpService = new FakeWpService();
+
         $registrar = new Registrar($wpService);
-        $modifier  = $this->getTestModifier();
+        $registrar->registerModifier('field_123', $modifier);
 
-        $registrar->registerModifier($this->getTestModifier());
-
-        $this->assertEquals('acf/prepare_field/key=test', $wpService->methodCalls['addFilter'][0][0]);
-        $this->assertEquals([$registrar, 'applyModifier'], $wpService->methodCalls['addFilter'][0][1]);
+        $this->assertEquals('acf/prepare_field/key=field_123', $wpService->methodCalls['addFilter'][0][0]);
     }
 
     /**
-     * @testdox Modifier is applied
+     * @testdox Filter callback applies modifier to field.
      */
-    public function testModifierIsAppliedWhenFilterIsCalled()
+    public function testApplyModifier()
     {
+        $modifier  = $this->getFakeModifier();
         $wpService = new FakeWpService();
+
         $registrar = new Registrar($wpService);
+        $registrar->registerModifier('field_123', $modifier);
+        $callback = $wpService->methodCalls['addFilter'][0][1];
 
-        $registrar->registerModifier($this->getTestModifier());
-
-        $this->assertEquals(['test'], $registrar->applyModifier([]));
+        call_user_func($callback, ['key' => 'field_123']);
+        $this->assertEquals(1, $modifier->modifyFieldContentCalls);
     }
 
-
     /**
-     * Test that filter is not added when on field group edit screen.
+     * @testdox Does not apply modifier when on field group edit screen.
      */
-    public function testFilterIsNotAddedWhenOnFieldGroupEditScreen()
+    public function testApplyModifierOnFieldGroupEditScreen()
     {
+        $modifier  = $this->getFakeModifier();
         $wpService = new FakeWpService(['getPostType' => 'acf-field-group']);
 
         $registrar = new Registrar($wpService);
-        $registrar->registerModifier($this->getTestModifier());
+        $registrar->registerModifier('field_123', $modifier);
+        $callback = $wpService->methodCalls['addFilter'][0][1];
 
-        $this->assertEquals([], $registrar->applyModifier([]));
+        call_user_func($callback, ['key' => 'field_123']);
+        $this->assertEquals(0, $modifier->modifyFieldContentCalls);
     }
 
-    private function getTestModifier(): AcfFieldContentModifierInterface
+    private function getFakeModifier(): AcfFieldContentModifierInterface
     {
         return new class implements AcfFieldContentModifierInterface {
+            public int $modifyFieldContentCalls = 0;
             public function modifyFieldContent(array $field): array
             {
-                return ['test'];
-            }
-
-            public function getFieldKey(): string
-            {
-                return 'test';
+                $this->modifyFieldContentCalls++;
+                return $field;
             }
         };
     }

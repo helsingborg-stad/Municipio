@@ -71,6 +71,6 @@ class TermsDecoratorTest extends TestCase
 
     private function getSource(): SourceInterface
     {
-        return new Source();
+        return new Source('test_post_type', 'Thing');
     }
 }

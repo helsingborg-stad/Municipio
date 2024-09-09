@@ -22,7 +22,7 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
 
         $sut->addHooks();
 
-        $this->assertEquals('acf/options_page/save', $wpService->methodCalls['addAction'][0][0]);
+        $this->assertEquals('init', $wpService->methodCalls['addAction'][0][0]);
         $this->assertEquals([$sut, 'setupCronJobs'], $wpService->methodCalls['addAction'][0][1]);
     }
 
@@ -37,38 +37,10 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
 
         $sut->setupCronJobs('options', 'schema-data');
 
-        $this->assertCount(1, $manager->methodCalls['upsert']);
+        $this->assertCount(1, $manager->methodCalls['register']);
     }
 
-    /**
-     * @testdox Skips upsert if not on the expected options page
-     */
-    public function testSetupCronJobsSkipsUpsert()
-    {
-        $wpService = new FakeWpService();
-        $manager   = new FakeWpCronJobManager();
-        $sut       = new SetupCronJobsOnConfigChange($this->getFakeConfig(), $manager, $wpService);
-
-        $sut->setupCronJobs('options', 'not-expected-options-page');
-
-        $this->assertArrayNotHasKey('upsert', $manager->methodCalls);
-    }
-
-    /**
-     * @testdox Deletes all previous jobs on manager before adding new ones
-     */
-    public function testSetupCronJobsDeletesPreviousJobs()
-    {
-        $wpService = new FakeWpService();
-        $manager   = new FakeWpCronJobManager();
-        $sut       = new SetupCronJobsOnConfigChange($this->getFakeConfig(), $manager, $wpService);
-
-        $sut->setupCronJobs('options', 'schema-data');
-
-        $this->assertCount(1, $manager->methodCalls['deleteAll']);
-    }
-
-    private function getFakeConfig(): ConfigFactoryInterface|MockObject
+    private function getFakeConfig(): ExternalContentConfigInterface|MockObject
     {
         $postType            = 'test_post_type';
         $cronSchedule        = 'hourly';

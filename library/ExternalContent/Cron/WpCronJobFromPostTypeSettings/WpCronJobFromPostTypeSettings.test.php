@@ -29,7 +29,7 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
         $postTypeSetting = $this->getPostTypeSetting();
         $cronJob         = new WpCronJobFromPostTypeSettings($postTypeSetting, new FakeWpService());
 
-        $this->assertEquals($postTypeSetting->getCronSchedule(), $cronJob->getInterval());
+        $this->assertEquals($postTypeSetting->getCronSchedule(), $cronJob->getSchedule());
     }
 
     /**

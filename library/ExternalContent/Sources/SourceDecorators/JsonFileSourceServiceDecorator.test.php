@@ -2,7 +2,8 @@
 
 namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
-use Municipio\ExternalContent\Config\JsonFileSourceConfigInterface;
+use Municipio\ExternalContent\Sources\Source;
+use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
 use WpService\FileSystem\GetFileContent;
@@ -94,26 +95,21 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         };
     }
 
-    private function getConfig(array $values): JsonFileSourceConfigInterface {
-        return new class ($values) implements JsonFileSourceConfigInterface {
+    private function getConfig(array $values): JsonSourceConfigInterface {
+        return new class ($values) implements JsonSourceConfigInterface {
             
             public function __construct(private array $values)
             {
             }
 
-            public function getFile(): string
+            public function getFilePath(): string
             {
                 return $this->values['file'];
             }
 
-            public function getPostType(): string
+            public function getType(): string
             {
-                return $this->values['postType'];
-            }
-
-            public function getSchemaObjectType(): string
-            {
-                return $this->values['schemaObjectType'] ?? '';
+                return 'json';
             }
         };
     }
