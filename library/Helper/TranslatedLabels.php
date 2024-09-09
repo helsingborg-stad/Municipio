@@ -23,6 +23,7 @@ class TranslatedLabels {
             'skipToMainMenu'        => __("Skip to the main menu", 'municipio'),
             'skipToSideMenu'        => __("Skip to the side menu", 'municipio'),
             'ago'                   => __("ago", 'municipio'),
+            'now'                   => __("just now", 'municipio'),
             'since'                 => __("since", 'municipio'),
             'years'                 => __("years", 'municipio'),
             'year'                  => __("year", 'municipio'),
