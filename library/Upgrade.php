@@ -2,6 +2,7 @@
 
 namespace Municipio;
 
+use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
@@ -22,7 +23,7 @@ class Upgrade
      */
     public function __construct(
         private GetThemeMod&GetPostTypes $wpService,
-        private UpdateField $acfService
+        private UpdateField&GetField $acfService
     ) {
         //Development tools
         //WARNING: Do not use in PROD. This will destroy your db.
@@ -633,6 +634,34 @@ class Upgrade
     private function v_32($db): bool
     {
         update_option('css', []);
+        return true;
+    }
+
+    /**
+     * Migrate schema type settings from post type options to the new common interface.
+     *
+     * @param \wpdb $db
+     */
+    public function v_33($db): bool // phpcs:ignore
+    {
+        $destinationValues = [];
+        foreach ($this->wpService->getPostTypes() as $postType) {
+            $schemaType = $this->acfService->getField('schema', $postType . '_options');
+
+            if (empty($schemaType)) {
+                continue;
+            }
+
+            $destinationValues[] = [
+                'post_type'   => $postType,
+                'schema_type' => $schemaType
+            ];
+        }
+
+        if (!empty($destinationValues)) {
+            $this->acfService->updateField('post_type_schema_types', $destinationValues, 'option');
+        }
+
         return true;
     }
 
