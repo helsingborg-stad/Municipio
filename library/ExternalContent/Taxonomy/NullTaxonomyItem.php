@@ -22,6 +22,14 @@ class NullTaxonomyItem implements TaxonomyItemInterface
     /**
      * @inheritDoc
      */
+    public function getPostTypes(): array
+    {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getSchemaObjectProperty(): string
     {
         return '';
@@ -57,5 +65,12 @@ class NullTaxonomyItem implements TaxonomyItemInterface
     public function getTaxonomyArgs(): array
     {
         return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function register(): void
+    {
     }
 }

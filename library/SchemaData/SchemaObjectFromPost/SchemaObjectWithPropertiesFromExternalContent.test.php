@@ -47,7 +47,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'NotAllowedType', 'name' => 'TestSchema']]);
         $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
 
-        $schema = $sut->create(new WP_Post((object) []));
+        $schema = $sut->create(new WP_Post((object) ['ID' => 1]));
 
         $this->assertEquals('Thing', $schema->getType());
         $this->assertNull($schema->getProperty('name'));

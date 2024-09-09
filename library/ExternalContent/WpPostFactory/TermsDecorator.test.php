@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
+use Municipio\ExternalContent\Sources\Source;
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\Sources\Services\NullSource;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\Taxonomy\NullTaxonomyItem;
@@ -19,11 +19,10 @@ class TermsDecoratorTest extends TestCase
      */
     public function testAddsTermsToPost(): void
     {
-        $taxonomyRegistrar        = $this->getTaxonomyRegistrar([$this->getTaxonomyItem()]);
         $schemaObject             = new Event();
         $schemaObject['keywords'] = ['foo'];
         $wpService                = new FakeWpService(['termExists' => null, 'insertTerm' => ['term_id' => 1]]);
-        $termsDecorator           = new TermsDecorator($taxonomyRegistrar, new WpTermFactory(), $wpService, new WpPostFactory());
+        $termsDecorator           = new TermsDecorator([$this->getTaxonomyItem()], new WpTermFactory(), $wpService, new WpPostFactory());
 
         $postData = $termsDecorator->create($schemaObject, $this->getSource());
 
@@ -35,12 +34,11 @@ class TermsDecoratorTest extends TestCase
      */
     public function testAddsExistingTerms(): void
     {
-        $taxonomyRegistrar        = $this->getTaxonomyRegistrar([$this->getTaxonomyItem()]);
         $schemaObject             = new Event();
         $schemaObject['keywords'] = ['baz'];
         $wpService                = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termsDecorator           = new TermsDecorator(
-            $taxonomyRegistrar,
+            [$this->getTaxonomyItem()],
             new WpTermFactory(),
             $wpService,
             new WpPostFactory()
@@ -73,28 +71,6 @@ class TermsDecoratorTest extends TestCase
 
     private function getSource(): SourceInterface
     {
-        return new NullSource();
-    }
-
-    private function getTaxonomyRegistrar(array $taxonomyItems): TaxonomyRegistrarInterface
-    {
-        return new class ($taxonomyItems) implements TaxonomyRegistrarInterface {
-            public function __construct(private array $taxonomyItems)
-            {
-            }
-
-            public function addHooks(): void
-            {
-            }
-
-            public function register(): void
-            {
-            }
-
-            public function getRegisteredTaxonomyItems(): array
-            {
-                return $this->taxonomyItems;
-            }
-        };
+        return new Source();
     }
 }

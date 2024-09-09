@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Cron;
 
-use Municipio\Config\ConfigFactoryInterface;
+use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use Municipio\ExternalContent\Cron\WpCronJobFromPostTypeSettings\WpCronJobFromPostTypeSettings;
 use Municipio\HooksRegistrar\Hookable;
 use WpCronService\WpCronJobManagerInterface;
@@ -12,7 +12,7 @@ use WpService\Contracts\DoAction;
 class SetupCronJobsOnConfigChange implements Hookable
 {
     public function __construct(
-        private ConfigFactoryInterface $configFactory,
+        private ExternalContentConfigInterface $config,
         private WpCronJobManagerInterface $cronJobsManager,
         private AddAction&DoAction $wpService
     ) {
@@ -25,10 +25,8 @@ class SetupCronJobsOnConfigChange implements Hookable
 
     public function setupCronJobs(): void
     {
-        $config = $this->configFactory->createConfig()->getExternalContentConfig();
-
-        foreach ($config->getEnabledPostTypes() as $postType) {
-            $postTypeSettings = $config->getPostTypeSettings($postType);
+        foreach ($this->config->getEnabledPostTypes() as $postType) {
+            $postTypeSettings = $this->config->getPostTypeSettings($postType);
             $cronJob          = new WpCronJobFromPostTypeSettings($postTypeSettings, $this->wpService);
 
             $this->cronJobsManager->register($cronJob);

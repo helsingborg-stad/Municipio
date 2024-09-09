@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\Source;
+use Municipio\ExternalContent\Sources\Source;
 use Municipio\ExternalContent\WpPostFactory\WpPostFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;

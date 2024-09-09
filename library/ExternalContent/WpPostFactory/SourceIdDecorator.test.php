@@ -3,9 +3,10 @@
 namespace Municipio\ExternalContent\WpPostFactory;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\Sources\Services\NullSource;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\Thing;
+use WP_Query;
 
 class SourceIdDecoratorTest extends TestCase
 {
@@ -31,10 +32,26 @@ class SourceIdDecoratorTest extends TestCase
 
     private function getSource(): SourceInterface
     {
-        return new class extends NullSource {
+        return new class implements SourceInterface {
             public function getId(): string
             {
                 return 'foo';
+            }
+            public function getObject(string|int $id): ?BaseType
+            {
+                return new Thing();
+            }
+            public function getObjects(?WP_Query $query = null): array
+            {
+                return [];
+            }
+            public function getPostType(): string
+            {
+                return '';
+            }
+            public function getSchemaObjectType(): string
+            {
+                return '';
             }
         };
     }

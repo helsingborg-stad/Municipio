@@ -10,6 +10,7 @@ use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 use WpService\Contracts\UpdateOption;
 use Municipio\PostTypeDesign\ConfigFromPageIdInterface;
+use WpService\Contracts\AddFilter;
 
 class SaveDesignsTest extends TestCase
 {
@@ -96,9 +97,9 @@ class SaveDesignsTest extends TestCase
         };
     }
 
-    private function getWpService(array $db = []): AddAction
+    private function getWpService(array $db = []): AddAction&AddFilter&GetOption&GetThemeMod&GetPostTypes&UpdateOption
     {
-        return new class ($db) implements AddAction, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
+        return new class ($db) implements AddAction, AddFilter, GetOption, GetThemeMod, GetPostTypes, UpdateOption {
             public array $calls = ['addFilter' => [], 'getOption' => [], 'updateOption' => []];
 
             public function __construct(private array $db)
@@ -108,6 +109,11 @@ class SaveDesignsTest extends TestCase
             public function addAction(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
             {
                 $this->calls['addAction'][] = func_get_args();
+                return true;
+            }
+
+            public function addFilter(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
+            {
                 return true;
             }
 

@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostFactory;
 
-use Municipio\ExternalContent\Sources\Services\Source;
+use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 
@@ -15,8 +15,7 @@ class SchemaDataDecoratorTest extends TestCase
     {
         $schemaObject = $this->getSchemaObject();
         $factory      = new SchemaDataDecorator(new WpPostFactory());
-
-        $result = $factory->create($schemaObject, new Source('', ''));
+        $result       = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($schemaObject->toArray(), $result['meta_input']['schemaData']);
     }

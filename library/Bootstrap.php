@@ -124,13 +124,11 @@ add_action('init', function () use ($wpService) {
  * Initialize app
  */
 if (function_exists('get_field')) {
-    $acfFieldContentModifierRegistrar = new \Municipio\AcfFieldContentModifiers\Registrar($wpService);
-
     new Municipio\App(
         $wpService,
         $acfService,
         new HooksRegistrar(),
-        $acfFieldContentModifierRegistrar
+        new \Municipio\AcfFieldContentModifiers\Registrar($wpService)
     );
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {

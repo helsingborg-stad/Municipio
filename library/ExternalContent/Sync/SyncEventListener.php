@@ -23,7 +23,7 @@ class SyncEventListener implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('Municipio/ExternalContent/Sync', array($this, 'sync'));
+        $this->wpService->addAction('Municipio/ExternalContent/Sync', array($this, 'sync'), 10, 2);
     }
 
     public function sync(string $postType, ?int $postId = null): void

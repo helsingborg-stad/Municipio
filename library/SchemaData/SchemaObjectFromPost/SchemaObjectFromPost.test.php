@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
@@ -45,14 +46,14 @@ class SchemaObjectFromPostTest extends TestCase
         $this->assertInstanceOf(Event::class, $schemaObject);
     }
 
-    private function getUtil(?string $schemaType = ''): GetSchemaTypeFromPostTypeInterface
+    private function getUtil(?string $schemaType = ''): TryGetSchemaTypeFromPostType
     {
-        return new class ($schemaType) implements GetSchemaTypeFromPostTypeInterface {
+        return new class ($schemaType) implements TryGetSchemaTypeFromPostType {
             public function __construct(private ?string $schemaType)
             {
             }
 
-            public function getSchemaTypeFromPostType(string $postType): ?string
+            public function tryGetSchemaTypeFromPostType(string $postType): ?string
             {
                 return $this->schemaType;
             }

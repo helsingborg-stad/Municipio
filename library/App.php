@@ -241,33 +241,6 @@ class App
          * Branded emails
          */
         $this->trySetupBrandedEmails();
-        $this->wpService->addAction('init', function () {
-            // TODO: remove this options page
-            $this->acfService->addOptionsSubPage([
-                'page_title'  => 'Schema.org settings',
-                'menu_title'  => 'Schema.org settings',
-                'menu_slug'   => 'schema-data',
-                'capability'  => 'manage_options',
-                'parent_slug' => 'options-general.php',
-            ]);
-
-            $this->acfService->addOptionsSubPage([
-                'page_title'  => 'Post type schema settings',
-                'menu_title'  => 'Post type schema settings',
-                'menu_slug'   => 'mun-post-type-schema-settings',
-                'capability'  => 'manage_options',
-                'parent_slug' => 'options-general.php',
-            ]);
-        });
-        $this->wpService->addAction('init', function () {
-            $this->acfService->addOptionsSubPage([
-                'page_title'  => 'External Content Settings',
-                'menu_title'  => 'External Content',
-                'menu_slug'   => 'mun-external-content-settings',
-                'capability'  => 'manage_options',
-                'parent_slug' => 'options-general.php',
-            ]);
-        });
 
         /**
          * Apply schema.org data to posts
@@ -332,6 +305,16 @@ class App
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
             $autoExportIds['post-type-schema-settings'] = 'group_66d94a4867cec';
             return $autoExportIds;
+        });
+
+        $this->wpService->addAction('init', function () {
+            $this->acfService->addOptionsSubPage([
+                'page_title'  => 'Post type schema settings',
+                'menu_title'  => 'Post type schema settings',
+                'menu_slug'   => 'mun-post-type-schema-settings',
+                'capability'  => 'manage_options',
+                'parent_slug' => 'options-general.php',
+            ]);
         });
 
         $schemaDataConfig = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($this->acfService);
@@ -405,30 +388,37 @@ class App
 
     private function setupExternalContent(SchemaDataConfigInterface $schemaDataConfig): void
     {
+        /**
+         * Feature config
+         */
         $sourceConfigFactory     = new SourceConfigFactory();
         $postTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory, $schemaDataConfig);
         $externalContentConfig   = new \Municipio\Config\Features\ExternalContent\ExternalContentConfigService($schemaDataConfig, $postTypeSettingsFactory, $this->acfService);
-
-        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
-            $autoExportIds['external-content-settings'] = 'group_66d94ae935cfb';
-            return $autoExportIds;
-        });
 
         if (!$externalContentConfig->featureIsEnabled()) {
             return;
         }
 
         /**
-         * Register options page
+         * Register field group for external content settings.
          */
+        $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
+            $autoExportIds['external-content-settings'] = 'group_66d94ae935cfb';
+            return $autoExportIds;
+        });
 
         /**
-         * Populate taxonomy schema property field options.
+         * Register options page
          */
-        $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-        $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn($props) => array_combine($props, $props), $schemaTypesAndProperties);
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da99ea96265', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
+        $this->wpService->addAction('init', function () {
+            $this->acfService->addOptionsSubPage([
+                'page_title'  => 'External Content Settings',
+                'menu_title'  => 'External Content',
+                'menu_slug'   => 'mun-external-content-settings',
+                'capability'  => 'manage_options',
+                'parent_slug' => 'options-general.php',
+            ]);
+        });
 
         /**
          * Populate post type field options.
@@ -443,6 +433,17 @@ class App
         array_unshift($scheduleOptions, __('Never', 'municipio'));
         $this->acfFieldContentModifierRegistrar->registerModifier('field_66da9961f781e', new ModifyFieldChoices($scheduleOptions));
 
+        /**
+         * Populate taxonomy schema property field options.
+         */
+        $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
+        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn($props) => array_combine($props, $props), $schemaTypesAndProperties);
+        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da99ea96265', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
+
+        /**
+         * Add sync button to post list.
+         */
         $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
             $this->wpService->submitButton(
                 __('Sync all posts from remote source'),
@@ -452,6 +453,9 @@ class App
             );
         });
 
+        /**
+         * Add sync button to post row.
+         */
         $this->wpService->addAction('page_row_actions', function (array $actions, WP_Post $post) {
             $urlParams = sprintf(
                 '&%s&%s=%s',
@@ -477,21 +481,21 @@ class App
         /**
          * Setup cron jobs on config change.
          */
-        // $this->hooksRegistrar->register(
-        //     new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
-        //         $this->configFactory,
-        //         new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
-        //         $this->wpService
-        //     )
-        // );
+        $this->hooksRegistrar->register(
+            new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
+                $externalContentConfig,
+                new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
+                $this->wpService
+            )
+        );
 
         /**
-         * Build sources
+         * Build sources to sync from.
          */
         $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($externalContentConfig))->createSources();
 
         /**
-         * Register taxonomies.
+         * Register taxonomies for external content.
          */
         $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($externalContentConfig, $this->wpService);
         $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
