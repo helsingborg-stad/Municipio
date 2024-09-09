@@ -4,115 +4,71 @@ namespace Municipio\ImageConvert;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use Municipio\ImageConvert\Common\IsSpecificImageSize;
-use Municipio\ImageConvert\Common\IsSizeSufficient;
 
 class ResolveMissingImageSize implements Hookable
 {
-  public function __construct(private $wpService, private ImageConvertConfig $config){}
+    private $wpService;
+    private ImageConvertConfig $config;
+    private ResolveMissingImageSizeInterface $resolver;
 
-  public function addHooks(): void
-  {
-      $this->wpService->addFilter(
-          $this->config->createFilterKey('imageDownsize'),
-          [$this, 'resolveMissingImageSize'],
-          $this->config->internalFilterPriority()->resolveMissingImageSize,
-          3
-      );
-  }
+    public function __construct($wpService, ImageConvertConfig $config)
+    {
+        $this->wpService  = $wpService;
+        $this->config     = $config;
 
-  public function resolveMissingImageSize($false, $id, $size): mixed
-  {
-
-    if(!IsSpecificImageSize::isSpecificImageSize($size)) {
-      return $size;
+        $this->resolver = new ResolveMissingImageSizeByMeta($wpService);
     }
 
-    if(IsSizeSufficient::isSizeSufficient($size)) {
-      return $size;
+    public function addHooks(): void
+    {
+        $this->wpService->addFilter(
+            $this->config->createFilterKey('imageDownsize'),
+            [$this, 'resolveMissingImageSize'],
+            $this->config->internalFilterPriority()->resolveMissingImageSize,
+            3
+        );
     }
 
-    //Use this first to avoid file access if possible.
-    $sizeMeta = ($this->getAttachmentMetaDataDimensions($id));
+    public function resolveMissingImageSize($false, $id, $size): mixed
+    { 
 
-    //If the metadata is not sufficient, fetch the image file.
-    $sizeFile = ($this->getAttachmentFileDimensions($id));
-
-    //Calculate a new relative size for missing size values.
-    $size = $this->calculateRelativeSize($size, $sizeMeta, $sizeFile);
-    
-    
-
-    return $size;
-  }
-
-  private function calculateRelativeSize($size, $sizeMeta, $sizeFile): array
-  {
-    if($size[0] === false) {
-      $size[0] = $size[1] * ($sizeFile[0] / $sizeFile[1]);
-    }
-
-    if($size[1] === false) {
-      $size[1] = $size[0] * ($sizeFile[1] / $sizeFile[0]);
-    }
-
-    return $size;
-  }
-
-  private function getAttachmentMetaDataDimensions($id): ?array
-  {
-    $metaData = wp_get_attachment_metadata($id); //TODO: Implement in wpservice
-    if(!empty($metaData['width']) && !empty($metaData['height'])) {
-      return [
-        $metaData['width'],
-        $metaData['height']
-      ];
-    }
-    return null;
-  }
-
-  private function getAttachmentFileDimensions($id): array
-  {
-    if($file = get_attached_file($id)) { //TODO: Implement in wpservice
-
-      if(IsConsideredImage::isConsideredImage($file)) {
-        return $this->getImageDimensions($file, $id);
+      if(!$this->isSpecificImageSize($size)) {
+        return $size;
       }
 
 
-      $fetchedImage = getimagesize($file);
-      if($fetchedImage !== false) {
-        $size = [
-          $fetchedImage[0],
-          $fetchedImage[1]
-        ];
-      }
-    }
-    
-    //Check if valid
-    if(!isset($size) || !IsSizeSufficient::isSizeSufficient($size)) {
-      return $this->config->defaultImageDimensions();
+        // Use the resolver chain to find the image dimensions
+        $sourceFileSize = $this->resolver->getAttachmentDimensions($id);
+
+        if ($sourceFileSize !== null) {
+            $size = $this->calculateRelativeSize($size, $sourceFileSize);
+        }
+
+        return $size;
     }
 
-    //Store the dimensions in the attachment metadata. 
-    //This will avoid a future file access. 
-    $this->upsertAttachmentMetaData($id, $size);
+    private function calculateRelativeSize(array $size, array $sizeFile): array
+    {
+        [$width, $height] = $size;
+        [$fileWidth, $fileHeight] = $sizeFile;
 
-    return [
-      $size[0],
-      $size[1]
-    ];
-  }
+        if ($width === false) {
+            $width = $height * ($fileWidth / $fileHeight);
+        }
 
-  /**
-   * Update or inser the attachment size metadata.
-   */
-  private function upsertAttachmentMetaData($id, $size): bool
-  {
-    $result = wp_update_attachment_metadata($id, [ //TODO: Implement in wpservice
-      'width' => $size[0],
-      'height' => $size[1],
-    ]);
-    return (bool) $result;
-  }
+        if ($height === false) {
+            $height = $width * ($fileHeight / $fileWidth);
+        }
+
+        return [$width, $height];
+    }
+
+    /**
+     * Check if the size is a specific image size.
+     * This is a check to see if the size should be processsed.
+     */
+    private function isSpecificImageSize(mixed $size): bool
+    {
+        return is_array($size) && count($size) === 2;
+    }
 }

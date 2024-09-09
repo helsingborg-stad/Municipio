@@ -22,6 +22,7 @@ class NormalizeImageSize implements Hookable
 
     public function normalizeImageSize($false, $id, $size): mixed
     {
+        //TODO: Remove this when manual testing is done.
         if ($id != 4142782) {
             return $size;
         }

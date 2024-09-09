@@ -1,11 +1,15 @@
 <?php 
 
-namespace Municipio\ImageConvert;
+namespace Municipio\ImageConvert\Common;
 
 class IsconsideredImage
 {
-    public function isConsideredImage($file): bool
+    public static function isConsideredImage($file): bool
     {
+//wp_attachment_is_image
+
+
+
         $consideredExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
 
         if (!isset($file['ext'])) {

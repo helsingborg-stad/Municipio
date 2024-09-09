@@ -24,7 +24,8 @@ class ImageConvertFilter implements Hookable
   /**
    * Creates an internal filter for image conversion.
    * This effectivly garatuees that the image conversion 
-   * flow is in a chronological order without sideeffects.
+   * flow is in a chronological order without sideeffects 
+   * unless requested by injected filter between prioritys.
    */
   public function imageDownsize($false, $id, $size): mixed
   {

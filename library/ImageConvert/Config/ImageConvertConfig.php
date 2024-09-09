@@ -107,20 +107,25 @@ class ImageConvertConfig implements ImageConvertConfigInterface
    */
   public function internalFilterPriority(): object
   {
-      return (object) [
+    return (object) $this->wpService->applyFilters(
+      $this->createFilterKey(__FUNCTION__), 
+        [
         'normalizeImageSize' => 10,
         'resolveMissingImageSize' => 20,
         'imageConvert' => 30,
-      ];
+      ]
+    );
   }
 
   /**
    * Create a prefix for image conversion filter.
    * 
+   * TODO: Move this to COMMON. It is not a config.
+   * 
    * @return string
    */
   public function createFilterKey(string $filter = "") : string
   {
-    return self::FILTER_PREFIX . "/" . $filter;
+    return self::FILTER_PREFIX . "/" . ucfirst($filter);
   }
 }
