@@ -77,11 +77,6 @@ class Template
                 }
                 return $file;
             }
-
-            //Prevent error when no template is found
-            if(is_single()) {
-                return self::locateTemplate('page', $additionalPaths);
-            }
         } else {
             error_log("Muncipio error: No template search paths defined in " . __DIR__ . __FILE__);
         }
