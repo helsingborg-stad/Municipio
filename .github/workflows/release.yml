@@ -23,6 +23,9 @@ jobs:
   build-assets:
     needs: ['release']
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Get latest release version
         id: get-version
@@ -32,10 +35,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Update version in package.json
+        run: |
+          # Read the latest release version from environment variable
+          LATEST_VERSION="${{ env.LATEST_RELEASE }}"
+
+          # Update the "version" field in package.json using jq
+          jq --arg version "$LATEST_VERSION" '.version = $version' package.json > temp.json && mv temp.json package.json
+      
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
       - name: Inject access token in .npmrc
         run: | 
           echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
@@ -43,15 +54,13 @@ jobs:
       - name: Run CI
         if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') != '' }}
         run: npm ci --no-progress --no-audit
-      - name: Run install
-        if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') == '' }}
-        run: npm install --no-progress --no-audit
       - name: Run build
         if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') == '' }}
         run: npx --yes browserslist@latest --update-db && npm run build
-      - name: Run gulp
-        if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') != '' }}
-        run: gulp
+      - name: Publish npm package to GHCR
+        run: npm publish --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create assets zip
         uses: thedoctor0/zip-release@0.7.5
         if: ${{ hashFiles('dist/') != '' }}
