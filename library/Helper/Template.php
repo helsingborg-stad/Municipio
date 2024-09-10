@@ -75,10 +75,8 @@ class Template
                 if (!file_exists($file)) {
                     continue;
                 }
-
                 return $file;
             }
-            return self::locateTemplate('page', $additionalPaths);
         } else {
             error_log("Muncipio error: No template search paths defined in " . __DIR__ . __FILE__);
         }
