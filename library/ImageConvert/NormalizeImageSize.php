@@ -4,7 +4,7 @@ namespace Municipio\ImageConvert;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use Municipio\ImageConvert\Common\IsSpecificImageSize;
+use Municipio\ImageConvert\Contract\ImageContract;
 
 class NormalizeImageSize implements Hookable
 {
@@ -16,32 +16,29 @@ class NormalizeImageSize implements Hookable
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'normalizeImageSize'],
             $this->config->internalFilterPriority()->normalizeImageSize,
-            3
+            1
         );
     }
 
-    public function normalizeImageSize($false, $id, $size): mixed
+    public function normalizeImageSize(ImageContract $image): ImageContract|bool
     {
         //TODO: Remove this when manual testing is done.
-        if ($id != 4142782) {
-            return $size;
-        }
-
-        // Check if a specific size has been requested.
-        if (!IsSpecificImageSize::isSpecificImageSize($size)) {
-            return $size;
+        if ($image->getId() != 4142782) {
+            return false;
         }
 
         // Normalize incomplete size arrays by adding false values for missing dimensions.
-        $size = $this->normalizeSizeFalsy($size);
+        $dimensions = $this->normalizeSizeFalsy(
+            $image->getDimensions()
+        );
 
         // Normalize the size (cap dimensions and apply proportional scaling).
-        $size = $this->normalizeSizeCap(
-            $size,
+        $dimensions = $this->normalizeSizeCap(
+            $dimensions,
             $this->config->maxImageDimension()
         );
 
-        return $size;
+        return ImageContract::factory($image->getId(), $dimensions[0], $dimensions[1]);
     }
 
     /**

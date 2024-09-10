@@ -286,12 +286,12 @@ class App
 
 
         //Calculate image dimensions, if there are any missing. 
-        $resolveMissingImageSize = new \Municipio\ImageConvert\ResolveMissingImageSize(
+       /* $resolveMissingImageSize = new \Municipio\ImageConvert\ResolveMissingImageSize(
             $this->wpService, 
             $imageConvertConfig
         );
         $resolveMissingImageSize->addHooks();
-
+*/
         // Make WebP
 
         add_action('loop_start', function () use ($imageConvertConfig) {

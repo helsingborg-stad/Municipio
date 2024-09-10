@@ -6,6 +6,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\AddFilter;
+use Municipio\ImageConvert\Contract\ImageContract;
 
 class ImageConvertFilter implements Hookable
 {
@@ -31,9 +32,7 @@ class ImageConvertFilter implements Hookable
   {
     return $this->wpService->applyFilters(
       $this->config->createFilterKey(__FUNCTION__),
-      $false,
-      $id,
-      $size
+      ImageContract::factory($id, $size[0] ?? null, $size[1] ?? null)
     );
   }
 }
