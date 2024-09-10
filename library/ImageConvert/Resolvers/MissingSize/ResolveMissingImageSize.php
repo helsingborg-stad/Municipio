@@ -1,9 +1,10 @@
 <?php
 
-namespace Municipio\ImageConvert;
+namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
+use Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSizeInterface;
 
 class ResolveMissingImageSize implements Hookable
 {
@@ -25,32 +26,6 @@ class ResolveMissingImageSize implements Hookable
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'resolveMissingImageSize'],
             $this->config->internalFilterPriority()->resolveMissingImageSize,
-            1
         );
-    }
-
-    private function calculateRelativeSize(array $size, array $sizeFile): array
-    {
-        [$width, $height] = $size;
-        [$fileWidth, $fileHeight] = $sizeFile;
-
-        if ($width === false) {
-            $width = $height * ($fileWidth / $fileHeight);
-        }
-
-        if ($height === false) {
-            $height = $width * ($fileHeight / $fileWidth);
-        }
-
-        return [$width, $height];
-    }
-
-    /**
-     * Check if the size is a specific image size.
-     * This is a check to see if the size should be processsed.
-     */
-    private function isSpecificImageSize(mixed $size): bool
-    {
-        return is_array($size) && count($size) === 2;
     }
 }

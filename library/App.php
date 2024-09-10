@@ -294,6 +294,15 @@ class App
 */
         // Make WebP
 
+
+        $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(
+            $this->wpService, 
+            $imageConvertConfig
+        );
+        $resolveToWpImageContract->addHooks();
+
+
+
         add_action('loop_start', function () use ($imageConvertConfig) {
             $imageSrc = wp_get_attachment_image_src(4142782, [false, 4000]);
 

@@ -113,6 +113,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         'normalizeImageSize' => 10,
         'resolveMissingImageSize' => 20,
         'imageConvert' => 30,
+        'resolveToWpImageContract' => 40,
       ]
     );
   }

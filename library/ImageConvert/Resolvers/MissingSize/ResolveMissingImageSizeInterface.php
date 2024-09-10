@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ImageConvert;
+namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 interface ResolveMissingImageSizeInterface
 {
