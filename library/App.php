@@ -316,7 +316,7 @@ class App
             ]);
         });
 
-        $schemaDataConfig = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($this->acfService);
+        $schemaDataConfig = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($this->wpService);
 
         if (!$schemaDataConfig->featureIsEnabled()) {
             return;
@@ -353,11 +353,6 @@ class App
         $schemaTypes = array_keys($schemaTypesAndProperties);
         $schemaTypes = array_combine($schemaTypes, $schemaTypes);
         $this->acfFieldContentModifierRegistrar->registerModifier('field_66da9e4dffa66', new ModifyFieldChoices($schemaTypes));
-
-        /**
-         * Register options page
-         */
-
 
         /**
          * Shared dependencies.
