@@ -5,18 +5,21 @@ namespace Municipio\ExternalContent\Sources;
 use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
-use Municipio\ExternalContent\JsonToSchemaObjects\TryConvertTypesenseJsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceDecorators\JsonFileSourceServiceDecorator;
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceServiceWithSourceId;
 use Municipio\ExternalContent\Sources\SourceDecorators\FilterOutDuplicateObjectsFromSource;
-use Municipio\ExternalContent\Sources\Services\TypesenseClient\TypesenseClient;
-use Municipio\ExternalContent\Sources\SourceDecorators\TypesenseSourceServiceDecorator;
+use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingLocalJsonFile;
+use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingTypesense;
+use WpService\Contracts\RemoteGet;
+use WpService\Contracts\RemoteRetrieveBody;
 use WpService\FileSystem\BaseFileSystem;
 
 class SourceFactory implements SourceFactoryInterface
 {
-    public function __construct(private ExternalContentConfigInterface $config)
-    {
+    public function __construct(
+        private ExternalContentConfigInterface $config,
+        private RemoteGet&RemoteRetrieveBody $wpService
+    ) {
         return $this;
     }
 
@@ -33,14 +36,23 @@ class SourceFactory implements SourceFactoryInterface
         $source = new Source($settings->getPostType(), $settings->getSchemaType());
 
         if ($settings->getSourceConfig()->getType() === 'typesense') {
-            $typesenseClient = new TypesenseClient($settings->getSourceConfig());
-            $source          = new TypesenseSourceServiceDecorator($typesenseClient, new TryConvertTypesenseJsonToSchemaObjects(), $source);
+            $source = new SourceUsingTypesense(
+                $settings->getSourceConfig(),
+                $this->wpService,
+                new SimpleJsonConverter(),
+                $source
+            );
         } elseif ($settings->getSourceConfig()->getType() === 'json') {
-            $source = new JsonFileSourceServiceDecorator($settings->getSourceConfig(), new BaseFileSystem(), new SimpleJsonConverter(), $source);
+            $source = new SourceUsingLocalJsonFile(
+                $settings->getSourceConfig(),
+                new BaseFileSystem(),
+                new SimpleJsonConverter(),
+                $source
+            );
         }
 
         $source = new SourceServiceWithSourceId($source);
-        $source = new FilterOutDuplicateObjectsFromSource($source); // TODO: Rename to FilterOutDuplicateObjectsFromSource
+        $source = new FilterOutDuplicateObjectsFromSource($source);
 
         return $source;
     }

@@ -491,7 +491,7 @@ class App
         /**
          * Build sources to sync from.
          */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($externalContentConfig))->createSources();
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($externalContentConfig, $this->wpService))->createSources();
 
         /**
          * Register taxonomies for external content.

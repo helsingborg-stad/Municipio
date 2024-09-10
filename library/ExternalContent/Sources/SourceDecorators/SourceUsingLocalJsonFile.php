@@ -9,7 +9,7 @@ use Spatie\SchemaOrg\BaseType;
 use WP_Query;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceServiceDecorator implements SourceInterface {
+class SourceUsingLocalJsonFile implements SourceInterface {
 
     public function __construct(
         private JsonSourceConfigInterface $config,

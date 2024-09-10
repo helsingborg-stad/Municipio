@@ -8,7 +8,7 @@ use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
 use WpService\FileSystem\GetFileContent;
 
-class JsonFileSourceServiceDecoratorTest extends TestCase {
+class SourceUsingLocalJsonFileTest extends TestCase {
     
     /**
      * @testdox getObject() returns ThingContract on success
@@ -24,7 +24,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
+        $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('123');
 
@@ -45,7 +45,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
+        $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('456');
 
@@ -70,7 +70,7 @@ class JsonFileSourceServiceDecoratorTest extends TestCase {
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
         $config = $this->getConfig(['file' => 'fileLocation']);
-        $service = new JsonFileSourceServiceDecorator($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
+        $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $things = $service->getObjects(null);
 
