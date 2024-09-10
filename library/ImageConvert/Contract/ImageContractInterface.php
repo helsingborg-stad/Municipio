@@ -34,11 +34,26 @@ interface ImageContractInterface
     public function getWidth(): int|string|null;
 
     /**
+     * Set the width.
+     * 
+     * @param int $width The width value.
+     */
+
+    public function setWidth(int $width): void;
+
+    /**
      * Get the height.
      *
      * @return int|string|null The height value, which can be an integer, string, or null.
      */
     public function getHeight(): int|string|null;
+
+    /**
+     * Set the height.
+     * 
+     * @param int $height The height value.
+     */
+    public function setHeight(int $height): void;
 
     /**
      * Factory method for creating an instance of CreateContractReturn.

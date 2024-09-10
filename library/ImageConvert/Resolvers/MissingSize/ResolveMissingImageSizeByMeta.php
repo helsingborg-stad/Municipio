@@ -2,6 +2,7 @@
 
 namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
+use Municipio\ImageConvert\Contract\ImageContract;
 class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
 {
   public function __construct(private $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
@@ -11,17 +12,18 @@ class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
     );
   }
 
-  public function getAttachmentDimensions(int $id): ?array
+  public function getAttachmentDimensions(ImageContract $image): ?array
   {
-      $metaData = wp_get_attachment_metadata($id);  // $this->wpService->getAttachmentMetadata($id);
+      $metaData = wp_get_attachment_metadata($image->getId());
+
       if (!empty($metaData['width']) && !empty($metaData['height'])) {
           return [
-              $metaData['width'],
-              $metaData['height']
+              'width' => $metaData['width'],
+              'height' => $metaData['height']
           ];
       }
 
       // Delegate to the inner resolver
-      return $this->inner->getAttachmentDimensions($id);
+      //return $this->inner->getAttachmentDimensions($image);
   }
 }

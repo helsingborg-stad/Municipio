@@ -282,26 +282,19 @@ class App
         );
         $normalizeImageSize->addHooks();
 
-
-
-
         //Calculate image dimensions, if there are any missing. 
-       /* $resolveMissingImageSize = new \Municipio\ImageConvert\ResolveMissingImageSize(
+        $resolveMissingImageSize = new \Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSize(
             $this->wpService, 
             $imageConvertConfig
         );
         $resolveMissingImageSize->addHooks();
-*/
-        // Make WebP
 
-
+        //Resolve image to wp image contract (standard wordpress image array)
         $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(
             $this->wpService, 
             $imageConvertConfig
         );
         $resolveToWpImageContract->addHooks();
-
-
 
         add_action('loop_start', function () use ($imageConvertConfig) {
             $imageSrc = wp_get_attachment_image_src(4142782, [false, 4000]);

@@ -63,9 +63,19 @@ class ImageContract implements ImageContractInterface
         return $this->width;
     }
 
+    public function setWidth(int $width): void
+    {
+        $this->width = $width;
+    }
+
     public function getHeight(): int|string|null
     {
         return $this->height;
+    }
+
+    public function setHeight(int $height): void
+    {
+        $this->height = $height;
     }
 
     public static function factory(int $id, int|string|bool|null $height, int|string|bool|null $width): self

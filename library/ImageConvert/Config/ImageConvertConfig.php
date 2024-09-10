@@ -109,7 +109,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
   {
     return (object) $this->wpService->applyFilters(
       $this->createFilterKey(__FUNCTION__), 
-        [
+      [
         'normalizeImageSize' => 10,
         'resolveMissingImageSize' => 20,
         'imageConvert' => 30,
