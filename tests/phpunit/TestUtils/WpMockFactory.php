@@ -8,6 +8,9 @@ use stdClass;
 use WP_Post;
 use WP_Term;
 
+/**
+ * Class WpMockFactory.
+ */
 class WpMockFactory extends TestCase
 {
     /**

@@ -11,8 +11,8 @@ class CustomizerTest extends TestCase
 {
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {
-        $value = '';
-        $default = ['foo' => 'bar'];
+        $value      = '';
+        $default    = ['foo' => 'bar'];
         $customizer = new \Municipio\Customizer();
 
         $sanitizedValue = $customizer->sanitizeKirkiDefaultArrayValue($value, $default);
