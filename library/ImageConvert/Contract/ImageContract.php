@@ -16,10 +16,10 @@ class ImageContract implements ImageContractInterface
     // Constructor using property promotion
     public function __construct(private int $id, int|string|bool|null $height, int|string|bool|null $width)
     {
-        $this->height = $this->sanitizeDimension($height, 'height');
-        $this->width = $this->sanitizeDimension($width, 'width');
-        $this->url = $this->createAttachmentUrl($id);
-        $this->path = $this->createAttachmentPath($id);
+        $this->height   = $this->sanitizeDimension($height, 'height');
+        $this->width    = $this->sanitizeDimension($width, 'width');
+        $this->url      = $this->createAttachmentUrl($id);
+        $this->path     = $this->createAttachmentPath($id);
     }
 
     private function createAttachmentUrl(int $id): string
