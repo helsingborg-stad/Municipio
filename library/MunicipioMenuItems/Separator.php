@@ -20,8 +20,7 @@ class Separator
 
         foreach ($items as $index => &$item) {
             if ($item['post_type'] === 'separator') {
-                $fields = $this->acfService->getFields($item['id']);
-                echo '<pre>' . print_r($fields, true) . '</pre>';
+                $fields                         = $this->acfService->getFields($item['id']);
                 $item['attributeList']['style'] = $this->setNavigationColorVariables($fields);
             }
         }
