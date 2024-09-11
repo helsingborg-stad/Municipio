@@ -38,7 +38,7 @@ class ImageContract implements ImageContractInterface
         return self::$attachmentRuntimeCache['path'][$id] = get_attached_file($id);
     }
 
-    private function sanitizeDimension(int|string|bool|null $dimension, string $name): int|string|null
+    public function sanitizeDimension(int|string|bool|null $dimension, string $name): int|string|null
     {
         if ($dimension === true) {
             throw new \InvalidArgumentException("Image property '$name' cannot be boolean true. Must be an integer, string, null or false (casted to null).");
@@ -88,7 +88,8 @@ class ImageContract implements ImageContractInterface
 
     public function getIntermidiateLocation(?string $suffix = null): array
     {
-        $intermidiateString = function($path, $width, $height, $suffix = null) {
+        $intermidiateString = function($path, $width, $height, $suffix = null): string 
+        {
             $fileInfo  = pathinfo($path);
             $dirname   = $fileInfo['dirname'];
             $filename  = $fileInfo['filename'];
