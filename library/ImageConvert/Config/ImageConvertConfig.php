@@ -10,6 +10,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 
   const FILTER_PREFIX = 'Municipio/ImageConvert';
   const INTERMIDIATE_IMAGE_FORMAT = 'webp';
+  const INTERMIDIATE_IMAGE_QUALITY = 70;
 
   public function __construct(private ApplyFilters $wpService){}
 
@@ -58,6 +59,14 @@ class ImageConvertConfig implements ImageConvertConfigInterface
       'suffix' => $targetFormat,
       'mime'   => 'image/' . $targetMime,
     ];
+  }
+
+  public function intermidiateImageQuality() : int
+  {
+    return $this->wpService->applyFilters(
+      $this->createFilterKey(__FUNCTION__), 
+      self::INTERMIDIATE_IMAGE_QUALITY
+    );
   }
 
   /**

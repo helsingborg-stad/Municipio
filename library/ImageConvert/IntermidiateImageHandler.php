@@ -60,18 +60,21 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|bool
     {
-        $sourceFilePath = $image->getPath(); // Use the path from the image contract
-        $targetFormatSuffix = $this->config->intermidiateImageFormat()['suffix'];
-        $targetFormatMime   = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix); // Returns path and url
+        $sourceFilePath         = $image->getPath(); // Use the path from the image contract
+        $targetFormatSuffix     = $this->config->intermidiateImageFormat()['suffix'];
+        $targetFormatMime       = $this->config->intermidiateImageFormat()['mime'];
+        $intermediateLocation   = $image->getIntermidiateLocation($targetFormatSuffix); // Returns path and url
 
         // Check if ImageMagick or GD is available
         if (extension_loaded('imagick') || extension_loaded('gd')) {
             $imageEditor = wp_get_image_editor($sourceFilePath);
 
             if (!is_wp_error($imageEditor)) {
-                // Attempt to save the image in the target format (e.g., WebP or another format)
-                $savedImage = $imageEditor->save($intermediateLocation['path'], $targetFormatMime);
+                // Attempt to save the image in the target format and size
+                $savedImage = $imageEditor->save(
+                    $intermediateLocation['path'], 
+                    $targetFormatMime
+                );
 
                 if (!is_wp_error($savedImage) && file_exists($savedImage['path'])) {
                     // Set the new path and URL to the image object

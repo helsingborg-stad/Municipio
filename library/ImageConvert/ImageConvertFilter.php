@@ -76,7 +76,11 @@ class ImageConvertFilter implements Hookable
 
     return $this->wpService->applyFilters(
       $this->config->createFilterKey(__FUNCTION__),
-      ImageContract::factory($id, $size[0] ?? null, $size[1] ?? null)
+      ImageContract::factory(
+        $id, 
+        $size[0] ?? null, 
+        $size[1] ?? null
+      )
     );
   }
 
@@ -91,7 +95,7 @@ class ImageConvertFilter implements Hookable
   public function setImageQuality($quality, $mimeType): int
   {
     if ('image/webp' === $mimeType) {
-      return 70;
+      return $this->config->intermidiateImageQuality();
     }
     return $quality;
   }

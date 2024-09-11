@@ -11,4 +11,5 @@ interface ImageConvertConfigInterface
     public function fileNameSuffixes(): array;
     public function maxImageDimension(): int;
     public function intermidiateImageFormat(): array;
+    public function intermidiateImageQuality(): int;
 }
