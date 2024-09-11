@@ -33,8 +33,18 @@ class IntermidiateImageHandler implements Hookable
             return $image; // Fallback to original if not an instance of ImageContract
         }
 
-        $convertedImage = $this->convertImage($image);
+        //Deliver the image if it already exists
+        $intermediateLocation = $image->getIntermidiateLocation(
+            $this->config->intermidiateImageFormat()['suffix']
+        );
+        if(file_exists($intermediateLocation['path'])) {
+            $image->setUrl($intermediateLocation['url']);
+            $image->setPath($intermediateLocation['path']);
+            return $image;
+        }
 
+        //Create the intermediate image replacement if not exists
+        $convertedImage = $this->convertImage($image);
         if ($convertedImage) {
             return $convertedImage;
         }

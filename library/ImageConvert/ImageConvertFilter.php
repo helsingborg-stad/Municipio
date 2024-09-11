@@ -34,11 +34,20 @@ class ImageConvertFilter implements Hookable
 
   public function addHooks(): void
   {
+    //Downsize flow
     $this->wpService->addFilter(
       'image_downsize', 
       [$this, 'imageDownsize'], 
       $this->config->imageDownsizePriority(),
       3
+    );
+
+    //Image quality settings
+    $this->wpService->addFilter(
+      'wp_editor_set_quality',
+      [$this, 'setImageQuality'],
+      10,
+      2
     );
   }
 
@@ -69,5 +78,21 @@ class ImageConvertFilter implements Hookable
       $this->config->createFilterKey(__FUNCTION__),
       ImageContract::factory($id, $size[0] ?? null, $size[1] ?? null)
     );
+  }
+
+  /**
+   * Set image quality for the image editor.
+   * 
+   * @param int $quality
+   * @param string $mimeType
+   * 
+   * @return int
+   */
+  public function setImageQuality($quality, $mimeType): int
+  {
+    if ('image/webp' === $mimeType) {
+      return 70;
+    }
+    return $quality;
   }
 }
