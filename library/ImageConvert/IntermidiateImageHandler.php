@@ -4,12 +4,13 @@ namespace Municipio\ImageConvert;
 
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\IsWpError;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter $wpService, private ImageConvertConfig $config) {}
+    public function __construct(private AddFilter&isWpError $wpService, private ImageConvertConfig $config) {}
 
     public function addHooks(): void
     {
@@ -84,7 +85,7 @@ class IntermidiateImageHandler implements Hookable
                     $targetFormatMime
                 );
 
-                if (!is_wp_error($savedImage) && file_exists($savedImage['path'])) {
+                if (!$this->wpService->isWpError($savedImage) && file_exists($savedImage['path'])) {
                     // Set the new path and URL to the image object
                     $image->setUrl($intermediateLocation['url']);
                     $image->setPath($intermediateLocation['path']);
