@@ -1,0 +1,21 @@
+.menu-item-separator {
+    .field-title-attribute,
+    .field-link-target,
+    .field-css-classes,
+    .field-xfn,
+    .field-description {
+        display: none !important;
+    }
+
+    .item-controls::before {
+        content: "Separator";
+        color: #646970;
+        padding: 0 16px;
+        position: relative;
+        top: 7px;
+    }
+
+    .item-type {
+        display: none !important;
+    }
+}

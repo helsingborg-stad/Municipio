@@ -101,7 +101,8 @@ add_action('init', function () {
         'navigation-widget'                          => 'group_5ae64000dd723',
         'widget-media'                               => 'group_5b2b70c0bde2f',
         'media-attachments'                          => 'group_650857c9f2cce',
-        'hidden-validation'                          => 'group_654a2a57e6897'
+        'hidden-validation'                          => 'group_654a2a57e6897',
+        'municipio-menu-item-separator'              => 'group_6645d22ca7ef8'
     ));
 
     $acfExportManager->import();
