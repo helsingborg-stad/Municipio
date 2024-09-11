@@ -303,13 +303,13 @@ class App
         );
         $resolveToWpImageContract->addHooks();
 
-        add_action('loop_start', function () use ($imageConvertConfig) {
+        /*add_action('loop_start', function () use ($imageConvertConfig) {
             $imageSrc = wp_get_attachment_image_src(4142782, [450, false]);
 
             var_dump($imageSrc);
 
             sprintf('<img src="%s" alt="" width="%s" height="%s" />', $imageSrc[0], $imageSrc[1], $imageSrc[2]);
-        });
+        });*/ 
 
     }
 
