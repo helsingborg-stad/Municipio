@@ -249,7 +249,7 @@ class App
         }, 10, 2);
 
         add_filter('manage_nav-menus_columns', function ($columns) {
-            echo '<pre>' . print_r($columns, true) . '</pre>';
+            // echo '<pre>' . print_r($columns, true) . '</pre>';
             // die;
             return $columns;
         });
@@ -263,12 +263,12 @@ class App
             // die;
         });
 
-        // add_filter('acf/prepare_field/name=menu_location', function ($field) use ($navigationInstance) {
-        //     echo '<pre>' . print_r(get_registered_nav_menus(), true) . '</pre>';
-        //     die;
-        //     $field['choices'] = $navigationInstance->getAllMenuLocations();
-        //     return $field;
-        // }, 10, 1);
+        add_filter('acf/prepare_field/name=menu_location', function ($field) use ($navigationInstance) {
+            // echo '<pre>' . print_r(get_registered_nav_menus(), true) . '</pre>';
+            // die;
+            $field['choices'] = $navigationInstance->getAllMenuLocations();
+            return $field;
+        }, 10, 1);
 
         // add_filter('acf/load_field/name=menu_location', function ($field) use ($navigationInstance) {
         //     return $field;
