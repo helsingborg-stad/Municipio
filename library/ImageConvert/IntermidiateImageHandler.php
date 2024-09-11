@@ -70,6 +70,14 @@ class IntermidiateImageHandler implements Hookable
             $imageEditor = wp_get_image_editor($sourceFilePath);
 
             if (!is_wp_error($imageEditor)) {
+
+                //Make the resize
+                $imageEditor->resize(
+                    $image->getWidth(), 
+                    $image->getHeight(), 
+                    true
+                );
+
                 // Attempt to save the image in the target format and size
                 $savedImage = $imageEditor->save(
                     $intermediateLocation['path'], 
