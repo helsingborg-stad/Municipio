@@ -18,7 +18,7 @@ class ImageConvertFilter implements Hookable
       'image_downsize', 
       [$this, 'imageDownsize'], 
       $this->config->imageDownsizePriority(),
-      3 //Number of arguments to pass to the callback function.
+      3
     );
   }
 
@@ -30,6 +30,10 @@ class ImageConvertFilter implements Hookable
    */
   public function imageDownsize($false, $id, $size): mixed
   {
+    //Check if the requested size is something we can handle.
+    if(!is_array($size) && count($size) === 2) {
+      return false;
+    }
     return $this->wpService->applyFilters(
       $this->config->createFilterKey(__FUNCTION__),
       ImageContract::factory($id, $size[0] ?? null, $size[1] ?? null)

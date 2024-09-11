@@ -22,11 +22,6 @@ class NormalizeImageSize implements Hookable
 
     public function normalizeImageSize(ImageContract $image): ImageContract|bool
     {
-        //TODO: Remove this when manual testing is done.
-        if ($image->getId() != 4142782) {
-            return false;
-        }
-
         // Normalize incomplete size arrays by adding false values for missing dimensions.
         $dimensions = $this->normalizeSizeFalsy(
             $image->getDimensions()
