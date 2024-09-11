@@ -9,6 +9,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 {
 
   const FILTER_PREFIX = 'Municipio/ImageConvert';
+  const INTERMIDIATE_IMAGE_FORMAT = 'webp';
 
   public function __construct(private ApplyFilters $wpService){}
 
@@ -35,15 +36,28 @@ class ImageConvertConfig implements ImageConvertConfigInterface
   }
 
   /**
-   * The default image dimensions. 
-   * If image dimensions cannot be found. 
+   * The format to convert the intermidiate image to.
+   * 
+   * @return string
    */
-  public function defaultImageDimensions() : array
+  public function intermidiateImageFormat() : array
   {
-    return $this->wpService->applyFilters(
+    $targetFormat = $this->wpService->applyFilters(
       $this->createFilterKey(__FUNCTION__), 
-      [1280, 720]
+      self::INTERMIDIATE_IMAGE_FORMAT
     );
+
+    if(!in_array($targetFormat, $this->fileNameSuffixes())) {
+      throw new \Exception('Invalid target format');
+    }
+
+    //Alias jpg to jpeg
+    $targetMime = ($targetFormat === 'jpg') ? 'jpeg' : $targetFormat;
+
+    return [
+      'suffix' => $targetFormat,
+      'mime'   => 'image/' . $targetMime,
+    ];
   }
 
   /**
@@ -76,6 +90,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 
   /**
    * The suffixes for the mime types.
+   * To filter this list, please use the mimeTypes filter.
    * 
    * @return array
    */
@@ -92,10 +107,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
       $mimeTypes[] = 'jpg';
     }
 
-    return $this->wpService->applyFilters(
-      $this->createFilterKey(__FUNCTION__), 
-      $mimeTypes
-    );
+    return $mimeTypes;
   }
 
   /**
@@ -112,7 +124,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
       [
         'normalizeImageSize' => 10,
         'resolveMissingImageSize' => 20,
-        'imageConvert' => 30,
+        'intermidiateImageConvert' => 30,
         'resolveToWpImageContract' => 40,
       ]
     );

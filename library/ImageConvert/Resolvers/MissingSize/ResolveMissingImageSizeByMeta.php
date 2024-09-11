@@ -14,16 +14,25 @@ class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
 
   public function getAttachmentDimensions(ImageContract $image): ?array
   {
+      // Get attachment metadata
       $metaData = wp_get_attachment_metadata($image->getId());
 
-      if (!empty($metaData['width']) && !empty($metaData['height'])) {
+      // Filter the metadata to ensure 'width' and 'height' exist and are numeric
+      $metaDataDimensions = array_filter(
+          $metaData, 
+          fn($value, $key) => in_array($key, ['width', 'height']) && is_numeric($value), 
+          ARRAY_FILTER_USE_BOTH
+      );
+
+      // Check if both 'width' and 'height' were found and are numeric
+      if (count($metaDataDimensions) === 2) {
           return [
-              'width' => $metaData['width'],
-              'height' => $metaData['height']
+            'width' => (int) $metaData['width'],
+            'height' => (int) $metaData['height']
           ];
       }
 
-      // Delegate to the inner resolver
-      //return $this->inner->getAttachmentDimensions($image);
+      // Delegate to the inner resolver if needed
+      return $this->inner->getAttachmentDimensions($image);
   }
 }

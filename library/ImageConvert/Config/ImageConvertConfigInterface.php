@@ -10,5 +10,5 @@ interface ImageConvertConfigInterface
     public function internalFilterPriority() : object;
     public function fileNameSuffixes(): array;
     public function maxImageDimension(): int;
-    public function defaultImageDimensions(): array;
+    public function intermidiateImageFormat(): array;
 }

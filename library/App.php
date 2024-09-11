@@ -289,6 +289,13 @@ class App
         );
         $resolveMissingImageSize->addHooks();
 
+        //Create the missing intermidiate image
+        $intermidiateImageHandler = new \Municipio\ImageConvert\IntermidiateImageHandler(
+            $this->wpService, 
+            $imageConvertConfig
+        );
+        $intermidiateImageHandler->addHooks();
+
         //Resolve image to wp image contract (standard wordpress image array)
         $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(
             $this->wpService, 
@@ -297,7 +304,7 @@ class App
         $resolveToWpImageContract->addHooks();
 
         add_action('loop_start', function () use ($imageConvertConfig) {
-            $imageSrc = wp_get_attachment_image_src(4142782, [false, 4000]);
+            $imageSrc = wp_get_attachment_image_src(4142782, [450, false]);
 
             var_dump($imageSrc);
 
