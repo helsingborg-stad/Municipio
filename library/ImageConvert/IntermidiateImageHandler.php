@@ -14,7 +14,7 @@ class IntermidiateImageHandler implements Hookable
     public function addHooks(): void
     {
       $this->wpService->addFilter(
-          $this->config->createFilterKey('image_downsize'),
+          $this->config->createFilterKey('imageDownsize'),
           [$this, 'createIntermidiateImage'],
           $this->config->internalFilterPriority()->intermidiateImageConvert,
           1
