@@ -60,7 +60,7 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
+        $navigationInstance = new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -176,7 +176,7 @@ class App
         new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
-        
+
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
@@ -241,6 +241,38 @@ class App
          * Apply schema.org data to posts
          */
         $this->setupSchemaDataFeature();
+
+        add_action('wp_update_nav_menu', function ($menuId, $menuData = null) {
+            // echo '<pre>' . print_r($menuId, true) . '</pre>';
+            // echo '<pre>' . print_r($menuData, true) . '</pre>';
+            // die;
+        }, 10, 2);
+
+        add_filter('manage_nav-menus_columns', function ($columns) {
+            echo '<pre>' . print_r($columns, true) . '</pre>';
+            // die;
+            return $columns;
+        });
+
+
+        // echo '<pre>' . print_r(get_alloptions(), true) . '</pre>';
+        // die;
+
+        add_action('init', function () {
+            // echo '<pre>' . print_r(wp_get_nav_menus(), true) . '</pre>';
+            // die;
+        });
+
+        // add_filter('acf/prepare_field/name=menu_location', function ($field) use ($navigationInstance) {
+        //     echo '<pre>' . print_r(get_registered_nav_menus(), true) . '</pre>';
+        //     die;
+        //     $field['choices'] = $navigationInstance->getAllMenuLocations();
+        //     return $field;
+        // }, 10, 1);
+
+        // add_filter('acf/load_field/name=menu_location', function ($field) use ($navigationInstance) {
+        //     return $field;
+        // }, 10, 1);
     }
 
     /**

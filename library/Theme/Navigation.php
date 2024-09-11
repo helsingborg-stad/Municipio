@@ -75,9 +75,11 @@ class Navigation
     }
 
     /**
-     * Register Menus
+     * Get all menu locations
+     *
+     * @return array
      */
-    public function registerNavigationMenus()
+    public function getAllMenuLocations(): array
     {
         $menus = self::getMenuLocations();
 
@@ -85,8 +87,16 @@ class Navigation
         $menus = array_merge($menus, $this->getArchiveMenus());
         $menus = array_merge($menus, $this->getSchemaTypeMenus());
 
+        return $menus;
+    }
+
+    /**
+     * Register Menus
+     */
+    public function registerNavigationMenus()
+    {
         //Register menus
-        register_nav_menus($menus);
+        register_nav_menus($this->getAllMenuLocations());
     }
 
     /**
