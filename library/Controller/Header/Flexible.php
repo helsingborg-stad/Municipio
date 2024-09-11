@@ -20,6 +20,7 @@ class Flexible implements HeaderInterface
     private HeaderVisibilityClasses $headerVisibilityClassesInstance;
     private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
+    private bool $hasSeparateBrandText         = false;
 
     public function __construct(private object $customizer)
     {
@@ -37,17 +38,19 @@ class Flexible implements HeaderInterface
     // Gets the header data accessible in the view.
     public function getHeaderData(): array
     {
-        $upperItems                  = $this->getItems('main_upper');
-        $lowerItems                  = $this->getItems('main_lower');
+        $upperItems = $this->getItems('main_upper');
+        $lowerItems = $this->getItems('main_lower');
+
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
 
         return [
-            'upperHeader' => $upperHeader,
-            'lowerHeader' => $lowerHeader,
-            'upperItems'  => $upperItems['modified'],
-            'lowerItems'  => $lowerItems['modified'],
-            'hasMegaMenu' => $this->hasMegaMenu,
-            'hasSearch'   => $this->hasSearch,
+            'upperHeader'          => $upperHeader,
+            'lowerHeader'          => $lowerHeader,
+            'upperItems'           => $upperItems['modified'],
+            'lowerItems'           => $lowerItems['modified'],
+            'hasMegaMenu'          => $this->hasMegaMenu,
+            'hasSearch'            => $this->hasSearch,
+            'hasSeparateBrandText' => $this->hasSeparateBrandText
         ];
     }
 
@@ -105,8 +108,9 @@ class Flexible implements HeaderInterface
         [$setting, $settingCamelCased]              = $this->getSettingName($section);
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
-        $this->hasMegaMenu = $this->hasMegaMenu($desktopOrderedItems, $mobileOrderedItems);
-        $this->hasSearch   = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasMegaMenu          = $this->hasMegaMenu($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSearch            = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems);
 
         // Building the items
         $items = $this->flipKeyValueTransformer->transform($desktopOrderedItems, $mobileOrderedItems);
@@ -127,6 +131,15 @@ class Flexible implements HeaderInterface
     private function hasMegaMenu($desktopOrderedItems, $mobileOrderedItems): bool
     {
         return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems) || in_array('mega-menu', $mobileOrderedItems);
+    }
+
+    // Checks if the brand text is separated from logotype.
+    private function hasSeparateBrandText(array $desktopOrderedItems, array $mobileOrderedItems)
+    {
+        return
+            $this->hasSeparateBrandText ||
+            in_array('brand-text', $desktopOrderedItems) ||
+            in_array('brand-text', $mobileOrderedItems);
     }
 
     // Gets the ordered menu items from the customizer.

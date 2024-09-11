@@ -298,7 +298,8 @@ class Layout
         $filteredMenuOptions = [
             'header-search-form' => __('Search Form', 'municipio'),
             'search-modal'       => __('Search Button', 'municipio'),
-            'logotype'           => __('Logotype', 'municipio')
+            'logotype'           => __('Logotype', 'municipio'),
+            'brand-text'         => __('Brand Text', 'municipio')
         ];
 
         foreach ($allowedMenus as $menuSlug => $menuData) {
