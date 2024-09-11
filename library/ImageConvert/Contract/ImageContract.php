@@ -9,22 +9,22 @@ class ImageContract implements ImageContractInterface
     private int|string|null $height;
     private int|string|null $width;
     private static array $attachmentRuntimeCache = [
-        'url' => [],
+        'url'  => [],
         'path' => []
     ];
 
     // Constructor using property promotion
     public function __construct(private int $id, int|string|bool|null $height, int|string|bool|null $width)
     {
-        $this->height   = $this->sanitizeDimension($height, 'height');
-        $this->width    = $this->sanitizeDimension($width, 'width');
-        $this->url      = $this->createAttachmentUrl($id);
-        $this->path     = $this->createAttachmentPath($id);
+        $this->height = $this->sanitizeDimension($height, 'height');
+        $this->width  = $this->sanitizeDimension($width, 'width');
+        $this->url    = $this->createAttachmentUrl($id);
+        $this->path   = $this->createAttachmentPath($id);
     }
 
     private function createAttachmentUrl(int $id): string
     {
-        if(array_key_exists($id, self::$attachmentRuntimeCache)) {
+        if (array_key_exists($id, self::$attachmentRuntimeCache)) {
             return self::$attachmentRuntimeCache['url'][$id];
         }
         return self::$attachmentRuntimeCache['url'][$id] = wp_get_attachment_url($id);
@@ -32,7 +32,7 @@ class ImageContract implements ImageContractInterface
 
     private function createAttachmentPath(int $id): string
     {
-        if(array_key_exists($id, self::$attachmentRuntimeCache)) {
+        if (array_key_exists($id, self::$attachmentRuntimeCache)) {
             return self::$attachmentRuntimeCache['path'][$id];
         }
         return self::$attachmentRuntimeCache['path'][$id] = get_attached_file($id);
@@ -79,31 +79,30 @@ class ImageContract implements ImageContractInterface
     public function getDimensions(): array
     {
         return [
-            0 => $this->width,
-            1 => $this->height,
-            'width' => $this->width,
+            0        => $this->width,
+            1        => $this->height,
+            'width'  => $this->width,
             'height' => $this->height
         ];
     }
 
     public function getIntermidiateLocation(?string $suffix = null): array
     {
-        $intermidiateString = function($path, $width, $height, $suffix = null): string 
-        {
+        $intermidiateString = function ($path, $width, $height, $suffix = null): string {
             $fileInfo  = pathinfo($path);
             $dirname   = $fileInfo['dirname'];
             $filename  = $fileInfo['filename'];
             $extension = $fileInfo['extension'];
 
-            if(!is_null($suffix)) {
+            if (!is_null($suffix)) {
                 $extension = $suffix;
             }
-            
+
             return $dirname . '/' . $filename . '-' . $width . 'x' . $height . '.' . $extension;
         };
 
         return [
-            'url' => $intermidiateString($this->url, $this->getWidth(), $this->getHeight(), $suffix),
+            'url'  => $intermidiateString($this->url, $this->getWidth(), $this->getHeight(), $suffix),
             'path' => $intermidiateString($this->path, $this->getWidth(), $this->getHeight(), $suffix)
         ];
     }

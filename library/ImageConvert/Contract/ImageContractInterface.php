@@ -20,28 +20,28 @@ interface ImageContractInterface
 
     /**
      * Set the URL.
-     * 
+     *
      * @param string $url The URL value.
      */
     public function setUrl(string $url): void;
 
     /**
      * Get path
-     * 
+     *
      * @return string The path associated with the contract.
      */
     public function getPath(): string;
 
     /**
      * Set path
-     * 
+     *
      * @param string $path The path value.
      */
     public function setPath(string $path): void;
 
     /**
      * Get width, height array.
-     * 
+     *
      * @return array The width and height values.
      */
 
@@ -49,8 +49,8 @@ interface ImageContractInterface
 
 
     /**
-     * Get intermidiate locations. 
-     * 
+     * Get intermidiate locations.
+     *
      * @return array The intermidiate locations.
      */
     public function getIntermidiateLocation(): array;
@@ -64,7 +64,7 @@ interface ImageContractInterface
 
     /**
      * Set the width.
-     * 
+     *
      * @param int $width The width value.
      */
 
@@ -79,7 +79,7 @@ interface ImageContractInterface
 
     /**
      * Set the height.
-     * 
+     *
      * @param int $height The height value.
      */
     public function setHeight(int $height): void;

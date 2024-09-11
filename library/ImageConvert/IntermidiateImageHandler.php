@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Municipio\ImageConvert;
 
@@ -10,16 +10,18 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError $wpService, private ImageConvertConfig $config) {}
+    public function __construct(private AddFilter&isWpError $wpService, private ImageConvertConfig $config)
+    {
+    }
 
     public function addHooks(): void
     {
-      $this->wpService->addFilter(
-          $this->config->createFilterKey('imageDownsize'),
-          [$this, 'createIntermidiateImage'],
-          $this->config->internalFilterPriority()->intermidiateImageConvert,
-          1
-      );
+        $this->wpService->addFilter(
+            $this->config->createFilterKey('imageDownsize'),
+            [$this, 'createIntermidiateImage'],
+            $this->config->internalFilterPriority()->intermidiateImageConvert,
+            1
+        );
     }
 
     /**
@@ -38,7 +40,7 @@ class IntermidiateImageHandler implements Hookable
         $intermediateLocation = $image->getIntermidiateLocation(
             $this->config->intermidiateImageFormat()['suffix']
         );
-        if(file_exists($intermediateLocation['path'])) {
+        if (file_exists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
             return $image;
@@ -61,27 +63,26 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|bool
     {
-        $sourceFilePath         = $image->getPath(); // Use the path from the image contract
-        $targetFormatSuffix     = $this->config->intermidiateImageFormat()['suffix'];
-        $targetFormatMime       = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation   = $image->getIntermidiateLocation($targetFormatSuffix); // Returns path and url
+        $sourceFilePath       = $image->getPath(); // Use the path from the image contract
+        $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
+        $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
+        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix); // Returns path and url
 
         // Check if ImageMagick or GD is available
         if (extension_loaded('imagick') || extension_loaded('gd')) {
             $imageEditor = wp_get_image_editor($sourceFilePath);
 
             if (!is_wp_error($imageEditor)) {
-
                 //Make the resize
                 $imageEditor->resize(
-                    $image->getWidth(), 
-                    $image->getHeight(), 
+                    $image->getWidth(),
+                    $image->getHeight(),
                     true
                 );
 
                 // Attempt to save the image in the target format and size
                 $savedImage = $imageEditor->save(
-                    $intermediateLocation['path'], 
+                    $intermediateLocation['path'],
                     $targetFormatMime
                 );
 

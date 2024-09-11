@@ -21,7 +21,7 @@ class ResolveMissingImageSizeDefault implements ResolveMissingImageSizeInterface
         error_log('ResolveMissingImageSizeDefault: Could not resolve image size by file or meta data. Using default size 500x500. ' . $imageDetails);
 
         return [
-            'width' => 500,
+            'width'  => 500,
             'height' => 500
         ];
     }

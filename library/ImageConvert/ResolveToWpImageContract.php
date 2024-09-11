@@ -9,28 +9,30 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 class ResolveToWpImageContract implements Hookable
 {
-  public function __construct(private AddFilter $wpService, private ImageConvertConfig $config){}
-
-  public function addHooks(): void
-  {
-    $this->wpService->addFilter(
-      $this->config->createFilterKey('imageDownsize'),
-      [$this, 'resolveToWpImageContract'], 
-      $this->config->internalFilterPriority()->resolveToWpImageContract,
-      1
-    );
-  }
-
-  public function resolveToWpImageContract($image): false|array
-  {
-    if (!$image instanceof ImageContract) {
-      return $image;
+    public function __construct(private AddFilter $wpService, private ImageConvertConfig $config)
+    {
     }
-    return [
-      $image->getUrl(),
-      $image->getWidth(),
-      $image->getHeight(),
-      true
-    ];
-  }
+
+    public function addHooks(): void
+    {
+        $this->wpService->addFilter(
+            $this->config->createFilterKey('imageDownsize'),
+            [$this, 'resolveToWpImageContract'],
+            $this->config->internalFilterPriority()->resolveToWpImageContract,
+            1
+        );
+    }
+
+    public function resolveToWpImageContract($image): false|array
+    {
+        if (!$image instanceof ImageContract) {
+            return $image;
+        }
+        return [
+        $image->getUrl(),
+        $image->getWidth(),
+        $image->getHeight(),
+        true
+        ];
+    }
 }

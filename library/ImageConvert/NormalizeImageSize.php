@@ -8,7 +8,9 @@ use Municipio\ImageConvert\Contract\ImageContract;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private $wpService, private ImageConvertConfig $config){}
+    public function __construct(private $wpService, private ImageConvertConfig $config)
+    {
+    }
 
     public function addHooks(): void
     {
@@ -51,7 +53,7 @@ class NormalizeImageSize implements Hookable
             return $size;
         }
 
-        $width = $size[0];
+        $width  = $size[0];
         $height = $size[1];
 
         // If both dimensions are missing, return the original size.
@@ -129,7 +131,7 @@ class NormalizeImageSize implements Hookable
         if ($width > $limit || $height > $limit) {
             $scaleFactor = min($limit / $width, $limit / $height);
 
-            $newWidth = (int) round($width * $scaleFactor);
+            $newWidth  = (int) round($width * $scaleFactor);
             $newHeight = (int) round($height * $scaleFactor);
 
             return [$newWidth, $newHeight];
