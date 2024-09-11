@@ -41,6 +41,11 @@ class ResolveMissingImageSize implements Hookable
             return $image;
         }
 
+        //Bypass if both width and height is set
+        if(is_numeric($image->getWidth()) && is_numeric($image->getHeight())) {
+            return $image;
+        }
+
         //Initialize the resolver
         $resolver = new ResolveMissingImageSizeByMeta($this->wpService);
         $resolvedImageSize       = $resolver->getAttachmentDimensions($image);
