@@ -176,7 +176,7 @@ class App
         new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
-        
+
         new \Municipio\Admin\Options\Theme();
         new \Municipio\Admin\Options\Timestamp();
         new \Municipio\Admin\Options\GoogleTranslate();
@@ -185,6 +185,7 @@ class App
 
         new \Municipio\Admin\Acf\PrefillIconChoice();
         new \Municipio\Admin\Acf\ImageAltTextValidation();
+        new \Municipio\Admin\Acf\LocationRules();
 
         new \Municipio\Admin\Roles\General();
         new \Municipio\Admin\Roles\Editor();
@@ -241,6 +242,11 @@ class App
          * Apply schema.org data to posts
          */
         $this->setupSchemaDataFeature();
+
+        /**
+         * Municipio specific menu items
+         */
+        new \Municipio\MunicipioMenuItems\MunicipioMenuItems($this->wpService, $this->acfService);
     }
 
     /**
