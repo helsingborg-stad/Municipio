@@ -16,6 +16,7 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\ExternalContent\Config\ExternalContentConfigArray;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -385,6 +386,7 @@ class App
         /**
          * Feature config
          */
+        $configArray             = (new ExternalContentConfigArray($this->wpService))->create();
         $sourceConfigFactory     = new SourceConfigFactory();
         $postTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory, $schemaDataConfig);
         $externalContentConfig   = new \Municipio\Config\Features\ExternalContent\ExternalContentConfigService($schemaDataConfig, $postTypeSettingsFactory, $this->acfService);
