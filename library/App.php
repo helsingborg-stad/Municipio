@@ -52,8 +52,7 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        //new \Municipio\Theme\OnTheFlyImages();
-        new \Municipio\Theme\SharpenThumbnails();
+        new \Municipio\Theme\SharpenThumbnails(); // TODO: Move to image convert flow. 
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
@@ -302,15 +301,6 @@ class App
             $imageConvertConfig
         );
         $resolveToWpImageContract->addHooks();
-
-        /*add_action('loop_start', function () use ($imageConvertConfig) {
-            $imageSrc = wp_get_attachment_image_src(4142782, [450, false]);
-
-            var_dump($imageSrc);
-
-            sprintf('<img src="%s" alt="" width="%s" height="%s" />', $imageSrc[0], $imageSrc[1], $imageSrc[2]);
-        });*/ 
-
     }
 
     /**
