@@ -9,9 +9,7 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 
 class ResolveToWpImageContract implements Hookable
 {
-    public function __construct(private AddFilter $wpService, private ImageConvertConfig $config)
-    {
-    }
+    public function __construct(private AddFilter $wpService, private ImageConvertConfig $config){}
 
     public function addHooks(): void
     {
@@ -29,10 +27,10 @@ class ResolveToWpImageContract implements Hookable
             return $image;
         }
         return [
-        $image->getUrl(),
-        $image->getWidth(),
-        $image->getHeight(),
-        true
+            $image->getUrl(),
+            $image->getWidth(),
+            $image->getHeight(),
+            true
         ];
     }
 }

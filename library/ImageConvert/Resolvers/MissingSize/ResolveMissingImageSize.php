@@ -78,20 +78,20 @@ class ResolveMissingImageSize implements Hookable
      */
     private function calculateScaledDimensions(ImageContract $image, array $resolvedImageSize): array
     {
-    // Get the original dimensions from the image contract
+        // Get the original dimensions from the image contract
         $originalWidth  = $image->getWidth();
         $originalHeight = $image->getHeight();
 
-    // Ensure the resolved dimensions are available and valid
+        // Ensure the resolved dimensions are available and valid
         $resolvedWidth  = $resolvedImageSize['width'] ?? null;
         $resolvedHeight = $resolvedImageSize['height'] ?? null;
 
-    // Check if both resolvedWidth and resolvedHeight are available
+        // Check if both resolvedWidth and resolvedHeight are available
         if (!is_numeric($resolvedWidth) || !is_numeric($resolvedHeight)) {
             return $resolvedImageSize; // Fallback to resolved image size if invalid
         }
 
-    // If one of the original dimensions is null, calculate it using the resolved dimensions
+        // If one of the original dimensions is null, calculate it using the resolved dimensions
         if ($originalWidth === null && $originalHeight !== null) {
             // Calculate originalWidth based on aspect ratio and resolvedHeight
             $originalWidth = ($resolvedWidth / $resolvedHeight) * $originalHeight;
@@ -100,12 +100,12 @@ class ResolveMissingImageSize implements Hookable
             $originalHeight = ($resolvedHeight / $resolvedWidth) * $originalWidth;
         }
 
-    // If both dimensions are missing, fallback to resolved dimensions
+        // If both dimensions are missing, fallback to resolved dimensions
         if ($originalWidth === null || $originalHeight === null) {
             return $resolvedImageSize; // Can't scale, so return the resolved dimensions
         }
 
-    // Return the scaled dimensions
+        // Return the scaled dimensions
         return [
         'width'  => (int) round($originalWidth),
         'height' => (int) round($originalHeight),

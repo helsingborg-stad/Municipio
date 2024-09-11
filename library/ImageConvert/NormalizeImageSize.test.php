@@ -38,11 +38,11 @@ class NormalizeImageSizeTest extends TestCase
     private function normalizeSizeCapProvider()
     {
         return [
-        [[3000, 4000], [1875, 2500]],
-        [[false, 4000], [false, 2500]],
-        [[3000, false], [2500, false]],
-        [[1000, 1000], [1000, 1000]],
-        [[false, false], [false, false]]
+            [[3000, 4000], [1875, 2500]],
+            [[false, 4000], [false, 2500]],
+            [[3000, false], [2500, false]],
+            [[1000, 1000], [1000, 1000]],
+            [[false, false], [false, false]]
         ];
     }
 }

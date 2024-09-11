@@ -37,20 +37,20 @@ class ImageConvertFilter implements Hookable
     public function addHooks(): void
     {
       //Downsize flow
-        $this->wpService->addFilter(
-            'image_downsize',
-            [$this, 'imageDownsize'],
-            $this->config->imageDownsizePriority(),
-            3
-        );
+      $this->wpService->addFilter(
+          'image_downsize',
+          [$this, 'imageDownsize'],
+          $this->config->imageDownsizePriority(),
+          3
+      );
 
       //Image quality settings
-        $this->wpService->addFilter(
-            'wp_editor_set_quality',
-            [$this, 'setImageQuality'],
-            10,
-            2
-        );
+      $this->wpService->addFilter(
+          'wp_editor_set_quality',
+          [$this, 'setImageQuality'],
+          10,
+          2
+      );
     }
 
   /**
@@ -62,28 +62,28 @@ class ImageConvertFilter implements Hookable
     public function imageDownsize($false, $id, $size): mixed
     {
       //Check if the requested size is something we can handle.
-        if (!is_array($size)) {
-            return false;
-        }
+      if (!is_array($size)) {
+          return false;
+      }
 
       //Check that it is a valid image size array.
-        if (count($size) < 2) {
-            return false;
-        }
+      if (count($size) < 2) {
+          return false;
+      }
 
       //Detect that the array contains at least one integer value.
-        if (!is_int($size[0]) && !is_int($size[1])) {
-            return false;
-        }
+      if (!is_int($size[0]) && !is_int($size[1])) {
+          return false;
+      }
 
-        return $this->wpService->applyFilters(
-            $this->config->createFilterKey(__FUNCTION__),
-            ImageContract::factory(
-                $id,
-                $size[0] ?? null,
-                $size[1] ?? null
-            )
-        );
+      return $this->wpService->applyFilters(
+          $this->config->createFilterKey(__FUNCTION__),
+          ImageContract::factory(
+              $id,
+              $size[0] ?? null,
+              $size[1] ?? null
+          )
+      );
     }
 
   /**
@@ -96,9 +96,9 @@ class ImageConvertFilter implements Hookable
    */
     public function setImageQuality($quality, $mimeType): int
     {
-        if ('image/webp' === $mimeType) {
-            return $this->config->intermidiateImageQuality();
-        }
-        return $quality;
+      if ('image/webp' === $mimeType) {
+          return $this->config->intermidiateImageQuality();
+      }
+      return $quality;
     }
 }
