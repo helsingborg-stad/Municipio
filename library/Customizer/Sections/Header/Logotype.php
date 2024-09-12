@@ -122,27 +122,27 @@ class Logotype
                 ],
                 [
                     'choice'   => 'font-family',
-                    'element'  => '.c-brand .c-brand__text',
+                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
                     'property' => 'font-family',
                 ],
                 [
                     'choice'   => 'variant',
-                    'element'  => '.c-brand .c-brand__text',
+                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
                     'property' => 'font-variant',
                 ],
                 [
                     'choice'   => 'line-height',
-                    'element'  => '.c-brand .c-brand__text',
+                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
                     'property' => 'line-height',
                 ],
                 [
                     'choice'   => 'letter-spacing',
-                    'element'  => '.c-brand .c-brand__text',
+                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
                     'property' => 'letter-spacing',
                 ],
                 [
                     'choice'   => 'text-transform',
-                    'element'  => '.c-brand .c-brand__text',
+                    'element'  => '.c-brand .c-brand__text, .c-header__brand-text',
                     'property' => 'text-transform',
                 ],
             ]

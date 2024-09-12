@@ -1,1 +1,9 @@
-@includeIf('partials.navigation.drawer')
+@includeIf('partials.navigation.drawer', [
+    'screenSizes' => [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl'
+    ]
+])

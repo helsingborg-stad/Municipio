@@ -72,10 +72,10 @@ class IsCurrentUrl
      *
      * @return string
      */
-    public static function getRequestUri(): string 
+    public static function getRequestUri(): string
     {
-        return isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI']) 
-        ? $_SERVER['REQUEST_URI'] 
+        return isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI'])
+        ? $_SERVER['REQUEST_URI']
         : '';
     }
 
@@ -87,7 +87,7 @@ class IsCurrentUrl
     public static function getRequestUriQuery(): string
     {
         $requestUri = self::getRequestUri();
-        if(!empty($requestUri) && strpos($requestUri, '?') !== false) {
+        if (!empty($requestUri) && strpos($requestUri, '?') !== false) {
             return self::parseUrlSafe($requestUri, PHP_URL_QUERY);
         }
         return '';
@@ -95,13 +95,13 @@ class IsCurrentUrl
 
     /**
      * Get the current request uri path, if it exists.
-     * 
+     *
      * @return string
      */
     public function getRequestUriPath(): string
     {
         $requestUri = self::getRequestUri();
-        if(!empty($requestUri)) {
+        if (!empty($requestUri)) {
             return self::parseUrlSafe($requestUri, PHP_URL_PATH);
         }
         return '';
@@ -109,10 +109,10 @@ class IsCurrentUrl
 
     /**
      * Get the current request uri path, if it exists.
-     * 
+     *
      * @param string $url           The URL to parse.
      * @param int|string $method    The component to retrieve. Can be either a PHP_URL_* constant or a string with the name of the component (e.g. 'path', 'query', 'fragment', 'host', 'port', 'user', 'pass', 'scheme', 'full').
-     * 
+     *
      * @return string
      */
     private static function parseUrlSafe(string $url, int|string $method): string

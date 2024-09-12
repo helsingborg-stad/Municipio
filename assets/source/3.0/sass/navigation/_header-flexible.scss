@@ -1,5 +1,6 @@
-.c-header.c-header--flexible {
+$brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
 
+.c-header.c-header--flexible {
     &#site-header-flexible-upper {
         z-index: $level-8;
     }
@@ -17,6 +18,7 @@
     .c-header__main-upper-area,
     .c-header__main-lower-area {
         gap: calc($base * 2);
+        min-height: calc($base * 10);
     }
 
     // Better responsive behavior if no centered content.
@@ -60,5 +62,16 @@
     .c-header__lower-right,
     .c-header__upper-right {
         justify-content: flex-end;
+    }
+
+    // Brand text
+    .c-header__brand-text {
+       font-size: var(--c-brand-font-size, calc($base * 3));
+       color: $brand-text-color;
+
+       &:hover,
+       &:visited {
+            color: $brand-text-color;
+       }
     }
 }
