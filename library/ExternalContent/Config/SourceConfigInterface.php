@@ -12,6 +12,13 @@ interface SourceConfigInterface
     public function getPostType(): string;
 
     /**
+     * Get the schema type
+     *
+     * @return string
+     */
+    public function getSchemaType(): string;
+
+    /**
      * Get the cron schedule for automatic import
      *
      * @return string

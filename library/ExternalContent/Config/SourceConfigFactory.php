@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Config;
 
 use Generator;
+use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
@@ -27,8 +28,10 @@ class SourceConfigFactory
         'name'
     ];
 
-    public function __construct(private GetOption&GetOptions $wpService)
-    {
+    public function __construct(
+        private SchemaDataConfigInterface $schemaDataConfig,
+        private GetOption&GetOptions $wpService
+    ) {
     }
 
     /**
@@ -43,14 +46,25 @@ class SourceConfigFactory
 
     private function createSourceConfigsFromNamedSettings(array $namedSettings): SourceConfigInterface
     {
-        return new class ($namedSettings) implements SourceConfigInterface {
-            public function __construct(private array $namedSettings)
-            {
+        $schemaType =
+            isset($namedSettings['post_type'])
+                ? $this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type'])
+                : '';
+        return new class ($namedSettings, $schemaType) implements SourceConfigInterface {
+            public function __construct(
+                private array $namedSettings,
+                private string $schemaType
+            ) {
             }
 
             public function getPostType(): string
             {
                 return $this->namedSettings['post_type'];
+            }
+
+            public function getSchemaType(): string
+            {
+                return $this->schemaType;
             }
 
             public function getAutomaticImportSchedule(): string

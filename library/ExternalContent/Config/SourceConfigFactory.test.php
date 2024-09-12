@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
+use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -20,7 +21,7 @@ class SourceConfigFactoryTest extends TestCase
      */
     public function testCreateReturnsAnArray()
     {
-        $factory = new SourceConfigFactory(new FakeWpService());
+        $factory = new SourceConfigFactory($this->getSchemaDataConfig(), new FakeWpService());
         $this->assertIsArray($factory->create());
     }
 
@@ -31,7 +32,7 @@ class SourceConfigFactoryTest extends TestCase
     {
         $getOption = fn($option, $default) => $option === 'external_content_sources' ? '0' : $default;
         $wpService = new FakeWpService(['getOption' => $getOption]);
-        $factory   = new SourceConfigFactory($wpService);
+        $factory   = new SourceConfigFactory($this->getSchemaDataConfig(), $wpService);
 
         $this->assertEmpty($factory->create());
     }
@@ -45,7 +46,7 @@ class SourceConfigFactoryTest extends TestCase
         $getOptions = fn($options) => ['options_external_content_sources_0_taxonomies' => '1'];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
-        (new SourceConfigFactory($wpService))->create();
+        (new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
 
         $this->assertEquals([
             'options_external_content_sources_0_post_type',
@@ -92,7 +93,7 @@ class SourceConfigFactoryTest extends TestCase
         ];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
-        $sourceConfigs = (new SourceConfigFactory($wpService))->create();
+        $sourceConfigs = (new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
 
         $this->assertEquals('test_post_type', $sourceConfigs[0]->getPostType());
         $this->assertEquals('test_schedule', $sourceConfigs[0]->getAutomaticImportSchedule());
@@ -106,5 +107,39 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('test_from_schema_property', $sourceConfigs[0]->getTaxonomies()[0]->getFromSchemaProperty());
         $this->assertEquals('test_singular_name', $sourceConfigs[0]->getTaxonomies()[0]->getSingularName());
         $this->assertEquals('test_name', $sourceConfigs[0]->getTaxonomies()[0]->getName());
+    }
+
+    /**
+     * @testdox returned $sourceConfig contains schema type
+     */
+    public function testReturnedSourceConfigContainsSchemaType()
+    {
+        $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
+        $getOptions = fn($options) => ['options_external_content_sources_0_post_type' => 'test_post_type'];
+
+        $wpService = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
+
+        $sourceConfigs = (new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
+        $this->assertEquals('test_schema_type', $sourceConfigs[0]->getSchemaType());
+    }
+
+    private function getSchemaDataConfig(): SchemaDataConfigInterface
+    {
+        return new class implements SchemaDataConfigInterface {
+            public function featureIsEnabled(): bool
+            {
+                return true;
+            }
+
+            public function getEnabledPostTypes(): array
+            {
+                return ['test_post_type'];
+            }
+
+            public function tryGetSchemaTypeFromPostType(string $postType): ?string
+            {
+                return 'test_schema_type';
+            }
+        };
     }
 }

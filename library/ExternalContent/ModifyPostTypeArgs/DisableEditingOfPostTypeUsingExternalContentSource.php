@@ -2,24 +2,27 @@
 
 namespace Municipio\ExternalContent\ModifyPostTypeArgs;
 
-use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use WpService\Contracts\AddFilter;
 
 class DisableEditingOfPostTypeUsingExternalContentSource extends ModifyPostTypeArgs
 {
-    public function __construct(private ExternalContentConfigInterface $config, private AddFilter $wpService)
+    /**
+     * @param \Municipio\ExternalContent\Config\ExternalContentConfigInterface[] $config
+     * @param \WpService\Contracts\AddFilter $wpService
+     */
+    public function __construct(private array $configs, private AddFilter $wpService)
     {
         parent::__construct($wpService);
     }
 
     public function modify(array $args, string $postType): array
     {
-        if (empty($this->config->getEnabledPostTypes())) {
+        if (empty($this->configs)) {
             return $args;
         }
 
-        foreach ($this->config->getEnabledPostTypes() as $postTypeWithExternalContentSource) {
-            if ($postTypeWithExternalContentSource !== $postType) {
+        foreach ($this->configs as $config) {
+            if ($config->getPostType() !== $postType) {
                 continue;
             }
 

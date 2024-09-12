@@ -387,7 +387,7 @@ class App
         /**
          * Feature config
          */
-        $sourceConfigs = (new ConfigSourceConfigFactory($this->wpService))->create();
+        $sourceConfigs = (new ConfigSourceConfigFactory($schemaDataConfig, $this->wpService))->create();
 
         /**
          * Register field group for external content settings.

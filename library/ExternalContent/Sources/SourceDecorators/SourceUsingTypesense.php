@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -13,7 +14,7 @@ use WpService\Contracts\RemoteRetrieveBody;
 class SourceUsingTypesense implements SourceInterface
 {
     public function __construct(
-        private TypesenseSourceConfigInterface $config,
+        private SourceConfigInterface $config,
         private RemoteGet&RemoteRetrieveBody $wpService,
         private JsonToSchemaObjects $jsonToSchemaObjects,
         private SourceInterface $inner,
@@ -36,7 +37,7 @@ class SourceUsingTypesense implements SourceInterface
         $response = $this->wpService->remoteGet($url, [
             'headers' => [
                 'Content-Type'        => 'application/json',
-                'X-TYPESENSE-API-KEY' => $this->config->getApiKey(),
+                'X-TYPESENSE-API-KEY' => $this->config->getSourceTypesenseApiKey(),
             ]
         ]);
 
@@ -82,10 +83,10 @@ class SourceUsingTypesense implements SourceInterface
     {
         return sprintf(
             '%s://%s:%s/collections/%s/documents/search',
-            $this->config->getProtocol(),
-            $this->config->getHost(),
-            $this->config->getPort(),
-            $this->config->getCollection()
+            $this->config->getSourceTypesenseProtocol(),
+            $this->config->getSourceTypesenseHost(),
+            $this->config->getSourceTypesensePort(),
+            $this->config->getSourceTypesenseCollection()
         );
     }
 

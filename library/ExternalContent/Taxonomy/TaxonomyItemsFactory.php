@@ -2,14 +2,16 @@
 
 namespace Municipio\ExternalContent\Taxonomy;
 
-use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use WpService\Contracts\__;
 use WpService\Contracts\RegisterTaxonomy;
 
 class TaxonomyItemsFactory implements TaxonomyItemsFactoryInterface
 {
+    /**
+     * @param \Municipio\ExternalContent\Config\SourceConfigInterface[] $configs
+     */
     public function __construct(
-        private ExternalContentConfigInterface $externalContentConfig,
+        private array $configs,
         private __&RegisterTaxonomy $wpService
     ) {
     }
@@ -19,21 +21,18 @@ class TaxonomyItemsFactory implements TaxonomyItemsFactoryInterface
      */
     public function createTaxonomyItems(): array
     {
-        $taxonomyItems    = [];
-        $postTypeSettings = array_map(fn($postType) => $this->externalContentConfig->getPostTypeSettings($postType), $this->externalContentConfig->getEnabledPostTypes());
-
-        foreach ($postTypeSettings as $postTypeSetting) {
-            if (empty($postTypeSetting->getTaxonomies())) {
+        foreach ($this->configs as $config) {
+            if (empty($config->getTaxonomies())) {
                 continue;
             }
 
-            foreach ($postTypeSetting->getTaxonomies() as $taxonomyConfig) {
+            foreach ($config->getTaxonomies() as $taxonomyConfig) {
                 $taxonomyItems[] = new TaxonomyItem(
-                    $postTypeSetting->getSchemaType(),
-                    [$postTypeSetting->getPostType()],
-                    $taxonomyConfig['from_schema_property'],
-                    $taxonomyConfig['singular_name'],
-                    $taxonomyConfig['name'],
+                    $config->getSchemaType(),
+                    [$config->getPostType()],
+                    $taxonomyConfig->getFromSchemaProperty(),
+                    $taxonomyConfig->getSingularName(),
+                    $taxonomyConfig->getName(),
                     $this->wpService
                 );
             }
