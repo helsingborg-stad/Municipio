@@ -2,6 +2,9 @@
 
 namespace Municipio\ImageConvert\Contract;
 
+use WpService\Contracts\GetAttachmentUrl;
+use WpService\Contracts\GetAttachedFile;
+
 class ImageContract implements ImageContractInterface
 {
     private string $url;
@@ -14,7 +17,7 @@ class ImageContract implements ImageContractInterface
     ];
 
     // Constructor using property promotion
-    public function __construct(private int $id, int|string|bool|null $height, int|string|bool|null $width)
+    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $height, int|string|bool|null $width)
     {
         $this->height = $this->sanitizeDimension($height, 'height');
         $this->width  = $this->sanitizeDimension($width, 'width');
@@ -27,7 +30,7 @@ class ImageContract implements ImageContractInterface
         if (array_key_exists($id, self::$attachmentRuntimeCache)) {
             return self::$attachmentRuntimeCache['url'][$id];
         }
-        return self::$attachmentRuntimeCache['url'][$id] = wp_get_attachment_url($id);
+        return self::$attachmentRuntimeCache['url'][$id] = $this->wpService->getAttachmentUrl($id);
     }
 
     private function createAttachmentPath(int $id): string
@@ -35,7 +38,7 @@ class ImageContract implements ImageContractInterface
         if (array_key_exists($id, self::$attachmentRuntimeCache)) {
             return self::$attachmentRuntimeCache['path'][$id];
         }
-        return self::$attachmentRuntimeCache['path'][$id] = get_attached_file($id);
+        return self::$attachmentRuntimeCache['path'][$id] = $this->wpService->getAttachedFile($id);
     }
 
     public function sanitizeDimension(int|string|bool|null $dimension, string $name): int|string|null
@@ -127,8 +130,9 @@ class ImageContract implements ImageContractInterface
         $this->height = $height;
     }
 
-    public static function factory(int $id, int|string|bool|null $height, int|string|bool|null $width): self
+    public static function factory(GetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $height, int|string|bool|null $width): self
     {
-        return new self($id, $height, $width);
+        return new self($wpService, $id, $height, $width);
     }
 }
+ 

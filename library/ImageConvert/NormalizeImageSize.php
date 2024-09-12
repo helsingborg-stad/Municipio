@@ -35,7 +35,7 @@ class NormalizeImageSize implements Hookable
             $this->config->maxImageDimension()
         );
 
-        return ImageContract::factory($image->getId(), $dimensions[0], $dimensions[1]);
+        return ImageContract::factory($this->wpService, $image->getId(), $dimensions[0], $dimensions[1]);
     }
 
     /**
