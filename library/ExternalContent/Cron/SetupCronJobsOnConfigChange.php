@@ -11,8 +11,13 @@ use WpService\Contracts\DoAction;
 
 class SetupCronJobsOnConfigChange implements Hookable
 {
+    /**
+     * @param use \Municipio\ExternalContent\Config\SourceConfigInterface[] $sourceConfigs
+     * @param WpCronJobManagerInterface $cronJobsManager
+     * @param AddAction&DoAction $wpService
+     */
     public function __construct(
-        private ExternalContentConfigInterface $config,
+        private array $sourceConfigs,
         private WpCronJobManagerInterface $cronJobsManager,
         private AddAction&DoAction $wpService
     ) {
@@ -25,9 +30,8 @@ class SetupCronJobsOnConfigChange implements Hookable
 
     public function setupCronJobs(): void
     {
-        foreach ($this->config->getEnabledPostTypes() as $postType) {
-            $postTypeSettings = $this->config->getPostTypeSettings($postType);
-            $cronJob          = new WpCronJobFromPostTypeSettings($postTypeSettings, $this->wpService);
+        foreach ($this->sourceConfigs as $sourceConfig) {
+            $cronJob = new WpCronJobFromPostTypeSettings($sourceConfig, $this->wpService);
 
             $this->cronJobsManager->register($cronJob);
         }

@@ -5,14 +5,14 @@ namespace Municipio\ExternalContent\Config;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class ExternalContentConfigArrayTest extends TestCase
+class SourceConfigFactoryTest extends TestCase
 {
     /**
      * @testdox Class exists
      */
     public function testClassExists()
     {
-        $this->assertTrue(class_exists('Municipio\ExternalContent\Config\ExternalContentConfigArray'));
+        $this->assertTrue(class_exists('Municipio\ExternalContent\Config\SourceConfigFactory'));
     }
 
     /**
@@ -20,7 +20,7 @@ class ExternalContentConfigArrayTest extends TestCase
      */
     public function testCreateReturnsAnArray()
     {
-        $factory = new ExternalContentConfigArray(new FakeWpService());
+        $factory = new SourceConfigFactory(new FakeWpService());
         $this->assertIsArray($factory->create());
     }
 
@@ -31,7 +31,7 @@ class ExternalContentConfigArrayTest extends TestCase
     {
         $getOption = fn($option, $default) => $option === 'external_content_sources' ? '0' : $default;
         $wpService = new FakeWpService(['getOption' => $getOption]);
-        $factory   = new ExternalContentConfigArray($wpService);
+        $factory   = new SourceConfigFactory($wpService);
 
         $this->assertEmpty($factory->create());
     }
@@ -45,7 +45,7 @@ class ExternalContentConfigArrayTest extends TestCase
         $getOptions = fn($options) => ['options_external_content_sources_0_taxonomies' => '1'];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
-        (new ExternalContentConfigArray($wpService))->create();
+        (new SourceConfigFactory($wpService))->create();
 
         $this->assertEquals([
             'options_external_content_sources_0_post_type',
@@ -70,9 +70,9 @@ class ExternalContentConfigArrayTest extends TestCase
     }
 
     /**
-     * @testdox complete settings array can be returned
+     * @testdox array of SourceConfigInterface objects are returned
      */
-    public function testCompleteSettingsArrayCanBeReturned()
+    public function test()
     {
         $getOption  = fn($option, $default) => $option === 'options_external_content_sources' ? '1' : $default;
         $getOptions = fn($options) => [
@@ -92,25 +92,19 @@ class ExternalContentConfigArrayTest extends TestCase
         ];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
-        $factory = new ExternalContentConfigArray($wpService);
+        $sourceConfigs = (new SourceConfigFactory($wpService))->create();
 
-        $this->assertEquals([
-            'post_type'                   => 'test_post_type',
-            'automatic_import_schedule'   => 'test_schedule',
-            'source_type'                 => 'test_source_type',
-            'source_json_file_path'       => 'test_json_file_path',
-            'source_typesense_api_key'    => 'test_api_key',
-            'source_typesense_protocol'   => 'test_protocol',
-            'source_typesense_host'       => 'test_host',
-            'source_typesense_port'       => 'test_port',
-            'source_typesense_collection' => 'test_collection',
-            'taxonomies'                  => [
-                [
-                    'from_schema_property' => 'test_from_schema_property',
-                    'singular_name'        => 'test_singular_name',
-                    'name'                 => 'test_name',
-                ],
-            ],
-        ], $factory->create()[0]);
+        $this->assertEquals('test_post_type', $sourceConfigs[0]->getPostType());
+        $this->assertEquals('test_schedule', $sourceConfigs[0]->getAutomaticImportSchedule());
+        $this->assertEquals('test_source_type', $sourceConfigs[0]->getSourceType());
+        $this->assertEquals('test_json_file_path', $sourceConfigs[0]->getSourceJsonFilePath());
+        $this->assertEquals('test_api_key', $sourceConfigs[0]->getSourceTypesenseApiKey());
+        $this->assertEquals('test_protocol', $sourceConfigs[0]->getSourceTypesenseProtocol());
+        $this->assertEquals('test_host', $sourceConfigs[0]->getSourceTypesenseHost());
+        $this->assertEquals('test_port', $sourceConfigs[0]->getSourceTypesensePort());
+        $this->assertEquals('test_collection', $sourceConfigs[0]->getSourceTypesenseCollection());
+        $this->assertEquals('test_from_schema_property', $sourceConfigs[0]->getTaxonomies()[0]->getFromSchemaProperty());
+        $this->assertEquals('test_singular_name', $sourceConfigs[0]->getTaxonomies()[0]->getSingularName());
+        $this->assertEquals('test_name', $sourceConfigs[0]->getTaxonomies()[0]->getName());
     }
 }

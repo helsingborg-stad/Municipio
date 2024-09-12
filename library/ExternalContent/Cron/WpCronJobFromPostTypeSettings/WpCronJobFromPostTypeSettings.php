@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Cron\WpCronJobFromPostTypeSettings;
 
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
 use WpCronService\WpCronJob\WpCronJobInterface;
 use WpService\Contracts\DoAction;
 
@@ -15,11 +15,11 @@ class WpCronJobFromPostTypeSettings implements WpCronJobInterface
     /**
      * WpCronJobFromPostTypeSettings constructor.
      *
-     * @param ExternalContentPostTypeSettingsInterface $postTypeSetting
+     * @param \Municipio\ExternalContent\Config\SourceConfigInterface $sourceConfig
      * @param DoAction $wpService
      */
     public function __construct(
-        private ExternalContentPostTypeSettingsInterface $postTypeSetting,
+        private SourceConfigInterface $sourceConfig,
         private DoAction $wpService
     ) {
     }
@@ -29,7 +29,7 @@ class WpCronJobFromPostTypeSettings implements WpCronJobInterface
      */
     public function getHookName(): string
     {
-        return $this->postTypeSetting->getPostType();
+        return $this->sourceConfig->getPostType();
     }
 
     /**
@@ -37,7 +37,7 @@ class WpCronJobFromPostTypeSettings implements WpCronJobInterface
      */
     public function getSchedule(): string
     {
-        return $this->postTypeSetting->getCronSchedule();
+        return $this->sourceConfig->getAutomaticImportSchedule();
     }
 
     /**
@@ -56,7 +56,7 @@ class WpCronJobFromPostTypeSettings implements WpCronJobInterface
         return fn () =>
             $this->wpService->doAction(
                 'Municipio/ExternalContent/Sync',
-                $this->postTypeSetting->getPostType()
+                $this->sourceConfig->getPostType()
             );
     }
 

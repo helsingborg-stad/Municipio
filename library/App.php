@@ -17,6 +17,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\ExternalContent\Config\ExternalContentConfigArray;
+use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -386,14 +387,7 @@ class App
         /**
          * Feature config
          */
-        $configArray             = (new ExternalContentConfigArray($this->wpService))->create();
-        $sourceConfigFactory     = new SourceConfigFactory();
-        $postTypeSettingsFactory = new ExternalContentPostTypeSettingsFactory($sourceConfigFactory, $schemaDataConfig);
-        $externalContentConfig   = new \Municipio\Config\Features\ExternalContent\ExternalContentConfigService($schemaDataConfig, $postTypeSettingsFactory, $this->acfService);
-
-        if (!$externalContentConfig->featureIsEnabled()) {
-            return;
-        }
+        $sourceConfigs = (new ConfigSourceConfigFactory($this->wpService))->create();
 
         /**
          * Register field group for external content settings.
@@ -479,7 +473,7 @@ class App
          */
         $this->hooksRegistrar->register(
             new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
-                $externalContentConfig,
+                $sourceConfigs,
                 new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
                 $this->wpService
             )
@@ -488,12 +482,12 @@ class App
         /**
          * Build sources to sync from.
          */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($externalContentConfig, $this->wpService))->createSources();
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($sourceConfigs, $this->wpService))->createSources();
 
         /**
          * Register taxonomies for external content.
          */
-        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($externalContentConfig, $this->wpService);
+        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($sourceConfigs, $this->wpService);
         $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
         array_map(fn($item) => $item->register(), $taxonomyItems);
 
@@ -506,6 +500,6 @@ class App
         /**
          * Disable editing of post type using external content source.
          */
-        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($externalContentConfig, $this->wpService));
+        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
     }
 }

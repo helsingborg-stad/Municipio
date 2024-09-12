@@ -2,10 +2,11 @@
 
 namespace Municipio\ExternalContent\Config;
 
+use Generator;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
-class ExternalContentConfigArray implements ArrayFactoryInterface
+class SourceConfigFactory
 {
     private array $subFieldNames = [
         'post_type',
@@ -30,7 +31,101 @@ class ExternalContentConfigArray implements ArrayFactoryInterface
     {
     }
 
+    /**
+     * Create an array of named settings.
+     *
+     * @return SourceConfig[]
+     */
     public function create(): array
+    {
+        return array_map([$this, 'createSourceConfigsFromNamedSettings'], $this->getNamedSettingsArray());
+    }
+
+    private function createSourceConfigsFromNamedSettings(array $namedSettings): SourceConfigInterface
+    {
+        return new class ($namedSettings) implements SourceConfigInterface {
+            public function __construct(private array $namedSettings)
+            {
+            }
+
+            public function getPostType(): string
+            {
+                return $this->namedSettings['post_type'];
+            }
+
+            public function getAutomaticImportSchedule(): string
+            {
+                return $this->namedSettings['automatic_import_schedule'];
+            }
+
+            public function getSourceType(): string
+            {
+                return $this->namedSettings['source_type'];
+            }
+
+            public function getSourceJsonFilePath(): string
+            {
+                return $this->namedSettings['source_json_file_path'];
+            }
+
+            public function getSourceTypesenseApiKey(): string
+            {
+                return $this->namedSettings['source_typesense_api_key'];
+            }
+
+            public function getSourceTypesenseProtocol(): string
+            {
+                return $this->namedSettings['source_typesense_protocol'];
+            }
+
+            public function getSourceTypesenseHost(): string
+            {
+                return $this->namedSettings['source_typesense_host'];
+            }
+
+            public function getSourceTypesensePort(): string
+            {
+                return $this->namedSettings['source_typesense_port'];
+            }
+
+            public function getSourceTypesenseCollection(): string
+            {
+                return $this->namedSettings['source_typesense_collection'];
+            }
+
+            public function getTaxonomies(): array
+            {
+                if (empty($this->namedSettings['taxonomies'])) {
+                    return [];
+                }
+
+                return array_map(function ($taxonomy) {
+                    return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
+                        public function __construct(private array $taxonomy)
+                        {
+                        }
+
+                        public function getFromSchemaProperty(): string
+                        {
+                            return $this->taxonomy['from_schema_property'];
+                        }
+
+                        public function getSingularName(): string
+                        {
+                            return $this->taxonomy['singular_name'];
+                        }
+
+                        public function getName(): string
+                        {
+                            return $this->taxonomy['name'];
+                        }
+                    };
+                }, $this->namedSettings['taxonomies']);
+            }
+        };
+    }
+
+    private function getNamedSettingsArray(): array
     {
         $groupName = 'options_external_content_sources';
         $nbrOfRows = $this->getNumberOfRows($groupName);
