@@ -406,6 +406,11 @@ class App
             )
         );
 
+        /**
+         * Disable editing of post type using external content source.
+         */
+        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
+
         if (!$this->wpService->isAdmin()) {
             return;
         }
@@ -513,10 +518,5 @@ class App
          */
         $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
         $this->hooksRegistrar->register($syncEventListener);
-
-        /**
-         * Disable editing of post type using external content source.
-         */
-        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
     }
 }

@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Cron\WpCronJobFromPostTypeSettings;
 use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
 use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
 use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -49,18 +50,14 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
         $this->assertEquals($postTypeSetting->getPostType(), $wpService->methodCalls['doAction'][0][1]);
     }
 
-    private function getPostTypeSetting(): ExternalContentPostTypeSettingsInterface
+    private function getPostTypeSetting(): SourceConfigInterface
     {
-        $sourceConfig = $this->getMockBuilder(TypesenseSourceConfigInterface::class)->getMock();
-        return new class ($sourceConfig) implements ExternalContentPostTypeSettingsInterface {
-            public function __construct(private TypesenseSourceConfigInterface $sourceConfig)
-            {
-            }
+        return new class implements SourceConfigInterface {
             public function getPostType(): string
             {
                 return 'event';
             }
-            public function getCronSchedule(): string
+            public function getAutomaticImportSchedule(): string
             {
                 return 'weekly';
             }
@@ -72,9 +69,33 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
             {
                 return 'event';
             }
-            public function getSourceConfig(): TypesenseSourceConfigInterface|JsonSourceConfigInterface
+            public function getSourceType(): string
             {
-                return $this->sourceConfig;
+                return 'typesense';
+            }
+            public function getSourceJsonFilePath(): string
+            {
+                return '';
+            }
+            public function getSourceTypesenseApiKey(): string
+            {
+                return '';
+            }
+            public function getSourceTypesenseCollection(): string
+            {
+                return '';
+            }
+            public function getSourceTypesenseHost(): string
+            {
+                return '';
+            }
+            public function getSourceTypesensePort(): string
+            {
+                return '';
+            }
+            public function getSourceTypesenseProtocol(): string
+            {
+                return '';
             }
         };
     }

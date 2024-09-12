@@ -4,6 +4,7 @@ namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
 use Municipio\ExternalContent\Sources\Source;
 use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
+use Municipio\ExternalContent\Config\SourceConfig;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use PHPUnit\Framework\TestCase;
 use WpService\FileSystem\GetFileContent;
@@ -23,7 +24,7 @@ class SourceUsingLocalJsonFileTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $config = $this->getConfig(['file' => 'fileLocation']);
+        $config = new SourceConfig('', '', '', '', [], '', '', '', '', '', '');
         $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('123');
@@ -44,7 +45,7 @@ class SourceUsingLocalJsonFileTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $config = $this->getConfig(['file' => 'fileLocation']);
+        $config = new SourceConfig('', '', '', '', [], '', '', '', '', '', '');
         $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $thing = $service->getObject('456');
@@ -69,7 +70,7 @@ class SourceUsingLocalJsonFileTest extends TestCase {
 
         $fileSystem = $this->getFileSystem($fileContent);
         $jsonToSchemaObjects = new SimpleJsonConverter();
-        $config = $this->getConfig(['file' => 'fileLocation']);
+        $config = new SourceConfig('', '', '', '', [], '', '', '', '', '', '');
         $service = new SourceUsingLocalJsonFile($config, $fileSystem, $jsonToSchemaObjects, new Source('', ''));
         
         $things = $service->getObjects(null);
@@ -92,25 +93,6 @@ class SourceUsingLocalJsonFileTest extends TestCase {
             }
 
 
-        };
-    }
-
-    private function getConfig(array $values): JsonSourceConfigInterface {
-        return new class ($values) implements JsonSourceConfigInterface {
-            
-            public function __construct(private array $values)
-            {
-            }
-
-            public function getFilePath(): string
-            {
-                return $this->values['file'];
-            }
-
-            public function getType(): string
-            {
-                return 'json';
-            }
         };
     }
 }
