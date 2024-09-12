@@ -48,6 +48,7 @@ class ResolveMissingImageSize implements Hookable
         $resolver          = new ResolveMissingImageSizeByMeta($this->wpService);
         $resolvedImageSize = $resolver->getAttachmentDimensions($image);
 
+        //Calculate scaled dimensions
         $resolvedImageSizeScaled = $this->calculateScaledDimensions(
             $image,
             $resolvedImageSize
@@ -82,12 +83,12 @@ class ResolveMissingImageSize implements Hookable
 
         // If width is not set, calculate it based on the aspect ratio
         if (!is_numeric($imageWidth)) {
-            $imageWidth = round(($imageHeight / $resolvedImageSize[1]) * $resolvedImageSize[0]);
+            $imageWidth = round(($imageHeight / $resolvedImageSize['height']) * $resolvedImageSize['width']);
         }
 
         // If height is not set, calculate it based on the aspect ratio
         if (!is_numeric($imageHeight)) {
-            $imageHeight = round(($imageWidth / $resolvedImageSize[0]) * $resolvedImageSize[1]);
+            $imageHeight = round(($imageWidth / $resolvedImageSize['width']) * $resolvedImageSize['height']);
         }
 
         // Return dimensions with calculated values

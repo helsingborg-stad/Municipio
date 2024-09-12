@@ -40,15 +40,15 @@ class ResolveMissingImageSizeTest extends TestCase
     private function scaleProvider()
     {
         return [
-        [[100, false], [50, 50], ['width' => 100, 'height' => 100]],   //Resolved size is less than input size
-        [[100, false], [200, 200], ['width' => 100, 'height' => 100]], //Resolved size is more than input size
-        [[100, false], [100, 100], ['width' => 100, 'height' => 100]], //Resolved size is equal to input size
-        [[false, 100], [100, 100], ['width' => 100, 'height' => 100]], //Width can be resolved
-        [[100, false], [100, 100], ['width' => 100, 'height' => 100]], //Height can be resolved
-        [[1920, false], [16, 9], ['width' => 1920, 'height' => 1080]], //Correctly scales to 16:9
-        [[false, 1080], [16, 9], ['width' => 1920, 'height' => 1080]], //Correctly scales to 16:9
-        [[false, 1920], [9, 16], ['width' => 1080, 'height' => 1920]], //Correctly scales to 9:16
-        [[1080, false], [9, 16], ['width' => 1080, 'height' => 1920]], //Correctly scales to 9:16
+        [[100, false], ['width' => 50, 'height' => 50], ['width' => 100, 'height' => 100]],   //Resolved size is less than input size
+        [[100, false], ['width' => 200, 'height' => 200], ['width' => 100, 'height' => 100]], //Resolved size is more than input size
+        [[100, false], ['width' => 100, 'height' => 100], ['width' => 100, 'height' => 100]], //Resolved size is equal to input size
+        [[false, 100], ['width' => 100, 'height' => 100], ['width' => 100, 'height' => 100]], //Width can be resolved
+        [[100, false], ['width' => 100, 'height' => 100], ['width' => 100, 'height' => 100]], //Height can be resolved
+        [[1920, false], ['width' => 16, 'height' => 9], ['width' => 1920, 'height' => 1080]], //Correctly scales to 16:9
+        [[false, 1080], ['width' => 16, 'height' => 9], ['width' => 1920, 'height' => 1080]], //Correctly scales to 16:9
+        [[false, 1920], ['width' => 9, 'height' => 16], ['width' => 1080, 'height' => 1920]], //Correctly scales to 9:16
+        [[1080, false], ['width' => 9, 'height' => 16], ['width' => 1080, 'height' => 1920]], //Correctly scales to 9:16
         ];
     }
 }
