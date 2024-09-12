@@ -389,6 +389,28 @@ class App
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
         /**
+         * Register taxonomies for external content.
+         */
+        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($sourceConfigs, $this->wpService);
+        $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
+        array_map(fn($item) => $item->register(), $taxonomyItems);
+
+        /**
+         * Setup cron jobs on config change.
+         */
+        $this->hooksRegistrar->register(
+            new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
+                $sourceConfigs,
+                new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
+                $this->wpService
+            )
+        );
+
+        if (!$this->wpService->isAdmin()) {
+            return;
+        }
+
+        /**
          * Register field group for external content settings.
          */
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
@@ -482,27 +504,9 @@ class App
         $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
 
         /**
-         * Setup cron jobs on config change.
-         */
-        $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
-                $sourceConfigs,
-                new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
-                $this->wpService
-            )
-        );
-
-        /**
          * Build sources to sync from.
          */
         $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($sourceConfigs, $this->wpService))->createSources();
-
-        /**
-         * Register taxonomies for external content.
-         */
-        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($sourceConfigs, $this->wpService);
-        $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
-        array_map(fn($item) => $item->register(), $taxonomyItems);
 
         /**
          * Start sync if event is triggered.
