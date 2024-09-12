@@ -151,6 +151,9 @@ The method `intermidiateImageFormat()` will throw an exception if an invalid tar
 throw new \Exception('Invalid target format');
 ```
 
+### A note on perfomance
+This functionality includes a single FileExists that may affect performance slightly if a bucket plugin is used. If your bucked has a slow backend interface, we do recommend that you use a cache like redis to mitigate this issue.
+
 ### Conclusion
 
 With these filters, you can dynamically scale and convert images as needed, with full control over formats, quality, and priorities. Each setting is customizable through the provided WordPress filters, enabling a highly flexible image handling process.
