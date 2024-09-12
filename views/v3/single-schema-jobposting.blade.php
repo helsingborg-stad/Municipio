@@ -59,7 +59,7 @@
                     @endif
 
                     @if($contact['telephone'] ?? null)
-                        @link(['href' => "mailto:{$contact['telephone']}"])
+                        @link(['href' => "tel:{$contact['telephone']}"])
                             {{$contact['telephone']}}
                         @endlink
                     @endif
