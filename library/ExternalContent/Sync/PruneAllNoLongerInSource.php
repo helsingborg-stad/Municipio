@@ -3,13 +3,14 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use WpService\Contracts\InsertPost;
+use WpService\Contracts\DeletePost;
+use WpService\Contracts\GetPosts;
 
 class PruneAllNoLongerInSource implements SyncSourceToLocalInterface
 {
     public function __construct(
         private SourceInterface $source,
-        private InsertPost $wpService,
+        private DeletePost&GetPosts $wpService,
         private SyncSourceToLocalInterface $inner
     ) {
     }
@@ -23,7 +24,7 @@ class PruneAllNoLongerInSource implements SyncSourceToLocalInterface
 
         $objects       = $this->source->getObjects();
         $idsFromSource = array_map(fn($object) => $object->getProperty('@id'), $objects);
-        $posts         = get_posts([
+        $posts         = $this->wpService->getPosts([
             'meta_key'     => 'originId',
             'meta_value'   => $idsFromSource,
             'meta_compare' => 'NOT IN',
@@ -32,7 +33,7 @@ class PruneAllNoLongerInSource implements SyncSourceToLocalInterface
         ]);
 
         foreach ($posts as $post) {
-            wp_delete_post($post->ID, true);
+            $this->wpService->deletePost($post->ID, true);
         }
     }
 }
