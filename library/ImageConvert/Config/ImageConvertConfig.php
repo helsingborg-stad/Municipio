@@ -33,7 +33,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            2500
+            1920
         );
     }
 
