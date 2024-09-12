@@ -108,11 +108,12 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         $mimeTypes = $this->mimeTypes();
 
-        return array_map(function ($mime) {
+        //Scrub to file extensions
+        $mimeTypes = array_map(function ($mime) {
             return str_replace('image/', '', $mime);
         }, $mimeTypes);
 
-      //Add jpg as an alias for jpeg
+        //Add jpg as an alias for jpeg
         if (in_array('jpeg', $mimeTypes)) {
             $mimeTypes[] = 'jpg';
         }
