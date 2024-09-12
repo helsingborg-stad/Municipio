@@ -53,7 +53,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
             throw new \Exception('Invalid target format');
         }
 
-      //Alias jpg to jpeg
+        //Alias jpg to jpeg
         $targetMime = ($targetFormat === 'jpg') ? 'jpeg' : $targetFormat;
 
         return [
@@ -142,9 +142,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 
   /**
    * Create a prefix for image conversion filter.
-   *
-   * TODO: Move this to COMMON. It is not a config.
-   *
+   * 
    * @return string
    */
     public function createFilterKey(string $filter = ""): string
