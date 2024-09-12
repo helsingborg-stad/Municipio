@@ -3,6 +3,7 @@
 namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 use Municipio\ImageConvert\Contract\ImageContract;
+use Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSizeInterface;
 
 class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
 {
@@ -16,7 +17,9 @@ class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
     public function getAttachmentDimensions(ImageContract $image): ?array
     {
         // Get attachment metadata
-        $metaData = wp_get_attachment_metadata($image->getId());
+        $metaData = $this->wpService->getAttachmentMetadata(
+          $image->getId()
+        );
 
         // Filter the metadata to ensure 'width' and 'height' exist and are numeric
         $metaDataDimensions = array_filter(

@@ -7,10 +7,11 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
+use WpService\Contracts\GetImageEditor;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&GetImageEditor $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -70,9 +71,9 @@ class IntermidiateImageHandler implements Hookable
 
         // Check if ImageMagick or GD is available
         if (extension_loaded('imagick') || extension_loaded('gd')) {
-            $imageEditor = wp_get_image_editor($sourceFilePath);
+            $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
-            if (!is_wp_error($imageEditor)) {
+            if (!$this->wpService->isWpError($imageEditor)) {
                 //Make the resize
                 $imageEditor->resize(
                     $image->getWidth(),

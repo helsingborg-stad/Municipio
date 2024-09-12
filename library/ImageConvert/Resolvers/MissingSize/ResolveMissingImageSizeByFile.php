@@ -23,7 +23,10 @@ class ResolveMissingImageSizeByFile implements ResolveMissingImageSizeInterface
                 $size = ['width' => $fetchedImage[0], 'height' => $fetchedImage[1]];
 
                 if ($this->isSizeSufficient($size)) {
-                    wp_update_attachment_metadata($image->getId(), $size);
+                    $this->wpService->updateAttachmentMetadata(
+                        $image->getId(),
+                        $size
+                    );
                     return $size;
                 }
             }

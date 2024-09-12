@@ -27,10 +27,11 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\AddFilter;
 use Municipio\ImageConvert\Contract\ImageContract;
+use WpService\Contracts\GetAttachmentUrl;
 
 class ImageConvertFilter implements Hookable
 {
-    public function __construct(private AddFilter&ApplyFilters $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&ApplyFilters&GetAttachmentUrl $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -79,6 +80,7 @@ class ImageConvertFilter implements Hookable
       return $this->wpService->applyFilters(
           $this->config->createFilterKey(__FUNCTION__),
           ImageContract::factory(
+              $this->wpService,
               $id,
               $size[0] ?? null,
               $size[1] ?? null
