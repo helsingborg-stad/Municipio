@@ -10,8 +10,6 @@ use Municipio\ImageConvert\Contract\ImageContract;
 
 class ResolveMissingImageSize implements Hookable
 {
-    private ResolveMissingImageSizeInterface $resolver;
-
     public function __construct(private $wpService, private ImageConvertConfig $config)
     {
         $this->wpService = $wpService;

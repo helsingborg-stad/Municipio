@@ -8,6 +8,7 @@ use WpService\Contracts\IsWpError;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\GetImageEditor;
+use Municipio\Helper\File;
 
 class IntermidiateImageHandler implements Hookable
 {
@@ -41,19 +42,21 @@ class IntermidiateImageHandler implements Hookable
         $intermediateLocation = $image->getIntermidiateLocation(
             $this->config->intermidiateImageFormat()['suffix']
         );
-        if (file_exists($intermediateLocation['path'])) {
+
+        //Check if the intermediate image already exists, if so return it
+        //This is to avoid unnecessary image conversions
+        //but will affect perfomance in environments connected
+        //to an object storage like S3 or OpenStack Swift
+        //this file exist is cached indefinitely if found, 
+        //and will not be checked again util cache flush. 
+        if (File::fileExists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
             return $image;
         }
 
         //Create the intermediate image replacement if not exists
-        $convertedImage = $this->convertImage($image);
-        if ($convertedImage) {
-            return $convertedImage;
-        }
-
-        return false; // Return false on conversion failure
+        return $this->convertImage($image);
     }
 
     /**
@@ -64,46 +67,40 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|bool
     {
-        $sourceFilePath       = $image->getPath(); // Use the path from the image contract
+        $sourceFilePath       = $image->getPath();
         $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix); // Returns path and url
+        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
-        // Check if ImageMagick or GD is available
-        if (extension_loaded('imagick') || extension_loaded('gd')) {
-            $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
+        $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
-            if (!$this->wpService->isWpError($imageEditor)) {
-                //Make the resize
-                $imageEditor->resize(
-                    $image->getWidth(),
-                    $image->getHeight(),
-                    true
-                );
+        if (!$this->wpService->isWpError($imageEditor)) {
 
-                // Attempt to save the image in the target format and size
-                $savedImage = $imageEditor->save(
-                    $intermediateLocation['path'],
-                    $targetFormatMime
-                );
+            //Make the resize
+            $imageEditor->resize(
+                $image->getWidth(),
+                $image->getHeight(),
+                true
+            );
 
-                if (!$this->wpService->isWpError($savedImage) && file_exists($savedImage['path'])) {
-                    // Set the new path and URL to the image object
-                    $image->setUrl($intermediateLocation['url']);
-                    $image->setPath($intermediateLocation['path']);
+            // Attempt to save the image in the target format and size
+            $savedImage = $imageEditor->save(
+                $intermediateLocation['path'],
+                $targetFormatMime
+            );
 
-                    return $image; // Return the updated image object
-                } else {
-                    $this->imageConversionError('Error saving image as ' . $targetFormatSuffix . ': ' . $savedImage->get_error_message(), $image);
-                }
+            if (!$this->wpService->isWpError($savedImage)) {
+                $image->setUrl($intermediateLocation['url']);
+                $image->setPath($intermediateLocation['path']);
+                return $image;
             } else {
-                $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
+                $this->imageConversionError('Error saving image as ' . $targetFormatSuffix . ': ' . $savedImage->get_error_message(), $image);
             }
         } else {
-            $this->imageConversionError('Neither Imagick nor GD extension is loaded.', $image);
+            $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
         }
-
-        return false; // Conversion failed
+     
+        return false;
     }
 
     /**
