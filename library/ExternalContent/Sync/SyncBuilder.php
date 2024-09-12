@@ -39,29 +39,23 @@ class SyncBuilder
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
 
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory();
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator($wpPostFromSchemaObject, $this->wpService);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator($wpPostFromSchemaObject, $this->wpService);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator($wpPostFromSchemaObject);
-        $wpPostFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $wpPostFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory();
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator($postArgsFromSchemaObject, $this->wpService);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject);
 
-        return ($this->postId === null)
-            ? new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal(
-                $source,
-                $wpPostFromSchemaObject,
-                $this->wpService
-            )
-            : new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId(
-                $this->postId,
-                $this->sources,
-                $wpPostFromSchemaObject,
-                $this->wpService
-            );
+        if ($this->postId === null) {
+            $sync = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
+            return new \Municipio\ExternalContent\Sync\PruneAllNoLongerInSource($source, $this->wpService, $sync);
+        } else {
+            return new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId($this->postId, $this->sources, $postArgsFromSchemaObject, $this->wpService);
+        }
     }
 
     /**
