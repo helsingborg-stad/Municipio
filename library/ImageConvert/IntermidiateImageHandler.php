@@ -47,8 +47,8 @@ class IntermidiateImageHandler implements Hookable
         //This is to avoid unnecessary image conversions
         //but will affect perfomance in environments connected
         //to an object storage like S3 or OpenStack Swift
-        //this file exist is cached indefinitely if found, 
-        //and will not be checked again util cache flush. 
+        //this file exist is cached indefinitely if found,
+        //and will not be checked again util cache flush.
         if (File::fileExists($intermediateLocation['path'])) {
             $image->setUrl($intermediateLocation['url']);
             $image->setPath($intermediateLocation['path']);
@@ -75,7 +75,6 @@ class IntermidiateImageHandler implements Hookable
         $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
-
             //Make the resize
             $imageEditor->resize(
                 $image->getWidth(),
@@ -99,7 +98,7 @@ class IntermidiateImageHandler implements Hookable
         } else {
             $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
         }
-     
+
         return false;
     }
 
