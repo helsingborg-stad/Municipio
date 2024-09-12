@@ -76,39 +76,26 @@ class ResolveMissingImageSize implements Hookable
      *
      * @return array
      */
-    private function calculateScaledDimensions(ImageContract $image, array $resolvedImageSize): array
+    public function calculateScaledDimensions(ImageContract $image, array $resolvedImageSize): array
     {
-        // Get the original dimensions from the image contract
-        $originalWidth  = $image->getWidth();
-        $originalHeight = $image->getHeight();
+        //Get image dimensions requested
+        $imageWidth     = $image->getWidth() ?: null;
+        $imageHeight    = $image->getHeight() ?: null;
 
-        // Ensure the resolved dimensions are available and valid
-        $resolvedWidth  = $resolvedImageSize['width'] ?? null;
-        $resolvedHeight = $resolvedImageSize['height'] ?? null;
-
-        // Check if both resolvedWidth and resolvedHeight are available
-        if (!is_numeric($resolvedWidth) || !is_numeric($resolvedHeight)) {
-            return $resolvedImageSize; // Fallback to resolved image size if invalid
+        // If width is not set, calculate it based on the aspect ratio
+        if (!is_numeric($imageWidth)) {
+            $imageWidth = round(($imageHeight/$resolvedImageSize[1]) * $resolvedImageSize[0]);
         }
 
-        // If one of the original dimensions is null, calculate it using the resolved dimensions
-        if ($originalWidth === null && $originalHeight !== null) {
-            // Calculate originalWidth based on aspect ratio and resolvedHeight
-            $originalWidth = ($resolvedWidth / $resolvedHeight) * $originalHeight;
-        } elseif ($originalHeight === null && $originalWidth !== null) {
-            // Calculate originalHeight based on aspect ratio and resolvedWidth
-            $originalHeight = ($resolvedHeight / $resolvedWidth) * $originalWidth;
+        // If height is not set, calculate it based on the aspect ratio
+        if (!is_numeric($imageHeight)) {
+            $imageHeight = round(($imageWidth/$resolvedImageSize[0]) * $resolvedImageSize[1]);
         }
 
-        // If both dimensions are missing, fallback to resolved dimensions
-        if ($originalWidth === null || $originalHeight === null) {
-            return $resolvedImageSize; // Can't scale, so return the resolved dimensions
-        }
-
-        // Return the scaled dimensions
+        // Return dimensions with calculated values
         return [
-        'width'  => (int) round($originalWidth),
-        'height' => (int) round($originalHeight),
+            'width'  => (int) ($imageWidth),
+            'height' => (int) ($imageHeight),
         ];
     }
 }

@@ -68,7 +68,7 @@ class ImageConvertFilter implements Hookable
       }
 
       //Check that it is a valid image size array.
-      if (count($size) < 2) {
+      if (count($size) != 2) {
           return false;
       }
 
@@ -98,9 +98,6 @@ class ImageConvertFilter implements Hookable
    */
     public function setImageQuality($quality, $mimeType): int
     {
-      if ('image/webp' === $mimeType) {
-          return $this->config->intermidiateImageQuality();
-      }
-      return $quality;
+        return $this->config->intermidiateImageQuality();
     }
 }

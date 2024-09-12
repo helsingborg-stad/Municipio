@@ -9,18 +9,18 @@ class ImageContract implements ImageContractInterface
 {
     private string $url;
     private string $path;
-    private int|string|null $height;
     private int|string|null $width;
+    private int|string|null $height;
     private static array $attachmentRuntimeCache = [
         'url'  => [],
         'path' => []
     ];
 
     // Constructor using property promotion
-    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $height, int|string|bool|null $width)
+    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $width, int|string|bool|null $height,)
     {
-        $this->height = $this->sanitizeDimension($height, 'height');
         $this->width  = $this->sanitizeDimension($width, 'width');
+        $this->height = $this->sanitizeDimension($height, 'height');
         $this->url    = $this->createAttachmentUrl($id);
         $this->path   = $this->createAttachmentPath($id);
     }
@@ -130,9 +130,9 @@ class ImageContract implements ImageContractInterface
         $this->height = $height;
     }
 
-    public static function factory(GetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $height, int|string|bool|null $width): self
+    public static function factory(GetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $width, int|string|bool|null $height): self
     {
-        return new self($wpService, $id, $height, $width);
+        return new self($wpService, $id, $width, $height);
     }
 }
  
