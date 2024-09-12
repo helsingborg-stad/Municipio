@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use DateTime;
 use Municipio\Helper\WP;
 
 /**
@@ -683,22 +684,56 @@ class Archive extends \Municipio\Controller\BaseController
                     ]
                 ];
 
-                if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
-                    foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
-                        $terms = get_the_terms($post->id, $taxonomy);
-
-                        if (is_wp_error($terms) || empty($terms)) {
-                            $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = '';
-                            continue;
-                        }
-
-                        $termNames                                                                        = array_map(fn($term) => $term->name, $terms);
-                        $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
-                    }
-                }
+                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
             }
         }
 
         return $preparedPosts;
+    }
+
+    /**
+     * Prepare taxonomy columns for the given post.
+     *
+     * @param object $post The post object.
+     * @param array $preparedPosts The array of prepared posts.
+     * @return array The array of prepared posts with taxonomy columns.
+     */
+    private function prepareTaxonomyColumns($post, $preparedPosts)
+    {
+        if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
+            foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
+                $terms = get_the_terms($post->id, $taxonomy);
+
+                if (is_wp_error($terms) || empty($terms)) {
+                    $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = '';
+                    continue;
+                }
+
+                $termNames = array_map(fn($term) => $term->name, $terms);
+                $termNames = $this->formatTermNames($termNames);
+
+                $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
+            }
+        }
+
+        return $preparedPosts;
+    }
+
+    /**
+     * Format term names.
+     *
+     * @param array $termNames The term names to format.
+     * @return array The formatted term names.
+     */
+    private function formatTermNames(array $termNames): array
+    {
+        return array_map(function ($term) {
+            $date = strtotime(str_replace(',', '', $term));
+
+            return $date !== false
+                ? wp_date(get_option('date_format'), strtotime($term))
+                : $term;
+        },
+        $termNames);
     }
 }
