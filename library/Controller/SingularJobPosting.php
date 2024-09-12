@@ -2,14 +2,13 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Controller\Utils\SingularSchoolData;
-
 /**
- * Class SingularSchool
+ * Class SingularJobPosting
  */
 class SingularJobPosting extends \Municipio\Controller\Singular
 {
     protected object $postMeta;
+    public string $view = 'single-schema-jobposting';
 
     public function init()
     {

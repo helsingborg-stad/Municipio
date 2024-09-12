@@ -40,7 +40,8 @@ class App
         private WpService $wpService,
         private AcfService $acfService,
         private HooksRegistrarInterface $hooksRegistrar,
-        private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar
+        private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
+        private SchemaDataConfigInterface $schemaDataConfig
     ) {
         /**
          * Upgrade
@@ -50,7 +51,7 @@ class App
         /**
          * Template
          */
-        new \Municipio\Template($this->acfService);
+        new \Municipio\Template($this->acfService, $this->wpService, $this->schemaDataConfig);
 
         /**
          * Theme
@@ -318,9 +319,7 @@ class App
             ]);
         });
 
-        $schemaDataConfig = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($this->wpService);
-
-        if (!$schemaDataConfig->featureIsEnabled()) {
+        if (!$this->schemaDataConfig->featureIsEnabled()) {
             return;
         }
 
@@ -332,7 +331,7 @@ class App
         $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($schemaDataConfig);
+        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($this->schemaDataConfig);
         $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
         $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
         $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $this->wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
@@ -374,20 +373,20 @@ class App
         $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
         $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
         $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $schemaDataConfig));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
 
         /**
          * External content
          */
-        $this->setupExternalContent($schemaDataConfig);
+        $this->setupExternalContent();
     }
 
-    private function setupExternalContent(SchemaDataConfigInterface $schemaDataConfig): void
+    private function setupExternalContent(): void
     {
         /**
          * Feature config
          */
-        $sourceConfigs = (new ConfigSourceConfigFactory($schemaDataConfig, $this->wpService))->create();
+        $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
         /**
          * Register field group for external content settings.
@@ -413,7 +412,7 @@ class App
         /**
          * Populate post type field options.
          */
-        $postTypesAsOptions = array_combine($schemaDataConfig->getEnabledPostTypes(), $schemaDataConfig->getEnabledPostTypes());
+        $postTypesAsOptions = array_combine($this->schemaDataConfig->getEnabledPostTypes(), $this->schemaDataConfig->getEnabledPostTypes());
         $this->acfFieldContentModifierRegistrar->registerModifier('field_66da926c03553', new ModifyFieldChoices($postTypesAsOptions));
 
         /**
@@ -434,7 +433,14 @@ class App
         /**
          * Add sync button to post list.
          */
-        $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) {
+        $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) use ($sourceConfigs) {
+
+            $postTypeHasExternalContentSource = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $this->wpService->getCurrentScreen()->post_type);
+
+            if (empty($postTypeHasExternalContentSource)) {
+                return;
+            }
+
             $this->wpService->submitButton(
                 __('Sync all posts from remote source'),
                 'primary',
@@ -446,7 +452,14 @@ class App
         /**
          * Add sync button to post row.
          */
-        $this->wpService->addAction('page_row_actions', function (array $actions, WP_Post $post) {
+        $this->wpService->addAction('page_row_actions', function (array $actions, WP_Post $post) use ($sourceConfigs) {
+
+            $postTypeHasExternalContentSource = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $post->post_type);
+
+            if (empty($postTypeHasExternalContentSource)) {
+                return;
+            }
+
             $urlParams = sprintf(
                 '&%s&%s=%s',
                 \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,

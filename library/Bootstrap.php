@@ -128,7 +128,8 @@ if (function_exists('get_field')) {
         $wpService,
         $acfService,
         new HooksRegistrar(),
-        new \Municipio\AcfFieldContentModifiers\Registrar($wpService)
+        new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
+        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService)
     );
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {

@@ -11,12 +11,14 @@ use Municipio\Helper\Listing;
  */
 class SingularPlace extends \Municipio\Controller\Singular
 {
+    public string $view = 'single-schema-place';
+
     public function init()
     {
         parent::init();
 
-        $pageID                         = $this->getPageID();
-        $this->data['relatedPosts']     = $this->getRelatedPosts($pageID);
+        $pageID                     = $this->getPageID();
+        $this->data['relatedPosts'] = $this->getRelatedPosts($pageID);
 
         $this->addHooks();
     }
