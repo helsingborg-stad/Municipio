@@ -17,7 +17,7 @@ class ImageContract implements ImageContractInterface
     ];
 
     // Constructor using property promotion
-    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $width, int|string|bool|null $height,)
+    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $width, int|string|bool|null $height)
     {
         $this->width  = $this->sanitizeDimension($width, 'width');
         $this->height = $this->sanitizeDimension($height, 'height');
@@ -135,4 +135,3 @@ class ImageContract implements ImageContractInterface
         return new self($wpService, $id, $width, $height);
     }
 }
- 

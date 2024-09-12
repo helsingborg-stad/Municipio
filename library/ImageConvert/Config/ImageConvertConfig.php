@@ -142,7 +142,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 
   /**
    * Create a prefix for image conversion filter.
-   * 
+   *
    * @return string
    */
     public function createFilterKey(string $filter = ""): string

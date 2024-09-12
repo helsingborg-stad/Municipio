@@ -79,17 +79,17 @@ class ResolveMissingImageSize implements Hookable
     public function calculateScaledDimensions(ImageContract $image, array $resolvedImageSize): array
     {
         //Get image dimensions requested
-        $imageWidth     = $image->getWidth() ?: null;
-        $imageHeight    = $image->getHeight() ?: null;
+        $imageWidth  = $image->getWidth() ?: null;
+        $imageHeight = $image->getHeight() ?: null;
 
         // If width is not set, calculate it based on the aspect ratio
         if (!is_numeric($imageWidth)) {
-            $imageWidth = round(($imageHeight/$resolvedImageSize[1]) * $resolvedImageSize[0]);
+            $imageWidth = round(($imageHeight / $resolvedImageSize[1]) * $resolvedImageSize[0]);
         }
 
         // If height is not set, calculate it based on the aspect ratio
         if (!is_numeric($imageHeight)) {
-            $imageHeight = round(($imageWidth/$resolvedImageSize[0]) * $resolvedImageSize[1]);
+            $imageHeight = round(($imageWidth / $resolvedImageSize[0]) * $resolvedImageSize[1]);
         }
 
         // Return dimensions with calculated values

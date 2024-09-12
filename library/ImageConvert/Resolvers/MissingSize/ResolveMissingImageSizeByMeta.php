@@ -18,7 +18,7 @@ class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
     {
         // Get attachment metadata
         $metaData = $this->wpService->getAttachmentMetadata(
-          $image->getId()
+            $image->getId()
         );
 
         // Filter the metadata to ensure 'width' and 'height' exist and are numeric
