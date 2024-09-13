@@ -7,13 +7,14 @@ use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 
 class ImageConvertConfig implements ImageConvertConfigInterface
 {
-    const FILTER_PREFIX              = 'Municipio/ImageConvert';
-    const INTERMIDIATE_IMAGE_FORMAT  = 'webp';
-    const INTERMIDIATE_IMAGE_QUALITY = 70;
 
-    public function __construct(private ApplyFilters $wpService)
-    {
-    }
+    public function __construct(
+        private ApplyFilters $wpService, 
+        private string $filterPrefix = 'municipio/imageConvert', 
+        private string $intermidiateImageFormat = 'webp',
+        private int $intermidiateImageQuality = 80,
+        private int $intermidiateImageMaxDimension = 1920
+    ){}
 
   /**
    * If the image conversion is enabled.
@@ -33,7 +34,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            1920
+            $this->intermidiateImageMaxDimension
         );
     }
 
@@ -46,7 +47,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         $targetFormat = $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            self::INTERMIDIATE_IMAGE_FORMAT
+            $this->intermidiateImageFormat
         );
 
         if (!in_array($targetFormat, $this->fileNameSuffixes())) {
@@ -66,7 +67,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            self::INTERMIDIATE_IMAGE_QUALITY
+            $this->intermidiateImageQuality
         );
     }
 
@@ -148,6 +149,6 @@ class ImageConvertConfig implements ImageConvertConfigInterface
    */
     public function createFilterKey(string $filter = ""): string
     {
-        return self::FILTER_PREFIX . "/" . ucfirst($filter);
+        return $this->filterPrefix . "/" . ucfirst($filter);
     }
 }
