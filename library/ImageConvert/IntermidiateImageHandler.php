@@ -76,12 +76,7 @@ class IntermidiateImageHandler implements Hookable
         $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
-
-            // Apply sharpening only if using Imagick and not the S3 plugin
-            if ($imageEditor instanceof \WP_Image_Editor_Imagick && !$imageEditor instanceof \S3_Uploads\Image_Editor_Imagick) {
-                $imageEditor->get_image()->unsharpMaskImage(0, 0.5, 1.5, 0);
-            }
-
+            
             //Make the resize
             $imageEditor->resize(
                 $image->getWidth(),
