@@ -9,6 +9,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\GetImageEditor;
 use Municipio\Helper\File;
+use WP_Image_Editor_Imagick;
 
 class IntermidiateImageHandler implements Hookable
 {
@@ -75,6 +76,12 @@ class IntermidiateImageHandler implements Hookable
         $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
+
+            //Sharpen image before resize, only with Imagick
+            if ($imageEditor instanceof WP_Image_Editor_Imagick) {
+                $imageEditor->get_image()->unsharpMaskImage(0, 0.5, 1.5, 0);
+            }
+
             //Make the resize
             $imageEditor->resize(
                 $image->getWidth(),

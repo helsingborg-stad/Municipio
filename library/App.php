@@ -52,7 +52,6 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        new \Municipio\Theme\SharpenThumbnails(); // TODO: Move to image convert flow.
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
@@ -62,7 +61,6 @@ class App
         new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
-
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
