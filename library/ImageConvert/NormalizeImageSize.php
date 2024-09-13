@@ -5,13 +5,14 @@ namespace Municipio\ImageConvert;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\Contract\ImageContract;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetAttachedFile;
 use WpService\Contracts\GetAttachmentUrl;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private ApplyFilters&GetAttachedFile&GetAttachmentUrl $wpService, private ImageConvertConfig $config)
+    public function __construct(private ApplyFilters&GetAttachedFile&GetAttachmentUrl&AddFilter $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -56,7 +57,7 @@ class NormalizeImageSize implements Hookable
             return $size;
         }
 
-        if(!isset($size[0], $size[1])){
+        if (!isset($size[0], $size[1])) {
             throw new \InvalidArgumentException('The size array must contain both width and height values in a non keyed array (0,1).');
         }
 

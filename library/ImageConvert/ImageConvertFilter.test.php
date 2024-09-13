@@ -38,7 +38,12 @@ class ImageConvertFilterTest extends TestCase
     {
         $wpService          = new FakeWpService(
             [
-            'applyFilters' => fn($hookName, $value, ...$args) => $value
+                'applyFilters' => function ($hookName, $value, ...$args) {
+                    if ($hookName == 'Municipio/ImageConvert/MimeTypes') {
+                        return ['image/svg'];
+                    }
+                    return $value;
+                }
             ]
         );
         $configService      = new ImageConvertConfig(

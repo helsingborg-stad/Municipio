@@ -7,14 +7,14 @@ use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
 
 class ImageConvertConfig implements ImageConvertConfigInterface
 {
-
     public function __construct(
-        private ApplyFilters $wpService, 
-        private string $filterPrefix = 'municipio/imageConvert', 
+        private ApplyFilters $wpService,
+        private string $filterPrefix = 'Municipio/ImageConvert',
         private string $intermidiateImageFormat = 'webp',
         private int $intermidiateImageQuality = 80,
         private int $intermidiateImageMaxDimension = 1920
-    ){}
+    ) {
+    }
 
   /**
    * If the image conversion is enabled.
@@ -87,16 +87,21 @@ class ImageConvertConfig implements ImageConvertConfigInterface
    */
     public function mimeTypes(): array
     {
-        return $this->wpService->applyFilters(
-            $this->createFilterKey(__FUNCTION__),
-            [
+        $originalMimeList = [
             'image/jpeg',
             'image/png',
             'image/gif',
             'image/tiff',
             'image/webp',
-            ]
+        ];
+        $mime             = $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            $originalMimeList
         );
+        if (is_array($mime)) {
+            return $mime;
+        }
+        return $originalMimeList;
     }
 
   /**
