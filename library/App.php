@@ -262,7 +262,7 @@ class App
             $this->wpService,
             'Municipio/ImageConvert',
             'webp',
-            80,
+            90,
             1920
         );
 
