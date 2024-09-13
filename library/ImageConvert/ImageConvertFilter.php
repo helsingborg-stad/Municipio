@@ -80,7 +80,7 @@ class ImageConvertFilter implements Hookable
 
         // Check if the mime type is supported.
         if (!in_array($this->wpService->getPostMimeType($id), $this->config->mimeTypes())) {
-            //return false;
+            return false;
         }
 
         return $this->wpService->applyFilters(
