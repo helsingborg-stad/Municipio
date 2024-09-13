@@ -33,6 +33,27 @@ class NormalizeImageSizeTest extends TestCase
     }
 
     /**
+     * @testdox Throws an exception if the size array does not contain both width and height values.
+     */
+    public function testNormalizeSizeCapThrowsException(): void
+    {
+        $wpService          = new FakeWpService();
+        $configService      = new ImageConvertConfig(
+            $wpService
+        );
+        $normalizeImageSize = new NormalizeImageSize(
+            $wpService,
+            $configService
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+        $normalizeImageSize->normalizeSizeCap(
+            [3000],
+            2500
+        );
+    }
+
+    /**
      * Test data provider for testNormalizeSizeCap.
      */
     private function normalizeSizeCapProvider()

@@ -56,6 +56,10 @@ class NormalizeImageSize implements Hookable
             return $size;
         }
 
+        if(!isset($size[0], $size[1])){
+            throw new \InvalidArgumentException('The size array must contain both width and height values in a non keyed array (0,1).');
+        }
+
         $width  = $size[0];
         $height = $size[1];
 
