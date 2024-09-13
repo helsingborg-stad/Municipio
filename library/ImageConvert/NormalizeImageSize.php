@@ -5,10 +5,13 @@ namespace Municipio\ImageConvert;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\ImageConvert\Contract\ImageContract;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetAttachedFile;
+use WpService\Contracts\GetAttachmentUrl;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private $wpService, private ImageConvertConfig $config)
+    public function __construct(private ApplyFilters&GetAttachedFile&GetAttachmentUrl $wpService, private ImageConvertConfig $config)
     {
     }
 
