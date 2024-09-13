@@ -28,10 +28,11 @@ use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\AddFilter;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\GetAttachmentUrl;
+use WpService\Contracts\GetPostMimeType;
 
 class ImageConvertFilter implements Hookable
 {
-    public function __construct(private AddFilter&ApplyFilters&GetAttachmentUrl $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&ApplyFilters&GetAttachmentUrl&GetPostMimeType $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -76,10 +77,10 @@ class ImageConvertFilter implements Hookable
         if (!is_int($size[0]) && !is_int($size[1])) {
             return false;
         }
-      
-      // Check if the mime type is supported.
-        if(!in_array(get_post_mime_type(), $this->config->mimeTypes())) {
-          return false;
+
+        // Check if the mime type is supported.
+        if (!in_array($this->wpService->getPostMimeType($id), $this->config->mimeTypes())) {
+            //return false;
         }
 
         return $this->wpService->applyFilters(
