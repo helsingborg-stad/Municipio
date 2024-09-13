@@ -76,6 +76,11 @@ class ImageConvertFilter implements Hookable
         if (!is_int($size[0]) && !is_int($size[1])) {
             return false;
         }
+      
+      // Check if the mime type is supported.
+        if(!in_array(get_post_mime_type(), $this->config->mimeTypes())) {
+          return false;
+        }
 
         return $this->wpService->applyFilters(
             $this->config->createFilterKey(__FUNCTION__),
