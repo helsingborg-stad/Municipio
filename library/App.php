@@ -388,12 +388,16 @@ class App
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
+        if (!$this->schemaDataConfig->featureIsEnabled()) {
+            return;
+        }
+
         /**
          * Register taxonomies for external content.
          */
         $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($sourceConfigs, $this->wpService);
         $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
-        array_map(fn($item) => $item->register(), $taxonomyItems);
+        array_walk($taxonomyItems, fn($item) => $item->register());
 
         /**
          * Setup cron jobs on config change.
@@ -411,6 +415,10 @@ class App
          */
         $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
 
+        /**
+         * Only run the following if user is admin.
+         * This is to prevent the following from running on the front end and affecting performance.
+         */
         if (!$this->wpService->isAdmin()) {
             return;
         }
@@ -419,6 +427,7 @@ class App
          * Register field group for external content settings.
          */
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
+            // TODO: Move all this into a hookable class.
             $autoExportIds['external-content-settings'] = 'group_66d94ae935cfb';
             return $autoExportIds;
         });
@@ -427,6 +436,7 @@ class App
          * Register options page
          */
         $this->wpService->addAction('init', function () {
+            // TODO: Move all this into a hookable class.
             $this->acfService->addOptionsSubPage([
                 'page_title'  => 'External Content Settings',
                 'menu_title'  => 'External Content',
@@ -460,48 +470,12 @@ class App
         /**
          * Add sync button to post list.
          */
-        $this->wpService->addAction('manage_posts_extra_tablenav', function ($which) use ($sourceConfigs) {
-
-            $postTypeHasExternalContentSource = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $this->wpService->getCurrentScreen()->post_type);
-
-            if (empty($postTypeHasExternalContentSource)) {
-                return;
-            }
-
-            $this->wpService->submitButton(
-                __('Sync all posts from remote source'),
-                'primary',
-                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
-                false
-            );
-        });
+        $this->hooksRegistrar->register(new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService));
 
         /**
          * Add sync button to post row.
          */
-        $this->wpService->addAction('page_row_actions', function (array $actions, WP_Post $post) use ($sourceConfigs) {
-
-            $postTypeHasExternalContentSource = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $post->post_type);
-
-            if (empty($postTypeHasExternalContentSource)) {
-                return;
-            }
-
-            $urlParams = sprintf(
-                '&%s&%s=%s',
-                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
-                \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_POST_ID,
-                $post->ID
-            );
-
-            $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
-                '<a href="%s">%s</a>',
-                $_SERVER['REQUEST_URI'] . $urlParams,
-                __('Sync this post from remote source', 'municipio')
-            );
-
-            return $actions;
-        }, 100, 2);
+        $this->hooksRegistrar->register(new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService));
 
         /**
          * Trigger sync of external content.
