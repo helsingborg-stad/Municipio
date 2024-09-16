@@ -20,6 +20,7 @@ class PageRowActionsSyncButton implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter('page_row_actions', array($this, 'addSyncButton'), 10, 2);
+        $this->wpService->addFilter('post_row_actions', array($this, 'addSyncButton'), 10, 2);
     }
 
     public function addSyncButton(array $actions, WP_Post $post): array
