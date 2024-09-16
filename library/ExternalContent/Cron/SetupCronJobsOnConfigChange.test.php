@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Cron;
 use Municipio\Config\ConfigFactoryInterface;
 use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
+use Municipio\ExternalContent\Config\SourceConfigInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpCronService\FakeWpCronJobManager;
@@ -18,7 +19,7 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
     public function testAddHooks()
     {
         $wpService = new FakeWpService();
-        $sut       = new SetupCronJobsOnConfigChange($this->getFakeConfig(), new FakeWpCronJobManager(), $wpService);
+        $sut       = new SetupCronJobsOnConfigChange([$this->getFakeConfig()], new FakeWpCronJobManager(), $wpService);
 
         $sut->addHooks();
 
@@ -33,25 +34,21 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
     {
         $wpService = new FakeWpService();
         $manager   = new FakeWpCronJobManager();
-        $sut       = new SetupCronJobsOnConfigChange($this->getFakeConfig(), $manager, $wpService);
+        $sut       = new SetupCronJobsOnConfigChange([$this->getFakeConfig()], $manager, $wpService);
 
         $sut->setupCronJobs('options', 'schema-data');
 
         $this->assertCount(1, $manager->methodCalls['register']);
     }
 
-    private function getFakeConfig(): ExternalContentConfigInterface|MockObject
+    private function getFakeConfig(): SourceConfigInterface|MockObject
     {
-        $postType            = 'test_post_type';
-        $cronSchedule        = 'hourly';
-        $fakePostTypeSetting = $this->getMockBuilder(ExternalContentPostTypeSettingsInterface::class)->getMock();
-        $fakePostTypeSetting->method('getPostType')->willReturn($postType);
-        $fakePostTypeSetting->method('getCronSchedule')->willReturn($cronSchedule);
+        $postType         = 'test_post_type';
+        $cronSchedule     = 'hourly';
+        $fakeSourceConfig = $this->getMockBuilder(SourceConfigInterface::class)->getMock();
+        $fakeSourceConfig->method('getPostType')->willReturn($postType);
+        $fakeSourceConfig->method('getAutomaticImportSchedule')->willReturn($cronSchedule);
 
-        $fake = $this->getMockBuilder(ExternalContentConfigInterface::class)->getMock();
-        $fake->method('getEnabledPostTypes')->willReturn([$postType]);
-        $fake->method('getPostTypeSettings')->with($postType)->willReturn($fakePostTypeSetting);
-
-        return $fake;
+        return $fakeSourceConfig;
     }
 }
