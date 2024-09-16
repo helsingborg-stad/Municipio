@@ -26,6 +26,71 @@ class SourceConfigFactoryTest extends TestCase
     }
 
     /**
+     * @testdox ACF json file exists
+     */
+    public function testAcfConfig()
+    {
+        $acfJsonFile = __DIR__ . '/../../AcfFields/json/external-content-settings.json';
+
+        $this->assertFileExists($acfJsonFile);
+    }
+
+    /**
+     * @testdox ACF json file contains repeater field with expected name
+     */
+    public function testAcfConfigContainsRepeaterField()
+    {
+        $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/external-content-settings.json');
+        $json             = json_decode($jsonFileContents, true);
+
+        $fields = $json[0]['fields'];
+
+        $this->assertEquals('external_content_sources', $fields[0]['name']);
+        $this->assertEquals('repeater', $fields[0]['type']);
+    }
+
+    /**
+     * @testdox ACF json repeater field contains expected sub fields
+     */
+    public function testAcfConfigContainsExpectedSubFields()
+    {
+        $jsonFileContents = file_get_contents(__DIR__ . '/../../AcfFields/json/external-content-settings.json');
+        $json             = json_decode($jsonFileContents, true);
+
+        $fields = $json[0]['fields'];
+
+        $subFieldNames = array_map(fn($subField) => $subField['name'], $fields[0]['sub_fields']);
+
+        $this->assertContains('post_type', $subFieldNames);
+        $this->assertContains('source_type', $subFieldNames);
+        $this->assertContains('source_json_file_path', $subFieldNames);
+        $this->assertContains('source_typesense_api_key', $subFieldNames);
+        $this->assertContains('source_typesense_protocol', $subFieldNames);
+        $this->assertContains('source_typesense_host', $subFieldNames);
+        $this->assertContains('source_typesense_port', $subFieldNames);
+        $this->assertContains('source_typesense_collection', $subFieldNames);
+        $this->assertContains('automatic_import_schedule', $subFieldNames);
+        $this->assertContains('taxonomies', $subFieldNames);
+    }
+
+    /**
+     * @testdox ACF json taxonomies field contains expected sub fields
+     */
+    public function testAcfConfigContainsExpectedTaxonomiesSubFields()
+    {
+        $jsonFileContents        = file_get_contents(__DIR__ . '/../../AcfFields/json/external-content-settings.json');
+        $json                    = json_decode($jsonFileContents, true);
+        $fields                  = $json[0]['fields'];
+        $subFields               = $fields[0]['sub_fields'];
+        $taxonomiesField         = array_values(array_filter($subFields, fn($subField) => $subField['name'] === 'taxonomies'));
+        $taxonomiesSubFieldNames = array_map(fn($subField) => $subField['name'], $taxonomiesField[0]['sub_fields']);
+
+        $this->assertContains('from_schema_property', $taxonomiesSubFieldNames);
+        $this->assertContains('singular_name', $taxonomiesSubFieldNames);
+        $this->assertContains('name', $taxonomiesSubFieldNames);
+    }
+
+    /**
      * @testdox create returns an empty array if no rows are found
      */
     public function testCreateReturnsAnEmptyArrayIfNoRowsAreFound()
