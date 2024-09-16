@@ -347,10 +347,9 @@ class App
     {
         $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
 
-        return;
-        // if ($configService->isEnabled() === false) {
-        //     return;
-        // }
+        if ($configService->isEnabled() === false) {
+            return;
+        }
 
         $setMailContentType    = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
         $convertMessageToHtml  = new \Municipio\BrandedEmails\ConvertMessageToHtml($this->wpService);
