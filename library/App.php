@@ -499,7 +499,6 @@ class App
          * Register field group for external content settings.
          */
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
-            // TODO: Move all this into a hookable class.
             $autoExportIds['external-content-settings'] = 'group_66d94ae935cfb';
             return $autoExportIds;
         });
@@ -508,7 +507,6 @@ class App
          * Register options page
          */
         $this->wpService->addAction('init', function () {
-            // TODO: Move all this into a hookable class.
             $this->acfService->addOptionsSubPage([
                 'page_title'  => 'External Content Settings',
                 'menu_title'  => 'External Content',
