@@ -2,9 +2,6 @@
 
 namespace Municipio\ExternalContent\Cron;
 
-use Municipio\Config\ConfigFactoryInterface;
-use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
 use Municipio\ExternalContent\Config\SourceConfigInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
