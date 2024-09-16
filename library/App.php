@@ -477,6 +477,17 @@ class App
         $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
 
         /**
+         * Build sources to sync from.
+         */
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($sourceConfigs, $this->wpService))->createSources();
+
+        /**
+         * Start sync if event is triggered.
+         */
+        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
+        $this->hooksRegistrar->register($syncEventListener);
+
+        /**
          * Only run the following if user is admin.
          * This is to prevent the following from running on the front end and affecting performance.
          */
@@ -542,16 +553,5 @@ class App
          * Trigger sync of external content.
          */
         $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
-
-        /**
-         * Build sources to sync from.
-         */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($sourceConfigs, $this->wpService))->createSources();
-
-        /**
-         * Start sync if event is triggered.
-         */
-        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
-        $this->hooksRegistrar->register($syncEventListener);
     }
 }
