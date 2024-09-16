@@ -11,9 +11,8 @@ class ResolveMissingImageSizeDefault implements ResolveMissingImageSizeInterface
     {
         // Create a readable representation of the ImageContract object
         $imageDetails = sprintf(
-            'ImageContract Details: [ID: %s, Filename: %s, URL: %s]',
+            'ImageContract Details: [ID: %s, URL: %s]',
             $image->getId(),
-            $image->getFileName(),
             $image->getUrl()
         );
 

@@ -92,7 +92,12 @@ class ImageContract implements ImageContractInterface
     public function getIntermidiateLocation(?string $suffix = null): array
     {
         $intermidiateString = function ($path, $width, $height, $suffix = null): string {
-            $fileInfo  = pathinfo($path);
+            $fileInfo = pathinfo($path);
+
+            if (!isset($fileInfo['dirname'], $fileInfo['filename'], $fileInfo['extension'])) {
+                return $path;
+            }
+
             $dirname   = $fileInfo['dirname'];
             $filename  = $fileInfo['filename'];
             $extension = $fileInfo['extension'];
