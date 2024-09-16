@@ -60,8 +60,6 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        new \Municipio\Theme\OnTheFlyImages();
-        new \Municipio\Theme\SharpenThumbnails();
         new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
@@ -71,7 +69,6 @@ class App
         new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
-
 
         new \Municipio\Search\General();
         new \Municipio\Search\Algolia();
@@ -248,6 +245,71 @@ class App
          * Apply schema.org data to posts
          */
         $this->setupSchemaDataFeature();
+
+        /**
+         * Image convert
+         */
+        $this->setupImageConvert();
+    }
+
+    /**
+     * Sets up the post type design.
+     *
+     * This method initializes functionality for handling
+     * image conversion and resizing of images.
+     *
+     * @return void
+     */
+    private function setupImageConvert(): void
+    {
+        //Image convert config service
+        $imageConvertConfig = new \Municipio\ImageConvert\Config\ImageConvertConfig(
+            $this->wpService,
+            'Municipio/ImageConvert',
+            'webp',
+            90,
+            1920
+        );
+
+        //Check if image convert is enabled
+        if ($imageConvertConfig->isEnabled() === false) {
+            return;
+        }
+
+        //Init image convert filter
+        $imageConvertFilter = new \Municipio\ImageConvert\ImageConvertFilter(
+            $this->wpService,
+            $imageConvertConfig
+        );
+        $imageConvertFilter->addHooks();
+
+        //Makes shure that the image has full dataset in order to resize image
+        $normalizeImageSize = new \Municipio\ImageConvert\NormalizeImageSize(
+            $this->wpService,
+            $imageConvertConfig
+        );
+        $normalizeImageSize->addHooks();
+
+        //Calculate image dimensions, if there are any missing.
+        $resolveMissingImageSize = new \Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSize(
+            $this->wpService,
+            $imageConvertConfig
+        );
+        $resolveMissingImageSize->addHooks();
+
+        //Create the missing intermidiate image
+        $intermidiateImageHandler = new \Municipio\ImageConvert\IntermidiateImageHandler(
+            $this->wpService,
+            $imageConvertConfig
+        );
+        $intermidiateImageHandler->addHooks();
+
+        //Resolve image to wp image contract (standard wordpress image array)
+        $resolveToWpImageContract = new \Municipio\ImageConvert\ResolveToWpImageContract(
+            $this->wpService,
+            $imageConvertConfig
+        );
+        $resolveToWpImageContract->addHooks();
     }
 
     /**
