@@ -13,7 +13,7 @@
     
 @stop
 
-@section('sidebar-right')
+@section('sidebar.right-sidebar.before')
     
     @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
         {{$lang->information}}
