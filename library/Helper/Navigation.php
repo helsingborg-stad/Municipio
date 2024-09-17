@@ -681,7 +681,7 @@ class Navigation
 
         if (!empty($result) && is_array($result)) {
             $pageStructure = $includeTopLevel ? $this->menuConstructorInstance->buildStructuredMenu($result) : $this->removeTopLevel($this->menuConstructorInstance->buildStructuredMenu($result));
-            if (false) {
+            if ($onlyKeepFirstLevel) {
                 $pageStructure = $this->removeSubLevels($pageStructure);
             }
 
