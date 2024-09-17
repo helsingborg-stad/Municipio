@@ -4361,8 +4361,9 @@ msgid "toc"
 msgstr "toc"
 
 #: AcfFields/php/options-menu-icon.php:985
+#: Controller/SingularJobPosting.php:32
 msgid "today"
-msgstr "today"
+msgstr "idag"
 
 #: AcfFields/php/options-menu-icon.php:986
 msgid "toggle_off"
@@ -17397,7 +17398,7 @@ msgstr "Chattbubbla"
 msgid "Close cross"
 msgstr "Kryss"
 
-#: Controller/SingularJobPosting.php:29
+#: Controller/SingularJobPosting.php:30
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr "Information"
@@ -17975,11 +17976,11 @@ msgstr ""
 msgid "school-person"
 msgstr ""
 
-#: App.php:449
+#: App.php:529
 msgid "Never"
 msgstr ""
 
-#: App.php:500
+#: ExternalContent/UI/PageRowActionsSyncButton.php:44
 msgid "Sync this post from remote source"
 msgstr ""
 
@@ -17987,35 +17988,35 @@ msgstr ""
 msgid "This email was sent from %s."
 msgstr ""
 
-#: Controller/SingularJobPosting.php:22
+#: Controller/SingularJobPosting.php:23
 msgid "Contact"
 msgstr "Kontakt"
 
-#: Controller/SingularJobPosting.php:23
+#: Controller/SingularJobPosting.php:24
 msgid "Administration"
 msgstr "Förvaltning"
 
-#: Controller/SingularJobPosting.php:24
+#: Controller/SingularJobPosting.php:25
 msgid "City"
 msgstr "Ort"
 
-#: Controller/SingularJobPosting.php:25
+#: Controller/SingularJobPosting.php:26
 msgid "Date posted"
 msgstr "Publicerad"
 
-#: Controller/SingularJobPosting.php:26
+#: Controller/SingularJobPosting.php:27
 msgid "Employment type"
 msgstr "Omfattning"
 
-#: Controller/SingularJobPosting.php:27
+#: Controller/SingularJobPosting.php:28
 msgid "Valid through"
 msgstr "Sista ansökningsdag"
 
-#: Controller/SingularJobPosting.php:28
+#: Controller/SingularJobPosting.php:29
 msgid "Apply"
 msgstr "Ansök"
 
-#: Controller/SingularJobPosting.php:30
+#: Controller/SingularJobPosting.php:31
 msgid "Reference"
 msgstr "Referens"
 
@@ -18148,3 +18149,11 @@ msgstr ""
 #: Theme/Enqueue.php:101
 msgid "Alignment"
 msgstr ""
+
+#: Controller/SingularJobPosting.php:33
+msgid "tomorrow"
+msgstr "imorgon"
+
+#: Controller/SingularJobPosting.php:34
+msgid "expired"
+msgstr "stängd"

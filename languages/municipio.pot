@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-12T12:01:57+00:00\n"
+"POT-Creation-Date: 2024-09-17T12:08:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -4425,6 +4425,7 @@ msgid "toc"
 msgstr ""
 
 #: AcfFields/php/options-menu-icon.php:985
+#: Controller/SingularJobPosting.php:32
 msgid "today"
 msgstr ""
 
@@ -15327,12 +15328,8 @@ msgstr ""
 msgid "View data."
 msgstr ""
 
-#: App.php:449
+#: App.php:529
 msgid "Never"
-msgstr ""
-
-#: App.php:500
-msgid "Sync this post from remote source"
 msgstr ""
 
 #: BrandedEmails/HtmlTemplate/DefaultHtmlTemplate.php:54
@@ -15505,41 +15502,49 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularJobPosting.php:22
+#: Controller/SingularJobPosting.php:23
 msgid "Contact"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:23
+#: Controller/SingularJobPosting.php:24
 msgid "Administration"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:24
+#: Controller/SingularJobPosting.php:25
 msgid "City"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:25
+#: Controller/SingularJobPosting.php:26
 msgid "Date posted"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:26
+#: Controller/SingularJobPosting.php:27
 msgid "Employment type"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:27
+#: Controller/SingularJobPosting.php:28
 msgid "Valid through"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:28
+#: Controller/SingularJobPosting.php:29
 msgid "Apply"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:29
+#: Controller/SingularJobPosting.php:30
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr ""
 
-#: Controller/SingularJobPosting.php:30
+#: Controller/SingularJobPosting.php:31
 msgid "Reference"
+msgstr ""
+
+#: Controller/SingularJobPosting.php:33
+msgid "tomorrow"
+msgstr ""
+
+#: Controller/SingularJobPosting.php:34
+msgid "expired"
 msgstr ""
 
 #: Controller/SingularPlace.php:167
@@ -17343,6 +17348,10 @@ msgstr ""
 #: Customizer/Sections/Width.php:73
 #: Customizer/Sections/Width.php:89
 msgid "Normal"
+msgstr ""
+
+#: ExternalContent/UI/PageRowActionsSyncButton.php:44
+msgid "Sync this post from remote source"
 msgstr ""
 
 #: Helper/KirkiConditional.php:35
