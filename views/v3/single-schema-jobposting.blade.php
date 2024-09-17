@@ -89,7 +89,8 @@
             'text' => $lang->apply,
             'color' => 'primary',
             'style' => 'filled',
-            'href' => $post->schemaObject['url']
+            'attributeList' => $expired ? ['disabled' => ''] : null,
+            'href' => $expired ? null : $post->schemaObject['url']
         ])@endbutton
     @endif
 

@@ -15,6 +15,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         parent::init();
         $this->populateLanguageObject();
         $this->populateInformationList();
+        $this->setExpired();
     }
 
     private function populateLanguageObject(): void
@@ -30,6 +31,12 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['lang']->reference                   = __('Reference', 'municipio');
         $this->data['lang']->today                       = __('today', 'municipio');
         $this->data['lang']->tomorrow                    = __('tomorrow', 'municipio');
+        $this->data['lang']->expired                     = __('expired', 'municipio');
+    }
+
+    private function setExpired(): void
+    {
+        $this->data['expired'] = $this->isExpired();
     }
 
     private function getValidThroughListItemValue(): string
@@ -49,9 +56,26 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->today . ')';
         } elseif ($daysUntilValidThrough === 1) {
             $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->tomorrow . ')';
+        } elseif ($this->isExpired()) {
+            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->expired . ')';
         }
 
         return $value;
+    }
+
+    private function isExpired(): bool
+    {
+        $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
+
+        if (empty($validThroughTimeStamp)) {
+            return false;
+        }
+
+        $daysUntilValidThrough = $validThroughTimeStamp - time();
+        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = intval($daysUntilValidThrough);
+
+        return $daysUntilValidThrough < 0;
     }
 
     private function populateInformationList(): void
