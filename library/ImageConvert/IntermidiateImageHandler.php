@@ -5,15 +5,16 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
+use WpService\Contracts\UploadDir;
+use WpService\Contracts\GetImageEditor;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use WpService\Contracts\GetImageEditor;
 use Municipio\Helper\File;
 use WP_Image_Editor_Imagick;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&GetImageEditor $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&GetImageEditor&UploadDir $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -66,17 +67,21 @@ class IntermidiateImageHandler implements Hookable
      * @param ImageContract $image
      * @return ImageContract|bool Array with 'path' and 'url' or false on failure
      */
-    private function convertImage(ImageContract $image): ImageContract|bool
+    private function convertImage(ImageContract $image): ImageContract|false
     {
         $sourceFilePath       = $image->getPath();
         $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
+        // Check if the file exists and is available.
+        if (!$this->uploadedFileIsAvailable($sourceFilePath)) {
+            return false;
+        }
+
         $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
-            
             //Make the resize
             $imageEditor->resize(
                 $image->getWidth(),
@@ -102,6 +107,13 @@ class IntermidiateImageHandler implements Hookable
         }
 
         return false;
+    }
+
+    private function uploadedFileIsAvailable(string $filePath): bool
+    {
+        $uploadsDir = $this->wpService->uploadDir();
+
+        return \Municipio\Helper\File::fileExists($filePath) && str_contains($filePath, $uploadsDir['baseurl']);
     }
 
     /**
