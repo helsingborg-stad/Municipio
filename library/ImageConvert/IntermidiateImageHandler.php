@@ -74,7 +74,7 @@ class IntermidiateImageHandler implements Hookable
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
         // Check if the file exists and is available.
-        if (\Municipio\Helper\File::fileIsAvailable($sourceFilePath)) {
+        if (!\Municipio\Helper\File::fileIsAvailable($sourceFilePath)) {
             return false;
         }
 
