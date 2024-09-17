@@ -28,13 +28,6 @@ class File
         return null;
     }
 
-    public static function uploadedFileIsAvailable(string $filePath): bool
-    {
-        $uploadsDir = wp_upload_dir();
-
-        return self::fileExists($filePath) && str_contains($filePath, $uploadsDir['baseurl']);
-    }
-
     /**
      * Check if a file exists, cache in redis.
      *

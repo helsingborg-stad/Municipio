@@ -5,15 +5,16 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
+use WpService\Contracts\UploadDir;
+use WpService\Contracts\GetImageEditor;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use WpService\Contracts\GetImageEditor;
 use Municipio\Helper\File;
 use WP_Image_Editor_Imagick;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&GetImageEditor $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&GetImageEditor&UploadDir $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -74,7 +75,7 @@ class IntermidiateImageHandler implements Hookable
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
         // Check if the file exists and is available.
-        if (!\Municipio\Helper\File::uploadedFileIsAvailable($sourceFilePath)) {
+        if (!$this->uploadedFileIsAvailable($sourceFilePath)) {
             return false;
         }
 
@@ -106,6 +107,13 @@ class IntermidiateImageHandler implements Hookable
         }
 
         return false;
+    }
+
+    private function uploadedFileIsAvailable(string $filePath): bool
+    {
+        $uploadsDir = $this->wpService->uploadDir();
+
+        return \Municipio\Helper\File::fileExists($filePath) && str_contains($filePath, $uploadsDir['baseurl']);
     }
 
     /**
