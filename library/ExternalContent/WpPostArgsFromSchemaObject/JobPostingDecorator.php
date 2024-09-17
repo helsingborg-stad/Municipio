@@ -37,7 +37,7 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
     private function applyPropertiesFromJobPosting(array $post, JobPosting $schemaObject): array
     {
         if (!empty($schemaObject['title'])) {
-            $post['post_title'] = $schemaObject['title'];
+            $post['post_title'] = html_entity_decode($schemaObject['title']);
         }
 
         if (!empty($schemaObject['datePosted'])) {
