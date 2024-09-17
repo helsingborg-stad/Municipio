@@ -66,17 +66,21 @@ class IntermidiateImageHandler implements Hookable
      * @param ImageContract $image
      * @return ImageContract|bool Array with 'path' and 'url' or false on failure
      */
-    private function convertImage(ImageContract $image): ImageContract|bool
+    private function convertImage(ImageContract $image): ImageContract|false
     {
         $sourceFilePath       = $image->getPath();
         $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
+        // Check if the file exists and is available.
+        if (\Municipio\Helper\File::fileIsAvailable($sourceFilePath)) {
+            return false;
+        }
+
         $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
-            
             //Make the resize
             $imageEditor->resize(
                 $image->getWidth(),
