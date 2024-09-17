@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Sync;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
+use WpService\Contracts\DoAction;
 use WpService\Contracts\InsertPost;
 
 class SyncAllFromSourceToLocal implements SyncSourceToLocalInterface
@@ -12,7 +13,7 @@ class SyncAllFromSourceToLocal implements SyncSourceToLocalInterface
     public function __construct(
         private SourceInterface $source,
         private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
-        private InsertPost $wpService
+        private InsertPost&DoAction $wpService
     ) {
     }
 
@@ -24,7 +25,11 @@ class SyncAllFromSourceToLocal implements SyncSourceToLocalInterface
         $posts = array_map([$this, 'getPostArrayToInsert'], $this->source->getObjects());
 
         foreach ($posts as $post) {
-            $this->wpService->insertPost($post);
+            $preventSync = $post['meta_input']['schemaData']['@preventSync'] ?? false;
+
+            if (!$preventSync) {
+                $this->wpService->insertPost($post);
+            }
         }
     }
 
