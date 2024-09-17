@@ -1,6 +1,8 @@
 @button([
     'text' => 'Search',
-    'color' => 'primary',
+    'color' => 'basic',
+    'icon' => 'search',
+    'reversePositions' => true,
     'attributeList' => [
         'data-open' => 'm-search-modal__trigger',
 ],

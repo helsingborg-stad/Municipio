@@ -29,7 +29,7 @@ class File
     }
 
     /**
-     * Check if a file exists, cache in redis. 
+     * Check if a file exists, cache in redis.
      *
      * @param   string  The file path
      * @param   integer Time to store positive result
@@ -40,22 +40,22 @@ class File
     public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
     {
         //Unique cache value
-        $uid = "municipio_file_exists_cache_" . md5($filePath); 
+        $uid = "municipio_file_exists_cache_" . md5($filePath);
 
         //If in cahce, found
-        if(wp_cache_get($uid)) {
+        if (wp_cache_get($uid)) {
             return true;
         }
 
-        //If not in cache, look for it, if found cache. 
-        if(file_exists($filePath)) {
+        //If not in cache, look for it, if found cache.
+        if (file_exists($filePath)) {
             wp_cache_set($uid, true, '', $expireFound);
             return true;
         }
 
         //Opsie, file not found
-        wp_cache_set($uid, false, '', $expireNotFound); 
-        return false; 
+        wp_cache_set($uid, false, '', $expireNotFound);
+        return false;
     }
 
     /**
@@ -76,24 +76,25 @@ class File
      *                    retrieved. Returns false if the file is not found or if
      *                    dimensions cannot be determined.
      */
-    public static function getImageSize($filePath, $expireFound = 0, $expireNotFound = 86400) {
+    public static function getImageSize($filePath, $expireFound = 0, $expireNotFound = 86400)
+    {
         //Unique cache value
-        $uid = "municipio_get_image_size_cache_" . md5($filePath); 
+        $uid = "municipio_get_image_size_cache_" . md5($filePath);
 
         //If in cahce, found
-        if($cachedValue = wp_cache_get($uid)) {
+        if ($cachedValue = wp_cache_get($uid)) {
             return $cachedValue;
         }
 
-        //If not in cache, look for it, if found cache. 
-        if($imageSize = getimagesize($filePath)) {
+        //If not in cache, look for it, if found cache.
+        if ($imageSize = getimagesize($filePath)) {
             wp_cache_set($uid, $imageSize, '', $expireFound);
             return $imageSize;
         }
 
         //Opsie, file not found
         wp_cache_set($uid, false, '', $expireNotFound);
-        return false; 
+        return false;
     }
 
     /**
@@ -110,22 +111,23 @@ class File
      *                     type is successfully determined. Returns false if the file is
      *                     not found or if the MIME type cannot be determined.
      */
-    public static function getMimeType($filePath) {
+    public static function getMimeType($filePath)
+    {
         //Unique cache value
-        $uid = "municipio_get_mime_cache_" . md5($filePath); 
+        $uid = "municipio_get_mime_cache_" . md5($filePath);
 
         //If in cahce, found
-        if($cachedValue = wp_cache_get($uid)) {
+        if ($cachedValue = wp_cache_get($uid)) {
             return $cachedValue;
         }
 
-        //If not in cache, look for it, if found cache. 
-        if($mime = mime_content_type($filePath)) {
+        //If not in cache, look for it, if found cache.
+        if ($mime = mime_content_type($filePath)) {
             wp_cache_set($uid, $mime);
             return $mime;
         }
 
         //Opsie, file not found
-        return false; 
+        return false;
     }
 }

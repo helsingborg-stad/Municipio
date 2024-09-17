@@ -15298,7 +15298,7 @@ msgstr "Besök oss"
 #, php-format
 msgctxt "Shown on pre-schools"
 msgid "Do you want to join %s?"
-msgstr "Vill du söka plats hos %s?"
+msgstr "Vill du söka plats på %s?"
 
 #: Controller/Utils/SingularSchoolData.php:404
 #, php-format
