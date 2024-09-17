@@ -15,7 +15,7 @@
 
 @section('sidebar-right')
     
-    @typography(['element' => 'h3'])
+    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
         {{$lang->information}}
     @endtypography
 
@@ -40,7 +40,7 @@
 
     @if(!empty($post->schemaObject['applicationContact']))
 
-        @typography(['element' => 'h3'])
+        @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
             {{$lang->contact}}
         @endtypography
 

@@ -30,6 +30,21 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['lang']->reference                   = __('Reference', 'municipio');
     }
 
+    private function getValidThroughListItemValue(): string
+    {
+        $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
+
+        if (empty($validThroughTimeStamp)) {
+            return $this->data['post']->schemaObject['validThrough'];
+        }
+
+        $daysUntilValidThrough = $validThroughTimeStamp - time();
+        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = intval($daysUntilValidThrough);
+
+        return $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
+    }
+
     private function populateInformationList(): void
     {
         $this->data['informationList'] = [];
@@ -37,7 +52,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         if ($this->data['post']->schemaObject['validThrough'] ?? null) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->validThrough,
-                'value' => $this->data['post']->schemaObject['validThrough']
+                'value' => $this->getValidThroughListItemValue()
             ];
         }
 
