@@ -28,7 +28,7 @@ class File
         return null;
     }
 
-    public static function fileIsAvailable(string $filePath): bool
+    public static function uploadedFileIsAvailable(string $filePath): bool
     {
         $uploadsDir = wp_upload_dir();
 
