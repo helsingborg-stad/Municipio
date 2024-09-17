@@ -28,6 +28,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['lang']->apply                       = __('Apply', 'municipio');
         $this->data['lang']->information                 = __('Information', 'municipio');
         $this->data['lang']->reference                   = __('Reference', 'municipio');
+        $this->data['lang']->today                       = __('today', 'municipio');
+        $this->data['lang']->tomorrow                    = __('tomorrow', 'municipio');
     }
 
     private function getValidThroughListItemValue(): string
@@ -41,8 +43,15 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $daysUntilValidThrough = $validThroughTimeStamp - time();
         $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
+        $value                 = $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
-        return $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
+        if ($daysUntilValidThrough === 0) {
+            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->today . ')';
+        } elseif ($daysUntilValidThrough === 1) {
+            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->tomorrow . ')';
+        }
+
+        return $value;
     }
 
     private function populateInformationList(): void
