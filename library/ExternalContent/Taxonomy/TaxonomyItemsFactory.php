@@ -21,6 +21,8 @@ class TaxonomyItemsFactory implements TaxonomyItemsFactoryInterface
      */
     public function createTaxonomyItems(): array
     {
+        $taxonomyItems = [];
+
         foreach ($this->configs as $config) {
             if (empty($config->getTaxonomies())) {
                 continue;
