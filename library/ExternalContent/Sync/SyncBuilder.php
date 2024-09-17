@@ -52,7 +52,8 @@ class SyncBuilder
 
         if ($this->postId === null) {
             $sync = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
-            return new \Municipio\ExternalContent\Sync\PruneAllNoLongerInSource($source, $this->wpService, $sync);
+            $sync = new \Municipio\ExternalContent\Sync\PrunePostsNoLongerInSource($source, $this->wpService, $sync);
+            return new \Municipio\ExternalContent\Sync\PruneTermsNoLongerInUse($source, $this->wpService, $sync);
         } else {
             return new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId($this->postId, $this->sources, $postArgsFromSchemaObject, $this->wpService);
         }

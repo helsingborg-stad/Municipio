@@ -6,7 +6,7 @@ use Municipio\ExternalContent\Sources\SourceInterface;
 use WpService\Contracts\DeletePost;
 use WpService\Contracts\GetPosts;
 
-class PruneAllNoLongerInSource implements SyncSourceToLocalInterface
+class PrunePostsNoLongerInSource implements SyncSourceToLocalInterface
 {
     public function __construct(
         private SourceInterface $source,
