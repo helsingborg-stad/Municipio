@@ -2,7 +2,7 @@
 
 namespace Municipio\Admin\TinyMce\MceButtons;
 
-use \Municipio\Helper\Styleguide;
+use Municipio\Helper\Styleguide;
 
 class MceButtons extends \Municipio\Admin\TinyMce\PluginClass
 {
@@ -10,7 +10,7 @@ class MceButtons extends \Municipio\Admin\TinyMce\PluginClass
     {
         $this->pluginSlug = 'mce_hbg_buttons';
 
-        $this->data['themeUrl'] = get_template_directory_uri();
+        $this->data['themeUrl']   = get_template_directory_uri();
         $this->data['styleSheet'] = apply_filters(
             'Municipio/admin/editor_stylesheet',
             get_template_directory_uri() .

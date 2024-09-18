@@ -89,7 +89,7 @@ class WP
         $fields = [];
         $meta   = get_post_meta($postId);
 
-        if(!is_array($meta) || empty($meta)) {
+        if (!is_array($meta) || empty($meta)) {
             return $fields;
         }
 
@@ -428,7 +428,7 @@ class WP
 
         // Lastly check the post_type in the edit page's query string
         if (isset($_REQUEST['post'])) {
-            $postId = intval($_REQUEST['post']);
+            $postId   = intval($_REQUEST['post']);
             $postType = get_post_type($postId);
         }
 

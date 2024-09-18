@@ -9,10 +9,10 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
         add_filter('acf/load_field/name=widget_header_menu', array($this, 'populateSelectField'));
 
         $widget = array(
-            'id'            => 'menu',
-            'name'          => 'Header widget: Menu',
-            'description'   => 'Display wordpress or auto generated menu, used in header',
-            'template'      => 'header-menu.header-menu.blade.php'
+            'id'          => 'menu',
+            'name'        => 'Header widget: Menu',
+            'description' => 'Display wordpress or auto generated menu, used in header',
+            'template'    => 'header-menu.header-menu.blade.php'
         );
 
         return $widget;
@@ -36,8 +36,8 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
 
 
         if ($this->get_field('widget_header_menu')) {
-            $this->data['menu'] = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_header_menu'));
-            $this->data['currentId'] = get_queried_object_id();
+            $this->data['menu']              = \Municipio\Helper\Navigation::wpMenu($this->get_field('widget_header_menu'));
+            $this->data['currentId']         = get_queried_object_id();
             $this->data['currentAncestorId'] = get_post_ancestors(get_queried_object());
         }
     }
@@ -49,7 +49,7 @@ class Menu extends \Municipio\Widget\Source\HeaderWidget
      */
     public function populateSelectField($field)
     {
-        $menus = \Municipio\Helper\Navigation::getMenuList();
+        $menus            = \Municipio\Helper\Navigation::getMenuList();
         $field['choices'] = array();
 
         foreach ($menus as $menu) {

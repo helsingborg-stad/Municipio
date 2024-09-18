@@ -207,7 +207,7 @@ class Support
         }
 
         if (is_feed()) {
-            $author = get_query_var('author_name');
+            $author     = get_query_var('author_name');
             $attachment = get_query_var('attachment');
             $attachment = (empty($attachment)) ? get_query_var('attachment_id') : $attachment;
 

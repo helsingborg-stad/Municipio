@@ -12,8 +12,8 @@ class Svg
      */
     public static function extract($symbol, $classes = '')
     {
-        if(!file_exists($symbol)) {
-            return ""; 
+        if (!file_exists($symbol)) {
+            return "";
         }
 
         $symbol = file_get_contents($symbol);

@@ -4,17 +4,17 @@ namespace Municipio\Customizer;
 
 abstract class Panel
 {
-    public string $id = '';
-    public int $priority = 160;
-    public string $capability = '';
+    public string $id           = '';
+    public int $priority        = 160;
+    public string $capability   = '';
     public array $themeSupports = [];
-    public string $title = '';
-    public string $description = '';
-    public string $type = '';
-    public array $sections = [];
-    public $activeCallback = null;
-    public string $panel = '';
-    public array $subPanels = [];
+    public string $title        = '';
+    public string $description  = '';
+    public string $type         = '';
+    public array $sections      = [];
+    public $activeCallback      = null;
+    public string $panel        = '';
+    public array $subPanels     = [];
 
     public static function create()
     {

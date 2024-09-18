@@ -191,7 +191,7 @@ class PdfGenerator
                         'ui_on_text'        => '',
                         'ui_off_text'       => '',
                         'ui'                => 1,
-                    ],       
+                    ],
                     [
                         'key'               => 'field_pdf_sort_posts_without_term_label',
                         'label'             => __('Label for posts missing terms', 'municipio'),
@@ -202,9 +202,9 @@ class PdfGenerator
                         'conditional_logic' => array(
                             0 => array(
                                 0 => array(
-                                    'field' => 'field_pdf_sort_posts_by_term',
+                                    'field'    => 'field_pdf_sort_posts_by_term',
                                     'operator' => '==',
-                                    'value' => 1,
+                                    'value'    => 1,
                                 ),
                             ),
                         ),

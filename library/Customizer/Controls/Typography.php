@@ -37,10 +37,10 @@ class Typography
                         && !empty($output['property']) && self::isValidCssVar($output['property'])
                         && !empty(get_theme_mod($fieldKey, [])['variant'])
                     ) {
-                        $selectors[$output['element']] = $selectors[$output['element']] ?? [];
+                        $selectors[$output['element']]   = $selectors[$output['element']] ?? [];
                         $selectors[$output['element']][] = [
                             'property' => $output['property'],
-                            'value' => self::replaceStringWeights(get_theme_mod($fieldKey, [])['variant']),
+                            'value'    => self::replaceStringWeights(get_theme_mod($fieldKey, [])['variant']),
                         ];
                     }
                 }

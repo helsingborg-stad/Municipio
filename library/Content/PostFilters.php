@@ -31,7 +31,8 @@ class PostFilters
      *
      * @param  object $query Query object
      */
-    public function handleQuery($query) {
+    public function handleQuery($query)
+    {
         if (is_post_type_archive()) {
             $query->is_tax = false;
         }
@@ -68,8 +69,8 @@ class PostFilters
             $postType = get_post_type();
         }
 
-        $grouped = array();
-        $ungrouped = array();
+        $grouped    = array();
+        $ungrouped  = array();
         $taxonomies = get_theme_mod('archive_' . sanitize_title($postType) . '_enabled_filters');
 
         if (!$taxonomies) {
@@ -89,8 +90,7 @@ class PostFilters
         }
 
         foreach ($taxonomies as $key => $item) {
-
-            if(!$tax = get_taxonomy($item)) {
+            if (!$tax = get_taxonomy($item)) {
                 continue;
             }
 
@@ -113,16 +113,16 @@ class PostFilters
             );
 
             $grouped[$placement][$tax->name] = array(
-                'label' => $tax->label,
-                'type' => $type,
-                'values' => $terms,
+                'label'        => $tax->label,
+                'type'         => $type,
+                'values'       => $terms,
                 'hierarchical' => $tax->hierarchical
             );
 
             $ungrouped[$tax->name] = array(
-                'label' => $tax->label,
-                'type' => $type,
-                'values' => $terms,
+                'label'        => $tax->label,
+                'type'         => $type,
+                'values'       => $terms,
                 'hierarchical' => $tax->hierarchical
             );
         }
@@ -191,8 +191,8 @@ class PostFilters
 
             $taxQuery[] = array(
                 'taxonomy' => $key,
-                'field' => 'slug',
-                'terms' => $this->getQueryString($key, false),
+                'field'    => 'slug',
+                'terms'    => $this->getQueryString($key, false),
                 'operator' => !empty($value['hierarchical']) ? 'IN' : 'AND'
             );
         }
@@ -204,8 +204,8 @@ class PostFilters
                     'relation' => 'AND',
                     array(
                         'taxonomy' => get_queried_object()->taxonomy,
-                        'field' => 'slug',
-                        'terms' => (array) get_queried_object()->slug,
+                        'field'    => 'slug',
+                        'terms'    => (array) get_queried_object()->slug,
                         'operator' => 'IN'
                     )
                 ),
@@ -316,11 +316,12 @@ class PostFilters
         return $query;
     }
 
-    private function currentTaxonomy() {
+    private function currentTaxonomy()
+    {
         $queriedObject = get_queried_object();
-        $isTaxArchive = false;
+        $isTaxArchive  = false;
         if (!empty($queriedObject->taxonomy) && isset($_SERVER['REQUEST_URI'])) {
-            $pathParts = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+            $pathParts   = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
             $trimmedPath = end($pathParts);
             if ($queriedObject->slug == $trimmedPath) {
                 $isTaxArchive = $queriedObject->taxonomy;
@@ -340,12 +341,12 @@ class PostFilters
      */
     public function postsPerPage($value, $name)
     {
-        if($postsPerPage = get_theme_mod('archive_post_post_count', $value)) {
-            return $postsPerPage; 
+        if ($postsPerPage = get_theme_mod('archive_post_post_count', $value)) {
+            return $postsPerPage;
         }
         return 10;
     }
-    
+
     /**
      * Get current post type
      * @param  object $query Query object

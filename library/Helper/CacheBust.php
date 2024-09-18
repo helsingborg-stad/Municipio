@@ -12,12 +12,11 @@ class CacheBust
     {
         static $revManifest;
         if (!isset($revManifest)) {
-
             //Ty to get cached value
             $revManifest = wp_cache_get('municipio-rev-manifest', false);
-            
+
             //If not found, get rev manifest from file
-            if($revManifest !== false) {
+            if ($revManifest !== false) {
                 $revManifestPath = get_stylesheet_directory() . '/assets/dist/manifest.json';
                 if (file_exists($revManifestPath)) {
                     $revManifest = json_decode(
@@ -79,13 +78,12 @@ class CacheBust
     {
         $themePath = ($childTheme == true) ? get_stylesheet_directory() :
         get_template_directory();
-        $jsonPath = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
+        $jsonPath  = $themePath . apply_filters('Municipio/Helper/CacheBust/RevManifestPath', '/assets/dist/manifest.json');
 
         if (file_exists($jsonPath)) {
             return json_decode(file_get_contents($jsonPath), true);
         } elseif (WP_DEBUG) {
-            echo '<div style="color:red">Error: Assets not built. Go to ' . $themePath . ' and run gulp. See '. $themePath . '/README.md for more info.</div>';
+            echo '<div style="color:red">Error: Assets not built. Go to ' . $themePath . ' and run gulp. See ' . $themePath . '/README.md for more info.</div>';
         }
-        
     }
 }

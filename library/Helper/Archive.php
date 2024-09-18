@@ -70,7 +70,7 @@ class Archive
                 $href = $archiveBaseUrl . '?' . self::setQueryString($i);
 
                 $pagination[] = array(
-                    'href' => $href,
+                    'href'  => $href,
                     'label' => (string) $i
                 );
             }
@@ -89,7 +89,7 @@ class Archive
     {
         parse_str($_SERVER['QUERY_STRING'], $queryArgList);
         $queryArgList['paged'] = $number;
-        $queryString = http_build_query($queryArgList) . "\n";
+        $queryString           = http_build_query($queryArgList) . "\n";
 
         return \apply_filters('Municipio/Controller/Archive/setQueryString', $queryString);
     }

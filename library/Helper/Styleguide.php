@@ -66,7 +66,7 @@ class Styleguide
      */
     public static function getPath($path)
     {
-        return self::_getBaseUri() . '/'. $path;
+        return self::_getBaseUri() . '/' . $path;
     }
 
     /**
@@ -80,9 +80,9 @@ class Styleguide
     {
         $directory = $isBem ? 'css-bem' : 'css';
         $extension = self::_isDevMode() ? 'dev' : 'min';
-        $theme = self::_getTheme();
+        $theme     = self::_getTheme();
 
-        return self::getPath($directory . "/". "hbg-prime-" . $theme . "." . $extension . ".css");
+        return self::getPath($directory . "/" . "hbg-prime-" . $theme . "." . $extension . ".css");
     }
 
     /**

@@ -18,7 +18,7 @@ class General
      *
      * @param array     $data          Array containing the menu
      * @param string    $identifier    What menu being filtered
-     * 
+     *
      * @return array
      */
     public function addSearchMenuItem($data, $identifier, $pageId)
@@ -37,29 +37,29 @@ class General
             }
 
             $data[] = [
-                "id" => "search-icon",
-                "style" => "button",
-                "buttonStyle" => "basic",
-                "buttonColor" => "default",
-                "post_parent" => null,
-                "post_type" => null,
-                "active" => false,
-                "ancestor" => false,
-                "children" => false,
-                "label" => __('Search', 'municipio'),
-                "href" => null,
-                "icon" => [
-                    'icon' => 'search',
-                    'size' => 'md',
-                    'classList' => ['c-nav__icon'],
+                "id"            => "search-icon",
+                "style"         => "button",
+                "buttonStyle"   => "basic",
+                "buttonColor"   => "default",
+                "post_parent"   => null,
+                "post_type"     => null,
+                "active"        => false,
+                "ancestor"      => false,
+                "children"      => false,
+                "label"         => __('Search', 'municipio'),
+                "href"          => null,
+                "icon"          => [
+                    'icon'          => 'search',
+                    'size'          => 'md',
+                    'classList'     => ['c-nav__icon'],
                     'attributeList' => [
                         'aria-label' => __("Search", 'municipio'),
                     ]
                 ],
-                "isSearch" => true,
+                "isSearch"      => true,
                 "attributeList" => [
                     'aria-label' => __("Search", 'municipio'),
-                    'data-open' => 'm-search-modal__trigger'
+                    'data-open'  => 'm-search-modal__trigger'
                 ],
             ];
         }

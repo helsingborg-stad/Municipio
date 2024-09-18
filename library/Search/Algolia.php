@@ -103,7 +103,6 @@ class Algolia
 
         //Get post type object
         if (isset($post->post_type)) {
-
             //Get post object details
             $postTypeObject = get_post_type_object($post->post_type);
 
@@ -133,7 +132,7 @@ class Algolia
      * @param WP_Query $query The current page query object
      * @return bool The modified toggle between algolia search on/off
      */
-    public function disableArchiveSearch($state, $query) : bool
+    public function disableArchiveSearch($state, $query): bool
     {
         if ($query->is_archive()) {
             return false;

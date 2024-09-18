@@ -15,7 +15,7 @@ class ContentEditor
 
         foreach ($available as $sectionKey => $formats) {
             foreach ($formats as $key => $format) {
-                $field['choices'][$key] = $format['title'];
+                $field['choices'][$key]   = $format['title'];
                 $field['default_value'][] = $key;
             }
         }

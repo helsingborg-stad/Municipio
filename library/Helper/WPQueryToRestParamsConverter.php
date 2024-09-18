@@ -4,7 +4,6 @@ namespace Municipio\Helper;
 
 class WPQueryToRestParamsConverter implements RestParamsConverterInterface
 {
-
     /**
      * Convert query variables to REST parameters string.
      *
@@ -78,7 +77,7 @@ class WPQueryToRestParamsConverter implements RestParamsConverterInterface
                 break;
             case 'posts_per_page':
                 if (is_numeric($value)) {
-                    $value =  $value < 1 ? 100 : $value;
+                    $value                 =  $value < 1 ? 100 : $value;
                     $restQuery['per_page'] = $value;
                 }
                 break;

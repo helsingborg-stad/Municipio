@@ -64,18 +64,17 @@ class Editor
 
     public function addCapabilities()
     {
-        $administrator  = get_role('administrator');
-        $editor         = get_role('editor');
+        $administrator = get_role('administrator');
+        $editor        = get_role('editor');
 
         // Site admins
         $administrator->add_cap('unfiltered_html');
-        
+
         // Editors
         $editor->add_cap('edit_theme_options');
         $editor->add_cap('manage_options');
         $editor->add_cap('gform_full_access');
         $editor->add_cap('unfiltered_html');
-
     }
 
     public function redirectToDashboard()

@@ -15,10 +15,10 @@ class Forms
         return render_blade_view(
             'partials.forms.password',
             [
-                'formAction'      => esc_url(site_url('wp-login.php?action=postpass', 'login_post')),
-                'messageBefore'   => __('This content is password protected. To view it please enter your password below:'),
+                'formAction'         => esc_url(site_url('wp-login.php?action=postpass', 'login_post')),
+                'messageBefore'      => __('This content is password protected. To view it please enter your password below:'),
                 'passwordFieldLabel' => __('Password'),
-                'submitBtnValue'  => esc_attr_x('Enter', 'post password form'),
+                'submitBtnValue'     => esc_attr_x('Enter', 'post password form'),
             ]
         );
     }

@@ -42,7 +42,7 @@ class Language
         // If this content is the content of the current post
         if ($excludeTranslate) {
             // in $currentPostContent, wrap all occurrences of $currentPostTitle with a span
-            $pattern = '/(?<!\w)' . preg_quote($currentPostTitle, '/') . '(?!\w)/u';
+            $pattern     = '/(?<!\w)' . preg_quote($currentPostTitle, '/') . '(?!\w)/u';
             $replacement = \Municipio\Helper\General::wrapStringInSpan($currentPostTitle, ['translate' => 'no']);
             return preg_replace($pattern, $replacement, $filteredString);
         }
@@ -65,7 +65,7 @@ class Language
         }
 
         $url = parse_url($item['href']);
-        
+
         if (!empty($url['query'])) {
             parse_str($url['query'], $query);
 
@@ -123,7 +123,7 @@ class Language
         if (empty($item['xfn'])) {
             $item['xfn'] = 'nofollow';
         }
-        
+
         return $item;
     }
 

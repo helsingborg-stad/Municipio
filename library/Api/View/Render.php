@@ -16,7 +16,7 @@ use WP_REST_Server;
 class Render extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
-    private const ROUTE = 'view/render/(?P<view>[a-z|.|\/]+)'; // Letters, dots and frontslashes are allowed.
+    private const ROUTE     = 'view/render/(?P<view>[a-z|.|\/]+)'; // Letters, dots and frontslashes are allowed.
 
     /**
      * Register the REST route
@@ -25,19 +25,19 @@ class Render extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => WP_REST_Server::READABLE,
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => WP_REST_Server::READABLE,
+            'callback'            => array($this, 'handleRequest'),
             'permission_callback' => array($this, 'permissionCallback'),
-            'args' => [
+            'args'                => [
                 'view' => [
-                    'type' => 'string',
+                    'type'     => 'string',
                     'required' => true
                 ],
                 'data' => [
                     'description' => __('View data.', 'municipio'),
-                    'type' => 'object',
-                    'required' => false,
-                    'default' => new stdClass()
+                    'type'        => 'object',
+                    'required'    => false,
+                    'default'     => new stdClass()
                 ],
             ]
         ));

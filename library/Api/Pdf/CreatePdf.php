@@ -42,7 +42,7 @@ class CreatePdf
         $lang   = $this->getLang();
         if (!empty($sortedPostsArray) && is_array($sortedPostsArray) && reset($sortedPostsArray)) {
             $html = render_blade_view('partials.content.pdf.layout', [
-                'sortedPostsArray'        => $sortedPostsArray,
+                'sortedPostsArray'   => $sortedPostsArray,
                 'styles'             => $styles,
                 'cover'              => $cover,
                 'fonts'              => $fonts,
@@ -70,7 +70,7 @@ class CreatePdf
     private function getLang(): array
     {
         $lang = [
-            'generatedPdf' => __('Generated PDF', 'municipio'),
+            'generatedPdf'    => __('Generated PDF', 'municipio'),
             'tableOfContents' => __('Table of Contents', 'municipio'),
         ];
         return $lang;

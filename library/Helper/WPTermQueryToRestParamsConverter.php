@@ -4,7 +4,6 @@ namespace Municipio\Helper;
 
 class WPTermQueryToRestParamsConverter implements RestParamsConverterInterface
 {
-
     public static function convertToRestParamsString(array $queryVars): string
     {
         $restQuery = self::mapQueryVarsToRestParams($queryVars);

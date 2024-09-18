@@ -28,7 +28,7 @@ class Post
     {
         // Create a unique cache key based on the post ID and serialized data
         $serializedPost = serialize(get_object_vars($post));
-        $cacheKey = md5($serializedPost . '_' . serialize($data));
+        $cacheKey       = md5($serializedPost . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObject'])) {
             self::$runtimeCache['preparePostObject'] = [];
@@ -435,9 +435,9 @@ class Post
                     foreach ($terms as $term) {
                         $item = [];
 
-                        $item['label']      = $term->name ?? '';
-                        $item['slug']       = $term->slug;
-                        $item['taxonomy']   = $term->taxonomy;
+                        $item['label']    = $term->name ?? '';
+                        $item['slug']     = $term->slug;
+                        $item['taxonomy'] = $term->taxonomy;
 
                         if ($includeLink) {
                             $item['href'] = get_term_link($term->term_id);
@@ -545,8 +545,6 @@ class Post
         });
 
         return self::$runtimeCache['getPostTypeMetaKeys'][$postType] = $metaKeys;
-
-       
     }
 
     /**

@@ -13,10 +13,10 @@ class Widgets
     public function displayWidgetId($widget_instance)
     {
         // Check if the widget is already saved or not.
-        if ($widget_instance->number=="__i__") {
+        if ($widget_instance->number == "__i__") {
             echo "<p><strong>Widget ID is</strong>: Please save the widget first!</p>"   ;
         } else {
-           echo "<p><strong>Widget ID is: </strong>" .$widget_instance->id. "</p>";
+            echo "<p><strong>Widget ID is: </strong>" . $widget_instance->id . "</p>";
         }
     }
 
@@ -29,17 +29,16 @@ class Widgets
             new \Municipio\Widget\Source\UtilityFields();
 
             add_action('widgets_init', array($this, 'headerWidgets'));
-
         }
     }
 
     public function headerWidgets()
     {
-        register_widget(new \Municipio\Widget\Header\Menu);
-        register_widget(new \Municipio\Widget\Header\Logo);
-        register_widget(new \Municipio\Widget\Header\Links);
-        register_widget(new \Municipio\Widget\Navigation\Navigation);
-        register_widget(new \Municipio\Widget\Brand\Brand);
-        register_widget(new \Municipio\Widget\Media\Media);
+        register_widget(new \Municipio\Widget\Header\Menu());
+        register_widget(new \Municipio\Widget\Header\Logo());
+        register_widget(new \Municipio\Widget\Header\Links());
+        register_widget(new \Municipio\Widget\Navigation\Navigation());
+        register_widget(new \Municipio\Widget\Brand\Brand());
+        register_widget(new \Municipio\Widget\Media\Media());
     }
 }

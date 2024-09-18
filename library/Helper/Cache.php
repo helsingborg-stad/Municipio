@@ -13,17 +13,17 @@ class Cache
      */
 
     private $postId = null;
-    private $ttl = null;
-    private $hash = null;
+    private $ttl    = null;
+    private $hash   = null;
 
     public static $keyGroup = 'mun-cache';
 
-    public function __construct($postId, $module = '', $ttl = 3600*24)
+    public function __construct($postId, $module = '', $ttl = 3600 * 24)
     {
 
         // Set variables
-        $this->postId       = $postId;
-        $this->ttl          = $ttl;
+        $this->postId = $postId;
+        $this->ttl    = $ttl;
 
         // Create hash string
         $this->hash = $this->createShortHash($module);
@@ -93,7 +93,8 @@ class Cache
      * Clears Oembed cache
      * @param  integer $postId Post id to clear
      */
-    public static function clearOembedCache(int $postId) {
+    public static function clearOembedCache(int $postId)
+    {
         global $wpdb;
 
         $metaKeyPattern = '_oembed_%';
@@ -141,7 +142,7 @@ class Cache
         if (!empty($return_data)) {
             $cacheArray = (array) wp_cache_get($this->postId, self::getKeyGroup());
 
-            $cacheArray[$this->hash] = $return_data.$this->fragmentTag();
+            $cacheArray[$this->hash] = $return_data . $this->fragmentTag();
 
             wp_cache_delete($this->postId, self::getKeyGroup());
 
@@ -191,7 +192,7 @@ class Cache
      */
     private function fragmentTag()
     {
-        return '<!-- FGC: [' . current_time("Y-m-d H:i:s", 1) .'| ' .$this->hash. ']-->';
+        return '<!-- FGC: [' . current_time("Y-m-d H:i:s", 1) . '| ' . $this->hash . ']-->';
     }
 
     /**

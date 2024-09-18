@@ -18,7 +18,7 @@ class KirkiConditional
    * @param string  $kirkiConfig   The kirki config id.
    * @param array   $fieldConfig   The field conguration(s).
    * @param array   $toggleConfig  The toggle configuration,
-   *                               should only be used if multiple 
+   *                               should only be used if multiple
    *                               fieldconfigs exist
    * @return void
    */
@@ -32,19 +32,19 @@ class KirkiConditional
 
         //Use toggle config if it exists
         $toggleConfig = array_merge([
-          'label'     => esc_html__('Tailor', 'municipio') . " " . strtolower($fieldConfigs[0]['label']),
+          'label'    => esc_html__('Tailor', 'municipio') . " " . strtolower($fieldConfigs[0]['label']),
           'settings' => $fieldConfigs[0]['settings'] . '_active'
         ], array_filter($toggleConfig));
 
         //Activation field
         \Kirki::add_field($kirkiConfig, [
-          'type'        => 'toggle',
-          'settings'    => $toggleConfig['settings'],
-          'label'       => $toggleConfig['label'],
-          'default'     => false,
-          'priority'    => 10,
-          'section'     => $fieldConfigs[0]['section'],
-          'choices'     => [
+          'type'     => 'toggle',
+          'settings' => $toggleConfig['settings'],
+          'label'    => $toggleConfig['label'],
+          'default'  => false,
+          'priority' => 10,
+          'section'  => $fieldConfigs[0]['section'],
+          'choices'  => [
             true  => esc_html__('Enable', 'municipio'),
             false => esc_html__('Disable', 'municipio'),
           ]
@@ -53,7 +53,7 @@ class KirkiConditional
         foreach ($fieldConfigs as $fieldConfig) {
             \Kirki::add_field($kirkiConfig, array_merge(
                 $fieldConfig,
-                ['active_callback'  => [
+                ['active_callback' => [
                   [
                     'setting'  => $toggleConfig['settings'],
                     'operator' => '===',
@@ -70,7 +70,8 @@ class KirkiConditional
      * @param array $array
      * @return boolean
      */
-    private static function isAssocArray($array) {
+    private static function isAssocArray($array)
+    {
         return count(array_filter(array_keys($array), 'is_string')) > 0;
     }
 }

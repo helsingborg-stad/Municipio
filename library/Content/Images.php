@@ -27,14 +27,13 @@ class Images
 
         if ('one-page.blade.php' !== get_page_template_slug() && !has_blocks($content) && str_contains($content, '<img')) {
             $dom = new \DOMDocument();
-            $dom->loadHTML($encoding . $content , LIBXML_NOERROR);
+            $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
 
             $links = $dom->getElementsByTagName('a');
-            if(is_object($links) && !empty($links)) {
+            if (is_object($links) && !empty($links)) {
                 foreach ($links as $link) {
-
                     //if the link dosent have a child
-                    if(!isset($link->firstChild)) {
+                    if (!isset($link->firstChild)) {
                         continue;
                     }
 
@@ -46,15 +45,15 @@ class Images
                     $captionText = '';
                     if (0 < $link->parentNode->getElementsByTagName('figcaption')->length) {
                         foreach ($link->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
-                            $captionText = wp_strip_all_tags($caption->textContent);
+                            $captionText  = wp_strip_all_tags($caption->textContent);
                             $captionClone = $caption->cloneNode(true);
                             $link->parentNode->removeChild($caption);
                         }
                     }
 
                     $linkedImage = $link->firstChild;
-                    $imgDir = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
-                    $linkDir = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
+                    $imgDir      = pathinfo($linkedImage->getAttribute('src'), PATHINFO_DIRNAME);
+                    $linkDir     = pathinfo($link->getAttribute('href'), PATHINFO_DIRNAME);
 
                     if ($linkDir === $imgDir) {
                         $altText = $captionText;
@@ -62,7 +61,7 @@ class Images
                             $altText = $linkedImage->getAttribute('alt');
                         }
 
-                        $html = render_blade_view(
+                        $html    = render_blade_view(
                             'partials.content.image',
                             [
                                 'openModal'        => true,
@@ -72,13 +71,13 @@ class Images
                                 'heading'          => $captionText,
                                 'isPanel'          => true,
                                 'isTransparent'    => false,
-                                'classList' => explode(' ', $linkedImage->getAttribute('class')),
+                                'classList'        => explode(' ', $linkedImage->getAttribute('class')),
                                 'imgAttributeList' =>
                                 [
-                                    'srcset'    => $linkedImage->getAttribute('srcset'),
-                                    'width'     => $linkedImage->getAttribute('width'),
-                                    'height'    => $linkedImage->getAttribute('height'),
-                                    'parsed'    => true
+                                    'srcset' => $linkedImage->getAttribute('srcset'),
+                                    'width'  => $linkedImage->getAttribute('width'),
+                                    'height' => $linkedImage->getAttribute('height'),
+                                    'parsed' => true
                                 ],
                             ]
                         );
@@ -107,7 +106,7 @@ class Images
             }
 
             $images = $dom->getElementsByTagName('img');
-            if(is_object($images) && !empty($images)) {
+            if (is_object($images) && !empty($images)) {
                 foreach ($images as $image) {
 
                     /**
@@ -125,7 +124,7 @@ class Images
                     $captionText = '';
                     if (0 < $image->parentNode->getElementsByTagName('figcaption')->length) {
                         foreach ($image->parentNode->getElementsByTagName('figcaption') as $i => $caption) {
-                            $captionText = wp_strip_all_tags($caption->textContent);
+                            $captionText  = wp_strip_all_tags($caption->textContent);
                             $captionClone = $caption->cloneNode(true);
                             $image->parentNode->removeChild($caption);
                         }
@@ -135,20 +134,20 @@ class Images
                         $altText = $image->getAttribute('alt');
                     }
 
-                    $html = render_blade_view(
+                    $html    = render_blade_view(
                         'partials.content.image',
                         [
-                            'openModal' => false,
-                            'src'       => $image->getAttribute('src'),
-                            'alt'       => $altText,
-                            'caption' => $captionText,
-                            'classList' => explode(' ', $image->getAttribute('class')),
+                            'openModal'        => false,
+                            'src'              => $image->getAttribute('src'),
+                            'alt'              => $altText,
+                            'caption'          => $captionText,
+                            'classList'        => explode(' ', $image->getAttribute('class')),
                             'imgAttributeList' =>
                             [
-                                'srcset'  => $image->getAttribute('srcset'),
-                                'width'   => $image->getAttribute('width'),
-                                'height'  => $image->getAttribute('height'),
-                                'parsed'  => true,
+                                'srcset' => $image->getAttribute('srcset'),
+                                'width'  => $image->getAttribute('width'),
+                                'height' => $image->getAttribute('height'),
+                                'parsed' => true,
                             ],
                         ]
                     );
