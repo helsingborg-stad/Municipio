@@ -49,6 +49,7 @@
 
     <!-- Content -->
     @section('article.content.before')@show
+    {!! $hook->articleContentBefore !!}
     @if ($postAgeNotice)
         @notice([
             'message' => [
