@@ -43,6 +43,9 @@ class ImageConvertFilterTest extends TestCase
                         return ['image/svg'];
                     }
                     return $value;
+                },
+                'getPostMimeType' => function ($id) {
+                    return 'image/svg';
                 }
             ]
         );
