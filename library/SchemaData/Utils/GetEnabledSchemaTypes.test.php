@@ -36,4 +36,15 @@ class GetEnabledSchemaTypesTest extends TestCase
     {
         $this->assertArrayHasKey('Project', $this->getEnabledSchemaTypes());
     }
+
+    public function testProjectProperties()
+    {
+        $enabledSchemaTypes = $this->getEnabledSchemaTypes();
+        $this->assertContains('@id', $enabledSchemaTypes['Project']);
+        $this->assertContains('description', $enabledSchemaTypes['Project']);
+        $this->assertContains('name', $enabledSchemaTypes['Project']);
+        $this->assertContains('department', $enabledSchemaTypes['Project']);
+        $this->assertContains('employee', $enabledSchemaTypes['Project']);
+        $this->assertContains('funding', $enabledSchemaTypes['Project']);
+    }
 }
