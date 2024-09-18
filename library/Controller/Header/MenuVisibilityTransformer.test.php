@@ -44,7 +44,10 @@ class MenuVisibilityTransformerTest extends TestCase
 
         $result = $menuVisibilityTransformerInstance->transform($array);
 
-        $this->assertEquals($result['modified']['menu'], ['u-display--none', 'u-display--block@lg', 'u-display--block@xl']);
+        $this->assertEquals(
+            $result['modified']['menu'],
+            ['u-display--none', 'u-display--block@lg', 'u-display--block@xl']
+        );
     }
 
     public function testTransformTransformAddsDesktopHiddenClasses()
