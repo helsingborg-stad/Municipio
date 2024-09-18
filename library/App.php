@@ -400,7 +400,7 @@ class App
 
         $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) use ($schemaObjectFromPost) {
             return (new \Municipio\PostDecorators\ApplySchemaObject($schemaObjectFromPost))->apply($post);
-        }, 10, 1);
+        }, 1, 1);
 
         /**
          * Limit schema types and properties.
