@@ -41,15 +41,15 @@ class RelatedPosts
         }
 
         $posts = WP::getPosts(array_merge([
-            'post_type' => $type,
+            'post_type'      => $type,
             'posts_per_page' => 4,
-            'exclude' => array($post),
-            'orderby' => 'rand',
+            'exclude'        => array($post),
+            'orderby'        => 'rand',
         ], $wpQueryArgs)) ?? [];
 
         return count($posts) > 0 ? [
-            'title'         => $title,
-            'posts'         => $posts
+            'title' => $title,
+            'posts' => $posts
         ] : [];
     }
 }

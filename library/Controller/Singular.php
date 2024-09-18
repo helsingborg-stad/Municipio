@@ -82,8 +82,8 @@ class Singular extends \Municipio\Controller\BaseController
         //Main content padder
         $this->data['mainContentPadding'] = $this->getMainContentPadding($this->data['customizer']);
 
-        //Get age of post 
-        $this->data['postAgeNotice']               = $this->getPostAgeNotice($this->data['post']);
+        //Get age of post
+        $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
         //Position of quicklinks
         $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
@@ -379,7 +379,7 @@ class Singular extends \Municipio\Controller\BaseController
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
-                $termIds = wp_list_pluck($terms, 'term_id');
+                $termIds    = wp_list_pluck($terms, 'term_id');
                 $taxQuery[] = [
                     'taxonomy' => $taxonomy,
                     'field'    => 'term_id',
@@ -420,5 +420,4 @@ class Singular extends \Municipio\Controller\BaseController
         // Return false if no related posts were found
         return false;
     }
-
 }

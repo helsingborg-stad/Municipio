@@ -7,10 +7,10 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
     public function setup()
     {
         $widget = array(
-            'id'            => 'widget-header-logo',
-            'name'          => 'Header widget: Logo',
-            'description'   => 'Display website logotype, used in header',
-            'template'      => 'header-logo.header-logo.blade.php'
+            'id'          => 'widget-header-logo',
+            'name'        => 'Header widget: Logo',
+            'description' => 'Display website logotype, used in header',
+            'template'    => 'header-logo.header-logo.blade.php'
         );
 
         return $widget;
@@ -24,13 +24,13 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
         if ($this->get_field('widget_header_logotype')) {
             switch ($this->checkFiletype($this->get_field('widget_header_logotype'))) {
                 case 'svg':
-                    $path = \Municipio\Helper\Image::urlToPath($this->get_field('widget_header_logotype')['url']);
-                    $this->data['logotype'] = \Municipio\Helper\Svg::extract($path);
+                    $path                     = \Municipio\Helper\Image::urlToPath($this->get_field('widget_header_logotype')['url']);
+                    $this->data['logotype']   = \Municipio\Helper\Svg::extract($path);
                     $this->data['imageRatio'] = $this->getSvgRatio($path);
-                break;
+                    break;
                 case 'png':
                     $this->data['logotype'] = '<img src="' . $this->get_field('widget_header_logotype')['url'] . '">';
-                break;
+                    break;
             }
 
             if ($maxWidth = $this->get_field('widget_header_max_width')) {
@@ -70,8 +70,8 @@ class Logo extends \Municipio\Widget\Source\HeaderWidget
             $viewBox = list($x_start, $y_start, $x_end, $y_end) = explode(' ', $xml['viewBox']);
 
             if (count($viewBox) == 4) {
-                $dimensions['width']    = (int) ($viewBox[2] - $viewBox[0]);
-                $dimensions['height']   = (int) ($viewBox[3] - $viewBox[1]);
+                $dimensions['width']  = (int) ($viewBox[2] - $viewBox[0]);
+                $dimensions['height'] = (int) ($viewBox[3] - $viewBox[1]);
                 return abs(round(($dimensions['height'] / $dimensions['width']) * 100, 2));
             }
         }

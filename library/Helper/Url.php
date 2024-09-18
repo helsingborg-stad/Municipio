@@ -30,10 +30,10 @@ class Url
     public static function queryStringExclude($queryString, $excludeParams, $suffix = null)
     {
         $queryString = explode('&', $queryString);
-        $query = array();
+        $query       = array();
 
         foreach ($queryString as $value) {
-            $parts = explode('=', $value);
+            $parts            = explode('=', $value);
             $query[$parts[0]] = isset($parts[1]) ? $parts[1] : '';
         }
 
@@ -64,10 +64,10 @@ class Url
     public static function getQueryString()
     {
         $querystringsDefault = explode('&', $_SERVER['QUERY_STRING']);
-        $querystrings = array();
+        $querystrings        = array();
 
         foreach ($querystringsDefault as $querystring) {
-            $querystring = explode('=', $querystring);
+            $querystring                   = explode('=', $querystring);
             $querystrings[$querystring[0]] = isset($querystring[1]) ? $querystring[1] : null;
         }
 

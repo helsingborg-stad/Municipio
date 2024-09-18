@@ -2,7 +2,7 @@
 
 namespace Municipio\Helper;
 
-use \Municipio\Helper\Navigation\MenuConstructor as MenuConstructor;
+use Municipio\Helper\Navigation\MenuConstructor as MenuConstructor;
 
 /**
 * Navigation items
@@ -27,9 +27,9 @@ class Navigation
 
     //Static cache for ancestors
     private static $runtimeCache = [
-        'ancestors' => [
+        'ancestors'         => [
             [
-                'toplevel' => [],
+                'toplevel'   => [],
                 'notoplevel' => []
             ]
         ],
@@ -38,8 +38,8 @@ class Navigation
 
     public function __construct(string $identifier = '', string $context = 'municipio')
     {
-        $this->identifier = $identifier;
-        $this->context    = $context;
+        $this->identifier              = $identifier;
+        $this->context                 = $context;
         $this->menuConstructorInstance = new MenuConstructor($this->identifier);
         $this->globalToLocal('wpdb', 'db');
     }
@@ -425,9 +425,9 @@ class Navigation
 
                     // Store the processed item in the cache
                     self::$runtimeCache['complementObjects'][$cacheKey] = apply_filters(
-                        'Municipio/Navigation/Item', 
-                        $processedItem, 
-                        $this->identifier, 
+                        'Municipio/Navigation/Item',
+                        $processedItem,
+                        $this->identifier,
                         false
                     );
                 }
@@ -664,9 +664,9 @@ class Navigation
      */
     public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
-        $result = [];
+        $result       = [];
         $menuLocation = get_nav_menu_locations()[$menu] ?? null;
-        
+
         if ($menuLocation && has_nav_menu($menu)) {
             $menuItems = wp_get_nav_menu_items($menuLocation);
 

@@ -9,11 +9,11 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
         add_filter('acf/load_field/key=field_5ae6415780335', array($this, 'populateWpMenu'));
 
         $config = array(
-            'id'            => 'municipio-navigation',
-            'name'          => 'Navigation',
-            'description'   => 'Some description',
-            'template'      => 'navigation.navigation',
-            'fields'        => array('utilityFields')
+            'id'          => 'municipio-navigation',
+            'name'        => 'Navigation',
+            'description' => 'Some description',
+            'template'    => 'navigation.navigation',
+            'fields'      => array('utilityFields')
         );
 
         return $config;
@@ -30,7 +30,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
             $attributes->addClass($sizes[$this->get_field('size')]);
         }
 
-        $this->data['navItems'] = $this->navigationItems();
+        $this->data['navItems']   = $this->navigationItems();
         $this->data['attributes'] = $attributes->outputAttributes();
     }
 
@@ -46,42 +46,42 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
 
         //Array key = ACF flexible layout key
         $avalibleLinkTypes = array(
-            'wp_menu' => array(
-                'template'      => 'widget.navigation.menu',
-                'method'        => 'wordpressMenu'
+            'wp_menu'           => array(
+                'template' => 'widget.navigation.menu',
+                'method'   => 'wordpressMenu'
             ),
-            'external_link' => array(
-                'classes'       => ['c-navbar__action'],
-                'template'      => 'widget.navigation.link'
+            'external_link'     => array(
+                'classes'  => ['c-navbar__action'],
+                'template' => 'widget.navigation.link'
             ),
-            'internal_link' => array(
-                'classes'       => ['c-navbar__action'],
-                'template'      => 'widget.navigation.link'
+            'internal_link'     => array(
+                'classes'  => ['c-navbar__action'],
+                'template' => 'widget.navigation.link'
             ),
-            'search_trigger' => array(
-                'classes'       => ['o-reset-button', 'u-nowrap', 'c-navbar__action', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
-                'attributes'    => [
+            'search_trigger'    => array(
+                'classes'    => ['o-reset-button', 'u-nowrap', 'c-navbar__action', 'js-search-trigger', 'pricon pricon-search', 'toggle-search-top'],
+                'attributes' => [
                     'onclick' => 'return false;'
                 ],
-                'text'          =>  __('Search', 'municipio'),
-                'template'      => 'widget.navigation.button'
+                'text'       =>  __('Search', 'municipio'),
+                'template'   => 'widget.navigation.button'
             ),
-            'menu_trigger' => array(
-                'classes'       => array('c-navbar__action', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
-                'attributes'    => [
+            'menu_trigger'      => array(
+                'classes'    => array('c-navbar__action', 'u-nowrap', 'hamburger', 'hamburger--slider','menu-trigger'),
+                'attributes' => [
                     'aria-controls' => 'navigation',
                     'aria-expanded' => 'true/false',
                     'onclick'       => "jQuery(this).toggleClass('is-active');",
                     'data-target'   => '#mobile-menu'
                 ],
-                'text'          => __("Menu", 'municipio'),
-                'template'      =>  'widget.navigation.burger'
+                'text'       => __("Menu", 'municipio'),
+                'template'   =>  'widget.navigation.burger'
             ),
             'translate_trigger' => array(
-                'classes'       => ['c-navbar__action', 'js-translate-trigger'],
-                'text'          => __('Översätt', 'municipio'),
-                'url'           => '#translate',
-                'template'      => 'widget.navigation.link'
+                'classes'  => ['c-navbar__action', 'js-translate-trigger'],
+                'text'     => __('Översätt', 'municipio'),
+                'url'      => '#translate',
+                'template' => 'widget.navigation.link'
             )
         );
 
@@ -101,7 +101,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
             $attributes = new \Municipio\Helper\ElementAttribute();
 
             if (isset($links[$key]['attributes']) && !empty($links[$key]['attributes'])) {
-               $attributes->addAttribute($links[$key]['attributes']);
+                $attributes->addAttribute($links[$key]['attributes']);
             }
 
             if (isset($links[$key]['classes']) && !empty($links[$key]['classes'])) {
@@ -136,7 +136,6 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
     public function wordpressMenu($navItem)
     {
         if (isset($navItem['menu_id']) && is_numeric($navItem['menu_id'])) {
-
             $menu = \Municipio\Helper\Navigation::wpMenu($navItem['menu_id']);
 
             foreach ($menu as $key => $link) {
@@ -171,7 +170,7 @@ class Navigation extends \Municipio\Widget\Source\WidgetTemplate
      */
     public function populateWpMenu($field)
     {
-        $menus = \Municipio\Helper\Navigation::getMenuList();
+        $menus            = \Municipio\Helper\Navigation::getMenuList();
         $field['choices'] = array();
 
         foreach ($menus as $menu) {

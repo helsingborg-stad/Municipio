@@ -10,7 +10,7 @@ class Author extends \Municipio\Controller\Archive
 {
     public function init()
     {
-        parent::init(); 
+        parent::init();
 
         $this->data['postType'] = get_post_type();
 
@@ -20,12 +20,10 @@ class Author extends \Municipio\Controller\Archive
             $this->data['template'] = 'collapsed';
         }
 
-        $this->data['posts'] = $this->getPosts();
-        $this->data['paginationList'] = $this->preparePaginationObject();
+        $this->data['posts']           = $this->getPosts();
+        $this->data['paginationList']  = $this->preparePaginationObject();
         $this->data['queryParameters'] = $this->setQueryParameters();
-        $this->data['taxonomies'] = $this->getTaxonomies();
-        $this->data['archiveTitle'] = $this->getArchiveTitle();
-
+        $this->data['taxonomies']      = $this->getTaxonomies();
+        $this->data['archiveTitle']    = $this->getArchiveTitle();
     }
-
 }

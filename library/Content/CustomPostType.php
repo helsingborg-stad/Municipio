@@ -47,7 +47,6 @@ class CustomPostType
         }
 
         foreach ($typeDefinitions as $typeDefinition) {
-
             $labels = array(
                 'name'               => $typeDefinition['post_type_name'],
                 'singular_name'      => $typeDefinition['post_type_name'],
@@ -82,18 +81,18 @@ class CustomPostType
                 : sanitize_title($typeDefinition['post_type_name']);
 
             $args = array(
-                'labels'             => $labels,
-                'description'        => __('Auto generated cpt from user iterface.', 'municipio'),
-                'public'             => $typeDefinition['public'],
-                'show_in_menu'       => $this->showInMenu($typeDefinition),
-                'rewrite'            => $rewrite,
-                'capability_type'    => 'post',
-                'hierarchical'       => $typeDefinition['hierarchical'],
-                'supports'           => $supports,
-                'menu_position'      => (int) $typeDefinition['menu_position'],
-                'has_archive'        => true,
-                'show_in_rest'       => true,
-                'rest_base'          => $restBase,
+                'labels'          => $labels,
+                'description'     => __('Auto generated cpt from user iterface.', 'municipio'),
+                'public'          => $typeDefinition['public'],
+                'show_in_menu'    => $this->showInMenu($typeDefinition),
+                'rewrite'         => $rewrite,
+                'capability_type' => 'post',
+                'hierarchical'    => $typeDefinition['hierarchical'],
+                'supports'        => $supports,
+                'menu_position'   => (int) $typeDefinition['menu_position'],
+                'has_archive'     => true,
+                'show_in_rest'    => true,
+                'rest_base'       => $restBase,
             );
 
             //Get custom menu icon
@@ -156,16 +155,17 @@ class CustomPostType
     /**
      * Place custom post types under specific menu
      * @param  string $type_definition Array of post type settings
-     * @return boolean|string  
+     * @return boolean|string
      */
-    public function showInMenu($type_definition) {
+    public function showInMenu($type_definition)
+    {
         if (!empty($type_definition['show_in_nav_menus']) && !empty($type_definition['place_under_pages_menu'])) {
             if (!empty($this->hasNestedPagesMenu())) {
                 return 'nestedpages';
             }
-            
+
             return 'edit.php?post_type=page';
-        } 
+        }
 
         return true;
     }
@@ -174,7 +174,8 @@ class CustomPostType
      * Returns a boolean based on Nested Pages options
      * @return boolean
      */
-    public function hasNestedPagesMenu() {
+    public function hasNestedPagesMenu()
+    {
         $nestedPagesOptions = get_option('nestedpages_posttypes');
 
         if (!empty($nestedPagesOptions) && is_array($nestedPagesOptions) && array_key_exists('page', $nestedPagesOptions)) {

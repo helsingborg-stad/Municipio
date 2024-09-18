@@ -4,7 +4,6 @@ namespace Municipio\Helper;
 
 class Likes
 {
-
     /**
      * Display comment like button
      * @param int $id Comment ID
@@ -31,10 +30,8 @@ class Likes
         }
 
         $output['classList'] = implode(' ', $classes);
-        $output['count'] = $count;
+        $output['count']     = $count;
 
         return $output;
     }
-
-
 }

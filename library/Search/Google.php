@@ -5,19 +5,19 @@ namespace Municipio\Search;
 class Google
 {
     private $apiKey = null;
-    private $apiCx = null;
+    private $apiCx  = null;
 
     public $keyword = null;
     public $results = null;
 
-    public $currentPage = 1;
-    public $currentIndex = 1;
+    public $currentPage    = 1;
+    public $currentIndex   = 1;
     public $resultsPerPage = null;
 
     public function __construct($keyword, $startingIndex = 1)
     {
         $this->apiKey = get_field('google_search_api_key', 'option');
-        $this->apiCx = get_field('google_search_api_secret', 'option');
+        $this->apiCx  = get_field('google_search_api_secret', 'option');
 
         $this->keyword = $keyword;
         $this->results = $this->search($this->keyword, $startingIndex);
@@ -102,7 +102,7 @@ class Google
             return null;
         }
 
-        $meta = $item->pagemap->metatags[0];
+        $meta    = $item->pagemap->metatags[0];
         $dateMod = null;
 
         if (isset($meta->moddate)) {
@@ -140,7 +140,7 @@ class Google
 
         // Get needed data
         $results = $this->results;
-        $query = $results->queries;
+        $query   = $results->queries;
 
         // Get results per page count
         $this->resultsPerPage = 10;
@@ -153,7 +153,7 @@ class Google
         $currentPage = 1;
         if (isset($_GET['index']) && $_GET['index'] > 1 && is_numeric(sanitize_text_field($_GET['index']))) {
             $this->currentIndex = sanitize_text_field($_GET['index']);
-            $this->currentPage = (($this->currentIndex-1) / $this->resultsPerPage)+1;
+            $this->currentPage  = (($this->currentIndex - 1) / $this->resultsPerPage) + 1;
         }
 
         $markup[] = '<ul class="pagination" role="menubar" arial-label="pagination">';
@@ -174,12 +174,12 @@ class Google
             // The JSON API returns up to the first 100 results only,
             // see https://developers.google.com/custom-search/json-api/v1/using_rest#search_request_metadata
             $maxResults = 100;
-            $numPages = ceil(min($this->results->searchInformation->totalResults, $maxResults) / $this->resultsPerPage);
+            $numPages   = ceil(min($this->results->searchInformation->totalResults, $maxResults) / $this->resultsPerPage);
 
 
             // Output pages
             for ($i = 1; $i <= $numPages; $i++) {
-                $thisIndex = ($this->resultsPerPage * ($i-1)) + 1;
+                $thisIndex = ($this->resultsPerPage * ($i - 1)) + 1;
 
                 $current = null;
                 if ($thisIndex == $this->currentIndex) {
@@ -196,7 +196,7 @@ class Google
             $startIndex = $query->nextPage[0]->startIndex;
             if ($startIndex < $maxResults) {
                 $markup[] = '<li><a class="next" href="?s=' . urlencode(stripslashes($this->keyword)) .
-              '&amp;index=' . $startIndex . '">Nästa &raquo;</a></li>';
+                '&amp;index=' . $startIndex . '">Nästa &raquo;</a></li>';
             }
         }
 

@@ -27,7 +27,7 @@ class Icons
         if (file_exists(self::getIconPath())) {
             if ($contents = file_get_contents(self::getIconPath())) {
                 $icons = json_decode($contents);
-        
+
                 return $icons;
             }
         }

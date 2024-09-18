@@ -13,7 +13,7 @@ use WP_REST_Server;
 class Sideload extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
-    private const ROUTE = 'media/sideload';
+    private const ROUTE     = 'media/sideload';
 
     /**
      * Registers a REST route for image sideloading
@@ -23,28 +23,28 @@ class Sideload extends RestApiEndpoint
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => WP_REST_Server::CREATABLE,
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => WP_REST_Server::CREATABLE,
+            'callback'            => array($this, 'handleRequest'),
             'permission_callback' => array($this, 'permissionCallback'),
-            'args' => [
-                'url' => [
+            'args'                => [
+                'url'         => [
                     'description' => __('Remote URL from which to sideload image.', 'municipio'),
-                    'type' => 'string',
-                    'format' => 'uri',
-                    'required' => true
+                    'type'        => 'string',
+                    'format'      => 'uri',
+                    'required'    => true
                 ],
                 'description' => [
                     'description' => __('Description.', 'municipio'),
-                    'type' => 'string',
-                    'required' => false,
-                    'default' => null
+                    'type'        => 'string',
+                    'required'    => false,
+                    'default'     => null
                 ],
-                'return' => [
+                'return'      => [
                     'description' => __('Return type from sideloaded image.', 'municipio'),
-                    'type' => 'string',
-                    'enum' => ['html', 'src', 'id'],
-                    'required' => false,
-                    'default' => 'html'
+                    'type'        => 'string',
+                    'enum'        => ['html', 'src', 'id'],
+                    'required'    => false,
+                    'default'     => 'html'
                 ]
             ]
         ));
@@ -60,14 +60,14 @@ class Sideload extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $params = $request->get_json_params();
+        $params          = $request->get_json_params();
         $alreadyUploaded = $this->getIdenticalMediaAlreadyUploaded($params['url'], $params['return']);
 
         if ($alreadyUploaded !== null) {
             return rest_ensure_response($alreadyUploaded);
         }
 
-        $sideloadedImageUrl = $this->handleSideload($params['url'], $params['description'], $params['return'], );
+        $sideloadedImageUrl = $this->handleSideload($params['url'], $params['description'], $params['return'],);
 
         if (is_wp_error($sideloadedImageUrl)) {
             $error = new WP_Error(

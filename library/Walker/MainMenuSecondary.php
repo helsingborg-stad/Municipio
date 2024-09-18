@@ -8,11 +8,11 @@ class MainMenuSecondary extends \Walker_Nav_Menu
     {
         global $post;
 
-        $current = null;
+        $current         = null;
         $currentTopLevel = null;
 
-        $output = '';
-        $args = array_slice(func_get_args(), 2);
+        $output  = '';
+        $args    = array_slice(func_get_args(), 2);
         $argsObj = $args[0];
 
         $topLevel = array();
@@ -44,7 +44,7 @@ class MainMenuSecondary extends \Walker_Nav_Menu
         }
 
         // Find the current top level item
-        $i = 0;
+        $i          = 0;
         $thisParent = null;
         $nextParent = $current->menu_item_parent;
         while (is_null($currentTopLevel)) {

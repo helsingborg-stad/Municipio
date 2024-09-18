@@ -24,15 +24,15 @@ class FrontEnd
     {
         if (is_user_logged_in() && is_admin_bar_showing()) {
             ?>
-		<style type="text/css">
-		body { margin-top: 32px !important; }
-		* html body { margin-top: 32px !important; }
-		@media screen and ( max-width: 782px ) {
-			body { margin-top: 46px !important; }
-			* html body { margin-top: 46px !important; }
-		}
-		</style>
-		<?php
+        <style type="text/css">
+        body { margin-top: 32px !important; }
+        * html body { margin-top: 32px !important; }
+        @media screen and ( max-width: 782px ) {
+            body { margin-top: 46px !important; }
+            * html body { margin-top: 46px !important; }
+        }
+        </style>
+            <?php
         }
     }
 }

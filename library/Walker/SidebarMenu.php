@@ -4,12 +4,12 @@ namespace Municipio\Walker;
 
 class SidebarMenu extends \Walker_Nav_Menu
 {
-    public function walk($elements, $max_depth,...$args)
+    public function walk($elements, $max_depth, ...$args)
     {
         global $post;
         $current_page = $post;
 
-        $args = array_slice(func_get_args(), 2);
+        $args   = array_slice(func_get_args(), 2);
         $output = '';
 
         //invalid parameter or nothing to walk
@@ -58,7 +58,7 @@ class SidebarMenu extends \Walker_Nav_Menu
          */
         if (($max_depth == 0) && count($children_elements) > 0) {
             $empty_array = array();
-            $orphans = isset($children_elements[$child_of]) ? $children_elements[$child_of] : false;
+            $orphans     = isset($children_elements[$child_of]) ? $children_elements[$child_of] : false;
 
             if ($orphans) {
                 foreach ($orphans as $op) {

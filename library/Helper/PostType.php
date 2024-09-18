@@ -55,7 +55,7 @@ class PostType
     public static function postTypeDetails()
     {
         $postType = self::getPostType();
-        if(!is_null($postType)) {
+        if (!is_null($postType)) {
             $postTypeObject = get_post_type_object($postType);
 
             if ($postTypeObject instanceof \WP_Post_Type) {

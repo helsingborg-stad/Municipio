@@ -8,19 +8,19 @@ class ImageAltTextValidation
     {
         //Filter for hidden field, to check if the featured image has an alt text
         add_filter('acf/validate_value/key=field_654a2a58ca4e9', array(
-            $this, 
+            $this,
             'checkFeaturedImageField'
         ), 10, 4);
-        
+
         //Filter for standard image field
         add_filter('acf/validate_value/type=image', array(
-            $this, 
+            $this,
             'checkImageField'
         ), 10, 4);
 
         //Filter for focus image field
         add_filter('acf/validate_value/type=focuspoint', array(
-            $this, 
+            $this,
             'checkFocusField'
         ), 10, 4);
     }
@@ -34,11 +34,12 @@ class ImageAltTextValidation
      * @param string $input The input name.
      * @return bool Returns true if the image field has an alt text, false otherwise.
      */
-    public function checkImageField($valid, $value, $field, $input) {
+    public function checkImageField($valid, $value, $field, $input)
+    {
         if ($this->imageFieldHasValue($field, $value)) {
             $fieldImageAltText = $this->getAltText($value);
 
-            if(is_null($fieldImageAltText)) {
+            if (is_null($fieldImageAltText)) {
                 return $this->lang()->altTextSingular;
             }
         }
@@ -54,7 +55,7 @@ class ImageAltTextValidation
      */
     private function imageFieldHasValue($field, $value): bool
     {
-        if(empty($value) || !is_numeric($value)) {
+        if (empty($value) || !is_numeric($value)) {
             return false;
         }
         return true;
@@ -69,11 +70,12 @@ class ImageAltTextValidation
      * @param string $input The input name.
      * @return bool Returns true if the focus field has an alt text, false otherwise.
      */
-    public function checkFocusField($valid, $value, $field, $input) {
+    public function checkFocusField($valid, $value, $field, $input)
+    {
         if ($this->focusFieldHasValue($field, $value)) {
             $fieldImageAltText = $this->getAltText($value['id']);
 
-            if(is_null($fieldImageAltText)) {
+            if (is_null($fieldImageAltText)) {
                 return $this->lang()->altTextSingular;
             }
         }
@@ -89,15 +91,15 @@ class ImageAltTextValidation
      */
     private function focusFieldHasValue($field, $value): bool
     {
-        if(empty($value) || !is_array($value)) {
-            return false;
-        }
-        
-        if(empty($value['id'])) {
+        if (empty($value) || !is_array($value)) {
             return false;
         }
 
-        if(!is_numeric($value['id'])) {
+        if (empty($value['id'])) {
+            return false;
+        }
+
+        if (!is_numeric($value['id'])) {
             return false;
         }
 
@@ -109,7 +111,8 @@ class ImageAltTextValidation
      *
      * @return array|null The post data, or null if it is empty.
      */
-    private function getPostData(): ?array {
+    private function getPostData(): ?array
+    {
         if (empty($_POST) || !is_array($_POST)) {
             return null;
         }
@@ -125,10 +128,11 @@ class ImageAltTextValidation
      * @param string $name The field name.
      * @return bool Returns true if the alt text is set for the featured image and the image field, false otherwise.
      */
-    public function checkFeaturedImageField($valid, $value, $field, $name) {
-    
+    public function checkFeaturedImageField($valid, $value, $field, $name)
+    {
+
         //Get post data
-        $postData               = $this->getPostData();
+        $postData = $this->getPostData();
 
         //Not a post action
         if (empty($postData) || !is_array($postData)) {
@@ -136,10 +140,10 @@ class ImageAltTextValidation
         }
 
         if ($this->postHasFeaturedImage($postData)) {
-            $thumbnailID            = $postData['_thumbnail_id'];
-            $thumbnailImageAltText  = $this->getAltText($thumbnailID);
+            $thumbnailID           = $postData['_thumbnail_id'];
+            $thumbnailImageAltText = $this->getAltText($thumbnailID);
 
-            if(is_null($thumbnailImageAltText)) {
+            if (is_null($thumbnailImageAltText)) {
                 return $this->lang()->altTextFeaturedImage;
             }
         }
@@ -156,11 +160,11 @@ class ImageAltTextValidation
      */
     private function postHasFeaturedImage($postData)
     {
-        if(empty($postData) || empty($postData['_thumbnail_id'])) {
+        if (empty($postData) || empty($postData['_thumbnail_id'])) {
             return false;
         }
 
-        if($postData['_thumbnail_id'] === '-1') {
+        if ($postData['_thumbnail_id'] === '-1') {
             return false;
         }
 
@@ -187,10 +191,11 @@ class ImageAltTextValidation
      *
      * @return object The language strings.
      */
-    private function lang(): object {
+    private function lang(): object
+    {
         return (object) [
-            'altTextFeaturedImage'  => __("Please add an alt text to the featured image.", 'municipio'),
-            'altTextSingular'       => __("Please add an alt text to the image.", 'municipio')
+            'altTextFeaturedImage' => __("Please add an alt text to the featured image.", 'municipio'),
+            'altTextSingular'      => __("Please add an alt text to the image.", 'municipio')
         ];
     }
 }

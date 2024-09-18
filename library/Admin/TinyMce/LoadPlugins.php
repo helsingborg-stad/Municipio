@@ -34,7 +34,7 @@ class LoadPlugins
                 foreach ($plugins as $plugin) {
                     $pluginClass = $nameSpace . "\\" . $plugin . "\\" . $plugin;
                     if (class_exists($pluginClass)) {
-                        new $pluginClass;
+                        new $pluginClass();
                     }
                 }
             }

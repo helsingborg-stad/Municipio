@@ -70,7 +70,7 @@ class OembedFilters
      * @param string    $src    Arbitrary embed url
      * @return string   $src    Correct embed url
      */
-        protected function buildEmbedUrl($src)
+    protected function buildEmbedUrl($src)
     {
         $srcParsed = parse_url($src);
 
@@ -90,7 +90,7 @@ class OembedFilters
                 if (isset($srcParsed['query'])) {
                     parse_str($srcParsed['query'], $query);
                     if (isset($query['v'])) {
-                        $srcParsed['path'] = '/embed/' . $query['v'];
+                        $srcParsed['path']  = '/embed/' . $query['v'];
                         $srcParsed['query'] = $ytParams;
                     }
                 }

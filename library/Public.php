@@ -66,7 +66,6 @@ if (!function_exists('municipio_get_thumbnail_source')) {
         _doing_it_wrong(__FUNCTION__, 'This function is deprecated. Use get_the_post_thumbnail_url instead.', '4.6.8');
 
         return;
-
     }
 }
 /**

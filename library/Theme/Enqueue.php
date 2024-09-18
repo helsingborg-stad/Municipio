@@ -180,10 +180,11 @@ class Enqueue
     /**
      * Enqueue icons
      * Enqueues the selected icon font style.
-     * 
+     *
      * @return void
      */
-    public function icons() {
+    public function icons()
+    {
         $weight = get_theme_mod('icon_weight') ?: "400";
         $style  = get_theme_mod('icon_style') ?: "rounded";
 
@@ -192,11 +193,11 @@ class Enqueue
             '400' => 'medium',
             '600' => 'bold',
         ];
-        
+
         wp_register_style('material-symbols', self::getAssetWithCacheBust(
             sprintf(
-                'fonts/material/%s/%s.css', 
-                $weightTranslationTable[$weight] ?? 'medium', 
+                'fonts/material/%s/%s.css',
+                $weightTranslationTable[$weight] ?? 'medium',
                 $style
             )
         ));
@@ -264,12 +265,12 @@ class Enqueue
 
         //Load instant page
         wp_register_script(
-            'instantpage-js', 
-            self::getAssetWithCacheBust('js/instantpage.js'), 
-            [], 
-            null, 
+            'instantpage-js',
+            self::getAssetWithCacheBust('js/instantpage.js'),
+            [],
+            null,
             [
-                'strategy' => 'defer', 
+                'strategy'  => 'defer',
                 'in_footer' => true
             ]
         );

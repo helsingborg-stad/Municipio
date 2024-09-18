@@ -17,7 +17,7 @@ class ComponentData extends AbstractApplicator
 
     /**
      * Calculate and store component data on save of customizer
-     * 
+     *
      * @return void
      */
     public function storeComponentData($manager = null)
@@ -47,7 +47,6 @@ class ComponentData extends AbstractApplicator
             $passFilterRules = false;
 
             foreach ($filter['contexts'] as $filterContext) {
-
                 // Operator and context must be set
                 if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
                     throw new Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
@@ -58,8 +57,10 @@ class ComponentData extends AbstractApplicator
                     throw new Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
                 }
 
-                if (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) {
+                if (
+                    ($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
+                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))
+                ) {
                     $passFilterRules = true;
                 }
             }
@@ -79,11 +80,11 @@ class ComponentData extends AbstractApplicator
      */
     private function calculateComponentData()
     {
-        if($runtimeCache = $this->getRuntimeCache('componentDataRuntimeCache')) {
+        if ($runtimeCache = $this->getRuntimeCache('componentDataRuntimeCache')) {
             return $runtimeCache;
         }
 
-        $fields = $this->getFields();
+        $fields        = $this->getFields();
         $componentData = [];
 
         if (is_array($fields) && !empty($fields)) {
@@ -107,7 +108,7 @@ class ComponentData extends AbstractApplicator
                             if (is_string($context)) {
                                 $output['context'][$contextKey] = [
                                     'operator' => '==',
-                                    'context' => $context
+                                    'context'  => $context
                                 ];
                             }
                         }
@@ -116,7 +117,7 @@ class ComponentData extends AbstractApplicator
 
                         $componentData[] = [
                             'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
-                            'data' => $filterData,
+                            'data'     => $filterData,
                         ];
                     }
                 }
@@ -138,16 +139,16 @@ class ComponentData extends AbstractApplicator
      */
     public function buildFilterData(string $dataKey, $value): array
     {
-        $filterData = [];
+        $filterData  = [];
         $previousArr = &$filterData;
-        $fields = explode('.', $dataKey);
+        $fields      = explode('.', $dataKey);
 
         foreach ($fields as $i => $field) {
             if ($i === count($fields) - 1) {
                 $previousArr[$field] = $value;
             } else {
                 $previousArr[$field] = [];
-                $previousArr = &$previousArr[$field];
+                $previousArr         = &$previousArr[$field];
             }
         }
 

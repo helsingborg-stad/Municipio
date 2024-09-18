@@ -9,13 +9,13 @@ use WP_REST_Response;
 class Children extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
-    private const ROUTE = '/navigation/children';
+    private const ROUTE     = '/navigation/children';
 
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
-            'methods' => 'GET',
-            'callback' => array($this, 'handleRequest'),
+            'methods'             => 'GET',
+            'callback'            => array($this, 'handleRequest'),
             'permission_callback' => '__return_true'
         ));
     }
@@ -24,7 +24,7 @@ class Children extends RestApiEndpoint
     {
         $params = $request->get_params();
         if (isset($params['pageId']) && is_numeric($params['pageId'])) {
-            $parentId = $params['pageId'];
+            $parentId   = $params['pageId'];
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
             if (isset($parentId)) {

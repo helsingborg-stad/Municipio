@@ -7,10 +7,10 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
     public function setup()
     {
         $widget = array(
-            'id'            => 'links',
-            'name'          => 'Header widget: Links',
-            'description'   => 'Display links with icons or text, used in header',
-            'template'      => 'header-links.header-links.blade.php'
+            'id'          => 'links',
+            'name'        => 'Header widget: Links',
+            'description' => 'Display links with icons or text, used in header',
+            'template'    => 'header-links.header-links.blade.php'
         );
 
         return $widget;
@@ -32,7 +32,7 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
 
 
         $this->data['attributes'] = $attributes->outputAttributes();
-        $this->data['links'] = $this->mapLinks();
+        $this->data['links']      = $this->mapLinks();
     }
 
     /**
@@ -46,33 +46,33 @@ class Links extends \Municipio\Widget\Source\HeaderWidget
         }
 
         $avalibleLinkTypes = array(
-            'external_link' => array(
-                'classes'       => 'c-nav__link',
-                'attributes'    => '',
-                'template'      => 'widget.header-links.partials.link'
+            'external_link'     => array(
+                'classes'    => 'c-nav__link',
+                'attributes' => '',
+                'template'   => 'widget.header-links.partials.link'
             ),
-            'internal_link' => array(
-                'classes'       => 'c-nav__link',
-                'attributes'    => '',
-                'template'      => 'widget.header-links.partials.link'
+            'internal_link'     => array(
+                'classes'    => 'c-nav__link',
+                'attributes' => '',
+                'template'   => 'widget.header-links.partials.link'
             ),
-            'search_trigger' => array(
-                'classes'       => 'o-reset-button u-nowrap c-nav__link js-search-trigger pricon pricon-search toggle-search-top',
-                'attributes'    => 'onclick="return false;"',
-                'text'          => 'Search',
-                'template'      => 'widget.header-links.partials.button'
+            'search_trigger'    => array(
+                'classes'    => 'o-reset-button u-nowrap c-nav__link js-search-trigger pricon pricon-search toggle-search-top',
+                'attributes' => 'onclick="return false;"',
+                'text'       => 'Search',
+                'template'   => 'widget.header-links.partials.button'
             ),
-            'menu_trigger' => array(
-                'classes'       => 'u-nowrap hamburger hamburger--slider menu-trigger',
-                'attributes'    => 'aria-controls="navigation" aria-expanded="true/false" onclick="jQuery(this).toggleClass(\'is-active\');" data-target="#mobile-menu"',
-                'text'          => __("Menu", 'municipio'),
-                'template'      =>  'widget.header-links.partials.burger'
+            'menu_trigger'      => array(
+                'classes'    => 'u-nowrap hamburger hamburger--slider menu-trigger',
+                'attributes' => 'aria-controls="navigation" aria-expanded="true/false" onclick="jQuery(this).toggleClass(\'is-active\');" data-target="#mobile-menu"',
+                'text'       => __("Menu", 'municipio'),
+                'template'   =>  'widget.header-links.partials.burger'
             ),
             'translate_trigger' => array(
-                'classes'       => 'c-nav__link js-translate-trigger',
-                'attributes'    => '',
-                'text'          => 'Translate',
-                'url'           => '#translate'
+                'classes'    => 'c-nav__link js-translate-trigger',
+                'attributes' => '',
+                'text'       => 'Translate',
+                'url'        => '#translate'
             )
         );
 

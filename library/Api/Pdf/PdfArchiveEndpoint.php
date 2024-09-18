@@ -90,11 +90,11 @@ class PdfArchiveEndpoint extends RestApiEndpoint
     {
         $posts = $this->getPostsFromArchiveQuery($postType);
 
-        $postsWithTerms = [];
+        $postsWithTerms    = [];
         $postsWithoutTerms = [];
         if (!empty($posts)) {
             $sortByTerm = get_field('field_pdf_sort_posts_by_term', 'option');
-            $data = null;
+            $data       = null;
 
             if (!empty($sortByTerm)) {
                 $data = ['taxonomiesToDisplay' => get_object_taxonomies($postType)];
@@ -117,7 +117,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             ksort($postsWithTerms);
 
             if (!empty($postsWithoutTerms)) {
-                $postsWithoutTermsName = get_field('field_pdf_sort_posts_without_term_label', 'option');
+                $postsWithoutTermsName                                              = get_field('field_pdf_sort_posts_without_term_label', 'option');
                 $postsWithTerms[$postsWithoutTermsName ?? __('Other', 'Municipio')] = $postsWithoutTerms;
             }
         }
@@ -125,7 +125,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return $postsWithTerms;
     }
 
-    private function getPostsFromArchiveQuery($postType = '') 
+    private function getPostsFromArchiveQuery($postType = '')
     {
         $orderBy   = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         $order     = get_theme_mod('archive_' . $postType . '_order_direction');

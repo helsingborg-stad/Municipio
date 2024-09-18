@@ -8,46 +8,47 @@ use Kirki\Util\Helper as KirkiHelper;
 abstract class AbstractApplicator
 {
     public $optionKeyBasename = "theme_mod_applicator_cache";
-    public $optionKey = null;
-    public $lastSignatureKey = 'theme_mod_last_signature';
-    protected $signature = null;
-    protected $runtimeCache = [];
+    public $optionKey         = null;
+    public $lastSignatureKey  = 'theme_mod_last_signature';
+    protected $signature      = null;
+    protected $runtimeCache   = [];
 
     /**
      * Get fields.
-     * 
+     *
      * @return array
      */
-    protected function getFields(): array 
+    protected function getFields(): array
     {
         $fields = [];
-		if (class_exists('\Kirki\Compatibility\Kirki') ) {
-			$fields = array_merge(
-                KirkiCompatibility::$fields ?? [], 
+        if (class_exists('\Kirki\Compatibility\Kirki')) {
+            $fields = array_merge(
+                KirkiCompatibility::$fields ?? [],
                 KirkiCompatibility::$all_fields ?? [],
                 $fields
             );
-		}
+        }
         return $fields;
     }
 
     /**
      * Get static.
-     * 
+     *
      * @return mixed
      */
-    protected function getStatic() {
-        
-        if(is_null($this->signature)) {
+    protected function getStatic()
+    {
+
+        if (is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
         }
 
-        if(isset($this->runtimeCache[$this->optionKey])) {
+        if (isset($this->runtimeCache[$this->optionKey])) {
             return $this->runtimeCache[$this->optionKey];
         }
 
-        if(is_customize_preview()) {
+        if (is_customize_preview()) {
             return false;
         }
 
@@ -56,13 +57,14 @@ abstract class AbstractApplicator
 
     /**
      * Set static.
-     * 
+     *
      * @param mixed $data The data to set.
-     * 
+     *
      * @return boolean
      */
-    protected function setStatic($data) {
-        if(is_null($this->signature)) {
+    protected function setStatic($data)
+    {
+        if (is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
         }
@@ -74,9 +76,9 @@ abstract class AbstractApplicator
 
     /**
      * Set runtime cache.
-     * 
+     *
      * @param mixed $value The value to set.
-     * 
+     *
      * @return mixed
      */
     protected function setRuntimeCache($identifier, $value)
@@ -89,7 +91,7 @@ abstract class AbstractApplicator
 
     /**
      * Get runtime cache.
-     * 
+     *
      * @return mixed
      */
     protected function getRuntimeCache($identifier)
@@ -101,9 +103,9 @@ abstract class AbstractApplicator
 
     /**
      * Get storage key.
-     * 
+     *
      * @param string $basename The basename to get the storage key for.
-     * 
+     *
      * @return string
      */
     protected function getStorageKey($basename): string
@@ -115,9 +117,9 @@ abstract class AbstractApplicator
 
     /**
      * Get field signature.
-     * 
+     *
      * @param array $fields The fields to get the signature for.
-     * 
+     *
      * @return string
      */
     protected function getFieldSignature($fields): string
@@ -130,19 +132,19 @@ abstract class AbstractApplicator
     protected function getDefaultFieldSignature($fields): string
     {
         $supportedHashes = hash_algos() ?? [];
-        if(in_array('xxh3', $supportedHashes)) {
-            $hash = hash('sha256', json_encode($fields)); 
+        if (in_array('xxh3', $supportedHashes)) {
+            $hash = hash('sha256', json_encode($fields));
         }
-        $hash = hash('md5', json_encode($fields)); 
+        $hash = hash('md5', json_encode($fields));
 
         return $this->shortenHash($hash);
     }
 
     /**
      * Shorten hash.
-     * 
+     *
      * @param string $hash The hash to shorten.
-     * 
+     *
      * @return string
      */
     protected function shortenHash($hash): string
@@ -152,11 +154,11 @@ abstract class AbstractApplicator
 
     /**
      * Compare values using KirkiHelper.
-     * 
+     *
      * @param string $settingKey The setting key to compare.
      * @param mixed $value The value to compare.
      * @param string $operator The operator to use.
-     * 
+     *
      * @return boolean  True if the values match, false otherwise.
      */
     protected function compareValues($settingKey, $value, $operator): bool
@@ -166,36 +168,36 @@ abstract class AbstractApplicator
             $settingKeyStoredValue,
             $value,
             $operator
-        ); 
+        );
     }
 
-    /** 
+    /**
      * Check if a callback is valid, and if it should append data.
-     * 
+     *
      * @param array $activeCallback The active_callback part of the field.
-     * 
+     *
      * @return boolean
      */
     protected function isValidActiveCallback($activeCallback): bool
     {
         if (is_string($activeCallback) && $activeCallback === '__return_true') {
-            return true; 
+            return true;
         }
-        
+
         if (is_string($activeCallback) && $activeCallback === '__return_false') {
             return false;
-        } 
-        
+        }
+
         if (is_array($activeCallback) && !empty($activeCallback)) {
             $shouldReturn = false;
             foreach ($activeCallback as $cb) {
                 $cb = (object) $cb;
-                if($this->compareValues($cb->setting, $cb->value,  $cb->operator)) {
+                if ($this->compareValues($cb->setting, $cb->value, $cb->operator)) {
                     $shouldReturn = true;
                     break;
                 }
             }
-            return $shouldReturn; 
+            return $shouldReturn;
         }
 
         return true;
@@ -223,11 +225,11 @@ abstract class AbstractApplicator
         return false;
     }
 
-    /** 
+    /**
      * Determine if field has output.
-     * 
+     *
      * @param array $field  The field to check.
-     * 
+     *
      * @return boolean
      */
     private function fieldHasOutput(array $field): bool
@@ -241,10 +243,10 @@ abstract class AbstractApplicator
 
     /**
      * Determine if field output has matching type.
-     * 
-     * @param array $output The output definition of a field. 
+     *
+     * @param array $output The output definition of a field.
      * @param string $type  The type to look for.
-     * 
+     *
      * @return boolean      True if the output has the matching type, false otherwise.
      */
     private function fieldOutputHasMatchingType(array $output, string $type): bool

@@ -104,7 +104,7 @@ abstract class PluginClass
 
     public function localizeScript()
     {
-        $output = '<script type="text/javascript" atr="lol">';
+        $output  = '<script type="text/javascript" atr="lol">';
         $output .= 'var ' . $this->pluginSlug . ' = {';
 
         foreach ($this->data as $key => $value) {

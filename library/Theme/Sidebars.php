@@ -36,7 +36,7 @@ class Sidebars
         if ('widgets.php' !== $page) {
             return;
         }
-        $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
+        $footerStyle   = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style');
         $footerColumns = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_columns');
         wp_enqueue_script(
             'widgets-area-hide-js',
@@ -46,7 +46,7 @@ class Sidebars
             'widgets-area-hide-js',
             'municipioSidebars',
             [
-                'footerStyle' => $footerStyle,
+                'footerStyle'   => $footerStyle,
                 'footerColumns' => $footerColumns ?? 1,
             ]
         );
@@ -66,8 +66,8 @@ class Sidebars
 
     public function register()
     {
-        $beforeWidget  = '<div id="%1$s" class="%2$s">';
-        $afterWidget   = '</div>';
+        $beforeWidget        = '<div id="%1$s" class="%2$s">';
+        $afterWidget         = '</div>';
         $beforeModulesMarkup = '<aside class="o-grid">';
         $afterModulesMarkup  = '</aside>';
 
@@ -75,19 +75,19 @@ class Sidebars
          * Footer Area Top
          */
         register_sidebar(array(
-            'id'             => 'footer-area-top',
-            'name'           => __('Footer top', 'municipio'),
-            'description'    => __('The top of footer area', 'municipio'),
-            'before_title'   => '<h2 class="footer-top-title">',
-            'after_title'    => '</h2>',
-            'before_widget'  => '<div class="o-grid-12">' . $beforeWidget,
-            'after_widget'   => $afterWidget . '</div>',
+            'id'            => 'footer-area-top',
+            'name'          => __('Footer top', 'municipio'),
+            'description'   => __('The top of footer area', 'municipio'),
+            'before_title'  => '<h2 class="footer-top-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => '<div class="o-grid-12">' . $beforeWidget,
+            'after_widget'  => $afterWidget . '</div>',
         ));
 
         /**
          * Create a total of 6 footer areas for use with the "columns" footer style
          */
-        $footerStyle = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style') ?? 'basic';
+        $footerStyle    = \Kirki::get_option(\Municipio\Customizer::KIRKI_CONFIG, 'footer_style') ?? 'basic';
         $footerGridSize = $footerStyle === 'basic' ? 4 : 12;
         for ($i = 0; $i < 6; $i++) {
             $suffix = ($i !== 0 ? '-column-' . $i : '');
@@ -216,11 +216,11 @@ class Sidebars
          * Full page top
          */
         register_sidebar(array(
-            'id'             => 'top-sidebar',
-            'name'           => __('Top sidebar (full-width)', 'municipio'),
-            'description'    => __('Sidebar that sits below the hero.', 'municipio'),
-            'before_title'   => '<h2 class="c-typography c-typography__variant--h3">',
-            'after_title'    => '</h2>',
+            'id'            => 'top-sidebar',
+            'name'          => __('Top sidebar (full-width)', 'municipio'),
+            'description'   => __('Sidebar that sits below the hero.', 'municipio'),
+            'before_title'  => '<h2 class="c-typography c-typography__variant--h3">',
+            'after_title'   => '</h2>',
             'before_widget' => $beforeWidget,
             'after_widget'  => $afterWidget,
         ));

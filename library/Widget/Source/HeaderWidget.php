@@ -90,13 +90,13 @@ abstract class HeaderWidget extends BaseWidget
         }
 
 
-        $re = '/class="(.*)"/';
+        $re  = '/class="(.*)"/';
         $str = $this->data['args']['before_widget'];
         preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
 
         if (isset($matches[0][1])) {
-            $widgetClass = 'c-navbar__widget widget widget_' . $this->config['id'] . ' ' . $this->data['widgetWrapperClass'];
-            $oldClasses = $matches[0][1];
+            $widgetClass                         = 'c-navbar__widget widget widget_' . $this->config['id'] . ' ' . $this->data['widgetWrapperClass'];
+            $oldClasses                          = $matches[0][1];
             $this->data['args']['before_widget'] = str_replace($oldClasses, $widgetClass, $this->data['args']['before_widget']);
         }
     }

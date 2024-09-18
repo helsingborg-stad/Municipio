@@ -20,7 +20,7 @@ class Padding
                 'max'  => 12,
                 'step' => 2,
             ],
-            'output' => [
+            'output'      => [
                 ['type' => 'controller']
             ],
         ]);
@@ -32,16 +32,16 @@ class Padding
             'description' => esc_html__('Padding will be applied in 8px increments.', 'municipio'),
             'section'     => $sectionID,
             'default'     => 4,
-            'transport' => 'auto',
+            'transport'   => 'auto',
             'choices'     => [
                 'min'  => 0,
                 'max'  => 12,
                 'step' => 0.5,
             ],
-            'output' => [
+            'output'      => [
                 [
-                    'element'   => ':root',
-                    'property'  => '--o-grid-gap'
+                    'element'  => ':root',
+                    'property' => '--o-grid-gap'
                 ]
             ]
         ]);
@@ -55,12 +55,12 @@ class Padding
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
-                ''   => esc_html__('Apply air', 'municipio'),
+                ''     => esc_html__('Apply air', 'municipio'),
                 'flat' => esc_html__('Remove air', 'municipio')
             ],
-            'output' => [
+            'output'      => [
                 [
-                  'type' => 'modifier',
+                  'type'    => 'modifier',
                   'context' => [
                     'component.card',
                     'component.paper',

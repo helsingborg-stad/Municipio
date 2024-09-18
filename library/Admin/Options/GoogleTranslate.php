@@ -11,7 +11,7 @@ class GoogleTranslate
 
     public function loadNavMenus($field)
     {
-        $field['choices'] = get_registered_nav_menus();
+        $field['choices']         = get_registered_nav_menus();
         $field['choices']['none'] = __('None (link to #translate to show)', 'municipio');
         return $field;
     }

@@ -38,7 +38,7 @@ class Columns
             return $content;
         }
 
-        $gridClasses = $this->createGridClassesArray($block['innerBlocks']);        
+        $gridClasses     = $this->createGridClassesArray($block['innerBlocks']);
         $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
 
         return '<div class="o-grid">' . "\n" . implode("\n", $modifiedColumns) . "\n" . '</div>';
@@ -50,15 +50,16 @@ class Columns
      * @param array $gridClasses Array of columns classes strings
      * @return array
      */
-    private function processBlockColumns(string $content, array $gridClasses) {
+    private function processBlockColumns(string $content, array $gridClasses)
+    {
         //Load doc as string
         $doc = new \DOMDocument();
         $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content, LIBXML_NOERROR);
 
         //Get the columns and its contents
         $modifiedColumns = [];
-        $index = 0;
-        $elements = $doc->getElementsByTagName('*');
+        $index           = 0;
+        $elements        = $doc->getElementsByTagName('*');
         if (!empty($elements) && is_object($elements)) {
             foreach ($elements as $child) {
                 $class = $child->getAttribute('class');
@@ -88,12 +89,13 @@ class Columns
      * @param array $innerBlocks Array of gutenberg blocks
      * @return array
      */
-    private function createGridClassesArray(array $innerBlocks): array {
+    private function createGridClassesArray(array $innerBlocks): array
+    {
         $columnsCount = $this->countColumns($innerBlocks);
-        $gridClasses = [];
+        $gridClasses  = [];
         foreach ($innerBlocks as $block) {
             if (!empty($block['attrs']['width'])) {
-                $number = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
+                $number        = $this->blockWidthToNumber($block['attrs']['width'], $columnsCount);
                 $gridClasses[] = $this->getGridClass($number);
             } else {
                 $gridClasses[] = $this->getGridClass($columnsCount);
@@ -110,7 +112,8 @@ class Columns
      * @param int $columnsCount Amount of columns
      * @return float
      */
-    private function blockWidthToNumber(string $width, int $columnsCount): float {
+    private function blockWidthToNumber(string $width, int $columnsCount): float
+    {
         if (is_string($width)) {
             $number = floatval($width);
 
@@ -146,7 +149,7 @@ class Columns
         if (!isset($numberOfColumns) || !is_numeric($numberOfColumns)) {
             $numberOfColumns = 4;
         }
-        
+
         $stack[] = \Municipio\Helper\Html::createGridClass(1);
 
         if ($numberOfColumns == 1.5) {

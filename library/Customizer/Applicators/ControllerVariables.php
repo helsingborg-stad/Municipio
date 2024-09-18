@@ -14,10 +14,11 @@ class ControllerVariables extends AbstractApplicator
 
     /**
      * Calculate controller vars on save of customizer
-     * 
+     *
      * @return array
      */
-    public function storeControllerVars($manager = null) {
+    public function storeControllerVars($manager = null)
+    {
         $this->setStatic(
             $controllerVars = $this->get()
         );
@@ -25,9 +26,9 @@ class ControllerVariables extends AbstractApplicator
     }
 
     /**
-     * Populate controller vars from stored data, if available. 
+     * Populate controller vars from stored data, if available.
      * Otherwise, calculate, store and try again.
-     * 
+     *
      * @return array
      */
     public function applicateStoredControllerVars()
@@ -47,7 +48,7 @@ class ControllerVariables extends AbstractApplicator
    */
     public function get($stack = [])
     {
-        if($runtimeCache = $this->getRuntimeCache('controllerVarsRuntimeCache')) {
+        if ($runtimeCache = $this->getRuntimeCache('controllerVarsRuntimeCache')) {
             return $runtimeCache;
         }
 
@@ -57,28 +58,26 @@ class ControllerVariables extends AbstractApplicator
         //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
-
                 // Check if field is a controller
                 if (!$this->isFieldType($field, 'controller')) {
                     continue;
                 }
 
-                if(!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
+                if (!isset($field['active_callback']) || $this->isValidActiveCallback($field['active_callback'], $key)) {
                     $stack = $this->appendStack(
-                        $stack, 
+                        $stack,
                         \Kirki::get_option($key),
                         $key,
                         $field
                     );
                 } else {
                     $stack = $this->appendStack(
-                        $stack, 
+                        $stack,
                         null,
                         $key,
                         $field
                     );
                 }
-
             }
         }
         // Camel case response keys, and return

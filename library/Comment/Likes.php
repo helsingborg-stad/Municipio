@@ -8,7 +8,7 @@ class Likes extends \Municipio\Helper\Ajax
     {
         //Data
         $this->data['ajax_url'] = admin_url('admin-ajax.php');
-        $this->data['nonce'] = wp_create_nonce('likeNonce');
+        $this->data['nonce']    = wp_create_nonce('likeNonce');
 
         //Localize
         $this->localize('likeButtonData', 'municipio-js');
@@ -32,10 +32,10 @@ class Likes extends \Municipio\Helper\Ajax
 
         ignore_user_abort(true);
 
-        $commentId = $_REQUEST['comment_id'];
+        $commentId  = $_REQUEST['comment_id'];
         $commentObj = get_comment($commentId);
 
-        $like = array();
+        $like   = array();
         $create = true;
 
         if (is_array(get_comment_meta($commentId, '_likes', true)) == true) {
@@ -43,7 +43,7 @@ class Likes extends \Municipio\Helper\Ajax
         }
         if (in_array(get_current_user_id(), $like)) {
             $create = false;
-            $index = array_search(get_current_user_id(), $like);
+            $index  = array_search(get_current_user_id(), $like);
             unset($like[$index]);
         } else {
             $like[] = get_current_user_id();
@@ -80,11 +80,11 @@ class Likes extends \Municipio\Helper\Ajax
         }
 
         $output['classList'] = implode(' ', $classes);
-        $output['icon'] = (strpos($output['classList'], 'active')) ? 'thumb_down'
+        $output['icon']      = (strpos($output['classList'], 'active')) ? 'thumb_down'
             : 'thumb_up';
-        $output['text'] =  (strpos($output['classList'], 'active')) ? __('Dislike ', 'municipio')
+        $output['text']      =  (strpos($output['classList'], 'active')) ? __('Dislike ', 'municipio')
             : __('Like ', 'municipio');
-        $output['count'] = $count;
+        $output['count']     = $count;
 
         return $output;
     }
