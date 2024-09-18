@@ -4,9 +4,11 @@ namespace Municipio\SchemaData\Utils;
 
 use Mockery;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
+use stdClass;
 use WP_Post;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPost;
@@ -74,9 +76,9 @@ class OutputPostSchemaJsonInSingleHeadTest extends TestCase {
             {
                 return $this->db['isSingle'] ?? false;
             }
-            public function getPost(null|int|WP_Post $post = null, string $output = OBJECT, string $filter = "raw"): WP_Post|array|null
+            public function getPost(null|int|WP_Post $post = null, string $output = 'OBJECT', string $filter = "raw"): WP_Post|array|null
             {
-                return Mockery::mock(WP_Post::class);
+                return WpMockFactory::createWpPost(['ID' => 1]);
             }
         };
     }

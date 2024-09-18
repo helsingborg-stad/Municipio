@@ -3,13 +3,13 @@
 namespace Municipio\Tests\Helper;
 
 use Mockery;
-use WP_Mock;
 use WP_Mock\Tools\TestCase;
 use Municipio\Helper\Color;
 use phpmock\mockery\PHPMockery;
 
 /**
  * Class ColorTest
+ * @group wp_mock
  */
 class ColorTest extends TestCase
 {

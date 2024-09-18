@@ -12,6 +12,7 @@ use phpmock\mockery\PHPMockery;
 
 /**
  * Class CreatePdfTest
+ * @group wp_mock
  */
 class CreatePdfTest extends TestCase
 {

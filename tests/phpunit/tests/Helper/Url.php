@@ -7,6 +7,7 @@ use WP_Mock\Tools\TestCase;
 
 /**
  * Class UrlTest
+ * @group wp_mock
  */
 class UrlTest extends TestCase
 {

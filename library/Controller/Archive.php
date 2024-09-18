@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use DateTime;
 use Municipio\Helper\WP;
 
 /**
@@ -14,8 +15,8 @@ class Archive extends \Municipio\Controller\BaseController
     private static $gridSize;
 
     private static $randomGridBase = array();
-    private static $gridRow = array();
-    private static $gridColumns = array();
+    private static $gridRow        = array();
+    private static $gridColumns    = array();
 
     public function init()
     {
@@ -27,40 +28,40 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['displayArchiveLoop'] = true;
 
         //Get archive properties
-        $this->data['archiveProps']             = $this->getArchiveProperties($postType, $this->data['customizer']);
+        $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
-        $template                               = $this->getTemplate($this->data['archiveProps']);
-        $this->data['template']                 = $template;
+        $template               = $this->getTemplate($this->data['archiveProps']);
+        $this->data['template'] = $template;
 
         //The posts
-        $this->data['posts']                    = $this->getPosts($template);
-        $this->data['posts']                    = $this->getDate($this->data['posts'], $this->data['archiveProps']);
-        $this->data['anyPostHasImage']          = $this->anyPostHasImage($this->data['posts']);
+        $this->data['posts']           = $this->getPosts($template);
+        $this->data['posts']           = $this->getDate($this->data['posts'], $this->data['archiveProps']);
+        $this->data['anyPostHasImage'] = $this->anyPostHasImage($this->data['posts']);
 
         //Set default values to query parameters
-        $this->data['queryParameters']          = $this->setQueryParameters();
+        $this->data['queryParameters'] = $this->setQueryParameters();
 
         //Filter options
-        $this->data['taxonomyFilters']          = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
+        $this->data['taxonomyFilters'] = $this->getTaxonomyFilters($postType, $this->data['archiveProps']);
 
-        $this->data['enableTextSearch']         = $this->enableTextSearch($this->data['archiveProps']);
-        $this->data['enableDateFilter']         = $this->enableDateFilter($this->data['archiveProps']);
-        $this->data['facettingType']            = $this->getFacettingType($this->data['archiveProps']);
+        $this->data['enableTextSearch'] = $this->enableTextSearch($this->data['archiveProps']);
+        $this->data['enableDateFilter'] = $this->enableDateFilter($this->data['archiveProps']);
+        $this->data['facettingType']    = $this->getFacettingType($this->data['archiveProps']);
 
-        $this->data['displayFeaturedImage']     = $this->displayFeaturedImage($this->data['archiveProps']);
-        $this->data['displayReadingTime']       = $this->displayReadingTime($this->data['archiveProps']);
+        $this->data['displayFeaturedImage'] = $this->displayFeaturedImage($this->data['archiveProps']);
+        $this->data['displayReadingTime']   = $this->displayReadingTime($this->data['archiveProps']);
 
         // Current term meta
-        $this->data['currentTermColour']        = $this->getCurrentTermColour();
-        $this->data['currentTermIcon']          = $this->getCurrentTermIcon();
+        $this->data['currentTermColour'] = $this->getCurrentTermColour();
+        $this->data['currentTermIcon']   = $this->getCurrentTermIcon();
 
         //Archive data
-        $this->data['archiveTitle']             = $this->getArchiveTitle($this->data['archiveProps']);
-        $this->data['archiveLead']              = $this->getArchiveLead($this->data['archiveProps']);
-        $this->data['archiveBaseUrl']           = $this->getPostTypeArchiveLink($postType);
-        $this->data['archiveResetUrl']          = $this->getPostTypeArchiveLink($postType);
-        $this->data['gridColumnClass']          = $this->getGridClass($this->data['archiveProps']);
+        $this->data['archiveTitle']    = $this->getArchiveTitle($this->data['archiveProps']);
+        $this->data['archiveLead']     = $this->getArchiveLead($this->data['archiveProps']);
+        $this->data['archiveBaseUrl']  = $this->getPostTypeArchiveLink($postType);
+        $this->data['archiveResetUrl'] = $this->getPostTypeArchiveLink($postType);
+        $this->data['gridColumnClass'] = $this->getGridClass($this->data['archiveProps']);
 
         //Pagination
         $this->data['currentPage']                     = $this->getCurrentPage();
@@ -75,22 +76,22 @@ class Archive extends \Municipio\Controller\BaseController
             $this->wpQuery
         );
 
-        $this->data['showPagination']                  = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
+        $this->data['showPagination'] = $this->showPagination($postType, $this->data['archiveBaseUrl'], $this->wpQuery);
 
         //Display functions
-        $this->data['showFilterReset']          = $this->showFilterReset($this->data['queryParameters']);
-        $this->data['showDatePickers']          = $this->showDatePickers($this->data['queryParameters']);
+        $this->data['showFilterReset'] = $this->showFilterReset($this->data['queryParameters']);
+        $this->data['showDatePickers'] = $this->showDatePickers($this->data['queryParameters']);
 
         //Facetting (menu)
-        $this->data['hasQueryParameters']       = $this->hasQueryParameters(['paged' => true]);
+        $this->data['hasQueryParameters'] = $this->hasQueryParameters(['paged' => true]);
 
         //Show filter?
-        $this->data['showFilter']               = $this->showFilter($this->data['archiveProps']);
+        $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
-        
-        
+
+
         //Archive menu
-        $archiveMenu = new \Municipio\Helper\Navigation('archive-menu');
+        $archiveMenu                    = new \Municipio\Helper\Navigation('archive-menu');
         $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
             $postType . '-menu',
             false,
@@ -125,7 +126,7 @@ class Archive extends \Municipio\Controller\BaseController
         if (!is_tax()) {
             return false;
         }
-        
+
         $term = get_queried_object();
 
         if (is_null($term)) {
@@ -257,9 +258,9 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getPostTypeArchiveLink($postType)
     {
-        $realPath       = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $postTypePath   = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
-        $mayBeTaxonomy  = (bool)   ($realPath != $postTypePath);
+        $realPath      = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $postTypePath  = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
+        $mayBeTaxonomy = (bool)   ($realPath != $postTypePath);
 
         if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
             return get_term_link(get_queried_object());
@@ -364,8 +365,8 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $queryParameters = [
         'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
-        'from' =>  isset($_GET['from']) ? $_GET['from'] : '',
-        'to' =>  isset($_GET['to']) ? $_GET['to'] : ''
+        'from'   =>  isset($_GET['from']) ? $_GET['from'] : '',
+        'to'     =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
         if (!empty($this->data['postType']) && is_string($this->data['postType'])) {
@@ -438,7 +439,7 @@ class Archive extends \Municipio\Controller\BaseController
                 //Get terms
                 $terms = get_terms(
                     array(
-                    'taxonomy' => $taxonomy->name,
+                    'taxonomy'   => $taxonomy->name,
                     'hide_empty' => true
                     )
                 );
@@ -455,7 +456,6 @@ class Archive extends \Municipio\Controller\BaseController
                 if (is_array($terms) && !empty($terms)) {
                     foreach ($terms as $option) {
                         if (!empty($option->name)) {
-                            
                             $value = $option->slug;
                             $label = ucfirst($option->name) . " (" . $option->count . ")";
 
@@ -471,14 +471,14 @@ class Archive extends \Municipio\Controller\BaseController
 
                 //Data
                 $taxonomyObject = [
-                    'label' => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
-                    'required' => false,
+                    'label'         => (__("Select", 'municipio') . " " . strtolower($taxonomy->labels->singular_name)),
+                    'required'      => false,
                     'attributeList' => [
                         'type' => 'text',
                         'name' => $taxonomy->name
                     ],
-                    'fieldType' => $args->{$tax . "FilterFieldType"} ?? 'single',
-                    'options' => $options
+                    'fieldType'     => $args->{$tax . "FilterFieldType"} ?? 'single',
+                    'options'       => $options
                 ];
 
                 if (isset($_GET[$taxonomy->name])) {
@@ -492,7 +492,8 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
-    private function preselectAllTaxonomiesInUrl($taxonomyName) {
+    private function preselectAllTaxonomiesInUrl($taxonomyName)
+    {
         $preselected = $_GET[$taxonomyName];
         return !empty($preselected) ? $preselected : [];
     }
@@ -503,9 +504,9 @@ class Archive extends \Municipio\Controller\BaseController
     private function currentTaxonomy()
     {
         $queriedObject = get_queried_object();
-        $isTaxArchive = false;
+        $isTaxArchive  = false;
         if (!empty($queriedObject->taxonomy) && isset($_SERVER['REQUEST_URI'])) {
-            $pathParts = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+            $pathParts   = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
             $trimmedPath = end($pathParts);
             if ($queriedObject->slug == $trimmedPath) {
                 $isTaxArchive = $queriedObject->taxonomy;
@@ -548,9 +549,9 @@ class Archive extends \Municipio\Controller\BaseController
         $preparedPosts = [];
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-                $post                   = \Municipio\Helper\Post::preparePostObject($post);
-                $post->href             = $post->permalink;
-                $post->excerpt          = $post->postExcerpt;
+                $post            = \Municipio\Helper\Post::preparePostObject($post);
+                $post->href      = $post->permalink;
+                $post->excerpt   = $post->postExcerpt;
                 $preparedPosts[] = $post;
             }
         }
@@ -575,7 +576,7 @@ class Archive extends \Municipio\Controller\BaseController
                     continue;
                 }
                 $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
-                $post->archiveDate = false;
+                $post->archiveDate       = false;
             }
         }
 
@@ -597,9 +598,9 @@ class Archive extends \Municipio\Controller\BaseController
                     continue;
                 }
 
-                //Defaults 
+                //Defaults
                 $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
-                $post->archiveDate = false;
+                $post->archiveDate       = false;
 
                 if (!is_null($archiveProps->dateField)) {
                     if ($isMetaKey === true) {
@@ -655,31 +656,84 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getListItems(array $posts): array
     {
-        $dateFormat = \Municipio\Helper\DateFormat::getDateFormat('date');
+        $dateFormat    = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
-        'items' => [],
-        'headings' => ['Title', 'Published', 'Updated']
+        'items'    => [],
+        'headings' => ['Title', 'Published']
         ];
+
+        if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
+            $allTaxonomies = get_taxonomies([], 'objects');
+            foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
+                $preparedPosts['headings'][] = $allTaxonomies[$taxonomy]->labels->singular_name;
+            }
+        }
 
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-                $post           = \Municipio\Helper\Post::preparePostObject($post);
-                $postDate       = \date($dateFormat, strtotime($post->postDate));
-                $postModified   = \date($dateFormat, strtotime($post->postModified));
+                $post     = \Municipio\Helper\Post::preparePostObject($post);
+                $postDate = \date($dateFormat, strtotime($post->postDate));
 
                 $preparedPosts['items'][] =
                 [
-                    'id' => $post->id,
-                    'href' => WP::getPermalink($post->id),
+                    'id'      => $post->id,
+                    'href'    => WP::getPermalink($post->id),
                     'columns' => [
                         $post->postTitle,
-                        $post->post_date = $postDate,
-                        $post->post_modified = $postModified
+                        $post->post_date = $postDate
                     ]
                 ];
+
+                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
             }
         }
 
         return $preparedPosts;
+    }
+
+    /**
+     * Prepare taxonomy columns for the given post.
+     *
+     * @param object $post The post object.
+     * @param array $preparedPosts The array of prepared posts.
+     * @return array The array of prepared posts with taxonomy columns.
+     */
+    private function prepareTaxonomyColumns($post, $preparedPosts)
+    {
+        if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
+            foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
+                $terms = get_the_terms($post->id, $taxonomy);
+
+                if (is_wp_error($terms) || empty($terms)) {
+                    $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = '';
+                    continue;
+                }
+
+                $termNames = array_map(fn($term) => $term->name, $terms);
+                $termNames = $this->formatTermNames($termNames);
+
+                $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
+            }
+        }
+
+        return $preparedPosts;
+    }
+
+    /**
+     * Format term names.
+     *
+     * @param array $termNames The term names to format.
+     * @return array The formatted term names.
+     */
+    private function formatTermNames(array $termNames): array
+    {
+        return array_map(function ($term) {
+            $date = strtotime(str_replace(',', '', $term));
+
+            return $date !== false
+                ? wp_date(get_option('date_format'), strtotime($term))
+                : $term;
+        },
+        $termNames);
     }
 }

@@ -10,6 +10,7 @@ use Municipio\Controller\Utils\SingularSchoolData;
 class SingularSchool extends \Municipio\Controller\Singular
 {
     protected object $postMeta;
+    public string $view = 'single-schema-school';
 
     public function init()
     {

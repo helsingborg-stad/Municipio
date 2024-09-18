@@ -7,6 +7,7 @@ use Municipio\Helper\ElementAttribute;
 
 /**
  * Class ElementAttributeTest
+ * @group wp_mock
  */
 class ElementAttributeTest extends TestCase
 {

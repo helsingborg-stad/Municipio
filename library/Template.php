@@ -5,16 +5,21 @@ namespace Municipio;
 use AcfService\Contracts\GetField;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
+use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
+use WpService\Contracts\GetPostType;
 
 class Template
 {
     private ?BladeServiceInterface $bladeEngine = null;
     private ?array $viewPaths                   = null;
 
-    public function __construct(private GetField $acfService)
-    {
+    public function __construct(
+        private GetField $acfService,
+        private GetPostType $wpService,
+        private SchemaDataConfigInterface $schemaDataConfig
+    ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
         add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
@@ -45,6 +50,7 @@ class Template
         // Set view based on controller instructions, if any.
         // First checks $controller['data']->view, then $controller['view']
         $view = $controller['data']->view ?? $controller['view'] ?? null;
+
         if (empty(TemplateHelper::locateView($view))) {
             // If set view doesn't exist, fall back to original template.
             // Or if original template is empty, fall back to 'page'.
@@ -52,7 +58,7 @@ class Template
         }
 
         $isArchive = fn() => is_archive() || is_home();
-        $postType  = get_post_type();
+        $postType  = $this->wpService->getPostType();
         $template  = $viewData['template'] ?? '';
 
         $filters = [
@@ -188,7 +194,6 @@ class Template
             ]
         ];
 
-
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
                 $instance = self::createController($controller, $template);
@@ -197,6 +202,7 @@ class Template
                 } elseif (!empty($instance->view)) {
                     $template = $instance->view;
                 }
+
                 return [
                     'data' => $instance,
                     'view' => $template
@@ -214,8 +220,7 @@ class Template
      */
     public function getCurrentPostSchemaType(): ?string
     {
-        $postType = get_post_type();
-        return $this->acfService->getField("schema", "{$postType}_options") ?: null;
+        return $this->schemaDataConfig->tryGetSchemaTypeFromPostType($this->wpService->getPostType());
     }
     /**
      * It loads a controller class and returns an instance of it

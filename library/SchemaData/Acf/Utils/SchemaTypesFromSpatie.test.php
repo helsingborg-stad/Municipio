@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\Acf\Utils;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Schema;
 
 class SchemaTypesFromSpatieTest extends TestCase
 {

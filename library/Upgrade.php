@@ -2,7 +2,9 @@
 
 namespace Municipio;
 
+use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
 
@@ -13,7 +15,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 32; //The db version we want to achive
+    private $dbVersion    = 33; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -21,8 +23,8 @@ class Upgrade
      * App constructor.
      */
     public function __construct(
-        private GetThemeMod&GetPostTypes $wpService,
-        private UpdateField $acfService
+        private GetThemeMod&GetPostTypes&AddAction $wpService,
+        private UpdateField&GetField $acfService
     ) {
         //Development tools
         //WARNING: Do not use in PROD. This will destroy your db.
@@ -31,7 +33,7 @@ class Upgrade
         add_action('init', array($this, 'debugAfter'), 20);*/
 
         //Production hook
-        add_action('wp', array($this, 'initUpgrade'), 1);
+        $this->wpService->addAction('wp', array($this, 'initUpgrade'), 1);
     }
 
     /**
@@ -633,6 +635,34 @@ class Upgrade
     private function v_32($db): bool
     {
         update_option('css', []);
+        return true;
+    }
+
+    /**
+     * Migrate schema type settings from post type options to the new common interface.
+     *
+     * @param \wpdb $db
+     */
+    public function v_33($db): bool // phpcs:ignore
+    {
+        $destinationValues = [];
+        foreach ($this->wpService->getPostTypes() as $postType) {
+            $schemaType = $this->acfService->getField('schema', $postType . '_options');
+
+            if (empty($schemaType)) {
+                continue;
+            }
+
+            $destinationValues[] = [
+                'post_type'   => $postType,
+                'schema_type' => $schemaType
+            ];
+        }
+
+        if (!empty($destinationValues)) {
+            $this->acfService->updateField('post_type_schema_types', $destinationValues, 'option');
+        }
+
         return true;
     }
 

@@ -10,6 +10,7 @@ use tad\FunctionMocker\FunctionMocker;
 
 /**
  * Class TermTest
+ * @group wp_mock
  */
 class UploadsTest extends TestCase
 {

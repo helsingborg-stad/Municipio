@@ -10,6 +10,7 @@ use Municipio\Helper\Post;
 /**
  * Class PostTest
  * @runTestsInSeparateProcesses
+ * @group wp_mock
  */
 class PostTest extends TestCase
 {

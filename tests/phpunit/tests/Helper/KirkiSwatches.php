@@ -9,6 +9,7 @@ use Mockery;
 
 /**
  * Class ListingTest
+ * @group wp_mock
  */
 class KirkiSwatchesTest extends TestCase
 {

@@ -9,6 +9,7 @@ use WP_Mock;
 
 /**
  * Class QueryTest
+ * @group wp_mock
  */
 class QueryTest extends TestCase
 {

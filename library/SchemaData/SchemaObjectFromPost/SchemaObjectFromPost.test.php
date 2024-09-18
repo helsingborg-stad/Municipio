@@ -2,8 +2,9 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
-use Mockery;
+use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\Utils\GetSchemaTypeFromPostTypeInterface;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Event;
 use Spatie\SchemaOrg\Thing;
@@ -14,7 +15,7 @@ class SchemaObjectFromPostTest extends TestCase
     public function testReturnsThingIfInvalidSchemaType()
     {
         $schemaType      = 'NonExistingSchemaType';
-        $post            = Mockery::mock(WP_Post::class);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil($schemaType));
@@ -25,7 +26,7 @@ class SchemaObjectFromPostTest extends TestCase
 
     public function testReturnsThingIfSchemaTypeNotSet()
     {
-        $post            = Mockery::mock(WP_Post::class);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil(null));
@@ -37,7 +38,7 @@ class SchemaObjectFromPostTest extends TestCase
     public function testReturnsMatchingSchemaTypeIfFound()
     {
         $schemaType      = 'Event';
-        $post            = Mockery::mock(WP_Post::class);
+        $post            = WpMockFactory::createWpPost();
         $post->post_type = 'post';
 
         $schemaObjectFromPost = new SchemaObjectFromPost($this->getUtil($schemaType));
@@ -46,14 +47,14 @@ class SchemaObjectFromPostTest extends TestCase
         $this->assertInstanceOf(Event::class, $schemaObject);
     }
 
-    private function getUtil(?string $schemaType = ''): GetSchemaTypeFromPostTypeInterface
+    private function getUtil(?string $schemaType = ''): TryGetSchemaTypeFromPostType
     {
-        return new class ($schemaType) implements GetSchemaTypeFromPostTypeInterface {
+        return new class ($schemaType) implements TryGetSchemaTypeFromPostType {
             public function __construct(private ?string $schemaType)
             {
             }
 
-            public function getSchemaTypeFromPostType(string $postType): ?string
+            public function tryGetSchemaTypeFromPostType(string $postType): ?string
             {
                 return $this->schemaType;
             }
