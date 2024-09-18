@@ -4,8 +4,57 @@ namespace Municipio\Helper\Navigation;
 
 class MenuConstructor
 {
+    private static ?array $additionalMenusOption = null;
+
     public function __construct(private string $identifier = "")
     {
+    }
+
+    public function structureMenu(array $menuItems)
+    {
+        $structuredMenu = [];
+
+        $navMenuObject = wp_get_nav_menu_object($this->identifier);
+
+        $structuredMenu['items']      = $menuItems;
+        $structuredMenu['title']      = $navMenuObject ? $navMenuObject->name : null;
+        $structuredMenu['identifier'] = $this->identifier;
+        // $structuredMenu['additionalMenus'] = $this->getAdditionalMenus();
+
+
+        if ($this->identifier === 'primary') {
+            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
+            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
+        }
+
+        if ($this->identifier === 'mobile') {
+            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
+            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
+            // echo '<pre>' . print_r(wp_get_nav_menu_object('secondary-menu'), true) . '</pre>';
+            // echo '<pre>' . print_r($this->identifier, true) . '</pre>';
+            // die;
+        }
+
+        return $structuredMenu;
+    }
+
+    private function getAdditionalMenus()
+    {
+        if (is_null(self::$additionalMenusOption)) {
+            self::$additionalMenusOption = get_option('nav_menu_additional_items', []);
+        }
+
+        if (empty(self::$additionalMenusOption[$this->identifier])) {
+            return [];
+        }
+
+        foreach (self::$additionalMenusOption[$this->identifier] as $menuId) {
+            $menu = wp_get_nav_menu_object($menuId);
+
+            if (empty($menu->count)) {
+                continue;
+            }
+        }
     }
 
     /**

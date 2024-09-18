@@ -16,6 +16,7 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\Helper\Navigation\AdditionalMenu;
 use Municipio\ExternalContent\Config\ExternalContentConfigArray;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
@@ -250,6 +251,8 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        new \Municipio\Helper\Navigation\AdditionalMenu();
     }
 
     /**

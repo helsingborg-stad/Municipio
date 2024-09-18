@@ -3,6 +3,7 @@
 namespace Municipio\Helper;
 
 use Municipio\Helper\Navigation\MenuConstructor as MenuConstructor;
+use Municipio\Helper\Navigation\GetMenuData as GetMenuData;
 
 /**
 * Navigation items
@@ -664,42 +665,35 @@ class Navigation
      */
     public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
-        $result       = [];
-        $menuLocation = get_nav_menu_locations()[$menu] ?? null;
+        $menuItems = GetMenuData::getNavMenuItems($menu) ?: [];
+        $menuItems = $this->menuConstructorInstance->structureMenuItems($menuItems, $pageId);
 
-        if ($menuLocation && has_nav_menu($menu)) {
-            $menuItems = wp_get_nav_menu_items($menuLocation);
-
-            if (is_array($menuItems) && !empty($menuItems)) {
-                $result = $this->menuConstructorInstance->structureMenuItems($menuItems, $pageId);
-            }
-        } elseif ($fallbackToPageTree && is_numeric($pageId)) {
-            $result = $this->getNested($pageId);
+        if (empty($menuItems) && $fallbackToPageTree && is_numeric($pageId)) {
+            $menuItems = $this->getNested($pageId);
         }
 
-        $result = apply_filters('Municipio/Navigation/Items', $result, $this->identifier);
+        $menuItems = apply_filters('Municipio/Navigation/Items', $menuItems, $this->identifier);
 
-        if (!empty($result) && is_array($result)) {
-            $pageStructure = $includeTopLevel ? $this->menuConstructorInstance->buildStructuredMenu($result) : $this->removeTopLevel($this->menuConstructorInstance->buildStructuredMenu($result));
+        if (!empty($menuItems)) {
+            $pageStructure = $includeTopLevel ?
+                $this->menuConstructorInstance->buildStructuredMenu($menuItems) :
+                $this->removeTopLevel($this->menuConstructorInstance->buildStructuredMenu($menuItems));
+
             if ($onlyKeepFirstLevel) {
                 $pageStructure = $this->removeSubLevels($pageStructure);
             }
 
-            return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
+
+            $menuItems = apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
+
+            if ($menu === 'secondary-menu' && !empty($menuItems)) {
+                $menuItems = $this->menuConstructorInstance->structureMenu($menuItems);
+            }
+
+            return $menuItems;
         }
 
         return false;
-    }
-
-    /**
-     * Normalize url
-     *
-     * @param string $path
-     * @return string
-     */
-    private function sanitizePath(string $path): string
-    {
-        return rtrim(trim($path, '/'), '/');
     }
 
     /**

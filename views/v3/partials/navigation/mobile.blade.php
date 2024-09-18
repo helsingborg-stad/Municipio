@@ -1,7 +1,8 @@
-@if (!empty($menuItems)) 
+@if (!empty($mobileMenu['items']))
     @nav([
         'id' => 'menu-mobile',
-        'items' => $menuItems,
+        'title' => $mobileMenu['title'],
+        'items' => $mobileMenu['items'],
         'direction' => 'vertical',
         'includeToggle' => true,
         'classList' => $classList,
