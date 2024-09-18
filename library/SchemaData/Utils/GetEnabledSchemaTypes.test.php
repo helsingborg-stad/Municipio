@@ -31,4 +31,9 @@ class GetEnabledSchemaTypesTest extends TestCase
         $this->assertContains('telephone', $enabledSchemaTypes['Place'], 'telephone property is missing');
         $this->assertContains('url', $enabledSchemaTypes['Place'], 'url property is missing');
     }
+
+    public function testContainsProject()
+    {
+        $this->assertArrayHasKey('Project', $this->getEnabledSchemaTypes());
+    }
 }
