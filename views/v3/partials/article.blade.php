@@ -49,7 +49,7 @@
 
     <!-- Content -->
     @section('article.content.before')@show
-    {!! $hook-> articleContentBefore !!}
+    {!! $hook->articleContentBefore !!}
     @if ($postAgeNotice)
         @notice([
             'message' => [
