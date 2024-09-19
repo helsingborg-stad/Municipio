@@ -48,6 +48,7 @@ class SyncBuilder
         $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
         $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject);
 
         if ($this->postId === null) {

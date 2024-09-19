@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\Sync;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPostType;
 use WpService\Contracts\InsertPost;
 
 class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
@@ -15,13 +16,13 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
      * @param int|string $postId
      * @param SourceInterface[] $sources
      * @param WpPostArgsFromSchemaObjectInterface $wpPostFactory
-     * @param InsertPost&GetPostMeta $wpService
+     * @param InsertPost&GetPostMeta&GetPostType $wpService
      */
     public function __construct(
         private int|string $postId,
         private array $sources,
         private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
-        private InsertPost&GetPostMeta $wpService
+        private InsertPost&GetPostMeta&GetPostType $wpService
     ) {
     }
 
@@ -30,14 +31,14 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
      */
     public function sync(): void
     {
-        $sourceId = $this->wpService->getPostMeta($this->postId, 'sourceId', true);
         $originId = $this->wpService->getPostMeta($this->postId, 'originId', true);
+        $postType = $this->wpService->getPostType($this->postId);
 
-        if (empty($sourceId) || empty($originId)) {
+        if (empty($originId) || empty($postType)) {
             return;
         }
 
-        $source = array_filter($this->sources, fn($source) => $source->getId() === $sourceId)[0] ?? null;
+        $source = array_filter($this->sources, fn($source) => $source->getPostType() === $$postType)[0] ?? null;
 
         if (!$source) {
             return;
