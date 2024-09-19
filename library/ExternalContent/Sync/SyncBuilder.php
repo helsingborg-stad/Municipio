@@ -3,8 +3,22 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\MetaPropertyValueDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use WpService\WpService;
 
+/**
+ * Class SyncBuilder
+ */
 class SyncBuilder
 {
     /**
@@ -39,23 +53,34 @@ class SyncBuilder
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
 
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory();
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator($postArgsFromSchemaObject, $this->wpService);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new WpPostFactory();
+        $postArgsFromSchemaObject = new DateDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new IdDecorator($postArgsFromSchemaObject, $this->wpService);
+        $postArgsFromSchemaObject = new JobPostingDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new SchemaDataDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new OriginIdDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
+        $postArgsFromSchemaObject = new SourceIdDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new VersionDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new TermsDecorator(
+            $this->taxonomyItems,
+            $wpTermFactory,
+            $this->wpService,
+            $postArgsFromSchemaObject
+        );
 
         if ($this->postId === null) {
-            $sync = new \Municipio\ExternalContent\Sync\SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
-            $sync = new \Municipio\ExternalContent\Sync\PrunePostsNoLongerInSource($source, $this->wpService, $sync);
-            return new \Municipio\ExternalContent\Sync\PruneTermsNoLongerInUse($source, $this->wpService, $sync);
+            $sync = new SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
+            $sync = new PrunePostsNoLongerInSource($source, $this->wpService, $sync);
+            return new PruneTermsNoLongerInUse($source, $this->wpService, $sync);
         } else {
-            return new \Municipio\ExternalContent\Sync\SyncSingleFromSourceToLocalByPostId($this->postId, $this->sources, $postArgsFromSchemaObject, $this->wpService);
+            return new SyncSingleFromSourceToLocalByPostId(
+                $this->postId,
+                $this->sources,
+                $postArgsFromSchemaObject,
+                $this->wpService
+            );
         }
     }
 
