@@ -41,7 +41,7 @@ class Navigation
     {
         $this->identifier              = $identifier;
         $this->context                 = $context;
-        $this->menuConstructorInstance = new MenuConstructor($this->identifier);
+        $this->menuConstructorInstance = new MenuConstructor($this->identifier, $this);
         $this->globalToLocal('wpdb', 'db');
     }
 
@@ -663,7 +663,7 @@ class Navigation
      * @param string $menu The menu id to get
      * @return bool|array
      */
-    public function getMenuItems(string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
+    public function getMenuItems(int|string $menu, int $pageId = null, bool $fallbackToPageTree = false, bool $includeTopLevel = true, bool $onlyKeepFirstLevel = false)
     {
         $menuItems = GetMenuData::getNavMenuItems($menu) ?: [];
         $menuItems = $this->menuConstructorInstance->structureMenuItems($menuItems, $pageId);
@@ -687,7 +687,7 @@ class Navigation
             $menuItems = apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
 
             if ($menu === 'secondary-menu' && !empty($menuItems)) {
-                $menuItems = $this->menuConstructorInstance->structureMenu($menuItems);
+                $menuItems = $this->menuConstructorInstance->structureMenu($menuItems, $menu);
             }
 
             return $menuItems;

@@ -9,7 +9,6 @@ class AdditionalMenu
     {
         add_action('wp_update_nav_menu', array($this, 'updateAdditionalMenuItems'), 10, 2);
         add_filter('acf/prepare_field/name=menu_location', array($this, 'addMenuLocationField'), 10, 1);
-        // add_filter('Municipio/Navigation/Items', array($this, 'addAdditionalMenus'), 10, 2);
     }
 
     public function addMenuLocationField($field)

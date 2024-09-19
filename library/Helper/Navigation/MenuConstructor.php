@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper\Navigation;
 
+use Municipio\Helper\Navigation\GetMenuData;
+
 class MenuConstructor
 {
     private static ?array $additionalMenusOption = null;
@@ -10,16 +12,16 @@ class MenuConstructor
     {
     }
 
-    public function structureMenu(array $menuItems)
+    public function structureMenu(array $menuItems, string|int $menu, bool $canHaveAdditionalMenu = true)
     {
         $structuredMenu = [];
 
-        $navMenuObject = wp_get_nav_menu_object($this->identifier);
+        $navMenuObject = GetMenuData::getNavMenuObject($menu);
 
         $structuredMenu['items']      = $menuItems;
         $structuredMenu['title']      = $navMenuObject ? $navMenuObject->name : null;
-        $structuredMenu['identifier'] = $this->identifier;
-        // $structuredMenu['additionalMenus'] = $this->getAdditionalMenus();
+        $structuredMenu['additionalMenus'] = $this->getAdditionalMenus($menu);
+
 
 
         if ($this->identifier === 'primary') {
@@ -38,22 +40,31 @@ class MenuConstructor
         return $structuredMenu;
     }
 
-    private function getAdditionalMenus()
+    private function getAdditionalMenus(string $menu)
     {
         if (is_null(self::$additionalMenusOption)) {
             self::$additionalMenusOption = get_option('nav_menu_additional_items', []);
         }
 
-        if (empty(self::$additionalMenusOption[$this->identifier])) {
+
+        if (empty(self::$additionalMenusOption[$menu])) {
             return [];
         }
+        $additionalMenus = [];
+        foreach (self::$additionalMenusOption[$menu] as $menuId) {
+            $menuObject = GetMenuData::getNavMenuObject($menuId);
 
-        foreach (self::$additionalMenusOption[$this->identifier] as $menuId) {
-            $menu = wp_get_nav_menu_object($menuId);
-
-            if (empty($menu->count)) {
+            if (empty($menuObject->count)) {
                 continue;
             }
+            
+            $additionalMenus[] = $this->structureMenu(
+                $this->structureMenuItems(
+                    GetMenuData::getNavMenuItems($menuId),
+                    $menuObject->object_id
+                ),
+                $menuId
+            );
         }
     }
 

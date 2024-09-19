@@ -96,7 +96,7 @@ class BaseController
         }
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
-
+        
         //Init class for menus
         $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility    = new \Municipio\Helper\Navigation('accessibility');
