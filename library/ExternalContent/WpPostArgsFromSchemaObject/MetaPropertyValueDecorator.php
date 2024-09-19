@@ -45,6 +45,10 @@ class MetaPropertyValueDecorator implements WpPostArgsFromSchemaObjectInterface
                     !empty($metaProperty->getProperty('value'))
             );
 
+            if (empty($metaProperties)) {
+                return $postArgs;
+            }
+
             foreach ($metaProperties as $metaProperty) {
                 $name                          = $metaProperty->getProperty('name');
                 $value                         = $metaProperty->getProperty('value');

@@ -40,6 +40,23 @@ class MetaPropertyValueDecoratorTest extends TestCase
         $this->assertEmpty($postArgs['meta_input']);
     }
 
+    /**
+     * @testdox PropertyValue in @meta property with value other than PropertyValue gets ignored.
+     */
+    public function testCreateNonPropertyValue()
+    {
+        $schemaObject = $this->getSchemaObject();
+        $schemaObject->setProperty('@meta', [
+            'foo',
+            Schema::jobPosting()->title('Job title'),
+        ]);
+
+        $factory  = new MetaPropertyValueDecorator();
+        $postArgs = $factory->create($schemaObject, new Source('', ''));
+
+        $this->assertEmpty($postArgs['meta_input']);
+    }
+
     private function getSchemaObject(): BaseType
     {
         return new class extends BaseType {
