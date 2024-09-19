@@ -1,74 +1,15 @@
 <?php
 
-namespace Municipio\Helper\Navigation;
+namespace Municipio\Controller\Navigation\Decorators;
 
-use Municipio\Helper\Navigation\GetMenuData;
-
-class MenuConstructor
+class StructureMenuItems implements MenuItemsDecoratorInterface
 {
-    private static ?array $additionalMenusOption = null;
-
-    public function __construct(private string $identifier = "", private ?int $menuId = null, private ?int $pageId = null)
+    public function decorate(array $menuItems): array
     {
+        return $menuItems;
     }
 
-    public function structureMenu(array $menuItems, string|int $menu, bool $canHaveAdditionalMenu = true)
-    {
-        $structuredMenu = [];
-
-        $navMenuObject = GetMenuData::getNavMenuObject($menu);
-
-        $structuredMenu['items']           = $menuItems;
-        $structuredMenu['title']           = $navMenuObject ? $navMenuObject->name : null;
-        $structuredMenu['additionalMenus'] = $this->getAdditionalMenus($menu);
-
-
-
-        if ($this->identifier === 'primary') {
-            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
-            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
-        }
-
-        if ($this->identifier === 'mobile') {
-            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
-            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
-            // echo '<pre>' . print_r(wp_get_nav_menu_object('secondary-menu'), true) . '</pre>';
-            // echo '<pre>' . print_r($this->identifier, true) . '</pre>';
-            // die;
-        }
-
-        return $structuredMenu;
-    }
-
-    private function getAdditionalMenus(string $menu)
-    {
-        if (is_null(self::$additionalMenusOption)) {
-            self::$additionalMenusOption = get_option('nav_menu_additional_items', []);
-        }
-
-
-        if (empty(self::$additionalMenusOption[$menu])) {
-            return [];
-        }
-        $additionalMenus = [];
-        foreach (self::$additionalMenusOption[$menu] as $menuId) {
-            $menuObject = GetMenuData::getNavMenuObject($menuId);
-
-            if (empty($menuObject->count)) {
-                continue;
-            }
-
-            $additionalMenus[] = $this->structureMenu(
-                $this->structureMenuItems(
-                    GetMenuData::getNavMenuItems($menuId),
-                    $menuObject->object_id
-                ),
-                $menuId
-            );
-        }
-    }
-
-    /**
+        /**
      * Get WordPress menu items (from default menu management)
      *
      * @param string $menu The menu id to get
@@ -91,40 +32,6 @@ class MenuConstructor
         }
 
         return $result;
-    }
-
-
-    /**
-     * Recusivly traverse flat array and make a nested variant
-     *
-     * @param   array   $elements    A list of pages
-     * @param   integer $parentId    Parent id
-     *
-     * @return  array               Nested array representing page structure
-     */
-    public function buildStructuredMenu(array $structuredMenuItems, $parentId = 0): array
-    {
-        $branch = array();
-
-        if (is_array($structuredMenuItems) && !empty($structuredMenuItems)) {
-            foreach ($structuredMenuItems as $structuredMenuItem) {
-                if (!isset($structuredMenuItem['post_parent']) || !isset($structuredMenuItem['id'])) {
-                    continue;
-                }
-
-                if ($structuredMenuItem['post_parent'] == $parentId) {
-                    $children = $this->buildStructuredMenu($structuredMenuItems, $structuredMenuItem['id']);
-
-                    if ($children) {
-                        $structuredMenuItem['children'] = $children;
-                    }
-
-                    $branch[] = $structuredMenuItem;
-                }
-            }
-        }
-
-        return $branch;
     }
 
     /**
@@ -160,7 +67,7 @@ class MenuConstructor
         ], $this->identifier, true);
     }
 
-    /**
+       /**
      * Translates a page id to a menu id
      *
      * @param array $menu
@@ -177,6 +84,7 @@ class MenuConstructor
 
         return false;
     }
+
 
     /**
      * Get a list of menu items with an ancestor relation to page id.

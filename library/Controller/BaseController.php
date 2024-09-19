@@ -3,6 +3,10 @@
 namespace Municipio\Controller;
 
 use Municipio\Helper\FormatObject;
+use Municipio\Controller\Navigation\Menu;
+use Municipio\Helper\Navigation\MenuConstructor;
+use Municipio\Helper\Navigation as NavigationHelper;
+use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;
 
 class BaseController
@@ -96,7 +100,9 @@ class BaseController
         }
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
-        
+
+
+
         //Init class for menus
         $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility    = new \Municipio\Helper\Navigation('accessibility');
@@ -111,8 +117,14 @@ class BaseController
         $languageMenu     = new \Municipio\Helper\Navigation('language');
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
 
-        $mobileMenu         = new \Municipio\Helper\Navigation('mobile');
+        $testMenu = $this->createMenuInstance('mobile');
+
+        $mobileMenu = new \Municipio\Helper\Navigation('mobile');
+
         $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
+
+         // $this->data['mobileMenu']    = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
@@ -141,7 +153,9 @@ class BaseController
             $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
 
-        $this->data['mobileMenu']    = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+
+        // $this->data['mobileMenu']    = new GetMenuItems($mobileMenu, new MenuConstructor())
         $this->data['megaMenuItems'] = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
 
         //Complementary navigations
@@ -265,6 +279,23 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
+    }
+
+    public function createMenuInstance(string $identifier = '', string $context = 'municipio'): Menu
+    {
+        $id     = GetMenuData::getNavMenuId($identifier);
+        $name   = GetMenuData::getMenuName($identifier);
+        $pageId = $this->getPageID();
+
+        return new Menu(
+            new NavigationHelper($identifier, $context),
+            new MenuConstructor($identifier, $id, $pageId),
+            $identifier,
+            $id,
+            $name,
+            $this->getPageID(),
+            $context
+        );
     }
 
     /**

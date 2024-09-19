@@ -41,7 +41,7 @@ class Navigation
     {
         $this->identifier              = $identifier;
         $this->context                 = $context;
-        $this->menuConstructorInstance = new MenuConstructor($this->identifier, $this);
+        $this->menuConstructorInstance = new MenuConstructor($this->identifier);
         $this->globalToLocal('wpdb', 'db');
     }
 

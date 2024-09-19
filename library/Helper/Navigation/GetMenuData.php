@@ -9,8 +9,8 @@ namespace Municipio\Helper\Navigation;
  */
 class GetMenuData
 {
-    private static $menuLocations  = null;
-    private static $menuItemsArray = [];
+    private static $menuLocations      = null;
+    private static $menuItemsArray     = [];
     private static $navMenuObjectArray = [];
 
     /**
@@ -77,7 +77,7 @@ class GetMenuData
      */
     public static function getNavMenuObject(false|int|string $identifier = ""): \WP_Term|false
     {
-       $menuId = is_string($identifier) ? self::getNavMenuId($identifier) : $identifier;
+        $menuId = is_string($identifier) ? self::getNavMenuId($identifier) : $identifier;
 
         if (empty($menuId)) {
             return false;
@@ -88,5 +88,30 @@ class GetMenuData
         }
 
         return self::$navMenuObjectArray[$menuId];
+    }
+
+    public static function getMenuName(string $identifier): ?string
+    {
+        $mappedLocations = [
+            'dropdown'         => 'dropdown-links-menu',
+            'floating'         => 'floating-menu',
+            'help'             => 'help-menu',
+            'language'         => 'language-menu',
+            'mega-menu'        => 'mega-menu',
+            'mobile'           => 'secondary-menu',
+            'mobile-secondary' => 'mobile-drawer',
+            'primary'          => 'main-menu',
+            'single'           => 'quicklinks-menu',
+            'siteselector'     => 'siteselector-menu',
+            'tab'              => 'header-tabs-menu',
+        ];
+
+        $menuName = null;
+
+        if (isset($mappedLocations[$identifier])) {
+            $menuName = $mappedLocations[$identifier];
+        }
+
+        return $menuName;
     }
 }
