@@ -20,7 +20,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
 
         $postArgs = $factory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals($postArgs['meta_input']['foo'], 'bar');
+        $this->assertEquals('bar', $postArgs['meta_input']['foo']);
     }
 
     /**

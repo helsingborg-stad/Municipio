@@ -41,7 +41,7 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
             return;
         }
 
-        $source = array_filter($this->sources, fn($source) => $source->getPostType() === $$postType)[0] ?? null;
+        $source = array_filter($this->sources, fn($source) => $source->getPostType() === $postType)[0] ?? null;
 
         if (!$source) {
             return;

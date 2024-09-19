@@ -25,19 +25,20 @@ class MetaPropertyValueDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function create(BaseType $schemaObject, SourceInterface $source): array
     {
-        $postArgs = [];
+        $postArgs     = [];
+        $propertyName = '@meta';
 
         if ($this->inner !== null) {
             $postArgs = $this->inner->create($schemaObject, $source);
         }
 
-        if ($schemaObject->hasProperty('@meta') && is_array($schemaObject->getProperty('@meta'))) {
+        if ($schemaObject->hasProperty($propertyName) && is_array($schemaObject->getProperty($propertyName))) {
             if (!isset($postArgs['meta_input'])) {
                 $postArgs['meta_input'] = [];
             }
 
             $metaProperties = array_filter(
-                $schemaObject->getProperty('@meta'),
+                $schemaObject->getProperty($propertyName),
                 fn($metaProperty) =>
                     $metaProperty instanceof BaseType &&
                     !empty($metaProperty->getProperty('name')) &&
