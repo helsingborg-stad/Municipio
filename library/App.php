@@ -19,6 +19,7 @@ use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
+use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
@@ -523,13 +524,22 @@ class App
 
         /**
          * Register taxonomies for external content.
+         * @var TaxonomyItem[] $taxonomyItems
          */
-        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory(
-            $sourceConfigs,
-            $this->wpService
-        );
-        $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
-        array_walk($taxonomyItems, fn($item) => $item->register());
+        $taxonomyItems = array_merge(...array_map(function ($config) {
+            return array_map(function ($taxonomyConfig) use ($config) {
+                $taxonomyItem = new TaxonomyItem(
+                    $config->getSchemaType(),
+                    [$config->getPostType()],
+                    $taxonomyConfig->getFromSchemaProperty(),
+                    $taxonomyConfig->getSingularName(),
+                    $taxonomyConfig->getName(),
+                    $this->wpService
+                );
+                $taxonomyItem->register(); // Register the taxonomy.
+                return $taxonomyItem;
+            }, $config->getTaxonomies() ?: []);
+        }, $sourceConfigs));
 
         /**
          * Setup cron jobs on config change.
