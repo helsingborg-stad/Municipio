@@ -309,14 +309,15 @@
                     "collapsed": "",
                     "button_label": "Add Taxonomy",
                     "rows_per_page": 20,
+                    "parent_repeater": "field_66da923803552",
                     "sub_fields": [
                         {
                             "key": "field_66da99ea96265",
                             "label": "Create terms from schema property",
                             "name": "from_schema_property",
                             "aria-label": "",
-                            "type": "select",
-                            "instructions": "",
+                            "type": "text",
+                            "instructions": "Name of the schema property to use as a taxonomy. Ex. for using the <code>director<\/code> property on the <code>Event<\/code> schema type, supply <code>director<\/code> as value.",
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -324,16 +325,11 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "choices": [],
-                            "default_value": false,
-                            "return_format": "value",
-                            "multiple": 0,
-                            "allow_custom": 0,
-                            "search_placeholder": "",
-                            "allow_null": 0,
-                            "ui": 0,
-                            "ajax": 0,
-                            "placeholder": "",
+                            "default_value": "",
+                            "maxlength": "",
+                            "placeholder": "ex. director",
+                            "prepend": "",
+                            "append": "",
                             "parent_repeater": "field_66da99ce96264"
                         },
                         {
@@ -378,8 +374,7 @@
                             "append": "",
                             "parent_repeater": "field_66da99ce96264"
                         }
-                    ],
-                    "parent_repeater": "field_66da923803552"
+                    ]
                 }
             ]
         }
