@@ -8,6 +8,9 @@ use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\InsertPost;
 
+/**
+ * Sync single post from source to local by post id.
+ */
 class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
 {
     /**
