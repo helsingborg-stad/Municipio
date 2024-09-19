@@ -7,8 +7,6 @@ use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\Api\RestApiEndpointsRegistry;
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
-use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -16,13 +14,11 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
-use Municipio\ExternalContent\Config\ExternalContentConfigArray;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use WP_Post;
 use WpCronService\WpCronJobManager;
 use WpService\WpService;
@@ -528,14 +524,6 @@ class App
         $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
         array_unshift($scheduleOptions, __('Never', 'municipio'));
         $this->acfFieldContentModifierRegistrar->registerModifier('field_66da9961f781e', new ModifyFieldChoices($scheduleOptions));
-
-        /**
-         * Populate taxonomy schema property field options.
-         */
-        $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-        $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn($props) => array_combine($props, $props), $schemaTypesAndProperties);
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da99ea96265', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
 
         /**
          * Add sync button to post list.
