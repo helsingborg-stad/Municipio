@@ -77,7 +77,7 @@ class SyncBuilder
         } else {
             return new SyncSingleFromSourceToLocalByPostId(
                 $this->postId,
-                $this->sources,
+                $source,
                 $postArgsFromSchemaObject,
                 $this->wpService
             );
