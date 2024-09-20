@@ -115,7 +115,7 @@ class Navigation
     /**
      * Get nested array representing page structure
      *
-     * @param   array     $postId             The current post id
+     * @param   int     $postId             The current post id
      *
      * @return  array                         Nested page array
      */
@@ -134,7 +134,9 @@ class Navigation
 
         //Format response
         $result = $this->complementObjects($result);
-
+        
+        echo '<pre>' . print_r( $result, true ) . '</pre>';
+        echo '<pre>' . print_r( '--------------------<br><br><br>', true ) . '</pre>';
         //Return
         return $result;
     }
@@ -687,7 +689,7 @@ class Navigation
             $menuItems = apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
 
             if ($menu === 'secondary-menu' && !empty($menuItems)) {
-                $menuItems = $this->menuConstructorInstance->structureMenu($menuItems, $menu);
+                // $menuItems = $this->menuConstructorInstance->structureMenu($menuItems, $menu);
             }
 
             return $menuItems;

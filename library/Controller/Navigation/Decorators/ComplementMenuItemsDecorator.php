@@ -2,32 +2,37 @@
 
 namespace Municipio\Controller\Navigation\Decorators;
 
-class StructureMenuItems implements MenuItemsDecoratorInterface
+class ComplementMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
-    public function decorate(array $menuItems): array
-    {
-        return $menuItems;
+
+    public function __construct(
+        private string $identifier, 
+        private int|false $id, 
+        private string|false $name, 
+        private int $pageId,
+        private $db
+    ) {
     }
 
-        /**
+    /**
      * Get WordPress menu items (from default menu management)
      *
      * @param string $menu The menu id to get
      * @return bool|array
      */
-    public function structureMenuItems(array $menuItems, int $pageId = null): array
+    public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         $result = [];
 
         if (!empty($menuItems)) {
             $ancestors = $this->getWpMenuAncestors(
                 $menuItems,
-                $this->pageIdToMenuID($menuItems, $pageId)
+                $this->pageIdToMenuID($menuItems)
             );
 
             foreach ($menuItems as $item) {
                 $isAncestor        = in_array($item->ID, $ancestors);
-                $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor, $pageId);
+                $result[$item->ID] = $this->prepareMenuItem($item, $isAncestor);
             }
         }
 
@@ -39,18 +44,18 @@ class StructureMenuItems implements MenuItemsDecoratorInterface
      *
      * @param object $item
      * @param bool $isAncestor
-     * @param int $pageId
+     * @param int $this->pageId
      *
      * @return array
      */
-    private function prepareMenuItem($item, $isAncestor, $pageId): array
+    private function prepareMenuItem($item, $isAncestor): array
     {
         return apply_filters('Municipio/Navigation/Item', [
             'id'          => $item->ID,
             'post_parent' => $item->menu_item_parent,
             'post_type'   => $item->object,
             'page_id'     => $item->object_id,
-            'active'      => ($item->object_id == $pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($item->url),
+            'active'      => ($item->object_id == $this->pageId) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($item->url),
             'ancestor'    => $isAncestor,
             'label'       => $item->title,
             'href'        => $item->url,
@@ -68,18 +73,18 @@ class StructureMenuItems implements MenuItemsDecoratorInterface
     }
 
        /**
-     * Translates a page id to a menu id
+     * Translates a page id to a menuItems id
      *
-     * @param array $menu
-     * @param integer $pageId
+     * @param array $menuItems
+     * @param integer $this->pageId
      * @return integer
      */
-    private function pageIdToMenuID($menu, $pageId)
+    private function pageIdToMenuID($menuItems)
     {
-        $index = array_search($pageId, array_column($menu, 'object_id'));
+        $index = array_search($this->pageId, array_column($menuItems, 'object_id'));
 
         if ($index !== false) {
-            return $menu[$index]->ID;
+            return $menuItems[$index]->ID;
         }
 
         return false;

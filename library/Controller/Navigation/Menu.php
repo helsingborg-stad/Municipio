@@ -5,14 +5,17 @@ namespace Municipio\Controller\Navigation;
 use Municipio\Helper\Navigation\GetMenuData as GetMenuData;
 use Municipio\Helper\Navigation as NavigationHelperInstance;
 use Municipio\Helper\Navigation\MenuConstructor as MenuConstructorInstance;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 
 class Menu
 {
     private string|int $localeIdentifier;
+    private static $db;
 
     public function __construct(
         private NavigationHelperInstance $navigationHelperInstance,
         private MenuConstructorInstance $menuConstructorInstance,
+        private array $complementMenuItemsDecorator,
         private string $identifier = '',
         private ?int $menuId = null,
         private ?string $menuName = null,
@@ -20,67 +23,54 @@ class Menu
         private string $context = 'municipio'
     ) {
         $this->localeIdentifier = $this->menuName ?: $this->menuId ?: $this->identifier;
+        $this->globalToLocal('wpdb', 'db');
     }
 
     public function createMenu(
         bool $fallbackToPageTree = false,
         bool $includeTopLevel = true,
         bool $onlyKeepFirstLevel = false
-    ) {
+    ): array {
         $menu          = [];
         $menu['items'] = $this->getMenuNavItems($fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+        
+        return $menu;
     }
 
-    private function getMenuNavItems(
+    public function getMenuNavItems(
         bool $fallbackToPageTree = false,
         bool $includeTopLevel = true,
         bool $onlyKeepFirstLevel = false
-    ) {
+    ): array {
         $menuItems = GetMenuData::getNavMenuItems($this->localeIdentifier) ?: [];
-        // $menuItems =
+        foreach ($this->complementMenuItemsDecorator as $decorator) {
+            $menuItems = $decorator->decorate(
+                $menuItems, 
+                $fallbackToPageTree, 
+                $includeTopLevel, 
+                $onlyKeepFirstLevel
+            );
+        }
+
+        return $menuItems;
     }
 
-         /**
-     * Get WordPress menu items (from default menu management)
+    /**
+     * Creates a local copy of the global instance
+     * The target var should be defined in class header as private or public
      *
-     * @param string $menu The menu id to get
-     * @return bool|array
+     * @param string $global The name of global varable that should be made local
+     * @param string $local Handle the global with the name of this string locally
+     *
+     * @return void
      */
-    private function getMenuItems(
-        bool $fallbackToPageTree = false,
-        bool $includeTopLevel = true,
-        bool $onlyKeepFirstLevel = false
-    ) {
-        $localeIdentifier = $this->menuName ?: $this->menuId ?: $this->identifier;
-
-        $menuItems = GetMenuData::getNavMenuItems($localeIdentifier) ?: [];
-        $menuItems = $this->menuConstructorInstance->structureMenuItems($menuItems, $this->pageId);
-
-        if (empty($menuItems) && $fallbackToPageTree && is_numeric($this->pageId)) {
-            $menuItems = $this->navigationHelperInstance->getNested($this->pageId);
+    private function globalToLocal($global, $local = null)
+    {
+        global $$global;
+        if (is_null($local)) {
+            self::$$global = $$global;
+        } else {
+            self::$$local = $$global;
         }
-
-        $menuItems = apply_filters('Municipio/Navigation/Items', $menuItems, $localeIdentifier);
-
-        if (!empty($menuItems)) {
-            $pageStructure = $includeTopLevel ?
-                $this->menuConstructorInstance->buildStructuredMenu($menuItems) :
-                $this->navigationHelperInstance->removeTopLevel($this->menuConstructorInstance->buildStructuredMenu($menuItems));
-
-            if ($onlyKeepFirstLevel) {
-                $pageStructure = $this->navigationHelperInstance->removeSubLevels($pageStructure);
-            }
-
-
-            $menuItems = apply_filters('Municipio/Navigation/Nested', $pageStructure, $localeIdentifier, $this->pageId);
-
-            // if ($this->menu === 'secondary-menu' && !empty($menuItems)) {
-            //     $menuItems = $this->menuConstructorInstance->structureMenu($menuItems, $this->menu);
-            // }
-
-            return $menuItems;
-        }
-
-        return false;
     }
 }

@@ -90,7 +90,7 @@ class GetMenuData
         return self::$navMenuObjectArray[$menuId];
     }
 
-    public static function getMenuName(string $identifier): ?string
+    public static function getMenuName(string $identifier): string|false
     {
         $mappedLocations = [
             'dropdown'         => 'dropdown-links-menu',
@@ -106,7 +106,7 @@ class GetMenuData
             'tab'              => 'header-tabs-menu',
         ];
 
-        $menuName = null;
+        $menuName = false;
 
         if (isset($mappedLocations[$identifier])) {
             $menuName = $mappedLocations[$identifier];

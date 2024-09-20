@@ -8,6 +8,10 @@ use Municipio\Helper\Navigation\MenuConstructor;
 use Municipio\Helper\Navigation as NavigationHelper;
 use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;
+use Municipio\Controller\Navigation\Decorators\ComplementMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallbackDecorator;
+use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Cache\CacheManager;
 
 class BaseController
 {
@@ -30,6 +34,11 @@ class BaseController
     protected $posts = null;
 
     /**
+     * @var null $db The database connection object.
+     */
+    protected $db = null;
+
+    /**
      * Init data fetching
      * @var object
      */
@@ -39,6 +48,7 @@ class BaseController
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
+        $this->globalToLocal('wpdb', 'db');
 
         //Send globals to view
         $this->data['wpQuery'] = $this->wpQuery;
@@ -117,9 +127,11 @@ class BaseController
         $languageMenu     = new \Municipio\Helper\Navigation('language');
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
 
-        $testMenu = $this->createMenuInstance('mobile');
-
         $mobileMenu = new \Municipio\Helper\Navigation('mobile');
+        $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+
+        $testMenu = $this->createMenuInstance('mobile');
+        $this->data['mobileMenu'] = $testMenu->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
 
@@ -290,6 +302,10 @@ class BaseController
         return new Menu(
             new NavigationHelper($identifier, $context),
             new MenuConstructor($identifier, $id, $pageId),
+            [
+                new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
+                new PageTreeFallbackDecorator($identifier, $id, $name, $pageId, $this->db, new CacheManager())
+            ],
             $identifier,
             $id,
             $name,
