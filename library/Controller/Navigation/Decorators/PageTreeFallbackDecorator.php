@@ -3,14 +3,13 @@
 namespace Municipio\Controller\Navigation\Decorators;
 
 use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Decorators\GetAncestors;
+use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 
 class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
 {
     private $masterPostType = 'page';
     private ?int $postId = null;
-    private $cacheGroup  = 'municipioNavMenu';
-    private $cacheExpire = 60 * 15; // 15 minutes
-    private $cache          = [];
 
     //Static cache for ancestors
     private static $runtimeCache = [
@@ -29,20 +28,23 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         private string|false $name, 
         private int $pageId,
         private $db,
-        private CacheManagerInterface $cacheManager
+        private CacheManagerInterface $cacheManager,
+        private CacheManagerInterface $runtimeCacheInstance,
+        private GetAncestors $getAncestorsInstance,
+        private GetPostsByParent $getPostsByParentInstance,
     ) {
     }
 
     public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         if (empty($menuItems) && $fallbackToPageTree && is_numeric($this->pageId)) {
-            $menuItems = $this->getNested();
+            $menuItems = $this->getNested($includeTopLevel);
         }
 
         return $menuItems;
     }
 
-    private function getNested(): array
+    private function getNested(bool $includeTopLevel): array
     {
         //Store current post id
         if (is_null($this->postId)) {
@@ -50,10 +52,10 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         }
 
         //Get all ancestors
-        $parents = $this->getAncestors(true);
+        $result = $this->getAncestorsInstance->getAncestors($includeTopLevel);
 
         //Get all parents
-        $result = $this->getItems($parents, [$this->masterPostType, get_post_type()]);
+        $result = $this->getPostsByParentInstance->getPostsByParent($result, [$this->masterPostType, get_post_type()]);
 
         //Format response
         $result = $this->complementObjects($result);
@@ -108,7 +110,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         return $objects;
     }
 
-        /**
+    /**
      * Indicate if post has children
      *
      * @param   integer   $postId     The post id
@@ -274,7 +276,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
     }
 
 
-        /**
+    /**
      * Add post is ancestor data on post array
      *
      * @param   object   $array         The post array
@@ -283,7 +285,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
      */
     private function appendIsAncestorPost(array $array): array
     {
-        if (in_array($array['ID'], $this->getAncestors($this->postId))) {
+        if (in_array($array['ID'], $this->getAncestorsInstance->getAncestors())) {
             $array['ancestor'] = true;
         } else {
             $array['ancestor'] = false;
@@ -292,7 +294,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         return $array;
     }
 
-        /**
+    /**
      * Check if a post has children. If this is the current post,
      * fetch the actual children array.
      *
@@ -303,7 +305,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
     private function hasChildren(array $array): array
     {
         if ($array['ID'] == $this->postId) {
-            $children = $this->getItems(
+            $children = $this->getPostsByParentInstance->getPostsByParent(
                 $array['ID'],
                 get_post_type($array['ID'])
             );
@@ -321,78 +323,6 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         //Return result
         return $array;
     }
-
-    /**
-     * Fetch the current page/posts parent, with support for page for posttype.
-     *
-     * @param   array   $postId    The current post id
-     *
-     * @return  array              Flat array with parents
-     */
-    private function getAncestors($includeTopLevel = true): array
-    {
-
-        $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
-        if (isset(self::$runtimeCache['ancestors'][$cacheSubKey][$this->postId])) {
-            return self::$runtimeCache['ancestors'][$cacheSubKey][$this->postId];
-        }
-
-        //Definitions
-        $ancestorStack  = array($this->postId);
-        $fetchAncestors = true;
-
-        //Fetch ancestors
-        while ($fetchAncestors) {
-            $ancestorID = $this->db->get_var(
-                $this->db->prepare("
-            SELECT post_parent
-            FROM  " . $this->db->posts . "
-            WHERE ID = %d
-            AND post_status = 'publish'
-            LIMIT 1
-        ", $this->postId)
-            );
-
-            //About to end, is there a linked pfp page?
-            if ($ancestorID == 0) {
-                //Get posttype of post
-                $currentPostType    = get_post_type($this->postId);
-                $pageForPostTypeIds = array_flip($this->getPageForPostTypeIds());
-
-                //Look for replacement
-                if ($currentPostType && array_key_exists($currentPostType, $pageForPostTypeIds)) {
-                    $ancestorID = $pageForPostTypeIds[$currentPostType];
-                }
-
-                //No replacement found
-                if ($ancestorID == 0) {
-                    $fetchAncestors = false;
-                }
-            }
-
-            if ($fetchAncestors !== false) {
-                //Add to stack (with duplicate prevention)
-                if (!in_array($ancestorID, $ancestorStack)) {
-                    $ancestorStack[] = (int) $ancestorID;
-                }
-
-                //Prepare for next iteration
-                $this->postId = $ancestorID;
-            }
-        }
-
-        //Include zero level
-        if ($includeTopLevel === true) {
-            $ancestorStack = array_merge(
-                [0],
-                $ancestorStack
-            );
-        }
-
-        //Return and cache result
-        return self::$runtimeCache['ancestors'][$cacheSubKey][$this->postId] = $ancestorStack;
-    }
-
 
     /**
      * Get a list of hidden post id's
@@ -442,85 +372,6 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
 
         return $hiddenPages;
     }
-
-    /**
-     * Get pages/posts
-     *
-     * @param   integer|array  $parent    Post parent
-     * @param   string|array   $postType  The post type to query
-     *
-     * @return  array               Array of post id:s, post_titles and post_parent
-     */
-    private function getItems($parent = 0, $postType = 'page'): array
-    {
-        //Check if if valid post type string
-        if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
-            return [];
-        }
-
-        //Check if if valid post type array
-        if (is_array($postType)) {
-            $stack = [];
-            foreach ($postType as $item) {
-                if (post_type_exists($item) && is_post_type_hierarchical($item)) {
-                    $stack[] = $item;
-                }
-            }
-
-            if (empty($stack)) {
-                return [];
-            }
-
-            //Get result, if one, handle as string (more efficient query)
-            if (count($stack) == 1) {
-                $postType = array_pop($stack);
-            } else {
-                $postType = $stack;
-            }
-        }
-
-        //Handle post type cases
-        if ($postType == 'all') {
-            $postTypeSQL = "post_type IN('" . implode("', '", get_post_types(['public' => true])) . "')";
-        } elseif (is_array($postType)) {
-            $postTypeSQL = "post_type IN('" . implode("', '", $postType) . "')";
-        } else {
-            $postTypeSQL = "post_type = '" . $postType . "'";
-        }
-
-        //Support multi level query
-        if (!is_array($parent)) {
-            $parent = [$parent];
-        }
-        $parent = implode(", ", $parent);
-
-        $sql = "
-          SELECT ID, post_title, post_parent, post_type
-          FROM " . $this->db->posts . "
-          WHERE post_parent IN(" . $parent . ")
-          AND " . $postTypeSQL . "
-          AND ID NOT IN(" . implode(", ", $this->getHiddenPostIds()) . ")
-          AND post_status='publish'
-          ORDER BY menu_order, post_title ASC
-          LIMIT 3000
-        ";
-
-        $resultSet = $this->db->get_results($sql, ARRAY_A);
-
-        foreach ($resultSet as &$item) {
-            if ($item['post_type'] != $this->masterPostType && $item['post_parent'] == 0) {
-                $pageForPostTypeIds = array_flip((array) $this->getPageForPostTypeIds());
-
-                if (array_key_exists($item['post_type'], $pageForPostTypeIds)) {
-                    $item['post_parent'] = $pageForPostTypeIds[$item['post_type']];
-                }
-            }
-        }
-
-        //Run query
-        return (array) $resultSet;
-    }
-
 
     /**
      * Get all post id's mapped as a post type container.

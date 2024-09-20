@@ -10,8 +10,12 @@ use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Controller\Navigation\Decorators\ComplementMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\PageTreeFallbackDecorator;
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
 use Municipio\Controller\Navigation\Cache\CacheManager;
+use Municipio\Controller\Navigation\Cache\RuntimeCache;
+use Municipio\Controller\Navigation\Decorators\GetAncestors;
+use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
+use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 
 class BaseController
 {
@@ -128,14 +132,12 @@ class BaseController
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
 
         $mobileMenu = new \Municipio\Helper\Navigation('mobile');
-        $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $this->data['abcd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         $testMenu = $this->createMenuInstance('mobile');
         $this->data['mobileMenu'] = $testMenu->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
-
-         // $this->data['mobileMenu']    = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
 
         //Helper nav placement
@@ -165,7 +167,7 @@ class BaseController
             $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
 
-        $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        // $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         // $this->data['mobileMenu']    = new GetMenuItems($mobileMenu, new MenuConstructor())
         $this->data['megaMenuItems'] = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
@@ -299,17 +301,39 @@ class BaseController
         $name   = GetMenuData::getMenuName($identifier);
         $pageId = $this->getPageID();
 
+        // Cache
+        $cacheManagerInstance = new CacheManager();
+        $runTimeCacheInstance = new RuntimeCache();
+
+        // Helpers
+        $getPageForPostTypeIdsInstance = new GetPageForPostTypeIds($cacheManagerInstance);
+        $getHiddenPostIdsInstance = new GetHiddenPostIds($this->db, $cacheManagerInstance);
+
+        // Idk
+        $getAncestorsInstance = new GetAncestors($pageId, $this->db, $runTimeCacheInstance, $getPageForPostTypeIdsInstance);
+        $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
+
         return new Menu(
             new NavigationHelper($identifier, $context),
             new MenuConstructor($identifier, $id, $pageId),
             [
                 new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
-                new PageTreeFallbackDecorator($identifier, $id, $name, $pageId, $this->db, new CacheManager())
+                new PageTreeFallbackDecorator(
+                    $identifier, 
+                    $id, 
+                    $name, 
+                    $pageId, 
+                    $this->db, 
+                    $cacheManagerInstance,
+                    $runTimeCacheInstance,
+                    $getAncestorsInstance,
+                    $getPostsByParentInstance
+                )
             ],
             $identifier,
             $id,
             $name,
-            $this->getPageID(),
+            $pageId,
             $context
         );
     }
