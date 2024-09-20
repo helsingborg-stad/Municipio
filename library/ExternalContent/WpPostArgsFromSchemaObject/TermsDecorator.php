@@ -7,6 +7,9 @@ use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\Contracts\PropertyValueContract;
+use Spatie\SchemaOrg\PropertyValue;
+use WP_Term;
 use WpService\Contracts\InsertTerm;
 use WpService\Contracts\TermExists;
 
@@ -42,17 +45,73 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         }
 
         foreach ($matchingTaxonomyItems as $taxonomyItem) {
-            $propertyValue                               = $schemaObject->getProperty($taxonomyItem->getSchemaObjectProperty());
-            $terms                                       = is_array($propertyValue) ? $propertyValue : [$propertyValue];
-            $terms                                       = array_filter($terms);
-            $wpTerms                                     = array_map(fn ($term) => $this->wpTermFactory->create($term, $taxonomyItem->getName()), $terms);
-            $termIds                                     = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
+            $termNames = $this->getTermNamesFromSchemaProperty($schemaObject, $taxonomyItem);
+            $wpTerms   = array_map(fn ($term) => $this->wpTermFactory->create(
+                $term,
+                $taxonomyItem->getName()
+            ), $termNames);
+            $termIds   = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
+
             $post['tax_input'][$taxonomyItem->getName()] = $termIds;
         }
 
         return $post;
     }
 
+    private function getTermNamesFromSchemaProperty(
+        BaseType $schemaObject,
+        TaxonomyItemInterface $taxonomyItem
+    ): array {
+        $schemaPropertyValue = $this->getSchemaObjectPropertyValueByPropertyPath(
+            $schemaObject,
+            $taxonomyItem->getSchemaObjectProperty()
+        );
+        $terms               = is_array($schemaPropertyValue) ? $schemaPropertyValue : [$schemaPropertyValue];
+        $terms               = array_map(fn ($term) => $term instanceof BaseType && $term->hasProperty('name') ? $term->getProperty('name') : $term, $terms);
+        return array_filter($terms);
+    }
+
+    /**
+     * Get property value by property path.
+     *
+     * @param BaseType $schemaObject
+     * @param string $propertyPath Name of a property or path to a nested property. Example: 'name', 'address.street'
+     * @return array
+     */
+    private function getSchemaObjectPropertyValueByPropertyPath(mixed $schemaObject, string $propertyPath): array
+    {
+        $propertyPathParts = explode('.', $propertyPath);
+        $propertyValue     = $schemaObject;
+
+        if ($propertyValue instanceof BaseType) {
+            $propertyValue = $propertyValue->getProperty($propertyPathParts[0]);
+        }
+
+        if (count($propertyPathParts) === 1) {
+            if ($propertyValue instanceof BaseType) {
+                $propertyValue = $propertyValue->getProperty($propertyPath);
+            } elseif ($propertyValue instanceof PropertyValue) {
+                $propertyValue = $propertyValue->getProperty('value');
+            } elseif (is_array($propertyValue)) {
+                return array_map(
+                    fn($item) => $this->getSchemaObjectPropertyValueByPropertyPath($item, $propertyPath),
+                    $propertyValue
+                );
+            }
+
+            return !is_array($propertyValue) ? [$propertyValue] : $propertyValue;
+        }
+
+        $restPaths = implode('.', array_slice($propertyPathParts, 1));
+        return $this->getSchemaObjectPropertyValueByPropertyPath($propertyValue, $restPaths);
+    }
+
+    /**
+     * Get matching taxonomy items.
+     *
+     * @param BaseType $schemaObject
+     * @return TaxonomyItemInterface[]
+     */
     private function tryGetMatchingTaxonomyItems(BaseType $schemaObject): array
     {
         return array_filter(
