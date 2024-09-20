@@ -92,6 +92,6 @@ class SyncBuilder
     private function tryGetSource(): ?SourceInterface
     {
         $sources = array_filter($this->sources, fn($source) => $source->getPostType() === $this->postType);
-        return $sources[0] ?? null;
+        return reset($sources) ?: null;
     }
 }
