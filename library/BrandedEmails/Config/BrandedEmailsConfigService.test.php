@@ -4,6 +4,7 @@ namespace Municipio\BrandedEmails\Config;
 
 use AcfService\Contracts\GetField;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class BrandedEmailsConfigServiceTest extends TestCase
 {
@@ -27,9 +28,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
         $fields           = $json[0]['fields'];
         $fieldNames       = array_map(fn($field) => $field['name'], $fields);
 
-        $config = new BrandedEmailsConfigService($this->getAcfService(([])));
-
-        $this->assertContains($config::OPTION_ENABLED_KEY, $fieldNames);
+        $this->assertContains(BrandedEmailsConfigService::OPTION_ENABLED_KEY, $fieldNames);
     }
 
     /**
@@ -41,9 +40,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
      */
     public function testIsEnabledReturnsTrueIfValueIsTruthy($getFieldValue)
     {
-
-        $acfService = $this->getAcfService(['getField' => $getFieldValue]);
-        $config     = new BrandedEmailsConfigService($acfService);
+        $config = new BrandedEmailsConfigService(new FakeWpService(['getOption' => '1']));
 
         $this->assertTrue($config->isEnabled());
     }
@@ -58,8 +55,7 @@ class BrandedEmailsConfigServiceTest extends TestCase
     public function testIsEnabledReturnsFalseIfValueIsFalsy($getFieldValue)
     {
 
-        $acfService = $this->getAcfService(['getField' => $getFieldValue]);
-        $config     = new BrandedEmailsConfigService($acfService);
+        $config = new BrandedEmailsConfigService(new FakeWpService(['getOption' => fn($option, $default) => $default]));
 
         $this->assertFalse($config->isEnabled());
     }
