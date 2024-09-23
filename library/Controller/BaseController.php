@@ -8,14 +8,23 @@ use Municipio\Helper\Navigation\MenuConstructor;
 use Municipio\Helper\Navigation as NavigationHelper;
 use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;
-use Municipio\Controller\Navigation\Decorators\ComplementMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallbackDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallbackDecorator;
 use Municipio\Controller\Navigation\Cache\CacheManager;
 use Municipio\Controller\Navigation\Cache\RuntimeCache;
 use Municipio\Controller\Navigation\Decorators\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
+
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
+
+use Municipio\Controller\Navigation\Decorators\MenuItem\AppendHrefDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\AppendIsAncestorPostDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\CustomTitleDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\AppendIsCurrentPostDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\AppendChildrenDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\TransformObjectDecorator;
 
 class BaseController
 {
@@ -313,23 +322,43 @@ class BaseController
         $getAncestorsInstance = new GetAncestors($pageId, $this->db, $runTimeCacheInstance, $getPageForPostTypeIdsInstance);
         $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
 
+        // MenuItem decorators
+        $appendHrefDecoratorInstance = new AppendHrefDecorator();
+        $customTitleDecoratorInstance = new CustomTitleDecorator($this->db, $cacheManagerInstance);
+        $appendIsCurrentPostDecoratorIstance = new AppendIsCurrentPostDecorator($pageId);
+        $appendIsAncestorPostDecoratorInstance = new AppendIsAncestorPostDecorator($getAncestorsInstance);
+        $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
+        $transformObjectDecoratorInstance = new TransformObjectDecorator();
+
+
+
+        // MenuItems decorators
+        $complementObjectsDecoratorInstance = new ComplementObjectsDecorator(
+            $identifier,
+            [
+                $appendHrefDecoratorInstance,
+                $customTitleDecoratorInstance,
+                $appendIsCurrentPostDecoratorIstance,
+                $appendIsAncestorPostDecoratorInstance,
+                $appendChildrenDecoratorInstance,
+                $transformObjectDecoratorInstance
+            ],
+            $runTimeCacheInstance
+        );
+
+        $appendChildrenDecoratorInstance->setComplementObjectsInstance($complementObjectsDecoratorInstance);
+
+
         return new Menu(
             new NavigationHelper($identifier, $context),
             new MenuConstructor($identifier, $id, $pageId),
-            [
-                new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
-                new PageTreeFallbackDecorator(
-                    $identifier, 
-                    $id, 
-                    $name, 
-                    $pageId, 
-                    $this->db, 
-                    $cacheManagerInstance,
-                    $runTimeCacheInstance,
-                    $getAncestorsInstance,
-                    $getPostsByParentInstance
-                )
-            ],
+            new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
+            new PageTreeFallbackDecorator(
+                $pageId,
+                $getAncestorsInstance,
+                $getPostsByParentInstance,
+                $complementObjectsDecoratorInstance
+            ),
             $identifier,
             $id,
             $name,

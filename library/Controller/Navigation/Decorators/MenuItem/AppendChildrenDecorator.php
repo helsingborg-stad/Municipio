@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Decorators\MenuItem;
 
-use Municipio\Controller\Navigation\Decorators\ComplementObjectsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
 use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
@@ -15,10 +15,16 @@ class AppendChildrenDecorator implements MenuItemDecoratorInterface
         private GetPostsByParent $getPostsByParentInstance,
         private GetHiddenPostIds $getHiddenPostIdsInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
-        private ComplementObjectsDecorator $complementObjectsInstance
+        private ?ComplementObjectsDecorator $complementObjectsInstance = null
     ) {
         
     }
+
+    public function setComplementObjectsInstance(ComplementObjectsDecorator $complementObjectsInstance): void
+    {
+        $this->complementObjectsInstance = $complementObjectsInstance;
+    }
+
      /**
      * Check if a post has children. If this is the current post,
      * fetch the actual children array.

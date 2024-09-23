@@ -1,9 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators;
+namespace Municipio\Controller\Navigation\Decorators\MenuItems;
 
 use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
-use Municipio\Controller\Navigation\Decorators\MenuItem\MenuItemDecoratorInterface;
 
 class ComplementObjectsDecorator implements PageTreeDecoratorInterface
 {

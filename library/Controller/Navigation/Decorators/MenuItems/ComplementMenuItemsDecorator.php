@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators;
+namespace Municipio\Controller\Navigation\Decorators\MenuItems;
 
 class ComplementMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
@@ -94,7 +94,7 @@ class ComplementMenuItemsDecorator implements MenuItemsDecoratorInterface
     /**
      * Get a list of menu items with an ancestor relation to page id.
      *
-     * @param string $menu The menu id to get
+     * @param array $menu The menu id to get
      * @return bool|array
      */
     private function getWpMenuAncestors($menu, $id)
