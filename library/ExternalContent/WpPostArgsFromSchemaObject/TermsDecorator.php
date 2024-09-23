@@ -4,10 +4,8 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
-use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Contracts\PropertyValueContract;
 use Spatie\SchemaOrg\PropertyValue;
 use WP_Term;
 use WpService\Contracts\InsertTerm;
@@ -58,17 +56,21 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         return $post;
     }
 
+    /**
+     * Get term names from schema property.
+     *
+     * @param BaseType $schemaObject
+     * @param TaxonomyItemInterface $taxonomyItem
+     * @return string[]
+     */
     private function getTermNamesFromSchemaProperty(
         BaseType $schemaObject,
         TaxonomyItemInterface $taxonomyItem
     ): array {
-        $schemaPropertyValue = $this->getSchemaObjectPropertyValueByPropertyPath(
+        return $this->getSchemaObjectPropertyValueByPropertyPath(
             $schemaObject,
             $taxonomyItem->getSchemaObjectProperty()
         );
-        $terms               = is_array($schemaPropertyValue) ? $schemaPropertyValue : [$schemaPropertyValue];
-        $terms               = array_map(fn ($term) => $term instanceof BaseType && $term->hasProperty('name') ? $term->getProperty('name') : $term, $terms);
-        return array_filter($terms);
     }
 
     /**
@@ -83,27 +85,44 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         $propertyPathParts = explode('.', $propertyPath);
         $propertyValue     = $schemaObject;
 
-        if ($propertyValue instanceof BaseType) {
-            $propertyValue = $propertyValue->getProperty($propertyPathParts[0]);
-        }
-
         if (count($propertyPathParts) === 1) {
-            if ($propertyValue instanceof BaseType) {
-                $propertyValue = $propertyValue->getProperty($propertyPath);
-            } elseif ($propertyValue instanceof PropertyValue) {
+            if ($propertyValue instanceof PropertyValue && $propertyValue->getProperty('name') === $propertyPath) {
                 $propertyValue = $propertyValue->getProperty('value');
-            } elseif (is_array($propertyValue)) {
-                return array_map(
-                    fn($item) => $this->getSchemaObjectPropertyValueByPropertyPath($item, $propertyPath),
-                    $propertyValue
-                );
+            } elseif ($propertyValue instanceof BaseType) {
+                $propertyValue = $propertyValue->getProperty($propertyPath);
             }
-
-            return !is_array($propertyValue) ? [$propertyValue] : $propertyValue;
+        } else {
+            return $this->getSchemaObjectPropertyValueByPropertyPath(
+                $propertyValue->getProperty($propertyPathParts[0]),
+                implode('.', array_slice($propertyPathParts, 1))
+            );
         }
 
-        $restPaths = implode('.', array_slice($propertyPathParts, 1));
-        return $this->getSchemaObjectPropertyValueByPropertyPath($propertyValue, $restPaths);
+        if (is_array($propertyValue)) {
+            return array_map(fn ($value) => $this->convertPropertyValueToTermNames($value), $propertyValue);
+        }
+
+        return [$this->convertPropertyValueToTermNames($propertyValue)];
+    }
+
+    /**
+     * Convert property value to term names.
+     *
+     * @param mixed $value
+     * @return string Name of the term. If the property value
+     * is a PropertyValue object, the value of the 'value' property will be returned.
+     * If the property value is a BaseType object, the value of the 'name' property will be returned.
+     * If the property value is a string, the string will be returned.
+     * If the property value is none of the above, an empty string will be returned.
+     */
+    private function convertPropertyValueToTermNames(mixed $value): string
+    {
+        return match (true) {
+            is_string($value) => $value,
+            $value instanceof PropertyValue => $value->getProperty('value'),
+            $value instanceof BaseType => $value->getProperty('name'),
+            default => '',
+        };
     }
 
     /**
