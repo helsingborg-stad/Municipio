@@ -48,7 +48,9 @@ class TaxonomyItem implements TaxonomyItemInterface
     {
         // Convert the schema object property to a taxonomy name by making it snake case from camelcase.
         $snakeCasedObjectProperty = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $this->schemaObjectProperty));
-        return $snakeCasedObjectProperty;
+
+        // Ensure that the taxonomy name is not longer than 32 characters.
+        return substr($snakeCasedObjectProperty, 0, 32);
     }
 
     /**

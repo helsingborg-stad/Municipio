@@ -78,7 +78,7 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
      *
      * @param BaseType $schemaObject
      * @param string $propertyPath Name of a property or path to a nested property. Example: 'name', 'address.street'
-     * @return array
+     * @return string[]|null[]
      */
     private function getSchemaObjectPropertyValueByPropertyPath(mixed $schemaObject, string $propertyPath): array
     {
@@ -109,19 +109,15 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
      * Convert property value to term names.
      *
      * @param mixed $value
-     * @return string Name of the term. If the property value
-     * is a PropertyValue object, the value of the 'value' property will be returned.
-     * If the property value is a BaseType object, the value of the 'name' property will be returned.
-     * If the property value is a string, the string will be returned.
-     * If the property value is none of the above, an empty string will be returned.
+     * @return string|null Term name. Null if value is not a string or PropertyValue.
      */
-    private function convertPropertyValueToTermNames(mixed $value): string
+    private function convertPropertyValueToTermNames(mixed $value): ?string
     {
         return match (true) {
             is_string($value) => $value,
             $value instanceof PropertyValue => $value->getProperty('value'),
             $value instanceof BaseType => $value->getProperty('name'),
-            default => '',
+            default => null,
         };
     }
 
