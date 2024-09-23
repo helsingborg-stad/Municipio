@@ -50,9 +50,6 @@ class Menu
             return false;
         }
 
-
-        
-
         return $menuItems;
     }
 }
