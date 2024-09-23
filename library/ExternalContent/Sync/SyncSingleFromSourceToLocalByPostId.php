@@ -17,13 +17,13 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
      * Class constructor
      *
      * @param int|string $postId
-     * @param SourceInterface[] $sources
+     * @param SourceInterface $source
      * @param WpPostArgsFromSchemaObjectInterface $wpPostFactory
      * @param InsertPost&GetPostMeta&GetPostType $wpService
      */
     public function __construct(
         private int|string $postId,
-        private array $sources,
+        private SourceInterface $source,
         private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
         private InsertPost&GetPostMeta&GetPostType $wpService
     ) {
@@ -41,14 +41,8 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
             return;
         }
 
-        $source = array_filter($this->sources, fn($source) => $source->getPostType() === $postType)[0] ?? null;
-
-        if (!$source) {
-            return;
-        }
-
-        $schemaObject     = $source->getObject($originId);
-        $postDataToInsert = $this->wpPostFactory->create($schemaObject, $source);
+        $schemaObject     = $this->source->getObject($originId);
+        $postDataToInsert = $this->wpPostFactory->create($schemaObject, $this->source);
         $this->wpService->insertPost($postDataToInsert);
     }
 }

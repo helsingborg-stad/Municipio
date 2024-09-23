@@ -3,14 +3,28 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
+use WpService\Contracts\DeleteTerm;
 use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetTaxonomies;
+use WpService\Contracts\GetTerms;
 
+/**
+ * Class PruneTermsNoLongerInUse
+ *
+ * This class is responsible for pruning terms that are no longer in use.
+ */
 class PruneTermsNoLongerInUse implements SyncSourceToLocalInterface
 {
+    /**
+     * Constructor for PruneTermsNoLongerInUse.
+     *
+     * @param SourceInterface $source
+     * @param GetTaxonomies&GetPostTypeObject&GetTerms&DeleteTerm $wpService
+     * @param SyncSourceToLocalInterface $inner
+     */
     public function __construct(
         private SourceInterface $source,
-        private GetTaxonomies&GetPostTypeObject $wpService,
+        private GetTaxonomies&GetPostTypeObject&GetTerms&DeleteTerm $wpService,
         private SyncSourceToLocalInterface $inner
     ) {
     }
@@ -22,13 +36,17 @@ class PruneTermsNoLongerInUse implements SyncSourceToLocalInterface
     {
         $this->inner->sync();
 
-        $postTypetaxonomies = get_post_type_object($this->source->getPostType())->taxonomies;
+        $postTypetaxonomies = $this->wpService->getPostTypeObject($this->source->getPostType())->taxonomies;
 
         if (empty($postTypetaxonomies)) {
             return;
         }
 
-        $terms = get_terms([ 'taxonomy' => array_keys($postTypetaxonomies), 'hide_empty' => false, 'count' => true, ]);
+        $terms = $this->wpService->getTerms([
+            'taxonomy'   => array_keys($postTypetaxonomies),
+            'hide_empty' => false,
+            'count'      => true,
+        ]);
 
         if (empty($terms)) {
             return;
@@ -41,7 +59,7 @@ class PruneTermsNoLongerInUse implements SyncSourceToLocalInterface
         }
 
         foreach ($emptyTerms as $emptyTerm) {
-            wp_delete_term($emptyTerm->term_id, $emptyTerm->taxonomy);
+            $this->wpService->deleteTerm($emptyTerm->term_id, $emptyTerm->taxonomy);
         }
     }
 }
