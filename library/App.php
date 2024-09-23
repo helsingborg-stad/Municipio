@@ -366,7 +366,7 @@ class App
      */
     private function trySetupBrandedEmails(): void
     {
-        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
+        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->wpService);
 
         if ($configService->isEnabled() === false) {
             return;
