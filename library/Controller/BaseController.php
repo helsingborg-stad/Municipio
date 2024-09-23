@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use WpService\WpService;
+use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\Navigation as NavigationHelper;
@@ -19,7 +21,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementMenuItemsDeco
 use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveTopLevelDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDescorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDecorator;
 
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendHrefDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendIsAncestorPostDecorator;
@@ -132,6 +134,7 @@ class BaseController
         $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility    = new \Municipio\Helper\Navigation('accessibility');
         $primary          = new \Municipio\Helper\Navigation('primary');
+        // $mobileMenu       = new \Municipio\Helper\Navigation('mobile');
         $secondary        = new \Municipio\Helper\Navigation('sidebar');
         $megaMenu         = new \Municipio\Helper\Navigation('mega-menu');
         $quicklinks       = new \Municipio\Helper\Navigation('single');
@@ -141,14 +144,24 @@ class BaseController
         $floatingMenu     = new \Municipio\Helper\Navigation('floating');
         $languageMenu     = new \Municipio\Helper\Navigation('language');
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
-
-        $mobileMenu = new \Municipio\Helper\Navigation('mobile');
-        $this->data['abcd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-
-        $testMenu = $this->createMenuInstance('mobile');
-        $this->data['mobileMenu'] = $testMenu->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-
         $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
+
+        // $accessibilityMenu = $this->createMenuInstance('accessibility');
+        $primaryMenu = $this->createMenuInstance('primary');
+        $mobileMenu = $this->createMenuInstance('mobile');
+        $secondaryMenu = $this->createMenuInstance('sidebar');
+        // $megaMenu = $this->createMenuInstance('mega-menu');
+        $quicklinksMenu = $this->createMenuInstance('single');
+        // $tabMenu = $this->createMenuInstance('tab');
+        // $helpMenu = $this->createMenuInstance('help');
+        // $dropDownMenu = $this->createMenuInstance('dropdown');
+        // $floatingMenu = $this->createMenuInstance('floating');
+        // $languageMenu = $this->createMenuInstance('language');
+        // $siteselectorMenu = $this->createMenuInstance('siteselector');
+
+        // $this->data['primaryMenuItems'] = $primaryMenu->getMenuNavItems(\Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
+
+        $this->data['mobileMenu'] = $mobileMenu->setMenuName('secondary-menu')->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
 
         //Helper nav placement
@@ -167,7 +180,8 @@ class BaseController
         */
 
         //Main Navigation
-        $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
+        // $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
+        
         $this->data['secondaryMenuItems'] = null;
 
         $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
@@ -309,7 +323,6 @@ class BaseController
     public function createMenuInstance(string $identifier = '', string $context = 'municipio'): Menu
     {
         $id     = GetMenuData::getNavMenuId($identifier);
-        $name   = GetMenuData::getMenuName($identifier);
         $pageId = $this->getPageID();
 
         // Cache
@@ -326,7 +339,6 @@ class BaseController
 
         // MenuItem decorators
         $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
-        $transformObjectDecoratorInstance = new TransformObjectDecorator();
 
         // MenuItems decorators
         $complementObjectsDecoratorInstance = new ComplementObjectsDecorator(
@@ -349,15 +361,10 @@ class BaseController
             new NavigationHelper($identifier, $context),
             [
                 new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
-                new PageTreeFallbackDecorator(
-                    $pageId,
-                    $getAncestorsInstance,
-                    $getPostsByParentInstance,
-                    $complementObjectsDecoratorInstance
-                ),
+                new PageTreeFallbackDecorator($pageId, $getAncestorsInstance, $getPostsByParentInstance, $complementObjectsDecoratorInstance),
                 new StructureMenuItemsDecorator(),
                 new RemoveTopLevelDecorator(),
-                new RemoveSubLevelDescorator(),
+                new RemoveSubLevelDecorator(),
             ],
             $identifier,
             $id,

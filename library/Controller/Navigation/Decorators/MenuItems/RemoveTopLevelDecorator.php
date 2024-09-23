@@ -12,7 +12,7 @@ class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
      */
     public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
-        if (!$includeTopLevel) {
+        if ($includeTopLevel) {
             return $menuItems;
         }
 
@@ -24,5 +24,4 @@ class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
 
         return [];
     }
-
 }

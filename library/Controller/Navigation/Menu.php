@@ -8,8 +8,6 @@ use Municipio\Helper\Navigation\MenuConstructor;
 
 class Menu
 {
-    private string|int $localeIdentifier;
-
     public function __construct(
         private Navigation $navigationHelperInstance,
         private array $decorators,
@@ -19,7 +17,24 @@ class Menu
         private ?int $pageId = null,
         private string $context = 'municipio',
     ) {
-        $this->localeIdentifier = $this->menuName ?: $this->menuId ?: $this->identifier;
+    }
+
+    public function setMenuName($menuName) {
+        $this->menuName = $menuName;
+
+        return $this;
+    }
+
+    public function setDecorators($decorators) {
+        $this->decorators = $decorators;
+
+        return $this;
+    }
+
+    public function setIdentifier($identifier) {
+        $this->identifier = $identifier;
+
+        return $this;
     }
 
     public function createMenu(
@@ -38,8 +53,7 @@ class Menu
         bool $includeTopLevel = true,
         bool $onlyKeepFirstLevel = false
     ): array|false {
-
-        $menuItems = GetMenuData::getNavMenuItems($this->localeIdentifier) ?: [];
+        $menuItems = GetMenuData::getNavMenuItems($this->menuName) ?: [];
 
         if (!empty($this->decorators)) {
             foreach ($this->decorators as $decorator) {

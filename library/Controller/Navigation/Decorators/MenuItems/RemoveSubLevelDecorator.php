@@ -4,7 +4,7 @@ namespace Municipio\Controller\Navigation\Decorators\MenuItems;
 
 use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
 
-class RemoveSubLevelDescorator implements MenuItemsDecoratorInterface
+class RemoveSubLevelDecorator implements MenuItemsDecoratorInterface
 {
     /**
      * Removes sub level items
