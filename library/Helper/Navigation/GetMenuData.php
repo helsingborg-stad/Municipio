@@ -19,7 +19,7 @@ class GetMenuData
      * @param false|int|string $identifier The identifier of the navigation menu.
      * @return array|false The array of menu items or false if the identifier is empty.
      */
-    public static function getNavMenuItems(false|int|string $identifier = null): array|false
+    public static function getNavMenuItems(null|false|int|string $identifier = null): array|false
     {
         if (is_string($identifier)) {
             $identifier = self::getNavMenuId($identifier);

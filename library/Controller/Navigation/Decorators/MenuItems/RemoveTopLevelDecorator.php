@@ -24,5 +24,4 @@ class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
 
         return [];
     }
-
 }
