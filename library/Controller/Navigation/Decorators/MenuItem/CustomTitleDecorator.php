@@ -11,6 +11,7 @@ class CustomTitleDecorator implements MenuItemDecoratorInterface
         private CacheManager $cacheManager
     ) {
     }
+    
     /**
      * Replace native title with custom menu name
      *
@@ -35,8 +36,7 @@ class CustomTitleDecorator implements MenuItemDecoratorInterface
         return $array;
     }
 
-
-        /**
+    /**
      * Get a list of custom page titles
      *
      * Optimzing: It may be faster on smaller databases

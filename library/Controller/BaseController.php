@@ -4,7 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
-use Municipio\Helper\Navigation\MenuConstructor;
 use Municipio\Helper\Navigation as NavigationHelper;
 use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;

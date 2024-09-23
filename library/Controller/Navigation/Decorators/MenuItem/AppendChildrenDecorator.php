@@ -17,9 +17,14 @@ class AppendChildrenDecorator implements MenuItemDecoratorInterface
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
         private ?ComplementObjectsDecorator $complementObjectsInstance = null
     ) {
-        
     }
 
+    /**
+     * Sets the complement objects instance for the AppendChildrenDecorator.
+     *
+     * @param ComplementObjectsDecorator $complementObjectsInstance The complement objects instance to set.
+     * @return void
+     */
     public function setComplementObjectsInstance(ComplementObjectsDecorator $complementObjectsInstance): void
     {
         $this->complementObjectsInstance = $complementObjectsInstance;
