@@ -317,7 +317,7 @@
                             "name": "from_schema_property",
                             "aria-label": "",
                             "type": "text",
-                            "instructions": "Name of the schema property to use as a taxonomy. Ex. for using the <code>director<\/code> property on the <code>Event<\/code> schema type, supply <code>director<\/code> as value.",
+                            "instructions": "Name of the schema property to use as a taxonomy. Ex. for using the <code>director<\/code> property on the <code>Event<\/code> schema type, supply <code>director<\/code> as value. If you wish to use a nested object value you can nest like this: <code>director.email<\/code>. Should the property contain an object of the type <a href=\"https:\/\/schema.org\/PropertyValue\" target=\"_blank\">PropertyValue<\/a> the <code>value<\/code> property will be used by default when creating terms.",
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
