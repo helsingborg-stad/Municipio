@@ -4,9 +4,10 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
-use Municipio\ExternalContent\Taxonomy\TaxonomyRegistrarInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\PropertyValue;
+use WP_Term;
 use WpService\Contracts\InsertTerm;
 use WpService\Contracts\TermExists;
 
@@ -42,17 +43,90 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         }
 
         foreach ($matchingTaxonomyItems as $taxonomyItem) {
-            $propertyValue                               = $schemaObject->getProperty($taxonomyItem->getSchemaObjectProperty());
-            $terms                                       = is_array($propertyValue) ? $propertyValue : [$propertyValue];
-            $terms                                       = array_filter($terms);
-            $wpTerms                                     = array_map(fn ($term) => $this->wpTermFactory->create($term, $taxonomyItem->getName()), $terms);
-            $termIds                                     = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
+            $termNames = $this->getTermNamesFromSchemaProperty($schemaObject, $taxonomyItem);
+            $wpTerms   = array_map(fn ($term) => $this->wpTermFactory->create(
+                $term,
+                $taxonomyItem->getName()
+            ), $termNames);
+            $termIds   = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
+
             $post['tax_input'][$taxonomyItem->getName()] = $termIds;
         }
 
         return $post;
     }
 
+    /**
+     * Get term names from schema property.
+     *
+     * @param BaseType $schemaObject
+     * @param TaxonomyItemInterface $taxonomyItem
+     * @return string[]
+     */
+    private function getTermNamesFromSchemaProperty(
+        BaseType $schemaObject,
+        TaxonomyItemInterface $taxonomyItem
+    ): array {
+        return $this->getSchemaObjectPropertyValueByPropertyPath(
+            $schemaObject,
+            $taxonomyItem->getSchemaObjectProperty()
+        );
+    }
+
+    /**
+     * Get property value by property path.
+     *
+     * @param BaseType $schemaObject
+     * @param string $propertyPath Name of a property or path to a nested property. Example: 'name', 'address.street'
+     * @return string[]|null[]
+     */
+    private function getSchemaObjectPropertyValueByPropertyPath(mixed $schemaObject, string $propertyPath): array
+    {
+        $propertyPathParts = explode('.', $propertyPath);
+        $propertyValue     = $schemaObject;
+
+        if (count($propertyPathParts) === 1) {
+            if ($propertyValue instanceof PropertyValue && $propertyValue->getProperty('name') === $propertyPath) {
+                $propertyValue = $propertyValue->getProperty('value');
+            } elseif ($propertyValue instanceof BaseType) {
+                $propertyValue = $propertyValue->getProperty($propertyPath);
+            }
+        } else {
+            return $this->getSchemaObjectPropertyValueByPropertyPath(
+                $propertyValue->getProperty($propertyPathParts[0]),
+                implode('.', array_slice($propertyPathParts, 1))
+            );
+        }
+
+        if (is_array($propertyValue)) {
+            return array_map(fn ($value) => $this->convertPropertyValueToTermNames($value), $propertyValue);
+        }
+
+        return [$this->convertPropertyValueToTermNames($propertyValue)];
+    }
+
+    /**
+     * Convert property value to term names.
+     *
+     * @param mixed $value
+     * @return string|null Term name. Null if value is not a string or PropertyValue.
+     */
+    private function convertPropertyValueToTermNames(mixed $value): ?string
+    {
+        return match (true) {
+            is_string($value) => $value,
+            $value instanceof PropertyValue => $value->getProperty('value'),
+            $value instanceof BaseType => $value->getProperty('name'),
+            default => null,
+        };
+    }
+
+    /**
+     * Get matching taxonomy items.
+     *
+     * @param BaseType $schemaObject
+     * @return TaxonomyItemInterface[]
+     */
     private function tryGetMatchingTaxonomyItems(BaseType $schemaObject): array
     {
         return array_filter(

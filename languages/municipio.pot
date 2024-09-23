@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-17T12:08:19+00:00\n"
+"POT-Creation-Date: 2024-09-23T06:28:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -322,6 +322,7 @@ msgid "Source type"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:75
+#: AcfFields/php/external-content-settings.php:78
 msgid "json"
 msgstr ""
 
@@ -342,6 +343,7 @@ msgid "Protocol"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:168
+#: AcfFields/php/external-content-settings.php:171
 #: AcfFields/php/options-menu-icon.php:487
 msgid "https"
 msgstr ""
@@ -377,15 +379,23 @@ msgstr ""
 msgid "Add Taxonomy"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:322
+#: AcfFields/php/external-content-settings.php:323
 msgid "Create terms from schema property"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:349
+#: AcfFields/php/external-content-settings.php:327
+msgid "Name of the schema property to use as a taxonomy. Ex. for using the <code>director</code> property on the <code>Event</code> schema type, supply <code>director</code> as value. If you wish to use a nested object value you can nest like this: <code>director.email</code>. Should the property contain an object of the type <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a> the <code>value</code> property will be used by default when creating terms."
+msgstr ""
+
+#: AcfFields/php/external-content-settings.php:337
+msgid "ex. director"
+msgstr ""
+
+#: AcfFields/php/external-content-settings.php:344
 msgid "Name (plural)"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:370
+#: AcfFields/php/external-content-settings.php:365
 msgid "Name (singular)"
 msgstr ""
 
@@ -470,7 +480,7 @@ msgid "Disabled"
 msgstr ""
 
 #: AcfFields/php/options-activate-gutenberg.php:25
-#: Controller/Search.php:13
+#: Controller/Search.php:12
 #: Customizer/Sections/Menu/Quicklinks.php:206
 msgid "All pages"
 msgstr ""
@@ -4842,7 +4852,7 @@ msgstr ""
 #: AcfFields/php/options-theme-google-translate.php:59
 #: Customizer/PanelsRegistry.php:435
 #: Customizer/Sections/Search.php:138
-#: Helper/TranslatedLabels.php:47
+#: Helper/TranslatedLabels.php:49
 #: Theme/Navigation.php:31
 msgid "Mega menu"
 msgstr ""
@@ -5218,7 +5228,7 @@ msgid "Display the notice after this many days"
 msgstr ""
 
 #: AcfFields/php/options-theme-custom-post-type.php:388
-#: Helper/TranslatedLabels.php:34
+#: Helper/TranslatedLabels.php:36
 msgid "days"
 msgstr ""
 
@@ -15070,15 +15080,15 @@ msgstr ""
 msgid "Media link"
 msgstr ""
 
-#: Admin/Acf/ImageAltTextValidation.php:192
+#: Admin/Acf/ImageAltTextValidation.php:197
 msgid "Please add an alt text to the featured image."
 msgstr ""
 
-#: Admin/Acf/ImageAltTextValidation.php:193
+#: Admin/Acf/ImageAltTextValidation.php:198
 msgid "Please add an alt text to the image."
 msgstr ""
 
-#: Admin/General.php:115
+#: Admin/General.php:113
 msgid "Only for logged in users"
 msgstr ""
 
@@ -15117,7 +15127,7 @@ msgstr ""
 msgid "Please fill in all required fields."
 msgstr ""
 
-#: Admin/LoginTracking.php:32
+#: Admin/LoginTracking.php:35
 msgid "Last Login"
 msgstr ""
 
@@ -15149,8 +15159,8 @@ msgstr ""
 #: Admin/Options/Theme.php:46
 #: Admin/Options/Theme.php:47
 #: Customizer/PanelsRegistry.php:282
-#: Helper/TranslatedLabels.php:42
-#: Helper/TranslatedLabels.php:80
+#: Helper/TranslatedLabels.php:44
+#: Helper/TranslatedLabels.php:82
 #: Search/General.php:49
 #: Search/General.php:56
 #: Search/General.php:61
@@ -15184,33 +15194,33 @@ msgstr ""
 msgid "PDF Generator Settings"
 msgstr ""
 
-#: Admin/UI/BackEnd.php:57
+#: Admin/UI/BackEnd.php:60
 msgid "Local"
 msgstr ""
 
-#: Admin/UI/BackEnd.php:61
+#: Admin/UI/BackEnd.php:64
 msgid "Test"
 msgstr ""
 
-#: Admin/UI/BackEnd.php:65
+#: Admin/UI/BackEnd.php:68
 msgid "Beta"
 msgstr ""
 
-#: Admin/UI/BackEnd.php:75
-#: Admin/UI/BackEnd.php:80
-#: Admin/UI/BackEnd.php:85
+#: Admin/UI/BackEnd.php:78
+#: Admin/UI/BackEnd.php:83
+#: Admin/UI/BackEnd.php:88
 msgid "Notice"
 msgstr ""
 
-#: Admin/UI/BackEnd.php:75
+#: Admin/UI/BackEnd.php:78
 msgid "You're on a local server."
 msgstr ""
 
-#: Admin/UI/BackEnd.php:80
+#: Admin/UI/BackEnd.php:83
 msgid "This it the test-environment. Your content will not be published."
 msgstr ""
 
-#: Admin/UI/BackEnd.php:85
+#: Admin/UI/BackEnd.php:88
 msgid "This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday."
 msgstr ""
 
@@ -15328,7 +15338,7 @@ msgstr ""
 msgid "View data."
 msgstr ""
 
-#: App.php:529
+#: App.php:625
 msgid "Never"
 msgstr ""
 
@@ -15336,28 +15346,28 @@ msgstr ""
 msgid "This email was sent from %s."
 msgstr ""
 
-#: Comment/Form.php:36
+#: Comment/Form.php:37
 #: Theme/Icon.php:73
 msgid "Comment"
 msgstr ""
 
-#: Comment/Form.php:37
+#: Comment/Form.php:38
 msgid "Your name"
 msgstr ""
 
-#: Comment/Form.php:38
+#: Comment/Form.php:39
 msgid "Your email"
 msgstr ""
 
-#: Comment/Form.php:39
+#: Comment/Form.php:40
 msgid "Leave a comment"
 msgstr ""
 
-#: Comment/Form.php:40
+#: Comment/Form.php:41
 msgid "You need to login before leaving a comment."
 msgstr ""
 
-#: Comment/Form.php:59
+#: Comment/Form.php:60
 msgid "Cancel reply"
 msgstr ""
 
@@ -15379,47 +15389,47 @@ msgstr ""
 msgid "Like "
 msgstr ""
 
-#: Content/CustomPostType.php:56
+#: Content/CustomPostType.php:55
 msgid "Add new"
 msgstr ""
 
-#: Content/CustomPostType.php:57
+#: Content/CustomPostType.php:56
 msgid "Add new %s"
 msgstr ""
 
-#: Content/CustomPostType.php:58
+#: Content/CustomPostType.php:57
 msgid "New %s"
 msgstr ""
 
-#: Content/CustomPostType.php:59
+#: Content/CustomPostType.php:58
 msgid "Edit %s"
 msgstr ""
 
-#: Content/CustomPostType.php:60
+#: Content/CustomPostType.php:59
 msgid "View %s"
 msgstr ""
 
-#: Content/CustomPostType.php:61
+#: Content/CustomPostType.php:60
 msgid "All %s"
 msgstr ""
 
-#: Content/CustomPostType.php:62
+#: Content/CustomPostType.php:61
 msgid "Search %s"
 msgstr ""
 
-#: Content/CustomPostType.php:63
+#: Content/CustomPostType.php:62
 msgid "Parent %s"
 msgstr ""
 
-#: Content/CustomPostType.php:64
+#: Content/CustomPostType.php:63
 msgid "No %s found"
 msgstr ""
 
-#: Content/CustomPostType.php:65
+#: Content/CustomPostType.php:64
 msgid "No %s found in trash"
 msgstr ""
 
-#: Content/CustomPostType.php:86
+#: Content/CustomPostType.php:85
 msgid "Auto generated cpt from user iterface."
 msgstr ""
 
@@ -15452,47 +15462,47 @@ msgstr ""
 msgid "Visit"
 msgstr ""
 
-#: Controller/E404.php:30
+#: Controller/E404.php:29
 msgid "Go back"
 msgstr ""
 
-#: Controller/E404.php:37
-#: Helper/TranslatedLabels.php:19
+#: Controller/E404.php:36
+#: Helper/TranslatedLabels.php:21
 #: Widget/Brand/Brand.php:47
 #: Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr ""
 
-#: Controller/E404.php:47
-#: Helper/TranslatedLabels.php:59
+#: Controller/E404.php:46
+#: Helper/TranslatedLabels.php:61
 msgid "Show all"
 msgstr ""
 
-#: Controller/E404.php:59
+#: Controller/E404.php:57
 msgid "Oops! The page you requested cannot be found."
 msgstr ""
 
-#: Controller/E404.php:68
+#: Controller/E404.php:66
 msgid "The %s you are looking for is either moved or removed."
 msgstr ""
 
-#: Controller/Search.php:14
+#: Controller/Search.php:13
 msgid "The searchquery did not match any content."
 msgstr ""
 
-#: Controller/Search.php:15
+#: Controller/Search.php:14
 msgid "Found"
 msgstr ""
 
-#: Controller/Search.php:16
+#: Controller/Search.php:15
 msgid "results"
 msgstr ""
 
-#: Controller/Search.php:17
+#: Controller/Search.php:16
 msgid "Search for"
 msgstr ""
 
-#: Controller/Search.php:18
+#: Controller/Search.php:17
 msgid "View page"
 msgstr ""
 
@@ -15635,8 +15645,8 @@ msgid "Visiting addresses"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:597
-#: Helper/TranslatedLabels.php:60
-#: Helper/TranslatedLabels.php:76
+#: Helper/TranslatedLabels.php:62
+#: Helper/TranslatedLabels.php:78
 msgid "Read more"
 msgstr ""
 
@@ -16875,12 +16885,12 @@ msgid "Drawer navigation, secondary"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:55
-#: Helper/TranslatedLabels.php:46
+#: Helper/TranslatedLabels.php:48
 msgid "Primary navigation"
 msgstr ""
 
 #: Customizer/Sections/Menu/Colors.php:68
-#: Helper/TranslatedLabels.php:54
+#: Helper/TranslatedLabels.php:56
 msgid "Language"
 msgstr ""
 
@@ -17383,223 +17393,223 @@ msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Helper/TranslatedLabels.php:20
+#: Helper/TranslatedLabels.php:22
 msgid "Jump to the main menu"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:21
+#: Helper/TranslatedLabels.php:23
 msgid "Skip to the main content"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:22
+#: Helper/TranslatedLabels.php:24
 msgid "Jump to the main content"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:23
+#: Helper/TranslatedLabels.php:25
 msgid "Skip to the main menu"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:24
+#: Helper/TranslatedLabels.php:26
 msgid "Skip to the side menu"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:25
+#: Helper/TranslatedLabels.php:27
 msgid "ago"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:26
+#: Helper/TranslatedLabels.php:28
 msgid "just now"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:27
+#: Helper/TranslatedLabels.php:29
 msgid "since"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:28
+#: Helper/TranslatedLabels.php:30
 msgid "years"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:29
+#: Helper/TranslatedLabels.php:31
 msgid "year"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:30
+#: Helper/TranslatedLabels.php:32
 msgid "months"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:31
+#: Helper/TranslatedLabels.php:33
 msgid "month"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:32
+#: Helper/TranslatedLabels.php:34
 msgid "weeks"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:33
+#: Helper/TranslatedLabels.php:35
 msgid "week"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:35
+#: Helper/TranslatedLabels.php:37
 msgid "day"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:36
+#: Helper/TranslatedLabels.php:38
 msgid "hours"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:37
+#: Helper/TranslatedLabels.php:39
 msgid "hour"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:38
+#: Helper/TranslatedLabels.php:40
 msgid "minutes"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:39
+#: Helper/TranslatedLabels.php:41
 msgid "minute"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:40
+#: Helper/TranslatedLabels.php:42
 msgid "seconds"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:41
+#: Helper/TranslatedLabels.php:43
 msgid "second"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:43
+#: Helper/TranslatedLabels.php:45
 msgid "Search on"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:44
+#: Helper/TranslatedLabels.php:46
 msgid "What are you searching for?"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:45
+#: Helper/TranslatedLabels.php:47
 msgid "Searchresults"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:48
+#: Helper/TranslatedLabels.php:50
 msgid "Useful links"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:49
+#: Helper/TranslatedLabels.php:51
 msgid "Related links"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:50
+#: Helper/TranslatedLabels.php:52
 #: Theme/Icon.php:52
 #: Widget/Header/Links.php:68
 #: Widget/Navigation/Navigation.php:77
 msgid "Menu"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:51
+#: Helper/TranslatedLabels.php:53
 msgid "Site emblem"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:52
+#: Helper/TranslatedLabels.php:54
 msgid "Close"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:53
+#: Helper/TranslatedLabels.php:55
 msgid "More Languages"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:55
+#: Helper/TranslatedLabels.php:57
 msgid "Expand"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:56
+#: Helper/TranslatedLabels.php:58
 msgid "You are here: "
 msgstr ""
 
-#: Helper/TranslatedLabels.php:57
+#: Helper/TranslatedLabels.php:59
 msgid "Reading time"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:58
+#: Helper/TranslatedLabels.php:60
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:61
+#: Helper/TranslatedLabels.php:63
 msgid "Book here"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:62
-#: Helper/TranslatedLabels.php:75
+#: Helper/TranslatedLabels.php:64
+#: Helper/TranslatedLabels.php:77
 msgid "Updated"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:63
-#: Helper/TranslatedLabels.php:74
+#: Helper/TranslatedLabels.php:65
+#: Helper/TranslatedLabels.php:76
 msgid "Published"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:64
+#: Helper/TranslatedLabels.php:66
 msgid "Published by"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:65
+#: Helper/TranslatedLabels.php:67
 msgid "on"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:66
+#: Helper/TranslatedLabels.php:68
 msgid "of"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:67
-#: Helper/TranslatedLabels.php:81
+#: Helper/TranslatedLabels.php:69
+#: Helper/TranslatedLabels.php:83
 msgid "Filter"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:68
-#: Helper/TranslatedLabels.php:83
+#: Helper/TranslatedLabels.php:70
+#: Helper/TranslatedLabels.php:85
 msgid "Reset filter"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:69
+#: Helper/TranslatedLabels.php:71
 msgid "No items found."
 msgstr ""
 
-#: Helper/TranslatedLabels.php:70
+#: Helper/TranslatedLabels.php:72
 msgid "Sort by"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:71
+#: Helper/TranslatedLabels.php:73
 msgid "Random"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:72
+#: Helper/TranslatedLabels.php:74
 msgid "Name (A-Z)"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:73
+#: Helper/TranslatedLabels.php:75
 msgid "Publish Date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:77
+#: Helper/TranslatedLabels.php:79
 msgid "Choose a from date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:78
+#: Helper/TranslatedLabels.php:80
 msgid "Choose a to date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:79
+#: Helper/TranslatedLabels.php:81
 msgid "Select a valid date"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:82
+#: Helper/TranslatedLabels.php:84
 msgid "Reset search"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:84
+#: Helper/TranslatedLabels.php:86
 msgid "Archive navigation"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:85
+#: Helper/TranslatedLabels.php:87
 msgid "Reset"
 msgstr ""
 
@@ -17649,43 +17659,43 @@ msgstr ""
 msgid "Alignment"
 msgstr ""
 
-#: Theme/Enqueue.php:215
+#: Theme/Enqueue.php:216
 msgid "Insert Print Page Break tag"
 msgstr ""
 
-#: Theme/Enqueue.php:218
+#: Theme/Enqueue.php:219
 msgid "Are you sure you want to delete the comment?"
 msgstr ""
 
-#: Theme/Enqueue.php:219
+#: Theme/Enqueue.php:220
 msgid "Something went wrong, please try again later"
 msgstr ""
 
-#: Theme/Enqueue.php:246
+#: Theme/Enqueue.php:247
 msgid "Su"
 msgstr ""
 
-#: Theme/Enqueue.php:247
+#: Theme/Enqueue.php:248
 msgid "Mo"
 msgstr ""
 
-#: Theme/Enqueue.php:248
+#: Theme/Enqueue.php:249
 msgid "Tu"
 msgstr ""
 
-#: Theme/Enqueue.php:249
+#: Theme/Enqueue.php:250
 msgid "We"
 msgstr ""
 
-#: Theme/Enqueue.php:250
+#: Theme/Enqueue.php:251
 msgid "Th"
 msgstr ""
 
-#: Theme/Enqueue.php:251
+#: Theme/Enqueue.php:252
 msgid "Fr"
 msgstr ""
 
-#: Theme/Enqueue.php:252
+#: Theme/Enqueue.php:253
 msgid "Sa"
 msgstr ""
 

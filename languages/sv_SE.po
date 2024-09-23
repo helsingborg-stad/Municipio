@@ -396,7 +396,7 @@ msgid "Disabled"
 msgstr "Inaktiverad"
 
 #: AcfFields/php/options-activate-gutenberg.php:25
-#: Controller/Search.php:13
+#: Controller/Search.php:12
 #: Customizer/Sections/Menu/Quicklinks.php:206
 msgid "All pages"
 msgstr "Alla sidor"
@@ -2367,6 +2367,7 @@ msgid "http"
 msgstr "http"
 
 #: AcfFields/php/external-content-settings.php:168
+#: AcfFields/php/external-content-settings.php:171
 #: AcfFields/php/options-menu-icon.php:487
 msgid "https"
 msgstr "https"
@@ -4778,7 +4779,7 @@ msgstr "En länk till tjänsten som används för översättningar, så att anv�
 #: AcfFields/php/options-theme-google-translate.php:59
 #: Customizer/PanelsRegistry.php:435
 #: Customizer/Sections/Search.php:138
-#: Helper/TranslatedLabels.php:47
+#: Helper/TranslatedLabels.php:49
 #: Theme/Navigation.php:31
 msgid "Mega menu"
 msgstr "Megameny"
@@ -5154,7 +5155,7 @@ msgid "Display the notice after this many days"
 msgstr "Visa notisen på inlägg äldre än så här många dagar"
 
 #: AcfFields/php/options-theme-custom-post-type.php:388
-#: Helper/TranslatedLabels.php:34
+#: Helper/TranslatedLabels.php:36
 msgid "days"
 msgstr "dagar"
 
@@ -14854,15 +14855,15 @@ msgstr "Ladda upp bild"
 msgid "Media link"
 msgstr "Medialänk"
 
-#: Admin/Acf/ImageAltTextValidation.php:192
+#: Admin/Acf/ImageAltTextValidation.php:197
 msgid "Please add an alt text to the featured image."
 msgstr "Var god och lägg till en alt-text till bilden."
 
-#: Admin/Acf/ImageAltTextValidation.php:193
+#: Admin/Acf/ImageAltTextValidation.php:198
 msgid "Please add an alt text to the image."
 msgstr "Var god och lägg till en alt-text till bilden."
 
-#: Admin/General.php:115
+#: Admin/General.php:113
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
@@ -14901,7 +14902,7 @@ msgstr "Behållare-block"
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: Admin/LoginTracking.php:32
+#: Admin/LoginTracking.php:35
 msgid "Last Login"
 msgstr "Senaste inloggning"
 
@@ -14916,8 +14917,8 @@ msgstr "Samtyckes kommentar"
 #: Admin/Options/Theme.php:46
 #: Admin/Options/Theme.php:47
 #: Customizer/PanelsRegistry.php:282
-#: Helper/TranslatedLabels.php:42
-#: Helper/TranslatedLabels.php:80
+#: Helper/TranslatedLabels.php:44
+#: Helper/TranslatedLabels.php:82
 #: Search/General.php:49
 #: Search/General.php:56
 #: Search/General.php:61
@@ -14973,33 +14974,33 @@ msgstr "Egen CSS/JS"
 msgid "PDF Generator Settings"
 msgstr "Inställningar för PDF-generator"
 
-#: Admin/UI/BackEnd.php:57
+#: Admin/UI/BackEnd.php:60
 msgid "Local"
 msgstr "Lokal miljö"
 
-#: Admin/UI/BackEnd.php:61
+#: Admin/UI/BackEnd.php:64
 msgid "Test"
 msgstr "Test"
 
-#: Admin/UI/BackEnd.php:65
+#: Admin/UI/BackEnd.php:68
 msgid "Beta"
 msgstr "Beta"
 
-#: Admin/UI/BackEnd.php:75
-#: Admin/UI/BackEnd.php:80
-#: Admin/UI/BackEnd.php:85
+#: Admin/UI/BackEnd.php:78
+#: Admin/UI/BackEnd.php:83
+#: Admin/UI/BackEnd.php:88
 msgid "Notice"
 msgstr "Notis"
 
-#: Admin/UI/BackEnd.php:75
+#: Admin/UI/BackEnd.php:78
 msgid "You're on a local server."
 msgstr "Detta är en lokal server."
 
-#: Admin/UI/BackEnd.php:80
+#: Admin/UI/BackEnd.php:83
 msgid "This it the test-environment. Your content will not be published."
 msgstr "Detta är en test-miljö. Ditt innehåll kommer inte att publiceras."
 
-#: Admin/UI/BackEnd.php:85
+#: Admin/UI/BackEnd.php:88
 msgid "This it the beta-environment. All functionality is not guaranteed. Possibly, the web page content will be restored and synchronized with the live site on Monday."
 msgstr "Detta är en beta-miljö. All funktionalitet är inte garanterad. Eventuellt kommer webbsidans innehåll att återställas och synkroniseras med live sajten på måndag."
 
@@ -15117,28 +15118,28 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: Comment/Form.php:36
+#: Comment/Form.php:37
 #: Theme/Icon.php:73
 msgid "Comment"
 msgstr "Kommentar"
 
-#: Comment/Form.php:37
+#: Comment/Form.php:38
 msgid "Your name"
 msgstr "Ditt namn"
 
-#: Comment/Form.php:38
+#: Comment/Form.php:39
 msgid "Your email"
 msgstr "Din e-postadress"
 
-#: Comment/Form.php:39
+#: Comment/Form.php:40
 msgid "Leave a comment"
 msgstr "Lämna en kommentar"
 
-#: Comment/Form.php:40
+#: Comment/Form.php:41
 msgid "You need to login before leaving a comment."
 msgstr "Du behöver logga in för att kunna lämna en kommentar."
 
-#: Comment/Form.php:59
+#: Comment/Form.php:60
 msgid "Cancel reply"
 msgstr "Avbryt"
 
@@ -15160,56 +15161,56 @@ msgstr "Ogilla "
 msgid "Like "
 msgstr "Gilla "
 
-#: Content/CustomPostType.php:56
+#: Content/CustomPostType.php:55
 msgid "Add new"
 msgstr "Skapa ny"
 
-#: Content/CustomPostType.php:57
+#: Content/CustomPostType.php:56
 #, php-format
 msgid "Add new %s"
 msgstr "Skapa ny %s"
 
-#: Content/CustomPostType.php:58
+#: Content/CustomPostType.php:57
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: Content/CustomPostType.php:59
+#: Content/CustomPostType.php:58
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: Content/CustomPostType.php:60
+#: Content/CustomPostType.php:59
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: Content/CustomPostType.php:61
+#: Content/CustomPostType.php:60
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: Content/CustomPostType.php:62
+#: Content/CustomPostType.php:61
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: Content/CustomPostType.php:63
+#: Content/CustomPostType.php:62
 #, php-format
 msgid "Parent %s"
 msgstr "Förälder %s"
 
-#: Content/CustomPostType.php:64
+#: Content/CustomPostType.php:63
 #, php-format
 msgid "No %s found"
 msgstr "Inga %s hittades"
 
-#: Content/CustomPostType.php:65
+#: Content/CustomPostType.php:64
 #, php-format
 msgid "No %s found in trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: Content/CustomPostType.php:86
+#: Content/CustomPostType.php:85
 msgid "Auto generated cpt from user iterface."
 msgstr "Automatiskt genererade posttyper från inställningspanel."
 
@@ -15340,8 +15341,8 @@ msgid "Visiting addresses"
 msgstr "Adresser"
 
 #: Controller/Utils/SingularSchoolData.php:597
-#: Helper/TranslatedLabels.php:60
-#: Helper/TranslatedLabels.php:76
+#: Helper/TranslatedLabels.php:62
+#: Helper/TranslatedLabels.php:78
 msgid "Read more"
 msgstr "Läs mer"
 
@@ -15358,48 +15359,48 @@ msgstr "Datum och tid: %s kl. %s"
 msgid "Events"
 msgstr "Evenemang"
 
-#: Controller/E404.php:30
+#: Controller/E404.php:29
 msgid "Go back"
 msgstr "Gå bakåt"
 
-#: Controller/E404.php:37
-#: Helper/TranslatedLabels.php:19
+#: Controller/E404.php:36
+#: Helper/TranslatedLabels.php:21
 #: Widget/Brand/Brand.php:47
 #: Widget/Header/Logo.php:46
 msgid "Go to homepage"
 msgstr "Gå till startsidan"
 
-#: Controller/E404.php:47
-#: Helper/TranslatedLabels.php:59
+#: Controller/E404.php:46
+#: Helper/TranslatedLabels.php:61
 msgid "Show all"
 msgstr "Visa alla"
 
-#: Controller/E404.php:59
+#: Controller/E404.php:57
 msgid "Oops! The page you requested cannot be found."
 msgstr "Oj! Sidan som du begärde finns inte."
 
-#: Controller/E404.php:68
+#: Controller/E404.php:66
 #, php-format
 msgid "The %s you are looking for is either moved or removed."
 msgstr "Sidan %s som du letade efter har antagligen flyttats eller blivit borttagen."
 
-#: Controller/Search.php:14
+#: Controller/Search.php:13
 msgid "The searchquery did not match any content."
 msgstr "Sökfrågan matchade inget innehåll."
 
-#: Controller/Search.php:15
+#: Controller/Search.php:14
 msgid "Found"
 msgstr "Hittade"
 
-#: Controller/Search.php:16
+#: Controller/Search.php:15
 msgid "results"
 msgstr "resultat"
 
-#: Controller/Search.php:17
+#: Controller/Search.php:16
 msgid "Search for"
 msgstr "Sök efter"
 
-#: Controller/Search.php:18
+#: Controller/Search.php:17
 msgid "View page"
 msgstr "Visa sida"
 
@@ -16668,12 +16669,12 @@ msgid "Drawer navigation, secondary"
 msgstr "Panelnavigation, sekundär"
 
 #: Customizer/Sections/Menu/Colors.php:55
-#: Helper/TranslatedLabels.php:46
+#: Helper/TranslatedLabels.php:48
 msgid "Primary navigation"
 msgstr "Huvudmeny"
 
 #: Customizer/Sections/Menu/Colors.php:68
-#: Helper/TranslatedLabels.php:54
+#: Helper/TranslatedLabels.php:56
 msgid "Language"
 msgstr "Språk"
 
@@ -17041,219 +17042,219 @@ msgid_plural "%d minutes"
 msgstr[0] "1 minut"
 msgstr[1] "%d minuter"
 
-#: Helper/TranslatedLabels.php:20
+#: Helper/TranslatedLabels.php:22
 msgid "Jump to the main menu"
 msgstr "Hoppa till huvudmenyn"
 
-#: Helper/TranslatedLabels.php:21
+#: Helper/TranslatedLabels.php:23
 msgid "Skip to the main content"
 msgstr "Gå till innehåll"
 
-#: Helper/TranslatedLabels.php:22
+#: Helper/TranslatedLabels.php:24
 msgid "Jump to the main content"
 msgstr "Hoppa till innehåll"
 
-#: Helper/TranslatedLabels.php:23
+#: Helper/TranslatedLabels.php:25
 msgid "Skip to the main menu"
 msgstr "Gå till huvudmeny"
 
-#: Helper/TranslatedLabels.php:24
+#: Helper/TranslatedLabels.php:26
 msgid "Skip to the side menu"
 msgstr "Gå till sidomeny"
 
-#: Helper/TranslatedLabels.php:25
+#: Helper/TranslatedLabels.php:27
 msgid "ago"
 msgstr "sedan"
 
-#: Helper/TranslatedLabels.php:27
+#: Helper/TranslatedLabels.php:29
 msgid "since"
 msgstr "sedan"
 
-#: Helper/TranslatedLabels.php:28
+#: Helper/TranslatedLabels.php:30
 msgid "years"
 msgstr "år"
 
-#: Helper/TranslatedLabels.php:29
+#: Helper/TranslatedLabels.php:31
 msgid "year"
 msgstr "år"
 
-#: Helper/TranslatedLabels.php:30
+#: Helper/TranslatedLabels.php:32
 msgid "months"
 msgstr "månader"
 
-#: Helper/TranslatedLabels.php:31
+#: Helper/TranslatedLabels.php:33
 msgid "month"
 msgstr "månad"
 
-#: Helper/TranslatedLabels.php:32
+#: Helper/TranslatedLabels.php:34
 msgid "weeks"
 msgstr "veckor"
 
-#: Helper/TranslatedLabels.php:33
+#: Helper/TranslatedLabels.php:35
 msgid "week"
 msgstr "vecka"
 
-#: Helper/TranslatedLabels.php:35
+#: Helper/TranslatedLabels.php:37
 msgid "day"
 msgstr "dag"
 
-#: Helper/TranslatedLabels.php:36
+#: Helper/TranslatedLabels.php:38
 msgid "hours"
 msgstr "timmar"
 
-#: Helper/TranslatedLabels.php:37
+#: Helper/TranslatedLabels.php:39
 msgid "hour"
 msgstr "timme"
 
-#: Helper/TranslatedLabels.php:38
+#: Helper/TranslatedLabels.php:40
 msgid "minutes"
 msgstr "minuter"
 
-#: Helper/TranslatedLabels.php:39
+#: Helper/TranslatedLabels.php:41
 msgid "minute"
 msgstr "minut"
 
-#: Helper/TranslatedLabels.php:40
+#: Helper/TranslatedLabels.php:42
 msgid "seconds"
 msgstr "sekunder"
 
-#: Helper/TranslatedLabels.php:41
+#: Helper/TranslatedLabels.php:43
 msgid "second"
 msgstr "sekund"
 
-#: Helper/TranslatedLabels.php:43
+#: Helper/TranslatedLabels.php:45
 msgid "Search on"
 msgstr "Sök på"
 
-#: Helper/TranslatedLabels.php:44
+#: Helper/TranslatedLabels.php:46
 msgid "What are you searching for?"
 msgstr "Vad letar du efter?"
 
-#: Helper/TranslatedLabels.php:45
+#: Helper/TranslatedLabels.php:47
 msgid "Searchresults"
 msgstr "Sökresultat"
 
-#: Helper/TranslatedLabels.php:48
+#: Helper/TranslatedLabels.php:50
 msgid "Useful links"
 msgstr "Användbara länkar"
 
-#: Helper/TranslatedLabels.php:49
+#: Helper/TranslatedLabels.php:51
 msgid "Related links"
 msgstr "Relaterade länkar"
 
-#: Helper/TranslatedLabels.php:50
+#: Helper/TranslatedLabels.php:52
 #: Theme/Icon.php:52
 #: Widget/Header/Links.php:68
 #: Widget/Navigation/Navigation.php:77
 msgid "Menu"
 msgstr "Meny"
 
-#: Helper/TranslatedLabels.php:51
+#: Helper/TranslatedLabels.php:53
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
 
-#: Helper/TranslatedLabels.php:52
+#: Helper/TranslatedLabels.php:54
 msgid "Close"
 msgstr "Stäng"
 
-#: Helper/TranslatedLabels.php:53
+#: Helper/TranslatedLabels.php:55
 msgid "More Languages"
 msgstr "Fler språk"
 
-#: Helper/TranslatedLabels.php:55
+#: Helper/TranslatedLabels.php:57
 msgid "Expand"
 msgstr "Expandera"
 
-#: Helper/TranslatedLabels.php:56
+#: Helper/TranslatedLabels.php:58
 msgid "You are here: "
 msgstr "Du är här: "
 
-#: Helper/TranslatedLabels.php:57
+#: Helper/TranslatedLabels.php:59
 msgid "Reading time"
 msgstr "Lästid"
 
-#: Helper/TranslatedLabels.php:58
+#: Helper/TranslatedLabels.php:60
 msgctxt "Related (name of posttype)"
 msgid "Related"
 msgstr "Relaterade"
 
-#: Helper/TranslatedLabels.php:61
+#: Helper/TranslatedLabels.php:63
 msgid "Book here"
 msgstr "Boka här"
 
-#: Helper/TranslatedLabels.php:62
-#: Helper/TranslatedLabels.php:75
+#: Helper/TranslatedLabels.php:64
+#: Helper/TranslatedLabels.php:77
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: Helper/TranslatedLabels.php:63
-#: Helper/TranslatedLabels.php:74
+#: Helper/TranslatedLabels.php:65
+#: Helper/TranslatedLabels.php:76
 msgid "Published"
 msgstr "Publicerad"
 
-#: Helper/TranslatedLabels.php:64
+#: Helper/TranslatedLabels.php:66
 msgid "Published by"
 msgstr "Publicerad av"
 
-#: Helper/TranslatedLabels.php:65
+#: Helper/TranslatedLabels.php:67
 msgid "on"
 msgstr "på"
 
-#: Helper/TranslatedLabels.php:66
+#: Helper/TranslatedLabels.php:68
 msgid "of"
 msgstr ""
 
-#: Helper/TranslatedLabels.php:67
-#: Helper/TranslatedLabels.php:81
+#: Helper/TranslatedLabels.php:69
+#: Helper/TranslatedLabels.php:83
 msgid "Filter"
 msgstr "Filtrera"
 
-#: Helper/TranslatedLabels.php:68
-#: Helper/TranslatedLabels.php:83
+#: Helper/TranslatedLabels.php:70
+#: Helper/TranslatedLabels.php:85
 msgid "Reset filter"
 msgstr "Återställ filter"
 
-#: Helper/TranslatedLabels.php:69
+#: Helper/TranslatedLabels.php:71
 msgid "No items found."
 msgstr "Inga hittades."
 
-#: Helper/TranslatedLabels.php:70
+#: Helper/TranslatedLabels.php:72
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: Helper/TranslatedLabels.php:71
+#: Helper/TranslatedLabels.php:73
 msgid "Random"
 msgstr "Slumpmässig"
 
-#: Helper/TranslatedLabels.php:72
+#: Helper/TranslatedLabels.php:74
 msgid "Name (A-Z)"
 msgstr "Namn (A-Ö)"
 
-#: Helper/TranslatedLabels.php:73
+#: Helper/TranslatedLabels.php:75
 msgid "Publish Date"
 msgstr "Publiceringsdatum"
 
-#: Helper/TranslatedLabels.php:77
+#: Helper/TranslatedLabels.php:79
 msgid "Choose a from date"
 msgstr "Välj ett \"från\" datum"
 
-#: Helper/TranslatedLabels.php:78
+#: Helper/TranslatedLabels.php:80
 msgid "Choose a to date"
 msgstr "Välj ett \"till\" datum"
 
-#: Helper/TranslatedLabels.php:79
+#: Helper/TranslatedLabels.php:81
 msgid "Select a valid date"
 msgstr "Välj ett giltigt datum"
 
-#: Helper/TranslatedLabels.php:82
+#: Helper/TranslatedLabels.php:84
 msgid "Reset search"
 msgstr "Återställ sök"
 
-#: Helper/TranslatedLabels.php:84
+#: Helper/TranslatedLabels.php:86
 msgid "Archive navigation"
 msgstr "Arkivnavigering"
 
-#: Helper/TranslatedLabels.php:85
+#: Helper/TranslatedLabels.php:87
 msgid "Reset"
 msgstr "Återställ"
 
@@ -17301,43 +17302,43 @@ msgstr "One Page"
 msgid "Page (centered)"
 msgstr "Centrerad sida"
 
-#: Theme/Enqueue.php:215
+#: Theme/Enqueue.php:216
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: Theme/Enqueue.php:218
+#: Theme/Enqueue.php:219
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: Theme/Enqueue.php:219
+#: Theme/Enqueue.php:220
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: Theme/Enqueue.php:246
+#: Theme/Enqueue.php:247
 msgid "Su"
 msgstr "Sö"
 
-#: Theme/Enqueue.php:247
+#: Theme/Enqueue.php:248
 msgid "Mo"
 msgstr "Må"
 
-#: Theme/Enqueue.php:248
+#: Theme/Enqueue.php:249
 msgid "Tu"
 msgstr "Ti"
 
-#: Theme/Enqueue.php:249
+#: Theme/Enqueue.php:250
 msgid "We"
 msgstr "On"
 
-#: Theme/Enqueue.php:250
+#: Theme/Enqueue.php:251
 msgid "Th"
 msgstr "To"
 
-#: Theme/Enqueue.php:251
+#: Theme/Enqueue.php:252
 msgid "Fr"
 msgstr "Fr"
 
-#: Theme/Enqueue.php:252
+#: Theme/Enqueue.php:253
 msgid "Sa"
 msgstr "Lö"
 
@@ -17786,6 +17787,7 @@ msgid "Source type"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:75
+#: AcfFields/php/external-content-settings.php:78
 msgid "json"
 msgstr ""
 
@@ -17821,15 +17823,15 @@ msgstr ""
 msgid "Add Taxonomy"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:322
+#: AcfFields/php/external-content-settings.php:323
 msgid "Create terms from schema property"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:349
+#: AcfFields/php/external-content-settings.php:344
 msgid "Name (plural)"
 msgstr ""
 
-#: AcfFields/php/external-content-settings.php:370
+#: AcfFields/php/external-content-settings.php:365
 msgid "Name (singular)"
 msgstr ""
 
@@ -17976,7 +17978,7 @@ msgstr ""
 msgid "school-person"
 msgstr ""
 
-#: App.php:529
+#: App.php:625
 msgid "Never"
 msgstr ""
 
@@ -18142,7 +18144,7 @@ msgstr ""
 msgid "This will style modules to have the same color scheme as the loaded design."
 msgstr ""
 
-#: Helper/TranslatedLabels.php:26
+#: Helper/TranslatedLabels.php:28
 msgid "just now"
 msgstr ""
 
@@ -18157,3 +18159,11 @@ msgstr "imorgon"
 #: Controller/SingularJobPosting.php:34
 msgid "expired"
 msgstr "stängd"
+
+#: AcfFields/php/external-content-settings.php:327
+msgid "Name of the schema property to use as a taxonomy. Ex. for using the <code>director</code> property on the <code>Event</code> schema type, supply <code>director</code> as value. If you wish to use a nested object value you can nest like this: <code>director.email</code>. Should the property contain an object of the type <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a> the <code>value</code> property will be used by default when creating terms."
+msgstr "Namn på schemaegenskapen som ska användas som en taxonomi. Exempelvis, för att använda egenskapen <code>director</code> på schema-typen <code>Event</code>, ange <code>director</code> som värde. Om du vill använda ett värde från ett nestat objekt kan du nästlat det så här: <code>director.email</code>. Om egenskapen innehåller ett objekt av typen <a href="https://schema.org/PropertyValue\" target="_blank">PropertyValue</a>, kommer egenskapen <code>value</code> att användas som standard när termer skapas."
+
+#: AcfFields/php/external-content-settings.php:337
+msgid "ex. director"
+msgstr ""
