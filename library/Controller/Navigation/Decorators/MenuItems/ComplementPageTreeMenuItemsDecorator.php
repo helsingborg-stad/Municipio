@@ -5,7 +5,7 @@ namespace Municipio\Controller\Navigation\Decorators\MenuItems;
 use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
 use Municipio\Controller\Navigation\Cache\RuntimeCache;
 
-class ComplementObjectsDecorator implements PageTreeDecoratorInterface
+class ComplementPageTreeMenuItemsDecorator implements PageTreeDecoratorInterface
 {
     public function __construct(
         private string $identifier,

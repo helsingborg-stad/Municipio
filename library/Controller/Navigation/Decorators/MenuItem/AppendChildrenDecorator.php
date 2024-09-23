@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Decorators\MenuItem;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementPageTreeMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
@@ -15,19 +15,19 @@ class AppendChildrenDecorator implements MenuItemDecoratorInterface
         private GetPostsByParent $getPostsByParentInstance,
         private GetHiddenPostIds $getHiddenPostIdsInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
-        private ?ComplementObjectsDecorator $complementObjectsInstance = null
+        private ?ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance = null
     ) {
     }
 
     /**
      * Sets the complement objects instance for the AppendChildrenDecorator.
      *
-     * @param ComplementObjectsDecorator $complementObjectsInstance The complement objects instance to set.
+     * @param ComplementPageTreeMenuItemsDecorator $complementObjectsInstance The complement objects instance to set.
      * @return void
      */
-    public function setComplementObjectsInstance(ComplementObjectsDecorator $complementObjectsInstance): void
+    public function setComplementObjectsInstance(ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance): void
     {
-        $this->complementObjectsInstance = $complementObjectsInstance;
+        $this->complementPageTreeMenuItemsDecoratorInstance = $complementPageTreeMenuItemsDecoratorInstance;
     }
 
      /**
@@ -51,7 +51,7 @@ class AppendChildrenDecorator implements MenuItemDecoratorInterface
 
         //If null, no children
         if (is_array($children) && !empty($children)) {
-            $menuItems['children'] = $this->complementObjectsInstance->decorate($children);
+            $menuItems['children'] = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($children);
         } else {
             $menuItems['children'] = (bool) $children;
         }

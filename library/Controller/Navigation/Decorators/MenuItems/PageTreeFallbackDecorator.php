@@ -4,7 +4,7 @@ namespace Municipio\Controller\Navigation\Decorators\Menuitems;
 
 use Municipio\Controller\Navigation\Decorators\GetAncestors;
 use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
-use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementPageTreeMenuItemsDecorator;
 
 class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
 {
@@ -14,7 +14,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         private int $pageId,
         private GetAncestors $getAncestorsInstance,
         private GetPostsByParent $getPostsByParentInstance,
-        private ComplementObjectsDecorator $complementObjectsDecoratorInstance
+        private ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance
     ) {
     }
 
@@ -36,7 +36,7 @@ class PageTreeFallbackDecorator implements MenuItemsDecoratorInterface
         $result = $this->getPostsByParentInstance->getPostsByParent($result, [$this->masterPostType, get_post_type()]);
 
         //Format response
-        $result = $this->complementObjectsDecoratorInstance->decorate($result);
+        $result = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($result);
 
         //Return
         return $result;

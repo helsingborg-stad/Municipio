@@ -16,7 +16,7 @@ use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 
 use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementPageTreeMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveTopLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDescorator;
@@ -312,6 +312,8 @@ class BaseController
         $name   = GetMenuData::getMenuName($identifier);
         $pageId = $this->getPageID();
 
+        $menu = new Menu([], $identifier, $pageId, $context);
+
         // Cache
         $cacheManagerInstance = new CacheManager();
         $runTimeCacheInstance = new RuntimeCache();
@@ -329,7 +331,7 @@ class BaseController
         $transformObjectDecoratorInstance = new TransformObjectDecorator();
 
         // MenuItems decorators
-        $complementObjectsDecoratorInstance = new ComplementObjectsDecorator(
+        $complementPageTreeMenuItemsDecoratorInstance = new ComplementPageTreeMenuItemsDecorator(
             $identifier,
             [
                 new AppendHrefDecorator(),
@@ -342,11 +344,9 @@ class BaseController
             $runTimeCacheInstance
         );
 
-        $appendChildrenDecoratorInstance->setComplementObjectsInstance($complementObjectsDecoratorInstance);
-
+        $appendChildrenDecoratorInstance->setComplementObjectsInstance($complementPageTreeMenuItemsDecoratorInstance);
 
         return new Menu(
-            new NavigationHelper($identifier, $context),
             [
                 new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
                 new PageTreeFallbackDecorator(
@@ -360,8 +360,6 @@ class BaseController
                 new RemoveSubLevelDescorator(),
             ],
             $identifier,
-            $id,
-            $name,
             $pageId,
             $context
         );
