@@ -18,6 +18,9 @@ use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
 
 use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementObjectsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveTopLevelDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDescorator;
 
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendHrefDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendIsAncestorPostDecorator;
@@ -323,25 +326,19 @@ class BaseController
         $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
 
         // MenuItem decorators
-        $appendHrefDecoratorInstance = new AppendHrefDecorator();
-        $customTitleDecoratorInstance = new CustomTitleDecorator($this->db, $cacheManagerInstance);
-        $appendIsCurrentPostDecoratorIstance = new AppendIsCurrentPostDecorator($pageId);
-        $appendIsAncestorPostDecoratorInstance = new AppendIsAncestorPostDecorator($getAncestorsInstance);
         $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
         $transformObjectDecoratorInstance = new TransformObjectDecorator();
-
-
 
         // MenuItems decorators
         $complementObjectsDecoratorInstance = new ComplementObjectsDecorator(
             $identifier,
             [
-                $appendHrefDecoratorInstance,
-                $customTitleDecoratorInstance,
-                $appendIsCurrentPostDecoratorIstance,
-                $appendIsAncestorPostDecoratorInstance,
+                new AppendHrefDecorator(),
+                new CustomTitleDecorator($this->db, $cacheManagerInstance),
+                new AppendIsCurrentPostDecorator($pageId),
+                new AppendIsAncestorPostDecorator($getAncestorsInstance),
                 $appendChildrenDecoratorInstance,
-                $transformObjectDecoratorInstance
+                new TransformObjectDecorator()
             ],
             $runTimeCacheInstance
         );
@@ -351,14 +348,18 @@ class BaseController
 
         return new Menu(
             new NavigationHelper($identifier, $context),
-            new MenuConstructor($identifier, $id, $pageId),
-            new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
-            new PageTreeFallbackDecorator(
-                $pageId,
-                $getAncestorsInstance,
-                $getPostsByParentInstance,
-                $complementObjectsDecoratorInstance
-            ),
+            [
+                new ComplementMenuItemsDecorator($identifier, $id, $name, $pageId, $this->db),
+                new PageTreeFallbackDecorator(
+                    $pageId,
+                    $getAncestorsInstance,
+                    $getPostsByParentInstance,
+                    $complementObjectsDecoratorInstance
+                ),
+                new StructureMenuItemsDecorator(),
+                new RemoveTopLevelDecorator(),
+                new RemoveSubLevelDescorator(),
+            ],
             $identifier,
             $id,
             $name,

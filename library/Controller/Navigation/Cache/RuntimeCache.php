@@ -2,9 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Cache;
 
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
-
-class RuntimeCache implements CacheManagerInterface
+class RuntimeCache
 {
     //Static cache for ancestors
     private static $runtimeCache = [
@@ -45,17 +43,5 @@ class RuntimeCache implements CacheManagerInterface
         }
 
         return null;
-    }
-
-    /**
-     * This method is required by the interface, but runtime cache won't support persistent groups
-     *
-     * @param string $newCacheGroup
-     * @return bool
-     */
-    public function setCacheGroup(string $newCacheGroup): bool
-    {
-        // Runtime cache doesn't track cache groups, return true by default
-        return true;
     }
 }

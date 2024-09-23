@@ -706,7 +706,7 @@ class Navigation
     /**
      * Removes top level items
      *
-     * @param   array   $result    The unfiltered result set
+     * @param   array   $result    The  unfiltered result set
      *
      * @return  array   $result    The filtered result set (without top level)
      */
@@ -734,6 +734,7 @@ class Navigation
         }
         return $result;
     }
+    
     /**
      * It returns an array of items that are used in the accessibility menu.
      *

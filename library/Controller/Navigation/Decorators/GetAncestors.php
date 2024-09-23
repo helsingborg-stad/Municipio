@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Decorators;
 
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Cache\RuntimeCache;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 
 class GetAncestors
@@ -11,7 +11,7 @@ class GetAncestors
     public function __construct(
         private $postId,
         private $db,
-        private CacheManagerInterface $runtimeCacheInstance,
+        private RuntimeCache $runtimeCacheInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance
     ) {}
     
