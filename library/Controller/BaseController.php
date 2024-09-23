@@ -19,7 +19,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementMenuItemsDeco
 use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementPageTreeMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveTopLevelDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDescorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\RemoveSubLevelDecorator;
 
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendHrefDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\AppendIsAncestorPostDecorator;
@@ -143,7 +143,7 @@ class BaseController
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
 
         $mobileMenu = new \Municipio\Helper\Navigation('mobile');
-        $this->data['abcd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $this->data['sd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         $testMenu = $this->createMenuInstance('mobile');
         $this->data['mobileMenu'] = $testMenu->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
@@ -312,8 +312,6 @@ class BaseController
         $name   = GetMenuData::getMenuName($identifier);
         $pageId = $this->getPageID();
 
-        $menu = new Menu([], $identifier, $pageId, $context);
-
         // Cache
         $cacheManagerInstance = new CacheManager();
         $runTimeCacheInstance = new RuntimeCache();
@@ -353,11 +351,11 @@ class BaseController
                     $pageId,
                     $getAncestorsInstance,
                     $getPostsByParentInstance,
-                    $complementObjectsDecoratorInstance
+                    $complementPageTreeMenuItemsDecoratorInstance
                 ),
                 new StructureMenuItemsDecorator(),
                 new RemoveTopLevelDecorator(),
-                new RemoveSubLevelDescorator(),
+                new RemoveSubLevelDecorator(),
             ],
             $identifier,
             $pageId,
