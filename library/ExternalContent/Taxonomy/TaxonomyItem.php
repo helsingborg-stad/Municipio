@@ -5,6 +5,11 @@ namespace Municipio\ExternalContent\Taxonomy;
 use WpService\Contracts\__;
 use WpService\Contracts\RegisterTaxonomy;
 
+/**
+ * Class TaxonomyItem
+ *
+ * This class represents a taxonomy item and provides methods to interact with it.
+ */
 class TaxonomyItem implements TaxonomyItemInterface
 {
     /**
@@ -28,6 +33,9 @@ class TaxonomyItem implements TaxonomyItemInterface
         return $this->schemaObjectType;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getPostTypes(): array
     {
         return $this->postTypes;
@@ -84,6 +92,11 @@ class TaxonomyItem implements TaxonomyItemInterface
         ];
     }
 
+    /**
+     * Register the taxonomy with WordPress.
+     *
+     * @return void
+     */
     public function register(): void
     {
         $this->wpService->registerTaxonomy($this->getName(), $this->getPostTypes(), $this->getTaxonomyArgs());
@@ -109,9 +122,13 @@ class TaxonomyItem implements TaxonomyItemInterface
             'update_item'                => sprintf($this->wpService->__('Update %s'), $this->singleLabel),
             'add_new_item'               => sprintf($this->wpService->__('Add New %s'), $this->singleLabel),
             'new_item_name'              => sprintf($this->wpService->__('New %s Name'), $this->singleLabel),
-            'separate_items_with_commas' => sprintf($this->wpService->__('Separate %s with commas'), $this->pluralLabel),
+            'separate_items_with_commas' => sprintf($this->wpService->__(
+                'Separate %s with commas'
+            ), $this->pluralLabel),
             'add_or_remove_items'        => sprintf($this->wpService->__('Add or remove %s'), $this->pluralLabel),
-            'choose_from_most_used'      => sprintf($this->wpService->__('Choose from the most used %s'), $this->pluralLabel),
+            'choose_from_most_used'      => sprintf($this->wpService->__(
+                'Choose from the most used %s'
+            ), $this->pluralLabel),
             'not_found'                  => sprintf($this->wpService->__('No %s found.'), $this->pluralLabel),
             'menu_name'                  => $this->pluralLabel,
         ];
