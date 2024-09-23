@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\UI;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Post;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\NonceUrl;
 
 class PageRowActionsSyncButton implements Hookable
 {
@@ -12,8 +13,9 @@ class PageRowActionsSyncButton implements Hookable
      * PageRowActionsSyncButton constructor.
      *
      * @param \Municipio\ExternalContent\Config\SourceConfig[] $sourceConfigs
+     * @param AddFilter&NonceUrl $wpService
      */
-    public function __construct(private array $sourceConfigs, private AddFilter $wpService)
+    public function __construct(private array $sourceConfigs, private AddFilter&NonceUrl $wpService)
     {
     }
 
@@ -38,9 +40,11 @@ class PageRowActionsSyncButton implements Hookable
             $post->ID
         );
 
+        $url = $this->wpService->nonceUrl($_SERVER['REQUEST_URI'] ?? '') . $urlParams;
+
         $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
             '<a href="%s">%s</a>',
-            $_SERVER['REQUEST_URI'] . $urlParams,
+            $url,
             __('Sync this post from remote source', 'municipio')
         );
 
