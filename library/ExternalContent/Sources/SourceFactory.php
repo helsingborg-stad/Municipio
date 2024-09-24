@@ -48,7 +48,6 @@ class SourceFactory implements SourceFactoryInterface
      */
     private function createSource(SourceConfigInterface $sourceConfig): SourceInterface
     {
-        global $wpdb;
         $source = new Source($sourceConfig->getPostType(), $sourceConfig->getSchemaType());
 
         if ($sourceConfig->getSourceType() === 'typesense') {

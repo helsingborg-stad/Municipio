@@ -17,6 +17,11 @@ class SchemaDataDecorator implements WpPostArgsFromSchemaObjectInterface
         $post                             = $this->inner->create($schemaObject, $source);
         $post['meta_input']['schemaData'] = $schemaObject->toArray();
 
+        if (isset($post['meta_input']['schemaData']['id'])) {
+            // Remove id that might come from Typesense to avoid conflicts
+            unset($post['meta_input']['schemaData']['id']);
+        }
+
         return $post;
     }
 }

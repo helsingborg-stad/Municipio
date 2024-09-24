@@ -6,7 +6,7 @@ use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Thing;
 
-class ChecksumDecoratorTest extends TestCase
+class AddChecksumTest extends TestCase
 {
     /**
      * @testdox Checksum is applied as meta input
@@ -14,10 +14,10 @@ class ChecksumDecoratorTest extends TestCase
     public function testAppliesChecksum()
     {
         $schemaObject = new Thing();
-        $factory      = new ChecksumDecorator(new WpPostFactory());
+        $factory      = new AddChecksum(new WpPostFactory());
 
         $result = $factory->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals('a926b0ac10295f7e1461d6ac6ce34a4b78c148b3', $result['meta_input']['checksum']);
+        $this->assertEquals('8f11aed0a9fa79ac707b8a4846a74f27', $result['meta_input']['checksum']);
     }
 }

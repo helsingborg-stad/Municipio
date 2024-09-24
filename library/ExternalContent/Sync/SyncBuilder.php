@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ChecksumDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\AddChecksum;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
@@ -64,7 +64,7 @@ class SyncBuilder implements SyncBuilderInterface
         $postArgsFromSchemaObject = new SourceIdDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject); // phpcs:ignore Generic.Files.LineLength.TooLong
-        $postArgsFromSchemaObject = new ChecksumDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, $this->wpService);
 
         if ($this->postId === null) {
