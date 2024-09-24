@@ -73,8 +73,8 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
             $taxonomyItem->getSchemaObjectProperty()
         );
 
-        array_walk_recursive($value, function ($item, $key) use (&$results) {
-            $results[$key] = $item;
+        array_walk_recursive($value, function ($item) use (&$results) {
+            $results[] = $item;
         });
 
         return array_filter($results);

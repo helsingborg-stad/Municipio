@@ -133,8 +133,8 @@ class TermsDecoratorTest extends TestCase
 
         $schemaObject = new Event();
         $schemaObject->setProperty('@meta', [
-        Schema::propertyValue()->name('illness')->value('Mental'),
-        Schema::propertyValue()->name('foo')->value('Bar')
+            Schema::propertyValue()->name('foo')->value('Bar'),
+            Schema::propertyValue()->name('illness')->value('Mental'),
         ]);
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
