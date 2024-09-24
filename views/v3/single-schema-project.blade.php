@@ -1,6 +1,10 @@
 @extends('templates.single')
-
 @section('article.content')
+@image([
+    'src'=> $imageUrl,
+    'alt' => "This is a image"
+])
+@endimage
 <pre>
 Category: {!! $category !!}
 Title: {!! $post->schemaObject['name'] !!}
