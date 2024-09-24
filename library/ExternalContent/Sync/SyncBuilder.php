@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ChecksumDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
@@ -69,6 +70,7 @@ class SyncBuilder implements SyncBuilderInterface
             $this->wpService,
             $postArgsFromSchemaObject
         );
+        $postArgsFromSchemaObject = new ChecksumDecorator($postArgsFromSchemaObject);
 
         if ($this->postId === null) {
             $sync = new SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
