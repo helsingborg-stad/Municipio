@@ -13,7 +13,6 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use WpService\WpService;
 
@@ -62,7 +61,6 @@ class SyncBuilder implements SyncBuilderInterface
         $postArgsFromSchemaObject = new OriginIdDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
         $postArgsFromSchemaObject = new SourceIdDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new VersionDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new TermsDecorator(
             $this->taxonomyItems,
