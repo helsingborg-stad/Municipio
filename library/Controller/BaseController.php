@@ -20,7 +20,7 @@ use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\Default\ComplementMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\Default\ComplementDefaultMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback\ComplementPageTreeMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItems\Default\RemoveTopLevelDecorator;
@@ -359,7 +359,17 @@ class BaseController
             ],
         );
 
-        $complementMenuItemsDecorator = new ComplementMenuItemsDecorator($identifier, $id, $pageId, $this->db, new TransformToArrayDecorator($pageId), new GetMenuItemAncestors($pageId), [new AppendAcfFieldValuesDecorator(), new AppendIsAncestorDecorator()]);
+        $complementDefaultMenuItemsDecorator = new ComplementDefaultMenuItemsDecorator(
+            $identifier, 
+            $id, 
+            $pageId, 
+            $this->db, 
+            new TransformToArrayDecorator($pageId), 
+            new GetMenuItemAncestors($pageId), 
+            [
+                new AppendAcfFieldValuesDecorator(), 
+                new AppendIsAncestorDecorator()
+            ]);
 
         $appendChildrenDecoratorInstance->setComplementObjectsInstance($complementPageTreeMenuItemsDecoratorInstance);
 
@@ -369,10 +379,8 @@ class BaseController
             $pageId,
             $context,
             new StructureMenuItemsDecorator(),
-            [
-                $complementMenuItemsDecorator,
-                $complementPageTreeMenuItemsDecoratorInstance,
-            ],
+            $complementDefaultMenuItemsDecorator,
+            $complementPageTreeMenuItemsDecoratorInstance,
             [                
                 new RemoveTopLevelDecorator(),
                 new RemoveSubLevelDecorator(),

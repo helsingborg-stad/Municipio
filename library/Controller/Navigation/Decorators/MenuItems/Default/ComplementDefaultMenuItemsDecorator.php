@@ -6,7 +6,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItem\Default\TransformToArray
 use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Helper\GetMenuItemAncestors;
 
-class ComplementMenuItemsDecorator implements MenuItemsDecoratorInterface
+class ComplementDefaultMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
 
     public function __construct(
