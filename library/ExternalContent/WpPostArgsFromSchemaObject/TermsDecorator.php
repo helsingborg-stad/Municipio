@@ -67,10 +67,17 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         BaseType $schemaObject,
         TaxonomyItemInterface $taxonomyItem
     ): array {
-        return $this->getSchemaObjectPropertyValueByPropertyPath(
+        $results = [];
+        $value   = $this->getSchemaObjectPropertyValueByPropertyPath(
             $schemaObject,
             $taxonomyItem->getSchemaObjectProperty()
         );
+
+        array_walk_recursive($value, function ($item) use (&$results) {
+            $results[] = $item;
+        });
+
+        return array_filter($results);
     }
 
     /**
@@ -85,7 +92,12 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
         $propertyPathParts = explode('.', $propertyPath);
         $propertyValue     = $schemaObject;
 
-        if (count($propertyPathParts) === 1) {
+        if (count($propertyPathParts) === 1 && is_array($propertyValue)) {
+            return array_map(
+                fn ($value) => $this->getSchemaObjectPropertyValueByPropertyPath($value, $propertyPath),
+                $propertyValue
+            );
+        } elseif (count($propertyPathParts) === 1) {
             if ($propertyValue instanceof PropertyValue && $propertyValue->getProperty('name') === $propertyPath) {
                 $propertyValue = $propertyValue->getProperty('value');
             } elseif ($propertyValue instanceof BaseType) {

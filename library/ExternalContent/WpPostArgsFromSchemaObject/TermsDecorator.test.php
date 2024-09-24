@@ -125,6 +125,28 @@ class TermsDecoratorTest extends TestCase
         $this->assertEquals('Mental', $termFactory->calls[0][0]);
     }
 
+    /**
+     * @testdox Does not create from PropertyValue if name is not the property name.
+     */
+    public function testDoesNotCreateFromPropertyValueIfNameIsNotThePropertyName(): void
+    {
+
+        $schemaObject = new Event();
+        $schemaObject->setProperty('@meta', [
+            Schema::propertyValue()->name('foo')->value('Bar'),
+            Schema::propertyValue()->name('illness')->value('Mental'),
+        ]);
+        $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
+        $termFactory  = $this->getWpTermFactory();
+        $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.foo', 'test_taxonomy');
+
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
+        $termsDecorator->create($schemaObject, $this->getSource());
+
+        $this->assertCount(1, $termFactory->calls);
+        $this->assertEquals('Bar', $termFactory->calls[0][0]);
+    }
+
     private function getWpTermFactory(): WpTermFactoryInterface
     {
         return new class implements WpTermFactoryInterface {
