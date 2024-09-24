@@ -41,23 +41,34 @@ class SingularProject extends \Municipio\Controller\Singular
 
     private function setInformationListData(): void
     {
-        $this->data['informationList'] = [
-            [
+        $this->data['informationList'] = [];
+
+        if (!empty($this->data['department'])) {
+            $this->data['informationList'][] = [
                 'label' => $this->data['lang']->department,
                 'value' => $this->data['department']
-            ],
-            [
+            ];
+        }
+
+        if (!empty($this->data['category'])) {
+            $this->data['informationList'][] = [
                 'label' => $this->data['lang']->category,
                 'value' => $this->data['category']
-            ],
-            [
+            ];
+        }
+
+        if (!empty($this->data['technology'])) {
+            $this->data['informationList'][] = [
                 'label' => $this->data['lang']->technologies,
                 'value' => $this->data['technology']
-            ],
-            [
+            ];
+        }
+
+        if (!empty($this->data['post']->schemaObject['employee']['alternateName'])) {
+            $this->data['informationList'][] = [
                 'label' => $this->data['lang']->contact,
                 'value' => $this->data['post']->schemaObject['employee']['alternateName']
-            ]
-        ];
+            ];
+        }
     }
 }

@@ -1,23 +1,22 @@
 @extends('templates.single')
 
 @section('hero-top-sidebar')
-@hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'background' => '#f7f7f7', ])
-    @slot('content')
-        @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
-        @typography([
-            'element' => 'h1',
-            'variant' => 'h1',
-            'classList' => ['page-header__title', 'u-margin__top--0', 'u-margin__bottom--3']
-        ])
-            {{ $post->postTitle }}
-        @endtypography
+    @hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'background' => '#f7f7f7', ])
+        @slot('content')
+            @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+            @typography([
+                'element' => 'h1',
+                'variant' => 'h1',
+                'classList' => ['page-header__title', 'u-margin__top--0', 'u-margin__bottom--3']
+            ])
+                {{ $post->postTitle }}
+            @endtypography
 
-        @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
-        @progressBar([ 'value' => $progress ]) @endprogressBar
+            @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+            @progressBar([ 'value' => $progress ]) @endprogressBar
 
-    @endslot
-@endhero
-
+        @endslot
+    @endhero
 @stop
 
 @section('article.title')@stop
