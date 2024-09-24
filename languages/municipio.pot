@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-23T06:28:48+00:00\n"
+"POT-Creation-Date: 2024-09-24T11:33:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -15513,6 +15513,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Controller/SingularJobPosting.php:23
+#: Controller/SingularProject.php:41
 msgid "Contact"
 msgstr ""
 
@@ -15541,6 +15542,7 @@ msgid "Apply"
 msgstr ""
 
 #: Controller/SingularJobPosting.php:30
+#: Controller/SingularProject.php:36
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr ""
@@ -15560,6 +15562,22 @@ msgstr ""
 #: Controller/SingularPlace.php:167
 #: PostDecorators/ApplyInfoListToPlace.php:35
 msgid "Visit website"
+msgstr ""
+
+#: Controller/SingularProject.php:37
+msgid "Status"
+msgstr ""
+
+#: Controller/SingularProject.php:38
+msgid "Department"
+msgstr ""
+
+#: Controller/SingularProject.php:39
+msgid "Category"
+msgstr ""
+
+#: Controller/SingularProject.php:40
+msgid "Technologies"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:180
@@ -17360,8 +17378,12 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: ExternalContent/UI/PageRowActionsSyncButton.php:44
+#: ExternalContent/UI/PageRowActionsSyncButton.php:66
 msgid "Sync this post from remote source"
+msgstr ""
+
+#: ExternalContent/UI/PostTableSyncButton.php:56
+msgid "Sync all posts from remote source"
 msgstr ""
 
 #: Helper/KirkiConditional.php:35

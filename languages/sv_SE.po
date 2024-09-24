@@ -17400,6 +17400,7 @@ msgid "Close cross"
 msgstr "Kryss"
 
 #: Controller/SingularJobPosting.php:30
+#: Controller/SingularProject.php:36
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr "Information"
@@ -17982,15 +17983,16 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: ExternalContent/UI/PageRowActionsSyncButton.php:44
+#: ExternalContent/UI/PageRowActionsSyncButton.php:66
 msgid "Sync this post from remote source"
-msgstr ""
+msgstr "Synka denna post från extern källa"
 
 #: BrandedEmails/HtmlTemplate/DefaultHtmlTemplate.php:54
 msgid "This email was sent from %s."
 msgstr ""
 
 #: Controller/SingularJobPosting.php:23
+#: Controller/SingularProject.php:41
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -18162,8 +18164,28 @@ msgstr "stängd"
 
 #: AcfFields/php/external-content-settings.php:327
 msgid "Name of the schema property to use as a taxonomy. Ex. for using the <code>director</code> property on the <code>Event</code> schema type, supply <code>director</code> as value. If you wish to use a nested object value you can nest like this: <code>director.email</code>. Should the property contain an object of the type <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a> the <code>value</code> property will be used by default when creating terms."
-msgstr "Namn på schemaegenskapen som ska användas som en taxonomi. Exempelvis, för att använda egenskapen <code>director</code> på schema-typen <code>Event</code>, ange <code>director</code> som värde. Om du vill använda ett värde från ett nestat objekt kan du nästlat det så här: <code>director.email</code>. Om egenskapen innehåller ett objekt av typen <a href="https://schema.org/PropertyValue\" target="_blank">PropertyValue</a>, kommer egenskapen <code>value</code> att användas som standard när termer skapas."
+msgstr "Namn på schemaegenskapen som ska användas som en taxonomi. Exempelvis, för att använda egenskapen <code>director</code> på schema-typen <code>Event</code>, ange <code>director</code> som värde. Om du vill använda ett värde från ett nestat objekt kan du nästlat det så här: <code>director.email</code>. Om egenskapen innehåller ett objekt av typen <a href=\"https://schema.org/PropertyValue\" target=\"_blank\">PropertyValue</a>, kommer egenskapen <code>value</code> att användas som standard när termer skapas."
 
 #: AcfFields/php/external-content-settings.php:337
 msgid "ex. director"
 msgstr ""
+
+#: Controller/SingularProject.php:37
+msgid "Status"
+msgstr "Status"
+
+#: Controller/SingularProject.php:38
+msgid "Department"
+msgstr "Drivs av"
+
+#: Controller/SingularProject.php:39
+msgid "Category"
+msgstr "Kategori"
+
+#: Controller/SingularProject.php:40
+msgid "Technologies"
+msgstr "Teknologier"
+
+#: ExternalContent/UI/PostTableSyncButton.php:56
+msgid "Sync all posts from remote source"
+msgstr "Synka alla poster från extern källa"

@@ -53,7 +53,7 @@ class PostTableSyncButton implements Hookable
         }
 
         $classes    = 'button button-primary';
-        $label      = __('Sync all posts from remote source');
+        $label      = __('Sync all posts from remote source', 'municipio');
         $requestUri = $_SERVER['REQUEST_URI'] ?? '';
         $url        = $this->wpService->nonceUrl(
             $requestUri
