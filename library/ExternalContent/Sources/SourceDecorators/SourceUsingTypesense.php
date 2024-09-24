@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\Sources\SourceDecorators;
 
-use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
 use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceInterface;
