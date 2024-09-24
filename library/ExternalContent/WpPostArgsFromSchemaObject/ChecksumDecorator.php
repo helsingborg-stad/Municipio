@@ -24,9 +24,14 @@ class ChecksumDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function create(BaseType $schemaObject, SourceInterface $source): array
     {
-        $checksum                       = sha1(json_encode($this->inner->create($schemaObject, $source)));
-        $post['meta_input']['checksum'] = $checksum;
+        $postArgs = $this->inner->create($schemaObject, $source);
+        $checksum = sha1(json_encode($this->inner->create($schemaObject, $source)));
 
-        return $post;
+        if (!isset($postArgs['meta_input'])) {
+            $postArgs['meta_input'] = [];
+        }
+
+        $postArgs['meta_input']['checksum'] = $checksum;
+        return $postArgs;
     }
 }
