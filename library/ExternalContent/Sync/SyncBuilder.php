@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\AddChecksum;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
@@ -12,8 +13,8 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VersionDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VerifyChecksum;
 use WpService\WpService;
 
 /**
@@ -61,14 +62,10 @@ class SyncBuilder implements SyncBuilderInterface
         $postArgsFromSchemaObject = new OriginIdDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
         $postArgsFromSchemaObject = new SourceIdDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new VersionDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new TermsDecorator(
-            $this->taxonomyItems,
-            $wpTermFactory,
-            $this->wpService,
-            $postArgsFromSchemaObject
-        );
+        $postArgsFromSchemaObject = new TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject); // phpcs:ignore Generic.Files.LineLength.TooLong
+        $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, $this->wpService);
 
         if ($this->postId === null) {
             $sync = new SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);

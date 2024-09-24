@@ -5,6 +5,8 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
+use Spatie\SchemaOrg\Schema;
+use Spatie\SchemaOrg\Thing;
 
 class SchemaDataDecoratorTest extends TestCase
 {
@@ -13,11 +15,23 @@ class SchemaDataDecoratorTest extends TestCase
      */
     public function testCreate()
     {
-        $schemaObject = $this->getSchemaObject();
+        $schemaObject = Schema::thing()->setProperty('foo', 'bar');
         $factory      = new SchemaDataDecorator(new WpPostFactory());
         $result       = $factory->create($schemaObject, new Source('', ''));
 
         $this->assertEquals($schemaObject->toArray(), $result['meta_input']['schemaData']);
+    }
+
+    /**
+     * @testdox strips possible "id" key from schemaObject before adding it to the meta input
+     */
+    public function testCreateWithId()
+    {
+        $schemaObject = Schema::thing()->setProperty('foo', 'bar')->setProperty('id', '123');
+        $factory      = new SchemaDataDecorator(new WpPostFactory());
+        $result       = $factory->create($schemaObject, new Source('', ''));
+
+        $this->assertArrayNotHasKey('id', $result['meta_input']['schemaData']);
     }
 
     private function getSchemaObject(): BaseType

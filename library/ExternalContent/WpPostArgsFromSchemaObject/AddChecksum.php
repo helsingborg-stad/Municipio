@@ -6,9 +6,9 @@ use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
 /**
- * Class WpPostMetaFactoryVersionDecorator
+ * Class AddChecksum
  */
-class VersionDecorator implements WpPostArgsFromSchemaObjectInterface
+class AddChecksum implements WpPostArgsFromSchemaObjectInterface
 {
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
@@ -24,12 +24,14 @@ class VersionDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function create(BaseType $schemaObject, SourceInterface $source): array
     {
-        $post = $this->inner->create($schemaObject, $source);
+        $postArgs = $this->inner->create($schemaObject, $source);
+        $checksum = md5(json_encode($this->inner->create($schemaObject, $source)));
 
-        if (isset($schemaObject['@version'])) {
-            $post['meta_input']['version'] = $schemaObject['@version'] ?? null;
+        if (!isset($postArgs['meta_input'])) {
+            $postArgs['meta_input'] = [];
         }
 
-        return $post;
+        $postArgs['meta_input']['checksum'] = $checksum;
+        return $postArgs;
     }
 }
