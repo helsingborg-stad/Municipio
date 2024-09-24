@@ -6,7 +6,6 @@ use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceServiceWithSourceId;
 use Municipio\ExternalContent\Sources\SourceDecorators\FilterOutDuplicateObjectsFromSource;
-use Municipio\ExternalContent\Sources\SourceDecorators\AddPreventSyncPropertyToObjectDoesNotContainUpdates;
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingLocalJsonFile;
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingTypesense;
 use WpService\Contracts\GetPosts;
@@ -55,7 +54,6 @@ class SourceFactory implements SourceFactoryInterface
         }
 
         $source = new SourceServiceWithSourceId($source);
-        $source = new FilterOutDuplicateObjectsFromSource($source);
-        return new AddPreventSyncPropertyToObjectDoesNotContainUpdates($this->wpService, $wpdb, $source);
+        return new FilterOutDuplicateObjectsFromSource($source);
     }
 }
