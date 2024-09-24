@@ -3,9 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
-use Municipio\ExternalContent\Sources\SourceInterface;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
 
 class ChecksumDecoratorTest extends TestCase
