@@ -13,6 +13,9 @@ use WpService\Contracts\RemoteGet;
 use WpService\Contracts\RemoteRetrieveBody;
 use WpService\FileSystem\BaseFileSystem;
 
+/**
+ * Factory class for creating sources based on configuration.
+ */
 class SourceFactory implements SourceFactoryInterface
 {
     /**
@@ -25,6 +28,11 @@ class SourceFactory implements SourceFactoryInterface
         return $this;
     }
 
+    /**
+     * Creates sources based on the provided configuration.
+     *
+     * @return \Municipio\ExternalContent\Sources\SourceInterface[]
+     */
     public function createSources(): array
     {
         $sources = array_map(fn ($sourceConfig) => $this->createSource($sourceConfig), $this->sourceConfigs);
@@ -32,6 +40,12 @@ class SourceFactory implements SourceFactoryInterface
         return $sources;
     }
 
+    /**
+     * Creates a source based on the provided configuration.
+     *
+     * @param SourceConfigInterface $sourceConfig The source configuration.
+     * @return SourceInterface The created source.
+     */
     private function createSource(SourceConfigInterface $sourceConfig): SourceInterface
     {
         global $wpdb;
