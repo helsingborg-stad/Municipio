@@ -28,6 +28,9 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->setInformationListData();
     }
 
+    /**
+     * Appends translated strings to the language object.
+     */
     private function appendToLangObject(): void
     {
         $this->data['lang']->information  = __('Information', 'municipio');
@@ -39,6 +42,9 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->data['lang']->contact      = __('Contact', 'municipio');
     }
 
+    /**
+     * Sets the information list data for the project.
+     */
     private function setInformationListData(): void
     {
         $this->data['informationList'] = [];

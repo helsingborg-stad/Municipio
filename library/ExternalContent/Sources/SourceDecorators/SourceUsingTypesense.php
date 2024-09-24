@@ -10,8 +10,21 @@ use WP_Query;
 use WpService\Contracts\RemoteGet;
 use WpService\Contracts\RemoteRetrieveBody;
 
+/**
+ * Class SourceUsingTypesense
+ *
+ * This class is a decorator for a source that uses Typesense for retrieving documents.
+ */
 class SourceUsingTypesense implements SourceInterface
 {
+    /**
+     * SourceUsingTypesense constructor.
+     *
+     * @param SourceConfigInterface $config
+     * @param RemoteGet&RemoteRetrieveBody $wpService
+     * @param JsonToSchemaObjects $jsonToSchemaObjects
+     * @param SourceInterface $inner
+     */
     public function __construct(
         private SourceConfigInterface $config,
         private RemoteGet&RemoteRetrieveBody $wpService,
@@ -20,6 +33,9 @@ class SourceUsingTypesense implements SourceInterface
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getObject(string|int $id): null|BaseType
     {
         $documents = $this->makeApiRequestAndGetDocuments($this->getSingleUrl($id));
@@ -31,6 +47,12 @@ class SourceUsingTypesense implements SourceInterface
         return $this->jsonToSchemaObjects->transform(json_encode($documents))[0];
     }
 
+    /**
+     * Makes an API request to the given URL and retrieves documents.
+     *
+     * @param string $url The URL to make the API request to.
+     * @return array|null The documents retrieved from the API, or null if the request failed.
+     */
     private function makeApiRequestAndGetDocuments(string $url): ?array
     {
         $response = $this->wpService->remoteGet($url, [
@@ -78,6 +100,11 @@ class SourceUsingTypesense implements SourceInterface
         return $this->jsonToSchemaObjects->transform(json_encode($results));
     }
 
+    /**
+     * Constructs the base URL for the Typesense API.
+     *
+     * @return string The constructed URL.
+     */
     private function getUrl(): string
     {
         return sprintf(
@@ -89,26 +116,49 @@ class SourceUsingTypesense implements SourceInterface
         );
     }
 
+    /**
+     * Constructs the URL for retrieving a specific page of documents from the Typesense API.
+     *
+     * @param int $page The page number to retrieve.
+     * @return string The constructed URL.
+     */
     private function getPageUrl(int $page = 1): string
     {
         return $this->getUrl() . "?q=*&per_page=250&page={$page}";
     }
 
+    /**
+     * Constructs the URL for retrieving a specific document by its ID from the Typesense API.
+     *
+     * @param string $id The ID of the document to retrieve.
+     * @return string The constructed URL.
+     */
     private function getSingleUrl(string $id): string
     {
         return $this->getUrl() . "?q={$id}&query_by=@id&filter_by=@id:={$id}&limit_hits=1&per_page=1";
     }
 
+    /**
+     * Gets the post type.
+     *
+     * @return string The post type.
+     */
     public function getPostType(): string
     {
         return $this->inner->getPostType();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getId(): string
     {
         return $this->inner->getId();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSchemaObjectType(): string
     {
         return $this->inner->getSchemaObjectType();
