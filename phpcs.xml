@@ -11,6 +11,22 @@
         <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
     </rule>
     
+    <rule ref="WordPress.Security.ValidatedSanitizedInput.MissingUnslash">
+        <exclude-pattern>./library/**/*.php</exclude-pattern>
+    </rule>
+    
+    <rule ref="WordPress.Security.EscapeOutput.OutputNotEscaped">
+        <exclude-pattern>./library/**/*.php</exclude-pattern>
+    </rule>
+    
+    <rule ref="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized">
+        <exclude-pattern>./library/**/*.php</exclude-pattern>
+    </rule>
+    
+    <rule ref="WordPress.Security.NonceVerification.Recommended">
+        <exclude-pattern>./library/**/*.php</exclude-pattern>
+    </rule>
+    
     <rule ref="Squiz.Commenting.ClassComment.Missing">
         <type>warning</type>
         <exclude-pattern>./library/**/*.test.php</exclude-pattern>

@@ -19,7 +19,7 @@ use WpService\WpService;
 /**
  * Class SyncBuilder
  */
-class SyncBuilder
+class SyncBuilder implements SyncBuilderInterface
 {
     /**
      * Class constructor
