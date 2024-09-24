@@ -35,7 +35,6 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         $this->data['lang']->information  = __('Information', 'municipio');
         $this->data['lang']->status       = __('Status', 'municipio');
-        $this->data['lang']->progress     = __('Progress', 'municipio');
         $this->data['lang']->department   = __('Department', 'municipio');
         $this->data['lang']->category     = __('Category', 'municipio');
         $this->data['lang']->technologies = __('Technologies', 'municipio');
