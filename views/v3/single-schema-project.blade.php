@@ -1,36 +1,49 @@
 @extends('templates.single')
+
+@section('hero-top-sidebar')
+@hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'background' => '#f7f7f7', ])
+    @slot('content')
+        @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+        @typography([
+            'element' => 'h1',
+            'variant' => 'h1',
+            'classList' => ['page-header__title', 'u-margin__top--0', 'u-margin__bottom--3']
+        ])
+            {{ $post->postTitle }}
+        @endtypography
+
+        @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+        @progressBar([ 'value' => $progress ]) @endprogressBar
+
+    @endslot
+@endhero
+
+@stop
+
+@section('article.title')@stop
 @section('article.content')
-@image([
-    'src'=> $imageUrl,
-    'alt' => "This is a image"
-])
-@endimage
-<pre>
-Category: {!! $category !!}
-Title: {!! $post->schemaObject['name'] !!}
-Status: {!! $status !!}
-Progress: {!! $progress !!}
-</pre>
-<pre>
-Content: {{$post->postContent}}
-</pre>
+    {!!$post->postContent!!}
 @stop
 
 @section('sidebar.right-sidebar.before')
-<pre>
-Drivs av
-{!! $department !!}
-</pre>
-<pre>
-Kategori
-{!! $category !!}
-</pre>
-<pre>
-Teknologier
-{!! $technology !!}
-</pre>
-<pre>
-Kontakt
-{!! $post->schemaObject['employee']['alternateName'] !!}
-</pre>
+
+    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
+        {{$lang->information}}
+    @endtypography
+
+    @paper(['padding' => 2])
+        @collection()
+            @foreach ($informationList as $item)
+                @collection__item([])
+                    @typography(['element' => 'h4'])
+                        {{$item['label']}}
+                    @endtypography
+                    @typography([])
+                        {{$item['value']}}
+                    @endtypography
+                @endcollection__item
+            @endforeach
+        @endcollection
+    @endpaper
+
 @stop
