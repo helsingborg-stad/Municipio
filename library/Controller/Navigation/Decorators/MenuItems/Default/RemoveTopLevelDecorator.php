@@ -1,6 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItems;
+namespace Municipio\Controller\Navigation\Decorators\MenuItems\Default;
+
+use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
 
 class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
 {

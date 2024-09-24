@@ -1,10 +1,10 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem;
+namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
 
-use Municipio\Controller\Navigation\Decorators\GetAncestors;
+use Municipio\Controller\Navigation\Helper\GetAncestors;
 
-class AppendIsAncestorPostDecorator implements MenuItemDecoratorInterface
+class AppendIsAncestorPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(
         private GetAncestors $getAncestorsInstance
@@ -17,7 +17,7 @@ class AppendIsAncestorPostDecorator implements MenuItemDecoratorInterface
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    public function decorate(array $menuItem): array
+    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         if (in_array($menuItem['ID'], $this->getAncestorsInstance->getAncestors())) {
             $menuItem['ancestor'] = true;

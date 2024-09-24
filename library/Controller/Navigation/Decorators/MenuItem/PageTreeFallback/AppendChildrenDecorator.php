@@ -1,13 +1,13 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem;
+namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\ComplementPageTreeMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\GetPostsByParent;
+use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback\ComplementPageTreeMenuItemsDecorator;
+use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 
-class AppendChildrenDecorator implements MenuItemDecoratorInterface
+class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(
         private int $postId,
@@ -38,26 +38,26 @@ class AppendChildrenDecorator implements MenuItemDecoratorInterface
      *
      * @return  array              Flat array with parents
      */
-    public function decorate(array $menuItems): array
+    public function decorate(array|object $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
-        if ($menuItems['ID'] == $this->postId) {
+        if ($menuItem['ID'] == $this->postId) {
             $children = $this->getPostsByParentInstance->getPostsByParent(
-                $menuItems['ID'],
-                get_post_type($menuItems['ID'])
+                $menuItem['ID'],
+                get_post_type($menuItem['ID'])
             );
         } else {
-            $children = $this->indicateChildren($menuItems['ID']);
+            $children = $this->indicateChildren($menuItem['ID']);
         }
 
         //If null, no children
         if (is_array($children) && !empty($children)) {
-            $menuItems['children'] = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($children);
+            $menuItem['children'] = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($children, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
         } else {
-            $menuItems['children'] = (bool) $children;
+            $menuItem['children'] = (bool) $children;
         }
 
         //Return result
-        return $menuItems;
+        return $menuItem;
     }
 
     /**

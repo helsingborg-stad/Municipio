@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem;
+namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
 
-class AppendIsCurrentPostDecorator implements MenuItemDecoratorInterface
+class AppendIsCurrentPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(
         private int $postId
@@ -13,7 +13,7 @@ class AppendIsCurrentPostDecorator implements MenuItemDecoratorInterface
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    public function decorate(array $menuItem): array
+    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         if ($menuItem['ID'] == $this->postId) {
             $menuItem['active'] = true;

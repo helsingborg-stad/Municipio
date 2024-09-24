@@ -89,29 +89,4 @@ class GetMenuData
 
         return self::$navMenuObjectArray[$menuId];
     }
-
-    public static function getMenuName(string $identifier): string|false
-    {
-        $mappedLocations = [
-            'dropdown'         => 'dropdown-links-menu',
-            'floating'         => 'floating-menu',
-            'help'             => 'help-menu',
-            'language'         => 'language-menu',
-            'mega-menu'        => 'mega-menu',
-            'mobile'           => 'secondary-menu',
-            'mobile-secondary' => 'mobile-drawer',
-            'primary'          => 'main-menu',
-            'single'           => 'quicklinks-menu',
-            'siteselector'     => 'siteselector-menu',
-            'tab'              => 'header-tabs-menu',
-        ];
-
-        $menuName = false;
-
-        if (isset($mappedLocations[$identifier])) {
-            $menuName = $mappedLocations[$identifier];
-        }
-
-        return $menuName;
-    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem;
+namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
 
 use Municipio\Controller\Navigation\Cache\CacheManager;
 
-class CustomTitleDecorator implements MenuItemDecoratorInterface
+class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(
         private $db,
@@ -19,7 +19,7 @@ class CustomTitleDecorator implements MenuItemDecoratorInterface
      *
      * @return object
      */
-    public function decorate(array $array): array
+    public function decorate(array $array, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         $customTitles = $this->getMenuTitle();
 
