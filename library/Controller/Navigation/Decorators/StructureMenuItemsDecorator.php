@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItems;
+namespace Municipio\Controller\Navigation\Decorators;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 
 class StructureMenuItemsDecorator implements MenuItemsDecoratorInterface
 {

@@ -6,7 +6,6 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
-use Municipio\Helper\Navigation\GetMenuData;
 use Municipio\Helper\TranslatedLabels;
 
 // Cache
@@ -20,26 +19,30 @@ use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\Default\ComplementDefaultMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback\ComplementPageTreeMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\Default\RemoveTopLevelDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\Default\RemoveSubLevelDecorator;
+// MenuConfig
+use Municipio\Controller\Navigation\MenuConfig;
 
-// Default menu item
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\TransformToArrayDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\AppendAcfFieldValuesDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\AppendIsAncestorDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\ApplyMenuItemFilterDecorator as ApplyFilterDefaultDecorator;
+// Page tree fallback
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyFilterPageTreeFallbackDecorator;
 
-// Page tree fallback menu item
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendHrefDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendIsAncestorPostDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\CustomTitleDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendIsCurrentPostDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendChildrenDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\TransformObjectDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyFilterPageTreeFallbackDecorator;
+// General decorators
+use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
+
+// Default
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator as DefaultMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyFilterDefaultDecorator;
 
 class BaseController
 {
@@ -160,6 +163,8 @@ class BaseController
 
         $mobile = $this->createMenuInstance('mobile', 'secondary-menu');
         $this->data['mobileMenu'] = $mobile->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+
+        $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
         $mobileSecondary = $this->createMenuInstance('mobile-secondary', 'mobile-drawer');
         $this->data['mobileMenuSecondaryItems'] = $mobileSecondary->getMenuNavItems(false, true, false);
@@ -343,13 +348,13 @@ class BaseController
         $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
 
         // MenuItems decorators
-        $complementPageTreeMenuItemsDecoratorInstance = new ComplementPageTreeMenuItemsDecorator(
+        $complementPageTreeDecoratorInstance = new ComplementPageTreeDecorator(
             $identifier,
             $pageId,
             $runTimeCacheInstance,
             $getAncestorsInstance,
             $getPostsByParentInstance,
-            new TransformObjectDecorator(),
+            new TransformPageTreeFallbackMenuItemDecorator(),
             [
                 new AppendHrefDecorator(),
                 new CustomTitleDecorator($this->db, $cacheManagerInstance),
@@ -360,30 +365,31 @@ class BaseController
             ],
         );
 
-        $appendChildrenDecoratorInstance->setComplementPageTreeMenuItemsDecoratorInstance($complementPageTreeMenuItemsDecoratorInstance);
-
-        $complementDefaultMenuItemsDecorator = new ComplementDefaultMenuItemsDecorator(
-            $identifier, 
-            $pageId, 
-            $this->db, 
-            new TransformToArrayDecorator($pageId), 
+        
+        $complementDefaultDecorator = new ComplementDefaultDecorator(
+            $identifier,
+            $pageId,
+            $this->db,
+            new DefaultMenuItemDecorator($pageId), 
             new GetAncestorIds($pageId), 
-            [
-                new AppendAcfFieldValuesDecorator(), 
-                new AppendIsAncestorDecorator(),
-                new ApplyFilterDefaultDecorator($identifier)
-            ]
-        );
+                [
+                    new AppendAcfFieldValuesDecorator(), 
+                    new AppendIsAncestorDecorator(),
+                    new ApplyFilterDefaultDecorator($identifier)
+                ]
+            );
+            
+        $appendChildrenDecoratorInstance->setComplementPageTreeDecoratorInstance($complementPageTreeDecoratorInstance);
 
         return new Menu(
             new StructureMenuItemsDecorator(),
-            $complementDefaultMenuItemsDecorator,
-            $complementPageTreeMenuItemsDecoratorInstance,
+            $complementDefaultDecorator,
+            $complementPageTreeDecoratorInstance,
             $identifier,
             $menuName,
             $pageId,
             $context,
-            [                
+            [
                 new RemoveTopLevelDecorator(),
                 new RemoveSubLevelDecorator(),
             ]

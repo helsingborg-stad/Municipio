@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
+namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
-use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback\ComplementPageTreeMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
@@ -15,19 +15,19 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
         private GetPostsByParent $getPostsByParentInstance,
         private GetHiddenPostIds $getHiddenPostIdsInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
-        private ?ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance = null
+        private ?ComplementPageTreeDecorator $complementPageTreeDecoratorInstance = null
     ) {
     }
 
     /**
      * Sets the complement objects instance for the AppendChildrenDecorator.
      *
-     * @param ComplementPageTreeMenuItemsDecorator $complementObjectsInstance The complement objects instance to set.
+     * @param ComplementPageTreeDecorator $complementObjectsInstance The complement objects instance to set.
      * @return void
      */
-    public function setComplementPageTreeMenuItemsDecoratorInstance(ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance): void
+    public function setComplementPageTreeDecoratorInstance(ComplementPageTreeDecorator $complementPageTreeDecoratorInstance): void
     {
-        $this->complementPageTreeMenuItemsDecoratorInstance = $complementPageTreeMenuItemsDecoratorInstance;
+        $this->complementPageTreeDecoratorInstance = $complementPageTreeDecoratorInstance;
     }
 
      /**
@@ -51,7 +51,7 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
 
         //If null, no children
         if (is_array($children) && !empty($children)) {
-            $menuItem['children'] = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($children, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+            $menuItem['children'] = $this->complementPageTreeDecoratorInstance->decorate($children, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
         } else {
             $menuItem['children'] = (bool) $children;
         }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
+namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
-class TransformObjectDecorator implements PageTreeFallbackMenuItemDecoratorInterface
+class TransformPageTreeFallbackMenuItemDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     /**
      * Add post data on post array

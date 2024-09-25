@@ -3,27 +3,22 @@
 namespace Municipio\Controller\Navigation;
 
 use Municipio\Helper\Navigation\GetMenuData as GetMenuData;
-use Municipio\Controller\Navigation\Decorators\MenuItems\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback\ComplementPageTreeMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\Default\ComplementDefaultMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
 
 class Menu
 {
     public function __construct(
         private StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance,
-        private ComplementDefaultMenuItemsDecorator $complementDefaultMenuItemsDecoratorInstance,
-        private ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance,
+        private ComplementDefaultDecorator $complementDefaultDecoratorInstance,
+        private ComplementPageTreeDecorator $complementPageTreeDecoratorInstance,
         private string $identifier = '',
         private ?string $menuName = null,
         private ?int $pageId = null,
         private string $context = 'municipio',
         private array $decorators = []
     ) {}
-
-    public static function factory(StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance, ComplementDefaultMenuItemsDecorator $complementDefaultMenuItemsDecoratorInstance, ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance, string $identifier = '', ?string $menuName = null, ?int $pageId = null, string $context = 'municipio', array $decorators = []): self
-    {
-        return new self($structureMenuItemsDecoratorInstance, $complementDefaultMenuItemsDecoratorInstance, $complementPageTreeMenuItemsDecoratorInstance, $identifier, $menuName, $pageId, $context, $decorators);
-    }
     
     public function createMenu(
         bool $fallbackToPageTree = false,
@@ -46,10 +41,10 @@ class Menu
         $menuItems = GetMenuData::getNavMenuItems($menuName ?: $this->menuName) ?: [];
         
         // Complements default menu items before structuring
-        $menuItems = $this->complementDefaultMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+        $menuItems = $this->complementDefaultDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
 
         // Complements page tree fallback
-        $menuItems = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+        $menuItems = $this->complementPageTreeDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
 
         // Structures the complemented menu items
         $menuItems = $this->structureMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);

@@ -1,19 +1,20 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItems\Default;
+namespace Municipio\Controller\Navigation\Decorators\Default;
 
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\TransformToArrayDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestorIds;
 
-class ComplementDefaultMenuItemsDecorator implements MenuItemsDecoratorInterface
+
+class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
 {
 
     public function __construct(
         private string $identifier, 
         private int $pageId,
         private $db,
-        private TransformToArrayDecorator $transformToArrayDecoratorInstance,
+        private TransformMenuItemDecorator $transformMenuItemDecoratorInstance,
         private GetAncestorIds $getAncestorIds,
         private array $decorators = []
     ) {
@@ -36,7 +37,7 @@ class ComplementDefaultMenuItemsDecorator implements MenuItemsDecoratorInterface
 
         foreach ($menuItems as &$menuItem) {
             // Converting the menu item object to an array as the first step.
-            $menuItem = $this->transformToArrayDecoratorInstance->decorate($menuItem, $ancestors);
+            $menuItem = $this->transformMenuItemDecoratorInstance->decorate($menuItem, $ancestors);
 
             foreach ($this->decorators as $decorator) {
                 $menuItem = $decorator->decorate($menuItem, $ancestors);

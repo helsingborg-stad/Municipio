@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback;
+namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
 class AppendIsCurrentPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {

@@ -1,15 +1,14 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallback;
+namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
 use Municipio\Controller\Navigation\Cache\RuntimeCache;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\TransformObjectDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallbackMenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 
-class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterface
+class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
 {
     private $masterPostType = 'page';
 
@@ -19,7 +18,7 @@ class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterfac
         private RuntimeCache $runtimeCache,
         private GetAncestors $getAncestorsInstance,
         private GetPostsByParent $getPostsByParentInstance,
-        private TransformObjectDecorator $transformObjectDecoratorInstance,
+        private TransformPageTreeFallbackMenuItemDecorator $transformPageTreeFallbackMenuItemDecoratorInstance,
         private array $menuItemDecorators
     ) {}
 
@@ -52,7 +51,7 @@ class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterfac
 
                 if (!isset($cacheData[$cacheKey])) {
                     // Structures the menu item as the first step
-                    $menuItem = $this->transformObjectDecoratorInstance->decorate($menuItem, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+                    $menuItem = $this->transformPageTreeFallbackMenuItemDecoratorInstance->decorate($menuItem, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
 
                     foreach ($this->menuItemDecorators as $decorator) {
                         $menuItem = $decorator->decorate($menuItem, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);

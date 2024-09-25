@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem\Default;
+namespace Municipio\Controller\Navigation\Decorators\Default;
 
-class TransformToArrayDecorator implements DefaultMenuItemDecoratorInterface
+class TransformMenuItemDecorator implements DefaultMenuItemDecoratorInterface
 {
     public function __construct(
         private int $pageId

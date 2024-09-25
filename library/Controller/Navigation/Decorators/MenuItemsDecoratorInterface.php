@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItems;
+namespace Municipio\Controller\Navigation\Decorators;
 
 interface MenuItemsDecoratorInterface
 {

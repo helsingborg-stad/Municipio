@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\MenuItem\Default;
+namespace Municipio\Controller\Navigation\Decorators\Default;
 
 class ApplyMenuItemFilterDecorator implements DefaultMenuItemDecoratorInterface
 {
