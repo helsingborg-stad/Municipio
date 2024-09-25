@@ -25,7 +25,7 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
      * @param ComplementPageTreeMenuItemsDecorator $complementObjectsInstance The complement objects instance to set.
      * @return void
      */
-    public function setComplementObjectsInstance(ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance): void
+    public function setComplementPageTreeMenuItemsDecoratorInstance(ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance): void
     {
         $this->complementPageTreeMenuItemsDecoratorInstance = $complementPageTreeMenuItemsDecoratorInstance;
     }
@@ -40,13 +40,13 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
      */
     public function decorate(array|object $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
-        if ($menuItem['ID'] == $this->postId) {
+        if ($menuItem['id'] == $this->postId) {
             $children = $this->getPostsByParentInstance->getPostsByParent(
-                $menuItem['ID'],
-                get_post_type($menuItem['ID'])
+                $menuItem['id'],
+                get_post_type($menuItem['id'])
             );
         } else {
-            $children = $this->indicateChildren($menuItem['ID']);
+            $children = $this->indicateChildren($menuItem['id']);
         }
 
         //If null, no children

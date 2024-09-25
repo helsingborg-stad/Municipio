@@ -2,18 +2,26 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-class GetMenuItemAncestors
+class GetAncestorIds
 {
+    private ?array $ancestorIds = null;
+
     public function __construct(
         private int $pageId
     ) {}
 
-    public function getMenuItemAncestors(array $menuItems): array
+    public function get(array $menuItems): array
     {
-        return $this->getWpMenuAncestors(
+        if (!is_null($this->ancestorIds)) {
+            return $this->ancestorIds;
+        }
+
+        $this->ancestorIds = $this->getWpMenuAncestors(
             $menuItems,
             $this->pageIdToMenuID($menuItems)
         );
+
+        return $this->ancestorIds;
     }
 
     /**

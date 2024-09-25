@@ -7,20 +7,20 @@ class TransformObjectDecorator implements PageTreeFallbackMenuItemDecoratorInter
     /**
      * Add post data on post array
      *
-     * @param   array   $menuItems  The post array
+     * @param   array   $menuItem  The post array
      *
-     * @return  array   $menuItems  The post array, with appended data
+     * @return  array   $menuItem  The post array, with appended data
      */
-    public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         //Move post_title to label key
-        $menuItems['label']       = $menuItems['post_title'];
-        $menuItems['id']          = (int) $menuItems['ID'];
-        $menuItems['post_parent'] = (int) $menuItems['post_parent'];
+        $menuItem['label']       = $menuItem['post_title'];
+        $menuItem['id']          = (int) $menuItem['ID'];
+        $menuItem['post_parent'] = (int) $menuItem['post_parent'];
 
         //Unset data not needed
-        unset($menuItems['post_title']);
-        unset($menuItems['ID']);
+        unset($menuItem['post_title']);
+        unset($menuItem['ID']);
 
         //Sort & return
         return array_merge(
@@ -34,7 +34,7 @@ class TransformObjectDecorator implements PageTreeFallbackMenuItemDecoratorInter
                 'href'        => null,
                 'children'    => null
             ),
-            $menuItems
+            $menuItem
         );
     }
 }

@@ -6,6 +6,8 @@ use Municipio\Controller\Navigation\Cache\RuntimeCache;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Decorators\MenuItems\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\TransformObjectDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItems\PageTreeFallbackMenuItemsDecoratorInterface;
 
 class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
@@ -17,7 +19,8 @@ class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterfac
         private RuntimeCache $runtimeCache,
         private GetAncestors $getAncestorsInstance,
         private GetPostsByParent $getPostsByParentInstance,
-        private array $menuItemDecorators,
+        private TransformObjectDecorator $transformObjectDecoratorInstance,
+        private array $menuItemDecorators
     ) {}
 
     /**
@@ -48,18 +51,15 @@ class ComplementPageTreeMenuItemsDecorator implements MenuItemsDecoratorInterfac
                 $cacheData = $this->runtimeCache->getCache('complementObjects');
 
                 if (!isset($cacheData[$cacheKey])) {
-                    // Process the item and add it to the cache
+                    // Structures the menu item as the first step
+                    $menuItem = $this->transformObjectDecoratorInstance->decorate($menuItem, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+
                     foreach ($this->menuItemDecorators as $decorator) {
                         $menuItem = $decorator->decorate($menuItem, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
                     }
 
                     // Store the processed item in the cache
-                    $cacheData[$cacheKey] = apply_filters(
-                        'Municipio/Navigation/Item',
-                        $menuItem,
-                        $this->identifier,
-                        false
-                    );
+                    $cacheData[$cacheKey] = $menuItem;
 
                     $this->runtimeCache->setCache('complementObjects', $cacheData);
                 }

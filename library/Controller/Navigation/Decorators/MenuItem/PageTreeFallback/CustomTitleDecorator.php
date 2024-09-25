@@ -15,25 +15,25 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
     /**
      * Replace native title with custom menu name
      *
-     * @param array $array
+     * @param array $menuItem
      *
      * @return object
      */
-    public function decorate(array $array, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
         $customTitles = $this->getMenuTitle();
 
         //Get custom title
-        if (isset($customTitles[$array['ID']])) {
-            $array['post_title'] = $customTitles[$array['ID']];
+        if (isset($customTitles[$menuItem['id']])) {
+            $menuItem['label'] = $customTitles[$menuItem['id']];
         }
 
         //Replace empty titles
-        if ($array['post_title'] == "") {
-            $array['post_title'] = __("Untitled page", 'municipio');
+        if ($menuItem['label'] == "") {
+            $menuItem['label'] = __("Untitled page", 'municipio');
         }
 
-        return $array;
+        return $menuItem;
     }
 
     /**

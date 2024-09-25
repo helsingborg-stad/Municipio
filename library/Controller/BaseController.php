@@ -14,7 +14,7 @@ use Municipio\Controller\Navigation\Cache\CacheManager;
 use Municipio\Controller\Navigation\Cache\RuntimeCache;
 
 // Helpers
-use Municipio\Controller\Navigation\Helper\GetMenuItemAncestors;
+use Municipio\Controller\Navigation\Helper\GetAncestorIds;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
@@ -30,7 +30,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItems\Default\RemoveSubLevelD
 use Municipio\Controller\Navigation\Decorators\MenuItem\Default\TransformToArrayDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\Default\AppendIsAncestorDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItem\Default\ApplyMenuItemFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\Default\ApplyMenuItemFilterDecorator as ApplyFilterDefaultDecorator;
 
 // Page tree fallback menu item
 use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendHrefDecorator;
@@ -39,6 +39,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\CustomT
 use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendIsCurrentPostDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\AppendChildrenDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\TransformObjectDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItem\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyFilterPageTreeFallbackDecorator;
 
 class BaseController
 {
@@ -324,7 +325,6 @@ class BaseController
 
     public function createMenuInstance(string $identifier = '', ?string $menuName = null, string $context = 'municipio'): Menu
     {
-        $id     = GetMenuData::getNavMenuId($identifier);
         $pageId = $this->getPageID();
 
         // Cache
@@ -349,38 +349,40 @@ class BaseController
             $runTimeCacheInstance,
             $getAncestorsInstance,
             $getPostsByParentInstance,
+            new TransformObjectDecorator(),
             [
                 new AppendHrefDecorator(),
                 new CustomTitleDecorator($this->db, $cacheManagerInstance),
                 new AppendIsCurrentPostDecorator($pageId),
                 new AppendIsAncestorPostDecorator($getAncestorsInstance),
                 $appendChildrenDecoratorInstance,
-                new TransformObjectDecorator()
+                new ApplyFilterPageTreeFallbackDecorator($identifier)
             ],
         );
 
+        $appendChildrenDecoratorInstance->setComplementPageTreeMenuItemsDecoratorInstance($complementPageTreeMenuItemsDecoratorInstance);
+
         $complementDefaultMenuItemsDecorator = new ComplementDefaultMenuItemsDecorator(
             $identifier, 
-            $id, 
             $pageId, 
             $this->db, 
             new TransformToArrayDecorator($pageId), 
-            new GetMenuItemAncestors($pageId), 
+            new GetAncestorIds($pageId), 
             [
                 new AppendAcfFieldValuesDecorator(), 
-                new AppendIsAncestorDecorator()
-            ]);
-
-        $appendChildrenDecoratorInstance->setComplementObjectsInstance($complementPageTreeMenuItemsDecoratorInstance);
+                new AppendIsAncestorDecorator(),
+                new ApplyFilterDefaultDecorator($identifier)
+            ]
+        );
 
         return new Menu(
+            new StructureMenuItemsDecorator(),
+            $complementDefaultMenuItemsDecorator,
+            $complementPageTreeMenuItemsDecoratorInstance,
             $identifier,
             $menuName,
             $pageId,
             $context,
-            new StructureMenuItemsDecorator(),
-            $complementDefaultMenuItemsDecorator,
-            $complementPageTreeMenuItemsDecoratorInstance,
             [                
                 new RemoveTopLevelDecorator(),
                 new RemoveSubLevelDecorator(),

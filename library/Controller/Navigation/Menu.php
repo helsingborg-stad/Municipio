@@ -10,21 +10,21 @@ use Municipio\Controller\Navigation\Decorators\MenuItems\Default\ComplementDefau
 class Menu
 {
     public function __construct(
+        private StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance,
+        private ComplementDefaultMenuItemsDecorator $complementDefaultMenuItemsDecoratorInstance,
+        private ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance,
         private string $identifier = '',
         private ?string $menuName = null,
         private ?int $pageId = null,
         private string $context = 'municipio',
-        private StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance,
-        private ComplementDefaultMenuItemsDecorator $complementMenuItemsDecoratorInstance,
-        private ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance,
         private array $decorators = []
     ) {}
 
-    public function setMenuName(string $menuName) 
+    public static function factory(StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance, ComplementDefaultMenuItemsDecorator $complementDefaultMenuItemsDecoratorInstance, ComplementPageTreeMenuItemsDecorator $complementPageTreeMenuItemsDecoratorInstance, string $identifier = '', ?string $menuName = null, ?int $pageId = null, string $context = 'municipio', array $decorators = []): self
     {
-        $this->menuName = $menuName;
+        return new self($structureMenuItemsDecoratorInstance, $complementDefaultMenuItemsDecoratorInstance, $complementPageTreeMenuItemsDecoratorInstance, $identifier, $menuName, $pageId, $context, $decorators);
     }
-
+    
     public function createMenu(
         bool $fallbackToPageTree = false,
         bool $includeTopLevel = true,
@@ -39,24 +39,29 @@ class Menu
     public function getMenuNavItems(
         bool $fallbackToPageTree = false,
         bool $includeTopLevel = true,
-        bool $onlyKeepFirstLevel = false
+        bool $onlyKeepFirstLevel = false,
+        string $menuName = null
     ): array|false {
 
-        $menuItems = GetMenuData::getNavMenuItems($this->menuName) ?: [];
+        $menuItems = GetMenuData::getNavMenuItems($menuName ?: $this->menuName) ?: [];
+        
+        // Complements default menu items before structuring
+        $menuItems = $this->complementDefaultMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
 
-        // Runs before the menu has been structured
-        $menuItems = $this->complementMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
-
+        // Complements page tree fallback
         $menuItems = $this->complementPageTreeMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
 
+        // Structures the complemented menu items
+        $menuItems = $this->structureMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+
         // Allow for filtering after the early decorators
-        $menuItems = apply_filters('Municipio/Navigation/Items', $this->structureMenuItemsDecoratorInstance->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel), $this->identifier);
+        $menuItems = apply_filters('Municipio/Navigation/Items', $menuItems, $this->identifier);
 
         if (empty($menuItems)) {
             return false;
         }
 
-        // Runs after the menu has been structured
+        // Runs after the menu has been structured and complemented
         if (!empty($this->decorators)) {
             foreach ($this->decorators as $decorator) {
                 $menuItems = $decorator->decorate($menuItems, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);

@@ -15,7 +15,7 @@ class AppendIsCurrentPostDecorator implements PageTreeFallbackMenuItemDecoratorI
      */
     public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
     {
-        if ($menuItem['ID'] == $this->postId) {
+        if ($menuItem['id'] == $this->postId) {
             $menuItem['active'] = true;
         } elseif (\Municipio\Helper\IsCurrentUrl::isCurrentUrl($menuItem['href'])) {
             $menuItem['active'] = true;
