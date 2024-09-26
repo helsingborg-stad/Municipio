@@ -54,11 +54,26 @@ class TaxonomyItem implements TaxonomyItemInterface
      */
     public function getName(): string
     {
+        // Prepend the schema object type to the schema object property.
+        $name = $this->schemaObjectType . '_' . $this->schemaObjectProperty;
+
+        // Replace . with underscore in the schema object property.
+        $name = str_replace('.', '_', $name);
+
+        // Remove special characters from the schema object property. Allow underscores.
+        $name = preg_replace(
+            '/[^a-zA-Z0-9_]/',
+            '',
+            $name
+        );
+
         // Convert the schema object property to a taxonomy name by making it snake case from camelcase.
-        $snakeCasedObjectProperty = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $this->schemaObjectProperty));
+        $name = strtolower(
+            preg_replace('/(?<!^)[A-Z]/', '_$0', $name)
+        );
 
         // Ensure that the taxonomy name is not longer than 32 characters.
-        return substr($snakeCasedObjectProperty, 0, 32);
+        return substr($name, 0, 32);
     }
 
     /**

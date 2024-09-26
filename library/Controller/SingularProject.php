@@ -17,15 +17,35 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $this->data['category']   = wp_get_post_terms($this->data['post']->id, '@meta.category')[0]->name ?? null;
-        $this->data['technology'] = wp_get_post_terms($this->data['post']->id, '@meta.technology')[0]->name ?? null;
-        $this->data['status']     = wp_get_post_terms($this->data['post']->id, '@meta.status')[0]->name ?? null;
-        $this->data['department'] = wp_get_post_terms($this->data['post']->id, 'department')[0]->name ?? null;
-        $this->data['progress']   = get_post_meta($this->data['post']->id, 'progress', true) ?? null;
-        $this->data['imageUrl']   = get_the_post_thumbnail_url($this->data['post']->id) ?: null;
+        $this->data['progress'] = get_post_meta($this->data['post']->id, 'progress', true) ?? null;
+        $this->data['imageUrl'] = get_the_post_thumbnail_url($this->data['post']->id) ?: null;
 
+        $this->data = $this->setTerms($this->data);
         $this->appendToLangObject();
         $this->setInformationListData();
+    }
+
+    /**
+     * Sets the terms for the project.
+     *
+     * @param array $data
+     * @return array
+     */
+    private function setTerms($data): array
+    {
+        $map = [
+            'category'   => 'project_meta_category',
+            'technology' => 'project_meta_technology',
+            'status'     => 'project_meta_status',
+            'department' => 'project_department'
+        ];
+
+        foreach ($map as $key => $taxonomy) {
+            $terms      = wp_get_post_terms($data['post']->id, $taxonomy);
+            $data[$key] = is_array($terms) ? $terms[0]->name : null;
+        }
+
+        return $data;
     }
 
     /**
