@@ -139,7 +139,6 @@ class Images
         $attachmentId   = attachment_url_to_postid($url);
 
         if(is_numeric($attachmentId)) {
-            echo 'Attachment ID found for image: ' . $url . '<br>';
             //Get image contract 
             $imageComponentContract = ImageComponentContract::factory(
                 (int) $attachmentId,
@@ -156,7 +155,6 @@ class Images
                 ],
             ]);
         } else {
-            echo 'No attachment ID found for image: ' . $url . '<br>';
             $html = render_blade_view('partials.content.image', [
                 'src'              => $url,
                 'alt'              => $altText,
