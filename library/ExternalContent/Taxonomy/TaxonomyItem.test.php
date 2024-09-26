@@ -41,4 +41,21 @@ class TaxonomyItemTest extends TestCase
         $this->assertStringNotContainsString('@', $taxonomyItem->getName());
         $this->assertStringNotContainsString('.', $taxonomyItem->getName());
     }
+
+    /**
+     * @testdox getName() starts with the schema object type
+     */
+    public function testGetNameStartsWithSchemaObjectType()
+    {
+        $taxonomyItem = new TaxonomyItem(
+            'Thing',
+            ['postType'],
+            'schemaObjectProperty',
+            'singleLabel',
+            'pluralLabel',
+            new FakeWpService()
+        );
+
+        $this->assertStringStartsWith('thing_', $taxonomyItem->getName());
+    }
 }
