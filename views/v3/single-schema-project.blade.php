@@ -1,7 +1,7 @@
 @extends('templates.single')
 
 @section('hero-top-sidebar')
-    @hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'background' => '#f7f7f7', ])
+    @hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'classList' => ['u-color__bg--lightest'] ])
         @slot('content')
             @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
             @typography([
