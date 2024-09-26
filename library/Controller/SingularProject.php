@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller;
 
+use Municipio\Integrations\Component\ImageResolver;
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 /**
  * Class SingularJobPosting
  */
@@ -18,11 +20,34 @@ class SingularProject extends \Municipio\Controller\Singular
         parent::init();
 
         $this->data['progress'] = get_post_meta($this->data['post']->id, 'progress', true) ?? null;
-        $this->data['imageUrl'] = get_the_post_thumbnail_url($this->data['post']->id) ?: null;
+        $this->data['image']    = $this->getImageContractOrUrl($this->data['post']->id ?? null);
 
         $this->data = $this->setTerms($this->data);
         $this->appendToLangObject();
         $this->setInformationListData();
+    }
+
+    /**
+     * Gets the image contract or url.
+     * 
+     * @param int $postId
+     * 
+     * @return null|string|ImageInterface
+     */
+    private function getImageContractOrUrl(?int $postId): null|string|ImageComponentContract {
+        if(is_null($postId)) {
+            return null;
+        }
+
+        if($thumbnailId = get_post_thumbnail_id($postId)) {
+            return ImageComponentContract::factory(
+                (int) $thumbnailId,
+                [768, false],
+                new ImageResolver()
+            );
+        }
+
+        return get_the_post_thumbnail_url($postId) ?: null;
     }
 
     /**
