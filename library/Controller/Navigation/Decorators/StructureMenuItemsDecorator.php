@@ -3,6 +3,7 @@
 namespace Municipio\Controller\Navigation\Decorators;
 
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class StructureMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
@@ -14,7 +15,7 @@ class StructureMenuItemsDecorator implements MenuItemsDecoratorInterface
      *
      * @return  array               Nested array representing page structure
      */
-    public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
         return $this->structuredMenuItems($menuItems);
     }

@@ -3,15 +3,10 @@
 namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class GetHiddenPostIds
 {
-    public function __construct(
-        private $db,
-        private CacheManagerInterface $cacheManager
-    ) {
-    }
-    
     /**
      * Get a list of hidden post id's
      *
@@ -26,21 +21,21 @@ class GetHiddenPostIds
      *
      * @return array
      */
-    public function get(string $metaKey = "hide_in_menu"): array
+    public function get(MenuConfigInterface $menuConfig, string $metaKey = "hide_in_menu"): array
     {
         //Get cached result
-        $cache = $this->cacheManager->getCache($metaKey);
+        $cache = $menuConfig->getCacheManager()->getCache($metaKey);
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
         //Get meta
-        $hiddenPages = (array) $this->db->get_col(
-            $this->db->prepare(
+        $hiddenPages = (array) $menuConfig->getWpdb()->get_col(
+            $menuConfig->getWpdb()->prepare(
                 "
                 SELECT post_id
-                FROM " . $this->db->postmeta . " AS pm 
-                JOIN " . $this->db->posts . " AS p ON pm.post_id = p.ID
+                FROM " . $menuConfig->getWpdb()->postmeta . " AS pm 
+                JOIN " . $menuConfig->getWpdb()->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value = '1'
                 AND post_status = 'publish'
@@ -56,7 +51,7 @@ class GetHiddenPostIds
         }
 
         //Cache
-        $this->cacheManager->setCache($metaKey, $hiddenPages);
+        $menuConfig->getCacheManager()->setCache($metaKey, $hiddenPages);
 
         return $hiddenPages;
     }

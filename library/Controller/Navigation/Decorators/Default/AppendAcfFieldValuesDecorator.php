@@ -2,9 +2,11 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Default;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 class AppendAcfFieldValuesDecorator implements DefaultMenuItemDecoratorInterface
 {
-    public function decorate(array|object $menuItem, array $ancestors): array
+    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig, array $ancestors): array
     {
         $fields = get_fields($menuItem['id']);
 

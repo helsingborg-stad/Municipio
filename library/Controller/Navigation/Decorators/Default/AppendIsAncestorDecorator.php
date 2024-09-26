@@ -2,9 +2,11 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Default;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 class AppendIsAncestorDecorator implements DefaultMenuItemDecoratorInterface
 {
-    public function decorate(array|object $menuItem, array $ancestors): array
+    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig, array $ancestors): array
     {
         if (!isset($menuItem['id']) || empty($ancestors)) {
             return $menuItem;

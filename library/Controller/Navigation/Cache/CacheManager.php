@@ -2,9 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Cache;
 
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
-
-class CacheManager implements CacheManagerInterface
+class CacheManager
 {
     private $cacheGroup  = 'municipioNavMenu';
     private $cacheExpire = 60 * 15; // 15 minutes

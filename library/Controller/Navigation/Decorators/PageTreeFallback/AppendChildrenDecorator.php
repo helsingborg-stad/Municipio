@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
@@ -10,24 +10,10 @@ use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(
-        private int $postId,
-        private $db,
         private GetPostsByParent $getPostsByParentInstance,
         private GetHiddenPostIds $getHiddenPostIdsInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
-        private ?ComplementPageTreeDecorator $complementPageTreeDecoratorInstance = null
     ) {
-    }
-
-    /**
-     * Sets the complement objects instance for the AppendChildrenDecorator.
-     *
-     * @param ComplementPageTreeDecorator $complementObjectsInstance The complement objects instance to set.
-     * @return void
-     */
-    public function setComplementPageTreeDecoratorInstance(ComplementPageTreeDecorator $complementPageTreeDecoratorInstance): void
-    {
-        $this->complementPageTreeDecoratorInstance = $complementPageTreeDecoratorInstance;
     }
 
      /**
@@ -38,20 +24,21 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
      *
      * @return  array              Flat array with parents
      */
-    public function decorate(array|object $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig): array
     {
-        if ($menuItem['id'] == $this->postId) {
+        if ($menuItem['id'] == $menuConfig->getPageId()) {
             $children = $this->getPostsByParentInstance->getPostsByParent(
+                $menuConfig,
                 $menuItem['id'],
                 get_post_type($menuItem['id'])
             );
         } else {
-            $children = $this->indicateChildren($menuItem['id']);
+            $children = $this->indicateChildren($menuConfig, $menuItem['id']);
         }
 
         //If null, no children
         if (is_array($children) && !empty($children)) {
-            $menuItem['children'] = $this->complementPageTreeDecoratorInstance->decorate($children, $fallbackToPageTree, $includeTopLevel, $onlyKeepFirstLevel);
+            $menuItem['children'] = $menuConfig->getComplementPageTreeDecoratorInstance()->decorate($children, $menuConfig);
         } else {
             $menuItem['children'] = (bool) $children;
         }
@@ -67,33 +54,33 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
      *
      * @return  boolean               Tells wheter the post has children or not
      */
-    public function indicateChildren($postId): bool
+    private function indicateChildren(MenuConfigInterface $menuConfig, $postId): bool
     {
         //Define to omit error
         $postTypeHasPosts = null;
 
-        $currentPostTypeChildren = $this->db->get_var(
-            $this->db->prepare("
+        $currentPostTypeChildren = $menuConfig->getWpdb()->get_var(
+            $menuConfig->getWpdb()->prepare("
         SELECT ID
-        FROM " . $this->db->posts . "
+        FROM " . $menuConfig->getWpdb()->posts . "
         WHERE post_parent = %d
         AND post_status = 'publish'
-        AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get()) . ")
+        AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get($menuConfig)) . ")
         LIMIT 1
       ", $postId)
         );
 
         //Check if posttype has content
-        $pageForPostTypeIds = $this->getPageForPostTypeIdsInstance->get();
+        $pageForPostTypeIds = $this->getPageForPostTypeIdsInstance->get($menuConfig);
         if (array_key_exists($postId, $pageForPostTypeIds)) {
-            $postTypeHasPosts = $this->db->get_var(
-                $this->db->prepare("
+            $postTypeHasPosts = $menuConfig->getWpdb()->get_var(
+                $menuConfig->getWpdb()->prepare("
                     SELECT ID
-                    FROM " . $this->db->posts . "
+                    FROM " . $menuConfig->getWpdb()->posts . "
                     WHERE post_parent = 0
                     AND post_status = 'publish'
                     AND post_type = %s
-                    AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get()) . ")
+                    AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get($menuConfig)) . ")
                     LIMIT 1
                 ", $pageForPostTypeIds[$postId])
             );

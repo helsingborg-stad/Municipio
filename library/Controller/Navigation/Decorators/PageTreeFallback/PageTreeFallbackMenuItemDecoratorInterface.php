@@ -2,7 +2,9 @@
 
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 interface PageTreeFallbackMenuItemDecoratorInterface
 {
-    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array;
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array;
 }

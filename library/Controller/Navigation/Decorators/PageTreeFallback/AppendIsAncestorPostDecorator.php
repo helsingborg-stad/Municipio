@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 
 class AppendIsAncestorPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
@@ -17,9 +18,9 @@ class AppendIsAncestorPostDecorator implements PageTreeFallbackMenuItemDecorator
      *
      * @return  array    $postArray     The post array, with appended data
      */
-    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
     {
-        if (in_array($menuItem['id'], $this->getAncestorsInstance->getAncestors())) {
+        if (in_array($menuItem['id'], $this->getAncestorsInstance->getAncestors($menuConfig))) {
             $menuItem['ancestor'] = true;
         } else {
             $menuItem['ancestor'] = false;

@@ -2,34 +2,47 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\MenuConfigInterface;
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Menu;
-use Municipio\Controller\Navigation\Menu2;
 use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+
+// Static
+use Municipio\Controller\Navigation\ComplementDefaultDecoratorFactory;
+use Municipio\Controller\Navigation\ComplementPageTreeFallbackDecoratorFactory;
+use Municipio\Controller\Navigation\Config\MenuConfig;
 
 class MenuFactory {
     private array $decorators;
 
-    public function __construct(private MenuConfigInterface $menuConfig, private ComplementDefaultDecorator $complementDefaultDecoratorInstance, private ComplementPageTreeDecorator $complementPageTreeDecoratorInstance)
-    {
-        $this->decorators = [
+    public function __construct(
+        private MenuConfigInterface $menuConfig, 
+    ) {
+        $this->decorators = $this->getDefaultDecorators();
+    }
+
+    private function getDefaultDecorators(): array {
+        return [
             new RemoveTopLevelDecorator(),
-            new RemoveSubLevelDecorator()
+            new RemoveSubLevelDecorator(),
         ];
     }
 
-    public function createMenu(): Menu2 {
-        
-        return new Menu2(
+    // public static function createMenuStatic(): Menu
+    // {
+    //     return new Menu(
+    //         new MenuConfig(
+    //             ComplementDefaultDecoratorFactory::createComplementDecoratorStatic(),
+    //             ComplementPageTreeFallbackDecoratorFactory::createComplementDecoratorStatic()
+    //         ),
+    //         self::getDefaultDecorators()
+    //     );
+    // }
+
+    public function createMenu(): Menu {
+        return new Menu(
             $this->menuConfig,
-            new StructureMenuItemsDecorator(),
-            $this->complementDefaultDecoratorInstance,
-            $this->complementPageTreeDecoratorInstance,
             $this->decorators
         );
     }

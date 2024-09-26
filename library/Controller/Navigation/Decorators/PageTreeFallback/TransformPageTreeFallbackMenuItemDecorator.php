@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 class TransformPageTreeFallbackMenuItemDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     /**
@@ -11,7 +13,7 @@ class TransformPageTreeFallbackMenuItemDecorator implements PageTreeFallbackMenu
      *
      * @return  array   $menuItem  The post array, with appended data
      */
-    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
     {
         //Move post_title to label key
         $menuItem['label']       = $menuItem['post_title'];

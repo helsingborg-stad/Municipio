@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Menu;
 

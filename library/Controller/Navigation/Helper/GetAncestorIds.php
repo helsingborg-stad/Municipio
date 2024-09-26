@@ -2,26 +2,27 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 class GetAncestorIds
 {
-    private ?array $ancestorIds = null;
+    private ?array $ancestorIds = [];
 
     public function __construct(
-        private int $pageId
     ) {}
 
-    public function get(array $menuItems): array
+    public function get(array $menuItems, MenuConfigInterface $menuConfig): array
     {
-        if (!is_null($this->ancestorIds)) {
+        if (empty($this->ancestorIds[$menuConfig->getIdentifier()])) {
             return $this->ancestorIds;
         }
 
-        $this->ancestorIds = $this->getWpMenuAncestors(
+        $this->ancestorIds[$menuConfig->getIdentifier()] = $this->getWpMenuAncestors(
             $menuItems,
-            $this->pageIdToMenuID($menuItems)
+            $this->pageIdToMenuID($menuItems, $menuConfig->getPageId())
         );
 
-        return $this->ancestorIds;
+        return $this->ancestorIds[$menuConfig->getIdentifier()];
     }
 
     /**
@@ -31,9 +32,9 @@ class GetAncestorIds
      * @param integer $this->pageId
      * @return integer
      */
-    private function pageIdToMenuID($menuItems)
+    private function pageIdToMenuID($menuItems, int $pageId)
     {
-        $index = array_search($this->pageId, array_column($menuItems, 'object_id'));
+        $index = array_search($pageId, array_column($menuItems, 'object_id'));
 
         if ($index !== false) {
             return $menuItems[$index]->ID;

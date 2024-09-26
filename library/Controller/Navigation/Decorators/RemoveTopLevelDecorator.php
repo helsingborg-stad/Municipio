@@ -2,6 +2,8 @@
 
 namespace Municipio\Controller\Navigation\Decorators;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+
 class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
 {
     /**
@@ -10,9 +12,9 @@ class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
      * @param   array   $menuItems    The unfiltered menuItems set
      *
      */
-    public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
-        if ($includeTopLevel) {
+        if ($menuConfig->getIncludeTopLevel()) {
             return $menuItems;
         }
 

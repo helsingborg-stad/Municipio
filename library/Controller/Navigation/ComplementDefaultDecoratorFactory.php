@@ -14,13 +14,38 @@ use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecora
 class ComplementDefaultDecoratorFactory implements ComplementDecoratorFactoryInterface
 {
     private array $decorators;
+    private GetAncestorIds $getAncestorsInstance;
+    private TransformMenuItemDecorator $transformMenuItemDecorator;
 
     public function __construct()
     {
-        $this->decorators = [
-            new AppendAcfFieldValuesDecorator(),
-            new AppendIsAncestorDecorator(),
-            new ApplyMenuItemFilterDecorator()
+        [
+            $getAncestorsInstance,
+            $transformMenuItemDecorator,
+            $decorators
+        ] = $this->getClassProperties();
+
+        // Assign class properties
+        $this->getAncestorsInstance = $getAncestorsInstance;
+        $this->transformMenuItemDecorator = $transformMenuItemDecorator;
+        $this->decorators = $decorators;
+    }
+
+    public static function createComplementDecoratorStatic(): MenuItemsDecoratorInterface
+    {
+        
+        return new ComplementDefaultDecorator(
+            ,
+            self::getDefaultDecorators()
+        );
+    }
+
+    public function getClassProperties(): array
+    {
+        return [
+            new GetAncestorIds(),
+            new TransformMenuItemDecorator(),
+            $this->getDefaultDecorators()
         ];
     }
 
@@ -41,5 +66,14 @@ class ComplementDefaultDecoratorFactory implements ComplementDecoratorFactoryInt
     public function setDecorators(array $decorators): void
     {
         $this->decorators = $decorators;
+    }
+
+    private function getDefaultDecorators(): array
+    {
+        return [
+            new AppendAcfFieldValuesDecorator(),
+            new AppendIsAncestorDecorator(),
+            new ApplyMenuItemFilterDecorator()
+        ];
     }
 }

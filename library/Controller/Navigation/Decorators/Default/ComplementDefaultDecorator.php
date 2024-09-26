@@ -5,15 +5,13 @@ namespace Municipio\Controller\Navigation\Decorators\Default;
 use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestorIds;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 
 class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
 {
 
     public function __construct(
-        private string $identifier, 
-        private int $pageId,
-        private $db,
         private TransformMenuItemDecorator $transformMenuItemDecoratorInstance,
         private GetAncestorIds $getAncestorIds,
         private array $decorators = []
@@ -26,21 +24,21 @@ class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
      * @param string $menu The menu id to get
      * @return bool|array
      */
-    public function decorate(array $menuItems, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
         
         if (empty($menuItems)) {
             return $menuItems;
         }
         
-        $ancestors = $this->getAncestorIds->get($menuItems);
+        $ancestors = $this->getAncestorIds->get($menuItems, $menuConfig);
 
         foreach ($menuItems as &$menuItem) {
             // Converting the menu item object to an array as the first step.
-            $menuItem = $this->transformMenuItemDecoratorInstance->decorate($menuItem, $ancestors);
+            $menuItem = $this->transformMenuItemDecoratorInstance->decorate($menuItem, $menuConfig, $ancestors);
 
             foreach ($this->decorators as $decorator) {
-                $menuItem = $decorator->decorate($menuItem, $ancestors);
+                $menuItem = $decorator->decorate($menuItem, $menuConfig, $ancestors);
             }
         }
 

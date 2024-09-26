@@ -1,10 +1,22 @@
 <?php
 
-namespace Municipio\Controller\Navigation;
+namespace Municipio\Controller\Navigation\Config;
+
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Cache\RuntimeCache;
+use Municipio\Controller\Navigation\Cache\CacheManager;
 
 class MenuConfig implements MenuConfigInterface
 {
     public function __construct(
+        private ComplementDefaultDecorator $complementDefaultDecoratorInstance,
+        private ComplementPageTreeDecorator $complementPageTreeDecoratorInstance,
+        private StructureMenuItemsDecorator $structureMenuItemsDecoratorInstance,
+        private RuntimeCache $runTimeCache,
+        private CacheManager $cacheManager,
         private string $identifier = '',
         private string $menuName = '',
         private ?int $pageId = null,
@@ -16,6 +28,31 @@ class MenuConfig implements MenuConfigInterface
     ) {
     }
 
+    public function getRuntimeCache(): RuntimeCache
+    {
+        return $this->runTimeCache;
+    }
+
+    public function getCacheManager(): CacheManager
+    {
+        return $this->cacheManager;
+    }
+
+    public function getComplementDefaultDecoratorInstance(): MenuItemsDecoratorInterface
+    {
+        return $this->complementDefaultDecoratorInstance;
+    }
+
+    public function getComplementPageTreeDecoratorInstance(): MenuItemsDecoratorInterface
+    {
+        return $this->complementPageTreeDecoratorInstance;
+    }
+
+    public function getStructureMenuItemsDecoratorInstance(): MenuItemsDecoratorInterface
+    {
+        return $this->structureMenuItemsDecoratorInstance;
+    }
+    
     public function getIdentifier(): string
     {
         return $this->identifier;

@@ -2,18 +2,17 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-use Municipio\Controller\Navigation\Cache\RuntimeCache;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class GetAncestors
 {
+    private int $postId;
 
     public function __construct(
-        private $postId,
-        private $db,
-        private RuntimeCache $runtimeCacheInstance,
         private GetPageForPostTypeIds $getPageForPostTypeIdsInstance
-    ) {}
+    ) {
+    }
     
     /**
      * Fetch the current page/posts parent, with support for page for posttype.
@@ -22,12 +21,13 @@ class GetAncestors
      *
      * @return  array              Flat array with parents
      */
-    public function getAncestors($includeTopLevel = true): array
+    public function getAncestors(MenuConfigInterface $menuConfig): array
     {
+        $this->postId = $menuConfig->getPageId();
 
-        $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
-        if (isset($this->runtimeCacheInstance->getCache('ancestors')[$cacheSubKey][$this->postId])) {
-            return $this->runtimeCacheInstance->getCache('ancestors')[$cacheSubKey][$this->postId];
+        $cacheSubKey = $menuConfig->getIncludeTopLevel() ? 'toplevel' : 'notoplevel';
+        if (isset($menuConfig->getRuntimeCache()->getCache('ancestors')[$cacheSubKey][$this->postId])) {
+            return $menuConfig->getRuntimeCache()->getCache('ancestors')[$cacheSubKey][$this->postId];
         }
 
         //Definitions
@@ -36,10 +36,10 @@ class GetAncestors
 
         //Fetch ancestors
         while ($fetchAncestors) {
-            $ancestorID = $this->db->get_var(
-                $this->db->prepare("
+            $ancestorID = $menuConfig->getWpdb()->get_var(
+                $menuConfig->getWpdb()->prepare("
             SELECT post_parent
-            FROM  " . $this->db->posts . "
+            FROM  " . $menuConfig->getWpdb()->posts . "
             WHERE ID = %d
             AND post_status = 'publish'
             LIMIT 1
@@ -50,7 +50,7 @@ class GetAncestors
             if ($ancestorID == 0) {
                 //Get posttype of post
                 $currentPostType    = get_post_type($this->postId);
-                $pageForPostTypeIds = array_flip($this->getPageForPostTypeIdsInstance->get());
+                $pageForPostTypeIds = array_flip($this->getPageForPostTypeIdsInstance->get($menuConfig));
 
                 //Look for replacement
                 if ($currentPostType && array_key_exists($currentPostType, $pageForPostTypeIds)) {
@@ -75,7 +75,7 @@ class GetAncestors
         }
 
         //Include zero level
-        if ($includeTopLevel === true) {
+        if ($menuConfig->getIncludeTopLevel() === true) {
             $ancestorStack = array_merge(
                 [0],
                 $ancestorStack
@@ -83,9 +83,9 @@ class GetAncestors
         }
 
         //Return and cache result
-        $ancestors = $this->runtimeCacheInstance->getCache('ancestors');
+        $ancestors = $menuConfig->getRuntimeCache()->getCache('ancestors');
         $ancestors[$cacheSubKey][$this->postId] = $ancestorStack;
-        $this->runtimeCacheInstance->setCache('ancestors', $ancestors);
+        $menuConfig->getRuntimeCache()->setCache('ancestors', $ancestors);
 
         return $ancestorStack;
     }

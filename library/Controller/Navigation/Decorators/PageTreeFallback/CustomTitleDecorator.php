@@ -3,15 +3,10 @@
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
 use Municipio\Controller\Navigation\Cache\CacheManager;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
-{
-    public function __construct(
-        private $db,
-        private CacheManager $cacheManager
-    ) {
-    }
-    
+{    
     /**
      * Replace native title with custom menu name
      *
@@ -19,9 +14,9 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
      *
      * @return object
      */
-    public function decorate(array $menuItem, bool $fallbackToPageTree, bool $includeTopLevel, bool $onlyKeepFirstLevel): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
     {
-        $customTitles = $this->getMenuTitle();
+        $customTitles = $this->getMenuTitle($menuConfig);
 
         //Get custom title
         if (isset($customTitles[$menuItem['id']])) {
@@ -50,21 +45,21 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
      *
      * @return array
      */
-    private function getMenuTitle(string $metaKey = "custom_menu_title"): array
+    private function getMenuTitle(MenuConfigInterface $menuConfig, string $metaKey = "custom_menu_title"): array
     {
         //Get cached result
-        $cache = $this->cacheManager->getCache($metaKey);
+        $cache = $menuConfig->getCacheManager()->getCache($metaKey);
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
 
         //Get meta
-        $result = (array) $this->db->get_results(
-            $this->db->prepare(
+        $result = (array) $menuConfig->getWpdb()->get_results(
+            $menuConfig->getWpdb()->prepare(
                 "
                 SELECT post_id, meta_value
-                FROM " . $this->db->postmeta . " as pm
-                JOIN " . $this->db->posts . " AS p ON pm.post_id = p.ID
+                FROM " . $menuConfig->getWpdb()->postmeta . " as pm
+                JOIN " . $menuConfig->getWpdb()->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value != ''
                 AND post_status = 'publish'
@@ -87,7 +82,7 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
         }
 
         //Cache
-        $this->cacheManager->setCache($metaKey, $pageTitles);
+        $menuConfig->getCacheManager()->setCache($metaKey, $pageTitles);
 
         return $pageTitles;
     }

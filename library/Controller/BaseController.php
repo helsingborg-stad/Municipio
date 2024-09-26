@@ -20,8 +20,10 @@ use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 
 // MenuConfig
-use Municipio\Controller\Navigation\MenuConfig;
-
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuFactory;
+use Municipio\Controller\Navigation\ComplementDefaultDecoratorFactory;
+use Municipio\Controller\Navigation\ComplementPageTreeFallbackDecoratorFactory;
 // Page tree fallback
 use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
 use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
@@ -43,6 +45,7 @@ use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorato
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyFilterDefaultDecorator;
+
 
 class BaseController
 {
@@ -161,17 +164,46 @@ class BaseController
         // $mobileMenu = new \Municipio\Helper\Navigation('mobile');
         // $this->data['sd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
-        $mobile = $this->createMenuInstance('mobile', 'secondary-menu');
-        $this->data['mobileMenu'] = $mobile->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        // $mobile = $this->createMenuInstance('mobile', 'secondary-menu');
+        // $this->data['mobileMenu'] = $mobile->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
-        $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $complementDefaultDecoratorInstance = (new ComplementDefaultDecoratorFactory())->createComplementDecorator();
+        $complementPageTreeDecoratorInstance = (new ComplementPageTreeFallbackDecoratorFactory())->createComplementDecorator();
+        $menuStructureDecoratorInstance = new StructureMenuItemsDecorator();
+        $runTimeCacheInstance = new RuntimeCache();
+        $cacheManagerInstance = new CacheManager();
 
-        $mobileSecondary = $this->createMenuInstance('mobile-secondary', 'mobile-drawer');
-        $this->data['mobileMenuSecondaryItems'] = $mobileSecondary->getMenuNavItems(false, true, false);
+        $mobileMenuConfig = new MenuConfig(
+            $complementDefaultDecoratorInstance, 
+            $complementPageTreeDecoratorInstance,
+            $menuStructureDecoratorInstance,
+            $runTimeCacheInstance,
+            $cacheManagerInstance,
+            'mobile', 
+            'secondary-menu', 
+            $this->getPageID(), 
+            $this->db, 
+            \Kirki::get_option('mobile_menu_pagetree_fallback'), 
+            true, 
+            false
+        );
+
+        $mobileMenuInstance = (new MenuFactory(
+            $mobileMenuConfig, 
+        ))->createMenu();
+
+        $this->data['mobileMenu'] = $mobileMenuInstance->getMenuNavItems();
 
 
-        // $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
-        // $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
+
+        // $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+
+        // $mobileSecondary = $this->createMenuInstance('mobile-secondary', 'mobile-drawer');
+        // $this->data['mobileMenuSecondaryItems'] = $mobileSecondary->getMenuNavItems(false, true, false);
+
+
+        $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
+        $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
 
 
 
@@ -330,70 +362,70 @@ class BaseController
 
     public function createMenuInstance(string $identifier = '', ?string $menuName = null, string $context = 'municipio'): Menu
     {
-        $pageId = $this->getPageID();
+        // $pageId = $this->getPageID();
 
-        // Cache
-        $cacheManagerInstance = new CacheManager();
-        $runTimeCacheInstance = new RuntimeCache();
+        // // Cache
+        // $cacheManagerInstance = new CacheManager();
+        // $runTimeCacheInstance = new RuntimeCache();
 
-        // Helpers
-        $getPageForPostTypeIdsInstance = new GetPageForPostTypeIds($cacheManagerInstance);
-        $getHiddenPostIdsInstance = new GetHiddenPostIds($this->db, $cacheManagerInstance);
+        // // Helpers
+        // $getPageForPostTypeIdsInstance = new GetPageForPostTypeIds($cacheManagerInstance);
+        // $getHiddenPostIdsInstance = new GetHiddenPostIds($this->db, $cacheManagerInstance);
 
-        // Idk
-        $getAncestorsInstance = new GetAncestors($pageId, $this->db, $runTimeCacheInstance, $getPageForPostTypeIdsInstance);
-        $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
+        // // Idk
+        // $getAncestorsInstance = new GetAncestors($pageId, $this->db, $runTimeCacheInstance, $getPageForPostTypeIdsInstance);
+        // $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
 
-        // MenuItem decorators
-        $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
+        // // MenuItem decorators
+        // $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
 
-        // MenuItems decorators
-        $complementPageTreeDecoratorInstance = new ComplementPageTreeDecorator(
-            $identifier,
-            $pageId,
-            $runTimeCacheInstance,
-            $getAncestorsInstance,
-            $getPostsByParentInstance,
-            new TransformPageTreeFallbackMenuItemDecorator(),
-            [
-                new AppendHrefDecorator(),
-                new CustomTitleDecorator($this->db, $cacheManagerInstance),
-                new AppendIsCurrentPostDecorator($pageId),
-                new AppendIsAncestorPostDecorator($getAncestorsInstance),
-                $appendChildrenDecoratorInstance,
-                new ApplyFilterPageTreeFallbackDecorator($identifier)
-            ],
-        );
+        // // MenuItems decorators
+        // $complementPageTreeDecoratorInstance = new ComplementPageTreeDecorator(
+        //     $identifier,
+        //     $pageId,
+        //     $runTimeCacheInstance,
+        //     $getAncestorsInstance,
+        //     $getPostsByParentInstance,
+        //     new TransformPageTreeFallbackMenuItemDecorator(),
+        //     [
+        //         new AppendHrefDecorator(),
+        //         new CustomTitleDecorator($this->db, $cacheManagerInstance),
+        //         new AppendIsCurrentPostDecorator($pageId),
+        //         new AppendIsAncestorPostDecorator($getAncestorsInstance),
+        //         $appendChildrenDecoratorInstance,
+        //         new ApplyFilterPageTreeFallbackDecorator($identifier)
+        //     ],
+        // );
 
         
-        $complementDefaultDecorator = new ComplementDefaultDecorator(
-            $identifier,
-            $pageId,
-            $this->db,
-            new DefaultMenuItemDecorator($pageId), 
-            new GetAncestorIds($pageId), 
-                [
-                    new AppendAcfFieldValuesDecorator(), 
-                    new AppendIsAncestorDecorator(),
-                    new ApplyFilterDefaultDecorator($identifier)
-                ]
-            );
+        // $complementDefaultDecorator = new ComplementDefaultDecorator(
+        //     $identifier,
+        //     $pageId,
+        //     $this->db,
+        //     new DefaultMenuItemDecorator($pageId), 
+        //     new GetAncestorIds($pageId), 
+        //         [
+        //             new AppendAcfFieldValuesDecorator(), 
+        //             new AppendIsAncestorDecorator(),
+        //             new ApplyFilterDefaultDecorator($identifier)
+        //         ]
+        //     );
             
-        $appendChildrenDecoratorInstance->setComplementPageTreeDecoratorInstance($complementPageTreeDecoratorInstance);
+        // $appendChildrenDecoratorInstance->setComplementPageTreeDecoratorInstance($complementPageTreeDecoratorInstance);
 
-        return new Menu(
-            new StructureMenuItemsDecorator(),
-            $complementDefaultDecorator,
-            $complementPageTreeDecoratorInstance,
-            $identifier,
-            $menuName,
-            $pageId,
-            $context,
-            [
-                new RemoveTopLevelDecorator(),
-                new RemoveSubLevelDecorator(),
-            ]
-        );
+        // return new Menu(
+        //     new StructureMenuItemsDecorator(),
+        //     $complementDefaultDecorator,
+        //     $complementPageTreeDecoratorInstance,
+        //     $identifier,
+        //     $menuName,
+        //     $pageId,
+        //     $context,
+        //     [
+        //         new RemoveTopLevelDecorator(),
+        //         new RemoveSubLevelDecorator(),
+        //     ]
+        // );
     }
 
     /**
