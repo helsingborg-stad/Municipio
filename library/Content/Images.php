@@ -51,16 +51,18 @@ class Images
      */
     private static function processLinks($dom, $links)
     {
-        if (!is_object($links) || empty($links)) return;
+        if (!is_object($links) || empty($links)) {
+            return;
+        }
 
         foreach ($links as $link) {
-            if (!isset($link->firstChild) || $link->firstChild->nodeName !== 'img') continue;
-
+            if (!isset($link->firstChild) || $link->firstChild->nodeName !== 'img') {
+                continue;
+            }
             $linkedImage = $link->firstChild;
             if (self::isSelfLinked($link, $linkedImage)) {
                 $captionText = self::extractCaption($link->parentNode);
                 $altText = $linkedImage->getAttribute('alt') ?: $captionText;
-
                 self::replaceWithBladeTemplate($dom, $link, $linkedImage, $altText, $captionText);
             }
         }
@@ -76,15 +78,23 @@ class Images
      */
     private static function processImages($dom, $images)
     {
-        if (!is_object($images) || empty($images)) return;
+        //Check that we actually have images
+        if (!is_object($images) || empty($images)) {
+            return;
+        } 
 
         foreach ($images as $image) {
-            $imageHasBeenNormalized = apply_filters('Municipio/Content/ImageNormalized', false, $image);
-            if ($imageHasBeenNormalized) continue;
 
+            //Only process images that are not already normalized
+            if (apply_filters('Municipio/Content/ImageNormalized', false, $image)) {
+                continue;
+            } 
+
+            //Get caption and alt text
             $captionText = self::extractCaption($image->parentNode);
-            $altText = $image->getAttribute('alt') ?: $captionText;
+            $altText     = $image->getAttribute('alt') ?: $captionText;
 
+            //Replace image with blade template
             self::replaceWithBladeTemplate($dom, $image, $image, $altText, $captionText);
         }
     }
@@ -138,6 +148,7 @@ class Images
         $url            = self::sanitizeRequestUrl($image->getAttribute('src'));
         $attachmentId   = attachment_url_to_postid($url);
 
+        //Handle as know local image (in wp database)
         if(is_numeric($attachmentId)) {
             //Get image contract 
             $imageComponentContract = ImageComponentContract::factory(
@@ -149,25 +160,29 @@ class Images
             $html = render_blade_view('partials.content.image', [
                 'src'              => $imageComponentContract,
                 'caption'          => $captionText,
-                'classList'        => explode(' ', $image->getAttribute('class')),
+                'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
-                    'parsed' => true,
-                ],
+                    'parsed' => true
+                ]
             ]);
-        } else {
+        }
+
+        //Handle as unknown or external image (not in wp database)
+        if(!is_numeric($attachmentId)) {
             $html = render_blade_view('partials.content.image', [
                 'src'              => $url,
                 'alt'              => $altText,
                 'caption'          => $captionText,
-                'classList'        => explode(' ', $image->getAttribute('class')),
+                'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
                     'srcset' => $image->getAttribute('srcset'),
                     'width'  => $image->getAttribute('width'),
                     'height' => $image->getAttribute('height'),
-                    'parsed' => true,
-                ],
+                    'parsed' => true
+                ]
             ]);
         }
+
         if(is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
             if ($newNode) {
@@ -188,11 +203,6 @@ class Images
         if ($image->getAttribute('parsed')) {
             return true;
         }
-
-        if (strpos($image->getAttribute('class'), 'c-image__image') !== false) {
-            return true;
-        }
-
         return $normalized;
     }
 
