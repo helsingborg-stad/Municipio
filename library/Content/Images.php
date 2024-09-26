@@ -68,8 +68,7 @@ class Images
                                 'src'              => $linkedImage->getAttribute('src'),
                                 'srcFull'          => $linkedImage->getAttribute('src'),
                                 'alt'              => $altText,
-                                'heading'          => $captionText,
-                                'isPanel'          => true,
+                                'caption'          => $captionText,
                                 'isTransparent'    => false,
                                 'classList'        => explode(' ', $linkedImage->getAttribute('class')),
                                 'imgAttributeList' =>
@@ -106,6 +105,7 @@ class Images
             }
 
             $images = $dom->getElementsByTagName('img');
+            
             if (is_object($images) && !empty($images)) {
                 foreach ($images as $image) {
 
@@ -151,6 +151,9 @@ class Images
                             ],
                         ]
                     );
+
+                    var_dump($image->getAttribute('srcset'));
+
                     $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
                     $image->parentNode->replaceChild($newNode, $image);
                 }
