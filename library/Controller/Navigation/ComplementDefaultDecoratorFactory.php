@@ -7,21 +7,28 @@ use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
 use Municipio\Controller\Navigation\Helper\GetAncestorIds;
+use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator;
 
 class ComplementDefaultDecoratorFactory implements ComplementDecoratorFactoryInterface
 {
     private array $decorators;
 
-    public function __construct(private MenuConfigInterface $menuConfig)
+    public function __construct()
     {
-        $this->decorators = [];
+        $this->decorators = [
+            new AppendAcfFieldValuesDecorator(),
+            new AppendIsAncestorDecorator(),
+            new ApplyMenuItemFilterDecorator()
+        ];
     }
 
     public function createComplementDecorator(): MenuItemsDecoratorInterface
     {
         return new ComplementDefaultDecorator(
-            new TransformMenuItemDecorator($this->menuConfig),
-            new GetAncestorIds($this->menuConfig),
+            new TransformMenuItemDecorator(),
+            new GetAncestorIds(),
             $this->decorators
         );
     }

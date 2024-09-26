@@ -5,26 +5,32 @@ namespace Municipio\Controller\Navigation;
 use Municipio\Controller\Navigation\MenuConfigInterface;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Menu;
+use Municipio\Controller\Navigation\Menu2;
 use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
 
-class MenuFactory implements MenuFactoryInterface {
+class MenuFactory {
     private array $decorators;
 
-    public function __construct(private MenuConfigInterface $menuConfig)
+    public function __construct(private MenuConfigInterface $menuConfig, private ComplementDefaultDecorator $complementDefaultDecoratorInstance, private ComplementPageTreeDecorator $complementPageTreeDecoratorInstance)
     {
         $this->decorators = [
-            new RemoveTopLevelDecorator($this->menuConfig),
-            new RemoveSubLevelDecorator($this->menuConfig)
+            new RemoveTopLevelDecorator(),
+            new RemoveSubLevelDecorator()
         ];
     }
 
-    public function createMenu(): Menu {
+    public function createMenu(): Menu2 {
         
-        return new Menu(
+        return new Menu2(
             $this->menuConfig,
-            new StructureMenuItemsDecorator($this->menuConfig),
+            new StructureMenuItemsDecorator(),
+            $this->complementDefaultDecoratorInstance,
+            $this->complementPageTreeDecoratorInstance,
+            $this->decorators
         );
     }
 
@@ -32,8 +38,8 @@ class MenuFactory implements MenuFactoryInterface {
         return $this->decorators;
     }
 
-    public function setDecorators(MenuItemsDecoratorInterface ...$decorators): void
+    public function setDecorators(array $decorators): void
     {
-        
+        $this->decorators = $decorators;
     }
 }
