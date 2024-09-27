@@ -7,11 +7,12 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 class TransformPageTreeFallbackMenuItemDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     /**
-     * Add post data on post array
+     * Decorates a menu item in the page tree fallback navigation.
      *
-     * @param   array   $menuItem  The post array
-     *
-     * @return  array   $menuItem  The post array, with appended data
+     * @param array $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param ComplementPageTreeDecorator $parentInstance The parent instance of the decorator.
+     * @return array The decorated menu item.
      */
     public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
