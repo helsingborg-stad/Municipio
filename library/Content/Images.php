@@ -232,6 +232,9 @@ class Images
         $sanitizedUrl .= isset($parsedUrl['host']) ? $parsedUrl['host'] : '';
         $sanitizedUrl .= isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
 
+        // Remove the pixelsize
+        $sanitizedUrl = preg_replace('/-(\d+x\d+)(?=\.\w{3,4}$)/', '', $sanitizedUrl);
+
         return $sanitizedUrl;
     }
 
