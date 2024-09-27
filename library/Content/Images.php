@@ -149,7 +149,7 @@ class Images
         $attachmentId = attachment_url_to_postid($url);
 
         //Handle as know local image (in wp database)
-        if (is_numeric($attachmentId)) {
+        if (is_numeric($attachmentId) && $attachmentId > 0) {
             //Width
             $conentContainerWidth = self::getPageWidth();
 
