@@ -432,7 +432,7 @@ class Archive
             'collection' => esc_html__('Collection', 'municipio')
        ];
 
-       $schemaType = \Municipio\SchemaData\Helper\SchemaTypeFromPostType::getSchemaTypeFromPostType($this->archive->name);
+       $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($this->archive->name);
 
        if ($schemaType) {
             $appearanceOptions = ['schema' => esc_html__('Schema', 'municipio')] + $appearanceOptions;
