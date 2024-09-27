@@ -15,10 +15,11 @@ class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
     }
 
     /**
-     * Get WordPress menu items (from default menu management)
+     * Decorates an array of menu items with the given decorators based on the provided menu configuration.
      *
-     * @param string $menu The menu id to get
-     * @return bool|array
+     * @param array $menuItems The array of menu items to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @return array The decorated array of menu items.
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
@@ -38,6 +39,12 @@ class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
         return $menuItems;
     }
 
+    /**
+     * Factory method for creating a ComplementDefaultDecorator instance.
+     *
+     * @param array $decorators An array of decorators.
+     * @return self The created ComplementDefaultDecorator instance.
+     */
     public static function factory(array $decorators): self
     {
         return new self($decorators);

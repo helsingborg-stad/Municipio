@@ -184,8 +184,18 @@ class BaseController
             new RemoveSubLevelDecorator()
         ];
 
-        $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
+
+        $mobileMenuConfig = new MenuConfig(
+            'mobile', 
+            'secondary-menu', 
+            $this->getPageID(), 
+            $this->db, 
+            \Kirki::get_option('mobile_menu_pagetree_fallback'), 
+            true,
+            false
+        );
+        
         $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $menuDecorators))->getMenuNavItems();
 
 

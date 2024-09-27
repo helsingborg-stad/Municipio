@@ -8,18 +8,24 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 class StructureMenuItemsDecorator implements MenuItemsDecoratorInterface
 {
     /**
-     * Recusivly traverse flat array and make a nested variant
+     * Decorates the menu items based on the structure defined in the menu configuration.
      *
-     * @param   array   $elements    A list of pages
-     * @param   integer $parentId    Parent id
-     *
-     * @return  array               Nested array representing page structure
+     * @param array $menuItems The original menu items.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @return array The decorated menu items.
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
         return $this->structuredMenuItems($menuItems);
     }
 
+    /**
+     * Generates a structured array of menu items based on the given menu items array and parent ID.
+     *
+     * @param array $menuItems The array of menu items.
+     * @param int $parentId The parent ID to filter the menu items.
+     * @return array The structured array of menu items.
+     */
     private function structuredMenuItems(array $menuItems, int $parentId = 0): array
     {
         $structuredMenuItems = [];

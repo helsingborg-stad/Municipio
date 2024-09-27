@@ -6,6 +6,14 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class TransformMenuItemDecorator implements DefaultMenuItemDecoratorInterface
 {
+    /**
+     * Decorates a menu item with additional properties.
+     *
+     * @param array|object $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param array $ancestors The ancestors of the menu item.
+     * @return array The decorated menu item with additional properties.
+     */
     public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig, array $ancestors): array
     {
         return [

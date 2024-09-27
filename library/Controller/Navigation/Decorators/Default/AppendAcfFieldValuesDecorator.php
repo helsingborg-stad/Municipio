@@ -6,6 +6,14 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class AppendAcfFieldValuesDecorator implements DefaultMenuItemDecoratorInterface
 {
+    /**
+     * Decorates a menu item with additional field values.
+     *
+     * @param array|object $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param array $ancestors The ancestors of the menu item.
+     * @return array The decorated menu item.
+     */
     public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig, array $ancestors): array
     {
         $fields = get_fields($menuItem['id']);

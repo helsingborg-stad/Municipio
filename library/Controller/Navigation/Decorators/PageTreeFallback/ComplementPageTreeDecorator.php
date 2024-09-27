@@ -16,13 +16,13 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
     public function __construct(
         private array $menuItemDecorators
     ) {}
-
+    
     /**
-     * Calculate add add data to array
+     * Decorates an array of menu items based on the provided menu configuration.
      *
-     * @param   array    $menuItems     The post array
-     *
-     * @return  array    $menuItems     The post array, with appended data
+     * @param array $menuItems The array of menu items to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @return array The decorated array of menu items.
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {

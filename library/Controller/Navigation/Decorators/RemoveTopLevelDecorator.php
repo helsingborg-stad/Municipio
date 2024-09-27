@@ -7,10 +7,11 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 class RemoveTopLevelDecorator implements MenuItemsDecoratorInterface
 {
     /**
-     * Removes top level items
+     * Decorates the menu items by removing the top level if specified in the menu configuration.
      *
-     * @param   array   $menuItems    The unfiltered menuItems set
-     *
+     * @param array $menuItems The array of menu items to be decorated.
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @return array The decorated array of menu items.
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {

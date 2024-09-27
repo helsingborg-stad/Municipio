@@ -7,12 +7,14 @@ use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 
 class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {    
+
     /**
-     * Replace native title with custom menu name
+     * Decorates a menu item with a custom title if available, or replaces it with a default title.
      *
-     * @param array $menuItem
-     *
-     * @return object
+     * @param array $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param ComplementPageTreeDecorator $parentInstance The parent instance of the decorator.
+     * @return array The decorated menu item.
      */
     public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
@@ -32,18 +34,11 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
     }
 
     /**
-     * Get a list of custom page titles
+     * Retrieves the menu titles from the database based on the provided menu configuration and meta key.
      *
-     * Optimzing: It may be faster on smaller databases
-     * to not use a join. This will however slow down larger sites.
-     *
-     * This is a calculated risk that should be caught
-     * by the object cache. Tests have been made to enshure
-     * good performance.
-     *
-     * @param string $metaKey The meta key to get data from
-     *
-     * @return array
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @param string $metaKey The meta key to filter the menu titles.
+     * @return array The array of menu titles with their corresponding page IDs.
      */
     private function getMenuTitle(MenuConfigInterface $menuConfig, string $metaKey = "custom_menu_title"): array
     {

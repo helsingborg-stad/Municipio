@@ -7,11 +7,11 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 class RemoveSubLevelDecorator implements MenuItemsDecoratorInterface
 {
     /**
-     * Removes sub level items
+     * Decorates the menu items by removing sub-levels based on the menu configuration.
      *
-     * @param   array   $menuItems    The unfiltered result set
-     *
-     * @return  array   $menuItems    The filtered result set (without sub levels)
+     * @param array $menuItems The array of menu items to be decorated.
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @return array The decorated array of menu items.
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
@@ -23,5 +23,4 @@ class RemoveSubLevelDecorator implements MenuItemsDecoratorInterface
 
         return $menuItems;
     }
-
 }
