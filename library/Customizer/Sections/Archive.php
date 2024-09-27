@@ -435,7 +435,7 @@ class Archive
        $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($this->archive->name);
 
        if ($schemaType) {
-            $appearanceOptions = ['schema' => esc_html__('Schema', 'municipio')] + $appearanceOptions;
+            $appearanceOptions = array_merge(['schema' => esc_html__('Schema', 'municipio')], $appearanceOptions);
        }
 
        return $appearanceOptions;
