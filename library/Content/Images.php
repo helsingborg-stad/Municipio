@@ -149,7 +149,7 @@ class Images
         $attachmentId = attachment_url_to_postid($url);
 
         //Handle as know local image (in wp database)
-        if (is_numeric($attachmentId) && $attachmentId > 0) {
+        if (is_numeric($attachmentId) && !empty($attachmentId)) {
             //Width
             $conentContainerWidth = self::getPageWidth();
 
@@ -174,7 +174,7 @@ class Images
         }
 
         //Handle as unknown or external image (not in wp database)
-        if (!is_numeric($attachmentId)) {
+        if (empty($attachmentId)) {
             $html = render_blade_view('partials.content.image', [
                 'src'              => $url,
                 'alt'              => $altText,
