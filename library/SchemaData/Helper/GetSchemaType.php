@@ -2,6 +2,11 @@
 
 namespace Municipio\SchemaData\Helper;
 
+/**
+ * Class GetSchemaType
+ *
+ * This class provides methods to retrieve schema types in use and retrieve the schema type from a given post type.
+ */
 class GetSchemaType
 {
     private static ?array $schemaTypesInUse = null;
