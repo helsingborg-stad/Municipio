@@ -13,29 +13,69 @@ class TriggerSyncTest extends TestCase
      */
     public function testCallsActionWithPostIdIfPostIdIsSet()
     {
-        $wpService = new FakeWpService();
-        $trigger   = $this->getTriggerInstance('test_post_type', 123, $wpService);
+        // Given
+        $inProgress = $this->getInProgress();
+        $wpService  = new FakeWpService();
+        $sut        = new TriggerSync($inProgress, $wpService);
 
-        $trigger->callProtectedTriggerMethod();
+        // When
+        $sut->trigger('test_post_type', 123);
 
+        // Then
         $this->assertEquals('Municipio/ExternalContent/Sync', $wpService->methodCalls['doAction'][0][0]);
         $this->assertEquals('test_post_type', $wpService->methodCalls['doAction'][0][1]);
         $this->assertEquals(123, $wpService->methodCalls['doAction'][0][2]);
     }
 
-    private function getTriggerInstance(string $postType, ?int $postId, DoAction $wpService)
+    public function testSyncIsNotPermittedIfInProgress()
     {
-        return new class ($postType, $postId, $wpService) extends TriggerSync {
-            public function __construct(
-                private string $postType,
-                private ?int $postId,
-                DoAction $wpService
-            ) {
-                parent::__construct($wpService);
-            }
-            public function callProtectedTriggerMethod(): void
+        $inProgress = $this->getInProgress();
+        $inProgress->setInProgress(true);
+        $wpService = new FakeWpService();
+        $sut       = new TriggerSync($inProgress, $wpService);
+
+        $sut->trigger('test_post_type', 123);
+
+        $this->assertArrayNotHasKey('doAction', $wpService->methodCalls);
+    }
+
+    public function testInProgressIsSetToTrueWhenSyncStarts()
+    {
+        $inProgress = $this->getInProgress();
+        $wpService  = new FakeWpService();
+        $sut        = new TriggerSync($inProgress, $wpService);
+
+        $sut->trigger('test_post_type', 123);
+
+        $this->assertEquals(true, $inProgress->methodCalls['setInProgress'][0]);
+    }
+
+    public function testInProgressIsSetToFalseWhenSyncEnds()
+    {
+        $inProgress = $this->getInProgress();
+        $wpService  = new FakeWpService();
+        $sut        = new TriggerSync($inProgress, $wpService);
+
+        $sut->trigger('test_post_type', 123);
+
+        $this->assertEquals(false, $inProgress->methodCalls['setInProgress'][1]);
+    }
+
+    private function getInProgress(): InProgressInterface
+    {
+        return new class implements InProgressInterface {
+            public array $methodCalls = [];
+            private bool $inProgress  = false;
+
+            public function isInProgress(): bool
             {
-                $this->trigger($this->postType, $this->postId);
+                return $this->inProgress;
+            }
+
+            public function setInProgress(bool $inProgress): void
+            {
+                $this->methodCalls[__FUNCTION__][] = $inProgress;
+                $this->inProgress                  = $inProgress;
             }
         };
     }
