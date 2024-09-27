@@ -8,13 +8,7 @@ use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 
 class GetPostsByParent
 {
-    private $masterPostType = 'page';
-
-    public function __construct(
-        private GetHiddenPostIds $getHiddenPostIdsInstance, 
-        private GetPageForPostTypeIds $getPageForPostTypeIdsInstance
-    ) {
-    }
+    private static $masterPostType = 'page';
 
     /**
      * Retrieve hierarchical posts/pages based on specified parent and post type(s).
@@ -29,7 +23,7 @@ class GetPostsByParent
      *
      * @return  array  Array of posts including their ID, title, parent ID, and post type.
      */
-    public function getPostsByParent(MenuConfigInterface $menuConfig, int|array $parent = 0, string|array $postType = 'page'): array
+    public static function getPostsByParent(MenuConfigInterface $menuConfig, int|array $parent = 0, string|array $postType = 'page'): array
     {
         //Check if if valid post type string
         if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
@@ -77,7 +71,7 @@ class GetPostsByParent
           FROM " . $menuConfig->getWpdb()->posts . "
           WHERE post_parent IN(" . $parent . ")
           AND " . $postTypeSQL . "
-          AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get($menuConfig)) . ")
+          AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
           AND post_status='publish'
           ORDER BY menu_order, post_title ASC
           LIMIT 3000
@@ -86,8 +80,8 @@ class GetPostsByParent
         $resultSet = $menuConfig->getWpdb()->get_results($sql, ARRAY_A);
 
         foreach ($resultSet as &$item) {
-            if ($item['post_type'] != $this->masterPostType && $item['post_parent'] == 0) {
-                $pageForPostTypeIds = array_flip((array) $this->getPageForPostTypeIdsInstance->get($menuConfig));
+            if ($item['post_type'] != self::$masterPostType && $item['post_parent'] == 0) {
+                $pageForPostTypeIds = array_flip((array) GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig));
 
                 if (array_key_exists($item['post_type'], $pageForPostTypeIds)) {
                     $item['post_parent'] = $pageForPostTypeIds[$item['post_type']];

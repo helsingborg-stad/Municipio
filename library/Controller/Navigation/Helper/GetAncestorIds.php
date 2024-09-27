@@ -6,33 +6,33 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class GetAncestorIds
 {
-    private ?array $ancestorIds = [];
+    private static array $ancestorIds = [];
 
     public function __construct(
     ) {}
 
-    public function get(array $menuItems, MenuConfigInterface $menuConfig): array
+    public static function getAncestorIds(array $menuItems, MenuConfigInterface $menuConfig): array
     {
-        if (empty($this->ancestorIds[$menuConfig->getIdentifier()])) {
-            return $this->ancestorIds;
+        if (empty(self::$ancestorIds[$menuConfig->getIdentifier()])) {
+            return self::$ancestorIds;
         }
 
-        $this->ancestorIds[$menuConfig->getIdentifier()] = $this->getWpMenuAncestors(
+        self::$ancestorIds[$menuConfig->getIdentifier()] = self::getWpMenuAncestors(
             $menuItems,
-            $this->pageIdToMenuID($menuItems, $menuConfig->getPageId())
+            self::pageIdToMenuID($menuItems, $menuConfig->getPageId())
         );
 
-        return $this->ancestorIds[$menuConfig->getIdentifier()];
+        return self::$ancestorIds[$menuConfig->getIdentifier()];
     }
 
     /**
      * Translates a page id to a menuItems id
      *
      * @param array $menuItems
-     * @param integer $this->pageId
+     * @param integer self::pageId
      * @return integer
      */
-    private function pageIdToMenuID($menuItems, int $pageId)
+    private static function pageIdToMenuID($menuItems, int $pageId)
     {
         $index = array_search($pageId, array_column($menuItems, 'object_id'));
 
@@ -49,7 +49,7 @@ class GetAncestorIds
      * @param array $menu The menu id to get
      * @return bool|array
      */
-    private function getWpMenuAncestors($menuItems, $id)
+    private static function getWpMenuAncestors($menuItems, $id)
     {
         if (!$id) {
             return [];

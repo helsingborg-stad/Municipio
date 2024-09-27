@@ -13,7 +13,7 @@ class TransformPageTreeFallbackMenuItemDecorator implements PageTreeFallbackMenu
      *
      * @return  array   $menuItem  The post array, with appended data
      */
-    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         //Move post_title to label key
         $menuItem['label']       = $menuItem['post_title'];

@@ -7,15 +7,13 @@ use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 
 class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
 {
     private $masterPostType = 'page';
 
     public function __construct(
-        private GetAncestors $getAncestorsInstance,
-        private GetPostsByParent $getPostsByParentInstance,
-        private TransformPageTreeFallbackMenuItemDecorator $transformPageTreeFallbackMenuItemDecoratorInstance,
         private array $menuItemDecorators
     ) {}
 
@@ -33,10 +31,10 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         }
 
         // Get all ancestors
-        $menuItems = $this->getAncestorsInstance->getAncestors($menuConfig);
+        $menuItems = GetAncestors::getAncestors($menuConfig);
 
         // Get all parents
-        $menuItems = $this->getPostsByParentInstance->getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, get_post_type()]);
+        $menuItems = GetPostsByParent::getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, get_post_type()]);
 
         if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $key => $menuItem) {
@@ -44,20 +42,19 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
                 $cacheKey = md5(serialize($menuItem));
 
                 // Check if the item is already in the cache
-                $cacheData = $menuConfig->getRuntimeCache()->getCache('complementObjects');
+                $cacheData = NavigationRuntimeCache::getCache('complementObjects');
 
                 if (!isset($cacheData[$cacheKey])) {
                     // Structures the menu item as the first step
-                    $menuItem = $this->transformPageTreeFallbackMenuItemDecoratorInstance->decorate($menuItem, $menuConfig);
 
                     foreach ($this->menuItemDecorators as $decorator) {
-                        $menuItem = $decorator->decorate($menuItem, $menuConfig);
+                        $menuItem = $decorator->decorate($menuItem, $menuConfig, $this);
                     }
 
                     // Store the processed item in the cache
                     $cacheData[$cacheKey] = $menuItem;
 
-                    $menuConfig->getRuntimeCache()->setCache('complementObjects', $cacheData);
+                    NavigationRuntimeCache::setCache('complementObjects', $cacheData);
                 }
 
                 // Use the cached item
@@ -66,5 +63,10 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         }
 
         return $menuItems;
+    }
+
+    public static function factory(array $decorators): self
+    {
+        return new self($decorators);
     }
 }

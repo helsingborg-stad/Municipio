@@ -2,18 +2,14 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Default;
 
-use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestorIds;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-
 
 class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
 {
 
     public function __construct(
-        private TransformMenuItemDecorator $transformMenuItemDecoratorInstance,
-        private GetAncestorIds $getAncestorIds,
         private array $decorators = []
     ) {
     }
@@ -26,22 +22,24 @@ class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
-        
         if (empty($menuItems)) {
             return $menuItems;
         }
-        
-        $ancestors = $this->getAncestorIds->get($menuItems, $menuConfig);
+
+        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $menuConfig);
+        die;
 
         foreach ($menuItems as &$menuItem) {
-            // Converting the menu item object to an array as the first step.
-            $menuItem = $this->transformMenuItemDecoratorInstance->decorate($menuItem, $menuConfig, $ancestors);
-
             foreach ($this->decorators as $decorator) {
                 $menuItem = $decorator->decorate($menuItem, $menuConfig, $ancestors);
             }
         }
 
         return $menuItems;
+    }
+
+    public static function factory(array $decorators): self
+    {
+        return new self($decorators);
     }
 }

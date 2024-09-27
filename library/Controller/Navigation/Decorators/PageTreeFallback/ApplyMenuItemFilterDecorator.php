@@ -9,7 +9,7 @@ class ApplyMenuItemFilterDecorator implements PageTreeFallbackMenuItemDecoratorI
     public function __construct()
     {}
 
-    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         return apply_filters('Municipio/Navigation/Item', $menuItem, $menuConfig->getIdentifier(), true);
     }

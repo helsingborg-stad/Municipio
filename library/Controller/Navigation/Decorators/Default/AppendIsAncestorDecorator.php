@@ -3,6 +3,7 @@
 namespace Municipio\Controller\Navigation\Decorators\Default;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Helper\GetAncestorIds;
 
 class AppendIsAncestorDecorator implements DefaultMenuItemDecoratorInterface
 {

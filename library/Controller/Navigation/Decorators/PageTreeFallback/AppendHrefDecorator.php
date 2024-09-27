@@ -6,7 +6,7 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class AppendHrefDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
-    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         $menuItem['href'] = get_permalink($menuItem['id'], false);
 

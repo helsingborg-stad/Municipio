@@ -8,44 +8,35 @@ use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\TranslatedLabels;
 
-// Cache
-use Municipio\Controller\Navigation\Cache\CacheManager;
-use Municipio\Controller\Navigation\Cache\RuntimeCache;
-
-// Helpers
-use Municipio\Controller\Navigation\Helper\GetAncestorIds;
-use Municipio\Controller\Navigation\Helper\GetAncestors;
-use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
-use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
-use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-
 // MenuConfig
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuFactory;
 use Municipio\Controller\Navigation\ComplementDefaultDecoratorFactory;
-use Municipio\Controller\Navigation\ComplementPageTreeFallbackDecoratorFactory;
-// Page tree fallback
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyFilterPageTreeFallbackDecorator;
-
+use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
 // General decorators
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
-use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
 
-// Default
-use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator as DefaultMenuItemDecorator;
+// PageTreeFallback
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeFallbackDecorator;
+
+// Complement default
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyFilterDefaultDecorator;
-
+use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorDefault;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorPageTreeFallback;
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
+use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
+use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 
 class BaseController
 {
@@ -71,6 +62,11 @@ class BaseController
      * @var null $db The database connection object.
      */
     protected $db = null;
+
+    /**
+     * @var int $pageId The current page id.
+     */
+    protected ?int $pageId = null;
 
     /**
      * Init data fetching
@@ -161,45 +157,36 @@ class BaseController
         $languageMenu     = new \Municipio\Helper\Navigation('language');
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
 
-        // $mobileMenu = new \Municipio\Helper\Navigation('mobile');
-        // $this->data['sd'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        
+        $defaultMenuDecorators = [
+            new TransformMenuItemDecorator(),
+            new AppendAcfFieldValuesDecorator(),
+            new AppendIsAncestorDecorator(),
+            new ApplyMenuItemFilterDecoratorDefault()
+        ];
 
-        // $mobile = $this->createMenuInstance('mobile', 'secondary-menu');
-        // $this->data['mobileMenu'] = $mobile->getMenuNavItems(\Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
+        $pageTreeFallbackMenuDecorators = [
+            new TransformPageTreeFallbackMenuItemDecorator(),
+            new AppendHrefDecorator(),
+            new CustomTitleDecorator(),
+            new AppendIsCurrentPostDecorator(),
+            new AppendIsAncestorPostDecorator(),
+            new AppendChildrenDecorator(),
+            new ApplyMenuItemFilterDecoratorPageTreeFallback()
+        ];
 
-        $complementDefaultDecoratorInstance = (new ComplementDefaultDecoratorFactory())->createComplementDecorator();
-        $complementPageTreeDecoratorInstance = (new ComplementPageTreeFallbackDecoratorFactory())->createComplementDecorator();
-        $menuStructureDecoratorInstance = new StructureMenuItemsDecorator();
-        $runTimeCacheInstance = new RuntimeCache();
-        $cacheManagerInstance = new CacheManager();
+        $menuDecorators = [
+            ComplementDefaultDecorator::factory($defaultMenuDecorators),
+            ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators),
+            new StructureMenuItemsDecorator(),
+            new ApplyNavigationItemsFilterDecorator(),
+            new RemoveTopLevelDecorator(),
+            new RemoveSubLevelDecorator()
+        ];
 
-        $mobileMenuConfig = new MenuConfig(
-            $complementDefaultDecoratorInstance, 
-            $complementPageTreeDecoratorInstance,
-            $menuStructureDecoratorInstance,
-            $runTimeCacheInstance,
-            $cacheManagerInstance,
-            'mobile', 
-            'secondary-menu', 
-            $this->getPageID(), 
-            $this->db, 
-            \Kirki::get_option('mobile_menu_pagetree_fallback'), 
-            true, 
-            false
-        );
+        $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
 
-        $mobileMenuInstance = (new MenuFactory(
-            $mobileMenuConfig, 
-        ))->createMenu();
-
-        $this->data['mobileMenu'] = $mobileMenuInstance->getMenuNavItems();
-
-
-
-        // $mobileMenuConfig = new MenuConfig('mobile', 'secondary-menu', $this->getPageID(), $this->db, \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-
-        // $mobileSecondary = $this->createMenuInstance('mobile-secondary', 'mobile-drawer');
-        // $this->data['mobileMenuSecondaryItems'] = $mobileSecondary->getMenuNavItems(false, true, false);
+        $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $menuDecorators))->getMenuNavItems();
 
 
         $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
@@ -360,74 +347,6 @@ class BaseController
             $this->init();
     }
 
-    public function createMenuInstance(string $identifier = '', ?string $menuName = null, string $context = 'municipio'): Menu
-    {
-        // $pageId = $this->getPageID();
-
-        // // Cache
-        // $cacheManagerInstance = new CacheManager();
-        // $runTimeCacheInstance = new RuntimeCache();
-
-        // // Helpers
-        // $getPageForPostTypeIdsInstance = new GetPageForPostTypeIds($cacheManagerInstance);
-        // $getHiddenPostIdsInstance = new GetHiddenPostIds($this->db, $cacheManagerInstance);
-
-        // // Idk
-        // $getAncestorsInstance = new GetAncestors($pageId, $this->db, $runTimeCacheInstance, $getPageForPostTypeIdsInstance);
-        // $getPostsByParentInstance = new GetPostsByParent($this->db, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
-
-        // // MenuItem decorators
-        // $appendChildrenDecoratorInstance = new AppendChildrenDecorator($pageId, $this->db, $getPostsByParentInstance, $getHiddenPostIdsInstance, $getPageForPostTypeIdsInstance);
-
-        // // MenuItems decorators
-        // $complementPageTreeDecoratorInstance = new ComplementPageTreeDecorator(
-        //     $identifier,
-        //     $pageId,
-        //     $runTimeCacheInstance,
-        //     $getAncestorsInstance,
-        //     $getPostsByParentInstance,
-        //     new TransformPageTreeFallbackMenuItemDecorator(),
-        //     [
-        //         new AppendHrefDecorator(),
-        //         new CustomTitleDecorator($this->db, $cacheManagerInstance),
-        //         new AppendIsCurrentPostDecorator($pageId),
-        //         new AppendIsAncestorPostDecorator($getAncestorsInstance),
-        //         $appendChildrenDecoratorInstance,
-        //         new ApplyFilterPageTreeFallbackDecorator($identifier)
-        //     ],
-        // );
-
-        
-        // $complementDefaultDecorator = new ComplementDefaultDecorator(
-        //     $identifier,
-        //     $pageId,
-        //     $this->db,
-        //     new DefaultMenuItemDecorator($pageId), 
-        //     new GetAncestorIds($pageId), 
-        //         [
-        //             new AppendAcfFieldValuesDecorator(), 
-        //             new AppendIsAncestorDecorator(),
-        //             new ApplyFilterDefaultDecorator($identifier)
-        //         ]
-        //     );
-            
-        // $appendChildrenDecoratorInstance->setComplementPageTreeDecoratorInstance($complementPageTreeDecoratorInstance);
-
-        // return new Menu(
-        //     new StructureMenuItemsDecorator(),
-        //     $complementDefaultDecorator,
-        //     $complementPageTreeDecoratorInstance,
-        //     $identifier,
-        //     $menuName,
-        //     $pageId,
-        //     $context,
-        //     [
-        //         new RemoveTopLevelDecorator(),
-        //         new RemoveSubLevelDecorator(),
-        //     ]
-        // );
-    }
-
     /**
      * Get the emblem to use
      *
@@ -502,29 +421,35 @@ class BaseController
      */
     public function getPageID(): int
     {
-        //Page for posttype archive mapping result
+        // Return cached value if already set
+        if (!empty($this->pageId)) {
+            return $this->pageId;
+        }
+    
+        // Page for post type archive mapping result
         if (is_post_type_archive()) {
             if ($pageId = get_option('page_for_' . get_post_type())) {
-                return $pageId;
+                return $this->pageId = $pageId;
             }
         }
-
-        //Get the queried page
-        if (get_queried_object_id()) {
-            return get_queried_object_id();
+    
+        // Get the queried page
+        if ($queriedObjectId = get_queried_object_id()) {
+            return $this->pageId = $queriedObjectId;
         }
-
-        //Return page for frontpage (fallback)
+    
+        // Return page for front page (fallback)
         if ($frontPageId = get_option('page_on_front')) {
-            return $frontPageId;
+            return $this->pageId = $frontPageId;
         }
-
-        //Return page blog (fallback)
-        if ($frontPageId = get_option('page_for_posts')) {
-            return $frontPageId;
+    
+        // Return page for blog (fallback)
+        if ($blogPageId = get_option('page_for_posts')) {
+            return $this->pageId = $blogPageId;
         }
-
-        return 0;
+    
+        // If none of the above, set and return 0
+        return $this->pageId = 0;
     }
 
     /**

@@ -4,16 +4,12 @@ namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
+use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
+
 
 class GetAncestors
-{
-    private int $postId;
-
-    public function __construct(
-        private GetPageForPostTypeIds $getPageForPostTypeIdsInstance
-    ) {
-    }
-    
+{    
     /**
      * Fetch the current page/posts parent, with support for page for posttype.
      *
@@ -21,17 +17,17 @@ class GetAncestors
      *
      * @return  array              Flat array with parents
      */
-    public function getAncestors(MenuConfigInterface $menuConfig): array
+    public static function getAncestors(MenuConfigInterface $menuConfig): array
     {
-        $this->postId = $menuConfig->getPageId();
+        $postId = $menuConfig->getPageId();
 
         $cacheSubKey = $menuConfig->getIncludeTopLevel() ? 'toplevel' : 'notoplevel';
-        if (isset($menuConfig->getRuntimeCache()->getCache('ancestors')[$cacheSubKey][$this->postId])) {
-            return $menuConfig->getRuntimeCache()->getCache('ancestors')[$cacheSubKey][$this->postId];
+        if (isset(NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId])) {
+            return NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId];
         }
 
         //Definitions
-        $ancestorStack  = array($this->postId);
+        $ancestorStack  = array($postId);
         $fetchAncestors = true;
 
         //Fetch ancestors
@@ -43,14 +39,14 @@ class GetAncestors
             WHERE ID = %d
             AND post_status = 'publish'
             LIMIT 1
-        ", $this->postId)
+        ", $postId)
             );
 
             //About to end, is there a linked pfp page?
             if ($ancestorID == 0) {
                 //Get posttype of post
-                $currentPostType    = get_post_type($this->postId);
-                $pageForPostTypeIds = array_flip($this->getPageForPostTypeIdsInstance->get($menuConfig));
+                $currentPostType    = get_post_type($postId);
+                $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig));
 
                 //Look for replacement
                 if ($currentPostType && array_key_exists($currentPostType, $pageForPostTypeIds)) {
@@ -70,7 +66,7 @@ class GetAncestors
                 }
 
                 //Prepare for next iteration
-                $this->postId = $ancestorID;
+                $postId = $ancestorID;
             }
         }
 
@@ -83,9 +79,9 @@ class GetAncestors
         }
 
         //Return and cache result
-        $ancestors = $menuConfig->getRuntimeCache()->getCache('ancestors');
-        $ancestors[$cacheSubKey][$this->postId] = $ancestorStack;
-        $menuConfig->getRuntimeCache()->setCache('ancestors', $ancestors);
+        $ancestors = NavigationRuntimeCache::getCache('ancestors');
+        $ancestors[$cacheSubKey][$postId] = $ancestorStack;
+        NavigationRuntimeCache::setCache('ancestors', $ancestors);
 
         return $ancestorStack;
     }

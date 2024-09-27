@@ -2,8 +2,8 @@
 
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
-use Municipio\Controller\Navigation\Cache\CacheManager;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 
 class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {    
@@ -14,7 +14,7 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
      *
      * @return object
      */
-    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         $customTitles = $this->getMenuTitle($menuConfig);
 
@@ -48,7 +48,7 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
     private function getMenuTitle(MenuConfigInterface $menuConfig, string $metaKey = "custom_menu_title"): array
     {
         //Get cached result
-        $cache = $menuConfig->getCacheManager()->getCache($metaKey);
+        $cache = NavigationRuntimeCache::getCache($metaKey);
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
@@ -81,8 +81,8 @@ class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
             }
         }
 
-        //Cache
-        $menuConfig->getCacheManager()->setCache($metaKey, $pageTitles);
+        //Cache the result
+        NavigationRuntimeCache::setCache($metaKey, $pageTitles);
 
         return $pageTitles;
     }

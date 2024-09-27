@@ -2,24 +2,20 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class GetPageForPostTypeIds
 {
-    public function __construct(
-    ) {
-    }
-
     /**
      * Get all post id's mapped as a post type container.
      *
      * @return array
      */
-    public function get(MenuConfigInterface $menuConfig): array
+    public static function getPageForPostTypeIds(MenuConfigInterface $menuConfig): array
     {
         //Get cached result
-        $cache = $menuConfig->getCacheManager()->getCache('pageForPostType');
+        $cache = NavigationWpCache::getCache('pageForPostType');
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
@@ -47,7 +43,7 @@ class GetPageForPostTypeIds
         }
 
         //Cache
-        $menuConfig->getCacheManager()->setCache('pageForPostType', $result);
+        NavigationWpCache::setCache('pageForPostType', $result);
 
         return $result;
     }

@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Cache;
 
-class RuntimeCache
+class NavigationRuntimeCache
 {
     //Static cache for ancestors
     private static $runtimeCache = [
@@ -20,23 +20,20 @@ class RuntimeCache
      *
      * @param string $key   The key to store in
      * @param mixed $data   The value to store
-     * @param bool   $persistent If true, store persistently (ignored here since it's a runtime cache)
-     * @return bool
      */
-    public function setCache(string $key, mixed $data, bool $persistent = true): bool
+    public static function setCache(string $key, mixed $data): void
     {
         self::$runtimeCache[$key] = $data;
-        return true; // Always true since it's runtime cache
     }
 
     /**
      * Get from cache
      *
      * @param string $key   The cache key
-     * @param bool   $persistent If true, get persistent cache (ignored here)
+     * @param array|null 
      * @return mixed
      */
-    public function getCache(string $key, bool $persistent = true): mixed
+    public static function getCache(string $key): array|null
     {
         if (isset(self::$runtimeCache[$key])) {
             return self::$runtimeCache[$key];

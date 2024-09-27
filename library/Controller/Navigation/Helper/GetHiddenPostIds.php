@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-use Municipio\Controller\Navigation\Cache\CacheManagerInterface;
+use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class GetHiddenPostIds
@@ -21,10 +21,10 @@ class GetHiddenPostIds
      *
      * @return array
      */
-    public function get(MenuConfigInterface $menuConfig, string $metaKey = "hide_in_menu"): array
+    public static function getHiddenPostIds(MenuConfigInterface $menuConfig, string $metaKey = "hide_in_menu"): array
     {
         //Get cached result
-        $cache = $menuConfig->getCacheManager()->getCache($metaKey);
+        $cache = NavigationWpCache::getCache($metaKey);
         if (!is_null($cache) && is_array($cache)) {
             return $cache;
         }
@@ -51,7 +51,7 @@ class GetHiddenPostIds
         }
 
         //Cache
-        $menuConfig->getCacheManager()->setCache($metaKey, $hiddenPages);
+        NavigationWpCache::setCache($metaKey, $hiddenPages);
 
         return $hiddenPages;
     }

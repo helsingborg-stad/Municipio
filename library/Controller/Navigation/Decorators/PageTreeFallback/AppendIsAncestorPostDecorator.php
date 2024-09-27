@@ -7,20 +7,17 @@ use Municipio\Controller\Navigation\Helper\GetAncestors;
 
 class AppendIsAncestorPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
-    public function __construct(
-        private GetAncestors $getAncestorsInstance
-    ) {
-    }
     /**
-     * Add post is ancestor data on post array
+     * Decorates a menu item with information about whether it is an ancestor post.
      *
-     * @param   object   $array         The post array
-     *
-     * @return  array    $postArray     The post array, with appended data
+     * @param array $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param ComplementPageTreeDecorator $parentInstance The parent instance of the decorator.
+     * @return array The decorated menu item.
      */
-    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
-        if (in_array($menuItem['id'], $this->getAncestorsInstance->getAncestors($menuConfig))) {
+        if (in_array($menuItem['id'], GetAncestors::getAncestors($menuConfig))) {
             $menuItem['ancestor'] = true;
         } else {
             $menuItem['ancestor'] = false;

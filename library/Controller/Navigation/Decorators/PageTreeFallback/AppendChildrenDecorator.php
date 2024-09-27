@@ -3,31 +3,30 @@
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use Municipio\Controller\Navigation\Helper\GetPostsByParent;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
 
 class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
-    public function __construct(
-        private GetPostsByParent $getPostsByParentInstance,
-        private GetHiddenPostIds $getHiddenPostIdsInstance,
-        private GetPageForPostTypeIds $getPageForPostTypeIdsInstance,
-    ) {
-    }
-
-     /**
-     * Check if a post has children. If this is the current post,
-     * fetch the actual children array.
+    /**
+     * Decorates a menu item with its children.
      *
-     * @param   array   $postId    The post id
+     * This method decorates a menu item by adding its children to the 'children' key of the menu item array.
+     * If the menu item's ID matches the page ID specified in the menu configuration, it retrieves the children
+     * using the GetPostsByParent::getPostsByParent() method. Otherwise, it indicates the children using the
+     * $this->indicateChildren() method.
      *
-     * @return  array              Flat array with parents
+     * @param array $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param ComplementPageTreeDecorator $parentInstance The parent instance of the ComplementPageTreeDecorator.
+     * @return array The decorated menu item.
      */
-    public function decorate(array|object $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         if ($menuItem['id'] == $menuConfig->getPageId()) {
-            $children = $this->getPostsByParentInstance->getPostsByParent(
+            $children = GetPostsByParent::getPostsByParent(
                 $menuConfig,
                 $menuItem['id'],
                 get_post_type($menuItem['id'])
@@ -37,8 +36,8 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
         }
 
         //If null, no children
-        if (is_array($children) && !empty($children)) {
-            $menuItem['children'] = $menuConfig->getComplementPageTreeDecoratorInstance()->decorate($children, $menuConfig);
+        if (is_array($children) && !empty($children) && $parentInstance) {
+            $menuItem['children'] = $parentInstance->decorate($children, $menuConfig);
         } else {
             $menuItem['children'] = (bool) $children;
         }
@@ -48,11 +47,11 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
     }
 
     /**
-     * Indicate if post has children
+     * Indicates whether a post has children or not.
      *
-     * @param   integer   $postId     The post id
-     *
-     * @return  boolean               Tells wheter the post has children or not
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @param int $postId The ID of the post.
+     * @return bool Returns true if the post has children, false otherwise.
      */
     private function indicateChildren(MenuConfigInterface $menuConfig, $postId): bool
     {
@@ -65,13 +64,13 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
         FROM " . $menuConfig->getWpdb()->posts . "
         WHERE post_parent = %d
         AND post_status = 'publish'
-        AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get($menuConfig)) . ")
+        AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
         LIMIT 1
       ", $postId)
         );
 
         //Check if posttype has content
-        $pageForPostTypeIds = $this->getPageForPostTypeIdsInstance->get($menuConfig);
+        $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig);
         if (array_key_exists($postId, $pageForPostTypeIds)) {
             $postTypeHasPosts = $menuConfig->getWpdb()->get_var(
                 $menuConfig->getWpdb()->prepare("
@@ -80,7 +79,7 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
                     WHERE post_parent = 0
                     AND post_status = 'publish'
                     AND post_type = %s
-                    AND ID NOT IN(" . implode(", ", $this->getHiddenPostIdsInstance->get($menuConfig)) . ")
+                    AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
                     LIMIT 1
                 ", $pageForPostTypeIds[$postId])
             );

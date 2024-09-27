@@ -6,12 +6,16 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class AppendIsCurrentPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {    
+
     /**
-     * Add post is current data on post array
+     * Decorates a menu item with the "active" flag based on the current page or URL.
      *
-     * @return  array    $postArray     The post array, with appended data
+     * @param array $menuItem The menu item to decorate.
+     * @param MenuConfigInterface $menuConfig The menu configuration.
+     * @param ComplementPageTreeDecorator $parentInstance The parent decorator instance.
+     * @return array The decorated menu item.
      */
-    public function decorate(array $menuItem, MenuConfigInterface $menuConfig): array
+    public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
         if ($menuItem['id'] == $menuConfig->getPageId()) {
             $menuItem['active'] = true;
