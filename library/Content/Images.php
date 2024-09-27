@@ -150,10 +150,14 @@ class Images
 
         //Handle as know local image (in wp database)
         if (is_numeric($attachmentId)) {
+            
+            //Width
+            $conentContainerWidth = self::getPageWidth();
+
             //Get image contract
             $imageComponentContract = ImageComponentContract::factory(
                 (int) $attachmentId,
-                [768, false],
+                [$conentContainerWidth, false],
                 new ImageResolver()
             );
 
@@ -162,7 +166,10 @@ class Images
                 'caption'          => $captionText,
                 'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
-                    'parsed' => true
+                    'parsed' => true,
+                ],
+                'attributeList'    => [
+                    'style'  => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
                 ]
             ]);
         }
@@ -175,10 +182,10 @@ class Images
                 'caption'          => $captionText,
                 'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
-                    'srcset' => $image->getAttribute('srcset'),
-                    'width'  => $image->getAttribute('width'),
-                    'height' => $image->getAttribute('height'),
-                    'parsed' => true
+                    'parsed' => true,
+                ],
+                'attributeList'    => [
+                    'style'  => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
                 ]
             ]);
         }
@@ -227,5 +234,15 @@ class Images
         $sanitizedUrl .= isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
 
         return $sanitizedUrl;
+    }
+
+    /**
+     * Get the page width, rounded to nearest 100
+     *
+     * @return int
+     */
+    private static function getPageWidth(): int
+    {
+        return (int) ceil(get_theme_mod('container_content', 900) / 100) * 100;
     }
 }
