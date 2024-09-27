@@ -430,14 +430,14 @@ class Archive
             'list'       => esc_html__('List', 'municipio'),
             'grid'       => esc_html__('Blocks', 'municipio'),
             'collection' => esc_html__('Collection', 'municipio')
-       ];
+        ];
 
-       $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($this->archive->name);
+        $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($this->archive->name);
 
-       if ($schemaType) {
+        if ($schemaType) {
             $appearanceOptions = array_merge(['schema' => esc_html__('Schema', 'municipio')], $appearanceOptions);
-       }
+        }
 
-       return $appearanceOptions;
+        return $appearanceOptions;
     }
 }
