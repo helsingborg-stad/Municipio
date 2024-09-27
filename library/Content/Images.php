@@ -150,7 +150,6 @@ class Images
 
         //Handle as know local image (in wp database)
         if (is_numeric($attachmentId)) {
-            
             //Width
             $conentContainerWidth = self::getPageWidth();
 
@@ -169,7 +168,7 @@ class Images
                     'parsed' => true,
                 ],
                 'attributeList'    => [
-                    'style'  => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
                 ]
             ]);
         }
@@ -185,7 +184,7 @@ class Images
                     'parsed' => true,
                 ],
                 'attributeList'    => [
-                    'style'  => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
                 ]
             ]);
         }
