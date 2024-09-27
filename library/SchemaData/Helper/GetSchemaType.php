@@ -31,7 +31,7 @@ class GetSchemaType
         if (is_null(self::$schemaTypesInUse)) {
             self::getSchemaTypesInUse();
         }
-       
+
         foreach (self::$schemaTypesInUse as $postAndSchemaTypeArray) {
             if ($postAndSchemaTypeArray['post_type'] === $postType) {
                 return $postAndSchemaTypeArray['schema_type'];
