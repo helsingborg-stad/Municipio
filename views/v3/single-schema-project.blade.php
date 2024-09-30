@@ -15,7 +15,11 @@
             @endtypography
 
             @if (!empty($status))
-                @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+                @typography([
+                    'element' => 'b',
+                ])
+                    {{$status}}
+                @endtypography
             @endif
             @progressBar([ 'value' => $progress ]) @endprogressBar
 

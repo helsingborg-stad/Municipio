@@ -13,25 +13,25 @@
                     'containerAware' => true,
                     'content' => !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
-                    'classList' => ['u-height--100', 'c-card--flat', 'project-card'],
-                    'attributeList' => ['style' => 'z-index:' . (999 - $key) . ';'],
                 ])  
                     @slot('afterContent')
                         @if(isset($post->progressbar))
-                            <div class="u-margin__top--auto u-width--100">
-                            @if(isset($post->projectTerms['status'][0]))
-                                @tooltip([
-                                    'label' => $post->projectTerms['status'][0],
-                                    'placement' => 'bottom',
-                                    'classList' => ['u-justify-content--end']
-                                ])
-                                @endtooltip
+                            @group([
+                                'direction' => 'vertical'
+                            ])
+                                @if(isset($post->projectTerms['status'][0]))
+                                    @typography([
+                                        'element' => 'b',
+                                        'classList' => ['u-margin__left--auto']
+                                    ])
+                                        {{$post->projectTerms['status'][0]}}
+                                    @endtypography
                                 @endif
                                 @progressBar([
                                     'value' => $post->progressbar,
                                 ])
                                 @endprogressBar
-                            </div>
+                            @endgroup
                         @endif
                     @endslot
                 @endcard
