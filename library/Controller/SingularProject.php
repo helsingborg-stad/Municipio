@@ -20,7 +20,7 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $this->data['progress'] = $this->data['post']->progressbar ?? null;
+        $this->data['progress'] = $this->data['post']->progress ?? null;
         $this->data['image']    = $this->getImageContractOrUrl($this->data['post']->id ?? null);
 
         $this->data['category']   = $this->implodeProjectTerms($this->getProjectTerm('category'));

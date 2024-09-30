@@ -15,7 +15,7 @@
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
                 ])  
                     @slot('afterContent')
-                        @if(isset($post->progressbar))
+                        @if(isset($post->progress))
                             @group([
                                 'direction' => 'vertical'
                             ])
@@ -28,7 +28,7 @@
                                     @endtypography
                                 @endif
                                 @progressBar([
-                                    'value' => $post->progressbar,
+                                    'value' => $post->progress,
                                 ])
                                 @endprogressBar
                             @endgroup

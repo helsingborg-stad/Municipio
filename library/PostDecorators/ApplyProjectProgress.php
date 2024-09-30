@@ -4,7 +4,7 @@ namespace Municipio\PostDecorators;
 
 use WpService\Contracts\GetPostMeta;
 
-class ApplyProjectProgressbar implements PostDecorator
+class ApplyProjectProgress implements PostDecorator
 {
     public function __construct(private ?PostDecorator $inner = new NullDecorator(), private GetPostMeta $wpService)
     {}
@@ -17,7 +17,7 @@ class ApplyProjectProgressbar implements PostDecorator
             return $post;
         }
 
-        $post->progressbar = $this->wpService->getPostMeta($post->ID, 'progress', true) ?? null;
+        $post->progress = $this->wpService->getPostMeta($post->ID, 'progress', true) ?? null;
 
         return $post;
     }
