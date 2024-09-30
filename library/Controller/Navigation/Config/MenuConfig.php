@@ -2,17 +2,13 @@
 
 namespace Municipio\Controller\Navigation\Config;
 
-use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
-use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-
 class MenuConfig implements MenuConfigInterface
 {
     public function __construct(
         private string $identifier = '',
         private string $menuName = '',
         private ?int $pageId = null,
+        private string $postType = '',
         private $wpdb = null,
         private bool $fallbackToPageTree = false,
         private bool $includeTopLevel = true,
@@ -34,6 +30,11 @@ class MenuConfig implements MenuConfigInterface
     public function getPageId(): ?int
     {
         return $this->pageId;
+    }
+
+    public function getPostType(): string
+    {
+        return $this->postType;
     }
 
     public function getWpdb()

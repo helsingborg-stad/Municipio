@@ -3,9 +3,12 @@
 namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use WpService\Contracts\ApplyFilters;
 
 class ApplyMenuItemFilterDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
+    public function __construct(private ApplyFilters $wpService)
+    {}
     /**
      * Decorates a menu item by applying a filter.
      *
@@ -16,6 +19,6 @@ class ApplyMenuItemFilterDecorator implements PageTreeFallbackMenuItemDecoratorI
      */
     public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
-        return apply_filters('Municipio/Navigation/Item', $menuItem, $menuConfig->getIdentifier(), true);
+        return $this->wpService->applyFilters('Municipio/Navigation/Item', $menuItem, $menuConfig->getIdentifier(), true);
     }
 }

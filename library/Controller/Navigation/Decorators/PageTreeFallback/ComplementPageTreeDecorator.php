@@ -5,7 +5,6 @@ namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 
@@ -14,7 +13,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
     private $masterPostType = 'page';
 
     public function __construct(
-        private array $menuItemDecorators
+        private array $menuItemDecorators,
     ) {}
     
     /**
@@ -34,7 +33,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         $menuItems = GetAncestors::getAncestors($menuConfig);
 
         // Get all parents
-        $menuItems = GetPostsByParent::getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, get_post_type()]);
+        $menuItems = GetPostsByParent::getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, $menuConfig->getPostType()]);
 
         if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $key => $menuItem) {

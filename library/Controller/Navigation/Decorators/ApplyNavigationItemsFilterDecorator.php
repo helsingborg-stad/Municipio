@@ -3,9 +3,12 @@
 namespace Municipio\Controller\Navigation\Decorators;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use WpService\Contracts\ApplyFilters;
 
 class ApplyNavigationItemsFilterDecorator implements MenuItemsDecoratorInterface
 {
+    public function __construct(private ApplyFilters $wpService)
+    {}
     /**
      * Decorates an array of menu items with a filter.
      *
@@ -17,6 +20,6 @@ class ApplyNavigationItemsFilterDecorator implements MenuItemsDecoratorInterface
      */
     public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
     {
-        return apply_filters('Municipio/Navigation/Items', $menuItems, $menuConfig->getIdentifier());
+        return $this->wpService->applyFilters('Municipio/Navigation/Items', $menuItems, $menuConfig->getIdentifier());
     }
 }

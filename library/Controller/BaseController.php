@@ -140,40 +140,28 @@ class BaseController
         //Init class for menus
         $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility    = new \Municipio\Helper\Navigation('accessibility');
-        $primary          = new \Municipio\Helper\Navigation('primary');
-        $secondary        = new \Municipio\Helper\Navigation('sidebar');
-        $megaMenu         = new \Municipio\Helper\Navigation('mega-menu');
-        $quicklinks       = new \Municipio\Helper\Navigation('single');
-        $tabMenu          = new \Municipio\Helper\Navigation('tab');
-        $helpMenu         = new \Municipio\Helper\Navigation('help');
-        $dropDownMenu     = new \Municipio\Helper\Navigation('dropdown');
-        $floatingMenu     = new \Municipio\Helper\Navigation('floating');
-        $languageMenu     = new \Municipio\Helper\Navigation('language');
-        $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
-        $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
-
         
         $defaultMenuDecorators = [
             new TransformMenuItemDecorator(),
-            new AppendAcfFieldValuesDecorator(),
+            new AppendAcfFieldValuesDecorator($this->acfService),
             new AppendIsAncestorDecorator(),
-            new ApplyMenuItemFilterDecoratorDefault()
+            new ApplyMenuItemFilterDecoratorDefault($this->wpService)
         ];
 
         $pageTreeFallbackMenuDecorators = [
             new TransformPageTreeFallbackMenuItemDecorator(),
-            new AppendHrefDecorator(),
+            new AppendHrefDecorator($this->wpService),
             new CustomTitleDecorator(),
             new AppendIsCurrentPostDecorator(),
             new AppendIsAncestorPostDecorator(),
             new AppendChildrenDecorator(),
-            new ApplyMenuItemFilterDecoratorPageTreeFallback()
+            new ApplyMenuItemFilterDecoratorPageTreeFallback($this->wpService)
         ];
 
         $this->standardMenuDecorators = [
             ComplementDefaultDecorator::factory($defaultMenuDecorators),
             ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators),
-            new ApplyNavigationItemsFilterDecorator(),
+            new ApplyNavigationItemsFilterDecorator($this->wpService),
             new StructureMenuItemsDecorator(),
             new RemoveTopLevelDecorator(),
             new RemoveSubLevelDecorator()
@@ -181,10 +169,12 @@ class BaseController
 
 
         $pageId = $this->getPageID();
+        $postType = $this->wpService->getPostType();
         $mobileMenuConfig = new MenuConfig(
             'mobile', 
             'secondary-menu', 
             $pageId,
+            $postType,
             $this->db, 
             \Kirki::get_option('mobile_menu_pagetree_fallback'), 
             true,
@@ -195,6 +185,7 @@ class BaseController
             'primary', 
             'main-menu', 
             $pageId,
+            $postType,
             $this->db, 
             \Kirki::get_option('primary_menu_pagetree_fallback'), 
             true,
@@ -205,6 +196,7 @@ class BaseController
             'mobile-secondary', 
             'mobile-drawer', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -215,6 +207,7 @@ class BaseController
             'mega-menu', 
             'mega-menu', 
             $pageId,
+            $postType,
             $this->db, 
             \Kirki::get_option('mega_menu_pagetree_fallback'), 
             true,
@@ -225,6 +218,7 @@ class BaseController
             'quicklinks', 
             'quicklinks-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -235,6 +229,7 @@ class BaseController
             'tab', 
             'header-tabs-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -245,6 +240,7 @@ class BaseController
             'help', 
             'help-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -255,6 +251,7 @@ class BaseController
             'dropdown', 
             'dropdown-links-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -265,6 +262,7 @@ class BaseController
             'floating', 
             'floating-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -275,6 +273,7 @@ class BaseController
             'language', 
             'language-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -285,6 +284,7 @@ class BaseController
             'siteselector', 
             'siteselector-menu', 
             $pageId,
+            $postType,
             $this->db, 
             false, 
             true,
@@ -293,8 +293,9 @@ class BaseController
 
         $secondaryMenuPostTypeConfig = new MenuConfig(
             'sidebar', 
-            get_post_type() . '-secondary-menu', 
+            $this->wpService->getPostType() . '-secondary-menu', 
             $pageId,
+            $postType,
             $this->db,
         );
 
@@ -302,6 +303,7 @@ class BaseController
             'sidebar', 
             'secondary-menu', 
             $pageId,
+            $postType,
             $this->db, 
             \Kirki::get_option('secondary_menu_pagetree_fallback'), 
             false,
@@ -350,6 +352,7 @@ class BaseController
             $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
             // Todo: check why this works with ajax but not above.
+            // $secondary        = new \Municipio\Helper\Navigation('sidebar');
             // $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
 

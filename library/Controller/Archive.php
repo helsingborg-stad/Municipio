@@ -87,6 +87,7 @@ class Archive extends \Municipio\Controller\BaseController
             'archive-menu',
             $postType . '-menu',
             null,
+            $postType,
             null,
             false,
             true,
