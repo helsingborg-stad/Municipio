@@ -5,29 +5,29 @@ namespace Municipio\ExternalContent\Sync\Triggers;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
+use WpService\Contracts\GetOption;
 use WpService\Contracts\VerifyNonce;
 use WpService\Contracts\SafeRedirect;
+use WpService\Contracts\UpdateOption;
 
 /**
  * Class TriggerSyncFromGetParams
  *
  * This class triggers synchronization of external content based on GET parameters.
  */
-class TriggerSyncFromGetParams extends TriggerSync implements Hookable
+class TriggerSyncFromGetParams implements TriggerSyncInterface, Hookable
 {
     public const GET_PARAM_TRIGGER   = 'sync_external_content';
     public const GET_PARAM_POST_TYPE = 'post_type';
     public const GET_PARAM_POST_ID   = 'sync_post_id';
 
     /**
-     * Constructor for TriggerSyncFromGetParams.
-     *
-     * @param AddAction&DoAction&VerifyNonce&SafeRedirect $wpService The WordPress service.
+     * Constructor.
      */
     public function __construct(
-        private AddAction&DoAction&VerifyNonce&SafeRedirect $wpService
+        private AddAction&DoAction&VerifyNonce&SafeRedirect&UpdateOption&GetOption $wpService,
+        private TriggerSyncInterface $inner,
     ) {
-        parent::__construct($wpService);
     }
 
     /**
@@ -35,15 +35,15 @@ class TriggerSyncFromGetParams extends TriggerSync implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('admin_init', array($this, 'tryToTriggerSync'));
+        $this->wpService->addAction('admin_init', array($this, 'tryToTrigger'));
     }
 
     /**
-     * Tries to trigger the synchronization process based on GET parameters.
+     * Attempts to trigger the synchronization process if conditions are met.
      *
      * @return void
      */
-    public function tryToTriggerSync(): void
+    public function tryToTrigger(): void
     {
         if (!$this->shouldTrigger() || !isset($_GET[self::GET_PARAM_POST_TYPE])) {
             return;
@@ -60,6 +60,16 @@ class TriggerSyncFromGetParams extends TriggerSync implements Hookable
 
         $this->wpService->safeRedirect($_SERVER['HTTP_REFERER']);
         exit;
+    }
+
+    /**
+     * Tries to trigger the synchronization process based on GET parameters.
+     *
+     * @return void
+     */
+    public function trigger(string $postType, ?int $postId = null): void
+    {
+        $this->inner->trigger($postType, $postId);
     }
 
     /**
