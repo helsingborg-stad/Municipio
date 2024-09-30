@@ -17,7 +17,7 @@ class ApplyProjectProgress implements PostDecorator
             return $post;
         }
 
-        $post->progress = $this->wpService->getPostMeta($post->ID, 'progress', true) ?? null;
+        $post->progress = (int) $this->wpService->getPostMeta($post->ID, 'progress', true) ?? 0;
 
         return $post;
     }
