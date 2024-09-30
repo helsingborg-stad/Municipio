@@ -156,6 +156,7 @@ class BaseController
         $floatingMenu     = new \Municipio\Helper\Navigation('floating');
         $languageMenu     = new \Municipio\Helper\Navigation('language');
         $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
+        $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
 
         
         $defaultMenuDecorators = [
@@ -178,29 +179,182 @@ class BaseController
         $menuDecorators = [
             ComplementDefaultDecorator::factory($defaultMenuDecorators),
             ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators),
-            new StructureMenuItemsDecorator(),
             new ApplyNavigationItemsFilterDecorator(),
+            new StructureMenuItemsDecorator(),
             new RemoveTopLevelDecorator(),
             new RemoveSubLevelDecorator()
         ];
 
 
-
+        $pageId = $this->getPageID();
         $mobileMenuConfig = new MenuConfig(
             'mobile', 
             'secondary-menu', 
-            $this->getPageID(), 
+            $pageId,
             $this->db, 
             \Kirki::get_option('mobile_menu_pagetree_fallback'), 
             true,
             false
         );
+
+        $primaryMenuConfig = new MenuConfig(
+            'primary', 
+            'main-menu', 
+            $pageId,
+            $this->db, 
+            \Kirki::get_option('primary_menu_pagetree_fallback'), 
+            true,
+            !$this->data['customizer']->primaryMenuDropdown
+        );
+
+        $mobileMenuSecondaryConfig = new MenuConfig(
+            'mobile-secondary', 
+            'mobile-drawer', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            false
+        );
+
+        $megaMenuConfig = new MenuConfig(
+            'mega-menu', 
+            'mega-menu', 
+            $pageId,
+            $this->db, 
+            \Kirki::get_option('mega_menu_pagetree_fallback'), 
+            true,
+            false
+        );
+
+        $quicklinksMenuConfig = new MenuConfig(
+            'quicklinks', 
+            'quicklinks-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            true
+        );
+
+        $tabMenuConfig = new MenuConfig(
+            'tab', 
+            'header-tabs-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            false
+        );
+
+        $helpMenuConfig = new MenuConfig(
+            'help', 
+            'help-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            false
+        );
+
+        $dropdownMenuConfig = new MenuConfig(
+            'dropdown', 
+            'dropdown-links-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            false
+        );
+
+        $floatingMenuConfig = new MenuConfig(
+            'floating', 
+            'floating-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            true
+        );
+
+        $languageMenuConfig = new MenuConfig(
+            'language', 
+            'language-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            false
+        );
+
+        $siteselectorMenuConfig = new MenuConfig(
+            'siteselector', 
+            'siteselector-menu', 
+            $pageId,
+            $this->db, 
+            false, 
+            true,
+            true
+        );
+
+        $secondaryMenuPostTypeConfig = new MenuConfig(
+            'sidebar', 
+            get_post_type() . '-secondary-menu', 
+            $pageId,
+            $this->db,
+        );
+
+        $secondaryMenuConfig = new MenuConfig(
+            'sidebar', 
+            'secondary-menu', 
+            $pageId,
+            $this->db, 
+            \Kirki::get_option('secondary_menu_pagetree_fallback'), 
+            false,
+            false
+        );
         
+        // Mobile menu
         $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $menuDecorators))->getMenuNavItems();
+        
+        // Primary menu
+        $this->data['primaryMenuItems'] = (Menu::factory($primaryMenuConfig, $menuDecorators))->getMenuNavItems();
 
+        // Secondary mobile menu
+        $this->data['mobileMenuSecondaryItems'] = (Menu::factory($mobileMenuSecondaryConfig, $menuDecorators))->getMenuNavItems();
 
-        $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
-        $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
+        // Mega menu
+        $this->data['megaMenuItems'] = (Menu::factory($megaMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Quicklinks menu
+        $this->data['quicklinksMenuItems'] = (Menu::factory($quicklinksMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Tab menu
+        $this->data['tabMenuItems'] = (Menu::factory($tabMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Help menu
+        $this->data['helpMenuItems'] = (Menu::factory($helpMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Dropdown menu
+        $this->data['dropdownMenuItems'] = (Menu::factory($dropdownMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Floating menu
+        $this->data['floatingMenuItems'] = (Menu::factory($floatingMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Language menu
+        $this->data['languageMenuItems'] = (Menu::factory($languageMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Site selector menu
+        $this->data['siteselectorMenuItems'] = (Menu::factory($siteselectorMenuConfig, $menuDecorators))->getMenuNavItems();
+
+        // Secondary menu
+        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
+
+        if (!empty($posttypeSecondaryMenuItems)) {
+            $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
+        } else {
+            $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $menuDecorators))->getMenuNavItems();
+        }
 
 
 
@@ -218,31 +372,6 @@ class BaseController
         bool $includeTopLevel = true,
         bool $onlyKeepFirstLevel = false
         */
-
-        //Main Navigation
-        $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
-        $this->data['secondaryMenuItems'] = null;
-
-        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
-
-        if (!empty($posttypeSecondaryMenuItems)) {
-            $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
-        } else {
-            $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
-        }
-
-        // $this->data['mobileMenu'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-
-        $this->data['megaMenuItems'] = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
-
-        //Complementary navigations
-        $this->data['quicklinksMenuItems']      = $quicklinks->getMenuItems('quicklinks-menu', $this->getPageID(), false, true, true);
-        $this->data['tabMenuItems']             = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID(), false, true, false);
-        $this->data['helpMenuItems']            = $helpMenu->getMenuItems('help-menu', $this->getPageID(), false, true, false);
-        $this->data['dropdownMenuItems']        = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID(), false, true, false);
-        $this->data['floatingMenuItems']        = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
-        $this->data['languageMenuItems']        = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
-        $this->data['siteselectorMenuItems']    = $siteselectorMenu->getMenuItems('siteselector-menu', $this->getPageID(), false, true, true);
 
         //Get labels for menu
         $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
