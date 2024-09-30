@@ -20,10 +20,14 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        $this->data['progress'] = get_post_meta($this->data['post']->id, 'progress', true) ?? null;
+        $this->data['progress'] = $this->data['post']->progressbar ?? null;
         $this->data['image']    = $this->getImageContractOrUrl($this->data['post']->id ?? null);
 
-        $this->data = $this->setTerms($this->data);
+        $this->data['category']   = $this->implodeProjectTerms($this->getProjectTerm('category'));
+        $this->data['technology'] = $this->implodeProjectTerms($this->getProjectTerm('technology'));
+        $this->data['status']     = $this->implodeProjectTerms($this->getProjectTerm('status'));
+        $this->data['department'] = $this->implodeProjectTerms($this->getProjectTerm('department'));
+
         $this->appendToLangObject();
         $this->setInformationListData();
     }
@@ -52,28 +56,6 @@ class SingularProject extends \Municipio\Controller\Singular
         return get_the_post_thumbnail_url($postId) ?: null;
     }
 
-    /**
-     * Sets the terms for the project.
-     *
-     * @param array $data
-     * @return array
-     */
-    private function setTerms($data): array
-    {
-        $map = [
-            'category'   => 'project_meta_category',
-            'technology' => 'project_meta_technology',
-            'status'     => 'project_meta_status',
-            'department' => 'project_department'
-        ];
-
-        foreach ($map as $key => $taxonomy) {
-            $terms      = wp_get_post_terms($data['post']->id, $taxonomy);
-            $data[$key] = is_array($terms) ? $terms[0]->name : null;
-        }
-
-        return $data;
-    }
 
     /**
      * Appends translated strings to the language object.
@@ -122,5 +104,15 @@ class SingularProject extends \Municipio\Controller\Singular
                 'value' => $this->data['post']->schemaObject['employee']['alternateName']
             ];
         }
+    }
+
+    private function getProjectTerm(string $key): ?array
+    {
+        return isset($this->data['post']->projectTerms[$key]) ? $this->data['post']->projectTerms[$key] : null;
+    }
+
+    private function implodeProjectTerms(?array $termArray): ?string
+    {
+        return $termArray ? implode(', ', $termArray) : null;
     }
 }

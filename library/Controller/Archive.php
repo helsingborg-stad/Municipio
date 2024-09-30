@@ -31,7 +31,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
-        $template               = $this->getTemplate($this->data['archiveProps']);
+        $template = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $postType);
         $this->data['template'] = $template;
 
         //The posts

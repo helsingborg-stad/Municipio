@@ -3,7 +3,9 @@
 @section('hero-top-sidebar')
     @hero([ 'image' => $image, 'heroView' => 'twoColumn', 'classList' => ['u-color__bg--lightest'] ])
         @slot('content')
-            @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+            @if (!empty($category))
+                @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+            @endif
             @typography([
                 'element' => 'h1',
                 'variant' => 'h1',
@@ -12,7 +14,9 @@
                 {{ $post->postTitle }}
             @endtypography
 
-            @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+            @if (!empty($status))
+                @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+            @endif
             @progressBar([ 'value' => $progress ]) @endprogressBar
 
         @endslot
