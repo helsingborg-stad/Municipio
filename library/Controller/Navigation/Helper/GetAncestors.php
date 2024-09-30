@@ -17,11 +17,11 @@ class GetAncestors
      *
      * @return  array              Flat array with parents
      */
-    public static function getAncestors(MenuConfigInterface $menuConfig): array
+    public static function getAncestors(MenuConfigInterface $menuConfig, $includeTopLevel = true): array
     {
         $postId = $menuConfig->getPageId();
 
-        $cacheSubKey = $menuConfig->getIncludeTopLevel() ? 'toplevel' : 'notoplevel';
+        $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
         if (isset(NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId])) {
             return NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId];
         }
@@ -71,7 +71,7 @@ class GetAncestors
         }
 
         //Include zero level
-        if ($menuConfig->getIncludeTopLevel() === true) {
+        if ($includeTopLevel === true) {
             $ancestorStack = array_merge(
                 [0],
                 $ancestorStack
@@ -83,7 +83,7 @@ class GetAncestors
         $ancestors[$cacheSubKey][$postId] = $ancestorStack;
         NavigationRuntimeCache::setCache('ancestors', $ancestors);
 
-        return $ancestorStack;
+        return $ancestors[$cacheSubKey][$postId];
     }
 
 }
