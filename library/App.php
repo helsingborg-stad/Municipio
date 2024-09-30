@@ -108,6 +108,7 @@ class App
          */
         $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
 
+            // Place
             $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData();
             $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
             $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace(
@@ -115,6 +116,10 @@ class App
                 new Listing(),
                 $decorator
             );
+
+            // Project
+            $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($decorator, $this->wpService);
 
             return $decorator->apply($post);
         }, 10, 1);
