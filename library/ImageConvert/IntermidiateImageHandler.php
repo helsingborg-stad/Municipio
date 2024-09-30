@@ -74,8 +74,8 @@ class IntermidiateImageHandler implements Hookable
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
-        // Check if the file exists and is available.
-        if (!$this->uploadedFileIsAvailable($sourceFilePath)) {
+        // Check if the source file exists.
+        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
             return false;
         }
 
@@ -107,13 +107,6 @@ class IntermidiateImageHandler implements Hookable
         }
 
         return false;
-    }
-
-    private function uploadedFileIsAvailable(string $filePath): bool
-    {
-        $uploadsDir = $this->wpService->uploadDir();
-
-        return \Municipio\Helper\File::fileExists($filePath) && str_contains($filePath, $uploadsDir['baseurl']);
     }
 
     /**

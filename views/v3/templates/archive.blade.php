@@ -74,7 +74,12 @@
             @endif
             @if ($displayArchiveLoop)
                 @includefirst(
-                    ['partials.post.' . $postType . '-' . $template, 'partials.post.post-' . $template],
+                    [   
+                        'partials.post.schema.' . $template,
+                        'partials.post.' . $postType . '-' . $template, 
+                        'partials.post.post-' . $template, 
+                        'partials.post.post-cards'
+                    ],
                     ['posts' => $posts]
                 )
             @endif

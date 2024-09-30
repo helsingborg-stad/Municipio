@@ -2,19 +2,29 @@
 
 namespace Municipio\BrandedEmails\Config;
 
-use AcfService\Contracts\GetField;
+use WpService\Contracts\GetOption;
 
+/**
+ * Service for managing branded email configurations.
+ */
 class BrandedEmailsConfigService implements BrandedEmailsConfig
 {
     public const OPTION_ENABLED_KEY = 'mun_branded_emails_enabled';
 
-    public function __construct(private GetField $acfService)
+    /**
+     * BrandedEmailsConfigService constructor.
+     *
+     * @param GetOption $wpService
+     */
+    public function __construct(private GetOption $wpService)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function isEnabled(): bool
     {
-        $value = $this->acfService->getField(self::OPTION_ENABLED_KEY, 'option');
-        return (int)$value === 1; // $value can be true, "1" or 1, otherwise false
+        return (int)$this->wpService->getOption("options_" . self::OPTION_ENABLED_KEY, false) === 1;
     }
 }

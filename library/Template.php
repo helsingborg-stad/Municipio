@@ -2,13 +2,13 @@
 
 namespace Municipio;
 
-use AcfService\Contracts\GetField;
+use WpService\WpService;
+use AcfService\AcfService;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
-use WpService\Contracts\GetPostType;
 
 class Template
 {
@@ -16,8 +16,8 @@ class Template
     private ?array $viewPaths                   = null;
 
     public function __construct(
-        private GetField $acfService,
-        private GetPostType $wpService,
+        private AcfService $acfService,
+        private WpService $wpService,
         private SchemaDataConfigInterface $schemaDataConfig
     ) {
         //Init custom templates & views
@@ -190,13 +190,13 @@ class Template
             [
                 'condition'       => true,
                 'controllerClass' => \Municipio\Controller\BaseController::class,
-                'controllerPath'  => ControllerHelper::locateController('BaseController')
+                'controllerPath'  => ControllerHelper::locateController('BaseController'),
             ]
         ];
 
         foreach ($controllers as $controller) {
             if ((bool) $controller['condition']) {
-                $instance = self::createController($controller, $template);
+                $instance = $this->createController($controller, $template);
                 if (!empty($controller['view'])) {
                     $template = $controller['view'];
                 } elseif (!empty($instance->view)) {
@@ -230,7 +230,7 @@ class Template
      *
      * @return object An object of the controller class.
      */
-    private static function createController(array $c, string $template = ''): ?object
+    private function createController(array $c, string $template = ''): ?object
     {
         if (!isset($c['controllerPath']) || !is_file($c['controllerPath'])) {
             return null;
@@ -243,7 +243,7 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $c['controllerClass']();
+        return new $c['controllerClass']($this->wpService, $this->acfService);
     }
     /**
      * @param $view

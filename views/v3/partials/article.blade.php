@@ -2,25 +2,27 @@
 
     <!-- Title -->
     @section('article.title.before')@show
-    @if ($postTitleFiltered || isset($callToActionItems['floating']))
-        @group([
-            'justifyContent' => 'space-between'
-        ])
-            @if ($postTitleFiltered)
-                @typography([
-                    'element' => 'h1', 
-                    'variant' => 'h1', 
-                    'id' => 'page-title',
-                ])
-                    {!! $postTitleFiltered !!}
-                @endtypography
-            @endif
-            @if (!empty($callToActionItems['floating']))
-                @icon($callToActionItems['floating'])
-                @endicon
-            @endif
-        @endgroup
-    @endif
+    @section('article.title')
+        @if ($postTitleFiltered || isset($callToActionItems['floating']))
+            @group([
+                'justifyContent' => 'space-between'
+            ])
+                @if ($postTitleFiltered)
+                    @typography([
+                        'element' => 'h1', 
+                        'variant' => 'h1', 
+                        'id' => 'page-title',
+                    ])
+                        {!! $postTitleFiltered !!}
+                    @endtypography
+                @endif
+                @if (!empty($callToActionItems['floating']))
+                    @icon($callToActionItems['floating'])
+                    @endicon
+                @endif
+            @endgroup
+        @endif
+    @show
     @section('article.title.after')@show
 
     <!-- Blog style author signature -->

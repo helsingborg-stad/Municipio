@@ -7,8 +7,9 @@ use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\Api\RestApiEndpointsRegistry;
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
-use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
+use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
+use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
+use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -20,10 +21,30 @@ use Municipio\Helper\Navigation\AdditionalMenu;
 use Municipio\ExternalContent\Config\ExternalContentConfigArray;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
+use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSyncIfNotInProgress;
+use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use Municipio\SchemaData\LimitSchemaTypesAndProperties;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata;
+use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers;
+use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField;
+use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
+use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\DateTimeSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
+use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
 use WpService\WpService;
@@ -61,7 +82,6 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
         new \Municipio\Theme\FileUploads();
@@ -90,9 +110,18 @@ class App
          */
         $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
 
+            // Place
             $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData();
             $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
-            $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace($this->acfService, new Listing(), $decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace(
+                $this->acfService,
+                new Listing(),
+                $decorator
+            );
+
+            // Project
+            $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($decorator, $this->wpService);
 
             return $decorator->apply($post);
         }, 10, 1);
@@ -348,7 +377,7 @@ class App
      */
     private function trySetupBrandedEmails(): void
     {
-        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->acfService);
+        $configService = new \Municipio\BrandedEmails\Config\BrandedEmailsConfigService($this->wpService);
 
         if ($configService->isEnabled() === false) {
             return;
@@ -357,15 +386,23 @@ class App
         $setMailContentType    = new \Municipio\BrandedEmails\SetMailContentType('text/html', $this->wpService);
         $convertMessageToHtml  = new \Municipio\BrandedEmails\ConvertMessageToHtml($this->wpService);
         $bladeService          = new BladeService([__DIR__ . '/BrandedEmails/HtmlTemplate/views']);
-        $htmlTemplateConfig    = new \Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService($this->wpService);
-        $emailHtmlTemplate     = new \Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
-        $applyMailHtmlTemplate = new \Municipio\BrandedEmails\ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
+        $htmlTemplateConfig    = new HtmlTemplateConfigService($this->wpService);
+        $emailHtmlTemplate     = new DefaultHtmlTemplate($htmlTemplateConfig, $this->wpService, $bladeService);
+        $applyMailHtmlTemplate = new ApplyMailHtmlTemplate($emailHtmlTemplate, $this->wpService);
 
         $this->hooksRegistrar->register($setMailContentType);
         $this->hooksRegistrar->register($convertMessageToHtml);
         $this->hooksRegistrar->register($applyMailHtmlTemplate);
     }
 
+    /**
+     * Sets up the schema data feature.
+     *
+     * This method initializes the schema data feature by adding necessary filters,
+     * actions, and registering schema types and properties.
+     *
+     * @return void
+     */
     private function setupSchemaDataFeature(): void
     {
         $this->wpService->addFilter('Municipio/AcfExportManager/autoExport', function (array $autoExportIds) {
@@ -387,37 +424,56 @@ class App
             return;
         }
 
-        $getEnabledSchemaTypes             = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer();
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\DateTimeSanitizer($schemaPropertyValueSanitizer);
-        $schemaPropertyValueSanitizer      = new \Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropertyValueSanitizer);
+        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes();
+        $schemaPropSanitizer               = new NullSanitizer();
+        $schemaPropSanitizer               = new StringSanitizer($schemaPropSanitizer);
+        $schemaPropSanitizer               = new BooleanSanitizer($schemaPropSanitizer);
+        $schemaPropSanitizer               = new DateTimeSanitizer($schemaPropSanitizer);
+        $schemaPropSanitizer               = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropSanitizer);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost($this->schemaDataConfig);
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata($getSchemaPropertiesWithParamTypes, $this->wpService, $schemaPropertyValueSanitizer, $schemaObjectFromPost);
-        $schemaObjectFromPost = new \Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent($this->wpService, $getEnabledSchemaTypes, $schemaObjectFromPost);
+        $schemaObjectFromPost = new SchemaObjectFromPost($this->schemaDataConfig);
+        $schemaObjectFromPost = new SchemaObjectWithNameFromTitle($schemaObjectFromPost);
+        $schemaObjectFromPost = new SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
+        $schemaObjectFromPost = new SchemaObjectWithPropertiesFromMetadata(
+            $getSchemaPropertiesWithParamTypes,
+            $this->wpService,
+            $schemaPropSanitizer,
+            $schemaObjectFromPost
+        );
+        $schemaObjectFromPost = new SchemaObjectWithPropertiesFromExternalContent(
+            $this->wpService,
+            $getEnabledSchemaTypes,
+            $schemaObjectFromPost
+        );
 
-        $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) use ($schemaObjectFromPost) {
-            return (new \Municipio\PostDecorators\ApplySchemaObject($schemaObjectFromPost))->apply($post);
-        }, 1, 1);
+        $this->wpService->addFilter(
+            'Municipio/Helper/Post/postObject',
+            fn (WP_Post $post) =>
+            (new \Municipio\PostDecorators\ApplySchemaObject($schemaObjectFromPost))->apply($post),
+            1,
+            1
+        );
 
         /**
          * Limit schema types and properties.
          */
         $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
         $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\LimitSchemaTypesAndProperties($enabledSchemaTypes->getEnabledSchemaTypesAndProperties(), $this->wpService));
+        $this->hooksRegistrar->register(new LimitSchemaTypesAndProperties(
+            $enabledSchemaTypes->getEnabledSchemaTypesAndProperties(),
+            $this->wpService
+        ));
 
         /**
          * Register schema types in acf select.
          */
         $schemaTypes = array_keys($schemaTypesAndProperties);
         $schemaTypes = array_combine($schemaTypes, $schemaTypes);
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da9e4dffa66', new ModifyFieldChoices($schemaTypes));
+        $this->acfFieldContentModifierRegistrar->registerModifier(
+            'field_66da9e4dffa66',
+            new ModifyFieldChoices($schemaTypes)
+        );
 
         /**
          * Shared dependencies.
@@ -427,17 +483,29 @@ class App
         /**
          * Output schemadata in head of single posts.
          */
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead($schemaObjectFromPost, $this->wpService));
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead(
+            $schemaObjectFromPost,
+            $this->wpService
+        ));
 
         /**
          * Register form for schema properties on posts.
          */
-        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers();
-        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField($formFieldFactory);
-        $formFieldFactory                  = new \Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField($formFieldFactory);
-        $acfFormFieldsFromSchemaProperties = new \Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
-        $acfFieldGroupFromSchemaType       = new \Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
+        $formFieldFactory                  = new FieldWithIdentifiers();
+        $formFieldFactory                  = new StringField($formFieldFactory);
+        $formFieldFactory                  = new GeoCoordinatesField($formFieldFactory);
+        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
+        $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType(
+            $this->wpService,
+            $getSchemaPropertiesWithParamTypes,
+            $acfFormFieldsFromSchemaProperties
+        );
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register(
+            $this->acfService,
+            $this->wpService,
+            $acfFieldGroupFromSchemaType,
+            $this->schemaDataConfig
+        ));
 
         /**
          * External content
@@ -445,6 +513,15 @@ class App
         $this->setupExternalContent();
     }
 
+    /**
+     * Sets up external content.
+     *
+     * This method initializes the external content feature by registering taxonomies,
+     * setting up cron jobs, disabling editing of post types using external content sources,
+     * and starting the sync process if the event is triggered.
+     *
+     * @return void
+     */
     private function setupExternalContent(): void
     {
         /**
@@ -458,10 +535,22 @@ class App
 
         /**
          * Register taxonomies for external content.
+         * @var TaxonomyItem[] $taxonomyItems
          */
-        $taxonomyItemsRegistrar = new \Municipio\ExternalContent\Taxonomy\TaxonomyItemsFactory($sourceConfigs, $this->wpService);
-        $taxonomyItems          = $taxonomyItemsRegistrar->createTaxonomyItems();
-        array_walk($taxonomyItems, fn($item) => $item->register());
+        $taxonomyItems = array_merge(...array_map(function ($config) {
+            return array_map(function ($taxonomyConfig) use ($config) {
+                $taxonomyItem = new TaxonomyItem(
+                    $config->getSchemaType(),
+                    [$config->getPostType()],
+                    $taxonomyConfig->getFromSchemaProperty(),
+                    $taxonomyConfig->getSingularName(),
+                    $taxonomyConfig->getName(),
+                    $this->wpService
+                );
+                $taxonomyItem->register(); // Register the taxonomy.
+                return $taxonomyItem;
+            }, $config->getTaxonomies() ?: []);
+        }, $sourceConfigs));
 
         /**
          * Setup cron jobs on config change.
@@ -477,17 +566,26 @@ class App
         /**
          * Disable editing of post type using external content source.
          */
-        $this->hooksRegistrar->register(new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService));
+        $this->hooksRegistrar->register(
+            new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService)
+        );
 
         /**
          * Build sources to sync from.
          */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory($sourceConfigs, $this->wpService))->createSources();
+        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory(
+            $sourceConfigs,
+            $this->wpService
+        ))->createSources();
 
         /**
          * Start sync if event is triggered.
          */
-        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener($sources, $taxonomyItems, $this->wpService);
+        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
+            $sources,
+            $taxonomyItems,
+            $this->wpService
+        );
         $this->hooksRegistrar->register($syncEventListener);
 
         /**
@@ -522,37 +620,48 @@ class App
         /**
          * Populate post type field options.
          */
-        $postTypesAsOptions = array_combine($this->schemaDataConfig->getEnabledPostTypes(), $this->schemaDataConfig->getEnabledPostTypes());
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da926c03553', new ModifyFieldChoices($postTypesAsOptions));
+        $postTypesAsOptions = array_combine(
+            $this->schemaDataConfig->getEnabledPostTypes(),
+            $this->schemaDataConfig->getEnabledPostTypes()
+        );
+        $this->acfFieldContentModifierRegistrar->registerModifier(
+            'field_66da926c03553',
+            new ModifyFieldChoices($postTypesAsOptions)
+        );
 
         /**
          * Populate cron_schedule field options.
          */
         $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
         array_unshift($scheduleOptions, __('Never', 'municipio'));
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da9961f781e', new ModifyFieldChoices($scheduleOptions));
-
-        /**
-         * Populate taxonomy schema property field options.
-         */
-        $enabledSchemaTypes                     = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
-        $schemaTypesAndProperties               = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $schemaTypesAndPropertiesAsFieldChoices = array_map(fn($props) => array_combine($props, $props), $schemaTypesAndProperties);
-        $this->acfFieldContentModifierRegistrar->registerModifier('field_66da99ea96265', new ModifyFieldChoices($schemaTypesAndPropertiesAsFieldChoices));
+        $this->acfFieldContentModifierRegistrar->registerModifier(
+            'field_66da9961f781e',
+            new ModifyFieldChoices($scheduleOptions)
+        );
 
         /**
          * Add sync button to post list.
          */
-        $this->hooksRegistrar->register(new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService));
+        $this->hooksRegistrar->register(
+            new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService)
+        );
 
         /**
          * Add sync button to post row.
          */
-        $this->hooksRegistrar->register(new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService));
+        $this->hooksRegistrar->register(
+            new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService)
+        );
 
         /**
          * Trigger sync of external content.
          */
-        $this->hooksRegistrar->register(new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService));
+        $triggerSync = new TriggerSync($this->wpService);
+        $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
+        $triggerSync = new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams(
+            $this->wpService,
+            $triggerSync
+        );
+        $this->hooksRegistrar->register($triggerSync);
     }
 }

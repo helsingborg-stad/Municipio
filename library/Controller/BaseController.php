@@ -67,7 +67,7 @@ class BaseController
      * Init data fetching
      * @var object
      */
-    public function __construct()
+    public function __construct(protected WpService $wpService, protected AcfService $acfService)
     {
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');

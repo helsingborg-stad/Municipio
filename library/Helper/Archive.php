@@ -23,21 +23,36 @@ class Archive
     {
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
     }
+
     /**
      * Get the template style for this archive
      *
      * @param string $postType  The post type to get the option from
      * @param string $default   The default value, if not found.
+     * @param string $postType  The post type to get the option from
      *
      * @return string
      */
-    public static function getTemplate($args, string $default = 'cards'): string
+    public static function getTemplate($args, string $default = 'cards', $postType = null): string
     {
-        if (is_object($args) && isset($args->style) && !empty($args->style)) {
-            return $args->style;
+        $schemaKey = 'schema';
+        $archiveAppearance = $default;
+
+        if (empty($args->style)) {
+            return $archiveAppearance;
         }
 
-        return $default;
+        $archiveAppearance = $args->style;
+
+        if ($postType && $archiveAppearance === $schemaKey) {
+            $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($postType);
+
+            if ($schemaType) {
+                $archiveAppearance = $schemaKey . '-' . lcfirst($schemaType);
+            }
+        }
+
+        return $archiveAppearance;
     }
 
     public static function showPagination($archiveBaseUrl, $maxNumPages)
