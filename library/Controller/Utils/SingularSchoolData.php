@@ -691,13 +691,12 @@ class SingularSchoolData
             'title'          => '',
             'layout'         => 'bottom',
             'containerColor' => 'transparent',
-            'textColor'      => 'white',
             'heroStyle'      => true,
             'classList'      => ['u-margin__bottom--0', 'u-padding__bottom--0', 'u-margin__top--0', 'u-padding__top--0']
         ];
 
-        $sliderItem['text']          = $attachment['caption'];
-        $sliderItem['desktop_image'] = $attachment['src'];
+        $sliderItem['text']  = $attachment['caption'];
+        $sliderItem['image'] = $attachment['src'];
 
         return $sliderItem;
     }
