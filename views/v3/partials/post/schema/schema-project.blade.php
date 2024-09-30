@@ -13,11 +13,14 @@
                     'containerAware' => true,
                     'content' => !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
+                    'classList' => ['u-height--100']
                 ])  
                     @slot('afterContent')
                         @if(isset($post->progress))
                             @group([
-                                'direction' => 'vertical'
+                                'direction' => 'vertical',
+                                'justifyContent' => 'flex-end',
+                                'classList' => ['u-height--100']
                             ])
                                 @if(isset($post->projectTerms['status'][0]))
                                     @typography([
