@@ -132,13 +132,6 @@ class Navigation
         //Get all parents
         $result = $this->getItems($parents, [$this->masterPostType, get_post_type()]);
 
-        if ($this->identifier === 'mobile') {
-            echo '<pre>' . print_r( $this->identifier, true ) . '</pre>';
-            echo '<pre>' . print_r( '--------------------<br><br><br>', true ) . '</pre>';
-            echo '<pre>' . print_r( $result, true ) . '</pre>';
-            echo '<pre>' . print_r( '--------------------<br><br><br>', true ) . '</pre>';
-        }
-
         //Format response
         $result = $this->complementObjects($result);
         

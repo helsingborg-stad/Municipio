@@ -22,21 +22,6 @@ class MenuConstructor
         $structuredMenu['title']           = $navMenuObject ? $navMenuObject->name : null;
         $structuredMenu['additionalMenus'] = $this->getAdditionalMenus($menu);
 
-
-
-        if ($this->identifier === 'primary') {
-            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
-            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
-        }
-
-        if ($this->identifier === 'mobile') {
-            // echo '<pre>' . print_r($structuredMenu, true) . '</pre>';
-            // echo '<pre>' . print_r($navMenuObject, true) . '</pre>';
-            // echo '<pre>' . print_r(wp_get_nav_menu_object('secondary-menu'), true) . '</pre>';
-            // echo '<pre>' . print_r($this->identifier, true) . '</pre>';
-            // die;
-        }
-
         return $structuredMenu;
     }
 
