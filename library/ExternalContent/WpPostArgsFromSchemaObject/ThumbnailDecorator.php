@@ -7,6 +7,7 @@ use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
+use WpService\Contracts\UpdatePostMeta;
 
 /**
  * Decorator for adding thumbnail to post args.
@@ -18,7 +19,7 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function __construct(
         private WpPostArgsFromSchemaObjectInterface $inner,
-        private MediaSideloadImage&GetPosts $wpService
+        private MediaSideloadImage&GetPosts&UpdatePostMeta $wpService
     ) {
     }
 
