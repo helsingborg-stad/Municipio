@@ -19,6 +19,9 @@ use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
+use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSyncIfNotInProgress;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
@@ -644,8 +647,12 @@ class App
         /**
          * Trigger sync of external content.
          */
-        $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService)
+        $triggerSync = new TriggerSync($this->wpService);
+        $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
+        $triggerSync = new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams(
+            $this->wpService,
+            $triggerSync
         );
+        $this->hooksRegistrar->register($triggerSync);
     }
 }

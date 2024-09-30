@@ -51,7 +51,7 @@
         ],
         "test:wp_mock": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
         "test": "phpunit --testdox --no-coverage --exclude=wp_mock",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox --exclude=wp_mock",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
