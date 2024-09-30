@@ -2,8 +2,9 @@
 
 namespace Municipio\Controller;
 
-use DateTime;
 use Municipio\Helper\WP;
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\Menu;
 
 /**
  * Class Archive
@@ -12,12 +13,6 @@ use Municipio\Helper\WP;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
-    private static $gridSize;
-
-    private static $randomGridBase = array();
-    private static $gridRow        = array();
-    private static $gridColumns    = array();
-
     public function init()
     {
         parent::init();
@@ -88,17 +83,17 @@ class Archive extends \Municipio\Controller\BaseController
         //Show filter?
         $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
-
-
-        //Archive menu
-        $archiveMenu                    = new \Municipio\Helper\Navigation('archive-menu');
-        $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
+        $archiveMenuConfig = new MenuConfig(
+            'archive-menu',
             $postType . '-menu',
-            false,
+            null,
+            null,
             false,
             true,
-            true
+            true    
         );
+
+        $this->data['archiveMenuItems'] = (Menu::factory($archiveMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
     }
 
     /**

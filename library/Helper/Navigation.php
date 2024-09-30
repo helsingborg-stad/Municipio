@@ -684,13 +684,7 @@ class Navigation
             }
 
 
-            $menuItems = apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
-
-            if ($menu === 'secondary-menu' && !empty($menuItems)) {
-                // $menuItems = $this->menuConstructorInstance->structureMenu($menuItems, $menu);
-            }
-
-            return $menuItems;
+            return apply_filters('Municipio/Navigation/Nested', $pageStructure, $this->identifier, $pageId);
         }
 
         return false;

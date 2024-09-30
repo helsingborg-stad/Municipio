@@ -8,18 +8,10 @@ use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\TranslatedLabels;
 
-// MenuConfig
+// Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\MenuFactory;
-use Municipio\Controller\Navigation\ComplementDefaultDecoratorFactory;
 use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
-// General decorators
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
-
-// PageTreeFallback
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeFallbackDecorator;
-
-// Complement default
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorDefault;
@@ -35,8 +27,6 @@ use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecor
 use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
-use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
-use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 
 class BaseController
 {
@@ -69,12 +59,16 @@ class BaseController
     protected ?int $pageId = null;
 
     /**
+     * @var array $standardMenuDecorators The standard menu decorators.
+     */
+    protected array $standardMenuDecorators = [];
+
+    /**
      * Init data fetching
      * @var object
      */
     public function __construct()
     {
-
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
@@ -176,7 +170,7 @@ class BaseController
             new ApplyMenuItemFilterDecoratorPageTreeFallback()
         ];
 
-        $menuDecorators = [
+        $this->standardMenuDecorators = [
             ComplementDefaultDecorator::factory($defaultMenuDecorators),
             ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators),
             new ApplyNavigationItemsFilterDecorator(),
@@ -315,45 +309,48 @@ class BaseController
         );
         
         // Mobile menu
-        $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
         
         // Primary menu
-        $this->data['primaryMenuItems'] = (Menu::factory($primaryMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['primaryMenuItems'] = (Menu::factory($primaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Secondary mobile menu
-        $this->data['mobileMenuSecondaryItems'] = (Menu::factory($mobileMenuSecondaryConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['mobileMenuSecondaryItems'] = (Menu::factory($mobileMenuSecondaryConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Mega menu
-        $this->data['megaMenuItems'] = (Menu::factory($megaMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['megaMenuItems'] = (Menu::factory($megaMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Quicklinks menu
-        $this->data['quicklinksMenuItems'] = (Menu::factory($quicklinksMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['quicklinksMenuItems'] = (Menu::factory($quicklinksMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Tab menu
-        $this->data['tabMenuItems'] = (Menu::factory($tabMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['tabMenuItems'] = (Menu::factory($tabMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Help menu
-        $this->data['helpMenuItems'] = (Menu::factory($helpMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['helpMenuItems'] = (Menu::factory($helpMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Dropdown menu
-        $this->data['dropdownMenuItems'] = (Menu::factory($dropdownMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['dropdownMenuItems'] = (Menu::factory($dropdownMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Floating menu
-        $this->data['floatingMenuItems'] = (Menu::factory($floatingMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['floatingMenuItems'] = (Menu::factory($floatingMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Language menu
-        $this->data['languageMenuItems'] = (Menu::factory($languageMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['languageMenuItems'] = (Menu::factory($languageMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Site selector menu
-        $this->data['siteselectorMenuItems'] = (Menu::factory($siteselectorMenuConfig, $menuDecorators))->getMenuNavItems();
+        $this->data['siteselectorMenuItems'] = (Menu::factory($siteselectorMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Secondary menu
-        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
+        $posttypeSecondaryMenuItems = (Menu::factory($secondaryMenuPostTypeConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         if (!empty($posttypeSecondaryMenuItems)) {
             $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
         } else {
-            $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $menuDecorators))->getMenuNavItems();
+            $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
+
+            // Todo: check why this works with ajax but not above.
+            // $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
 
 
