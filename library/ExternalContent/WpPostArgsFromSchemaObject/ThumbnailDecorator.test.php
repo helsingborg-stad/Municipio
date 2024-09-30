@@ -82,6 +82,24 @@ class ThumbnailDecoratorTest extends TestCase
         $this->assertArrayNotHasKey('_thumbnail_id', $post['meta_input']);
     }
 
+    /**
+     * @testdox Sets post meta for attachment that indicates that this image was downloaded during a sync.
+     */
+    public function testSetsMetaForAttachment(): void
+    {
+        $url          = 'https://example.com/image.jpg';
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
+        $decorator    = new ThumbnailDecorator(new WpPostFactory(), $wpService);
+        $schemaObject = $this->getSchemaObject();
+        $schemaObject->setProperty('image', $url);
+
+        $decorator->create($schemaObject, new Source('', ''));
+
+        $this->assertEquals(1, $wpService->methodCalls['updatePostMeta'][0][0]);
+        $this->assertEquals('synced_from_external_source', $wpService->methodCalls['updatePostMeta'][0][1]);
+        $this->assertEquals(true, $wpService->methodCalls['updatePostMeta'][0][2]);
+    }
+
     private function getSchemaObject(): BaseType
     {
         return new class extends BaseType {

@@ -14,6 +14,8 @@ use WpService\Contracts\UpdatePostMeta;
  */
 class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
 {
+    public const META_KEY = 'synced_from_external_source';
+
     /**
      * Constructor.
      */
@@ -36,6 +38,10 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
 
             if (empty($attachmentId)) {
                 $attachmentId = $this->wpService->mediaSideloadImage($imageUrl, 0, null, 'id');
+
+                if (!empty($attachmentId) && !($attachmentId instanceof \WP_Error)) {
+                    $this->wpService->updatePostMeta($attachmentId, self::META_KEY, true);
+                }
             }
 
             if (empty($attachmentId) || $attachmentId instanceof \WP_Error) {
