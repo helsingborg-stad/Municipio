@@ -5,6 +5,7 @@ namespace Municipio\TestUtils;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use WP_Error;
 use WP_Post;
 use WP_Term;
 
@@ -31,6 +32,16 @@ class WpMockFactory extends TestCase
     public static function createWpTerm(array $args = []): MockObject|WP_Term
     {
         return self::buildMockWithArgs('WP_Term', $args);
+    }
+
+    /**
+     * Create a mock WP_Error object.
+     *
+     * @param array $args
+     */
+    public static function createWpError(array $args = []): MockObject|WP_Error
+    {
+        return self::buildMockWithArgs('WP_Error', $args);
     }
 
     /**

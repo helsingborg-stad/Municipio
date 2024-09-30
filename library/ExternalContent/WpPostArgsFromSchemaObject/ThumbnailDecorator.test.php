@@ -4,12 +4,14 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
+use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
 use WP_Error;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
+use WpService\Implementations\FakeWpService;
 
 class ThumbnailDecoratorTest extends TestCase
 {
@@ -66,6 +68,23 @@ class ThumbnailDecoratorTest extends TestCase
         $this->assertEquals(123, $post['meta_input']['_thumbnail_id']);
     }
 
+    /**
+     * @testdox Does not connect to post image if sideload fails
+     */
+    public function testDoesNotConnectToPostIfSideloadFails(): void
+    {
+        $url          = 'https://example.com/image.jpg';
+        $wpService    = new FakeWpService(['mediaSideloadImage' => WpMockFactory::createWpError()]);
+        $schemaObject = $this->getSchemaObject();
+        $schemaObject->setProperty('image', $url);
+
+        $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
+
+        $post = $decorator->create($schemaObject, new Source('', ''));
+
+        $this->assertArrayNotHasKey('_thumbnail_id', $post['meta_input']);
+    }
+
     private function getWpService(array $db = []): MediaSideloadImage&GetPosts
     {
         return new class ($db) implements MediaSideloadImage, GetPosts {
@@ -74,8 +93,12 @@ class ThumbnailDecoratorTest extends TestCase
             {
             }
 
-            public function mediaSideloadImage($file, $postId = 0, $desc = null, $returnType = 'html'): string|int|WP_Error
-            {
+            public function mediaSideloadImage(
+                $file,
+                $postId = 0,
+                $desc = null,
+                $returnType = 'html'
+            ): string|int|WP_Error {
                 $this->calls['mediaSideloadImage'][] = func_get_args();
                 return 1;
             }
