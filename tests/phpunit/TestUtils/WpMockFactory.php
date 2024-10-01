@@ -8,6 +8,7 @@ use stdClass;
 use WP_Error;
 use WP_Post;
 use WP_Term;
+use wpdb;
 
 /**
  * Class WpMockFactory.
@@ -45,6 +46,16 @@ class WpMockFactory extends TestCase
     }
 
     /**
+     * Create a mock wpdb object.
+     *
+     * @param array $args
+     */
+    public static function createWpdb(array $args = []): MockObject|wpdb
+    {
+        return self::buildMockWithArgs('wpdb', $args);
+    }
+
+    /**
      * Build a mock object with arguments.
      *
      * @param string $className
@@ -52,9 +63,21 @@ class WpMockFactory extends TestCase
     private static function buildMockWithArgs(string $className, array $args): MockObject
     {
         $testCase = self::getTestCaseInstance();
-        $mock     = $testCase->getMockBuilder(stdClass::class)->setMockClassName($className)->getMock();
+        $mock     = $testCase->getMockBuilder(stdClass::class)->setMockClassName($className);
+
+        $methods = array_map(
+            fn($key) => is_callable($args[$key]) ? $key : null,
+            array_keys($args)
+        );
+
+        $mock = $mock->addMethods(array_filter($methods))->getMock();
 
         foreach ($args as $key => $value) {
+            if (is_callable($value)) {
+                $mock->method($key)->willReturnCallback($value);
+                continue;
+            }
+
             $mock->{$key} = $value;
         }
 

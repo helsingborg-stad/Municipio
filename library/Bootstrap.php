@@ -124,22 +124,25 @@ add_action('init', function () use ($wpService) {
  * Initialize app
  */
 if (function_exists('get_field')) {
+    global $wpdb;
+
     new Municipio\App(
         $wpService,
         $acfService,
         new HooksRegistrar(),
         new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
-        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService)
+        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService),
+        $wpdb
     );
 } else {
-    if (!(defined('WP_CLI') && WP_CLI)) {
+    if (!(defined('WP_CLI') && constant('WP_CLI'))) {
         if (is_admin()) {
             add_action('admin_notices', function () {
-                echo '<div class="notice notice-error"><p>To run <strong>Municipio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p></div>';
+                echo '<div class="notice notice-error"><p>To run <strong>Municipio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p></div>'; // phpcs:ignore
             });
         }
-        if (!is_admin() && $_SERVER["SCRIPT_FILENAME"] != ABSPATH . "wp-login.php") {
-            wp_die('<div class="notice notice-error"><p>To run <strong>Municipio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p>', "ACF Pro Required");
+        if (!is_admin() && $_SERVER["SCRIPT_FILENAME"] != ABSPATH . "wp-login.php") { // phpcs:ignore
+            wp_die('<div class="notice notice-error"><p>To run <strong>Municipio</strong> theme, please install & activate the <a href="http://www.advancedcustomfields.com/pro/">Advanced Custom Fields <strong>PRO</strong></a> plugin.</p>', "ACF Pro Required"); // phpcs:ignore
         }
     }
 }

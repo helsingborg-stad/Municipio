@@ -8,9 +8,6 @@ use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
-use WP_Error;
-use WpService\Contracts\GetPosts;
-use WpService\Contracts\MediaSideloadImage;
 use WpService\Implementations\FakeWpService;
 
 class ThumbnailDecoratorTest extends TestCase
@@ -21,14 +18,14 @@ class ThumbnailDecoratorTest extends TestCase
     public function testSideloadImageFromUrl(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = $this->getWpService();
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
         $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
         $post = $decorator->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
+        $this->assertEquals($url, $wpService->methodCalls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
     }
 
@@ -40,14 +37,14 @@ class ThumbnailDecoratorTest extends TestCase
         $url           = 'https://example.com/image.jpg';
         $imageProperty = new ImageObject();
         $imageProperty->url($url);
-        $wpService    = $this->getWpService();
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $imageProperty);
         $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
         $post = $decorator->create($schemaObject, new Source('', ''));
 
-        $this->assertEquals($url, $wpService->calls['mediaSideloadImage'][0][0]);
+        $this->assertEquals($url, $wpService->methodCalls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
     }
 
@@ -57,14 +54,14 @@ class ThumbnailDecoratorTest extends TestCase
     public function testUsesAlreadyUploadedImageIfFound(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = $this->getWpService(['getPosts' => [(object)['ID' => 123]]]);
+        $wpService    = new FakeWpService(['getPosts' => [(object)['ID' => 123]]]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
         $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
 
         $post = $decorator->create($schemaObject, new Source('', ''));
 
-        $this->assertEmpty($wpService->calls['mediaSideloadImage']);
+        $this->assertArrayNotHasKey('mediaSideloadImage', $wpService->methodCalls);
         $this->assertEquals(123, $post['meta_input']['_thumbnail_id']);
     }
 
@@ -85,29 +82,22 @@ class ThumbnailDecoratorTest extends TestCase
         $this->assertArrayNotHasKey('_thumbnail_id', $post['meta_input']);
     }
 
-    private function getWpService(array $db = []): MediaSideloadImage&GetPosts
+    /**
+     * @testdox Sets post meta for attachment that indicates that this image was downloaded during a sync.
+     */
+    public function testSetsMetaForAttachment(): void
     {
-        return new class ($db) implements MediaSideloadImage, GetPosts {
-            public array $calls = ['mediaSideloadImage' => []];
-            public function __construct(private array $db)
-            {
-            }
+        $url          = 'https://example.com/image.jpg';
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
+        $decorator    = new ThumbnailDecorator(new WpPostFactory(), $wpService);
+        $schemaObject = $this->getSchemaObject();
+        $schemaObject->setProperty('image', $url);
 
-            public function mediaSideloadImage(
-                $file,
-                $postId = 0,
-                $desc = null,
-                $returnType = 'html'
-            ): string|int|WP_Error {
-                $this->calls['mediaSideloadImage'][] = func_get_args();
-                return 1;
-            }
+        $decorator->create($schemaObject, new Source('', ''));
 
-            public function getPosts(array $args): array
-            {
-                return $this->db['getPosts'] ?? [];
-            }
-        };
+        $this->assertEquals(1, $wpService->methodCalls['updatePostMeta'][0][0]);
+        $this->assertEquals('synced_from_external_source', $wpService->methodCalls['updatePostMeta'][0][1]);
+        $this->assertEquals(true, $wpService->methodCalls['updatePostMeta'][0][2]);
     }
 
     private function getSchemaObject(): BaseType
