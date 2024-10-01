@@ -63,11 +63,10 @@ class SingularProject extends \Municipio\Controller\Singular
      */
     private function appendToLangObject(): void
     {
-        $this->data['lang']->information  = __('Information', 'municipio');
         $this->data['lang']->status       = __('Status', 'municipio');
         $this->data['lang']->department   = __('Department', 'municipio');
-        $this->data['lang']->category     = __('Category', 'municipio');
-        $this->data['lang']->technologies = __('Technologies', 'municipio');
+        $this->data['lang']->category     = __('Transition', 'municipio');
+        $this->data['lang']->technologies = __('Categories', 'municipio');
         $this->data['lang']->contact      = __('Contact', 'municipio');
         $this->data['lang']->budget       = __('Estimated budget', 'municipio');
     }
