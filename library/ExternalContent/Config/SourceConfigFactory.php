@@ -50,7 +50,7 @@ class SourceConfigFactory
             isset($namedSettings['post_type'])
                 ? ($this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type']) ?? "")
                 : '';
-
+                
         return new class ($namedSettings, $schemaType) implements SourceConfigInterface {
             public function __construct(
                 private array $namedSettings,
