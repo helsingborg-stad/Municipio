@@ -27,6 +27,7 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->data['technology'] = $this->implodeProjectTerms($this->getProjectTerm('technology'));
         $this->data['status']     = $this->implodeProjectTerms($this->getProjectTerm('status'));
         $this->data['department'] = $this->implodeProjectTerms($this->getProjectTerm('department'));
+        $this->data['budget']     = $this->data['post']->schemaObject['funding']['amount'] ?? null;
 
         $this->appendToLangObject();
         $this->setInformationListData();
@@ -68,6 +69,7 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->data['lang']->category     = __('Category', 'municipio');
         $this->data['lang']->technologies = __('Technologies', 'municipio');
         $this->data['lang']->contact      = __('Contact', 'municipio');
+        $this->data['lang']->budget       = __('Estimated budget', 'municipio');
     }
 
     /**
@@ -104,13 +106,32 @@ class SingularProject extends \Municipio\Controller\Singular
                 'value' => $this->data['post']->schemaObject['employee']['alternateName']
             ];
         }
+
+        if (!empty($this->data['budget'])) {
+            $this->data['informationList'][] = [
+                'label' => $this->data['lang']->budget,
+                'value' => $this->data['budget']
+            ];
+        }
     }
 
+    /**
+     * Gets a project term.
+     *
+     * @param string $key
+     * @return array|null
+     */
     private function getProjectTerm(string $key): ?array
     {
         return isset($this->data['post']->projectTerms[$key]) ? $this->data['post']->projectTerms[$key] : null;
     }
 
+    /**
+     * Implode project terms.
+     *
+     * @param array|null $termArray
+     * @return string|null
+     */
     private function implodeProjectTerms(?array $termArray): ?string
     {
         return $termArray ? implode(', ', $termArray) : null;

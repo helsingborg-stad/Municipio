@@ -4854,11 +4854,11 @@ msgid "Hide in menu"
 msgstr "Dölj i meny"
 
 #: AcfFields/php/options-page-navigation.php:23
-#: Customizer/Sections/Archive.php:96
-#: Customizer/Sections/Archive.php:164
-#: Customizer/Sections/Archive.php:182
-#: Customizer/Sections/Archive.php:207
-#: Customizer/Sections/Archive.php:420
+#: Customizer/Sections/Archive.php:89
+#: Customizer/Sections/Archive.php:157
+#: Customizer/Sections/Archive.php:175
+#: Customizer/Sections/Archive.php:200
+#: Customizer/Sections/Archive.php:413
 msgid "Hide"
 msgstr "Dölj"
 
@@ -15232,15 +15232,15 @@ msgstr "API-resurs"
 msgid "Select"
 msgstr "Välj"
 
-#: Controller/BaseController.php:217
+#: Controller/BaseController.php:219
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: Controller/BaseController.php:218
+#: Controller/BaseController.php:220
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: Controller/BaseController.php:226
+#: Controller/BaseController.php:228
 msgid "Visit"
 msgstr "Besök"
 
@@ -15350,12 +15350,12 @@ msgstr "Läs mer"
 msgid "Follow us in social media"
 msgstr "Följ oss i sociala medier"
 
-#: Controller/Utils/SingularSchoolData.php:775
+#: Controller/Utils/SingularSchoolData.php:774
 #, php-format
 msgid "Date and time: %s at %s"
 msgstr "Datum och tid: %s kl. %s"
 
-#: Controller/Utils/SingularSchoolData.php:783
+#: Controller/Utils/SingularSchoolData.php:782
 msgid "Events"
 msgstr "Evenemang"
 
@@ -15627,19 +15627,19 @@ msgstr "Rubrik"
 msgid "Archive lead text"
 msgstr "Brödtext"
 
-#: Customizer/Sections/Archive.php:48
+#: Customizer/Sections/Archive.php:427
 msgid "Compressed"
 msgstr "Komprimerad"
 
-#: Customizer/Sections/Archive.php:49
+#: Customizer/Sections/Archive.php:428
 msgid "Cards"
 msgstr "Kort"
 
-#: Customizer/Sections/Archive.php:50
+#: Customizer/Sections/Archive.php:429
 msgid "News"
 msgstr "Nyheter"
 
-#: Customizer/Sections/Archive.php:51
+#: Customizer/Sections/Archive.php:430
 #: Customizer/Sections/Module/Contacts.php:33
 #: Customizer/Sections/Module/Map.php:16
 #: Customizer/Sections/Module/Posts.php:37
@@ -15648,191 +15648,191 @@ msgstr "Nyheter"
 msgid "List"
 msgstr "Lista"
 
-#: Customizer/Sections/Archive.php:52
+#: Customizer/Sections/Archive.php:431
 msgid "Blocks"
 msgstr "Block"
 
 #: AcfFields/php/external-content-settings.php:244
-#: Customizer/Sections/Archive.php:53
+#: Customizer/Sections/Archive.php:432
 msgid "Collection"
 msgstr "Samlingar"
 
-#: Customizer/Sections/Archive.php:66
+#: Customizer/Sections/Archive.php:59
 msgid "Format"
 msgstr "Format"
 
-#: Customizer/Sections/Archive.php:70
+#: Customizer/Sections/Archive.php:63
 msgid "Tall"
 msgstr "Stående"
 
-#: Customizer/Sections/Archive.php:71
+#: Customizer/Sections/Archive.php:64
 msgid "Square"
 msgstr "Fyrkantig"
 
-#: Customizer/Sections/Archive.php:91
+#: Customizer/Sections/Archive.php:84
 msgid "Display featured image"
 msgstr "Visa utvald bild"
 
-#: Customizer/Sections/Archive.php:95
-#: Customizer/Sections/Archive.php:163
-#: Customizer/Sections/Archive.php:181
-#: Customizer/Sections/Archive.php:206
-#: Customizer/Sections/Archive.php:419
+#: Customizer/Sections/Archive.php:88
+#: Customizer/Sections/Archive.php:156
+#: Customizer/Sections/Archive.php:174
+#: Customizer/Sections/Archive.php:199
+#: Customizer/Sections/Archive.php:412
 msgid "Show"
 msgstr "Visa"
 
-#: Customizer/Sections/Archive.php:115
+#: Customizer/Sections/Archive.php:108
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
-#: Customizer/Sections/Archive.php:116
+#: Customizer/Sections/Archive.php:109
 msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
-#: Customizer/Sections/Archive.php:130
+#: Customizer/Sections/Archive.php:123
 #: Customizer/Sections/FooterMain.php:240
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
-#: Customizer/Sections/Archive.php:131
+#: Customizer/Sections/Archive.php:124
 msgid "How many columns that the posts should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: Customizer/Sections/Archive.php:158
+#: Customizer/Sections/Archive.php:151
 msgid "Display map"
 msgstr "Visa karta"
 
-#: Customizer/Sections/Archive.php:159
+#: Customizer/Sections/Archive.php:152
 msgid "Display an Open Street Map on the archive if applicable."
 msgstr "Visa en OpenStreetMap i arkivet om tillämpligt."
 
-#: Customizer/Sections/Archive.php:176
+#: Customizer/Sections/Archive.php:169
 msgid "Keep the regular loop"
 msgstr "Behåll standardflödet av poster"
 
-#: Customizer/Sections/Archive.php:177
+#: Customizer/Sections/Archive.php:170
 msgid "Keep the regular loop of posts on the archive?"
 msgstr "Behålla den vanliga listan med inlägg i arkivet?"
 
-#: Customizer/Sections/Archive.php:201
+#: Customizer/Sections/Archive.php:194
 msgid "Display Google Maps-link"
 msgstr "Visa Google Maps-länk"
 
-#: Customizer/Sections/Archive.php:202
+#: Customizer/Sections/Archive.php:195
 msgid "Display a link to Google Maps on each marker on the map?"
 msgstr "Visa en länk till Google Maps på varje markör på kartan?"
 
-#: Customizer/Sections/Archive.php:226
+#: Customizer/Sections/Archive.php:219
 msgid "Filters"
 msgstr "Filtrering"
 
-#: Customizer/Sections/Archive.php:227
+#: Customizer/Sections/Archive.php:220
 msgid "Add filters to let the user browse partial content."
 msgstr "Visa filtreringsmöjligheter för slutanvändaren."
 
-#: Customizer/Sections/Archive.php:235
+#: Customizer/Sections/Archive.php:228
 msgid "Text search"
 msgstr "Fritextsök"
 
-#: Customizer/Sections/Archive.php:236
+#: Customizer/Sections/Archive.php:229
 msgid "Date range"
 msgstr "Period"
 
-#: Customizer/Sections/Archive.php:253
+#: Customizer/Sections/Archive.php:246
 #, php-format
 msgid "What field type to use for the %s filter."
 msgstr "Vilken fälttyp ska användas för filtret \"%s\"."
 
-#: Customizer/Sections/Archive.php:256
+#: Customizer/Sections/Archive.php:249
 msgid "Multiselect"
 msgstr "Flervalsväljare"
 
-#: Customizer/Sections/Archive.php:257
+#: Customizer/Sections/Archive.php:250
 msgid "Single select"
 msgstr "Ettvalsväljare"
 
-#: Customizer/Sections/Archive.php:279
+#: Customizer/Sections/Archive.php:272
 msgid "Facetting type"
 msgstr "Filtreringsbeteende"
 
-#: Customizer/Sections/Archive.php:280
+#: Customizer/Sections/Archive.php:273
 msgid "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting."
 msgstr "Om sökresultatet ska breddas (av) eller om sökresultatet ska smalnas av (på) när flera kategorier väljs."
 
-#: Customizer/Sections/Archive.php:284
+#: Customizer/Sections/Archive.php:277
 msgid "OR"
 msgstr "ELLER"
 
-#: Customizer/Sections/Archive.php:285
+#: Customizer/Sections/Archive.php:278
 msgid "AND"
 msgstr "OCH"
 
-#: Customizer/Sections/Archive.php:299
+#: Customizer/Sections/Archive.php:292
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
-#: Customizer/Sections/Archive.php:300
+#: Customizer/Sections/Archive.php:293
 msgid "What taxonomies should be displayed?"
 msgstr "Vilka taxonomier ska visas?"
 
-#: Customizer/Sections/Archive.php:319
+#: Customizer/Sections/Archive.php:312
 msgid "Order By"
 msgstr "Ordna efter"
 
-#: Customizer/Sections/Archive.php:320
+#: Customizer/Sections/Archive.php:313
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: Customizer/Sections/Archive.php:335
+#: Customizer/Sections/Archive.php:328
 msgid "Order direction"
 msgstr "Riktning"
 
-#: Customizer/Sections/Archive.php:336
+#: Customizer/Sections/Archive.php:329
 msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
-#: Customizer/Sections/Archive.php:340
+#: Customizer/Sections/Archive.php:333
 msgid "Ascending"
 msgstr "Stigande"
 
-#: Customizer/Sections/Archive.php:341
+#: Customizer/Sections/Archive.php:334
 msgid "Decending"
 msgstr "Fallande"
 
-#: Customizer/Sections/Archive.php:356
-#: Customizer/Sections/Archive.php:387
+#: Customizer/Sections/Archive.php:349
+#: Customizer/Sections/Archive.php:380
 msgid "Date"
 msgstr "Datum"
 
-#: Customizer/Sections/Archive.php:357
+#: Customizer/Sections/Archive.php:350
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: Customizer/Sections/Archive.php:361
+#: Customizer/Sections/Archive.php:354
 msgid "Hide date"
 msgstr "Dölj datum"
 
-#: Customizer/Sections/Archive.php:382
+#: Customizer/Sections/Archive.php:375
 msgid "Date format"
 msgstr "Datumformat"
 
-#: Customizer/Sections/Archive.php:383
+#: Customizer/Sections/Archive.php:376
 msgid "In what format to display date"
 msgstr "Format för datum"
 
-#: Customizer/Sections/Archive.php:388
+#: Customizer/Sections/Archive.php:381
 msgid "Date, Time"
 msgstr "Datum, Tid"
 
-#: Customizer/Sections/Archive.php:389
+#: Customizer/Sections/Archive.php:382
 msgid "Date badge"
 msgstr "Datummärke"
 
-#: Customizer/Sections/Archive.php:414
+#: Customizer/Sections/Archive.php:407
 msgid "Display reading time"
 msgstr "Visa uppskattad lästid"
 
-#: Customizer/Sections/Archive.php:415
+#: Customizer/Sections/Archive.php:408
 msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
@@ -17400,7 +17400,7 @@ msgid "Close cross"
 msgstr "Kryss"
 
 #: Controller/SingularJobPosting.php:30
-#: Controller/SingularProject.php:36
+#: Controller/SingularProject.php:66
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr "Information"
@@ -17979,7 +17979,7 @@ msgstr ""
 msgid "school-person"
 msgstr ""
 
-#: App.php:625
+#: App.php:635
 msgid "Never"
 msgstr ""
 
@@ -17992,7 +17992,7 @@ msgid "This email was sent from %s."
 msgstr ""
 
 #: Controller/SingularJobPosting.php:23
-#: Controller/SingularProject.php:41
+#: Controller/SingularProject.php:71
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -18170,22 +18170,30 @@ msgstr "Namn på schemaegenskapen som ska användas som en taxonomi. Exempelvis,
 msgid "ex. director"
 msgstr ""
 
-#: Controller/SingularProject.php:37
+#: Controller/SingularProject.php:67
 msgid "Status"
 msgstr "Status"
 
-#: Controller/SingularProject.php:38
+#: Controller/SingularProject.php:68
 msgid "Department"
 msgstr "Drivs av"
 
-#: Controller/SingularProject.php:39
+#: Controller/SingularProject.php:69
 msgid "Category"
 msgstr "Kategori"
 
-#: Controller/SingularProject.php:40
+#: Controller/SingularProject.php:70
 msgid "Technologies"
 msgstr "Teknologier"
 
 #: ExternalContent/UI/PostTableSyncButton.php:56
 msgid "Sync all posts from remote source"
 msgstr "Synka alla poster från extern källa"
+
+#: Controller/SingularProject.php:72
+msgid "Estimated budget"
+msgstr "Estimerad budget"
+
+#: Customizer/Sections/Archive.php:438
+msgid "Schema"
+msgstr ""

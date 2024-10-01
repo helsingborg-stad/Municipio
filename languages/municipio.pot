@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-24T11:33:28+00:00\n"
+"POT-Creation-Date: 2024-10-01T07:57:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -362,7 +362,7 @@ msgid "Port"
 msgstr ""
 
 #: AcfFields/php/external-content-settings.php:244
-#: Customizer/Sections/Archive.php:53
+#: Customizer/Sections/Archive.php:432
 msgid "Collection"
 msgstr ""
 
@@ -4927,11 +4927,11 @@ msgid "Hide in menu"
 msgstr ""
 
 #: AcfFields/php/options-page-navigation.php:23
-#: Customizer/Sections/Archive.php:96
-#: Customizer/Sections/Archive.php:164
-#: Customizer/Sections/Archive.php:182
-#: Customizer/Sections/Archive.php:207
-#: Customizer/Sections/Archive.php:420
+#: Customizer/Sections/Archive.php:89
+#: Customizer/Sections/Archive.php:157
+#: Customizer/Sections/Archive.php:175
+#: Customizer/Sections/Archive.php:200
+#: Customizer/Sections/Archive.php:413
 msgid "Hide"
 msgstr ""
 
@@ -15338,7 +15338,7 @@ msgstr ""
 msgid "View data."
 msgstr ""
 
-#: App.php:625
+#: App.php:635
 msgid "Never"
 msgstr ""
 
@@ -15450,15 +15450,15 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: Controller/BaseController.php:217
+#: Controller/BaseController.php:219
 msgid "Search for content"
 msgstr ""
 
-#: Controller/BaseController.php:218
+#: Controller/BaseController.php:220
 msgid "No items found at this query."
 msgstr ""
 
-#: Controller/BaseController.php:226
+#: Controller/BaseController.php:228
 msgid "Visit"
 msgstr ""
 
@@ -15513,7 +15513,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Controller/SingularJobPosting.php:23
-#: Controller/SingularProject.php:41
+#: Controller/SingularProject.php:71
 msgid "Contact"
 msgstr ""
 
@@ -15542,7 +15542,7 @@ msgid "Apply"
 msgstr ""
 
 #: Controller/SingularJobPosting.php:30
-#: Controller/SingularProject.php:36
+#: Controller/SingularProject.php:66
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr ""
@@ -15564,20 +15564,24 @@ msgstr ""
 msgid "Visit website"
 msgstr ""
 
-#: Controller/SingularProject.php:37
+#: Controller/SingularProject.php:67
 msgid "Status"
 msgstr ""
 
-#: Controller/SingularProject.php:38
+#: Controller/SingularProject.php:68
 msgid "Department"
 msgstr ""
 
-#: Controller/SingularProject.php:39
+#: Controller/SingularProject.php:69
 msgid "Category"
 msgstr ""
 
-#: Controller/SingularProject.php:40
+#: Controller/SingularProject.php:70
 msgid "Technologies"
+msgstr ""
+
+#: Controller/SingularProject.php:72
+msgid "Estimated budget"
 msgstr ""
 
 #: Controller/Utils/SingularSchoolData.php:180
@@ -15672,11 +15676,11 @@ msgstr ""
 msgid "Follow us in social media"
 msgstr ""
 
-#: Controller/Utils/SingularSchoolData.php:775
+#: Controller/Utils/SingularSchoolData.php:774
 msgid "Date and time: %s at %s"
 msgstr ""
 
-#: Controller/Utils/SingularSchoolData.php:783
+#: Controller/Utils/SingularSchoolData.php:782
 msgid "Events"
 msgstr ""
 
@@ -15947,19 +15951,197 @@ msgstr ""
 msgid "Archive lead text"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:48
+#: Customizer/Sections/Archive.php:59
+msgid "Format"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:63
+msgid "Tall"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:64
+msgid "Square"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:84
+msgid "Display featured image"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:88
+#: Customizer/Sections/Archive.php:156
+#: Customizer/Sections/Archive.php:174
+#: Customizer/Sections/Archive.php:199
+#: Customizer/Sections/Archive.php:412
+msgid "Show"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:108
+msgid "Number of posts to display"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:109
+msgid "How many posts that should be displayed on each page."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:123
+#: Customizer/Sections/FooterMain.php:240
+msgid "Number of columns to display"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:124
+msgid "How many columns that the posts should be divided in."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:151
+msgid "Display map"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:152
+msgid "Display an Open Street Map on the archive if applicable."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:169
+msgid "Keep the regular loop"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:170
+msgid "Keep the regular loop of posts on the archive?"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:194
+msgid "Display Google Maps-link"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:195
+msgid "Display a link to Google Maps on each marker on the map?"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:219
+msgid "Filters"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:220
+msgid "Add filters to let the user browse partial content."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:228
+msgid "Text search"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:229
+msgid "Date range"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:246
+msgid "What field type to use for the %s filter."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:249
+msgid "Multiselect"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:250
+msgid "Single select"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:272
+msgid "Facetting type"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:273
+msgid "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:277
+msgid "OR"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:278
+msgid "AND"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:292
+msgid "Taxonomy display"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:293
+msgid "What taxonomies should be displayed?"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:312
+msgid "Order By"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:313
+msgid "Select a key/value to order by."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:328
+msgid "Order direction"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:329
+msgid "Select decending or ascending order."
+msgstr ""
+
+#: Customizer/Sections/Archive.php:333
+msgid "Ascending"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:334
+msgid "Decending"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:349
+#: Customizer/Sections/Archive.php:380
+msgid "Date"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:350
+msgid "Select source of timestamp for post"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:354
+msgid "Hide date"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:375
+msgid "Date format"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:376
+msgid "In what format to display date"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:381
+msgid "Date, Time"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:382
+msgid "Date badge"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:407
+msgid "Display reading time"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:408
+msgid "Wether to display the estimated reading time for each post"
+msgstr ""
+
+#: Customizer/Sections/Archive.php:427
 msgid "Compressed"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:49
+#: Customizer/Sections/Archive.php:428
 msgid "Cards"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:50
+#: Customizer/Sections/Archive.php:429
 msgid "News"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:51
+#: Customizer/Sections/Archive.php:430
 #: Customizer/Sections/Module/Contacts.php:33
 #: Customizer/Sections/Module/Map.php:16
 #: Customizer/Sections/Module/Posts.php:37
@@ -15968,186 +16150,12 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:52
+#: Customizer/Sections/Archive.php:431
 msgid "Blocks"
 msgstr ""
 
-#: Customizer/Sections/Archive.php:66
-msgid "Format"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:70
-msgid "Tall"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:71
-msgid "Square"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:91
-msgid "Display featured image"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:95
-#: Customizer/Sections/Archive.php:163
-#: Customizer/Sections/Archive.php:181
-#: Customizer/Sections/Archive.php:206
-#: Customizer/Sections/Archive.php:419
-msgid "Show"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:115
-msgid "Number of posts to display"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:116
-msgid "How many posts that should be displayed on each page."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:130
-#: Customizer/Sections/FooterMain.php:240
-msgid "Number of columns to display"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:131
-msgid "How many columns that the posts should be divided in."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:158
-msgid "Display map"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:159
-msgid "Display an Open Street Map on the archive if applicable."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:176
-msgid "Keep the regular loop"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:177
-msgid "Keep the regular loop of posts on the archive?"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:201
-msgid "Display Google Maps-link"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:202
-msgid "Display a link to Google Maps on each marker on the map?"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:226
-msgid "Filters"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:227
-msgid "Add filters to let the user browse partial content."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:235
-msgid "Text search"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:236
-msgid "Date range"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:253
-msgid "What field type to use for the %s filter."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:256
-msgid "Multiselect"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:257
-msgid "Single select"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:279
-msgid "Facetting type"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:280
-msgid "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result when adding multiple selections for facetting."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:284
-msgid "OR"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:285
-msgid "AND"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:299
-msgid "Taxonomy display"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:300
-msgid "What taxonomies should be displayed?"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:319
-msgid "Order By"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:320
-msgid "Select a key/value to order by."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:335
-msgid "Order direction"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:336
-msgid "Select decending or ascending order."
-msgstr ""
-
-#: Customizer/Sections/Archive.php:340
-msgid "Ascending"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:341
-msgid "Decending"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:356
-#: Customizer/Sections/Archive.php:387
-msgid "Date"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:357
-msgid "Select source of timestamp for post"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:361
-msgid "Hide date"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:382
-msgid "Date format"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:383
-msgid "In what format to display date"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:388
-msgid "Date, Time"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:389
-msgid "Date badge"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:414
-msgid "Display reading time"
-msgstr ""
-
-#: Customizer/Sections/Archive.php:415
-msgid "Wether to display the estimated reading time for each post"
+#: Customizer/Sections/Archive.php:438
+msgid "Schema"
 msgstr ""
 
 #: Customizer/Sections/Borders.php:58
