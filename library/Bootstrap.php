@@ -124,12 +124,15 @@ add_action('init', function () use ($wpService) {
  * Initialize app
  */
 if (function_exists('get_field')) {
+    global $wpdb;
+
     new Municipio\App(
         $wpService,
         $acfService,
         new HooksRegistrar(),
         new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
-        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService)
+        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService),
+        $wpdb
     );
 } else {
     if (!(defined('WP_CLI') && WP_CLI)) {

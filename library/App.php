@@ -45,6 +45,7 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
+use wpdb;
 use WpService\WpService;
 
 /**
@@ -61,7 +62,8 @@ class App
         private AcfService $acfService,
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
-        private SchemaDataConfigInterface $schemaDataConfig
+        private SchemaDataConfigInterface $schemaDataConfig,
+        private wpdb $wpdb
     ) {
         /**
          * Upgrade
@@ -580,7 +582,8 @@ class App
         $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
             $sources,
             $taxonomyItems,
-            $this->wpService
+            $this->wpService,
+            $this->wpdb
         );
         $this->hooksRegistrar->register($syncEventListener);
 

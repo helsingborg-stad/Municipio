@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\HooksRegistrar\Hookable;
+use wpdb;
 use WpService\Contracts\AddAction;
 
 class SyncEventListener implements Hookable
@@ -17,7 +18,8 @@ class SyncEventListener implements Hookable
     public function __construct(
         private array $sources,
         private array $taxonomyItems,
-        private AddAction $wpService
+        private AddAction $wpService,
+        private wpdb $wpdb
     ) {
     }
 
@@ -28,7 +30,14 @@ class SyncEventListener implements Hookable
 
     public function sync(string $postType, ?int $postId = null): void
     {
-        $syncBuilder           = new \Municipio\ExternalContent\Sync\SyncBuilder($postType, $postId, $this->sources, $this->taxonomyItems, $this->wpService);
+        $syncBuilder           = new \Municipio\ExternalContent\Sync\SyncBuilder(
+            $postType,
+            $postId,
+            $this->sources,
+            $this->taxonomyItems,
+            $this->wpService,
+            $this->wpdb
+        );
         $syncFromSourceToLocal = $syncBuilder->build();
         $syncFromSourceToLocal->sync();
     }
