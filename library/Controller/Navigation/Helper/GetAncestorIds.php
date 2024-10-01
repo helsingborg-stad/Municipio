@@ -8,8 +8,9 @@ class GetAncestorIds
 {
     private static array $ancestorIds = [];
 
-    public function __construct(
-    ) {}
+    public function __construct()
+    {
+    }
 
     public static function getAncestorIds(array $menuItems, MenuConfigInterface $menuConfig): array
     {

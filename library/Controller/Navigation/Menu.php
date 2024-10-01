@@ -10,16 +10,19 @@ class Menu
     public function __construct(
         private MenuConfigInterface $menuConfig,
         private array $decorators = []
-    ) {}
-    
-    public function createMenu(): array {
+    ) {
+    }
+
+    public function createMenu(): array
+    {
         $menu          = [];
         $menu['items'] = $this->getMenuNavItems();
 
         return $menu;
     }
 
-    public function getMenuNavItems(): array|false {
+    public function getMenuNavItems(): array|false
+    {
 
         $menuItems = GetMenuData::getNavMenuItems($this->menuConfig->getMenuName()) ?: [];
 
@@ -38,8 +41,8 @@ class Menu
         return apply_filters('Municipio/Navigation/Nested', $menuItems, $this->menuConfig->getIdentifier(), $this->menuConfig->getMenuName());
     }
 
-    public static function factory(MenuConfigInterface $menuConfig, array $decorators): Self
+    public static function factory(MenuConfigInterface $menuConfig, array $decorators): self
     {
-        return new Self($menuConfig, $decorators);
+        return new self($menuConfig, $decorators);
     }
 }

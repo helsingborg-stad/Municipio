@@ -7,7 +7,6 @@ use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\TranslatedLabels;
-
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
@@ -138,9 +137,9 @@ class BaseController
 
 
         //Init class for menus
-        $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
-        $accessibility    = new \Municipio\Helper\Navigation('accessibility');
-        
+        $breadcrumb    = new \Municipio\Helper\Navigation('breadcrumb');
+        $accessibility = new \Municipio\Helper\Navigation('accessibility');
+
         $defaultMenuDecorators = [
             new TransformMenuItemDecorator(),
             new AppendAcfFieldValuesDecorator($this->acfService),
@@ -168,151 +167,151 @@ class BaseController
         ];
 
 
-        $pageId = $this->getPageID();
-        $postType = $this->wpService->getPostType();
+        $pageId           = $this->getPageID();
+        $postType         = $this->wpService->getPostType();
         $mobileMenuConfig = new MenuConfig(
-            'mobile', 
-            'secondary-menu', 
+            'mobile',
+            'secondary-menu',
             $pageId,
             $postType,
-            $this->db, 
-            \Kirki::get_option('mobile_menu_pagetree_fallback'), 
+            $this->db,
+            \Kirki::get_option('mobile_menu_pagetree_fallback'),
             true,
             false
         );
 
         $primaryMenuConfig = new MenuConfig(
-            'primary', 
-            'main-menu', 
+            'primary',
+            'main-menu',
             $pageId,
             $postType,
-            $this->db, 
-            \Kirki::get_option('primary_menu_pagetree_fallback'), 
+            $this->db,
+            \Kirki::get_option('primary_menu_pagetree_fallback'),
             true,
             !$this->data['customizer']->primaryMenuDropdown
         );
 
         $mobileMenuSecondaryConfig = new MenuConfig(
-            'mobile-secondary', 
-            'mobile-drawer', 
+            'mobile-secondary',
+            'mobile-drawer',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             false
         );
 
         $megaMenuConfig = new MenuConfig(
-            'mega-menu', 
-            'mega-menu', 
+            'mega-menu',
+            'mega-menu',
             $pageId,
             $postType,
-            $this->db, 
-            \Kirki::get_option('mega_menu_pagetree_fallback'), 
+            $this->db,
+            \Kirki::get_option('mega_menu_pagetree_fallback'),
             true,
             false
         );
 
         $quicklinksMenuConfig = new MenuConfig(
-            'quicklinks', 
-            'quicklinks-menu', 
+            'quicklinks',
+            'quicklinks-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             true
         );
 
         $tabMenuConfig = new MenuConfig(
-            'tab', 
-            'header-tabs-menu', 
+            'tab',
+            'header-tabs-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             false
         );
 
         $helpMenuConfig = new MenuConfig(
-            'help', 
-            'help-menu', 
+            'help',
+            'help-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             false
         );
 
         $dropdownMenuConfig = new MenuConfig(
-            'dropdown', 
-            'dropdown-links-menu', 
+            'dropdown',
+            'dropdown-links-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             false
         );
 
         $floatingMenuConfig = new MenuConfig(
-            'floating', 
-            'floating-menu', 
+            'floating',
+            'floating-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             true
         );
 
         $languageMenuConfig = new MenuConfig(
-            'language', 
-            'language-menu', 
+            'language',
+            'language-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             false
         );
 
         $siteselectorMenuConfig = new MenuConfig(
-            'siteselector', 
-            'siteselector-menu', 
+            'siteselector',
+            'siteselector-menu',
             $pageId,
             $postType,
-            $this->db, 
-            false, 
+            $this->db,
+            false,
             true,
             true
         );
 
         $secondaryMenuPostTypeConfig = new MenuConfig(
-            'sidebar', 
-            $this->wpService->getPostType() . '-secondary-menu', 
+            'sidebar',
+            $this->wpService->getPostType() . '-secondary-menu',
             $pageId,
             $postType,
             $this->db,
         );
 
         $secondaryMenuConfig = new MenuConfig(
-            'sidebar', 
-            'secondary-menu', 
+            'sidebar',
+            'secondary-menu',
             $pageId,
             $postType,
-            $this->db, 
-            \Kirki::get_option('secondary_menu_pagetree_fallback'), 
+            $this->db,
+            \Kirki::get_option('secondary_menu_pagetree_fallback'),
             false,
             false
         );
-        
+
         // Mobile menu
         $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
-        
+
         // Primary menu
         $this->data['primaryMenuItems'] = (Menu::factory($primaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
@@ -564,29 +563,29 @@ class BaseController
         if (!empty($this->pageId)) {
             return $this->pageId;
         }
-    
+
         // Page for post type archive mapping result
         if (is_post_type_archive()) {
             if ($pageId = get_option('page_for_' . get_post_type())) {
                 return $this->pageId = $pageId;
             }
         }
-    
+
         // Get the queried page
         if ($queriedObjectId = get_queried_object_id()) {
             return $this->pageId = $queriedObjectId;
         }
-    
+
         // Return page for front page (fallback)
         if ($frontPageId = get_option('page_on_front')) {
             return $this->pageId = $frontPageId;
         }
-    
+
         // Return page for blog (fallback)
         if ($blogPageId = get_option('page_for_posts')) {
             return $this->pageId = $blogPageId;
         }
-    
+
         // If none of the above, set and return 0
         return $this->pageId = 0;
     }

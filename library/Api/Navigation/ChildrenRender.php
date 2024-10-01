@@ -6,11 +6,21 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Helper\TranslatedLabels;
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Helper\GetGlobal;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Helper\IsPageForPostType;
+use WpService\Contracts\GetPostType;
 
 class ChildrenRender extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children/render';
+
+    public function __construct(private GetPostType $wpService, private ComplementPageTreeDecorator $menuComplementer)
+    {
+        
+    }
 
     public function handleRegisterRestRoute(): bool
     {
@@ -26,15 +36,29 @@ class ChildrenRender extends RestApiEndpoint
         $params = $request->get_params();
 
         if (isset($params['pageId']) && is_numeric($params['pageId'])) {
-            $parentId   = !empty($params['pageId']) ? $params['pageId'] : false;
+            $parentId   = !empty($params['pageId']) ? $params['pageId'] : null;
             $viewPath   = !empty($params['viewPath']) ? $params['viewPath'] : false;
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
             $depth      = !empty($params['depth']) ? $params['depth'] : '0';
             $lang       = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {
-                $navigationInstance = new \Municipio\Helper\Navigation($identifier);
-                $items              = $navigationInstance->getPostChildren($parentId);
+                $localWpdb = GetGlobal::getGlobal('wpdb');
+                $postType = IsPageForPostType::getPostTypeFromId($parentId) ?: $this->wpService->getPostType($parentId);
+
+                $menuConfig = new MenuConfig(
+                    $identifier,
+                    '',
+                    $parentId,
+                    $postType,
+                    $localWpdb,
+                    true,
+                    true,
+                    false,
+                    false
+                );
+
+                $items = $this->menuComplementer->decorate([], $menuConfig);
 
                 return rest_ensure_response(array(
                     'parentId' => $parentId,

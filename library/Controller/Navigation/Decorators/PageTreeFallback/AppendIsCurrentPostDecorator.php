@@ -5,8 +5,7 @@ namespace Municipio\Controller\Navigation\Decorators\PageTreeFallback;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class AppendIsCurrentPostDecorator implements PageTreeFallbackMenuItemDecoratorInterface
-{    
-
+{
     /**
      * Decorates a menu item with the "active" flag based on the current page or URL.
      *

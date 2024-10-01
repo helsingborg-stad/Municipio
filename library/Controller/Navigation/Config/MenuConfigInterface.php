@@ -12,5 +12,6 @@ interface MenuConfigInterface
     public function getFallbackToPageTree(): bool;
     public function getIncludeTopLevel(): bool;
     public function getOnlyKeepFirstLevel(): bool;
+    public function getFallbackToPageTreeAncestors(): bool;
     public function getContext(): string;
 }

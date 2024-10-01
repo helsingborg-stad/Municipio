@@ -7,9 +7,8 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 
-
 class GetAncestors
-{    
+{
     /**
      * Fetch the current page/posts parent, with support for page for posttype.
      *
@@ -79,11 +78,10 @@ class GetAncestors
         }
 
         //Return and cache result
-        $ancestors = NavigationRuntimeCache::getCache('ancestors');
+        $ancestors                        = NavigationRuntimeCache::getCache('ancestors');
         $ancestors[$cacheSubKey][$postId] = $ancestorStack;
         NavigationRuntimeCache::setCache('ancestors', $ancestors);
 
         return $ancestors[$cacheSubKey][$postId];
     }
-
 }

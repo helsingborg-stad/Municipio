@@ -8,7 +8,8 @@ use WpService\Contracts\GetPermalink;
 class AppendHrefDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(private GetPermalink $wpService)
-    {}
+    {
+    }
 
     /**
      * Decorates a menu item by appending the href attribute.

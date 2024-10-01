@@ -26,7 +26,7 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
-        $template = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $postType);
+        $template               = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $postType);
         $this->data['template'] = $template;
 
         //The posts
@@ -91,7 +91,7 @@ class Archive extends \Municipio\Controller\BaseController
             null,
             false,
             true,
-            true    
+            true
         );
 
         $this->data['archiveMenuItems'] = (Menu::factory($archiveMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();

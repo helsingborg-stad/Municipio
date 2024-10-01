@@ -12,7 +12,7 @@ class GetPageForPostTypeIds
      *
      * @return array
      */
-    public static function getPageForPostTypeIds(MenuConfigInterface $menuConfig): array
+    public static function getPageForPostTypeIds(MenuConfigInterface $menuConfig = null): array
     {
         //Get cached result
         $cache = NavigationWpCache::getCache('pageForPostType');

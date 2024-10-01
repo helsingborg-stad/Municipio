@@ -13,6 +13,7 @@ class MenuConfig implements MenuConfigInterface
         private bool $fallbackToPageTree = false,
         private bool $includeTopLevel = true,
         private bool $onlyKeepFirstLevel = false,
+        private bool $fallbackToPageTreeAncestors = true,
         private $context = 'municipio'
     ) {
     }
@@ -55,6 +56,11 @@ class MenuConfig implements MenuConfigInterface
     public function getOnlyKeepFirstLevel(): bool
     {
         return $this->onlyKeepFirstLevel;
+    }
+
+    public function getFallbackToPageTreeAncestors(): bool
+    {
+        return $this->fallbackToPageTreeAncestors;
     }
 
     public function getContext(): string

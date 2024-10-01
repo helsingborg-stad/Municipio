@@ -3,14 +3,12 @@
 namespace Municipio\Controller\Navigation\Decorators\Default;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-
 use AcfService\Contracts\GetFields;
 
 class AppendAcfFieldValuesDecorator implements DefaultMenuItemDecoratorInterface
 {
     public function __construct(private GetFields $acfService)
     {
-        
     }
     /**
      * Decorates a menu item with additional field values.
@@ -25,12 +23,12 @@ class AppendAcfFieldValuesDecorator implements DefaultMenuItemDecoratorInterface
         $fields = $this->acfService->getFields($menuItem['id']);
 
         $menuItem['icon'] = [
-            'icon' => $fields['menu_item_icon'] ?? null,
+            'icon'      => $fields['menu_item_icon'] ?? null,
             'size'      => 'md',
             'classList' => ['c-nav__icon']
         ];
 
-        $menuItem['style'] = $fields['menu_item_style'] ?? 'default';
+        $menuItem['style']       = $fields['menu_item_style'] ?? 'default';
         $menuItem['description'] = $fields['menu_item_description'] ?? '';
 
         return $menuItem;

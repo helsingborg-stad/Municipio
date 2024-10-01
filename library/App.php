@@ -17,8 +17,14 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
-use Municipio\Helper\Navigation\AdditionalMenu;
-use Municipio\ExternalContent\Config\ExternalContentConfigArray;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
@@ -232,18 +238,30 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
+
+        $pageTreeFallbackMenuDecorators = [
+            new TransformPageTreeFallbackMenuItemDecorator(),
+            new AppendHrefDecorator($this->wpService),
+            new CustomTitleDecorator(),
+            new AppendIsCurrentPostDecorator(),
+            new AppendIsAncestorPostDecorator(),
+            new AppendChildrenDecorator(),
+            new ApplyMenuItemFilterDecorator($this->wpService)
+        ];
+
+        $complementMenuItemsInstance = ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators);
+
         /**
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($this->wpService, $complementMenuItemsInstance));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
         $pdfGenerator->addHooks();
-
 
         /**
          * Customizer

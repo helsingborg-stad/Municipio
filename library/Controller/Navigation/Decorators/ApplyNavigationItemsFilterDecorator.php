@@ -8,7 +8,8 @@ use WpService\Contracts\ApplyFilters;
 class ApplyNavigationItemsFilterDecorator implements MenuItemsDecoratorInterface
 {
     public function __construct(private ApplyFilters $wpService)
-    {}
+    {
+    }
     /**
      * Decorates an array of menu items with a filter.
      *

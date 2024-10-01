@@ -6,8 +6,7 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 
 class CustomTitleDecorator implements PageTreeFallbackMenuItemDecoratorInterface
-{    
-
+{
     /**
      * Decorates a menu item with a custom title if available, or replaces it with a default title.
      *

@@ -8,7 +8,8 @@ use WpService\Contracts\ApplyFilters;
 class ApplyMenuItemFilterDecorator implements PageTreeFallbackMenuItemDecoratorInterface
 {
     public function __construct(private ApplyFilters $wpService)
-    {}
+    {
+    }
     /**
      * Decorates a menu item by applying a filter.
      *

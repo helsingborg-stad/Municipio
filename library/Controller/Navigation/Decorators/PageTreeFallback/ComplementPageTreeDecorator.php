@@ -14,8 +14,9 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
 
     public function __construct(
         private array $menuItemDecorators,
-    ) {}
-    
+    ) {
+    }
+
     /**
      * Decorates an array of menu items based on the provided menu configuration.
      *
@@ -30,7 +31,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         }
 
         // Get all ancestors
-        $menuItems = GetAncestors::getAncestors($menuConfig);
+        $menuItems = $menuConfig->getFallbackToPageTreeAncestors() ? GetAncestors::getAncestors($menuConfig) : $menuConfig->getPageId();
 
         // Get all parents
         $menuItems = GetPostsByParent::getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, $menuConfig->getPostType()]);

@@ -9,7 +9,6 @@ class ApplyMenuItemFilterDecorator implements DefaultMenuItemDecoratorInterface
 {
     public function __construct(private ApplyFilters $wpService)
     {
-        
     }
     /**
      * Decorates a menu item with the ApplyMenuItemFilterDecorator.

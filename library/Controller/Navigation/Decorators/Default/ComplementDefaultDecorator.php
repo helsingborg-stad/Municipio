@@ -8,7 +8,6 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
 {
-
     public function __construct(
         private array $decorators = []
     ) {

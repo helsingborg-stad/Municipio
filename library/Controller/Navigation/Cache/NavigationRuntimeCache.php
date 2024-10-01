@@ -30,7 +30,7 @@ class NavigationRuntimeCache
      * Get from cache
      *
      * @param string $key   The cache key
-     * @param array|null 
+     * @param array|null
      * @return mixed
      */
     public static function getCache(string $key): array|null

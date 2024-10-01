@@ -134,7 +134,7 @@ class Navigation
 
         //Format response
         $result = $this->complementObjects($result);
-        
+
         //Return
         return $result;
     }
@@ -721,7 +721,7 @@ class Navigation
         }
         return $result;
     }
-    
+
     /**
      * It returns an array of items that are used in the accessibility menu.
      *
