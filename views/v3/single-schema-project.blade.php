@@ -33,16 +33,11 @@
 @stop
 
 @section('sidebar.right-sidebar.before')
-
-    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
-        {{$lang->information}}
-    @endtypography
-
     @paper(['padding' => 2])
         @collection()
             @foreach ($informationList as $item)
                 @collection__item([])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'h2', 'variant' => 'h3'])
                         {{$item['label']}}
                     @endtypography
                     @typography([])
