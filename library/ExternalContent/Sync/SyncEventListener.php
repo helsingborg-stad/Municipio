@@ -6,6 +6,9 @@ use Municipio\HooksRegistrar\Hookable;
 use wpdb;
 use WpService\Contracts\AddAction;
 
+/**
+ * Class SyncEventListener
+ */
 class SyncEventListener implements Hookable
 {
     /**
@@ -23,11 +26,17 @@ class SyncEventListener implements Hookable
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('Municipio/ExternalContent/Sync', array($this, 'sync'), 10, 2);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function sync(string $postType, ?int $postId = null): void
     {
         $syncBuilder           = new \Municipio\ExternalContent\Sync\SyncBuilder(
