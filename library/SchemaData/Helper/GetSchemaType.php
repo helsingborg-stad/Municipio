@@ -19,7 +19,7 @@ class GetSchemaType
     public static function getSchemaTypesInUse(): array
     {
         if (is_null(self::$schemaTypesInUse)) {
-            self::$schemaTypesInUse = get_field('post_type_schema_types', 'option') ?? [];
+            self::$schemaTypesInUse = get_field('post_type_schema_types', 'option') ?: [];
         }
 
         return self::$schemaTypesInUse;
