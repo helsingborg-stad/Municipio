@@ -65,8 +65,8 @@ class SingularProject extends \Municipio\Controller\Singular
     {
         $this->data['lang']->status       = __('Status', 'municipio');
         $this->data['lang']->department   = __('Department', 'municipio');
-        $this->data['lang']->category     = __('Transition', 'municipio');
-        $this->data['lang']->technologies = __('Categories', 'municipio');
+        $this->data['lang']->transition     = __('Transition', 'municipio');
+        $this->data['lang']->categories = __('Categories', 'municipio');
         $this->data['lang']->contact      = __('Contact', 'municipio');
         $this->data['lang']->budget       = __('Estimated budget', 'municipio');
     }
@@ -87,14 +87,14 @@ class SingularProject extends \Municipio\Controller\Singular
 
         if (!empty($this->data['category'])) {
             $this->data['informationList'][] = [
-                'label' => $this->data['lang']->category,
+                'label' => $this->data['lang']->categories,
                 'value' => $this->data['category']
             ];
         }
 
         if (!empty($this->data['technology'])) {
             $this->data['informationList'][] = [
-                'label' => $this->data['lang']->technologies,
+                'label' => $this->data['lang']->transition,
                 'value' => $this->data['technology']
             ];
         }
