@@ -29,7 +29,7 @@ class Children extends RestApiEndpoint
 
             if (isset($parentId)) {
                 $navigationInstance = new \Municipio\Helper\Navigation($identifier);
-                return $navigationInstance->getPostChildren($parentId);
+                return rest_ensure_response($navigationInstance->getPostChildren($parentId));
             }
         }
 
