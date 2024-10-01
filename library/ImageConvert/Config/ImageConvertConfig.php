@@ -4,11 +4,18 @@ namespace Municipio\ImageConvert\Config;
 
 use WpService\Contracts\ApplyFilters;
 use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
+use WpService\Contracts\IsAdmin;
 
+/**
+ * ImageConvert configuration.
+ */
 class ImageConvertConfig implements ImageConvertConfigInterface
 {
+    /**
+     * Constructor.
+     */
     public function __construct(
-        private ApplyFilters $wpService,
+        private ApplyFilters&IsAdmin $wpService,
         private string $filterPrefix = 'Municipio/ImageConvert',
         private string $intermidiateImageFormat = 'webp',
         private int $intermidiateImageQuality = 80,
@@ -23,7 +30,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            true
+            !$this->wpService->isAdmin()
         );
     }
 
@@ -63,6 +70,9 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         ];
     }
 
+    /**
+     * The quality of the intermidiate image.
+     */
     public function intermidiateImageQuality(): int
     {
         return $this->wpService->applyFilters(
