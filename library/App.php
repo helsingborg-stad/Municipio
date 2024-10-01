@@ -23,6 +23,8 @@ use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
 use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
 use Municipio\ExternalContent\Sync\Triggers\TriggerSyncIfNotInProgress;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
+use Municipio\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
@@ -44,6 +46,7 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
+use WP_Query;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
@@ -662,5 +665,15 @@ class App
             $triggerSync
         );
         $this->hooksRegistrar->register($triggerSync);
+
+        /**
+         * Hide synced media from media library in admin.
+         */
+        $this->hooksRegistrar->register(
+            new HideSyncedMediaFromAdminMediaLibrary(
+                ThumbnailDecorator::META_KEY,
+                $this->wpService
+            )
+        );
     }
 }
