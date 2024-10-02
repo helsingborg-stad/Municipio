@@ -3,9 +3,8 @@
         @foreach ($posts as $key => $post)
              <div class="{{ $gridColumnClass }}">
                 @card([
-                    'image' => $post->images['thumbnail16:9'],
+                    'image' => $post->imageContract ?? $post->images['thumbnail16:9'],
                     'link' => $post->permalink,
-                    'imageFirst' => true,
                     'heading' => $post->postTitle,
                     'metaFirst' => true,
                     'meta' =>  !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',

@@ -18,6 +18,12 @@
                 @endif
                 @if ($displayFeaturedImage && !empty($post->images['thumbnail16:9']['src']))
                     @slot('before')
+                    @if($post->imageContract) 
+                        @image([
+                            'src' => $post->imageContract
+                        ])
+                        @endimage
+                    @else 
                         @image([
                             'src' => $post->images['thumbnail16:9']['src'],
                             'alt' => $post->images['thumbnail16:9']['alt'],
@@ -26,6 +32,8 @@
                             'placeholderText' => ''
                         ])
                         @endimage
+                    @endif
+                        
                     @endslot
                 @endif
 
