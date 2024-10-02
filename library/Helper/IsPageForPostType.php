@@ -12,7 +12,7 @@ class IsPageForPostType
      * @param int $pageId
      * @return string|false
      */
-    public static function getPostTypeFromId(int $pageId): string|false
+    public static function isPageForPostType(int $pageId): string|false
     {
         $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds();
         if (array_key_exists($pageId, $pageForPostTypeIds)) {

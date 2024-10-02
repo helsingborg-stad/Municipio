@@ -8,7 +8,7 @@ use WP_REST_Response;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Helper\GetGlobal;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Helper\IsPageForPostType;
 use WpService\Contracts\GetPostType;
 
@@ -17,7 +17,7 @@ class ChildrenRender extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children/render';
 
-    public function __construct(private GetPostType $wpService, private ComplementPageTreeDecorator $menuComplementer)
+    public function __construct(private GetPostType $wpService, private MenuItemsDecoratorInterface $menuComplementer)
     {
         
     }
@@ -44,12 +44,13 @@ class ChildrenRender extends RestApiEndpoint
 
             if (!empty($parentId)) {
                 $localWpdb = GetGlobal::getGlobal('wpdb');
-                $postType = IsPageForPostType::getPostTypeFromId($parentId) ?: $this->wpService->getPostType($parentId);
+                $isPageForPostType = IsPageForPostType::isPageForPostType($parentId);
+                $postType = $isPageForPostType ?: $this->wpService->getPostType($parentId);
 
                 $menuConfig = new MenuConfig(
                     $identifier,
                     '',
-                    $parentId,
+                    $isPageForPostType ? 0 : $parentId,
                     $postType,
                     $localWpdb,
                     true,

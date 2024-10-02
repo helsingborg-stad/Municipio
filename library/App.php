@@ -243,8 +243,10 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
-
-        $pageTreeFallbackMenuDecorators = [
+        /**
+         * Menu from api
+         */
+        $complementMenuItemsInstance = ComplementPageTreeDecorator::factory([
             new TransformPageTreeFallbackMenuItemDecorator(),
             new AppendHrefDecorator($this->wpService),
             new CustomTitleDecorator(),
@@ -252,15 +254,13 @@ class App
             new AppendIsAncestorPostDecorator(),
             new AppendChildrenDecorator(),
             new ApplyMenuItemFilterDecorator($this->wpService)
-        ];
-
-        $complementMenuItemsInstance = ComplementPageTreeDecorator::factory($pageTreeFallbackMenuDecorators);
+        ]);
 
         /**
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($complementMenuItemsInstance));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($this->wpService, $complementMenuItemsInstance));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
