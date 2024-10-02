@@ -8,5 +8,6 @@ interface MenuInterface
 {
     public function createMenu(): array;
     public function getMenuNavItems(): array|false;
+    public function getBreadcrumbItems(): array|false;
     public static function factory(MenuConfigInterface $menuConfig, array $decorators): self;
 }

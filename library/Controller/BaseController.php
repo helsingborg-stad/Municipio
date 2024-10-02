@@ -10,6 +10,10 @@ use Municipio\Helper\TranslatedLabels;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveItemDecorator;
+use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeItemDecorator;
+use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsDecorator;
+use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbFilterDecorator;
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
@@ -167,8 +171,8 @@ class BaseController
         ];
 
 
-        $pageId           = $this->getPageID();
-        $postType         = $this->wpService->getPostType();
+        $pageId           = $this->data['pageID'];
+        $postType         = $this->wpService->getPostType($pageId);
         $mobileMenuConfig = new MenuConfig(
             'mobile',
             'secondary-menu',
@@ -309,6 +313,14 @@ class BaseController
             false
         );
 
+        $breadcrumbMenuConfig = new MenuConfig(
+            'breadcrumb',
+            '',
+            $pageId,
+            $postType,
+            $this->db
+        );
+
         // Mobile menu
         $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
@@ -349,18 +361,19 @@ class BaseController
             $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
         } else {
             $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
-
-            // Todo: check why this works with ajax but not above.
-            // $secondary        = new \Municipio\Helper\Navigation('sidebar');
-            // $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
         }
 
-
+        // Breadcrumb menu
+        $this->data['breadcrumbItems'] = (Menu::factory($breadcrumbMenuConfig, [
+            new AppendHomeItemDecorator($this->wpService),
+            new AppendArchiveItemDecorator($this->wpService),
+            new AppendPageTreeAncestorsDecorator($this->wpService),
+            new ApplyBreadcrumbFilterDecorator($this->wpService)
+        ]))->getBreadcrumbItems();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
-        //Breadcrumb items
-        $this->data['breadcrumbItems'] = $breadcrumb->getBreadcrumbItems($this->getPageID());
+
         // Accessibility items
         $this->data['accessibilityItems'] = $accessibility->getAccessibilityItems();
 

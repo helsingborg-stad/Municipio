@@ -1,0 +1,47 @@
+<?php
+
+namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
+
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Helper\GetAncestors;
+use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use WpService\Contracts\GetTheTitle;
+use WpService\Contracts\GetPermalink;
+use Municipio\Helper\WP;
+
+class AppendPageTreeAncestorsDecorator implements MenuItemsDecoratorInterface
+{
+    public function __construct(private GetTheTitle&GetPermalink $wpService)
+    {
+    }
+
+    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
+    {
+        if (is_front_page() || is_archive()) {
+            return $menuItems;
+        }
+
+        $ancestors = GetAncestors::getAncestors($menuConfig);
+
+        if (!empty($ancestors)) {
+            $ancestors = array_reverse($ancestors);
+            array_pop($ancestors);
+
+            $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds());
+
+            //Add items
+            foreach ($ancestors as $id) {
+                if (!in_array($id, $pageForPostTypeIds)) {
+                    $title                     = WP::getTheTitle($id);
+                    $menuItems[$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
+                    $menuItems[$id]['href']    = WP::getPermalink($id);
+                    $menuItems[$id]['current'] = false;
+                    $menuItems[$id]['icon']    = 'chevron_right';
+                }
+            }
+        }
+
+        return $menuItems;
+    }
+}

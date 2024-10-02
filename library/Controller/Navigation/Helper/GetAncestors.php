@@ -44,7 +44,7 @@ class GetAncestors
             //About to end, is there a linked pfp page?
             if ($ancestorID == 0) {
                 //Get posttype of post
-                $currentPostType    = get_post_type($postId);
+                $currentPostType    = !empty($menuConfig->getPostType()) ? $menuConfig->getPostType() : get_post_type($postId);
                 $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig));
 
                 //Look for replacement
