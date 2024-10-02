@@ -146,8 +146,6 @@ class BaseController
 
 
         //Init class for menus
-        $accessibility = new \Municipio\Helper\Navigation('accessibility');
-
         $defaultMenuDecorators = [
             new TransformMenuItemDecorator(),
             new AppendAcfFieldValuesDecorator($this->acfService),
