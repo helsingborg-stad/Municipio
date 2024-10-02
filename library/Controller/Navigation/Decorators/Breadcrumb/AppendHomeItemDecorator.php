@@ -18,7 +18,7 @@ class AppendHomeItemDecorator implements MenuItemsDecoratorInterface
 
         if (!empty($homeItemKey)) {
             $menuItems[$homeItemKey] = array(
-                'label'   => __("Home"),
+                'label'   => __('Home', 'municipio'),
                 'href'    => get_home_url(),
                 'current' => is_front_page() ? true : false,
                 'icon'    => 'home'

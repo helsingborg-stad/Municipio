@@ -6,7 +6,7 @@ use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use WpService\Contracts\ApplyFilters;
 
-class ApplyBreadcrumbFilterDecorator implements MenuItemsDecoratorInterface
+class ApplyBreadcrumbItemsFilterDecorator implements MenuItemsDecoratorInterface
 {
     public function __construct(private ApplyFilters $wpService)
     {

@@ -4,16 +4,21 @@ namespace Municipio\Controller;
 
 use WpService\WpService;
 use AcfService\AcfService;
+use Municipio\Controller\Navigation\AccessibilityMenu;
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
+use Municipio\Controller\Navigation\BreadcrumbMenu;
 use Municipio\Helper\TranslatedLabels;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\Decorators\Accessibility\AppendPrintItemDecorator;
 use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveItemDecorator;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeItemDecorator;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsDecorator;
-use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsDeprecatedFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbItemsFilterDecorator;
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
@@ -141,7 +146,6 @@ class BaseController
 
 
         //Init class for menus
-        $breadcrumb    = new \Municipio\Helper\Navigation('breadcrumb');
         $accessibility = new \Municipio\Helper\Navigation('accessibility');
 
         $defaultMenuDecorators = [
@@ -319,6 +323,14 @@ class BaseController
             $pageId,
             $postType,
             $this->db
+        ); 
+        
+        $accessibilityMenuConfig = new MenuConfig(
+            'accessibility',
+            '',
+            $pageId,
+            $postType,
+            $this->db
         );
 
         // Mobile menu
@@ -364,18 +376,22 @@ class BaseController
         }
 
         // Breadcrumb menu
-        $this->data['breadcrumbItems'] = (Menu::factory($breadcrumbMenuConfig, [
+        $this->data['breadcrumbItems'] = (BreadcrumbMenu::factory($breadcrumbMenuConfig, [
             new AppendHomeItemDecorator($this->wpService),
             new AppendArchiveItemDecorator($this->wpService),
             new AppendPageTreeAncestorsDecorator($this->wpService),
-            new ApplyBreadcrumbFilterDecorator($this->wpService)
-        ]))->getBreadcrumbItems();
+            new ApplyBreadcrumbItemsFilterDecorator($this->wpService)
+        ]))->getMenuNavItems();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
 
         // Accessibility items
-        $this->data['accessibilityItems'] = $accessibility->getAccessibilityItems();
+        $this->data['accessibilityItems'] = (AccessibilityMenu::factory($accessibilityMenuConfig, [
+            new AppendPrintItemDecorator(),
+            new ApplyAccessibilityItemsDeprecatedFilterDecorator(),
+            new ApplyAccessibilityItemsFilterDecorator($this->wpService),
+        ]))->getMenuNavItems();
 
         /* Navigation parameters
         string $menu,
