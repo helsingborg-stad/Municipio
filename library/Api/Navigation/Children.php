@@ -3,14 +3,20 @@
 namespace Municipio\Api\Navigation;
 
 use Municipio\Api\RestApiEndpoint;
+use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use WP_REST_Request;
 use WP_REST_Response;
+use WpService\Contracts\GetPostType;
 
 class Children extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children';
 
+    public function __construct(private GetPostType $wpService, private MenuItemsDecoratorInterface $menuComplementer)
+    {
+        
+    }
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
