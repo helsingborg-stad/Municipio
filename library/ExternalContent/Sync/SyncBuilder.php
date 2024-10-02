@@ -15,6 +15,7 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VerifyChecksum;
+use wpdb;
 use WpService\WpService;
 
 /**
@@ -36,7 +37,8 @@ class SyncBuilder implements SyncBuilderInterface
         private ?int $postId,
         private array $sources,
         private array $taxonomyItems,
-        private WpService $wpService
+        private WpService $wpService,
+        private wpdb $wpdb
     ) {
     }
 
@@ -70,7 +72,8 @@ class SyncBuilder implements SyncBuilderInterface
         if ($this->postId === null) {
             $sync = new SyncAllFromSourceToLocal($source, $postArgsFromSchemaObject, $this->wpService);
             $sync = new PrunePostsNoLongerInSource($source, $this->wpService, $sync);
-            return new PruneTermsNoLongerInUse($source, $this->wpService, $sync);
+            $sync = new PruneTermsNoLongerInUse($source, $this->wpService, $sync);
+            return new PruneAttachmentsNoLongerInUse($this->wpService, $this->wpdb, $sync);
         } else {
             return new SyncSingleFromSourceToLocalByPostId(
                 $this->postId,

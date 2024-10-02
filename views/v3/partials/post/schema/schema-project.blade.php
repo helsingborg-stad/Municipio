@@ -8,10 +8,10 @@
                     'imageFirst' => true,
                     'heading' => $post->postTitle,
                     'metaFirst' => true,
-                    'meta' =>  !empty($post->projectTerms['category']) ? implode('/ ', $post->projectTerms['category']) : '',
+                    'meta' =>  !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'content' => !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',
+                    'content' => !empty($post->projectTerms['category']) ? implode('/ ', $post->projectTerms['category']) : '',
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
                     'classList' => ['u-height--100']
                 ])  
