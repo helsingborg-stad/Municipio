@@ -9,7 +9,10 @@
                     'meta' => $post->termsUnlinked,
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
                     'filled' => true,
-                    'image' => [
+                    'image' => $post->imageContract ? [
+                        'src' => $post->imageContract,
+                        'backgroundColor' => 'secondary'
+                    ] : [
                         'src' => $archiveProps->format == 'tall' ? $post->images['thumbnail3:4']['src'] : $post->images['thumbnail16:9']['src'],
                         'alt' => $post->images['thumbnail16:9']['alt'] ? $post->images['thumbnail16:9']['alt'] : $post->postTitle,
                         'backgroundColor' => 'secondary'

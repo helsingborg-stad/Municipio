@@ -16,9 +16,17 @@
                         @slot('top')
                             <span class="c-segment__top-date"> {{date_i18n('l d F Y', strtotime($post->postDate))}} </span>
                         @endslot
-                        
-                        @if ($post->images['thumbnail16:9'])
-                            @image($post->images['thumbnail16:9'])
+
+                        @if($posts->imageContract) 
+                            @image([
+                                'src' => $posts->imageContract
+                            ])
+                            @endimage
+                        @else 
+                            @image([
+                                'src' => $post->images['thumbnail16:9']['src'],
+                                'alt' => $post->images['thumbnail16:9']['alt'],
+                            ])
                             @endimage
                         @endif
                     @endsegment

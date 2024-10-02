@@ -5,7 +5,7 @@
                 @card([
                     'link' => $post->permalink,
                     'imageFirst' => true,
-                    'image' => $post->images['thumbnail16:9'],
+                    'image' => $posts->imageContract ?? $post->images['thumbnail16:9'],
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex', 'u-level-2'],
                     'content' => $post->excerptShort,
