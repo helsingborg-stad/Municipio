@@ -18,9 +18,9 @@
                 @endif
                 @if ($displayFeaturedImage && !empty($post->images['thumbnail16:9']['src']))
                     @slot('before')
-                    @if($posts->imageContract) 
+                    @if($post->imageContract) 
                         @image([
-                            'src' => $posts->imageContract
+                            'src' => $post->imageContract
                         ])
                         @endimage
                     @else 

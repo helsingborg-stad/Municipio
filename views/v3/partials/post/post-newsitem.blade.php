@@ -17,9 +17,9 @@
                             <span class="c-segment__top-date"> {{date_i18n('l d F Y', strtotime($post->postDate))}} </span>
                         @endslot
 
-                        @if($posts->imageContract) 
+                        @if($post->imageContract) 
                             @image([
-                                'src' => $posts->imageContract
+                                'src' => $post->imageContract
                             ])
                             @endimage
                         @else 
