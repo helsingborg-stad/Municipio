@@ -8,4 +8,8 @@
     figure {
         max-width: 100%;
     }
+
+    [class^="mod-"] figure {
+        margin-top: 0;
+    }
 }

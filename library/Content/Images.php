@@ -28,8 +28,10 @@ class Images
             $dom = new \DOMDocument();
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
 
+            $xpath = new \DOMXPath($dom);
+
             $links  = $dom->getElementsByTagName('a');
-            $images = $dom->getElementsByTagName('img');
+            $images = $xpath->query('//img[contains(@class, "wp-image-")]');
 
             self::processLinks($dom, $links);
             self::processImages($dom, $images);
