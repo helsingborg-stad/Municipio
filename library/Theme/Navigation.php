@@ -151,9 +151,14 @@ class Navigation
 
     public function appendFetchUrl($item, $identifier)
     {
-        $targetMenuIdentifiers = ['mobile', 'sidebar'];
 
-        if (!in_array($identifier, $targetMenuIdentifiers)) {
+        $targetMenuIdentifiers = [
+            'mobile' => 'mobile', 
+            'primary' => 'mobile',
+            'sidebar' => 'sidebar'
+        ];
+
+        if (!array_key_exists($identifier, $targetMenuIdentifiers)) {
             return $item;
         }
 
@@ -168,7 +173,7 @@ class Navigation
             esc_url(get_home_url())
         )   . '/wp-json/municipio/v1/navigation/children/render'
             . '?' . 'pageId=' .  $item['id'] . '&viewPath=' . 'partials.navigation.'
-            . $identifier . '&identifier=' . $identifier . '&depth=' . $depth;
+            . $targetMenuIdentifiers[$identifier] . '&identifier=' . $targetMenuIdentifiers[$identifier] . '&depth=' . $depth;
 
         $item['attributeList'] = array(
             'data-fetch-url' => $dataFetchUrl
