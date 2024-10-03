@@ -120,14 +120,6 @@ add_action('init', function () use ($wpService) {
     $acfExportManager->import();
 });
 
-add_filter('user_has_cap', function ($allCaps, $caps, $args) {
-
-    echo '<pre>' . print_r($allCaps, true) . '</pre>';
-    die();
-
-    return $capabilities;
-}, 10, 3);
-
 /**
  * Initialize app
  */
