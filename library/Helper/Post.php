@@ -7,6 +7,7 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+
 /**
  * Class Post
  * @package Municipio\Helper
@@ -250,7 +251,7 @@ class Post
         $postObject->images['thumbnail_12:16'] = $postObject->images['thumbnail_3:4'];
 
         //Get image contract
-        if($thumbnailId = get_post_thumbnail_id($postObject->ID)) {
+        if ($thumbnailId = get_post_thumbnail_id($postObject->ID)) {
             $postObject->imageContract = ImageComponentContract::factory(
                 (int) $thumbnailId,
                 [1920, false],
