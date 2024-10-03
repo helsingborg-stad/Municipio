@@ -3,21 +3,32 @@
 namespace Municipio\ExternalContent\ModifyPostTypeArgs;
 
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\DoingCron;
 
+/**
+ * Class DisableEditingOfPostTypeUsingExternalContentSource
+ */
 class DisableEditingOfPostTypeUsingExternalContentSource extends ModifyPostTypeArgs
 {
     /**
-     * @param \Municipio\ExternalContent\Config\ExternalContentConfigInterface[] $config
-     * @param \WpService\Contracts\AddFilter $wpService
+     * Constructor.
      */
-    public function __construct(private array $configs, private AddFilter $wpService)
+    public function __construct(private array $configs, private AddFilter&DoingCron&CurrentUserCan $wpService)
     {
         parent::__construct($wpService);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function modify(array $args, string $postType): array
     {
-        if (empty($this->configs)) {
+        if (
+            empty($this->configs) ||
+            $this->wpService->doingCron() ||
+            $this->wpService->currentUserCan('activate_plugins', null)
+        ) {
             return $args;
         }
 

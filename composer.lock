@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41ae6ac690fd4a1cd2d14231256ee2f0",
+    "content-hash": "ce2b28b93cfaa9dd4214eadef4d0a5dc",
     "packages": [
         {
             "name": "composer/installers",
@@ -301,16 +301,16 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.50.0",
+            "version": "1.52.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "68f78ef0dfb026001e46444454be0407319ea1e9"
+                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/68f78ef0dfb026001e46444454be0407319ea1e9",
-                "reference": "68f78ef0dfb026001e46444454be0407319ea1e9",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
+                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
                 "shasum": ""
             },
             "require": {
@@ -341,9 +341,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.50.0"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.52.0"
             },
-            "time": "2024-10-01T03:11:34+00:00"
+            "time": "2024-10-03T10:35:34+00:00"
         },
         {
             "name": "masterminds/html5",
