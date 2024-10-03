@@ -153,7 +153,7 @@ class Navigation
     {
 
         $targetMenuIdentifiers = [
-            'mobile' => 'mobile', 
+            'mobile'  => 'mobile',
             'primary' => 'mobile',
             'sidebar' => 'sidebar'
         ];
