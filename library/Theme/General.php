@@ -255,20 +255,6 @@ class General
         return $classes;
     }
 
-    /**
-     * Filter for adding accessibility items
-     * @deprecated version 3.0.0
-     *
-     * @param array $items Default item array
-     *
-     * @return array        Modified item array
-     */
-    public function accessibilityItems(array $items = [])
-    {
-        $accessibility = new \Municipio\Helper\Navigation('accessibility');
-        return $accessibility->getAccessibilityItems();
-    }
-
     public static function htmlEntityDecodeTitle($title): string
     {
         return html_entity_decode($title);
