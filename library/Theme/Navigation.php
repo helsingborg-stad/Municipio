@@ -107,7 +107,10 @@ class Navigation
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postTypeSlug => $postType) {
-                if ($postType->has_archive !== true && ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))) {
+                if (
+                    $postType->has_archive !== true &&
+                    ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))
+                ) {
                     continue;
                 }
 
@@ -190,7 +193,8 @@ class Navigation
             esc_url(get_home_url())
         )   . '/wp-json/municipio/v1/navigation/children/render'
             . '?' . 'pageId=' .  $item['id'] . '&viewPath=' . 'partials.navigation.'
-            . $targetMenuIdentifiers[$identifier] . '&identifier=' . $targetMenuIdentifiers[$identifier] . '&depth=' . $depth;
+            . $targetMenuIdentifiers[$identifier] . '&identifier='
+            . $targetMenuIdentifiers[$identifier] . '&depth=' . $depth;
 
         $item['attributeList'] = array(
             'data-fetch-url' => $dataFetchUrl

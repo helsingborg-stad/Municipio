@@ -2,6 +2,12 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Archive class.
+ *
+ * This class is responsible for handling archive related functionality.
+ * It is located in the file /workspaces/municipio-deployment/wp-content/themes/municipio/library/Helper/Archive.php.
+ */
 class Archive
 {
     /**

@@ -12,10 +12,10 @@ use WpService\Contracts\GetPostMeta;
 class ApplyProjectProgress implements PostDecorator
 {
     /**
-     * @param PostDecorator|null $inner The inner post decorator. Defaults to a NullDecorator.
      * @param GetPostMeta $wpService The WordPress service for retrieving post meta.
+     * @param PostDecorator|null $inner The inner post decorator. Defaults to a NullDecorator.
      */
-    public function __construct(private ?PostDecorator $inner = new NullDecorator(), private GetPostMeta $wpService)
+    public function __construct(private GetPostMeta $wpService, private ?PostDecorator $inner = new NullDecorator())
     {
     }
 
