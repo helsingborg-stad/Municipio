@@ -7,7 +7,8 @@ use WpService\Contracts\GetPostMeta;
 class ApplyProjectProgress implements PostDecorator
 {
     public function __construct(private ?PostDecorator $inner = new NullDecorator(), private GetPostMeta $wpService)
-    {}
+    {
+    }
 
     public function apply(\WP_Post $post): \WP_Post
     {

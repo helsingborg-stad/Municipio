@@ -35,7 +35,7 @@ class Archive
      */
     public static function getTemplate($args, string $default = 'cards', $postType = null): string
     {
-        $schemaKey = 'schema';
+        $schemaKey         = 'schema';
         $archiveAppearance = $default;
 
         if (empty($args->style)) {

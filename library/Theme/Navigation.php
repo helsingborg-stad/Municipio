@@ -21,6 +21,11 @@ class Navigation
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleButtons'), 10, 2);
     }
 
+    /**
+     * Returns an array of available menu locations.
+     *
+     * @return array An associative array of menu locations.
+     */
     public static function getMenuLocations()
     {
         return array(
@@ -149,6 +154,18 @@ class Navigation
         return $schemaTypeMenus;
     }
 
+    /**
+     * Appends the fetch URL to the navigation item.
+     *
+     * This method appends the fetch URL to the provided navigation item based on the given identifier.
+     * If the identifier is not found in the target menu identifiers, the method returns the item as is.
+     * The fetch URL is constructed using the home URL, the page ID, the view path, the identifier, and the depth.
+     * The constructed fetch URL is then added to the attribute list of the item.
+     *
+     * @param array $item The navigation item.
+     * @param string $identifier The identifier of the target menu.
+     * @return array The modified navigation item with the fetch URL appended.
+     */
     public function appendFetchUrl($item, $identifier)
     {
 

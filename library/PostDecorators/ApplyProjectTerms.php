@@ -34,12 +34,12 @@ class ApplyProjectTerms implements PostDecorator
         ];
 
         $terms = [];
-        
+
         foreach ($post->termsUnlinked as $term) {
             if (empty($term['taxonomy'])) {
                 continue;
             }
-            
+
             if (isset($map[$term['taxonomy']]) && !empty($term['label'])) {
                 $terms[$map[$term['taxonomy']]][] = $term['label'];
             }
