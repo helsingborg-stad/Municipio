@@ -176,8 +176,10 @@ class Images
                 'imgAttributeList' => [
                     'parsed' => true,
                 ],
-                'attributeList'    => [
-                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                'attributeList' => [
+                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                        ($image->getAttribute('width') ?? 1920) . 'px'
+                    )
                 ]
             ]);
         }
@@ -190,10 +192,12 @@ class Images
                 'caption'          => $captionText,
                 'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
-                    'parsed' => true,
+                    'parsed' => true
                 ],
-                'attributeList'    => [
-                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                'attributeList' => [
+                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                        ($image->getAttribute('width') ?? 1920) . 'px'
+                    )
                 ]
             ]);
         }
