@@ -45,6 +45,12 @@ $wpService  = new NativeWpService();
 $acfService = new NativeAcfService();
 
 /**
+ * Service helpers.
+ */
+\Municipio\Helper\AcfService::set($acfService);
+\Municipio\Helper\WpService::set($wpService);
+
+/**
  * Acf auto import and export
  */
 add_action('init', function () use ($wpService) {
