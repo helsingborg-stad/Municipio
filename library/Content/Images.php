@@ -124,13 +124,20 @@ class Images
      */
     private static function extractCaption($parentNode)
     {
+        // Initialize an empty string for the caption text
         $captionText = '';
-        if ($parentNode->getElementsByTagName('figcaption')->length > 0) {
+
+        // Ensure the parent node is not null and is an instance of \DOMElement
+        if ($parentNode instanceof \DOMElement && $parentNode->getElementsByTagName('figcaption')->length > 0) {
             foreach ($parentNode->getElementsByTagName('figcaption') as $caption) {
+                // Extract and clean the caption text
                 $captionText = wp_strip_all_tags($caption->textContent);
+                // Remove the caption node from the parent
                 $parentNode->removeChild($caption);
             }
         }
+
+        // Return the extracted caption text (empty string if none found)
         return $captionText;
     }
 
@@ -193,7 +200,7 @@ class Images
 
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-            if ($newNode) {
+            if ($newNode instanceof \DOMElement && $element->parentNode instanceof \DOMElement) {
                 $element->parentNode->replaceChild($newNode, $element);
             }
         }
