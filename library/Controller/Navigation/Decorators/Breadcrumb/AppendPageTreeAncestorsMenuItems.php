@@ -2,27 +2,26 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
-use WpService\Contracts\GetTheTitle;
-use WpService\Contracts\GetPermalink;
+use Municipio\Controller\Navigation\NewMenuInterface;
 use Municipio\Helper\WP;
 
-class AppendPageTreeAncestorsDecorator implements MenuItemsDecoratorInterface
+class AppendPageTreeAncestorsMenuItems implements NewMenuInterface
 {
-    public function __construct(private GetTheTitle&GetPermalink $wpService)
+    public function __construct(private NewMenuInterface $inner)
     {
     }
 
-    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
+    public function getMenuItems(): array
     {
+        $menuItems = $this->inner->getMenuItems();
         if (is_front_page() || is_archive()) {
             return $menuItems;
         }
 
-        $ancestors = GetAncestors::getAncestors($menuConfig);
+        $ancestors = GetAncestors::getAncestors($this->getConfig());
 
         if (!empty($ancestors)) {
             $ancestors = array_reverse($ancestors);
@@ -43,5 +42,10 @@ class AppendPageTreeAncestorsDecorator implements MenuItemsDecoratorInterface
         }
 
         return $menuItems;
+    }
+
+    public function getConfig(): NewMenuConfigInterface
+    {
+        return $this->inner->getConfig();
     }
 }

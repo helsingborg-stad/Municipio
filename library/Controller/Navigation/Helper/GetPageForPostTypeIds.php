@@ -4,6 +4,7 @@ namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 
 class GetPageForPostTypeIds
 {
@@ -12,7 +13,7 @@ class GetPageForPostTypeIds
      *
      * @return array
      */
-    public static function getPageForPostTypeIds(MenuConfigInterface $menuConfig = null): array
+    public static function getPageForPostTypeIds(): array
     {
         //Get cached result
         $cache = NavigationWpCache::getCache('pageForPostType');

@@ -27,7 +27,6 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
     {
         if ($menuItem['id'] == $menuConfig->getPageId()) {
             $children = GetPostsByParent::getPostsByParent(
-                $menuConfig,
                 $menuItem['id'],
                 get_post_type($menuItem['id'])
             );
@@ -64,13 +63,13 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
         FROM " . $menuConfig->getWpdb()->posts . "
         WHERE post_parent = %d
         AND post_status = 'publish'
-        AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
+        AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
         LIMIT 1
       ", $postId)
         );
 
         //Check if posttype has content
-        $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig);
+        $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds();
         if (array_key_exists($postId, $pageForPostTypeIds)) {
             $postTypeHasPosts = $menuConfig->getWpdb()->get_var(
                 $menuConfig->getWpdb()->prepare("
@@ -79,7 +78,7 @@ class AppendChildrenDecorator implements PageTreeFallbackMenuItemDecoratorInterf
                     WHERE post_parent = 0
                     AND post_status = 'publish'
                     AND post_type = %s
-                    AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
+                    AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
                     LIMIT 1
                 ", $pageForPostTypeIds[$postId])
             );

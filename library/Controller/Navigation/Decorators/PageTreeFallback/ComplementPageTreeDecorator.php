@@ -34,7 +34,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         $menuItems = $menuConfig->getFallbackToPageTreeAncestors() ? GetAncestors::getAncestors($menuConfig) : $menuConfig->getPageId();
 
         // Get all parents
-        $menuItems = GetPostsByParent::getPostsByParent($menuConfig, $menuItems, [$this->masterPostType, $menuConfig->getPostType()]);
+        $menuItems = GetPostsByParent::getPostsByParent($menuItems, [$this->masterPostType, $menuConfig->getPostType()]);
 
         if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $key => $menuItem) {
@@ -61,7 +61,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
                 $menuItems[$key] = $cacheData[$cacheKey];
             }
         }
-
+        
         return $menuItems;
     }
 

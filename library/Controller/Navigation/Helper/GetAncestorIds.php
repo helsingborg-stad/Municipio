@@ -3,6 +3,7 @@
 namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 
 class GetAncestorIds
 {
@@ -12,7 +13,7 @@ class GetAncestorIds
     {
     }
 
-    public static function getAncestorIds(array $menuItems, MenuConfigInterface $menuConfig): array
+    public static function getAncestorIds(array $menuItems, MenuConfigInterface|NewMenuConfigInterface $menuConfig): array
     {
         if (empty(self::$ancestorIds[$menuConfig->getIdentifier()])) {
             return self::$ancestorIds;

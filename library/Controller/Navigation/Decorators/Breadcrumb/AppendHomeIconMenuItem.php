@@ -2,18 +2,19 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\NewMenuInterface;
 use WpService\Contracts\GetOption;
 
-class AppendHomeItemDecorator implements MenuItemsDecoratorInterface
+class AppendHomeIconMenuItem implements NewMenuInterface
 {
-    public function __construct(private GetOption $wpService)
+    public function __construct(private NewMenuInterface $inner, private GetOption $wpService)
     {
     }
 
-    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
+    public function getMenuItems(): array
     {
+        $menuItems = $this->inner->getMenuItems();
         $homeItemKey = $this->wpService->getOption('page_on_front');
 
         if (!empty($homeItemKey)) {
@@ -26,5 +27,10 @@ class AppendHomeItemDecorator implements MenuItemsDecoratorInterface
         }
 
         return $menuItems;
+    }
+
+    public function getConfig(): NewMenuConfigInterface
+    {
+        return $this->inner->getConfig();
     }
 }

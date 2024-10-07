@@ -2,17 +2,19 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Accessibility;
 
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\NewMenuInterface;
 
-class AppendPrintItemDecorator implements MenuItemsDecoratorInterface
+class AppendPrintMenuItem implements NewMenuInterface
 {
-    public function __construct()
+    public function __construct(private NewMenuInterface $inner)
     {
     }
 
-    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
+    public function getMenuItems(): array
     {
+        $menuItems = $this->inner->getMenuItems();
+
         if (is_single() || is_page()) {
             $menuItems['print'] =  [
                 'icon'   => 'print',
@@ -24,5 +26,10 @@ class AppendPrintItemDecorator implements MenuItemsDecoratorInterface
         }
 
         return $menuItems;
+    }
+
+    public function getConfig(): NewMenuConfigInterface
+    {
+        return $this->inner->getConfig();
     }
 }

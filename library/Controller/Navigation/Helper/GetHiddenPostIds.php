@@ -4,6 +4,8 @@ namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Helper\GetGlobal;
 
 class GetHiddenPostIds
 {
@@ -21,7 +23,7 @@ class GetHiddenPostIds
      *
      * @return array
      */
-    public static function getHiddenPostIds(MenuConfigInterface $menuConfig, string $metaKey = "hide_in_menu"): array
+    public static function getHiddenPostIds(string $metaKey = "hide_in_menu"): array
     {
         //Get cached result
         $cache = NavigationWpCache::getCache($metaKey);
@@ -29,13 +31,15 @@ class GetHiddenPostIds
             return $cache;
         }
 
+        $localWpdb = GetGlobal::getGlobal('wpdb');
+
         //Get meta
-        $hiddenPages = (array) $menuConfig->getWpdb()->get_col(
-            $menuConfig->getWpdb()->prepare(
+        $hiddenPages = (array) $localWpdb->get_col(
+            $localWpdb->prepare(
                 "
                 SELECT post_id
-                FROM " . $menuConfig->getWpdb()->postmeta . " AS pm 
-                JOIN " . $menuConfig->getWpdb()->posts . " AS p ON pm.post_id = p.ID
+                FROM " . $localWpdb->postmeta . " AS pm 
+                JOIN " . $localWpdb->posts . " AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value = '1'
                 AND post_status = 'publish'

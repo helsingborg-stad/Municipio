@@ -2,24 +2,24 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
-use WpService\Contracts\GetOption;
-use WpService\Contracts\GetPostTypeObject;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\NewMenuInterface;
 use WpService\Contracts\GetPostType;
+use WpService\Contracts\GetPostTypeObject;
 
-class AppendArchiveItemDecorator implements MenuItemsDecoratorInterface
+class AppendArchiveMenuItem implements NewMenuInterface
 {
-    public function __construct(private GetOption&GetPostTypeObject&GetPostType $wpService)
+    public function __construct(private NewMenuInterface $inner, private GetPostType&GetPostTypeObject $wpService)
     {
     }
 
-    public function decorate(array $menuItems, MenuConfigInterface $menuConfig): array
+    public function getMenuItems(): array
     {
-        $postType           = $this->wpService->getPostType($menuConfig->getPageId());
+        $menuItems          = $this->inner->getMenuItems();
+
+        $postType           = $this->wpService->getPostType($this->getConfig()->getPageId());
         $archiveLink        = get_post_type_archive_link($postType);
-        
+
         if ($archiveLink) {
             $defaultLabel = __("Untitled page", 'municipio');
             
@@ -38,5 +38,10 @@ class AppendArchiveItemDecorator implements MenuItemsDecoratorInterface
         }
 
         return $menuItems;
+    }
+
+    public function getConfig(): NewMenuConfigInterface
+    {
+        return $this->inner->getConfig();
     }
 }

@@ -4,21 +4,13 @@ namespace Municipio\Controller;
 
 use WpService\WpService;
 use AcfService\AcfService;
-use Municipio\Controller\Navigation\AccessibilityMenu;
 use Municipio\Helper\FormatObject;
 use Municipio\Controller\Navigation\Menu;
-use Municipio\Controller\Navigation\BreadcrumbMenu;
 use Municipio\Helper\TranslatedLabels;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\Decorators\Accessibility\AppendPrintItemDecorator;
+use Municipio\Controller\Navigation\Config\NewMenuConfig;
 use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
-use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveItemDecorator;
-use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeItemDecorator;
-use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsDecorator;
-use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsDeprecatedFilterDecorator;
-use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsFilterDecorator;
-use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbItemsFilterDecorator;
 use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
 use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
@@ -35,6 +27,9 @@ use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecor
 use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
 use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Helper\CurrentPostId;
 
 class BaseController
 {
@@ -111,7 +106,7 @@ class BaseController
         $this->data['pageTitle']     = $this->getPageTitle();
         $this->data['pagePublished'] = $this->getPagePublished();
         $this->data['pageModified']  = $this->getPageModified();
-        $this->data['pageID']        = $this->getPageID();
+        $this->data['pageID']        = CurrentPostId::get()();
         $this->data['pageParentID']  = $this->getPageParentID();
 
         //Customization data
@@ -146,6 +141,45 @@ class BaseController
 
 
         //Init class for menus
+
+        $pageId           = $this->data['pageID'];
+        $postType         = $this->wpService->getPostType($pageId);
+
+        $accessibilityMenuConfig = new NewMenuConfig(
+            'accessibility',
+            '',
+            $pageId,
+            $postType,
+        );
+
+        $breadcrumbMenuConfig = new NewMenuConfig(
+            'breadcrumb',
+            '',
+            $pageId,
+            $postType
+        ); 
+
+        $newMobileMenuConfig = new NewMenuConfig(
+            'mobile',
+            'secondary-menu',
+            $pageId,
+            $postType,
+            false,
+            false,
+            \Kirki::get_option('mobile_menu_pagetree_fallback')
+        );
+
+        $primaryMenuConfig = new MenuConfig(
+            'primary',
+            'main-menu',
+            $pageId,
+            $postType,
+            \Kirki::get_option('primary_menu_pagetree_fallback'),
+            true,
+            !$this->data['customizer']->primaryMenuDropdown
+        );
+        
+
         $defaultMenuDecorators = [
             new TransformMenuItemDecorator(),
             new AppendAcfFieldValuesDecorator($this->acfService),
@@ -173,18 +207,24 @@ class BaseController
         ];
 
 
-        $pageId           = $this->data['pageID'];
-        $postType         = $this->wpService->getPostType($pageId);
-        $mobileMenuConfig = new MenuConfig(
-            'mobile',
-            'secondary-menu',
-            $pageId,
-            $postType,
-            $this->db,
-            \Kirki::get_option('mobile_menu_pagetree_fallback'),
-            true,
-            false
-        );
+        $director = new MenuDirector();
+
+        $breadcrumbMenuBuilder = new MenuBuilder($breadcrumbMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($breadcrumbMenuBuilder);
+        $director->buildBreadcrumbMenu();
+        $this->data['breadcrumbItems'] = $breadcrumbMenuBuilder->getMenu()->getMenuItems();
+
+        $accessibilityMenuBuilder = new MenuBuilder($accessibilityMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($accessibilityMenuBuilder);
+        $director->buildAccessibilityMenu();
+        $this->data['accessibilityItems'] = $accessibilityMenuBuilder->getMenu()->getMenuItems();
+
+        $mobileMenuBuilder = new MenuBuilder($newMobileMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($mobileMenuBuilder);
+        $newMobileMenuConfig->getFallbackToPageTree() ? 
+            $director->buildStandardMenuWithPageTreeFallback() :
+            $director->buildStandardMenu();
+        $this->data['mobileMenu'] = $mobileMenuBuilder->getMenu()->getMenuItems();
 
         $primaryMenuConfig = new MenuConfig(
             'primary',
@@ -315,24 +355,10 @@ class BaseController
             false
         );
 
-        $breadcrumbMenuConfig = new MenuConfig(
-            'breadcrumb',
-            '',
-            $pageId,
-            $postType,
-            $this->db
-        ); 
-        
-        $accessibilityMenuConfig = new MenuConfig(
-            'accessibility',
-            '',
-            $pageId,
-            $postType,
-            $this->db
-        );
+
 
         // Mobile menu
-        $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
+        // $this->data['mobileMenu'] = (Menu::factory($mobileMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
 
         // Primary menu
         $this->data['primaryMenuItems'] = (Menu::factory($primaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
@@ -373,23 +399,9 @@ class BaseController
             $this->data['secondaryMenuItems'] = (Menu::factory($secondaryMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
         }
 
-        // Breadcrumb menu
-        $this->data['breadcrumbItems'] = (BreadcrumbMenu::factory($breadcrumbMenuConfig, [
-            new AppendHomeItemDecorator($this->wpService),
-            new AppendArchiveItemDecorator($this->wpService),
-            new AppendPageTreeAncestorsDecorator($this->wpService),
-            new ApplyBreadcrumbItemsFilterDecorator($this->wpService)
-        ]))->getMenuNavItems();
-
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
 
-        // Accessibility items
-        $this->data['accessibilityItems'] = (AccessibilityMenu::factory($accessibilityMenuConfig, [
-            new AppendPrintItemDecorator(),
-            new ApplyAccessibilityItemsDeprecatedFilterDecorator(),
-            new ApplyAccessibilityItemsFilterDecorator($this->wpService),
-        ]))->getMenuNavItems();
 
         /* Navigation parameters
         string $menu,
@@ -586,35 +598,7 @@ class BaseController
      */
     public function getPageID(): int
     {
-        // Return cached value if already set
-        if (!empty($this->pageId)) {
-            return $this->pageId;
-        }
-
-        // Page for post type archive mapping result
-        if (is_post_type_archive()) {
-            if ($pageId = get_option('page_for_' . get_post_type())) {
-                return $this->pageId = $pageId;
-            }
-        }
-
-        // Get the queried page
-        if ($queriedObjectId = get_queried_object_id()) {
-            return $this->pageId = $queriedObjectId;
-        }
-
-        // Return page for front page (fallback)
-        if ($frontPageId = get_option('page_on_front')) {
-            return $this->pageId = $frontPageId;
-        }
-
-        // Return page for blog (fallback)
-        if ($blogPageId = get_option('page_for_posts')) {
-            return $this->pageId = $blogPageId;
-        }
-
-        // If none of the above, set and return 0
-        return $this->pageId = 0;
+        return CurrentPostId::get();
     }
 
     /**
@@ -624,7 +608,7 @@ class BaseController
      */
     public function getPageParentID(): int
     {
-        return wp_get_post_parent_id($this->getPageID());
+        return wp_get_post_parent_id(CurrentPostId::get()());
     }
 
     /**
@@ -648,7 +632,7 @@ class BaseController
             return false;
         }
 
-        return has_blocks($this->getPageID());
+        return has_blocks(CurrentPostId::get()());
     }
 
     /**

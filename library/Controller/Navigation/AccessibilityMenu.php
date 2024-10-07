@@ -8,14 +8,16 @@ class AccessibilityMenu implements MenuInterface
 {
     public function __construct(
         private MenuConfigInterface $menuConfig,
-        private array $decorators = []
+        private array $decorators = [],
+        private array $menuItems = []
     ) {
     }
 
     public function createMenu(): array
     {
-        $menu          = [];
-        $menu['items'] = $this->getMenuNavItems();
+        $menu = $this->menuItems;
+        // $menu          = [];
+        // $menu['items'] = $this->getMenuNavItems();
 
         return $menu;
     }

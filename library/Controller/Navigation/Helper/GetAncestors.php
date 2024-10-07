@@ -5,7 +5,8 @@ namespace Municipio\Controller\Navigation\Helper;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
-use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Helper\GetGlobal;
 
 class GetAncestors
 {
@@ -16,10 +17,11 @@ class GetAncestors
      *
      * @return  array              Flat array with parents
      */
-    public static function getAncestors(MenuConfigInterface $menuConfig, $includeTopLevel = true): array
+    public static function getAncestors(MenuConfigInterface|NewMenuConfigInterface $menuConfig, $includeTopLevel = true): array
     {
         $postId = $menuConfig->getPageId();
-
+        $db = GetGlobal::getGlobal('wpdb');
+        
         $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
         if (isset(NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId])) {
             return NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId];
@@ -31,10 +33,10 @@ class GetAncestors
 
         //Fetch ancestors
         while ($fetchAncestors) {
-            $ancestorID = $menuConfig->getWpdb()->get_var(
-                $menuConfig->getWpdb()->prepare("
+            $ancestorID = $db->get_var(
+                $db->prepare("
             SELECT post_parent
-            FROM  " . $menuConfig->getWpdb()->posts . "
+            FROM  " . $db->posts . "
             WHERE ID = %d
             AND post_status = 'publish'
             LIMIT 1
@@ -45,7 +47,7 @@ class GetAncestors
             if ($ancestorID == 0) {
                 //Get posttype of post
                 $currentPostType    = !empty($menuConfig->getPostType()) ? $menuConfig->getPostType() : get_post_type($postId);
-                $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig));
+                $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds());
 
                 //Look for replacement
                 if ($currentPostType && array_key_exists($currentPostType, $pageForPostTypeIds)) {

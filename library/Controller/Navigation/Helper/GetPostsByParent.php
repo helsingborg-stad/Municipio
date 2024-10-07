@@ -2,9 +2,9 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
+use Municipio\Helper\GetGlobal;
 
 class GetPostsByParent
 {
@@ -23,12 +23,14 @@ class GetPostsByParent
      *
      * @return  array  Array of posts including their ID, title, parent ID, and post type.
      */
-    public static function getPostsByParent(MenuConfigInterface $menuConfig, int|array $parent = 0, string|array $postType = 'page'): array
+    public static function getPostsByParent(int|array $parent = 0, string|array $postType = 'page'): array
     {
         //Check if if valid post type string
         if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
             return [];
         }
+
+        $localWpdb = GetGlobal::getGlobal('wpdb');
 
         //Check if if valid post type array
         if (is_array($postType)) {
@@ -68,20 +70,20 @@ class GetPostsByParent
 
         $sql = "
           SELECT ID, post_title, post_parent, post_type
-          FROM " . $menuConfig->getWpdb()->posts . "
+          FROM " . $localWpdb->posts . "
           WHERE post_parent IN(" . $parent . ")
           AND " . $postTypeSQL . "
-          AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds($menuConfig)) . ")
+          AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
           AND post_status='publish'
           ORDER BY menu_order, post_title ASC
           LIMIT 3000
         ";
 
-        $resultSet = $menuConfig->getWpdb()->get_results($sql, ARRAY_A);
+        $resultSet = $localWpdb->get_results($sql, ARRAY_A);
 
         foreach ($resultSet as &$item) {
             if ($item['post_type'] != self::$masterPostType && $item['post_parent'] == 0) {
-                $pageForPostTypeIds = array_flip((array) GetPageForPostTypeIds::getPageForPostTypeIds($menuConfig));
+                $pageForPostTypeIds = array_flip((array) GetPageForPostTypeIds::getPageForPostTypeIds());
 
                 if (array_key_exists($item['post_type'], $pageForPostTypeIds)) {
                     $item['post_parent'] = $pageForPostTypeIds[$item['post_type']];
