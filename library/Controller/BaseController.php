@@ -106,7 +106,7 @@ class BaseController
         $this->data['pageTitle']     = $this->getPageTitle();
         $this->data['pagePublished'] = $this->getPagePublished();
         $this->data['pageModified']  = $this->getPageModified();
-        $this->data['pageID']        = CurrentPostId::get()();
+        $this->data['pageID']        = CurrentPostId::get();
         $this->data['pageParentID']  = $this->getPageParentID();
 
         //Customization data
@@ -608,7 +608,7 @@ class BaseController
      */
     public function getPageParentID(): int
     {
-        return wp_get_post_parent_id(CurrentPostId::get()());
+        return wp_get_post_parent_id(CurrentPostId::get());
     }
 
     /**
@@ -632,7 +632,7 @@ class BaseController
             return false;
         }
 
-        return has_blocks(CurrentPostId::get()());
+        return has_blocks(CurrentPostId::get());
     }
 
     /**
