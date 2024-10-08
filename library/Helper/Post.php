@@ -5,6 +5,8 @@ namespace Municipio\Helper;
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
 use WP_Post;
+use Municipio\Integrations\Component\ImageResolver;
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 
 /**
  * Class Post
@@ -247,6 +249,15 @@ class Post
         $postObject->images['thumbnail_3:4']   = self::getFeaturedImage($postObject->ID, [240, 320]);
         $postObject->images['featuredImage']   = self::getFeaturedImage($postObject->ID, [1080, false]);
         $postObject->images['thumbnail_12:16'] = $postObject->images['thumbnail_3:4'];
+
+        //Get image contract
+        if ($thumbnailId = get_post_thumbnail_id($postObject->ID)) {
+            $postObject->imageContract = ImageComponentContract::factory(
+                (int) $thumbnailId,
+                [1920, false],
+                new ImageResolver()
+            );
+        }
 
         //Deprecated
         $postObject->thumbnail        = $postObject->images['thumbnail_16:9'];

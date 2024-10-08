@@ -3,8 +3,8 @@
 @section('hero-top-sidebar')
     @hero([ 'image' => $image, 'heroView' => 'twoColumn', 'classList' => ['u-color__bg--lightest'] ])
         @slot('content')
-            @if (!empty($category))
-                @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+            @if (!empty($technology))
+                @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $technology !!} @endtypography
             @endif
             @typography([
                 'element' => 'h1',

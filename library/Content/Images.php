@@ -28,8 +28,10 @@ class Images
             $dom = new \DOMDocument();
             $dom->loadHTML($encoding . $content, LIBXML_NOERROR);
 
+            $xpath = new \DOMXPath($dom);
+
             $links  = $dom->getElementsByTagName('a');
-            $images = $dom->getElementsByTagName('img');
+            $images = $xpath->query('//img[contains(@class, "wp-image-")]');
 
             self::processLinks($dom, $links);
             self::processImages($dom, $images);
@@ -122,13 +124,20 @@ class Images
      */
     private static function extractCaption($parentNode)
     {
+        // Initialize an empty string for the caption text
         $captionText = '';
-        if ($parentNode->getElementsByTagName('figcaption')->length > 0) {
+
+        // Ensure the parent node is not null and is an instance of \DOMElement
+        if ($parentNode instanceof \DOMElement && $parentNode->getElementsByTagName('figcaption')->length > 0) {
             foreach ($parentNode->getElementsByTagName('figcaption') as $caption) {
+                // Extract and clean the caption text
                 $captionText = wp_strip_all_tags($caption->textContent);
+                // Remove the caption node from the parent
                 $parentNode->removeChild($caption);
             }
         }
+
+        // Return the extracted caption text (empty string if none found)
         return $captionText;
     }
 
@@ -167,8 +176,10 @@ class Images
                 'imgAttributeList' => [
                     'parsed' => true,
                 ],
-                'attributeList'    => [
-                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                'attributeList' => [
+                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                        ($image->getAttribute('width') ?? 1920) . 'px'
+                    )
                 ]
             ]);
         }
@@ -181,17 +192,19 @@ class Images
                 'caption'          => $captionText,
                 'classList'        => explode(' ', $image->getAttribute('class') ?? []),
                 'imgAttributeList' => [
-                    'parsed' => true,
+                    'parsed' => true
                 ],
-                'attributeList'    => [
-                    'style' => 'width: ' . $image->getAttribute('width') . 'px; max-width: 100%; height: auto;'
+                'attributeList' => [
+                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                        ($image->getAttribute('width') ?? 1920) . 'px'
+                    )
                 ]
             ]);
         }
 
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
-            if ($newNode) {
+            if ($newNode instanceof \DOMElement && $element->parentNode instanceof \DOMElement) {
                 $element->parentNode->replaceChild($newNode, $element);
             }
         }

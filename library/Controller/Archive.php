@@ -13,6 +13,21 @@ use Municipio\Controller\Navigation\Menu;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+    private static $gridSize;
+
+    private static $randomGridBase = array();
+    private static $gridRow        = array();
+    private static $gridColumns    = array();
+
+    /**
+     * Initializes the Archive controller.
+     *
+     * This method is responsible for initializing the Archive controller and setting up the necessary data for the archive page.
+     * It retrieves the current post type, gets the archive properties, sets the template, retrieves the posts, sets the query parameters,
+     * retrieves the taxonomy filters, enables text search and date filter, determines the faceting type, sets the display options for featured image and reading time,
+     * retrieves the current term meta, retrieves the archive data, sets the pagination, determines whether to show pagination, display functions, and filter reset,
+     * determines whether to show the date pickers, determines whether to show the filter, and retrieves the archive menu items.
+     */
     public function init()
     {
         parent::init();
@@ -26,7 +41,12 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['archiveProps'] = $this->getArchiveProperties($postType, $this->data['customizer']);
 
         //Get template
-        $template               = \Municipio\Helper\Archive::getTemplate($this->data['archiveProps'], 'cards', $postType);
+        $template = \Municipio\Helper\Archive::getTemplate(
+            $this->data['archiveProps'],
+            'cards',
+            $postType
+        );
+
         $this->data['template'] = $template;
 
         //The posts
@@ -254,12 +274,14 @@ class Archive extends \Municipio\Controller\BaseController
      */
     public function getPostTypeArchiveLink($postType)
     {
-        $realPath      = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $postTypePath  = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
-        $mayBeTaxonomy = (bool)   ($realPath != $postTypePath);
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $realPath      = (string) parse_url(home_url() . $_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $postTypePath  = (string) parse_url(get_post_type_archive_link($postType), PHP_URL_PATH);
+            $mayBeTaxonomy = (bool)   ($realPath != $postTypePath);
 
-        if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
-            return get_term_link(get_queried_object());
+            if ($mayBeTaxonomy && is_a(get_queried_object(), 'WP_Term')) {
+                return get_term_link(get_queried_object());
+            }
         }
 
         return get_post_type_archive_link($postType);
@@ -352,7 +374,7 @@ class Archive extends \Municipio\Controller\BaseController
         return \Municipio\Helper\Archive::setQueryString($number);
     }
 
-     /**
+    /**
      * Set default values for query parameters
      *
      * @return void
@@ -360,9 +382,9 @@ class Archive extends \Municipio\Controller\BaseController
     public function setQueryParameters()
     {
         $queryParameters = [
-        'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
-        'from'   =>  isset($_GET['from']) ? $_GET['from'] : '',
-        'to'     =>  isset($_GET['to']) ? $_GET['to'] : ''
+            'search' =>  isset($_GET['s']) ? $_GET['s'] : '',
+            'from'   =>  isset($_GET['from']) ? $_GET['from'] : '',
+            'to'     =>  isset($_GET['to']) ? $_GET['to'] : ''
         ];
 
         if (!empty($this->data['postType']) && is_string($this->data['postType'])) {
@@ -392,10 +414,23 @@ class Archive extends \Municipio\Controller\BaseController
         return \Municipio\Helper\Archive::getFacettingType($args);
     }
 
+    /**
+     * Display the estimated reading time for an archive.
+     *
+     * @param array $args The arguments for displaying the reading time.
+     * @return string The estimated reading time.
+     */
     public function displayReadingTime($args)
     {
         return \Municipio\Helper\Archive::displayReadingTime($args);
     }
+
+    /**
+     * Display the featured image for an archive.
+     *
+     * @param array $args The arguments for displaying the featured image.
+     * @return mixed The result of the displayFeaturedImage method.
+     */
     public function displayFeaturedImage($args)
     {
         return \Municipio\Helper\Archive::displayFeaturedImage($args);
@@ -435,8 +470,8 @@ class Archive extends \Municipio\Controller\BaseController
                 //Get terms
                 $terms = get_terms(
                     array(
-                    'taxonomy'   => $taxonomy->name,
-                    'hide_empty' => true
+                        'taxonomy'   => $taxonomy->name,
+                        'hide_empty' => true
                     )
                 );
 
@@ -488,9 +523,18 @@ class Archive extends \Municipio\Controller\BaseController
         return \apply_filters('Municipio/Controller/Archive/getTaxonomies', $taxonomyObjects);
     }
 
+    /**
+     * Preselects all taxonomies in the URL for a given taxonomy name.
+     *
+     * @param string $taxonomyName The name of the taxonomy.
+     * @return array The preselected taxonomies in the URL.
+     */
     private function preselectAllTaxonomiesInUrl($taxonomyName)
     {
-        $preselected = $_GET[$taxonomyName];
+        if (isset($_GET[$taxonomyName])) {
+            $preselected = $_GET[$taxonomyName];
+        }
+
         return !empty($preselected) ? $preselected : [];
     }
 
@@ -654,8 +698,8 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $dateFormat    = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
-        'items'    => [],
-        'headings' => ['Title', 'Published']
+            'items'    => [],
+            'headings' => ['Title', 'Published']
         ];
 
         if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
@@ -671,14 +715,14 @@ class Archive extends \Municipio\Controller\BaseController
                 $postDate = \date($dateFormat, strtotime($post->postDate));
 
                 $preparedPosts['items'][] =
-                [
-                    'id'      => $post->id,
-                    'href'    => WP::getPermalink($post->id),
-                    'columns' => [
-                        $post->postTitle,
-                        $post->post_date = $postDate
-                    ]
-                ];
+                    [
+                        'id'      => $post->id,
+                        'href'    => WP::getPermalink($post->id),
+                        'columns' => [
+                            $post->postTitle,
+                            $post->post_date = $postDate
+                        ]
+                    ];
 
                 $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
             }
@@ -723,13 +767,15 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function formatTermNames(array $termNames): array
     {
-        return array_map(function ($term) {
-            $date = strtotime(str_replace(',', '', $term));
+        return array_map(
+            function ($term) {
+                $date = strtotime(str_replace(',', '', $term));
 
-            return $date !== false
-                ? wp_date(get_option('date_format'), strtotime($term))
-                : $term;
-        },
-        $termNames);
+                return $date !== false
+                    ? wp_date(get_option('date_format'), strtotime($term))
+                    : $term;
+            },
+            $termNames
+        );
     }
 }
