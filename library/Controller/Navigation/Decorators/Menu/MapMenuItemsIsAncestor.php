@@ -4,7 +4,6 @@ namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestorIds;
-use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\MenuInterface;
 
 class MapMenuItemsIsAncestor implements MenuInterface
