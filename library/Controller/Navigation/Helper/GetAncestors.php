@@ -3,9 +3,7 @@
 namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 

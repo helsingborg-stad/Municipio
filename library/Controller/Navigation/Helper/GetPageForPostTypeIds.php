@@ -3,8 +3,6 @@
 namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Cache\NavigationWpCache;
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 
 class GetPageForPostTypeIds
 {
