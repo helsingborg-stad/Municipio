@@ -163,25 +163,29 @@ class Images
             $conentContainerWidth = self::getPageWidth();
 
             //Get image contract
-            $imageComponentContract = ImageComponentContract::factory(
+            /*$imageComponentContract = ImageComponentContract::factory(
                 (int) $attachmentId,
                 [$conentContainerWidth, false],
                 new ImageResolver()
-            );
+            );*/ 
 
-            $html = render_blade_view('partials.content.image', [
-                'src'              => $imageComponentContract,
-                'caption'          => $captionText,
-                'classList'        => explode(' ', $image->getAttribute('class') ?? []),
-                'imgAttributeList' => [
-                    'parsed' => true,
-                ],
-                'attributeList' => [
-                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
-                        ($image->getAttribute('width') ?? 1920) . 'px'
-                    )
-                ]
-            ]);
+            $imageSrc = wp_get_attachment_image_src($attachmentId, [$conentContainerWidth, false]);
+
+            if($imageSrc && isset($imageSrc[0])) {
+                $html = render_blade_view('partials.content.image', [
+                    'src'              => $imageSrc[0],
+                    'caption'          => $captionText,
+                    'classList'        => explode(' ', $image->getAttribute('class') ?? []),
+                    'imgAttributeList' => [
+                        'parsed' => true,
+                    ],
+                    'attributeList' => [
+                        'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                            ($image->getAttribute('width') ?? 1920) . 'px'
+                        )
+                    ]
+                ]);
+            }
         }
 
         //Handle as unknown or external image (not in wp database)
