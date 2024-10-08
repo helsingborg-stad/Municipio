@@ -103,18 +103,16 @@ class Archive extends \Municipio\Controller\BaseController
         //Show filter?
         $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
-        $archiveMenuConfig = new MenuConfig(
+        $archiveMenuConfig = new NewMenuConfig(
             'archive-menu',
-            $postType . '-menu',
-            null,
-            $postType,
-            null,
-            false,
-            true,
-            true
+            $postType . '-menu'
         );
 
-        $this->data['archiveMenuItems'] = (Menu::factory($archiveMenuConfig, $this->standardMenuDecorators))->getMenuNavItems();
+        $director = new MenuDirector();
+        $builder = new MenuBuilder($archiveMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($builder);
+        $director->buildStandardMenu();
+        $this->data['archiveMenuItems'] = $builder->getMenu()->getMenuItems();
     }
 
     /**
