@@ -26,7 +26,7 @@ class ComplementDefaultDecorator implements MenuItemsDecoratorInterface
             return $menuItems;
         }
 
-        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $menuConfig);
+        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $menuConfig->getIdentifier());
 
         foreach ($menuItems as &$menuItem) {
             foreach ($this->decorators as $decorator) {

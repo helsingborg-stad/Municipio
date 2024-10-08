@@ -8,6 +8,4 @@ interface NewMenuConfigInterface {
     public function getRemoveSubLevels(): bool;
     public function getRemoveTopLevel(): bool;
     public function getFallbackToPageTree(): bool;
-    public function getPageId(): ?int;
-    public function getPostType(): string;
 }

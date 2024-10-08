@@ -4,6 +4,7 @@ namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
 use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Helper\CurrentPostId;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeObject;
 
@@ -17,7 +18,7 @@ class AppendArchiveMenuItem implements NewMenuInterface
     {
         $menuItems          = $this->inner->getMenuItems();
 
-        $postType           = $this->wpService->getPostType($this->getConfig()->getPageId());
+        $postType           = $this->wpService->getPostType(CurrentPostId::get());
         $archiveLink        = get_post_type_archive_link($postType);
 
         if ($archiveLink) {

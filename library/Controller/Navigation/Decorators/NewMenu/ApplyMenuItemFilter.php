@@ -19,7 +19,7 @@ class ApplyMenuItemFilter implements NewMenuInterface
         if (empty($menuItems)) {
             return $menuItems;
         }
-
+        
         foreach ($menuItems as &$menuItem) {
             if (!empty($menuItem['isCached'])) {
                 continue;

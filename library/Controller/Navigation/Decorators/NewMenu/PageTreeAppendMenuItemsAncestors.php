@@ -12,6 +12,10 @@ class PageTreeAppendMenuItemsAncestors implements NewMenuInterface
     {
     }
 
+    /*  
+     * TODO: check if needed. Maybe we can build our own tree,
+     * from the available ids of each menu item.
+     */
     public function getMenuItems(): array
     {
         $menuItems = $this->inner->getMenuItems();
@@ -25,7 +29,7 @@ class PageTreeAppendMenuItemsAncestors implements NewMenuInterface
                 continue;
             }
             
-            if (in_array($menuItem['id'], GetAncestors::getAncestors($this->getConfig()))) {
+            if (in_array($menuItem['id'], GetAncestors::getAncestors())) {
                 $menuItem['ancestor'] = true;
             } else {
                 $menuItem['ancestor'] = false;

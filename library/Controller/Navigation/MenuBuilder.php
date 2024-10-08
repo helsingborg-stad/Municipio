@@ -133,7 +133,7 @@ class MenuBuilder implements MenuBuilderInterface
 
     public function appendDataFromAncestorIds(): void
     {
-        $this->menu = new AppendDataFromAncestorIds($this->menu);
+        $this->menu = new AppendDataFromAncestorIds($this->menu, $this->wpService);
     }
 
     public function tryGetPageTreeMenuItemsFromCache(): void

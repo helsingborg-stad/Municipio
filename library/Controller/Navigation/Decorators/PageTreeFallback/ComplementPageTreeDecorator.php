@@ -31,7 +31,7 @@ class ComplementPageTreeDecorator implements MenuItemsDecoratorInterface
         }
 
         // Get all ancestors
-        $menuItems = $menuConfig->getFallbackToPageTreeAncestors() ? GetAncestors::getAncestors($menuConfig) : $menuConfig->getPageId();
+        $menuItems = $menuConfig->getFallbackToPageTreeAncestors() ? GetAncestors::getAncestors() : $menuConfig->getPageId();
 
         // Get all parents
         $menuItems = GetPostsByParent::getPostsByParent($menuItems, [$this->masterPostType, $menuConfig->getPostType()]);

@@ -5,12 +5,13 @@ namespace Municipio\Controller\Navigation\Decorators\NewMenu;
 use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\NewMenuInterface;
+use WpService\Contracts\GetPostType;
 
 class AppendDataFromAncestorIds implements NewMenuInterface
 {
     private $masterPostType = 'page';
 
-    public function __construct(private NewMenuInterface $inner)
+    public function __construct(private NewMenuInterface $inner, private GetPostType $wpService)
     {
     }
 
@@ -18,7 +19,7 @@ class AppendDataFromAncestorIds implements NewMenuInterface
     {
         $menuItems = $this->inner->getMenuItems();
 
-        $menuItems = GetPostsByParent::getPostsByParent($menuItems, [$this->masterPostType, $this->getConfig()->getPostType()]);
+        $menuItems = GetPostsByParent::getPostsByParent($menuItems, [$this->masterPostType, $this->wpService->getPostType()]);
 
         return $menuItems;
     }

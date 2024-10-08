@@ -17,7 +17,7 @@ class AppendIsAncestorPostDecorator implements PageTreeFallbackMenuItemDecorator
      */
     public function decorate(array $menuItem, MenuConfigInterface $menuConfig, ComplementPageTreeDecorator $parentInstance): array
     {
-        if (in_array($menuItem['id'], GetAncestors::getAncestors($menuConfig))) {
+        if (in_array($menuItem['id'], GetAncestors::getAncestors())) {
             $menuItem['ancestor'] = true;
         } else {
             $menuItem['ancestor'] = false;

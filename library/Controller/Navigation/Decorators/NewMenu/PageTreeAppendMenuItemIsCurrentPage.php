@@ -4,6 +4,7 @@ namespace Municipio\Controller\Navigation\Decorators\NewMenu;
 
 use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
 use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Helper\CurrentPostId;
 
 class PageTreeAppendMenuItemIsCurrentPage implements NewMenuInterface
 {
@@ -24,7 +25,7 @@ class PageTreeAppendMenuItemIsCurrentPage implements NewMenuInterface
                 continue;
             }
 
-            if ($menuItem['id'] == $this->getConfig()->getPageId()) {
+            if ($menuItem['id'] == CurrentPostId::get()) {
                 $menuItem['active'] = true;
             } elseif (\Municipio\Helper\IsCurrentUrl::isCurrentUrl($menuItem['href'])) {
                 $menuItem['active'] = true;

@@ -9,8 +9,6 @@ class NewMenuConfig implements NewMenuConfigInterface
     public function __construct(
         private string $identifier = '',
         private string $menuName = '',
-        private ?int $pageId = null,
-        private string $postType = '',
         private bool $removeSubLevels = false,
         private bool $removeTopLevel = false,
         private bool $fallbackToPageTree = false
@@ -40,17 +38,5 @@ class NewMenuConfig implements NewMenuConfigInterface
     public function getFallbackToPageTree(): bool
     {
         return $this->fallbackToPageTree;
-    }
-
-    // TODO: REMOVE
-    public function getPageId(): ?int
-    {
-        return $this->pageId;
-    }
-
-    // TODO: REMOVE
-    public function getPostType(): string
-    {
-        return $this->postType;
     }
 }

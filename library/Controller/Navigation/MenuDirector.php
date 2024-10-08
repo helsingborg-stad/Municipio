@@ -53,8 +53,10 @@ class MenuDirector
         $this->builder->pageTreeAppendMenuItemIsCurrentPage();
         $this->builder->pageTreeAppendMenuItemsAncestors();
         $this->builder->pageTreeAppendChildren();
-        $this->builder->pageTreeSetMenuItemsCache();
         $this->builder->applyMenuItemFilter();
+        // Note: No more changes to the individual menu items after this point
+        $this->builder->pageTreeSetMenuItemsCache();
+        // The following methods are used to structure the menu as a whole
         $this->builder->applyMenuItemsFilter();
         $this->builder->structureMenuItems();
         $this->builder->removeSubLevels();

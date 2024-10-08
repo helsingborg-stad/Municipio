@@ -7,6 +7,7 @@ use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 
 class PageTreeAppendChildren implements NewMenuInterface
@@ -33,7 +34,7 @@ class PageTreeAppendChildren implements NewMenuInterface
                 continue;
             }
 
-            if ($menuItem['id'] == $this->getConfig()->getPageId()) {
+            if ($menuItem['id'] == CurrentPostId::get()) {
                 $children = GetPostsByParent::getPostsByParent(
                     $menuItem['id'],
                     get_post_type($menuItem['id'])

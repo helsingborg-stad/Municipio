@@ -26,7 +26,7 @@ class MapMenuItemsFromObjectToArray implements NewMenuInterface
                 'post_parent' => $menuItem->menu_item_parent,
                 'post_type'   => $menuItem->object,
                 'page_id'     => $menuItem->object_id,
-                'active'      => ($menuItem->object_id == $this->getConfig()->getPageId()) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($menuItem->url),
+                'active'      => ($menuItem->object_id == CurrentPostId::get()) || \Municipio\Helper\IsCurrentUrl::isCurrentOrAncestorUrl($menuItem->url),
                 'label'       => $menuItem->title,
                 'href'        => $menuItem->url,
                 'children'    => false,

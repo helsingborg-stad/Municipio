@@ -17,7 +17,7 @@ class MapMenuItemsIsAncestor implements NewMenuInterface
     {
         $menuItems = $this->inner->getMenuItems();
 
-        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $this->getConfig());
+        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $this->getConfig()->getIdentifier());
 
         if (empty($menuItems)) {
             return $menuItems;

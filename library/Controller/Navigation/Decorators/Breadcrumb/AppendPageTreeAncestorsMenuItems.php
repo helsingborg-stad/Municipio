@@ -21,7 +21,7 @@ class AppendPageTreeAncestorsMenuItems implements NewMenuInterface
             return $menuItems;
         }
 
-        $ancestors = GetAncestors::getAncestors($this->getConfig());
+        $ancestors = GetAncestors::getAncestors();
 
         if (!empty($ancestors)) {
             $ancestors = array_reverse($ancestors);

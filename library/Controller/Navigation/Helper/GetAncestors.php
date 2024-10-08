@@ -6,6 +6,7 @@ use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 
 class GetAncestors
@@ -17,9 +18,9 @@ class GetAncestors
      *
      * @return  array              Flat array with parents
      */
-    public static function getAncestors(MenuConfigInterface|NewMenuConfigInterface $menuConfig, $includeTopLevel = true): array
+    public static function getAncestors($includeTopLevel = true): array
     {
-        $postId = $menuConfig->getPageId();
+        $postId = CurrentPostId::get();
         $db = GetGlobal::getGlobal('wpdb');
         
         $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
@@ -46,7 +47,7 @@ class GetAncestors
             //About to end, is there a linked pfp page?
             if ($ancestorID == 0) {
                 //Get posttype of post
-                $currentPostType    = !empty($menuConfig->getPostType()) ? $menuConfig->getPostType() : get_post_type($postId);
+                $currentPostType    = get_post_type($postId);
                 $pageForPostTypeIds = array_flip(GetPageForPostTypeIds::getPageForPostTypeIds());
 
                 //Look for replacement

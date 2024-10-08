@@ -8,6 +8,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WpService\Contracts\GetPostType;
 use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\Config\NewMenuConfig;
 use Municipio\Helper\GetGlobal;
 
 class Children extends RestApiEndpoint
@@ -38,6 +39,14 @@ class Children extends RestApiEndpoint
             if (isset($parentId)) {
                 $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
                 $localWpdb = GetGlobal::getGlobal('wpdb');
+
+                // $menuConfig = new NewMenuConfig(
+                //     $identifier,
+                //     '',
+                //     false,
+                //     false,
+                //     true
+                // );
 
                 $menuConfig = new MenuConfig(
                     $identifier,

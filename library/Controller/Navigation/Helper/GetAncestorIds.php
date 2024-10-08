@@ -2,8 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Helper;
 
-use Municipio\Controller\Navigation\Config\MenuConfigInterface;
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Helper\CurrentPostId;
 
 class GetAncestorIds
 {
@@ -13,18 +12,18 @@ class GetAncestorIds
     {
     }
 
-    public static function getAncestorIds(array $menuItems, MenuConfigInterface|NewMenuConfigInterface $menuConfig): array
+    public static function getAncestorIds(array $menuItems, string $identifier): array
     {
-        if (empty(self::$ancestorIds[$menuConfig->getIdentifier()])) {
+        if (empty(self::$ancestorIds[$identifier])) {
             return self::$ancestorIds;
         }
 
-        self::$ancestorIds[$menuConfig->getIdentifier()] = self::getWpMenuAncestors(
+        self::$ancestorIds[$identifier] = self::getWpMenuAncestors(
             $menuItems,
-            self::pageIdToMenuID($menuItems, $menuConfig->getPageId())
+            self::pageIdToMenuID($menuItems, CurrentPostId::get())
         );
 
-        return self::$ancestorIds[$menuConfig->getIdentifier()];
+        return self::$ancestorIds[$identifier];
     }
 
     /**

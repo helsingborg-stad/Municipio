@@ -17,7 +17,7 @@ class PageTreeGetAncestors implements NewMenuInterface
     {
         $menuItems = $this->inner->getMenuItems();
 
-        $menuItems = GetAncestors::getAncestors($this->inner->getConfig());
+        $menuItems = GetAncestors::getAncestors();
 
         return $menuItems;
     }
