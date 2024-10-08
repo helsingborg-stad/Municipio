@@ -2,9 +2,9 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
 interface FactoryInterface
 {
-    public static function factory(NewMenuConfigInterface $menuConfig): self;
+    public static function factory(MenuConfigInterface $menuConfig): self;
 }

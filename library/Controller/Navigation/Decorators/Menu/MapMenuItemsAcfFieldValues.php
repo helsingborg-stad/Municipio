@@ -1,14 +1,14 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\NewMenu;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use AcfService\Contracts\GetFields;
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 
-class MapMenuItemsAcfFieldValues implements NewMenuInterface
+class MapMenuItemsAcfFieldValues implements MenuInterface
 {
-    public function __construct(private NewMenuInterface $inner, private GetFields $acfService)
+    public function __construct(private MenuInterface $inner, private GetFields $acfService)
     {
     }
 
@@ -37,7 +37,7 @@ class MapMenuItemsAcfFieldValues implements NewMenuInterface
         return $menuItems;
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }

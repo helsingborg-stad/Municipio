@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 
 interface MenuBuilderInterface
 {
@@ -44,5 +44,5 @@ interface MenuBuilderInterface
     public function applyNestedMenuItemsFilter(): void;
 
     // Get menu
-    public function getMenu(): NewMenuInterface;
+    public function getMenu(): MenuInterface;
 }

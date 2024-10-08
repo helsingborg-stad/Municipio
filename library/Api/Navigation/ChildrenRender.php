@@ -6,7 +6,7 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Helper\TranslatedLabels;
-use Municipio\Controller\Navigation\Config\NewMenuConfig;
+use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
@@ -45,7 +45,7 @@ class ChildrenRender extends RestApiEndpoint
             $lang       = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {
-                $config = new NewMenuConfig(
+                $config = new MenuConfig(
                     $identifier,
                     '',
                     false,

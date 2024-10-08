@@ -8,7 +8,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use WpService\WpService;
 use AcfService\AcfService;
-use Municipio\Controller\Navigation\Config\NewMenuConfig;
+use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
 
@@ -40,7 +40,7 @@ class Children extends RestApiEndpoint
             if (isset($parentId)) {
                 $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
-                $config = new NewMenuConfig(
+                $config = new MenuConfig(
                     $identifier,
                     '',
                     false,

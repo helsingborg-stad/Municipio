@@ -2,13 +2,13 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 use WpService\Contracts\GetOption;
 
-class AppendHomeIconMenuItem implements NewMenuInterface
+class AppendHomeIconMenuItem implements MenuInterface
 {
-    public function __construct(private NewMenuInterface $inner, private GetOption $wpService)
+    public function __construct(private MenuInterface $inner, private GetOption $wpService)
     {
     }
 
@@ -29,7 +29,7 @@ class AppendHomeIconMenuItem implements NewMenuInterface
         return $menuItems;
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }

@@ -5,31 +5,11 @@ namespace Municipio\Controller;
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
-use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\TranslatedLabels;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\Config\NewMenuConfig;
-use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
-use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorDefault;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorPageTreeFallback;
-use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
-use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
-use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
-use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
-use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
-use Municipio\Controller\Navigation\NewMenu;
 use Municipio\Helper\CurrentPostId;
 
 class BaseController
@@ -142,17 +122,17 @@ class BaseController
         $pageId           = $this->data['pageID'];
         $postType         = $this->wpService->getPostType($pageId);
 
-        $accessibilityMenuConfig = new NewMenuConfig(
+        $accessibilityMenuConfig = new MenuConfig(
             'accessibility',
             '',
         );
 
-        $breadcrumbMenuConfig = new NewMenuConfig(
+        $breadcrumbMenuConfig = new MenuConfig(
             'breadcrumb',
             '',
         ); 
 
-        $newMobileMenuConfig = new NewMenuConfig(
+        $newMobileMenuConfig = new MenuConfig(
             'mobile',
             'secondary-menu',
             false,
@@ -160,7 +140,7 @@ class BaseController
             \Kirki::get_option('mobile_menu_pagetree_fallback')
         );
 
-        $primaryMenuConfig = new NewMenuConfig(
+        $primaryMenuConfig = new MenuConfig(
             'primary',
             'main-menu',
             !$this->data['customizer']->primaryMenuDropdown,
@@ -168,12 +148,12 @@ class BaseController
             \Kirki::get_option('primary_menu_pagetree_fallback')
         );
 
-        $mobileMenuSecondaryConfig = new NewMenuConfig(
+        $mobileMenuSecondaryConfig = new MenuConfig(
             'mobile-secondary',
             'mobile-drawer',
         );  
         
-        $megaMenuConfig = new NewMenuConfig(
+        $megaMenuConfig = new MenuConfig(
             'mega-menu',
             'mega-menu',
             false,
@@ -181,51 +161,51 @@ class BaseController
             \Kirki::get_option('mega_menu_pagetree_fallback')
         );
 
-        $quicklinksMenuConfig = new NewMenuConfig(
+        $quicklinksMenuConfig = new MenuConfig(
             'quicklinks',
             'quicklinks-menu',
             true
         );
 
-        $tabMenuConfig = new NewMenuConfig(
+        $tabMenuConfig = new MenuConfig(
             'tab',
             'header-tabs-menu',
         );
 
 
-        $helpMenuConfig = new NewMenuConfig(
+        $helpMenuConfig = new MenuConfig(
             'help',
             'help-menu',
         );
 
-        $dropdownMenuConfig = new NewMenuConfig(
+        $dropdownMenuConfig = new MenuConfig(
             'dropdown',
             'dropdown-links-menu',
         );
 
-        $floatingMenuConfig = new NewMenuConfig(
+        $floatingMenuConfig = new MenuConfig(
             'floating',
             'floating-menu',
             true,
         );
 
-        $languageMenuConfig = new NewMenuConfig(
+        $languageMenuConfig = new MenuConfig(
             'language',
             'language-menu',
         );
 
-        $siteselectorMenuConfig = new NewMenuConfig(
+        $siteselectorMenuConfig = new MenuConfig(
             'siteselector',
             'siteselector-menu',
             true,
         );
 
-        $secondaryMenuPostTypeConfig = new NewMenuConfig(
+        $secondaryMenuPostTypeConfig = new MenuConfig(
             'sidebar',
             $this->wpService->getPostType() . '-secondary-menu',
         );
 
-        $secondaryMenuConfig = new NewMenuConfig(
+        $secondaryMenuConfig = new MenuConfig(
             'sidebar',
             'secondary-menu',
             false,

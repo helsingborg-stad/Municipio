@@ -1,14 +1,14 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\NewMenu;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 use WpService\Contracts\ApplyFilters;
 
-class ApplyNestedMenuItemsFilter implements NewMenuInterface
+class ApplyNestedMenuItemsFilter implements MenuInterface
 {
-    public function __construct(private NewMenuInterface $inner, private ApplyFilters $wpService)
+    public function __construct(private MenuInterface $inner, private ApplyFilters $wpService)
     {
     }
 
@@ -23,7 +23,7 @@ class ApplyNestedMenuItemsFilter implements NewMenuInterface
         return apply_filters('Municipio/Navigation/Nested', $menuItems, $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }

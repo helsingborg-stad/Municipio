@@ -4,8 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\Config\NewMenuConfig;
-use Municipio\Controller\Navigation\Menu;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
 
@@ -106,7 +104,7 @@ class Archive extends \Municipio\Controller\BaseController
         //Show filter?
         $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
-        $archiveMenuConfig = new NewMenuConfig(
+        $archiveMenuConfig = new MenuConfig(
             'archive-menu',
             $postType . '-menu'
         );

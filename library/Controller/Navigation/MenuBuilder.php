@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Decorators\Accessibility\AppendPrintMenuItem;
 use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsDeprecatedFilter;
 use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsFilter;
@@ -10,35 +10,35 @@ use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeIconMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsMenuItems;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbItemsFilter;
-use Municipio\Controller\Navigation\Decorators\NewMenu\AppendDataFromAncestorIds;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeAppendMenuItemIsCurrentPage;
-use Municipio\Controller\Navigation\Decorators\NewMenu\AppendMenuItems;
-use Municipio\Controller\Navigation\Decorators\NewMenu\ApplyMenuItemFilter;
-use Municipio\Controller\Navigation\Decorators\NewMenu\ApplyMenuItemsFilter;
-use Municipio\Controller\Navigation\Decorators\NewMenu\ApplyNestedMenuItemsFilter;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeGetAncestors;
-use Municipio\Controller\Navigation\Decorators\NewMenu\MapMenuItemsAcfFieldValues;
-use Municipio\Controller\Navigation\Decorators\NewMenu\MapMenuItemsFromObjectToArray;
-use Municipio\Controller\Navigation\Decorators\NewMenu\MapMenuItemsIsAncestor;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeAppendChildren;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeAppendMenuItemsAncestors;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeAppendMenuItemsCustomTitle;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeAppendMenuItemsHref;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeMenuItemsFormatter;
-use Municipio\Controller\Navigation\Decorators\NewMenu\PageTreeSetMenuItemsCache;
-use Municipio\Controller\Navigation\Decorators\NewMenu\RemoveSubLevels;
-use Municipio\Controller\Navigation\Decorators\NewMenu\RemoveTopLevel;
-use Municipio\Controller\Navigation\Decorators\NewMenu\StructureMenuItems;
-use Municipio\Controller\Navigation\Decorators\NewMenu\TryGetPageTreeMenuItemsFromCache;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Decorators\Menu\AppendDataFromAncestorIds;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemIsCurrentPage;
+use Municipio\Controller\Navigation\Decorators\Menu\AppendMenuItems;
+use Municipio\Controller\Navigation\Decorators\Menu\ApplyMenuItemFilter;
+use Municipio\Controller\Navigation\Decorators\Menu\ApplyMenuItemsFilter;
+use Municipio\Controller\Navigation\Decorators\Menu\ApplyNestedMenuItemsFilter;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeGetAncestors;
+use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsAcfFieldValues;
+use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsFromObjectToArray;
+use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsIsAncestor;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendChildren;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsAncestors;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsCustomTitle;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsHref;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeMenuItemsFormatter;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeSetMenuItemsCache;
+use Municipio\Controller\Navigation\Decorators\Menu\RemoveSubLevels;
+use Municipio\Controller\Navigation\Decorators\Menu\RemoveTopLevel;
+use Municipio\Controller\Navigation\Decorators\Menu\StructureMenuItems;
+use Municipio\Controller\Navigation\Decorators\Menu\TryGetPageTreeMenuItemsFromCache;
+use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 
 class MenuBuilder implements MenuBuilderInterface
 {
     private $menu;
 
-    public function __construct(private NewMenuConfigInterface $menuConfig, private $acfService, private $wpService) {
-        $this->menu = NewMenu::factory($this->menuConfig);
+    public function __construct(private MenuConfigInterface $menuConfig, private $acfService, private $wpService) {
+        $this->menu = Menu::factory($this->menuConfig);
     }
 
     public function appendMenuItems(): void
@@ -176,7 +176,7 @@ class MenuBuilder implements MenuBuilderInterface
         $this->menu = new PageTreeSetMenuItemsCache($this->menu);
     }
 
-    public function getMenu(): NewMenuInterface
+    public function getMenu(): MenuInterface
     {
         return $this->menu;
     }

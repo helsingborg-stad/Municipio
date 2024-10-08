@@ -2,9 +2,9 @@
 
 namespace Municipio\Controller\Navigation\Config;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 
-class NewMenuConfig implements NewMenuConfigInterface
+class MenuConfig implements MenuConfigInterface
 {
     public function __construct(
         private string $identifier = '',

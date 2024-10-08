@@ -1,18 +1,18 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\NewMenu;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 
-class PageTreeAppendChildren implements NewMenuInterface
+class PageTreeAppendChildren implements MenuInterface
 {
-    public function __construct(private NewMenuInterface $inner)
+    public function __construct(private MenuInterface $inner)
     {
     }
 
@@ -109,7 +109,7 @@ class PageTreeAppendChildren implements NewMenuInterface
         }
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }

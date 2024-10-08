@@ -2,7 +2,7 @@
 
 namespace Municipio\Controller\Navigation\Config;
 
-interface NewMenuConfigInterface {
+interface MenuConfigInterface {
     public function getIdentifier(): string;
     public function getMenuName(): string;
     public function getRemoveSubLevels(): bool;

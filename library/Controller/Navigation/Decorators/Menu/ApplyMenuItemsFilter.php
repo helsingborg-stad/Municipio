@@ -1,22 +1,22 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\Accessibility;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use WpService\Contracts\ApplyFilters;
 
-class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
+class ApplyMenuItemsFilter implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner)
+    public function __construct(private MenuInterface $inner, private ApplyFilters $wpService)
     {
     }
 
     public function getMenuItems(): array
     {
         $menuItems = $this->inner->getMenuItems();
-        
-        return apply_filters_deprecated('accessibility_items', [$menuItems], '3.0.0', 'Municipio/Accessibility/Items');
+
+        return $this->wpService->applyFilters('Municipio/Navigation/Items', $menuItems, $this->getConfig()->getIdentifier());
     }
 
     public function getConfig(): MenuConfigInterface

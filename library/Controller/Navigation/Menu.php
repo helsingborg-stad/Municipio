@@ -2,16 +2,16 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Controller\Navigation\FactoryInterface;
 
-class NewMenu implements NewMenuInterface,FactoryInterface
+class Menu implements MenuInterface,FactoryInterface
 {
     protected array $menu;
 
     public function __construct(
-        private NewMenuConfigInterface $menuConfig,
+        private MenuConfigInterface $menuConfig,
         private array $menuItems = []
     ) {
         $this->menu = [];
@@ -25,12 +25,12 @@ class NewMenu implements NewMenuInterface,FactoryInterface
         return $this->menu['items'];
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->menuConfig;
     }
 
-    public static function factory(NewMenuConfigInterface $menuConfig): self
+    public static function factory(MenuConfigInterface $menuConfig): self
     {
         return new self($menuConfig);
     }

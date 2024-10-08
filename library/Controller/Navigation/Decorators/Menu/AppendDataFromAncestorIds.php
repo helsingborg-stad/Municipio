@@ -1,17 +1,17 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\NewMenu;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 use WpService\Contracts\GetPostType;
 
-class AppendDataFromAncestorIds implements NewMenuInterface
+class AppendDataFromAncestorIds implements MenuInterface
 {
     private $masterPostType = 'page';
 
-    public function __construct(private NewMenuInterface $inner, private GetPostType $wpService)
+    public function __construct(private MenuInterface $inner, private GetPostType $wpService)
     {
     }
 
@@ -23,7 +23,7 @@ class AppendDataFromAncestorIds implements NewMenuInterface
         return $menuItems;
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }

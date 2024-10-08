@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\Controller\Navigation\Decorators\Accessibility;
+namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
-use WpService\Contracts\ApplyFilters;
+use Municipio\Helper\Navigation\GetMenuData;
 
-class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
+class AppendMenuItems implements MenuInterface
 {
     public function __construct(private MenuInterface $inner)
     {
@@ -15,8 +15,10 @@ class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
     public function getMenuItems(): array
     {
         $menuItems = $this->inner->getMenuItems();
-        
-        return apply_filters_deprecated('accessibility_items', [$menuItems], '3.0.0', 'Municipio/Accessibility/Items');
+
+        $menuItems = GetMenuData::getNavMenuItems($this->getConfig()->getMenuName()) ?: [];
+
+        return $menuItems;
     }
 
     public function getConfig(): MenuConfigInterface

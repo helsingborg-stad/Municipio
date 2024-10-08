@@ -2,12 +2,12 @@
 
 namespace Municipio\Controller\Navigation\Decorators\Accessibility;
 
-use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
-use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\MenuInterface;
 
-class AppendPrintMenuItem implements NewMenuInterface
+class AppendPrintMenuItem implements MenuInterface
 {
-    public function __construct(private NewMenuInterface $inner)
+    public function __construct(private MenuInterface $inner)
     {
     }
 
@@ -28,7 +28,7 @@ class AppendPrintMenuItem implements NewMenuInterface
         return $menuItems;
     }
 
-    public function getConfig(): NewMenuConfigInterface
+    public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
     }
