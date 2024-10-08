@@ -14,15 +14,20 @@ class StructureMenuItems implements NewMenuInterface
     public function getMenuItems(): array
     {
         $menuItems = $this->inner->getMenuItems();
+        if (is_bool($this->getConfig()->getFallbackToPageTree())) {
+            $menuItems = $this->structureMenuItems($menuItems);
+        }
 
-        return $this->structureMenuItems($menuItems);
+        return $menuItems;
 
     }
 
     private function structureMenuItems(array $menuItems, int $parentId = 0): array {
     $structuredMenuItems = [];
-        if (is_array($menuItems) && !empty($menuItems)) {
+    
+    if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $menuItem) {
+                
                 if (!isset($menuItem['post_parent']) || !isset($menuItem['id'])) {
                     continue;
                 }
@@ -33,7 +38,7 @@ class StructureMenuItems implements NewMenuInterface
                     if ($children) {
                         $menuItem['children'] = $children;
                     }
-
+                    
                     $structuredMenuItems[] = $menuItem;
                 }
             }

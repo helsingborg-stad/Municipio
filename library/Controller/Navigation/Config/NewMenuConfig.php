@@ -11,7 +11,7 @@ class NewMenuConfig implements NewMenuConfigInterface
         private string $menuName = '',
         private bool $removeSubLevels = false,
         private bool $removeTopLevel = false,
-        private bool $fallbackToPageTree = false
+        private bool|int $fallbackToPageTree = false
     ) {
     }
 
@@ -35,7 +35,7 @@ class NewMenuConfig implements NewMenuConfigInterface
         return $this->removeTopLevel;
     }
 
-    public function getFallbackToPageTree(): bool
+    public function getFallbackToPageTree(): bool|int
     {
         return $this->fallbackToPageTree;
     }

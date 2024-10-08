@@ -6,17 +6,18 @@ use Municipio\Api\RestApiEndpoint;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use WP_REST_Request;
 use WP_REST_Response;
-use WpService\Contracts\GetPostType;
-use Municipio\Controller\Navigation\Config\MenuConfig;
+use WpService\WpService;
+use AcfService\AcfService;
 use Municipio\Controller\Navigation\Config\NewMenuConfig;
-use Municipio\Helper\GetGlobal;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 
 class Children extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children';
 
-    public function __construct(private MenuItemsDecoratorInterface $menuComplementer)
+    public function __construct(private WpService $wpService, private AcfService $acfService)
     {
         
     }
@@ -38,29 +39,23 @@ class Children extends RestApiEndpoint
             
             if (isset($parentId)) {
                 $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
-                $localWpdb = GetGlobal::getGlobal('wpdb');
 
-                // $menuConfig = new NewMenuConfig(
-                //     $identifier,
-                //     '',
-                //     false,
-                //     false,
-                //     true
-                // );
-
-                $menuConfig = new MenuConfig(
+                $config = new NewMenuConfig(
                     $identifier,
                     '',
-                    $parentId,
-                    '',
-                    $localWpdb,
-                    true,
-                    true,
                     false,
-                    false
+                    false,
+                    $parentId
                 );
 
-                $items = $this->menuComplementer->decorate([], $menuConfig);
+                $director = new MenuDirector();
+                $builder = new MenuBuilder($config, $this->acfService, $this->wpService);
+                $director->setBuilder($builder);
+                $director->buildPageTreeMenu();
+                $menuItems = $builder->getMenu()->getMenuItems();
+
+                return rest_ensure_response($menuItems);
+
             }
         }
 

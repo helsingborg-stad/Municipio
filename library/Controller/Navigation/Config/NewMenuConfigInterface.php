@@ -7,5 +7,5 @@ interface NewMenuConfigInterface {
     public function getMenuName(): string;
     public function getRemoveSubLevels(): bool;
     public function getRemoveTopLevel(): bool;
-    public function getFallbackToPageTree(): bool;
+    public function getFallbackToPageTree(): bool|int;
 }

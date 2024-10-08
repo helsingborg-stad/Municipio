@@ -6,18 +6,20 @@ use Municipio\Api\RestApiEndpoint;
 use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Helper\TranslatedLabels;
-use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Helper\GetGlobal;
+use Municipio\Controller\Navigation\Config\NewMenuConfig;
 use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Helper\IsPageForPostType;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 use WpService\Contracts\GetPostType;
+use WpService\WpService;
+use AcfService\AcfService;
 
 class ChildrenRender extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children/render';
 
-    public function __construct(private GetPostType $wpService, private MenuItemsDecoratorInterface $menuComplementer)
+    public function __construct(private GetPostType $wpService, private AcfService $acfService)
     {
         
     }
@@ -43,29 +45,25 @@ class ChildrenRender extends RestApiEndpoint
             $lang       = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {
-                $localWpdb = GetGlobal::getGlobal('wpdb');
-                $isPageForPostType = IsPageForPostType::isPageForPostType($parentId);
-                $postType = $isPageForPostType ?: $this->wpService->getPostType($parentId);
-
-                $menuConfig = new MenuConfig(
+                $config = new NewMenuConfig(
                     $identifier,
                     '',
-                    $isPageForPostType ? 0 : $parentId,
-                    $postType,
-                    $localWpdb,
-                    true,
-                    true,
                     false,
-                    false
+                    false,
+                    $parentId
                 );
 
-                $items = $this->menuComplementer->decorate([], $menuConfig);
+                $director = new MenuDirector();
+                $builder = new MenuBuilder($config, $this->acfService, $this->wpService);
+                $director->setBuilder($builder);
+                $director->buildPageTreeMenu();
+                $menuItems = $builder->getMenu()->getMenuItems();
 
                 return rest_ensure_response(array(
                     'parentId' => $parentId,
                     'viewPath' => $viewPath ?: 'partials.navigation.mobile',
                     'markup'   => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
-                        'menuItems' => $items,
+                        'menuItems' => $menuItems,
                         'homeUrl'   => esc_url(get_home_url()),
                         'depth'     => $depth,
                         'lang'      => $lang

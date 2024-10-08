@@ -15,7 +15,6 @@ class TryGetPageTreeMenuItemsFromCache implements NewMenuInterface
     public function getMenuItems(): array
     {
         $menuItems = $this->inner->getMenuItems();
-
         $cacheData = NavigationRuntimeCache::getCache('complementObjects');
 
         foreach ($menuItems as &$menuItem) {
