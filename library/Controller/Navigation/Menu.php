@@ -20,6 +20,11 @@ class Menu implements MenuInterface,FactoryInterface
         $this->menu['items'] = [];
     }
 
+    public function getMenu(): array
+    {
+        return $this->menu;
+    }
+
     public function getMenuItems(): array
     {
         return $this->menu['items'];
