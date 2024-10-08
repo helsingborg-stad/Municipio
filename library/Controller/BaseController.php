@@ -2,10 +2,35 @@
 
 namespace Municipio\Controller;
 
+use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
+use Municipio\Controller\Navigation\Menu;
 use Municipio\Helper\TranslatedLabels;
-use WpService\WpService;
+// Menu
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\Config\NewMenuConfig;
+use Municipio\Controller\Navigation\Decorators\ApplyNavigationItemsFilterDecorator;
+use Municipio\Controller\Navigation\Decorators\StructureMenuItemsDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\AppendAcfFieldValuesDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\AppendIsAncestorDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorDefault;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ApplyMenuItemFilterDecorator as ApplyMenuItemFilterDecoratorPageTreeFallback;
+use Municipio\Controller\Navigation\Decorators\Default\ComplementDefaultDecorator;
+use Municipio\Controller\Navigation\Decorators\Default\TransformMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendChildrenDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendHrefDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsAncestorPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\AppendIsCurrentPostDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\ComplementPageTreeDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\CustomTitleDecorator;
+use Municipio\Controller\Navigation\Decorators\PageTreeFallback\TransformPageTreeFallbackMenuItemDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveSubLevelDecorator;
+use Municipio\Controller\Navigation\Decorators\RemoveTopLevelDecorator;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\Controller\Navigation\NewMenu;
+use Municipio\Helper\CurrentPostId;
 
 class BaseController
 {
@@ -28,15 +53,30 @@ class BaseController
     protected $posts = null;
 
     /**
+     * @var null $db The database connection object.
+     */
+    protected $db = null;
+
+    /**
+     * @var int $pageId The current page id.
+     */
+    protected ?int $pageId = null;
+
+    /**
+     * @var array $standardMenuDecorators The standard menu decorators.
+     */
+    protected array $standardMenuDecorators = [];
+
+    /**
      * Init data fetching
      * @var object
      */
     public function __construct(protected WpService $wpService, protected AcfService $acfService)
     {
-
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
+        $this->globalToLocal('wpdb', 'db');
 
         //Send globals to view
         $this->data['wpQuery'] = $this->wpQuery;
@@ -67,7 +107,7 @@ class BaseController
         $this->data['pageTitle']     = $this->getPageTitle();
         $this->data['pagePublished'] = $this->getPagePublished();
         $this->data['pageModified']  = $this->getPageModified();
-        $this->data['pageID']        = $this->getPageID();
+        $this->data['pageID']        = CurrentPostId::get();
         $this->data['pageParentID']  = $this->getPageParentID();
 
         //Customization data
@@ -99,62 +139,205 @@ class BaseController
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
-        //Init class for menus
-        $breadcrumb       = new \Municipio\Helper\Navigation('breadcrumb');
-        $accessibility    = new \Municipio\Helper\Navigation('accessibility');
-        $primary          = new \Municipio\Helper\Navigation('primary');
-        $secondary        = new \Municipio\Helper\Navigation('sidebar');
-        $megaMenu         = new \Municipio\Helper\Navigation('mega-menu');
-        $quicklinks       = new \Municipio\Helper\Navigation('single');
-        $tabMenu          = new \Municipio\Helper\Navigation('tab');
-        $helpMenu         = new \Municipio\Helper\Navigation('help');
-        $dropDownMenu     = new \Municipio\Helper\Navigation('dropdown');
-        $floatingMenu     = new \Municipio\Helper\Navigation('floating');
-        $languageMenu     = new \Municipio\Helper\Navigation('language');
-        $siteselectorMenu = new \Municipio\Helper\Navigation('siteselector');
+        $pageId           = $this->data['pageID'];
+        $postType         = $this->wpService->getPostType($pageId);
 
-        $mobileMenu         = new \Municipio\Helper\Navigation('mobile');
-        $mobileMenuSeconday = new \Municipio\Helper\Navigation('mobile-secondary');
+        $accessibilityMenuConfig = new NewMenuConfig(
+            'accessibility',
+            '',
+        );
+
+        $breadcrumbMenuConfig = new NewMenuConfig(
+            'breadcrumb',
+            '',
+        ); 
+
+        $newMobileMenuConfig = new NewMenuConfig(
+            'mobile',
+            'secondary-menu',
+            false,
+            false,
+            \Kirki::get_option('mobile_menu_pagetree_fallback')
+        );
+
+        $primaryMenuConfig = new NewMenuConfig(
+            'primary',
+            'main-menu',
+            !$this->data['customizer']->primaryMenuDropdown,
+            false,
+            \Kirki::get_option('primary_menu_pagetree_fallback')
+        );
+
+        $mobileMenuSecondaryConfig = new NewMenuConfig(
+            'mobile-secondary',
+            'mobile-drawer',
+        );  
+        
+        $megaMenuConfig = new NewMenuConfig(
+            'mega-menu',
+            'mega-menu',
+            false,
+            false,
+            \Kirki::get_option('mega_menu_pagetree_fallback')
+        );
+
+        $quicklinksMenuConfig = new NewMenuConfig(
+            'quicklinks',
+            'quicklinks-menu',
+            true
+        );
+
+        $tabMenuConfig = new NewMenuConfig(
+            'tab',
+            'header-tabs-menu',
+        );
+
+
+        $helpMenuConfig = new NewMenuConfig(
+            'help',
+            'help-menu',
+        );
+
+        $dropdownMenuConfig = new NewMenuConfig(
+            'dropdown',
+            'dropdown-links-menu',
+        );
+
+        $floatingMenuConfig = new NewMenuConfig(
+            'floating',
+            'floating-menu',
+            true,
+        );
+
+        $languageMenuConfig = new NewMenuConfig(
+            'language',
+            'language-menu',
+        );
+
+        $siteselectorMenuConfig = new NewMenuConfig(
+            'siteselector',
+            'siteselector-menu',
+            true,
+        );
+
+        $secondaryMenuPostTypeConfig = new NewMenuConfig(
+            'sidebar',
+            $this->wpService->getPostType() . '-secondary-menu',
+        );
+
+        $secondaryMenuConfig = new NewMenuConfig(
+            'sidebar',
+            'secondary-menu',
+            false,
+            true,
+            \Kirki::get_option('secondary_menu_pagetree_fallback'),
+        );
+
+        $director = new MenuDirector();
+
+        // Sidebar menu
+        $sidebarMenuBuilder = new MenuBuilder($secondaryMenuPostTypeConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($sidebarMenuBuilder);
+        $director->buildStandardMenu();
+        $secondaryMenuItems = $sidebarMenuBuilder->getMenu()->getMenuItems();
+
+        if (empty($secondaryMenuItems)) {
+            $secondaryMenuBuilder = new MenuBuilder($secondaryMenuConfig, $this->acfService, $this->wpService);
+            $director->setBuilder($secondaryMenuBuilder);
+            $secondaryMenuConfig->getFallbackToPageTree() ? 
+                $director->buildStandardMenuWithPageTreeFallback() :
+                $director->buildStandardMenu();
+            $secondaryMenuItems = $secondaryMenuBuilder->getMenu()->getMenuItems();
+        }
+        
+        $this->data['secondaryMenuItems'] = $secondaryMenuItems;
+
+        // Site selector menu
+        $siteselectorMenuBuilder = new MenuBuilder($siteselectorMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($siteselectorMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['siteselectorMenuItems'] = $siteselectorMenuBuilder->getMenu()->getMenuItems();
+
+        // Language menu
+        $languageMenuBuilder = new MenuBuilder($languageMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($languageMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['languageMenuItems'] = $languageMenuBuilder->getMenu()->getMenuItems();
+
+        // Floating menu
+        $floatingMenuBuilder = new MenuBuilder($floatingMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($floatingMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['floatingMenuItems'] = $floatingMenuBuilder->getMenu()->getMenuItems();
+
+        // Dropdown menu
+        $dropdownMenuBuilder = new MenuBuilder($dropdownMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($dropdownMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['dropdownMenuItems'] = $dropdownMenuBuilder->getMenu()->getMenuItems();
+
+        // Help menu
+        $helpMenuBuilder = new MenuBuilder($helpMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($helpMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['helpMenuItems'] = $helpMenuBuilder->getMenu()->getMenuItems();
+
+        // Tab menu
+        $tabMenuBuilder = new MenuBuilder($tabMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($tabMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['tabMenuItems'] = $tabMenuBuilder->getMenu()->getMenuItems();
+
+        // Quicklinks menu
+        $quicklinksMenuBuilder = new MenuBuilder($quicklinksMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($quicklinksMenuBuilder);
+        $director->buildStandardMenu();
+        $this->data['quicklinksMenuItems'] = $quicklinksMenuBuilder->getMenu()->getMenuItems();
+
+        // Breadcrumb menu
+        $breadcrumbMenuBuilder = new MenuBuilder($breadcrumbMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($breadcrumbMenuBuilder);
+        $director->buildBreadcrumbMenu();
+        $this->data['breadcrumbItems'] = $breadcrumbMenuBuilder->getMenu()->getMenuItems();
+
+        // Accessibility menu
+        $accessibilityMenuBuilder = new MenuBuilder($accessibilityMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($accessibilityMenuBuilder);
+        $director->buildAccessibilityMenu();
+        $this->data['accessibilityItems'] = $accessibilityMenuBuilder->getMenu()->getMenuItems();
+
+        // Mobile/secondary-menu
+        $mobileMenuBuilder = new MenuBuilder($newMobileMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($mobileMenuBuilder);
+        $newMobileMenuConfig->getFallbackToPageTree() ? 
+            $director->buildStandardMenuWithPageTreeFallback(true) :
+            $director->buildStandardMenu();
+        $this->data['mobileMenu'] = $mobileMenuBuilder->getMenu()->getMenuItems();
+
+        // Mobile secondary menu
+        $mobileMenuSecondaryBuilder = new MenuBuilder($mobileMenuSecondaryConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($mobileMenuSecondaryBuilder);
+        $director->buildStandardMenu();
+        $this->data['mobileMenuSecondaryItems'] = $mobileMenuSecondaryBuilder->getMenu()->getMenuItems();
+
+        // Primary menu
+        $primaryMenuBuilder = new MenuBuilder($primaryMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($primaryMenuBuilder);
+        $primaryMenuConfig->getFallbackToPageTree() ? 
+            $director->buildStandardMenuWithPageTreeFallback() :
+            $director->buildStandardMenu();
+        $this->data['primaryMenuItems'] = $primaryMenuBuilder->getMenu()->getMenuItems();
+
+        // Mega menu
+        $megaMenuBuilder = new MenuBuilder($megaMenuConfig, $this->acfService, $this->wpService);
+        $director->setBuilder($megaMenuBuilder);
+        $megaMenuConfig->getFallbackToPageTree() ? 
+            $director->buildStandardMenuWithPageTreeFallback() :
+            $director->buildStandardMenu();
+        $this->data['megaMenuItems'] = $megaMenuBuilder->getMenu()->getMenuItems();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
-        //Breadcrumb items
-        $this->data['breadcrumbItems'] = $breadcrumb->getBreadcrumbItems($this->getPageID());
-        // Accessibility items
-        $this->data['accessibilityItems'] = $accessibility->getAccessibilityItems();
-
-        /* Navigation parameters
-        string $menu,
-        int $pageId = null,
-        bool $fallbackToPageTree = false,
-        bool $includeTopLevel = true,
-        bool $onlyKeepFirstLevel = false
-        */
-
-        //Main Navigation
-        $this->data['primaryMenuItems']   = $primary->getMenuItems('main-menu', $this->getPageID(), \Kirki::get_option('primary_menu_pagetree_fallback'), true, !$this->data['customizer']->primaryMenuDropdown);
-        $this->data['secondaryMenuItems'] = null;
-
-        $posttypeSecondaryMenuItems = $secondary->getMenuItems(get_post_type() . '-secondary-menu', $this->getPageID());
-
-        if (!empty($posttypeSecondaryMenuItems)) {
-            $this->data['secondaryMenuItems'] = $posttypeSecondaryMenuItems;
-        } else {
-            $this->data['secondaryMenuItems'] = $secondary->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('secondary_menu_pagetree_fallback'), false, false);
-        }
-
-        $this->data['mobileMenuItems'] = $mobileMenu->getMenuItems('secondary-menu', $this->getPageID(), \Kirki::get_option('mobile_menu_pagetree_fallback'), true, false);
-        $this->data['megaMenuItems']   = $megaMenu->getMenuItems('mega-menu', $this->getPageID(), \Kirki::get_option('mega_menu_pagetree_fallback'), true, false);
-
-        //Complementary navigations
-        $this->data['mobileMenuSecondaryItems'] = $mobileMenuSeconday->getMenuItems('mobile-drawer', $this->getPageID(), false, true, false);
-        $this->data['quicklinksMenuItems']      = $quicklinks->getMenuItems('quicklinks-menu', $this->getPageID(), false, true, true);
-        $this->data['tabMenuItems']             = $tabMenu->getMenuItems('header-tabs-menu', $this->getPageID(), false, true, false);
-        $this->data['helpMenuItems']            = $helpMenu->getMenuItems('help-menu', $this->getPageID(), false, true, false);
-        $this->data['dropdownMenuItems']        = $dropDownMenu->getMenuItems('dropdown-links-menu', $this->getPageID(), false, true, false);
-        $this->data['floatingMenuItems']        = $floatingMenu->getMenuItems('floating-menu', $this->getPageID(), false, true, true);
-        $this->data['languageMenuItems']        = $languageMenu->getMenuItems('language-menu', $this->getPageID(), false, true, false);
-        $this->data['siteselectorMenuItems']    = $siteselectorMenu->getMenuItems('siteselector-menu', $this->getPageID(), false, true, true);
 
         //Get labels for menu
         $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
@@ -343,29 +526,7 @@ class BaseController
      */
     public function getPageID(): int
     {
-        //Page for posttype archive mapping result
-        if (is_post_type_archive()) {
-            if ($pageId = get_option('page_for_' . get_post_type())) {
-                return $pageId;
-            }
-        }
-
-        //Get the queried page
-        if (get_queried_object_id()) {
-            return get_queried_object_id();
-        }
-
-        //Return page for frontpage (fallback)
-        if ($frontPageId = get_option('page_on_front')) {
-            return $frontPageId;
-        }
-
-        //Return page blog (fallback)
-        if ($frontPageId = get_option('page_for_posts')) {
-            return $frontPageId;
-        }
-
-        return 0;
+        return CurrentPostId::get();
     }
 
     /**
@@ -375,7 +536,7 @@ class BaseController
      */
     public function getPageParentID(): int
     {
-        return wp_get_post_parent_id($this->getPageID());
+        return wp_get_post_parent_id(CurrentPostId::get());
     }
 
     /**
@@ -399,7 +560,7 @@ class BaseController
             return false;
         }
 
-        return has_blocks($this->getPageID());
+        return has_blocks(CurrentPostId::get());
     }
 
     /**

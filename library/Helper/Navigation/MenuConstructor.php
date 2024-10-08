@@ -2,10 +2,55 @@
 
 namespace Municipio\Helper\Navigation;
 
+use Municipio\Helper\Navigation\GetMenuData;
+
 class MenuConstructor
 {
-    public function __construct(private string $identifier = "")
+    private static ?array $additionalMenusOption = null;
+
+    public function __construct(private string $identifier = "", private ?int $menuId = null, private ?int $pageId = null)
     {
+    }
+
+    public function structureMenu(array $menuItems, string|int $menu, bool $canHaveAdditionalMenu = true)
+    {
+        $structuredMenu = [];
+
+        $navMenuObject = GetMenuData::getNavMenuObject($menu);
+
+        $structuredMenu['items']           = $menuItems;
+        $structuredMenu['title']           = $navMenuObject ? $navMenuObject->name : null;
+        $structuredMenu['additionalMenus'] = $this->getAdditionalMenus($menu);
+
+        return $structuredMenu;
+    }
+
+    private function getAdditionalMenus(string $menu)
+    {
+        if (is_null(self::$additionalMenusOption)) {
+            self::$additionalMenusOption = get_option('nav_menu_additional_items', []);
+        }
+
+
+        if (empty(self::$additionalMenusOption[$menu])) {
+            return [];
+        }
+        $additionalMenus = [];
+        foreach (self::$additionalMenusOption[$menu] as $menuId) {
+            $menuObject = GetMenuData::getNavMenuObject($menuId);
+
+            if (empty($menuObject->count)) {
+                continue;
+            }
+
+            $additionalMenus[] = $this->structureMenu(
+                $this->structureMenuItems(
+                    GetMenuData::getNavMenuItems($menuId),
+                    $menuObject->object_id
+                ),
+                $menuId
+            );
+        }
     }
 
     /**

@@ -239,14 +239,13 @@ class App
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($this->wpService, $this->acfService));
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($this->wpService, $this->acfService));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
         $pdfGenerator->addHooks();
-
 
         /**
          * Customizer
@@ -283,6 +282,8 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        new \Municipio\Helper\Navigation\AdditionalMenu();
     }
 
     /**

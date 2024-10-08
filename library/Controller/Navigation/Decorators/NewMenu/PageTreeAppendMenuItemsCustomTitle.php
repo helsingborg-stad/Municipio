@@ -1,0 +1,100 @@
+<?php
+
+namespace Municipio\Controller\Navigation\Decorators\NewMenu;
+
+use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
+use Municipio\Controller\Navigation\Config\NewMenuConfigInterface;
+use Municipio\Controller\Navigation\NewMenuInterface;
+use Municipio\Helper\GetGlobal;
+
+class PageTreeAppendMenuItemsCustomTitle implements NewMenuInterface
+{
+    public function __construct(private NewMenuInterface $inner)
+    {
+    }
+
+    public function getMenuItems(): array
+    {
+        $menuItems = $this->inner->getMenuItems();
+
+        if (empty($menuItems)) {
+            return $menuItems;
+        }
+
+        foreach ($menuItems as &$menuItem) {
+            if (!empty($menuItem['isCached'])) {
+                continue;
+            }
+
+            $customTitles = $this->getMenuTitle();
+
+            //Get custom title
+            if (isset($customTitles[$menuItem['id']])) {
+                $menuItem['label'] = $customTitles[$menuItem['id']];
+            }
+    
+            //Replace empty titles
+            if ($menuItem['label'] == "") {
+                $menuItem['label'] = __("Untitled page", 'municipio');
+            }            
+        }
+
+        return $menuItems;
+    }
+
+    /**
+     * Retrieves the menu titles from the database based on the provided menu configuration and meta key.
+     *
+     * @param MenuConfigInterface $menuConfig The menu configuration object.
+     * @param string $metaKey The meta key to filter the menu titles.
+     * @return array The array of menu titles with their corresponding page IDs.
+     */
+    private function getMenuTitle(string $metaKey = "custom_menu_title"): array
+    {
+        //Get cached result
+        $cache = NavigationRuntimeCache::getCache($metaKey);
+        if (!is_null($cache) && is_array($cache)) {
+            return $cache;
+        }
+
+        $localWpdb = GetGlobal::getGlobal('wpdb');
+
+        //Get meta
+        $result = (array) $localWpdb->get_results(
+            $localWpdb->prepare(
+                "
+                SELECT post_id, meta_value
+                FROM " . $localWpdb->postmeta . " as pm
+                JOIN " . $localWpdb->posts . " AS p ON pm.post_id = p.ID
+                WHERE meta_key = %s
+                AND meta_value != ''
+                AND post_status = 'publish'
+            ",
+                $metaKey
+            )
+        );
+
+        //Declare result
+        $pageTitles = [];
+
+        //Add visible page ids
+        if (is_array($result) && !empty($result)) {
+            foreach ($result as $result) {
+                if (empty($result->meta_value)) {
+                    continue;
+                }
+                $pageTitles[$result->post_id] = $result->meta_value;
+            }
+        }
+
+        //Cache the result
+        NavigationRuntimeCache::setCache($metaKey, $pageTitles);
+
+        return $pageTitles;
+    }
+
+    public function getConfig(): NewMenuConfigInterface
+    {
+        return $this->inner->getConfig();
+    }
+}
