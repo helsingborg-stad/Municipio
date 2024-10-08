@@ -32,4 +32,11 @@
         <exclude-pattern>./library/**/*.test.php</exclude-pattern>
         <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
     </rule>
+
+   <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="300"/>
+        </properties>
+   </rule>
+ 
 </ruleset>

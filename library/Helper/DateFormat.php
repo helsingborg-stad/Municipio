@@ -56,4 +56,23 @@ class DateFormat
         }
         return '';
     }
+
+    /**
+     * Get the current locale of the site.
+     * 
+     * @return string The current locale.
+     */
+    public static function getLocale()
+    {
+        return get_locale();
+    }
+
+    /**
+     * Get the current timezone of the site.
+     * 
+     * @return string The current timezone.
+     */
+    public static function getTimezone() {
+        return wp_timezone_string();
+    }
 }

@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\UI;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Post;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\NonceUrl;
 
 /**
@@ -15,12 +16,9 @@ use WpService\Contracts\NonceUrl;
 class PageRowActionsSyncButton implements Hookable
 {
     /**
-     * PageRowActionsSyncButton constructor.
-     *
-     * @param \Municipio\ExternalContent\Config\SourceConfig[] $sourceConfigs
-     * @param AddFilter&NonceUrl $wpService
+     * Constructor.
      */
-    public function __construct(private array $sourceConfigs, private AddFilter&NonceUrl $wpService)
+    public function __construct(private array $sourceConfigs, private AddFilter&NonceUrl&CurrentUserCan $wpService)
     {
     }
 
@@ -29,6 +27,10 @@ class PageRowActionsSyncButton implements Hookable
      */
     public function addHooks(): void
     {
+        if (!$this->wpService->currentUserCan('activate_plugins', null)) {
+            return;
+        }
+
         $this->wpService->addFilter('page_row_actions', array($this, 'addSyncButton'), 10, 2);
         $this->wpService->addFilter('post_row_actions', array($this, 'addSyncButton'), 10, 2);
     }

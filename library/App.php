@@ -132,7 +132,7 @@ class App
 
             // Project
             $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
-            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($decorator, $this->wpService);
+            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($this->wpService, $decorator);
 
             return $decorator->apply($post);
         }, 10, 1);
