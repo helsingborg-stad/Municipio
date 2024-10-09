@@ -2,13 +2,11 @@
 
 namespace Municipio\SchemaData\Utils;
 
-use Mockery;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
-use stdClass;
 use WP_Post;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPost;
