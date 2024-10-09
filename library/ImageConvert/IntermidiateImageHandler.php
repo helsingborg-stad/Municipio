@@ -73,6 +73,13 @@ class IntermidiateImageHandler implements Hookable
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
+        if ($this->config->canConvertBetweenFormats() === false) {
+            // TODO: Investigate if we can avoid this file read for every image.
+            $targetFormatMime     = mime_content_type($image->getPath());
+            $suffix               = pathinfo($image->getPath(), PATHINFO_EXTENSION);
+            $intermediateLocation = $image->getIntermidiateLocation($suffix);
+        }
+
         // Check if the source file exists.
         if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
             return false;
