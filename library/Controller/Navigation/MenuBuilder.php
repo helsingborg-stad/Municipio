@@ -2,7 +2,6 @@
 
 namespace Municipio\Controller\Navigation;
 
-use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Decorators\Accessibility\AppendPrintMenuItem;
 use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsDeprecatedFilter;

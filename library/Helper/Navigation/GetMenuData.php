@@ -21,6 +21,7 @@ class GetMenuData
      */
     public static function getNavMenuItems(null|false|int|string $identifier = null): array|false
     {
+        
         if (is_string($identifier)) {
             $identifier = self::getNavMenuId($identifier);
         }
@@ -28,6 +29,7 @@ class GetMenuData
         if (empty($identifier)) {
             return false;
         }
+
 
         if (!isset(self::$menuItemsArray[$identifier])) {
             self::$menuItemsArray[$identifier] = wp_get_nav_menu_items($identifier);

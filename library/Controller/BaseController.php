@@ -215,6 +215,7 @@ class BaseController
         );
 
         $this->menuDirector->setBuilder($this->menuBuilder);
+        $this->data['additionalMenus'] = $this->buildAdditionalMenus();
 
         // Sidebar menu
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
@@ -416,6 +417,35 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
+    }
+
+    private function buildAdditionalMenus(): array
+    {
+        $additionalMenus = [];
+        $additionalMenusOption = $this->wpService->getOption('nav_menu_additional_items', []);
+
+        foreach ($additionalMenusOption as $additionalMenuIds) {
+            if (empty($additionalMenuIds)) {
+                continue;
+            }
+
+            foreach ($additionalMenuIds as $menuId) {
+                if (empty($menuId) || !is_numeric($menuId) || array_key_exists($menuId, $additionalMenus)) {
+                    continue;
+                }
+
+                $menuConfig = new MenuConfig(
+                    $menuId,
+                    (int) $menuId
+                );
+
+                $this->menuBuilder->setConfig($menuConfig);
+                $this->menuDirector->buildStandardMenu();
+                $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenuItems();
+            }
+        }
+        
+        return $additionalMenus;
     }
 
     /**
