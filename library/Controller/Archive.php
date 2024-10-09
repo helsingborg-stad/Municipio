@@ -109,11 +109,9 @@ class Archive extends \Municipio\Controller\BaseController
             $postType . '-menu'
         );
 
-        $director = new MenuDirector();
-        $builder = new MenuBuilder($archiveMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($builder);
-        $director->buildStandardMenu();
-        $this->data['archiveMenuItems'] = $builder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($archiveMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
     }
 
     /**

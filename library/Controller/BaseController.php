@@ -8,7 +8,7 @@ use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
 
@@ -51,8 +51,12 @@ class BaseController
      * Init data fetching
      * @var object
      */
-    public function __construct(protected WpService $wpService, protected AcfService $acfService)
-    {
+    public function __construct(
+        protected MenuBuilderInterface $menuBuilder, 
+        protected MenuDirector $menuDirector, 
+        protected WpService $wpService, 
+        protected AcfService $acfService
+    ) {
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
         $this->globalToLocal('posts');
@@ -119,9 +123,6 @@ class BaseController
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
-        $pageId           = $this->data['pageID'];
-        $postType         = $this->wpService->getPostType($pageId);
-
         $accessibilityMenuConfig = new MenuConfig(
             'accessibility',
             '',
@@ -132,7 +133,7 @@ class BaseController
             '',
         ); 
 
-        $newMobileMenuConfig = new MenuConfig(
+        $mobileMenuConfig = new MenuConfig(
             'mobile',
             'secondary-menu',
             false,
@@ -213,108 +214,93 @@ class BaseController
             \Kirki::get_option('secondary_menu_pagetree_fallback'),
         );
 
-        $director = new MenuDirector();
+        $this->menuDirector->setBuilder($this->menuBuilder);
 
         // Sidebar menu
-        $sidebarMenuBuilder = new MenuBuilder($secondaryMenuPostTypeConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($sidebarMenuBuilder);
-        $director->buildStandardMenu();
-        $secondaryMenuItems = $sidebarMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
+        $this->menuDirector->buildStandardMenu();
+        $secondaryMenuItems = $this->menuBuilder->getMenu()->getMenuItems();
 
         if (empty($secondaryMenuItems)) {
-            $secondaryMenuBuilder = new MenuBuilder($secondaryMenuConfig, $this->acfService, $this->wpService);
-            $director->setBuilder($secondaryMenuBuilder);
+            $this->menuBuilder->setConfig($secondaryMenuConfig);
             $secondaryMenuConfig->getFallbackToPageTree() ? 
-                $director->buildStandardMenuWithPageTreeFallback() :
-                $director->buildStandardMenu();
-            $secondaryMenuItems = $secondaryMenuBuilder->getMenu()->getMenuItems();
+                $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+                $this->menuDirector->buildStandardMenu();
+            $secondaryMenuItems = $this->menuBuilder->getMenu()->getMenuItems();
         }
         
         $this->data['secondaryMenuItems'] = $secondaryMenuItems;
 
         // Site selector menu
-        $siteselectorMenuBuilder = new MenuBuilder($siteselectorMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($siteselectorMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['siteselectorMenuItems'] = $siteselectorMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($siteselectorMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['siteselectorMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Language menu
-        $languageMenuBuilder = new MenuBuilder($languageMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($languageMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['languageMenuItems'] = $languageMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($languageMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['languageMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Floating menu
-        $floatingMenuBuilder = new MenuBuilder($floatingMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($floatingMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['floatingMenuItems'] = $floatingMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($floatingMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['floatingMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Dropdown menu
-        $dropdownMenuBuilder = new MenuBuilder($dropdownMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($dropdownMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['dropdownMenuItems'] = $dropdownMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($dropdownMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Help menu
-        $helpMenuBuilder = new MenuBuilder($helpMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($helpMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['helpMenuItems'] = $helpMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($helpMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Tab menu
-        $tabMenuBuilder = new MenuBuilder($tabMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($tabMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['tabMenuItems'] = $tabMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($tabMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['tabMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Quicklinks menu
-        $quicklinksMenuBuilder = new MenuBuilder($quicklinksMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($quicklinksMenuBuilder);
-        $director->buildStandardMenu();
-        $this->data['quicklinksMenuItems'] = $quicklinksMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($quicklinksMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['quicklinksMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Breadcrumb menu
-        $breadcrumbMenuBuilder = new MenuBuilder($breadcrumbMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($breadcrumbMenuBuilder);
-        $director->buildBreadcrumbMenu();
-        $this->data['breadcrumbItems'] = $breadcrumbMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($breadcrumbMenuConfig);
+        $this->menuDirector->buildBreadcrumbMenu();
+        $this->data['breadcrumbItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Accessibility menu
-        $accessibilityMenuBuilder = new MenuBuilder($accessibilityMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($accessibilityMenuBuilder);
-        $director->buildAccessibilityMenu();
-        $this->data['accessibilityItems'] = $accessibilityMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($accessibilityMenuConfig);
+        $this->menuDirector->buildAccessibilityMenu();
+        $this->data['accessibilityItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Mobile/secondary-menu
-        $mobileMenuBuilder = new MenuBuilder($newMobileMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($mobileMenuBuilder);
-        $newMobileMenuConfig->getFallbackToPageTree() ? 
-            $director->buildStandardMenuWithPageTreeFallback(true) :
-            $director->buildStandardMenu();
-        $this->data['mobileMenu'] = $mobileMenuBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($mobileMenuConfig);
+        $mobileMenuConfig->getFallbackToPageTree() ? 
+            $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Mobile secondary menu
-        $mobileMenuSecondaryBuilder = new MenuBuilder($mobileMenuSecondaryConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($mobileMenuSecondaryBuilder);
-        $director->buildStandardMenu();
-        $this->data['mobileMenuSecondaryItems'] = $mobileMenuSecondaryBuilder->getMenu()->getMenuItems();
+        $this->menuBuilder->setConfig($mobileMenuSecondaryConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['mobileMenuSecondaryItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Primary menu
-        $primaryMenuBuilder = new MenuBuilder($primaryMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($primaryMenuBuilder);
+        $this->menuBuilder->setConfig($primaryMenuConfig);
         $primaryMenuConfig->getFallbackToPageTree() ? 
-            $director->buildStandardMenuWithPageTreeFallback() :
-            $director->buildStandardMenu();
-        $this->data['primaryMenuItems'] = $primaryMenuBuilder->getMenu()->getMenuItems();
+            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['primaryMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         // Mega menu
-        $megaMenuBuilder = new MenuBuilder($megaMenuConfig, $this->acfService, $this->wpService);
-        $director->setBuilder($megaMenuBuilder);
+        $this->menuBuilder->setConfig($megaMenuConfig);
         $megaMenuConfig->getFallbackToPageTree() ? 
-            $director->buildStandardMenuWithPageTreeFallback() :
-            $director->buildStandardMenu();
-        $this->data['megaMenuItems'] = $megaMenuBuilder->getMenu()->getMenuItems();
+            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['megaMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);

@@ -58,7 +58,7 @@ class PageTreeAppendChildren implements MenuInterface
         return $menuItems;
     }
 
-        /**
+    /**
      * Indicates whether a post has children or not.
      *
      * @param MenuConfigInterface $menuConfig The menu configuration object.
@@ -107,6 +107,11 @@ class PageTreeAppendChildren implements MenuInterface
         } else {
             return false;
         }
+    }
+
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
     }
 
     public function getConfig(): MenuConfigInterface

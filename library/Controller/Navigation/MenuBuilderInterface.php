@@ -2,10 +2,15 @@
 
 namespace Municipio\Controller\Navigation;
 
+use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 
 interface MenuBuilderInterface
 {
+    // Setters & Getters
+    public function setConfig(MenuConfigInterface $config): void;
+    public function getMenu(): MenuInterface;
+
     // Default
     public function appendMenuItems(): void;
     public function mapMenuItemsFromObjectToArray(): void;
@@ -42,7 +47,4 @@ interface MenuBuilderInterface
     public function removeTopLevel(): void;
     public function structureMenuItems(): void;
     public function applyNestedMenuItemsFilter(): void;
-
-    // Get menu
-    public function getMenu(): MenuInterface;
 }

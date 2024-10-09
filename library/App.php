@@ -17,6 +17,9 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
@@ -74,9 +77,19 @@ class App
         new \Municipio\Upgrade($this->wpService, $this->acfService);
 
         /**
+         * Upgrade
+         */
+        $menuDirector = new MenuDirector();
+        $menuBuilder = new MenuBuilder(
+            new MenuConfig(),
+            $this->acfService,
+            $this->wpService
+        );
+
+        /**
          * Template
          */
-        new \Municipio\Template($this->acfService, $this->wpService, $this->schemaDataConfig);
+        new \Municipio\Template($menuBuilder, $menuDirector, $this->acfService, $this->wpService, $this->schemaDataConfig);
 
         /**
          * Theme
@@ -239,8 +252,8 @@ class App
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($this->wpService, $this->acfService));
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($this->wpService, $this->acfService));
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($menuBuilder, $menuDirector));
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();

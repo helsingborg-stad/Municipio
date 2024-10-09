@@ -7,19 +7,15 @@ use WP_REST_Request;
 use WP_REST_Response;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
-use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
-use WpService\Contracts\GetPostType;
-use WpService\WpService;
-use AcfService\AcfService;
 
 class ChildrenRender extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children/render';
 
-    public function __construct(private GetPostType $wpService, private AcfService $acfService)
+    public function __construct(private MenuBuilderInterface $menuBuilder, private MenuDirector $menuDirector)
     {
         
     }
@@ -45,7 +41,7 @@ class ChildrenRender extends RestApiEndpoint
             $lang       = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {
-                $config = new MenuConfig(
+                $menuConfig = new MenuConfig(
                     $identifier,
                     '',
                     false,
@@ -53,11 +49,10 @@ class ChildrenRender extends RestApiEndpoint
                     $parentId
                 );
 
-                $director = new MenuDirector();
-                $builder = new MenuBuilder($config, $this->acfService, $this->wpService);
-                $director->setBuilder($builder);
-                $director->buildPageTreeMenu();
-                $menuItems = $builder->getMenu()->getMenuItems();
+                $this->menuBuilder->setConfig($menuConfig);
+                $this->menuDirector->setBuilder($this->menuBuilder);
+                $this->menuDirector->buildPageTreeMenu();
+                $menuItems = $this->menuBuilder->getMenu()->getMenuItems();
 
                 return rest_ensure_response(array(
                     'parentId' => $parentId,

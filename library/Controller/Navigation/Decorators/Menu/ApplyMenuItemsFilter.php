@@ -19,6 +19,11 @@ class ApplyMenuItemsFilter implements MenuInterface
         return $this->wpService->applyFilters('Municipio/Navigation/Items', $menuItems, $this->getConfig()->getIdentifier());
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

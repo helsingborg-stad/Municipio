@@ -41,6 +41,11 @@ class AppendArchiveMenuItem implements MenuInterface
         return $menuItems;
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

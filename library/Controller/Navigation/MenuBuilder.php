@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller\Navigation;
 
+use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Decorators\Accessibility\AppendPrintMenuItem;
 use Municipio\Controller\Navigation\Decorators\Accessibility\ApplyAccessibilityItemsDeprecatedFilter;
@@ -35,10 +36,23 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 
 class MenuBuilder implements MenuBuilderInterface
 {
-    private $menu;
+    private MenuInterface $menu;
+    private MenuConfigInterface $menuConfig;
 
-    public function __construct(private MenuConfigInterface $menuConfig, private $acfService, private $wpService) {
+    public function __construct(MenuConfigInterface $defaultMenuConfig, private $acfService, private $wpService) {
+        $this->menuConfig = $defaultMenuConfig;
+        $this->initializeMenu();
+    }
+
+    private function initializeMenu(): void
+    {
         $this->menu = Menu::factory($this->menuConfig);
+    }
+
+    public function setConfig(MenuConfigInterface $menuConfig): void
+    {
+        $this->menuConfig = $menuConfig;
+        $this->initializeMenu();
     }
 
     public function appendMenuItems(): void

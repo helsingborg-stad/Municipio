@@ -23,6 +23,11 @@ class ApplyNestedMenuItemsFilter implements MenuInterface
         return apply_filters('Municipio/Navigation/Nested', $menuItems, $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

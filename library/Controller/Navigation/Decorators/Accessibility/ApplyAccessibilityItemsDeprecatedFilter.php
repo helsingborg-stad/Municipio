@@ -19,6 +19,11 @@ class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
         return apply_filters_deprecated('accessibility_items', [$menuItems], '3.0.0', 'Municipio/Accessibility/Items');
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

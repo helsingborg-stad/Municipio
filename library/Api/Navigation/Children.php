@@ -3,13 +3,10 @@
 namespace Municipio\Api\Navigation;
 
 use Municipio\Api\RestApiEndpoint;
-use Municipio\Controller\Navigation\Decorators\MenuItemsDecoratorInterface;
 use WP_REST_Request;
 use WP_REST_Response;
-use WpService\WpService;
-use AcfService\AcfService;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 
 class Children extends RestApiEndpoint
@@ -17,7 +14,7 @@ class Children extends RestApiEndpoint
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children';
 
-    public function __construct(private WpService $wpService, private AcfService $acfService)
+    public function __construct(private MenuBuilderInterface $menuBuilder, private MenuDirector $menuDirector)
     {
         
     }
@@ -40,19 +37,19 @@ class Children extends RestApiEndpoint
             if (isset($parentId)) {
                 $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
-                $config = new MenuConfig(
+                $menuConfig = new MenuConfig(
                     $identifier,
                     '',
                     false,
                     false,
                     $parentId
                 );
+                
+                $this->menuDirector->setBuilder($this->menuBuilder);
 
-                $director = new MenuDirector();
-                $builder = new MenuBuilder($config, $this->acfService, $this->wpService);
-                $director->setBuilder($builder);
-                $director->buildPageTreeMenu();
-                $menuItems = $builder->getMenu()->getMenuItems();
+                $this->menuBuilder->setConfig($menuConfig);
+                $this->menuDirector->buildPageTreeMenu();
+                $menuItems = $this->menuBuilder->getMenu()->getMenuItems();
 
                 return rest_ensure_response($menuItems);
 

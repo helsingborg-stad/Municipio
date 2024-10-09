@@ -47,6 +47,11 @@ class StructureMenuItems implements MenuInterface
         return $structuredMenuItems;
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

@@ -93,6 +93,11 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
         return $pageTitles;
     }
 
+    public function getMenu(): array
+    {
+        return $this->inner->getMenu();
+    }
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
