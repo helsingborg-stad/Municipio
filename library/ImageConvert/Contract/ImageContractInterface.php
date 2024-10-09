@@ -2,8 +2,8 @@
 
 namespace Municipio\ImageConvert\Contract;
 
-use WpService\Contracts\GetAttachmentUrl;
 use WpService\Contracts\GetAttachedFile;
+use WpService\Contracts\WpGetAttachmentUrl;
 
 interface ImageContractInterface
 {
@@ -95,5 +95,5 @@ interface ImageContractInterface
      * @param int|string|bool|null $width The width, which can be an integer, string, boolean, or null.
      * @return self Returns an instance of CreateContractReturn.
      */
-    public static function factory(GetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $height, int|string|bool|null $width): self;
+    public static function factory(WpGetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $height, int|string|bool|null $width): self;
 }

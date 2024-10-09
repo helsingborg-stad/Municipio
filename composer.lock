@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ebd7e3002359246adda62d3f121722f1",
+    "content-hash": "a96b4ca93afb88b99b044f0b6218abd5",
     "packages": [
         {
             "name": "composer/installers",
@@ -301,23 +301,25 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.52.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f"
+                "reference": "a8314213f8a133dfd8b55ddd141f5201d71be6de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
-                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/a8314213f8a133dfd8b55ddd141f5201d71be6de",
+                "reference": "a8314213f8a133dfd8b55ddd141f5201d71be6de",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1"
+                "php": "^8.2"
             },
             "require-dev": {
                 "helsingborg-stad/phpcs": "^0.3.5",
+                "johnpbloch/wordpress": "^6.6",
+                "php-stubs/generator": "*",
                 "php-stubs/wordpress-stubs": "^6.6",
                 "phpunit/phpunit": "^9.6"
             },
@@ -325,7 +327,8 @@
             "autoload": {
                 "psr-4": {
                     "WpService\\": "src/",
-                    "WpCronService\\": "src/WpCronService/"
+                    "WpCronService\\": "src/WpCronService/",
+                    "WpService\\Generator\\": "generator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -341,9 +344,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.52.0"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/2.0.2"
             },
-            "time": "2024-10-03T10:35:34+00:00"
+            "time": "2024-10-09T07:31:47+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -551,21 +554,21 @@
         },
         {
             "name": "pragmarx/ia-arr",
-            "version": "v7.3.2",
+            "version": "v7.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/ia-arr.git",
-                "reference": "b526eb701791faaa548bcfa7b7bcd12748739839"
+                "reference": "6f4303c25cc1a79a55044ca413e0a0d757628fab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/ia-arr/zipball/b526eb701791faaa548bcfa7b7bcd12748739839",
-                "reference": "b526eb701791faaa548bcfa7b7bcd12748739839",
+                "url": "https://api.github.com/repos/antonioribeiro/ia-arr/zipball/6f4303c25cc1a79a55044ca413e0a0d757628fab",
+                "reference": "6f4303c25cc1a79a55044ca413e0a0d757628fab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0",
-                "symfony/var-dumper": "~3.3|~4.0|~5.0|~6.0"
+                "symfony/var-dumper": "~3.3|~4.0|~5.0|~6.0|~7.0"
             },
             "require-dev": {
                 "mockery/mockery": "~1.0",
@@ -615,9 +618,9 @@
             ],
             "support": {
                 "issues": "https://github.com/antonioribeiro/ia-arr/issues",
-                "source": "https://github.com/antonioribeiro/ia-arr/tree/v7.3.2"
+                "source": "https://github.com/antonioribeiro/ia-arr/tree/v7.3.3"
             },
-            "time": "2022-09-07T10:25:34+00:00"
+            "time": "2024-10-05T19:56:41+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -756,73 +759,6 @@
                 }
             ],
             "time": "2024-01-11T14:58:44+00:00"
-        },
-        {
-            "name": "symfony/deprecation-contracts",
-            "version": "v3.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
-                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.5-dev"
-                },
-                "thanks": {
-                    "name": "symfony/contracts",
-                    "url": "https://github.com/symfony/contracts"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "function.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "A generic function and convention to trigger deprecation notices",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-04-18T09:32:20+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -982,34 +918,32 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.4.11",
+            "version": "v7.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "ee14c8254a480913268b1e3b1cba8045ed122694"
+                "reference": "e20e03889539fd4e4211e14d2179226c513c010d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/ee14c8254a480913268b1e3b1cba8045ed122694",
-                "reference": "ee14c8254a480913268b1e3b1cba8045ed122694",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e20e03889539fd4e4211e14d2179226c513c010d",
+                "reference": "e20e03889539fd4e4211e14d2179226c513c010d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1",
-                "symfony/deprecation-contracts": "^2.5|^3",
+                "php": ">=8.2",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
-                "symfony/console": "<5.4"
+                "symfony/console": "<6.4"
             },
             "require-dev": {
                 "ext-iconv": "*",
-                "symfony/console": "^5.4|^6.0|^7.0",
-                "symfony/error-handler": "^6.3|^7.0",
-                "symfony/http-kernel": "^5.4|^6.0|^7.0",
-                "symfony/process": "^5.4|^6.0|^7.0",
-                "symfony/uid": "^5.4|^6.0|^7.0",
-                "twig/twig": "^2.13|^3.0.4"
+                "symfony/console": "^6.4|^7.0",
+                "symfony/http-kernel": "^6.4|^7.0",
+                "symfony/process": "^6.4|^7.0",
+                "symfony/uid": "^6.4|^7.0",
+                "twig/twig": "^3.0.4"
             },
             "bin": [
                 "Resources/bin/var-dump-server"
@@ -1047,7 +981,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.4.11"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.1.5"
             },
             "funding": [
                 {
@@ -1063,7 +997,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-30T16:03:21+00:00"
+            "time": "2024-09-16T10:07:02+00:00"
         }
     ],
     "packages-dev": [
@@ -1553,16 +1487,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -1605,9 +1539,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
-            "time": "2024-09-29T13:56:26+00:00"
+            "time": "2024-10-08T18:51:32+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -3737,6 +3671,6 @@
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

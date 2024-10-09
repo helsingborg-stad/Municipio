@@ -27,12 +27,12 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\AddFilter;
 use Municipio\ImageConvert\Contract\ImageContract;
-use WpService\Contracts\GetAttachmentUrl;
 use WpService\Contracts\GetPostMimeType;
+use WpService\Contracts\WpGetAttachmentUrl;
 
 class ImageConvertFilter implements Hookable
 {
-    public function __construct(private AddFilter&ApplyFilters&GetAttachmentUrl&GetPostMimeType $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&ApplyFilters&WpGetAttachmentUrl&GetPostMimeType $wpService, private ImageConvertConfig $config)
     {
     }
 

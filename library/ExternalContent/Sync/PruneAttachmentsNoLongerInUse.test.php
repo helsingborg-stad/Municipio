@@ -28,9 +28,9 @@ class PruneTermsNoLongerInUseTest extends TestCase
         $sut = new PruneAttachmentsNoLongerInUse($wpService, $wpdb);
         $sut->sync();
 
-        $this->assertArrayHasKey('deleteAttachment', $wpService->methodCalls);
-        $this->assertCount(1, $wpService->methodCalls['deleteAttachment']);
-        $this->assertEquals($attachmentId, $wpService->methodCalls['deleteAttachment'][0][0]);
-        $this->assertTrue($wpService->methodCalls['deleteAttachment'][0][1]); // Force delete
+        $this->assertArrayHasKey('wpDeleteAttachment', $wpService->methodCalls);
+        $this->assertCount(1, $wpService->methodCalls['wpDeleteAttachment']);
+        $this->assertEquals($attachmentId, $wpService->methodCalls['wpDeleteAttachment'][0][0]);
+        $this->assertTrue($wpService->methodCalls['wpDeleteAttachment'][0][1]); // Force delete
     }
 }

@@ -4,11 +4,11 @@ namespace Municipio\BrandedEmails;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\Autop;
+use WpService\Contracts\Wpautop;
 
 class ConvertMessageToHtml implements Hookable
 {
-    public function __construct(private AddFilter&Autop $wpService)
+    public function __construct(private AddFilter&Wpautop $wpService)
     {
     }
 
@@ -19,7 +19,7 @@ class ConvertMessageToHtml implements Hookable
 
     public function convertMessageToHtml(array $args): array
     {
-        $args['message'] = $this->wpService->autop($args['message']);
+        $args['message'] = $this->wpService->wpautop($args['message']);
         return $args;
     }
 }

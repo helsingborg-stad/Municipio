@@ -15,7 +15,7 @@ class ImageConvertFilterTest extends TestCase
    */
     public function testNonProcessedValues($size): void
     {
-        $wpService          = new FakeWpService();
+        $wpService          = new FakeWpService(['getPostMimeType' => '']);
         $configService      = new ImageConvertConfig(
             $wpService
         );
@@ -38,13 +38,15 @@ class ImageConvertFilterTest extends TestCase
     {
         $wpService          = new FakeWpService(
             [
-                'applyFilters'    => function ($hookName, $value, ...$args) {
+                'getAttachedFile'    => '',
+                'wpGetAttachmentUrl' => '',
+                'applyFilters'       => function ($hookName, $value, ...$args) {
                     if ($hookName == 'Municipio/ImageConvert/MimeTypes') {
                         return ['image/svg'];
                     }
                     return $value;
                 },
-                'getPostMimeType' => function ($id) {
+                'getPostMimeType'    => function ($id) {
                     return 'image/svg';
                 }
             ]

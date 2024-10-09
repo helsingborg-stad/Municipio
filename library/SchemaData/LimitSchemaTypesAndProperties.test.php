@@ -12,7 +12,7 @@ class LimitSchemaTypesAndPropertiesTest extends TestCase
      */
     public function testHooksAreValid()
     {
-        $sut = new LimitSchemaTypesAndProperties([], $wpService = new FakeWpService());
+        $sut = new LimitSchemaTypesAndProperties([], $wpService = new FakeWpService(['addFilter' => true]));
         $sut->addHooks();
 
         $this->assertTrue(method_exists($sut, $wpService->methodCalls['addFilter'][0][1][1]));

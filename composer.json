@@ -34,7 +34,7 @@
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4",
         "spatie/schema-org": "^3.9",
-        "helsingborg-stad/wpservice": "^1.7",
+        "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "~0.4"
     },
     "extra": {

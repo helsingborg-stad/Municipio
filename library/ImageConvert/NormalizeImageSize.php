@@ -8,11 +8,11 @@ use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetAttachedFile;
-use WpService\Contracts\GetAttachmentUrl;
+use WpService\Contracts\WpGetAttachmentUrl;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private ApplyFilters&GetAttachedFile&GetAttachmentUrl&AddFilter $wpService, private ImageConvertConfig $config)
+    public function __construct(private ApplyFilters&GetAttachedFile&WpGetAttachmentUrl&AddFilter $wpService, private ImageConvertConfig $config)
     {
     }
 
