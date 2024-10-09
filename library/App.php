@@ -18,6 +18,7 @@ use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
+use Municipio\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
 use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
@@ -524,6 +525,11 @@ class App
      */
     private function setupExternalContent(): void
     {
+        /**
+         * Allow cron to edit posts.
+         */
+        $this->hooksRegistrar->register(new AllowCronToEditPosts($this->wpService));
+
         /**
          * Feature config
          */
