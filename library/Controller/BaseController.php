@@ -282,7 +282,7 @@ class BaseController
         $mobileMenuConfig->getFallbackToPageTree() ? 
             $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
             $this->menuDirector->buildStandardMenu();
-        $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mobile secondary menu
         $this->menuBuilder->setConfig($mobileMenuSecondaryConfig);

@@ -1,4 +1,4 @@
-@if (!empty($mobileMenu))
+@if (!empty($mobileMenu['items']))
 @drawer([
     'toggleButtonData' => [
         'id' => 'mobile-menu-trigger-open',
@@ -19,7 +19,7 @@
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
-        'c-drawer--' . (!empty($mobileMenu)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
+        'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
         's-drawer-menu'
     ],
     'label' => $lang->close,
@@ -34,7 +34,7 @@
             )
     @endslot
 
-    @if (!empty($mobileMenu)||!empty($mobileMenuSecondaryItems)) 
+    @if (!empty($mobileMenu['items'])||!empty($mobileMenuSecondaryItems)) 
     @slot('menu')
         @includeIf(
             'partials.navigation.mobile', 
