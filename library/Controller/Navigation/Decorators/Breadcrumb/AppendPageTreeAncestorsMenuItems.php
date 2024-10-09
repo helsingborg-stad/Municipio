@@ -14,11 +14,12 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
+
         if (is_front_page() || is_archive()) {
-            return $menuItems;
+            return $menu;
         }
 
         $ancestors = GetAncestors::getAncestors();
@@ -33,20 +34,15 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
             foreach ($ancestors as $id) {
                 if (!in_array($id, $pageForPostTypeIds)) {
                     $title                     = WP::getTheTitle($id);
-                    $menuItems[$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
-                    $menuItems[$id]['href']    = WP::getPermalink($id);
-                    $menuItems[$id]['current'] = false;
-                    $menuItems[$id]['icon']    = 'chevron_right';
+                    $menu['items'][$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
+                    $menu['items'][$id]['href']    = WP::getPermalink($id);
+                    $menu['items'][$id]['current'] = false;
+                    $menu['items'][$id]['icon']    = 'chevron_right';
                 }
             }
         }
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

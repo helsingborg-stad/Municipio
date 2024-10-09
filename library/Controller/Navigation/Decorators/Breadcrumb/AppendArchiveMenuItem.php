@@ -14,12 +14,12 @@ class AppendArchiveMenuItem implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems          = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
-        $postType           = $this->wpService->getPostType(CurrentPostId::get());
-        $archiveLink        = get_post_type_archive_link($postType);
+        $postType    = $this->wpService->getPostType(CurrentPostId::get());
+        $archiveLink = get_post_type_archive_link($postType);
 
         if ($archiveLink) {
             $defaultLabel = __("Untitled page", 'municipio');
@@ -30,7 +30,7 @@ class AppendArchiveMenuItem implements MenuInterface
                 $label = $this->wpService->getPostTypeObject($postType)->label ?? $defaultLabel;
             }
 
-            $menuItems[] = [
+            $menu['items'][] = [
                 'label'   => __($label),
                 'href'    => $archiveLink,
                 'current' => false,
@@ -38,12 +38,7 @@ class AppendArchiveMenuItem implements MenuInterface
             ];
         }
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

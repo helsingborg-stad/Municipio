@@ -13,24 +13,19 @@ class PageTreeGetAncestors implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
-    {
-        $menuItems = $this->inner->getMenuItems();
-
-        if (is_int($this->getConfig()->getFallbackToPageTree())) {
-            $menuItems = [$this->getConfig()->getFallbackToPageTree()];
-        } else {
-            $menuItems = GetAncestors::getAncestors();
-        }
-
-        return $menuItems;
-    }
-
     public function getMenu(): array
     {
-        return $this->inner->getMenu();
-    }
+        $menu = $this->inner->getMenu();
 
+        if (is_int($this->getConfig()->getFallbackToPageTree())) {
+            $menu['items'] = [$this->getConfig()->getFallbackToPageTree()];
+        } else {
+            $menu['items'] = GetAncestors::getAncestors();
+        }
+
+        return $menu;
+    }
+    
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

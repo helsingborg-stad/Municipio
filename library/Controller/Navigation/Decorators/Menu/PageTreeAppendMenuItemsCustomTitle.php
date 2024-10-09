@@ -13,15 +13,15 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
-        if (empty($menuItems)) {
-            return $menuItems;
+        if (empty($menu['items'])) {
+            return $menu;
         }
 
-        foreach ($menuItems as &$menuItem) {
+        foreach ($menu['items'] as &$menuItem) {
             if (!empty($menuItem['isCached'])) {
                 continue;
             }
@@ -39,7 +39,7 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
             }            
         }
 
-        return $menuItems;
+        return $menu;
     }
 
     /**
@@ -91,11 +91,6 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
         NavigationRuntimeCache::setCache($metaKey, $pageTitles);
 
         return $pageTitles;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
     }
 
     public function getConfig(): MenuConfigInterface

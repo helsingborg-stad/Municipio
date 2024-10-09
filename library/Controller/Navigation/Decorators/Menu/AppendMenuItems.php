@@ -12,18 +12,13 @@ class AppendMenuItems implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
-    {
-        $menuItems = $this->inner->getMenuItems();
-
-        $menuItems = GetMenuData::getNavMenuItems($this->getConfig()->getMenuName()) ?: [];
-
-        return $menuItems;
-    }
-
     public function getMenu(): array
     {
-        return $this->inner->getMenu();
+        $menu = $this->inner->getMenu();
+
+        $menu['items'] = GetMenuData::getNavMenuItems($this->getConfig()->getMenuName()) ?: [];
+
+        return $menu;
     }
     
     public function getConfig(): MenuConfigInterface

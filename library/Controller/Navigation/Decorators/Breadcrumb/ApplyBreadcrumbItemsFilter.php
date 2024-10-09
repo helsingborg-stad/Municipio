@@ -12,16 +12,13 @@ class ApplyBreadcrumbItemsFilter implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
-    {
-        $menuItems = $this->inner->getMenuItems();
-        // TODO: Check why 'muncipio' is passed in the filter. Used to be context in navigations helper.
-        return $this->wpService->applyFilters('Municipio/Breadcrumbs/Items', $menuItems , get_queried_object(), 'municipio');
-    }
-
     public function getMenu(): array
     {
-        return $this->inner->getMenu();
+        $menu = $this->inner->getMenu();
+        // TODO: Check why 'muncipio' is passed in the filter. Used to be context in navigations helper.
+        $menu['items'] = $this->wpService->applyFilters('Municipio/Breadcrumbs/Items', $menu['items'] , get_queried_object(), 'municipio');
+
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

@@ -11,22 +11,17 @@ class RemoveSubLevels implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
         if ($this->getConfig()->getRemoveSubLevels()) {
-            foreach ($menuItems as &$menuItem) {
+            foreach ($menu['items'] as &$menuItem) {
                 $menuItem['children'] = false;
             }
         }
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

@@ -16,15 +16,15 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
      * TODO: check if needed. Maybe we can build our own tree,
      * from the available ids of each menu item.
      */
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
-        if (empty($menuItems)) {
-            return $menuItems;
+        if (empty($menu['items'])) {
+            return $menu;
         }
 
-        foreach ($menuItems as &$menuItem) {
+        foreach ($menu['items'] as &$menuItem) {
             if (!isset($menuItem['id']) || !empty($menuItem['isCached'])) {
                 continue;
             }
@@ -36,13 +36,7 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
             }
         }
 
-
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

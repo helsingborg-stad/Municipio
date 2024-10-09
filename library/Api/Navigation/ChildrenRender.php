@@ -52,7 +52,7 @@ class ChildrenRender extends RestApiEndpoint
                 $this->menuBuilder->setConfig($menuConfig);
                 $this->menuDirector->setBuilder($this->menuBuilder);
                 $this->menuDirector->buildPageTreeMenu();
-                $menuItems = $this->menuBuilder->getMenu()->getMenuItems();
+                $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
 
                 return rest_ensure_response(array(
                     'parentId' => $parentId,

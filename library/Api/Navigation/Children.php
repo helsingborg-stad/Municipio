@@ -49,7 +49,7 @@ class Children extends RestApiEndpoint
 
                 $this->menuBuilder->setConfig($menuConfig);
                 $this->menuDirector->buildPageTreeMenu();
-                $menuItems = $this->menuBuilder->getMenu()->getMenuItems();
+                $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
 
                 return rest_ensure_response($menuItems);
 

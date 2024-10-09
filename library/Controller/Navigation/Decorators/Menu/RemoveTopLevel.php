@@ -11,26 +11,24 @@ class RemoveTopLevel implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
         if (!$this->getConfig()->getRemoveTopLevel()) {
-            return $menuItems;
+            return $menu;
         }
 
-        foreach ($menuItems as $menuItem) {
+        $menuItems = [];
+        foreach ($menu['items'] as $menuItem) {
             if ($menuItem['ancestor'] == true && is_array($menuItem['children'])) {
-                return $menuItem['children'];
+                $menuItems = $menuItem['children'];
             }
         }
 
-        return [];
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        $menu['items'] = $menuItems;
+        
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

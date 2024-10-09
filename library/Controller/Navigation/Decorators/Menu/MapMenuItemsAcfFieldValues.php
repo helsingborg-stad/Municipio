@@ -12,15 +12,15 @@ class MapMenuItemsAcfFieldValues implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
-        if (empty($menuItems)) {
-            return $menuItems;
+        if (empty($menu['items'])) {
+            return $menu;
         }
 
-        foreach ($menuItems as &$menuItem) {
+        foreach ($menu['items'] as &$menuItem) {
             $fields = $this->acfService->getFields($menuItem['id']);
 
             $menuItem['icon'] = [
@@ -34,12 +34,7 @@ class MapMenuItemsAcfFieldValues implements MenuInterface
         }
 
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

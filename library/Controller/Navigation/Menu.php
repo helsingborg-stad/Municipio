@@ -25,11 +25,6 @@ class Menu implements MenuInterface,FactoryInterface
         return $this->menu;
     }
 
-    public function getMenuItems(): array
-    {
-        return $this->menu['items'];
-    }
-
     public function getConfig(): MenuConfigInterface
     {
         return $this->menuConfig;

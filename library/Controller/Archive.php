@@ -111,7 +111,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenuItems();
+        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
     }
 
     /**

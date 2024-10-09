@@ -12,20 +12,17 @@ class ApplyNestedMenuItemsFilter implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
-    {
-        $menuItems = $this->inner->getMenuItems();
-
-        if (empty($menuItems)) {
-            return [];
-        }
-
-        return apply_filters('Municipio/Navigation/Nested', $menuItems, $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
-    }
-
     public function getMenu(): array
     {
-        return $this->inner->getMenu();
+        $menu = $this->inner->getMenu();
+
+        if (empty($menu['items'])) {
+            return $menu;
+        }
+
+        $menu['items'] = apply_filters('Municipio/Navigation/Nested', $menu['items'], $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
+
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

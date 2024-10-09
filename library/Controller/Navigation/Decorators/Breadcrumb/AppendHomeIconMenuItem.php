@@ -12,13 +12,13 @@ class AppendHomeIconMenuItem implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
         $homeItemKey = $this->wpService->getOption('page_on_front');
 
         if (!empty($homeItemKey)) {
-            $menuItems[$homeItemKey] = array(
+            $menu['items'][$homeItemKey] = array(
                 'label'   => __('Home', 'municipio'),
                 'href'    => get_home_url(),
                 'current' => is_front_page() ? true : false,
@@ -26,12 +26,7 @@ class AppendHomeIconMenuItem implements MenuInterface
             );
         }
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

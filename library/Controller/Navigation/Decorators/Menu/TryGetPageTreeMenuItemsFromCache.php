@@ -12,17 +12,17 @@ class TryGetPageTreeMenuItemsFromCache implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
         $cacheData = NavigationRuntimeCache::getCache('complementObjects');
 
-        foreach ($menuItems as &$menuItem) {
+        foreach ($menu['items'] as &$menuItem) {
             $cacheKey = md5(serialize($menuItem));
 
             if (isset($cacheData[$cacheKey])) {
-                $menuItem = $cacheData[$cacheKey];
-                $menuItem['isCached'] = true;
+                // $menuItem = $cacheData[$cacheKey];
+                $menuItem['isCached'] = false;
             } else {
                 $menuItem['isCached'] = false;
             }
@@ -30,12 +30,7 @@ class TryGetPageTreeMenuItemsFromCache implements MenuInterface
             $menuItem['cacheKey'] = $cacheKey;
         }
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

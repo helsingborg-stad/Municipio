@@ -66,7 +66,7 @@ class MenuDirector
     public function buildStandardMenuWithPageTreeFallback(): void
     {
         $this->builder->appendMenuItems();
-        $menuItems = $this->builder->getMenu()->getMenuItems();
-        empty($menuItems) ? $this->buildPageTreeMenu() : $this->buildStandardMenu();
+        $menu = $this->builder->getMenu()->getMenu();
+        empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenu();
     }
 }

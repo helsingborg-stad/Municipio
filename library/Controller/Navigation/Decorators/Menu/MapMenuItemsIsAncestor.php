@@ -12,17 +12,17 @@ class MapMenuItemsIsAncestor implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
 
-        $ancestors = GetAncestorIds::getAncestorIds($menuItems, $this->getConfig()->getIdentifier());
+        $ancestors = GetAncestorIds::getAncestorIds($menu['items'], $this->getConfig()->getIdentifier());
 
-        if (empty($menuItems)) {
-            return $menuItems;
+        if (empty($menu['items'])) {
+            return $menu;
         }
 
-        foreach ($menuItems as &$menuItem) {
+        foreach ($menu['items'] as &$menuItem) {
             if (!isset($menuItem['id']) || empty($ancestors)) {
                 continue;
             }
@@ -31,12 +31,7 @@ class MapMenuItemsIsAncestor implements MenuInterface
         }
 
 
-        return $menuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
+        return $menu;
     }
 
     public function getConfig(): MenuConfigInterface

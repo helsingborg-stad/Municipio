@@ -11,14 +11,15 @@ class StructureMenuItems implements MenuInterface
     {
     }
 
-    public function getMenuItems(): array
+    public function getMenu(): array
     {
-        $menuItems = $this->inner->getMenuItems();
+        $menu = $this->inner->getMenu();
+
         if (is_bool($this->getConfig()->getFallbackToPageTree())) {
-            $menuItems = $this->structureMenuItems($menuItems);
+            $menu['items'] = $this->structureMenuItems($menu['items']);
         }
 
-        return $menuItems;
+        return $menu;
 
     }
 
@@ -45,11 +46,6 @@ class StructureMenuItems implements MenuInterface
         }
 
         return $structuredMenuItems;
-    }
-
-    public function getMenu(): array
-    {
-        return $this->inner->getMenu();
     }
 
     public function getConfig(): MenuConfigInterface
