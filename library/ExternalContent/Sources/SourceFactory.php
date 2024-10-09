@@ -9,8 +9,8 @@ use Municipio\ExternalContent\Sources\SourceDecorators\FilterOutDuplicateObjects
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingLocalJsonFile;
 use Municipio\ExternalContent\Sources\SourceDecorators\SourceUsingTypesense;
 use WpService\Contracts\GetPosts;
-use WpService\Contracts\RemoteGet;
-use WpService\Contracts\RemoteRetrieveBody;
+use WpService\Contracts\WpRemoteGet;
+use WpService\Contracts\WpRemoteRetrieveBody;
 use WpService\FileSystem\BaseFileSystem;
 
 /**
@@ -23,7 +23,7 @@ class SourceFactory implements SourceFactoryInterface
      */
     public function __construct(
         private array $sourceConfigs,
-        private RemoteGet&RemoteRetrieveBody&GetPosts $wpService
+        private WpRemoteGet&WpRemoteRetrieveBody&GetPosts $wpService
     ) {
         return $this;
     }

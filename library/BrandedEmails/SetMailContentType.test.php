@@ -29,13 +29,9 @@ class SetMailContentTypeTest extends TestCase
     {
         return new class implements AddFilter {
             public array $filtersAdded = [];
-            public function addFilter(
-                string $tag,
-                callable $functionToAdd,
-                int $priority = 10,
-                int $acceptedArgs = 1
-            ): bool {
-                $this->filtersAdded[] = [ $tag, $functionToAdd, $priority, $acceptedArgs];
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
+                $this->filtersAdded[] = [ $hookName, $callback, $priority, $acceptedArgs];
                 return true;
             }
         };

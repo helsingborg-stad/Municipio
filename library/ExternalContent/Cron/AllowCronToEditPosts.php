@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\Cron;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\DoingCron;
+use WpService\Contracts\WpDoingCron;
 
 /**
  * Class AllowCronToEditPosts
@@ -19,7 +19,7 @@ class AllowCronToEditPosts implements Hookable
     /**
      * Class constructor
      */
-    public function __construct(private AddAction&AddFilter&DoingCron $wpService)
+    public function __construct(private AddAction&AddFilter&WpDoingCron $wpService)
     {
     }
 
@@ -28,7 +28,7 @@ class AllowCronToEditPosts implements Hookable
      */
     public function addHooks(): void
     {
-        if (!$this->wpService->doingCron()) {
+        if (!$this->wpService->wpDoingCron()) {
             return;
         }
 

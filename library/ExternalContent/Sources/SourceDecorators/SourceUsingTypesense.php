@@ -7,8 +7,8 @@ use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WP_Query;
-use WpService\Contracts\RemoteGet;
-use WpService\Contracts\RemoteRetrieveBody;
+use WpService\Contracts\WpRemoteGet;
+use WpService\Contracts\WpRemoteRetrieveBody;
 
 /**
  * Class SourceUsingTypesense
@@ -21,13 +21,13 @@ class SourceUsingTypesense implements SourceInterface
      * SourceUsingTypesense constructor.
      *
      * @param SourceConfigInterface $config
-     * @param RemoteGet&RemoteRetrieveBody $wpService
+     * @param WpRemoteGet&WpRemoteRetrieveBody $wpService
      * @param JsonToSchemaObjects $jsonToSchemaObjects
      * @param SourceInterface $inner
      */
     public function __construct(
         private SourceConfigInterface $config,
-        private RemoteGet&RemoteRetrieveBody $wpService,
+        private WpRemoteGet&WpRemoteRetrieveBody $wpService,
         private JsonToSchemaObjects $jsonToSchemaObjects,
         private SourceInterface $inner,
     ) {
@@ -55,7 +55,7 @@ class SourceUsingTypesense implements SourceInterface
      */
     private function makeApiRequestAndGetDocuments(string $url): ?array
     {
-        $response = $this->wpService->remoteGet($url, [
+        $response = $this->wpService->wpRemoteGet($url, [
             'headers' => [
                 'Content-Type'        => 'application/json',
                 'X-TYPESENSE-API-KEY' => $this->config->getSourceTypesenseApiKey(),
@@ -66,7 +66,7 @@ class SourceUsingTypesense implements SourceInterface
             return null;
         }
 
-        $bodyJson = $this->wpService->remoteRetrieveBody($response);
+        $bodyJson = $this->wpService->wpRemoteRetrieveBody($response);
         $body     = json_decode($bodyJson, true);
 
         if (empty($body['hits'])) {

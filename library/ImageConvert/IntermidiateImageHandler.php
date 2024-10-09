@@ -5,16 +5,15 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
-use WpService\Contracts\UploadDir;
-use WpService\Contracts\GetImageEditor;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
-use WP_Image_Editor_Imagick;
+use WpService\Contracts\WpGetImageEditor;
+use WpService\Contracts\WpUploadDir;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&GetImageEditor&UploadDir $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -79,7 +78,7 @@ class IntermidiateImageHandler implements Hookable
             return false;
         }
 
-        $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
+        $imageEditor = $this->wpService->wpGetImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
             //Make the resize

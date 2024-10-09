@@ -16,7 +16,7 @@ class AllowCronToEditPostsTest extends TestCase
      */
     public function testDoesNotAddActionsIfCronIsNotRunning()
     {
-        $wpService = new FakeWpService(['doingCron' => false]);
+        $wpService = new FakeWpService(['wpDoingCron' => false]);
         $sut       = new AllowCronToEditPosts($wpService);
 
         $sut->addHooks();
@@ -29,7 +29,7 @@ class AllowCronToEditPostsTest extends TestCase
      */
     public function testAddsActionsIfCronIsRunning()
     {
-        $wpService = new FakeWpService(['doingCron' => true]);
+        $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
         $sut       = new AllowCronToEditPosts($wpService);
 
         $sut->addHooks();
@@ -43,7 +43,7 @@ class AllowCronToEditPostsTest extends TestCase
      */
     public function testAddsCapabilitiesWithFirstActionAndRemovesOnSecond()
     {
-        $wpService = new FakeWpService(['doingCron' => true]);
+        $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
         $sut       = new AllowCronToEditPosts($wpService);
 
         $sut->addHooks();
@@ -57,7 +57,7 @@ class AllowCronToEditPostsTest extends TestCase
      */
     public function testSecondCallToAddActionHasHigherPriorityThanFirst()
     {
-        $wpService = new FakeWpService(['doingCron' => true]);
+        $wpService = new FakeWpService(['wpDoingCron' => true, 'addAction' => true]);
         $sut       = new AllowCronToEditPosts($wpService);
 
         $sut->addHooks();

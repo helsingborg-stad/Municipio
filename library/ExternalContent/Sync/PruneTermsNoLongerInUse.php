@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use WpService\Contracts\DeleteTerm;
+use WpService\Contracts\WpDeleteTerm;
 use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetTaxonomies;
 use WpService\Contracts\GetTerms;
@@ -17,14 +17,10 @@ class PruneTermsNoLongerInUse implements SyncSourceToLocalInterface
 {
     /**
      * Constructor for PruneTermsNoLongerInUse.
-     *
-     * @param SourceInterface $source
-     * @param GetTaxonomies&GetPostTypeObject&GetTerms&DeleteTerm $wpService
-     * @param SyncSourceToLocalInterface $inner
      */
     public function __construct(
         private SourceInterface $source,
-        private GetTaxonomies&GetPostTypeObject&GetTerms&DeleteTerm $wpService,
+        private GetTaxonomies&GetPostTypeObject&GetTerms&WpDeleteTerm $wpService,
         private SyncSourceToLocalInterface $inner
     ) {
     }
@@ -59,7 +55,7 @@ class PruneTermsNoLongerInUse implements SyncSourceToLocalInterface
         }
 
         foreach ($emptyTerms as $emptyTerm) {
-            $this->wpService->deleteTerm($emptyTerm->term_id, $emptyTerm->taxonomy);
+            $this->wpService->wpDeleteTerm($emptyTerm->term_id, $emptyTerm->taxonomy);
         }
     }
 }

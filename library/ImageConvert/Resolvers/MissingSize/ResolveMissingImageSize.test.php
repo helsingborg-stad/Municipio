@@ -17,7 +17,7 @@ class ResolveMissingImageSizeTest extends TestCase
    */
     public function testScalerReturnsCorrectlyScaledValue($requestedSize, $resolvedSize, $expected): void
     {
-        $wpService     = new FakeWpService();
+        $wpService     = new FakeWpService(['wpGetAttachmentUrl' => '', 'getAttachedFile' => '']);
         $configService = new ImageConvertConfig(
             $wpService
         );

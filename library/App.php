@@ -47,7 +47,6 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
-use WP_Query;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
@@ -640,7 +639,7 @@ class App
         /**
          * Populate cron_schedule field options.
          */
-        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
+        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->wpGetSchedules());
         array_unshift($scheduleOptions, __('Never', 'municipio'));
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9961f781e',

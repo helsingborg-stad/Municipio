@@ -6,9 +6,9 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\DoAction;
 use WpService\Contracts\GetOption;
-use WpService\Contracts\VerifyNonce;
-use WpService\Contracts\SafeRedirect;
 use WpService\Contracts\UpdateOption;
+use WpService\Contracts\WpSafeRedirect;
+use WpService\Contracts\WpVerifyNonce;
 
 /**
  * Class TriggerSyncFromGetParams
@@ -25,7 +25,7 @@ class TriggerSyncFromGetParams implements TriggerSyncInterface, Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&DoAction&VerifyNonce&SafeRedirect&UpdateOption&GetOption $wpService,
+        private AddAction&DoAction&WpVerifyNonce&WpSafeRedirect&UpdateOption&GetOption $wpService,
         private TriggerSyncInterface $inner,
     ) {
     }
@@ -58,7 +58,7 @@ class TriggerSyncFromGetParams implements TriggerSyncInterface, Hookable
             return;
         }
 
-        $this->wpService->safeRedirect($_SERVER['HTTP_REFERER']);
+        $this->wpService->wpSafeRedirect($_SERVER['HTTP_REFERER']);
         exit;
     }
 
@@ -82,6 +82,6 @@ class TriggerSyncFromGetParams implements TriggerSyncInterface, Hookable
         return
             isset($_GET[self::GET_PARAM_TRIGGER]) &&
             !empty($_GET['_wpnonce']) &&
-            $this->wpService->verifyNonce($_GET['_wpnonce']);
+            $this->wpService->wpVerifyNonce($_GET['_wpnonce'], -1);
     }
 }

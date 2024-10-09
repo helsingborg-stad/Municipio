@@ -13,7 +13,7 @@ class UpgradeTest extends TestCase
      */
     public function testV33()
     {
-        $wpService  = new FakeWpService(['getPostTypes' => ['test_post_type']]);
+        $wpService  = new FakeWpService(['getPostTypes' => ['test_post_type'], 'addAction' => true]);
         $acfService = new FakeAcfService(['getField' => 'Thing', 'updateField' => true]);
         $upgrade    = new Upgrade($wpService, $acfService);
 
