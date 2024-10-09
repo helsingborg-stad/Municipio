@@ -12,7 +12,6 @@ class Menu implements MenuInterface,FactoryInterface
 
     public function __construct(
         private MenuConfigInterface $menuConfig,
-        private array $menuItems = []
     ) {
         $this->menu = [];
         $this->menu['name'] = $this->menuConfig->getMenuName();
