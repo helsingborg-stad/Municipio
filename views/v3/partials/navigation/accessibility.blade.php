@@ -1,7 +1,7 @@
-@if (!empty($accessibilityItems) && is_array($accessibilityItems))
+@if (!empty($accessibilityMenu['items']) && is_array($accessibilityMenu['items']))
 <ul class="nav-accessibility nav-horizontal u-print-display--none unlist u-print-display--none"
 id="accessibility-items" role="menubar">
-    @foreach ($accessibilityItems as $item)
+    @foreach ($accessibilityMenu['items'] as $item)
         @if (!empty($item['dropdown']))
         @dropdown([
             'popup' => 'click',

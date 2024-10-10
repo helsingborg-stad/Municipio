@@ -136,7 +136,7 @@ class Post
 
         if (
             !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
-            && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
+            && has_blocks($postObject->post_content) && isset($data['quicklinksMenu']['items'])
         ) {
                 $postObject->displayQuicklinksAfterContent = false;
                 // Add quicklinks after first block
@@ -147,7 +147,7 @@ class Post
                     render_blade_view(
                         'partials.navigation.fixed-after-block',
                         [
-                        'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                        'quicklinksMenu' => $data['quicklinksMenu']['items'],
                         'quicklinksPlacement' => $postObject->quicklinksPlacement,
                         'customizer'          => $data['customizer'],
                         'lang'                => $data['lang'],

@@ -240,19 +240,21 @@ class BaseController
         // Language menu
         $this->menuBuilder->setConfig($languageMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['languageMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['languageMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Floating menu
         $this->menuBuilder->setConfig($floatingMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['floatingMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['floatingMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Dropdown menu
+        // TODO: ASK SEBASTIAN WHY THIS DOES NOTHING
         $this->menuBuilder->setConfig($dropdownMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
         // Help menu
+        // SAME AS ABOVE
         $this->menuBuilder->setConfig($helpMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
@@ -260,22 +262,22 @@ class BaseController
         // Tab menu
         $this->menuBuilder->setConfig($tabMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['tabMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['tabMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Quicklinks menu
         $this->menuBuilder->setConfig($quicklinksMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['quicklinksMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['quicklinksMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Breadcrumb menu
         $this->menuBuilder->setConfig($breadcrumbMenuConfig);
         $this->menuDirector->buildBreadcrumbMenu();
-        $this->data['breadcrumbItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Accessibility menu
         $this->menuBuilder->setConfig($accessibilityMenuConfig);
         $this->menuDirector->buildAccessibilityMenu();
-        $this->data['accessibilityItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['accessibilityMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mobile/secondary-menu
         $this->menuBuilder->setConfig($mobileMenuConfig);
@@ -287,7 +289,7 @@ class BaseController
         // Mobile secondary menu
         $this->menuBuilder->setConfig($mobileMenuSecondaryConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['mobileMenuSecondaryItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['mobileSecondaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Primary menu
         $this->menuBuilder->setConfig($primaryMenuConfig);
@@ -301,7 +303,7 @@ class BaseController
         $megaMenuConfig->getFallbackToPageTree() ? 
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
-        $this->data['megaMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
@@ -441,7 +443,7 @@ class BaseController
 
                 $this->menuBuilder->setConfig($menuConfig);
                 $this->menuDirector->buildStandardMenu();
-                $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenu()['items'];
+                $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenu();
             }
         }
         

@@ -1,7 +1,7 @@
-@if (!empty($megaMenuItems))
+@if (!empty($megaMenu['items']))
     @megaMenu([
         'id' => 'menu-mega',
-        'menuItems' => $megaMenuItems,
+        'menuItems' => $megaMenu['items'],
         'showSearch' => $showMegaMenuSearch,
         'mobile' => $customizer->megaMenuMobile,
         'attributeList' => [

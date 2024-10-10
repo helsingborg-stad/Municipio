@@ -28,7 +28,7 @@
             @endlink
 
             {{-- Tab menu items --}}
-            @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+            @includeWhen(!empty($tabMenu['items']), 'partials.navigation.tabs')
 
             {{-- Siteselector menu items --}}
             @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
@@ -40,7 +40,7 @@
             @includeIf('user.account')
             
             {{-- Language selector --}}
-            @if (!empty($languageMenuItems))
+            @if (!empty($languageMenu['items']))
                 <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
                     @includeIf('partials.navigation.trigger.language')
                     @includeIf('partials.navigation.language')

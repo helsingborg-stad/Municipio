@@ -19,7 +19,7 @@
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
-        'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
+        'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),
         's-drawer-menu'
     ],
     'label' => $lang->close,
@@ -34,7 +34,7 @@
             )
     @endslot
 
-    @if (!empty($mobileMenu['items'])||!empty($mobileMenuSecondaryItems)) 
+    @if (!empty($mobileMenu['items'])||!empty($mobileSecondaryMenu['items'])) 
     @slot('menu')
         @includeIf(
             'partials.navigation.mobile', 
@@ -59,7 +59,7 @@
                         's-nav-drawer',
                         's-nav-drawer-secondary'
                     ],
-                    'items' => $mobileMenuSecondaryItems,
+                    'items' => $mobileSecondaryMenu['items'],
                     'direction' => 'vertical',
                     'includeToggle' => true,
                     'height' => 'sm',
