@@ -24,6 +24,7 @@ class MapMenuItemsIsAncestor implements MenuInterface
 
         foreach ($menu['items'] as &$menuItem) {
             if (!isset($menuItem['id']) || empty($ancestors)) {
+                $menuItem['ancestor'] = false;
                 continue;
             }
     
