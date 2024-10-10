@@ -47,7 +47,24 @@
                         's-nav-drawer-primary'
                     ]
                 ]
-            )  
+            )
+
+            @if (!empty($additionalMenusOption[$mobileMenu['name']]))
+                @foreach ($additionalMenusOption[$mobileMenu['name']] as $additionalMenuId)
+                    @if (isset($additionalMenus[$additionalMenuId]))
+                        @include('partials.navigation.mobile',
+                            [
+                                'mobileMenu' => $additionalMenus[$additionalMenuId],
+                                'classList' => [
+                                    'c-nav--drawer',
+                                    'site-nav-mobile__primary',
+                                    's-nav-drawer',
+                                    's-nav-drawer-primary'
+                                ]
+                            ])
+                    @endif
+                @endforeach
+            @endif
 
                 {{-- No ajax in wp-menus, thus not in its own file --}}
 

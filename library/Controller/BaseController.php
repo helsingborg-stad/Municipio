@@ -215,6 +215,8 @@ class BaseController
         );
 
         $this->menuDirector->setBuilder($this->menuBuilder);
+
+        $this->data['additionalMenusOption'] = $this->wpService->getOption('nav_menu_additional_items', []);
         $this->data['additionalMenus'] = $this->buildAdditionalMenus();
 
         // Sidebar menu
@@ -424,8 +426,12 @@ class BaseController
     private function buildAdditionalMenus(): array
     {
         $additionalMenus = [];
-        $additionalMenusOption = $this->wpService->getOption('nav_menu_additional_items', []);
+        $additionalMenusOption = $this->data['additionalMenusOption'];
 
+        if (empty($additionalMenusOption)) {
+            return $additionalMenus;
+        }
+        
         foreach ($additionalMenusOption as $additionalMenuIds) {
             if (empty($additionalMenuIds)) {
                 continue;
