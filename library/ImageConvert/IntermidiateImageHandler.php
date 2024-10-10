@@ -68,7 +68,12 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        $sourceFilePath       = $image->getPath();
+        $sourceFilePath = $image->getPath();
+
+        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
+            return false;
+        }
+
         $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
@@ -78,11 +83,6 @@ class IntermidiateImageHandler implements Hookable
             $targetFormatMime     = mime_content_type($image->getPath());
             $suffix               = pathinfo($image->getPath(), PATHINFO_EXTENSION);
             $intermediateLocation = $image->getIntermidiateLocation($suffix);
-        }
-
-        // Check if the source file exists.
-        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
-            return false;
         }
 
         $imageEditor = $this->wpService->wpGetImageEditor($sourceFilePath);
