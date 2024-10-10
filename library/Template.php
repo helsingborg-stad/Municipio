@@ -7,6 +7,8 @@ use AcfService\AcfService;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\Controller\Navigation\MenuBuilderInterface;
+use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
@@ -16,6 +18,8 @@ class Template
     private ?array $viewPaths                   = null;
 
     public function __construct(
+        private MenuBuilderInterface $menuBuilder,
+        private MenuDirector $menuDirector,
         private AcfService $acfService,
         private WpService $wpService,
         private SchemaDataConfigInterface $schemaDataConfig
@@ -243,7 +247,7 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $c['controllerClass']($this->wpService, $this->acfService);
+        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService);
     }
     /**
      * @param $view
