@@ -220,22 +220,22 @@ class BaseController
         // Sidebar menu
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
         $this->menuDirector->buildStandardMenu();
-        $secondaryMenuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
 
-        if (empty($secondaryMenuItems)) {
+        if (empty($secondaryMenu['items'])) {
             $this->menuBuilder->setConfig($secondaryMenuConfig);
             $secondaryMenuConfig->getFallbackToPageTree() ? 
                 $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
                 $this->menuDirector->buildStandardMenu();
-            $secondaryMenuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
+            $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
         }
         
-        $this->data['secondaryMenuItems'] = $secondaryMenuItems;
+        $this->data['secondaryMenu'] = $secondaryMenu;
 
         // Site selector menu
         $this->menuBuilder->setConfig($siteselectorMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['siteselectorMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['siteselectorMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Language menu
         $this->menuBuilder->setConfig($languageMenuConfig);
@@ -294,7 +294,7 @@ class BaseController
         $primaryMenuConfig->getFallbackToPageTree() ? 
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
-        $this->data['primaryMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mega menu
         $this->menuBuilder->setConfig($megaMenuConfig);
@@ -681,7 +681,7 @@ class BaseController
       */
     protected function hasSideMenu()
     {
-        if (!empty($this->data['secondaryMenuItems']) && $this->data['pageTemplate'] !== 'one-page.blade.php') {
+        if (!empty($this->data['secondaryMenu']['items']) && $this->data['pageTemplate'] !== 'one-page.blade.php') {
             return true;
         }
         return false;
@@ -692,7 +692,7 @@ class BaseController
       */
     protected function hasMainMenu()
     {
-        if (!empty($this->data['primaryMenuItems'])) {
+        if (!empty($this->data['primaryMenu']['items'])) {
             return true;
         }
         return false;

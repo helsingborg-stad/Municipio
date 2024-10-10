@@ -1,1 +1,1 @@
-@includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
+@includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')

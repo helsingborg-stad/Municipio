@@ -30,7 +30,7 @@
 
             {{-- Primary menu --}}
             @includeWhen(
-                !empty($primaryMenuItems), 
+                !empty($primaryMenu['items']), 
                 'partials.navigation.primary', 
                 [
                     'context' => [
@@ -44,7 +44,7 @@
             )
 
             {{-- Siteselector menu items --}}
-            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
+            @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
 
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')

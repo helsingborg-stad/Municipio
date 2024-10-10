@@ -31,7 +31,7 @@
             @includeWhen($tabMenuItems, 'partials.navigation.tabs')
 
             {{-- Siteselector menu items --}}
-            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
+            @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
@@ -78,7 +78,7 @@
 
 @section('secondary-navigation')
     {{-- Primary menu --}}
-    @if (!empty($primaryMenuItems))
+    @if (!empty($primaryMenu['items']))
         <div class="c-header__menu c-header__menu--secondary u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
             <div class="o-container">
                 @includeIf(
