@@ -1,4 +1,4 @@
-@if (!empty($quicklinksMenuItems) && !empty($quicklinksPlacement) && $quicklinksPlacement === 'after_first_block')
+@if (!empty($quicklinksMenu['items']) && !empty($quicklinksPlacement) && $quicklinksPlacement === 'after_first_block')
     @if (($customizer->quicklinksLocation == 'frontpage' && !empty($isFrontPage)) || $customizer->quicklinksLocation == 'everywhere')
         @header([
             'id' => 'quicklinks-header',
@@ -10,7 +10,7 @@
                     <nav aria-label="{{ $lang->quicklinksNavigation }}">
                         @nav([
                             'id' => 'menu-quicklinks',
-                            'items' => $quicklinksMenuItems,
+                            'items' => $quicklinksMenu['items'],
                             'direction' => 'horizontal',
                             'classList' => ['u-flex-wrap@sm', 'u-flex-wrap@xs'],
                             'context' => ['site.quicklinks.nav'],

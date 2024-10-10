@@ -1,4 +1,4 @@
-@if (!empty($primaryMenuItems))
+@if (!empty($primaryMenu['items']))
     @include(
         'partials.navigation.primary', 
         [

@@ -1,7 +1,7 @@
 <nav aria-label="{{ $lang->quicklinksNavigation }}">
     @nav([
         'id' => 'menu-quicklinks',
-        'items' => $quicklinksMenuItems,
+        'items' => $quicklinksMenu['items'],
         'direction' => 'horizontal',
         'classList' => ['u-flex-wrap@sm', 'u-flex-wrap@xs'],
         'context' => ['site.quicklinks.nav'],

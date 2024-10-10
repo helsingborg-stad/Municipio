@@ -25,10 +25,10 @@
         ])
 
         @if ($customizer->secondaryNavigationPosition == 'left')
-            @if ($secondaryMenuItems)
+            @if (!empty($secondaryMenu['items']))
                 <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
                     @paper()
-                        @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+                        @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenu['items']])
                     @endpaper
                 </div>
             @endif
@@ -63,10 +63,10 @@
 @section('sidebar-right')
 @if ($showSidebars)
     @if ($customizer->secondaryNavigationPosition == 'right')
-        @if ($secondaryMenuItems)
+        @if (!empty($secondaryMenu['items']))
             <div class="u-margin__bottom--4 u-display--none@xs u-display--none@sm u-display--none@md">
                 @paper()
-                    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenuItems])
+                    @includeIf('partials.navigation.sidebar', ['menuItems' => $secondaryMenu['items']])
                 @endpaper
             </div>
         @endif

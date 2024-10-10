@@ -1,7 +1,7 @@
-@if($tabMenuItems)
+@if(!empty($tabMenu['items']))
     @nav([
         'id' => 'tabs',
-        'items' => $tabMenuItems,
+        'items' => $tabMenu['items'],
         'direction' => 'horizontal',
         'includeToggle' => false,
         'allowStyle' => true,

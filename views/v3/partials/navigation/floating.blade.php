@@ -1,15 +1,15 @@
 
-@if(count($floatingMenuItems) == 1)
+@if(count($floatingMenu['items']) == 1)
     <!-- Single link item -->
     @button([
         'id' => 'fab-item',
         'classList' => ['u-fixed--bottom-right', 'u-margin--2'],
-        'icon' => !empty($floatingMenuItems[0]['icon']['icon']) ? $floatingMenuItems[0]['icon']['icon'] : $floatingMenuLabels->buttonIcon,
+        'icon' => !empty($floatingMenu['items'][0]['icon']['icon']) ? $floatingMenu['items'][0]['icon']['icon'] : $floatingMenuLabels->buttonIcon,
         'size' => 'md',
         'color' => 'primary',
-        'text' => $floatingMenuItems[0]['label'] ? $floatingMenuItems[0]['label'] : $floatingMenuLabels->buttonLabel,
+        'text' => $floatingMenu['items'][0]['label'] ? $floatingMenu['items'][0]['label'] : $floatingMenuLabels->buttonLabel,
         'reversePositions' => true,
-        'href' => $floatingMenuItems[0]['href']
+        'href' => $floatingMenu['items'][0]['href']
     ])
     @endbutton
 @else
@@ -31,7 +31,7 @@
     ])
         @nav([
             'id' => 'menu-floating',
-            'items' => $floatingMenuItems,
+            'items' => $floatingMenu['items'],
             'direction' => 'vertical',
             'includeToggle' => false,
             'classList' => ['s-nav-floating'],

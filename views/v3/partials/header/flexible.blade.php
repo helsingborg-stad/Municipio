@@ -54,7 +54,7 @@
         @endheader
     @endif
 
-    @if(!empty($megaMenuItems) && $headerData['hasMegaMenu'])
+    @if(!empty($megaMenu['items']) && $headerData['hasMegaMenu'])
         @include('partials.navigation.megamenu')
     @endif
     @if ($headerData['hasSearch'])
