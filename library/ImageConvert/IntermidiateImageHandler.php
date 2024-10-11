@@ -10,6 +10,7 @@ use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
 use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\WpUploadDir;
+use WpService\Contracts\WpGetAttachmentMetadata;
 
 class IntermidiateImageHandler implements Hookable
 {
@@ -154,7 +155,7 @@ class IntermidiateImageHandler implements Hookable
      */
     private function getSourceFileSize($attachmentId, $sourceFilePath): int|false
     {
-        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, '_size', true);
+        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, 'filesize');
         if ($size) {
             return intval($size);
         }
@@ -170,11 +171,56 @@ class IntermidiateImageHandler implements Hookable
      */
     private function getSourceFileMime($attachmentId, $sourceFilePath): string
     {
-        $mime = $this->wpService->wpGetAttachmentMetadata($attachmentId, '_wp_attachment_mime', true);
+        $mime = $this->getAttachmentMetaData($attachmentId, 'mime-type');
         if ($mime) {
             return $mime;
         }
         return mime_content_type($sourceFilePath);
+    }
+
+    /**
+     * Get the value of a meta key from the metadata of an attachment.
+     *
+     * @param int $attachmentId The attachment ID.
+     * @param string $metaKey The meta key to search for.
+     *
+     * @return mixed The value of the meta key, or false if the key was not found.
+     */
+    private function getAttachmentMetaData($attachmentId, $metaKey): mixed
+    {
+        $metaData = $this->wpService->wpGetAttachmentMetadata($attachmentId);
+        if($metaData !== false) {
+            if($result = $this->searchKeyRecursively($metaKey, $metaData)) {
+                return $result;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Search for a key in a multidimensional array recursively.
+     *
+     * @param string $metaKey The key to search for.
+     * @param array $metaData The array to search in.
+     *
+     * @return mixed|null The value of the key if found, otherwise null.
+     */
+    private function searchKeyRecursively($metaKey, $metaData) {
+        if (array_key_exists($metaKey, $metaData)) {
+            return $metaData[$metaKey];
+        }
+
+        foreach ($metaData as $key => $value) {
+            // If the value is an array, search recursively
+            if (is_array($value)) {
+                $result = $this->searchKeyRecursively($metaKey, $value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
