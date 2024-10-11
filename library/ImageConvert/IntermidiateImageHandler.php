@@ -13,7 +13,7 @@ use WpService\Contracts\WpUploadDir;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -68,9 +68,9 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        $sourceFilePath = $image->getPath();
-
-        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
+        if (!$this->canConvertImage($image, $this->config)) {
+            $this->imageConversionError('Image conversion is not possible from the source file. 
+            The image may not exist, be too large or lacking the relevant metadata', $image);
             return false;
         }
 
@@ -78,14 +78,18 @@ class IntermidiateImageHandler implements Hookable
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
+        // If the server can't convert between formats, 
+        // we need to create an intermediate image in the same 
+        // format as the source image.
         if ($this->config->canConvertBetweenFormats() === false) {
-            // TODO: Investigate if we can avoid this file read for every image.
-            $targetFormatMime     = mime_content_type($image->getPath());
+            $targetFormatMime     = $this->getSourceFileMime($image->getId(), $image->getPath());
             $suffix               = pathinfo($image->getPath(), PATHINFO_EXTENSION);
             $intermediateLocation = $image->getIntermidiateLocation($suffix);
         }
 
-        $imageEditor = $this->wpService->wpGetImageEditor($sourceFilePath);
+        $imageEditor = $this->wpService->wpGetImageEditor(
+            $image->getPath()
+        );
 
         if (!$this->wpService->isWpError($imageEditor)) {
             //Make the resize
@@ -113,6 +117,64 @@ class IntermidiateImageHandler implements Hookable
         }
 
         return false;
+    }
+
+    private function canConvertImage(ImageContract $image, ImageConvertConfig $config): bool
+    {
+        //Get image details
+        $sourceFilePath = $image->getPath();
+        $sourceFileId   = $image->getId();
+
+        // The Source file must exist
+        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
+            return false;
+        }
+
+        // The image must exist in database, and be a image
+        if(!wp_attachment_is('image', $sourceFileId)) {
+            return false;
+        }
+
+        //Get attachment filesize, if exceeds max size, return false
+        $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
+        if(!$sourceFileSize || ($sourceFileSize > $config->maxSourceFileSize())) {
+            return false;
+        }
+      
+        return true;
+    }
+
+    /**
+     * Get the size of an attachment from its metadata, with a fallback to the filesystem.
+     *
+     * @param int $attachmentId The attachment ID.
+     * @param string $sourceFilePath The path to the source file.
+     * 
+     * @return int|false The size of the attachment in bytes, or false if the file does not exist. With a warning.
+     */
+    private function getSourceFileSize($attachmentId, $sourceFilePath): int|false
+    {
+        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, '_size', true);
+        if ($size) {
+            return intval($size);
+        }
+        return filesize($sourceFilePath);
+    }
+
+    /**
+     * Get the MIME type of an attachment from its metadata.
+     *
+     * @param int $attachmentId The attachment ID.
+     * 
+     * @return string The MIME type of the attachment.
+     */
+    private function getSourceFileMime($attachmentId, $sourceFilePath): string
+    {
+        $mime = $this->wpService->wpGetAttachmentMetadata($attachmentId, '_wp_attachment_mime', true);
+        if ($mime) {
+            return $mime;
+        }
+        return mime_content_type($sourceFilePath);
     }
 
     /**
