@@ -152,6 +152,9 @@ class Editor
         $color = get_field('color_scheme', 'option');
 
         if ($color) {
+            if (!isset($settings['body_class'])) {
+                $settings['body_class'] = '';
+            }
             $settings['body_class'] .= ' theme-' . $color;
         }
 
