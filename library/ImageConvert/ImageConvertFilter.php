@@ -53,6 +53,13 @@ class ImageConvertFilter implements Hookable
             10,
             2
         );
+
+      //Max upload image size
+        $this->wpService->addFilter(
+            'wp_handle_upload_prefilter',
+            [$this, 'setMaxUploadImageSize'],
+            10
+        );
     }
 
   /**
@@ -105,5 +112,22 @@ class ImageConvertFilter implements Hookable
     public function setImageQuality($quality, $mimeType): int
     {
         return $this->config->intermidiateImageQuality();
+    }
+
+    /**
+     * Set max upload image size.
+     *
+     * @param array $file
+     *
+     * @return array
+     */
+    public function setMaxUploadImageSize($file): array
+    {
+        $limit    = $this->config->maxSourceFileSize();
+        $is_image = strpos($file['type'], 'image') !== false;
+        if ($is_image && $file['size'] > $limit) {
+            $file['error'] = "Image files must be smaller than {$limit}kb";
+        }
+        return $file;
     }
 }
