@@ -15375,11 +15375,11 @@ msgctxt "Default title for related posts, %s being the name of the post type."
 msgid "More %s"
 msgstr "Fler %s"
 
-#: Content/ResourceFromApi/ResourcePostType.php:46
+#: Content/ResourceFromApi/ResourcePostType.php:54
 msgid "API Resources"
 msgstr "API-resurser"
 
-#: Content/ResourceFromApi/ResourcePostType.php:48
+#: Content/ResourceFromApi/ResourcePostType.php:56
 msgid "API Resource"
 msgstr "API-resurs"
 
@@ -16559,6 +16559,11 @@ msgstr "Vertikal"
 msgid "Content alignment"
 msgstr "Innehållsjustering"
 
+#: Controller/Archive.php:700
+#, fuzzy
+msgid "Title"
+msgstr "Rubrik"
+
 #: Customizer/Sections/General.php:14
 msgid "Secondary navigation position"
 msgstr "Positionering av sekundärmeny"
@@ -17526,6 +17531,7 @@ msgstr "Boka här"
 msgid "Updated"
 msgstr "Uppdaterad"
 
+#: Controller/Archive.php:700
 #: Helper/TranslatedLabels.php:65
 #: Helper/TranslatedLabels.php:76
 msgid "Published"
