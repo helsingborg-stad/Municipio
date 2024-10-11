@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_653a509450198',
     'title' => __('Api-resursfält', 'municipio'),
     'fields' => array(
@@ -56,22 +58,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => array(
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,post,posts' => __('post: https://skolor.helsingborg.io/wp-json/wp/v2/posts', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,page,pages' => __('page: https://skolor.helsingborg.io/wp-json/wp/v2/pages', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,attachment,media' => __('attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,nav_menu_item,menu-items' => __('nav_menu_item: https://skolor.helsingborg.io/wp-json/wp/v2/menu-items', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_block,blocks' => __('wp_block: https://skolor.helsingborg.io/wp-json/wp/v2/blocks', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_template,templates' => __('wp_template: https://skolor.helsingborg.io/wp-json/wp/v2/templates', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_template_part,template-parts' => __('wp_template_part: https://skolor.helsingborg.io/wp-json/wp/v2/template-parts', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_navigation,navigation' => __('wp_navigation: https://skolor.helsingborg.io/wp-json/wp/v2/navigation', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_font_family,font-families' => __('wp_font_family: https://skolor.helsingborg.io/wp-json/wp/v2/font-families', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_font_face,font-families/(?P<font_family_id>[\\d]+)/font-faces' => __('wp_font_face: https://skolor.helsingborg.io/wp-json/wp/v2/font-families/(?P<font_family_id>[\\d]+)/font-faces', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,pre-school,pre-school' => __('pre-school: https://skolor.helsingborg.io/wp-json/wp/v2/pre-school', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,elementary-school,elementary-school' => __('elementary-school: https://skolor.helsingborg.io/wp-json/wp/v2/elementary-school', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,person,person' => __('person: https://skolor.helsingborg.io/wp-json/wp/v2/person', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,modal-content,modal-content' => __('modal-content: https://skolor.helsingborg.io/wp-json/wp/v2/modal-content', 'municipio'),
-            ),
+            'choices' => array(),
             'default_value' => false,
             'return_format' => 'value',
             'multiple' => 0,
@@ -104,15 +91,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => array(
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,category,categories' => __('category: https://skolor.helsingborg.io/wp-json/wp/v2/categories', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,post_tag,tags' => __('post_tag: https://skolor.helsingborg.io/wp-json/wp/v2/tags', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,nav_menu,menus' => __('nav_menu: https://skolor.helsingborg.io/wp-json/wp/v2/menus', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,wp_pattern_category,wp_pattern_category' => __('wp_pattern_category: https://skolor.helsingborg.io/wp-json/wp/v2/wp_pattern_category', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,area,area' => __('area: https://skolor.helsingborg.io/wp-json/wp/v2/area', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,usp,usp' => __('usp: https://skolor.helsingborg.io/wp-json/wp/v2/usp', 'municipio'),
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,grade,grade' => __('grade: https://skolor.helsingborg.io/wp-json/wp/v2/grade', 'municipio'),
-            ),
+            'choices' => array(),
             'default_value' => false,
             'return_format' => 'value',
             'multiple' => 0,
@@ -145,9 +124,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => array(
-                'https://skolor.helsingborg.io/wp-json/wp/v2/,attachment,media' => __('attachment: https://skolor.helsingborg.io/wp-json/wp/v2/media', 'municipio'),
-            ),
+            'choices' => array(),
             'default_value' => false,
             'return_format' => 'value',
             'multiple' => 0,
@@ -1248,4 +1225,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
