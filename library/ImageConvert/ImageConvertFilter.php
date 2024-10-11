@@ -58,7 +58,7 @@ class ImageConvertFilter implements Hookable
         $this->wpService->addFilter(
             'wp_handle_upload_prefilter',
             [$this, 'setMaxUploadImageSize'],
-            10
+            5
         );
     }
 
