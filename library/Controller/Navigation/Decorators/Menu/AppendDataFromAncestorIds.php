@@ -18,7 +18,10 @@ class AppendDataFromAncestorIds implements MenuInterface
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
-        $menu['items'] = GetPostsByParent::getPostsByParent($menu['items'], [$this->masterPostType, $this->wpService->getPostType()]);
+
+        $postType = is_int($this->getConfig()->getFallbackToPageTree()) ? $this->wpService->getPostType($this->getConfig()->getFallbackToPageTree()) : $this->wpService->getPostType();
+
+        $menu['items'] = GetPostsByParent::getPostsByParent($menu['items'], [!empty($postType) ? $postType : $this->masterPostType]);
 
         return $menu;
     }
