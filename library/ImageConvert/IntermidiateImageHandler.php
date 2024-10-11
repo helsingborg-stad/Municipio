@@ -78,8 +78,8 @@ class IntermidiateImageHandler implements Hookable
         $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
         $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
 
-        // If the server can't convert between formats, 
-        // we need to create an intermediate image in the same 
+        // If the server can't convert between formats,
+        // we need to create an intermediate image in the same
         // format as the source image.
         if ($this->config->canConvertBetweenFormats() === false) {
             $targetFormatMime     = $this->getSourceFileMime($image->getId(), $image->getPath());
@@ -131,16 +131,16 @@ class IntermidiateImageHandler implements Hookable
         }
 
         // The image must exist in database, and be a image
-        if(!wp_attachment_is('image', $sourceFileId)) {
+        if (!wp_attachment_is('image', $sourceFileId)) {
             return false;
         }
 
         //Get attachment filesize, if exceeds max size, return false
         $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
-        if(!$sourceFileSize || ($sourceFileSize > $config->maxSourceFileSize())) {
+        if (!$sourceFileSize || ($sourceFileSize > $config->maxSourceFileSize())) {
             return false;
         }
-      
+
         return true;
     }
 
@@ -149,7 +149,7 @@ class IntermidiateImageHandler implements Hookable
      *
      * @param int $attachmentId The attachment ID.
      * @param string $sourceFilePath The path to the source file.
-     * 
+     *
      * @return int|false The size of the attachment in bytes, or false if the file does not exist. With a warning.
      */
     private function getSourceFileSize($attachmentId, $sourceFilePath): int|false
@@ -165,7 +165,7 @@ class IntermidiateImageHandler implements Hookable
      * Get the MIME type of an attachment from its metadata.
      *
      * @param int $attachmentId The attachment ID.
-     * 
+     *
      * @return string The MIME type of the attachment.
      */
     private function getSourceFileMime($attachmentId, $sourceFilePath): string
