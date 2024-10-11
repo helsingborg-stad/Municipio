@@ -3,10 +3,11 @@
 namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 use Municipio\ImageConvert\Contract\ImageContract;
+use WpService\Contracts\WpUpdateAttachmentMetadata;
 
 class ResolveMissingImageSizeByFile implements ResolveMissingImageSizeInterface
 {
-    public function __construct(private $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
+    public function __construct(private WpUpdateAttachmentMetadata $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
     {
         $this->inner = $inner ?? new ResolveMissingImageSizeDefault();
     }
@@ -23,7 +24,7 @@ class ResolveMissingImageSizeByFile implements ResolveMissingImageSizeInterface
                 $size = ['width' => $fetchedImage[0], 'height' => $fetchedImage[1]];
 
                 if ($this->isSizeSufficient($size)) {
-                    $this->wpService->updateAttachmentMetadata(
+                    $this->wpService->wpUpdateAttachmentMetadata(
                         $image->getId(),
                         $size
                     );
