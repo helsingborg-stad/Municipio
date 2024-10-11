@@ -18,9 +18,35 @@ class MenusSettings
     {
         $fields = get_fields(wp_get_nav_menu_object($menuId));
         $this->menusSettings = get_option(self::MENU_SETTINGS_KEY) ?: [];
+        
         $this->updateAdditionalMenuItems($menuId, $fields);
+        $this->updateMenuColors($menuId, $fields);
 
         update_option(self::MENU_SETTINGS_KEY, $this->menusSettings);
+    }
+
+    private function updateMenuColors($menuId, $fields): void
+    {
+        
+    }
+
+    private function updateAdditionalMenuItems($menuId, $fields): void
+    {
+        $additionalMenus = $this->menusSettings[self::ADDITIONAL_MENUS_KEY] ?? [];
+
+        if (empty($fields['menu_location'])) {
+            return;
+        }
+
+        foreach ($fields['menu_location'] as $showOnLocation) {
+            if (!isset($additionalMenus[$showOnLocation]) || !is_array($additionalMenus[$showOnLocation])) {
+                $additionalMenus[$showOnLocation] = [];
+            }
+
+            $additionalMenus[$showOnLocation][$menuId] = $menuId;
+        }
+
+        $this->menusSettings[self::ADDITIONAL_MENUS_KEY] = $additionalMenus;
     }
 
     public function addMenuLocationField($field)
@@ -39,24 +65,5 @@ class MenusSettings
         }
 
         return $field;
-    }
-
-    public function updateAdditionalMenuItems($menuId, $fields): void
-    {
-        $additionalMenus = $this->menusSettings[self::ADDITIONAL_MENUS_KEY] ?? [];
-
-        if (empty($fields['menu_location'])) {
-            return;
-        }
-
-        foreach ($fields['menu_location'] as $showOnLocation) {
-            if (!isset($additionalMenus[$showOnLocation]) || !is_array($additionalMenus[$showOnLocation])) {
-                $additionalMenus[$showOnLocation] = [];
-            }
-
-            $additionalMenus[$showOnLocation][$menuId] = $menuId;
-        }
-
-        $this->menusSettings[self::ADDITIONAL_MENUS_KEY] = $additionalMenus;
     }
 }
