@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-01T07:57:37+00:00\n"
+"POT-Creation-Date: 2024-10-11T06:09:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -556,7 +556,7 @@ msgstr ""
 
 #: AcfFields/php/options-menu-floating.php:8
 #: AcfFields/php/options-theme-google-translate.php:61
-#: Theme/Navigation.php:33
+#: Theme/Navigation.php:38
 msgid "Floating menu"
 msgstr ""
 
@@ -4853,7 +4853,7 @@ msgstr ""
 #: Customizer/PanelsRegistry.php:435
 #: Customizer/Sections/Search.php:138
 #: Helper/TranslatedLabels.php:49
-#: Theme/Navigation.php:31
+#: Theme/Navigation.php:36
 msgid "Mega menu"
 msgstr ""
 
@@ -5811,49 +5811,49 @@ msgid "Menu to show translate link in"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:55
-#: Theme/Navigation.php:27
+#: Theme/Navigation.php:32
 msgid "Help menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:56
-#: Theme/Navigation.php:28
+#: Theme/Navigation.php:33
 msgid "Header tabs menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:57
-#: Theme/Navigation.php:29
+#: Theme/Navigation.php:34
 msgid "Primary menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:58
-#: Theme/Navigation.php:30
+#: Theme/Navigation.php:35
 msgid "Secondary menu & drawer menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:60
-#: Theme/Navigation.php:32
+#: Theme/Navigation.php:37
 msgid "Dropdown menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:62
-#: Theme/Navigation.php:34
+#: Theme/Navigation.php:39
 msgid "Language menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:63
 #: Customizer/PanelsRegistry.php:441
 #: Customizer/Sections/Search.php:139
-#: Theme/Navigation.php:35
+#: Theme/Navigation.php:40
 msgid "Quicklinks menu"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:64
-#: Theme/Navigation.php:36
+#: Theme/Navigation.php:41
 msgid "Drawer (bottom)"
 msgstr ""
 
 #: AcfFields/php/options-theme-google-translate.php:65
-#: Theme/Navigation.php:37
+#: Theme/Navigation.php:42
 msgid "Siteselector"
 msgstr ""
 
@@ -15338,7 +15338,7 @@ msgstr ""
 msgid "View data."
 msgstr ""
 
-#: App.php:635
+#: App.php:643
 msgid "Never"
 msgstr ""
 
@@ -15446,8 +15446,18 @@ msgstr ""
 msgid "API Resource"
 msgstr ""
 
-#: Controller/Archive.php:474
+#: Controller/Archive.php:503
 msgid "Select"
+msgstr ""
+
+#: Controller/Archive.php:700
+msgid "Title"
+msgstr ""
+
+#: Controller/Archive.php:700
+#: Helper/TranslatedLabels.php:65
+#: Helper/TranslatedLabels.php:76
+msgid "Published"
 msgstr ""
 
 #: Controller/BaseController.php:219
@@ -15513,7 +15523,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Controller/SingularJobPosting.php:23
-#: Controller/SingularProject.php:71
+#: Controller/SingularProject.php:70
 msgid "Contact"
 msgstr ""
 
@@ -15542,7 +15552,6 @@ msgid "Apply"
 msgstr ""
 
 #: Controller/SingularJobPosting.php:30
-#: Controller/SingularProject.php:66
 #: Theme/Icon.php:72
 msgid "Information"
 msgstr ""
@@ -15564,23 +15573,23 @@ msgstr ""
 msgid "Visit website"
 msgstr ""
 
-#: Controller/SingularProject.php:67
+#: Controller/SingularProject.php:66
 msgid "Status"
 msgstr ""
 
-#: Controller/SingularProject.php:68
+#: Controller/SingularProject.php:67
 msgid "Department"
 msgstr ""
 
+#: Controller/SingularProject.php:68
+msgid "Transition"
+msgstr ""
+
 #: Controller/SingularProject.php:69
-msgid "Category"
+msgid "Categories"
 msgstr ""
 
-#: Controller/SingularProject.php:70
-msgid "Technologies"
-msgstr ""
-
-#: Controller/SingularProject.php:72
+#: Controller/SingularProject.php:71
 msgid "Estimated budget"
 msgstr ""
 
@@ -17386,11 +17395,11 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: ExternalContent/UI/PageRowActionsSyncButton.php:66
+#: ExternalContent/UI/PageRowActionsSyncButton.php:68
 msgid "Sync this post from remote source"
 msgstr ""
 
-#: ExternalContent/UI/PostTableSyncButton.php:56
+#: ExternalContent/UI/PostTableSyncButton.php:58
 msgid "Sync all posts from remote source"
 msgstr ""
 
@@ -17409,7 +17418,7 @@ msgstr ""
 msgid "Untitled page"
 msgstr ""
 
-#: Helper/Post.php:200
+#: Helper/Post.php:202
 msgid "Item is missing content"
 msgstr ""
 
@@ -17570,11 +17579,6 @@ msgstr ""
 #: Helper/TranslatedLabels.php:64
 #: Helper/TranslatedLabels.php:77
 msgid "Updated"
-msgstr ""
-
-#: Helper/TranslatedLabels.php:65
-#: Helper/TranslatedLabels.php:76
-msgid "Published"
 msgstr ""
 
 #: Helper/TranslatedLabels.php:66
@@ -18023,15 +18027,15 @@ msgstr ""
 msgid "Undefined"
 msgstr ""
 
-#: Theme/Navigation.php:113
+#: Theme/Navigation.php:121
 msgid "(above archive posts)"
 msgstr ""
 
-#: Theme/Navigation.php:120
+#: Theme/Navigation.php:128
 msgid "(sidebar)"
 msgstr ""
 
-#: Theme/Navigation.php:143
+#: Theme/Navigation.php:151
 msgid "Content type - %s (sidebar)"
 msgstr ""
 

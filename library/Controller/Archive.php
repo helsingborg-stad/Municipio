@@ -697,7 +697,7 @@ class Archive extends \Municipio\Controller\BaseController
         $dateFormat    = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
             'items'    => [],
-            'headings' => ['Title', 'Published']
+            'headings' => [__('Title', 'municipio'), __('Published', 'municipio')]
         ];
 
         if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
@@ -710,7 +710,7 @@ class Archive extends \Municipio\Controller\BaseController
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
                 $post     = \Municipio\Helper\Post::preparePostObject($post);
-                $postDate = \date($dateFormat, strtotime($post->postDate));
+                $postDate = wp_date($dateFormat, strtotime($post->postDate));
 
                 $preparedPosts['items'][] =
                     [
@@ -722,7 +722,7 @@ class Archive extends \Municipio\Controller\BaseController
                         ]
                     ];
 
-                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
+                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts, $dateFormat);
             }
         }
 
@@ -734,9 +734,10 @@ class Archive extends \Municipio\Controller\BaseController
      *
      * @param object $post The post object.
      * @param array $preparedPosts The array of prepared posts.
+     * @param string $dateFormat The date format.
      * @return array The array of prepared posts with taxonomy columns.
      */
-    private function prepareTaxonomyColumns($post, $preparedPosts)
+    private function prepareTaxonomyColumns($post, $preparedPosts, string $dateFormat)
     {
         if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
             foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
@@ -748,7 +749,7 @@ class Archive extends \Municipio\Controller\BaseController
                 }
 
                 $termNames = array_map(fn($term) => $term->name, $terms);
-                $termNames = $this->formatTermNames($termNames);
+                $termNames = $this->formatTermNames($termNames, $dateFormat);
 
                 $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
             }
@@ -763,14 +764,14 @@ class Archive extends \Municipio\Controller\BaseController
      * @param array $termNames The term names to format.
      * @return array The formatted term names.
      */
-    private function formatTermNames(array $termNames): array
+    private function formatTermNames(array $termNames, string $dateFormat): array
     {
         return array_map(
-            function ($term) {
+            function ($term) use ($dateFormat) {
                 $date = strtotime(str_replace(',', '', $term));
 
                 return $date !== false
-                    ? wp_date(get_option('date_format'), strtotime($term))
+                    ? wp_date($dateFormat, strtotime($term))
                     : $term;
             },
             $termNames
