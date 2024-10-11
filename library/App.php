@@ -296,7 +296,7 @@ class App
          */
         $this->setupImageConvert();
 
-        new \Municipio\Helper\Navigation\AdditionalMenu();
+        new \Municipio\Helper\Navigation\MenusSettings();
     }
 
     /**
