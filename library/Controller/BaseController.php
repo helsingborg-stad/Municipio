@@ -431,28 +431,29 @@ class BaseController
         if (empty($additionalMenusOption)) {
             return $additionalMenus;
         }
-        
-        foreach ($additionalMenusOption as $additionalMenuIds) {
+
+        foreach ($additionalMenusOption as $key => $additionalMenuIds) {
             if (empty($additionalMenuIds)) {
                 continue;
             }
-
+            
+            
             foreach ($additionalMenuIds as $menuId) {
                 if (empty($menuId) || !is_numeric($menuId) || array_key_exists($menuId, $additionalMenus)) {
                     continue;
                 }
 
                 $menuConfig = new MenuConfig(
-                    $menuId,
+                    'additional-menu',
                     (int) $menuId
                 );
 
                 $this->menuBuilder->setConfig($menuConfig);
-                $this->menuDirector->buildStandardMenu();
+                $this->menuDirector->buildStandardMenuWithPageTreeSubitems();
                 $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenu();
             }
         }
-        
+
         return $additionalMenus;
     }
 

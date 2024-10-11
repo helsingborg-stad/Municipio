@@ -16,6 +16,7 @@ use Municipio\Controller\Navigation\Decorators\Menu\AppendMenuItems;
 use Municipio\Controller\Navigation\Decorators\Menu\ApplyMenuItemFilter;
 use Municipio\Controller\Navigation\Decorators\Menu\ApplyMenuItemsFilter;
 use Municipio\Controller\Navigation\Decorators\Menu\ApplyNestedMenuItemsFilter;
+use Municipio\Controller\Navigation\Decorators\Menu\ConvertStaticMenuItemsToPageTreeItems;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeGetAncestors;
 use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsAcfFieldValues;
 use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsFromObjectToArray;
@@ -187,6 +188,11 @@ class MenuBuilder implements MenuBuilderInterface
     public function pageTreeSetMenuItemsCache(): void
     {
         $this->menu = new PageTreeSetMenuItemsCache($this->menu);
+    }
+
+    public function convertStaticMenuItemsToPageTreeItems(): void
+    {
+        $this->menu = new ConvertStaticMenuItemsToPageTreeItems($this->menu);
     }
 
     public function getMenu(): MenuInterface

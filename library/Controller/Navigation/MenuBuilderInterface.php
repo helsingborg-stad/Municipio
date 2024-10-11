@@ -17,6 +17,7 @@ interface MenuBuilderInterface
     public function mapMenuItemsAcfFieldValues(): void;
     public function mapMenuItemsIsAncestor(): void;
     public function applyMenuItemFilter(): void;
+    public function convertStaticMenuItemsToPageTreeItems(): void;
 
     // Breadcrumb
     public function appendHomeIconMenuItem(): void;

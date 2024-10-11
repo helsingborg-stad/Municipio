@@ -63,6 +63,21 @@ class MenuDirector
         $this->builder->removeTopLevel();
     }
 
+    public function buildStandardMenuWithPageTreeSubitems(): void
+    {
+        $this->builder->appendMenuItems();
+        $this->builder->mapMenuItemsFromObjectToArray();
+        $this->builder->mapMenuItemsAcfFieldValues();
+        $this->builder->convertStaticMenuItemsToPageTreeItems();
+        $this->builder->pageTreeAppendChildren();
+        $this->builder->applyMenuItemFilter();
+        $this->builder->applyMenuItemsFilter();
+        $this->builder->structureMenuItems();
+        $this->builder->removeSubLevels();
+        $this->builder->removeTopLevel();
+        $this->builder->applyNestedMenuItemsFilter();
+    }
+
     public function buildStandardMenuWithPageTreeFallback(): void
     {
         $this->builder->appendMenuItems();
