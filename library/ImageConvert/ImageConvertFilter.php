@@ -57,7 +57,7 @@ class ImageConvertFilter implements Hookable
       //Max upload image size
         $this->wpService->addFilter(
             'wp_handle_upload_prefilter',
-            [$this, 'setMaxUploadImageSize'],
+            [$this, 'preventLargeImageUploads'],
             5
         );
     }
@@ -115,13 +115,13 @@ class ImageConvertFilter implements Hookable
     }
 
     /**
-     * Set max upload image size.
+     * Prevent large image uploads from users.
      *
      * @param array $file
      *
      * @return array
      */
-    public function setMaxUploadImageSize($file): array
+    public function preventLargeImageUploads($file): array
     {
         $limit    = $this->config->maxSourceFileSize();
         $is_image = strpos($file['type'], 'image') !== false;
