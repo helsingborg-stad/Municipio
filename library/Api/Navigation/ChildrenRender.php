@@ -61,7 +61,8 @@ class ChildrenRender extends RestApiEndpoint
                         'menuItems' => $menuItems,
                         'homeUrl'   => esc_url(get_home_url()),
                         'depth'     => $depth,
-                        'lang'      => $lang
+                        'lang'      => $lang,
+                        'classList' => []
                     ])
                 ));
             }
