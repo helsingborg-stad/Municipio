@@ -141,7 +141,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
      * The maximum file size for the source image.
      * This will be used to determine if the image should be converted or not.
      *
-     * The default value is 15MB.
+     * The default value is 20MB.
      *
      * @return int The maximum file size in bytes.
      */
