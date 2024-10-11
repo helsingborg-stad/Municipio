@@ -134,7 +134,7 @@ class App
          */
 
         // Register the actual post type to be used for resources.
-        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType($this->wpService);
         $resourcePostType->addHooks();
 
         // Set up registry.
