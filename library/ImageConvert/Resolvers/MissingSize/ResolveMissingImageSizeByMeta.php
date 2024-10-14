@@ -4,10 +4,11 @@ namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 use Municipio\ImageConvert\Contract\ImageContract;
 use Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSizeInterface;
+use WpService\Contracts\WpGetAttachmentMetadata;
 
 class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
 {
-    public function __construct(private $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
+    public function __construct(private WpGetAttachmentMetadata $wpService, private ?ResolveMissingImageSizeInterface $inner = null)
     {
         $this->inner = $inner ?? new ResolveMissingImageSizeByFile(
             $wpService
@@ -17,7 +18,7 @@ class ResolveMissingImageSizeByMeta implements ResolveMissingImageSizeInterface
     public function getAttachmentDimensions(ImageContract $image): ?array
     {
         // Get attachment metadata
-        $metaData = $this->wpService->getAttachmentMetadata(
+        $metaData = $this->wpService->wpGetAttachmentMetadata(
             $image->getId()
         );
 

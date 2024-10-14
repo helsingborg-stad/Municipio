@@ -128,13 +128,13 @@ class SetDesignsTest extends TestCase
             {
             }
 
-            public function addFilter(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
                 $this->calls['addFilter'][] = func_get_args();
                 return true;
             }
 
-            public function addAction(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
+            public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
                 $this->calls['addAction'][] = func_get_args();
                 return true;

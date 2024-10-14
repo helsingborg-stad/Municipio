@@ -4,7 +4,7 @@ namespace Municipio\BrandedEmails;
 
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\AddFilter;
-use WpService\Contracts\Autop;
+use WpService\Contracts\Wpautop;
 
 class ConvertMessageToHtmlTest extends TestCase
 {
@@ -19,19 +19,15 @@ class ConvertMessageToHtmlTest extends TestCase
         $this->assertEquals('<p>message</p>', $result['message']);
     }
 
-    private function getWpService(): AddFilter&Autop
+    private function getWpService(): AddFilter&Wpautop
     {
-        return new class implements AddFilter, Autop {
-            public function addFilter(
-                string $tag,
-                callable $functionToAdd,
-                int $priority = 10,
-                int $acceptedArgs = 1
-            ): bool {
+        return new class implements AddFilter, Wpautop {
+            public function addFilter(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
+            {
                 return true;
             }
 
-            public function autop(string $text, bool $br = true): string
+            public function wpautop(string $text, bool $br = true): string
             {
                 return '<p>' . $text . '</p>';
             }

@@ -15,7 +15,7 @@ class SetupCronJobsOnConfigChangeTest extends TestCase
      */
     public function testAddHooks()
     {
-        $wpService = new FakeWpService();
+        $wpService = new FakeWpService(['addAction' => true]);
         $sut       = new SetupCronJobsOnConfigChange([$this->getFakeConfig()], new FakeWpCronJobManager(), $wpService);
 
         $sut->addHooks();

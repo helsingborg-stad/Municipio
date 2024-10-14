@@ -5,16 +5,15 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
-use WpService\Contracts\UploadDir;
-use WpService\Contracts\GetImageEditor;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
-use WP_Image_Editor_Imagick;
+use WpService\Contracts\WpGetImageEditor;
+use WpService\Contracts\WpUploadDir;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&GetImageEditor&UploadDir $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -69,17 +68,24 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        $sourceFilePath       = $image->getPath();
-        $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
-        $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
+        $sourceFilePath = $image->getPath();
 
-        // Check if the source file exists.
         if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
             return false;
         }
 
-        $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
+        $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
+        $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
+        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
+
+        if ($this->config->canConvertBetweenFormats() === false) {
+            // TODO: Investigate if we can avoid this file read for every image.
+            $targetFormatMime     = mime_content_type($image->getPath());
+            $suffix               = pathinfo($image->getPath(), PATHINFO_EXTENSION);
+            $intermediateLocation = $image->getIntermidiateLocation($suffix);
+        }
+
+        $imageEditor = $this->wpService->wpGetImageEditor($sourceFilePath);
 
         if (!$this->wpService->isWpError($imageEditor)) {
             //Make the resize

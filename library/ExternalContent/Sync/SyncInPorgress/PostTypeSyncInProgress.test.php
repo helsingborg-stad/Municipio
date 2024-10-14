@@ -25,7 +25,7 @@ class PostTypeSyncInProgressTest extends TestCase
 
     public function testSetsTheSynchronizationStatusForTheGivenPostType()
     {
-        $wpService              = new FakeWpService();
+        $wpService              = new FakeWpService(['setTransient' => true]);
         $postTypeSyncInProgress = new PostTypeSyncInProgress($wpService);
         $postTypeSyncInProgress->setInProgress('post', true);
 
@@ -38,7 +38,7 @@ class PostTypeSyncInProgressTest extends TestCase
 
     public function testDeletesTheSynchronizationStatusForTheGivenPostType()
     {
-        $wpService              = new FakeWpService();
+        $wpService              = new FakeWpService(['deleteTransient' => true]);
         $postTypeSyncInProgress = new PostTypeSyncInProgress($wpService);
         $postTypeSyncInProgress->setInProgress('post', false);
 

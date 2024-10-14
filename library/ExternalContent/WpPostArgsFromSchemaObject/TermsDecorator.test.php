@@ -24,7 +24,7 @@ class TermsDecoratorTest extends TestCase
     {
         $schemaObject             = new Event();
         $schemaObject['keywords'] = ['foo'];
-        $wpService                = new FakeWpService(['termExists' => null, 'insertTerm' => ['term_id' => 1]]);
+        $wpService                = new FakeWpService(['termExists' => null, 'wpInsertTerm' => ['term_id' => 1] ]);
         $termsDecorator           = new TermsDecorator(
             [$this->getTaxonomyItem()],
             $this->getWpTermFactory(),

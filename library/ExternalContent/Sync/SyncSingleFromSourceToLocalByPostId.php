@@ -6,7 +6,7 @@ use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPostType;
-use WpService\Contracts\InsertPost;
+use WpService\Contracts\WpInsertPost;
 
 /**
  * Sync single post from source to local by post id.
@@ -15,17 +15,12 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
 {
     /**
      * Class constructor
-     *
-     * @param int|string $postId
-     * @param SourceInterface $source
-     * @param WpPostArgsFromSchemaObjectInterface $wpPostFactory
-     * @param InsertPost&GetPostMeta&GetPostType $wpService
      */
     public function __construct(
         private int|string $postId,
         private SourceInterface $source,
         private WpPostArgsFromSchemaObjectInterface $wpPostFactory,
-        private InsertPost&GetPostMeta&GetPostType $wpService
+        private WpInsertPost&GetPostMeta&GetPostType $wpService
     ) {
     }
 
@@ -43,6 +38,6 @@ class SyncSingleFromSourceToLocalByPostId implements SyncSourceToLocalInterface
 
         $schemaObject     = $this->source->getObject($originId);
         $postDataToInsert = $this->wpPostFactory->create($schemaObject, $this->source);
-        $this->wpService->insertPost($postDataToInsert);
+        $this->wpService->wpInsertPost($postDataToInsert);
     }
 }

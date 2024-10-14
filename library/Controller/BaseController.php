@@ -410,9 +410,7 @@ class BaseController
             $this->data['displayQuicklinksAfterContent'] = false;
 
             // Add filters to add emblem on blocks and cards with placeholders
-            add_filter('ComponentLibrary/Component/Card/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
-            add_filter('ComponentLibrary/Component/Block/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
-            add_filter('ComponentLibrary/Component/Segment/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
+            add_filter('ComponentLibrary/Component/Icon/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
 
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
@@ -456,15 +454,9 @@ class BaseController
      */
     public function componentDataEmblemFilter($data)
     {
-        if (!empty($data['hasPlaceholder']) && $data['hasPlaceholder'] === true) {
-            if (!is_array($data['image'])) {
-                $data['image'] = [];
-            }
-            if ($this->getEmblem()) {
-                $data['image']['src'] = $this->getEmblem();
-            } else {
-                $data['image']['src'] = get_stylesheet_directory_uri() . '/assets/images/broken_image.svg';
-            }
+        $contexts = isset($data['context']) ? (array) $data['context'] : [];
+        if(in_array('component.image.placeholder.icon', $contexts)) {
+            $data['icon'] = $this->getEmblem();
         }
         return $data;
     }

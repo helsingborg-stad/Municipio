@@ -13,7 +13,7 @@ class RegistrarTest extends TestCase
     public function testRegisterModifier()
     {
         $modifier  = $this->getFakeModifier();
-        $wpService = new FakeWpService();
+        $wpService = new FakeWpService(['addFilter' => true]);
 
         $registrar = new Registrar($wpService);
         $registrar->registerModifier('field_123', $modifier);
@@ -27,7 +27,7 @@ class RegistrarTest extends TestCase
     public function testApplyModifier()
     {
         $modifier  = $this->getFakeModifier();
-        $wpService = new FakeWpService();
+        $wpService = new FakeWpService(['addFilter' => true, 'getPostType' => 'post']);
 
         $registrar = new Registrar($wpService);
         $registrar->registerModifier('field_123', $modifier);
@@ -43,7 +43,7 @@ class RegistrarTest extends TestCase
     public function testApplyModifierOnFieldGroupEditScreen()
     {
         $modifier  = $this->getFakeModifier();
-        $wpService = new FakeWpService(['getPostType' => 'acf-field-group']);
+        $wpService = new FakeWpService(['getPostType' => 'acf-field-group', 'addFilter' => true]);
 
         $registrar = new Registrar($wpService);
         $registrar->registerModifier('field_123', $modifier);
