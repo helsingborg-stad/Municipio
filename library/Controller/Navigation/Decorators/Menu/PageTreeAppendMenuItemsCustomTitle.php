@@ -7,12 +7,23 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\GetGlobal;
 
+/**
+ * Page tree append menu items custom title
+ */
 class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /**
+     * Retrieves the menu with appended custom titles.
+     *
+     * @return array The menu with appended custom titles.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -93,6 +104,11 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
         return $pageTitles;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

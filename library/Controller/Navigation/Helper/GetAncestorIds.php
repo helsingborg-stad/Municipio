@@ -4,14 +4,20 @@ namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Helper\CurrentPostId;
 
+/**
+ * Get ancestor ids
+ */
 class GetAncestorIds
 {
     private static array $ancestorIds = [];
 
-    public function __construct()
-    {
-    }
-
+    /**
+     * Get ancestor ids
+     *
+     * @param array $menuItems
+     * @param string $identifier
+     * @return array
+     */
     public static function getAncestorIds(array $menuItems, string $identifier): array
     {
         if (empty(self::$ancestorIds[$identifier])) {

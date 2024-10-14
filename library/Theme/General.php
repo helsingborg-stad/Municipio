@@ -2,8 +2,16 @@
 
 namespace Municipio\Theme;
 
+/**
+ * Class General
+ *
+ * The General class is responsible for handling various general functionalities of the theme.
+ */
 class General
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         add_action('init', array($this, 'bemItClassDefinition'));
@@ -257,10 +265,26 @@ class General
         return $classes;
     }
 
+    /**
+     * Decodes HTML entities in a given title.
+     *
+     * @param string $title The title to decode.
+     * @return string The decoded title.
+     */
     public static function htmlEntityDecodeTitle($title): string
     {
         return html_entity_decode($title);
     }
+
+    /**
+     * Decodes HTML entities in the names of WP_Term objects.
+     *
+     * This method takes an array of WP_Term objects and decodes the HTML entities in their names.
+     * It modifies the names of the WP_Term objects in the input array directly.
+     *
+     * @param array $terms An array of WP_Term objects.
+     * @return array The modified array of WP_Term objects with decoded names.
+     */
     public static function htmlEntityDecodeTermNames(array $terms): array
     {
         foreach ($terms as &$term) {

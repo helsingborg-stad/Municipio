@@ -6,15 +6,22 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\MenuInterface;
 
+/**
+ * Append menu items ancestors
+ */
 class PageTreeAppendMenuItemsAncestors implements MenuInterface
 {
+    /*
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
-    /*
-     * TODO: check if needed. Maybe we can build our own tree,
-     * from the available ids of each menu item.
+    /**
+     * Retrieves the menu with appended data from ancestor IDs.
+     *
+     * @return array The menu with appended data.
      */
     public function getMenu(): array
     {
@@ -39,6 +46,11 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

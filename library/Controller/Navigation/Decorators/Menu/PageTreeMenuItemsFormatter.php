@@ -5,12 +5,23 @@ namespace Municipio\Controller\Navigation\Decorators\Menu;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 
+/**
+ * Page tree menu items formatter
+ */
 class PageTreeMenuItemsFormatter implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /**
+     * Retrieves the menu with formatted page tree items.
+     *
+     * @return array The menu with formatted page tree items.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -52,6 +63,11 @@ class PageTreeMenuItemsFormatter implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

@@ -4,14 +4,24 @@ namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
-use WpService\Contracts\ApplyFilters;
 
+/**
+ * Convert static menu items to page tree items
+ */
 class ConvertStaticMenuItemsToPageTreeItems implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /**
+     * Retrieves the menu with converted static menu items to page tree items.
+     *
+     * @return array The menu with converted static menu items to page tree items.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -30,6 +40,11 @@ class ConvertStaticMenuItemsToPageTreeItems implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

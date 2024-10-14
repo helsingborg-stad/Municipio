@@ -6,12 +6,22 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 
+/**
+ * Map menu items from object to array
+ */
 class MapMenuItemsFromObjectToArray implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /* Retrieves the menu with mapped menu items from object to array.
+     *
+     * @return array The menu with mapped menu items from object to array.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -39,6 +49,11 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

@@ -4,15 +4,26 @@ namespace Municipio\Controller\Navigation;
 
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 
+/**
+ * The director can construct several types of menus using the same building steps.
+ */
 class MenuDirector
 {
     private MenuBuilderInterface $builder;
 
+    /**
+     * Set the builder to use for constructing the menu.
+     *
+     * @param MenuBuilderInterface $builder The builder to use for constructing the menu.
+     */
     public function setBuilder(MenuBuilderInterface $builder): void
     {
         $this->builder = $builder;
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildAccessibilityMenu(): void
     {
         $this->builder->appendPrintMenuItem();
@@ -20,6 +31,9 @@ class MenuDirector
         $this->builder->applyAccessibilityItemsDeprecatedFilter();
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildBreadcrumbMenu(): void
     {
         $this->builder->appendHomeIconMenuItem();
@@ -28,6 +42,9 @@ class MenuDirector
         $this->builder->applyBreadcrumbItemsFilter();
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildStandardMenu(): void
     {
         $this->builder->appendMenuItems();
@@ -43,6 +60,9 @@ class MenuDirector
         $this->builder->applyNestedMenuItemsFilter();
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildPageTreeMenu(): void
     {
         $this->builder->pageTreeGetAncestors();
@@ -64,6 +84,9 @@ class MenuDirector
         $this->builder->removeTopLevel();
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildStandardMenuWithPageTreeSubitems(): void
     {
         $this->builder->appendMenuItems();
@@ -80,6 +103,9 @@ class MenuDirector
         $this->builder->applyNestedMenuItemsFilter();
     }
 
+    /**
+     * Construct a menu.
+     */
     public function buildStandardMenuWithPageTreeFallback(): void
     {
         $this->builder->appendMenuItems();

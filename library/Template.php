@@ -12,11 +12,24 @@ use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
+
+/**
+ * Class Template
+ * @package Municipio
+ */
 class Template
 {
     private ?BladeServiceInterface $bladeEngine = null;
     private ?array $viewPaths                   = null;
 
+    /**
+     * Template constructor.
+     * @param MenuBuilderInterface $menuBuilder
+     * @param MenuDirector $menuDirector
+     * @param AcfService $acfService
+     * @param WpService $wpService
+     * @param SchemaDataConfigInterface $schemaDataConfig
+     */
     public function __construct(
         private MenuBuilderInterface $menuBuilder,
         private MenuDirector $menuDirector,
@@ -393,6 +406,12 @@ class Template
         return $property->getValue($obj);
     }
 
+    /**
+     * Cleans the view path by removing the base path and file extension.
+     *
+     * @param string $view The view path to be cleaned.
+     * @return string The cleaned view path.
+     */
     public function cleanViewPath($view)
     {
         $viewPaths = \Municipio\Helper\Template::getViewPaths();
@@ -403,7 +422,6 @@ class Template
         $view = str_replace('.blade.php', '', $view);
         return $view;
     }
-
 
     /**
      * Get Viewpaths and Blade engine runtime.

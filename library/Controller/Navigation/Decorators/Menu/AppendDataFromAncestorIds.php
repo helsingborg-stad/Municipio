@@ -7,14 +7,25 @@ use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\MenuInterface;
 use WpService\Contracts\GetPostType;
 
+/**
+ * Append data from ancestor ids
+ */
 class AppendDataFromAncestorIds implements MenuInterface
 {
     private $masterPostType = 'page';
 
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner, private GetPostType $wpService)
     {
     }
 
+    /**
+     * Retrieves the menu with appended data from ancestor IDs.
+     *
+     * @return array The menu with appended data.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -26,6 +37,11 @@ class AppendDataFromAncestorIds implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

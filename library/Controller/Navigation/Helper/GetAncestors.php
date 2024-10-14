@@ -7,6 +7,9 @@ use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 
+/**
+ * Get ancestors
+ */
 class GetAncestors
 {
     /**

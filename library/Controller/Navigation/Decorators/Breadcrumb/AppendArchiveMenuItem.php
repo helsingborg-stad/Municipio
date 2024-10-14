@@ -11,12 +11,23 @@ use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\GetQueriedObject;
 use WpService\Contracts\IsArchive;
 
+/**
+ * Append archive menu item
+ */
 class AppendArchiveMenuItem implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner, private GetPostType&GetPostTypeObject&GetPostTypeArchiveLink&IsArchive&GetQueriedObject $wpService)
     {
     }
 
+    /**
+     * Retrieves the menu with appended archive menu item.
+     *
+     * @return array The menu with appended archive menu item.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -44,6 +55,11 @@ class AppendArchiveMenuItem implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

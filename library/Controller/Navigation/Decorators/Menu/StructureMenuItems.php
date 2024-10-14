@@ -5,12 +5,23 @@ namespace Municipio\Controller\Navigation\Decorators\Menu;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 
+/**
+ * Structure menu items
+ */
 class StructureMenuItems implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /**
+     * Retrieves the menu with structured menu items.
+     *
+     * @return array The menu with structured menu items.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -22,6 +33,14 @@ class StructureMenuItems implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Structures the menu items.
+     *
+     * @param array $menuItems The menu items.
+     * @param int $parentId The parent ID.
+     *
+     * @return array The structured menu items.
+     */
     private function structureMenuItems(array $menuItems, int $parentId = 0): array
     {
         $structuredMenuItems = [];
@@ -47,6 +66,11 @@ class StructureMenuItems implements MenuInterface
         return $structuredMenuItems;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

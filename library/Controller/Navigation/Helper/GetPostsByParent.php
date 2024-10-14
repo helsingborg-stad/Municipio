@@ -6,6 +6,9 @@ use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Helper\GetGlobal;
 
+/**
+ * Get posts by parent
+ */
 class GetPostsByParent
 {
     private static $masterPostType = 'page';

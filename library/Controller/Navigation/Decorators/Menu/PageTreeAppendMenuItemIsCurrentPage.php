@@ -6,12 +6,23 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 
+/**
+ * Append menu items
+ */
 class PageTreeAppendMenuItemIsCurrentPage implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner)
     {
     }
 
+    /**
+     * Retrieves the menu with appended data from ancestor IDs.
+     *
+     * @return array The menu with appended data.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -37,6 +48,11 @@ class PageTreeAppendMenuItemIsCurrentPage implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

@@ -5,6 +5,9 @@ namespace Municipio\Controller\Navigation\Helper;
 use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Helper\GetGlobal;
 
+/**
+ * Get hidden post ids
+ */
 class GetHiddenPostIds
 {
     /**

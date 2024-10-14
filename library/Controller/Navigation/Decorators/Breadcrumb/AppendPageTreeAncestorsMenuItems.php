@@ -10,12 +10,23 @@ use Municipio\Helper\WP;
 use WpService\Contracts\IsArchive;
 use WpService\Contracts\IsFrontPage;
 
+/**
+ * Append page tree ancestors menu items
+ */
 class AppendPageTreeAncestorsMenuItems implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner, private IsFrontPage&IsArchive $wpService)
     {
     }
 
+    /**
+     * Retrieves the menu with appended menu items.
+     *
+     * @return array The menu with appended menu items.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -47,6 +58,11 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Retrieves the menu configuration.
+     *
+     * @return MenuConfigInterface The menu configuration.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();

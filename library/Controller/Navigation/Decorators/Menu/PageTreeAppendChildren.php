@@ -11,12 +11,23 @@ use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
 use WpService\Contracts\GetPostType;
 
+/**
+ * Append children to page tree
+ */
 class PageTreeAppendChildren implements MenuInterface
 {
+    /**
+     * Constructor
+     */
     public function __construct(private MenuInterface $inner, private GetPostType $wpService)
     {
     }
 
+    /**
+     * Retrieves the menu with appended children to page tree.
+     *
+     * @return array The menu with appended children to page tree.
+     */
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
@@ -110,6 +121,11 @@ class PageTreeAppendChildren implements MenuInterface
         }
     }
 
+    /**
+     * Retrieves the configuration of the menu.
+     *
+     * @return MenuConfigInterface The configuration of the menu.
+     */
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
