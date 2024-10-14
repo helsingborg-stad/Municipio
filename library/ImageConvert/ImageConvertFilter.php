@@ -29,22 +29,29 @@ use WpService\Contracts\AddFilter;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\GetPostMimeType;
 use WpService\Contracts\WpGetAttachmentUrl;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\__;
+use WpService\Contracts\SizeFormat;
 
 class ImageConvertFilter implements Hookable
 {
-    public function __construct(private AddFilter&ApplyFilters&WpGetAttachmentUrl&GetPostMimeType $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&ApplyFilters&WpGetAttachmentUrl&GetPostMimeType&IsAdmin&SizeFormat&__ $wpService, private ImageConvertConfig $config)
     {
     }
 
     public function addHooks(): void
     {
-      //Downsize flow
+      //Max upload image size
         $this->wpService->addFilter(
-            'image_downsize',
-            [$this, 'imageDownsize'],
-            $this->config->imageDownsizePriority(),
-            3
+            'wp_handle_upload_prefilter',
+            [$this, 'preventLargeImageUploads'],
+            5
         );
+
+      //Only enable downsize filter for non admin users.
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
 
       //Image quality settings
         $this->wpService->addFilter(
@@ -54,11 +61,11 @@ class ImageConvertFilter implements Hookable
             2
         );
 
-      //Max upload image size
         $this->wpService->addFilter(
-            'wp_handle_upload_prefilter',
-            [$this, 'preventLargeImageUploads'],
-            5
+            'image_downsize',
+            [$this, 'imageDownsize'],
+            $this->config->imageDownsizePriority(),
+            3
         );
     }
 
@@ -126,7 +133,10 @@ class ImageConvertFilter implements Hookable
         $limit    = $this->config->maxSourceFileSize();
         $is_image = strpos($file['type'], 'image') !== false;
         if ($is_image && $file['size'] > $limit) {
-            $file['error'] = "Image files must be smaller than {$limit}kb";
+            $file['error'] = sprintf(
+                $this->wpService->__("Image files must be smaller than %s", 'municipio'),
+                $this->wpService->sizeFormat($limit, 1)
+            );
         }
         return $file;
     }

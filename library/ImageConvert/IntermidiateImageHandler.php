@@ -5,6 +5,7 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
+use WpService\Contracts\IsAdmin;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
@@ -14,12 +15,16 @@ use WpService\Contracts\WpGetAttachmentMetadata;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin $wpService, private ImageConvertConfig $config)
     {
     }
 
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'createIntermidiateImage'],
@@ -189,8 +194,8 @@ class IntermidiateImageHandler implements Hookable
     private function getAttachmentMetaData($attachmentId, $metaKey): mixed
     {
         $metaData = $this->wpService->wpGetAttachmentMetadata($attachmentId);
-        if($metaData !== false) {
-            if($result = $this->searchKeyRecursively($metaKey, $metaData)) {
+        if ($metaData !== false) {
+            if ($result = $this->searchKeyRecursively($metaKey, $metaData)) {
                 return $result;
             }
         }
@@ -205,7 +210,8 @@ class IntermidiateImageHandler implements Hookable
      *
      * @return mixed|null The value of the key if found, otherwise null.
      */
-    private function searchKeyRecursively($metaKey, $metaData) {
+    private function searchKeyRecursively($metaKey, $metaData)
+    {
         if (array_key_exists($metaKey, $metaData)) {
             return $metaData[$metaKey];
         }

@@ -4,13 +4,15 @@ namespace Municipio\ImageConvert\Resolvers\MissingSize;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
-use Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSizeInterface;
 use Municipio\ImageConvert\Resolvers\MissingSize\ResolveMissingImageSizeByMeta;
 use Municipio\ImageConvert\Contract\ImageContract;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\WpGetAttachmentMetadata;
 
 class ResolveMissingImageSize implements Hookable
 {
-    public function __construct(private $wpService, private ImageConvertConfig $config)
+    public function __construct(private IsAdmin&AddFilter&WpGetAttachmentMetadata $wpService, private ImageConvertConfig $config)
     {
         $this->wpService = $wpService;
         $this->config    = $config;
@@ -18,6 +20,10 @@ class ResolveMissingImageSize implements Hookable
 
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'resolveMissingImageSize'],
