@@ -141,7 +141,7 @@ class SaveDesigns implements Hookable
         $sanitizedDesignConfigInstance = new ConfigSanitizer($designConfig, $getFieldsInstance->getFieldKeys($filter));
 
         $sanitizedDesignConfig = $sanitizedDesignConfigInstance->sanitize();
-        $inlineCss             = $inlineCssInstance->generateCssString('s-post-type-' . $postType);
+        $inlineCss             = $inlineCssInstance->generateCssString('.s-post-type-' . $postType);
 
         if (empty($sanitizedDesignConfig)) {
             return;

@@ -53,12 +53,14 @@ class InlineCssGenerator
     /**
      * Generate a string of inline CSS based on the generated CSS array.
      *
+     * @param string $cssClassName The base CSS class name.
      * @return string The generated inline CSS string.
      */
     public function generateCssString(string $cssClassName): string
     {
         $inlineCssArray = $this->generateCssArray();
         $cssString = '';
+
         if (empty($inlineCssArray)) {
             return $cssString;
         }
@@ -68,23 +70,37 @@ class InlineCssGenerator
                 continue;
             }
 
-            $localCssString = '';
-            foreach ($cssProperties as $property => $value) {
-                $localCssString .= "$property: $value; ";
-            }
+            $propertiesString = $this->buildCssPropertiesString($cssProperties);
 
+            // Handle special case for :root
             if ($cssClass === ':root') {
-                $cssString .= '.' . $cssClassName . ' { ' . $localCssString . ' } ';
+                $cssString .= "{$cssClassName} { {$propertiesString} } ";
                 continue;
             }
 
-            $cssString .= '.' . $cssClassName . ' ' . $cssClass . ', ' . 
-            $cssClass . ' .' . $cssClassName . ', ' . 
-            '.' . $cssClassName . '' . $cssClass .
-            ' { ' . $localCssString . ' } ';
+            // Append regular CSS class rules
+            $cssString .= "{$cssClassName} {$cssClass}, " .
+                        "{$cssClass} {$cssClassName}, " .
+                        "{$cssClassName}{$cssClass} { {$propertiesString} } ";
         }
 
         return $cssString;
+    }
+
+    /**
+     * Build a CSS properties string from an associative array.
+     *
+     * @param array $cssProperties The array of CSS properties.
+     * @return string The formatted CSS properties string.
+     */
+    private function buildCssPropertiesString(array $cssProperties): string
+    {
+        $properties = [];
+        foreach ($cssProperties as $property => $value) {
+            $properties[] = "{$property}: {$value};";
+        }
+
+        return implode(' ', $properties);
     }
 
     /**
@@ -103,11 +119,15 @@ class InlineCssGenerator
                 continue;
             }
 
-            if (!isset($multiColorKeys[$output['element']])) {
-                $multiColorKeys[$output['element']] = [];
+            $element = $output['element'];
+            $property = $output['property'];
+            $choiceValue = $designConfigField[$output['choice']];
+
+            if (!isset($multiColorKeys[$element])) {
+                $multiColorKeys[$element] = [];
             }
 
-            $multiColorKeys[$output['element']][$output['property']] = $designConfigField[$output['choice']];
+            $multiColorKeys[$element][$property] = $choiceValue;
         }
 
         return $multiColorKeys;
