@@ -19,8 +19,8 @@ class GetAncestors
     public static function getAncestors($includeTopLevel = true): array
     {
         $postId = CurrentPostId::get();
-        $db = GetGlobal::getGlobal('wpdb');
-        
+        $db     = GetGlobal::getGlobal('wpdb');
+
         $cacheSubKey = $includeTopLevel ? 'toplevel' : 'notoplevel';
         if (isset(NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId])) {
             return NavigationRuntimeCache::getCache('ancestors')[$cacheSubKey][$postId];

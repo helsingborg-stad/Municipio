@@ -23,7 +23,7 @@ class AppendArchiveMenuItem implements MenuInterface
 
         if ($archiveLink) {
             $defaultLabel = __("Untitled page", 'municipio');
-            
+
             if (is_archive()) {
                 $label = get_queried_object()->label ?? $defaultLabel;
             } else {

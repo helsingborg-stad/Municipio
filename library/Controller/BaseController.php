@@ -52,9 +52,9 @@ class BaseController
      * @var object
      */
     public function __construct(
-        protected MenuBuilderInterface $menuBuilder, 
-        protected MenuDirector $menuDirector, 
-        protected WpService $wpService, 
+        protected MenuBuilderInterface $menuBuilder,
+        protected MenuDirector $menuDirector,
+        protected WpService $wpService,
         protected AcfService $acfService
     ) {
         //Store globals
@@ -131,7 +131,7 @@ class BaseController
         $breadcrumbMenuConfig = new MenuConfig(
             'breadcrumb',
             '',
-        ); 
+        );
 
         $mobileMenuConfig = new MenuConfig(
             'mobile',
@@ -152,8 +152,8 @@ class BaseController
         $mobileMenuSecondaryConfig = new MenuConfig(
             'mobile-secondary',
             'mobile-drawer',
-        );  
-        
+        );
+
         $megaMenuConfig = new MenuConfig(
             'mega-menu',
             'mega-menu',
@@ -224,12 +224,12 @@ class BaseController
 
         if (empty($secondaryMenuItems)) {
             $this->menuBuilder->setConfig($secondaryMenuConfig);
-            $secondaryMenuConfig->getFallbackToPageTree() ? 
+            $secondaryMenuConfig->getFallbackToPageTree() ?
                 $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
                 $this->menuDirector->buildStandardMenu();
             $secondaryMenuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
         }
-        
+
         $this->data['secondaryMenuItems'] = $secondaryMenuItems;
 
         // Site selector menu
@@ -279,7 +279,7 @@ class BaseController
 
         // Mobile/secondary-menu
         $this->menuBuilder->setConfig($mobileMenuConfig);
-        $mobileMenuConfig->getFallbackToPageTree() ? 
+        $mobileMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
             $this->menuDirector->buildStandardMenu();
         $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu()['items'];
@@ -291,14 +291,14 @@ class BaseController
 
         // Primary menu
         $this->menuBuilder->setConfig($primaryMenuConfig);
-        $primaryMenuConfig->getFallbackToPageTree() ? 
+        $primaryMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
         $this->data['primaryMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
         // Mega menu
         $this->menuBuilder->setConfig($megaMenuConfig);
-        $megaMenuConfig->getFallbackToPageTree() ? 
+        $megaMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
         $this->data['megaMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
@@ -419,7 +419,7 @@ class BaseController
 
     private function buildAdditionalMenus(): array
     {
-        $additionalMenus = [];
+        $additionalMenus       = [];
         $additionalMenusOption = $this->wpService->getOption('nav_menu_additional_items', []);
 
         foreach ($additionalMenusOption as $additionalMenuIds) {
@@ -442,7 +442,7 @@ class BaseController
                 $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenu()['items'];
             }
         }
-        
+
         return $additionalMenus;
     }
 
@@ -455,7 +455,7 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
-        if(in_array('component.image.placeholder.icon', $contexts)) {
+        if (in_array('component.image.placeholder.icon', $contexts)) {
             $data['icon'] = $this->getEmblem();
         }
         return $data;

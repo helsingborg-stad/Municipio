@@ -33,7 +33,7 @@ class PageTreeSetMenuItemsCache implements MenuInterface
             $cacheData[$menuItem['cacheKey']] = $menuItem;
             NavigationRuntimeCache::setCache('complementObjects', $cacheData);
         }
-        
+
         return $menu;
     }
 

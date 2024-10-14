@@ -27,7 +27,7 @@ class MapMenuItemsIsAncestor implements MenuInterface
                 $menuItem['ancestor'] = false;
                 continue;
             }
-    
+
             $menuItem['ancestor'] = in_array($menuItem['id'], $ancestors);
         }
 

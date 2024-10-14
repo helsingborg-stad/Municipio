@@ -33,7 +33,7 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
             //Add items
             foreach ($ancestors as $id) {
                 if (!in_array($id, $pageForPostTypeIds)) {
-                    $title                     = WP::getTheTitle($id);
+                    $title                         = WP::getTheTitle($id);
                     $menu['items'][$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
                     $menu['items'][$id]['href']    = WP::getPermalink($id);
                     $menu['items'][$id]['current'] = false;

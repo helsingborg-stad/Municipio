@@ -16,7 +16,6 @@ class Children extends RestApiEndpoint
 
     public function __construct(private MenuBuilderInterface $menuBuilder, private MenuDirector $menuDirector)
     {
-        
     }
     public function handleRegisterRestRoute(): bool
     {
@@ -30,10 +29,10 @@ class Children extends RestApiEndpoint
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_params();
-        $items = [];
+        $items  = [];
         if (isset($params['pageId']) && is_numeric($params['pageId'])) {
-            $parentId   = $params['pageId'];
-            
+            $parentId = $params['pageId'];
+
             if (isset($parentId)) {
                 $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
 
@@ -44,7 +43,7 @@ class Children extends RestApiEndpoint
                     false,
                     $parentId
                 );
-                
+
                 $this->menuDirector->setBuilder($this->menuBuilder);
 
                 $this->menuBuilder->setConfig($menuConfig);
@@ -52,7 +51,6 @@ class Children extends RestApiEndpoint
                 $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
 
                 return rest_ensure_response($menuItems);
-
             }
         }
 

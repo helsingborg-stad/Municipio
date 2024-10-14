@@ -17,7 +17,7 @@ class IsPageForPostType
         $pageForPostTypeIds = GetPageForPostTypeIds::getPageForPostTypeIds();
         if (array_key_exists($pageId, $pageForPostTypeIds)) {
             return $pageForPostTypeIds[$pageId];
-        } 
+        }
 
         return false;
     }

@@ -32,11 +32,11 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
             if (isset($customTitles[$menuItem['id']])) {
                 $menuItem['label'] = $customTitles[$menuItem['id']];
             }
-    
+
             //Replace empty titles
             if ($menuItem['label'] == "") {
                 $menuItem['label'] = __("Untitled page", 'municipio');
-            }            
+            }
         }
 
         return $menu;

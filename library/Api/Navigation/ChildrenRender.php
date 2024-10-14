@@ -17,7 +17,6 @@ class ChildrenRender extends RestApiEndpoint
 
     public function __construct(private MenuBuilderInterface $menuBuilder, private MenuDirector $menuDirector)
     {
-        
     }
 
     public function handleRegisterRestRoute(): bool

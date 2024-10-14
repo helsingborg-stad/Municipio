@@ -19,12 +19,12 @@ class ApplyMenuItemFilter implements MenuInterface
         if (empty($menu['items'])) {
             return $menu;
         }
-        
+
         foreach ($menu['items'] as &$menuItem) {
             if (!empty($menuItem['isCached'])) {
                 continue;
             }
-            
+
             $menuItem = $this->wpService->applyFilters('Municipio/Navigation/Item', $menuItem, $this->getConfig()->getIdentifier(), true);
         }
 

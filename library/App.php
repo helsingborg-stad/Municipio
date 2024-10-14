@@ -80,7 +80,7 @@ class App
          * Upgrade
          */
         $menuDirector = new MenuDirector();
-        $menuBuilder = new MenuBuilder(
+        $menuBuilder  = new MenuBuilder(
             new MenuConfig(),
             $this->acfService,
             $this->wpService

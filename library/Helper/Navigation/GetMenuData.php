@@ -21,7 +21,7 @@ class GetMenuData
      */
     public static function getNavMenuItems(null|false|int|string $identifier = null): array|false
     {
-        
+
         if (is_string($identifier)) {
             $identifier = self::getNavMenuId($identifier);
         }
