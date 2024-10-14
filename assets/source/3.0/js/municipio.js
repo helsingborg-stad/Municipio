@@ -4,6 +4,7 @@ import Comments from './comments';
 import './nav';
 import './hide';
 import { initializeLanguageMenu } from './languageMenu';
+import { initializeCollapsibleSearch } from './collapsibleSearch';
 
 //Ponyfill for supporting css variables in IE
 cssVars({
@@ -25,6 +26,10 @@ const fab = new Fab();
 fab.showOnScroll();
 
 initializeLanguageMenu();
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeCollapsibleSearch();
+});
 
 new Comments();
    
