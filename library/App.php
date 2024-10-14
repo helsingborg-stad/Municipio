@@ -301,7 +301,8 @@ class App
             'Municipio/ImageConvert',
             'webp',
             90,
-            1920
+            1920,
+            5
         );
 
         //Check if image convert is enabled
