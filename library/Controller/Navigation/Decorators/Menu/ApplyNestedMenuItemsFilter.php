@@ -20,7 +20,7 @@ class ApplyNestedMenuItemsFilter implements MenuInterface
             return $menu;
         }
 
-        $menu['items'] = apply_filters('Municipio/Navigation/Nested', $menu['items'], $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
+        $menu['items'] = $this->wpService->applyFilters('Municipio/Navigation/Nested', $menu['items'], $this->getConfig()->getIdentifier(), $this->getConfig()->getMenuName());
 
         return $menu;
     }

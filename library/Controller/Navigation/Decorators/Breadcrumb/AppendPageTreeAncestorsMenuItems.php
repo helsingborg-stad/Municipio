@@ -7,10 +7,12 @@ use Municipio\Controller\Navigation\Helper\GetAncestors;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\WP;
+use WpService\Contracts\IsArchive;
+use WpService\Contracts\IsFrontPage;
 
 class AppendPageTreeAncestorsMenuItems implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner)
+    public function __construct(private MenuInterface $inner, private IsFrontPage&IsArchive $wpService)
     {
     }
 
@@ -18,7 +20,7 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
     {
         $menu = $this->inner->getMenu();
 
-        if (is_front_page() || is_archive()) {
+        if ($this->wpService->isFrontPage() || $this->wpService->isArchive()) {
             return $menu;
         }
 
@@ -33,7 +35,7 @@ class AppendPageTreeAncestorsMenuItems implements MenuInterface
             //Add items
             foreach ($ancestors as $id) {
                 if (!in_array($id, $pageForPostTypeIds)) {
-                    $title                     = WP::getTheTitle($id);
+                    $title                         = WP::getTheTitle($id);
                     $menu['items'][$id]['label']   = $title ? $title : __("Untitled page", 'municipio');
                     $menu['items'][$id]['href']    = WP::getPermalink($id);
                     $menu['items'][$id]['current'] = false;

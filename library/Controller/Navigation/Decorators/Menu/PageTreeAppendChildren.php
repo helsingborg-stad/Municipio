@@ -9,10 +9,11 @@ use Municipio\Controller\Navigation\Helper\GetPostsByParent;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
+use WpService\Contracts\GetPostType;
 
 class PageTreeAppendChildren implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner)
+    public function __construct(private MenuInterface $inner, private GetPostType $wpService)
     {
     }
 
@@ -37,7 +38,7 @@ class PageTreeAppendChildren implements MenuInterface
             if ($menuItem['id'] == CurrentPostId::get()) {
                 $children = GetPostsByParent::getPostsByParent(
                     $menuItem['id'],
-                    get_post_type($menuItem['id'])
+                    $this->wpService->getPostType($menuItem['id'])
                 );
             } else {
                 $children = $this->indicateChildren($menuItem['id']);

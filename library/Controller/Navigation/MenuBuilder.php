@@ -93,7 +93,7 @@ class MenuBuilder implements MenuBuilderInterface
 
     public function appendPageTreeAncestorsMenuItems(): void
     {
-        $this->menu = new AppendPageTreeAncestorsMenuItems($this->menu);
+        $this->menu = new AppendPageTreeAncestorsMenuItems($this->menu, $this->wpService);
     }
 
     public function applyBreadcrumbItemsFilter(): void
@@ -103,7 +103,7 @@ class MenuBuilder implements MenuBuilderInterface
 
     public function appendPrintMenuItem(): void
     {
-        $this->menu = new AppendPrintMenuItem($this->menu);
+        $this->menu = new AppendPrintMenuItem($this->menu, $this->wpService);
     }
 
     public function applyAccessibilityItemsDeprecatedFilter(): void
@@ -183,7 +183,7 @@ class MenuBuilder implements MenuBuilderInterface
 
     public function pageTreeAppendChildren(): void
     {
-        $this->menu = new PageTreeAppendChildren($this->menu);
+        $this->menu = new PageTreeAppendChildren($this->menu, $this->wpService);
     }
 
     public function pageTreeSetMenuItemsCache(): void

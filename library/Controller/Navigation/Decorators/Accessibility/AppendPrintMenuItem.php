@@ -4,10 +4,12 @@ namespace Municipio\Controller\Navigation\Decorators\Accessibility;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
+use WpService\Contracts\IsPage;
+use WpService\Contracts\IsSingle;
 
 class AppendPrintMenuItem implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner)
+    public function __construct(private MenuInterface $inner, private IsPage&IsSingle $wpService)
     {
     }
 
@@ -15,7 +17,7 @@ class AppendPrintMenuItem implements MenuInterface
     {
         $menu = $this->inner->getMenu();
 
-        if (is_single() || is_page()) {
+        if ($this->wpService->isSingle() || $this->wpService->isPage()) {
             $menu['items']['print'] =  [
                 'icon'   => 'print',
                 'href'   => '#',

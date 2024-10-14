@@ -4,11 +4,13 @@ namespace Municipio\Controller\Navigation\Decorators\Breadcrumb;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
+use WpService\Contracts\GetHomeUrl;
 use WpService\Contracts\GetOption;
+use WpService\Contracts\IsFrontPage;
 
 class AppendHomeIconMenuItem implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner, private GetOption $wpService)
+    public function __construct(private MenuInterface $inner, private GetOption&GetHomeUrl&IsFrontPage $wpService)
     {
     }
 
@@ -20,8 +22,8 @@ class AppendHomeIconMenuItem implements MenuInterface
         if (!empty($homeItemKey)) {
             $menu['items'][$homeItemKey] = array(
                 'label'   => __('Home', 'municipio'),
-                'href'    => get_home_url(),
-                'current' => is_front_page() ? true : false,
+                'href'    => $this->wpService->getHomeUrl(),
+                'current' => $this->wpService->isFrontPage() ? true : false,
                 'icon'    => 'home'
             );
         }

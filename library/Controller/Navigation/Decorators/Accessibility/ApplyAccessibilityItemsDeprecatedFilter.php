@@ -4,11 +4,11 @@ namespace Municipio\Controller\Navigation\Decorators\Accessibility;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\MenuInterface;
-use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\ApplyFiltersDeprecated;
 
 class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
 {
-    public function __construct(private MenuInterface $inner)
+    public function __construct(private MenuInterface $inner, private ApplyFiltersDeprecated $wpService)
     {
     }
 
@@ -16,7 +16,7 @@ class ApplyAccessibilityItemsDeprecatedFilter implements MenuInterface
     {
         $menu = $this->inner->getMenu();
 
-        $menu['items'] = apply_filters_deprecated('accessibility_items', [$menu['items']], '3.0.0', 'Municipio/Accessibility/Items');
+        $menu['items'] = $this->wpService->applyFiltersDeprecated('accessibility_items', [$menu['items']], '3.0.0', 'Municipio/Accessibility/Items');
 
         return $menu;
     }
