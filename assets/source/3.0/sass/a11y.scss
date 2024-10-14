@@ -1,5 +1,5 @@
 body.logged-in {
-  .u-a11y-error:after {
+  [data-a11y-error]:after {
     content: attr(data-a11y-error);
     padding: 4px 8px;
     background: rgba(#f00, 0.8);
