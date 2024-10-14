@@ -21,8 +21,8 @@ class TryGetPageTreeMenuItemsFromCache implements MenuInterface
             $cacheKey = md5(serialize($menuItem));
 
             if (isset($cacheData[$cacheKey])) {
-                // $menuItem = $cacheData[$cacheKey];
-                $menuItem['isCached'] = false;
+                $menuItem = $cacheData[$cacheKey];
+                $menuItem['isCached'] = true;
             } else {
                 $menuItem['isCached'] = false;
             }
