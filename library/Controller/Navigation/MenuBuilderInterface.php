@@ -44,6 +44,7 @@ interface MenuBuilderInterface
 
     // General
     public function appendAcfFields(): void;
+    public function addColorStyles(): void;
     public function applyMenuItemsFilter(): void;
     public function removeSubLevels(): void;
     public function removeTopLevel(): void;
