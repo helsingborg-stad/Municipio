@@ -9,15 +9,20 @@ use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetAttachedFile;
 use WpService\Contracts\WpGetAttachmentUrl;
+use WpService\Contracts\IsAdmin;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private ApplyFilters&GetAttachedFile&WpGetAttachmentUrl&AddFilter $wpService, private ImageConvertConfig $config)
+    public function __construct(private ApplyFilters&GetAttachedFile&WpGetAttachmentUrl&AddFilter&IsAdmin $wpService, private ImageConvertConfig $config)
     {
     }
 
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'normalizeImageSize'],
