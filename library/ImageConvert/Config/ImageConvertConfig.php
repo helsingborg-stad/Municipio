@@ -26,7 +26,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         private string $intermidiateImageFormat = 'webp',
         private int $intermidiateImageQuality = 80,
         private int $intermidiateImageMaxDimension = 1920,
-        private int $maxSourceFileSize = 20
+        private int $maxSourceFileSize = 5
     ) {
     }
 

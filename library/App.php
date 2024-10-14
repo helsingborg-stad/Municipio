@@ -302,7 +302,7 @@ class App
             'webp',
             90,
             1920,
-            10
+            5
         );
 
         //Check if image convert is enabled
