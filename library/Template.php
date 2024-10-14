@@ -12,7 +12,6 @@ use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 
-
 /**
  * Class Template
  * @package Municipio

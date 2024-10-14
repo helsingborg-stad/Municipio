@@ -14,7 +14,6 @@ use WpService\Contracts\WpGetNavMenuObject;
  */
 class AppendAcfFields implements MenuInterface
 {
-    
     /**
      * Constructor.
      *
