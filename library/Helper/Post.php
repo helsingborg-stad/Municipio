@@ -147,7 +147,7 @@ class Post
                     render_blade_view(
                         'partials.navigation.fixed-after-block',
                         [
-                        'quicklinksMenu' => $data['quicklinksMenu']['items'],
+                        'quicklinksMenu'      => $data['quicklinksMenu']['items'],
                         'quicklinksPlacement' => $postObject->quicklinksPlacement,
                         'customizer'          => $data['customizer'],
                         'lang'                => $data['lang'],

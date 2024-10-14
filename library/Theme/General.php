@@ -49,8 +49,8 @@ class General
         });
 
         add_filter('ComponentLibrary/Component/Date/Data', function ($data) {
-            $data['format'] = \Municipio\Helper\DateFormat::getDateFormat('date');
-            $data['region'] = \Municipio\Helper\DateFormat::getLocale();
+            $data['format']   = \Municipio\Helper\DateFormat::getDateFormat('date');
+            $data['region']   = \Municipio\Helper\DateFormat::getLocale();
             $data['timezone'] = \Municipio\Helper\DateFormat::getTimezone();
             return $data;
         });

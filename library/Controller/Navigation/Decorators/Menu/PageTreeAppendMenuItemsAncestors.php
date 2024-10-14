@@ -12,7 +12,7 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
     {
     }
 
-    /*  
+    /*
      * TODO: check if needed. Maybe we can build our own tree,
      * from the available ids of each menu item.
      */
@@ -28,7 +28,7 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
             if (!isset($menuItem['id']) || !empty($menuItem['isCached'])) {
                 continue;
             }
-            
+
             if (in_array($menuItem['id'], GetAncestors::getAncestors())) {
                 $menuItem['ancestor'] = true;
             } else {

@@ -40,7 +40,8 @@ class MenuBuilder implements MenuBuilderInterface
     private MenuInterface $menu;
     private MenuConfigInterface $menuConfig;
 
-    public function __construct(MenuConfigInterface $defaultMenuConfig, private $acfService, private $wpService) {
+    public function __construct(MenuConfigInterface $defaultMenuConfig, private $acfService, private $wpService)
+    {
         $this->menuConfig = $defaultMenuConfig;
         $this->initializeMenu();
     }

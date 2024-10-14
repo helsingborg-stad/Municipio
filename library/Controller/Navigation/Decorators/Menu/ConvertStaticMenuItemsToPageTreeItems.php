@@ -21,10 +21,10 @@ class ConvertStaticMenuItemsToPageTreeItems implements MenuInterface
         }
 
         foreach ($menu['items'] as &$menuItem) {
-            $menuItem['active'] = null;
+            $menuItem['active']   = null;
             $menuItem['ancestor'] = null;
             $menuItem['children'] = null;
-            $menuItem['id'] = $menuItem['page_id'] ? (int) $menuItem['page_id'] : ($menuItem['id'] ?? null);
+            $menuItem['id']       = $menuItem['page_id'] ? (int) $menuItem['page_id'] : ($menuItem['id'] ?? null);
         }
 
         return $menu;

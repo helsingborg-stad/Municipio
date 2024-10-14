@@ -52,9 +52,9 @@ class BaseController
      * @var object
      */
     public function __construct(
-        protected MenuBuilderInterface $menuBuilder, 
-        protected MenuDirector $menuDirector, 
-        protected WpService $wpService, 
+        protected MenuBuilderInterface $menuBuilder,
+        protected MenuDirector $menuDirector,
+        protected WpService $wpService,
         protected AcfService $acfService
     ) {
         //Store globals
@@ -131,7 +131,7 @@ class BaseController
         $breadcrumbMenuConfig = new MenuConfig(
             'breadcrumb',
             '',
-        ); 
+        );
 
         $mobileMenuConfig = new MenuConfig(
             'mobile',
@@ -152,8 +152,8 @@ class BaseController
         $mobileMenuSecondaryConfig = new MenuConfig(
             'mobile-secondary',
             'mobile-drawer',
-        );  
-        
+        );
+
         $megaMenuConfig = new MenuConfig(
             'mega-menu',
             'mega-menu',
@@ -215,9 +215,9 @@ class BaseController
         );
 
         $this->menuDirector->setBuilder($this->menuBuilder);
-        
+
         // All menu settings should be stored in the nav_menus_settings option
-        $menuSettings = $this->wpService->getOption('nav_menus_settings', []);
+        $menuSettings                        = $this->wpService->getOption('nav_menus_settings', []);
         $this->data['additionalMenusOption'] = $menuSettings['additional_menus'] ?? [];
 
         // Building additional menus in use
@@ -230,12 +230,12 @@ class BaseController
 
         if (empty($secondaryMenu['items'])) {
             $this->menuBuilder->setConfig($secondaryMenuConfig);
-            $secondaryMenuConfig->getFallbackToPageTree() ? 
+            $secondaryMenuConfig->getFallbackToPageTree() ?
                 $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
                 $this->menuDirector->buildStandardMenu();
             $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
         }
-        
+
         $this->data['secondaryMenu'] = $secondaryMenu;
 
         // Site selector menu
@@ -287,7 +287,7 @@ class BaseController
 
         // Mobile/secondary-menu
         $this->menuBuilder->setConfig($mobileMenuConfig);
-        $mobileMenuConfig->getFallbackToPageTree() ? 
+        $mobileMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
             $this->menuDirector->buildStandardMenu();
         $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
@@ -299,14 +299,14 @@ class BaseController
 
         // Primary menu
         $this->menuBuilder->setConfig($primaryMenuConfig);
-        $primaryMenuConfig->getFallbackToPageTree() ? 
+        $primaryMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
         $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mega menu
         $this->menuBuilder->setConfig($megaMenuConfig);
-        $megaMenuConfig->getFallbackToPageTree() ? 
+        $megaMenuConfig->getFallbackToPageTree() ?
             $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
             $this->menuDirector->buildStandardMenu();
         $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
@@ -427,7 +427,7 @@ class BaseController
 
     private function buildAdditionalMenus(): array
     {
-        $additionalMenus = [];
+        $additionalMenus       = [];
         $additionalMenusOption = $this->data['additionalMenusOption'];
 
         if (empty($additionalMenusOption)) {
@@ -438,8 +438,8 @@ class BaseController
             if (empty($additionalMenuIds)) {
                 continue;
             }
-            
-            
+
+
             foreach ($additionalMenuIds as $menuId) {
                 if (empty($menuId) || !is_numeric($menuId) || array_key_exists($menuId, $additionalMenus)) {
                     continue;
@@ -468,7 +468,7 @@ class BaseController
     public function componentDataEmblemFilter($data)
     {
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
-        if(in_array('component.image.placeholder.icon', $contexts)) {
+        if (in_array('component.image.placeholder.icon', $contexts)) {
             $data['icon'] = $this->getEmblem();
         }
         return $data;

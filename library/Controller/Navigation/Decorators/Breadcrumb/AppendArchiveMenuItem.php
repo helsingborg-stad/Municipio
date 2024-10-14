@@ -26,7 +26,7 @@ class AppendArchiveMenuItem implements MenuInterface
 
         if ($archiveLink) {
             $defaultLabel = __("Untitled page", 'municipio');
-            
+
             if ($this->wpService->isArchive()) {
                 $label = $this->wpService->getQueriedObject()->label ?? $defaultLabel;
             } else {

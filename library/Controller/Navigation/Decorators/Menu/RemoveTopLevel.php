@@ -27,7 +27,7 @@ class RemoveTopLevel implements MenuInterface
         }
 
         $menu['items'] = $menuItems;
-        
+
         return $menu;
     }
 

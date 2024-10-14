@@ -15,7 +15,7 @@ class AppendAcfFields implements MenuInterface
 
     public function getMenu(): array
     {
-        $menu = $this->inner->getMenu();
+        $menu           = $this->inner->getMenu();
         $menu['fields'] = [];
 
         if (empty($menu['items'])) {

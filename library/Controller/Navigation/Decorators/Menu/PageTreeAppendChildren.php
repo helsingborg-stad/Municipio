@@ -43,7 +43,7 @@ class PageTreeAppendChildren implements MenuInterface
             } else {
                 $children = $this->indicateChildren($menuItem['id']);
             }
-    
+
             //If null, no children
             if (is_array($children) && !empty($children)) {
                 foreach ($children as &$child) {
@@ -51,7 +51,7 @@ class PageTreeAppendChildren implements MenuInterface
                         $child = $menuItemsIdAsKey[$child['ID']];
                     }
                 }
-            } 
+            }
 
             $menuItem['children'] = $children;
         }

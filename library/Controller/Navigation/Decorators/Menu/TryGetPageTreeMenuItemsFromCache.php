@@ -14,14 +14,14 @@ class TryGetPageTreeMenuItemsFromCache implements MenuInterface
 
     public function getMenu(): array
     {
-        $menu = $this->inner->getMenu();
+        $menu      = $this->inner->getMenu();
         $cacheData = NavigationRuntimeCache::getCache('complementObjects');
 
         foreach ($menu['items'] as &$menuItem) {
             $cacheKey = md5(serialize($menuItem));
 
             if (isset($cacheData[$cacheKey])) {
-                $menuItem = $cacheData[$cacheKey];
+                $menuItem             = $cacheData[$cacheKey];
                 $menuItem['isCached'] = true;
             } else {
                 $menuItem['isCached'] = false;

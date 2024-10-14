@@ -18,8 +18,8 @@ use WpService\Contracts\WpGetNavMenuObject;
  */
 class MenusSettings
 {
-    private array $menusSettings = [];
-    private const MENU_SETTINGS_KEY = 'nav_menus_settings';
+    private array $menusSettings       = [];
+    private const MENU_SETTINGS_KEY    = 'nav_menus_settings';
     private const ADDITIONAL_MENUS_KEY = 'additional_menus';
 
     public function __construct(private WpGetNavMenuObject&GetOption&AddAction&AddFilter&UpdateOption&GetNavMenuLocations $wpService, private GetFields $acfService)
@@ -37,7 +37,7 @@ class MenusSettings
      */
     public function updateMenuSettings($menuId, $menuData = null): void
     {
-        $fields = $this->acfService->getFields($this->wpService->wpGetNavMenuObject($menuId));
+        $fields              = $this->acfService->getFields($this->wpService->wpGetNavMenuObject($menuId));
         $this->menusSettings = $this->wpService->getOption(self::MENU_SETTINGS_KEY) ?: [];
 
         $this->updateAdditionalMenuItems($menuId, $fields);
@@ -79,18 +79,18 @@ class MenusSettings
      */
     public function addMenuLocationField($field)
     {
-        $activeMenus      = $this->wpService->getNavMenuLocations();
+        $activeMenus = $this->wpService->getNavMenuLocations();
 
         // Filters the active menus to only include supported menus.
         $activeMenus = array_filter($activeMenus, function ($key) {
             return in_array(
-                $key, 
+                $key,
                 ['secondary-menu']
             );
         }, ARRAY_FILTER_USE_KEY);
 
         $field['choices'] = [];
-        
+
         if (!empty($activeMenus)) {
             $allMenuLocations = \Municipio\Theme\Navigation::getMenuLocations();
 

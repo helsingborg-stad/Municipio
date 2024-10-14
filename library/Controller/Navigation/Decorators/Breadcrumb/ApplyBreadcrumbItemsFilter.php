@@ -17,7 +17,7 @@ class ApplyBreadcrumbItemsFilter implements MenuInterface
     {
         $menu = $this->inner->getMenu();
 
-        $menu['items'] = $this->wpService->applyFilters('Municipio/Breadcrumbs/Items', $menu['items'] , $this->wpService->getQueriedObject(), 'municipio');
+        $menu['items'] = $this->wpService->applyFilters('Municipio/Breadcrumbs/Items', $menu['items'], $this->wpService->getQueriedObject(), 'municipio');
 
         return $menu;
     }

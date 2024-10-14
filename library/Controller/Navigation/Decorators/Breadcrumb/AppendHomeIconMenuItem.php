@@ -16,7 +16,7 @@ class AppendHomeIconMenuItem implements MenuInterface
 
     public function getMenu(): array
     {
-        $menu = $this->inner->getMenu();
+        $menu        = $this->inner->getMenu();
         $homeItemKey = $this->wpService->getOption('page_on_front');
 
         if (!empty($homeItemKey)) {

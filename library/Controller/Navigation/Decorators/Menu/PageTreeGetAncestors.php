@@ -25,7 +25,7 @@ class PageTreeGetAncestors implements MenuInterface
 
         return $menu;
     }
-    
+
     public function getConfig(): MenuConfigInterface
     {
         return $this->inner->getConfig();
