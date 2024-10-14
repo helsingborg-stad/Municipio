@@ -157,6 +157,14 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function canConvertBetweenFormats(): bool
+    {
+        return extension_loaded('imagick');
+    }
+
   /**
    * Create a prefix for image conversion filter.
    *

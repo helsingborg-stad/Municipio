@@ -3,14 +3,14 @@
 namespace Municipio\ExternalContent\Sync;
 
 use Municipio\ExternalContent\Sources\SourceInterface;
-use WpService\Contracts\DeletePost;
 use WpService\Contracts\GetPosts;
+use WpService\Contracts\WpDeletePost;
 
 class PrunePostsNoLongerInSource implements SyncSourceToLocalInterface
 {
     public function __construct(
         private SourceInterface $source,
-        private DeletePost&GetPosts $wpService,
+        private WpDeletePost&GetPosts $wpService,
         private SyncSourceToLocalInterface $inner
     ) {
     }
@@ -33,7 +33,7 @@ class PrunePostsNoLongerInSource implements SyncSourceToLocalInterface
         ]);
 
         foreach ($posts as $post) {
-            $this->wpService->deletePost($post->ID, true);
+            $this->wpService->wpDeletePost($post->ID, true);
         }
     }
 }

@@ -6,7 +6,7 @@ use Municipio\HooksRegistrar\Hookable;
 use WP_Post;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\CurrentUserCan;
-use WpService\Contracts\NonceUrl;
+use WpService\Contracts\WpNonceUrl;
 
 /**
  * Class PageRowActionsSyncButton
@@ -18,7 +18,7 @@ class PageRowActionsSyncButton implements Hookable
     /**
      * Constructor.
      */
-    public function __construct(private array $sourceConfigs, private AddFilter&NonceUrl&CurrentUserCan $wpService)
+    public function __construct(private array $sourceConfigs, private AddFilter&WpNonceUrl&CurrentUserCan $wpService)
     {
     }
 
@@ -60,7 +60,7 @@ class PageRowActionsSyncButton implements Hookable
             $post->ID
         );
 
-        $url = $this->wpService->nonceUrl($_SERVER['REQUEST_URI'] ?? '') . $urlParams;
+        $url = $this->wpService->wpNonceUrl($_SERVER['REQUEST_URI'] ?? '', -1) . $urlParams;
 
         $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
             '<a href="%s">%s</a>',

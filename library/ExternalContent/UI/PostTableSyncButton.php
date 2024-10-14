@@ -7,8 +7,8 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\EscHtml;
 use WpService\Contracts\GetCurrentScreen;
-use WpService\Contracts\NonceUrl;
 use WpService\Contracts\SubmitButton;
+use WpService\Contracts\WpNonceUrl;
 
 /**
  * Class PostTableSyncButton
@@ -22,7 +22,7 @@ class PostTableSyncButton implements Hookable
      */
     public function __construct(
         private array $sourceConfigs,
-        private AddAction&GetCurrentScreen&SubmitButton&NonceUrl&EscHtml&CurrentUserCan $wpService
+        private AddAction&GetCurrentScreen&SubmitButton&WpNonceUrl&EscHtml&CurrentUserCan $wpService
     ) {
     }
 
@@ -57,9 +57,7 @@ class PostTableSyncButton implements Hookable
         $classes    = 'button button-primary';
         $label      = __('Sync all posts from remote source', 'municipio');
         $requestUri = $_SERVER['REQUEST_URI'] ?? '';
-        $url        = $this->wpService->nonceUrl(
-            $requestUri
-        ) . '&' . \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER;
+        $url        = $this->wpService->wpNonceUrl($requestUri, -1) . '&' . \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER;
 
         echo '<a class="' . $classes . '" href="' . $url . '">' . $label . '<a>';
     }

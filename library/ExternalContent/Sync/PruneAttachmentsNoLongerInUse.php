@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Sync;
 
 use wpdb;
-use WpService\Contracts\DeleteAttachment;
+use WpService\Contracts\WpDeleteAttachment;
 
 /**
  * Class PruneAttachmentsNoLongerInSource
@@ -14,7 +14,7 @@ class PruneAttachmentsNoLongerInUse implements SyncSourceToLocalInterface
      * Constructor.
      */
     public function __construct(
-        private DeleteAttachment $wpService,
+        private WpDeleteAttachment $wpService,
         private wpdb $db,
         private ?SyncSourceToLocalInterface $inner = null
     ) {
@@ -30,7 +30,7 @@ class PruneAttachmentsNoLongerInUse implements SyncSourceToLocalInterface
         $attachmentIds = $this->getAllAttachmentIdsNotInUse();
 
         foreach ($attachmentIds as $attachmentId) {
-            $this->wpService->deleteAttachment($attachmentId->post_id, true);
+            $this->wpService->wpDeleteAttachment($attachmentId->post_id, true);
         }
     }
 

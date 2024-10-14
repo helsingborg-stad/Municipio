@@ -2,9 +2,9 @@
 
 namespace Municipio\PostTypeDesign;
 
-use WpService\Contracts\IsWPError;
-use WpService\Contracts\RemoteGet;
-use WpService\Contracts\RemoteRetrieveBody;
+use WpService\Contracts\IsWpError;
+use WpService\Contracts\WpRemoteGet;
+use WpService\Contracts\WpRemoteRetrieveBody;
 
 /**
  * Class ConfigFromPageId
@@ -18,7 +18,7 @@ class ConfigFromPageId implements ConfigFromPageIdInterface
      *
      * @param IsWPError&RemoteGet&RemoteRetrieveBody $wpService The WordPress service instance.
      */
-    public function __construct(private IsWPError&RemoteGet&RemoteRetrieveBody $wpService, private string $apiUrl = '')
+    public function __construct(private IsWpError&WpRemoteGet&WpRemoteRetrieveBody $wpService, private string $apiUrl = '')
     {
     }
 
@@ -30,11 +30,11 @@ class ConfigFromPageId implements ConfigFromPageIdInterface
      */
     public function get(string $designId): array
     {
-        $response = $this->wpService->remoteGet($this->apiUrl . $designId);
-        if ($this->wpService->isWPError($response)) {
+        $response = $this->wpService->wpRemoteGet($this->apiUrl . $designId);
+        if ($this->wpService->isWpError($response)) {
             return [[], null];
         } else {
-            $body = $this->wpService->remoteRetrieveBody($response);
+            $body = $this->wpService->wpRemoteRetrieveBody($response);
             $body = json_decode($body, true);
 
             return [

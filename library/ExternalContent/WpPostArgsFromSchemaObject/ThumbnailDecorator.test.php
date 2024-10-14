@@ -18,7 +18,7 @@ class ThumbnailDecoratorTest extends TestCase
     public function testSideloadImageFromUrl(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
         $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
@@ -37,7 +37,7 @@ class ThumbnailDecoratorTest extends TestCase
         $url           = 'https://example.com/image.jpg';
         $imageProperty = new ImageObject();
         $imageProperty->url($url);
-        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $imageProperty);
         $decorator = new ThumbnailDecorator(new WpPostFactory(), $wpService);
@@ -71,7 +71,7 @@ class ThumbnailDecoratorTest extends TestCase
     public function testDoesNotConnectToPostIfSideloadFails(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = new FakeWpService(['mediaSideloadImage' => WpMockFactory::createWpError()]);
+        $wpService    = new FakeWpService(['mediaSideloadImage' => WpMockFactory::createWpError(), 'getPosts' => []]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
 
@@ -88,7 +88,7 @@ class ThumbnailDecoratorTest extends TestCase
     public function testSetsMetaForAttachment(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = new FakeWpService(['mediaSideloadImage' => 1]);
+        $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
         $decorator    = new ThumbnailDecorator(new WpPostFactory(), $wpService);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);

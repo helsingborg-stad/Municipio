@@ -21,6 +21,7 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
+use Municipio\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
 use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
 use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
@@ -49,7 +50,6 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
-use WP_Query;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
@@ -147,7 +147,7 @@ class App
          */
 
         // Register the actual post type to be used for resources.
-        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType($this->wpService);
         $resourcePostType->addHooks();
 
         // Set up registry.
@@ -540,6 +540,11 @@ class App
     private function setupExternalContent(): void
     {
         /**
+         * Allow cron to edit posts.
+         */
+        $this->hooksRegistrar->register(new AllowCronToEditPosts($this->wpService));
+
+        /**
          * Feature config
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
@@ -648,7 +653,7 @@ class App
         /**
          * Populate cron_schedule field options.
          */
-        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
+        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->wpGetSchedules());
         array_unshift($scheduleOptions, __('Never', 'municipio'));
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9961f781e',

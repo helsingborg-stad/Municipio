@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1d130b789ba1c6dd53044ac92471034",
+    "content-hash": "1dc51336ff1eb9f0642fba2440eaf991",
     "packages": [
         {
             "name": "composer/installers",
@@ -301,23 +301,25 @@
         },
         {
             "name": "helsingborg-stad/wpservice",
-            "version": "1.52.0",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/wpservice.git",
-                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f"
+                "reference": "8403b11b8caa762a9c6c2587a34be3e097a84d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
-                "reference": "cab46ba86371d870dce9f0eb8d17dc2a89a60b1f",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/8403b11b8caa762a9c6c2587a34be3e097a84d7b",
+                "reference": "8403b11b8caa762a9c6c2587a34be3e097a84d7b",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.1"
+                "php": "^8.2"
             },
             "require-dev": {
                 "helsingborg-stad/phpcs": "^0.3.5",
+                "johnpbloch/wordpress": "^6.6",
+                "php-stubs/generator": "*",
                 "php-stubs/wordpress-stubs": "^6.6",
                 "phpunit/phpunit": "^9.6"
             },
@@ -325,7 +327,8 @@
             "autoload": {
                 "psr-4": {
                     "WpService\\": "src/",
-                    "WpCronService\\": "src/WpCronService/"
+                    "WpCronService\\": "src/WpCronService/",
+                    "WpService\\Generator\\": "generator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -341,9 +344,9 @@
             "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/wpservice/issues",
-                "source": "https://github.com/helsingborg-stad/wpservice/tree/1.52.0"
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/2.0.4"
             },
-            "time": "2024-10-03T10:35:34+00:00"
+            "time": "2024-10-11T05:32:10+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -1484,16 +1487,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -1536,9 +1539,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
-            "time": "2024-09-29T13:56:26+00:00"
+            "time": "2024-10-08T18:51:32+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -3666,7 +3669,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1"
+        "php": "^8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
