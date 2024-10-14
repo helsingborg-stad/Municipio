@@ -296,7 +296,7 @@ class App
          */
         $this->setupImageConvert();
 
-        new \Municipio\Helper\Navigation\MenusSettings();
+        new \Municipio\Helper\Navigation\MenusSettings($this->wpService, $this->acfService);
     }
 
     /**
