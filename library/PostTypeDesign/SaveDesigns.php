@@ -43,6 +43,14 @@ class SaveDesigns implements Hookable
         $this->wpService->addFilter('Municipio\Customizer\Applicators\Css\CssPostTypeCache', array($this, 'setPostTypeKeys'));
     }
 
+    /**
+     * Sets the post type keys for design saving.
+     *
+     * Retrieves the public post types and checks if they have a design to load.
+     * If a post type has a design to load, it adds the post type to the $postTypeDesign array.
+     *
+     * @return array The post type design array.
+     */
     public function setPostTypeKeys()
     {
         $postTypes = $this->wpService->getPostTypes(['public' => true], 'names');
