@@ -25,7 +25,6 @@ class InlineCssGenerator
     public function generateCssArray(): array
     {
         $inlineCss = [];
-        
         if (empty($this->designConfig) || empty($this->fields)) {
             return $inlineCss;
         }
@@ -56,19 +55,35 @@ class InlineCssGenerator
      *
      * @return string The generated inline CSS string.
      */
-    public function generateCssString(): string
+    public function generateCssString(string $cssClassName): string
     {
         $inlineCssArray = $this->generateCssArray();
         $cssString = '';
-
         if (empty($inlineCssArray)) {
             return $cssString;
         }
 
-        foreach ($inlineCssArray as $property => $value) {
-            $cssString .= "$property: $value; ";
+        foreach ($inlineCssArray as $cssClass => $cssProperties) {
+            if (empty($cssProperties)) {
+                continue;
+            }
+
+            $localCssString = '';
+            foreach ($cssProperties as $property => $value) {
+                $localCssString .= "$property: $value; ";
+            }
+
+            if ($cssClass === ':root') {
+                $cssString .= '.' . $cssClassName . ' { ' . $localCssString . ' } ';
+                continue;
+            }
+
+            $cssString .= '.' . $cssClassName . ' ' . $cssClass . ', ' . 
+            $cssClass . ' .' . $cssClassName . ', ' . 
+            '.' . $cssClassName . '' . $cssClass .
+            ' { ' . $localCssString . ' } ';
         }
-        
+
         return $cssString;
     }
 
@@ -88,7 +103,11 @@ class InlineCssGenerator
                 continue;
             }
 
-            $multiColorKeys[$output['property']] = $designConfigField[$output['choice']];
+            if (!isset($multiColorKeys[$output['element']])) {
+                $multiColorKeys[$output['element']] = [];
+            }
+
+            $multiColorKeys[$output['element']][$output['property']] = $designConfigField[$output['choice']];
         }
 
         return $multiColorKeys;
@@ -107,6 +126,7 @@ class InlineCssGenerator
         return 
             empty($output['choice']) || 
             empty($designConfigField[$output['choice']]) || 
-            empty($output['property']);
+            empty($output['property']) ||
+            empty($output['element']);
     }
 }
