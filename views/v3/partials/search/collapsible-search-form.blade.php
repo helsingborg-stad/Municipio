@@ -22,7 +22,7 @@
             ])
             @endfield
 
-            <button type="button" aria-label="{{ $lang->search }}" class="collapsible-search-form__submit-icon">
+            <button type="submit" aria-label="{{ $lang->search }}" class="collapsible-search-form__submit-icon">
                 @icon([
                     'icon' => 'search',
                     'size' => 'md',
