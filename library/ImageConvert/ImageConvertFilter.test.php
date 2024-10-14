@@ -67,6 +67,80 @@ class ImageConvertFilterTest extends TestCase
         );
     }
 
+    /**
+     * @testdox Test that to large image uploads are prevented.
+     */
+    public function testPreventLargeImageUploads(): void
+    {
+        $wpService          = new FakeWpService(
+            [
+                'sizeFormat'   => '5MB',
+                'applyFilters' => function ($hookName, $value, ...$args) {
+                    return $value;
+                },
+                '__'           => function ($text) {
+                    return $text;
+                }
+            ]
+        );
+        $configService      = new ImageConvertConfig(
+            $wpService
+        );
+        $imageConvertFilter = new ImageConvertFilter(
+            $wpService,
+            $configService
+        );
+
+        $file = [
+            'type'  => 'image',
+            'size'  => 5242881,
+            'error' => ''
+        ];
+
+        $result = $imageConvertFilter->preventLargeImageUploads($file);
+
+        //Asset that the error message key exists, and not empty
+        $this->assertArrayHasKey('error', $result);
+        $this->assertNotEmpty($result['error']);
+    }
+
+    /**
+     * @testdox Test that allowed file sizes are not prevented.
+     */
+    public function testNotPreventNormalImageUploads(): void
+    {
+        $wpService          = new FakeWpService(
+            [
+                'sizeFormat'   => '5MB',
+                'applyFilters' => function ($hookName, $value, ...$args) {
+                    return $value;
+                },
+                '__'           => function ($text) {
+                    return $text;
+                }
+            ]
+        );
+        $configService      = new ImageConvertConfig(
+            $wpService
+        );
+        $imageConvertFilter = new ImageConvertFilter(
+            $wpService,
+            $configService
+        );
+
+        $file = [
+            'type'  => 'image',
+            'size'  => 5242879,
+            'error' => ''
+        ];
+
+        $result = $imageConvertFilter->preventLargeImageUploads($file);
+
+        //Assert that the error key is empty
+        $this->assertArrayHasKey('error', $result);
+        $this->assertEmpty($result['error']);
+    }
+
   /**
    * Test data provider for testNonProcessedValues.
    */
