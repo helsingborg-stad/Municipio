@@ -45,8 +45,7 @@ class InlineCssGeneratorTest extends TestCase
         ]);
 
         $result = $inlineCssGeneratorInstance->generateCssArray();
-        
-        $this->assertEquals($result, ["--color" => "#000"]);
+        $this->assertEquals($result, ['.element' => ["--color" => "#000"]]);
     }
 
     public function testGenerateCssStringReturnsEmptyStringIfFaultyData()
@@ -61,8 +60,8 @@ class InlineCssGeneratorTest extends TestCase
             ]
         ]);
 
-        $result = $inlineCssGeneratorInstance->generateCssString();
-        
+        $result = $inlineCssGeneratorInstance->generateCssString('element');
+
         $this->assertEquals($result, '');
     }
 }

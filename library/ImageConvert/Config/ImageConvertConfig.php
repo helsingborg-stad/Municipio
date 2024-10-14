@@ -4,7 +4,6 @@ namespace Municipio\ImageConvert\Config;
 
 use WpService\Contracts\ApplyFilters;
 use Municipio\ImageConvert\Config\ImageConvertConfigInterface;
-use WpService\Contracts\IsAdmin;
 
 /**
  * ImageConvert configuration.
@@ -13,13 +12,21 @@ class ImageConvertConfig implements ImageConvertConfigInterface
 {
     /**
      * Constructor.
+     *
+     * @param ApplyFilters $wpService               A wp service instance.
+     * @param string $filterPrefix                  The filter prefix for the image conversion filters.
+     * @param string $intermidiateImageFormat       The format to convert the intermidiate image to.
+     * @param int $intermidiateImageQuality         The quality of the intermidiate image.
+     * @param int $intermidiateImageMaxDimension    The maximum image dimension for image conversion.
+     * @param int $maxSourceFileSize                The maximum file size for the source image.
      */
     public function __construct(
-        private ApplyFilters&IsAdmin $wpService,
+        private ApplyFilters $wpService,
         private string $filterPrefix = 'Municipio/ImageConvert',
         private string $intermidiateImageFormat = 'webp',
         private int $intermidiateImageQuality = 80,
-        private int $intermidiateImageMaxDimension = 1920
+        private int $intermidiateImageMaxDimension = 1920,
+        private int $maxSourceFileSize = 5
     ) {
     }
 
@@ -30,7 +37,7 @@ class ImageConvertConfig implements ImageConvertConfigInterface
     {
         return $this->wpService->applyFilters(
             $this->createFilterKey(__FUNCTION__),
-            !$this->wpService->isAdmin()
+            true
         );
     }
 
@@ -65,8 +72,8 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         $targetMime = ($targetFormat === 'jpg') ? 'jpeg' : $targetFormat;
 
         return [
-        'suffix' => $targetFormat,
-        'mime'   => 'image/' . $targetMime,
+            'suffix' => $targetFormat,
+            'mime'   => 'image/' . $targetMime,
         ];
     }
 
@@ -135,6 +142,22 @@ class ImageConvertConfig implements ImageConvertConfigInterface
         }
 
         return $mimeTypes;
+    }
+
+    /**
+     * The maximum file size for the source image.
+     * This will be used to determine if the image should be converted or not.
+     *
+     * The default value is 20MB.
+     *
+     * @return int The maximum file size in bytes.
+     */
+    public function maxSourceFileSize(): int
+    {
+        return $this->wpService->applyFilters(
+            $this->createFilterKey(__FUNCTION__),
+            1024 * 1024 * $this->maxSourceFileSize
+        );
     }
 
   /**

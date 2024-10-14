@@ -20,7 +20,7 @@
         ],
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
-            'aria-controls' => "navigation",
+            'aria-controls' => "mega-menu",
             'data-js-toggle-trigger' => 'mega-menu',
             'data-toggle-icon' => 'close'
         ],
