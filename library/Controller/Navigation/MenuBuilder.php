@@ -10,7 +10,6 @@ use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeIconMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsMenuItems;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbItemsFilter;
-use Municipio\Controller\Navigation\Decorators\Menu\AddColorStyles;
 use Municipio\Controller\Navigation\Decorators\Menu\AppendAcfFields;
 use Municipio\Controller\Navigation\Decorators\Menu\AppendDataFromAncestorIds;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemIsCurrentPage;
@@ -200,11 +199,6 @@ class MenuBuilder implements MenuBuilderInterface
     public function appendAcfFields(): void
     {
         $this->menu = new AppendAcfFields($this->menu, $this->wpService, $this->acfService);
-    }
-
-    public function addColorStyles(): void
-    {
-        $this->menu = new AddColorStyles($this->menu);
     }
 
     public function getMenu(): MenuInterface

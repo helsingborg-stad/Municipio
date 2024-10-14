@@ -32,7 +32,6 @@ class MenuDirector
     {
         $this->builder->appendMenuItems();
         $this->builder->appendAcfFields();
-        $this->builder->addColorStyles();
         $this->builder->mapMenuItemsFromObjectToArray();
         $this->builder->mapMenuItemsAcfFieldValues();
         $this->builder->mapMenuItemsIsAncestor();
@@ -69,7 +68,6 @@ class MenuDirector
     {
         $this->builder->appendMenuItems();
         $this->builder->appendAcfFields();
-        $this->builder->addColorStyles();
         $this->builder->mapMenuItemsFromObjectToArray();
         $this->builder->mapMenuItemsAcfFieldValues();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
