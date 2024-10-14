@@ -10,6 +10,7 @@ use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendArchiveMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendHomeIconMenuItem;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\AppendPageTreeAncestorsMenuItems;
 use Municipio\Controller\Navigation\Decorators\Breadcrumb\ApplyBreadcrumbItemsFilter;
+use Municipio\Controller\Navigation\Decorators\Menu\AppendAcfFields;
 use Municipio\Controller\Navigation\Decorators\Menu\AppendDataFromAncestorIds;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemIsCurrentPage;
 use Municipio\Controller\Navigation\Decorators\Menu\AppendMenuItems;
@@ -193,6 +194,11 @@ class MenuBuilder implements MenuBuilderInterface
     public function convertStaticMenuItemsToPageTreeItems(): void
     {
         $this->menu = new ConvertStaticMenuItemsToPageTreeItems($this->menu);
+    }
+
+    public function appendAcfFields(): void
+    {
+        $this->menu = new AppendAcfFields($this->menu, $this->acfService);
     }
 
     public function getMenu(): MenuInterface

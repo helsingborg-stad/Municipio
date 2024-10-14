@@ -18,16 +18,10 @@ class MenusSettings
     {
         $fields = get_fields(wp_get_nav_menu_object($menuId));
         $this->menusSettings = get_option(self::MENU_SETTINGS_KEY) ?: [];
-        
+
         $this->updateAdditionalMenuItems($menuId, $fields);
-        $this->updateMenuColors($menuId, $fields);
 
         update_option(self::MENU_SETTINGS_KEY, $this->menusSettings);
-    }
-
-    private function updateMenuColors($menuId, $fields): void
-    {
-        
     }
 
     private function updateAdditionalMenuItems($menuId, $fields): void
@@ -52,8 +46,16 @@ class MenusSettings
     public function addMenuLocationField($field)
     {
         $activeMenus      = get_nav_menu_locations();
-        $field['choices'] = [];
 
+        $activeMenus = array_filter($activeMenus, function ($key) {
+            return in_array(
+                $key, 
+                ['secondary-menu']
+            );
+        }, ARRAY_FILTER_USE_KEY);
+
+        $field['choices'] = [];
+        
         if (!empty($activeMenus)) {
             $allMenuLocations = \Municipio\Theme\Navigation::getMenuLocations();
 

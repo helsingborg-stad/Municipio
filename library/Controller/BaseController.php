@@ -214,12 +214,14 @@ class BaseController
             \Kirki::get_option('secondary_menu_pagetree_fallback'),
         );
 
+        $this->menuDirector->setBuilder($this->menuBuilder);
+        
         // All menu settings should be stored in the nav_menus_settings option
         $menuSettings = $this->wpService->getOption('nav_menus_settings', []);
         $this->data['additionalMenusOption'] = $menuSettings['additional_menus'] ?? [];
-        $this->data['additionalMenus'] = $this->buildAdditionalMenus();
 
-        $this->menuDirector->setBuilder($this->menuBuilder);
+        // Building additional menus in use
+        $this->data['additionalMenus'] = $this->buildAdditionalMenus();
 
         // Sidebar menu
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);

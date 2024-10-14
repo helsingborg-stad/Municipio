@@ -43,6 +43,7 @@ interface MenuBuilderInterface
     public function pageTreeSetMenuItemsCache(): void;
 
     // General
+    public function appendAcfFields(): void;
     public function applyMenuItemsFilter(): void;
     public function removeSubLevels(): void;
     public function removeTopLevel(): void;
