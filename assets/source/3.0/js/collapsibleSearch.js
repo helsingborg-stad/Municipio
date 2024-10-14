@@ -38,7 +38,7 @@ export class CollapsibleSearchForm {
         this.searchForm.classList.add('open');
 
         setTimeout(() => {
-            this.searchInput.focus(); // Focus the search input after opening
+            this.searchInput.focus(); // Focus the search input after opening the search form
         }, 500);
 
         // Emit custom event for form opened
