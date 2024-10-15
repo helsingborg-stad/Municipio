@@ -13,26 +13,26 @@
         transition: all 0.2s ease-in-out;
         transform-origin: center right;
         display: flex;
-        padding: calc(var(--base, 8px) * .5); //4px 6px before, can we use 4 overall? 
+        padding: calc(var(--base, 8px) * .5);
         overflow: hidden;
-        z-index: $level-2; // Changed to use z-index var. 
+        z-index: $level-2;
         opacity: 0;
   
         @media (max-width: 799px) {
           position: fixed;
-          top: calc(var(--base, 8px) * 1.5); // Use var
+          top: calc(var(--base, 8px) * 1.5);
         }
         
         &.open {
-          width: calc(100% - calc(var(--base, 8px) * 3.5)); // Use var before: 30, now 28
+          width: calc(100% - calc(var(--base, 8px) * 3.5));
           opacity: 1;
   
           @media (min-width: 800px) {
-            width: calc(var(--base, 8px) * 50); // Use var 400 now before: 404px
+            width: calc(var(--base, 8px) * 50);
           }
   
           @media (max-width: 799px) {
-            right: calc(var(--base, 8px) * 2); // Use var now: 16, before 15
+            right: calc(var(--base, 8px) * 2);
   
             #{$parent}__group {
               width: 100%;
@@ -54,7 +54,7 @@
           min-width: 0;
   
           @media (min-width: 800px) {
-            min-width: calc(var(--base, 8px) * 44); // Use var before: 350px; now: 352px
+            min-width: calc(var(--base, 8px) * 44);
           }
   
           .c-field_focus-styler {
@@ -63,7 +63,7 @@
           }
   
           input {
-            padding-right: calc(var(--base, 8px) * 5); // Use var before: 40px; now: 40px
+            padding-right: calc(var(--base, 8px) * 5);
             border-radius: 4rem;
   
             &:focus {
@@ -84,7 +84,7 @@
         border: 0;
         padding: 0;
         position: absolute;
-        inset: 50% calc(var(--base, 8px) * 1.5) auto auto; // inset changed from 10px to 8px
+        inset: 50% calc(var(--base, 8px) * 1.5) auto auto;
         transform: translateY(-50%);
         border-radius: 50%;
         outline-width: 3px;
