@@ -98,11 +98,18 @@ class ImageContract implements ImageContractInterface
                 return $path;
             }
 
+            // If the server can't convert between formats,
+            // we need to create an intermediate image in the same
+            // format as the source image.
+            $canConvertBetweenFormats = function (): bool {
+                return extension_loaded('imagick');
+            };
+
             $dirname   = $fileInfo['dirname'];
             $filename  = $fileInfo['filename'];
             $extension = $fileInfo['extension'];
 
-            if (!is_null($suffix)) {
+            if (!is_null($suffix) && $canConvertBetweenFormats() === true) {
                 $extension = $suffix;
             }
 
