@@ -80,7 +80,6 @@ class CollapsibleSearchForm {
 
     // Global keydown listener for Escape and Tab key handling
     private globalKeydownListener = (event: KeyboardEvent): void => {
-        console.log(event);
         if (!this.isOpen) return;
 
         if (event.key === 'Escape') {
