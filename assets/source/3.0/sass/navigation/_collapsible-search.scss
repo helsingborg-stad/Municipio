@@ -99,11 +99,11 @@
         appearance: none;
         background: transparent;
         border: none;
-        padding: 0 calc(var(--base, 8px) * 2) 0 calc(var(--base, 8px) * 1);
+        padding: 0 calc(var(--base, 8px) * 1.5) 0 calc(var(--base, 8px) * 1);
         background-color: #f5f5f5; //TODO: Not allowed to define static colors.
         outline-width: 3px;
-        border-top-right-radius: inherit;
-        border-bottom-right-radius: inherit;
+        border-top-right-radius: calc(var(--base, 8px) * 6);
+        border-bottom-right-radius: calc(var(--base, 8px) * 6);
         position: relative;
         cursor: pointer;
         z-index: -1;
