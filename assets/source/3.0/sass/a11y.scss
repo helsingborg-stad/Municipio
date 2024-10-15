@@ -10,5 +10,6 @@ body.logged-in {
     font-size: .8em;
     border-radius: 3px;
     border: 1px solid #fff;
+    backdrop-filter: blur(4px);
   }
 }
