@@ -80,18 +80,9 @@ class IntermidiateImageHandler implements Hookable
             return false;
         }
 
-        $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
-        $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
-
-        // If the server can't convert between formats,
-        // we need to create an intermediate image in the same
-        // format as the source image.
-        if ($this->config->canConvertBetweenFormats() === false) {
-            $targetFormatMime     = $this->getSourceFileMime($image->getId(), $image->getPath());
-            $suffix               = pathinfo($image->getPath(), PATHINFO_EXTENSION);
-            $intermediateLocation = $image->getIntermidiateLocation($suffix);
-        }
+        $intermediateLocation = $image->getIntermidiateLocation(
+            $this->config->intermidiateImageFormat()['suffix']
+        );
 
         $imageEditor = $this->wpService->wpGetImageEditor(
             $image->getPath()
@@ -107,8 +98,7 @@ class IntermidiateImageHandler implements Hookable
 
             // Attempt to save the image in the target format and size
             $savedImage = $imageEditor->save(
-                $intermediateLocation['path'],
-                $targetFormatMime
+                $intermediateLocation['path']
             );
 
             if (!$this->wpService->isWpError($savedImage)) {
@@ -116,7 +106,7 @@ class IntermidiateImageHandler implements Hookable
                 $image->setPath($intermediateLocation['path']);
                 return $image;
             } else {
-                $this->imageConversionError('Error saving image as ' . $targetFormatSuffix . ': ' . $savedImage->get_error_message(), $image);
+                $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
             }
         } else {
             $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);

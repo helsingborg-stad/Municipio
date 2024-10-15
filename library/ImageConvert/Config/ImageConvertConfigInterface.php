@@ -13,11 +13,4 @@ interface ImageConvertConfigInterface
     public function intermidiateImageFormat(): array;
     public function intermidiateImageQuality(): int;
     public function maxSourceFileSize(): int;
-
-    /**
-     * Check if the server can convert between formats.
-     *
-     * @return bool
-     */
-    public function canConvertBetweenFormats(): bool;
 }
