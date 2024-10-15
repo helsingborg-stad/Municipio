@@ -7,32 +7,32 @@
       &__form {
         position: absolute;
         width: 0;
-        top: -4px;
+        top: calc(var(--base, 8px) * -0.5);
         right: 0;
         left: auto;
         transition: all 0.2s ease-in-out;
         transform-origin: center right;
         display: flex;
-        padding: 4px 6px;
+        padding: calc(var(--base, 8px) * .5); //4px 6px before, can we use 4 overall? 
         overflow: hidden;
-        z-index: 15;
+        z-index: $level-2; // Changed to use z-index var. 
         opacity: 0;
   
         @media (max-width: 799px) {
           position: fixed;
-          top: 12px;
+          top: calc(var(--base, 8px) * 1.5); // Use var
         }
         
         &.open {
-          width: calc(100% - 30px);
+          width: calc(100% - calc(var(--base, 8px) * 3.5)); // Use var before: 30, now 28
           opacity: 1;
   
           @media (min-width: 800px) {
-            width: 404px;
+            width: calc(var(--base, 8px) * 50); // Use var 400 now before: 404px
           }
   
           @media (max-width: 799px) {
-            right: 15px;
+            right: calc(var(--base, 8px) * 2); // Use var now: 16, before 15
   
             #{$parent}__group {
               width: 100%;
@@ -54,7 +54,7 @@
           min-width: 0;
   
           @media (min-width: 800px) {
-            min-width: 350px;
+            min-width: calc(var(--base, 8px) * 44); // Use var before: 350px; now: 352px
           }
   
           .c-field_focus-styler {
@@ -63,7 +63,7 @@
           }
   
           input {
-            padding-right: 40px;
+            padding-right: calc(var(--base, 8px) * 5); // Use var before: 40px; now: 40px
             border-radius: 4rem;
   
             &:focus {
@@ -73,7 +73,7 @@
   
           &__inner {
             border-radius: 4rem;
-            background-color: #fff;
+            background-color: #fff; // TODO: Use Not allowed to define static colors. 
           }
         }
       }
@@ -84,26 +84,26 @@
         border: 0;
         padding: 0;
         position: absolute;
-        inset: 50% 10px auto auto;
+        inset: 50% calc(var(--base, 8px) * 1.5) auto auto; // inset changed from 10px to 8px
         transform: translateY(-50%);
         border-radius: 50%;
         outline-width: 3px;
         cursor: pointer;
   
         &:disabled {
-          color: #858585;
+          opacity: .5;
         }
       }
   
       &__close-button {
         appearance: none;
         background: transparent;
-        border: 0;
-        padding: 0.55rem 1rem 0.55rem 0.44rem;
-        background-color: #f5f5f5;
+        border: none;
+        padding: 0 calc(var(--base, 8px) * 2) 0 calc(var(--base, 8px) * 1);
+        background-color: #f5f5f5; //TODO: Not allowed to define static colors.
         outline-width: 3px;
-        border-top-right-radius: 4rem;
-        border-bottom-right-radius: 4rem;
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
         position: relative;
         cursor: pointer;
         z-index: -1;
@@ -111,11 +111,11 @@
         &::before {
           content: "";
   
-          width: 3rem;
+          width: 3rem; //TODO: Use var
           height: 100%;
           display: block;
           position: absolute;
-          background-color: #f5f5f5;
+          background-color: #f5f5f5; //TODO: Not allowed to define static colors.
           inset: 0 100% 0 auto;
           z-index: -1;
         }
@@ -150,7 +150,7 @@
     
       &__form {
         @media (max-width: 799px) {
-          top: 61px;
+          top: var(--wp-admin--admin-bar--height, 32px);
         }
       }
     }
