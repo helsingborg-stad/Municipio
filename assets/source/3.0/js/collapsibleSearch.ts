@@ -21,7 +21,7 @@ class CollapsibleSearchForm {
     }
 
     // Initialize event listeners once
-    private initializeEvents() {
+    private initializeEvents(): void {
         // Always keep these listeners active
         document.addEventListener('click', this.globalClickListener);
         document.addEventListener('keydown', this.globalKeydownListener);
@@ -42,11 +42,7 @@ class CollapsibleSearchForm {
     // Function to open the search form
     private openSearchForm(): void {
         this.isOpen = true;
-        this.lastFocusedElement = document.activeElement as HTMLElement;
-        this.searchForm.classList.remove('closing');
-        this.searchForm.setAttribute('aria-hidden', 'false');
-        this.triggerButton.setAttribute('aria-expanded', 'true');
-        this.searchForm.classList.add('open');
+        this.handleIsOpen();
 
         setTimeout(() => {
             this.searchInput.focus(); // Focus the search input after opening the search form
@@ -58,16 +54,30 @@ class CollapsibleSearchForm {
         if (!this.isOpen) return;
 
         this.isOpen = false;
-        this.searchInput.blur();
-        this.searchForm.classList.remove('open');
-        this.searchForm.setAttribute('aria-hidden', 'true');
-        this.triggerButton.setAttribute('aria-expanded', 'false');
-        this.searchForm.classList.add('closing');
+        this.handleIsOpen();
 
         setTimeout(() => {
             this.searchForm.classList.remove('closing'); // Clean up classes
             this.lastFocusedElement?.focus(); // Restore focus to the last focused element
         }, 500);
+    }
+
+    private handleIsOpen(): void {
+        if (this.isOpen) {
+            this.lastFocusedElement = document.activeElement as HTMLElement;
+            this.searchForm.classList.remove('closing');
+            this.searchForm.setAttribute('aria-hidden', 'false');
+            this.searchForm.classList.remove('u-visibility--hidden');
+            this.triggerButton.setAttribute('aria-expanded', 'true');
+            this.searchForm.classList.add('open');
+        } else {
+            this.searchForm.classList.add('u-visibility--hidden');
+            this.searchInput.blur();
+            this.searchForm.classList.remove('open');
+            this.searchForm.setAttribute('aria-hidden', 'true');
+            this.triggerButton.setAttribute('aria-expanded', 'false');
+            this.searchForm.classList.add('closing');
+        }
     }
 
     // Global click listener to detect outside clicks
@@ -114,7 +124,7 @@ class CollapsibleSearchForm {
 }
 
 // Function to initialize the collapsible search form
-export function initializeCollapsibleSearch() {
+export function initializeCollapsibleSearch(): void {
     const collapsibleSearchElements = document.querySelectorAll('.collapsible-search-form');
 
     collapsibleSearchElements.forEach((collapsibleSearchElement) => {

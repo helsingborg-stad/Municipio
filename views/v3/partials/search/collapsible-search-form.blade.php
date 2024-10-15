@@ -2,12 +2,14 @@
     @form([
         'method'    => 'get',
         'action'    => $homeUrl,
-        'classList' => ['collapsible-search-form__form'],
-        'attributeList' => ['tab-index' => '-1', 'aria-hidden' => 'true'],
+        'classList' => [
+            'collapsible-search-form__form',
+            'u-visibility--hidden'
+        ],
+        'attributeList' => ['tabindex' => '-1', 'aria-hidden' => 'true'],
     ])
         @group(['direction' => 'horizontal', 'classList' => ['collapsible-search-form__group']])
             @field([
-                'id'            => 'collapsible-search-form__field',
                 'type'          => 'text',
                 'name'          => 's',
                 'required'      => false,
@@ -18,26 +20,35 @@
                 'classList'     => [
                     'u-flex-grow--1',
                     'u-box-shadow--1',
-                ]
+                ],
             ])
             @endfield
 
-            <button type="submit" aria-label="{{ $lang->search }}" class="collapsible-search-form__submit-icon">
-                @icon([
-                    'icon' => 'search',
-                    'size' => 'md',
-                ])
-                @endicon
-            </button>
+            @button([
+                'classList' => [
+                    'collapsible-search-form__submit-icon'
+                ],
+                'style' => 'primary',
+                'type' => 'submit',
+                'icon' => 'search',
+                'attributeList' => [
+                    'aria-label' => $lang->search,
+                ],
+            ])
+            @endbutton
         @endgroup
 
-        <button type="button" class="collapsible-search-form__close-button" aria-label="{{ __('Close search', 'municipio') }}">
-            @icon([
-                'icon' => 'close',
-                'size' => 'md',
-            ])
-            @endicon
-        </button>
+        @button([
+            'classList' => [
+                'collapsible-search-form__close-button'
+            ],
+            'style' => 'primary',
+            'icon' => 'close',
+            'attributeList' => [
+                'aria-label' => __('Close search', 'municipio'),
+            ]
+        ])
+        @endbutton
     @endform
 
     @button([
