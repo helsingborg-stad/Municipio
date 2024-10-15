@@ -1,0 +1,14 @@
+body.logged-in {
+  [data-a11y-error]:after {
+    content: attr(data-a11y-error);
+    padding: 4px 8px;
+    background: rgba(#f00, 0.8);
+    color: #fff;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: .8em;
+    border-radius: 3px;
+    border: 1px solid #fff;
+  }
+}
