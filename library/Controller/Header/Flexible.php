@@ -146,7 +146,7 @@ class Flexible implements HeaderInterface
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
         return [
-            $this->customizer->{$settingCamelCased} ?? [],
+            $this->customizer->{$settingCamelCased} ?: [],
             ($this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}))
                 ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
                 : [],
