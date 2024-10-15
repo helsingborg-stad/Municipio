@@ -84,7 +84,7 @@
         border: 0;
         padding: 0;
         position: absolute;
-        inset: 50% calc(var(--base, 8px) * 1.5) auto auto;
+        inset: 50% -1px auto auto;
         transform: translateY(-50%);
         border-radius: 50%;
         outline-width: 3px;
