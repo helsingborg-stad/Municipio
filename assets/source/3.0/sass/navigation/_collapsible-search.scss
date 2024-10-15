@@ -58,13 +58,13 @@
           }
   
           .c-field_focus-styler {
-            border-radius: 4rem;
+            border-radius: calc(var(--base, 8px) * 6);
             outline-width: 3px;
           }
   
           input {
             padding-right: calc(var(--base, 8px) * 5);
-            border-radius: 4rem;
+            border-radius: calc(var(--base, 8px) * 6);
   
             &:focus {
               outline-style: none;
@@ -72,8 +72,8 @@
           }
   
           &__inner {
-            border-radius: 4rem;
-            background-color: #fff; // TODO: Use Not allowed to define static colors. 
+            border-radius: calc(var(--base, 8px) * 6);
+            background-color: $color-white;
           }
         }
       }
@@ -89,10 +89,6 @@
         border-radius: 50%;
         outline-width: 3px;
         cursor: pointer;
-  
-        &:disabled {
-          opacity: .5;
-        }
       }
   
       &__close-button {
@@ -100,7 +96,7 @@
         background: transparent;
         border: none;
         padding: 0 calc(var(--base, 8px) * 1.5) 0 calc(var(--base, 8px) * 1);
-        background-color: #f5f5f5; //TODO: Not allowed to define static colors.
+        background-color: $color-secondary-light;
         outline-width: 3px;
         border-top-right-radius: calc(var(--base, 8px) * 6);
         border-bottom-right-radius: calc(var(--base, 8px) * 6);
@@ -111,11 +107,11 @@
         &::before {
           content: "";
   
-          width: 3rem; //TODO: Use var
+          width: calc(var(--base, 8px) * 4);
           height: 100%;
           display: block;
           position: absolute;
-          background-color: #f5f5f5; //TODO: Not allowed to define static colors.
+          background-color: $color-secondary-light;
           inset: 0 100% 0 auto;
           z-index: -1;
         }
