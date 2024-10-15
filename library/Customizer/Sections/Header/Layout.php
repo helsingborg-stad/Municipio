@@ -298,6 +298,7 @@ class Layout
         $filteredMenuOptions = [
             'header-search-form' => __('Search Form', 'municipio'),
             'search-modal'       => __('Search Button', 'municipio'),
+            'collapsible-search' => __('Collapsible Search', 'municipio'),
             'logotype'           => __('Logotype', 'municipio'),
             'brand-text'         => __('Brand Text', 'municipio')
         ];

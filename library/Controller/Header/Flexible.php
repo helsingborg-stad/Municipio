@@ -124,13 +124,13 @@ class Flexible implements HeaderInterface
     // Checks if the search is present in the menu.
     private function hasSearch($desktopOrderedItems, $mobileOrderedItems): bool
     {
-        return $this->hasSearch || in_array('search-modal', $desktopOrderedItems) || in_array('search-modal', $mobileOrderedItems);
+        return $this->hasSearch || in_array('search-modal', $desktopOrderedItems ?: []) || in_array('search-modal', $mobileOrderedItems ?: []);
     }
 
     // Checks if the mega menu is present in the menu.
     private function hasMegaMenu($desktopOrderedItems, $mobileOrderedItems): bool
     {
-        return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems) || in_array('mega-menu', $mobileOrderedItems);
+        return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems ?: []) || in_array('mega-menu', $mobileOrderedItems ?: []);
     }
 
     // Checks if the brand text is separated from logotype.
@@ -146,7 +146,7 @@ class Flexible implements HeaderInterface
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
         return [
-            $this->customizer->{$settingCamelCased} ?? [],
+            $this->customizer->{$settingCamelCased} ?: [],
             ($this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}))
                 ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
                 : [],
