@@ -77,6 +77,7 @@ class MenuDirector
         $this->builder->applyMenuItemFilter();
         // Note: No more changes to the individual menu items after this point
         $this->builder->pageTreeSetMenuItemsCache();
+        $this->builder->pageTreeAppendMenuItemsFetchUrl();
         // The following methods are used to structure the menu as a whole
         $this->builder->applyMenuItemsFilter();
         $this->builder->structureMenuItems();
@@ -96,6 +97,7 @@ class MenuDirector
         $this->builder->convertStaticMenuItemsToPageTreeItems();
         $this->builder->pageTreeAppendChildren();
         $this->builder->applyMenuItemFilter();
+        $this->builder->pageTreeAppendMenuItemsFetchUrl();
         $this->builder->applyMenuItemsFilter();
         $this->builder->structureMenuItems();
         $this->builder->removeSubLevels();

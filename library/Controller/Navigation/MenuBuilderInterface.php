@@ -41,6 +41,7 @@ interface MenuBuilderInterface
     public function pageTreeAppendMenuItemIsCurrentPage(): void;
     public function pageTreeAppendChildren(): void;
     public function pageTreeSetMenuItemsCache(): void;
+    public function pageTreeAppendMenuItemsFetchUrl(): void;
 
     // General
     public function appendAcfFields(): void;

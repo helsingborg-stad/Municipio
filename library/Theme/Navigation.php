@@ -16,7 +16,7 @@ class Navigation
     public function __construct(private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes)
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
-        add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
+        // add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleButtons'), 10, 2);
     }
@@ -177,7 +177,6 @@ class Navigation
             'additional-menu' => 'mobile',
             'sidebar'         => 'sidebar',
         ];
-
 
         if (!array_key_exists($identifier, $targetMenuIdentifiers)) {
             return $item;

@@ -25,6 +25,7 @@ use Municipio\Controller\Navigation\Decorators\Menu\MapMenuItemsIsAncestor;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendChildren;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsAncestors;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsCustomTitle;
+use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsFetchUrl;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeAppendMenuItemsHref;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeMenuItemsFormatter;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeSetMenuItemsCache;
@@ -297,6 +298,14 @@ class MenuBuilder implements MenuBuilderInterface
     public function appendAcfFields(): void
     {
         $this->menu = new AppendAcfFields($this->menu, $this->wpService, $this->acfService);
+    }
+
+    /**
+     * Append fetch url to menu items
+     */
+    public function pageTreeAppendMenuItemsFetchUrl(): void
+    {
+        $this->menu = new PageTreeAppendMenuItemsFetchUrl($this->menu, $this->wpService);
     }
 
     /**
