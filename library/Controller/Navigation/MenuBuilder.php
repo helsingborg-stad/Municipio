@@ -36,6 +36,9 @@ use Municipio\Controller\Navigation\Decorators\Menu\TryGetPageTreeMenuItemsFromC
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 
+/**
+ * The builder can construct several types of menus using the same building steps.
+ */
 class MenuBuilder implements MenuBuilderInterface
 {
     private MenuInterface $menu;
