@@ -157,52 +157,6 @@ class Navigation
     }
 
     /**
-     * Appends the fetch URL to the navigation item.
-     *
-     * This method appends the fetch URL to the provided navigation item based on the given identifier.
-     * If the identifier is not found in the target menu identifiers, the method returns the item as is.
-     * The fetch URL is constructed using the home URL, the page ID, the view path, the identifier, and the depth.
-     * The constructed fetch URL is then added to the attribute list of the item.
-     *
-     * @param array $item The navigation item.
-     * @param string $identifier The identifier of the target menu.
-     * @return array The modified navigation item with the fetch URL appended.
-     */
-    public function appendFetchUrl($item, $identifier)
-    {
-        $targetMenuIdentifiers = [
-            'mobile'          => 'mobile',
-            'primary'         => 'mobile',
-            'additional-menu' => 'mobile',
-            'sidebar'         => 'sidebar',
-        ];
-
-        if (!array_key_exists($identifier, $targetMenuIdentifiers)) {
-            return $item;
-        }
-
-        if (isset($item['id']) && is_numeric($item['id'])) {
-            $depth = $this->getPageDepth($item['id']) + 1;
-        } else {
-            $depth = 1;
-        }
-
-        $dataFetchUrl = apply_filters(
-            'Municipio/homeUrl',
-            esc_url(get_home_url())
-        )   . '/wp-json/municipio/v1/navigation/children/render'
-            . '?' . 'pageId=' .  $item['id'] . '&viewPath=' . 'partials.navigation.'
-            . $targetMenuIdentifiers[$identifier] . '&identifier='
-            . $targetMenuIdentifiers[$identifier] . '&depth=' . $depth;
-
-        $item['attributeList'] = array(
-            'data-fetch-url' => $dataFetchUrl
-        );
-
-        return $item;
-    }
-
-    /**
      * Get depth of page
      *
      * @param int $postId
