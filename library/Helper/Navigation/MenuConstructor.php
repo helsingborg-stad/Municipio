@@ -2,10 +2,83 @@
 
 namespace Municipio\Helper\Navigation;
 
+use Municipio\Helper\Navigation\GetMenuData;
+
+/**
+ * Class MenuConstructor
+ *
+ * This class represents a menu constructor that is responsible for constructing menus in the WordPress theme.
+ *
+ * @package Helper\Navigation
+ */
 class MenuConstructor
 {
-    public function __construct(private string $identifier = "")
+    private static ?array $additionalMenusOption = null;
+
+    /**
+     * Class MenuConstructor
+     *
+     * This class represents a menu constructor that is responsible for constructing menus in the WordPress theme.
+     *
+     * @package Helper\Navigation
+     */
+    public function __construct(private string $identifier = "", private ?int $menuId = null, private ?int $pageId = null)
     {
+    }
+
+    /**
+     * Structure the menu items into a hierarchical structure.
+     *
+     * @param array $menuItems The menu items to be structured.
+     * @param string|int $menu The ID or slug of the menu.
+     * @param bool $canHaveAdditionalMenu Whether the menu can have additional menus.
+     * @return array The structured menu with items, title, and additional menus.
+     */
+    public function structureMenu(array $menuItems, string|int $menu, bool $canHaveAdditionalMenu = true)
+    {
+        $structuredMenu = [];
+
+        $navMenuObject = GetMenuData::getNavMenuObject($menu);
+
+        $structuredMenu['items']           = $menuItems;
+        $structuredMenu['title']           = $navMenuObject ? $navMenuObject->name : null;
+        $structuredMenu['additionalMenus'] = $this->getAdditionalMenus($menu);
+
+        return $structuredMenu;
+    }
+
+    /**
+     * Retrieves additional menus for a given menu.
+     *
+     * @param string $menu The menu name.
+     * @return array The additional menus.
+     */
+    private function getAdditionalMenus(string $menu)
+    {
+        if (is_null(self::$additionalMenusOption)) {
+            self::$additionalMenusOption = get_option('nav_menu_additional_items', []);
+        }
+
+
+        if (empty(self::$additionalMenusOption[$menu])) {
+            return [];
+        }
+        $additionalMenus = [];
+        foreach (self::$additionalMenusOption[$menu] as $menuId) {
+            $menuObject = GetMenuData::getNavMenuObject($menuId);
+
+            if (empty($menuObject->count)) {
+                continue;
+            }
+
+            $additionalMenus[] = $this->structureMenu(
+                $this->structureMenuItems(
+                    GetMenuData::getNavMenuItems($menuId),
+                    $menuObject->object_id
+                ),
+                $menuId
+            );
+        }
     }
 
     /**

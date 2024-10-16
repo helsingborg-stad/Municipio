@@ -130,7 +130,7 @@
     @show
 
     {{-- Floating menu --}}
-    @includeWhen($floatingMenuItems, 'partials.navigation.floating')
+    @includeWhen(!empty($floatingMenu['items']), 'partials.navigation.floating')
 
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}

@@ -171,12 +171,13 @@ class Navigation
      */
     public function appendFetchUrl($item, $identifier)
     {
-
         $targetMenuIdentifiers = [
-            'mobile'  => 'mobile',
-            'primary' => 'mobile',
-            'sidebar' => 'sidebar'
+            'mobile'          => 'mobile',
+            'primary'         => 'mobile',
+            'additional-menu' => 'mobile',
+            'sidebar'         => 'sidebar',
         ];
+
 
         if (!array_key_exists($identifier, $targetMenuIdentifiers)) {
             return $item;

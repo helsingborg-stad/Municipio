@@ -28,10 +28,10 @@
             @endlink
 
             {{-- Tab menu items --}}
-            @includeWhen($tabMenuItems, 'partials.navigation.tabs')
+            @includeWhen(!empty($tabMenu['items']), 'partials.navigation.tabs')
 
             {{-- Siteselector menu items --}}
-            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
+            @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
@@ -40,7 +40,7 @@
             @includeIf('user.account')
             
             {{-- Language selector --}}
-            @if (!empty($languageMenuItems))
+            @if (!empty($languageMenu['items']))
                 <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
                     @includeIf('partials.navigation.trigger.language')
                     @includeIf('partials.navigation.language')
@@ -78,7 +78,7 @@
 
 @section('secondary-navigation')
     {{-- Primary menu --}}
-    @if (!empty($primaryMenuItems))
+    @if (!empty($primaryMenu['items']))
         <div class="c-header__menu c-header__menu--secondary u-display--none@xs u-display--none@sm u-display--none@md u-print-display--none">
             <div class="o-container">
                 @includeIf(

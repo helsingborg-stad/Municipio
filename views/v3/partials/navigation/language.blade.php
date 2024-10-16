@@ -8,7 +8,7 @@
 ])
     @nav([
         'id' => 'menu-language',
-        'items' => $languageMenuItems,
+        'items' => $languageMenu['items'],
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['s-nav-language'],

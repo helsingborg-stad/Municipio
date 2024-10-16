@@ -2,8 +2,10 @@
 
 namespace Municipio\Controller;
 
-use DateTime;
 use Municipio\Helper\WP;
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 
 /**
  * Class Archive
@@ -102,17 +104,14 @@ class Archive extends \Municipio\Controller\BaseController
         //Show filter?
         $this->data['showFilter'] = $this->showFilter($this->data['archiveProps']);
 
-
-
-        //Archive menu
-        $archiveMenu                    = new \Municipio\Helper\Navigation('archive-menu');
-        $this->data['archiveMenuItems'] = $archiveMenu->getMenuItems(
-            $postType . '-menu',
-            false,
-            false,
-            true,
-            true
+        $archiveMenuConfig = new MenuConfig(
+            'archive-menu',
+            $postType . '-menu'
         );
+
+        $this->menuBuilder->setConfig($archiveMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
     }
 
     /**
