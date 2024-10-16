@@ -15,9 +15,9 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
     public function getEnabledSchemaTypesAndProperties(): array
     {
         return array(
-            'Place'      => array('geo', 'telephone', 'url'),
-            'School'     => array(),
-            'Project'    => array(
+            'Place'               => array('geo', 'telephone', 'url'),
+            'School'              => array(),
+            'Project'             => array(
                 '@id',
                 'description',
                 'name',
@@ -25,7 +25,7 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'employee',
                 'funding',
             ),
-            'JobPosting' => array(
+            'JobPosting'          => array(
                 '@id',
                 'applicationContact',
                 'datePosted',
@@ -38,7 +38,13 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'relevantOccupation',
                 'url',
                 'validThrough',
-            )
+            ),
+            'SpecialAnnouncement' => array(
+                '@id',
+                'description',
+                'datePosted',
+                'name',
+            ),
         );
     }
 }
