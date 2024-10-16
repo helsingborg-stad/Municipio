@@ -231,7 +231,7 @@ class BaseController
         if (empty($secondaryMenu['items'])) {
             $this->menuBuilder->setConfig($secondaryMenuConfig);
             $secondaryMenuConfig->getFallbackToPageTree() ?
-                $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+                $this->menuDirector->buildMixedPageTreeMenu() :
                 $this->menuDirector->buildStandardMenu();
             $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
         }
@@ -288,7 +288,7 @@ class BaseController
         // Mobile/secondary-menu
         $this->menuBuilder->setConfig($mobileMenuConfig);
         $mobileMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
+            $this->menuDirector->buildMixedPageTreeMenu(true) :
             $this->menuDirector->buildStandardMenu();
         $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
@@ -300,14 +300,14 @@ class BaseController
         // Primary menu
         $this->menuBuilder->setConfig($primaryMenuConfig);
         $primaryMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildMixedPageTreeMenu() :
             $this->menuDirector->buildStandardMenu();
         $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mega menu
         $this->menuBuilder->setConfig($megaMenuConfig);
         $megaMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildMixedPageTreeMenu() :
             $this->menuDirector->buildStandardMenu();
         $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
 

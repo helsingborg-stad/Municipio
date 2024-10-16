@@ -106,10 +106,10 @@ class MenuDirector
     /**
      * Construct a menu.
      */
-    public function buildStandardMenuWithPageTreeFallback(): void
+    public function buildMixedPageTreeMenu(): void
     {
         $this->builder->appendMenuItems();
         $menu = $this->builder->getMenu()->getMenu();
-        empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenu();
+        empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenuWithPageTreeSubitems();
     }
 }
