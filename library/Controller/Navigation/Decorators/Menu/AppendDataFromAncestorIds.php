@@ -32,10 +32,10 @@ class AppendDataFromAncestorIds implements MenuInterface
         $menu = $this->inner->getMenu();
 
         $pageForPostTypes = GetPageForPostTypeIds::getPageForPostTypeIds();
-        $pageId = $this->getConfig()->getFallbackToPageTree();
+        $pageId           = $this->getConfig()->getFallbackToPageTree();
 
-        $postType = is_int($pageId) ? 
-            ($pageForPostTypes[$pageId] ?? $this->wpService->getPostType($pageId)) : 
+        $postType = is_int($pageId) ?
+            ($pageForPostTypes[$pageId] ?? $this->wpService->getPostType($pageId)) :
             $this->wpService->getPostType();
 
         if (isset($pageForPostTypes[$pageId])) {
