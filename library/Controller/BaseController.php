@@ -12,6 +12,9 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
 
+/**
+ * This class serves as the base controller for all controllers in the theme.
+ */
 class BaseController
 {
     /**
@@ -425,6 +428,11 @@ class BaseController
             $this->init();
     }
 
+    /**
+     * Builds additional menus based on the provided options.
+     *
+     * @return array The array of additional menus.
+     */
     private function buildAdditionalMenus(): array
     {
         $additionalMenus       = [];
@@ -716,6 +724,11 @@ class BaseController
         return false;
     }
 
+    /**
+     * Retrieves the footer settings.
+     *
+     * @return array An array containing the footer style, number of footer columns, and footer areas.
+     */
     protected function getFooterSettings()
     {
         $footerStyle   = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
@@ -956,11 +969,22 @@ class BaseController
         return $logotypeUrl;
     }
 
+    /**
+     * Returns the default logotype.
+     *
+     * @return string The URL of the default logotype image.
+     */
     public function getDefaultLogotype(): string
     {
         return get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
     }
 
+    /**
+     * Returns a multiline text as an array.
+     *
+     * @param string $text The multiline text to convert to an array.
+     * @return array|null The array representation of the multiline text, or null if the text is empty.
+     */
     public function getMultilineTextAsArray(string $text)
     {
         $trimmed = trim($text);
