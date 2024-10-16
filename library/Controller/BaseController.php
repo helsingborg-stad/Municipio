@@ -12,6 +12,9 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
 
+/**
+ * This class serves as the base controller for all controllers in the theme.
+ */
 class BaseController
 {
     /**
@@ -231,7 +234,7 @@ class BaseController
         if (empty($secondaryMenu['items'])) {
             $this->menuBuilder->setConfig($secondaryMenuConfig);
             $secondaryMenuConfig->getFallbackToPageTree() ?
-                $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+                $this->menuDirector->buildMixedPageTreeMenu() :
                 $this->menuDirector->buildStandardMenu();
             $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
         }
@@ -288,7 +291,7 @@ class BaseController
         // Mobile/secondary-menu
         $this->menuBuilder->setConfig($mobileMenuConfig);
         $mobileMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback(true) :
+            $this->menuDirector->buildMixedPageTreeMenu(true) :
             $this->menuDirector->buildStandardMenu();
         $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
@@ -300,14 +303,14 @@ class BaseController
         // Primary menu
         $this->menuBuilder->setConfig($primaryMenuConfig);
         $primaryMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildMixedPageTreeMenu() :
             $this->menuDirector->buildStandardMenu();
         $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         // Mega menu
         $this->menuBuilder->setConfig($megaMenuConfig);
         $megaMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildStandardMenuWithPageTreeFallback() :
+            $this->menuDirector->buildMixedPageTreeMenu() :
             $this->menuDirector->buildStandardMenu();
         $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
@@ -425,6 +428,11 @@ class BaseController
             $this->init();
     }
 
+    /**
+     * Builds additional menus based on the provided options.
+     *
+     * @return array The array of additional menus.
+     */
     private function buildAdditionalMenus(): array
     {
         $additionalMenus       = [];
@@ -716,6 +724,11 @@ class BaseController
         return false;
     }
 
+    /**
+     * Retrieves the footer settings.
+     *
+     * @return array An array containing the footer style, number of footer columns, and footer areas.
+     */
     protected function getFooterSettings()
     {
         $footerStyle   = $this->data['customizer']->municipioCustomizerSectionComponentFooterMain['footerStyle'];
@@ -956,11 +969,22 @@ class BaseController
         return $logotypeUrl;
     }
 
+    /**
+     * Returns the default logotype.
+     *
+     * @return string The URL of the default logotype image.
+     */
     public function getDefaultLogotype(): string
     {
         return get_stylesheet_directory_uri() . '/assets/images/municipio.svg';
     }
 
+    /**
+     * Returns a multiline text as an array.
+     *
+     * @param string $text The multiline text to convert to an array.
+     * @return array|null The array representation of the multiline text, or null if the text is empty.
+     */
     public function getMultilineTextAsArray(string $text)
     {
         $trimmed = trim($text);
