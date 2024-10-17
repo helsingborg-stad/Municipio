@@ -474,7 +474,7 @@ class App
         /**
          * Limit schema types and properties.
          */
-        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService);
         $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
         $this->hooksRegistrar->register(new LimitSchemaTypesAndProperties(
             $enabledSchemaTypes->getEnabledSchemaTypesAndProperties(),
