@@ -105,6 +105,12 @@ class PrefillIconChoice
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     * Sets the default icon if the field value is empty.
+     *
+     * @param array $field The field array.
+     * @return array The updated field array.
+     */
     public function setDefaultIconIfEmpty($field)
     {
         if ($this->isInAcfFieldEditor()) {
