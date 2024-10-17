@@ -72,15 +72,16 @@ class PrefillIconChoice
 
         if (is_array($materialIcons) && !empty($materialIcons)) {
             foreach ($materialIcons as $materialIcon) {
-                $field['choices'][$materialIcon] = '<i class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' . $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
+                $field['choices'][$materialIcon] = '<i class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' .
+                $materialIcon . '</i> <span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $materialIcon) . '</span>';
             }
         }
 
         if (is_array($customIcons) && !empty($customIcons)) {
             $customIcons = $this->filterCustomIcons($customIcons);
             foreach ($customIcons as $key => $customIcon) {
-                $field['choices'][$key] = '<span class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' . $customIcon . '</span>' .
-                '<span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $key) . '</span>';
+                $field['choices'][$key] = '<span class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' .
+                $customIcon . '</span>' . '<span style="height: 24px; display: inline-block; line-height: 24px; margin-left: 8px;">' . str_replace('_', ' ', $key) . '</span>';
             }
         }
 
@@ -117,6 +118,11 @@ class PrefillIconChoice
         return $field;
     }
 
+    /**
+     * Checks if the current context is within the ACF Field Editor.
+     *
+     * @return bool Returns true if the current context is within the ACF Field Editor, false otherwise.
+     */
     private function isInAcfFieldEditor(): bool
     {
         return $this->wpService->getPostType() === 'acf-field-group';
