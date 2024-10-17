@@ -7,7 +7,7 @@
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
                     'metaFirst' => true,
-                    'meta' =>  !empty($post->projectTerms['technology']) ? implode('/ ', $post->projectTerms['technology']) : '',
+                    'meta' =>  !empty($post->projectTerms['technology']) ? implode(' / ', $post->projectTerms['technology']) : '',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
                     'content' => !empty($post->projectTerms['category']) ? implode('/ ', $post->projectTerms['category']) : '',
