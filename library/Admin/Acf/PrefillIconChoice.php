@@ -109,7 +109,7 @@ class PrefillIconChoice
         if ($this->isInAcfFieldEditor()) {
             return $field;
         }
-        
+
         if (empty($field['value']) && !empty($field['default_value'])) {
             $field['value'] = $field['default_value'];
         }
