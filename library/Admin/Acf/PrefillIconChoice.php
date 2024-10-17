@@ -4,6 +4,9 @@ namespace Municipio\Admin\Acf;
 
 use ComponentLibrary\Helper\Icons;
 use ComponentLibrary\Cache\WpCache;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\GetPostType;
 
 /**
  * Class PrefillIconChoice
@@ -17,10 +20,10 @@ class PrefillIconChoice
     /**
      * Add filter to specified fields
      */
-    public function __construct()
+    public function __construct(private AddFilter&ApplyFilters&GetPostType $wpService)
     {
         /* TODO: Remove when removing manual input from post module */
-        $fieldNames = apply_filters('Municipio/Admin/Acf/PrefillIconChoice', [
+        $fieldNames = $this->wpService->applyFilters('Municipio/Admin/Acf/PrefillIconChoice', [
             'menu_item_icon',
             'material_icon',
             'mega_menu_button_icon',
@@ -29,14 +32,14 @@ class PrefillIconChoice
 
 
         foreach ($fieldNames as $fieldName) {
-            add_filter(
+            $this->wpService->addFilter(
                 'acf/prepare_field/name=' . $fieldName,
                 array($this, 'setDefaultIconIfEmpty'),
                 10,
                 1
             );
 
-            add_filter(
+            $this->wpService->addFilter(
                 'acf/load_field/name=' . $fieldName,
                 array($this, 'addIconsList'),
                 10,
@@ -54,6 +57,10 @@ class PrefillIconChoice
      */
     public function addIconsList($field): array
     {
+        if ($this->isInAcfFieldEditor()) {
+            return $field;
+        }
+
         //Bail out early if the Icons class does not exist
         if (class_exists('\ComponentLibrary\Helper\Icons') === false) {
             error_log('Municipio: The Icons class does not exist, make sure the ComponentLibrary is installed and activated.');
@@ -99,10 +106,19 @@ class PrefillIconChoice
 
     public function setDefaultIconIfEmpty($field)
     {
+        if ($this->isInAcfFieldEditor()) {
+            return $field;
+        }
+        
         if (empty($field['value']) && !empty($field['default_value'])) {
             $field['value'] = $field['default_value'];
         }
 
         return $field;
+    }
+
+    private function isInAcfFieldEditor(): bool
+    {
+        return $this->wpService->getPostType() === 'acf-field-group';
     }
 }
