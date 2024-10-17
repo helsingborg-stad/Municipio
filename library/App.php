@@ -103,7 +103,7 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
+        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService));
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -440,7 +440,7 @@ class App
             return;
         }
 
-        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes();
+        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
         $schemaPropSanitizer               = new NullSanitizer();
         $schemaPropSanitizer               = new StringSanitizer($schemaPropSanitizer);
         $schemaPropSanitizer               = new BooleanSanitizer($schemaPropSanitizer);
