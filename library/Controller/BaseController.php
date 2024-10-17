@@ -126,97 +126,6 @@ class BaseController
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
-        $accessibilityMenuConfig = new MenuConfig(
-            'accessibility',
-            '',
-        );
-
-        $breadcrumbMenuConfig = new MenuConfig(
-            'breadcrumb',
-            '',
-        );
-
-        $mobileMenuConfig = new MenuConfig(
-            'mobile',
-            'secondary-menu',
-            false,
-            false,
-            \Kirki::get_option('mobile_menu_pagetree_fallback')
-        );
-
-        $primaryMenuConfig = new MenuConfig(
-            'primary',
-            'main-menu',
-            !$this->data['customizer']->primaryMenuDropdown,
-            false,
-            \Kirki::get_option('primary_menu_pagetree_fallback')
-        );
-
-        $mobileMenuSecondaryConfig = new MenuConfig(
-            'mobile-secondary',
-            'mobile-drawer',
-        );
-
-        $megaMenuConfig = new MenuConfig(
-            'mega-menu',
-            'mega-menu',
-            false,
-            false,
-            \Kirki::get_option('mega_menu_pagetree_fallback')
-        );
-
-        $quicklinksMenuConfig = new MenuConfig(
-            'quicklinks',
-            'quicklinks-menu',
-            true
-        );
-
-        $tabMenuConfig = new MenuConfig(
-            'tab',
-            'header-tabs-menu',
-        );
-
-
-        $helpMenuConfig = new MenuConfig(
-            'help',
-            'help-menu',
-        );
-
-        $dropdownMenuConfig = new MenuConfig(
-            'dropdown',
-            'dropdown-links-menu',
-        );
-
-        $floatingMenuConfig = new MenuConfig(
-            'floating',
-            'floating-menu',
-            true,
-        );
-
-        $languageMenuConfig = new MenuConfig(
-            'language',
-            'language-menu',
-        );
-
-        $siteselectorMenuConfig = new MenuConfig(
-            'siteselector',
-            'siteselector-menu',
-            true,
-        );
-
-        $secondaryMenuPostTypeConfig = new MenuConfig(
-            'sidebar',
-            $this->wpService->getPostType() . '-secondary-menu',
-        );
-
-        $secondaryMenuConfig = new MenuConfig(
-            'sidebar',
-            'secondary-menu',
-            false,
-            true,
-            \Kirki::get_option('secondary_menu_pagetree_fallback'),
-        );
-
         $this->menuDirector->setBuilder($this->menuBuilder);
 
         // All menu settings should be stored in the nav_menus_settings option
@@ -226,7 +135,172 @@ class BaseController
         // Building additional menus in use
         $this->data['additionalMenus'] = $this->buildAdditionalMenus();
 
+
+
+        // Accessibility menu
+        $accessibilityMenuConfig = new MenuConfig(
+            'accessibility',
+            '',
+        );
+
+        $this->menuBuilder->setConfig($accessibilityMenuConfig);
+        $this->menuDirector->buildAccessibilityMenu();
+        $this->data['accessibilityMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Breadcrumb menu
+        $breadcrumbMenuConfig = new MenuConfig(
+            'breadcrumb',
+            '',
+        );
+
+        $this->menuBuilder->setConfig($breadcrumbMenuConfig);
+        $this->menuDirector->buildBreadcrumbMenu();
+        $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Mobile menu
+        $mobileMenuConfig = new MenuConfig(
+            'mobile',
+            'secondary-menu',
+            false,
+            false,
+            \Kirki::get_option('mobile_menu_pagetree_fallback')
+        );
+
+        $this->menuBuilder->setConfig($mobileMenuConfig);
+        $mobileMenuConfig->getFallbackToPageTree() ?
+            $this->menuDirector->buildMixedPageTreeMenu(true) :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Primary menu
+        $primaryMenuConfig = new MenuConfig(
+            'primary',
+            'main-menu',
+            !$this->data['customizer']->primaryMenuDropdown,
+            false,
+            \Kirki::get_option('primary_menu_pagetree_fallback')
+        );
+
+        $this->menuBuilder->setConfig($primaryMenuConfig);
+        $primaryMenuConfig->getFallbackToPageTree() ?
+            $this->menuDirector->buildMixedPageTreeMenu() :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Mobile secondary menu
+        $mobileMenuSecondaryConfig = new MenuConfig(
+            'mobile-secondary',
+            'mobile-drawer',
+        );
+
+        $this->menuBuilder->setConfig($mobileMenuSecondaryConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['mobileSecondaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Mega menu
+        $megaMenuConfig = new MenuConfig(
+            'mega-menu',
+            'mega-menu',
+            false,
+            false,
+            \Kirki::get_option('mega_menu_pagetree_fallback')
+        );
+
+        $this->menuBuilder->setConfig($megaMenuConfig);
+        $megaMenuConfig->getFallbackToPageTree() ?
+            $this->menuDirector->buildMixedPageTreeMenu() :
+            $this->menuDirector->buildStandardMenu();
+        $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        $quicklinksMenuConfig = new MenuConfig(
+            'quicklinks',
+            'quicklinks-menu',
+            true
+        );
+
+        // Quicklinks menu
+        $this->menuBuilder->setConfig($quicklinksMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['quicklinksMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Tab menu
+        $tabMenuConfig = new MenuConfig(
+            'tab',
+            'header-tabs-menu',
+        );
+
+        $this->menuBuilder->setConfig($tabMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['tabMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Help menu
+        // TODO: Find out what it does
+        $helpMenuConfig = new MenuConfig(
+            'help',
+            'help-menu',
+        );
+
+        $this->menuBuilder->setConfig($helpMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+        // Dropdown menu
+        // TODO: Find out what it does
+        $dropdownMenuConfig = new MenuConfig(
+            'dropdown',
+            'dropdown-links-menu',
+        );
+
+        $this->menuBuilder->setConfig($dropdownMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+        // Floating menu
+        $floatingMenuConfig = new MenuConfig(
+            'floating',
+            'floating-menu',
+            true,
+        );
+
+        $this->menuBuilder->setConfig($floatingMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['floatingMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Language menu
+        $languageMenuConfig = new MenuConfig(
+            'language',
+            'language-menu',
+        );
+
+        $this->menuBuilder->setConfig($languageMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['languageMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
+        // Site selector menu
+        $siteselectorMenuConfig = new MenuConfig(
+            'siteselector',
+            'siteselector-menu',
+            true,
+        );
+
+        $this->menuBuilder->setConfig($siteselectorMenuConfig);
+        $this->menuDirector->buildStandardMenu();
+        $this->data['siteselectorMenu'] = $this->menuBuilder->getMenu()->getMenu();
+
         // Sidebar menu
+        $secondaryMenuPostTypeConfig = new MenuConfig(
+            'sidebar',
+            $this->wpService->getPostType() . '-secondary-menu',
+        );
+
+        $secondaryMenuConfig = new MenuConfig(
+            'sidebar',
+            'secondary-menu',
+            false,
+            empty($this->data['primaryMenu']['items']) ? false : true,
+            \Kirki::get_option('secondary_menu_pagetree_fallback'),
+        );
+
         $this->menuBuilder->setConfig($secondaryMenuPostTypeConfig);
         $this->menuDirector->buildStandardMenu();
         $secondaryMenu = $this->menuBuilder->getMenu()->getMenu();
@@ -240,79 +314,6 @@ class BaseController
         }
 
         $this->data['secondaryMenu'] = $secondaryMenu;
-
-        // Site selector menu
-        $this->menuBuilder->setConfig($siteselectorMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['siteselectorMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Language menu
-        $this->menuBuilder->setConfig($languageMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['languageMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Floating menu
-        $this->menuBuilder->setConfig($floatingMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['floatingMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Dropdown menu
-        // TODO: ASK SEBASTIAN WHY THIS DOES NOTHING
-        $this->menuBuilder->setConfig($dropdownMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['dropdownMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
-
-        // Help menu
-        // SAME AS ABOVE
-        $this->menuBuilder->setConfig($helpMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['helpMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
-
-        // Tab menu
-        $this->menuBuilder->setConfig($tabMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['tabMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Quicklinks menu
-        $this->menuBuilder->setConfig($quicklinksMenuConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['quicklinksMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Breadcrumb menu
-        $this->menuBuilder->setConfig($breadcrumbMenuConfig);
-        $this->menuDirector->buildBreadcrumbMenu();
-        $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Accessibility menu
-        $this->menuBuilder->setConfig($accessibilityMenuConfig);
-        $this->menuDirector->buildAccessibilityMenu();
-        $this->data['accessibilityMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Mobile/secondary-menu
-        $this->menuBuilder->setConfig($mobileMenuConfig);
-        $mobileMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildMixedPageTreeMenu(true) :
-            $this->menuDirector->buildStandardMenu();
-        $this->data['mobileMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Mobile secondary menu
-        $this->menuBuilder->setConfig($mobileMenuSecondaryConfig);
-        $this->menuDirector->buildStandardMenu();
-        $this->data['mobileSecondaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Primary menu
-        $this->menuBuilder->setConfig($primaryMenuConfig);
-        $primaryMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildMixedPageTreeMenu() :
-            $this->menuDirector->buildStandardMenu();
-        $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
-
-        // Mega menu
-        $this->menuBuilder->setConfig($megaMenuConfig);
-        $megaMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildMixedPageTreeMenu() :
-            $this->menuDirector->buildStandardMenu();
-        $this->data['megaMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
         //Helper nav placement
         $this->data['helperNavBeforeContent'] = apply_filters('Municipio/Partials/Navigation/HelperNavBeforeContent', true);
