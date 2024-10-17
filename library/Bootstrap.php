@@ -49,6 +49,7 @@ $acfService = new NativeAcfService();
  */
 \Municipio\Helper\AcfService::set($acfService);
 \Municipio\Helper\WpService::set($wpService);
+\Municipio\SchemaData\Helper\GetSchemaType::setAcfService($acfService);
 
 /**
  * Acf auto import and export

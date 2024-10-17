@@ -2,6 +2,8 @@
 
 namespace Municipio\SchemaData\Helper;
 
+use AcfService\Contracts\GetField;
+
 /**
  * Class GetSchemaType
  *
@@ -9,7 +11,19 @@ namespace Municipio\SchemaData\Helper;
  */
 class GetSchemaType
 {
-    private static ?array $schemaTypesInUse = null;
+    private static ?GetField $acfService   = null;
+    public static ?array $schemaTypesInUse = null;
+
+    /**
+     * Sets the ACF service instance.
+     *
+     * @param GetField $acfService The ACF service instance.
+     * @return void
+     */
+    public static function setAcfService(GetField $acfService): void
+    {
+        self::$acfService = $acfService;
+    }
 
     /**
      * Retrieves the schema types in use.
@@ -18,8 +32,12 @@ class GetSchemaType
      */
     public static function getSchemaTypesInUse(): array
     {
+        if (is_null(self::$acfService)) {
+            throw new \Exception('AcfService not set');
+        }
+
         if (is_null(self::$schemaTypesInUse)) {
-            self::$schemaTypesInUse = get_field('post_type_schema_types', 'option') ?: [];
+            self::$schemaTypesInUse = self::$acfService->getField('post_type_schema_types', 'option') ?: [];
         }
 
         return self::$schemaTypesInUse;
@@ -44,5 +62,27 @@ class GetSchemaType
         }
 
         return false;
+    }
+
+    /**
+     * Retrieves the post types associated with a given schema type.
+     *
+     * @param string $schemaType The schema type to retrieve the post types from.
+     * @return array The post types associated with the given schema type.
+     */
+    public static function getPostTypesFromSchemaType(string $schemaType): array
+    {
+        if (is_null(self::$schemaTypesInUse)) {
+            self::getSchemaTypesInUse();
+        }
+
+        $postTypes = array_map(
+            fn ($row) => $row['schema_type'] === $schemaType
+            ? $row['post_type']
+            : null,
+            self::$schemaTypesInUse
+        );
+
+        return array_filter($postTypes);
     }
 }
