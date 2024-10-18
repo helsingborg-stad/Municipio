@@ -34,7 +34,7 @@ class Archive
      */
     public static function camelCasePostTypeName($postType)
     {
-        return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
+        return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
     }
 
     /**
