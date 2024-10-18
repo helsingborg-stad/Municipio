@@ -12,19 +12,36 @@ use WpService\Contracts\IsMultisite;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
+/**
+ * Allow posts from other sites to keep their permalinks.
+ */
 class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
 {
+    /**
+     * Constructor.
+     */
     public function __construct(
         private AddFilter&IsMultisite&GetCurrentBlogId&GetBlogIdFromUrl&SwitchToBlog&GetPermalink&RestoreCurrentBlog $wpService
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addFilter('post_link', [$this, 'getPermalinkFromOtherSite'], 10, 3);
     }
 
-    public function getPermalinkFromOtherSite($permalink, $post, $leavename): string
+    /**
+     * Get permalink from other site.
+     *
+     * @param string $permalink
+     * @param WP_Post $post
+     * @param bool $leavename
+     * @return string
+     */
+    public function getPermalinkFromOtherSite(string $permalink, WP_Post $post, bool $leavename): string
     {
         if (!is_a($post, WP_Post::class) || !$this->wpService->isMultisite()) {
             return $permalink;
