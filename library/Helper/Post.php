@@ -85,7 +85,7 @@ class Post
      */
     public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
     {
-        $cacheKey = md5($post->ID . '_' . serialize($data));
+        $cacheKey = md5($post->guid . '_' . serialize($data));
 
         if (!isset(self::$runtimeCache['preparePostObjectArchive'])) {
             self::$runtimeCache['preparePostObjectArchive'] = [];
