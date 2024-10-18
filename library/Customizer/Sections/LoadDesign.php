@@ -20,10 +20,6 @@ class LoadDesign
 
     public function __construct(string $sectionID)
     {
-        if ($this->designShareDisabled() || !$this->isBlogPublished()) {
-            return;
-        }
-
         KirkiField::addField([
             'type'      => 'select',
             'settings'  => self::LOAD_DESIGN_KEY,
@@ -45,6 +41,29 @@ class LoadDesign
             'choices'     => $this->getCustomizerSectionsAsOptions()
         ));
 
+        // Disable info
+        if(!$this->isBlogPublished()) {
+
+            new \Kirki\Pro\Field\Divider(
+                [
+                    'settings' => 'load_design_state_divider',
+                    'section'  => $sectionID,
+                    'choices'  => [
+                        'color' => '#ddd',
+                    ],
+                ]
+            );
+
+            new \Kirki\Pro\Field\Headline(
+                [
+                    'settings'    => 'load_design_state',
+                    'label'       => esc_html__('Design Community is disabled', 'kirki-pro'),
+                    'description' => esc_html__('This blog is currently not published. The design share is disabled until you site is published. Sites not accessible from the internet is always disabled.', 'kirki-pro'),
+                    'section'     => $sectionID
+                ]
+            );
+        }
+
         //Always reset option of theme
         add_filter('theme_mod_' . self::LOAD_DESIGN_KEY, function ($value) {
             return null;
@@ -62,14 +81,6 @@ class LoadDesign
                 wp_schedule_event(time(), 'daily', 'municipio_store_theme_mod');
             }
         });
-    }
-
-    /**
-     * Check if design share is disabled
-     */
-    private function designShareDisabled(): bool
-    {
-        return defined('MUNICIPIO_DISABLE_DESIGNSHARE') && MUNICIPIO_DISABLE_DESIGNSHARE === true;
     }
 
     /**
