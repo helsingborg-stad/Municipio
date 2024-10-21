@@ -5,14 +5,23 @@ namespace Municipio\Config\Features\SchemaData;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
+/**
+ * Schema data config.
+ */
 class SchemaDataConfigService implements SchemaDataConfigInterface
 {
     private ?array $settings = null;
 
+    /**
+     * Constructor.
+     */
     public function __construct(private GetOption&GetOptions $wpService)
     {
     }
 
+    /**
+     * Get settings.
+     */
     private function getSettings(): array
     {
         $groupName           = 'options_post_type_schema_types';
@@ -43,18 +52,23 @@ class SchemaDataConfigService implements SchemaDataConfigInterface
         return $this->settings;
     }
 
-    public function featureIsEnabled(): bool
-    {
-        $enabledValue = $this->wpService->getOption('options_mun_schemadata_enabled', false);
-        return $enabledValue !== true || $enabledValue === "1" || $enabledValue == 1;
-    }
-
+    /**
+     * Get enabled post types.
+     *
+     * @return array
+     */
     public function getEnabledPostTypes(): array
     {
         $postTypes = array_map(fn($row) => $row['post_type'] ?? null, $this->getSettings() ?? []);
         return array_filter($postTypes);
     }
 
+    /**
+     * Try to get schema type from post type.
+     *
+     * @param string $postType
+     * @return string|null
+     */
     public function tryGetSchemaTypeFromPostType(string $postType): ?string
     {
         foreach ($this->getSettings() as $row) {

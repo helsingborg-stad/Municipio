@@ -191,11 +191,6 @@ class SourceConfigFactoryTest extends TestCase
     private function getSchemaDataConfig(): SchemaDataConfigInterface
     {
         return new class implements SchemaDataConfigInterface {
-            public function featureIsEnabled(): bool
-            {
-                return true;
-            }
-
             public function getEnabledPostTypes(): array
             {
                 return ['test_post_type'];
