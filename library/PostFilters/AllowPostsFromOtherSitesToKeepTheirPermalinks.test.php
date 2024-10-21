@@ -4,7 +4,6 @@ namespace Municipio\PostFilters;
 
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
-use WP_Post;
 use WpService\Implementations\FakeWpService;
 
 class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
@@ -20,17 +19,6 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $filter->addHooks();
 
         $this->assertEquals('post_link', $wpService->methodCalls['addFilter'][0][0]);
-    }
-
-    /**
-     * @testdox getPermalinkFromOtherSite() returns the permalink if the post is not a WP_Post object.
-     */
-    public function testGetPermalinkFromOtherSiteReturnsPermalinkIfPostIsNotWPPost()
-    {
-        $wpService = new FakeWpService();
-        $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
-
-        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', 'post', 'leavename'));
     }
 
     /**

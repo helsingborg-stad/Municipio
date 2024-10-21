@@ -43,7 +43,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      */
     public function getPermalinkFromOtherSite(string $permalink, WP_Post $post, bool $leavename): string
     {
-        if (!is_a($post, WP_Post::class) || !$this->wpService->isMultisite()) {
+        if (!$this->wpService->isMultisite()) {
             return $permalink;
         }
 
