@@ -10,14 +10,46 @@ class SingularJobPosting extends \Municipio\Controller\Singular
     protected object $postMeta;
     public string $view = 'single-schema-jobposting';
 
+    /**
+     * @inheritDoc
+     */
     public function init()
     {
+
         parent::init();
+
+
+        $this->data['post'] = $this->sanitizeValidThroughDateString($this->data['post']);
         $this->populateLanguageObject();
         $this->populateInformationList();
         $this->setExpired();
     }
 
+    /**
+     * Sanitize the validThrough date string.
+     *
+     * @param object $post
+     * @return object
+     */
+    private function sanitizeValidThroughDateString($post): object
+    {
+        if (empty($post->schemaObject['validThrough'])) {
+            return $post;
+        }
+
+        try {
+            $date = new \DateTime($post->schemaObject['validThrough']);
+            $post->schemaObject->setProperty('validThrough', $date->format('Y-m-d'));
+        } catch (\Exception $e) {
+            error_log('Failed to parse date: ' . $post->schemaObject['validThrough']);
+        }
+
+        return $post;
+    }
+
+    /**
+     * Populate the language object.
+     */
     private function populateLanguageObject(): void
     {
         $this->data['lang']->contact                     = __('Contact', 'municipio');
@@ -34,11 +66,19 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['lang']->expired                     = __('expired', 'municipio');
     }
 
+    /**
+     * Set the expired flag.
+     */
     private function setExpired(): void
     {
         $this->data['expired'] = $this->isExpired();
     }
 
+    /**
+     * Get the validThrough list item value.
+     *
+     * @return string
+     */
     private function getValidThroughListItemValue(): string
     {
         $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
@@ -63,6 +103,11 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         return $value;
     }
 
+    /**
+     * Check if the job posting is expired.
+     *
+     * @return bool
+     */
     private function isExpired(): bool
     {
         $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
@@ -78,6 +123,9 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         return $daysUntilValidThrough < 0;
     }
 
+    /**
+     * Populate the information list.
+     */
     private function populateInformationList(): void
     {
         $this->data['informationList'] = [];
