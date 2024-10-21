@@ -70,7 +70,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
 
     /**
      * @testdox getPermalinkFromOtherSite() allows switching to a blogs different types of URLs.
-     * @dataProvider differentTypesOfUrls
+     * @dataProvider provideUrls
      */
     public function testGetPermalinkFromOtherSiteAllowsSwitchingToDifferentTypesOfUrls($domain, $path, $url)
     {
@@ -89,7 +89,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $this->assertEquals([$domain, $path], $wpService->methodCalls['getBlogIdFromUrl'][0]);
     }
 
-    private function differentTypesOfUrls(): array
+    public function provideUrls(): array
     {
         return [
             [
