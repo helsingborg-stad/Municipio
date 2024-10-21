@@ -1,4 +1,4 @@
-## Schema DAta Feature in Municipio Theme
+## Schema Data Feature in Municipio Theme
 
 This feature adds schema data to your site. Schema data is a type of metadata that helps search engines understand the content of your site. This can help improve the appearance of your site in search results.
 Post types can be configured to use a specific type of schema data.
@@ -11,8 +11,7 @@ When calculating which types a schema property is allowed to use, we use `Reflec
 Select which Schema type should be used with which post type on the "Post type schema settings" WordPress admin area. This will add the schema data to the post type's archive page and single post pages.
 
 ### Adding Schema Data to a post
-* First you need to enable this feature, which can be done at the Theme Options admin page.
-* Next, go to the post list page for the post type you want to add schema data to.
-* In the Schema.org meta box, select the schema type you want to use for the post type.
-* When you have selected a schema type, a number of meta fields will appear on the post edit page of the current post type.
+* Go to the "Post type schema settings" settings page.
+* Select a post type and a corresponding schema type.
+* When you have connected a schema type to a post type a number of meta fields will appear on the post edit page of that post type.
 * Fill in the fields with the appropriate data.
