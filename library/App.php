@@ -441,10 +441,6 @@ class App
             ]);
         });
 
-        if (!$this->schemaDataConfig->featureIsEnabled()) {
-            return;
-        }
-
         $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
         $schemaPropSanitizer               = new NullSanitizer();
         $schemaPropSanitizer               = new StringSanitizer($schemaPropSanitizer);
@@ -554,10 +550,6 @@ class App
          * Feature config
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
-
-        if (!$this->schemaDataConfig->featureIsEnabled()) {
-            return;
-        }
 
         /**
          * Register taxonomies for external content.
