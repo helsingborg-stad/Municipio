@@ -47,21 +47,43 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
             return $permalink;
         }
 
-        $currentSiteId = $this->wpService->GetCurrentBlogId();
-        $parsedUrl     = parse_url($post->guid);
-        $domain        = $parsedUrl['host'];
-        $domain       .= isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '';
-        $path          = $parsedUrl['path'];
-        $siteId        = $this->wpService->getBlogIdFromUrl($domain, $path);
+        $currentSiteId = $this->wpService->getCurrentBlogId();
+        $otherSitesId  = $this->getSiteIdFromPostGuid($post->guid);
 
-        if ($siteId === $currentSiteId) {
+        if ($otherSitesId === $currentSiteId) {
             return $permalink;
         }
 
-        $this->wpService->switchToBlog($siteId);
+        return $this->getOtherSitesPostLink($otherSitesId, $post);
+    }
+
+    /**
+     * Get other sites post link.
+     *
+     * @param int $otherSitesId
+     * @param WP_Post $post
+     * @return string
+     */
+    private function getOtherSitesPostLink(int $otherSitesId, WP_Post $post): string
+    {
+        $this->wpService->switchToBlog($otherSitesId);
         $permalink = $this->wpService->getPermalink($post->ID);
         $this->wpService->restoreCurrentBlog();
 
         return $permalink;
+    }
+
+    /**
+     * Get site ID from post GUID.
+     *
+     * @param string $guid
+     * @return int
+     */
+    private function getSiteIdFromPostGuid(string $guid): int
+    {
+        $parsedUrl = parse_url($guid);
+        $domain    = $parsedUrl['host'] . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '');
+
+        return $this->wpService->getBlogIdFromUrl($domain, $parsedUrl['path']);
     }
 }
