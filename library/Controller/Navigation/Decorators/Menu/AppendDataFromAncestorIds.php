@@ -42,7 +42,7 @@ class AppendDataFromAncestorIds implements MenuInterface
             $menu['items'] = [0];
         }
 
-        $menu['items'] = GetPostsByParent::getPostsByParent($menu['items'], [!empty($postType) ? $postType : $this->masterPostType]);
+        $menu['items'] = GetPostsByParent::getPostsByParent($menu['items'], [$postType, $this->masterPostType]);
 
         return $menu;
     }
