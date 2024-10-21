@@ -296,6 +296,11 @@ class App
          */
         $this->setupImageConvert();
 
+        /**
+         * Post Filters
+         */
+        $this->hooksRegistrar->register(new \Municipio\PostFilters\AllowPostsFromOtherSitesToKeepTheirPermalinks($this->wpService));
+
         new \Municipio\Helper\Navigation\MenusSettings($this->wpService, $this->acfService);
     }
 

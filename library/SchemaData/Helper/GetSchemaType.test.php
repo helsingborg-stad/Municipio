@@ -32,7 +32,6 @@ class GetSchemaTypeTest extends TestCase
      */
     public function testGetPostTypesFromSchemaType()
     {
-        GetSchemaType::$schemaTypesInUse = null;
         GetSchemaType::setAcfService(new FakeAcfService(['getField' => function ($key, $postId) {
             return [
                 'option' => [
