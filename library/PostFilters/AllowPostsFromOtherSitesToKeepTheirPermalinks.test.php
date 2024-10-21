@@ -53,18 +53,19 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
      */
     public function testGetPermalinkFromOtherSiteReturnsPermalinkFromOtherSite()
     {
+        $url       = 'http://example.com/path';
         $wpService = new FakeWpService([
             'isMultisite'        => true,
             'getCurrentBlogId'   => 1,
             'getBlogIdFromUrl'   => 2,
-            'getPermalink'       => 'http://example.com/other-path',
+            'getPermalink'       => $url,
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
         ]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
-        $post = WpMockFactory::createWpPost(['ID' => 1, 'guid' => 'http://example.com/other-path']);
-        $this->assertEquals('http://example.com/other-path', $filter->getPermalinkFromOtherSite('permalink', $post));
+        $post = WpMockFactory::createWpPost(['ID' => 1, 'guid' => $url]);
+        $this->assertEquals($url, $filter->getPermalinkFromOtherSite('permalink', $post));
     }
 
     /**
