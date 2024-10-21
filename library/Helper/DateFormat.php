@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+use DateTime;
+use DateTimeZone;
+
 /*
  * Returns format for date and time
  */
@@ -72,7 +75,23 @@ class DateFormat
      * 
      * @return string The current timezone.
      */
-    public static function getTimezone() {
-        return wp_timezone_string();
+    public static function getTimezone(): ?string 
+    {
+        // Get the offset string, like +02:00 
+        $timezoneOffset = wp_timezone_string();
+    
+        // Check if the returned timezone is already in IANA format
+        if (preg_match('/^[A-Za-z_]+\/[A-Za-z_]+$/', $timezoneOffset)) {
+            return $timezoneOffset; // Already an IANA timezone
+        }
+    
+        // Parse the offset, convert to seconds
+        $offsetSeconds = (new DateTimeZone($timezoneOffset))->getOffset(new DateTime("now"));
+    
+        // Get the corresponding timezone name (IANA) from the offset
+        $timezoneName = timezone_name_from_abbr('', $offsetSeconds, 1);
+    
+        // Return the IANA timezone or the original offset if no matching IANA timezone
+        return $timezoneName ?: null;
     }
 }
