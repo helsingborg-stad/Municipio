@@ -66,4 +66,46 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $post = WpMockFactory::createWpPost(['ID' => 1, 'guid' => 'http://example.com/other-path']);
         $this->assertEquals('http://example.com/other-path', $filter->getPermalinkFromOtherSite('permalink', $post));
     }
+
+    /**
+     * @testdox getPermalinkFromOtherSite() allows switching to a blogs different types of URLs.
+     * @dataProvider differentTypesOfUrls
+     */
+    public function testGetPermalinkFromOtherSiteAllowsSwitchingToDifferentTypesOfUrls($domain, $path, $url)
+    {
+        $wpService = new FakeWpService([
+            'isMultisite'        => true,
+            'getCurrentBlogId'   => 1,
+            'getBlogIdFromUrl'   => 2,
+            'getPermalink'       => $url,
+            'switchToBlog'       => true,
+            'restoreCurrentBlog' => true,
+        ]);
+        $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
+
+        $post = WpMockFactory::createWpPost(['ID' => 1, 'guid' => $url]);
+        $filter->getPermalinkFromOtherSite('permalink', $post);
+        $this->assertEquals([$domain, $path], $wpService->methodCalls['getBlogIdFromUrl'][0]);
+    }
+
+    private function differentTypesOfUrls(): array
+    {
+        return [
+            [
+                'domain' => 'example.com',
+                'path'   => '/path',
+                'url'    => 'http://example.com/path'
+            ],
+            [
+                'domain' => 'example.com:8080',
+                'path'   => '/path',
+                'url'    => 'http://example.com:8080/path'
+            ],
+            [
+                'domain' => 'sub.example.com',
+                'path'   => '/path/',
+                'url'    => 'http://sub.example.com/path/'
+            ]
+        ];
+    }
 }
