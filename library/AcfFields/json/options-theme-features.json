@@ -21,26 +21,6 @@
             "ui_on_text": "Enabled",
             "ui_off_text": "Disabled",
             "ui": 1
-        },
-        {
-            "key": "field_666bd2536d776",
-            "label": "Schema.org data",
-            "name": "mun_schemadata_enabled",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "Allows setting Schema.org formatted data to posts.<br><br>\r\n<span class=\"dashicons dashicons-info-outline\"><\/span> This feature will not work as expected if opCache is enabled and <code>opCache.saveComments<\/code> is set to \"Off\".",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui_on_text": "Enabled",
-            "ui_off_text": "Disabled",
-            "ui": 1
         }
     ],
     "location": [
