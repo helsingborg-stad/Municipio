@@ -30,7 +30,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter('post_link', [$this, 'getPermalinkFromOtherSite'], 10, 3);
+        $this->wpService->addFilter('post_link', [$this, 'getPermalinkFromOtherSite'], 10, 2);
     }
 
     /**
@@ -41,7 +41,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      * @param bool $leavename
      * @return string
      */
-    public function getPermalinkFromOtherSite(string $permalink, WP_Post $post, bool $leavename): string
+    public function getPermalinkFromOtherSite(string $permalink, WP_Post $post): string
     {
         if (!$this->wpService->isMultisite()) {
             return $permalink;

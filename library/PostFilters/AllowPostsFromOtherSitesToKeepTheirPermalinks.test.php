@@ -29,7 +29,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $wpService = new FakeWpService(['isMultisite' => false]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
-        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', WpMockFactory::createWpPost(), 'leavename'));
+        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', WpMockFactory::createWpPost()));
     }
 
     /**
@@ -45,7 +45,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
         $post = WpMockFactory::createWpPost(['guid' => 'http://example.com/path']);
-        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', $post, 'leavename'));
+        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', $post));
     }
 
     /**
@@ -64,6 +64,6 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
         $post = WpMockFactory::createWpPost(['ID' => 1, 'guid' => 'http://example.com/other-path']);
-        $this->assertEquals('http://example.com/other-path', $filter->getPermalinkFromOtherSite('permalink', $post, 'leavename'));
+        $this->assertEquals('http://example.com/other-path', $filter->getPermalinkFromOtherSite('permalink', $post));
     }
 }
