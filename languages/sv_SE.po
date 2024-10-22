@@ -480,6 +480,7 @@ msgid "Activate gutenberg editor"
 msgstr "Aktivera Gutenberg redigerare"
 
 #: AcfFields/php/options-activate-gutenberg.php:24
+#: AcfFields/php/options-comment-settings.php:26
 #: AcfFields/php/options-theme-features.php:27
 #: Customizer/Sections/Colors.php:172
 #: Customizer/Sections/Divider.php:90
@@ -15254,7 +15255,7 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: App.php:657
+#: App.php:659
 msgid "Never"
 msgstr ""
 
@@ -18105,7 +18106,7 @@ msgstr ""
 msgid "Comment Settings"
 msgstr "Kommentarsinställningar"
 
-#: AcfFields/php/options-comment-settings.php:12
+#: AcfFields/php/options-comment-settings.php:32
 msgid "Hide discussion for logged out users"
 msgstr "Dölj diskussioner för utloggade användare"
 
@@ -18116,3 +18117,11 @@ msgstr ""
 #: ImageConvert/ImageConvertFilter.php:137
 msgid "Image files must be smaller than %s"
 msgstr ""
+
+#: AcfFields/php/options-comment-settings.php:12
+msgid "Disable discussion feature"
+msgstr "Stäng av kommentarsfunktionalitet"
+
+#: AcfFields/php/options-comment-settings.php:16
+msgid "Disable discussion settings page, comment form and posted comments for all post types."
+msgstr "Stäng av inställningssida för kommentarer, formulär och inskickade kommenterar för alla posttyper."
