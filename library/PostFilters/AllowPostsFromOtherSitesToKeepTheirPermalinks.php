@@ -11,17 +11,23 @@ use WpService\Contracts\GetPermalink;
 use WpService\Contracts\IsMultisite;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
+use WpService\Contracts\RemoveFilter;
 
 /**
  * Allow posts from other sites to keep their permalinks.
  */
 class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
 {
+    const FILTER_PRIORITY = 10;
+    const FILTER_NAME = 'post_link';
+    const FILTER_ARGUMENTS = 2;
+    const FILTER_FUNCTION = 'getPermalinkFromOtherSite';
+
     /**
      * Constructor.
      */
     public function __construct(
-        private AddFilter&IsMultisite&GetCurrentBlogId&GetBlogIdFromUrl&SwitchToBlog&GetPermalink&RestoreCurrentBlog $wpService
+        private AddFilter&IsMultisite&GetCurrentBlogId&GetBlogIdFromUrl&SwitchToBlog&GetPermalink&RestoreCurrentBlog&RemoveFilter $wpService
     ) {
     }
 
@@ -30,7 +36,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter('post_link', [$this, 'getPermalinkFromOtherSite'], 10, 2);
+        $this->wpService->addFilter(self::FILTER_NAME, [$this, self::FILTER_FUNCTION], self::FILTER_PRIORITY, self::FILTER_ARGUMENTS);
     }
 
     /**
@@ -43,6 +49,8 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      */
     public function getPermalinkFromOtherSite(string $permalink, WP_Post $post): string
     {
+        $this->wpService->removeFilter(self::FILTER_NAME, [$this, self::FILTER_FUNCTION], self::FILTER_PRIORITY);
+
         if (!$this->wpService->isMultisite()) {
             return $permalink;
         }
@@ -54,7 +62,11 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
             return $permalink;
         }
 
-        return $this->getOtherSitesPostLink($otherSitesId, $post);
+        $filteredPermalink = $this->getOtherSitesPostLink($otherSitesId, $post);
+        
+        $this->wpService->addFilter(self::FILTER_NAME, [$this, self::FILTER_FUNCTION], self::FILTER_PRIORITY, self::FILTER_ARGUMENTS);
+    
+        return $filteredPermalink;
     }
 
     /**

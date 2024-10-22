@@ -26,7 +26,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
      */
     public function testGetPermalinkFromOtherSiteReturnsPermalinkIfSiteIsNotMultisite()
     {
-        $wpService = new FakeWpService(['isMultisite' => false]);
+        $wpService = new FakeWpService(['isMultisite' => false, 'removeFilter' => true]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
         $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', WpMockFactory::createWpPost()));
@@ -41,6 +41,8 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
             'isMultisite'      => true,
             'getCurrentBlogId' => 1,
             'getBlogIdFromUrl' => 1,
+            'removeFilter'      => true,
+            'addFilter'         => true,
         ]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
@@ -61,6 +63,8 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
             'getPermalink'       => $url,
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
+            'removeFilter'       => true,
+            'addFilter'          => true,
         ]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
@@ -81,6 +85,8 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
             'getPermalink'       => $url,
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
+            'removeFilter'       => true,
+            'addFilter'          => true,
         ]);
         $filter    = new AllowPostsFromOtherSitesToKeepTheirPermalinks($wpService);
 
