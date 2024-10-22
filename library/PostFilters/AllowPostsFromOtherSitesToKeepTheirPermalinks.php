@@ -18,10 +18,10 @@ use WpService\Contracts\RemoveFilter;
  */
 class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
 {
-    const FILTER_PRIORITY = 10;
-    const FILTER_NAME = 'post_link';
-    const FILTER_ARGUMENTS = 2;
-    const FILTER_FUNCTION = 'getPermalinkFromOtherSite';
+    public const FILTER_PRIORITY  = 10;
+    public const FILTER_NAME      = 'post_link';
+    public const FILTER_ARGUMENTS = 2;
+    public const FILTER_FUNCTION  = 'getPermalinkFromOtherSite';
 
     /**
      * Constructor.
@@ -63,9 +63,9 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
         }
 
         $filteredPermalink = $this->getOtherSitesPostLink($otherSitesId, $post);
-        
+
         $this->wpService->addFilter(self::FILTER_NAME, [$this, self::FILTER_FUNCTION], self::FILTER_PRIORITY, self::FILTER_ARGUMENTS);
-    
+
         return $filteredPermalink;
     }
 
