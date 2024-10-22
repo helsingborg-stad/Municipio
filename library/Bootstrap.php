@@ -108,6 +108,7 @@ add_action('init', function () use ($wpService) {
         'options-menu-description'                   => 'group_650296216899c',
         'options-menu-language'                      => 'group_6141cc9c72cc3',
         'options-api-resources-apis'                 => 'group_653a1673dc501',
+        'options-comment-settings'                   => 'group_67173bdc92fde',
         'options-customize-header'                   => 'group_5afa93c0a25e1',
         'options-customize-footer'                   => 'group_5afa94c88e1aa',
         'resource-fields'                            => 'group_653a509450198',
