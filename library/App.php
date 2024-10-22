@@ -10,6 +10,7 @@ use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
 use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
+use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
@@ -218,6 +219,7 @@ class App
         new \Municipio\Comment\Likes();
         new \Municipio\Comment\Filters();
         new \Municipio\Comment\Form();
+        $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
 
         /**
