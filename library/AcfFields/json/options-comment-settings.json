@@ -3,6 +3,26 @@
     "title": "Comment Settings",
     "fields": [
         {
+            "key": "field_67175e844ab4a",
+            "label": "Disable discussion feature",
+            "name": "disable_discussion_feature",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Disable discussion settings page, comment form and posted comments for all post types.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
             "key": "field_67173bdc8a308",
             "label": "Hide discussion for logged out users",
             "name": "hide_discussion_for_logged_out_users",
@@ -10,7 +30,15 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_67175e844ab4a",
+                        "operator": "!=",
+                        "value": "1"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
