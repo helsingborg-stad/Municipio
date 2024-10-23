@@ -8,6 +8,9 @@ class General
 {
     public static $url2text = false;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
