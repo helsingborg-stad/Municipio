@@ -273,6 +273,7 @@ msgstr "Färgen med lägst stopp visas alltid först."
 #: AcfFields/php/external-content-settings.php:30
 #: AcfFields/php/options-api-resources-apis.php:30
 #: AcfFields/php/post-type-schema-settings.php:30
+#: AcfFields/php/user-author-image.php:131
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -4013,6 +4014,7 @@ msgid "slow_motion_video"
 msgstr "slow_motion_video"
 
 #: AcfFields/php/options-menu-icon.php:877
+#: AcfFields/php/user-author-image.php:152
 msgid "smartphone"
 msgstr "smartphone"
 
@@ -6230,6 +6232,7 @@ msgid "Colour"
 msgstr "Färg"
 
 #: AcfFields/php/term-icon-and-colour.php:47
+#: AcfFields/php/user-author-image.php:136
 msgid "Type"
 msgstr "Typ"
 
@@ -14746,24 +14749,24 @@ msgstr "Kommer som standard att vara \"Välj <namn på taxonomi>\"."
 msgid "Profile picture"
 msgstr "Profilbild"
 
-#: AcfFields/php/user-author-image.php:36
+#: AcfFields/php/user-author-image.php:39
 msgid "Facebook profile url"
 msgstr "Url till Facebook-profil"
 
-#: AcfFields/php/user-author-image.php:52
+#: AcfFields/php/user-author-image.php:56
 msgid "Linkedin profile url"
 msgstr "Url till LinkedIn-profil"
 
-#: AcfFields/php/user-author-image.php:68
+#: AcfFields/php/user-author-image.php:73
 msgid "Instagram username"
 msgstr "Användarnamn på Instagram"
 
-#: AcfFields/php/user-author-image.php:82
-#: AcfFields/php/user-author-image.php:101
+#: AcfFields/php/user-author-image.php:88
+#: AcfFields/php/user-author-image.php:108
 msgid "@"
 msgstr "@"
 
-#: AcfFields/php/user-author-image.php:87
+#: AcfFields/php/user-author-image.php:93
 msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
@@ -14783,6 +14786,7 @@ msgstr "Telefonnummer"
 msgid "Email"
 msgstr "Epost"
 
+#: AcfFields/php/user-author-image.php:188
 #: AcfFields/php/widget-contact.php:100
 msgid "Address"
 msgstr "Adress"
@@ -15002,7 +15006,7 @@ msgstr "Var god och lägg till en alt-text till bilden."
 msgid "Please add an alt text to the image."
 msgstr "Var god och lägg till en alt-text till bilden."
 
-#: Admin/General.php:113
+#: Admin/General.php:115
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
@@ -18116,3 +18120,27 @@ msgstr ""
 #: ImageConvert/ImageConvertFilter.php:137
 msgid "Image files must be smaller than %s"
 msgstr ""
+
+#: AcfFields/php/user-author-image.php:8
+msgid "Additional user information"
+msgstr "Övrig användarinformation"
+
+#: AcfFields/php/user-author-image.php:113
+msgid "Phone numbers"
+msgstr "Telefonnummer"
+
+#: AcfFields/php/user-author-image.php:149
+msgid "Cell phone"
+msgstr "Mobiltelefon"
+
+#: AcfFields/php/user-author-image.php:150
+msgid "Landline"
+msgstr "Fast telefon"
+
+#: AcfFields/php/user-author-image.php:165
+msgid "Number"
+msgstr "Nummer"
+
+#: AcfFields/php/user-author-image.php:209
+msgid "Visiting Address"
+msgstr "Besöksadress"
