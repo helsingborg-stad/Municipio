@@ -22,7 +22,6 @@ class General
             }
 
             $imageId = get_user_meta($userId, 'user_profile_picture_id', true);
-            delete_user_meta($userId, 'user_profile_picture_id');
 
             if (!$imageId) {
                 return;
