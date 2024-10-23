@@ -48,6 +48,15 @@ class General
             return $class;
         });
 
+        add_filter('Municipio/bodyClass', function ($class) {
+
+            if (current_user_can('upload_files')) {
+                $class .= ' user-can-upload_files';
+            }
+
+            return $class;
+        });
+
         add_filter('Municipio/HeaderHTML', function ($html) {
             return str_replace(
                 ' />',
