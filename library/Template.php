@@ -146,7 +146,7 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
-        if (!is_post_publicly_viewable() && !is_user_logged_in() && !is_search()) {
+        if (!is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive()) {
             $template = '404';
         }
 
