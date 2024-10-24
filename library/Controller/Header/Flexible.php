@@ -18,6 +18,7 @@ class Flexible implements HeaderInterface
     private FlipKeyValueTransformer $flipKeyValueTransformer;
     private MenuVisibilityTransformer $menuVisibilityTransformerInstance;
     private HeaderVisibilityClasses $headerVisibilityClassesInstance;
+    private IsResponsiveMenuTransformer $isResponsiveMenu;
     private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
     private bool $hasSeparateBrandText         = false;
@@ -30,6 +31,7 @@ class Flexible implements HeaderInterface
 
         $this->headerVisibilityClassesInstance   = new HeaderVisibilityClasses();
         $this->flipKeyValueTransformer           = new FlipKeyValueTransformer();
+        $this->isResponsiveMenu                  = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
         $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
         $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
@@ -114,6 +116,7 @@ class Flexible implements HeaderInterface
 
         // Building the items
         $items = $this->flipKeyValueTransformer->transform($desktopOrderedItems, $mobileOrderedItems);
+        $items = $this->isResponsiveMenu->transform($items, $this->isResponsive);
         $items = $this->menuOrderTransformerInstance->transform($items);
         $items = $this->menuVisibilityTransformerInstance->transform($items);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
