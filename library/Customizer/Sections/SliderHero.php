@@ -49,7 +49,10 @@ class SliderHero
             'output'   => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
+                    'context' => [
+                        'context' => 'module.slider.hero.slider-item', 
+                        'operator' => '=='
+                    ]
                 ]
             ],
         ]);
@@ -71,7 +74,10 @@ class SliderHero
             'output'   => [
                 [
                     'type'    => 'modifier',
-                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
+                    'context' => [
+                        'context' => 'module.slider.hero.slider-item', 
+                        'operator' => '=='
+                    ]
                 ]
             ],
         ]);
@@ -93,7 +99,10 @@ class SliderHero
                 [
                     'type'    => 'component_data',
                     'dataKey' => 'overlay',
-                    'context' => ['context' => 'sidebar.slider-area.module.slider-item', 'operator' => '==']
+                    'context' => [
+                        'context' => 'module.slider.hero.slider-item', 
+                        'operator' => '=='
+                    ]
                 ]
             ],
         ]);
