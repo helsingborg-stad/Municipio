@@ -7,6 +7,9 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\PostObject\BackwardsCompatiblePostObject;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\PostObjectFromWpPost;
 
 /**
  * Class Post
@@ -24,9 +27,9 @@ class Post
      * @param object $post WP_Post object
      * @param mixed $data Additional data for post object
      *
-     * @return object Transformed WP_Post object
+     * @return PostObjectInterface $postObject
      */
-    public static function preparePostObject(\WP_Post $post, $data = null): object
+    public static function preparePostObject(\WP_Post $post, $data = null): PostObjectInterface
     {
         // Create a unique cache key based on the post ID and serialized data
         $serializedPost = serialize(get_object_vars($post));
@@ -58,9 +61,11 @@ class Post
             $data
         );
 
-        return self::$runtimeCache['preparePostObject'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
-            $post
-        );
+        $camelCasedPost = self::$runtimeCache['preparePostObject'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
+        $wpService      = \Municipio\Helper\WpService::get();
+        $postObject     = new PostObjectFromWpPost($post, $wpService);
+
+        return new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
     }
 
      /**
@@ -81,9 +86,9 @@ class Post
      * @param   object   $post    WP_Post object
      * @param mixed $data Additional data for post object
      *
-     * @return  object   $post    Transformed WP_Post object
+     * @return PostObjectInterface $postObject
      */
-    public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
+    public static function preparePostObjectArchive(\WP_Post $post, $data = null): PostObjectInterface
     {
         $cacheKey = md5($post->guid . '_' . serialize($data));
 
@@ -109,9 +114,11 @@ class Post
             $data
         );
 
-        return self::$runtimeCache['preparePostObjectArchive'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
-            $post
-        );
+        $camelCasedPost = self::$runtimeCache['preparePostObjectArchive'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
+        $wpService      = \Municipio\Helper\WpService::get();
+        $postObject     = new PostObjectFromWpPost($post, $wpService);
+
+        return new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
     }
 
     /**
