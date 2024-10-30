@@ -2,6 +2,8 @@
 
 namespace Municipio\PostObject;
 
+use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+
 interface PostObjectInterface
 {
     /**
@@ -24,4 +26,11 @@ interface PostObjectInterface
      * @return string
      */
     public function getPermalink(): string;
+
+    /**
+     * Get the rendered post.
+     *
+     * @return string
+     */
+    public function getRendered(PostObjectRendererInterface $renderer): string;
 }

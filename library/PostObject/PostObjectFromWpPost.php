@@ -3,6 +3,7 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 use WP_Post;
 use WpService\Contracts\GetPermalink;
 
@@ -40,5 +41,13 @@ class PostObjectFromWpPost implements PostObjectInterface
     public function getPermalink(): string
     {
         return $this->wpService->getPermalink($this->wpPost);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRendered(PostObjectRendererInterface $renderer): string
+    {
+        return $renderer->render($this);
     }
 }

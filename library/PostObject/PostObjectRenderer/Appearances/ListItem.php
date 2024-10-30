@@ -2,19 +2,12 @@
 
 namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 
-use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
-/**
- * Render PostObject as a list item.
- */
-class ListItem implements PostObjectRendererInterface
+class ListItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function render(PostObjectInterface $postObject): string
+    public function getViewName(): string
     {
-        return "<li><a href=\"{$postObject->getPermalink()}\">{$postObject->getTitle()}</a></li>";
+        return 'ListItem';
     }
 }

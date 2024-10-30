@@ -33,14 +33,11 @@ class Post
     {
         // Create a unique cache key based on the post ID and serialized data
         $serializedPost = serialize(get_object_vars($post));
+        $cacheGroup     = 'preparePostObject';
         $cacheKey       = md5($serializedPost . '_' . serialize($data));
 
-        if (!isset(self::$runtimeCache['preparePostObject'])) {
-            self::$runtimeCache['preparePostObject'] = [];
-        }
-
-        if (isset(self::$runtimeCache['preparePostObject'][$cacheKey])) {
-            return self::$runtimeCache['preparePostObject'][$cacheKey];
+        if (self::isInCache($cacheGroup, $cacheKey)) {
+            return self::getFromCache($cacheGroup, $cacheKey);
         }
 
         // Perform the original operations
@@ -61,11 +58,7 @@ class Post
             $data
         );
 
-        $camelCasedPost = self::$runtimeCache['preparePostObject'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
-        $wpService      = \Municipio\Helper\WpService::get();
-        $postObject     = new PostObjectFromWpPost($post, $wpService);
-
-        return new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
+        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
     }
 
      /**
@@ -90,14 +83,11 @@ class Post
      */
     public static function preparePostObjectArchive(\WP_Post $post, $data = null): PostObjectInterface
     {
-        $cacheKey = md5($post->guid . '_' . serialize($data));
+        $cacheGroup = 'preparePostObjectArchive';
+        $cacheKey   = md5($post->guid . '_' . serialize($data));
 
-        if (!isset(self::$runtimeCache['preparePostObjectArchive'])) {
-            self::$runtimeCache['preparePostObjectArchive'] = [];
-        }
-
-        if (isset(self::$runtimeCache['preparePostObjectArchive'][$cacheKey])) {
-            return self::$runtimeCache['preparePostObjectArchive'][$cacheKey];
+        if (self::isInCache($cacheGroup, $cacheKey)) {
+            return self::getFromCache($cacheGroup, $cacheKey);
         }
 
         $post = self::complementObject(
@@ -114,7 +104,47 @@ class Post
             $data
         );
 
-        $camelCasedPost = self::$runtimeCache['preparePostObjectArchive'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
+        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
+    }
+
+    /**
+     * Alias for preparePostObjectArchive
+     *
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return bool
+     */
+    private static function isInCache($cacheGroup, $cacheKey): bool
+    {
+        if (!isset(self::$runtimeCache[$cacheGroup])) {
+            self::$runtimeCache[$cacheGroup] = [];
+        }
+
+        return isset(self::$runtimeCache[$cacheGroup][$cacheKey]);
+    }
+
+    /**
+     * Get post object from cache
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return PostObjectInterface
+     */
+    private static function getFromCache($cacheGroup, $cacheKey): PostObjectInterface
+    {
+        return self::$runtimeCache[$cacheGroup][$cacheKey];
+    }
+
+    /**
+     * Prepare post object before sending to view
+     *
+     * @param WP_Post $post WP_Post object
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return PostObjectInterface
+     */
+    private static function convertWpPostToPostObject(WP_Post $post, string $cacheGroup, string $cacheKey): PostObjectInterface
+    {
+        $camelCasedPost = self::$runtimeCache[$cacheGroup][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
         $wpService      = \Municipio\Helper\WpService::get();
         $postObject     = new PostObjectFromWpPost($post, $wpService);
 

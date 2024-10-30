@@ -6,6 +6,9 @@ use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilder;
 use Municipio\Controller\Navigation\MenuDirector;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\PostObjectRenderer\Appearances\Appearance;
+use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
 
 /**
  * Class Archive
@@ -112,6 +115,19 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+        if ($template === 'cards') {
+            $cardConfig = [
+                'gridColumnClass'    => $this->data['gridColumnClass'],
+                'displayReadingTime' => true,
+                'showPlaceholder'    => true
+            ];
+
+            $renderer                          = PostObjectRendererFactory::create(Appearance::CardItem, $cardConfig);
+            $this->data['renderedPostObjects'] = array_map(function (PostObjectInterface $postObject) use ($renderer) {
+                return $postObject->getRendered($renderer);
+            }, $this->data['posts']);
+        }
     }
 
     /**

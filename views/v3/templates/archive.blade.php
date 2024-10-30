@@ -72,7 +72,13 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if ($displayArchiveLoop)
+            @if(isset($renderedPostObjects) && $renderedPostObjects)
+                <div class="o-grid">
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                </div>
+            @elseif($displayArchiveLoop)
                 @includefirst(
                     [   
                         'partials.post.schema.' . $template,
