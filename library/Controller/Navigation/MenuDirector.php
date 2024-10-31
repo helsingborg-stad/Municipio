@@ -95,6 +95,7 @@ class MenuDirector
         $this->builder->mapMenuItemsFromObjectToArray();
         $this->builder->mapMenuItemsAcfFieldValues();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
+        $this->builder->pageTreeAppendMenuItemsAncestors();
         $this->builder->pageTreeAppendChildren();
         $this->builder->applyMenuItemFilter();
         $this->builder->pageTreeAppendMenuItemsFetchUrl();
