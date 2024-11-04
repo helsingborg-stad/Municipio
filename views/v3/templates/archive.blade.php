@@ -72,12 +72,33 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if(isset($renderedPostObjects) && $renderedPostObjects)
+            @if(isset($renderedPostObjects) && $renderedPostObjects && $template === 'cards')
                 <div class="o-grid">
                     @foreach($renderedPostObjects as $postObject)
                         {!! $postObject !!}
                     @endforeach
                 </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'grid')
+                <div class="o-grid">
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'compressed')
+                <div class="o-grid">
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'collection')
+                @collection([
+                    'unbox' => true,
+                    'classList' => ['o-grid', 'o-grid--horizontal']
+                ])
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                @endcollection
             @elseif($displayArchiveLoop)
                 @includefirst(
                     [   

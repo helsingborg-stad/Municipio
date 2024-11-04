@@ -116,14 +116,31 @@ class Archive extends \Municipio\Controller\BaseController
         $this->menuDirector->buildStandardMenu();
         $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
 
-        if ($template === 'cards') {
-            $cardConfig = [
-                'gridColumnClass'    => $this->data['gridColumnClass'],
-                'displayReadingTime' => true,
-                'showPlaceholder'    => true
-            ];
+        $renderer = null;
 
-            $renderer                          = PostObjectRendererFactory::create(Appearance::CardItem, $cardConfig);
+        if ($template === 'cards') {
+            $renderer = PostObjectRendererFactory::create(Appearance::CardItem, [
+                'displayReadingTime' => $this->data['displayReadingTime'],
+                'gridColumnClass'    => $this->data['gridColumnClass'],
+                'showPlaceholder'    => $this->data['anyPostHasImage']
+            ]);
+        } elseif ($template === 'grid') {
+            $renderer = PostObjectRendererFactory::create(Appearance::BlockItem, [
+                'format'          => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
+                'gridColumnClass' => $this->data['gridColumnClass'],
+                'showPlaceholder' => $this->data['anyPostHasImage']
+            ]);
+        } elseif ($template === 'compressed') {
+            $renderer = PostObjectRendererFactory::create(Appearance::CompressedItem, [
+                'gridColumnClass' => $this->data['gridColumnClass']
+            ]);
+        } elseif ($template === 'collection') {
+            $renderer = PostObjectRendererFactory::create(Appearance::CollectionItem, [
+                'gridColumnClass' => $this->data['gridColumnClass']
+            ]);
+        }
+
+        if ($renderer !== null) {
             $this->data['renderedPostObjects'] = array_map(function (PostObjectInterface $postObject) use ($renderer) {
                 return $postObject->getRendered($renderer);
             }, $this->data['posts']);

@@ -6,6 +6,7 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use HelsingborgStad\BladeService\BladeServiceInterface;
+use Municipio\Helper\TranslatedLabels;
 
 /**
  * Render PostObject as a list item.
@@ -65,7 +66,12 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
      */
     protected function getViewData(PostObjectInterface $postObject): array
     {
-        return ['postObject' => $postObject, 'config' => $this->getConfig()];
+        return ['postObject' => $postObject, 'config' => $this->getConfig(), 'lang' => $this->getLanguageObject()];
+    }
+
+    protected function getLanguageObject(): object
+    {
+        return TranslatedLabels::getLang();
     }
 
     /**
@@ -76,7 +82,14 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
     protected function renderView(string $view, PostObjectInterface $postObject): string
     {
         $this->setupBladeEngine();
-        return self::$bladeEngine->makeView($view, $this->getViewData($postObject), [], $this->getViewPaths())->render();
+
+        try {
+            $markup = self::$bladeEngine->makeView($view, $this->getViewData($postObject), [], $this->getViewPaths())->render();
+        } catch (\Throwable $e) {
+            $markup = self::$bladeEngine->errorHandler($e)->print();
+        }
+
+        return $markup ?? '';
     }
 
     /**

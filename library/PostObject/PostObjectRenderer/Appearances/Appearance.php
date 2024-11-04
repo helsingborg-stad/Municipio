@@ -4,6 +4,9 @@ namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 
 enum Appearance: string
 {
-    case CardItem = 'CardItem';
-    case ListItem = 'ListItem';
+    case BlockItem      = 'BlockItem';
+    case CardItem       = 'CardItem';
+    case CollectionItem = 'CollectionItem';
+    case CompressedItem = 'CompressedItem';
+    case ListItem       = 'ListItem';
 }
