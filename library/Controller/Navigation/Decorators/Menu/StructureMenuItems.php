@@ -44,18 +44,18 @@ class StructureMenuItems implements MenuInterface
     private function structureMenuItems(array $menuItems, int $parentId = 0): array
     {
         $structuredMenuItems = [];
-
         if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $menuItem) {
                 if (!isset($menuItem['post_parent']) || !isset($menuItem['id'])) {
                     continue;
                 }
-
                 if ($menuItem['post_parent'] == $parentId) {
-                    $children = $this->structureMenuItems($menuItems, $menuItem['id']);
+                    if ($menuItem['id'] != $menuItem['post_parent']) { 
+                        $children = $this->structureMenuItems($menuItems, $menuItem['id']);
 
-                    if ($children) {
-                        $menuItem['children'] = $children;
+                        if ($children) {
+                            $menuItem['children'] = $children;
+                        }
                     }
 
                     $structuredMenuItems[] = $menuItem;
