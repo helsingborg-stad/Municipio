@@ -1,4 +1,5 @@
 @if(!empty($tabMenu['items']))
+
     @nav([
         'id' => 'tabs',
         'items' => $tabMenu['items'],
@@ -7,7 +8,6 @@
         'allowStyle' => true,
         'buttonColor' => $customizer->tabmenuButtonColor,
         'buttonStyle' => $customizer->tabmenuButtonType,
-        'height' => 'sm',
         'classList' => [
             'u-width--auto',
             'u-display--none@xs',
