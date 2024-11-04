@@ -10,8 +10,6 @@ use Municipio\Controller\Navigation\MenuInterface;
  */
 class StructureMenuItems implements MenuInterface
 {
-    private array $hasSeenIds = [];
-
     /**
      * Constructor
      */
@@ -48,16 +46,16 @@ class StructureMenuItems implements MenuInterface
         $structuredMenuItems = [];
         if (is_array($menuItems) && !empty($menuItems)) {
             foreach ($menuItems as $menuItem) {
-                if (!isset($menuItem['post_parent']) || !isset($menuItem['id']) || in_array($menuItem['id'], $this->hasSeenIds)) {
+                if (!isset($menuItem['post_parent']) || !isset($menuItem['id'])) {
                     continue;
                 }
-
-                $this->hasSeenIds[] = $menuItem['id'];
                 if ($menuItem['post_parent'] == $parentId) {
-                    $children = $this->structureMenuItems($menuItems, $menuItem['id']);
+                    if ($menuItem['id'] != $menuItem['post_parent']) { 
+                        $children = $this->structureMenuItems($menuItems, $menuItem['id']);
 
-                    if ($children) {
-                        $menuItem['children'] = $children;
+                        if ($children) {
+                            $menuItem['children'] = $children;
+                        }
                     }
 
                     $structuredMenuItems[] = $menuItem;
