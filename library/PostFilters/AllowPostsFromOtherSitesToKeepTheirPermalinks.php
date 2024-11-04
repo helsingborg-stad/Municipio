@@ -56,7 +56,7 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
         }
 
         $currentSiteId = $this->wpService->getCurrentBlogId();
-        $otherSitesId  = $this->getSiteIdFromPostGuid($post->guid);
+        $otherSitesId  = $this->getSiteIdFromPostGuid($post->guid) ?? $currentSiteId;
 
         if ($otherSitesId === $currentSiteId) {
             return $permalink;
@@ -91,10 +91,15 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinks implements Hookable
      * @param string $guid
      * @return int
      */
-    private function getSiteIdFromPostGuid(string $guid): int
+    private function getSiteIdFromPostGuid(string $guid): ?int
     {
         $parsedUrl = parse_url($guid);
-        $domain    = $parsedUrl['host'] . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '');
+
+        if (!isset($parsedUrl['host'])) {
+            return null;
+        }
+
+        $domain = $parsedUrl['host'] . (isset($parsedUrl['port']) ? ':' . $parsedUrl['port'] : '');
 
         return $this->wpService->getBlogIdFromUrl($domain, $parsedUrl['path']);
     }

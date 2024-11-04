@@ -1,4 +1,4 @@
-body.logged-in {
+body.user-can-upload_files {
   [data-a11y-error]:after {
     content: "[ ! ] " attr(data-a11y-error);
     padding: 4px 8px;

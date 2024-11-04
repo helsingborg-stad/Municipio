@@ -8,6 +8,9 @@ class General
 {
     public static $url2text = false;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         add_filter('wp_dropdown_pages', array($this, 'pageForPostsDropdown'), 10, 3);
@@ -22,7 +25,6 @@ class General
             }
 
             $imageId = get_user_meta($userId, 'user_profile_picture_id', true);
-            delete_user_meta($userId, 'user_profile_picture_id');
 
             if (!$imageId) {
                 return;

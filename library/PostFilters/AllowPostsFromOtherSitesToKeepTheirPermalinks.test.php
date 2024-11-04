@@ -74,6 +74,24 @@ class AllowPostsFromOtherSitesToKeepTheirPermalinksTest extends TestCase
     }
 
     /**
+     * @testdox getPermalinkFromOtherSite() uses current site ID if post GUID is not a valid URL.
+     */
+    public function testGetPermalinkFromOtherSiteUsesCurrentSiteIdIfPostGuidIsNotValidUrl()
+    {
+        $wpService = new FakeWpService([
+            'isMultisite'      => true,
+            'getCurrentBlogId' => 1,
+            'getBlogIdFromUrl' => 1,
+            'removeFilter'     => true,
+            'addFilter'        => true,
+        ]);
+        $filter    = new SUT($wpService);
+
+        $post = WpMockFactory::createWpPost(['guid' => 'not a valid URL']);
+        $this->assertEquals('permalink', $filter->getPermalinkFromOtherSite('permalink', $post));
+    }
+
+    /**
      * @testdox getPermalinkFromOtherSite() allows switching to a blogs different types of URLs.
      * @dataProvider provideUrls
      */

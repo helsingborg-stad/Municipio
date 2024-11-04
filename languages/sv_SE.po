@@ -273,6 +273,7 @@ msgstr "Färgen med lägst stopp visas alltid först."
 #: AcfFields/php/external-content-settings.php:30
 #: AcfFields/php/options-api-resources-apis.php:30
 #: AcfFields/php/post-type-schema-settings.php:30
+#: AcfFields/php/user-author-image.php:131
 msgid "Add Row"
 msgstr "Lägg till rad"
 
@@ -4014,6 +4015,7 @@ msgid "slow_motion_video"
 msgstr "slow_motion_video"
 
 #: AcfFields/php/options-menu-icon.php:877
+#: AcfFields/php/user-author-image.php:152
 msgid "smartphone"
 msgstr "smartphone"
 
@@ -6231,6 +6233,7 @@ msgid "Colour"
 msgstr "Färg"
 
 #: AcfFields/php/term-icon-and-colour.php:47
+#: AcfFields/php/user-author-image.php:136
 msgid "Type"
 msgstr "Typ"
 
@@ -14747,24 +14750,24 @@ msgstr "Kommer som standard att vara \"Välj <namn på taxonomi>\"."
 msgid "Profile picture"
 msgstr "Profilbild"
 
-#: AcfFields/php/user-author-image.php:36
+#: AcfFields/php/user-author-image.php:39
 msgid "Facebook profile url"
 msgstr "Url till Facebook-profil"
 
-#: AcfFields/php/user-author-image.php:52
+#: AcfFields/php/user-author-image.php:56
 msgid "Linkedin profile url"
 msgstr "Url till LinkedIn-profil"
 
-#: AcfFields/php/user-author-image.php:68
+#: AcfFields/php/user-author-image.php:73
 msgid "Instagram username"
 msgstr "Användarnamn på Instagram"
 
-#: AcfFields/php/user-author-image.php:82
-#: AcfFields/php/user-author-image.php:101
+#: AcfFields/php/user-author-image.php:88
+#: AcfFields/php/user-author-image.php:108
 msgid "@"
 msgstr "@"
 
-#: AcfFields/php/user-author-image.php:87
+#: AcfFields/php/user-author-image.php:93
 msgid "Twitter username"
 msgstr "Användarnamn på Twitter"
 
@@ -14784,6 +14787,7 @@ msgstr "Telefonnummer"
 msgid "Email"
 msgstr "Epost"
 
+#: AcfFields/php/user-author-image.php:188
 #: AcfFields/php/widget-contact.php:100
 msgid "Address"
 msgstr "Adress"
@@ -15003,7 +15007,7 @@ msgstr "Var god och lägg till en alt-text till bilden."
 msgid "Please add an alt text to the image."
 msgstr "Var god och lägg till en alt-text till bilden."
 
-#: Admin/General.php:113
+#: Admin/General.php:115
 msgid "Only for logged in users"
 msgstr "Endast för inloggade användare"
 
@@ -15221,7 +15225,7 @@ msgstr "Specifika inställningar för omslag"
 #: Customizer/Sections/Menu/MegaMenu.php:36
 #: Customizer/Sections/Menu/MegaMenu.php:81
 #: Customizer/Sections/Menu/Quicklinks.php:133
-#: Customizer/Sections/SliderHero.php:131
+#: Customizer/Sections/SliderHero.php:140
 msgid "Heading"
 msgstr "Rubrik"
 
@@ -16170,7 +16174,7 @@ msgstr "Primära färger"
 #: Customizer/Sections/Colors.php:386
 #: Customizer/Sections/Colors.php:430
 #: Customizer/Sections/Colors.php:474
-#: Customizer/Sections/SliderHero.php:106
+#: Customizer/Sections/SliderHero.php:115
 #: Customizer/Sections/Typography.php:33
 msgid "Base"
 msgstr "Bas"
@@ -16357,8 +16361,8 @@ msgstr "Anpassa kontrastfärg"
 #: Customizer/Sections/Divider.php:134
 #: Customizer/Sections/FooterMain.php:113
 #: Customizer/Sections/Hero.php:40
-#: Customizer/Sections/SliderDefault.php:115
-#: Customizer/Sections/SliderHero.php:63
+#: Customizer/Sections/SliderDefault.php:111
+#: Customizer/Sections/SliderHero.php:66
 msgid "Text alignment"
 msgstr "Textjustering"
 
@@ -17252,16 +17256,16 @@ msgstr "Om värdet sätts till 0 förhandsvisas ingenting av kommande/föregåen
 msgid "Container colour"
 msgstr "Färg för behållare"
 
-#: Customizer/Sections/SliderDefault.php:146
-#: Customizer/Sections/SliderHero.php:85
+#: Customizer/Sections/SliderDefault.php:138
+#: Customizer/Sections/SliderHero.php:91
 msgid "Slide overlay"
 msgstr "Övertäckning slider"
 
-#: Customizer/Sections/SliderDefault.php:177
+#: Customizer/Sections/SliderDefault.php:165
 msgid "Arrow button style"
 msgstr "Stil för navigeringsknapp"
 
-#: Customizer/Sections/SliderDefault.php:204
+#: Customizer/Sections/SliderDefault.php:192
 msgid "Arrow button color"
 msgstr "Färg för navigeringsknapp"
 
@@ -18122,6 +18126,30 @@ msgstr ""
 msgid "Disable discussion feature"
 msgstr "Stäng av kommentarsfunktionalitet"
 
+#: AcfFields/php/user-author-image.php:8
+msgid "Additional user information"
+msgstr "Övrig användarinformation"
+
+#: AcfFields/php/user-author-image.php:113
+msgid "Phone numbers"
+msgstr "Telefonnummer"
+
+#: AcfFields/php/user-author-image.php:149
+msgid "Cell phone"
+msgstr "Mobiltelefon"
+
+#: AcfFields/php/user-author-image.php:150
+msgid "Landline"
+msgstr "Fast telefon"
+
+#: AcfFields/php/user-author-image.php:165
+msgid "Number"
+msgstr "Nummer"
+
+#: AcfFields/php/user-author-image.php:209
+msgid "Visiting Address"
+msgstr "Besöksadress"
+
 #: AcfFields/php/options-comment-settings.php:16
 msgid "Disable discussion settings page, comment form and posted comments for all post types."
-msgstr "Stäng av inställningssida för kommentarer, formulär och inskickade kommenterar för alla posttyper."
+msgstr "Stäng av inställningssida för kommentarer, kommentarsformulär och inskickade kommentarer för alla posttyper."
