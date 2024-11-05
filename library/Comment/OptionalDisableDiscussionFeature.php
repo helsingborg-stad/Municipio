@@ -51,7 +51,7 @@ class OptionalDisableDiscussionFeature implements Hookable
      */
     private function isDisabled(): bool
     {
-        return $this->acfService->getField('disable_discussion_feature', 'option') === true;
+        return in_array($this->acfService->getField('disable_discussion_feature', 'option'), [true, 1, '1', 'true']);
     }
 
     /**
