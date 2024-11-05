@@ -8,20 +8,18 @@
                     'ratio' => $archiveProps->format == 'tall' ? '12:16' : '1:1',
                     'meta' => $post->termsUnlinked,
                     'secondaryMeta' => $displayReadingTime ? $post->readingTime : '',
-                    'filled' => true,
-                    'image' => $post->imageContract ? [
+                    'image' => $post->imageContract ?? null ? [
                         'src' => $post->imageContract,
                         'backgroundColor' => 'secondary'
                     ] : [
-                        'src' => $archiveProps->format == 'tall' ? $post->images['thumbnail3:4']['src'] : $post->images['thumbnail16:9']['src'],
-                        'alt' => $post->images['thumbnail16:9']['alt'] ? $post->images['thumbnail16:9']['alt'] : $post->postTitle,
+                        'src' => $archiveProps->format == 'tall' ? $post->images['thumbnail3:4']['src'] ?? false : $post->images['thumbnail16:9']['src'] ?? false,
+                        'alt' => $post->images['thumbnail16:9']['alt'] ?? '' ? $post->images['thumbnail16:9']['alt'] ?? '' : $post->postTitle,
                         'backgroundColor' => 'secondary'
                     ],
                     'date' => $post->archiveDate,
                     'dateBadge' => $post->archiveDateFormat == 'date-badge',
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
-                    'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src'])
                 ])
                 @endblock
             </div>
