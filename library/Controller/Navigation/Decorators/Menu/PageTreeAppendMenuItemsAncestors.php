@@ -32,7 +32,7 @@ class PageTreeAppendMenuItemsAncestors implements MenuInterface
         }
 
         foreach ($menu['items'] as &$menuItem) {
-            if (!isset($menuItem['id']) || !empty($menuItem['isCached'])) {
+            if (!isset($menuItem['id']) || !empty($menuItem['isCached']) || $menuItem['ancestor'] === true) {
                 continue;
             }
 

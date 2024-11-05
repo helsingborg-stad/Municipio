@@ -20,8 +20,8 @@ class GetAncestorIds
      */
     public static function getAncestorIds(array $menuItems, string $identifier): array
     {
-        if (empty(self::$ancestorIds[$identifier])) {
-            return self::$ancestorIds;
+        if (empty($menuItems)) {
+            return [];
         }
 
         self::$ancestorIds[$identifier] = self::getWpMenuAncestors(
@@ -41,12 +41,17 @@ class GetAncestorIds
      */
     private static function pageIdToMenuID($menuItems, int $pageId)
     {
-        $index = array_search($pageId, array_column($menuItems, 'object_id'));
-
-        if ($index !== false) {
-            return $menuItems[$index]->ID;
+        $foundPage = null;
+        foreach ($menuItems as $menuItem) {
+            if ($menuItem['page_id'] == $pageId) {
+                $foundPage = $menuItem['id'];
+                break;
+            }
         }
 
+        if (!is_null($foundPage)) {
+            return $foundPage;
+        }
         return false;
     }
 
@@ -66,20 +71,16 @@ class GetAncestorIds
         $fetchAncestors = true;
         $ancestorStack  = [$id];
 
-        //Fetch ancestors
         while ($fetchAncestors) {
-            //Get index where match exists
-            $parentIndex = array_search($id, array_column($menuItems, 'ID'));
+            $matchingMenuItem = reset(array_filter($menuItems, function ($item) use ($id) {
+                return $item['id'] == $id;
+            }));
 
-            //Top level, exit
-            if ($menuItems[$parentIndex]->menu_item_parent == 0) {
+            if ($matchingMenuItem['post_parent'] == 0) {
                 $fetchAncestors = false;
             } else {
-                //Add to stack (with duplicate prevention)
-                $ancestorStack[] = (int) $menuItems[$parentIndex]->menu_item_parent;
-
-                //Prepare for next iteration
-                $id = (int) $menuItems[$parentIndex]->menu_item_parent;
+                $ancestorStack[] = (int) $matchingMenuItem['post_parent'];
+                $id = (int) $matchingMenuItem['post_parent'];
             }
         }
 

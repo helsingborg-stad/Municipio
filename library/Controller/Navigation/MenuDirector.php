@@ -94,6 +94,7 @@ class MenuDirector
         $this->builder->appendAcfFields();
         $this->builder->mapMenuItemsFromObjectToArray();
         $this->builder->mapMenuItemsAcfFieldValues();
+        $this->builder->mapMenuItemsIsAncestor();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
         $this->builder->pageTreeAppendMenuItemsAncestors();
         $this->builder->pageTreeAppendChildren();
