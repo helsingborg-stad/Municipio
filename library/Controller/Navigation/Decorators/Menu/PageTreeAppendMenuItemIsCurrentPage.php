@@ -32,7 +32,7 @@ class PageTreeAppendMenuItemIsCurrentPage implements MenuInterface
         }
 
         foreach ($menu['items'] as &$menuItem) {
-            if (!empty($menuItem['isCached'])) {
+            if (!empty($menuItem['isCached']) || !empty($menuItem['active'])) {
                 continue;
             }
 
