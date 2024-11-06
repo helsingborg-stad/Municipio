@@ -88,6 +88,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertContains('from_schema_property', $taxonomiesSubFieldNames);
         $this->assertContains('singular_name', $taxonomiesSubFieldNames);
         $this->assertContains('name', $taxonomiesSubFieldNames);
+        $this->assertContains('hierarchical', $taxonomiesSubFieldNames);
     }
 
     /**
@@ -131,6 +132,7 @@ class SourceConfigFactoryTest extends TestCase
             'options_external_content_sources_0_taxonomies_0_from_schema_property',
             'options_external_content_sources_0_taxonomies_0_singular_name',
             'options_external_content_sources_0_taxonomies_0_name',
+            'options_external_content_sources_0_taxonomies_0_hierarchical',
 
         ], $wpService->methodCalls['getOptions'][1][0]);
     }
@@ -155,6 +157,7 @@ class SourceConfigFactoryTest extends TestCase
             'options_external_content_sources_0_taxonomies_0_from_schema_property' => 'test_from_schema_property',
             'options_external_content_sources_0_taxonomies_0_singular_name'        => 'test_singular_name',
             'options_external_content_sources_0_taxonomies_0_name'                 => 'test_name',
+            'options_external_content_sources_0_taxonomies_0_hierarchical'         => true,
         ];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
@@ -172,6 +175,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('test_from_schema_property', $sourceConfigs[0]->getTaxonomies()[0]->getFromSchemaProperty());
         $this->assertEquals('test_singular_name', $sourceConfigs[0]->getTaxonomies()[0]->getSingularName());
         $this->assertEquals('test_name', $sourceConfigs[0]->getTaxonomies()[0]->getName());
+        $this->assertEquals(true, $sourceConfigs[0]->getTaxonomies()[0]->isHierarchical());
     }
 
     /**

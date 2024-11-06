@@ -25,7 +25,8 @@ class SourceConfigFactory
     private array $taxonomySubFieldNames = [
         'from_schema_property',
         'singular_name',
-        'name'
+        'name',
+        'hierarchical'
     ];
 
     public function __construct(
@@ -115,23 +116,43 @@ class SourceConfigFactory
 
                 return array_map(function ($taxonomy) {
                     return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
+                        /**
+                         * Constructor.
+                         */
                         public function __construct(private array $taxonomy)
                         {
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getFromSchemaProperty(): string
                         {
                             return $this->taxonomy['from_schema_property'];
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getSingularName(): string
                         {
                             return $this->taxonomy['singular_name'];
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getName(): string
                         {
                             return $this->taxonomy['name'];
+                        }
+
+                        /**
+                         * @inheritDoc
+                         */
+                        public function isHierarchical(): bool
+                        {
+                            return in_array($this->taxonomy['hierarchical'], [1, true, '1', 'true']);
                         }
                     };
                 }, $this->namedSettings['taxonomies']);
