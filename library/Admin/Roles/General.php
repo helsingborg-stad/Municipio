@@ -4,18 +4,21 @@ namespace Municipio\Admin\Roles;
 
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
+use WpService\Contracts\AddRole;
 use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\DeleteOption;
+use WpService\Contracts\GetRole;
 use WpService\Contracts\HomeUrl;
 use WpService\Contracts\IsAdmin;
+use WpService\Contracts\RemoveRole;
 use WpService\Contracts\ShowAdminBar;
+use WpService\Contracts\UpdateOption;
 use WpService\Contracts\WpDoingAjax;
 use WpService\Contracts\WpRedirect;
 
 class General
 {
-    private bool $currentUserHasCapabilities;
-
-    public function __construct(private AddFilter&AddAction&CurrentUserCan&ShowAdminBar&IsAdmin&WpDoingAjax&WpRedirect&HomeUrl $wpService)
+    public function __construct(private AddFilter&AddAction&CurrentUserCan&ShowAdminBar&IsAdmin&WpDoingAjax&WpRedirect&HomeUrl&GetRole&AddRole&DeleteOption&UpdateOption&RemoveRole $wpService)
     {
         $this->wpService->addAction('admin_init', array($this, 'removeUnusedRoles'));
         $this->wpService->addAction('admin_init', array($this, 'addMissingRoles'));
@@ -29,7 +32,7 @@ class General
     {
         $this->wpService->showAdminBar(false);
 
-        $this->wpService->addAction('admin_init', function() {
+        $this->wpService->addAction('admin_init', function () {
             if ($this->wpService->isAdmin() && !$this->wpService->wpDoingAjax()) {
                 $this->wpService->wpRedirect($this->wpService->homeUrl()); // Redirect to homepage or another URL
                 exit;
@@ -42,8 +45,8 @@ class General
      */
     public function addMissingRoles()
     {
-        if (!get_role('author')) {
-            add_role(
+        if (!$this->wpService->getRole('author')) {
+            $this->wpService->addRole(
                 'author',
                 'Author',
                 array(
@@ -60,7 +63,7 @@ class General
                 )
             );
 
-            delete_option('_author_role_bkp');
+            $this->wpService->deleteOption('_author_role_bkp');
         }
     }
 
@@ -75,12 +78,12 @@ class General
         );
 
         foreach ($removeRoles as $role) {
-            if (!get_role($role)) {
+            if (!$this->wpService->getRole($role)) {
                 continue;
             }
 
-            update_option('_' . $role . '_role_bkp', get_role('author'));
-            remove_role($role);
+            $this->wpService->updateOption('_' . $role . '_role_bkp', $this->wpService->getRole('author'));
+            $this->wpService->removeRole($role);
         }
     }
 }
