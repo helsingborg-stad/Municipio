@@ -24,7 +24,6 @@ use WpService\Contracts\WpRedirect;
  */
 class General
 {
-    
     /**
      * Constructor for the General class.
      */
