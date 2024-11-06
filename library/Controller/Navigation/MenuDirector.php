@@ -117,4 +117,14 @@ class MenuDirector
         $menu = $this->builder->getMenu()->getMenu();
         empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenuWithPageTreeSubitems();
     }
+
+    /**
+     * Construct a menu.
+     */
+    public function buildStandardWithPageTreeFallbackMenu(): void
+    {
+        $this->builder->appendMenuItems();
+        $menu = $this->builder->getMenu()->getMenu();
+        empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenu();
+    }
 }
