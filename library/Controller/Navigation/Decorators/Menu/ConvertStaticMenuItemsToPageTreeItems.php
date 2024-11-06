@@ -37,7 +37,7 @@ class ConvertStaticMenuItemsToPageTreeItems implements MenuInterface
                 $mappedParentIdToPageId[$menuItem['id']] = $menuItem['page_id'];
             }
 
-            $menuItem['active']      = null;
+            $menuItem['active']      = $menuItem['active'] ?? null;
             $menuItem['children']    = null;
             $menuItem['id']          = $menuItem['page_id'] ? (int) $menuItem['page_id'] : ($menuItem['id'] ?? null);
             $menuItem['post_parent'] = isset($mappedParentIdToPageId[$menuItem['post_parent']]) ? $mappedParentIdToPageId[$menuItem['post_parent']] : $menuItem['post_parent'];
