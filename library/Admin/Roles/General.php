@@ -2,23 +2,39 @@
 
 namespace Municipio\Admin\Roles;
 
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\HomeUrl;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\ShowAdminBar;
+use WpService\Contracts\WpDoingAjax;
+use WpService\Contracts\WpRedirect;
+
 class General
 {
-    public function __construct()
-    {
-        add_action('admin_init', array($this, 'removeUnusedRoles'));
-        add_action('admin_init', array($this, 'addMissingRoles'));
+    private bool $currentUserHasCapabilities;
 
-        add_action('set_current_user', array($this, 'hideAdminBarForUsersWhoCantEditPosts'));
+    public function __construct(private AddFilter&AddAction&CurrentUserCan&ShowAdminBar&IsAdmin&WpDoingAjax&WpRedirect&HomeUrl $wpService)
+    {
+        $this->wpService->addAction('admin_init', array($this, 'removeUnusedRoles'));
+        $this->wpService->addAction('admin_init', array($this, 'addMissingRoles'));
+
+        if (!$this->wpService->currentUserCan('edit_posts')) {
+            $this->handleUsersWithoutEditPostsCapability();
+        }
     }
 
-    public function hideAdminBarForUsersWhoCantEditPosts()
+    public function handleUsersWithoutEditPostsCapability()
     {
-        if (current_user_can('edit_posts')) {
-            return;
-        }
+        $this->wpService->showAdminBar(false);
 
-        show_admin_bar(false);
+        $this->wpService->addAction('admin_init', function() {
+            if ($this->wpService->isAdmin() && !$this->wpService->wpDoingAjax()) {
+                $this->wpService->wpRedirect($this->wpService->homeUrl()); // Redirect to homepage or another URL
+                exit;
+            }
+        });
     }
 
     /**
