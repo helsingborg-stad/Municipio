@@ -1,0 +1,92 @@
+// Logged in
+$user-active-text-color-light: var(--user-active-text-color, $color-light) !default;
+$user-active-text-color-light-hover: var(--user-active-text-color-hover, $color-white) !default;
+$user-active-author-color-light: var(--user-active-author-color, $color-white) !default;
+$user-active-text-color-dark: var(--user-active-text-color-dark, $color-dark) !default;
+$user-active-text-color-dark-hover: var(--user-active-text-color-dark-hover, $color-black) !default;
+$user-active-author-color-dark: var(--user-active-author-color-dark, $color-black) !default;
+
+// Not logged in
+$user-inactive-text-color-light: var(--user-inactive-text-color, $color-white) !default;
+$user-inactive-text-color-light-hover: var(--user-inactive-text-color-hover, $color-light) !default;
+$user-inactive-text-color-dark: var(--user-inactive-text-color-dark, $color-black) !default;
+$user-inactive-text-color-dark-hover: var(--user-inactive-text-color-dark-hover, $color-dark) !default;
+
+// General settings
+.user {
+    display: flex;
+    align-items: center;
+    gap: calc($base * 1.5);
+
+    .user__link { 
+        display: flex;
+        align-items: center;
+        gap: calc($base * .5);
+        text-decoration: none;
+    }
+}
+
+.user {
+    // Not logged in
+    &.user--inactive {
+        .user__link {
+            color: $user-inactive-text-color-light;
+
+            &:hover {
+                color: $user-inactive-text-color-light-hover;
+            }
+        }
+
+        &.user--dark {
+            .user__link {
+                color: $user-inactive-text-color-dark;
+
+                &:hover {
+                    color: $user-inactive-text-color-dark-hover;
+                }
+            }
+        }
+    }
+
+    // Logged in user
+    &.user--active {
+        .user__container {
+            gap: calc($base * .25);
+        }
+
+        .user__name {
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .user__link-text {
+            font-size: $font-size-meta;
+        }
+
+        .user__name {
+            color: $user-active-author-color-light;
+        }
+        
+        .user__link {
+            color: $user-active-text-color-light;
+
+            &:hover {
+                color: $user-active-text-color-light-hover;
+            }
+        }
+
+        &.user--dark {
+            .user__name {
+                color: $user-active-author-color-dark;
+            }
+            
+            .user__link {
+                color: $user-active-text-color-dark;
+
+                &:hover {
+                    color: $user-active-text-color-dark-hover;
+                }
+            }
+        }
+    }
+}

@@ -330,6 +330,12 @@ class PanelsRegistry
                             ->setTitle(esc_html__('Logotype', 'municipio'))
                             ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\Logotype('municipio_customizer_section_header_panel_logotype'))
                     )
+                    ->addSection(
+                        KirkiPanelSection::create()
+                            ->setID('municipio_customizer_section_header_panel_login_logout')
+                            ->setTitle(esc_html__('Login/Logout', 'municipio'))
+                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Header\LoginLogout('municipio_customizer_section_header_panel_login_logout'))
+                    )
             )
             ->addSection(
                 KirkiPanelSection::create()
