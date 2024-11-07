@@ -481,6 +481,7 @@ msgid "Activate gutenberg editor"
 msgstr "Aktivera Gutenberg redigerare"
 
 #: AcfFields/php/options-activate-gutenberg.php:24
+#: AcfFields/php/options-comment-settings.php:26
 #: AcfFields/php/options-theme-features.php:27
 #: Customizer/Sections/Colors.php:172
 #: Customizer/Sections/Divider.php:90
@@ -15224,7 +15225,7 @@ msgstr "Specifika inställningar för omslag"
 #: Customizer/Sections/Menu/MegaMenu.php:36
 #: Customizer/Sections/Menu/MegaMenu.php:81
 #: Customizer/Sections/Menu/Quicklinks.php:133
-#: Customizer/Sections/SliderHero.php:131
+#: Customizer/Sections/SliderHero.php:140
 msgid "Heading"
 msgstr "Rubrik"
 
@@ -15258,7 +15259,7 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: App.php:657
+#: App.php:659
 msgid "Never"
 msgstr ""
 
@@ -16173,7 +16174,7 @@ msgstr "Primära färger"
 #: Customizer/Sections/Colors.php:386
 #: Customizer/Sections/Colors.php:430
 #: Customizer/Sections/Colors.php:474
-#: Customizer/Sections/SliderHero.php:106
+#: Customizer/Sections/SliderHero.php:115
 #: Customizer/Sections/Typography.php:33
 msgid "Base"
 msgstr "Bas"
@@ -16360,8 +16361,8 @@ msgstr "Anpassa kontrastfärg"
 #: Customizer/Sections/Divider.php:134
 #: Customizer/Sections/FooterMain.php:113
 #: Customizer/Sections/Hero.php:40
-#: Customizer/Sections/SliderDefault.php:115
-#: Customizer/Sections/SliderHero.php:63
+#: Customizer/Sections/SliderDefault.php:111
+#: Customizer/Sections/SliderHero.php:66
 msgid "Text alignment"
 msgstr "Textjustering"
 
@@ -17255,16 +17256,16 @@ msgstr "Om värdet sätts till 0 förhandsvisas ingenting av kommande/föregåen
 msgid "Container colour"
 msgstr "Färg för behållare"
 
-#: Customizer/Sections/SliderDefault.php:146
-#: Customizer/Sections/SliderHero.php:85
+#: Customizer/Sections/SliderDefault.php:138
+#: Customizer/Sections/SliderHero.php:91
 msgid "Slide overlay"
 msgstr "Övertäckning slider"
 
-#: Customizer/Sections/SliderDefault.php:177
+#: Customizer/Sections/SliderDefault.php:165
 msgid "Arrow button style"
 msgstr "Stil för navigeringsknapp"
 
-#: Customizer/Sections/SliderDefault.php:204
+#: Customizer/Sections/SliderDefault.php:192
 msgid "Arrow button color"
 msgstr "Färg för navigeringsknapp"
 
@@ -18109,7 +18110,7 @@ msgstr ""
 msgid "Comment Settings"
 msgstr "Kommentarsinställningar"
 
-#: AcfFields/php/options-comment-settings.php:12
+#: AcfFields/php/options-comment-settings.php:32
 msgid "Hide discussion for logged out users"
 msgstr "Dölj diskussioner för utloggade användare"
 
@@ -18120,6 +18121,10 @@ msgstr ""
 #: ImageConvert/ImageConvertFilter.php:137
 msgid "Image files must be smaller than %s"
 msgstr ""
+
+#: AcfFields/php/options-comment-settings.php:12
+msgid "Disable discussion feature"
+msgstr "Stäng av kommentarsfunktionalitet"
 
 #: AcfFields/php/user-author-image.php:8
 msgid "Additional user information"
@@ -18144,3 +18149,7 @@ msgstr "Nummer"
 #: AcfFields/php/user-author-image.php:209
 msgid "Visiting Address"
 msgstr "Besöksadress"
+
+#: AcfFields/php/options-comment-settings.php:16
+msgid "Disable discussion settings page, comment form and posted comments for all post types."
+msgstr "Stäng av inställningssida för kommentarer, kommentarsformulär och inskickade kommentarer för alla posttyper."

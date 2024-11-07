@@ -94,7 +94,10 @@ class MenuDirector
         $this->builder->appendAcfFields();
         $this->builder->mapMenuItemsFromObjectToArray();
         $this->builder->mapMenuItemsAcfFieldValues();
+        $this->builder->mapMenuItemsIsAncestor();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
+        $this->builder->pageTreeAppendMenuItemIsCurrentPage();
+        $this->builder->pageTreeAppendMenuItemsAncestors();
         $this->builder->pageTreeAppendChildren();
         $this->builder->applyMenuItemFilter();
         $this->builder->pageTreeAppendMenuItemsFetchUrl();
@@ -113,5 +116,15 @@ class MenuDirector
         $this->builder->appendMenuItems();
         $menu = $this->builder->getMenu()->getMenu();
         empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenuWithPageTreeSubitems();
+    }
+
+    /**
+     * Construct a menu.
+     */
+    public function buildStandardWithPageTreeFallbackMenu(): void
+    {
+        $this->builder->appendMenuItems();
+        $menu = $this->builder->getMenu()->getMenu();
+        empty($menu['items']) ? $this->buildPageTreeMenu() : $this->buildStandardMenu();
     }
 }

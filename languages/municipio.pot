@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-23T08:41:10+00:00\n"
+"POT-Creation-Date: 2024-11-04T06:12:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: municipio\n"
@@ -482,6 +482,7 @@ msgid "Activate gutenberg editor"
 msgstr ""
 
 #: AcfFields/php/options-activate-gutenberg.php:24
+#: AcfFields/php/options-comment-settings.php:26
 #: AcfFields/php/options-theme-features.php:27
 #: Customizer/Sections/Colors.php:172
 #: Customizer/Sections/Divider.php:90
@@ -522,6 +523,14 @@ msgid "Comment Settings"
 msgstr ""
 
 #: AcfFields/php/options-comment-settings.php:12
+msgid "Disable discussion feature"
+msgstr ""
+
+#: AcfFields/php/options-comment-settings.php:16
+msgid "Disable discussion settings page, comment form and posted comments for all post types."
+msgstr ""
+
+#: AcfFields/php/options-comment-settings.php:32
 msgid "Hide discussion for logged out users"
 msgstr ""
 
@@ -15257,7 +15266,7 @@ msgstr ""
 #: Customizer/Sections/Menu/MegaMenu.php:36
 #: Customizer/Sections/Menu/MegaMenu.php:81
 #: Customizer/Sections/Menu/Quicklinks.php:133
-#: Customizer/Sections/SliderHero.php:131
+#: Customizer/Sections/SliderHero.php:140
 msgid "Heading"
 msgstr ""
 
@@ -15291,7 +15300,7 @@ msgstr ""
 msgid "View data."
 msgstr ""
 
-#: App.php:657
+#: App.php:659
 msgid "Never"
 msgstr ""
 
@@ -16219,7 +16228,7 @@ msgstr ""
 #: Customizer/Sections/Colors.php:386
 #: Customizer/Sections/Colors.php:430
 #: Customizer/Sections/Colors.php:474
-#: Customizer/Sections/SliderHero.php:106
+#: Customizer/Sections/SliderHero.php:115
 #: Customizer/Sections/Typography.php:33
 msgid "Base"
 msgstr ""
@@ -16406,8 +16415,8 @@ msgstr ""
 #: Customizer/Sections/Divider.php:134
 #: Customizer/Sections/FooterMain.php:113
 #: Customizer/Sections/Hero.php:40
-#: Customizer/Sections/SliderDefault.php:115
-#: Customizer/Sections/SliderHero.php:63
+#: Customizer/Sections/SliderDefault.php:111
+#: Customizer/Sections/SliderHero.php:66
 msgid "Text alignment"
 msgstr ""
 
@@ -17296,16 +17305,16 @@ msgstr ""
 msgid "Container colour"
 msgstr ""
 
-#: Customizer/Sections/SliderDefault.php:146
-#: Customizer/Sections/SliderHero.php:85
+#: Customizer/Sections/SliderDefault.php:138
+#: Customizer/Sections/SliderHero.php:91
 msgid "Slide overlay"
 msgstr ""
 
-#: Customizer/Sections/SliderDefault.php:177
+#: Customizer/Sections/SliderDefault.php:165
 msgid "Arrow button style"
 msgstr ""
 
-#: Customizer/Sections/SliderDefault.php:204
+#: Customizer/Sections/SliderDefault.php:192
 msgid "Arrow button color"
 msgstr ""
 

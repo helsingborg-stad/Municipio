@@ -130,7 +130,6 @@ class ImageAltTextValidation
      */
     public function checkFeaturedImageField($valid, $value, $field, $name)
     {
-
         //Get post data
         $postData = $this->getPostData();
 
@@ -144,6 +143,7 @@ class ImageAltTextValidation
             $thumbnailImageAltText = $this->getAltText($thumbnailID);
 
             if (is_null($thumbnailImageAltText)) {
+                acf_add_validation_error('', $this->lang()->altTextFeaturedImage);
                 return $this->lang()->altTextFeaturedImage;
             }
         }
