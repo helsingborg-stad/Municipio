@@ -69,6 +69,11 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
         return ['postObject' => $postObject, 'config' => $this->getConfig(), 'lang' => $this->getLanguageObject()];
     }
 
+    /**
+     * Get the language object.
+     *
+     * @return object The language object.
+     */
     protected function getLanguageObject(): object
     {
         return TranslatedLabels::getLang();

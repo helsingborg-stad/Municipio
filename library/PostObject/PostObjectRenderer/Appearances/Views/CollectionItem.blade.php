@@ -12,13 +12,7 @@
     @endif
     @if ($config['displayFeaturedImage'] && !empty($postObject->images['thumbnail16:9']['src']))
         @slot('before')
-        @if($postObject->imageContract) 
-            @image([
-                'src' => $postObject->imageContract
-            ])
-            @endimage
-        @else 
-            @image([
+        @image([
                 'src' => $postObject->images['thumbnail16:9']['src'],
                 'alt' => $postObject->images['thumbnail16:9']['alt'],
                 'placeholderIconSize' => 'sm',
@@ -26,7 +20,6 @@
                 'placeholderText' => ''
             ])
             @endimage
-        @endif
             
         @endslot
     @endif
