@@ -1,4 +1,6 @@
-<div class="user user--inactive {{ !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''}}">
+@element([
+    'classList' => array_merge(['user', 'user--inactive', !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''], $classList ?? [])
+])
     @link([
         'href' => $loginUrl,
         'classList' => ['user__link']
@@ -16,4 +18,4 @@
             {{ $lang->login }}
         @endtypography
     @endlink
-</div>
+@endelement

@@ -1,4 +1,6 @@
-<div class="user user--active {{ !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''}}">
+@element([
+    'classList' => array_merge(['user', 'user--active', !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''], $classList ?? [])
+])
     @avatar([
         'name' => $user->display_name ?? '',
         'size' => 'sm',
@@ -33,4 +35,4 @@
             @endtypography
         @endlink
     @endgroup
-</div>
+@endelement
