@@ -1,0 +1,35 @@
+#user-logout {
+    line-height: 1;
+
+    a {
+        color: $color-dark;
+
+        .c-typography {
+            font-size: $font-size-meta;
+        }
+
+        &:hover {
+            color: $color-black;
+        }
+    }
+}
+
+#user-login {
+    a {
+        color: $color-black;
+
+        &:hover {
+            color: $color-dark;
+        }
+    }
+}
+
+#user-login,
+#user-logout {
+   a { 
+        display: flex;
+        align-items: center;
+        gap: calc($base * .5);
+        text-decoration: none;
+   }
+}

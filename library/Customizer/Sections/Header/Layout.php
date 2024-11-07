@@ -312,7 +312,8 @@ class Layout
             'search-modal'       => __('Search Button', 'municipio'),
             'collapsible-search' => __('Collapsible Search', 'municipio'),
             'logotype'           => __('Logotype', 'municipio'),
-            'brand-text'         => __('Brand Text', 'municipio')
+            'brand-text'         => __('Brand Text', 'municipio'),
+            'user'               => __('Login/Logout', 'municipio'),
         ];
 
         foreach ($allowedMenus as $menuSlug => $menuData) {
