@@ -72,7 +72,22 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if ($displayArchiveLoop)
+            @if(isset($renderedPostObjects) && $renderedPostObjects && in_array($template, ['cards', 'grid', 'compressed', 'schema-project']) )
+                <div class="o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'newsitem')
+                <div class="arcive-news-items o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'collection')
+                @collection([
+                    'unbox' => true,
+                    'classList' => ['o-grid', 'o-grid--horizontal']
+                ])
+                    {!! $renderedPostObjects !!}
+                @endcollection
+            @elseif($displayArchiveLoop)
                 @includefirst(
                     [   
                         'partials.post.schema.' . $template,
