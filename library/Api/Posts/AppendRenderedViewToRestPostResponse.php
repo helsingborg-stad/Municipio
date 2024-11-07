@@ -18,6 +18,7 @@ use WpService\Contracts\RegisterRestField;
 class AppendRenderedViewToRestPostResponse implements Hookable
 {
     private const FIELD_NAME = 'rendered';
+    private const PARAM_NAME = 'appearance';
 
     /**
      * Constructor.
@@ -62,7 +63,7 @@ class AppendRenderedViewToRestPostResponse implements Hookable
     public function appendRenderedView(array $data, string $fieldName, WP_REST_Request $request): ?string
     {
         $queryParams = $request->get_query_params();
-        $appearance  = AppearancesAppearance::tryFrom($queryParams['appearance'] ?? null);
+        $appearance  = AppearancesAppearance::tryFrom($queryParams[self::PARAM_NAME] ?? null);
 
         if (empty($appearance)) {
             return null;
