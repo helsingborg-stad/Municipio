@@ -90,6 +90,12 @@
                         {!! $postObject !!}
                     @endforeach
                 </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'schema-project')
+                <div class="o-grid">
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                </div>
             @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'collection')
                 @collection([
                     'unbox' => true,

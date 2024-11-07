@@ -138,6 +138,11 @@ class Archive extends \Municipio\Controller\BaseController
             $renderer = PostObjectRendererFactory::create(Appearance::CollectionItem, [
                 'gridColumnClass' => $this->data['gridColumnClass']
             ]);
+        } elseif ($template === 'schema-project') {
+            $renderer = PostObjectRendererFactory::create(Appearance::SchemaProjectItem, [
+                'gridColumnClass' => $this->data['gridColumnClass'],
+                'showPlaceholder' => $this->data['anyPostHasImage']
+            ]);
         }
 
         if ($renderer !== null) {

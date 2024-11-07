@@ -18,14 +18,11 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
      */
     public function __construct(private PostObjectInterface $inner, private object $legacyPost)
     {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function __get($name)
-    {
-        return isset($this->legacyPost->{$name}) ? $this->legacyPost->{$name} : null;
+        foreach ($this->legacyPost as $key => $value) {
+            if (!isset($this->{$key})) {
+                $this->{$key} = $value;
+            }
+        }
     }
 
     /**
