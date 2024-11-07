@@ -4,6 +4,9 @@ namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
+/**
+ * BlockItem appearance.
+ */
 class BlockItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
 {
     /**

@@ -4,6 +4,9 @@ namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
+/**
+ * NewsItem appearance.
+ */
 class NewsItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
 {
     /**

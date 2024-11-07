@@ -4,6 +4,9 @@ namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
+/**
+ * CompressedItem appearance.
+ */
 class CompressedItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
 {
     /**
