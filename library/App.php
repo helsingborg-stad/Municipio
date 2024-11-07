@@ -564,9 +564,7 @@ class App
                 $taxonomyItem = new TaxonomyItem(
                     $config->getSchemaType(),
                     [$config->getPostType()],
-                    $taxonomyConfig->getFromSchemaProperty(),
-                    $taxonomyConfig->getSingularName(),
-                    $taxonomyConfig->getName(),
+                    $taxonomyConfig,
                     $this->wpService
                 );
                 $taxonomyItem->register(); // Register the taxonomy.
