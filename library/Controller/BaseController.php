@@ -183,7 +183,7 @@ class BaseController
 
         $this->menuBuilder->setConfig($primaryMenuConfig);
         $primaryMenuConfig->getFallbackToPageTree() ?
-            $this->menuDirector->buildMixedPageTreeMenu() :
+            $this->menuDirector->buildStandardWithPageTreeFallbackMenu() :
             $this->menuDirector->buildStandardMenu();
         $this->data['primaryMenu'] = $this->menuBuilder->getMenu()->getMenu();
 
