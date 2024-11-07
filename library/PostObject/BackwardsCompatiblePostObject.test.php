@@ -2,7 +2,6 @@
 
 namespace Municipio\PostObject;
 
-use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

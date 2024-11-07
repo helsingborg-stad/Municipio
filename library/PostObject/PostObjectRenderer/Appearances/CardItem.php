@@ -5,7 +5,7 @@ namespace Municipio\PostObject\PostObjectRenderer\Appearances;
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
 /**
- * Render PostObject as a list item.
+ * CardItem appearance.
  */
 class CardItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
 {

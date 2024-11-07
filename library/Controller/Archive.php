@@ -4,8 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\MenuBuilder;
-use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\PostObjectRenderer\Appearances\Appearance;
 use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
@@ -17,12 +15,6 @@ use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
-    private static $gridSize;
-
-    private static $randomGridBase = array();
-    private static $gridRow        = array();
-    private static $gridColumns    = array();
-
     /**
      * Initializes the Archive controller.
      *

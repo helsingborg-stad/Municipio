@@ -1,4 +1,3 @@
 {
     "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
-    "intelephense.environment.phpVersion": "8.3.0"
 }
