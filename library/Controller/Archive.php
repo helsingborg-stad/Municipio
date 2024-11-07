@@ -114,46 +114,43 @@ class Archive extends \Municipio\Controller\BaseController
 
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['archiveMenuItems']    = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $this->data['renderedPostObjects'] = $this->getRenderedPostObjects($template, $this->data['posts']);
+    }
 
-        $renderer = null;
 
-        if ($template === 'cards') {
-            $renderer = PostObjectRendererFactory::create(Appearance::CardItem, [
-                'displayReadingTime' => $this->data['displayReadingTime'],
-                'gridColumnClass'    => $this->data['gridColumnClass'],
-                'showPlaceholder'    => $this->data['anyPostHasImage']
-            ]);
-        } elseif ($template === 'grid') {
-            $renderer = PostObjectRendererFactory::create(Appearance::BlockItem, [
-                'format'          => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
-                'gridColumnClass' => $this->data['gridColumnClass'],
-                'showPlaceholder' => $this->data['anyPostHasImage']
-            ]);
-        } elseif ($template === 'compressed') {
-            $renderer = PostObjectRendererFactory::create(Appearance::CompressedItem, [
-                'gridColumnClass' => $this->data['gridColumnClass']
-            ]);
-        } elseif ($template === 'collection') {
-            $renderer = PostObjectRendererFactory::create(Appearance::CollectionItem, [
-                'gridColumnClass' => $this->data['gridColumnClass']
-            ]);
-        } elseif ($template === 'schema-project') {
-            $renderer = PostObjectRendererFactory::create(Appearance::SchemaProjectItem, [
-                'gridColumnClass' => $this->data['gridColumnClass'],
-                'showPlaceholder' => $this->data['anyPostHasImage']
-            ]);
-        } elseif ($template === 'newsitem') {
-            $renderer = PostObjectRendererFactory::create(Appearance::NewsItem, [
-                'gridColumnClass' => $this->data['gridColumnClass']
-            ]);
+    /**
+     * Get rendered post objects
+     *
+     * @param string $template
+     * @param PostObjectInterface[] $postObjects
+     * @return string|null The rendered post objects or null if the template is not supported.
+     */
+    private function getRenderedPostObjects(string $template, array $postObjects): ?string
+    {
+        $templateAppearance = [
+            'cards'          => Appearance::CardItem,
+            'grid'           => Appearance::BlockItem,
+            'compressed'     => Appearance::CompressedItem,
+            'collection'     => Appearance::CollectionItem,
+            'schema-project' => Appearance::SchemaProjectItem,
+            'newsitem'       => Appearance::NewsItem,
+        ][$template] ?? null;
+
+        if (!$templateAppearance) {
+            return null;
         }
 
-        if ($renderer !== null) {
-            $this->data['renderedPostObjects'] = array_map(function (PostObjectInterface $postObject) use ($renderer) {
-                return $postObject->getRendered($renderer);
-            }, $this->data['posts']);
-        }
+        $renderer = PostObjectRendererFactory::create($templateAppearance, [
+            'displayReadingTime' => $this->data['displayReadingTime'],
+            'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
+            'gridColumnClass'    => $this->data['gridColumnClass'],
+            'showPlaceholder'    => $this->data['anyPostHasImage'],
+        ]);
+
+        return join(array_map(function (PostObjectInterface $postObject) use ($renderer) {
+            return $postObject->getRendered($renderer);
+        }, $postObjects));
     }
 
     /**
