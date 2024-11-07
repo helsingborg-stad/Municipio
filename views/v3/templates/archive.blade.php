@@ -96,6 +96,12 @@
                         {!! $postObject !!}
                     @endforeach
                 </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'newsitem')
+                <div class="arcive-news-items o-grid">
+                    @foreach($renderedPostObjects as $postObject)
+                        {!! $postObject !!}
+                    @endforeach
+                </div>
             @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'collection')
                 @collection([
                     'unbox' => true,

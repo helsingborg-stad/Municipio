@@ -143,6 +143,10 @@ class Archive extends \Municipio\Controller\BaseController
                 'gridColumnClass' => $this->data['gridColumnClass'],
                 'showPlaceholder' => $this->data['anyPostHasImage']
             ]);
+        } elseif ($template === 'newsitem') {
+            $renderer = PostObjectRendererFactory::create(Appearance::NewsItem, [
+                'gridColumnClass' => $this->data['gridColumnClass']
+            ]);
         }
 
         if ($renderer !== null) {
