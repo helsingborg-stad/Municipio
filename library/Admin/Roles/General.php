@@ -2,23 +2,60 @@
 
 namespace Municipio\Admin\Roles;
 
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\AddRole;
+use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\DeleteOption;
+use WpService\Contracts\GetRole;
+use WpService\Contracts\HomeUrl;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\RemoveRole;
+use WpService\Contracts\ShowAdminBar;
+use WpService\Contracts\UpdateOption;
+use WpService\Contracts\WpDoingAjax;
+use WpService\Contracts\WpRedirect;
+
+/**
+ * Class General
+ *
+ * This class represents the General role in the Admin section of the Municipio theme.
+ * It contains methods and properties related to the General role.
+ */
 class General
 {
-    public function __construct()
+    /**
+     * Constructor for the General class.
+     */
+    public function __construct(private AddFilter&AddAction&CurrentUserCan&ShowAdminBar&IsAdmin&WpDoingAjax&WpRedirect&HomeUrl&GetRole&AddRole&DeleteOption&UpdateOption&RemoveRole $wpService)
     {
-        add_action('admin_init', array($this, 'removeUnusedRoles'));
-        add_action('admin_init', array($this, 'addMissingRoles'));
+        $this->wpService->addAction('admin_init', array($this, 'removeUnusedRoles'));
+        $this->wpService->addAction('admin_init', array($this, 'addMissingRoles'));
 
-        add_action('set_current_user', array($this, 'hideAdminBarForUsersWhoCantEditPosts'));
+        if (!$this->wpService->currentUserCan('edit_posts')) {
+            $this->handleUsersWithoutEditPostsCapability();
+        }
     }
 
-    public function hideAdminBarForUsersWhoCantEditPosts()
+    /**
+     * Handles users without the edit_posts capability.
+     *
+     * This method is responsible for handling users who do not have the edit_posts capability. It performs the following actions:
+     * - Hides the admin bar for the user.
+     * - Adds an action to the 'admin_init' hook to redirect the user to the home URL if they are an admin and not making an AJAX request.
+     *
+     * @return void
+     */
+    public function handleUsersWithoutEditPostsCapability()
     {
-        if (current_user_can('edit_posts')) {
-            return;
-        }
+        $this->wpService->showAdminBar(false);
 
-        show_admin_bar(false);
+        $this->wpService->addAction('admin_init', function () {
+            if ($this->wpService->isAdmin() && !$this->wpService->wpDoingAjax()) {
+                $this->wpService->wpRedirect($this->wpService->homeUrl());
+                exit;
+            }
+        });
     }
 
     /**
@@ -26,8 +63,8 @@ class General
      */
     public function addMissingRoles()
     {
-        if (!get_role('author')) {
-            add_role(
+        if (!$this->wpService->getRole('author')) {
+            $this->wpService->addRole(
                 'author',
                 'Author',
                 array(
@@ -44,7 +81,7 @@ class General
                 )
             );
 
-            delete_option('_author_role_bkp');
+            $this->wpService->deleteOption('_author_role_bkp');
         }
     }
 
@@ -59,12 +96,12 @@ class General
         );
 
         foreach ($removeRoles as $role) {
-            if (!get_role($role)) {
+            if (!$this->wpService->getRole($role)) {
                 continue;
             }
 
-            update_option('_' . $role . '_role_bkp', get_role('author'));
-            remove_role($role);
+            $this->wpService->updateOption('_' . $role . '_role_bkp', $this->wpService->getRole('author'));
+            $this->wpService->removeRole($role);
         }
     }
 }
