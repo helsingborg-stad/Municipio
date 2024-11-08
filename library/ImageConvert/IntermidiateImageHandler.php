@@ -12,10 +12,11 @@ use Municipio\Helper\File;
 use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\WpUploadDir;
 use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpAttachmentIs;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -127,7 +128,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         // The image must exist in database, and be a image
-        if (!wp_attachment_is('image', $sourceFileId)) {
+        if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
             return false;
         }
 
@@ -155,22 +156,6 @@ class IntermidiateImageHandler implements Hookable
             return intval($size);
         }
         return filesize($sourceFilePath);
-    }
-
-    /**
-     * Get the MIME type of an attachment from its metadata.
-     *
-     * @param int $attachmentId The attachment ID.
-     *
-     * @return string The MIME type of the attachment.
-     */
-    private function getSourceFileMime($attachmentId, $sourceFilePath): string
-    {
-        $mime = $this->getAttachmentMetaData($attachmentId, 'mime-type');
-        if ($mime) {
-            return $mime;
-        }
-        return mime_content_type($sourceFilePath);
     }
 
     /**
