@@ -8,7 +8,7 @@ use Municipio\Controller\Navigation\FactoryInterface;
 
 class Menu implements MenuInterface, FactoryInterface
 {
-    protected array $menu;
+    public array $menu;
 
     public function __construct(
         private MenuConfigInterface $menuConfig,
