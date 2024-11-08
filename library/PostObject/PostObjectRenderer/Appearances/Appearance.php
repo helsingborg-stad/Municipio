@@ -10,4 +10,7 @@ enum Appearance: string
     case CompressedItem    = 'CompressedItem';
     case NewsItem          = 'NewsItem';
     case SchemaProjectItem = 'SchemaProjectItem';
+    case SegmentItem       = 'SegmentItem';
+    case SegmentGridItem   = 'SegmentGridItem';
+    case SegmentSliderItem = 'SegmentSliderItem';
 }
