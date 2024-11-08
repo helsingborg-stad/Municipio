@@ -2,55 +2,54 @@
 
 namespace Municipio\BrandedEmails;
 
-use AcfService\Implementations\FakeAcfService;
 use PHPUnit\Framework\TestCase;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\Decorators\Menu\AppendAcfFields;
+use Municipio\Controller\Navigation\Decorators\Menu\AppendMenuItems;
 use Municipio\Controller\Navigation\Menu;
+use Municipio\Helper\WpService;
 use WpService\Contracts\GetNavMenuLocations;
 use Municipio\TestUtils\WpMockFactory;
 use WpService\Implementations\FakeWpService;
 
-class AppendAcfFieldsTest extends TestCase
+class AppendMenuItemsTest extends TestCase
 {
-    public function testAppendAcfFieldsAppendFields()
+    public function testAppendMenuItemsAppendsMenuItems()
     {
-        $wpService  = new FakeWpService(['wpGetNavMenuObject' => WpMockFactory::createWpTerm(['term_id' => 1])]);
-        $acfService = new FakeAcfService(['getFields' => ['test_field' => 'test_value']]);
-        $menuInstance = Menu::factory(new MenuConfig('menu-name'));
-        $menuInstance->menu['items'] = [WpMockFactory::createWpPost($this->getMenuItemData())];
+        $wpService  = new FakeWpService(['getNavMenuLocations' => ['menu-name' => 1], 'wpGetNavMenuItems' => [WpMockFactory::createWpPost($this->getMenuItemData())]]);
+        WpService::set($wpService);
+        $menuInstance = Menu::factory(new MenuConfig('menu-identifier', 'menu-name'));
 
-        $menuInstance = new AppendAcfFields($menuInstance, $wpService, $acfService);
+        $menuInstance = new AppendMenuItems($menuInstance);
         
         $menu = $menuInstance->getMenu();
 
-        $this->assertEquals($menu['fields']['test_field'], 'test_value');
+        $this->assertNotEmpty($menu['items']);
     }
 
-    public function testAppendAcfFieldsDoesNothingIfMenuObjectFound()
+    public function testAppendMenuItemsEmptyWhenNotActive()
     {
-        $menuInstance = Menu::factory(new MenuConfig('menu-name'));
-        $wpService  = new FakeWpService(['wpGetNavMenuObject' => false]);
-        $acfService = new FakeAcfService(['getFields' => ['test_field' => 'test_value']]);
-        $menuInstance->menu['items'] = [WpMockFactory::createWpPost($this->getMenuItemData())];
+        $wpService  = new FakeWpService(['getNavMenuLocations' => ['menu-name' => 1], 'wpGetNavMenuItems' => [WpMockFactory::createWpPost($this->getMenuItemData())]]);
+        WpService::set($wpService);
+        $menuInstance = Menu::factory(new MenuConfig('menu-identifier', 'menu-name-not-active'));
 
-        $menuInstance = new AppendAcfFields($menuInstance, $wpService, $acfService);
+        $menuInstance = new AppendMenuItems($menuInstance);
+        
         $menu = $menuInstance->getMenu();
 
-        $this->assertArrayNotHasKey('test_field', $menu['fields']);
+        $this->assertEmpty($menu['items']);
     }
 
-    public function testAppendAcfFieldsDoesNothingIfNoFieldsFound()
+    public function testAppendMenuItemsEmptyWhenNoMenuItemsFound()
     {
-        $menuInstance = Menu::factory(new MenuConfig('menu-name'));
-        $wpService  = new FakeWpService(['wpGetNavMenuObject' => WpMockFactory::createWpTerm(['term_id' => 1])]);
-        $acfService = new FakeAcfService(['getFields' => false]);
-        $menuInstance->menu['items'] = [WpMockFactory::createWpPost($this->getMenuItemData())];
+        $wpService  = new FakeWpService(['getNavMenuLocations' => ['menu-name' => 1], 'wpGetNavMenuItems' => false]);
+        WpService::set($wpService);
+        $menuInstance = Menu::factory(new MenuConfig('menu-identifier', 'menu-name'));
 
-        $menuInstance = new AppendAcfFields($menuInstance, $wpService, $acfService);
+        $menuInstance = new AppendMenuItems($menuInstance);
+        
         $menu = $menuInstance->getMenu();
 
-        $this->assertArrayNotHasKey('test_field', $menu['fields']);
+        $this->assertEmpty($menu['items']);
     }
 
     private function getMenuItemData(): array
