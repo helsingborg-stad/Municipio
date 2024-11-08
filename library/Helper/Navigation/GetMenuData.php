@@ -2,6 +2,8 @@
 
 namespace Municipio\Helper\Navigation;
 
+use Municipio\Helper\WpService;
+
 /**
  * Class GetMenuData
  *
@@ -21,7 +23,7 @@ class GetMenuData
      */
     public static function getNavMenuItems(null|false|int|string $identifier = null): array|false
     {
-
+        $wpService = WpService::get();
         if (is_string($identifier)) {
             $identifier = self::getNavMenuId($identifier);
         }
@@ -30,9 +32,8 @@ class GetMenuData
             return false;
         }
 
-
         if (!isset(self::$menuItemsArray[$identifier])) {
-            self::$menuItemsArray[$identifier] = wp_get_nav_menu_items($identifier);
+            self::$menuItemsArray[$identifier] = $wpService->wpGetNavMenuItems($identifier);
         }
 
         return self::$menuItemsArray[$identifier];
@@ -64,8 +65,10 @@ class GetMenuData
      */
     public static function getNavMenuLocations()
     {
+        $wpService = WpService::get();
+
         if (is_null(self::$menuLocations)) {
-            self::$menuLocations = get_nav_menu_locations();
+            self::$menuLocations = $wpService->getNavMenuLocations();
         }
 
         return self::$menuLocations;
