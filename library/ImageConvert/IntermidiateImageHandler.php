@@ -12,10 +12,11 @@ use Municipio\Helper\File;
 use WpService\Contracts\WpGetImageEditor;
 use WpService\Contracts\WpUploadDir;
 use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpAttachmentIs;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs $wpService, private ImageConvertConfig $config)
     {
     }
 
@@ -75,8 +76,7 @@ class IntermidiateImageHandler implements Hookable
     private function convertImage(ImageContract $image): ImageContract|false
     {
         if (!$this->canConvertImage($image, $this->config)) {
-            $this->imageConversionError('Image conversion is not possible from the source file. 
-            The image may not exist, be too large or lacking the relevant metadata', $image);
+            $this->imageConversionError('Image conversion is not possible from the source file. The image may not exist, be too large, or lacking the relevant metadata', $image);
             return false;
         }
 
@@ -89,17 +89,18 @@ class IntermidiateImageHandler implements Hookable
         );
 
         if (!$this->wpService->isWpError($imageEditor)) {
-            //Make the resize
-            $imageEditor->resize(
-                $image->getWidth(),
-                $image->getHeight(),
-                true
-            );
+            // Get the original image dimensions
+            $originalSize = $imageEditor->get_size();
+            
+            // Determine target dimensions using min() to avoid upscaling
+            $targetWidth = min($image->getWidth(), $originalSize['width']);
+            $targetHeight = min($image->getHeight(), $originalSize['height']);
+
+            // Resize the image
+            $imageEditor->resize($targetWidth, $targetHeight, true);
 
             // Attempt to save the image in the target format and size
-            $savedImage = $imageEditor->save(
-                $intermediateLocation['path']
-            );
+            $savedImage = $imageEditor->save($intermediateLocation['path']);
 
             if (!$this->wpService->isWpError($savedImage)) {
                 $image->setUrl($intermediateLocation['url']);
@@ -127,7 +128,7 @@ class IntermidiateImageHandler implements Hookable
         }
 
         // The image must exist in database, and be a image
-        if (!wp_attachment_is('image', $sourceFileId)) {
+        if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
             return false;
         }
 
@@ -155,22 +156,6 @@ class IntermidiateImageHandler implements Hookable
             return intval($size);
         }
         return filesize($sourceFilePath);
-    }
-
-    /**
-     * Get the MIME type of an attachment from its metadata.
-     *
-     * @param int $attachmentId The attachment ID.
-     *
-     * @return string The MIME type of the attachment.
-     */
-    private function getSourceFileMime($attachmentId, $sourceFilePath): string
-    {
-        $mime = $this->getAttachmentMetaData($attachmentId, 'mime-type');
-        if ($mime) {
-            return $mime;
-        }
-        return mime_content_type($sourceFilePath);
     }
 
     /**
