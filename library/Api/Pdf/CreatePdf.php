@@ -122,7 +122,7 @@ class CreatePdf
             @font-face {
                 font-family: "helsingborg-sans-medium";
                 src: url("file://' . $path . '/helsingborg-sans-medium.ttf") format("truetype");
-                font-weight: bold;
+                font-weight: normal;
             }
 
             body {

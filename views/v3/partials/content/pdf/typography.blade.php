@@ -24,6 +24,7 @@
     h6 {
         font-family: {!!$fonts['heading']['font-family']!!}, sans-serif;
         font-weight: {!! $fonts['heading']['variant']!!} !important;
+        line-height: 0.9;
         margin-top: 0;
     }
 
