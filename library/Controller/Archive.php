@@ -121,6 +121,7 @@ class Archive extends \Municipio\Controller\BaseController
     private function getRenderedPostObjects(string $template, array $postObjects): ?string
     {
         $templateAppearance = [
+            'box'            => Appearance::BoxGridItem,
             'cards'          => Appearance::CardItem,
             'grid'           => Appearance::BlockItem,
             'compressed'     => Appearance::CompressedItem,
