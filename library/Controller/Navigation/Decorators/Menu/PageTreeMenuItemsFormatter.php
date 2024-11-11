@@ -36,8 +36,8 @@ class PageTreeMenuItemsFormatter implements MenuInterface
             }
 
             //Move post_title to label key
-            $menuItem['label']       = $menuItem['post_title'];
-            $menuItem['id']          = (int) $menuItem['ID'];
+            $menuItem['label']       = $menuItem['label'] ?? $menuItem['post_title'];
+            $menuItem['id']          = $menuItem['id'] ?? (int) $menuItem['ID'];
             $menuItem['post_parent'] = (int) $menuItem['post_parent'];
 
             //Unset data not needed
