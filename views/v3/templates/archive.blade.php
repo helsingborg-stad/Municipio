@@ -76,6 +76,10 @@
                 <div class="o-grid">
                     {!! $renderedPostObjects !!}
                 </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'segment' )
+                <div class="o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
             @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'newsitem')
                 <div class="arcive-news-items o-grid">
                     {!! $renderedPostObjects !!}
