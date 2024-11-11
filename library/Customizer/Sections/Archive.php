@@ -4,10 +4,16 @@ namespace Municipio\Customizer\Sections;
 
 use Municipio\Customizer\KirkiField;
 
+/**
+ * Archive section.
+ */
 class Archive
 {
     public $sectionId;
 
+    /**
+     * Constructor.
+     */
     public function __construct(string $sectionID, private object $archive)
     {
         KirkiField::addField([
@@ -421,6 +427,11 @@ class Archive
         ]);
     }
 
+    /**
+     * Get the archive view choices
+     *
+     * @return array
+     */
     private function getArchiveViewChoices(): array
     {
         $appearanceOptions = [
@@ -429,7 +440,8 @@ class Archive
             'newsitem'   => esc_html__('News', 'municipio'),
             'list'       => esc_html__('List', 'municipio'),
             'grid'       => esc_html__('Blocks', 'municipio'),
-            'collection' => esc_html__('Collection', 'municipio')
+            'collection' => esc_html__('Collection', 'municipio'),
+            'segment'    => esc_html__('Segment', 'municipio'),
         ];
 
         $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($this->archive->name);
