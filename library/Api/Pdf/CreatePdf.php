@@ -107,7 +107,28 @@ class CreatePdf
             'isRemoteEnabled'      => true,
             'isPhpEnabled'         => true,
             'isHtml5ParserEnabled' => true,
+            'fontDir' => __DIR__ . '/fonts',
+            'fontCache' => __DIR__ . '/fonts',
+            'tempDir' => __DIR__ . '/fonts',
+            'chroot' => __DIR__ . '/fonts'
         ]);
+
+        // 'https://localhost:64420/wp-content/uploads/2024/11/helsingborg-sans-medium.woff'
+        $html = '
+        <style>
+            @font-face {
+                font-family: "helsingborg-sans-medium";
+                src: url("file://' . __DIR__ . '/fonts' . '/helsingborg-sans-medium.ttf") format("truetype");
+                font-weight: bold;
+            }
+
+            body {
+                font-family: "helsingborg-sans-medium", sans-serif;
+            }
+        </style>
+
+        <h1>Helsingborg Sans</h1>
+    ';
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
