@@ -12,6 +12,7 @@
 
     @include('partials.content.pdf.typography')
     @include('partials.content.pdf.style')
+    {INSERT_HERE}
 </head>
 <body>
     <footer>

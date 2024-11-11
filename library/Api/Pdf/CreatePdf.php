@@ -40,6 +40,8 @@ class CreatePdf
         $styles = $this->pdfHelper->getThemeMods();
         $fonts  = $this->pdfHelper->getFonts($styles, $this->woffHelper);
         $lang   = $this->getLang();
+
+        
         if (!empty($sortedPostsArray) && is_array($sortedPostsArray) && reset($sortedPostsArray)) {
             $html = render_blade_view('partials.content.pdf.layout', [
                 'sortedPostsArray'   => $sortedPostsArray,
@@ -47,7 +49,7 @@ class CreatePdf
                 'cover'              => $cover,
                 'fonts'              => $fonts,
                 'lang'               => $lang,
-                'hasMoreThanOnePost' => count($sortedPostsArray) > 1 || count(reset($sortedPostsArray)) > 1
+                'hasMoreThanOnePost' => count($sortedPostsArray) > 1 || count(reset($sortedPostsArray)) > 1,
             ]);
 
             $html = $this->replaceHtmlFromRegex([ '/<script(?!.*?class="pdf-script")[^>]*>.*?<\/script>/s', ], $html);
@@ -103,34 +105,44 @@ class CreatePdf
      */
     public function renderPdf(string $html, string $fileName = 'print')
     {
+        $path = __DIR__ . '/fonts';
         $dompdf = new Dompdf([
             'isRemoteEnabled'      => true,
             'isPhpEnabled'         => true,
             'isHtml5ParserEnabled' => true,
-            'fontDir' => __DIR__ . '/fonts',
-            'fontCache' => __DIR__ . '/fonts',
-            'tempDir' => __DIR__ . '/fonts',
-            'chroot' => __DIR__ . '/fonts'
+            'fontDir' => $path,
+            'fontCache' => $path,
+            'tempDir' => $path,
+            'chroot' => $path
         ]);
 
         // 'https://localhost:64420/wp-content/uploads/2024/11/helsingborg-sans-medium.woff'
-        $html = '
+        $test = '
         <style>
             @font-face {
                 font-family: "helsingborg-sans-medium";
-                src: url("file://' . __DIR__ . '/fonts' . '/helsingborg-sans-medium.ttf") format("truetype");
+                src: url("file://' . $path . '/helsingborg-sans-medium.ttf") format("truetype");
                 font-weight: bold;
             }
 
             body {
                 font-family: "helsingborg-sans-medium", sans-serif;
             }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+         font-family: "helsingborg-sans-medium", sans-serif;
+        margin-top: 0;
+    }
         </style>
-
-        <h1>Helsingborg Sans</h1>
     ';
-
-        $dompdf->loadHtml($html);
+        // $html = $test . $html;
+        $newHtml = str_replace('{INSERT_HERE}', $test, $html);
+        // echo '<pre>' . print_r( $newHtml, true ) . '</pre>';die;
+        $dompdf->loadHtml($newHtml);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
