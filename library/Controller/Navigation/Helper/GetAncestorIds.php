@@ -80,7 +80,7 @@ class GetAncestorIds
                 $fetchAncestors = false;
             } else {
                 $ancestorStack[] = (int) $matchingMenuItem['post_parent'];
-                $id = (int) $matchingMenuItem['post_parent'];
+                $id              = (int) $matchingMenuItem['post_parent'];
             }
         }
 

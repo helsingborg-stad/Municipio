@@ -55,16 +55,16 @@ class PageTreeAppendChildren implements MenuInterface
             } else {
                 $children = $this->indicateChildren($menuItem['id']);
             }
-           
+
             //If null, no children
-            $structuredChildren = [];
+            $structuredChildren      = [];
             $hasUnstructuredChildren = false;
             if (is_array($children) && !empty($children)) {
                 foreach ($children as &$child) {
                     if (isset($menuItemsIdAsKey[$child['ID']])) {
                         $structuredChildren[] = $menuItemsIdAsKey[$child['ID']];
                     } else {
-                        $newMenuItems[] = $child;
+                        $newMenuItems[]          = $child;
                         $hasUnstructuredChildren = true;
                     }
                 }
@@ -72,7 +72,7 @@ class PageTreeAppendChildren implements MenuInterface
 
             $menuItem['children'] = !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
         }
-        
+
         $menu['items'] = array_merge($menu['items'], $newMenuItems);
 
         return $menu;

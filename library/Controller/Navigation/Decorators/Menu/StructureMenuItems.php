@@ -50,7 +50,7 @@ class StructureMenuItems implements MenuInterface
                     continue;
                 }
                 if ($menuItem['post_parent'] == $parentId) {
-                    if ($menuItem['id'] != $menuItem['post_parent']) { 
+                    if ($menuItem['id'] != $menuItem['post_parent']) {
                         $children = $this->structureMenuItems($menuItems, $menuItem['id']);
 
                         if ($children) {
