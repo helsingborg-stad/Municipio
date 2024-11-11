@@ -71,6 +71,20 @@ class Sidebars
         $beforeModulesMarkup = '<aside class="o-grid">';
         $afterModulesMarkup  = '</aside>';
 
+
+        /**
+         * Header Area Site Banner
+         */
+        register_sidebar(array(
+            'id'            => 'header-area-site-banner',
+            'name'          => __('Site Banner', 'municipio'),
+            'description'   => __('A area above the site header', 'municipio'),
+            'before_title'  => '<h2 class="site-banner-title">',
+            'after_title'   => '</h2>',
+            'before_widget' => $beforeWidget,
+            'after_widget'  => $afterWidget,
+        ));
+
         /**
          * Footer Area Top
          */

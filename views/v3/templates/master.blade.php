@@ -35,6 +35,11 @@
             data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
 
+        {{-- Site banner --}}
+        @section('site-banner')
+            @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
+        @show
+
         {{-- Site header --}}
         @section('site-header')
             @if (!empty($customizer->headerApperance))
