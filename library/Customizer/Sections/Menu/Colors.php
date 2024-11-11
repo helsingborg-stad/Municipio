@@ -226,7 +226,7 @@ class Colors
                     'choice'   => 'divider_color',
                     'element'  => $scope->scopeClass,
                     'property' => '--c-nav-v-divider-color',
-                ]
+                ],
             ]
         ]);
     }
@@ -262,7 +262,7 @@ class Colors
                     'choice'   => 'contrasting_active',
                     'element'  => $scope->scopeClass,
                     'property' => '--c-nav-h-color-contrasting-active',
-                ]
+                ],
             ]
         ]);
     }

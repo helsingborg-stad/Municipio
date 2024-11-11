@@ -31,6 +31,13 @@ class NormalizeImageSize implements Hookable
         );
     }
 
+    /**
+     * Normalize the size of an image to ensure it does not exceed the maximum allowed dimensions.
+     *
+     * @param ImageContract $image The image to normalize.
+     *
+     * @return ImageContract|bool The normalized image or false if the image could not be normalized.
+     */
     public function normalizeImageSize(ImageContract $image): ImageContract|bool
     {
         // Normalize incomplete size arrays by adding false values for missing dimensions.

@@ -65,7 +65,9 @@
 
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
-            
+
+            {{-- User (login/logout) --}}
+            @include('partials.header.components.user')
         </div>
     </div>
 

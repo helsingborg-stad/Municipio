@@ -242,7 +242,7 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General();

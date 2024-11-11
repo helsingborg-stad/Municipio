@@ -26,7 +26,7 @@
                     @endlogotype
                 @endif
             @endlink
-
+    
             {{-- Tab menu items --}}
             @includeWhen(!empty($tabMenu['items']), 'partials.navigation.tabs')
 
@@ -35,7 +35,6 @@
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
-
             {{-- User account --}}
             @includeIf('user.account')
             
@@ -49,10 +48,12 @@
             
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
-            
+
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
 
+            {{-- User (login/logout) --}}
+            @include('partials.header.components.user')
         </div>
     </div>
 
