@@ -8,6 +8,9 @@ use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
 
+/**
+ * Class Flexible
+ */
 class Flexible implements HeaderInterface
 {
     private bool $isResponsive;
@@ -23,6 +26,9 @@ class Flexible implements HeaderInterface
     private string $headerSettingKeyResponsive = 'Responsive';
     private bool $hasSeparateBrandText         = false;
 
+    /**
+     * Constructor
+     */
     public function __construct(private object $customizer)
     {
         $this->isResponsive = !empty($this->customizer->headerEnableResponsiveOrder);
