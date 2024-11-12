@@ -43,7 +43,7 @@ class Flexible implements HeaderInterface
         $lowerItems = $this->getItems('main_lower');
 
         [$upperHeader, $lowerHeader] = $this->getHeaderSettings($upperItems, $lowerItems);
-        
+
         return [
             'upperHeader'          => $upperHeader,
             'lowerHeader'          => $lowerHeader,
