@@ -24,6 +24,9 @@
                 @endforeach
             </div>
         </div>
+            @if ($headerData['upperHeader']['innerMegaMenu'])
+                @include('partials.navigation.megamenu')
+            @endif
     @endheader
     @endif
     @if (!empty($headerData['lowerItems']))
@@ -51,10 +54,16 @@
                     @endforeach
                 </div>
             </div>
+            @if ($headerData['lowerHeader']['innerMegaMenu'])
+                @include('partials.navigation.megamenu')
+            @endif
         @endheader
     @endif
 
-    @if(!empty($megaMenu['items']) && $headerData['hasMegaMenu'])
+    @if(
+        !empty($megaMenu['items']) &&
+        $headerData['nonStickyMegaMenu']
+    )
         @include('partials.navigation.megamenu')
     @endif
     @if ($headerData['hasSearch'])
