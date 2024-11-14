@@ -201,6 +201,14 @@
         display: block;
     }
 
+    .c-notice.c-notice--info {
+        display: block !important;
+        margin: 24px 0;
+        background-color: #3d3d3d;
+        color: white;
+        padding: 24px;
+    }
+
     .c-icon,
     .c-notice,
     .c-slider,
