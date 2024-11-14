@@ -146,6 +146,21 @@
         height: auto;
     }
 
+    ul > li {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    /* Module changes */
+    .modularity-mod-text h2,
+    .modularity-mod-text h3,
+    .modularity-mod-text h4,
+    .modularity-mod-text h5{
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+
     /* Remove not printable elements */
     .pdf-post a {
         color: inherit;
