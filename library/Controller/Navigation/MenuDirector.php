@@ -96,9 +96,12 @@ class MenuDirector
         $this->builder->mapMenuItemsAcfFieldValues();
         $this->builder->mapMenuItemsIsAncestor();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
+        $this->builder->pageTreeAppendChildren();
+        $this->builder->pageTreeMenuItemsFormatter();
+        $this->builder->pageTreeAppendMenuItemsHref();
+        $this->builder->pageTreeAppendMenuItemsCustomTitle();
         $this->builder->pageTreeAppendMenuItemIsCurrentPage();
         $this->builder->pageTreeAppendMenuItemsAncestors();
-        $this->builder->pageTreeAppendChildren();
         $this->builder->applyMenuItemFilter();
         $this->builder->pageTreeAppendMenuItemsFetchUrl();
         $this->builder->applyMenuItemsFilter();
