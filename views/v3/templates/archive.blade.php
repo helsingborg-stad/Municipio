@@ -72,7 +72,7 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if(isset($renderedPostObjects) && $renderedPostObjects && in_array($template, ['cards', 'grid', 'compressed', 'schema-project']) )
+            @if(isset($renderedPostObjects) && $renderedPostObjects && in_array($template, ['cards', 'grid', 'compressed', 'schema-project', 'box']) )
                 <div class="o-grid">
                     {!! $renderedPostObjects !!}
                 </div>
