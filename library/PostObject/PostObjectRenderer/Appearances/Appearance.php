@@ -8,6 +8,7 @@ enum Appearance: string
     case CardItem          = 'CardItem';
     case CollectionItem    = 'CollectionItem';
     case CompressedItem    = 'CompressedItem';
+    case ListItem          = 'ListItem';
     case NewsItem          = 'NewsItem';
     case SchemaProjectItem = 'SchemaProjectItem';
     case SegmentItem       = 'SegmentItem';
