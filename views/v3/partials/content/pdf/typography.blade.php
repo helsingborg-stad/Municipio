@@ -25,6 +25,7 @@
         font-family: {!!$fonts['heading']['font-family']!!}, sans-serif;
         font-weight: {!! $fonts['heading']['variant']!!} !important;
         margin-top: 0;
+        line-height: 0.9;
     }
 
     article,
@@ -47,7 +48,6 @@
     h1,
     .pdf-heading--h1 {
         font-size: {!! !empty($styles['typography_h1']['font-size']) ? $styles['typography_h1']['font-size'] : '48px' !!};
-        line-height: 0.9;
     }
 
     h2 {
