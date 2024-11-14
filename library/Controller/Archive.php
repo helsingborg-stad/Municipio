@@ -122,12 +122,13 @@ class Archive extends \Municipio\Controller\BaseController
     {
         $templateAppearance = [
             'cards'          => Appearance::CardItem,
-            'grid'           => Appearance::BlockItem,
-            'compressed'     => Appearance::CompressedItem,
             'collection'     => Appearance::CollectionItem,
+            'compressed'     => Appearance::CompressedItem,
+            'grid'           => Appearance::BlockItem,
+            'listitem'       => Appearance::ListItem,
+            'newsitem'       => Appearance::NewsItem,
             'schema-project' => Appearance::SchemaProjectItem,
             'segment'        => Appearance::SegmentItem,
-            'newsitem'       => Appearance::NewsItem,
         ][$template] ?? null;
 
         if (!$templateAppearance) {
