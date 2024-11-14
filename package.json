@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "5.57.0",
+    "version": "5.57.3",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -74,7 +74,7 @@
         "webpack-remove-empty-scripts": "^0.7.3"
     },
     "dependencies": {
-        "@babel/plugin-transform-runtime": "^7.17.0",
+        "@babel/plugin-transform-runtime": "^7.25.9",
         "css-vars-ponyfill": "^2.4.7",
         "instant.page": "^5.2.0",
         "process": "^0.11.10"
