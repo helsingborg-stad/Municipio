@@ -1,20 +1,28 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
+namespace Municipio\PostObject\Renderer\PostObjectCollectionRenderer;
 
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
 
 /**
- * BlockItem appearance.
+ * BlockItemCollection appearance.
  */
-class BlockItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
+class BlockItemCollection extends PostObjectCollectionRenderer
 {
     /**
      * @inheritDoc
      */
     public function getViewName(): string
     {
-        return 'BlockItem';
+        return 'BlockItemCollection';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPostObjectRendererType(): PostObjectRendererType
+    {
+        return PostObjectRendererType::BlockItem;
     }
 
     /**

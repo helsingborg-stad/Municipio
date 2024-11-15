@@ -1,25 +1,26 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
+namespace Municipio\PostObject\Renderer;
 
-use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 use ComponentLibrary\Init as ComponentLibraryInit;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Helper\TranslatedLabels;
+use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\Renderer\ConfigurableRendererInterface;
 
 /**
  * Render PostObject as a list item.
  */
-abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
+abstract class ConfigurableRenderer implements ConfigurableRendererInterface
 {
     protected static ?BladeServiceInterface $bladeEngine = null;
     protected array $config                              = [];
+    protected PostObjectInterface $postObject;
 
     /**
      * Setup blade engine.
      */
-    private function setupBladeEngine(): void
+    private function maybeSetupBladeEngine(): void
     {
         if (is_null(self::$bladeEngine)) {
             $componentLibrary  = new ComponentLibraryInit([]);
@@ -46,9 +47,17 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
     /**
      * @inheritDoc
      */
-    public function render(PostObjectInterface $postObject): string
+    public function render(): string
     {
-        return $this->renderView($this->getViewName(), $postObject);
+        $this->maybeSetupBladeEngine();
+
+        try {
+            $markup = self::$bladeEngine->makeView($this->getViewName(), $this->getViewData(), [], $this->getViewPaths())->render();
+        } catch (\Throwable $e) {
+            $markup = self::$bladeEngine->errorHandler($e)->print();
+        }
+
+        return $markup ?? '';
     }
 
     /**
@@ -56,7 +65,7 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
      *
      * @return array The view paths.
      */
-    protected function getViewPaths(): array
+    public function getViewPaths(): array
     {
         return [__DIR__ . '/Views/'];
     }
@@ -64,9 +73,9 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
     /**
      * Get the view data.
      */
-    protected function getViewData(PostObjectInterface $postObject): array
+    public function getViewData(): array
     {
-        return ['postObject' => $postObject, 'config' => $this->getConfig(), 'lang' => $this->getLanguageObject()];
+        return ['config' => $this->getConfig(), 'lang' => $this->getLanguageObject()];
     }
 
     /**
@@ -74,27 +83,9 @@ abstract class PostObjectBladeRenderer implements PostObjectRendererInterface
      *
      * @return object The language object.
      */
-    protected function getLanguageObject(): object
+    public function getLanguageObject(): object
     {
         return TranslatedLabels::getLang();
-    }
-
-    /**
-     * Render the view.
-     *
-     * @param string $view The rendered view.
-     */
-    protected function renderView(string $view, PostObjectInterface $postObject): string
-    {
-        $this->setupBladeEngine();
-
-        try {
-            $markup = self::$bladeEngine->makeView($view, $this->getViewData($postObject), [], $this->getViewPaths())->render();
-        } catch (\Throwable $e) {
-            $markup = self::$bladeEngine->errorHandler($e)->print();
-        }
-
-        return $markup ?? '';
     }
 
     /**

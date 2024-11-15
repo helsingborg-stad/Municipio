@@ -1,13 +1,11 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
-
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
 /**
  * CompressedItem appearance.
  */
-class CompressedItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
+class CompressedItem extends PostObjectRenderer
 {
     /**
      * @inheritDoc

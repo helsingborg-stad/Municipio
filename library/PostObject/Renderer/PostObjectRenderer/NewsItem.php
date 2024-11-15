@@ -1,13 +1,11 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
-
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
 /**
  * NewsItem appearance.
  */
-class NewsItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
+class NewsItem extends PostObjectRenderer
 {
     /**
      * @inheritDoc

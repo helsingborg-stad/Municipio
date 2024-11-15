@@ -5,8 +5,10 @@ namespace Municipio\Controller;
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\PostObjectRenderer\Appearances\Appearance;
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
+use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererFactory;
+use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererType;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactory;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
 
 /**
  * Class Archive
@@ -110,7 +112,6 @@ class Archive extends \Municipio\Controller\BaseController
         $this->data['renderedPostObjects'] = $this->getRenderedPostObjects($template, $this->data['posts']);
     }
 
-
     /**
      * Get rendered post objects
      *
@@ -120,29 +121,31 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getRenderedPostObjects(string $template, array $postObjects): ?string
     {
-        $templateAppearance = [
-            'cards'          => Appearance::CardItem,
-            'grid'           => Appearance::BlockItem,
-            'compressed'     => Appearance::CompressedItem,
-            'collection'     => Appearance::CollectionItem,
-            'schema-project' => Appearance::SchemaProjectItem,
-            'segment'        => Appearance::SegmentItem,
-            'newsitem'       => Appearance::NewsItem,
+        $renderer = [
+            'cards'          => PostObjectCollectionRendererType::CardItemCollection,
+            'grid'           => PostObjectCollectionRendererType::BlockItemCollection,
+            'compressed'     => PostObjectCollectionRendererType::CompressedItemCollection,
+            'collection'     => PostObjectCollectionRendererType::CollectionItemCollection,
+            'schema-project' => PostObjectCollectionRendererType::SchemaProjectItemCollection,
+            'segment'        => PostObjectCollectionRendererType::SegmentGridItemCollection,
+            'newsitem'       => PostObjectCollectionRendererType::NewsItemCollection,
         ][$template] ?? null;
 
-        if (!$templateAppearance) {
+        if (!$renderer) {
             return null;
         }
-        $renderer = PostObjectRendererFactory::create($templateAppearance, [
+
+        $renderer = (new PostObjectCollectionRendererFactory())->create($renderer);
+
+        $renderer->setConfig([
             'displayReadingTime' => $this->data['displayReadingTime'],
             'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
             'gridColumnClass'    => $this->data['gridColumnClass'],
             'showPlaceholder'    => $this->data['anyPostHasImage'],
         ]);
 
-        return join(array_map(function (PostObjectInterface $postObject) use ($renderer) {
-            return $postObject->getRendered($renderer);
-        }, $postObjects));
+        $renderer->setPostObjects($postObjects);
+        return $renderer->render();
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
-enum Appearance: string
+enum PostObjectRendererType: string
 {
     case BlockItem         = 'BlockItem';
     case CardItem          = 'CardItem';

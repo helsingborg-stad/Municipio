@@ -1,20 +1,18 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
-
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
 /**
- * SegmentSliderItem appearance.
+ * SegmentItem appearance.
  */
-class SegmentSliderItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
+class SegmentItem extends PostObjectRenderer
 {
     /**
      * @inheritDoc
      */
     public function getViewName(): string
     {
-        return 'SegmentSliderItem';
+        return 'SegmentItem';
     }
 
     /**

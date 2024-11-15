@@ -1,13 +1,11 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
-
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
 /**
  * SegmentGridItem appearance.
  */
-class SegmentGridItem extends PostObjectBladeRenderer implements PostObjectRendererInterface
+class SegmentGridItem extends PostObjectRenderer
 {
     /**
      * @inheritDoc
