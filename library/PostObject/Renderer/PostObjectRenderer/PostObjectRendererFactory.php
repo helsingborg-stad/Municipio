@@ -16,9 +16,11 @@ class PostObjectRendererFactory implements PostObjectRendererFactoryInterface
     {
         return match ($type) {
             PostObjectRendererType::BlockItem => new BlockItem(),
+            PostObjectRendererType::BoxGridItem => new BoxGridItem(),
             PostObjectRendererType::CardItem => new CardItem(),
             PostObjectRendererType::CollectionItem => new CollectionItem(),
             PostObjectRendererType::CompressedItem => new CompressedItem(),
+            PostObjectRendererType::ListItem => new ListItem(),
             PostObjectRendererType::NewsItem => new NewsItem(),
             PostObjectRendererType::SchemaProjectItem => new SchemaProjectItem(),
             PostObjectRendererType::SegmentItem => new SegmentItem(),

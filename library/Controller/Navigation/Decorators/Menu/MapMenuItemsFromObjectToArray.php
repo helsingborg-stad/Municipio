@@ -43,6 +43,7 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                 'top_level'   => $menuItem->menu_item_parent == 0,
                 'xfn'         => $menuItem->xfn ?? false,
                 'classList'   => ['s-post-type-' . $menuItem->object],
+                'description' => $menuItem->description,
             ];
         }
 

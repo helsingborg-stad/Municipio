@@ -435,9 +435,11 @@ class Archive
     private function getArchiveViewChoices(): array
     {
         $appearanceOptions = [
+            'box'        => esc_html__('Box', 'municipio'),
             'compressed' => esc_html__('Compressed', 'municipio'),
             'cards'      => esc_html__('Cards', 'municipio'),
             'newsitem'   => esc_html__('News', 'municipio'),
+            'listitem'   => esc_html__('Listitems', 'municipio'),
             'list'       => esc_html__('List', 'municipio'),
             'grid'       => esc_html__('Blocks', 'municipio'),
             'collection' => esc_html__('Collection', 'municipio'),

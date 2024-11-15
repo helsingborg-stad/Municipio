@@ -14,9 +14,12 @@ class PostObjectCollectionRendererFactory implements PostObjectCollectionRendere
     {
         return match ($type) {
             PostObjectCollectionRendererType::BlockItemCollection => new BlockItemCollection(),
+            PostObjectCollectionRendererType::BoxItemCollection => new BoxItemCollection(),
+            PostObjectCollectionRendererType::BoxGridItemCollection => new BoxGridItemCollection(),
             PostObjectCollectionRendererType::CardItemCollection => new CardItemCollection(),
             PostObjectCollectionRendererType::CollectionItemCollection => new CollectionItemCollection(),
             PostObjectCollectionRendererType::CompressedItemCollection => new CompressedItemCollection(),
+            PostObjectCollectionRendererType::ListItemCollection => new ListItemCollection(),
             PostObjectCollectionRendererType::NewsItemCollection => new NewsItemCollection(),
             PostObjectCollectionRendererType::SchemaProjectItemCollection => new SchemaProjectItemCollection(),
             PostObjectCollectionRendererType::SegmentGridItemCollection => new SegmentGridItemCollection(),

@@ -105,7 +105,6 @@ add_action('init', function () use ($wpService) {
         'options-menu-style'                         => 'group_61dc486660615',
         'options-menu-floating'                      => 'group_60c86946524a0',
         'options-menu-mega'                          => 'group_6502be085ee3b',
-        'options-menu-description'                   => 'group_650296216899c',
         'options-menu-language'                      => 'group_6141cc9c72cc3',
         'options-api-resources-apis'                 => 'group_653a1673dc501',
         'options-comment-settings'                   => 'group_67173bdc92fde',

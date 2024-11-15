@@ -72,6 +72,7 @@
                     @endif
                 @endopenStreetMap
             @endif
+                
             @if(!empty($renderedPostObjects))
                 {!! $renderedPostObjects !!}
             @elseif($displayArchiveLoop)

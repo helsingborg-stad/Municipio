@@ -40,8 +40,7 @@ class MapMenuItemsAcfFieldValues implements MenuInterface
                 'classList' => ['c-nav__icon']
             ];
 
-            $menuItem['style']       = $fields['menu_item_style'] ?? 'default';
-            $menuItem['description'] = $fields['menu_item_description'] ?? '';
+            $menuItem['style'] = $fields['menu_item_style'] ?? 'default';
         }
 
 

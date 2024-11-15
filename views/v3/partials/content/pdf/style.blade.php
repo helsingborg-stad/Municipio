@@ -140,10 +140,54 @@
         content: counter(page);
     }
     
+    /* General */
     img {
         max-width: 100%;
         width: 100%;
         height: auto;
+    }
+
+    blockquote {
+        background-color: {{ !empty($styles['color_palette_secondary']['base']) ? $styles['color_palette_secondary']['base'] : '#fff' }};
+        color: {{!empty($styles['color_palette_secondary']['contrasting']) ? $styles['color_palette_secondary']['contrasting'] : '#000' }};
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    blockquote::before {
+        content: "\201C";
+        font-size: 48px;
+        position: absolute;
+        left: 0;
+        transform: translate(32px, -20px);
+    }
+
+    blockquote::after {
+        content: "\201D";
+        font-size: 48px;
+        position: absolute;
+        right: 0;
+        transform: translate(-20px, -20px);
+    }
+
+    ul > li {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    /* Module changes */
+    .modularity-mod-text h2,
+    .modularity-mod-text h3,
+    .modularity-mod-text h4,
+    .modularity-mod-text h5{
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 
     /* Remove not printable elements */
@@ -155,6 +199,14 @@
     .c-accordion .c-accordion__content[aria-hidden="true"],
     .c-accordion .c-accordion__content[aria-hidden="false"] {
         display: block;
+    }
+
+    .c-notice.c-notice--info {
+        display: block !important;
+        margin: 24px 0;
+        background-color: #3d3d3d;
+        color: white;
+        padding: 24px;
     }
 
     .c-icon,

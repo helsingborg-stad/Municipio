@@ -7,8 +7,6 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererFactory;
 use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererType;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactory;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
 
 /**
  * Class Archive
@@ -122,10 +120,12 @@ class Archive extends \Municipio\Controller\BaseController
     private function getRenderedPostObjects(string $template, array $postObjects): ?string
     {
         $renderer = [
+            'box'            => PostObjectCollectionRendererType::BoxGridItemCollection,
             'cards'          => PostObjectCollectionRendererType::CardItemCollection,
             'grid'           => PostObjectCollectionRendererType::BlockItemCollection,
             'compressed'     => PostObjectCollectionRendererType::CompressedItemCollection,
             'collection'     => PostObjectCollectionRendererType::CollectionItemCollection,
+            'listitem'       => PostObjectCollectionRendererType::ListItemCollection,
             'schema-project' => PostObjectCollectionRendererType::SchemaProjectItemCollection,
             'segment'        => PostObjectCollectionRendererType::SegmentGridItemCollection,
             'newsitem'       => PostObjectCollectionRendererType::NewsItemCollection,
