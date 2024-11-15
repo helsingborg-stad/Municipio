@@ -192,7 +192,11 @@
 
     /* Remove not printable elements */
     .pdf-post a {
-        color: {{ !empty($styles['color_link']['link']) ? $styles['color_link']['link'] : (!empty($styles['color_palette_primary']['dark']) ? $styles['color_palette_primary']['dark'] : '#770000') }};
+        color: {{ !empty($styles['color_link']['link']) ? 
+            $styles['color_link']['link'] : 
+            (!empty($styles['color_palette_primary']['dark']) ? 
+            $styles['color_palette_primary']['dark'] : 
+            '#770000') }};
         text-decoration: underline;
     }
 
