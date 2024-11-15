@@ -5,6 +5,9 @@ namespace Municipio\Integrations\Component\ContextFilters\Sidebar;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
 
+/**
+ * Compressed collections
+ */
 class CompressedCollections implements Hookable
 {
     /**
@@ -21,6 +24,12 @@ class CompressedCollections implements Hookable
         $this->wpService->addFilter('ComponentLibrary/Component/Collection/Data', array($this, 'filterComponentData'));
     }
 
+    /**
+     * Filters the component data based on the current sidebar context.
+     *
+     * @param array $data The component data to be filtered.
+     * @return array The filtered component data.
+     */
     public function filterComponentData($data)
     {
         $context = $this->currentSidebar->getCurrentSidebar();
