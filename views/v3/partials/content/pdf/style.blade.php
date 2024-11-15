@@ -192,8 +192,8 @@
 
     /* Remove not printable elements */
     .pdf-post a {
-        color: inherit;
-        text-decoration: none;
+        color: {{ !empty($styles['color_link']['link']) ? $styles['color_link']['link'] : (!empty($styles['color_palette_primary']['dark']) ? $styles['color_palette_primary']['dark'] : '#770000') }};
+        text-decoration: underline;
     }
 
     .c-accordion .c-accordion__content[aria-hidden="true"],
