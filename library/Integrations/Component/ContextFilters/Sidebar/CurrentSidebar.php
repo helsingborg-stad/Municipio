@@ -10,7 +10,8 @@ class CurrentSidebar implements Hookable
     private $currentSidebar = '';
 
     public function __construct(private AddAction $wpService)
-    {}
+    {
+    }
 
     public function addHooks(): void
     {

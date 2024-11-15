@@ -13,7 +13,8 @@ class CompressedCollections implements Hookable
      * @param array $data The data array to resolve from
      */
     public function __construct(private AddFilter $wpService, private CurrentSidebar $currentSidebar)
-    {}
+    {
+    }
 
     public function addHooks(): void
     {
@@ -32,7 +33,7 @@ class CompressedCollections implements Hookable
         ];
 
         if (in_array($context, $sidebarContexts)) {
-            $data['classList'] = is_array($data['classList']) ? $data['classList'] : [];
+            $data['classList']   = is_array($data['classList']) ? $data['classList'] : [];
             $data['classList'][] = 'c-collection--compact-lg';
         }
 
