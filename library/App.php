@@ -312,7 +312,29 @@ class App
          */
         $this->hooksRegistrar->register(new \Municipio\PostFilters\AllowPostsFromOtherSitesToKeepTheirPermalinks($this->wpService));
 
+        /**
+         * Component Context filters
+         */
+        $this->setupComponentContextFilters();
+
         new \Municipio\Helper\Navigation\MenusSettings($this->wpService, $this->acfService);
+    }
+
+    /**
+     * Sets up the component context filters.
+     *
+     * This method initializes the component context filters by creating instances of the
+     * CurrentSidebar and CompressedCollections classes and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupComponentContextFilters(): void
+    {
+        $currentSidebar = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CurrentSidebar($this->wpService);
+        $currentSidebar->addHooks();
+
+        $compressedCollections = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CompressedCollections($this->wpService, $currentSidebar);
+        $compressedCollections->addHooks();
     }
 
     /**
