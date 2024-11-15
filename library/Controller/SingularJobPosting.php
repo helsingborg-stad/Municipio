@@ -87,8 +87,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             return $this->data['post']->schemaObject['validThrough'];
         }
 
-        $daysUntilValidThrough = $validThroughTimeStamp - time();
-        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d'));
+        $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
         $value                 = $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
@@ -116,8 +116,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             return false;
         }
 
-        $daysUntilValidThrough = $validThroughTimeStamp - time();
-        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d'));
+        $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
 
         return $daysUntilValidThrough < 0;
