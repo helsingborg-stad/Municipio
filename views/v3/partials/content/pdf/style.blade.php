@@ -209,6 +209,14 @@
         padding: 24px;
     }
 
+    a.c-button {
+        display: inline-block !important;
+    }
+    
+    a.c-button + a.c-button {
+        margin-left: 16px;
+    }
+
     .c-icon,
     .c-notice,
     .c-slider,
