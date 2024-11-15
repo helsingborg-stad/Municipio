@@ -23,6 +23,7 @@ class PostObjectCollectionRendererFactory implements PostObjectCollectionRendere
             PostObjectCollectionRendererType::NewsItemCollection => new NewsItemCollection(),
             PostObjectCollectionRendererType::SchemaProjectItemCollection => new SchemaProjectItemCollection(),
             PostObjectCollectionRendererType::SegmentGridItemCollection => new SegmentGridItemCollection(),
+            PostObjectCollectionRendererType::SegmentItemSlider => new SegmentItemSlider(),
         };
     }
 }

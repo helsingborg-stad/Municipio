@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\PostObject\PostObjectRenderer\Appearances;
+namespace Municipio\PostObject\Renderer\PostObjectRenderer;
 
 use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRenderer;
 

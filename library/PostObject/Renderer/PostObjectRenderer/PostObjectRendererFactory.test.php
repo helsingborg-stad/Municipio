@@ -12,11 +12,12 @@ class PostObjectRendererFactoryTest extends TestCase
      */
     public function testGetInstance($case)
     {
-        $this->assertInstanceOf($case->value, PostObjectRendererFactory::from($case->value)->getInstance());
+        $factory = new PostObjectRendererFactory();
+        $this->assertInstanceOf(PostObjectRendererInterface::class, $factory->create($case));
     }
 
     public function caseProvider()
     {
-        return array_map(fn ($case) => [$case], PostObjectRendererFactory::cases());
+        return array_map(fn ($case) => [$case], PostObjectRendererType::cases());
     }
 }

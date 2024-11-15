@@ -5,16 +5,16 @@ namespace Municipio\PostObject\Renderer\PostObjectCollectionRenderer;
 use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
 
 /**
- * SegmentIemSlider appearance.
+ * SegmentItemSlider appearance.
  */
-class SegmentIemSlider extends PostObjectCollectionRenderer
+class SegmentItemSlider extends PostObjectCollectionRenderer
 {
     /**
      * @inheritDoc
      */
     public function getViewName(): string
     {
-        return 'SegmentIemSlider';
+        return 'SegmentItemSlider';
     }
 
     /**
