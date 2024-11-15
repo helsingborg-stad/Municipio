@@ -55,7 +55,7 @@
         "eslint-config-hbg": "^0.1.1",
         "file-loader": "^6.2.0",
         "jquery": "^3.6.0",
-        "material-symbols": "^0.22.0",
+        "material-symbols": "^0.27.0",
         "mini-css-extract-plugin": "^2.5.3",
         "object-fit-images": "^3.2.4",
         "postcss-loader": "^6.2.1",
