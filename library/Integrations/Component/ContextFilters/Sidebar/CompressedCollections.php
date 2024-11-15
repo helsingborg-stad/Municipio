@@ -19,6 +19,9 @@ class CompressedCollections implements Hookable
     {
     }
 
+    /**
+     * Adds hooks for the CompressedCollections component.
+     */
     public function addHooks(): void
     {
         $this->wpService->addFilter('ComponentLibrary/Component/Collection/Data', array($this, 'filterComponentData'));
