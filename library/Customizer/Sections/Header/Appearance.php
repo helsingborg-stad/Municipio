@@ -56,5 +56,28 @@ class Appearance
                 ]
             ],
         ]);
+
+        KirkiField::addField([
+            'type'        => 'select',
+            'settings'    => 'header_width',
+            'label'       => esc_html__('Style', 'municipio'),
+            'description' => esc_html__('Select a max width for the header', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => '',
+            'priority'    => 10,
+            'choices'     => [
+                ''          => esc_html__('Default', 'municipio'),
+                'wide'      => esc_html__('Wide', 'municipio'),
+                'fullwidth' => esc_html__('Full Width', 'municipio'),
+            ],
+            'output'      => [
+                [
+                    'type'    => 'modifier',
+                    'context' => [
+                        'site.header.container',
+                    ]
+                ]
+            ],
+        ]);
     }
 }

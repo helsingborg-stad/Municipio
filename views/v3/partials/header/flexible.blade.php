@@ -12,7 +12,10 @@
         'context' => 'site.header.flexible.upper'
     ])
         <div class="c-header__main-upper-area-container">
-            <div class="c-header__main-upper-area o-container">
+            @element([
+                'classList' => ['c-header__main-upper-area', 'o-container'], 
+                'context' => ['site.header.flexible-container-upper', 'site.header.flexible-container', 'site.header.container']
+            ])
                 @foreach (['left', 'center', 'right'] as $alignment) 
                     @include('partials.header.components.headerLoop', 
                         [
@@ -22,7 +25,7 @@
                         ]
                     )
                 @endforeach
-            </div>
+            @endelement
         </div>
             @if ($headerData['upperHeader']['innerMegaMenu'])
                 @include('partials.navigation.megamenu')
@@ -42,7 +45,10 @@
             'context' => 'site.header.flexible.lower'
         ])
             <div class="c-header__main-lower-area-container">
-                <div class="c-header__main-lower-area o-container">
+                @element([
+                    'classList' => ['c-header__main-lower-area', 'o-container'], 
+                    'context' => ['site.header.flexible-container-lower', 'site.header.flexible-container', 'site.header.container']
+                ])
                     @foreach (['left', 'center', 'right'] as $alignment) 
                         @include('partials.header.components.headerLoop', 
                             [
@@ -52,7 +58,7 @@
                             ]
                         )
                     @endforeach
-                </div>
+                @endelement
             </div>
             @if ($headerData['lowerHeader']['innerMegaMenu'])
                 @include('partials.navigation.megamenu')
