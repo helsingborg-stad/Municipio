@@ -319,7 +319,7 @@ class MenuBuilder implements MenuBuilderInterface
     /**
      * Standard menu with page tree subitems append has children
      */
-    public function standardMenuWithPageTreeSubitemsAppendHasChildren(): void 
+    public function standardMenuWithPageTreeSubitemsAppendHasChildren(): void
     {
         $this->menu = new StandardMenuWithPageTreeSubitemsAppendHasChildren($this->menu);
     }
