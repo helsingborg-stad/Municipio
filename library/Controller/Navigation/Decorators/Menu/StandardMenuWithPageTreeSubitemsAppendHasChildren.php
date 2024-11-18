@@ -31,7 +31,7 @@ class StandardMenuWithPageTreeSubitemsAppendHasChildren implements MenuInterface
         }
 
         $bottomLevelIds = $this->getBottomLevelIds($menu['items']);
-        
+
         foreach ($menu['items'] as &$menuItem) {
             if (!isset($bottomLevelIds[$menuItem['id']])) {
                 $menuItem['children'] = true;
