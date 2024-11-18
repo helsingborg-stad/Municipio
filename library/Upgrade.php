@@ -15,7 +15,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 33; //The db version we want to achive
+    private $dbVersion    = 34; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
