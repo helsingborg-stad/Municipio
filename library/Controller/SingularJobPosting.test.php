@@ -66,6 +66,21 @@ class SingularJobPostingTest extends TestCase
         $this->assertStringContainsString('2 days', $result);
     }
 
+    /**
+     * @testdox getValidThroughListItemValue() return contains 'today' if validThrough is on the current day
+     */
+    public function testValidThroughContainsTodayOnCurrentDay()
+    {
+        $currentTimestamp         = strtotime('2021-01-01 12:01:00');
+        $controller               = $this->getController();
+        $validThrough             = date('Y-m-d', strtotime('2021-01-01'));
+        $controller->data['post'] = (object) [ 'schemaObject' => [ 'validThrough' => $validThrough ] ];
+
+        $result = $controller->getValidThroughListItemValue($currentTimestamp);
+
+        $this->assertStringContainsString('today', $result);
+    }
+
     private function getController(): MockObject|SingularJobPosting
     {
         $controller = $this->getMockBuilder(SingularJobPosting::class)
