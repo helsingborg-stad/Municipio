@@ -31,6 +31,7 @@ use Municipio\Controller\Navigation\Decorators\Menu\PageTreeMenuItemsFormatter;
 use Municipio\Controller\Navigation\Decorators\Menu\PageTreeSetMenuItemsCache;
 use Municipio\Controller\Navigation\Decorators\Menu\RemoveSubLevels;
 use Municipio\Controller\Navigation\Decorators\Menu\RemoveTopLevel;
+use Municipio\Controller\Navigation\Decorators\Menu\StandardMenuWithPageTreeSubitemsAppendHasChildren;
 use Municipio\Controller\Navigation\Decorators\Menu\StructureMenuItems;
 use Municipio\Controller\Navigation\Decorators\Menu\TryGetPageTreeMenuItemsFromCache;
 use Municipio\Controller\Navigation\MenuInterface;
@@ -312,6 +313,10 @@ class MenuBuilder implements MenuBuilderInterface
     public function pageTreeAppendMenuItemsFetchUrl(): void
     {
         $this->menu = new PageTreeAppendMenuItemsFetchUrl($this->menu, $this->wpService);
+    }
+
+    public function StandardMenuWithPageTreeSubitemsAppendHasChildren(): void {
+        $this->menu = new StandardMenuWithPageTreeSubitemsAppendHasChildren($this->menu);
     }
 
     /**

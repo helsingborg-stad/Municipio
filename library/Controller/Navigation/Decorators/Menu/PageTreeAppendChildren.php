@@ -40,7 +40,7 @@ class PageTreeAppendChildren implements MenuInterface
 
         $newMenuItems = [];
         foreach ($menu['items'] as &$menuItem) {
-            if (!empty($menuItem['isCached'])) {
+            if (!empty($menuItem['isCached']) || !empty($menuItem['children'])) {
                 continue;
             }
 
