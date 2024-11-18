@@ -4,6 +4,7 @@
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
         @element([
+            'baseClass' => 'o-container',
             'classList' => ['o-container', 'c-header__flex-content', 
             'context' => ['site.header.business-container', 'site.header.container']
         ])

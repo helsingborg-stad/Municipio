@@ -13,6 +13,7 @@
     ])
         <div class="c-header__main-upper-area-container">
             @element([
+                'baseClass' => 'o-container',
                 'classList' => ['c-header__main-upper-area', 'o-container'], 
                 'context' => ['site.header.flexible-container-upper', 'site.header.flexible-container', 'site.header.container']
             ])
@@ -46,6 +47,7 @@
         ])
             <div class="c-header__main-lower-area-container">
                 @element([
+                    'baseClass' => 'o-container',
                     'classList' => ['c-header__main-lower-area', 'o-container'], 
                     'context' => ['site.header.flexible-container-lower', 'site.header.flexible-container', 'site.header.container']
                 ])
