@@ -79,7 +79,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      *
      * @return string
      */
-    private function getValidThroughListItemValue(): string
+    public function getValidThroughListItemValue(): string
     {
         $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
 
