@@ -73,9 +73,9 @@ class Appearance
             'output'      => [
                 [
                     'type'    => 'modifier',
-                    /*'context' => [
+                    'context' => [
                         'site.header.container',
-                    ]*/ 
+                    ]
                 ]
             ],
         ]);
