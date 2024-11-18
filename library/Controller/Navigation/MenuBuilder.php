@@ -315,7 +315,11 @@ class MenuBuilder implements MenuBuilderInterface
         $this->menu = new PageTreeAppendMenuItemsFetchUrl($this->menu, $this->wpService);
     }
 
-    public function StandardMenuWithPageTreeSubitemsAppendHasChildren(): void {
+    /**
+     * Standard menu with page tree subitems append has children
+     */
+    public function standardMenuWithPageTreeSubitemsAppendHasChildren(): void 
+    {
         $this->menu = new StandardMenuWithPageTreeSubitemsAppendHasChildren($this->menu);
     }
 
