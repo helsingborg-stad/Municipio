@@ -68,9 +68,11 @@ class PageTreeAppendChildren implements MenuInterface
                         $hasUnstructuredChildren = true;
                     }
                 }
-            }
 
-            $menuItem['children'] = !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
+                $menuItem['children'] = !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
+            } else if (!empty($children)) {
+                $menuItem['children'] = $children;
+            }
         }
 
         $menu['items'] = array_merge($menu['items'], $newMenuItems);
