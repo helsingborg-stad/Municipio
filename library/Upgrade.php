@@ -666,6 +666,15 @@ class Upgrade
         return true;
     }
 
+    public function v_34($db): bool
+    {
+        $header = get_theme_mod('header_apperance');
+        if($header == 'casual') {
+            set_theme_mod('header_width', 'wide');
+        }
+        return true;
+    }
+
     /**
      * Get all post types
      *
