@@ -46,8 +46,8 @@ class PageTreeAppendChildren implements MenuInterface
 
             $children = $this->getChildrenForMenuItem($menuItem);
 
-            $menuItem['children'] = is_array($children) ? 
-            $this->processChildren($children, $menuItemsIdAsKey, $newMenuItems) : 
+            $menuItem['children'] = is_array($children) ?
+            $this->processChildren($children, $menuItemsIdAsKey, $newMenuItems) :
             $children;
         }
 
