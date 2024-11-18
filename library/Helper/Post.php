@@ -143,11 +143,14 @@ class Post
      */
     private static function convertWpPostToPostObject(WP_Post $post, string $cacheGroup, string $cacheKey): PostObjectInterface
     {
-        $camelCasedPost = self::$runtimeCache[$cacheGroup][$cacheKey] = \Municipio\Helper\FormatObject::camelCase($post);
+        $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
         $wpService      = \Municipio\Helper\WpService::get();
         $postObject     = new PostObjectFromWpPost($post, $wpService);
+        $postObject     = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
-        return new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
+        self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
+
+        return $postObject;
     }
 
     /**
