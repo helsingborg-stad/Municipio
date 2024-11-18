@@ -56,6 +56,12 @@ class PageTreeAppendChildren implements MenuInterface
         return $menu;
     }
 
+    /**
+     * Returns an array of menu items with their IDs as keys.
+     *
+     * @param array $menuItems The array of menu items.
+     * @return array The array of menu items with IDs as keys.
+     */
     private function getIdStructuredMenuItems(array $menuItems): array
     {
         $menuItemsIdAsKey = [];
