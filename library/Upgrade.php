@@ -15,7 +15,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 34; //The db version we want to achive
+    private $dbVersion    = 35; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -670,6 +670,15 @@ class Upgrade
     {
         $header = get_theme_mod('header_apperance');
         if($header == 'casual') {
+            set_theme_mod('header_width', 'wide');
+        }
+        return true;
+    }
+
+    public function v_35($db): bool
+    {
+        $header = get_theme_mod('header_apperance');
+        if($header == '' || !$header) {
             set_theme_mod('header_width', 'wide');
         }
         return true;
