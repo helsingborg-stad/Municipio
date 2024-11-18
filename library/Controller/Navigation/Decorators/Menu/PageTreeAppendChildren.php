@@ -36,10 +36,7 @@ class PageTreeAppendChildren implements MenuInterface
             return $menu;
         }
 
-        $menuItemsIdAsKey = [];
-        foreach ($menu['items'] as $menuItem) {
-            $menuItemsIdAsKey[$menuItem['id']] = $menuItem;
-        }
+        $menuItemsIdAsKey = $this->getIdStructuredMenuItems($menu['items']);
 
         $newMenuItems = [];
         foreach ($menu['items'] as &$menuItem) {
@@ -47,35 +44,83 @@ class PageTreeAppendChildren implements MenuInterface
                 continue;
             }
 
-            if ($menuItem['id'] == CurrentPostId::get()) {
-                $children = GetPostsByParent::getPostsByParent(
-                    $menuItem['id'],
-                    $this->wpService->getPostType($menuItem['id'])
-                );
-            } else {
-                $children = $this->indicateChildren($menuItem['id']);
-            }
+            $children = $this->getChildrenForMenuItem($menuItem);
 
-            //If null, no children
-            $structuredChildren      = [];
-            $hasUnstructuredChildren = false;
-            if (is_array($children) && !empty($children)) {
-                foreach ($children as &$child) {
-                    if (isset($menuItemsIdAsKey[$child['ID']])) {
-                        $structuredChildren[] = $menuItemsIdAsKey[$child['ID']];
-                    } else {
-                        $newMenuItems[]          = $child;
-                        $hasUnstructuredChildren = true;
-                    }
-                }
-            }
-
-            $menuItem['children'] = !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
+            $menuItem['children'] = is_array($children) ?
+            $this->processChildren($children, $menuItemsIdAsKey, $newMenuItems) :
+            $children;
         }
 
         $menu['items'] = array_merge($menu['items'], $newMenuItems);
 
         return $menu;
+    }
+
+    /**
+     * Returns an array of menu items with their IDs as keys.
+     *
+     * @param array $menuItems The array of menu items.
+     * @return array The array of menu items with IDs as keys.
+     */
+    private function getIdStructuredMenuItems(array $menuItems): array
+    {
+        $menuItemsIdAsKey = [];
+        foreach ($menuItems as $menuItem) {
+            $menuItemsIdAsKey[$menuItem['id']] = $menuItem;
+        }
+
+        return $menuItemsIdAsKey;
+    }
+
+    /**
+     * Process the children of a menu item.
+     *
+     * This method takes an array of children, an array of menu items with their IDs as keys,
+     * and a reference to an array of new menu items. It processes the children by checking if
+     * each child's ID exists in the menu items array. If it does, the child is added to the
+     * structured children array. If not, the child is added to the new menu items array and
+     * the flag for unstructured children is set to true.
+     *
+     * @param array $children The array of children to process.
+     * @param array $menuItemsIdAsKey The array of menu items with their IDs as keys.
+     * @param array $newMenuItems A reference to the array of new menu items.
+     * @return array|bool The structured children array if it is not empty, otherwise the flag
+     *                   indicating the presence of unstructured children.
+     */
+    private function processChildren(array $children, array $menuItemsIdAsKey, &$newMenuItems): array|bool
+    {
+        $structuredChildren      = [];
+        $hasUnstructuredChildren = false;
+        if (is_array($children) && !empty($children)) {
+            foreach ($children as &$child) {
+                if (isset($menuItemsIdAsKey[$child['ID']])) {
+                    $structuredChildren[] = $menuItemsIdAsKey[$child['ID']];
+                } else {
+                    $newMenuItems[]          = $child;
+                    $hasUnstructuredChildren = true;
+                }
+            }
+        }
+
+        return !empty($structuredChildren) ? $structuredChildren : $hasUnstructuredChildren;
+    }
+
+    /**
+     * Retrieves the children for a given menu item.
+     *
+     * @param array $menuItem The menu item data.
+     * @return array|bool The children of the menu item, or false if there are no children.
+     */
+    private function getChildrenForMenuItem(array $menuItem): array|bool
+    {
+        if ($menuItem['id'] == CurrentPostId::get()) {
+            return GetPostsByParent::getPostsByParent(
+                $menuItem['id'],
+                $this->wpService->getPostType($menuItem['id'])
+            );
+        }
+
+        return $this->indicateChildren($menuItem['id']);
     }
 
     /**
