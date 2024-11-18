@@ -1,5 +1,5 @@
-@if(!empty($config['gridColumnClass']))
-    <div class="{{ $config['gridColumnClass'] }}">
+@if(!empty($gridColumnClass))
+    <div class="{{ $gridColumnClass }}">
 @endif
 
 @card([
@@ -11,7 +11,7 @@
     'context' => ['archive', 'archive.list', 'archive.list.card'],
     'containerAware' => true,
     'content' => !empty($postObject->projectTerms['category']) ? implode(' / ', $postObject->projectTerms['category']) : '',
-    'hasPlaceholder' => $config['showPlaceholder']  && empty($postObject->images['thumbnail16:9']['src']),
+    'hasPlaceholder' => $showPlaceholder && empty($postObject->images['thumbnail16:9']['src']),
     'classList' => ['u-height--100']
 ])  
     @slot('afterContent')
@@ -38,6 +38,6 @@
     @endslot
 @endcard
 
-@if(!empty($config['gridColumnClass']))
+@if(!empty($gridColumnClass))
     </div>
 @endif

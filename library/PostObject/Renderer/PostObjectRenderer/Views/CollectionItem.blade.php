@@ -1,6 +1,6 @@
 @collection__item([
     'link' => $postObject->permalink,
-    'classList' => [...$config['gridColumnClass'], ...['u-level-2']],
+    'classList' => [...$config['gridColumnClass'] ?? [], ...['u-level-2']],
     'containerAware' => true,
     'bordered' => true
 ])

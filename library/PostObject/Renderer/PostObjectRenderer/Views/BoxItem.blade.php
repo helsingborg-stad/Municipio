@@ -5,7 +5,7 @@
     'meta' => $postObject->termsUnlinked,
     'secondaryMeta' => $postObject->readingTime,
     'date' => $postObject->postDateFormatted,
-    'ratio' => $config['ratio'],
+    'ratio' => $ratio,
     'image' => $postObject->imageContract ?? $postObject->image
 ])
 @endbox

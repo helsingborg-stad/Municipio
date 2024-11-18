@@ -33,7 +33,8 @@ class CompressedItemCollection extends PostObjectCollectionRenderer
         $defaultConfig = [
             'displayReadingTime' => false,
             'gridColumnClass'    => null,
-            'showPlaceholder'    => false
+            'showPlaceholder'    => false,
+            'postObjects'        => []
         ];
 
         return array_merge($defaultConfig, $this->config);

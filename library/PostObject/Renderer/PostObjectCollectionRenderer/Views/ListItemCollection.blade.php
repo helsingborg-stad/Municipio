@@ -7,7 +7,7 @@
                 'sharpTop' => true,
                 'bordered' => true
             ])
-                {!! $renderedPostObjects !!}
+                {!! $renderedListItems !!}
             @endcollection
         </div>
     </div>

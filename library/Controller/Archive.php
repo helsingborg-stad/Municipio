@@ -7,6 +7,8 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererFactory;
 use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererType;
+use Municipio\PostObject\Renderer\RenderBuilder;
+use Municipio\PostObject\Renderer\RenderDirector;
 
 /**
  * Class Archive
@@ -119,32 +121,54 @@ class Archive extends \Municipio\Controller\BaseController
      */
     private function getRenderedPostObjects(string $template, array $postObjects): ?string
     {
-        $renderer = [
-            'box'            => PostObjectCollectionRendererType::BoxGridItemCollection,
-            'cards'          => PostObjectCollectionRendererType::CardItemCollection,
-            'grid'           => PostObjectCollectionRendererType::BlockItemCollection,
-            'compressed'     => PostObjectCollectionRendererType::CompressedItemCollection,
-            'collection'     => PostObjectCollectionRendererType::CollectionItemCollection,
-            'listitem'       => PostObjectCollectionRendererType::ListItemCollection,
-            'schema-project' => PostObjectCollectionRendererType::SchemaProjectItemCollection,
-            'segment'        => PostObjectCollectionRendererType::SegmentGridItemCollection,
-            'newsitem'       => PostObjectCollectionRendererType::NewsItemCollection,
-        ][$template] ?? null;
+        $renderDirector = new RenderDirector(new RenderBuilder());
 
-        if (!$renderer) {
-            return null;
-        }
-
-        $renderer = (new PostObjectCollectionRendererFactory())->create($renderer);
-
-        $renderer->setConfig([
+        $config = [
             'displayReadingTime' => $this->data['displayReadingTime'],
             'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
             'gridColumnClass'    => $this->data['gridColumnClass'],
             'showPlaceholder'    => $this->data['anyPostHasImage'],
-        ]);
+        ];
 
-        $renderer->setPostObjects($postObjects);
+        return match ($template) {
+            'box'            => $renderDirector->getBoxGridItemCollectionRender($postObjects, $config)->render(),
+            'cards'          => $renderDirector->getCardItemCollectionRender($postObjects, $config)->render(),
+            'collection'     => $renderDirector->getCollectionItemCollectionRender($postObjects, $config)->render(),
+            'compressed'     => $renderDirector->getCompressedItemCollectionRender($postObjects, $config)->render(),
+            'grid'           => $renderDirector->getBlockItemCollectionRender($postObjects, $config)->render(),
+            'listitem'       => $renderDirector->getListItemCollectionRender($postObjects, $config)->render(),
+            'newsitem'       => $renderDirector->getNewsItemCollectionRender($postObjects, $config)->render(),
+            'schema-project' => $renderDirector->getSchemaProjectItemCollectionRender($postObjects, $config)->render(),
+            'segment'        => $renderDirector->getSegmentGridItemCollectionRender($postObjects, $config)->render(),
+            default          => null,
+        };
+
+        // $renderer = [
+        //     'box'            => PostObjectCollectionRendererType::BoxGridItemCollection,
+        //     'cards'          => PostObjectCollectionRendererType::CardItemCollection,
+        //     'grid'           => PostObjectCollectionRendererType::BlockItemCollection,
+        //     'compressed'     => PostObjectCollectionRendererType::CompressedItemCollection,
+        //     'collection'     => PostObjectCollectionRendererType::CollectionItemCollection,
+        //     'listitem'       => PostObjectCollectionRendererType::ListItemCollection,
+        //     'schema-project' => PostObjectCollectionRendererType::SchemaProjectItemCollection,
+        //     'segment'        => PostObjectCollectionRendererType::SegmentGridItemCollection,
+        //     'newsitem'       => PostObjectCollectionRendererType::NewsItemCollection,
+        // ][$template] ?? null;
+
+        // if (!$renderer) {
+        //     return null;
+        // }
+
+        // $renderer = (new PostObjectCollectionRendererFactory())->create($renderer);
+
+        // $renderer->setConfig([
+        //     'displayReadingTime' => $this->data['displayReadingTime'],
+        //     'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
+        //     'gridColumnClass'    => $this->data['gridColumnClass'],
+        //     'showPlaceholder'    => $this->data['anyPostHasImage'],
+        // ]);
+
+        // $renderer->setPostObjects($postObjects);
         return $renderer->render();
     }
 

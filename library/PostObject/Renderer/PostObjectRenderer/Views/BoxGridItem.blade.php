@@ -1,9 +1,9 @@
-@if($config['gridColumnClass'])
-    <div class="{{ $config['gridColumnClass'] }}">
+@if($gridColumnClass)
+    <div class="{{ $gridColumnClass }}">
 @endif
 
     @include('BoxItem')
 
-@if($config['gridColumnClass'])
+@if($gridColumnClass)
     </div>
 @endif
