@@ -21,7 +21,7 @@ class BaseController
      * Holds the view's data
      * @var array
      */
-    protected $data = [];
+    public $data = [];
 
     /**
      * WordPress Global states
