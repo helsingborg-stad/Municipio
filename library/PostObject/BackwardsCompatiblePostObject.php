@@ -11,6 +11,7 @@ use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
  *
  * This class is used to make sure that the PostObjectInterface is backwards compatible with the old PostObject class.
  */
+#[AllowDynamicProperties]
 class BackwardsCompatiblePostObject implements PostObjectInterface
 {
     /**
