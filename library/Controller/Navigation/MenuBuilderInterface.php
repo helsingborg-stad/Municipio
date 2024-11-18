@@ -53,4 +53,5 @@ interface MenuBuilderInterface
 
     // Standard menu with page tree subitems
     public function standardMenuWithPageTreeSubitemsAppendHasChildren(): void;
+    public function standardMenuWithPageTreeSubitemsAppendAncestors(): void;
 }
