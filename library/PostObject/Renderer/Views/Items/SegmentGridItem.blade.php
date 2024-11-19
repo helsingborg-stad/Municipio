@@ -1,3 +1,3 @@
 <div class="{!! $gridColumnClass !!}">
-    @include('SegmentItem')
+    @include('Items.SegmentItem')
 </div>
