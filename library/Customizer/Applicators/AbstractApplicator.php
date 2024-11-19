@@ -63,7 +63,7 @@ abstract class AbstractApplicator
      *
      * @return boolean
      */
-    protected function setStatic($data, WP_Customize_Manager $manager): bool
+    protected function setStatic($data, ?WP_Customize_Manager $manager = null): bool
     {
         if($this->isDraft($manager)) {
             return false;
@@ -82,8 +82,13 @@ abstract class AbstractApplicator
     /**
      * Check if the changeset is a draft.
      */
-    protected function isDraft(WP_Customize_Manager $manager): bool
+    protected function isDraft(?WP_Customize_Manager $manager): bool
     {
+        // Check if the manager is available, if not, assume that we are not in the customizer
+        if (is_null($manager)) {
+            return false;
+        }
+
         // Check if the changeset status is available
         if (isset($manager->changeset_post_id)) {
             $changeset_status = get_post_status($manager->changeset_post_id);

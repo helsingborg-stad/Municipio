@@ -22,7 +22,7 @@ class ComponentData extends AbstractApplicator
      *
      * @return void
      */
-    public function storeComponentData(WP_Customize_Manager $manager)
+    public function storeComponentData(?WP_Customize_Manager $manager = null)
     {
         $this->setStatic(
             $componentData = $this->calculateComponentData(),
