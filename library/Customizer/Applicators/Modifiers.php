@@ -10,6 +10,7 @@ class Modifiers extends AbstractApplicator
     {
         add_action('customize_save_after', array($this, 'storeModifiers'), 50);
         add_filter('ComponentLibrary/Component/Modifier', array($this, 'applyStoredModifiers'), 10, 2);
+        add_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache', array($this, 'storeModifiers'), 50, 1);
     }
 
     /**

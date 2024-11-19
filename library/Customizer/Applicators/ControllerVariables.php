@@ -10,6 +10,7 @@ class ControllerVariables extends AbstractApplicator
     {
         add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
         add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+        add_action('Municipio/Customizer/Applicator/ControllerVars/RefreshCache', array($this, 'storeControllerVars'), 50, 1);
     }
 
     /**
