@@ -1,3 +1,3 @@
 <div class="o-grid">
-    {!! $renderedBlockItems !!}
+    {!! $renderedPostObjects !!}
 </div>

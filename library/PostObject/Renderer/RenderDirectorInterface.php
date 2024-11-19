@@ -167,4 +167,40 @@ interface RenderDirectorInterface
      * @return RenderInterface
      */
     public function getSegmentGridItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface;
+
+    /**
+     * Get SegmentSliderItem render.
+     *
+     * @param PostObjectInterface $postObject
+     * @param array $config
+     * @return RenderInterface
+     */
+    public function getSegmentSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface;
+
+    /**
+     * Get SegmentItemRender render.
+     *
+     * @param PostObjectInterface $postObject
+     * @param array $config
+     * @return RenderInterface
+     */
+    public function getSegmentItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface;
+
+    /**
+     * Get BoxSliderItem render.
+     *
+     * @param PostObjectInterface $postObject
+     * @param array $config
+     * @return RenderInterface
+     */
+    public function getBoxSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface;
+
+    /**
+     * Get BoxItem render.
+     *
+     * @param PostObjectInterface $postObject
+     * @param array $config
+     * @return RenderInterface
+     */
+    public function getBoxItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface;
 }

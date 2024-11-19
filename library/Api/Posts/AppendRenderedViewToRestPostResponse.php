@@ -4,10 +4,9 @@ namespace Municipio\Api\Posts;
 
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererClass;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactory;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactoryInterface;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
+use Municipio\PostObject\Renderer\RenderDirectorInterface;
+use Municipio\PostObject\Renderer\RenderItemType;
+use Municipio\PostObject\Renderer\RenderItemTypeToRender;
 use WP_REST_Request;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPost;
@@ -25,7 +24,7 @@ class AppendRenderedViewToRestPostResponse implements Hookable
      * Constructor.
      */
     public function __construct(
-        private PostObjectRendererFactoryInterface $rendererFactory,
+        private RenderDirectorInterface $rendererFactory,
         private AddFilter&RegisterRestField&GetPost $wpService
     ) {
     }
@@ -64,16 +63,16 @@ class AppendRenderedViewToRestPostResponse implements Hookable
     public function appendRenderedView(array $data, string $fieldName, WP_REST_Request $request): ?string
     {
         $queryParams = $request->get_query_params();
-        $type        = PostObjectRendererType::tryFrom($queryParams[self::PARAM_NAME] ?? null);
+        $type        = RenderItemType::tryFrom($queryParams[self::PARAM_NAME] ?? null);
 
         if ($type === null) {
             return null;
         }
 
-        $renderer = $this->rendererFactory->create($type);
-        $post     = $this->wpService->getPost($data['id']);
-        $renderer->setPostObject(Post::preparePostObject($post));
+        $post                 = $this->wpService->getPost($data['id']);
+        $postObject           = Post::preparePostObject($post);
+        $renderFromRenderType = new RenderItemTypeToRender($this->rendererFactory, $postObject);
 
-        return $renderer->render();
+        return $renderFromRenderType->getRenderFromRenderType($type)->render();
     }
 }

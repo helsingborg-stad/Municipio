@@ -25,7 +25,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('BlockItemCollection')
-            ->setConfig(['renderedBlockItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -60,7 +60,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('BoxGridItemCollection')
-            ->setConfig(['renderedBoxGridItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -86,7 +86,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('ListItemCollection')
-            ->setConfig(['renderedListItems' => $renderedPostObjects ])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects ])
             ->build();
     }
 
@@ -113,7 +113,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('CardItemCollection')
-            ->setConfig(['renderedCardItems' => $renderedCardItems])
+            ->setConfig(['renderedPostObjects' => $renderedCardItems])
             ->build();
     }
 
@@ -144,7 +144,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('CollectionItemCollection')
-            ->setConfig(['renderedCollectionItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -171,7 +171,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('CompressedItemCollection')
-            ->setConfig(['renderedCompressedItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -202,7 +202,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('NewsItemCollection')
-            ->setConfig(['renderedNewsItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -228,7 +228,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('SchemaProjectItemCollection')
-            ->setConfig(['renderedSchemaProjectItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -254,7 +254,7 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('SegmentGridItemCollection')
-            ->setConfig(['renderedSegmentGridItems' => $renderedPostObjects])
+            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
 
@@ -267,6 +267,58 @@ class RenderDirector implements RenderDirectorInterface
 
         return $this->builder
             ->setView('SegmentGridItem')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSegmentSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    {
+        $config = array_merge(['postObject' => $postObject], $config);
+
+        return $this->builder
+            ->setView('SegmentSliderItem')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSegmentItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    {
+        $config = array_merge(['postObject' => $postObject], $config);
+
+        return $this->builder
+            ->setView('SegmentItem')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBoxSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    {
+        $config = array_merge(['ratio' => '1:1', 'postObject' => $postObject], $config);
+
+        return $this->builder
+            ->setView('BoxSliderItem')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBoxItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    {
+        $config = array_merge(['ratio' => '1:1', 'postObject' => $postObject], $config);
+
+        return $this->builder
+            ->setView('BoxItem')
             ->setConfig($config)
             ->build();
     }

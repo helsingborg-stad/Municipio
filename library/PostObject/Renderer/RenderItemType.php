@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\PostObject\Renderer\PostObjectRenderer;
+namespace Municipio\PostObject\Renderer;
 
-enum PostObjectRendererType: string
+enum RenderItemType: string
 {
     case BlockItem         = 'BlockItem';
-    case BoxItem           = 'BoxItem';
     case BoxGridItem       = 'BoxGridItem';
+    case BoxItem           = 'BoxItem';
     case BoxSliderItem     = 'BoxSliderItem';
     case CardItem          = 'CardItem';
     case CollectionItem    = 'CollectionItem';
@@ -14,7 +14,7 @@ enum PostObjectRendererType: string
     case ListItem          = 'ListItem';
     case NewsItem          = 'NewsItem';
     case SchemaProjectItem = 'SchemaProjectItem';
-    case SegmentItem       = 'SegmentItem';
     case SegmentGridItem   = 'SegmentGridItem';
+    case SegmentItem       = 'SegmentItem';
     case SegmentSliderItem = 'SegmentSliderItem';
 }

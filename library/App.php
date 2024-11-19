@@ -34,7 +34,8 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactory;
+use Municipio\PostObject\Renderer\RenderBuilder;
+use Municipio\PostObject\Renderer\RenderDirector;
 use Municipio\SchemaData\LimitSchemaTypesAndProperties;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage;
@@ -53,8 +54,6 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
-use WP_REST_Request;
-use WP_REST_Response;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
@@ -263,7 +262,7 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
         (new \Municipio\Api\Posts\EnablePostTypesParam($this->wpService))->addHooks();
-        (new \Municipio\Api\Posts\AppendRenderedViewToRestPostResponse(new PostObjectRendererFactory(), $this->wpService))->addHooks();
+        (new \Municipio\Api\Posts\AppendRenderedViewToRestPostResponse(new RenderDirector(new RenderBuilder()), $this->wpService))->addHooks();
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
