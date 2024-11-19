@@ -12,7 +12,7 @@ class ComponentData extends AbstractApplicator
 
     public function __construct()
     {
-        add_action('customize_save_after', array($this, 'storeComponentData'), 50);
+        add_action('customize_save_after', array($this, 'storeComponentData'), 50, 1);
         add_filter('ComponentLibrary/Component/Data', array($this, 'applyStoredComponentData'), 10);
         add_action('Municipio/Customizer/Applicator/ComponentData/RefreshCache', array($this, 'storeComponentData'), 50, 1);
     }
