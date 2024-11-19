@@ -49,7 +49,7 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                     's-post-type-' .
                     (isset($pageForPostTypes[$menuItem->object_id]) ?
                     $pageForPostTypes[$menuItem->object_id] :
-                    $menuItem->object_id)
+                    $menuItem->object)
                 ],
                 'description' => $menuItem->description,
             ];
