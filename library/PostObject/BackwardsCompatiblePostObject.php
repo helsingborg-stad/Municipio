@@ -4,7 +4,6 @@ namespace Municipio\PostObject;
 
 use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererInterface;
 
 /**
  * Backwards compatible PostObject.
@@ -48,13 +47,5 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     public function getPermalink(): string
     {
         return $this->inner->getPermalink();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getRendered(PostObjectRendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }

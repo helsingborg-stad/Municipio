@@ -2,11 +2,12 @@
 
 namespace Municipio\Api\Posts;
 
-use Municipio\Customizer\Sections\Header\Appearance;
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\PostObject\PostObjectRenderer\Appearances\Appearance as AppearancesAppearance;
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactoryInterface;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererClass;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactory;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererFactoryInterface;
+use Municipio\PostObject\Renderer\PostObjectRenderer\PostObjectRendererType;
 use WP_REST_Request;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\GetPost;
@@ -63,16 +64,16 @@ class AppendRenderedViewToRestPostResponse implements Hookable
     public function appendRenderedView(array $data, string $fieldName, WP_REST_Request $request): ?string
     {
         $queryParams = $request->get_query_params();
-        $appearance  = AppearancesAppearance::tryFrom($queryParams[self::PARAM_NAME] ?? null);
+        $type        = PostObjectRendererType::tryFrom($queryParams[self::PARAM_NAME] ?? null);
 
-        if (empty($appearance)) {
+        if ($type === null) {
             return null;
         }
 
-        $rendererInstance = $this->rendererFactory->create($appearance);
-        $post             = $this->wpService->getPost($data['id']);
-        $postObject       = Post::preparePostObject($post);
+        $renderer = $this->rendererFactory->create($type);
+        $post     = $this->wpService->getPost($data['id']);
+        $renderer->setPostObject(Post::preparePostObject($post));
 
-        return $rendererInstance->render($postObject);
+        return $renderer->render();
     }
 }
