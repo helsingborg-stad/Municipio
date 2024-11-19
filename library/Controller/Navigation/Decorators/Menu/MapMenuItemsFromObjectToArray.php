@@ -3,6 +3,7 @@
 namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 
@@ -30,6 +31,8 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
             return $menu;
         }
 
+        $pageForPostTypes = GetPageForPostTypeIds::getPageForPostTypeIds();
+
         foreach ($menu['items'] as &$menuItem) {
             $menuItem = [
                 'id'          => $menuItem->ID,
@@ -42,7 +45,12 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                 'children'    => false,
                 'top_level'   => $menuItem->menu_item_parent == 0,
                 'xfn'         => $menuItem->xfn ?? false,
-                'classList'   => array_merge(['s-post-type-' . $menuItem->object], $menuItem->classes ?? []),
+                'classList'   => [
+                    's-post-type-' .
+                    isset($pageForPostTypes[$menuItem->object_id]) ?
+                    $pageForPostTypes[$menuItem->object_id] :
+                    $menuItem->object
+                ],
                 'description' => $menuItem->description,
             ];
         }
