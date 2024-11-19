@@ -1,18 +1,18 @@
-@if($config['gridColumnClass'])
-    <div class="{{ $config['gridColumnClass'] }}">
+@if($gridColumnClass)
+    <div class="{{ $gridColumnClass }}">
 @endif
 
     @block([
         'link' => $postObject->permalink,
         'heading' => $postObject->postTitle,
-        'ratio' => $config['format'],
+        'ratio' => $format,
         'meta' => $postObject->termsUnlinked,
-        'secondaryMeta' => $config['displayReadingTime'] ? $postObject->readingTime : '',
+        'secondaryMeta' => $displayReadingTime ? $postObject->readingTime : '',
         'image' => $postObject->imageContract ? [
             'src' => $postObject->imageContract,
             'backgroundColor' => 'secondary'
         ] : [
-            'src' => $config['format'] == '12:16' ? $postObject->images['thumbnail3:4']['src'] : $postObject->images['thumbnail16:9']['src'],
+            'src' => $format == '12:16' ? $postObject->images['thumbnail3:4']['src'] : $postObject->images['thumbnail16:9']['src'],
             'alt' => $postObject->images['thumbnail16:9']['alt'] ? $postObject->images['thumbnail16:9']['alt'] : $postObject->postTitle,
             'backgroundColor' => 'secondary'
         ],
@@ -23,6 +23,6 @@
     ])
     @endblock
 
-@if($config['gridColumnClass'])
+@if($gridColumnClass)
     </div>
 @endif

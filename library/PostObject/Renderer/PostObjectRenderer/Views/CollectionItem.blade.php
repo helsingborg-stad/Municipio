@@ -1,6 +1,6 @@
 @collection__item([
     'link' => $postObject->permalink,
-    'classList' => [...$config['gridColumnClass'] ?? [], ...['u-level-2']],
+    'classList' => [...$gridColumnClass, 'u-level-2'],
     'containerAware' => true,
     'bordered' => true
 ])
@@ -10,7 +10,7 @@
             @endicon
         @endslot
     @endif
-    @if ($config['displayFeaturedImage'] && !empty($postObject->images['thumbnail16:9']['src']))
+    @if ($displayFeaturedImage && !empty($postObject->images['thumbnail16:9']['src']))
         @slot('before')
         @image([
                 'src' => $postObject->images['thumbnail16:9']['src'],
@@ -36,7 +36,6 @@
             ])
                 {!! $postObject->postTitle !!}
             @endtypography
-            {{-- TODO: Add icon --}}
         @endgroup
         @tags([
             'tags' => $postObject->termsUnlinked,

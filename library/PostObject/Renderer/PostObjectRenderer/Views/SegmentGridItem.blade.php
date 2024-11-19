@@ -1,3 +1,3 @@
-<div class="{!! $config['gridColumnClass'] !!}">
+<div class="{!! $gridColumnClass !!}">
     @include('SegmentItem')
 </div>

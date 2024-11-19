@@ -1,5 +1,5 @@
-@if(!empty($config['gridColumnClass']))
-    <div class="{{ $config['gridColumnClass'] }}">
+@if(!empty($gridColumnClass))
+    <div class="{{ $gridColumnClass }}">
 @endif
 
 @link([
@@ -31,6 +31,6 @@
     @endsegment
 @endlink
 
-@if(!empty($config['gridColumnClass']))
+@if(!empty($gridColumnClass))
     </div>
 @endif
