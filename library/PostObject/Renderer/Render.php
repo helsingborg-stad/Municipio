@@ -6,6 +6,9 @@ use ComponentLibrary\Init as ComponentLibraryInit;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Municipio\Helper\TranslatedLabels;
 
+/**
+ * Render class.
+ */
 class Render implements RenderInterface
 {
     protected static ?BladeServiceInterface $bladeEngine = null;

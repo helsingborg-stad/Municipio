@@ -28,7 +28,7 @@ class RenderItemTypeToRender implements RenderTypeToRenderInterface
         $method = $this->getRenderMethod($type);
 
         if ($method === null) {
-            throw new \InvalidArgumentException("Unknown render type: " . $type->value);
+            throw new \InvalidArgumentException("Unknown render type: " . $type->value); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         }
 
         return $this->renderFactory->{$method}($this->postObject, $this->config);
