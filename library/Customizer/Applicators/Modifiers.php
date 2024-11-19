@@ -20,13 +20,16 @@ class Modifiers extends AbstractApplicator
      *
      * @return void
      */
-    public function storeModifiers(?WP_Customize_Manager $manager = null): array
+    public function storeModifiers($manager = null): array
     {
-        $this->setStatic(
-            $storedModifiers = $this->calculateModifiers(),
-            $manager
-        );
-        return $storedModifiers;
+        if(is_a($manager, 'WP_Customize_Manager') || is_null($manager)) {
+            $this->setStatic(
+                $storedModifiers = $this->calculateModifiers(),
+                $manager
+            );
+            return $storedModifiers;
+        }
+        return null;
     }
 
     /**

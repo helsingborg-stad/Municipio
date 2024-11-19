@@ -20,13 +20,16 @@ class ControllerVariables extends AbstractApplicator
      *
      * @return array
      */
-    public function storeControllerVars(?WP_Customize_Manager $manager = null)
+    public function storeControllerVars($manager = null)
     {
-        $this->setStatic(
-            $controllerVars = $this->get(),
-            $manager
-        );
-        return $controllerVars;
+        if (is_a($manager, 'WP_Customize_Manager') || is_null($manager)) {
+            $this->setStatic(
+                $controllerVars = $this->get(),
+                $manager
+            );
+            return $controllerVars;
+        }
+        return null;
     }
 
     /**
