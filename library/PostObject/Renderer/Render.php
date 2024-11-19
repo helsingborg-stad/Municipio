@@ -53,10 +53,7 @@ class Render implements RenderInterface
      */
     public function getViewPaths(): array
     {
-        return [
-            __DIR__ . '/PostObjectRenderer/Views/',
-            __DIR__ . '/PostObjectCollectionRenderer/Views/'
-        ];
+        return [ __DIR__ . '/Views/', ];
     }
 
     /**
