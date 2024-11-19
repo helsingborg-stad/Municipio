@@ -47,9 +47,9 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                 'xfn'         => $menuItem->xfn ?? false,
                 'classList'   => [
                     's-post-type-' .
-                    isset($pageForPostTypes[$menuItem->object_id]) ?
+                    (isset($pageForPostTypes[$menuItem->object_id]) ?
                     $pageForPostTypes[$menuItem->object_id] :
-                    $menuItem->object_id
+                    $menuItem->object_id)
                 ],
                 'description' => $menuItem->description,
             ];
