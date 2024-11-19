@@ -11,7 +11,7 @@
         'tags' => $postObject->termsUnlinked ?? null,
         'meta' => $config['displayReadingTime'] ? $postObject->readingTime : '',
         'date' => $postObject->archiveDate ?? null,
-        'dateBadge' => $postObject->archiveDateFormat ?? null == 'date-badge',
+        'dateBadge' => ($postObject->archiveDateFormat ?? null) == 'date-badge',
         'context' => ['archive', 'archive.list', 'archive.list.card'],
         'containerAware' => true,
         'hasPlaceholder' => $config['showPlaceholder']  && empty($postObject->images['thumbnail16:9']['src'])
