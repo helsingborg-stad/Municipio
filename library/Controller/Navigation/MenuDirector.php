@@ -97,6 +97,8 @@ class MenuDirector
         $this->builder->mapMenuItemsIsAncestor();
         $this->builder->convertStaticMenuItemsToPageTreeItems();
         $this->builder->standardMenuWithPageTreeSubitemsAppendHasChildren();
+        $this->builder->standardMenuWithPageTreeSubitemsAppendAncestors();
+        $this->builder->pageTreeMenuItemsFormatter();
         $this->builder->pageTreeAppendChildren();
         $this->builder->pageTreeMenuItemsFormatter();
         $this->builder->pageTreeAppendMenuItemsHref();
