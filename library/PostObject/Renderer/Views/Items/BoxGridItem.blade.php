@@ -2,7 +2,7 @@
     <div class="{{ $gridColumnClass }}">
 @endif
 
-    @include('BoxItem')
+    @include('Items.BoxItem')
 
 @if($gridColumnClass)
     </div>
