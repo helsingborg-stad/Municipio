@@ -2,6 +2,8 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use WP_Customize_Manager;
+
 class ControllerVariables extends AbstractApplicator
 {
     public $optionKey = 'controller';
@@ -18,10 +20,11 @@ class ControllerVariables extends AbstractApplicator
      *
      * @return array
      */
-    public function storeControllerVars($manager = null)
+    public function storeControllerVars(WP_Customize_Manager $manager)
     {
         $this->setStatic(
-            $controllerVars = $this->get()
+            $controllerVars = $this->get(),
+            $manager
         );
         return $controllerVars;
     }

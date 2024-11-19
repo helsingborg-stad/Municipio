@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 use Kirki\Compatibility\Kirki;
 use Error;
+use WP_Customize_Manager;
 
 class ComponentData extends AbstractApplicator
 {
@@ -21,10 +22,11 @@ class ComponentData extends AbstractApplicator
      *
      * @return void
      */
-    public function storeComponentData($manager = null)
+    public function storeComponentData(WP_Customize_Manager $manager)
     {
         $this->setStatic(
-            $componentData = $this->calculateComponentData()
+            $componentData = $this->calculateComponentData(),
+            $manager
         );
         return $componentData;
     }

@@ -2,6 +2,8 @@
 
 namespace Municipio\Customizer\Applicators;
 
+use WP_Customize_Manager;
+
 class Modifiers extends AbstractApplicator
 {
     public $optionKey = 'modifiers';
@@ -18,10 +20,11 @@ class Modifiers extends AbstractApplicator
      *
      * @return void
      */
-    public function storeModifiers($manager = null): array
+    public function storeModifiers(WP_Customize_Manager $manager): array
     {
         $this->setStatic(
-            $storedModifiers = $this->calculateModifiers()
+            $storedModifiers = $this->calculateModifiers(),
+            $manager
         );
         return $storedModifiers;
     }

@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Kirki\Util\Helper as KirkiHelper;
+use WP_Customize_Manager;
 
 abstract class AbstractApplicator
 {
@@ -62,8 +63,12 @@ abstract class AbstractApplicator
      *
      * @return boolean
      */
-    protected function setStatic($data)
+    protected function setStatic($data, WP_Customize_Manager $manager): bool
     {
+        if($this->isDraft($manager)) {
+            return false;
+        }
+
         if (is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
@@ -72,6 +77,24 @@ abstract class AbstractApplicator
         update_option($this->lastSignatureKey, $this->signature);
 
         return update_option($this->optionKey, $data);
+    }
+
+    /**
+     * Check if the changeset is a draft.
+     */
+    protected function isDraft(WP_Customize_Manager $manager): bool
+    {
+        // Check if the changeset status is available
+        if (isset($manager->changeset_post_id)) {
+            $changeset_status = get_post_status($manager->changeset_post_id);
+
+            // If the changeset is not 'publish', bail out
+            if ($changeset_status !== 'publish') {
+                return true;
+            }
+            false;
+        }
+        throw new \Exception('Changeset status not available.');
     }
 
     /**
