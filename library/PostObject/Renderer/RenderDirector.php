@@ -24,7 +24,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getBlockItemRender'], $config);
 
         return $this->builder
-            ->setView('BlockItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
@@ -59,7 +59,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getBoxGridItemRender'], $config);
 
         return $this->builder
-            ->setView('BoxGridItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
@@ -112,7 +112,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedCardItems = $this->renderPostObjects($postObjects, [$this, 'getCardItemRender'], $config);
 
         return $this->builder
-            ->setView('CardItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedCardItems])
             ->build();
     }
@@ -170,7 +170,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getCompressedItemRender'], $config);
 
         return $this->builder
-            ->setView('CompressedItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
@@ -227,7 +227,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getSchemaProjectItemRender'], $config);
 
         return $this->builder
-            ->setView('SchemaProjectItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
@@ -253,7 +253,7 @@ class RenderDirector implements RenderDirectorInterface
         $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getSegmentGridItemRender'], $config);
 
         return $this->builder
-            ->setView('SegmentGridItemCollection')
+            ->setView('RendererPostObjectsWrappedWithOgrid')
             ->setConfig(['renderedPostObjects' => $renderedPostObjects])
             ->build();
     }
