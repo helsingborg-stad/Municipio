@@ -1,3 +1,5 @@
 <div class="arcive-news-items o-grid">
-    {!! $renderedPostObjects !!}
+    @foreach ($postObjects as $postObject)
+        @include('Items.NewsItem', ['postObject' => $postObject])
+    @endforeach
 </div>

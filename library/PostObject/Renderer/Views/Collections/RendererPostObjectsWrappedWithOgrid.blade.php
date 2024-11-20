@@ -1,3 +1,5 @@
 <div class="o-grid">
-    {!! $renderedPostObjects !!}
+    @foreach($postObjects as $postObject)
+        @include($postObjectView, ['postObject' => $postObject])
+    @endforeach
 </div>

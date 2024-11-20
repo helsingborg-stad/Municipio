@@ -19,31 +19,33 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getBlockItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getBlockItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getBlockItemRender'], $config);
+        $config = array_merge([
+            'gridColumnClass'    => null,
+            'format'             => '12:16',
+            'displayReadingTime' => false,
+            'showPlaceholder'    => false,
+            'postObjectView'     => 'Items.BlockItem'
+        ], $config);
 
         return $this->builder
             ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getBlockItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getBlockItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(
-            [
+        $config = array_merge([
             'gridColumnClass'    => null,
             'format'             => '12:16',
             'displayReadingTime' => false,
             'showPlaceholder'    => false,
-            'postObject'         => $postObject
-            ],
-            $config
-        );
+            ], $config);
 
         return $this->builder
             ->setView('Items.BlockItem')
@@ -54,22 +56,29 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getBoxGridItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getBoxGridItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getBoxGridItemRender'], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'ratio'           => '1:1',
+            'postObjectView'  => 'Items.BoxGridItem'
+        ], $config);
 
         return $this->builder
             ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getBoxGridItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getBoxGridItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['gridColumnClass' => null, 'ratio' => '1:1', 'postObject' => $postObject], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'ratio'           => '1:1'
+        ], $config);
 
         return $this->builder
             ->setView('Items.BoxGridItem')
@@ -80,13 +89,13 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getListItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getListItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getListItemRender']);
+        //$renderedPostObjects = $this->renderPostObjects([$this, 'getListItemRender'], $config);
 
         return $this->builder
             ->setView('Collections.ListItemCollection')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects ])
+            ->setConfig($config)
             ->build();
     }
 
@@ -96,37 +105,41 @@ class RenderDirector implements RenderDirectorInterface
      * @param PostObjectInterface $postObject
      * @return RenderInterface
      */
-    public function getListItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getListItemRender(array $config = []): RenderInterface
     {
         return $this->builder
             ->setView('Items.ListItem')
-            ->setConfig(['postObject' => $postObject])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getCardItemCollectionRender(array $postObjects, array $config = []): RenderInterface
-    {
-        $renderedCardItems = $this->renderPostObjects($postObjects, [$this, 'getCardItemRender'], $config);
-
-        return $this->builder
-            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedCardItems])
-            ->build();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCardItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getCardItemCollectionRender(array $config = []): RenderInterface
     {
         $config = array_merge([
             'displayReadingTime' => false,
             'gridColumnClass'    => null,
             'showPlaceholder'    => false,
-            'postObject'         => $postObject
+            'postObjectView'     => 'Items.CardItem'
+        ], $config);
+
+        return $this->builder
+            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCardItemRender(array $config = []): RenderInterface
+    {
+        $config = array_merge([
+            'displayReadingTime' => false,
+            'gridColumnClass'    => null,
+            'showPlaceholder'    => false
         ], $config);
 
         return $this->builder
@@ -138,53 +151,58 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getCollectionItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getCollectionItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getCollectionItemRender'], $config);
+        $config                    = array_merge(['displayFeaturedImage' => true], $config);
+        $config['gridColumnClass'] = explode(' ', $config['gridColumnClass'] ?? '');
 
         return $this->builder
             ->setView('Collections.CollectionItemCollection')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getCollectionItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getCollectionItemRender(array $config = []): RenderInterface
     {
-        $gridColumnClass = explode(' ', $config['gridColumnClass'] ?? '');
-        $config          = array_merge(['displayFeaturedImage' => true], [...$config, 'gridColumnClass' => $gridColumnClass]);
+        $config                    = array_merge(['displayFeaturedImage' => true], $config);
+        $config['gridColumnClass'] = explode(' ', $config['gridColumnClass'] ?? '');
 
         return $this->builder
             ->setView('CollectionItem')
-            ->setConfig([...$config, 'postObject' => $postObject])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getCompressedItemCollectionRender(array $postObjects, array $config = []): RenderInterface
-    {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getCompressedItemRender'], $config);
-
-        return $this->builder
-            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
-            ->build();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCompressedItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getCompressedItemCollectionRender(array $config = []): RenderInterface
     {
         $config = array_merge([
             'displayReadingTime' => false,
             'gridColumnClass'    => null,
             'showPlaceholder'    => false,
-            'postObject'         => $postObject
+            'postObjectView'     => 'Items.CompressedItem'
+        ], $config);
+
+        return $this->builder
+            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
+            ->setConfig($config)
+            ->build();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCompressedItemRender(array $config = []): RenderInterface
+    {
+        $config = array_merge([
+            'displayReadingTime' => false,
+            'gridColumnClass'    => null,
+            'showPlaceholder'    => false,
         ], $config);
 
         return $this->builder
@@ -196,22 +214,22 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getNewsItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getNewsItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getNewsItemRender'], $config);
+        $config = array_merge(['gridColumnClass' => null], $config);
 
         return $this->builder
             ->setView('Collections.NewsItemCollection')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getNewsItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getNewsItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['gridColumnClass' => null, 'postObject' => $postObject], $config);
+        $config = array_merge(['gridColumnClass' => null], $config);
 
         return $this->builder
             ->setView('Items.NewsItem')
@@ -222,22 +240,29 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getSchemaProjectItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getSchemaProjectItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getSchemaProjectItemRender'], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'showPlaceholder' => false,
+            'postObjectView'  => 'Items.SchemaProjectItem'
+        ], $config);
 
         return $this->builder
             ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getSchemaProjectItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getSchemaProjectItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge([ 'gridColumnClass' => null, 'showPlaceholder' => false, 'postObject' => $postObject ], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'showPlaceholder' => false
+        ], $config);
 
         return $this->builder
             ->setView('Items.SchemaProjectItem')
@@ -248,22 +273,29 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getSegmentGridItemCollectionRender(array $postObjects, array $config = []): RenderInterface
+    public function getSegmentGridItemCollectionRender(array $config = []): RenderInterface
     {
-        $renderedPostObjects = $this->renderPostObjects($postObjects, [$this, 'getSegmentGridItemRender'], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'reverseColumns'  => false,
+            'postObjectView'  => 'Items.SegmentGridItem'
+        ], $config);
 
         return $this->builder
             ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
-            ->setConfig(['renderedPostObjects' => $renderedPostObjects])
+            ->setConfig($config)
             ->build();
     }
 
     /**
      * @inheritDoc
      */
-    public function getSegmentGridItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getSegmentGridItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['gridColumnClass' => null, 'reverseColumns' => false, 'postObject' => $postObject], $config);
+        $config = array_merge([
+            'gridColumnClass' => null,
+            'reverseColumns'  => false,
+        ], $config);
 
         return $this->builder
             ->setView('Items.SegmentGridItem')
@@ -274,9 +306,9 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getSegmentSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getSegmentSliderItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['postObject' => $postObject], $config);
+        $config = array_merge(['postObject' => $config['postObject'] ?? null], $config);
 
         return $this->builder
             ->setView('Items.SegmentSliderItem')
@@ -287,10 +319,8 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getSegmentItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getSegmentItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['postObject' => $postObject], $config);
-
         return $this->builder
             ->setView('Items.SegmentItem')
             ->setConfig($config)
@@ -300,9 +330,9 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getBoxSliderItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getBoxSliderItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['ratio' => '1:1', 'postObject' => $postObject], $config);
+        $config = array_merge(['ratio' => '1:1'], $config);
 
         return $this->builder
             ->setView('Items.BoxSliderItem')
@@ -313,28 +343,13 @@ class RenderDirector implements RenderDirectorInterface
     /**
      * @inheritDoc
      */
-    public function getBoxItemRender(PostObjectInterface $postObject, array $config = []): RenderInterface
+    public function getBoxItemRender(array $config = []): RenderInterface
     {
-        $config = array_merge(['ratio' => '1:1', 'postObject' => $postObject], $config);
+        $config = array_merge(['ratio' => '1:1'], $config);
 
         return $this->builder
             ->setView('Items.BoxItem')
             ->setConfig($config)
             ->build();
-    }
-
-    /**
-     * Render post objects.
-     *
-     * @param PostObjectInterface[] $postObjects
-     * @param callable $renderFunction
-     * @return string
-     */
-    public function renderPostObjects(array $postObjects, callable $renderFunction, array $config = []): string
-    {
-        $renderers           = array_map(fn ($postObject) => call_user_func($renderFunction, $postObject, $config), $postObjects);
-        $renderedPostObjects = array_map(fn (RenderInterface $render) => $render->render(), $renderers);
-
-        return implode('', $renderedPostObjects);
     }
 }

@@ -7,7 +7,9 @@
                 'sharpTop' => true,
                 'bordered' => true
             ])
-                {!! $renderedPostObjects !!}
+                @foreach ($postObjects as $postObject)
+                    @include('Items.ListItem', [ 'postObject' => $postObject ])
+                @endforeach
             @endcollection
         </div>
     </div>

@@ -5,8 +5,6 @@ namespace Municipio\Controller;
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererFactory;
-use Municipio\PostObject\Renderer\PostObjectCollectionRenderer\PostObjectCollectionRendererType;
 use Municipio\PostObject\Renderer\RenderBuilder;
 use Municipio\PostObject\Renderer\RenderDirector;
 
@@ -128,47 +126,22 @@ class Archive extends \Municipio\Controller\BaseController
             'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
             'gridColumnClass'    => $this->data['gridColumnClass'],
             'showPlaceholder'    => $this->data['anyPostHasImage'],
+            'postObjects'        => $postObjects,
         ];
 
         return match ($template) {
-            'box'            => $renderDirector->getBoxGridItemCollectionRender($postObjects, $config)->render(),
-            'cards'          => $renderDirector->getCardItemCollectionRender($postObjects, $config)->render(),
-            'collection'     => $renderDirector->getCollectionItemCollectionRender($postObjects, $config)->render(),
-            'compressed'     => $renderDirector->getCompressedItemCollectionRender($postObjects, $config)->render(),
-            'grid'           => $renderDirector->getBlockItemCollectionRender($postObjects, $config)->render(),
-            'listitem'       => $renderDirector->getListItemCollectionRender($postObjects, $config)->render(),
-            'newsitem'       => $renderDirector->getNewsItemCollectionRender($postObjects, $config)->render(),
-            'schema-project' => $renderDirector->getSchemaProjectItemCollectionRender($postObjects, $config)->render(),
-            'segment'        => $renderDirector->getSegmentGridItemCollectionRender($postObjects, $config)->render(),
+            'box'            => $renderDirector->getBoxGridItemCollectionRender($config)->render(),
+            'cards'          => $renderDirector->getCardItemCollectionRender($config)->render(),
+            'collection'     => $renderDirector->getCollectionItemCollectionRender($config)->render(),
+            'compressed'     => $renderDirector->getCompressedItemCollectionRender($config)->render(),
+            'grid'           => $renderDirector->getBlockItemCollectionRender($config)->render(),
+            'listitem'       => $renderDirector->getListItemCollectionRender($config)->render(),
+            'newsitem'       => $renderDirector->getNewsItemCollectionRender($config)->render(),
+            'schema-project' => $renderDirector->getSchemaProjectItemCollectionRender($config)->render(),
+            'segment'        => $renderDirector->getSegmentGridItemCollectionRender($config)->render(),
             default          => null,
         };
 
-        // $renderer = [
-        //     'box'            => PostObjectCollectionRendererType::BoxGridItemCollection,
-        //     'cards'          => PostObjectCollectionRendererType::CardItemCollection,
-        //     'grid'           => PostObjectCollectionRendererType::BlockItemCollection,
-        //     'compressed'     => PostObjectCollectionRendererType::CompressedItemCollection,
-        //     'collection'     => PostObjectCollectionRendererType::CollectionItemCollection,
-        //     'listitem'       => PostObjectCollectionRendererType::ListItemCollection,
-        //     'schema-project' => PostObjectCollectionRendererType::SchemaProjectItemCollection,
-        //     'segment'        => PostObjectCollectionRendererType::SegmentGridItemCollection,
-        //     'newsitem'       => PostObjectCollectionRendererType::NewsItemCollection,
-        // ][$template] ?? null;
-
-        // if (!$renderer) {
-        //     return null;
-        // }
-
-        // $renderer = (new PostObjectCollectionRendererFactory())->create($renderer);
-
-        // $renderer->setConfig([
-        //     'displayReadingTime' => $this->data['displayReadingTime'],
-        //     'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
-        //     'gridColumnClass'    => $this->data['gridColumnClass'],
-        //     'showPlaceholder'    => $this->data['anyPostHasImage'],
-        // ]);
-
-        // $renderer->setPostObjects($postObjects);
         return $renderer->render();
     }
 

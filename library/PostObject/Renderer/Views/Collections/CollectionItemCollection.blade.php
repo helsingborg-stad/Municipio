@@ -2,5 +2,7 @@
     'unbox' => true,
     'classList' => ['o-grid', 'o-grid--horizontal']
 ])
-    {!! $renderedPostObjects !!}
+    @foreach($postObjects as $postObject)
+        @include('Items.CollectionItem', ['postObject' => $postObject])
+    @endforeach
 @endcollection
