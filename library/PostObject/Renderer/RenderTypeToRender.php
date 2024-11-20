@@ -40,7 +40,6 @@ class RenderTypeToRender implements RenderTypeToRenderInterface
         return match ($type) {
             // Item types
             RenderType::BlockItem         => 'getBlockItemRender',
-            RenderType::BoxGridItem       => 'getBoxGridItemRender',
             RenderType::BoxItem           => 'getBoxItemRender',
             RenderType::BoxSliderItem     => 'getBoxSliderItemRender',
             RenderType::CardItem          => 'getCardItemRender',

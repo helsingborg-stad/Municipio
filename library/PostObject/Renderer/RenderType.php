@@ -6,7 +6,6 @@ enum RenderType: string
 {
     // Item types
     case BlockItem         = 'BlockItem';
-    case BoxGridItem       = 'BoxGridItem';
     case BoxItem           = 'BoxItem';
     case BoxSliderItem     = 'BoxSliderItem';
     case CardItem          = 'CardItem';

@@ -25,12 +25,11 @@ class RenderDirector implements RenderDirectorInterface
             'gridColumnClass'    => null,
             'format'             => '12:16',
             'displayReadingTime' => false,
-            'showPlaceholder'    => false,
-            'postObjectView'     => 'Items.BlockItem'
+            'showPlaceholder'    => false
         ], $config);
 
         return $this->builder
-            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
+            ->setView('Collections.BlockItemCollection')
             ->setConfig($config)
             ->build();
     }
@@ -60,12 +59,13 @@ class RenderDirector implements RenderDirectorInterface
     {
         $config = array_merge([
             'gridColumnClass' => null,
+            'noGutter'        => false,
             'ratio'           => '1:1',
-            'postObjectView'  => 'Items.BoxGridItem'
+            'stretch'         => false,
         ], $config);
 
         return $this->builder
-            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
+            ->setView('Collections.BoxGridItemCollection')
             ->setConfig($config)
             ->build();
     }
@@ -91,7 +91,7 @@ class RenderDirector implements RenderDirectorInterface
      */
     public function getListItemCollectionRender(array $config = []): RenderInterface
     {
-        //$renderedPostObjects = $this->renderPostObjects([$this, 'getListItemRender'], $config);
+        $config = ['title' => null, ...$config];
 
         return $this->builder
             ->setView('Collections.ListItemCollection')
@@ -121,12 +121,11 @@ class RenderDirector implements RenderDirectorInterface
         $config = array_merge([
             'displayReadingTime' => false,
             'gridColumnClass'    => null,
-            'showPlaceholder'    => false,
-            'postObjectView'     => 'Items.CardItem'
+            'showPlaceholder'    => false
         ], $config);
 
         return $this->builder
-            ->setView('Collections.RendererPostObjectsWrappedWithOgrid')
+            ->setView('Collections.CardItemCollection')
             ->setConfig($config)
             ->build();
     }
