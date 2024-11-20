@@ -4,6 +4,11 @@ namespace Municipio;
 
 use Kirki\Compatibility\Kirki;
 use Municipio\Customizer\PanelsRegistry;
+use WpService\WpService;
+use wpdb;
+use Municipio\Customizer\Applicators\Types\Modifier;
+use Municipio\Customizer\Applicators\Types\Component;
+use Municipio\Customizer\Applicators\Types\Controller;
 
 class Customizer
 {
@@ -11,10 +16,11 @@ class Customizer
 
     public static $panels = array();
 
-    public function __construct()
+    public function __construct(private WpService $wpService, private wpdb $wpdb)
     {
         //Load embedded kirki PRO
         $this->loadEmbeddedKirkiPro();
+        $this->init();
 
         //Kirki failed to load, handle
         add_action('init', function () {
@@ -132,14 +138,36 @@ class Customizer
         }
 
         //Applicators [Applies settings on the frontend]
-        new \Municipio\Customizer\Applicators\Modifiers();
-        new \Municipio\Customizer\Applicators\ComponentData();
-        new \Municipio\Customizer\Applicators\ControllerVariables();
-        new \Municipio\Customizer\Applicators\Css();
+        $this->initApplictors();
 
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
 
         PanelsRegistry::getInstance()->build();
+    }
+
+    /**
+     * Initialize applicators
+     * This will apply settings from the customizer on the frontend.
+     * This also includes a cacing layer, to reduce the amount of 
+     * time spent on calculating the settings.
+     *
+     * @return void
+     */
+    public function initApplictors()
+    {
+        $applicators = [
+            new Modifier($this->wpService),
+            new Component($this->wpService),
+            new Controller($this->wpService)
+        ];
+
+        $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
+            $this->wpService,
+            $this->wpdb,
+            ...$applicators
+        );
+
+        $customizerCache->addHooks();
     }
 }

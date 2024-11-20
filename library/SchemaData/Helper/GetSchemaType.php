@@ -35,7 +35,12 @@ class GetSchemaType
             throw new \Exception('AcfService not set');
         }
 
-        return self::$acfService->getField('post_type_schema_types', 'option') ?: [];
+        $schemaTypesInUse = self::$acfService->getField('post_type_schema_types', 'option') ?: [];
+        if(is_array($schemaTypesInUse)) {
+            return $schemaTypesInUse;
+        }
+
+        return [];
     }
 
     /**

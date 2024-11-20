@@ -11,7 +11,7 @@ class ControllerVariables extends AbstractApplicator
     public function __construct()
     {
         add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
-        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
+        add_action('Municipio/Customizer/Publish', array($this, 'storeControllerVars'), 50);
         add_action('Municipio/Customizer/Applicator/ControllerVars/RefreshCache', array($this, 'storeControllerVars'), 50, 1);
     }
 
@@ -20,16 +20,12 @@ class ControllerVariables extends AbstractApplicator
      *
      * @return array
      */
-    public function storeControllerVars($manager = null)
+    public function storeControllerVars()
     {
-        if (is_a($manager, 'WP_Customize_Manager') || is_null($manager)) {
-            $this->setStatic(
-                $controllerVars = $this->get(),
-                $manager
-            );
-            return $controllerVars;
-        }
-        return null;
+        $this->setStatic(
+            $controllerVars = $this->get()
+        );
+        return $controllerVars;
     }
 
     /**

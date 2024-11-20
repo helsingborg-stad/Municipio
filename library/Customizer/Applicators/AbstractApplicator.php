@@ -39,6 +39,9 @@ abstract class AbstractApplicator
      */
     protected function getStatic()
     {
+        if (is_customize_preview()) {
+            return false;
+        }
 
         if (is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
@@ -47,10 +50,6 @@ abstract class AbstractApplicator
 
         if (isset($this->runtimeCache[$this->optionKey])) {
             return $this->runtimeCache[$this->optionKey];
-        }
-
-        if (is_customize_preview()) {
-            return false;
         }
 
         return $this->runtimeCache[$this->optionKey] = get_option($this->optionKey, false);
@@ -63,12 +62,8 @@ abstract class AbstractApplicator
      *
      * @return boolean
      */
-    protected function setStatic($data, ?WP_Customize_Manager $manager = null): bool
+    protected function setStatic($data): bool
     {
-        if($this->isDraft($manager)) {
-            return false;
-        }
-
         if (is_null($this->signature)) {
             $this->signature = $this->getFieldSignature($this->getFields());
             $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
@@ -77,29 +72,6 @@ abstract class AbstractApplicator
         update_option($this->lastSignatureKey, $this->signature);
 
         return update_option($this->optionKey, $data);
-    }
-
-    /**
-     * Check if the changeset is a draft.
-     */
-    protected function isDraft(?WP_Customize_Manager $manager): bool
-    {
-        // Check if the manager is available, if not, assume that we are not in the customizer
-        if (is_null($manager)) {
-            return false;
-        }
-
-        // Check if the changeset status is available
-        if (isset($manager->changeset_post_id)) {
-            $changeset_status = get_post_status($manager->changeset_post_id);
-
-            // If the changeset is not 'publish', bail out
-            if ($changeset_status !== 'publish') {
-                return true;
-            }
-            false;
-        }
-        throw new \Exception('Changeset status not available.');
     }
 
     /**

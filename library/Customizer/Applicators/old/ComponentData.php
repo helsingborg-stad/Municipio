@@ -12,8 +12,16 @@ class ComponentData extends AbstractApplicator
 
     public function __construct()
     {
-        add_action('customize_save_after', array($this, 'storeComponentData'), 50, 1);
+        add_action('init', function() {
+
+            echo "HEK"; 
+            var_dump($this->isObsolete());
+die;
+        }); 
+
+
         add_filter('ComponentLibrary/Component/Data', array($this, 'applyStoredComponentData'), 10);
+        add_action('Municipio/Customizer/Publish', array($this, 'storeComponentData'), 50);
         add_action('Municipio/Customizer/Applicator/ComponentData/RefreshCache', array($this, 'storeComponentData'), 50, 1);
     }
 
@@ -22,16 +30,12 @@ class ComponentData extends AbstractApplicator
      *
      * @return void
      */
-    public function storeComponentData($manager = null)
+    public function storeComponentData()
     {
-        if (is_a($manager, 'WP_Customize_Manager') || is_null($manager)) {
-            $this->setStatic(
-                $componentData = $this->calculateComponentData(),
-                $manager
-            );
-            return $componentData;
-        }
-        return null;
+        $this->setStatic(
+            $componentData = $this->calculateComponentData()
+        );
+        return $componentData;
     }
 
     /**

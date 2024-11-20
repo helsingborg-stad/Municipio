@@ -11,7 +11,7 @@ class Modifiers extends AbstractApplicator
     public function __construct()
     {
         add_action('customize_save_after', array($this, 'storeModifiers'), 50, 1);
-        add_filter('ComponentLibrary/Component/Modifier', array($this, 'applyStoredModifiers'), 10, 2);
+        add_action('Municipio/Customizer/Publish', array($this, 'applyStoredModifiers'), 50);
         add_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache', array($this, 'storeModifiers'), 50, 1);
     }
 
@@ -20,16 +20,12 @@ class Modifiers extends AbstractApplicator
      *
      * @return void
      */
-    public function storeModifiers($manager = null): array
+    public function storeModifiers(): array
     {
-        if(is_a($manager, 'WP_Customize_Manager') || is_null($manager)) {
-            $this->setStatic(
-                $storedModifiers = $this->calculateModifiers(),
-                $manager
-            );
-            return $storedModifiers;
-        }
-        return null;
+        $this->setStatic(
+            $storedModifiers = $this->calculateModifiers()
+        );
+        return $storedModifiers;
     }
 
     /**
