@@ -16,7 +16,6 @@
         ,
         'classListText' => [
             'u-display--none@xs',
-            'u-order--10'
         ],
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
