@@ -15,7 +15,6 @@
             ['mega-menu-trigger'])
         ,
         'classListText' => [
-            'u-display--none@xs',
             'u-order--10'
         ],
         'attributeList' => [
