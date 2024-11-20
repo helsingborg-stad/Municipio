@@ -349,7 +349,7 @@ class Template
                     }
 
                     // Template slug
-                    if (get_page_template_slug()) {
+                    if (get_queried_object() && get_page_template_slug()) {
                         $type = get_page_template_slug();
                     }
 
