@@ -2,7 +2,7 @@
 
 namespace Municipio\PostObject\Renderer;
 
-use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class RenderItemTypeToRenderTest extends TestCase
@@ -11,16 +11,19 @@ class RenderItemTypeToRenderTest extends TestCase
 
     protected function setUp(): void
     {
-        $renderFactory            = $this->createMock(RenderDirectorInterface::class);
-        $postObject               = $this->createMock(PostObjectInterface::class);
-        $this->renderTypeToRender = new RenderItemTypeToRender($renderFactory, $postObject);
+        $this->renderTypeToRender = new RenderTypeToRender($this->getRenderFactory());
+    }
+
+    private function getRenderFactory(): RenderDirectorInterface|MockObject
+    {
+        return $this->createMock(RenderDirectorInterface::class);
     }
 
     /**
      * @testdox returns RenderInterface for RenderItemType
      * @dataProvider renderTypesProvider
      */
-    public function testGetRenderTypeFromRenderReturnsRenderBuilderInterfaceForBlockItem(RenderItemType $rendertype): void
+    public function testGetRenderTypeFromRenderReturnsRenderBuilderInterfaceForBlockItem(RenderType $rendertype): void
     {
         $this->assertInstanceOf(RenderInterface::class, $this->renderTypeToRender->getRenderFromRenderType($rendertype));
     }
@@ -28,7 +31,7 @@ class RenderItemTypeToRenderTest extends TestCase
     public function renderTypesProvider(): array
     {
         $cases = [];
-        foreach (RenderItemType::cases() as $case) {
+        foreach (RenderType::cases() as $case) {
             $cases[$case->value] = [$case];
         }
 

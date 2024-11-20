@@ -7,6 +7,8 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Renderer\RenderBuilder;
 use Municipio\PostObject\Renderer\RenderDirector;
+use Municipio\PostObject\Renderer\RenderType;
+use Municipio\PostObject\Renderer\RenderTypeToRender;
 
 /**
  * Class Archive
@@ -129,20 +131,23 @@ class Archive extends \Municipio\Controller\BaseController
             'postObjects'        => $postObjects,
         ];
 
-        return match ($template) {
-            'box'            => $renderDirector->getBoxGridItemCollectionRender($config)->render(),
-            'cards'          => $renderDirector->getCardItemCollectionRender($config)->render(),
-            'collection'     => $renderDirector->getCollectionItemCollectionRender($config)->render(),
-            'compressed'     => $renderDirector->getCompressedItemCollectionRender($config)->render(),
-            'grid'           => $renderDirector->getBlockItemCollectionRender($config)->render(),
-            'listitem'       => $renderDirector->getListItemCollectionRender($config)->render(),
-            'newsitem'       => $renderDirector->getNewsItemCollectionRender($config)->render(),
-            'schema-project' => $renderDirector->getSchemaProjectItemCollectionRender($config)->render(),
-            'segment'        => $renderDirector->getSegmentGridItemCollectionRender($config)->render(),
+        $renderType = match ($template) {
+            'box'            => RenderType::BoxGridItemCollection,
+            'cards'          => RenderType::CardItemCollection,
+            'collection'     => RenderType::CollectionItemCollection,
+            'compressed'     => RenderType::CompressedItemCollection,
+            'grid'           => RenderType::BlockItemCollection,
+            'listitem'       => RenderType::ListItemCollection,
+            'newsitem'       => RenderType::NewsItemCollection,
+            'schema-project' => RenderType::SchemaProjectItemCollection,
+            'segment'        => RenderType::SegmentGridItemCollection,
             default          => null,
         };
 
-        return $renderer->render();
+        $getRenderFromType = new RenderTypeToRender($renderDirector);
+        $renderer          = $getRenderFromType->getRenderFromRenderType($renderType, $config);
+
+        return $renderer ? $renderer->render() : null;
     }
 
     /**
