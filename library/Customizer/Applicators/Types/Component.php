@@ -5,6 +5,7 @@ namespace Municipio\Customizer\Applicators\Types;
 use Municipio\Customizer\Applicators\AbstractApplicator;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 use WpService\WpService;
+use Error;
 
 class Component extends AbstractApplicator implements ApplicatorInterface {
   
@@ -17,14 +18,14 @@ class Component extends AbstractApplicator implements ApplicatorInterface {
 
   public function applyData(array|object $data)
   {
-    $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10);
+    $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
   }
 
-  public function applyDataFilterFunction(array|object $data)
+  public function applyDataFilterFunction($modifiers, $contexts)
   {
     $contexts = isset($data['context']) ? (array) $data['context'] : [];
 
-    foreach ($data as $filter) {
+    foreach ($modifiers as $filter) {
         $passFilterRules = false;
 
         foreach ($filter['contexts'] as $filterContext) {
@@ -47,11 +48,11 @@ class Component extends AbstractApplicator implements ApplicatorInterface {
         }
 
         if ($passFilterRules) {
-            $data = array_replace_recursive($data, $filter['data']);
+            $modifiers = array_replace_recursive($modifiers, $filter['data']);
         }
     }
 
-    return $data;
+    return $modifiers;
   }
 
   public function getData(): array

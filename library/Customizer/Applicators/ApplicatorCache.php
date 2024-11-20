@@ -10,7 +10,7 @@ use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Kirki\Util\Helper as KirkiHelper;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 
-class ApplicatorCache implements Hookable {
+class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
 
   private $cacheKeyBaseName = 'theme_mod_applicator_cache';
   private array $applicators = [];
@@ -19,10 +19,32 @@ class ApplicatorCache implements Hookable {
     $this->applicators = $applicators;
   }
 
+  /**
+   * Add hooks.
+   * 
+   * @return void
+   */
   public function addHooks(): void
   {
     $this->wpService->addAction('init', array($this, 'tryCreateCache'), 10);
     $this->wpService->addAction('init', array($this, 'tryApplyCache'), 20);
+  }
+
+  /**
+   * Clear the cache.
+   * 
+   * @return bool True if the cache was cleared, false otherwise (no cache found).
+   */
+  public function tryClearCache(): bool
+  {
+    $this->wpdb->query(
+      $this->wpdb->prepare(
+          "DELETE FROM {$this->wpdb->options} 
+           WHERE option_name LIKE %s",
+          $this->cacheKeyBaseName . '_%'
+      )
+    );
+    return (bool) $this->wpdb->rows_affected;
   }
 
   /**
@@ -89,7 +111,7 @@ class ApplicatorCache implements Hookable {
    */
   private function isFrontend(): bool
   {
-    return !is_admin() && !is_customize_preview() && !defined('DOING_AJAX') && !defined('REST_REQUEST') && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
+    return !is_admin() && !defined('DOING_AJAX') && !defined('REST_REQUEST') && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
   }
 
   /**
@@ -121,8 +143,9 @@ class ApplicatorCache implements Hookable {
   private function getCacheKey(): string
   {
     return sprintf(
-      '%s_%s_%s', 
+      '%s_%s_%s_%s',
       $this->cacheKeyBaseName, 
+      $this->getCustomizerStateKey(),
       $this->getCustomizerLastPublished(), 
       $this->getCustomzerFieldSignature()
     );
@@ -173,7 +196,7 @@ class ApplicatorCache implements Hookable {
             ORDER BY post_modified_gmt DESC 
             LIMIT 1",
             'customize_changeset',
-            'publish'
+            $this->getCustomizerStateKey()
         )
       );
       return strtotime($latestDate) ?? null;
@@ -195,6 +218,17 @@ class ApplicatorCache implements Hookable {
         );
     }
     return $this->getArraySignature($fields);
+  }
+
+  /**
+   * Get the customizer state key.
+   * Determines if the customizer is in preview mode or not.
+   * 
+   * @return string
+   */
+  private function getCustomizerStateKey(): string
+  {
+    return $this->wpService->isCustomizePreview() ? 'draft' : 'publish';
   }
 
   /**
