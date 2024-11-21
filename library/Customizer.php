@@ -9,6 +9,7 @@ use wpdb;
 use Municipio\Customizer\Applicators\Types\Modifier;
 use Municipio\Customizer\Applicators\Types\Component;
 use Municipio\Customizer\Applicators\Types\Controller;
+use Municipio\Customizer\Applicators\Types\Css;
 
 class Customizer
 {
@@ -160,6 +161,7 @@ class Customizer
             new Controller($this->wpService),
             new Modifier($this->wpService),
             new Component($this->wpService),
+            new Css($this->wpService)
         ];
 
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(

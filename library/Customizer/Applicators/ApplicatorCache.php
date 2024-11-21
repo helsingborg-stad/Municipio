@@ -29,7 +29,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
     $this->wpService->addAction('init', array($this, 'tryCreateCache'), 10);
     $this->wpService->addAction('init', array($this, 'tryApplyCache'), 20);
     $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 10);
-    $this->wpService->addAction('admin_init', array($this, 'tryClearCacheUrl'), 10);
+    $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 10);
   }
 
   /**
@@ -37,7 +37,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    * 
    * @return void
    */
-  public function tryClearCacheUrl() {
+  public function tryClearCacheByUrl() {
     if(isset($_GET['clear_customizer_cache'])) {
       if($this->wpService->currentUserCan('customize')) {
         $this->tryClearCache();
@@ -223,7 +223,8 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
       )
     );
 
-    return $latestDate ? strtotime($latestDate) : time();
+    //NOTE: DEV ONLY. REMOVE WHEN DONE!!
+    return time();// $latestDate ? strtotime($latestDate) : time();
   }
 
   /**
