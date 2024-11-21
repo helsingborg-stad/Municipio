@@ -23,7 +23,8 @@
         's-drawer-menu'
     ],
     'label' => $lang->close,
-    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes
+    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
+    'context' => ['site.header.drawer'],
 ])
 
     @slot('search')
