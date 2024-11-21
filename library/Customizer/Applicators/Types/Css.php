@@ -12,11 +12,12 @@ class Css extends AbstractApplicator implements ApplicatorInterface {
   
   private $baseFontSize = '16px';
   public  $optionName = 'css';
-  private $postType = 'all';
-  private $option = [];
+  private static $hasApplied = false;
+  private $kirkiConfigName;
 
   public function __construct(private WpService $wpService){
     define('KIRKI_NO_OUTPUT', true);
+    $this->kirkiConfigName = \Municipio\Customizer::KIRKI_CONFIG;
   }
 
   public function getKey(): string
@@ -24,12 +25,22 @@ class Css extends AbstractApplicator implements ApplicatorInterface {
     return 'css';
   }
 
-  public function applyData(array|object|string $data)
+  /**
+   * Apply data to css with the kirki filter
+   * 
+   * @param array|object|string $data
+   * 
+   * @return void
+   */
+  public function applyData(array|object|string $data): void
   {
-    $this->wpService->addFilter('kirki_' . \Municipio\Customizer::KIRKI_CONFIG . '_styles', [$this, 'filterFontSize']);
+    $this->wpService->addFilter('kirki_' . $this->kirkiConfigName . '_styles', [$this, 'filterFontSize']);
     $this->wpService->addAction('kirki_dynamic_css', function() use ($data) {
-      echo $data;
-    }, 500);
+      if(!self::$hasApplied) {
+        echo $data;
+      }
+      self::$hasApplied = true;
+    }, 20);
   }
 
   /**
@@ -40,7 +51,7 @@ class Css extends AbstractApplicator implements ApplicatorInterface {
   public function getData(): string
   {
     return $this->getCssOutputComment() . $this->filterStyles(
-      KirkiCSS::loop_controls(\Municipio\Customizer::KIRKI_CONFIG)
+      KirkiCSS::loop_controls($this->kirkiConfigName)
     );
   }
 
@@ -70,13 +81,18 @@ class Css extends AbstractApplicator implements ApplicatorInterface {
    */
   private function filterStyles(string $styles)
   {
-    $filteredStyles = apply_filters(
-        "kirki_" . \Municipio\Customizer::KIRKI_CONFIG . "_dynamic_css",
-        $styles
+    //Native filter
+    $filteredStyles = $this->wpService->applyFilters(
+      "kirki_" . $this->kirkiConfigName . "_dynamic_css",
+      $styles
     );
+
+    //Additional filters (escape, strip tags, etc)
     $filteredStyles = wp_strip_all_tags($filteredStyles);
     $filteredStyles = preg_replace('/\s+/', ' ', $filteredStyles);
     $filteredStyles = $filteredStyles . "\n";
+
+    //Return filtered styles, if any.
     return !empty($filteredStyles) ? $filteredStyles : false;
   }
 

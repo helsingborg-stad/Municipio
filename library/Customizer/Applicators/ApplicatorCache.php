@@ -26,10 +26,10 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   public function addHooks(): void
   {
-    $this->wpService->addAction('init', array($this, 'tryCreateCache'), 10);
-    $this->wpService->addAction('init', array($this, 'tryApplyCache'), 20);
-    $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 10);
-    $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 10);
+    $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateCache'), 5);
+    $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryApplyCache'), 10);
+    $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
+    $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 20);
   }
 
   /**
@@ -165,7 +165,8 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
       $this->cacheKeyBaseName, 
       $this->getCustomizerStateKey(),
       $this->getCustomizerLastPublished(), 
-      $this->getCustomzerFieldSignature()
+      $this->getCustomzerFieldSignature().
+      $this->getCacheKeySuffix()
     );
   }
 
@@ -223,8 +224,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
       )
     );
 
-    //NOTE: DEV ONLY. REMOVE WHEN DONE!!
-    return time();// $latestDate ? strtotime($latestDate) : time();
+    return $latestDate ? strtotime($latestDate) : time();
   }
 
   /**
@@ -254,6 +254,21 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
   private function getCustomizerStateKey(): string
   {
     return $this->wpService->isCustomizePreview() ? 'draft' : 'publish';
+  }
+
+  /**
+   * Get the cache key suffix.
+   * This may be used when a postType needs to be cached separately.
+   * 
+   * @return string
+   */
+  private function getCacheKeySuffix(): string
+  {
+    return $this->wpService->applyFilters(
+      'Municipio/Customizer/CacheKeySuffix', '', 
+      $this->wpService->isCustomizePreview(),
+      $this->wpService->getPostType()
+    );
   }
 
   /**
