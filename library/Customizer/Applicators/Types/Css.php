@@ -5,9 +5,7 @@ namespace Municipio\Customizer\Applicators\Types;
 use Municipio\Customizer\Applicators\AbstractApplicator;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 use WpService\WpService;
-use Error;
 use Kirki\Module\CSS as KirkiCSS;
-
 class Css extends AbstractApplicator implements ApplicatorInterface {
   
   private $baseFontSize = '16px';

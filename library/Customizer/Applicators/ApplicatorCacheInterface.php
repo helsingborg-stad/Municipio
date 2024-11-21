@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace Municipio\Customizer\Applicators;
 
 interface ApplicatorCacheInterface

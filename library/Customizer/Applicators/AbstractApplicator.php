@@ -21,8 +21,8 @@ abstract class AbstractApplicator
      */
     protected function getFields(): array
     {
-        static $fields; 
-        if($fields) {
+        static $fields;
+        if ($fields) {
             return $fields;
         }
         $fields = [];

@@ -36,7 +36,7 @@ class GetSchemaType
         }
 
         $schemaTypesInUse = self::$acfService->getField('post_type_schema_types', 'option') ?: [];
-        if(is_array($schemaTypesInUse)) {
+        if (is_array($schemaTypesInUse)) {
             return $schemaTypesInUse;
         }
 

@@ -150,7 +150,7 @@ class Customizer
     /**
      * Initialize applicators
      * This will apply settings from the customizer on the frontend.
-     * This also includes a cacing layer, to reduce the amount of 
+     * This also includes a cacing layer, to reduce the amount of
      * time spent on calculating the settings.
      *
      * @return void
