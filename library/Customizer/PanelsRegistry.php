@@ -437,7 +437,7 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_breadcrumbs')
+                    ->setID('municipio_customizer_section_drawer')
                     ->setTitle(esc_html__('Drawer', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Drawer('municipio_customizer_section_drawer'))
             )

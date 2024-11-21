@@ -24,8 +24,13 @@ class Drawer
                 'primary' => esc_html__('Primary', 'municipio'),
                 'secondary' => esc_html__('Secondary', 'municipio'),
             ],
-            'output'      => [
-              ['type' => 'controller']
+            'output'          => [
+                [
+                    'type'    => 'modifier',
+                    'context' => [
+                      'site.header.drawer'
+                  ],
+                ]
             ],
           ]);
     }
