@@ -27,11 +27,8 @@ class General
     /**
      * Constructor for the General class.
      */
-    public function __construct(private AddFilter&AddAction&CurrentUserCan&ShowAdminBar&IsAdmin&WpDoingAjax&WpRedirect&HomeUrl&GetRole&AddRole&DeleteOption&UpdateOption&RemoveRole $wpService)
+    public function __construct(private AddAction&CurrentUserCan&ShowAdminBar&isAdmin&WpDoingAjax&WpRedirect&HomeUrl $wpService)
     {
-        $this->wpService->addAction('admin_init', array($this, 'removeUnusedRoles'));
-        $this->wpService->addAction('admin_init', array($this, 'addMissingRoles'));
-
         if (!$this->wpService->currentUserCan('edit_posts')) {
             $this->handleUsersWithoutEditPostsCapability();
         }
@@ -56,52 +53,5 @@ class General
                 exit;
             }
         });
-    }
-
-    /**
-     * Adds back missing author role
-     */
-    public function addMissingRoles()
-    {
-        if (!$this->wpService->getRole('author')) {
-            $this->wpService->addRole(
-                'author',
-                'Author',
-                array(
-                    'upload_files'           => true,
-                    'edit_posts'             => true,
-                    'edit_published_posts'   => true,
-                    'publish_posts'          => true,
-                    'read'                   => true,
-                    'level_2'                => true,
-                    'level_1'                => true,
-                    'level_0'                => true,
-                    'delete_posts'           => true,
-                    'delete_published_posts' => true
-                )
-            );
-
-            $this->wpService->deleteOption('_author_role_bkp');
-        }
-    }
-
-    /**
-     * Remove unwanted roles
-     * @return void
-     */
-    public function removeUnusedRoles()
-    {
-        $removeRoles = array(
-            'contributor'
-        );
-
-        foreach ($removeRoles as $role) {
-            if (!$this->wpService->getRole($role)) {
-                continue;
-            }
-
-            $this->wpService->updateOption('_' . $role . '_role_bkp', $this->wpService->getRole('author'));
-            $this->wpService->removeRole($role);
-        }
     }
 }
