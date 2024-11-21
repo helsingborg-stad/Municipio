@@ -26,8 +26,13 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   public function addHooks(): void
   {
-    $this->wpService->addAction('init', array($this, 'tryCreateCache'), 10);
-    $this->wpService->addAction('init', array($this, 'tryApplyCache'), 20);
+    $this->wpService->addAction('after_setup_theme', array($this, 'tryCreateCache'), 10);
+    $this->wpService->addAction('after_setup_theme', array($this, 'tryApplyCache'), 20);
+    $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 10);
+
+    if(isset($_GET['clear_customizer_cache'])) {
+      $this->tryClearCache();
+    }
   }
 
   /**
@@ -56,7 +61,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
   {
     //Check if in frontend
     if(!$this->isFrontend()) {
-      return;
+    //  return;
     }
 
     //Try to get the static cache
@@ -70,8 +75,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
         ...$this->applicators
       );
     }
-
-    die;
   }
 
   /** 
@@ -92,7 +95,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
     );
 
     if(is_null($staticCache)) {
-      return;
+      throw new \Exception('No cache found for customizer settings.');
     }
 
     foreach($this->applicators as $applicator) {
@@ -100,7 +103,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
       if(is_null($cachedData)) {
         continue;
       }
-      $applicator->applyData();
+      $applicator->applyData($cachedData);
     }
   }
 
@@ -175,9 +178,10 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   public function getStaticCache(string $cacheKey): array|null
   {
-    return $this->wpService->getOption(
+    $staticCache = $this->wpService->getOption(
       $cacheKey
     ) ?: null;
+    return $this->wpService->applyFilters('Municipio/Customizer/StaticCache', $staticCache);
   }
 
   /**
@@ -199,7 +203,8 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
             $this->getCustomizerStateKey()
         )
       );
-      return strtotime($latestDate) ?? null;
+
+      return $latestDate ? strtotime($latestDate) : time();
   }
 
   /**
@@ -228,7 +233,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   private function getCustomizerStateKey(): string
   {
-    return $this->wpService->isCustomizePreview() ? 'draft' : 'publish';
+    return $this->wpService->isCustomizePreview() ? 'auto-draft' : 'publish';
   }
 
   /**

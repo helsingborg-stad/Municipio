@@ -15,13 +15,18 @@ class Controller extends AbstractApplicator implements ApplicatorInterface {
     return 'controller';
   }
 
+  /**
+   * Apply data to controllers with the controller filer
+   * 
+   * @param array|object $data
+   */
   public function applyData(array|object $data)
   {
     $this->wpService->addFilter('Municipio/Controller/Customizer', function($filterInput) use ($data) {
-      if(is_array($filterInput)) {
-        return array_merge($filterInput, $data);
+      if(is_array($filterInput) && !empty($filterInput)) {
+        return (object) array_merge($filterInput, (array) $data);
       }
-      return $data;
+      return (object) $data;
     });
   }
 

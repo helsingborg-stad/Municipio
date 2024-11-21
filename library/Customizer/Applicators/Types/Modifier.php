@@ -4,9 +4,12 @@ namespace Municipio\Customizer\Applicators\Types;
 
 use Municipio\Customizer\Applicators\AbstractApplicator;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
+use WpService\WpService;
 
 class Modifier extends AbstractApplicator implements ApplicatorInterface {
-  
+
+  public function __construct(private WpService $wpService){}
+
   public function getKey(): string
   {
     return 'modifier';
@@ -14,10 +17,10 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface {
 
   public function applyData(array|object $data)
   {
-    $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10);
+    $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
   }
 
-  public function applyDataFilterFunction(array|object $data)
+  public function applyDataFilterFunction($modifiers, $contexts)
   {
     if (!is_array($contexts)) {
         $contexts = [$contexts];
@@ -27,14 +30,7 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface {
         $modifiers = [$modifiers];
     }
 
-    $storedModifiers = $this->getStatic();
-
-    // If storedModifiers is empty, calculate and store them
-    if ($storedModifiers === false) {
-        $storedModifiers = $this->storeModifiers();
-    }
-
-    foreach ($storedModifiers as $filter) {
+    foreach ($modifiers as $filter) {
         $passFilterRules = false;
 
         foreach ($filter['contexts'] as $filterContext) {
