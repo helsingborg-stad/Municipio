@@ -208,20 +208,24 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   private function getCustomizerLastPublished(): string|null
   {
-      $latestDate = $this->wpdb->get_var(
-        $this->wpdb->prepare(
-            "SELECT post_modified_gmt 
-            FROM {$this->wpdb->posts} 
-            WHERE post_type = %s 
-              AND post_status = %s 
-            ORDER BY post_modified_gmt DESC 
-            LIMIT 1",
-            'customize_changeset',
-            $this->getCustomizerStateKey()
-        )
-      );
+    $postStatus = $this->getCustomizerStateKey() === 'draft' ? 
+    ['draft', 'auto-draft', 'inherit', 'future', 'trash', 'publish'] : 
+    ['publish'];
 
-      return $latestDate ? strtotime($latestDate) : time();
+    $latestDate = $this->wpdb->get_var(
+      $this->wpdb->prepare(
+          "SELECT post_modified_gmt 
+          FROM {$this->wpdb->posts} 
+          WHERE post_type = %s 
+          AND post_status IN (%s) 
+          ORDER BY post_modified_gmt DESC 
+          LIMIT 1",
+          'customize_changeset',
+          implode(",", $postStatus)
+      )
+    );
+
+    return $latestDate ? strtotime($latestDate) : time();
   }
 
   /**
@@ -250,7 +254,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   private function getCustomizerStateKey(): string
   {
-    return $this->wpService->isCustomizePreview() ? 'auto-draft' : 'publish';
+    return $this->wpService->isCustomizePreview() ? 'draft' : 'publish';
   }
 
   /**
