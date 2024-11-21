@@ -128,15 +128,6 @@ class BaseController
 
         $this->menuDirector->setBuilder($this->menuBuilder);
 
-        // All menu settings should be stored in the nav_menus_settings option
-        $menuSettings                        = $this->wpService->getOption('nav_menus_settings', []);
-        $this->data['additionalMenusOption'] = $menuSettings['additional_menus'] ?? [];
-
-        // Building additional menus in use
-        $this->data['additionalMenus'] = $this->buildAdditionalMenus();
-
-
-
         // Accessibility menu
         $accessibilityMenuConfig = new MenuConfig(
             'accessibility',
@@ -432,45 +423,6 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
-    }
-
-    /**
-     * Builds additional menus based on the provided options.
-     *
-     * @return array The array of additional menus.
-     */
-    private function buildAdditionalMenus(): array
-    {
-        $additionalMenus       = [];
-        $additionalMenusOption = $this->data['additionalMenusOption'];
-
-        if (empty($additionalMenusOption)) {
-            return $additionalMenus;
-        }
-
-        foreach ($additionalMenusOption as $key => $additionalMenuIds) {
-            if (empty($additionalMenuIds)) {
-                continue;
-            }
-
-
-            foreach ($additionalMenuIds as $menuId) {
-                if (empty($menuId) || !is_numeric($menuId) || array_key_exists($menuId, $additionalMenus)) {
-                    continue;
-                }
-
-                $menuConfig = new MenuConfig(
-                    'additional-menu',
-                    (int) $menuId
-                );
-
-                $this->menuBuilder->setConfig($menuConfig);
-                $this->menuDirector->buildStandardMenuWithPageTreeSubitems();
-                $additionalMenus[$menuId] = $this->menuBuilder->getMenu()->getMenu();
-            }
-        }
-
-        return $additionalMenus;
     }
 
     /**
