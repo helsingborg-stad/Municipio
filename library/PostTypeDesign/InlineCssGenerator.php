@@ -35,10 +35,26 @@ class InlineCssGenerator
             }
 
             $designConfigField = $this->designConfig[$field['settings']];
-            $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
+
+            $inlineCss = $this->mergeCssVariables($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
 
+
         return $inlineCss;
+    }
+
+    private function mergeCssVariables(array $newCssVariables, array $oldCssVariables)
+    {
+        foreach($newCssVariables as $key => $value) {
+            if (isset($oldCssVariables[$key])) {
+                $oldCssVariables[$key] = array_merge($oldCssVariables[$key], $value);
+                continue;
+            } else {
+                $oldCssVariables[$key] = $value;
+            }
+        }
+
+        return $oldCssVariables;
     }
 
     private function isNotValidField($field) 
