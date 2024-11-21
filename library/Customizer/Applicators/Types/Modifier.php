@@ -20,17 +20,21 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface {
     $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
   }
 
-  public function applyDataFilterFunction($modifiers, $contexts)
+  /**
+   * Apply data to filter 
+   * 
+   * @param array $modifiers
+   * @param array $contexts
+   * 
+   * @return array
+   */
+  public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array
   {
-    if (!is_array($contexts)) {
-        $contexts = [$contexts];
-    }
-
-    if (!is_array($modifiers)) {
-        $modifiers = [$modifiers];
-    }
+    $contexts = is_array($contexts) ? $contexts : [$contexts];
+    $modifiers = is_array($modifiers) ? $modifiers : [$modifiers];
 
     foreach ($modifiers as $filter) {
+
         $passFilterRules = false;
 
         foreach ($filter['contexts'] as $filterContext) {
@@ -60,6 +64,11 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface {
     return $modifiers;
   }
 
+  /**
+   * Get data
+   * 
+   * @return array
+   */
   public function getData(): array
   {
     $fields    = $this->getFields();

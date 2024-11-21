@@ -157,9 +157,9 @@ class Customizer
     public function initApplictors()
     {
         $applicators = [
+            new Controller($this->wpService),
             new Modifier($this->wpService),
             new Component($this->wpService),
-            new Controller($this->wpService)
         ];
 
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(

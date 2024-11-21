@@ -9,23 +9,28 @@ use Error;
 
 class Component extends AbstractApplicator implements ApplicatorInterface {
   
+    private array $cachedData = [];
+
   public function __construct(private WpService $wpService){}
 
   public function getKey(): string
   {
-    return 'controller';
+    return 'component';
   }
 
   public function applyData(array|object $data)
   {
-    $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
+    $this->cachedData = $data;
+    $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10, 1);
   }
 
-  public function applyDataFilterFunction($modifiers, $contexts)
+  public function applyDataFilterFunction($data)
   {
+    $storedComponentData = $this->cachedData;
+
     $contexts = isset($data['context']) ? (array) $data['context'] : [];
 
-    foreach ($modifiers as $filter) {
+    foreach ($storedComponentData as $filter) {
         $passFilterRules = false;
 
         foreach ($filter['contexts'] as $filterContext) {
@@ -48,11 +53,11 @@ class Component extends AbstractApplicator implements ApplicatorInterface {
         }
 
         if ($passFilterRules) {
-            $modifiers = array_replace_recursive($modifiers, $filter['data']);
+            $data = array_replace_recursive($data, $filter['data']);
         }
     }
 
-    return $modifiers;
+    return $data;
   }
 
   public function getData(): array
@@ -75,8 +80,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface {
                     if (!isset($output['context']) || !is_array($output['context'])) {
                         continue;
                     }
-
-                    // Correct faulty context configurations
+                    
                     foreach ($output['context'] as $contextKey => $context) {
                         if (is_string($context)) {
                             $output['context'][$contextKey] = [
@@ -86,7 +90,10 @@ class Component extends AbstractApplicator implements ApplicatorInterface {
                         }
                     }
 
-                    $filterData = $this->buildFilterData($output['dataKey'], \Kirki::get_option($key));
+                    $filterData = $this->buildFilterData(
+                        $output['dataKey'], 
+                        \Kirki::get_option($key)
+                    );
 
                     $componentData[] = [
                         'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],

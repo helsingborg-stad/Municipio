@@ -26,8 +26,8 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   public function addHooks(): void
   {
-    $this->wpService->addAction('after_setup_theme', array($this, 'tryCreateCache'), 10);
-    $this->wpService->addAction('after_setup_theme', array($this, 'tryApplyCache'), 20);
+    $this->wpService->addAction('init', array($this, 'tryCreateCache'), 10);
+    $this->wpService->addAction('init', array($this, 'tryApplyCache'), 20);
     $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 10);
     $this->wpService->addAction('admin_init', array($this, 'tryClearCacheUrl'), 10);
   }
@@ -76,7 +76,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
   {
     //Check if in frontend
     if(!$this->isFrontend()) {
-    //  return;
+      return;
     }
 
     //Try to get the static cache

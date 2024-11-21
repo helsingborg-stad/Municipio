@@ -21,6 +21,10 @@ abstract class AbstractApplicator
      */
     protected function getFields(): array
     {
+        static $fields; 
+        if($fields) {
+            return $fields;
+        }
         $fields = [];
         if (class_exists('\Kirki\Compatibility\Kirki')) {
             $fields = array_merge(
