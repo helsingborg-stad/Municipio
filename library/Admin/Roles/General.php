@@ -3,16 +3,10 @@
 namespace Municipio\Admin\Roles;
 
 use WpService\Contracts\AddAction;
-use WpService\Contracts\AddFilter;
-use WpService\Contracts\AddRole;
 use WpService\Contracts\CurrentUserCan;
-use WpService\Contracts\DeleteOption;
-use WpService\Contracts\GetRole;
 use WpService\Contracts\HomeUrl;
 use WpService\Contracts\IsAdmin;
-use WpService\Contracts\RemoveRole;
 use WpService\Contracts\ShowAdminBar;
-use WpService\Contracts\UpdateOption;
 use WpService\Contracts\WpDoingAjax;
 use WpService\Contracts\WpRedirect;
 
