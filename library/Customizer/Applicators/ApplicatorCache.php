@@ -79,8 +79,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
     //  return;
     }
 
-    var_dump("Current cache key: ", $this->getCacheKey());
-
     //Try to get the static cache
     $staticCache = $this->getStaticCache(
       $this->getCacheKey()
