@@ -34,6 +34,9 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
+use Municipio\Helper\Post;
+use Municipio\PostObject\PostObjectRenderer\Appearances\CardItem;
+use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
 use Municipio\SchemaData\LimitSchemaTypesAndProperties;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage;
@@ -52,6 +55,8 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
+use WP_REST_Request;
+use WP_REST_Response;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
@@ -237,7 +242,7 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
@@ -259,6 +264,8 @@ class App
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
+        (new \Municipio\Api\Posts\EnablePostTypesParam($this->wpService))->addHooks();
+        (new \Municipio\Api\Posts\AppendRenderedViewToRestPostResponse(new PostObjectRendererFactory(), $this->wpService))->addHooks();
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);

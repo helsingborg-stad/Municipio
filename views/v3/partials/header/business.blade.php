@@ -3,8 +3,11 @@
 
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
-        <div class="o-container c-header__flex-content">
-
+        @element([
+            'baseClass' => 'o-container',
+            'classList' => ['o-container', 'c-header__flex-content'],
+            'context' => ['site.header.business-container', 'site.header.container']
+        ])
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
                 @if($headerBrandEnabled)
@@ -26,7 +29,7 @@
                     @endlogotype
                 @endif
             @endlink
-
+    
             {{-- Tab menu items --}}
             @includeWhen(!empty($tabMenu['items']), 'partials.navigation.tabs')
 
@@ -35,7 +38,6 @@
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
-
             {{-- User account --}}
             @includeIf('user.account')
             
@@ -49,11 +51,15 @@
             
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
-            
+
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
 
-        </div>
+            {{-- User (login/logout) --}}
+            @include('partials.header.components.user')
+        
+        @endelement
+
     </div>
 
     {{-- Mega menu --}}

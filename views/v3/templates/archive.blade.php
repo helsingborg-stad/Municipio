@@ -72,7 +72,41 @@
                     @endif
                 @endopenStreetMap
             @endif
-            @if ($displayArchiveLoop)
+            @if(isset($renderedPostObjects) && $renderedPostObjects && in_array($template, ['cards', 'grid', 'compressed', 'schema-project', 'box']) )
+                <div class="o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'segment' )
+                <div class="o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'newsitem')
+                <div class="arcive-news-items o-grid">
+                    {!! $renderedPostObjects !!}
+                </div>
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'collection')
+                @collection([
+                    'unbox' => true,
+                    'classList' => ['o-grid', 'o-grid--horizontal']
+                ])
+                    {!! $renderedPostObjects !!}
+                @endcollection
+            @elseif(isset($renderedPostObjects) && $renderedPostObjects && $template === 'listitem')
+                @card([
+                    'heading' => false
+                ])
+                    <div class="o-grid{{ !empty($stretch) ? ' o-grid--stretch' : '' }}">
+                        <div class="o-grid-12">
+                            @collection([
+                                'sharpTop' => true,
+                                'bordered' => true
+                            ])
+                                {!! $renderedPostObjects !!}
+                            @endcollection
+                        </div>
+                    </div>
+                @endcard
+            @elseif($displayArchiveLoop)
                 @includefirst(
                     [   
                         'partials.post.schema.' . $template,

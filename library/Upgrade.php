@@ -15,7 +15,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 33; //The db version we want to achive
+    private $dbVersion    = 36; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -663,6 +663,30 @@ class Upgrade
             $this->acfService->updateField('post_type_schema_types', $destinationValues, 'option');
         }
 
+        return true;
+    }
+
+    public function v_34($db): bool
+    {
+        $header = get_theme_mod('header_apperance');
+        if($header == 'casual') {
+            set_theme_mod('header_width', 'wide');
+        }
+        return true;
+    }
+
+    public function v_35($db): bool
+    {
+        $header = get_theme_mod('header_apperance');
+        if($header == '' || !$header) {
+            set_theme_mod('header_width', 'wide');
+        }
+        return true;
+    }
+
+    public function v_36($db): bool
+    {
+        do_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache');
         return true;
     }
 

@@ -35,13 +35,42 @@ class InlineCssGenerator
             }
 
             $designConfigField = $this->designConfig[$field['settings']];
-            $inlineCss = array_merge($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
+
+            $inlineCss = $this->mergeCssVariables($this->getColorFieldsCss($field, $designConfigField), $inlineCss);
         }
+
 
         return $inlineCss;
     }
 
-    private function isNotValidField($field) 
+    /**
+     * Merges an array of new CSS variables with an array of old CSS variables.
+     *
+     * @param array $newCssVariables The array of new CSS variables.
+     * @param array $oldCssVariables The array of old CSS variables.
+     * @return array The merged array of CSS variables.
+     */
+    private function mergeCssVariables(array $newCssVariables, array $oldCssVariables): array
+    {
+        foreach($newCssVariables as $key => $value) {
+            if (isset($oldCssVariables[$key])) {
+                $oldCssVariables[$key] = array_merge($oldCssVariables[$key], $value);
+                continue;
+            } else {
+                $oldCssVariables[$key] = $value;
+            }
+        }
+
+        return $oldCssVariables;
+    }
+
+    /**
+     * Checks if a field is not valid.
+     *
+     * @param mixed $field The field to check.
+     * @return bool Returns true if the field is not valid, false otherwise.
+     */
+    private function isNotValidField($field): bool
     {
         return 
             empty($this->designConfig[$field['settings']]) || 

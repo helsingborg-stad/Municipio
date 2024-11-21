@@ -21,7 +21,7 @@ class BaseController
      * Holds the view's data
      * @var array
      */
-    protected $data = [];
+    public $data = [];
 
     /**
      * WordPress Global states
@@ -334,7 +334,10 @@ class BaseController
         $this->data['timeFormat']     = \Municipio\Helper\DateFormat::getDateFormat('time');
 
         //User is authenticated
-        $this->data['isAuthenticated'] = is_user_logged_in();
+        $this->data['user']            = $this->wpService->wpGetCurrentUser();
+        $this->data['isAuthenticated'] = $this->wpService->isUserLoggedIn();
+        $this->data['loginUrl']        = $this->wpService->wpLoginUrl();
+        $this->data['logoutUrl']       = $this->wpService->wpLogoutUrl();
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
@@ -380,7 +383,9 @@ class BaseController
             [
                 'searchFor' => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
                 'noResult'  => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
-                ]
+                'logout'    => __('Logout', 'municipio'),
+                'login'     => __('Login', 'municipio'),
+            ]
         );
 
             $this->data['labels'] = (array) $this->data['lang'];

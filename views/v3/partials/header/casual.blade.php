@@ -3,9 +3,11 @@
 @section('primary-navigation')
 
     <div class="c-header__menu c-header__menu--primary">
-
-        <div class="c-header__flex-content o-container o-container--wide">
-            
+        @element([
+            'baseClass' => 'o-container',
+            'classList' => ['o-container', 'c-header__flex-content'],
+            'context' => ['site.header.casual-container', 'site.header.container']
+        ])
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
                 @if($headerBrandEnabled)
@@ -65,8 +67,12 @@
 
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
-            
-        </div>
+
+            {{-- User (login/logout) --}}
+            @include('partials.header.components.user')
+
+        @endelement
+
     </div>
 
     @includeIf('partials.navigation.megamenu')
