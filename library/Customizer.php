@@ -139,7 +139,7 @@ class Customizer
         }
 
         //Applicators [Applies settings on the frontend]
-        $this->initApplictors();
+        $this->initApplicators();
 
         //Define Typography Customizer
         new \Municipio\Customizer\Controls\Typography();
@@ -155,7 +155,7 @@ class Customizer
      *
      * @return void
      */
-    public function initApplictors()
+    public function initApplicators()
     {
         $applicators = [
             new Controller($this->wpService),
