@@ -39,7 +39,9 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
    */
   public function tryClearCacheUrl() {
     if(isset($_GET['clear_customizer_cache'])) {
-      $this->tryClearCache();
+      if($this->wpService->currentUserCan('customize')) {
+        $this->tryClearCache();
+      }
     }
   }
 
