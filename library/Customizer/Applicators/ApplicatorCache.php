@@ -49,7 +49,12 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface {
           $this->cacheKeyBaseName . '_%'
       )
     );
-    return (bool) $this->wpdb->rows_affected;
+    $cacheCleared = (bool) $this->wpdb->rows_affected;
+
+    if($cacheCleared) {
+      $this->wpService->doAction("Municipio/Customizer/CacheCleared"); 
+    }
+    return $cacheCleared;
   }
 
   /**
