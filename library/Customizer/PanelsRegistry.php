@@ -109,7 +109,7 @@ class PanelsRegistry
             ->addSubPanel(
                 KirkiPanel::create()
                     ->setID($panelId)
-                    ->setTitle(esc_html__('Post Types', 'municipio'))
+                    ->setTitle(esc_html__('Load design for individual post types', 'municipio'))
                     ->setDescription(esc_html__('Manage post types settings', 'municipio'))
                     ->addSections($sections)
             )
