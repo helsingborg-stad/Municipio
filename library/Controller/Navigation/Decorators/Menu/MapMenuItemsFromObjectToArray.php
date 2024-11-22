@@ -45,12 +45,12 @@ class MapMenuItemsFromObjectToArray implements MenuInterface
                 'children'    => false,
                 'top_level'   => $menuItem->menu_item_parent == 0,
                 'xfn'         => $menuItem->xfn ?? false,
-                'classList'   => [
+                'classList'   => array_merge([
                     's-post-type-' .
                     (isset($pageForPostTypes[$menuItem->object_id]) ?
                     $pageForPostTypes[$menuItem->object_id] :
                     $menuItem->object)
-                ],
+                ], $menuItem->classes ?? []),
                 'description' => $menuItem->description,
             ];
         }
