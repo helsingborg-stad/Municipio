@@ -64,6 +64,9 @@ class SetDesignsTest extends TestCase
         $this->assertEquals('value', $result);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testSetDesignReturnsOptionValueIfFound()
     {
         $wpService = $this->getWpService([
@@ -100,6 +103,9 @@ class SetDesignsTest extends TestCase
         $this->assertEmpty($output);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
     public function testInlineCssAddsIfNotEmpty()
     {
         $wpService = $this->getWpService([
