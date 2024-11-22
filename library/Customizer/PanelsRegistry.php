@@ -84,7 +84,7 @@ class PanelsRegistry
     {
         $panelId = 'municipio_customizer_panel_post_types';
 
-        $filteredPostTypes = self::getArchives();
+        $filteredPostTypes = self::getArchives(['attachment']);
         $sections          = array_map(function ($postType) use ($panelId) {
             $id = "{$panelId}_{$postType->name}";
             return KirkiPanelSection::create()
@@ -493,14 +493,14 @@ class PanelsRegistry
      *
      * @return array
      */
-    private static function getArchives(): array
+    private static function getArchives(array $excludedPostTypes = ['page', 'attachment']): array
     {
         $postTypes = array();
 
         foreach ((array) get_post_types() as $key => $postType) {
             $args = get_post_type_object($postType);
 
-            if (!$args->public || in_array($args->name, ['page', 'attachment'])) {
+            if (!$args->public || in_array($args->name, $excludedPostTypes)) {
                 continue;
             }
 
