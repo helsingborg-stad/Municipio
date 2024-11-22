@@ -143,6 +143,9 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function createStaticCache(string $cacheKey, ApplicatorInterface ...$applicators): array
     {
+
+        $this->wpService->doAction("Municipio/Customizer/LoadFields", $cacheKey);
+
         $cacheEntity = [];
 
         foreach ($applicators as $applicator) {
