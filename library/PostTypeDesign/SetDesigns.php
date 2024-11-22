@@ -41,9 +41,9 @@ class SetDesigns implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addFilter('option_theme_mods_municipio', array($this, 'setDesign'), 10, 2);
-        $this->wpService->addFilter('Municipio/Customizer/CacheKeySuffix', array($this, 'setUniqueCustomizerCacheSuffix'), 10, 3);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
         $this->wpService->addAction('wp_head', array($this, 'addInlineCss'));
+        $this->wpService->addFilter('Municipio/Customizer/CacheKeySuffix', array($this, 'setUniqueCustomizerCacheSuffix'), 10, 3);
     }
 
     /**
@@ -51,7 +51,7 @@ class SetDesigns implements Hookable
      *
      * @return array The design option.
      */
-    private function getDesignOption(): array
+    public function getDesignOption(): array
     {
         static $designOption;
 
@@ -134,14 +134,13 @@ class SetDesigns implements Hookable
      */
     public function addInlineCss(): void
     {
-        $postTypeDesigns = $this->getDesignOption();
-        if (empty($postTypeDesigns['inlineCss'])) {
+        if (empty($this->getDesignOption()['inlineCss'])) {
             return;
         }
 
         ?>
             <style id="post-type-design-inline" type="text/css">
-                <?php echo $postTypeDesigns['inlineCss'] ?>
+                <?php echo $this->getDesignOption()['inlineCss'] ?>
             </style>
         <?php
     }
