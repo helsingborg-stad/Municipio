@@ -42,7 +42,7 @@ class Customizer
 
     /**
      * Initialize Kirki
-     * 
+     *
      * @return void
      */
     public function initKirki()
@@ -63,11 +63,11 @@ class Customizer
 
     /**
      * Sanitize kirki default array values
-     * 
+     *
      * @param mixed $value
      * @param string $option
      * @param mixed $default
-     * 
+     *
      * @return mixed
      */
     public function kirkiGetValue($value, $option, $default)
@@ -77,10 +77,10 @@ class Customizer
 
     /**
      * Get kirki values
-     * 
+     *
      * @param mixed $value
      * @param string $field_id
-     * 
+     *
      * @return mixed
      */
     public function kirkiValuesGetValue($value, $field_id)
@@ -95,10 +95,10 @@ class Customizer
 
     /**
      * Sanitize kirki default array values
-     * 
+     *
      * @param mixed $value
      * @param mixed $default
-     * 
+     *
      * @return mixed
      */
     public function sanitizeKirkiDefaultArrayValue($value, $default)

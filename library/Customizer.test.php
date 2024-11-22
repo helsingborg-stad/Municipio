@@ -16,17 +16,17 @@ class CustomizerTest extends TestCase
      */
     public function testSanitizeKirkiDefaultArrayValueConvertsEmptyStringValueToArrayIfDefaultIsArray()
     {
-        $wpService  = new FakeWpService([
+        $wpService = new FakeWpService([
           'addFilter' => true,
           'addAction' => true
         ]);
         $wpdb      = WpMockFactory::createWpdb([]);
-      
+
         $value      = '';
         $default    = ['foo' => 'bar'];
         $customizer = new \Municipio\Customizer(
-          $wpService,
-          $wpdb
+            $wpService,
+            $wpdb
         );
 
         $sanitizedValue = $customizer->sanitizeKirkiDefaultArrayValue($value, $default);
