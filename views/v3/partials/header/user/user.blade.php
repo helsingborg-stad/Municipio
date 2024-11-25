@@ -14,12 +14,20 @@
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.logout']
 ])
-    @avatar([
-        'name' => $user->display_name ?? '',
-        'size' => 'sm',
-        'classList' => ['user__avatar']
+
+    @dropdown([
+        'items' => [['text' => 'cool', 'link' => '#']],
+        'direction' => 'left',
+        'popup' => 'click'
     ])
-    @endavatar
+        @avatar([
+            'name' => $user->display_name ?? '',
+            'size' => 'sm',
+            'classList' => ['user__avatar']
+        ])
+        @endavatar
+    @enddropdown
+    
     @group([
         'direction' => 'vertical',
         'classList' => ['user__container']
@@ -49,3 +57,6 @@
         @endlink
     @endgroup
 @endelement
+
+
+

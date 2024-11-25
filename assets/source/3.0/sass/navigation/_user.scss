@@ -11,7 +11,7 @@ $user-active-background-color: var(--user-active-background-color, transparent) 
 .user {
     display: flex;
     align-items: center;
-    gap: calc($base * 1.5);
+    gap: 0;
 
     .user__link { 
         display: flex;
@@ -22,7 +22,7 @@ $user-active-background-color: var(--user-active-background-color, transparent) 
 }
 
 .user {
-    &.user--active.user--has-background {
+    &.user.user--has-background {
         padding-left: calc($base * 2);
         padding-right: calc($base * 2);
         &::before {

@@ -1,3 +1,4 @@
+
 @element([
     'classList' => array_merge([
         'user', 
@@ -8,19 +9,32 @@
 ])
     @link([
         'href' => $loginUrl,
-        'classList' => ['user__link']
+        'classList' => ['user__link'],
+        'attributeList' => [
+            'aria-label' => $lang->login
+        ]
     ])
-        @icon([
-            'label' => $lang->login,
-            'icon' => 'login',
+        @avatar([
+            'icon' => ['name' => 'person', 'size'=> 'md'],
             'size' => 'sm',
+            'classList' => ['user__avatar']
         ])
-        @endicon
-        @typography([
-            'element' => 'span',
-            'variant' => 'body',
-        ])
-            {{ $lang->login }}
-        @endtypography
+        @endavatar
     @endlink
+
+    @button([
+        'text' => $lang->login,
+        'color' => 'basic',
+        'style' => 'basic',
+        'href' => $logoutUrl,
+        'classList' => [
+            'u-display--none@xs',
+            'user__button'
+        ],
+    ])
+    @endbutton
+
 @endelement
+
+
+
