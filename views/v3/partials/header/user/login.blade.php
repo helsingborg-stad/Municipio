@@ -1,5 +1,10 @@
 @element([
-    'classList' => array_merge(['user', 'user--inactive', !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''], $classList ?? [])
+    'classList' => array_merge([
+        'user', 
+        'user--inactive', 
+        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''
+    ], $classList ?? []),
+    'context' => ['header.loginlogout', 'header.loginlogout.login']
 ])
     @link([
         'href' => $loginUrl,

@@ -110,42 +110,5 @@ class LoginLogout
                 ]
             ],
         ]);
-
-        KirkiField::addField([
-            'type'              => 'multicolor',
-            'settings'          => 'header_login_logout_colors_inactive',
-            'label'             => esc_html__('Custom colors login colors', 'municipio'),
-            'section'           => $sectionID,
-            'priority'          => 10,
-            'transport'         => 'auto',
-            'choices'           => [
-                'user-inactive-text-color' => esc_html__('Login link color', 'municipio'),
-                'user-inactive-text-color-hover'  => esc_html__('Login link color hover', 'municipio'),
-            ],
-            'default'           => [
-                'user-inactive-text-color'         => '#000',
-                'user-inactive-text-color-hover'   => '#000',
-            ],
-            'palettes'          => $colorPalette,
-            'output'            => [
-                [
-                    'choice'   => 'user-inactive-text-color',
-                    'element'  => '.user.user--inactive',
-                    'property' => '--user-inactive-text-color'
-                ],
-                [
-                    'choice'   => 'user-inactive-text-color-hover',
-                    'element'  => '.user.user--inactive',
-                    'property' => '--user-inactive-text-color-hover'
-                ],   
-            ],
-            'active_callback'   => [
-                [
-                  'setting'  => 'login_logout_appearance_type',
-                  'operator' => '===',
-                  'value'    => 'custom',
-                ]
-            ],
-        ]);
     }
 }
