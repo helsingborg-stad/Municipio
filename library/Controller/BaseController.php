@@ -6,6 +6,8 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
+use Municipio\Helper\Color;
+
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -122,6 +124,13 @@ class BaseController
             if (class_exists($headerClassName)) {
                 $headerController = new $headerClassName($this->data['customizer']);
             }
+        }
+
+        //User login logout, add background only if visible
+        if($this->data['customizer']->headerLoginLogoutBackgroundColor ?? null) {
+            $this->data['customizer']->headerLoginLogoutBackgroundColorIsVisible = Color::isRgbaVisible(
+                $this->data['customizer']->headerLoginLogoutBackgroundColor ?? null
+            );
         }
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];

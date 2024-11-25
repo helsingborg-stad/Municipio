@@ -110,5 +110,30 @@ class LoginLogout
                 ]
             ],
         ]);
+
+        KirkiField::addField([
+            'type'              => 'color',
+            'settings'          => 'header_login_logout_background_color',
+            'label'             => esc_html__('Custom background color', 'municipio'),
+            'section'           => $sectionID,
+            'priority'          => 10,
+            'default'           => '#ffffff00',
+            'choices'           => [
+                'alpha' => true,
+            ],
+            'palettes'          => $colorPalette,
+            'output'   => [
+                [
+                    'type'      => 'controller'
+                ]
+            ],
+            'active_callback'   => [
+                [
+                  'setting'  => 'login_logout_appearance_type',
+                  'operator' => '===',
+                  'value'    => 'custom',
+                ]
+            ],
+        ]);
     }
 }

@@ -5,6 +5,7 @@ $user-active-author-color-light: var(--user-active-author-color, $color-white) !
 $user-active-text-color-dark: var(--user-active-text-color-dark, $color-dark) !default;
 $user-active-text-color-dark-hover: var(--user-active-text-color-dark-hover, $color-black) !default;
 $user-active-author-color-dark: var(--user-active-author-color-dark, $color-black) !default;
+$user-active-background-color: var(--user-active-background-color, transparent) !default;
 
 // General settings
 .user {
@@ -21,6 +22,20 @@ $user-active-author-color-dark: var(--user-active-author-color-dark, $color-blac
 }
 
 .user {
+    &.user--active.user--has-background {
+        padding-left: calc($base * 2);
+        padding-right: calc($base * 2);
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: $user-active-background-color;
+            transform: translateX(calc(-1 * $base * 2));
+        }
+    }
+
     // Logged in user
     &.user--active {
         .user__container {
