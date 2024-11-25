@@ -6,6 +6,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
+use Municipio\Helper\Color;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -123,6 +124,11 @@ class BaseController
                 $headerController = new $headerClassName($this->data['customizer']);
             }
         }
+
+        //User login logout
+        $this->data['customizer']->headerLoginLogoutBackgroundColorIsVisible = Color::isRgbaVisible(
+            $this->data['customizer']->headerLoginLogoutBackgroundColor ?? null
+        );
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
@@ -325,11 +331,11 @@ class BaseController
         $this->data['timeFormat']     = \Municipio\Helper\DateFormat::getDateFormat('time');
 
         //User is authenticated
-        $this->data['user']                 = $this->wpService->wpGetCurrentUser();
-        $this->data['isAuthenticated']      = $this->wpService->isUserLoggedIn();
-        $this->data['isAdminBarShowing']    = $this->wpService->isAdminBarShowing();
-        $this->data['loginUrl']             = $this->wpService->wpLoginUrl();
-        $this->data['logoutUrl']            = $this->wpService->wpLogoutUrl();
+        $this->data['user']              = $this->wpService->wpGetCurrentUser();
+        $this->data['isAuthenticated']   = $this->wpService->isUserLoggedIn();
+        $this->data['isAdminBarShowing'] = $this->wpService->isAdminBarShowing();
+        $this->data['loginUrl']          = $this->wpService->wpLoginUrl();
+        $this->data['logoutUrl']         = $this->wpService->wpLogoutUrl();
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS

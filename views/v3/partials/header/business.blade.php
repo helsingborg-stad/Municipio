@@ -38,6 +38,7 @@
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+            
             {{-- User account --}}
             @includeIf('user.account')
             

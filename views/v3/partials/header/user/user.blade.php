@@ -1,27 +1,54 @@
+@if($customizer->headerLoginLogoutBackgroundColorIsVisible) 
+    <style>
+        .user {
+            --user-background-color: {{ $customizer->headerLoginLogoutBackgroundColor ?? ''}};
+        }
+    </style>
+@endif
 @element([
     'classList' => array_merge([
         'user', 
         'user--active', 
-        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''
+        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
+        $customizer->headerLoginLogoutBackgroundColorIsVisible ? 'user--has-background' : ''
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.logout']
 ])
-    @avatar([
-        'name' => $user->display_name ?? '',
-        'size' => 'sm',
-        'classList' => ['user__avatar']
+
+    @link([
+        'href' => $logoutUrl,
+        'classList' => [
+            'user__link'
+        ],
+        'attributeList' => [
+            'aria-label' => $lang->logout
+        ]
     ])
-    @endavatar
+        @avatar([
+            'name' => $user->display_name ?? '',
+            'size' => 'sm',
+            'classList' => ['user__avatar']
+        ])
+        @endavatar
+    @endlink
+    
+    <!-- Logout desktop -->
     @group([
         'direction' => 'vertical',
-        'classList' => ['user__container']
+        'classList' => [
+            'user__container',
+            'u-display--none@xs'
+        ]
     ])
         @typography([
                 'element' => 'span',
-                'classList' => ['user__name']
+                'classList' => [
+                    'user__name'
+                ]
             ])
                 {{ $user->display_name ?? '' }}
         @endtypography
+
         @link([
             'href' => $logoutUrl,
             'classList' => ['user__link']
@@ -40,4 +67,24 @@
             @endtypography
         @endlink
     @endgroup
+
+    <!-- Logout mobile -->
+    @button([
+        'text' => $lang->logout,
+        'color' => 'basic',
+        'style' => 'basic',
+        'href' => $logoutUrl,
+        'classList' => [
+            'u-display--none@sm',
+            'u-display--none@md',
+            'u-display--none@lg',
+            'u-display--none@xl',
+            'u-display--none@xxl',
+            'user__button'
+        ],
+    ])
+    @endbutton
 @endelement
+
+
+

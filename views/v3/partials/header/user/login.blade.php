@@ -1,26 +1,48 @@
+@if($customizer->headerLoginLogoutBackgroundColorIsVisible) 
+    <style>
+        .user {
+            --user-background-color: {{ $customizer->headerLoginLogoutBackgroundColor ?? ''}};
+        }
+    </style>
+@endif
+
 @element([
     'classList' => array_merge([
         'user', 
         'user--inactive', 
-        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''
+        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
+        $customizer->headerLoginLogoutBackgroundColorIsVisible ? 'user--has-background' : ''
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.login']
 ])
     @link([
         'href' => $loginUrl,
-        'classList' => ['user__link']
+        'classList' => ['user__link'],
+        'attributeList' => [
+            'aria-label' => $lang->login
+        ]
     ])
-        @icon([
-            'label' => $lang->login,
-            'icon' => 'login',
+        @avatar([
+            'icon' => ['name' => 'person', 'size'=> 'md'],
             'size' => 'sm',
+            'classList' => ['user__avatar']
         ])
-        @endicon
-        @typography([
-            'element' => 'span',
-            'variant' => 'body',
-        ])
-            {{ $lang->login }}
-        @endtypography
+        @endavatar
     @endlink
+
+    @button([
+        'text' => $lang->login,
+        'color' => 'basic',
+        'style' => 'basic',
+        'href' => $loginUrl,
+        'classList' => [
+            'u-display--none@xs',
+            'user__button'
+        ],
+    ])
+    @endbutton
+
 @endelement
+
+
+
