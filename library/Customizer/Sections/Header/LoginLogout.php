@@ -47,7 +47,7 @@ class LoginLogout
             'settings'        => 'login_logout_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
             'section'         => $sectionID,
-            'default'         => 'light',
+            'default'         => 'dark',
             'priority'        => 10,
             'choices'         => [
                 'light' => esc_html__('Light', 'municipio'),
