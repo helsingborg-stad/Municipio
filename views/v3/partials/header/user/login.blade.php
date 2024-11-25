@@ -1,21 +1,20 @@
 @element([
-    'classList' => array_merge(['user', 'user--inactive', !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''], $classList ?? [])
+    'classList' => array_merge([
+        'user', 
+        'user--inactive', 
+        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''
+    ], $classList ?? [])
 ])
-    @link([
-        'href' => $loginUrl,
+    @button([
+        'text' => $lang->login,
+        'color' => 'basic',
+        'icon' => 'login',
+        'style' => 'basic',
+        'reversePositions' => true,
+        'attributeList' => [
+            'data-open' => 'm-search-modal__trigger',
+        ],
         'classList' => ['user__link']
     ])
-        @icon([
-            'label' => $lang->login,
-            'icon' => 'login',
-            'size' => 'sm',
-        ])
-        @endicon
-        @typography([
-            'element' => 'span',
-            'variant' => 'body',
-        ])
-            {{ $lang->login }}
-        @endtypography
-    @endlink
+    @endbutton
 @endelement
