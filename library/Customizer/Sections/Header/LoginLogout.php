@@ -16,7 +16,7 @@ class LoginLogout
             'label'       => esc_html__('Display login/logout', 'municipio'),
             'description' => esc_html__('Select when the login/logout button should be visible', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 'logout',
+            'default'     => '',
             'priority'    => 4,
             'choices'     => [
                 ''          => esc_html__('Never', 'municipio'),
