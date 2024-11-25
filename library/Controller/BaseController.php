@@ -126,12 +126,10 @@ class BaseController
             }
         }
 
-        //User login logout, add background only if visible
-        if($this->data['customizer']->headerLoginLogoutBackgroundColor ?? null) {
-            $this->data['customizer']->headerLoginLogoutBackgroundColorIsVisible = Color::isRgbaVisible(
-                $this->data['customizer']->headerLoginLogoutBackgroundColor ?? null
-            );
-        }
+        //User login logout
+        $this->data['customizer']->headerLoginLogoutBackgroundColorIsVisible = Color::isRgbaVisible(
+            $this->data['customizer']->headerLoginLogoutBackgroundColor ?? null
+        );
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
