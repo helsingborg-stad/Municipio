@@ -31,6 +31,7 @@ $user-active-background-color: var(--user-active-background-color, transparent) 
             top: 0;
             bottom: 0;
             width: 100%;
+            max-width: calc($base * 35.5);
             background-color: $user-active-background-color;
             transform: translateX(calc(-1 * $base * 2));
         }
