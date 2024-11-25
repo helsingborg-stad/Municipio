@@ -1,6 +1,5 @@
 @if (!empty($megaMenu['items']))
     @button([
-        'id' => 'mega-menu-trigger-open',
         'color' => $customizer->headerTriggerButtonColor,
         'style' => $customizer->headerTriggerButtonType,
         'size' => $customizer->headerTriggerButtonSize,
@@ -19,9 +18,9 @@
         ],
         'attributeList' => [
             'aria-label' => $lang->primaryNavigation,
-            'aria-controls' => "mega-menu",
-            'data-js-toggle-trigger' => 'mega-menu',
-            'data-toggle-icon' => 'close'
+            'aria-controls' => 'mega-menu',
+            'data-toggle-icon' => 'close',
+            'data-js-mega-menu-trigger' => 'mega-menu'
         ],
         'context' => $context
     ])
