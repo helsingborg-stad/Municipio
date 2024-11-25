@@ -6,12 +6,6 @@ $user-active-text-color-dark: var(--user-active-text-color-dark, $color-dark) !d
 $user-active-text-color-dark-hover: var(--user-active-text-color-dark-hover, $color-black) !default;
 $user-active-author-color-dark: var(--user-active-author-color-dark, $color-black) !default;
 
-// Not logged in
-$user-inactive-text-color-light: var(--user-inactive-text-color, $color-white) !default;
-$user-inactive-text-color-light-hover: var(--user-inactive-text-color-hover, $color-light) !default;
-$user-inactive-text-color-dark: var(--user-inactive-text-color-dark, $color-black) !default;
-$user-inactive-text-color-dark-hover: var(--user-inactive-text-color-dark-hover, $color-dark) !default;
-
 // General settings
 .user {
     display: flex;
@@ -27,27 +21,6 @@ $user-inactive-text-color-dark-hover: var(--user-inactive-text-color-dark-hover,
 }
 
 .user {
-    // Not logged in
-    &.user--inactive {
-        .user__link {
-            color: $user-inactive-text-color-light;
-
-            &:hover {
-                color: $user-inactive-text-color-light-hover;
-            }
-        }
-
-        &.user--dark {
-            .user__link {
-                color: $user-inactive-text-color-dark;
-
-                &:hover {
-                    color: $user-inactive-text-color-dark-hover;
-                }
-            }
-        }
-    }
-
     // Logged in user
     &.user--active {
         .user__container {
@@ -57,6 +30,10 @@ $user-inactive-text-color-dark-hover: var(--user-inactive-text-color-dark-hover,
         .user__name {
             font-weight: bold;
             line-height: 1;
+            max-width: calc($base * 25);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user__link-text {

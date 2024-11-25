@@ -1,5 +1,10 @@
 @element([
-    'classList' => array_merge(['user', 'user--active', !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''], $classList ?? [])
+    'classList' => array_merge([
+        'user', 
+        'user--active', 
+        !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : ''
+    ], $classList ?? []),
+    'context' => ['header.loginlogout', 'header.loginlogout.logout']
 ])
     @avatar([
         'name' => $user->display_name ?? '',
