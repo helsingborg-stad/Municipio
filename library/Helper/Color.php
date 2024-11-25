@@ -94,13 +94,14 @@ class Color
      * @param string $rgba The rgba color value (e.g., 'rgba(255, 255, 255, 0.5)').
      * @return bool False if the color is not visible, cannot be parsed, or is uncertain; true if visible.
      */
-    public static function isRgbaVisible(?string $rgba): bool{
+    public static function isRgbaVisible(?string $rgba): bool
+    {
 
-        if($rgba === null){
+        if ($rgba === null) {
             return false;
         }
 
-        if($rgba === 'transparent'){
+        if ($rgba === 'transparent') {
             return false;
         }
 
@@ -118,6 +119,4 @@ class Color
         // Return false if the value cannot be parsed or is invalid
         return false;
     }
-
-
 }
