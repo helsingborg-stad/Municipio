@@ -10,4 +10,10 @@
         'partials.header.user.login', 
         ['classList' => $classList ?? []]
     )
+@else
+    @includeWhen(
+        $isAuthenticated && !$isAdminBarShowing, 
+        'partials.header.user.user', 
+        ['classList' => $classList ?? []]
+    )
 @endif
