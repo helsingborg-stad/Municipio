@@ -325,10 +325,11 @@ class BaseController
         $this->data['timeFormat']     = \Municipio\Helper\DateFormat::getDateFormat('time');
 
         //User is authenticated
-        $this->data['user']            = $this->wpService->wpGetCurrentUser();
-        $this->data['isAuthenticated'] = $this->wpService->isUserLoggedIn();
-        $this->data['loginUrl']        = $this->wpService->wpLoginUrl();
-        $this->data['logoutUrl']       = $this->wpService->wpLogoutUrl();
+        $this->data['user']                 = $this->wpService->wpGetCurrentUser();
+        $this->data['isAuthenticated']      = $this->wpService->isUserLoggedIn();
+        $this->data['isAdminBarShowing']    = $this->wpService->isAdminBarShowing();
+        $this->data['loginUrl']             = $this->wpService->wpLoginUrl();
+        $this->data['logoutUrl']            = $this->wpService->wpLogoutUrl();
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
