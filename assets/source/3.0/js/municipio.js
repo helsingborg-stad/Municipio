@@ -27,9 +27,9 @@ const fab = new Fab();
 fab.showOnScroll();
 
 initializeLanguageMenu();
-initializeSizeObserver();
 
 document.addEventListener('DOMContentLoaded', () => {
+    initializeSizeObserver();
     initializeCollapsibleSearch();
 });
 
