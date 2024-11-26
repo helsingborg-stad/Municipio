@@ -430,6 +430,11 @@ class BaseController
             $this->init();
     }
 
+    /**
+     * Check if the login/logout button has a background color
+     *
+     * @return bool
+     */
     private function checkHeaderLoginLogoutHasBackgroundColor()
     {
         $customizer = $this->data['customizer'];
