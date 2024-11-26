@@ -63,10 +63,8 @@ class PanelsRegistry
 
     public function build(): void
     {
-
         if (self::$registerInvoked) {
             $method = __METHOD__;
-            var_dump("{$method} can only be invoked once.");
             trigger_error("{$method} can only be invoked once.", E_USER_NOTICE);
             return;
         }

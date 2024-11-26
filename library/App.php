@@ -274,7 +274,7 @@ class App
         /**
          * Customizer
          */
-        new \Municipio\Customizer();
+        new \Municipio\Customizer($this->wpService, $this->wpdb);
 
         /**
          * Block customizations
@@ -312,6 +312,8 @@ class App
          */
         $this->hooksRegistrar->register(new \Municipio\PostFilters\AllowPostsFromOtherSitesToKeepTheirPermalinks($this->wpService));
     }
+
+
 
     /**
      * Sets up the post type design.

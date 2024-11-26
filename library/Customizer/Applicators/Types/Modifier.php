@@ -1,56 +1,41 @@
 <?php
 
-namespace Municipio\Customizer\Applicators;
+namespace Municipio\Customizer\Applicators\Types;
 
-class Modifiers extends AbstractApplicator
+use Municipio\Customizer\Applicators\AbstractApplicator;
+use Municipio\Customizer\Applicators\ApplicatorInterface;
+use WpService\WpService;
+
+class Modifier extends AbstractApplicator implements ApplicatorInterface
 {
-    public $optionKey = 'modifiers';
-
-    public function __construct()
+    public function __construct(private WpService $wpService)
     {
-        add_action('customize_save_after', array($this, 'storeModifiers'), 50);
-        add_filter('ComponentLibrary/Component/Modifier', array($this, 'applyStoredModifiers'), 10, 2);
-        add_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache', array($this, 'storeModifiers'), 50, 1);
     }
 
-    /**
-     * Calculate and store modifiers on save of customizer
-     *
-     * @return void
-     */
-    public function storeModifiers($manager = null): array
+    public function getKey(): string
     {
-        $this->setStatic(
-            $storedModifiers = $this->calculateModifiers()
-        );
-        return $storedModifiers;
+        return 'modifier';
     }
 
-    /**
-     * Apply stored modifiers
-     *
-     * @param array $modifiers
-     * @param array $contexts
-     * @return array
-     */
-    public function applyStoredModifiers($modifiers, $contexts)
+    public function applyData(array|object $data)
     {
-        if (!is_array($contexts)) {
-            $contexts = [$contexts];
-        }
+        $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
+    }
 
-        if (!is_array($modifiers)) {
-            $modifiers = [$modifiers];
-        }
+  /**
+   * Apply data to filter
+   *
+   * @param array $modifiers
+   * @param array $contexts
+   *
+   * @return array
+   */
+    public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array
+    {
+        $contexts  = is_array($contexts) ? $contexts : [$contexts];
+        $modifiers = is_array($modifiers) ? $modifiers : [$modifiers];
 
-        $storedModifiers = $this->getStatic();
-
-        // If storedModifiers is empty, calculate and store them
-        if ($storedModifiers === false) {
-            $storedModifiers = $this->storeModifiers();
-        }
-
-        foreach ($storedModifiers as $filter) {
+        foreach ($modifiers as $filter) {
             $passFilterRules = false;
 
             foreach ($filter['contexts'] as $filterContext) {
@@ -80,19 +65,14 @@ class Modifiers extends AbstractApplicator
         return $modifiers;
     }
 
-    /**
-     * Calculate modifiers based on fields
-     *
-     * @return array
-     */
-    private function calculateModifiers()
+  /**
+   * Get data
+   *
+   * @return array
+   */
+    public function getData(): array
     {
-        if ($runtimeCache = $this->getRuntimeCache('modifiersRuntimeCache')) {
-            return $runtimeCache;
-        }
-
-        $fields    = $this->getFields();
-        $modifiers = [];
+        $fields = $this->getFields();
 
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
@@ -113,24 +93,21 @@ class Modifiers extends AbstractApplicator
                         foreach ($output['context'] as $contextKey => $context) {
                             if (!is_array($context)) {
                                 $output['context'][$contextKey] = [
-                                    'operator' => '==',
-                                    'context'  => $context
+                                'operator' => '==',
+                                'context'  => $context
                                 ];
                             }
                         }
 
                         $modifiers[] = [
-                            'contexts' => $output['context'],
-                            'value'    => \Kirki::get_option($key),
+                        'contexts' => $output['context'],
+                        'value'    => \Kirki::get_option($key),
                         ];
                     }
                 }
             }
         }
 
-        return $this->setRuntimeCache(
-            'modifiersRuntimeCache',
-            $modifiers
-        );
+        return $modifiers;
     }
 }
