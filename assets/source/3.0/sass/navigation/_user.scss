@@ -26,7 +26,7 @@ $user-background-color: var(--user-background-color, transparent) !default;
         padding-left: calc($base * 2);
         padding-right: calc($base * 2);
         
-        &::before {
+        &::after {
             content: "";
             position: absolute;
             top: 0;
@@ -34,6 +34,7 @@ $user-background-color: var(--user-background-color, transparent) !default;
             width: 100%;
             background-color: $user-background-color;
             transform: translateX(calc(-1 * $base * 2));
+            z-index: -1;
         }
     }
 

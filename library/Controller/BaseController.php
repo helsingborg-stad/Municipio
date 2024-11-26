@@ -126,9 +126,7 @@ class BaseController
         }
 
         //User login logout
-        $this->data['customizer']->headerLoginLogoutBackgroundColorIsVisible = Color::isRgbaVisible(
-            $this->data['customizer']->headerLoginLogoutBackgroundColor ?? null
-        );
+        $this->data['loginLogoutHasBackgroundColor'] = $this->checkHeaderLoginLogoutHasBackgroundColor();
 
         $this->data['headerData'] = isset($headerController) ? $headerController->getHeaderData() : [];
 
@@ -430,6 +428,25 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
+    }
+
+    private function checkHeaderLoginLogoutHasBackgroundColor()
+    {
+        $customizer = $this->data['customizer'];
+
+        if (empty($customizer->headerLoginLogoutBackgroundColor)) {
+            return false;
+        }
+
+        $colorValues = explode(",", $customizer->headerLoginLogoutBackgroundColor);
+
+        if (!isset($colorValues[3])) {
+            return false;
+        }
+
+        $alpha = preg_replace('/[^0-9.]/', '', $colorValues[3]);
+
+        return !empty($alpha);
     }
 
     /**

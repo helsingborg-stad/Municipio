@@ -125,6 +125,10 @@ class LoginLogout
             'output'          => [
                 [
                     'type' => 'controller'
+                ],
+                [
+                    'element'  => '.user.user--active',
+                    'property' => '--user-background-color'
                 ]
             ],
             'active_callback' => [
