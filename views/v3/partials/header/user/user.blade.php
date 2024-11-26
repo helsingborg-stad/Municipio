@@ -15,29 +15,20 @@
     'context' => ['header.loginlogout', 'header.loginlogout.logout']
 ])
 
-    @link([
-        'href' => $logoutUrl,
-        'classList' => [
-            'user__link'
-        ],
-        'attributeList' => [
-            'aria-label' => $lang->logout
-        ]
+    @avatar([
+        'name' => $user->display_name ?? '',
+        'size' => 'sm',
+        'classList' => ['user__avatar']
     ])
-        @avatar([
-            'name' => $user->display_name ?? '',
-            'size' => 'sm',
-            'classList' => ['user__avatar']
-        ])
-        @endavatar
-    @endlink
+    @endavatar
     
     <!-- Logout desktop -->
     @group([
         'direction' => 'vertical',
         'classList' => [
             'user__container',
-            'u-display--none@xs'
+            'u-display--none@xs',
+            'u-display--none@sm',
         ]
     ])
         @typography([
@@ -75,7 +66,6 @@
         'style' => 'basic',
         'href' => $logoutUrl,
         'classList' => [
-            'u-display--none@sm',
             'u-display--none@md',
             'u-display--none@lg',
             'u-display--none@xl',

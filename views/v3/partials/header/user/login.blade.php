@@ -37,6 +37,7 @@
         'href' => $loginUrl,
         'classList' => [
             'u-display--none@xs',
+            'u-display--none@sm',
             'user__button'
         ],
     ])
