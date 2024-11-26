@@ -5,7 +5,8 @@
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
         $loginLogoutHasBackgroundColor ? 'user--has-background' : ''
     ], $classList ?? []),
-    'context' => ['header.loginlogout', 'header.loginlogout.login']
+    'context' => ['header.loginlogout', 'header.loginlogout.login'],
+    'attributeList' => ['data-js-sizeobserver' => '']
 ])
     @link([
         'href' => $loginUrl,
