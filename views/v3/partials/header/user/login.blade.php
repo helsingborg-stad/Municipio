@@ -1,17 +1,9 @@
-@if($customizer->headerLoginLogoutBackgroundColorIsVisible) 
-    <style>
-        .user {
-            --user-background-color: {{ $customizer->headerLoginLogoutBackgroundColor ?? ''}};
-        }
-    </style>
-@endif
-
 @element([
     'classList' => array_merge([
         'user', 
         'user--inactive', 
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
-        $customizer->headerLoginLogoutBackgroundColorIsVisible ? 'user--has-background' : ''
+        $loginLogoutHasBackgroundColor ? 'user--has-background' : ''
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.login']
 ])

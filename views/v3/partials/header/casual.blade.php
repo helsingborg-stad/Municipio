@@ -69,7 +69,7 @@
             @includeIf('partials.navigation.drawer')
 
             {{-- User (login/logout) --}}
-            @include('partials.header.components.user')
+            @include('partials.header.components.user', ['classList' => ['u-order--11']])
 
         @endelement
 
