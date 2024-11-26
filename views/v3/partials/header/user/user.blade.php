@@ -12,7 +12,8 @@
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
         $customizer->headerLoginLogoutBackgroundColorIsVisible ? 'user--has-background' : ''
     ], $classList ?? []),
-    'context' => ['header.loginlogout', 'header.loginlogout.logout']
+    'context' => ['header.loginlogout', 'header.loginlogout.logout'],
+    'attributeList' => ['data-js-sizeobserver' => '']
 ])
 
     @avatar([
