@@ -6,6 +6,7 @@ $user-active-text-color-dark: var(--user-active-text-color-dark, $color-dark) !d
 $user-active-text-color-dark-hover: var(--user-active-text-color-dark-hover, $color-black) !default;
 $user-active-author-color-dark: var(--user-active-author-color-dark, $color-black) !default;
 $user-background-color: var(--user-background-color, transparent) !default;
+$user-background-width: var(--user-background-width, 0px) !default;
 
 // General settings
 .user {
@@ -25,17 +26,18 @@ $user-background-color: var(--user-background-color, transparent) !default;
     &.user.user--has-background {
         padding-left: calc($base * 2);
         padding-right: calc($base * 2);
-        
+    
         &::after {
             content: "";
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 100%;
+            width: $user-background-width;
+            transition: width .3s;
             background-color: $user-background-color;
             transform: translateX(calc(-1 * $base * 2));
             z-index: -1;
-        }
+        }  
     }
 
     .user__button {
