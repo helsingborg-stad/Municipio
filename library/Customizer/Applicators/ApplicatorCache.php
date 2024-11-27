@@ -11,7 +11,7 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
-    public string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
+    private string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
     private array $applicators = [];
 
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
@@ -242,7 +242,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         $staticCache = $this->wpService->getOption(
             $cacheKey
         ) ?: null;
-
         return $this->wpService->applyFilters('Municipio/Customizer/StaticCache', $staticCache);
     }
 
