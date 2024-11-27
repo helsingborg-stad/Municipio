@@ -33,14 +33,19 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
    *
    * @return array
    */
-    public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array
+    public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array|string
     {
         $contexts  = is_array($contexts) ? $contexts : [$contexts];
+        $modifiers = is_array($this->cachedData) ? $this->cachedData : [$this->cachedData];
 
-        $modifiers = $this->cachedData;
-        $modifiers = is_array($modifiers) ? $modifiers : [$modifiers];
+        $returnModifiers = [];
 
         foreach ($modifiers as $filter) {
+
+            if(empty($filter['value']) || !is_string($filter['value'])) {
+                continue;
+            }
+            
             $passFilterRules = false;
 
             foreach ($filter['contexts'] as $filterContext) {
@@ -63,11 +68,11 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
             }
 
             if ($passFilterRules) {
-                $modifiers[] = $filter['value'];
+                $returnModifiers[] = $filter['value'];
             }
         }
 
-        return $modifiers;
+        return $returnModifiers;
     }
 
   /**
