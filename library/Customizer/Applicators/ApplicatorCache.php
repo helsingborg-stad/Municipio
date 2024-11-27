@@ -13,6 +13,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
     private string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
     private array $applicators = [];
+    private static $firstRunTracker = [];
 
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
     {
@@ -104,7 +105,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
      */
     public function disableObjectCacheInRuntime(): void
     {
-        $this->wpService->wpUsingExtObjectCache(false);
+        if (!$this->firstRun(__METHOD__)) {
+            return; 
+        }
+        //TODO: WpService should be updated to support this. $this->wpService->wpUsingExtObjectCache(false); null return not allowed. 
+        wp_using_ext_object_cache(false); 
         $this->wpService->wpCacheFlush();
         $this->wpService->wpCacheInit();
     }
@@ -116,6 +121,15 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function tryCreateCache()
     {
+        if (!$this->firstRun(__METHOD__)) {
+            return; 
+        }
+
+        //Only run once.
+        if (!$this->firstRun(__METHOD__)) {
+            return; 
+        }
+
       //Check if in frontend
         if (!$this->isFrontend()) {
             return;
@@ -141,12 +155,14 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function tryApplyCache()
     {
-      //Check if in frontend
+        if (!$this->firstRun(__METHOD__)) {
+            return; 
+        }
+
         if (!$this->isFrontend()) {
             return;
         }
 
-      //Try to get the static cache
         $staticCache = $this->getStaticCache(
             $this->getCacheKey()
         );
@@ -184,7 +200,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function createStaticCache(string $cacheKey, ApplicatorInterface ...$applicators): array
     {
-
         $this->wpService->doAction("Municipio/Customizer/LoadFields", $cacheKey);
 
         $cacheEntity = [];
@@ -345,5 +360,20 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
     protected function shortenHash($hash): string
     {
         return substr($hash, 0, 8);
+    }
+
+    /**
+     * Ensure the method runs only on its first invocation.
+     *
+     * @param string $key Unique key for the method.
+     * @return bool True if this is the first run, false otherwise.
+     */
+    private function firstRun(string $key): bool
+    {
+        if (isset(self::$firstRunTracker[$key])) {
+            return false;
+        }
+        self::$firstRunTracker[$key] = true;
+        return true;
     }
 }
