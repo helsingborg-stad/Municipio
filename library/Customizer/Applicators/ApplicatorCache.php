@@ -11,7 +11,7 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
-    private $cacheKeyBaseName  = 'theme_mod_applicator_cache';
+    public string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
     private array $applicators = [];
 
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
@@ -48,23 +48,31 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
   /**
    * Clear the cache.
-   *
+   * This is designed intentionally, to use delete_option instead 
+   * of using delete statement. This is to avoid any potential 
+   * issues with cache plugins.
+   * 
    * @return bool True if the cache was cleared, false otherwise (no cache found).
    */
     public function tryClearCache(): bool
     {
-        $this->wpdb->query(
-            $this->wpdb->prepare(
-                "DELETE FROM {$this->wpdb->options} 
-           WHERE option_name LIKE %s",
-                $this->cacheKeyBaseName . '_%'
-            )
+        $matchingOptions = $this->wpdb->get_col(
+           "SELECT option_name 
+            FROM {$this->wpdb->options} 
+            WHERE option_name LIKE '{$this->cacheKeyBaseName}_%'"
         );
-        $cacheCleared = (bool) $this->wpdb->rows_affected;
+        $cacheCleared = false;
+        foreach ($matchingOptions as $optionName) {
+            if ($this->wpService->deleteOption($optionName)) {
+                $cacheCleared = true;
+            }
+        }
 
         if ($cacheCleared) {
             $this->wpService->doAction("Municipio/Customizer/CacheCleared");
+            $this->clearWordPressCache();
         }
+
         return $cacheCleared;
     }
 
@@ -165,11 +173,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
     private function getCacheKey(): string
     {
         return sprintf(
-            '%s_%s_%s_%s',
+            '%s_%s_%s_%s%s',
             $this->cacheKeyBaseName,
             $this->getCustomizerStateKey(),
             $this->getCustomizerLastPublished(),
-            $this->getCustomzerFieldSignature() .
+            $this->getCustomizerFieldSignature(),
             $this->getCacheKeySuffix()
         );
     }
@@ -189,6 +197,16 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         );
     }
 
+    /**
+     * Clear the WordPress cache.
+     * 
+     * @return void
+     */
+    public function clearWordPressCache()
+    {
+        $this->wpService->wpCacheFlush();
+    }
+
   /**
    * Get the static cache.
    *
@@ -198,9 +216,16 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function getStaticCache(string $cacheKey): array|null
     {
-        $staticCache = $this->wpService->getOption(
-            $cacheKey
-        ) ?: null;
+        $staticCache = $this->wpdb->get_var(
+            $this->wpdb->prepare(
+                "SELECT option_value 
+                FROM {$this->wpdb->options} 
+                WHERE option_name = %s",
+                $cacheKey
+            )
+        );
+        $staticCache = maybe_unserialize($staticCache) ?: null;
+
         return $this->wpService->applyFilters('Municipio/Customizer/StaticCache', $staticCache);
     }
 
@@ -236,7 +261,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    *
    * @return string
    */
-    private function getCustomzerFieldSignature(): string
+    private function getCustomizerFieldSignature(): string
     {
         $fields = [];
         if (class_exists('\Kirki\Compatibility\Kirki')) {
