@@ -5,7 +5,6 @@ import './nav';
 import './hide';
 import { initializeLanguageMenu } from './languageMenu';
 import { initializeCollapsibleSearch } from './collapsibleSearch';
-import { initializeSizeObserver } from './sizeObserver';
 
 //Ponyfill for supporting css variables in IE
 cssVars({
@@ -29,7 +28,6 @@ fab.showOnScroll();
 initializeLanguageMenu();
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeSizeObserver();
     initializeCollapsibleSearch();
 });
 
