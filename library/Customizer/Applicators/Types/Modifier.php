@@ -8,6 +8,8 @@ use WpService\WpService;
 
 class Modifier extends AbstractApplicator implements ApplicatorInterface
 {
+    private array $cachedData = [];
+
     public function __construct(private WpService $wpService)
     {
     }
@@ -19,6 +21,7 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
 
     public function applyData(array|object $data)
     {
+        $this->cachedData = $data;
         $this->wpService->addFilter('ComponentLibrary/Component/Modifier', [$this, 'applyDataFilterFunction'], 10, 2);
     }
 
@@ -33,6 +36,8 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
     public function applyDataFilterFunction(array|string $modifiers, array|string $contexts): array
     {
         $contexts  = is_array($contexts) ? $contexts : [$contexts];
+
+        $modifiers = $this->cachedData;
         $modifiers = is_array($modifiers) ? $modifiers : [$modifiers];
 
         foreach ($modifiers as $filter) {
