@@ -239,15 +239,9 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function getStaticCache(string $cacheKey): array|null
     {
-        $staticCache = $this->wpdb->get_var(
-            $this->wpdb->prepare(
-                "SELECT option_value 
-                FROM {$this->wpdb->options} 
-                WHERE option_name = %s",
-                $cacheKey
-            )
-        );
-        $staticCache = maybe_unserialize($staticCache) ?: null;
+        $staticCache = $this->wpService->getOption(
+            $cacheKey
+        ) ?: null;
 
         return $this->wpService->applyFilters('Municipio/Customizer/StaticCache', $staticCache);
     }
