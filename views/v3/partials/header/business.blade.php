@@ -43,12 +43,7 @@
             @includeIf('user.account')
             
             {{-- Language selector --}}
-            @if (!empty($languageMenu['items']))
-                <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
-                    @includeIf('partials.navigation.trigger.language')
-                    @includeIf('partials.navigation.language')
-                </div>
-            @endif
+            @includeWhen(!empty($languageMenu['items']), 'partials.header.components.language')
             
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
