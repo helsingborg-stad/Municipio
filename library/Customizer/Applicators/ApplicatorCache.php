@@ -11,7 +11,7 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
-    private $cacheKeyBaseName  = 'theme_mod_applicator_cache';
+    private string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
     private array $applicators = [];
 
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
@@ -26,10 +26,20 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function addHooks(): void
     {
+        //Create cache on dynamic option generation generation.
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateCache'), 5);
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryApplyCache'), 10);
+
+        //Clear cache when customizer is saved (static option cache, and object cache).
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
+        $this->wpService->addAction('customize_save_after', array($this, 'tryClearObjectCache'), 25);
+        
+        //Allow to clear cache by url, if user can customize.
         $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 20);
+
+        // Disable object cache in runtime, when in customizer & preview.
+        $this->wpService->addAction('customize_controls_enqueue_scripts', array($this, 'disableObjectCacheInRuntime'), 1);
+        $this->wpService->addAction('customize_preview_init', array($this, 'disableObjectCacheInRuntime'), 1);
     }
 
   /**
@@ -48,24 +58,55 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
   /**
    * Clear the cache.
-   *
+   * This is designed intentionally, to use delete_option instead 
+   * of using delete statement. This is to avoid any potential 
+   * issues with cache plugins.
+   * 
    * @return bool True if the cache was cleared, false otherwise (no cache found).
    */
     public function tryClearCache(): bool
     {
-        $this->wpdb->query(
-            $this->wpdb->prepare(
-                "DELETE FROM {$this->wpdb->options} 
-           WHERE option_name LIKE %s",
-                $this->cacheKeyBaseName . '_%'
-            )
+        $matchingOptions = $this->wpdb->get_col(
+           "SELECT option_name 
+            FROM {$this->wpdb->options} 
+            WHERE option_name LIKE '{$this->cacheKeyBaseName}_%'"
         );
-        $cacheCleared = (bool) $this->wpdb->rows_affected;
+        $cacheCleared = false;
+        foreach ($matchingOptions as $optionName) {
+            if ($this->wpService->deleteOption($optionName)) {
+                $cacheCleared = true;
+            }
+        }
 
         if ($cacheCleared) {
             $this->wpService->doAction("Municipio/Customizer/CacheCleared");
         }
+
         return $cacheCleared;
+    }
+
+    /**
+     * Clear the WordPress cache.
+     * 
+     * @return void
+     */
+    public function tryClearObjectCache(): void
+    {
+        $this->wpService->wpCacheFlush();
+    }
+
+    /**
+     * Disable object cache in runtime.
+     * 
+     * Used to bypass all persistent caches.
+     * 
+     * @return void
+     */
+    public function disableObjectCacheInRuntime(): void
+    {
+        $this->wpService->wpUsingExtObjectCache(false);
+        $this->wpService->wpCacheFlush();
+        $this->wpService->wpCacheInit();
     }
 
   /**
@@ -165,11 +206,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
     private function getCacheKey(): string
     {
         return sprintf(
-            '%s_%s_%s_%s',
+            '%s_%s_%s_%s%s',
             $this->cacheKeyBaseName,
             $this->getCustomizerStateKey(),
             $this->getCustomizerLastPublished(),
-            $this->getCustomzerFieldSignature() .
+            $this->getCustomizerFieldSignature(),
             $this->getCacheKeySuffix()
         );
     }
@@ -236,7 +277,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    *
    * @return string
    */
-    private function getCustomzerFieldSignature(): string
+    private function getCustomizerFieldSignature(): string
     {
         $fields = [];
         if (class_exists('\Kirki\Compatibility\Kirki')) {
