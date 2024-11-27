@@ -6,7 +6,11 @@
         $loginLogoutHasBackgroundColor ? 'user--has-background' : ''
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.login'],
-    'attributeList' => ['data-js-sizeobserver' => '']
+    'attributeList' => [
+        'data-js-sizeobserver' => 'user-background', 
+        'data-js-sizeobserver-axis' => 'x', 
+        'data-js-sizeobserver-use-box-size' => ''
+    ]
 ])
     @link([
         'href' => $loginUrl,
