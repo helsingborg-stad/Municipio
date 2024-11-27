@@ -127,7 +127,7 @@ class LoginLogout
                     'type' => 'controller'
                 ],
                 [
-                    'element'  => '.user.user--active',
+                    'element'  => '.user.user--has-background',
                     'property' => '--user-background-color'
                 ]
             ],
