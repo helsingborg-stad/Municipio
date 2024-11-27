@@ -26,10 +26,20 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function addHooks(): void
     {
+        //Create cache on dynamic option generation generation.
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateCache'), 5);
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryApplyCache'), 10);
+
+        //Clear cache when customizer is saved (static option cache, and object cache).
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
+        $this->wpService->addAction('customize_save_after', array($this, 'tryClearObjectCache'), 25);
+        
+        //Allow to clear cache by url, if user can customize.
         $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 20);
+
+        // Disable object cache in runtime, when in customizer & preview.
+        $this->wpService->addAction('customize_controls_enqueue_scripts', array($this, 'disableObjectCacheInRuntime'), 1);
+        $this->wpService->addAction('customize_preview_init', array($this, 'disableObjectCacheInRuntime'), 1);
     }
 
   /**
@@ -70,10 +80,33 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
         if ($cacheCleared) {
             $this->wpService->doAction("Municipio/Customizer/CacheCleared");
-            $this->clearWordPressCache();
         }
 
         return $cacheCleared;
+    }
+
+    /**
+     * Clear the WordPress cache.
+     * 
+     * @return void
+     */
+    public function tryClearObjectCache(): void
+    {
+        $this->wpService->wpCacheFlush();
+    }
+
+    /**
+     * Disable object cache in runtime.
+     * 
+     * Used to bypass all persistent caches.
+     * 
+     * @return void
+     */
+    public function disableObjectCacheInRuntime(): void
+    {
+        $this->wpService->wpUsingExtObjectCache(false);
+        $this->wpService->wpCacheFlush();
+        $this->wpService->wpCacheInit();
     }
 
   /**
@@ -195,16 +228,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
             $cacheKey,
             $cacheEntity
         );
-    }
-
-    /**
-     * Clear the WordPress cache.
-     * 
-     * @return void
-     */
-    public function clearWordPressCache()
-    {
-        $this->wpService->wpCacheFlush();
     }
 
   /**
