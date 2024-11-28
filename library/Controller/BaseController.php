@@ -743,7 +743,7 @@ class BaseController
         $enabledLocations = $customizer->searchDisplay ?? null;
 
         // Return true if no customizer data exists
-        if (is_null($customizer) || is_null($enabledLocations)) {
+        if (is_null($customizer) || empty($enabledLocations)) {
             return false;
         }
 
