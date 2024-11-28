@@ -3,17 +3,17 @@
     <!-- Title -->
     @section('article.title.before')@show
     @section('article.title')
-        @if ($post->postTitleFiltered || isset($callToActionItems['floating']))
+        @if ($postTitleFiltered || isset($callToActionItems['floating']))
             @group([
                 'justifyContent' => 'space-between'
             ])
-                @if ($post->postTitleFiltered)
+                @if ($postTitleFiltered)
                     @typography([
                         'element' => 'h1', 
                         'variant' => 'h1', 
                         'id' => 'page-title',
                     ])
-                        {!! $post->postTitleFiltered !!}
+                        {!! $postTitleFiltered !!}
                     @endtypography
                 @endif
                 @if (!empty($callToActionItems['floating']))
@@ -67,7 +67,7 @@
         @endnotice
     @endif
     @section('article.content')
-        {!! $post->postContentFiltered !!}
+        {!! $postContentFiltered !!}
     @show
     @section('article.content.after')@show
 
