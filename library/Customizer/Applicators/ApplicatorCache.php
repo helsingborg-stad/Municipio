@@ -8,12 +8,20 @@ use wpdb;
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 
+/**
+ * Class ApplicatorCache
+ *
+ * Handles caching for the customizer applicators.
+ */
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
     private string $cacheKeyBaseName = 'theme_mod_applicator_cache';
     private array $applicators       = [];
     private static $firstRunTracker  = [];
 
+    /**
+     * Constructor.
+     */
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
     {
         $this->applicators = $applicators;
