@@ -126,13 +126,13 @@ class Archive extends \Municipio\Controller\BaseController
             'compressed'     => Appearance::CompressedItem,
             'collection'     => Appearance::CollectionItem,
             'schema-project' => Appearance::SchemaProjectItem,
-            'segment'        => Appearance::SegmentItem,
             'newsitem'       => Appearance::NewsItem,
         ][$template] ?? null;
 
         if (!$templateAppearance) {
             return null;
         }
+
         $renderer = PostObjectRendererFactory::create($templateAppearance, [
             'displayReadingTime' => $this->data['displayReadingTime'],
             'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',

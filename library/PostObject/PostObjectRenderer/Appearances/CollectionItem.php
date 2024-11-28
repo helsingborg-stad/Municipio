@@ -24,7 +24,7 @@ class CollectionItem extends PostObjectBladeRenderer implements PostObjectRender
     {
         $defaultConfig = [
             'gridColumnClass'      => [],
-            'displayFeaturedImage' => false
+            'displayFeaturedImage' => true
         ];
 
         if (!empty($this->config['gridColumnClass']) && is_string($this->config['gridColumnClass'])) {
