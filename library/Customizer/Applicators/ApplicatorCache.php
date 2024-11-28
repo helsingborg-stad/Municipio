@@ -10,9 +10,9 @@ use Municipio\Customizer\Applicators\ApplicatorInterface;
 
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 {
-    private string $cacheKeyBaseName  = 'theme_mod_applicator_cache';
-    private array $applicators = [];
-    private static $firstRunTracker = [];
+    private string $cacheKeyBaseName = 'theme_mod_applicator_cache';
+    private array $applicators       = [];
+    private static $firstRunTracker  = [];
 
     public function __construct(private WpService $wpService, private wpdb $wpdb, ApplicatorInterface ...$applicators)
     {
@@ -32,7 +32,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         //Clear cache when customizer is saved (static option cache, and object cache).
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearObjectCache'), 25);
-        
+
         //Allow to clear cache by url, if user can customize.
         $this->wpService->addAction('admin_init', array($this, 'tryClearCacheByUrl'), 20);
 
@@ -57,20 +57,20 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
   /**
    * Clear the cache.
-   * This is designed intentionally, to use delete_option instead 
-   * of using delete statement. This is to avoid any potential 
+   * This is designed intentionally, to use delete_option instead
+   * of using delete statement. This is to avoid any potential
    * issues with cache plugins.
-   * 
+   *
    * @return bool True if the cache was cleared, false otherwise (no cache found).
    */
     public function tryClearCache(): bool
     {
         $matchingOptions = $this->wpdb->get_col(
-           "SELECT option_name 
+            "SELECT option_name 
             FROM {$this->wpdb->options} 
             WHERE option_name LIKE '{$this->cacheKeyBaseName}_%'"
         );
-        $cacheCleared = false;
+        $cacheCleared    = false;
         foreach ($matchingOptions as $optionName) {
             if ($this->wpService->deleteOption($optionName)) {
                 $cacheCleared = true;
@@ -86,7 +86,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
     /**
      * Clear the WordPress cache.
-     * 
+     *
      * @return void
      */
     public function tryClearObjectCache(): void
@@ -96,18 +96,18 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
     /**
      * Disable object cache in runtime.
-     * 
+     *
      * Used to bypass all persistent caches.
-     * 
+     *
      * @return void
      */
     public function disableObjectCacheInRuntime(): void
     {
         if (!$this->firstRun(__METHOD__)) {
-            return; 
+            return;
         }
-        //TODO: WpService should be updated to support this. $this->wpService->wpUsingExtObjectCache(false); null return not allowed. 
-        wp_using_ext_object_cache(false); 
+        //TODO: WpService should be updated to support this. $this->wpService->wpUsingExtObjectCache(false); null return not allowed.
+        wp_using_ext_object_cache(false);
         $this->wpService->wpCacheFlush();
         $this->wpService->wpCacheInit();
     }
@@ -124,7 +124,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
         }
 
         if (!$this->firstRun(__METHOD__)) {
-            return; 
+            return;
         }
 
         $cacheKey = $this->getCacheKey();
@@ -150,7 +150,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     private function tryApplyCache(?string $cacheKey = null, ?array $staticCache = null): void
     {
-        if(is_null($staticCache)) {
+        if (is_null($staticCache)) {
             $staticCache = $this->getStaticCache(
                 ($cacheKey ?: $this->getCacheKey())
             );
