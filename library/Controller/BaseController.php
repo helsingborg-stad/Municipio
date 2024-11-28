@@ -739,65 +739,42 @@ class BaseController
      */
     protected function showSearchForm($location = null)
     {
-        if (!isset($this->data['customizer']->searchDisplay)) {
-            return true;
+        $customizer = $this->data['customizer'] ?? null;
+        $enabledLocations = $customizer->searchDisplay ?? null;
+
+        // Return true if no customizer data exists
+        if (is_null($customizer) || is_null($enabledLocations)) {
+            return false;
         }
 
-        $enabledLocations = $this->data['customizer']->searchDisplay;
+        switch ($location) {
+            case 'hero':
+                return is_front_page() && in_array($location, $enabledLocations);
 
-        if ($location == "hero" && is_front_page()) {
-            return in_array($location, $enabledLocations);
-        }
+            case 'mobile-drawer':
+            case 'mobile':
+                return in_array('mobile', $enabledLocations);
+                
+            case 'header':
+                if (is_search()) {
+                    return false;
+                }
+                return is_front_page()
+                    ? in_array('header', $enabledLocations)
+                    : in_array('header_sub', $enabledLocations);
 
-        if ($location == "mobile") {
-            //Do not show on frontpage, if hero search is active
-            if (!in_array("hero", $enabledLocations) && is_front_page()) {
-                return true;
-            }
+            case 'navigation':
+                return !is_search() && in_array('mainmenu', $enabledLocations);
 
-            //Show if not frontpage, not search and search is enabled anywhere else.
-            if (!is_front_page() && !is_search() && !empty($enabledLocations)) {
-                return true;
-            }
-        }
+            case 'mega-menu':
+                return in_array('mega_menu', $enabledLocations);
 
-        if ($location == "mobile-drawer" && $this->data['customizer']->headerApperance !== 'business') {
-            if ($this->showSearchForm('mobile')) {
-                return true;
-            }
-        }
+            case 'quicklinks':
+                return in_array('quicklinks', $enabledLocations);
 
-        if ($location == "header") {
-            if (is_search()) {
+            default:
                 return false;
-            }
-
-            if (is_front_page()) {
-                return in_array('header', $enabledLocations);
-            }
-
-            if (!is_front_page()) {
-                return in_array('header_sub', $enabledLocations);
-            }
         }
-
-        if ($location == "navigation") {
-            if (is_search()) {
-                return false;
-            }
-
-            return in_array('mainmenu', $enabledLocations);
-        }
-
-        if ($location == "mega-menu") {
-            return in_array('mega_menu', $enabledLocations);
-        }
-
-        if ($location == "quicklinks") {
-            return in_array('quicklinks', $enabledLocations);
-        }
-
-        return false;
     }
 
     /**
