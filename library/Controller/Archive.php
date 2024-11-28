@@ -4,8 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\Controller\Navigation\MenuBuilder;
-use Municipio\Controller\Navigation\MenuDirector;
 
 /**
  * Class Archive
