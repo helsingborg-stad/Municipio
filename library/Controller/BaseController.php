@@ -739,7 +739,7 @@ class BaseController
      */
     protected function showSearchForm($location = null)
     {
-        $customizer = $this->data['customizer'] ?? null;
+        $customizer       = $this->data['customizer'] ?? null;
         $enabledLocations = $customizer->searchDisplay ?? null;
 
         // Return true if no customizer data exists
@@ -754,7 +754,7 @@ class BaseController
             case 'mobile-drawer':
             case 'mobile':
                 return in_array('mobile', $enabledLocations);
-                
+
             case 'header':
                 if (is_search()) {
                     return false;
