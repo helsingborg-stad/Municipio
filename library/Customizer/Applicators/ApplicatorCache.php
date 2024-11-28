@@ -6,7 +6,6 @@ use WpService\WpService;
 use Municipio\HooksRegistrar\Hookable;
 use wpdb;
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
-use Kirki\Util\Helper as KirkiHelper;
 use Municipio\Customizer\Applicators\ApplicatorInterface;
 
 class ApplicatorCache implements Hookable, ApplicatorCacheInterface
