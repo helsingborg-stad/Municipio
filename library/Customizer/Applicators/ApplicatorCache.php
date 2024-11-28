@@ -28,8 +28,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
     public function addHooks(): void
     {
         //Create cache on dynamic option generation generation.
-        $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateCache'), 5);
-        $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryApplyCache'), 10);
+        $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateAndApplyCache'), 5);
 
         //Clear cache when customizer is saved (static option cache, and object cache).
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
@@ -119,33 +118,32 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    *
    * @return void
    */
-    public function tryCreateCache()
+    public function tryCreateAndApplyCache()
     {
-        if (!$this->firstRun(__METHOD__)) {
-            return; 
-        }
-
-        //Only run once.
-        if (!$this->firstRun(__METHOD__)) {
-            return; 
-        }
-
       //Check if in frontend
         if (!$this->isFrontend()) {
             return;
         }
 
+        if (!$this->firstRun(__METHOD__)) {
+            return; 
+        }
+
+        $cacheKey = $this->getCacheKey();
+
       //Try to get the static cache
         $staticCache = $this->getStaticCache(
-            $this->getCacheKey()
+            $cacheKey
         );
 
         if (is_null($staticCache)) {
-            $this->createStaticCache(
-                $this->getCacheKey(),
+            $staticCache = $this->createStaticCache(
+                $cacheKey,
                 ...$this->applicators
             );
         }
+
+        $this->tryApplyCache($cacheKey, $staticCache);
     }
 
   /**
@@ -153,19 +151,13 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    *
    * @return void
    */
-    public function tryApplyCache()
+    private function tryApplyCache(?string $cacheKey = null, ?array $staticCache = null): void
     {
-        if (!$this->firstRun(__METHOD__)) {
-            return; 
+        if(is_null($staticCache)) {
+            $staticCache = $this->getStaticCache(
+                ($cacheKey ?: $this->getCacheKey())
+            );
         }
-
-        if (!$this->isFrontend()) {
-            return;
-        }
-
-        $staticCache = $this->getStaticCache(
-            $this->getCacheKey()
-        );
 
         if (is_null($staticCache)) {
             throw new \Exception('No cache found for customizer settings.');
@@ -200,8 +192,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function createStaticCache(string $cacheKey, ApplicatorInterface ...$applicators): array
     {
-        $this->wpService->doAction("Municipio/Customizer/LoadFields", $cacheKey);
-
         $cacheEntity = [];
 
         foreach ($applicators as $applicator) {
