@@ -120,7 +120,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function tryCreateAndApplyCache()
     {
-      //Check if in frontend
         if (!$this->isFrontend()) {
             return;
         }
@@ -131,7 +130,6 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
 
         $cacheKey = $this->getCacheKey();
 
-      //Try to get the static cache
         $staticCache = $this->getStaticCache(
             $cacheKey
         );
