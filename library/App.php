@@ -4,8 +4,10 @@ namespace Municipio;
 
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
+use ModularityLikePosts\Blade\Blade;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
+use Municipio\Api\Posts\Blade as PostsBlade;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
@@ -55,6 +57,7 @@ use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
+use ComponentLibrary\Init as ComponentLibraryInit;
 
 /**
  * Class App
@@ -252,9 +255,12 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
+        $postsBladeInstance = new PostsBlade(new ComponentLibraryInit([]), $this->wpService);
+
         /**
          * Api
          */
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Posts\MunicipioPostsEndpoint($postsBladeInstance, $this->wpService));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
