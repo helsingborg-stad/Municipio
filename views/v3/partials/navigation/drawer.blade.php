@@ -23,7 +23,8 @@
         's-drawer-menu'
     ],
     'label' => $lang->close,
-    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes
+    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
+    'context' => ['site.header.drawer'],
 ])
 
     @slot('search')
@@ -48,23 +49,6 @@
                     ]
                 ]
             )
-
-            @if (!empty($additionalMenusOption[$mobileMenu['name']]))
-                @foreach ($additionalMenusOption[$mobileMenu['name']] as $additionalMenuId)
-                    @if (isset($additionalMenus[$additionalMenuId]))
-                        @include('partials.navigation.mobile',
-                            [
-                                'mobileMenu' => $additionalMenus[$additionalMenuId],
-                                'classList' => [
-                                    'c-nav--drawer',
-                                    'site-nav-mobile__primary',
-                                    's-nav-drawer',
-                                    's-nav-drawer-primary'
-                                ]
-                            ])
-                    @endif
-                @endforeach
-            @endif
 
                 {{-- No ajax in wp-menus, thus not in its own file --}}
 

@@ -1,61 +1,44 @@
 <?php
 
-namespace Municipio\Customizer\Applicators;
+namespace Municipio\Customizer\Applicators\Types;
 
-class ControllerVariables extends AbstractApplicator
+use Municipio\Customizer\Applicators\AbstractApplicator;
+use Municipio\Customizer\Applicators\ApplicatorInterface;
+use WpService\WpService;
+
+class Controller extends AbstractApplicator implements ApplicatorInterface
 {
-    public $optionKey = 'controller';
-
-    public function __construct()
+    public function __construct(private WpService $wpService)
     {
-        add_filter('Municipio/Controller/Customizer', array($this, 'applicateStoredControllerVars'));
-        add_action('customize_save_after', array($this, 'storeControllerVars'), 50, 1);
     }
 
-    /**
-     * Calculate controller vars on save of customizer
-     *
-     * @return array
-     */
-    public function storeControllerVars($manager = null)
+    public function getKey(): string
     {
-        $this->setStatic(
-            $controllerVars = $this->get()
-        );
-        return $controllerVars;
-    }
-
-    /**
-     * Populate controller vars from stored data, if available.
-     * Otherwise, calculate, store and try again.
-     *
-     * @return array
-     */
-    public function applicateStoredControllerVars()
-    {
-        if ($controllerVars = $this->getStatic()) {
-            return $controllerVars;
-        }
-        return $this->storeControllerVars(); // Fallback to calculate and store
+        return 'controller';
     }
 
   /**
-   * Get customizer controller variables
+   * Apply data to controllers with the controller filer
    *
-   * @param array $stack  External stack objects
-   *
-   * @return object
+   * @param array|object $data
    */
-    public function get($stack = [])
+    public function applyData(array|object $data)
     {
-        if ($runtimeCache = $this->getRuntimeCache('controllerVarsRuntimeCache')) {
-            return $runtimeCache;
-        }
+        $this->wpService->addFilter('Municipio/Controller/Customizer', function ($filterInput) use ($data) {
+            if (is_array($filterInput) && !empty($filterInput)) {
+                return (object) array_merge($filterInput, (array) $data);
+            }
+            return (object) $data;
+        });
+    }
 
-        //Get field definition
+    public function getData(): object
+    {
+      //Get field definition
         $fields = $this->getFields();
+        $stack  = [];
 
-        //Determine what's a controller var, fetch it
+      //Determine what's a controller var, fetch it
         if (is_array($fields) && !empty($fields)) {
             foreach ($fields as $key => $field) {
                 // Check if field is a controller
@@ -80,16 +63,11 @@ class ControllerVariables extends AbstractApplicator
                 }
             }
         }
-        // Camel case response keys, and return
-        return $this->setRuntimeCache(
-            'controllerVarsRuntimeCache',
-            \Municipio\Helper\FormatObject::camelCase(
-                (object) $stack
-            )
-        );
+
+        return \Municipio\Helper\FormatObject::camelCase((object) $stack);
     }
 
-   /**
+  /**
    * Determine output type
    *
    * @param array $field
@@ -109,15 +87,15 @@ class ControllerVariables extends AbstractApplicator
         return false;
     }
 
-    /**
-     * Append to stack
-     *
-     * @param array $stack  Prevois stack object
-     * @param string $value Value to append
-     * @param string $key   Field key to store
-     * @param array $field  Field definition
-     * @return void
-     */
+  /**
+   * Append to stack
+   *
+   * @param array $stack  Prevois stack object
+   * @param string $value Value to append
+   * @param string $key   Field key to store
+   * @param array $field  Field definition
+   * @return void
+   */
     private function appendStack($stack, $value, $key, $field)
     {
         if ($this->shouldStackInObject($field)) {
@@ -129,7 +107,7 @@ class ControllerVariables extends AbstractApplicator
 
             //Store in sanitized item name
             $stack[$section][
-                $this->sanitizeStackItemName($key, $section)
+              $this->sanitizeStackItemName($key, $section)
             ] = $value;
         } else {
             $stack[$key] = $value;
@@ -138,24 +116,24 @@ class ControllerVariables extends AbstractApplicator
         return $stack;
     }
 
-    /**
-     * Sanitize stack object name. Removes customizer panel prefix.
-     *
-     * @param string $name
-     * @return string
-     */
+  /**
+   * Sanitize stack object name. Removes customizer panel prefix.
+   *
+   * @param string $name
+   * @return string
+   */
     private function sanitizeStackObjectName($name)
     {
         return str_replace('municipio_customizer_panel_', '', $name);
     }
 
-    /**
-     * Remove object name from item keys
-     *
-     * @param string $name
-     * @param string $santizationString
-     * @return string
-     */
+  /**
+   * Remove object name from item keys
+   *
+   * @param string $name
+   * @param string $santizationString
+   * @return string
+   */
     private function sanitizeStackItemName($name, $santizationString)
     {
         return str_replace($santizationString, '', $name);

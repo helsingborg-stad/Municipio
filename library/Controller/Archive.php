@@ -4,9 +4,6 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
-use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\PostObjectRenderer\Appearances\Appearance;
-use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
 
 /**
  * Class Archive
@@ -15,6 +12,12 @@ use Municipio\PostObject\PostObjectRenderer\PostObjectRendererFactory;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+    private static $gridSize;
+
+    private static $randomGridBase = array();
+    private static $gridRow        = array();
+    private static $gridColumns    = array();
+
     /**
      * Initializes the Archive controller.
      *
@@ -106,43 +109,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         $this->menuBuilder->setConfig($archiveMenuConfig);
         $this->menuDirector->buildStandardMenu();
-        $this->data['archiveMenuItems']    = $this->menuBuilder->getMenu()->getMenu()['items'];
-        $this->data['renderedPostObjects'] = $this->getRenderedPostObjects($template, $this->data['posts']);
-    }
-
-
-    /**
-     * Get rendered post objects
-     *
-     * @param string $template
-     * @param PostObjectInterface[] $postObjects
-     * @return string|null The rendered post objects or null if the template is not supported.
-     */
-    private function getRenderedPostObjects(string $template, array $postObjects): ?string
-    {
-        $templateAppearance = [
-            'cards'          => Appearance::CardItem,
-            'grid'           => Appearance::BlockItem,
-            'compressed'     => Appearance::CompressedItem,
-            'collection'     => Appearance::CollectionItem,
-            'schema-project' => Appearance::SchemaProjectItem,
-            'segment'        => Appearance::SegmentItem,
-            'newsitem'       => Appearance::NewsItem,
-        ][$template] ?? null;
-
-        if (!$templateAppearance) {
-            return null;
-        }
-        $renderer = PostObjectRendererFactory::create($templateAppearance, [
-            'displayReadingTime' => $this->data['displayReadingTime'],
-            'format'             => $this->data['archiveProps']->format === 'tall' ? '12:16' : '1:1',
-            'gridColumnClass'    => $this->data['gridColumnClass'],
-            'showPlaceholder'    => $this->data['anyPostHasImage'],
-        ]);
-
-        return join(array_map(function (PostObjectInterface $postObject) use ($renderer) {
-            return $postObject->getRendered($renderer);
-        }, $postObjects));
+        $this->data['archiveMenuItems'] = $this->menuBuilder->getMenu()->getMenu()['items'];
     }
 
     /**

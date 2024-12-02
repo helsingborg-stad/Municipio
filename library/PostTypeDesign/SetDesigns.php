@@ -40,9 +40,49 @@ class SetDesigns implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter("option_theme_mods_municipio", array($this, 'setDesign'), 10, 2);
+        $this->wpService->addFilter('option_theme_mods_municipio', array($this, 'setDesign'), 10, 2);
         $this->wpService->addFilter('wp_get_custom_css', array($this, 'setCss'), 10, 2);
         $this->wpService->addAction('wp_head', array($this, 'addInlineCss'));
+        $this->wpService->addFilter('Municipio/Customizer/CacheKeySuffix', array($this, 'setUniqueCustomizerCacheSuffix'), 10, 3);
+    }
+
+    /**
+     * Retrieves the design option from the WordPress service.
+     *
+     * @return array The design option.
+     */
+    public function getDesignOption(): array
+    {
+        static $designOption;
+
+        if (!is_null($designOption)) {
+            return $designOption;
+        }
+
+        $designOption = $this->wpService->getOption($this->optionName, []);
+
+        return $designOption;
+    }
+
+    /**
+     * Sets the unique customizer cache suffix.
+     *
+     * This method sets the unique customizer cache suffix based on the provided parameters.
+     * If the design option for the given post type is empty or the post type is false, it returns the default value.
+     * Otherwise, it returns the post type.
+     *
+     * @param string $defaultValue The default value to return if the design option is empty or the post type is false.
+     * @param bool $isCustomizerPreview Indicates if the customizer is in preview mode.
+     * @param string|false $postType The post type to set the customizer cache suffix for.
+     * @return string The unique customizer cache suffix.
+     */
+    public function setUniqueCustomizerCacheSuffix(string $defaultValue, bool $isCustomizerPreview, string|false $postType)
+    {
+        if (!$postType || empty($this->getDesignOption()[$postType])) {
+            return $defaultValue;
+        }
+
+        return $postType;
     }
 
     /**
@@ -56,11 +96,11 @@ class SetDesigns implements Hookable
     {
         $this->postType = $this->postType ?: $this->wpService->getPostType();
 
-        if (empty($this->postType) || empty($this->wpService->getOption($this->optionName)[$this->postType]['css'])) {
+        if (empty($this->postType) || empty($this->getDesignOption()[$this->postType]['css'])) {
             return $css;
         }
 
-        return $this->wpService->getOption($this->optionName)[$this->postType]['css'];
+        return $this->getDesignOption()[$this->postType]['css'];
     }
 
     /**
@@ -74,11 +114,11 @@ class SetDesigns implements Hookable
     {
         $this->postType = $this->postType ?: $this->wpService->getPostType();
 
-        if (empty($this->postType) || empty($this->wpService->getOption($this->optionName)[$this->postType]['design'])) {
+        if (empty($this->postType) || empty($this->getDesignOption()[$this->postType]['design'])) {
             return $value;
         }
 
-        $design = $this->wpService->getOption($this->optionName)[$this->postType]['design'];
+        $design = $this->getDesignOption()[$this->postType]['design'];
         $value  = is_array($value) ? array_replace($value, (array) $design) : $design;
 
         return $value;
@@ -94,14 +134,13 @@ class SetDesigns implements Hookable
      */
     public function addInlineCss(): void
     {
-        $postTypeDesigns = $this->wpService->getOption($this->optionName);
-        if (empty($postTypeDesigns['inlineCss'])) {
+        if (empty($this->getDesignOption()['inlineCss'])) {
             return;
         }
 
         ?>
             <style id="post-type-design-inline" type="text/css">
-                <?php echo $postTypeDesigns['inlineCss'] ?>
+                <?php echo $this->getDesignOption()['inlineCss'] ?>
             </style>
         <?php
     }

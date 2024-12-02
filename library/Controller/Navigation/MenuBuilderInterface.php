@@ -50,4 +50,8 @@ interface MenuBuilderInterface
     public function removeTopLevel(): void;
     public function structureMenuItems(): void;
     public function applyNestedMenuItemsFilter(): void;
+
+    // Standard menu with page tree subitems
+    public function standardMenuWithPageTreeSubitemsAppendHasChildren(): void;
+    public function standardMenuWithPageTreeSubitemsAppendAncestors(): void;
 }

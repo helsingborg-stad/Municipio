@@ -150,10 +150,6 @@ class Template
             $template = '404';
         }
 
-        if (is_archive() && ($template === 'one-page' || $template === 'page-centered')) {
-            $template = 'archive';
-        }
-
         //Do something before controller creation
         do_action_deprecated(
             'Municipio/blade/before_load_controller',
@@ -349,7 +345,7 @@ class Template
                     }
 
                     // Template slug
-                    if (get_page_template_slug()) {
+                    if (get_queried_object() && get_page_template_slug()) {
                         $type = get_page_template_slug();
                     }
 

@@ -1,45 +1,34 @@
 <?php
 
-namespace Municipio\Customizer\Applicators;
+namespace Municipio\Customizer\Applicators\Types;
 
-use Kirki\Compatibility\Kirki;
+use Municipio\Customizer\Applicators\AbstractApplicator;
+use Municipio\Customizer\Applicators\ApplicatorInterface;
+use WpService\WpService;
 use Error;
 
-class ComponentData extends AbstractApplicator
+class Component extends AbstractApplicator implements ApplicatorInterface
 {
-    public $optionKey = 'component';
+    private array $cachedData = [];
 
-    public function __construct()
+    public function __construct(private WpService $wpService)
     {
-        add_action('customize_save_after', array($this, 'storeComponentData'), 50);
-        add_filter('ComponentLibrary/Component/Data', array($this, 'applyStoredComponentData'), 10);
     }
 
-    /**
-     * Calculate and store component data on save of customizer
-     *
-     * @return void
-     */
-    public function storeComponentData($manager = null)
+    public function getKey(): string
     {
-        $this->setStatic(
-            $componentData = $this->calculateComponentData()
-        );
-        return $componentData;
+        return 'component';
     }
 
-    /**
-     * Apply stored component data
-     *
-     * @param array $data
-     * @return array
-     */
-    public function applyStoredComponentData($data)
+    public function applyData(array|object $data)
     {
-        $storedComponentData = $this->getStatic();
-        if ($storedComponentData === false) {
-            $storedComponentData = $this->storeComponentData();
-        }
+        $this->cachedData = $data;
+        $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10, 1);
+    }
+
+    public function applyDataFilterFunction($data)
+    {
+        $storedComponentData = $this->cachedData;
 
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
 
@@ -73,17 +62,8 @@ class ComponentData extends AbstractApplicator
         return $data;
     }
 
-    /**
-     * Calculate component data based on fields
-     *
-     * @return array
-     */
-    private function calculateComponentData()
+    public function getData(): array
     {
-        if ($runtimeCache = $this->getRuntimeCache('componentDataRuntimeCache')) {
-            return $runtimeCache;
-        }
-
         $fields        = $this->getFields();
         $componentData = [];
 
@@ -103,41 +83,40 @@ class ComponentData extends AbstractApplicator
                             continue;
                         }
 
-                        // Correct faulty context configurations
                         foreach ($output['context'] as $contextKey => $context) {
                             if (is_string($context)) {
                                 $output['context'][$contextKey] = [
-                                    'operator' => '==',
-                                    'context'  => $context
+                                'operator' => '==',
+                                'context'  => $context
                                 ];
                             }
                         }
 
-                        $filterData = $this->buildFilterData($output['dataKey'], \Kirki::get_option($key));
+                        $filterData = $this->buildFilterData(
+                            $output['dataKey'],
+                            \Kirki::get_option($key)
+                        );
 
                         $componentData[] = [
-                            'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
-                            'data'     => $filterData,
+                          'contexts' => is_array($output['context']) ? $output['context'] : [$output['context']],
+                          'data'     => $filterData,
                         ];
                     }
                 }
             }
         }
 
-        return $this->setRuntimeCache(
-            'componentDataRuntimeCache',
-            $componentData
-        );
+        return $componentData;
     }
 
-    /**
-     * Build filter data from the given data key and value
-     *
-     * @param string $dataKey
-     * @param mixed $value
-     * @return array
-     */
-    public function buildFilterData(string $dataKey, $value): array
+  /**
+   * Build filter data from the given data key and value
+   *
+   * @param string $dataKey
+   * @param mixed $value
+   * @return array
+   */
+    private function buildFilterData(string $dataKey, $value): array
     {
         $filterData  = [];
         $previousArr = &$filterData;

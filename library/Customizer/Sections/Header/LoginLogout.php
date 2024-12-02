@@ -16,27 +16,27 @@ class LoginLogout
             'label'       => esc_html__('Display login/logout', 'municipio'),
             'description' => esc_html__('Select when the login/logout button should be visible', 'municipio'),
             'section'     => $sectionID,
-            'default'     => 'logout',
+            'default'     => '',
             'priority'    => 4,
             'choices'     => [
-                ''          => esc_html__('Never', 'municipio'),
-                'logout'    => esc_html__('Logout', 'municipio'),
-                'both'      => esc_html__('Login and Logout', 'municipio'),
+                ''       => esc_html__('Never', 'municipio'),
+                'logout' => esc_html__('Logout', 'municipio'),
+                'both'   => esc_html__('Login and Logout', 'municipio'),
             ],
-            'output'    => [
+            'output'      => [
                 ['type' => 'controller']
             ],
         ]);
 
         KirkiField::addField([
-            'type'            => 'radio',
-            'settings'        => 'login_logout_appearance_type',
-            'label'           => esc_html__('Appearance', 'municipio'),
-            'description'     => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
-            'section'         => $sectionID,
-            'default'         => 'default',
-            'priority'        => 5,
-            'choices'         => [
+            'type'        => 'radio',
+            'settings'    => 'login_logout_appearance_type',
+            'label'       => esc_html__('Appearance', 'municipio'),
+            'description' => esc_html__('Select if you want to use one of the predefined appearance, or customize freely.', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 'default',
+            'priority'    => 5,
+            'choices'     => [
                 'default' => esc_html__('Predefined appearance', 'municipio'),
                 'custom'  => esc_html__('Custom appearance', 'municipio'),
             ],
@@ -47,15 +47,15 @@ class LoginLogout
             'settings'        => 'login_logout_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
             'section'         => $sectionID,
-            'default'         => 'light',
+            'default'         => 'dark',
             'priority'        => 10,
             'choices'         => [
                 'light' => esc_html__('Light', 'municipio'),
-                'dark'   => esc_html__('Dark', 'municipio'),
+                'dark'  => esc_html__('Dark', 'municipio'),
             ],
-            'output' => [
+            'output'          => [
                 [
-                  'type'    => 'controller'
+                  'type' => 'controller'
                 ]
             ],
             'active_callback' => [
@@ -68,24 +68,24 @@ class LoginLogout
           ]);
 
         KirkiField::addField([
-            'type'              => 'multicolor',
-            'settings'          => 'header_login_logout_colors_active',
-            'label'             => esc_html__('Custom colors user colors', 'municipio'),
-            'section'           => $sectionID,
-            'priority'          => 10,
-            'transport'         => 'auto',
-            'choices'           => [
-                'user-active-text-color' => esc_html__('Logout link color', 'municipio'),
-                'user-active-text-color-hover'  => esc_html__('Logout link color hover', 'municipio'),
-                'user-active-author-color'  => esc_html__('User name color', 'municipio'),
+            'type'            => 'multicolor',
+            'settings'        => 'header_login_logout_colors_active',
+            'label'           => esc_html__('Custom colors user colors', 'municipio'),
+            'section'         => $sectionID,
+            'priority'        => 10,
+            'transport'       => 'auto',
+            'choices'         => [
+                'user-active-text-color'       => esc_html__('Logout link color', 'municipio'),
+                'user-active-text-color-hover' => esc_html__('Logout link color hover', 'municipio'),
+                'user-active-author-color'     => esc_html__('User name color', 'municipio'),
             ],
-            'default'           => [
-                'user-active-text-color'         => '#000',
-                'user-active-text-color-hover'   => '#000',
-                'user-active-author-color'       => '#000',
+            'default'         => [
+                'user-active-text-color'       => '#000',
+                'user-active-text-color-hover' => '#000',
+                'user-active-author-color'     => '#000',
             ],
-            'palettes'          => $colorPalette,
-            'output'            => [
+            'palettes'        => $colorPalette,
+            'output'          => [
                 [
                     'choice'   => 'user-active-text-color',
                     'element'  => '.user.user--active',
@@ -100,9 +100,9 @@ class LoginLogout
                     'choice'   => 'user-active-author-color',
                     'element'  => '.user.user--active',
                     'property' => '--user-active-author-color'
-                ],     
+                ],
             ],
-            'active_callback'   => [
+            'active_callback' => [
                 [
                   'setting'  => 'login_logout_appearance_type',
                   'operator' => '===',
@@ -112,34 +112,26 @@ class LoginLogout
         ]);
 
         KirkiField::addField([
-            'type'              => 'multicolor',
-            'settings'          => 'header_login_logout_colors_inactive',
-            'label'             => esc_html__('Custom colors login colors', 'municipio'),
-            'section'           => $sectionID,
-            'priority'          => 10,
-            'transport'         => 'auto',
-            'choices'           => [
-                'user-inactive-text-color' => esc_html__('Login link color', 'municipio'),
-                'user-inactive-text-color-hover'  => esc_html__('Login link color hover', 'municipio'),
+            'type'            => 'color',
+            'settings'        => 'header_login_logout_background_color',
+            'label'           => esc_html__('Custom background color', 'municipio'),
+            'section'         => $sectionID,
+            'priority'        => 10,
+            'default'         => '#ffffff00',
+            'choices'         => [
+                'alpha' => true,
             ],
-            'default'           => [
-                'user-inactive-text-color'         => '#000',
-                'user-inactive-text-color-hover'   => '#000',
-            ],
-            'palettes'          => $colorPalette,
-            'output'            => [
+            'palettes'        => $colorPalette,
+            'output'          => [
                 [
-                    'choice'   => 'user-inactive-text-color',
-                    'element'  => '.user.user--inactive',
-                    'property' => '--user-inactive-text-color'
+                    'type' => 'controller'
                 ],
                 [
-                    'choice'   => 'user-inactive-text-color-hover',
-                    'element'  => '.user.user--inactive',
-                    'property' => '--user-inactive-text-color-hover'
-                ],   
+                    'element'  => '.user.user--has-background',
+                    'property' => '--user-background-color'
+                ]
             ],
-            'active_callback'   => [
+            'active_callback' => [
                 [
                   'setting'  => 'login_logout_appearance_type',
                   'operator' => '===',

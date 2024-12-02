@@ -63,17 +63,14 @@ class PanelsRegistry
 
     public function build(): void
     {
-
         if (self::$registerInvoked) {
             $method = __METHOD__;
-            var_dump("{$method} can only be invoked once.");
             trigger_error("{$method} can only be invoked once.", E_USER_NOTICE);
             return;
         }
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
-        self::registerPostTypePanel();
         self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
@@ -83,6 +80,18 @@ class PanelsRegistry
 
     public static function registerDesignLibraryPanel()
     {
+        $panelId = 'municipio_customizer_panel_post_types';
+
+        $filteredPostTypes = self::getArchives(['attachment']);
+        $sections          = array_map(function ($postType) use ($panelId) {
+            $id = "{$panelId}_{$postType->name}";
+            return KirkiPanelSection::create()
+                ->setID($id)
+                ->setPanel($panelId)
+                ->setTitle($postType->label)
+                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
+        }, $filteredPostTypes);
+
         KirkiPanel::create()
             ->setID('municipio_customizer_panel_designlib')
             ->setTitle(esc_html__('Design Library', 'municipio'))
@@ -94,7 +103,15 @@ class PanelsRegistry
                     ->setTitle(esc_html__('Load a design', 'municipio'))
                     ->setDescription(esc_html__('Want a new fresh design to your site? Use one of the options below to serve as a boilerplate!', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\LoadDesign('municipio_customizer_panel_design_module'))
-            )->register();
+            )
+            ->addSubPanel(
+                KirkiPanel::create()
+                    ->setID($panelId)
+                    ->setTitle(esc_html__('Load design for individual post types', 'municipio'))
+                    ->setDescription(esc_html__('Manage post types settings', 'municipio'))
+                    ->addSections($sections)
+            )
+            ->register();
     }
 
     /**
@@ -130,28 +147,6 @@ class PanelsRegistry
             ->setTitle(esc_html__('Archive Apperance', 'municipio'))
             ->setDescription(esc_html__('Manage apperance options on archives.', 'municipio'))
             ->setPriority(120)
-            ->addSections($sections)
-            ->register();
-    }
-
-    public static function registerPostTypePanel()
-    {
-        $panelID           = 'municipio_customizer_panel_post_type';
-        $filteredPostTypes = self::getArchives();
-        $sections          = array_map(function ($postType) use ($panelID) {
-            $id = "{$panelID}_{$postType->name}";
-            return KirkiPanelSection::create()
-                ->setID($id)
-                ->setPanel($panelID)
-                ->setTitle($postType->label)
-                ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\PostType($id, $postType));
-        }, $filteredPostTypes);
-
-        KirkiPanel::create()
-            ->setID($panelID)
-            ->setTitle(esc_html__('Post Types', 'municipio'))
-            ->setDescription(esc_html__('Manage post types settings', 'municipio'))
-            ->setPriority(2000)
             ->addSections($sections)
             ->register();
     }
@@ -437,6 +432,12 @@ class PanelsRegistry
             )
             ->addSection(
                 KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_drawer')
+                    ->setTitle(esc_html__('Drawer', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Drawer('municipio_customizer_section_drawer'))
+            )
+            ->addSection(
+                KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_mega_menu')
                     ->setTitle(esc_html__('Mega menu', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\MegaMenu('municipio_customizer_section_mega_menu'))
@@ -490,14 +491,14 @@ class PanelsRegistry
      *
      * @return array
      */
-    private static function getArchives(): array
+    private static function getArchives(array $excludedPostTypes = ['page', 'attachment']): array
     {
         $postTypes = array();
 
         foreach ((array) get_post_types() as $key => $postType) {
             $args = get_post_type_object($postType);
 
-            if (!$args->public || in_array($args->name, ['page', 'attachment'])) {
+            if (!$args->public || in_array($args->name, $excludedPostTypes)) {
                 continue;
             }
 

@@ -72,15 +72,17 @@ class GetAncestorIds
         $ancestorStack  = [$id];
 
         while ($fetchAncestors) {
-            $matchingMenuItem = reset(array_filter($menuItems, function ($item) use ($id) {
+            $matchingMenuItem = array_filter($menuItems, function ($item) use ($id) {
                 return $item['id'] == $id;
-            }));
+            });
+            
+            $matchingMenuItem = reset($matchingMenuItem);
 
             if ($matchingMenuItem['post_parent'] == 0) {
                 $fetchAncestors = false;
             } else {
                 $ancestorStack[] = (int) $matchingMenuItem['post_parent'];
-                $id = (int) $matchingMenuItem['post_parent'];
+                $id              = (int) $matchingMenuItem['post_parent'];
             }
         }
 

@@ -8,11 +8,14 @@ use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
 
+/**
+ * Class Flexible
+ */
 class Flexible implements HeaderInterface
 {
     private bool $isResponsive;
-    private bool $hasMegaMenu;
     private bool $hasSearch;
+    private bool $nonStickyMegaMenu;
     private MenuOrderTransformer $menuOrderTransformerInstance;
     private AlignmentTransformer $alignmentTransformerInstance;
     private FlipKeyValueTransformer $flipKeyValueTransformer;
@@ -23,10 +26,12 @@ class Flexible implements HeaderInterface
     private string $headerSettingKeyResponsive = 'Responsive';
     private bool $hasSeparateBrandText         = false;
 
+    /**
+     * Constructor
+     */
     public function __construct(private object $customizer)
     {
         $this->isResponsive = !empty($this->customizer->headerEnableResponsiveOrder);
-        $this->hasMegaMenu  = false;
         $this->hasSearch    = false;
 
         $this->headerVisibilityClassesInstance   = new HeaderVisibilityClasses();
@@ -50,9 +55,9 @@ class Flexible implements HeaderInterface
             'lowerHeader'          => $lowerHeader,
             'upperItems'           => $upperItems['modified'],
             'lowerItems'           => $lowerItems['modified'],
-            'hasMegaMenu'          => $this->hasMegaMenu,
             'hasSearch'            => $this->hasSearch,
-            'hasSeparateBrandText' => $this->hasSeparateBrandText
+            'hasSeparateBrandText' => $this->hasSeparateBrandText,
+            'nonStickyMegaMenu'    => $this->nonStickyMegaMenu,
         ];
     }
 
@@ -76,6 +81,14 @@ class Flexible implements HeaderInterface
             $upperHeader['sticky'] = empty($lowerItems['modified']) ? true : false;
             $lowerHeader['sticky'] = empty($upperHeader['sticky']);
         }
+
+        $lowerHeaderHasMegaMenu = $this->hasMegaMenu($lowerItems);
+        $upperHeaderHasMegaMenu = $this->hasMegaMenu($upperItems);
+
+        $lowerHeader['innerMegaMenu'] = $lowerHeaderHasMegaMenu && !empty($lowerHeader['sticky']);
+        $upperHeader['innerMegaMenu'] = $upperHeaderHasMegaMenu && !empty($upperHeader['sticky']);
+
+        $this->nonStickyMegaMenu = ($upperHeaderHasMegaMenu || $lowerHeaderHasMegaMenu) && empty($lowerHeader['innerMegaMenu']) && empty($upperHeader['innerMegaMenu']);
 
         if (!empty($this->customizer->headerBackground)) {
             $upperHeader['backgroundColor'] = empty($lowerItems['modified']) ? $this->customizer->headerBackground : 'default';
@@ -110,7 +123,6 @@ class Flexible implements HeaderInterface
         [$setting, $settingCamelCased]              = $this->getSettingName($section);
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
-        $this->hasMegaMenu          = $this->hasMegaMenu($desktopOrderedItems, $mobileOrderedItems);
         $this->hasSearch            = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
         $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems);
 
@@ -131,9 +143,9 @@ class Flexible implements HeaderInterface
     }
 
     // Checks if the mega menu is present in the menu.
-    private function hasMegaMenu($desktopOrderedItems, $mobileOrderedItems): bool
+    private function hasMegaMenu(array $items): bool
     {
-        return $this->hasMegaMenu || in_array('mega-menu', $desktopOrderedItems ?: []) || in_array('mega-menu', $mobileOrderedItems ?: []);
+        return isset($items['desktop']['mega-menu']) || isset($items['mobile']['mega-menu']);
     }
 
     // Checks if the brand text is separated from logotype.

@@ -4,6 +4,7 @@ namespace Municipio\Customizer\Applicators;
 
 use Kirki\Compatibility\Kirki as KirkiCompatibility;
 use Kirki\Util\Helper as KirkiHelper;
+use WP_Customize_Manager;
 
 abstract class AbstractApplicator
 {
@@ -20,6 +21,10 @@ abstract class AbstractApplicator
      */
     protected function getFields(): array
     {
+        static $fields;
+        if ($fields) {
+            return $fields;
+        }
         $fields = [];
         if (class_exists('\Kirki\Compatibility\Kirki')) {
             $fields = array_merge(
@@ -29,127 +34,6 @@ abstract class AbstractApplicator
             );
         }
         return $fields;
-    }
-
-    /**
-     * Get static.
-     *
-     * @return mixed
-     */
-    protected function getStatic()
-    {
-
-        if (is_null($this->signature)) {
-            $this->signature = $this->getFieldSignature($this->getFields());
-            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
-        }
-
-        if (isset($this->runtimeCache[$this->optionKey])) {
-            return $this->runtimeCache[$this->optionKey];
-        }
-
-        if (is_customize_preview()) {
-            return false;
-        }
-
-        return $this->runtimeCache[$this->optionKey] = get_option($this->optionKey, false);
-    }
-
-    /**
-     * Set static.
-     *
-     * @param mixed $data The data to set.
-     *
-     * @return boolean
-     */
-    protected function setStatic($data)
-    {
-        if (is_null($this->signature)) {
-            $this->signature = $this->getFieldSignature($this->getFields());
-            $this->optionKey = sprintf('%s_%s_%s', $this->optionKeyBasename, $this->optionKey, $this->signature);
-        }
-
-        update_option($this->lastSignatureKey, $this->signature);
-
-        return update_option($this->optionKey, $data);
-    }
-
-    /**
-     * Set runtime cache.
-     *
-     * @param mixed $value The value to set.
-     *
-     * @return mixed
-     */
-    protected function setRuntimeCache($identifier, $value)
-    {
-        $this->runtimeCache[
-            md5($identifier)
-        ] = $value;
-        return $value;
-    }
-
-    /**
-     * Get runtime cache.
-     *
-     * @return mixed
-     */
-    protected function getRuntimeCache($identifier)
-    {
-        return $this->runtimeCache[
-            md5($identifier)
-        ] ?? null;
-    }
-
-    /**
-     * Get storage key.
-     *
-     * @param string $basename The basename to get the storage key for.
-     *
-     * @return string
-     */
-    protected function getStorageKey($basename): string
-    {
-        return $basename . "_" . $this->getFieldSignature(
-            $this->getFields()
-        );
-    }
-
-    /**
-     * Get field signature.
-     *
-     * @param array $fields The fields to get the signature for.
-     *
-     * @return string
-     */
-    protected function getFieldSignature($fields): string
-    {
-        $signature = get_option($this->lastSignatureKey, $this->getDefaultFieldSignature($fields));
-
-        return $signature;
-    }
-
-    protected function getDefaultFieldSignature($fields): string
-    {
-        $supportedHashes = hash_algos() ?? [];
-        if (in_array('xxh3', $supportedHashes)) {
-            $hash = hash('sha256', json_encode($fields));
-        }
-        $hash = hash('md5', json_encode($fields));
-
-        return $this->shortenHash($hash);
-    }
-
-    /**
-     * Shorten hash.
-     *
-     * @param string $hash The hash to shorten.
-     *
-     * @return string
-     */
-    protected function shortenHash($hash): string
-    {
-        return substr($hash, 0, 8);
     }
 
     /**

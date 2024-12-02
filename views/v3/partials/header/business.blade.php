@@ -3,8 +3,11 @@
 
 @section('primary-navigation')
     <div class="c-header__menu c-header__menu--primary">
-        <div class="o-container c-header__flex-content">
-
+        @element([
+            'baseClass' => 'o-container',
+            'classList' => ['o-container', 'c-header__flex-content'],
+            'context' => ['site.header.business-container', 'site.header.container']
+        ])
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
                 @if($headerBrandEnabled)
@@ -35,16 +38,12 @@
             
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+            
             {{-- User account --}}
             @includeIf('user.account')
             
             {{-- Language selector --}}
-            @if (!empty($languageMenu['items']))
-                <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
-                    @includeIf('partials.navigation.trigger.language')
-                    @includeIf('partials.navigation.language')
-                </div>
-            @endif
+            @includeWhen(!empty($languageMenu['items']), 'partials.header.components.language')
             
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.business.megamenu-trigger']])
@@ -54,7 +53,9 @@
 
             {{-- User (login/logout) --}}
             @include('partials.header.components.user')
-        </div>
+        
+        @endelement
+
     </div>
 
     {{-- Mega menu --}}
