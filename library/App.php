@@ -240,7 +240,7 @@ class App
         new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
-        new \Municipio\Admin\Roles\General();
+        new \Municipio\Admin\Roles\General($this->wpService);
         new \Municipio\Admin\Roles\Editor();
 
         new \Municipio\Admin\UI\BackEnd();

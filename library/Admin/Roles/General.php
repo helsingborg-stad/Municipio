@@ -2,69 +2,50 @@
 
 namespace Municipio\Admin\Roles;
 
+use WpService\Contracts\AddAction;
+use WpService\Contracts\CurrentUserCan;
+use WpService\Contracts\HomeUrl;
+use WpService\Contracts\IsAdmin;
+use WpService\Contracts\ShowAdminBar;
+use WpService\Contracts\WpDoingAjax;
+use WpService\Contracts\WpRedirect;
+
+/**
+ * Class General
+ *
+ * This class represents the General role in the Admin section of the Municipio theme.
+ * It contains methods and properties related to the General role.
+ */
 class General
 {
-    public function __construct()
-    {
-        add_action('admin_init', array($this, 'removeUnusedRoles'));
-        add_action('admin_init', array($this, 'addMissingRoles'));
-
-        add_action('set_current_user', array($this, 'hideAdminBarForUsersWhoCantEditPosts'));
-    }
-
-    public function hideAdminBarForUsersWhoCantEditPosts()
-    {
-        if (current_user_can('edit_posts')) {
-            return;
-        }
-
-        show_admin_bar(false);
-    }
-
     /**
-     * Adds back missing author role
+     * Constructor for the General class.
      */
-    public function addMissingRoles()
+    public function __construct(private AddAction&CurrentUserCan&ShowAdminBar&isAdmin&WpDoingAjax&WpRedirect&HomeUrl $wpService)
     {
-        if (!get_role('author')) {
-            add_role(
-                'author',
-                'Author',
-                array(
-                    'upload_files'           => true,
-                    'edit_posts'             => true,
-                    'edit_published_posts'   => true,
-                    'publish_posts'          => true,
-                    'read'                   => true,
-                    'level_2'                => true,
-                    'level_1'                => true,
-                    'level_0'                => true,
-                    'delete_posts'           => true,
-                    'delete_published_posts' => true
-                )
-            );
-
-            delete_option('_author_role_bkp');
+        if (!$this->wpService->currentUserCan('edit_posts')) {
+            $this->handleUsersWithoutEditPostsCapability();
         }
     }
 
     /**
-     * Remove unwanted roles
+     * Handles users without the edit_posts capability.
+     *
+     * This method is responsible for handling users who do not have the edit_posts capability. It performs the following actions:
+     * - Hides the admin bar for the user.
+     * - Adds an action to the 'admin_init' hook to redirect the user to the home URL if they are an admin and not making an AJAX request.
+     *
      * @return void
      */
-    public function removeUnusedRoles()
+    public function handleUsersWithoutEditPostsCapability()
     {
-        $removeRoles = array(
-            'contributor'
-        );
+        $this->wpService->showAdminBar(false);
 
-        foreach ($removeRoles as $role) {
-            if (!get_role($role)) {
-                continue;
+        $this->wpService->addAction('admin_init', function () {
+            if ($this->wpService->isAdmin() && !$this->wpService->wpDoingAjax()) {
+                $this->wpService->wpRedirect($this->wpService->homeUrl());
+                exit;
             }
-
-            update_option('_' . $role . '_role_bkp', get_role('author'));
-            remove_role($role);
-        }
+        });
     }
 }
