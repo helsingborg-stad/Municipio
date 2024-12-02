@@ -309,8 +309,7 @@ class App
          * Component Context filters
          */
         $this->setupComponentContextFilters();
-
-        new \Municipio\Helper\Navigation\MenusSettings($this->wpService, $this->acfService);
+        
     }
 
 
