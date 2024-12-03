@@ -37,6 +37,8 @@
   border-radius: calc(var(--base, 8px)* var(--c-field-border-radius, .25));
   line-height: var(--c-field-font-size-md-line-height, calc(var(--base, 8px)* 2));
   margin: 0;
+  height: calc(var(--c-field-height, calc(var(--base, 8px)* 6)) - var(--c-field-border-width, var(--border-width-input, 1px))* 2);
+  padding: calc(var(--base, 8px)* 2);
 }
 
 /* Form labels */ 
