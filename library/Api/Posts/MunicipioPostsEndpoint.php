@@ -7,15 +7,20 @@ use WpService\Contracts\GetPosts;
 use WpService\Contracts\RegisterRestRoute;
 use WP_REST_Request;
 use WP_REST_Response;
+use WpService\Contracts\ApplyFilters;
 
 class MunicipioPostsEndpoint extends RestApiEndpoint
 {
     private const NAMESPACE = 'posts/v1';
     private const ROUTE     = '/get-posts';
+    private array $resolvers;
 
-    public function __construct(private Blade $postsBladeInstance, private RegisterRestRoute&GetPosts $wpService)
+    public function __construct(
+        private Blade $postsBladeInstance, 
+        private RegisterRestRoute&GetPosts&ApplyFilters $wpService
+    )
     {
-        
+        $this->resolvers = $this->wpService->applyFilters('Municipio/Api/Posts/Appearances', []);
     }
 
     public function handleRegisterRestRoute(): bool
@@ -29,11 +34,24 @@ class MunicipioPostsEndpoint extends RestApiEndpoint
 
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
-        $posts = get_posts(array(
-            'posts_per_page' => 1,
-            'post_type'      => 'post',
-            'post_status'    => 'publish'
-        ));
+        if (empty($this->resolvers)) {
+            return new WP_REST_Response([], 404);
+        }
+
+        $resolver = false;
+        foreach ($this->resolvers as $currentResolver) {
+            if (!empty($resolver)) {
+                break;
+            }
+
+            $resolver = $currentResolver->canResolveRequest($request) ? $currentResolver : false;
+        }
+
+        if (empty($resolver)) {
+            return new WP_REST_Response([], 404);
+        }
+
+        $resolvedData = $resolver->resolve($request);
 
         if (!empty($posts)) {
             foreach ($posts as $key => $post) {
@@ -56,8 +74,8 @@ class MunicipioPostsEndpoint extends RestApiEndpoint
                     'image' => false,
                     'attributeList' => []
                 ], (array) $post);
-                $post = $this->postsBladeInstance->render('card', ['post' => $post]);
-                echo '<pre>' . print_r( $post, true ) . '</pre>';die;
+                // $post = $this->postsBladeInstance->render('card', ['post' => $post]);
+                echo '<pre>' . print_r( $posts, true ) . '</pre>';die;
             }
         }
 

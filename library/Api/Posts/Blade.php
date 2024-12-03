@@ -13,18 +13,16 @@ class Blade
 
     public function __construct(private ComponentLibraryInit $componentLibrary, private ApplyFilters $wpService)
     {
-        $this->viewPaths = $this->wpService->applyFilters('Municipio/Api/Posts/Appearances', []);
-
         $this->bladeEngine = $this->componentLibrary->getEngine();
     }
 
-    public function render($view, $data = [], $compress = true)
+    public function render($view, $data = [], $compress = true, $viewPaths = [])
     {
         $markup = '';
         $data = array_merge($data, array('errorMessage' => false));
 
         try {
-            $markup = $this->bladeEngine->makeView($view, $data, [], $this->viewPaths)->render();
+            $markup = $this->bladeEngine->makeView($view, $data, [], $viewPaths)->render();
         } catch (\Throwable $e) {
             $this->bladeEngine->errorHandler($e)->print();
         }
