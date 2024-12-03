@@ -47,9 +47,6 @@ class MarginTransformer {
      */
     private function getMarginClass(array $classes, string $marginDirection)
     {
-        $utility = 'u-margin__';
-        $modifier = '--2';
-
         if ($marginDirection === 'none') {
         } elseif ($marginDirection === 'both') {
             $classes[] = $this->buildMarginUtility('left');
