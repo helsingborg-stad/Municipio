@@ -99,6 +99,11 @@ class Enqueue
                 'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
                 'lang'        => [
                     'alignment' => __('Alignment', 'municipio'),
+                    'margin'    => __('Margin', 'municipio'),
+                    'left'      => __('Left', 'municipio'),
+                    'right'     => __('Right', 'municipio'),
+                    'both'      => __('Both', 'municipio'),
+                    'none'      => __('None', 'municipio'),
                 ]
             ]
         );
