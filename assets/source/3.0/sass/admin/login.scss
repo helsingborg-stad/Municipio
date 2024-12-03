@@ -1,0 +1,156 @@
+:root {
+  --base: 8px;
+}
+
+/* Logotype */ 
+.login h1 a {
+  background-image: var(--logotype); 
+  background-size: contain;
+  width: 90%;
+  height: calc(var(--base) * 10);
+  margin-bottom: calc(var(--base) * 4);
+}
+
+/* Login form */
+.login #login {
+  width: 350px;
+  animation: fade-in 0.7s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}
+
+/* Login form box */ 
+.login form {
+  filter: var(--drop-shadow-2, drop-shadow(0px calc(6px* var(--drop-shadow-amount, 0.7)) calc(8px* var(--drop-shadow-amount, 0.7)) var(--drop-shadow-color, rgba(0, 0, 0, 0.1))));
+  border-radius: var(--radius-lg);
+  border: none;
+  padding: calc(var(--base) * 3);
+  margin-top: calc(var(--base) * 3);
+  display: grid;
+  gap: calc(var(--base) * 2);
+}
+
+/* Form fields */
+.login input[type=password],
+.login input[type=text] {
+  appearance: none;
+  background: var(--c-field-background-color, var(--color-form-fields, #f5f5f5));
+  border: var(--c-field-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
+  border-radius: calc(var(--base, 8px)* var(--c-field-border-radius, .25));
+  line-height: var(--c-field-font-size-md-line-height, calc(var(--base, 8px)* 2));
+  margin: 0;
+}
+
+/* Form labels */ 
+.login label {
+  color: var(--c-field-label-color, var(--color-darker, #565656));
+  font-size: var(--c-field-label-font-size, .75rem);
+  font-weight: var(--c-field-label-font-size, 700);
+  letter-spacing: .05rem;
+  margin-bottom: calc(var(--base, 8px) / 2);
+  text-transform: var(--c-field-label-text-transform, uppercase);
+}
+
+/* Buttons */ 
+.wp-core-ui .button-primary,
+.wp-core-ui .button-primary:active,
+.wp-core-ui .button-primary:focus,
+.wp-core-ui .button-primary:hover {
+  border-radius: var(--c-button-border-radius, var(--radius-md, var(--base, 8px) / 2));
+  font-size: .95rem;
+  height: calc(var(--base, 8px)* 6);
+  min-width: calc(var(--base, 8px)* 9);
+  padding: 0 calc(var(--base, 8px)* 4);
+  background-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
+  color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, var(--color-white, #fff)));
+  border: none;
+  width: 100%;
+}
+
+.wp-core-ui .button-secondary,
+.wp-core-ui .button-secondary:active,
+.wp-core-ui .button-secondary:focus,
+.wp-core-ui .button-secondary:hover {
+  &:not(.wp-hide-pw) {
+    border-radius: var(--c-button-border-radius, var(--radius-md, var(--base, 8px) / 2));
+    font-size: .95rem;
+    border: none;
+    height: calc(var(--base, 8px)* 6);
+    min-width: calc(var(--base, 8px)* 9);
+    color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, var(--color-dark, #333)));
+    background-color: var(--c-button-secondary-color, var(--color-secondary, #f5f5f5));
+    width: 100%;
+    padding: 0 calc(var(--base, 8px)* 4);
+  }
+}
+
+.wp-core-ui .button:hover,
+.wp-core-ui .button:active,
+.wp-core-ui .button:focus {
+  opacity: .8;
+}
+
+.login .button.wp-hide-pw {
+  height: 100%;
+  color: var(--color-primary);
+}
+
+.login #nav {
+    margin: 0;
+    text-align: center;
+    padding: calc(var(--base) * 3) 0;
+}
+
+/* Notices */ 
+.login .message, 
+.login .notice, 
+.login .success {
+    border-left: none;
+    background-color: var(--color-base, rgba(#000000,.96)) rgba(#000000,.96);
+    border-radius: var(--notice-border-radius, var(--radius-sm, calc(var(--base, 8px) / 2)));
+    color: var(--color-notice-text-default, var(--color-white, #fff));
+    filter: var(--drop-shadow-5, drop-shadow(0 calc(12px* var(--drop-shadow-amount, .7)) calc(14px* var(--drop-shadow-amount, .7)) var(--drop-shadow-color, rgba(0, 0, 0, .1))));
+    padding: calc(var(--base, 8px)* 2) calc(var(--base, 8px)* 3);
+}
+
+.login .message {
+  background-color: var(--notice-color-info-background, var(--color-info, #3d3d3d));
+  color: var(--notice-color-info-text, var(--color-info-contrasting, var(--color-white, #fff)));
+}
+
+.login .notice-error {
+  background-color: var(--notice-color-warning-background, var(--color-warning, #f5a623));
+  color: var(--notice-color-warning-text, var(--color-warning-contrasting, var(--color-white, #fff)));
+}
+
+.login .success {
+  background-color: var(--notice-color-success-background, var(--color-success, #4caf50));
+  color: var(--notice-color-success-text, var(--color-success-contrasting, var(--color-white, #fff)));
+}
+
+/* Add vendor */ 
+body.login:after {
+  content: "Powered by Municipio";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: var(--base) calc(var(--base) * 2);
+  font-size: .8em;
+}
+
+/* Hidden features */ 
+.login #backtoblog a {
+  display: none;
+}
+
+.login .language-switcher {
+  display: none;
+}
+
+/* Animations */ 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

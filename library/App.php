@@ -55,6 +55,7 @@ use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
+use Municipio\Admin\Login\EnqueueStyles;
 
 /**
  * Class App
@@ -309,10 +310,29 @@ class App
          * Component Context filters
          */
         $this->setupComponentContextFilters();
+
+        /**
+         * Login screen
+         */
+        $this->setupLoginScreen();
         
     }
 
+    /**
+     * Set up the custom login screen. 
+     *
+     * This method is responsible to apply design changes to the login screen.
+     *
+     * @return void
+     */
+    private function setupLoginScreen(): void
+    {
+        $loginStyles = new \Municipio\Admin\Login\EnqueueStyles($this->wpService);
+        $this->hooksRegistrar->register($loginStyles);
 
+        $loginData = new \Municipio\Admin\Login\ChangeLogotypeData($this->wpService);
+        $this->hooksRegistrar->register($loginData);
+    }
 
     /**
      * Sets up the component context filters.
