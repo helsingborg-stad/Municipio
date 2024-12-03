@@ -56,6 +56,7 @@ use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
 use Municipio\Admin\Login\EnqueueStyles;
+use Municipio\Admin\Login\ChangeLogotypeData; 
 
 /**
  * Class App
