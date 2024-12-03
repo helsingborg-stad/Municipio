@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Municipio\Admin\Login;
 
@@ -8,7 +8,9 @@ use WpService\WpService;
 
 class EnqueueStyles implements Hookable
 {
-    public function __construct(private WpService $wpService){}
+    public function __construct(private WpService $wpService)
+    {
+    }
 
     public function addHooks(): void
     {
@@ -19,15 +21,15 @@ class EnqueueStyles implements Hookable
 
     /**
      * Enqueue styles for the login page.
-     * 
+     *
      * @return void
      */
     public function enqueueStyles(): void
     {
         $styles = [
-            'styleguide-css'        => 'css/styleguide.css',
-            'municipio-css'         => 'css/municipio.css',
-            'municipio-login-css'   => 'css/login.css',
+            'styleguide-css'      => 'css/styleguide.css',
+            'municipio-css'       => 'css/municipio.css',
+            'municipio-login-css' => 'css/login.css',
         ];
 
         foreach ($styles as $handle => $path) {
@@ -38,7 +40,7 @@ class EnqueueStyles implements Hookable
 
     /**
      * Render CSS variables for the login page.
-     * 
+     *
      * @return void
      */
     public function renderCssVariables(): void
@@ -60,14 +62,14 @@ class EnqueueStyles implements Hookable
 
     /**
      * Render Kirki CSS variables for the login page.
-     * 
+     *
      * @return void
      */
     public function renderKirkiCssVariables(): void
     {
         echo '<style>' . PHP_EOL;
             do_action('kirki_dynamic_css');
-        echo '</style>' . PHP_EOL; 
+        echo '</style>' . PHP_EOL;
     }
 
     /**
@@ -88,8 +90,8 @@ class EnqueueStyles implements Hookable
     private function getAssetWithCacheBust(string $file): string
     {
         return implode([
-            get_template_directory_uri(), 
-            ASSETS_DIST_PATH, 
+            get_template_directory_uri(),
+            ASSETS_DIST_PATH,
             \Municipio\Helper\CacheBust::name($file)
         ]);
     }

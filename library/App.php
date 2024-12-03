@@ -56,7 +56,7 @@ use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
 use Municipio\Admin\Login\EnqueueStyles;
-use Municipio\Admin\Login\ChangeLogotypeData; 
+use Municipio\Admin\Login\ChangeLogotypeData;
 
 /**
  * Class App
@@ -316,11 +316,10 @@ class App
          * Login screen
          */
         $this->setupLoginScreen();
-        
     }
 
     /**
-     * Set up the custom login screen. 
+     * Set up the custom login screen.
      *
      * This method is responsible to apply design changes to the login screen.
      *
