@@ -279,7 +279,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
             )
         );
 
-        return $latestDate ? strtotime($latestDate) : round(time() / 10) * 10;
+        return $latestDate ? strtotime($latestDate) : 'unknown';
     }
 
   /**
