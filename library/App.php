@@ -260,7 +260,13 @@ class App
         /**
          * Api
          */
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Posts\MunicipioPostsEndpoint($postsBladeInstance, $this->wpService));
+        RestApiEndpointsRegistry::add(
+            new \Municipio\Api\Posts\MunicipioPostsEndpoint(
+                $postsBladeInstance, 
+                new \Municipio\Api\Posts\HandlerResolver(), 
+                $this->wpService
+            )
+        );
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
