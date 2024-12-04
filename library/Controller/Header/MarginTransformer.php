@@ -7,7 +7,8 @@ namespace Municipio\Controller\Header;
  *
  * This class is responsible for transforming the margin data.
  */
-class MarginTransformer {
+class MarginTransformer 
+{
     /**
      * Class MarginTransformer
      *
