@@ -299,11 +299,6 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
-
-        /**
-         * Post Filters
-         */
-        $this->hooksRegistrar->register(new \Municipio\PostFilters\AllowPostsFromOtherSitesToKeepTheirPermalinks($this->wpService));
     }
 
 
