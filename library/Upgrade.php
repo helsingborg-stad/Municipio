@@ -4,6 +4,7 @@ namespace Municipio;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
+use Municipio\Customizer\Applicators\Types\NullApplicator;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
@@ -15,7 +16,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 36; //The db version we want to achive
+    private $dbVersion    = 37; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -687,6 +688,19 @@ class Upgrade
     public function v_36($db): bool
     {
         do_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache');
+        return true;
+    }
+
+    public function v_37($db) {
+        $applicators = [
+            new NullApplicator($this->wpService),
+        ];
+        $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
+            $this->wpService,
+            $db,
+            ...$applicators
+        );
+        $customizerCache->tryClearCache();
         return true;
     }
 
