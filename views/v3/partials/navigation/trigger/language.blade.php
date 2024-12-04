@@ -12,7 +12,8 @@
     ],
     'attributeList' => [
         'js-toggle-trigger' => 'language-menu-toggle',
-        'data-toggle-icon' => 'close'
+        'data-toggle-icon' => 'close',
+        'data-js-click-away-remove-pressed' => ''
     ]
 ])
 @endbutton

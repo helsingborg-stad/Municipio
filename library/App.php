@@ -55,6 +55,8 @@ use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
+use Municipio\Admin\Login\EnqueueStyles;
+use Municipio\Admin\Login\ChangeLogotypeData;
 
 /**
  * Class App
@@ -240,7 +242,7 @@ class App
         new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
-        new \Municipio\Admin\Roles\General();
+        new \Municipio\Admin\Roles\General($this->wpService);
         new \Municipio\Admin\Roles\Editor();
 
         new \Municipio\Admin\UI\BackEnd();
@@ -299,9 +301,50 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        /**
+         * Component Context filters
+         */
+        $this->setupComponentContextFilters();
+
+        /**
+         * Login screen
+         */
+        $this->setupLoginScreen();
     }
 
+    /**
+     * Set up the custom login screen.
+     *
+     * This method is responsible to apply design changes to the login screen.
+     *
+     * @return void
+     */
+    private function setupLoginScreen(): void
+    {
+        $loginStyles = new \Municipio\Admin\Login\EnqueueStyles($this->wpService);
+        $this->hooksRegistrar->register($loginStyles);
 
+        $loginData = new \Municipio\Admin\Login\ChangeLogotypeData($this->wpService);
+        $this->hooksRegistrar->register($loginData);
+    }
+
+    /**
+     * Sets up the component context filters.
+     *
+     * This method initializes the component context filters by creating instances of the
+     * CurrentSidebar and CompressedCollections classes and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupComponentContextFilters(): void
+    {
+        $currentSidebar = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CurrentSidebar($this->wpService);
+        $currentSidebar->addHooks();
+
+        $compressedCollections = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CompressedCollections($this->wpService, $currentSidebar);
+        $compressedCollections->addHooks();
+    }
 
     /**
      * Sets up the post type design.
