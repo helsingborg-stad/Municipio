@@ -303,11 +303,6 @@ class App
         $this->setupImageConvert();
 
         /**
-         * Post Filters
-         */
-        $this->hooksRegistrar->register(new \Municipio\PostFilters\AllowPostsFromOtherSitesToKeepTheirPermalinks($this->wpService));
-
-        /**
          * Component Context filters
          */
         $this->setupComponentContextFilters();
