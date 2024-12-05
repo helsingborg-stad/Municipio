@@ -135,6 +135,14 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return $postsWithTerms;
     }
 
+    /**
+     * Retrieves posts from the archive query based on the given parameters.
+     *
+     * @param string $postType    The post type.
+     * @param array  $queryParams The query parameters.
+     *
+     * @return array The retrieved posts.
+     */
     private function getPostsFromArchiveQuery($postType = '', $queryParams = false)
     {
         $orderBy   = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
