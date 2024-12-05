@@ -7,6 +7,7 @@ use Municipio\Controller\Header\MenuVisibilityTransformer;
 use Municipio\Controller\Header\AlignmentTransformer;
 use Municipio\Controller\Header\FlipKeyValueTransformer;
 use Municipio\Controller\Header\HeaderVisibilityClasses;
+use Municipio\Controller\Header\MarginTransformer;
 
 /**
  * Class Flexible
@@ -21,6 +22,7 @@ class Flexible implements HeaderInterface
     private FlipKeyValueTransformer $flipKeyValueTransformer;
     private MenuVisibilityTransformer $menuVisibilityTransformerInstance;
     private HeaderVisibilityClasses $headerVisibilityClassesInstance;
+    private MarginTransformer $marginTransformerInstance;
     private IsResponsiveMenuTransformer $isResponsiveMenu;
     private string $headerSettingKey           = 'header_sortable_section_';
     private string $headerSettingKeyResponsive = 'Responsive';
@@ -39,6 +41,7 @@ class Flexible implements HeaderInterface
         $this->isResponsiveMenu                  = new IsResponsiveMenuTransformer();
         $this->menuVisibilityTransformerInstance = new MenuVisibilityTransformer();
         $this->menuOrderTransformerInstance      = new MenuOrderTransformer('@md');
+        $this->marginTransformerInstance         = new MarginTransformer($this->getHiddenMenuItemsData());
         $this->alignmentTransformerInstance      = new AlignmentTransformer($this->getHiddenMenuItemsData());
     }
 
@@ -131,6 +134,7 @@ class Flexible implements HeaderInterface
         $items = $this->isResponsiveMenu->transform($items, $this->isResponsive);
         $items = $this->menuOrderTransformerInstance->transform($items);
         $items = $this->menuVisibilityTransformerInstance->transform($items);
+        $items = $this->marginTransformerInstance->transform($items, $setting);
         $items = $this->alignmentTransformerInstance->transform($items, $setting);
 
         return $items;
