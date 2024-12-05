@@ -16,6 +16,14 @@ export function getDropdownHtml(settings: Settings, translations: any) {
                     <option value="center" ${settings.align === 'center' ? 'selected' : ''}>${translations.center ?? 'Center'}</option>
                     <option value="right" ${settings.align === 'right' ? 'selected' : ''}>${translations.right ?? 'Right'}</option>
                 </select>
+
+                <h3>${translations.margin ?? 'Margin'}</h3>
+                <select data-js-flexible-setting="margin">
+                    <option value="none" ${settings.margin === 'none' ? 'selected' : ''}>${translations.none ?? 'None'}</option>
+                    <option value="both" ${settings.margin === 'both' ? 'selected' : ''}>${translations.both ?? 'Both'}</option>
+                    <option value="left" ${settings.margin === 'left' ? 'selected' : ''}>${translations.left ?? 'Left'}</option>
+                    <option value="right" ${settings.margin === 'right' ? 'selected' : ''}>${translations.right ?? 'Right'}</option>
+                </select>
             </div>
         </div>
     `;
