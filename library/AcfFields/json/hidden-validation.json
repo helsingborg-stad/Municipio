@@ -6,16 +6,21 @@
             "key": "field_654a2a58ca4e9",
             "label": "Hidden validation",
             "name": "hidden_validation",
-            "type": "acfe_hidden",
+            "aria-label": "",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "acf-hidden",
                 "id": ""
             },
-            "default_value": ""
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -28,7 +33,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "acf_after_title",
     "style": "seamless",
     "label_placement": "left",
     "instruction_placement": "label",
