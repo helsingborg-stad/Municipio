@@ -139,7 +139,8 @@
                 "id": ""
             },
             "choices": {
-                "MceButtons": "MceButtons"
+                "MceButtons": "MceButtons",
+                  "Table": "Table"
             },
             "allow_custom": 0,
             "save_custom": 0,
@@ -167,4 +168,4 @@
     "active": 1,
     "description": ""
 }]
-
+
