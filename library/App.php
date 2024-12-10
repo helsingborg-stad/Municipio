@@ -251,6 +251,11 @@ class App
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
+        /* Integration: MiniOrange */
+        $moveAdminPageToSettings = new \Municipio\Admin\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
+        $this->hooksRegistrar->register($moveAdminPageToSettings);
+
+        /* Admin uploads */ 
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
