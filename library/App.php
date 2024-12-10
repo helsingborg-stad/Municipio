@@ -254,6 +254,10 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
+
+        $forceSsO = new \Municipio\Admin\Integrations\MiniOrange\RequireSsoLogin($this->wpService);
+        $forceSsO->addHooks();
+
         /**
          * Api
          */
