@@ -1,37 +1,31 @@
 @if ($posts)
     <div class="arcive-news-items o-grid">
         @foreach($posts as $post)
-            <div class="{{ $gridColumnClass }}">
-                @link([
-                    'href' => get_the_permalink(),
-                    'slot' => ''
-                ])
-                    @segment([
-                        'layout' => 'col-left',
-                        'title' => $post->postTitle,
-                        'sub_title' => $post->excerpt,
-                        'height' => 'sm',
-                        'overlay' => 'blur'
-                    ])
-                        @slot('top')
-                            <span class="c-segment__top-date"> {{date_i18n('l d F Y', strtotime($post->postDate))}} </span>
-                        @endslot
-
-                        @if($post->imageContract) 
-                            @image([
-                                'src' => $post->imageContract
-                            ])
-                            @endimage
-                        @else 
-                            @image([
-                                'src' => $post->images['thumbnail16:9']['src'],
-                                'alt' => $post->images['thumbnail16:9']['alt'],
-                            ])
-                            @endimage
-                        @endif
-                    @endsegment
-                @endlink
-            </div>
+        @newsItem([
+                'heading'             => $post->postTitle,
+                'content'             => $post->excerpt,
+                'image'               => $post->imageContract ?? $post->images['thumbnail16:9'],
+                'date'                => $post->postDateFormatted,
+                'readTime'            => $post->readingTime,
+                'link'                => $post->permalink,
+                'context' => ['archive', 'archive.list', 'archive.list.news-item'],
+                'hasPlaceholderImage' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
+                'classList' => [
+                    $gridColumnClass
+                ],
+                'standing' => $standing
+            ])
+                @slot('headerLeftArea')
+                    @if($post->termsUnlinked)
+                        @tags([
+                            'compress' => 4, 
+                            'tags' => $post->termsUnlinked, 
+                            'format' => false,
+                        ])
+                        @endtags
+                    @endif
+                @endslot
+            @endnewsItem
         @endforeach
     </div>
 @endif
