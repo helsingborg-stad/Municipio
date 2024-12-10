@@ -19,7 +19,7 @@ class ChangeLogotypeData implements Hookable
 
     public function loginHeaderUrl(): string
     {
-        return 'https://getmunicipio.com/';
+        return home_url();
     }
 
     public function loginHeaderText(): string
