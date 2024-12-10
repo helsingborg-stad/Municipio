@@ -255,7 +255,7 @@ class App
         $moveAdminPageToSettings = new \Municipio\Admin\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
 
-        /* Admin uploads */ 
+        /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
