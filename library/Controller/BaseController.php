@@ -332,8 +332,8 @@ class BaseController
         $this->data['user']              = $this->wpService->wpGetCurrentUser();
         $this->data['isAuthenticated']   = $this->wpService->isUserLoggedIn();
         $this->data['isAdminBarShowing'] = $this->wpService->isAdminBarShowing();
-        $this->data['loginUrl']          = $this->wpService->wpLoginUrl();
-        $this->data['logoutUrl']         = $this->wpService->wpLogoutUrl();
+        $this->data['loginUrl']          = $this->wpService->wpLoginUrl(get_permalink());
+        $this->data['logoutUrl']         = $this->wpService->wpLogoutUrl(home_url());
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
