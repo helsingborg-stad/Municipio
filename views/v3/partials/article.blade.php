@@ -16,9 +16,11 @@
                         {!! $postTitleFiltered !!}
                     @endtypography
                 @endif
-                @if (!empty($callToActionItems['floating']))
-                    @icon($callToActionItems['floating'])
-                    @endicon
+                @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
+                    @element($callToActionItems['floating']['wrapper'] ?? [])
+                        @icon($callToActionItems['floating']['icon'])
+                        @endicon
+                    @endelement
                 @endif
             @endgroup
         @endif
