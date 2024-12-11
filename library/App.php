@@ -229,7 +229,6 @@ class App
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
         new \Municipio\Admin\General();
-        new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
@@ -327,6 +326,9 @@ class App
      */
     private function setupLoginLogout(): void
     {
+        $logUserLoginTime = new \Municipio\Admin\Login\LogUserLoginTime($this->wpService);
+        $logUserLoginTime->addHooks();
+
         $registerLoginLogoutOptionsPage = new \Municipio\Admin\Login\RegisterLoginLogoutOptionsPage($this->wpService, $this->acfService);
         $registerLoginLogoutOptionsPage->addHooks();
 
