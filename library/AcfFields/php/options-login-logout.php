@@ -3,15 +3,15 @@
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(
     'key' => 'group_67597150948c7',
-    'title' => __('Login &amp; Logout Settings', 'municipio'),
+    'title' => __('SSO Settings', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_67597153d37f3',
             'label' => __('Require SSO Login', 'municipio'),
-            'name' => 'require_sso_login',
+            'name' => 'municipio_require_sso_login',
             'aria-label' => '',
             'type' => 'true_false',
-            'instructions' => '',
+            'instructions' => __('This feature disables the manual login ability. All attempts to login will be redirected to the IdP configured with MiniOrange SSO.', 'municipio'),
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => array(
@@ -19,7 +19,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('This option forces the user to login with SSO Service. No default login screen will be displayed.', 'municipio'),
+            'message' => __('* Requires MiniOrange SSO', 'municipio'),
             'default_value' => 0,
             'ui_on_text' => __('Enabled', 'municipio'),
             'ui_off_text' => __('Disabled', 'municipio'),

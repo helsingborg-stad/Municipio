@@ -14,7 +14,7 @@ class RegisterLoginLogoutOptionsPage implements Hookable
 
   public function addHooks(): void
   {
-    $this->wpService->addAction('admin_init', [$this, 'registerOptionsPage']);
+    $this->wpService->addAction('admin_menu', [$this, 'registerOptionsPage']);
   }
 
   public function registerOptionsPage()
@@ -24,8 +24,10 @@ class RegisterLoginLogoutOptionsPage implements Hookable
       'menu_title'  => __('Login/Logout', 'municipio'),
       'menu_slug'   => 'login-logout',
       'capability'  => 'manage_options',
-      'redirect'    => false,
-      //'parent_slug' => 'options-general.php',
+      'redirect'    => true,
+      'update_button' => __('Save', 'municipio'),
+      'updated_message' => __('The SSO Configuration has been saved.', 'municipio'),
+      'parent_slug' => 'options-general.php',
     ]);
   }
 }

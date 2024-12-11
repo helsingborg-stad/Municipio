@@ -1,14 +1,14 @@
 [{
     "key": "group_67597150948c7",
-    "title": "Login &amp; Logout Settings",
+    "title": "SSO Settings",
     "fields": [
         {
             "key": "field_67597153d37f3",
             "label": "Require SSO Login",
-            "name": "require_sso_login",
+            "name": "municipio_require_sso_login",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "This feature disables the manual login ability. All attempts to login will be redirected to the IdP configured with MiniOrange SSO.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "This option forces the user to login with SSO Service. No default login screen will be displayed.",
+            "message": "* Requires MiniOrange SSO",
             "default_value": 0,
             "ui_on_text": "Enabled",
             "ui_off_text": "Disabled",

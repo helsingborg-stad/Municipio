@@ -2,6 +2,8 @@
 
 namespace Municipio\Admin\Integrations\MiniOrange\Config;
 
+use function AcfService\Implementations\get_field;
+
 class MiniOrangeConfig implements MiniOrangeConfigInterface
 {
   /**
@@ -21,6 +23,6 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function requireSsoLogin(): bool
   {
-    return false;
+    return (bool) get_option('options_municipio_require_sso_login', false) ?? false;
   }
 }
