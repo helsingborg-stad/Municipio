@@ -13,7 +13,21 @@ class DoNotHaltLogoutWhenNonceIsMissing implements Hookable
 
     public function addHooks(): void
     {
+        if (!$this->isEnabled()) {
+            return;
+        }
+
         $this->wpService->addAction('login_init', array($this, 'handleLogout'));
+    }
+
+    /**
+     * Check if the uunvedrfieied logout is enabled
+     *
+     * @return bool
+     */
+    private function isEnabled(): bool
+    {
+        return true;
     }
 
     /**
