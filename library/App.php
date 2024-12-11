@@ -254,9 +254,17 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
-
+        /* 
+        * MiniOrange SSO integrations
+        */
         $forceSsO = new \Municipio\Admin\Integrations\MiniOrange\RequireSsoLogin($this->wpService);
         $forceSsO->addHooks();
+
+        /**
+         * Logout modifications
+         */
+        $doNotHaltLogoutWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltLogoutWhenNonceIsMissing($this->wpService);
+        $doNotHaltLogoutWhenNonceIsMissing->addHooks();
 
         /**
          * Api
