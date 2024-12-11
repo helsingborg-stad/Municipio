@@ -18,6 +18,7 @@ module.exports = {
         'js/municipio': './assets/source/3.0/js/municipio.js',
         'js/instantpage': './node_modules/instant.page/instantpage.js',
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
+        'js/mce-table': './assets/source/3.0/mce-js/mce-table.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
         'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
         'js/pdf': './assets/source/3.0/js/pdf.ts',

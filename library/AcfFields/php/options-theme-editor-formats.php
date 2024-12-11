@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_57ff4f49ac8c1',
     'title' => __('Editor formats', 'municipio'),
     'fields' => array(
@@ -143,6 +145,7 @@
             ),
             'choices' => array(
                 'MceButtons' => __('MceButtons', 'municipio'),
+                'Table' => __('Table', 'municipio'),
             ),
             'allow_custom' => 0,
             'save_custom' => 0,
@@ -171,4 +174,5 @@
     'active' => 1,
     'description' => '',
 ));
-}
+
+}
