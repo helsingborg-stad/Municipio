@@ -6,7 +6,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\Helper\CacheBust;
 use WpService\WpService;
 
-class EnqueueStyles implements Hookable
+class EnqueueLoginScreenStyles implements Hookable
 {
     public function __construct(private WpService $wpService)
     {

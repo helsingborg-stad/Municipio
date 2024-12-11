@@ -254,18 +254,6 @@ class App
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
-        /* 
-        * MiniOrange SSO integrations
-        */
-        $forceSsO = new \Municipio\Admin\Integrations\MiniOrange\RequireSsoLogin($this->wpService);
-        $forceSsO->addHooks();
-
-        /**
-         * Logout modifications
-         */
-        $doNotHaltLogoutWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltLogoutWhenNonceIsMissing($this->wpService);
-        $doNotHaltLogoutWhenNonceIsMissing->addHooks();
-
         /**
          * Api
          */
@@ -322,7 +310,12 @@ class App
         /**
          * Login screen
          */
-        $this->setupLoginScreen();
+        $this->setupLoginLogout();
+
+        /**
+         * MiniOrange integration
+         */
+        $this->setUpMiniOrangeIntegration();
     }
 
     /**
@@ -332,13 +325,37 @@ class App
      *
      * @return void
      */
-    private function setupLoginScreen(): void
+    private function setupLoginLogout(): void
     {
-        $loginStyles = new \Municipio\Admin\Login\EnqueueStyles($this->wpService);
-        $this->hooksRegistrar->register($loginStyles);
+        $registerLoginLogoutOptionsPage = new \Municipio\Admin\Login\RegisterLoginLogoutOptionsPage($this->wpService, $this->acfService);
+        $registerLoginLogoutOptionsPage->addHooks();
 
-        $loginData = new \Municipio\Admin\Login\ChangeLogotypeData($this->wpService);
-        $this->hooksRegistrar->register($loginData);
+        $enqueueLoginScreenStyles = new \Municipio\Admin\Login\EnqueueLoginScreenStyles($this->wpService);
+        $enqueueLoginScreenStyles->addHooks();
+
+        $setLoginScreenLogotypeData = new \Municipio\Admin\Login\SetLoginScreenLogotypeData($this->wpService);
+        $setLoginScreenLogotypeData->addHooks();
+
+        $doNotHaltLogoutWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltLogoutWhenNonceIsMissing($this->wpService);
+        $doNotHaltLogoutWhenNonceIsMissing->addHooks();
+    }
+
+    /**
+     * Set up the MiniOrange integration.
+     *
+     * This method is responsible for setting up the MiniOrange integration.
+     *
+     * @return void
+     */
+    private function setUpMiniOrangeIntegration(): void
+    {
+        $config = new \Municipio\Admin\Integrations\MiniOrange\Config\MiniOrangeConfig();
+        if($config->isEnabled() === false) {
+            return;
+        }
+
+        $requireSsoLogin = new \Municipio\Admin\Integrations\MiniOrange\RequireSsoLogin($this->wpService, $config);
+        $requireSsoLogin->addHooks();
     }
 
     /**

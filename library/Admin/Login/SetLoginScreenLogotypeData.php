@@ -5,7 +5,7 @@ namespace Municipio\Admin\Login;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
-class ChangeLogotypeData implements Hookable
+class SetLoginScreenLogotypeData implements Hookable
 {
     public function __construct(private WpService $wpService)
     {

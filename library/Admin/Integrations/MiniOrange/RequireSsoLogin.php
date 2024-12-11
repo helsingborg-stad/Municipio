@@ -2,12 +2,13 @@
 
 namespace Municipio\Admin\Integrations\MiniOrange;
 
+use Municipio\Admin\Integrations\MiniOrange\Config\MiniOrangeConfig;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
 class RequireSsoLogin implements Hookable
 {
-  public function __construct(private WpService $wpService){}
+  public function __construct(private WpService $wpService, private MiniOrangeConfig $config){}
 
   public function addHooks(): void
   {
@@ -25,10 +26,7 @@ class RequireSsoLogin implements Hookable
    */
   private function isEnabled(): bool
   {
-    if(!defined('MO_SAML_PLUGIN_DIR')) {
-      return false;
-    }
-    return false;
+    return $this->config->requireSsoLogin();
   }
 
   /**
