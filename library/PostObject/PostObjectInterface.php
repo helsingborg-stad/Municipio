@@ -24,4 +24,11 @@ interface PostObjectInterface
      * @return string
      */
     public function getPermalink(): string;
+
+    /**
+     * Get the amount of comments on the post.
+     *
+     * @return int
+     */
+    public function getCommentCount(): int;
 }

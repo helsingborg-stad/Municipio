@@ -4,6 +4,7 @@ namespace Municipio\PostObject;
 
 use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
+use WpService\Contracts\GetCommentCount;
 use WpService\Contracts\GetPermalink;
 
 /**
@@ -14,7 +15,7 @@ class PostObjectFromWpPost implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private WP_Post $wpPost, private GetPermalink $wpService)
+    public function __construct(private WP_Post $wpPost, private GetPermalink&GetCommentCount $wpService)
     {
     }
 
@@ -40,5 +41,13 @@ class PostObjectFromWpPost implements PostObjectInterface
     public function getPermalink(): string
     {
         return $this->wpService->getPermalink($this->wpPost);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommentCount(): int
+    {
+        return $this->wpService->getCommentCount($this->getId())['approved'];
     }
 }
