@@ -16,9 +16,9 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $inner, private object $legacyPost)
+    public function __construct(private PostObjectInterface $inner, object $legacyPost)
     {
-        foreach ($this->legacyPost as $key => $value) {
+        foreach ($legacyPost as $key => $value) {
             if (!isset($this->{$key})) {
                 $this->{$key} = $value;
             }
