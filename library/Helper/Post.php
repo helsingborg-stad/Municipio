@@ -332,6 +332,8 @@ class Post
             $postObject->excerpt_shorter       = get_the_password_form($postObject);
         }
 
+        $postObject->commentCount = get_comments_number($postObject->ID);
+
         if (in_array('call_to_action_items', $appendFields)) {
             $postObject->call_to_action_items = apply_filters(
                 'Municipio/Helper/Post/CallToActionItems',
