@@ -339,9 +339,6 @@ class BaseController
             $this->getCurrentUrl(['loggedout' => 'true'])
         );
 
-        $this->data['hasLoginStateMessage'] = (bool) (($_GET['loggedin'] ?? false));
-        $this->data['hasLogoutStateMessage'] = (bool) (($_GET['loggedout'] ?? false));
-
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
 
@@ -371,6 +368,7 @@ class BaseController
         $this->data['hasMainMenu']           = $this->hasMainMenu();
 
         $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
+        
         //Notice storage
         $this->data['notice'] = [];
 
@@ -387,9 +385,7 @@ class BaseController
                 'searchFor' => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
                 'noResult'  => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
                 'logout'    => __('Logout', 'municipio'),
-                'login'     => __('Login', 'municipio'),
-                'logoutNotice' => __('You have been logged out.', 'municipio'),
-                'loginNotice' => __('You have been logged in.', 'municipio'),
+                'login'     => __('Login', 'municipio')
             ]
         );
 

@@ -54,13 +54,7 @@
             @yield('hero-top-sidebar')
         @endif
 
-        {{-- Notices Notice::add() --}}
-        @if ($notice)
-            @foreach ($notice as $noticeItem)
-                @notice($noticeItem)
-                @endnotice
-            @endforeach
-        @endif
+        
 
         {{-- Before page layout --}}
         @yield('before-layout')
@@ -141,6 +135,17 @@
     {{-- Floating menu --}}
     @includeWhen(!empty($floatingMenu['items']), 'partials.navigation.floating')
 
+    {{-- Notices Notice::add() --}}
+    {{-- Shows up in the bottom left corner as toast messages --}}
+    @if ($notice)
+        @element(['classList' => ['t-toast', 't-toast--bottom', 't-toast--left']])
+            @foreach ($notice as $noticeItem)
+                @notice($noticeItem)
+                @endnotice
+            @endforeach
+        @endelement
+    @endif
+            
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
 
