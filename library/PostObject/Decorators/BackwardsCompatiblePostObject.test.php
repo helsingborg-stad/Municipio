@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
