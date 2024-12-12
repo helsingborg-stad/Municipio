@@ -333,11 +333,14 @@ class BaseController
         $this->data['isAuthenticated']   = $this->wpService->isUserLoggedIn();
         $this->data['isAdminBarShowing'] = $this->wpService->isAdminBarShowing();
         $this->data['loginUrl']          = $this->wpService->wpLoginUrl(
-            $this->wpService->getPermalink()
+            $this->getCurrentUrl(['loggedin' => 'true'])
         );
         $this->data['logoutUrl']         = $this->wpService->wpLogoutUrl(
-            $this->wpService->homeUrl()
+            $this->getCurrentUrl(['loggedout' => 'true'])
         );
+
+        $this->data['hasLoginStateMessage'] = (bool) (($_GET['loggedin'] ?? false));
+        $this->data['hasLogoutStateMessage'] = (bool) (($_GET['loggedout'] ?? false));
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
@@ -385,6 +388,8 @@ class BaseController
                 'noResult'  => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
                 'logout'    => __('Logout', 'municipio'),
                 'login'     => __('Login', 'municipio'),
+                'logoutNotice' => __('You have been logged out.', 'municipio'),
+                'loginNotice' => __('You have been logged in.', 'municipio'),
             ]
         );
 
@@ -432,6 +437,42 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
+    }
+
+    /**
+     * Get the current URL with optional query parameters.
+     *
+     * @param array $queryParam Key-value pairs to add or override in the query string.
+     * @return string The full URL.
+     */
+    private function getCurrentUrl(array $queryParam = []): string
+    {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+        $host = filter_var($_SERVER['SERVER_NAME'] ?? '', FILTER_SANITIZE_URL);
+        $requestUri = filter_var($_SERVER['REQUEST_URI'] ?? '', FILTER_SANITIZE_URL);
+
+        if (empty($host)) {
+            return '';
+        }
+
+        // Parse the current query string
+        $urlParts = parse_url($requestUri);
+        $currentQueryParams = [];
+        if (isset($urlParts['query'])) {
+            parse_str($urlParts['query'], $currentQueryParams);
+        }
+
+        // Merge the current query parameters with the new ones
+        $mergedQueryParams = array_merge($currentQueryParams, $queryParam);
+
+        // Build the new query string
+        $newQueryString = http_build_query($mergedQueryParams);
+
+        // Build the new request URI
+        $path = $urlParts['path'] ?? '';
+        $newRequestUri = $path . (!empty($newQueryString) ? '?' . $newQueryString : '');
+
+        return sprintf('%s://%s%s', $scheme, $host, $newRequestUri);
     }
 
     /**
