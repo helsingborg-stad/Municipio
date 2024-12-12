@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\PostObjectInterface;
 use WP_Post;
+use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetCommentCount;
 use WpService\Contracts\GetPermalink;
 
@@ -15,8 +15,11 @@ class PostObjectFromWpPost implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private WP_Post $wpPost, private GetPermalink&GetCommentCount $wpService)
-    {
+    public function __construct(
+        private PostObjectInterface $inner,
+        private WP_Post $wpPost,
+        private GetPermalink&GetCommentCount $wpService
+    ) {
     }
 
     /**

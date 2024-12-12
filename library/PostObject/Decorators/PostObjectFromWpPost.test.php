@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\PostObject;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -17,7 +17,7 @@ class PostObjectFromWpPostTest extends TestCase
         $wpService = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
         $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
 
-        $instance = new PostObjectFromWpPost($wpPost, $wpService);
+        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, $wpService);
 
         $result = $instance->getCommentCount();
 

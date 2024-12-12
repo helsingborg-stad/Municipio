@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
 use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;

@@ -7,9 +7,10 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
-use Municipio\PostObject\BackwardsCompatiblePostObject;
+use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
+use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\PostObjectFromWpPost;
 
 /**
  * Class Post
@@ -145,8 +146,9 @@ class Post
     {
         $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
         $wpService      = \Municipio\Helper\WpService::get();
-        $postObject     = new PostObjectFromWpPost($post, $wpService);
-        $postObject     = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
+
+        $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
+        $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
 
