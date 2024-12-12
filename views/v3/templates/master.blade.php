@@ -70,6 +70,11 @@
             @section('layout')
                 <div class="o-container">
 
+                    {{-- Login state messages --}}
+                    @includeWhen($hasLoginStateMessage, 'partials.login.login-message')
+                    @includeWhen($hasLogoutStateMessage, 'partials.login.logout-message')
+
+                    {{-- Helper navigation --}}
                     @hasSection('helper-navigation')
                         <div class="o-grid o-grid--no-margin u-print-display--none">
                             <div class="o-grid-12">
