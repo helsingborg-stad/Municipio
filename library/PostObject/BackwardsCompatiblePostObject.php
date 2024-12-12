@@ -48,4 +48,12 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     {
         return $this->inner->getPermalink();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommentCount(): int
+    {
+        return $this->inner->getCommentCount();
+    }
 }
