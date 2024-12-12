@@ -15,7 +15,7 @@ class PostObjectFromWpPostTest extends TestCase
     public function testGetCommentCountReturnsAmountOfComments()
     {
         $wpService = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
-        $wpPost = WpMockFactory::createWpPost(['ID' => 1]);
+        $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
 
         $instance = new PostObjectFromWpPost($wpPost, $wpService);
 
