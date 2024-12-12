@@ -34,13 +34,13 @@ class RedirectToLoginWhenInternalContext implements Hookable
 
                 echo sprintf(
                     '<script>
-              document.addEventListener("brokenLinkContextDetectionInternal", () => {
-                const loginLockKey = "%s";
-                if (!sessionStorage.getItem(loginLockKey)) {
-                  window.location.href = "%s";
-                }
-              });
-          </script>',
+                        document.addEventListener("brokenLinkContextDetectionInternal", () => {
+                          const loginLockKey = "%s";
+                          if (!sessionStorage.getItem(loginLockKey)) {
+                            window.location.href = "%s";
+                          }
+                        });
+                    </script>',
                     self::LOGIN_LOCK_KEY,
                     esc_js($currentUrl)
                 );
@@ -58,10 +58,10 @@ class RedirectToLoginWhenInternalContext implements Hookable
         if ((bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
             echo sprintf(
                 '<script>
-              document.addEventListener("DOMContentLoaded", function() {
-                  sessionStorage.setItem("%s", "true");
-              });
-          </script>',
+                    document.addEventListener("DOMContentLoaded", function() {
+                        sessionStorage.setItem("%s", "true");
+                    });
+                </script>',
                 self::LOGIN_LOCK_KEY
             );
         }
