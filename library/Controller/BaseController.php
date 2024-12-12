@@ -368,7 +368,7 @@ class BaseController
         $this->data['hasMainMenu']           = $this->hasMainMenu();
 
         $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
-        
+
         //Notice storage
         $this->data['notice'] = [];
 

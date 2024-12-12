@@ -339,7 +339,7 @@ class App
     private function setUpBrokenLinksIntegration(): void
     {
         $config = new \Municipio\Integrations\BrokenLinks\Config\BrokenLinksConfig();
-        if($config->isEnabled() === false) {
+        if ($config->isEnabled() === false) {
             return;
         }
 
@@ -385,7 +385,7 @@ class App
     private function setUpMiniOrangeIntegration(): void
     {
         $config = new \Municipio\Admin\Integrations\MiniOrange\Config\MiniOrangeConfig();
-        if($config->isEnabled() === false) {
+        if ($config->isEnabled() === false) {
             return;
         }
 
