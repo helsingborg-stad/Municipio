@@ -331,6 +331,9 @@ class App
      */
     private function setupLoginLogout(): void
     {
+        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService);
+        $addLoginAndLogoutNotices->addHooks();
+
         $logUserLoginTime = new \Municipio\Admin\Login\LogUserLoginTime($this->wpService);
         $logUserLoginTime->addHooks();
 
