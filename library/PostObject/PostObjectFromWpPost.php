@@ -43,6 +43,9 @@ class PostObjectFromWpPost implements PostObjectInterface
         return $this->wpService->getPermalink($this->wpPost);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getCommentCount(): int
     {
         return $this->wpService->getCommentCount($this->getId())['approved'];
