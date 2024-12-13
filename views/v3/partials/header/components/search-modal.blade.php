@@ -1,5 +1,5 @@
 @button([
-    'text' => 'Search',
+    'text' => $lang->search,
     'color' => 'basic',
     'icon' => 'search',
     'style' => 'basic',
