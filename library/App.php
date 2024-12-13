@@ -356,6 +356,9 @@ class App
      */
     private function setupLoginLogout(): void
     {
+        $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
+        $filterAuthUrls->addHooks();
+
         $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService);
         $addLoginAndLogoutNotices->addHooks();
 
@@ -371,8 +374,8 @@ class App
         $setLoginScreenLogotypeData = new \Municipio\Admin\Login\SetLoginScreenLogotypeData($this->wpService);
         $setLoginScreenLogotypeData->addHooks();
 
-        $doNotHaltLogoutWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltLogoutWhenNonceIsMissing($this->wpService);
-        $doNotHaltLogoutWhenNonceIsMissing->addHooks();
+        $doNotHaltAuthWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltAuthWhenNonceIsMissing($this->wpService);
+        $doNotHaltAuthWhenNonceIsMissing->addHooks();
     }
 
     /**

@@ -443,13 +443,9 @@ class BaseController
      */
     private function getCurrentUrl(array $queryParam = []): string
     {
-        $permalink = $this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get());
-
-        if (!$permalink) {
-            return '';
-        }
-
-        return add_query_arg($queryParam, $permalink);
+        $permalink = urldecode($this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get()));
+        $permalink = add_query_arg($queryParam, $permalink);
+        return urldecode($permalink);
     }
 
     /**
