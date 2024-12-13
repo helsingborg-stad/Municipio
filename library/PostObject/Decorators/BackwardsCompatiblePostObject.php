@@ -56,4 +56,12 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     {
         return $this->inner->getCommentCount();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTermIcons(): array
+    {
+        return $this->inner->getTermIcons();
+    }
 }

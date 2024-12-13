@@ -53,4 +53,12 @@ class PostObjectFromWpPost implements PostObjectInterface
     {
         return $this->wpService->getCommentCount($this->getId())['approved'];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTermIcons(): array
+    {
+        return $this->inner->getTermIcons();
+    }
 }

@@ -31,4 +31,11 @@ interface PostObjectInterface
      * @return int
      */
     public function getCommentCount(): int;
+
+    /**
+     * Get the term icons.
+     *
+     * @return TermIcon[]
+     */
+    public function getTermIcons(): array;
 }
