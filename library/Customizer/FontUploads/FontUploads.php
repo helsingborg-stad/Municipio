@@ -96,7 +96,7 @@ class FontUploads implements Hookable {
 	 */
 	public function getUploadedFontsCss(): void
 	{
-		foreach ( self::getUploadedFonts() as $name => $font ) {
+		foreach (self::getUploadedFonts() as $font) {
 			echo $this->wpService->wpStripAllTags( "@font-face{font-display:swap;font-family:\"{$font['name']}\";src:url(\"{$font['url']}\");format(\"{$font['type']}\");}" );
 		}
 	}
