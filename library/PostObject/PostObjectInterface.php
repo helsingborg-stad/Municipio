@@ -35,7 +35,7 @@ interface PostObjectInterface
     /**
      * Get the term icons.
      *
-     * @return TermIcon[]
+     * @return \Municipio\PostObject\TermIcon\TermIconInterface[]
      */
     public function getTermIcons(): array;
 }
