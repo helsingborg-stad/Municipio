@@ -40,7 +40,10 @@
 
         @link([
             'href' => $logoutUrl,
-            'classList' => ['user__link']
+            'classList' => [
+                'user__link',
+                'js-action-logout-click'
+            ]
         ])
             @icon([
                 'label' => $lang->logout,
@@ -68,7 +71,8 @@
             'u-display--none@lg',
             'u-display--none@xl',
             'u-display--none@xxl',
-            'user__button'
+            'user__button',
+            'js-action-logout-click'
         ],
     ])
     @endbutton

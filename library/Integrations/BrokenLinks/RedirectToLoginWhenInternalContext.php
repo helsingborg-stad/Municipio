@@ -9,7 +9,8 @@ use WpService\WpService;
 
 class RedirectToLoginWhenInternalContext implements Hookable
 {
-    private const LOGIN_LOCK_KEY = 'municipioLoginLock';
+    private const USER_LOGGED_OUT_KEY = 'user_logged_out';
+    private const USER_HAS_BEEN_AUTO_LOGGED_IN_ONCE_KEY = 'user_has_been_auto_logged_in_once';
 
     public function __construct(private WpService $wpService, private BrokenLinksConfig $config)
     {
@@ -18,7 +19,6 @@ class RedirectToLoginWhenInternalContext implements Hookable
     public function addHooks(): void
     {
         $this->wpService->addAction('wp_head', [$this, 'redirectIfBrokenLink']);
-        $this->wpService->addAction('wp_head', [$this, 'createLoginLockLoggedOut']);
     }
 
   /**
@@ -35,35 +35,19 @@ class RedirectToLoginWhenInternalContext implements Hookable
                 echo sprintf(
                     '<script>
                         document.addEventListener("brokenLinkContextDetectionInternal", () => {
-                          const loginLockKey = "%s";
-                          if (!sessionStorage.getItem(loginLockKey)) {
+                          const userLoggedOutKey = "%s";
+                          const userHasBeenAutoLoggedInOnceKey = "%s";
+                          if (!sessionStorage.getItem(userLoggedOutKey) && !sessionStorage.getItem(userHasBeenAutoLoggedInOnceKey)) {
+                            sessionStorage.setItem(userHasBeenAutoLoggedInOnceKey, "true");
                             window.location.href = "%s";
                           }
                         });
                     </script>',
-                    self::LOGIN_LOCK_KEY,
+                    self::USER_LOGGED_OUT_KEY,
+                    self::USER_HAS_BEEN_AUTO_LOGGED_IN_ONCE_KEY,
                     esc_js($currentUrl)
                 );
             }
-        }
-    }
-
-  /**
-   * Create login lock when logging out
-   *
-   * @return void
-   */
-    public function createLoginLockLoggedOut()
-    {
-        if ((bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
-            echo sprintf(
-                '<script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        sessionStorage.setItem("%s", "true");
-                    });
-                </script>',
-                self::LOGIN_LOCK_KEY
-            );
         }
     }
 }

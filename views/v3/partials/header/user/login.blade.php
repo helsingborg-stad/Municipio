@@ -14,7 +14,10 @@
 ])
     @link([
         'href' => $loginUrl,
-        'classList' => ['user__link'],
+        'classList' => [
+            'user__link',
+            'js-action-login-click'
+        ],
         'attributeList' => [
             'aria-label' => $lang->login
         ]
@@ -35,7 +38,8 @@
         'classList' => [
             'u-display--none@xs',
             'u-display--none@sm',
-            'user__button'
+            'user__button',
+            'js-action-login-click'
         ],
     ])
     @endbutton
