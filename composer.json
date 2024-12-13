@@ -30,7 +30,6 @@
         "symfony/polyfill-mbstring": "1.17.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "pragmarx/ia-arr": "^7.3",
-        "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4",
         "spatie/schema-org": "^3.9",
