@@ -10,16 +10,17 @@ use WpService\Contracts\GetPermalink;
 /**
  * PostObject from WP_Post.
  */
-class PostObjectFromWpPost implements PostObjectInterface
+class PostObjectFromWpPost extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private PostObjectInterface $inner,
+        PostObjectInterface $inner,
         private WP_Post $wpPost,
         private GetPermalink&GetCommentCount $wpService
     ) {
+        $this->postObject = $inner;
     }
 
     /**
@@ -52,13 +53,5 @@ class PostObjectFromWpPost implements PostObjectInterface
     public function getCommentCount(): int
     {
         return $this->wpService->getCommentCount($this->getId())['approved'];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTermIcons(): array
-    {
-        return $this->inner->getTermIcons();
     }
 }
