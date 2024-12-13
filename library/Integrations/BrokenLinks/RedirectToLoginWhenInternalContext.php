@@ -18,7 +18,7 @@ class RedirectToLoginWhenInternalContext implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('wp_head', [$this, 'redirectIfBrokenLink']);
+        $this->wpService->addAction('wp_head', [$this, 'redirectToLoginPageWhenInternalContext']);
     }
 
   /**
@@ -26,7 +26,7 @@ class RedirectToLoginWhenInternalContext implements Hookable
    *
    * @return void
    */
-    public function redirectIfBrokenLink()
+    public function redirectToLoginPageWhenInternalContext()
     {
         if ($this->config->shouldRedirectToLoginPageWhenInternalContext()) {
             if (!(bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
