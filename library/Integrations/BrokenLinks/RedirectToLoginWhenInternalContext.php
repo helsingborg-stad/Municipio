@@ -30,7 +30,9 @@ class RedirectToLoginWhenInternalContext implements Hookable
     {
         if ($this->config->shouldRedirectToLoginPageWhenInternalContext()) {
             if (!(bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
-                $currentUrl = $this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get());
+                $loginUrl = $this->wpService->wpLoginUrl(
+                    $this->getCurrentUrl(['loggedin' => 'true'])
+                );
 
                 echo sprintf(
                     '<script>
@@ -45,9 +47,23 @@ class RedirectToLoginWhenInternalContext implements Hookable
                     </script>',
                     self::USER_LOGGED_OUT_KEY,
                     self::USER_HAS_BEEN_AUTO_LOGGED_IN_ONCE_KEY,
-                    esc_js($currentUrl)
+                    esc_js($loginUrl)
                 );
             }
         }
+    }
+
+    /**
+     * Get current url
+     * 
+     * @param array $queryParam
+     * 
+     * @return string
+     */
+    private function getCurrentUrl(array $queryParam = []): string
+    {
+        $permalink = urldecode($this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get()));
+        $permalink = add_query_arg($queryParam, $permalink);
+        return urldecode($permalink);
     }
 }
