@@ -368,7 +368,7 @@ class BaseController
         $this->data['hasMainMenu']           = $this->hasMainMenu();
 
         $this->data['structuredData'] = \Municipio\Helper\Data::normalizeStructuredData([]);
-        
+
         //Notice storage
         $this->data['notice'] = [];
 
@@ -443,32 +443,13 @@ class BaseController
      */
     private function getCurrentUrl(array $queryParam = []): string
     {
-        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
-        $host = filter_var($_SERVER['SERVER_NAME'] ?? '', FILTER_SANITIZE_URL);
-        $requestUri = filter_var($_SERVER['REQUEST_URI'] ?? '', FILTER_SANITIZE_URL);
+        $permalink = $this->wpService->getPermalink(\Municipio\Helper\CurrentPostId::get());
 
-        if (empty($host)) {
+        if (!$permalink) {
             return '';
         }
 
-        // Parse the current query string
-        $urlParts = parse_url($requestUri);
-        $currentQueryParams = [];
-        if (isset($urlParts['query'])) {
-            parse_str($urlParts['query'], $currentQueryParams);
-        }
-
-        // Merge the current query parameters with the new ones
-        $mergedQueryParams = array_merge($currentQueryParams, $queryParam);
-
-        // Build the new query string
-        $newQueryString = http_build_query($mergedQueryParams);
-
-        // Build the new request URI
-        $path = $urlParts['path'] ?? '';
-        $newRequestUri = $path . (!empty($newQueryString) ? '?' . $newQueryString : '');
-
-        return sprintf('%s://%s%s', $scheme, $host, $newRequestUri);
+        return add_query_arg($queryParam, $permalink);
     }
 
     /**

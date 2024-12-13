@@ -320,6 +320,31 @@ class App
          * MiniOrange integration
          */
         $this->setUpMiniOrangeIntegration();
+
+        /**
+         * Broken links
+         */
+        $this->setUpBrokenLinksIntegration();
+    }
+
+    /**
+     * Sets up the broken links integration.
+     *
+     * This method initializes the broken links integration by creating an instance of the
+     * RedirectToLoginWhenInternalContext class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+
+    private function setUpBrokenLinksIntegration(): void
+    {
+        $config = new \Municipio\Integrations\BrokenLinks\Config\BrokenLinksConfig();
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        $redirect = new \Municipio\Integrations\BrokenLinks\RedirectToLoginWhenInternalContext($this->wpService, $config);
+        $redirect->addHooks();
     }
 
     /**
@@ -360,7 +385,7 @@ class App
     private function setUpMiniOrangeIntegration(): void
     {
         $config = new \Municipio\Admin\Integrations\MiniOrange\Config\MiniOrangeConfig();
-        if($config->isEnabled() === false) {
+        if ($config->isEnabled() === false) {
             return;
         }
 
