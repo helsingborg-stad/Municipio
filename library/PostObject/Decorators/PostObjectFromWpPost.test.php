@@ -23,4 +23,15 @@ class PostObjectFromWpPostTest extends TestCase
 
         $this->assertEquals(2, $result);
     }
+
+    /**
+     * @testdox getPostType returns post type
+     */
+    public function testGetPostTypeReturnsPostType()
+    {
+        $wpPost   = WpMockFactory::createWpPost(['post_type' => 'post']);
+        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, new FakeWpService());
+
+        $this->assertEquals('post', $instance->getPostType());
+    }
 }

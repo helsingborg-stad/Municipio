@@ -50,4 +50,12 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     {
         return $this->postObject->getTermIcons();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPostType(): string
+    {
+        return $this->postObject->getPostType();
+    }
 }

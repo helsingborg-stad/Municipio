@@ -54,4 +54,12 @@ class PostObjectFromWpPost extends AbstractPostObjectDecorator implements PostOb
     {
         return $this->wpService->getCommentCount($this->getId())['approved'];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPostType(): string
+    {
+        return $this->wpPost->post_type;
+    }
 }

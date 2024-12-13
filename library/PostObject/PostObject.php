@@ -48,4 +48,12 @@ class PostObject implements PostObjectInterface
     {
         return [];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPostType(): string
+    {
+        return '';
+    }
 }

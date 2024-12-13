@@ -38,4 +38,9 @@ interface PostObjectInterface
      * @return \Municipio\PostObject\TermIcon\TermIconInterface[]
      */
     public function getTermIcons(): array;
+
+    /**
+     * Get the post type.
+     */
+    public function getPostType(): string;
 }
