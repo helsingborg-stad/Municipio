@@ -25,6 +25,32 @@ class PostObjectFromWpPostTest extends TestCase
     }
 
     /**
+     * @testdox getPermalink() returns permalink
+     */
+    public function testGetPermalinkReturnsPermalink()
+    {
+        $wpService = new FakeWpService(['getPermalink' => 'http://example.com']);
+        $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
+
+        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, $wpService);
+
+        $result = $instance->getPermalink();
+
+        $this->assertEquals('http://example.com', $result);
+    }
+
+    /**
+     * @testdox getTitle() returns title
+     */
+    public function testGetTitleReturnsTitle()
+    {
+        $wpPost   = WpMockFactory::createWpPost(['post_title' => 'Title']);
+        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, new FakeWpService());
+
+        $this->assertEquals('Title', $instance->getTitle());
+    }
+
+    /**
      * @testdox getPostType returns post type
      */
     public function testGetPostTypeReturnsPostType()
