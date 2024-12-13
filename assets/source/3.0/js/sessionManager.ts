@@ -12,7 +12,6 @@ export class SessionManager {
   public static initLogoutClick(): void {
       const logoutLinks = document.querySelectorAll('.js-action-logout-click') as NodeListOf<HTMLElement>;
       logoutLinks.forEach((logoutLink) => { 
-        console.log("User logged out clickbind");
           logoutLink.addEventListener('click', SessionManager.handleLogoutClick);
       });
   }
