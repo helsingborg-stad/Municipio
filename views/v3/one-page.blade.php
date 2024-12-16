@@ -23,7 +23,7 @@
         @endif
 
         {!! $hook->innerLoopStart !!}
-        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating'])))
+        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating']['icon'])))
             @group([
                 'justifyContent' => 'space-between',
                 'classList' => [
