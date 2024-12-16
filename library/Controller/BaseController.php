@@ -385,7 +385,8 @@ class BaseController
                 'searchFor' => ucfirst(strtolower($this->data['postTypeDetails']->labels->search_items ?? __('Search for content', 'municipio'))),
                 'noResult'  => $this->data['postTypeDetails']->labels->not_found ?? __('No items found at this query.', 'municipio'),
                 'logout'    => __('Logout', 'municipio'),
-                'login'     => __('Login', 'municipio')
+                'login'     => __('Login', 'municipio'),
+                'close'     => __('Close', 'municipio'),
             ]
         );
 
