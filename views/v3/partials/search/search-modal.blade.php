@@ -1,11 +1,7 @@
-{{-- SEARCH: Form, Field and button component --}}
-
-<?php $closeButtonText = __('Cancel', 'municipio'); ?>
-
 @modal([
     'id' => 'm-search-modal__trigger', 
     'classList' => ['search-modal'], 
-    'closeButtonText' => $closeButtonText,
+    'closeButtonText' => $lang->close,
     'size' => 'xl', 
     'isPanel' => true,
     'transparent' => true
