@@ -36,7 +36,12 @@ class FontUploads implements Hookable {
 	 */
 	public function getUploadedFonts(): array
 	{
-		$fontAttachments = new \WP_Query( array(
+		static $fonts;
+		if ($fonts) {
+			return $fonts;
+		}
+
+		$fontAttachments = new \WP_Query(array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => 50,
 			'post_status'    => ['publish', 'inherit'],
@@ -54,7 +59,7 @@ class FontUploads implements Hookable {
 				];
 			}
 		}
-
+	
 		return $fonts;
 	}
 
@@ -82,7 +87,7 @@ class FontUploads implements Hookable {
 	{
 		foreach (self::getUploadedFonts() as $font) {
 			$fonts[$font['name'] ] = array(
-				'label' => $font['name'],
+				'label' => $this->makeSlugReadable($font['name']),
 				'stack' => $font['name'],
 			);
 		}
@@ -99,5 +104,16 @@ class FontUploads implements Hookable {
 		foreach (self::getUploadedFonts() as $font) {
 			echo $this->wpService->wpStripAllTags( "@font-face{font-display:swap;font-family:\"{$font['name']}\";src:url(\"{$font['url']}\");format(\"{$font['type']}\");}" );
 		}
+	}
+
+	/**
+	 * Make slug readable
+	 *
+	 * @param string $slug
+	 * @return string
+	 */
+	private function makeSlugReadable(string $slug): string
+	{
+		return ucwords(str_replace('-', ' ', $slug));
 	}
 }
