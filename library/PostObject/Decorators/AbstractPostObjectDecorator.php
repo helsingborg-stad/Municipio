@@ -1,20 +1,22 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
 
 /**
- * PostObject
+ * Abstract post object decorator.
  */
-class PostObject implements PostObjectInterface
+abstract class AbstractPostObjectDecorator implements PostObjectInterface
 {
+    protected PostObjectInterface $postObject;
+
     /**
      * @inheritDoc
      */
     public function getId(): int
     {
-        return 0;
+        return $this->postObject->getId();
     }
 
     /**
@@ -22,7 +24,7 @@ class PostObject implements PostObjectInterface
      */
     public function getTitle(): string
     {
-        return '';
+        return $this->postObject->getTitle();
     }
 
     /**
@@ -30,7 +32,7 @@ class PostObject implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        return '';
+        return $this->postObject->getPermalink();
     }
 
     /**
@@ -38,7 +40,7 @@ class PostObject implements PostObjectInterface
      */
     public function getCommentCount(): int
     {
-        return 0;
+        return $this->postObject->getCommentCount();
     }
 
     /**
@@ -46,7 +48,7 @@ class PostObject implements PostObjectInterface
      */
     public function getTermIcons(): array
     {
-        return [];
+        return $this->postObject->getTermIcons();
     }
 
     /**
@@ -54,6 +56,6 @@ class PostObject implements PostObjectInterface
      */
     public function getPostType(): string
     {
-        return '';
+        return $this->postObject->getPostType();
     }
 }

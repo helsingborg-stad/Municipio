@@ -11,49 +11,19 @@ use Municipio\PostObject\PostObjectInterface;
  * This class is used to make sure that the PostObjectInterface is backwards compatible with the old PostObject class.
  */
 #[AllowDynamicProperties]
-class BackwardsCompatiblePostObject implements PostObjectInterface
+class BackwardsCompatiblePostObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $inner, object $legacyPost)
+    public function __construct(PostObjectInterface $postObject, object $legacyPost)
     {
+        $this->postObject = $postObject;
+
         foreach ($legacyPost as $key => $value) {
             if (!isset($this->{$key})) {
                 $this->{$key} = $value;
             }
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getId(): int
-    {
-        return $this->inner->getId();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTitle(): string
-    {
-        return $this->inner->getTitle();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPermalink(): string
-    {
-        return $this->inner->getPermalink();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCommentCount(): int
-    {
-        return $this->inner->getCommentCount();
     }
 }

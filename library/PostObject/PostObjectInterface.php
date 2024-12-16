@@ -31,4 +31,16 @@ interface PostObjectInterface
      * @return int
      */
     public function getCommentCount(): int;
+
+    /**
+     * Get the term icons.
+     *
+     * @return \Municipio\PostObject\TermIcon\TermIconInterface[]
+     */
+    public function getTermIcons(): array;
+
+    /**
+     * Get the post type.
+     */
+    public function getPostType(): string;
 }

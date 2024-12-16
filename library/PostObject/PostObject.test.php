@@ -55,4 +55,12 @@ class PostObjectTest extends TestCase
     {
         $this->assertEquals([], $this->instance->getTermIcons());
     }
+
+    /**
+     * @testdox getPostType() returns an empty string
+     */
+    public function testGetPostTypeReturnsAnEmptyString()
+    {
+        $this->assertEquals('', $this->instance->getPostType());
+    }
 }

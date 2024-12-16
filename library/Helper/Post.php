@@ -7,8 +7,10 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\PostObject\TermIcon\TryGetTermIcon;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\Decorators\PostObjectWithTermIcons;
 use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
 
@@ -148,6 +150,7 @@ class Post
         $wpService      = \Municipio\Helper\WpService::get();
 
         $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
+        $postObject = new PostObjectWithTermIcons($postObject, $wpService, new TryGetTermIcon());
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
