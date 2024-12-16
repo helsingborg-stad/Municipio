@@ -23,9 +23,11 @@
                 ])
                     {!! $post->postTitleFiltered !!}
                 @endtypography
-                @if (!empty($post->callToActionItems['floating']['icon']))
-                    @icon($post->callToActionItems['floating']['icon'])
-                    @endicon
+                @if (!empty($post->callToActionItems['floating']['icon']) && !empty($post->callToActionItems['floating']['wrapper']))
+                    @element($post->callToActionItems['floating']['wrapper'] ?? [])
+                        @icon($post->callToActionItems['floating']['icon'])
+                        @endicon
+                    @endelement
                 @endif
             @endgroup
             <div class="o-grid">
