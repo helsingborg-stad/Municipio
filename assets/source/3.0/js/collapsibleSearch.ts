@@ -125,21 +125,23 @@ class CollapsibleSearchForm {
 
 // Function to initialize the collapsible search form
 export function initializeCollapsibleSearch(): void {
-    const collapsibleSearchElements = document.querySelectorAll('.collapsible-search-form');
+    document.addEventListener('DOMContentLoaded', () => {
+        const collapsibleSearchElements = document.querySelectorAll('.collapsible-search-form');
 
-    collapsibleSearchElements.forEach((collapsibleSearchElement) => {
-        const triggerButton = collapsibleSearchElement.querySelector('.collapsible-search-form__trigger-button');
-        const searchForm = collapsibleSearchElement.querySelector('.collapsible-search-form__form');
-        const closeButton = collapsibleSearchElement.querySelector('.collapsible-search-form__close-button');
-        const searchInput = collapsibleSearchElement.querySelector('.collapsible-search-form input');
+        collapsibleSearchElements.forEach((collapsibleSearchElement) => {
+            const triggerButton = collapsibleSearchElement.querySelector('.collapsible-search-form__trigger-button');
+            const searchForm = collapsibleSearchElement.querySelector('.collapsible-search-form__form');
+            const closeButton = collapsibleSearchElement.querySelector('.collapsible-search-form__close-button');
+            const searchInput = collapsibleSearchElement.querySelector('.collapsible-search-form input');
 
-        if (triggerButton && searchForm && closeButton && searchInput) {
-            new CollapsibleSearchForm(
-                triggerButton as HTMLElement, 
-                searchForm as HTMLElement, 
-                closeButton as HTMLElement, 
-                searchInput as HTMLElement
-            );
-        }
+            if (triggerButton && searchForm && closeButton && searchInput) {
+                new CollapsibleSearchForm(
+                    triggerButton as HTMLElement, 
+                    searchForm as HTMLElement, 
+                    closeButton as HTMLElement, 
+                    searchInput as HTMLElement
+                );
+            }
+        });
     });
 }
