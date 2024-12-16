@@ -158,10 +158,9 @@ class Customizer
             'disable_output'    => true
         ));
 
-        // Custom fonts support (parse uploaded fonts)
-        if (class_exists('\Kirki\Module\FontUploads')) {
-            new \Kirki\Module\FontUploads();
-        }
+        //Init font uploads
+        $fontUploads = new \Municipio\Customizer\FontUploads\FontUploads($this->wpService);
+        $fontUploads->addHooks();
 
         //Applicators [Applies settings on the frontend]
         $this->initApplicators();
