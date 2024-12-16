@@ -1,5 +1,5 @@
 @if ($posts)
-    <div class="arcive-news-items o-grid">
+    <div class="arcive-news-items o-grid u-align-items--start">
         @foreach($posts as $post)
         @newsItem([
                 'heading'             => $post->postTitle,
