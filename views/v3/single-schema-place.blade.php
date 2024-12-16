@@ -23,8 +23,8 @@
                 ])
                     {!! $post->postTitleFiltered !!}
                 @endtypography
-                @if (!empty($post->callToActionItems['floating']))
-                    @icon($post->callToActionItems['floating'])
+                @if (!empty($post->callToActionItems['floating']['icon']))
+                    @icon($post->callToActionItems['floating']['icon'])
                     @endicon
                 @endif
             @endgroup
