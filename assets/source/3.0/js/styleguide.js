@@ -1,1 +1,1 @@
-import Styleguide from '@helsingborg-stad/styleguide/source/js/app.js';
+import Styleguide from '@helsingborg-stad/styleguide/source/js/app';
