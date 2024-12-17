@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2024-11-20 11:03+0100\n"
-"PO-Revision-Date: 2024-11-20 11:15+0100\n"
+"POT-Creation-Date: 2024-12-17 08:35+0100\n"
+"PO-Revision-Date: 2024-12-17 08:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -25,18 +25,6 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: library/AcfFields/php/additional-menu-settings.php:6
-msgid "Additional menu settings"
-msgstr "Ytterligare menyinställningar"
-
-#: library/AcfFields/php/additional-menu-settings.php:10
-msgid "Add menu to additional location"
-msgstr "Lägg till menyn till ytterligare placering"
-
-#: library/AcfFields/php/additional-menu-settings.php:14
-msgid "This allows you to add this menu to another already existing menu."
-msgstr "Detta låter dig lägga till en meny till en redan existerande meny."
-
 #: library/AcfFields/php/block-button.php:6
 msgid "Button Block"
 msgstr "Knappar"
@@ -45,7 +33,7 @@ msgstr "Knappar"
 #: library/AcfFields/php/options-theme-google-translate.php:94
 #: library/AcfFields/php/widget-header-links.php:48
 #: library/AcfFields/php/widget-header-links.php:135
-#: library/Customizer/PanelsRegistry.php:216
+#: library/Customizer/PanelsRegistry.php:211
 #: library/Customizer/Sections/FooterSub.php:199
 msgid "Text"
 msgstr "Text"
@@ -72,6 +60,8 @@ msgstr "Färg"
 #: library/Customizer/Sections/FooterSub.php:57
 #: library/Customizer/Sections/Header/Appearance.php:21
 #: library/Customizer/Sections/Header/Logotype.php:39
+#: library/Customizer/Sections/Menu/Drawer.php:24
+#: library/Customizer/Sections/Menu/Drawer.php:47
 #: library/Customizer/Sections/Menu/MegaMenu.php:163
 #: library/Customizer/Sections/Menu/MegaMenu.php:202
 #: library/Customizer/Sections/Menu/Quicklinks.php:158
@@ -89,6 +79,8 @@ msgstr "Primär"
 #: library/Customizer/Sections/FooterSub.php:58
 #: library/Customizer/Sections/Header/Appearance.php:22
 #: library/Customizer/Sections/Header/Logotype.php:40
+#: library/Customizer/Sections/Menu/Drawer.php:25
+#: library/Customizer/Sections/Menu/Drawer.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:164
 #: library/Customizer/Sections/Menu/MegaMenu.php:203
 #: library/Customizer/Sections/Menu/Quicklinks.php:159
@@ -133,7 +125,7 @@ msgstr "standard"
 #: library/AcfFields/php/block-button.php:82
 #: library/AcfFields/php/navigation-widget.php:314
 #: library/AcfFields/php/options-menu-style.php:10
-#: library/Customizer/Sections/Archive.php:50
+#: library/Customizer/Sections/Archive.php:44
 #: library/Customizer/Sections/Header/Appearance.php:40
 #: library/Customizer/Sections/Header/Appearance.php:63
 #: library/Customizer/Sections/Icons.php:14
@@ -143,6 +135,8 @@ msgstr "Stil"
 #: library/AcfFields/php/block-button.php:94
 #: library/AcfFields/php/block-container.php:155
 #: library/Customizer/Sections/FooterMain.php:22
+#: library/Customizer/Sections/Menu/Drawer.php:23
+#: library/Customizer/Sections/Menu/Drawer.php:46
 #: library/Customizer/Sections/Menu/Tabmenu.php:36
 #: library/Customizer/Sections/Menu/Tabmenu.php:70
 #: library/Customizer/Sections/SliderDefault.php:170
@@ -176,7 +170,7 @@ msgstr "Storlek"
 
 #: library/AcfFields/php/block-button.php:125
 #: library/AcfFields/php/navigation-widget.php:351
-#: library/AcfFields/php/options-theme-editor-formats.php:23
+#: library/AcfFields/php/options-theme-editor-formats.php:25
 #: library/AcfFields/php/widget-header-common.php:130
 #: library/AcfFields/php/widget-header-links.php:361
 #: library/AcfFields/php/widget-header-menu.php:49
@@ -198,7 +192,7 @@ msgstr "Mellan"
 
 #: library/AcfFields/php/block-button.php:127
 #: library/AcfFields/php/navigation-widget.php:352
-#: library/AcfFields/php/options-theme-editor-formats.php:24
+#: library/AcfFields/php/options-theme-editor-formats.php:26
 #: library/AcfFields/php/widget-header-common.php:131
 #: library/AcfFields/php/widget-header-links.php:362
 #: library/AcfFields/php/widget-header-menu.php:50
@@ -228,7 +222,7 @@ msgid "Content width"
 msgstr "Bredd på innehåll"
 
 #: library/AcfFields/php/block-container.php:44
-#: library/Customizer/PanelsRegistry.php:317
+#: library/Customizer/PanelsRegistry.php:312
 #: library/Customizer/Sections/Button.php:144
 #: library/Customizer/Sections/Colors.php:518
 msgid "Standard"
@@ -397,7 +391,7 @@ msgid "Port"
 msgstr ""
 
 #: library/AcfFields/php/external-content-settings.php:242
-#: library/Customizer/Sections/Archive.php:445
+#: library/Customizer/Sections/Archive.php:432
 msgid "Collection"
 msgstr "Samlingar"
 
@@ -524,6 +518,8 @@ msgstr "Aktivera Gutenberg redigerare"
 
 #: library/AcfFields/php/options-activate-gutenberg.php:22
 #: library/AcfFields/php/options-comment-settings.php:24
+#: library/AcfFields/php/options-login-logout.php:25
+#: library/AcfFields/php/options-login-redirect.php:25
 #: library/AcfFields/php/options-theme-features.php:25
 #: library/Customizer/Sections/Colors.php:172
 #: library/Customizer/Sections/Divider.php:90
@@ -622,6 +618,63 @@ msgstr "Rubriksektioner"
 #: library/AcfFields/php/options-customize-header.php:25
 msgid "Add section"
 msgstr "Lägg till sektion"
+
+#: library/AcfFields/php/options-login-logout.php:6
+#: library/Admin/Integrations/MiniOrange/MoveAdminPageToSettings.php:17
+#, fuzzy
+#| msgid "Settings"
+msgid "SSO Settings"
+msgstr "Inställningar"
+
+#: library/AcfFields/php/options-login-logout.php:10
+msgid "Require SSO Login"
+msgstr ""
+
+#: library/AcfFields/php/options-login-logout.php:14
+msgid ""
+"This feature disables the manual login ability. All attempts to login will "
+"be redirected to the IdP configured with MiniOrange SSO."
+msgstr ""
+
+#: library/AcfFields/php/options-login-logout.php:22
+msgid "* Requires MiniOrange SSO"
+msgstr ""
+
+#: library/AcfFields/php/options-login-logout.php:24
+#: library/AcfFields/php/options-login-redirect.php:24
+#: library/AcfFields/php/options-theme-features.php:24
+#: library/Customizer/Sections/Divider.php:89
+#: library/Customizer/Sections/Divider.php:165
+#: library/Customizer/Sections/Menu/Behaviour.php:21
+#: library/Customizer/Sections/Menu/Behaviour.php:37
+#: library/Customizer/Sections/Menu/Behaviour.php:53
+#: library/Customizer/Sections/Menu/Behaviour.php:69
+#: library/Customizer/Sections/Menu/Behaviour.php:85
+#: library/Customizer/Sections/Menu/MegaMenu.php:248
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: library/AcfFields/php/options-login-redirect.php:6
+#, fuzzy
+#| msgid "Below Links"
+msgid "Broken Links"
+msgstr "Under länkar"
+
+#: library/AcfFields/php/options-login-redirect.php:10
+#, fuzzy
+#| msgid "Auto"
+msgid "Autologin"
+msgstr "Automatisk"
+
+#: library/AcfFields/php/options-login-redirect.php:14
+msgid ""
+"This feature will redirect the user to the login page, if an internal "
+"context has been detected."
+msgstr ""
+
+#: library/AcfFields/php/options-login-redirect.php:22
+msgid "* Requires Broken Links Detector Plugin"
+msgstr ""
 
 #: library/AcfFields/php/options-menu-floating.php:6
 #: library/AcfFields/php/options-theme-google-translate.php:59
@@ -2476,7 +2529,7 @@ msgstr "history"
 
 #: library/AcfFields/php/options-menu-icon.php:474
 msgid "home"
-msgstr "home"
+msgstr "Hem"
 
 #: library/AcfFields/php/options-menu-icon.php:475
 msgid "home_work"
@@ -4924,7 +4977,7 @@ msgstr ""
 
 #: library/AcfFields/php/options-menu-mega.php:8
 #: library/AcfFields/php/options-theme-google-translate.php:57
-#: library/Customizer/PanelsRegistry.php:441
+#: library/Customizer/PanelsRegistry.php:442
 #: library/Customizer/Sections/Search.php:138
 #: library/Helper/TranslatedLabels.php:49 library/Theme/Navigation.php:35
 msgid "Mega menu"
@@ -4959,7 +5012,7 @@ msgstr ""
 "några barn."
 
 #: library/AcfFields/php/options-menu-style.php:23
-#: library/AcfFields/php/options-theme-editor-formats.php:37
+#: library/AcfFields/php/options-theme-editor-formats.php:39
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:39
 #: library/Customizer/Sections/Borders.php:101
 #: library/Customizer/Sections/Menu/MegaMenu.php:106
@@ -5007,11 +5060,11 @@ msgid "Hide in menu"
 msgstr "Dölj i meny"
 
 #: library/AcfFields/php/options-page-navigation.php:23
-#: library/Customizer/Sections/Archive.php:95
-#: library/Customizer/Sections/Archive.php:163
-#: library/Customizer/Sections/Archive.php:181
-#: library/Customizer/Sections/Archive.php:206
-#: library/Customizer/Sections/Archive.php:419
+#: library/Customizer/Sections/Archive.php:89
+#: library/Customizer/Sections/Archive.php:157
+#: library/Customizer/Sections/Archive.php:175
+#: library/Customizer/Sections/Archive.php:200
+#: library/Customizer/Sections/Archive.php:413
 msgid "Hide"
 msgstr "Dölj"
 
@@ -5046,7 +5099,7 @@ msgstr "Efter sidinnehållet"
 
 #: library/AcfFields/php/options-theme-author.php:6
 #: library/Controller/Singular.php:162
-#: library/Customizer/PanelsRegistry.php:519 library/Upgrade.php:713
+#: library/Customizer/PanelsRegistry.php:520 library/Upgrade.php:727
 msgid "Author"
 msgstr "Författare"
 
@@ -5384,7 +5437,7 @@ msgid "Type of taxonomy"
 msgstr "Typ av taxonomi"
 
 #: library/AcfFields/php/options-theme-custom-taxonomy.php:107
-#: library/Customizer/PanelsRegistry.php:409
+#: library/Customizer/PanelsRegistry.php:404
 msgid "Tags"
 msgstr "Taggar"
 
@@ -5689,40 +5742,40 @@ msgstr "Användargränssnitt för administratörer"
 msgid "Enable administration UI"
 msgstr "Aktivera administrationsgränssnittet"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:6
+#: library/AcfFields/php/options-theme-editor-formats.php:8
 msgid "Editor formats"
 msgstr "Format"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:10
+#: library/AcfFields/php/options-theme-editor-formats.php:12
 msgid "Formats"
 msgstr "Inläggsformat"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:14
+#: library/AcfFields/php/options-theme-editor-formats.php:16
 msgid "Check the formats you would like to enable"
 msgstr "Välj de format som du vill aktivera"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:25
+#: library/AcfFields/php/options-theme-editor-formats.php:27
 #: library/Customizer/Sections/Menu/Behaviour.php:121
 msgid "Extra large"
 msgstr "Extra stor"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:26
+#: library/AcfFields/php/options-theme-editor-formats.php:28
 msgid "Uppercase"
 msgstr "Versaler"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:27
+#: library/AcfFields/php/options-theme-editor-formats.php:29
 msgid "Lowercase"
 msgstr "Gemener"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:28
+#: library/AcfFields/php/options-theme-editor-formats.php:30
 msgid "Capitalize"
 msgstr "Stora bokstäver"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:29
+#: library/AcfFields/php/options-theme-editor-formats.php:31
 msgid "Drak gray"
 msgstr "Mörkgrå"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:30
+#: library/AcfFields/php/options-theme-editor-formats.php:32
 #: library/Customizer/Sections/Borders.php:37
 #: library/Customizer/Sections/Module/Contacts.php:20
 #: library/Customizer/Sections/Module/Contacts.php:41
@@ -5739,129 +5792,135 @@ msgstr "Mörkgrå"
 msgid "Highlight"
 msgstr "Markering"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:31
+#: library/AcfFields/php/options-theme-editor-formats.php:33
 msgid "Mark"
 msgstr "Markera"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:32
+#: library/AcfFields/php/options-theme-editor-formats.php:34
 msgid "Mark yellow"
 msgstr "Markera gult"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:33
+#: library/AcfFields/php/options-theme-editor-formats.php:35
 msgid "Mark blue"
 msgstr "Markera blått"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:34
+#: library/AcfFields/php/options-theme-editor-formats.php:36
 msgid "Mark green"
 msgstr "Markera grönt"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:35
+#: library/AcfFields/php/options-theme-editor-formats.php:37
 msgid "Mark red"
 msgstr "Markera rött"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:36
+#: library/AcfFields/php/options-theme-editor-formats.php:38
 msgid "Mark purple"
 msgstr "Markera lila"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:38
+#: library/AcfFields/php/options-theme-editor-formats.php:40
 msgid "Light button"
 msgstr "Ljus knapp"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:39
+#: library/AcfFields/php/options-theme-editor-formats.php:41
 msgid "Button: First color"
 msgstr "Knapp: Primiärfärg"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:40
+#: library/AcfFields/php/options-theme-editor-formats.php:42
 msgid "Button: Second color"
 msgstr "Knapp: Sekundärfärg"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:41
+#: library/AcfFields/php/options-theme-editor-formats.php:43
 msgid "Button: Third color"
 msgstr "Knapp: Tertiärfärg"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:42
+#: library/AcfFields/php/options-theme-editor-formats.php:44
 msgid "Button: Fourth color"
 msgstr "Knapp: Fjärde färg"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:43
+#: library/AcfFields/php/options-theme-editor-formats.php:45
 msgid "Button: Fifth color"
 msgstr "Knapp: Femte färg"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:44
+#: library/AcfFields/php/options-theme-editor-formats.php:46
 msgid "Primary button"
 msgstr "Primär knapp"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:45
+#: library/AcfFields/php/options-theme-editor-formats.php:47
 msgid "Heading 1"
 msgstr "Rubrik 1"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:46
+#: library/AcfFields/php/options-theme-editor-formats.php:48
 msgid "Heading 2"
 msgstr "Rubrik 2"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:47
+#: library/AcfFields/php/options-theme-editor-formats.php:49
 msgid "Heading 3"
 msgstr "Rubrik 3"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:48
+#: library/AcfFields/php/options-theme-editor-formats.php:50
 msgid "Heading 4"
 msgstr "Rubrik 4"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:49
+#: library/AcfFields/php/options-theme-editor-formats.php:51
 msgid "Heading 5"
 msgstr "Rubrik 5"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:50
+#: library/AcfFields/php/options-theme-editor-formats.php:52
 msgid "Heading 6"
 msgstr "Rubrik 6"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:51
+#: library/AcfFields/php/options-theme-editor-formats.php:53
 msgid "Light (300)"
 msgstr "Lätt (300)"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:52
+#: library/AcfFields/php/options-theme-editor-formats.php:54
 msgid "Regular (400)"
 msgstr "Normal (400)"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:53
+#: library/AcfFields/php/options-theme-editor-formats.php:55
 msgid "Medium (500)"
 msgstr "Medel (500)"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:54
+#: library/AcfFields/php/options-theme-editor-formats.php:56
 msgid "Bold (700)"
 msgstr "Fet (700)"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:55
+#: library/AcfFields/php/options-theme-editor-formats.php:57
 msgid "Black (900)"
 msgstr "Extra fet (900)"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:56
+#: library/AcfFields/php/options-theme-editor-formats.php:58
 msgid "Color 1"
 msgstr "Färg 1"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:57
+#: library/AcfFields/php/options-theme-editor-formats.php:59
 msgid "Color 2"
 msgstr "Färg 2"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:58
+#: library/AcfFields/php/options-theme-editor-formats.php:60
 msgid "Color 3"
 msgstr "Färg 3"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:59
+#: library/AcfFields/php/options-theme-editor-formats.php:61
 msgid "Color 4"
 msgstr "Färg 4"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:60
+#: library/AcfFields/php/options-theme-editor-formats.php:62
 msgid "Color 5"
 msgstr "Färg 5"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:132
+#: library/AcfFields/php/options-theme-editor-formats.php:134
 msgid "Plugins"
 msgstr "Plugin"
 
-#: library/AcfFields/php/options-theme-editor-formats.php:145
+#: library/AcfFields/php/options-theme-editor-formats.php:147
 msgid "MceButtons"
 msgstr "Knappar"
+
+#: library/AcfFields/php/options-theme-editor-formats.php:148
+#, fuzzy
+#| msgid "tablet"
+msgid "Table"
+msgstr "tablet"
 
 #: library/AcfFields/php/options-theme-features.php:6
 msgid "Theme features"
@@ -5876,18 +5935,6 @@ msgid ""
 "All e-mails sent from WordPress will be branded using the theme appearance "
 "settings."
 msgstr ""
-
-#: library/AcfFields/php/options-theme-features.php:24
-#: library/Customizer/Sections/Divider.php:89
-#: library/Customizer/Sections/Divider.php:165
-#: library/Customizer/Sections/Menu/Behaviour.php:21
-#: library/Customizer/Sections/Menu/Behaviour.php:37
-#: library/Customizer/Sections/Menu/Behaviour.php:53
-#: library/Customizer/Sections/Menu/Behaviour.php:69
-#: library/Customizer/Sections/Menu/Behaviour.php:85
-#: library/Customizer/Sections/Menu/MegaMenu.php:248
-msgid "Enabled"
-msgstr "Aktiverad"
 
 #: library/AcfFields/php/options-theme-gdpr.php:6
 msgid "GDPR"
@@ -5956,7 +6003,7 @@ msgid "Language menu"
 msgstr "Språkmeny"
 
 #: library/AcfFields/php/options-theme-google-translate.php:61
-#: library/Customizer/PanelsRegistry.php:447
+#: library/Customizer/PanelsRegistry.php:448
 #: library/Customizer/Sections/Search.php:139 library/Theme/Navigation.php:39
 msgid "Quicklinks menu"
 msgstr "Snabblänksmeny"
@@ -27831,7 +27878,7 @@ msgstr "Riktning"
 #: library/Customizer/Sections/Hero.php:97
 #: library/Customizer/Sections/SliderDefault.php:115
 #: library/Customizer/Sections/SliderHero.php:70
-#: library/Customizer/Sections/Width.php:68
+#: library/Customizer/Sections/Width.php:68 library/Theme/Enqueue.php:103
 msgid "Left"
 msgstr "Vänster"
 
@@ -27848,7 +27895,7 @@ msgstr "Vänster"
 #: library/Customizer/Sections/Hero.php:99
 #: library/Customizer/Sections/SliderDefault.php:117
 #: library/Customizer/Sections/SliderHero.php:72
-#: library/Customizer/Sections/Width.php:84
+#: library/Customizer/Sections/Width.php:84 library/Theme/Enqueue.php:104
 msgid "Right"
 msgstr "Höger"
 
@@ -27858,6 +27905,8 @@ msgstr "Vänster & höger"
 
 #: library/AcfFields/php/widget-header-common.php:117
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:89
+#: library/Customizer/Sections/Header/Appearance.php:86
+#: library/Theme/Enqueue.php:102
 msgid "Margin"
 msgstr "Marginal"
 
@@ -27886,7 +27935,7 @@ msgstr "Automatisk"
 #: library/Customizer/Sections/SliderDefault.php:88
 #: library/Customizer/Sections/SliderDefault.php:142
 #: library/Customizer/Sections/SliderHero.php:45
-#: library/Customizer/Sections/SliderHero.php:95
+#: library/Customizer/Sections/SliderHero.php:95 library/Theme/Enqueue.php:106
 msgid "None"
 msgstr "Ingen"
 
@@ -28043,9 +28092,38 @@ msgstr "Behållare-block"
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:27
+msgid "Login successful"
+msgstr ""
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:37
+msgid "Logout successful"
+msgstr ""
+
+#: library/Admin/Login/LogUserLoginTime.php:54
 #: library/Admin/LoginTracking.php:35
 msgid "Last Login"
 msgstr "Senaste inloggning"
+
+#: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:23
+#, fuzzy
+#| msgid "Login and Logout"
+msgid "Login/Logout Options"
+msgstr "Logga in och logga ut"
+
+#: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:24
+#: library/Customizer/PanelsRegistry.php:331
+#: library/Customizer/Sections/Header/Layout.php:316
+msgid "Login/Logout"
+msgstr ""
+
+#: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
+msgid "Save"
+msgstr ""
+
+#: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:29
+msgid "The SSO Configuration has been saved."
+msgstr ""
 
 #: library/Admin/Options/AttachmentConsent.php:24
 msgid "Consent ID"
@@ -28070,7 +28148,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 #: library/Admin/Options/Theme.php:46 library/Admin/Options/Theme.php:47
-#: library/Customizer/PanelsRegistry.php:282
+#: library/Customizer/PanelsRegistry.php:277
 #: library/Helper/TranslatedLabels.php:44
 #: library/Helper/TranslatedLabels.php:82 library/Search/General.php:49
 #: library/Search/General.php:56 library/Search/General.php:61
@@ -28082,7 +28160,7 @@ msgstr "Sök"
 msgid "Custom Post Types"
 msgstr "Egna inläggstyper"
 
-#: library/Admin/Options/Theme.php:71 library/Customizer/PanelsRegistry.php:152
+#: library/Admin/Options/Theme.php:71
 msgid "Post Types"
 msgstr "Posttyper"
 
@@ -28157,7 +28235,7 @@ msgstr "Genererad PDF"
 msgid "Table of Contents"
 msgstr "Innehållsförteckning"
 
-#: library/Api/Pdf/PdfArchiveEndpoint.php:121
+#: library/Api/Pdf/PdfArchiveEndpoint.php:131
 #: library/Api/Pdf/PdfGenerator.php:217
 msgid "Other"
 msgstr "Annat"
@@ -28264,15 +28342,11 @@ msgstr "Anpassad"
 msgid "Choose another frontpage"
 msgstr "Välj en annan startsida"
 
-#: library/Api/Posts/AppendRenderedViewToRestPostResponse.php:48
-msgid "The rendered PostObject"
-msgstr ""
-
 #: library/Api/View/Render.php:37
 msgid "View data."
 msgstr "Visa data."
 
-#: library/App.php:664 library/Customizer/Sections/Header/LoginLogout.php:22
+#: library/App.php:762 library/Customizer/Sections/Header/LoginLogout.php:22
 msgid "Never"
 msgstr ""
 
@@ -28398,43 +28472,50 @@ msgstr "API-resurser"
 msgid "API Resource"
 msgstr "API-resurs"
 
-#: library/Controller/Archive.php:535
+#: library/Controller/Archive.php:500
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/Archive.php:732
+#: library/Controller/Archive.php:696
 #: library/Customizer/Sections/FooterSub.php:194
-#, fuzzy
 msgid "Title"
 msgstr "Rubrik"
 
-#: library/Controller/Archive.php:732 library/Helper/TranslatedLabels.php:65
+#: library/Controller/Archive.php:696 library/Helper/TranslatedLabels.php:65
 #: library/Helper/TranslatedLabels.php:76
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:384
+#: library/Controller/BaseController.php:385
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:385
+#: library/Controller/BaseController.php:386
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:386
-#: library/Customizer/Sections/Header/LoginLogout.php:23
-#, fuzzy
-#| msgid "Logotype"
-msgid "Logout"
-msgstr "Logotyp"
-
 #: library/Controller/BaseController.php:387
-#, fuzzy
-#| msgid "Last Login"
-msgid "Login"
-msgstr "Senaste inloggning"
+#: library/Customizer/Sections/Header/LoginLogout.php:23
+msgid "Logout"
+msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:395
+#: library/Controller/BaseController.php:388
+msgid "Login"
+msgstr "Logga in"
+
+#: library/Controller/BaseController.php:389
+#: library/Helper/TranslatedLabels.php:54
+msgid "Close"
+msgstr "Stäng"
+
+#: library/Controller/BaseController.php:392
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:32
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:36
+#: library/Helper/Navigation.php:766
+msgid "Home"
+msgstr "Hem"
+
+#: library/Controller/BaseController.php:400
 msgid "Visit"
 msgstr "Besök"
 
@@ -28468,11 +28549,6 @@ msgstr ""
 #: library/Helper/Navigation.php:780 library/Helper/Navigation.php:804
 msgid "Untitled page"
 msgstr "Namnlös sida"
-
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:35
-#: library/Helper/Navigation.php:766
-msgid "Home"
-msgstr ""
 
 #: library/Controller/Search.php:13
 msgid "The searchquery did not match any content."
@@ -28690,35 +28766,41 @@ msgstr "Datum och tid: %s kl. %s"
 msgid "Events"
 msgstr "Evenemang"
 
-#: library/Customizer.php:26
+#: library/Customizer.php:55
 msgid "Kirki Customizer framework is required"
 msgstr ""
 
-#: library/Customizer.php:27
+#: library/Customizer.php:56
 #, fuzzy
 #| msgid "Please fill in all required fields."
 msgid "Plugin install required"
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: library/Customizer.php:30
+#: library/Customizer.php:59
 msgid "Install plugin"
 msgstr "Installera tillägg"
 
+#: library/Customizer/FontUploads/FontUploads.php:56
+#, fuzzy
+#| msgid "Untitled page"
+msgid "Untitled Font"
+msgstr "Namnlös sida"
+
 #: library/Customizer/Panels/DesignLibrary.php:13
-#: library/Customizer/PanelsRegistry.php:88
+#: library/Customizer/PanelsRegistry.php:97
 msgid "Design Library"
 msgstr "Designbibliotek"
 
 #: library/Customizer/Panels/DesignLibrary.php:14
-#: library/Customizer/PanelsRegistry.php:89
+#: library/Customizer/PanelsRegistry.php:98
 msgid "Select a design made by other municipio users."
 msgstr "Välj mellan olika designer skapade av andra municipioanvändare."
 
-#: library/Customizer/PanelsRegistry.php:94
+#: library/Customizer/PanelsRegistry.php:103
 msgid "Load a design"
 msgstr "Ladda in en design"
 
-#: library/Customizer/PanelsRegistry.php:95
+#: library/Customizer/PanelsRegistry.php:104
 msgid ""
 "Want a new fresh design to your site? Use one of the options below to serve "
 "as a boilerplate!"
@@ -28726,89 +28808,93 @@ msgstr ""
 "Sugen på en ny och fräsch design för din webbplats? Ladda in och använd ett "
 "tema att utgå ifrån. Justera efter hand!"
 
-#: library/Customizer/PanelsRegistry.php:130
-msgid "Archive Apperance"
-msgstr "Arkiv"
+#: library/Customizer/PanelsRegistry.php:110
+msgid "Load design for individual post types"
+msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:131
-msgid "Manage apperance options on archives."
-msgstr "Hantera design på komponentnivå."
-
-#: library/Customizer/PanelsRegistry.php:153
+#: library/Customizer/PanelsRegistry.php:111
 msgid "Manage post types settings"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:164
+#: library/Customizer/PanelsRegistry.php:147
+msgid "Archive Apperance"
+msgstr "Arkiv"
+
+#: library/Customizer/PanelsRegistry.php:148
+msgid "Manage apperance options on archives."
+msgstr "Hantera design på komponentnivå."
+
+#: library/Customizer/PanelsRegistry.php:159
 msgid "Module Apperance"
 msgstr "Modulutseende"
 
-#: library/Customizer/PanelsRegistry.php:168
+#: library/Customizer/PanelsRegistry.php:163
 msgid "Contacts"
 msgstr "Kontakter"
 
-#: library/Customizer/PanelsRegistry.php:174
+#: library/Customizer/PanelsRegistry.php:169
 #: library/Customizer/Sections/Module/Index.php:14
 #: library/Customizer/Sections/Module/Posts.php:14
 msgid "Index"
 msgstr "Index"
 
-#: library/Customizer/PanelsRegistry.php:180
+#: library/Customizer/PanelsRegistry.php:175
 #: library/Customizer/Sections/Module/Inlay.php:14
 msgid "Inlay list"
 msgstr "Lista"
 
-#: library/Customizer/PanelsRegistry.php:186
+#: library/Customizer/PanelsRegistry.php:181
 #: library/Customizer/Sections/Module/LocalEvent.php:14
 msgid "Local Event"
 msgstr "Lokala evenemang"
 
-#: library/Customizer/PanelsRegistry.php:192
+#: library/Customizer/PanelsRegistry.php:187
 msgid "Maps"
 msgstr "Kartor"
 
-#: library/Customizer/PanelsRegistry.php:198
+#: library/Customizer/PanelsRegistry.php:193
 msgid "Posts"
 msgstr "Inlägg"
 
-#: library/Customizer/PanelsRegistry.php:204
+#: library/Customizer/PanelsRegistry.php:199
 #: library/Customizer/Sections/Module/Script.php:16
 msgid "Script"
 msgstr "Skript"
 
-#: library/Customizer/PanelsRegistry.php:210
+#: library/Customizer/PanelsRegistry.php:205
 msgid "Sections Split"
 msgstr "Sektioner: Tvådelad"
 
-#: library/Customizer/PanelsRegistry.php:227
+#: library/Customizer/PanelsRegistry.php:222
 msgid "General Apperance"
 msgstr "Generellt utseende"
 
-#: library/Customizer/PanelsRegistry.php:228
+#: library/Customizer/PanelsRegistry.php:223
 msgid "Manage site general design options."
 msgstr "Hantera generella inställningar för design."
 
-#: library/Customizer/PanelsRegistry.php:233
+#: library/Customizer/PanelsRegistry.php:228
 #: library/Customizer/Sections/PostType.php:35
 msgid "Logotypes"
 msgstr "Logotyper"
 
-#: library/Customizer/PanelsRegistry.php:238
+#: library/Customizer/PanelsRegistry.php:233
 msgid "General settings"
 msgstr "Generella inställningar"
 
-#: library/Customizer/PanelsRegistry.php:244
-#: library/Customizer/PanelsRegistry.php:429
+#: library/Customizer/PanelsRegistry.php:239
+#: library/Customizer/PanelsRegistry.php:424
 #: library/Customizer/Sections/Divider.php:61
 #: library/Customizer/Sections/FooterSub.php:14
 #: library/Customizer/Sections/PostType.php:34
 msgid "Colors"
 msgstr "Färger"
 
-#: library/Customizer/PanelsRegistry.php:249
+#: library/Customizer/PanelsRegistry.php:244
 msgid "Typography"
 msgstr "Typografi"
 
-#: library/Customizer/PanelsRegistry.php:250
+#: library/Customizer/PanelsRegistry.php:245
 msgid ""
 "Options for various Typography elements. This support BOF (Bring your own "
 "font). Simply upload your font in the media library, and it will be "
@@ -28818,24 +28904,24 @@ msgstr ""
 "font”. För att använda ett eget typsnitt laddar du upp woff/woff2 filer i "
 "mediabiblioteket och väljer sedan typsnittet i listan nedan."
 
-#: library/Customizer/PanelsRegistry.php:255
+#: library/Customizer/PanelsRegistry.php:250
 msgid "Page Widths"
 msgstr "Sidans bredd"
 
-#: library/Customizer/PanelsRegistry.php:256
+#: library/Customizer/PanelsRegistry.php:251
 msgid "Set the maximum page withs of different page types."
 msgstr "Ställer in vilken maxbredd olika sidtyper tillåts ha."
 
-#: library/Customizer/PanelsRegistry.php:261
+#: library/Customizer/PanelsRegistry.php:256
 msgid "Borders"
 msgstr "Kantlinjer"
 
-#: library/Customizer/PanelsRegistry.php:266
+#: library/Customizer/PanelsRegistry.php:261
 #: library/Customizer/Sections/Menu/Siteselector.php:109
 msgid "Rounded corners"
 msgstr "Rundade hörn"
 
-#: library/Customizer/PanelsRegistry.php:267
+#: library/Customizer/PanelsRegistry.php:262
 msgid ""
 "Adjust the roundness of corners on the site overall. The sizes are applied "
 "where they are suitable, additional component adjustments can be made under "
@@ -28845,46 +28931,46 @@ msgstr ""
 "lämpliga i grunddesignen. Mer detaljerade justeringar av rundade hörn hittar "
 "du under komponentfliken."
 
-#: library/Customizer/PanelsRegistry.php:272
+#: library/Customizer/PanelsRegistry.php:267
 #: library/Customizer/Sections/FooterMain.php:36
 #: library/Customizer/Sections/FooterSub.php:109
 msgid "Padding"
 msgstr "Luft"
 
-#: library/Customizer/PanelsRegistry.php:277
+#: library/Customizer/PanelsRegistry.php:272
 msgid "Drop Shadows"
 msgstr "Skuggor"
 
-#: library/Customizer/PanelsRegistry.php:287
+#: library/Customizer/PanelsRegistry.php:282
 msgid "Icons"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:297
+#: library/Customizer/PanelsRegistry.php:292
 msgid "Component Apperance"
 msgstr "Komponentutseende"
 
-#: library/Customizer/PanelsRegistry.php:298
+#: library/Customizer/PanelsRegistry.php:293
 msgid "Manage design options on component level."
 msgstr "Hantera design på komponentnivå."
 
-#: library/Customizer/PanelsRegistry.php:303
+#: library/Customizer/PanelsRegistry.php:298
 msgid "Header"
 msgstr "Sidhuvud"
 
-#: library/Customizer/PanelsRegistry.php:307
+#: library/Customizer/PanelsRegistry.php:302
 msgid "Layout"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:311
+#: library/Customizer/PanelsRegistry.php:306
 msgid "General"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:314
+#: library/Customizer/PanelsRegistry.php:309
 #: library/Customizer/Sections/Header/Layout.php:182
 msgid "Flexible"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:324
+#: library/Customizer/PanelsRegistry.php:319
 #: library/Customizer/Sections/Field.php:16
 #: library/Customizer/Sections/Header/LoginLogout.php:34
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
@@ -28892,59 +28978,54 @@ msgstr ""
 msgid "Appearance"
 msgstr "Utseende"
 
-#: library/Customizer/PanelsRegistry.php:330
+#: library/Customizer/PanelsRegistry.php:325
 #: library/Customizer/Sections/FooterMain.php:56
 #: library/Customizer/Sections/FooterSub.php:51
 #: library/Customizer/Sections/Header/Layout.php:314
 msgid "Logotype"
 msgstr "Logotyp"
 
-#: library/Customizer/PanelsRegistry.php:336
-#: library/Customizer/Sections/Header/Layout.php:316
-msgid "Login/Logout"
-msgstr ""
-
-#: library/Customizer/PanelsRegistry.php:343
+#: library/Customizer/PanelsRegistry.php:338
 msgid "Buttons"
 msgstr "Knappar"
 
-#: library/Customizer/PanelsRegistry.php:349
+#: library/Customizer/PanelsRegistry.php:344
 msgid "Open Street Map"
 msgstr "Open Street MAp"
 
-#: library/Customizer/PanelsRegistry.php:350
+#: library/Customizer/PanelsRegistry.php:345
 msgid "Settings for Open Street Maps."
 msgstr "Inställningar för Open Street Map."
 
-#: library/Customizer/PanelsRegistry.php:356
+#: library/Customizer/PanelsRegistry.php:351
 msgid "Slider"
 msgstr "Bildspel"
 
-#: library/Customizer/PanelsRegistry.php:360
+#: library/Customizer/PanelsRegistry.php:355
 msgid "Regular Slider"
 msgstr "Vanlig slider"
 
-#: library/Customizer/PanelsRegistry.php:366
+#: library/Customizer/PanelsRegistry.php:361
 msgid "Hero slider"
 msgstr "Slider (Hero)"
 
-#: library/Customizer/PanelsRegistry.php:367
+#: library/Customizer/PanelsRegistry.php:362
 msgid "Settings for the slider in the hero area."
 msgstr "Inställningar för slider i heroytan."
 
-#: library/Customizer/PanelsRegistry.php:374
+#: library/Customizer/PanelsRegistry.php:369
 msgid "Footer"
 msgstr "Sidfot"
 
-#: library/Customizer/PanelsRegistry.php:378
+#: library/Customizer/PanelsRegistry.php:373
 msgid "Main footer"
 msgstr "Primär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:384
+#: library/Customizer/PanelsRegistry.php:379
 msgid "Sub footer"
 msgstr "Sekundär sidfot"
 
-#: library/Customizer/PanelsRegistry.php:391
+#: library/Customizer/PanelsRegistry.php:386
 #: library/Customizer/Sections/Borders.php:16
 #: library/Customizer/Sections/Colors.php:207
 #: library/Customizer/Sections/Divider.php:67
@@ -28952,141 +29033,147 @@ msgstr "Sekundär sidfot"
 msgid "Divider"
 msgstr "Avdelare"
 
-#: library/Customizer/PanelsRegistry.php:397 library/Theme/Sidebars.php:123
+#: library/Customizer/PanelsRegistry.php:392 library/Theme/Sidebars.php:137
 msgid "Hero"
 msgstr "Under sidhuvud (Heroyta)"
 
-#: library/Customizer/PanelsRegistry.php:403
+#: library/Customizer/PanelsRegistry.php:398
 msgid "Field"
 msgstr "Formulär & Fält"
 
-#: library/Customizer/PanelsRegistry.php:422
+#: library/Customizer/PanelsRegistry.php:417
 msgid "Behaviour"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:423
+#: library/Customizer/PanelsRegistry.php:418
 msgid "Menu behaviour settings."
 msgstr "Inställningar för menybeteende."
 
-#: library/Customizer/PanelsRegistry.php:435
+#: library/Customizer/PanelsRegistry.php:430
 msgid "Breadcrumbs"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:453
+#: library/Customizer/PanelsRegistry.php:436
+#, fuzzy
+#| msgid "Drawer Menu"
+msgid "Drawer"
+msgstr "Mobilmeny"
+
+#: library/Customizer/PanelsRegistry.php:454
 msgid "Siteselector menu"
 msgstr ""
 
-#: library/Customizer/PanelsRegistry.php:459
+#: library/Customizer/PanelsRegistry.php:460
 msgid "Tab menu"
 msgstr ""
 
-#: library/Customizer/Sections/Archive.php:22
+#: library/Customizer/Sections/Archive.php:16
 msgid "Archive heading"
 msgstr "Rubrik"
 
-#: library/Customizer/Sections/Archive.php:36
+#: library/Customizer/Sections/Archive.php:30
 msgid "Archive lead text"
 msgstr "Brödtext"
 
-#: library/Customizer/Sections/Archive.php:65
+#: library/Customizer/Sections/Archive.php:59
 msgid "Format"
 msgstr "Format"
 
-#: library/Customizer/Sections/Archive.php:69
+#: library/Customizer/Sections/Archive.php:63
 msgid "Tall"
 msgstr "Stående"
 
-#: library/Customizer/Sections/Archive.php:70
+#: library/Customizer/Sections/Archive.php:64
 msgid "Square"
 msgstr "Fyrkantig"
 
-#: library/Customizer/Sections/Archive.php:90
+#: library/Customizer/Sections/Archive.php:84
 msgid "Display featured image"
 msgstr "Visa utvald bild"
 
-#: library/Customizer/Sections/Archive.php:94
-#: library/Customizer/Sections/Archive.php:162
-#: library/Customizer/Sections/Archive.php:180
-#: library/Customizer/Sections/Archive.php:205
-#: library/Customizer/Sections/Archive.php:418
+#: library/Customizer/Sections/Archive.php:88
+#: library/Customizer/Sections/Archive.php:156
+#: library/Customizer/Sections/Archive.php:174
+#: library/Customizer/Sections/Archive.php:199
+#: library/Customizer/Sections/Archive.php:412
 msgid "Show"
 msgstr "Visa"
 
-#: library/Customizer/Sections/Archive.php:114
+#: library/Customizer/Sections/Archive.php:108
 msgid "Number of posts to display"
 msgstr "Antalet inlägg på en sida"
 
-#: library/Customizer/Sections/Archive.php:115
+#: library/Customizer/Sections/Archive.php:109
 msgid "How many posts that should be displayed on each page."
 msgstr "Antal inlägg som ska visas på varje sida."
 
-#: library/Customizer/Sections/Archive.php:129
+#: library/Customizer/Sections/Archive.php:123
 #: library/Customizer/Sections/FooterMain.php:240
 msgid "Number of columns to display"
 msgstr "Antal kolumner i rutnät"
 
-#: library/Customizer/Sections/Archive.php:130
+#: library/Customizer/Sections/Archive.php:124
 msgid "How many columns that the posts should be divided in."
 msgstr "Antal kolumner som innehållet ska delas upp i."
 
-#: library/Customizer/Sections/Archive.php:157
+#: library/Customizer/Sections/Archive.php:151
 msgid "Display map"
 msgstr "Visa karta"
 
-#: library/Customizer/Sections/Archive.php:158
+#: library/Customizer/Sections/Archive.php:152
 msgid "Display an Open Street Map on the archive if applicable."
 msgstr "Visa en OpenStreetMap i arkivet om tillämpligt."
 
-#: library/Customizer/Sections/Archive.php:175
+#: library/Customizer/Sections/Archive.php:169
 msgid "Keep the regular loop"
 msgstr "Behåll standardflödet av poster"
 
-#: library/Customizer/Sections/Archive.php:176
+#: library/Customizer/Sections/Archive.php:170
 msgid "Keep the regular loop of posts on the archive?"
 msgstr "Behålla den vanliga listan med inlägg i arkivet?"
 
-#: library/Customizer/Sections/Archive.php:200
+#: library/Customizer/Sections/Archive.php:194
 msgid "Display Google Maps-link"
 msgstr "Visa Google Maps-länk"
 
-#: library/Customizer/Sections/Archive.php:201
+#: library/Customizer/Sections/Archive.php:195
 msgid "Display a link to Google Maps on each marker on the map?"
 msgstr "Visa en länk till Google Maps på varje markör på kartan?"
 
-#: library/Customizer/Sections/Archive.php:225
+#: library/Customizer/Sections/Archive.php:219
 msgid "Filters"
 msgstr "Filtrering"
 
-#: library/Customizer/Sections/Archive.php:226
+#: library/Customizer/Sections/Archive.php:220
 msgid "Add filters to let the user browse partial content."
 msgstr "Visa filtreringsmöjligheter för slutanvändaren."
 
-#: library/Customizer/Sections/Archive.php:234
+#: library/Customizer/Sections/Archive.php:228
 msgid "Text search"
 msgstr "Fritextsök"
 
-#: library/Customizer/Sections/Archive.php:235
+#: library/Customizer/Sections/Archive.php:229
 msgid "Date range"
 msgstr "Period"
 
-#: library/Customizer/Sections/Archive.php:252
+#: library/Customizer/Sections/Archive.php:246
 #, php-format
 msgid "What field type to use for the %s filter."
 msgstr "Vilken fälttyp ska användas för filtret \"%s\"."
 
-#: library/Customizer/Sections/Archive.php:255
+#: library/Customizer/Sections/Archive.php:249
 msgid "Multiselect"
 msgstr "Flervalsväljare"
 
-#: library/Customizer/Sections/Archive.php:256
+#: library/Customizer/Sections/Archive.php:250
 msgid "Single select"
 msgstr "Ettvalsväljare"
 
-#: library/Customizer/Sections/Archive.php:278
+#: library/Customizer/Sections/Archive.php:272
 msgid "Facetting type"
 msgstr "Filtreringsbeteende"
 
-#: library/Customizer/Sections/Archive.php:279
+#: library/Customizer/Sections/Archive.php:273
 msgid ""
 "Wheter to broaden/search (or/off) OR taper/filter (and/on) search result "
 "when adding multiple selections for facetting."
@@ -29094,106 +29181,96 @@ msgstr ""
 "Om sökresultatet ska breddas (av) eller om sökresultatet ska smalnas av (på) "
 "när flera kategorier väljs."
 
-#: library/Customizer/Sections/Archive.php:283
+#: library/Customizer/Sections/Archive.php:277
 msgid "OR"
 msgstr "ELLER"
 
-#: library/Customizer/Sections/Archive.php:284
+#: library/Customizer/Sections/Archive.php:278
 msgid "AND"
 msgstr "OCH"
 
-#: library/Customizer/Sections/Archive.php:298
+#: library/Customizer/Sections/Archive.php:292
 msgid "Taxonomy display"
 msgstr "Visning av taxonomier"
 
-#: library/Customizer/Sections/Archive.php:299
+#: library/Customizer/Sections/Archive.php:293
 msgid "What taxonomies should be displayed?"
 msgstr "Vilka taxonomier ska visas?"
 
-#: library/Customizer/Sections/Archive.php:318
+#: library/Customizer/Sections/Archive.php:312
 msgid "Order By"
 msgstr "Ordna efter"
 
-#: library/Customizer/Sections/Archive.php:319
+#: library/Customizer/Sections/Archive.php:313
 msgid "Select a key/value to order by."
 msgstr "Välj ett värde att sortera efter."
 
-#: library/Customizer/Sections/Archive.php:334
+#: library/Customizer/Sections/Archive.php:328
 msgid "Order direction"
 msgstr "Riktning"
 
-#: library/Customizer/Sections/Archive.php:335
+#: library/Customizer/Sections/Archive.php:329
 msgid "Select decending or ascending order."
 msgstr "Välj om inläggen ska sorteras fallande eller stigande."
 
-#: library/Customizer/Sections/Archive.php:339
+#: library/Customizer/Sections/Archive.php:333
 msgid "Ascending"
 msgstr "Stigande"
 
-#: library/Customizer/Sections/Archive.php:340
+#: library/Customizer/Sections/Archive.php:334
 msgid "Decending"
 msgstr "Fallande"
 
-#: library/Customizer/Sections/Archive.php:355
-#: library/Customizer/Sections/Archive.php:386
+#: library/Customizer/Sections/Archive.php:349
+#: library/Customizer/Sections/Archive.php:380
 msgid "Date"
 msgstr "Datum"
 
-#: library/Customizer/Sections/Archive.php:356
+#: library/Customizer/Sections/Archive.php:350
 msgid "Select source of timestamp for post"
 msgstr "Väl en källa för tidsstämpeln"
 
-#: library/Customizer/Sections/Archive.php:360
+#: library/Customizer/Sections/Archive.php:354
 msgid "Hide date"
 msgstr "Dölj datum"
 
-#: library/Customizer/Sections/Archive.php:381
+#: library/Customizer/Sections/Archive.php:375
 msgid "Date format"
 msgstr "Datumformat"
 
-#: library/Customizer/Sections/Archive.php:382
+#: library/Customizer/Sections/Archive.php:376
 msgid "In what format to display date"
 msgstr "Format för datum"
 
-#: library/Customizer/Sections/Archive.php:387
+#: library/Customizer/Sections/Archive.php:381
 msgid "Date, Time"
 msgstr "Datum, Tid"
 
-#: library/Customizer/Sections/Archive.php:388
+#: library/Customizer/Sections/Archive.php:382
 msgid "Date badge"
 msgstr "Datummärke"
 
-#: library/Customizer/Sections/Archive.php:413
+#: library/Customizer/Sections/Archive.php:407
 msgid "Display reading time"
 msgstr "Visa uppskattad lästid"
 
-#: library/Customizer/Sections/Archive.php:414
+#: library/Customizer/Sections/Archive.php:408
 msgid "Wether to display the estimated reading time for each post"
 msgstr "Om den beräknade lästiden för varje inlägg ska visas"
 
-#: library/Customizer/Sections/Archive.php:438
-msgid "Box"
-msgstr ""
-
-#: library/Customizer/Sections/Archive.php:439
+#: library/Customizer/Sections/Archive.php:427
 msgid "Compressed"
 msgstr "Komprimerad"
 
-#: library/Customizer/Sections/Archive.php:440
+#: library/Customizer/Sections/Archive.php:428
 msgid "Cards"
 msgstr "Kort"
 
-#: library/Customizer/Sections/Archive.php:441
+#: library/Customizer/Sections/Archive.php:429
 msgid "News"
 msgstr "Nyheter"
 
-#: library/Customizer/Sections/Archive.php:442
-#, fuzzy
-#| msgid "List"
-msgid "Listitems"
-msgstr "Lista"
-
-#: library/Customizer/Sections/Archive.php:443
+#: library/Customizer/Sections/Archive.php:430
 #: library/Customizer/Sections/Module/Contacts.php:33
 #: library/Customizer/Sections/Module/Map.php:16
 #: library/Customizer/Sections/Module/Posts.php:37
@@ -29202,17 +29279,11 @@ msgstr "Lista"
 msgid "List"
 msgstr "Lista"
 
-#: library/Customizer/Sections/Archive.php:444
+#: library/Customizer/Sections/Archive.php:431
 msgid "Blocks"
 msgstr "Block"
 
-#: library/Customizer/Sections/Archive.php:446
-#, fuzzy
-#| msgid "Placement"
-msgid "Segment"
-msgstr "Placering"
-
-#: library/Customizer/Sections/Archive.php:452
+#: library/Customizer/Sections/Archive.php:438
 msgid "Schema"
 msgstr ""
 
@@ -29731,6 +29802,22 @@ msgstr "Bred"
 msgid "Full Width"
 msgstr "Fullbredd"
 
+#: library/Customizer/Sections/Header/Appearance.php:87
+msgid "Select if the header should have margins or not."
+msgstr ""
+
+#: library/Customizer/Sections/Header/Appearance.php:92
+#, fuzzy
+#| msgid "Margin size"
+msgid "Margin enabled"
+msgstr "Marginalstorlek"
+
+#: library/Customizer/Sections/Header/Appearance.php:93
+#, fuzzy
+#| msgid "print_disabled"
+msgid "Margin disabled"
+msgstr "print_disabled"
+
 #: library/Customizer/Sections/Header/Layout.php:22
 msgid "Upper main area"
 msgstr "Övre huvudyta"
@@ -29865,16 +29952,10 @@ msgid "User name color"
 msgstr "Användare namn färg"
 
 #: library/Customizer/Sections/Header/LoginLogout.php:117
-msgid "Custom colors login colors"
-msgstr "Anpassade logga in färger"
-
-#: library/Customizer/Sections/Header/LoginLogout.php:122
-msgid "Login link color"
-msgstr "Logga in länkfärg"
-
-#: library/Customizer/Sections/Header/LoginLogout.php:123
-msgid "Login link color hover"
-msgstr "Logga in länkfärg aktiv"
+#, fuzzy
+#| msgid "Icon background color"
+msgid "Custom background color"
+msgstr "Bakgrundsfärg för ikon"
 
 #: library/Customizer/Sections/Header/Logotype.php:34
 msgid "Header logotype"
@@ -30161,6 +30242,27 @@ msgstr "Bakgrund (akriv)"
 #: library/Customizer/Sections/Menu/Colors.php:199
 msgid "Background (Expanded)"
 msgstr "Bakgrund (Expanderad)"
+
+#: library/Customizer/Sections/Menu/Drawer.php:17
+#, fuzzy
+#| msgid "Color scheme"
+msgid "Drawer color scheme"
+msgstr "Färgschema"
+
+#: library/Customizer/Sections/Menu/Drawer.php:18
+msgid "Sets the color scheme for the items inside the drawers main area"
+msgstr ""
+
+#: library/Customizer/Sections/Menu/Drawer.php:40
+#, fuzzy
+#| msgid "Drawer navigation, secondary"
+msgid "Drawer secondary area"
+msgstr "Panelnavigation, sekundär"
+
+#: library/Customizer/Sections/Menu/Drawer.php:41
+msgid ""
+"If using both the areas in the drawer menu this will decide the bottom area"
+msgstr ""
 
 #: library/Customizer/Sections/Menu/MegaMenu.php:37
 msgid "Subitem"
@@ -30711,7 +30813,7 @@ msgstr ""
 msgid "Tailor"
 msgstr "Specialanpassa"
 
-#: library/Helper/Post.php:241
+#: library/Helper/Post.php:246
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
@@ -30839,10 +30941,6 @@ msgstr "Meny"
 #: library/Helper/TranslatedLabels.php:53
 msgid "Site emblem"
 msgstr "Webbplatsens emblem"
-
-#: library/Helper/TranslatedLabels.php:54
-msgid "Close"
-msgstr "Stäng"
 
 #: library/Helper/TranslatedLabels.php:55
 msgid "More Languages"
@@ -30999,97 +31097,101 @@ msgstr "Centrerad sida"
 msgid "Alignment"
 msgstr ""
 
-#: library/Theme/Enqueue.php:216
+#: library/Theme/Enqueue.php:105
+msgid "Both"
+msgstr ""
+
+#: library/Theme/Enqueue.php:221
 msgid "Insert Print Page Break tag"
 msgstr "Infoga sidbrytning för utskrift"
 
-#: library/Theme/Enqueue.php:219
+#: library/Theme/Enqueue.php:224
 msgid "Are you sure you want to delete the comment?"
 msgstr "Är du säker på att du vill ta bort kommentaren?"
 
-#: library/Theme/Enqueue.php:220
+#: library/Theme/Enqueue.php:225
 msgid "Something went wrong, please try again later"
 msgstr "Något gick fel, vänligen försök igen senare"
 
-#: library/Theme/Enqueue.php:232
+#: library/Theme/Enqueue.php:237
 msgid "January"
 msgstr ""
 
-#: library/Theme/Enqueue.php:233
+#: library/Theme/Enqueue.php:238
 msgid "February"
 msgstr ""
 
-#: library/Theme/Enqueue.php:234
+#: library/Theme/Enqueue.php:239
 #, fuzzy
 #| msgid "search"
 msgid "March"
 msgstr "search"
 
-#: library/Theme/Enqueue.php:235
+#: library/Theme/Enqueue.php:240
 msgid "April"
 msgstr ""
 
-#: library/Theme/Enqueue.php:236
+#: library/Theme/Enqueue.php:241
 #, fuzzy
 #| msgid "day"
 msgid "May"
 msgstr "dag"
 
-#: library/Theme/Enqueue.php:237
+#: library/Theme/Enqueue.php:242
 msgid "June"
 msgstr ""
 
-#: library/Theme/Enqueue.php:238
+#: library/Theme/Enqueue.php:243
 msgid "July"
 msgstr ""
 
-#: library/Theme/Enqueue.php:239
+#: library/Theme/Enqueue.php:244
 msgid "August"
 msgstr ""
 
-#: library/Theme/Enqueue.php:240
+#: library/Theme/Enqueue.php:245
 msgid "September"
 msgstr ""
 
-#: library/Theme/Enqueue.php:241
+#: library/Theme/Enqueue.php:246
 msgid "October"
 msgstr ""
 
-#: library/Theme/Enqueue.php:242
+#: library/Theme/Enqueue.php:247
 #, fuzzy
 #| msgid "Number"
 msgid "November"
 msgstr "Nummer"
 
-#: library/Theme/Enqueue.php:243
+#: library/Theme/Enqueue.php:248
 msgid "December"
 msgstr ""
 
-#: library/Theme/Enqueue.php:247
+#: library/Theme/Enqueue.php:252
 msgid "Su"
 msgstr "Sö"
 
-#: library/Theme/Enqueue.php:248
+#: library/Theme/Enqueue.php:253
 msgid "Mo"
 msgstr "Må"
 
-#: library/Theme/Enqueue.php:249
+#: library/Theme/Enqueue.php:254
 msgid "Tu"
 msgstr "Ti"
 
-#: library/Theme/Enqueue.php:250
+#: library/Theme/Enqueue.php:255
 msgid "We"
 msgstr "On"
 
-#: library/Theme/Enqueue.php:251
+#: library/Theme/Enqueue.php:256
 msgid "Th"
 msgstr "To"
 
-#: library/Theme/Enqueue.php:252
+#: library/Theme/Enqueue.php:257
 msgid "Fr"
 msgstr "Fr"
 
-#: library/Theme/Enqueue.php:253
+#: library/Theme/Enqueue.php:258
 msgid "Sa"
 msgstr "Lö"
 
@@ -31393,115 +31495,125 @@ msgstr "(sidomeny)"
 msgid "Content type - %s (sidebar)"
 msgstr "Innehållstyp (%s) (sidomeny)"
 
-#: library/Theme/Sidebars.php:79
+#: library/Theme/Sidebars.php:80
+msgid "Site Banner"
+msgstr ""
+
+#: library/Theme/Sidebars.php:81
+#, fuzzy
+#| msgid "The area above the content"
+msgid "A area above the site header"
+msgstr "Arean ovanför huvudinnehållet"
+
+#: library/Theme/Sidebars.php:93
 msgid "Footer top"
 msgstr "Sidfot topp"
 
-#: library/Theme/Sidebars.php:80
+#: library/Theme/Sidebars.php:94
 msgid "The top of footer area"
 msgstr "Översta delen av sifoten"
 
-#: library/Theme/Sidebars.php:96
+#: library/Theme/Sidebars.php:110
 msgid "Footer area"
 msgstr "Sidfot"
 
-#: library/Theme/Sidebars.php:97
+#: library/Theme/Sidebars.php:111
 msgid "The footer area "
 msgstr "Sidfoten"
 
-#: library/Theme/Sidebars.php:110
+#: library/Theme/Sidebars.php:124
 msgid "Footer bottom"
 msgstr "Botten av sidfot"
 
-#: library/Theme/Sidebars.php:111
+#: library/Theme/Sidebars.php:125
 msgid "The bottom of footer area"
 msgstr "Nedersta delen av sidfoten"
 
-#: library/Theme/Sidebars.php:124
+#: library/Theme/Sidebars.php:138
 msgid "The hero area"
 msgstr "Hero-arean"
 
-#: library/Theme/Sidebars.php:136
+#: library/Theme/Sidebars.php:150
 msgid "Content area (above article)"
 msgstr "Innehållsarea (ovanför artikel)"
 
-#: library/Theme/Sidebars.php:137
+#: library/Theme/Sidebars.php:151
 msgid "The area above the content"
 msgstr "Arean ovanför huvudinnehållet"
 
-#: library/Theme/Sidebars.php:149
+#: library/Theme/Sidebars.php:163
 msgid "Content area (below article)"
 msgstr "Innehållsarea (nedanför artikel)"
 
-#: library/Theme/Sidebars.php:150
+#: library/Theme/Sidebars.php:164
 msgid "The area below the content"
 msgstr "Arean under innehållet"
 
-#: library/Theme/Sidebars.php:162
+#: library/Theme/Sidebars.php:176
 msgid "Main container bottom"
 msgstr "Under artikel"
 
-#: library/Theme/Sidebars.php:163
+#: library/Theme/Sidebars.php:177
 msgid "The area below the main container"
 msgstr "Arean under main container"
 
-#: library/Theme/Sidebars.php:175
+#: library/Theme/Sidebars.php:189
 msgid "Right sidebar"
 msgstr "Höger sidofält"
 
-#: library/Theme/Sidebars.php:176
+#: library/Theme/Sidebars.php:190
 msgid "The right sidebar area"
 msgstr "Sidebar till höger"
 
-#: library/Theme/Sidebars.php:190
+#: library/Theme/Sidebars.php:204
 msgid "Left sidebar"
 msgstr "Vänster sidofält (övre sektion)"
 
-#: library/Theme/Sidebars.php:191
+#: library/Theme/Sidebars.php:205
 msgid "The left sidebar area"
 msgstr "Sidebar till vänster"
 
-#: library/Theme/Sidebars.php:205
+#: library/Theme/Sidebars.php:219
 msgid "Left sidebar bottom"
 msgstr "Vänster sidofält (undre sektion)"
 
-#: library/Theme/Sidebars.php:206
+#: library/Theme/Sidebars.php:220
 msgid "The area below the left sidebar content"
 msgstr "Sidebar vänster botten"
 
-#: library/Theme/Sidebars.php:220
+#: library/Theme/Sidebars.php:234
 msgid "Top sidebar (full-width)"
 msgstr "Under sidhuvud (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:221
+#: library/Theme/Sidebars.php:235
 msgid "Sidebar that sits below the hero."
 msgstr "Sidofält som ligger precis under heron."
 
-#: library/Theme/Sidebars.php:233
+#: library/Theme/Sidebars.php:247
 msgid "Bottom sidebar (full-width)"
 msgstr "Ovanför sidfot (täcker hela fönstrets bredd)"
 
-#: library/Theme/Sidebars.php:234
+#: library/Theme/Sidebars.php:248
 msgid "Sidebar that sits just before the footer."
 msgstr "Sidofält som ligger precis innan sidfoten."
 
-#: library/Theme/Sidebars.php:246
+#: library/Theme/Sidebars.php:260
 msgid "Above columns sidebar"
 msgstr "Ovanför innehållskolumner"
 
-#: library/Theme/Sidebars.php:247
+#: library/Theme/Sidebars.php:261
 msgid "Sidebar that sits just before the columns grid."
 msgstr "Yta som befinner sig precis kolumnytan vilken håller huvudinnehållet."
 
-#: library/Upgrade.php:918
+#: library/Upgrade.php:932
 msgid "To be installed database version must be a number."
 msgstr "Databasversionen som ska uppnås, måste vara ett nummer."
 
-#: library/Upgrade.php:922
+#: library/Upgrade.php:936
 msgid "Current database version must be a number."
 msgstr "Den aktuella databasversionen måste vara ett nummer."
 
-#: library/Upgrade.php:928
+#: library/Upgrade.php:942
 msgid "Database cannot be lower than currently installed (cannot downgrade)."
 msgstr ""
 "Databasversionen som ska uppnås, kan inte vara lägre än den version som är "
@@ -31536,12 +31648,6 @@ msgstr ""
 msgid "foo"
 msgstr ""
 
-#: views/v3/partials/search/search-modal.blade.php:3
-#, fuzzy
-#| msgid "cancel"
-msgid "Cancel"
-msgstr "cancel"
-
 #. Theme Name of the plugin/theme
 msgid "Municipio"
 msgstr ""
@@ -31564,6 +31670,39 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.helsingborg.se"
 msgstr ""
+
+#~ msgid "Additional menu settings"
+#~ msgstr "Ytterligare menyinställningar"
+
+#~ msgid "Add menu to additional location"
+#~ msgstr "Lägg till menyn till ytterligare placering"
+
+#~ msgid "This allows you to add this menu to another already existing menu."
+#~ msgstr "Detta låter dig lägga till en meny till en redan existerande meny."
+
+#, fuzzy
+#~| msgid "List"
+#~ msgid "Listitems"
+#~ msgstr "Lista"
+
+#, fuzzy
+#~| msgid "Placement"
+#~ msgid "Segment"
+#~ msgstr "Placering"
+
+#~ msgid "Custom colors login colors"
+#~ msgstr "Anpassade logga in färger"
+
+#~ msgid "Login link color"
+#~ msgstr "Logga in länkfärg"
+
+#~ msgid "Login link color hover"
+#~ msgstr "Logga in länkfärg aktiv"
+
+#, fuzzy
+#~| msgid "cancel"
+#~ msgid "Cancel"
+#~ msgstr "cancel"
 
 #~ msgid "Navigation item description"
 #~ msgstr "Beskrivning av navigeringsobjekt"
