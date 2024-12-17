@@ -10,10 +10,7 @@
                 'link'                => $post->permalink,
                 'context' => ['archive', 'archive.list', 'archive.list.news-item'],
                 'hasPlaceholderImage' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
-                'classList' => [
-                    $gridColumnClass
-                ],
-                'standing' => $standing
+                'classList' => explode(' ', $gridColumnClass),
             ])
                 @slot('headerLeftArea')
                     @if($post->termsUnlinked)
