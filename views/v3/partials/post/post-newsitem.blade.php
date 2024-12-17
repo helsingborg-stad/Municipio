@@ -13,7 +13,6 @@
                 'classList' => [
                     $gridColumnClass
                 ],
-                'standing' => $standing
             ])
                 @slot('headerLeftArea')
                     @if($post->termsUnlinked)
