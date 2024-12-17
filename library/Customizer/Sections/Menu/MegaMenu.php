@@ -105,6 +105,18 @@ class MegaMenu
                 'default' => esc_html__('Default', 'municipio'),
                 'button'  => esc_html__('Button', 'municipio'),
             ],
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'parentType',
+                    'context' => [
+                        [
+                            'context'  => 'component.megamenu',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
+            ],
             'active_callback' => [
                 [
                     'setting'  => 'mega_menu_appearance_type',
@@ -200,6 +212,18 @@ class MegaMenu
             'choices'         => [
                 'default' => esc_html__('Default', 'municipio'),
                 'button'  => esc_html__('Button', 'municipio'),
+            ],
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'childType',
+                    'context' => [
+                        [
+                            'context'  => 'component.megamenu',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
             ],
             'active_callback' => [
                 [
