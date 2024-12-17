@@ -124,7 +124,6 @@ class MegaMenu
                 'filled'   => esc_html__('Filled button', 'municipio'),
                 'basic'    => esc_html__('Default button', 'municipio'),
                 'outlined' => esc_html__('Outlined button', 'municipio'),
-
             ],
             'output'          => [
                 [
@@ -188,6 +187,137 @@ class MegaMenu
                 'operator' => '===',
                 'value'    => 'button',
             ],
+            ],
+        ]);
+
+        // Child link styles
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'mega_menu_child_item_style',
+            'label'           => esc_html__('Sets the style of the child items', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'default',
+            'choices'         => [
+                'default' => esc_html__('Default', 'municipio'),
+                'button'  => esc_html__('Button', 'municipio'),
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'mega_menu_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'custom',
+                ]
+            ],
+        ]);
+
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'mega_menu_child_item_button_style',
+            'label'           => esc_html__('Sets the style of the child buttons', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'filled',
+            'choices'         => [
+                'filled'   => esc_html__('Filled button', 'municipio'),
+                'basic'    => esc_html__('Default button', 'municipio'),
+                'outlined' => esc_html__('Outlined button', 'municipio'),
+            ],
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'childStyle',
+                    'context' => [
+                        [
+                            'context'  => 'component.megamenu',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'mega_menu_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'custom',
+                ],
+                [
+                    'setting'  => 'mega_menu_child_item_style',
+                    'operator' => '===',
+                    'value'    => 'button',
+                ],
+            ],
+        ]);
+
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'mega_menu_child_item_button_color',
+            'label'           => esc_html__('Color of the child buttons', 'municipio'),
+            'description'     => esc_html__('Sets the color of the child buttons. The custom color will be ignored.', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'primary',
+            'choices'         => [
+                'primary'   => esc_html__('Primary', 'municipio'),
+                'secondary' => esc_html__('Secondary', 'municipio'),
+                'default'   => esc_html__('Default', 'municipio'),
+            ],
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'childStyleColor',
+                    'context' => [
+                        [
+                            'context'  => 'component.megamenu',
+                            'operator' => '=='
+                        ],
+                    ],
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'mega_menu_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'custom',
+                ],
+                [
+                    'setting'  => 'mega_menu_child_item_style',
+                    'operator' => '===',
+                    'value'    => 'button',
+                ],
+            ],
+        ]);
+
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'mega_menu_child_item_shape',
+            'label'           => esc_html__('Shape of child items', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'default',
+            'choices'         => [
+                'default' => esc_html__('Default', 'municipio'),
+                'pill'    => esc_html__('Pill', 'municipio'),
+            ],
+            'output'          => [
+                [
+                    'type'    => 'component_data',
+                    'dataKey' => 'childStyleShape',
+                    'context' => [
+                        [
+                            'context'  => 'component.megamenu',
+                            'operator' => '==',
+                        ],
+                    ],
+                ],
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'mega_menu_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'custom',
+                ],
+                [
+                    'setting'  => 'mega_menu_child_item_style',
+                    'operator' => '===',
+                    'value'    => 'button',
+                ],
             ],
         ]);
 

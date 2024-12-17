@@ -2,7 +2,6 @@
     @megaMenu([
         'id' => 'mega-menu',
         'menuItems' => $megaMenu['items'],
-        'showSearch' => $showMegaMenuSearch,
         'mobile' => $customizer->megaMenuMobile,
         'attributeList' => [
             'aria-hidden' => 'true',
