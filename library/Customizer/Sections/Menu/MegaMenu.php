@@ -124,7 +124,6 @@ class MegaMenu
                 'filled'   => esc_html__('Filled button', 'municipio'),
                 'basic'    => esc_html__('Default button', 'municipio'),
                 'outlined' => esc_html__('Outlined button', 'municipio'),
-
             ],
             'output'          => [
                 [
@@ -375,6 +374,11 @@ class MegaMenu
                     'setting'  => 'mega_menu_appearance_type',
                     'operator' => '===',
                     'value'    => 'custom',
+                ],
+                [
+                    'setting'  => 'mega_menu_child_item_style',
+                    'operator' => '===',
+                    'value'    => 'button',
                 ],
             ],
         ]);
