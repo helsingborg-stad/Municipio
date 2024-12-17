@@ -378,6 +378,5 @@ class MegaMenu
                 ],
             ],
         ]);
-
     }
 }
