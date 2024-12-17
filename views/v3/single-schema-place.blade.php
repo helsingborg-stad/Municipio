@@ -104,10 +104,13 @@
                         'meta' => !empty($post->readingTime) ? $post->readingTime : false,
                         'icon' => !empty($post->termIcon['icon']) ? $post->termIcon : false
                     ])
-                    @if ($post->callToActionItems['floating'])
+
+                    @if (!empty($post->callToActionItems['floating']['icon']) && !empty($post->callToActionItems['floating']['wrapper']))
                         @slot('floating')
-                            @icon($post->callToActionItems['floating'])
-                            @endicon
+                            @element($post->callToActionItems['floating']['wrapper'] ?? [])
+                                @icon($post->callToActionItems['floating']['icon'])
+                                @endicon
+                            @endelement
                         @endslot
                     @endif
                     @endsegment
