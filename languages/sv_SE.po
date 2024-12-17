@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2024-12-17 08:35+0100\n"
-"PO-Revision-Date: 2024-12-17 08:36+0100\n"
+"PO-Revision-Date: 2024-12-17 08:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -2529,7 +2529,7 @@ msgstr "history"
 
 #: library/AcfFields/php/options-menu-icon.php:474
 msgid "home"
-msgstr "Hem"
+msgstr "hem"
 
 #: library/AcfFields/php/options-menu-icon.php:475
 msgid "home_work"
@@ -29952,8 +29952,6 @@ msgid "User name color"
 msgstr "Användare namn färg"
 
 #: library/Customizer/Sections/Header/LoginLogout.php:117
-#, fuzzy
-#| msgid "Icon background color"
 msgid "Custom background color"
 msgstr "Bakgrundsfärg för ikon"
 
@@ -29975,7 +29973,7 @@ msgstr "Rubrik Logotyp Text: Innehåll"
 
 #: library/Customizer/Sections/Header/Logotype.php:84
 msgid "Header LogoType Text: Color "
-msgstr "Rubrik LogoTyp Text: Färg"
+msgstr "Rubrik LogoTyp Text: Färg "
 
 #: library/Customizer/Sections/Header/Logotype.php:101
 msgid "Header LogoType Text: Font Settings "
@@ -31519,7 +31517,7 @@ msgstr "Sidfot"
 
 #: library/Theme/Sidebars.php:111
 msgid "The footer area "
-msgstr "Sidfoten"
+msgstr "Sidfoten "
 
 #: library/Theme/Sidebars.php:124
 msgid "Footer bottom"
