@@ -190,68 +190,6 @@ class MegaMenu
             ],
         ]);
 
-        KirkiField::addField([
-            'type'            => 'select',
-            'settings'        => 'mega_menu_color_scheme',
-            'label'           => esc_html__('Color scheme', 'municipio'),
-            'section'         => $sectionID,
-            'default'         => 'primary',
-            'priority'        => 10,
-            'choices'         => [
-                'primary'   => esc_html__('Primary', 'municipio'),
-                'secondary' => esc_html__('Secondary', 'municipio'),
-            ],
-            'output'          => [
-                [
-                    'type'    => 'modifier',
-                    'context' => ['site.megamenu.nav']
-                ]
-            ],
-            'active_callback' => [
-                [
-                    'setting'  => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value'    => 'default',
-                ]
-            ],
-        ]);
-
-
-        KirkiField::addField([
-            'type'     => 'select',
-            'settings' => 'mega_cover_page',
-            'label'    => esc_html__('Cover full page', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => '',
-            'priority' => 10,
-            'choices'  => [
-                ''      => esc_html__('No cover', 'municipio'),
-                'cover' => esc_html__('Cover', 'municipio'),
-            ],
-            'output'   => [
-                [
-                    'type'    => 'modifier',
-                    'context' => ['site.megamenu.nav']
-                ]
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type'     => 'switch',
-            'settings' => 'mega_menu_mobile',
-            'label'    => esc_html__('Show on mobile', 'municipio'),
-            'section'  => $sectionID,
-            'default'  => false,
-            'priority' => 10,
-            'choices'  => [
-                true  => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
-            ],
-            'output'   => [
-                ['type' => 'controller']
-            ]
-        ]);
-
         // Child link styles
         KirkiField::addField([
             'type'            => 'select',
@@ -381,6 +319,68 @@ class MegaMenu
                     'value'    => 'button',
                 ],
             ],
+        ]);
+
+        KirkiField::addField([
+            'type'            => 'select',
+            'settings'        => 'mega_menu_color_scheme',
+            'label'           => esc_html__('Color scheme', 'municipio'),
+            'section'         => $sectionID,
+            'default'         => 'primary',
+            'priority'        => 10,
+            'choices'         => [
+                'primary'   => esc_html__('Primary', 'municipio'),
+                'secondary' => esc_html__('Secondary', 'municipio'),
+            ],
+            'output'          => [
+                [
+                    'type'    => 'modifier',
+                    'context' => ['site.megamenu.nav']
+                ]
+            ],
+            'active_callback' => [
+                [
+                    'setting'  => 'mega_menu_appearance_type',
+                    'operator' => '===',
+                    'value'    => 'default',
+                ]
+            ],
+        ]);
+
+
+        KirkiField::addField([
+            'type'     => 'select',
+            'settings' => 'mega_cover_page',
+            'label'    => esc_html__('Cover full page', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => '',
+            'priority' => 10,
+            'choices'  => [
+                ''      => esc_html__('No cover', 'municipio'),
+                'cover' => esc_html__('Cover', 'municipio'),
+            ],
+            'output'   => [
+                [
+                    'type'    => 'modifier',
+                    'context' => ['site.megamenu.nav']
+                ]
+            ],
+        ]);
+
+        KirkiField::addField([
+            'type'     => 'switch',
+            'settings' => 'mega_menu_mobile',
+            'label'    => esc_html__('Show on mobile', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => false,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ]
         ]);
     }
 }
