@@ -63,4 +63,12 @@ class PostObjectTest extends TestCase
     {
         $this->assertEquals('', $this->instance->getPostType());
     }
+
+    /**
+     * @testdox getTermIcon() returns null
+     */
+    public function testGetTermIconReturnsNull()
+    {
+        $this->assertNull($this->instance->getTermIcon());
+    }
 }

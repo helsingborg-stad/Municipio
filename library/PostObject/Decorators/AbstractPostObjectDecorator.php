@@ -3,6 +3,7 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\TermIcon\TermIconInterface;
 
 /**
  * Abstract post object decorator.
@@ -57,5 +58,13 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     public function getPostType(): string
     {
         return $this->postObject->getPostType();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
+    {
+        return $this->postObject->getTermIcon($taxonomy);
     }
 }

@@ -3,6 +3,7 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\TermIcon\TermIconInterface;
 
 /**
  * PostObject
@@ -55,5 +56,13 @@ class PostObject implements PostObjectInterface
     public function getPostType(): string
     {
         return '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
+    {
+        return null;
     }
 }

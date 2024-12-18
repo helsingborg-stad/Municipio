@@ -4,7 +4,10 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\TermIcon\TryGetTermIconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\TermIcon\TermIconInterface;
 use WpService\Contracts\GetObjectTaxonomies;
+use WpService\Contracts\GetTaxonomy;
+use WpService\Contracts\GetTerm;
 use WpService\Contracts\GetTheTerms;
 
 /**
@@ -15,14 +18,15 @@ class PostObjectWithTermIcons extends AbstractPostObjectDecorator implements Pos
     /**
      * @var \Municipio\PostObject\TermIcon\TermIconInterface[]|null
      */
-    protected ?array $termIconsCache = null;
+    protected ?array $termIconsCache    = null;
+    protected static array $cachedTerms = [];
 
     /**
      * Constructor.
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private GetObjectTaxonomies&GetTheTerms $wpService,
+        private GetObjectTaxonomies&GetTheTerms&GetTerm $wpService,
         private TryGetTermIconInterface $tryGetTermIcon
     ) {
         $this->postObject = $postObject;
@@ -58,5 +62,31 @@ class PostObjectWithTermIcons extends AbstractPostObjectDecorator implements Pos
         }
 
         return $this->termIconsCache;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
+    {
+        $termIcons = $this->getTermIcons();
+
+        if ($taxonomy === null) {
+            return $termIcons[0] ?? null;
+        }
+
+        foreach ($termIcons as $termIcon) {
+            $termId = $termIcon->getTermId();
+
+            if (!isset(self::$cachedTerms[$termId])) {
+                self::$cachedTerms[$termId] = $this->wpService->getTerm($termId, '', 'OBJECT');
+            }
+
+            if (self::$cachedTerms[$termId]->taxonomy === $taxonomy) {
+                return $termIcon;
+            }
+        }
+
+        return null;
     }
 }
