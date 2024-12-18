@@ -4,6 +4,15 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
   position: relative;
 }
 
+#search-form--field {
+  .c-field__inner {
+    height: 100%;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border: none;
+  }
+}
+
 #hero-search-form {
     position: absolute;
     width:clamp(min(100%, 600px), 30%, max(30%, 600px));
@@ -57,47 +66,10 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
     }
 }
 
-.search-modal.c-modal--is-panel {
-  .c-typography__variant--h1 {
-    color: #fff;
-    margin: 0 0 map-get($spacers, "2") 0;
-  }
-
-  .c-modal__content {
-    margin: auto 0;
-  }
-
-  .c-form {
-    max-width: calc(#{$base} * 75);
-    width: 90%;
-    margin: auto;
-  }
-}
-
-#search-form--field,
-.search-modal {
-  .c-field__inner {
-    height: 100%;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-    border: none;
-  }
-}
-
-#header-search-form input[type="search"],
-#header-search-form .c-field__inner,
-#mobile-search-form input[type="search"],
-#mobile-search-form .c-field__inner {
-  border-radius: inherit;
-  border: none;
-}
-
-#modal-search-form,
 #hero-search-form,
 #header-search-form,
 #menu-mega,
 #mobile-search-form {
-  
   &.c-form.search-form,
   .c-form {
     .c-field__inner,
@@ -110,6 +82,15 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
     }
   }
 }
+
+#header-search-form input[type="search"],
+#header-search-form .c-field__inner,
+#mobile-search-form input[type="search"],
+#mobile-search-form .c-field__inner {
+  border-radius: inherit;
+  border: none;
+}
+
 
 @media print {
   #sidebar-slider-area--container {
