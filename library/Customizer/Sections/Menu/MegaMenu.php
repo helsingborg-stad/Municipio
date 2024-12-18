@@ -311,42 +311,6 @@ class MegaMenu
 
         KirkiField::addField([
             'type'            => 'select',
-            'settings'        => 'mega_menu_child_item_shape',
-            'label'           => esc_html__('Shape of child items', 'municipio'),
-            'section'         => $sectionID,
-            'default'         => 'default',
-            'choices'         => [
-                'default' => esc_html__('Default', 'municipio'),
-                'pill'    => esc_html__('Pill', 'municipio'),
-            ],
-            'output'          => [
-                [
-                    'type'    => 'component_data',
-                    'dataKey' => 'childStyleShape',
-                    'context' => [
-                        [
-                            'context'  => 'component.megamenu',
-                            'operator' => '==',
-                        ],
-                    ],
-                ],
-            ],
-            'active_callback' => [
-                [
-                    'setting'  => 'mega_menu_appearance_type',
-                    'operator' => '===',
-                    'value'    => 'custom',
-                ],
-                [
-                    'setting'  => 'mega_menu_child_item_style',
-                    'operator' => '===',
-                    'value'    => 'button',
-                ],
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type'            => 'select',
             'settings'        => 'mega_menu_color_scheme',
             'label'           => esc_html__('Color scheme', 'municipio'),
             'section'         => $sectionID,
