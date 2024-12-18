@@ -398,13 +398,13 @@ class Post
     }
 
     /*
-    * Handle blocks in excerpt.
-    * If the excerpt contains blocks, the blocks are rendered and returned.
-    * Otherwise, the excerpt is returned as is.
-    *
-    * @param string $excerpt The post excerpt.
-    * @return string The excerpt with blocks rendered.
-    */
+     * Handle blocks in excerpt.
+     * If the excerpt contains blocks, the blocks are rendered and returned.
+     * Otherwise, the excerpt is returned as is.
+     *
+     * @param string $excerpt The post excerpt.
+     * @return string The excerpt with blocks rendered.
+     */
     private static function handleBlocksInExcerpt(string $excerpt): string
     {
         if (!preg_match('/<!--\s?wp:acf\/[a-zA-Z0-9_-]+/', $excerpt)) {
