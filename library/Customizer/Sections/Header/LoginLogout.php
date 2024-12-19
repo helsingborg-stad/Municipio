@@ -29,6 +29,20 @@ class LoginLogout
         ]);
 
         KirkiField::addField([
+            'type'        => 'checkbox',
+            'settings'    => 'header_login_logout_show_in_mobile_menu',
+            'label'       => esc_html__('Show in mobile menu', 'municipio'),
+            'section'     => $sectionID,
+            'default'     => false,
+            'priority'    => 10,
+            'output'      => [
+                [
+                    'type'    => 'controller',
+                ],
+            ],
+        ]);
+
+        KirkiField::addField([
             'type'        => 'radio',
             'settings'    => 'login_logout_appearance_type',
             'label'       => esc_html__('Appearance', 'municipio'),
