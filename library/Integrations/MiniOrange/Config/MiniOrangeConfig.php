@@ -25,4 +25,14 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
   {
     return (bool) get_option('options_municipio_require_sso_login', false) ?? false;
   }
+
+  /**
+   * Get the current SSO provider.
+   *
+   * @return string
+   */
+  public function getCurrentProvider(): string
+  {
+    return "";
+  }
 }
