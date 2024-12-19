@@ -366,7 +366,11 @@ class Post
                 $part = str_replace('<!-- /wp:more -->', '', $part);
             }
 
-            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(self::removeEmptyPTag(array_shift($parts))));
+            $excerpt = self::removeEmptyPTag(array_shift($parts));
+            $excerpt = self::createLeadElement($excerpt);
+            $excerpt = self::replaceBuiltinClasses($excerpt);
+            $excerpt = self::handleBlocksInExcerpt($excerpt);
+
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
         } else {
             $excerpt = "";
@@ -389,6 +393,25 @@ class Post
 
         // Build post_content_filtered
         return $excerpt . $content;
+    }
+
+    /*
+     * Handle blocks in excerpt.
+     * If the excerpt contains blocks, the blocks are rendered and returned.
+     * Otherwise, the excerpt is returned as is.
+     *
+     * @param string $excerpt The post excerpt.
+     * @return string The excerpt with blocks rendered.
+     */
+    private static function handleBlocksInExcerpt(string $excerpt): string
+    {
+        if (!preg_match('/<!--\s?wp:acf\/[a-zA-Z0-9_-]+/', $excerpt)) {
+            return $excerpt;
+        }
+
+        $excerpt = apply_filters('the_content', $excerpt);
+
+        return $excerpt;
     }
 
     /*
