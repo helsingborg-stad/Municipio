@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Integrations\MiniOrange\Config;
+namespace Municipio\Integrations\MiniOrange\Config;
 
 interface MiniOrangeConfigInterface
 {
