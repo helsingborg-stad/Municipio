@@ -366,13 +366,11 @@ class Post
                 $part = str_replace('<!-- /wp:more -->', '', $part);
             }
 
-            $excerpt = self::handleBlocksInExcerpt(
-                self::replaceBuiltinClasses(
-                    self::createLeadElement(
-                        self::removeEmptyPTag(array_shift($parts))
-                    )
-                )
-            );
+            $excerpt = self::removeEmptyPTag(array_shift($parts));
+            $excerpt = self::createLeadElement($excerpt);
+            $excerpt = self::replaceBuiltinClasses($excerpt);
+            $excerpt = self::handleBlocksInExcerpt($excerpt);
+
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
         } else {
             $excerpt = "";
