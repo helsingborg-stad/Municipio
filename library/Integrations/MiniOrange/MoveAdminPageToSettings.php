@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Integrations\MiniOrange;
+namespace Municipio\Integrations\MiniOrange;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
