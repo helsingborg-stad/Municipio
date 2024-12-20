@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2024-12-17 08:35+0100\n"
-"PO-Revision-Date: 2024-12-17 08:51+0100\n"
+"PO-Revision-Date: 2024-12-20 08:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -5037,7 +5037,7 @@ msgstr "Visa titel"
 
 #: library/AcfFields/php/options-page-display.php:40
 msgid "Show title in One Page template"
-msgstr "Visa utvald bild i singel-template"
+msgstr "Visa titel i One Page-template"
 
 #: library/AcfFields/php/options-page-exclude-from-google-translate.php:6
 #: library/AcfFields/php/options-page-exclude-from-google-translate.php:10
