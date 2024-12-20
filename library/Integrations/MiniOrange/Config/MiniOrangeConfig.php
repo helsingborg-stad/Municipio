@@ -2,8 +2,15 @@
 
 namespace Municipio\Integrations\MiniOrange\Config;
 
+use WpService\WpService;
+
 class MiniOrangeConfig implements MiniOrangeConfigInterface
 {
+  public function __construct(private WpService $wpService)
+  {
+  }
+
+
   /**
    * Check if the MiniOrange plugin is enabled.
    *
@@ -11,7 +18,7 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function isEnabled(): bool
   {
-    return true; //defined('MO_SAML_PLUGIN_DIR');
+    return defined('MO_SAML_PLUGIN_DIR');
   }
 
   /**
@@ -21,7 +28,7 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function requireSsoLogin(): bool
   {
-    return (bool) get_option('options_municipio_require_sso_login', false) ?? false;
+    return (bool) $this->wpService->getOption('options_municipio_require_sso_login', false) ?? false;
   }
 
   /**
@@ -31,6 +38,6 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function getCurrentProvider(): string
   {
-    return get_option('mo_saml_identity_provider_identifier_name', false);
+    return $this->wpService->getOption('mo_saml_identity_provider_identifier_name', false);
   }
 }

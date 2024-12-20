@@ -387,7 +387,7 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig();
+        $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
         if ($config->isEnabled() === false) {
             return;
         }
