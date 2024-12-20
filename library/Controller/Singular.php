@@ -31,8 +31,9 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayFeaturedImage']   = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
-        $this->data['showPageTitleOnOnePage'] = $this->showPageTitleOnOnePage($this->data['post']->id);
+        $this->data['displayFeaturedImage']        = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
+        $this->data['displayFeaturedImageCaption'] = $this->displayFeaturedImageCaptionOnSinglePost($this->data['post']->id);
+        $this->data['showPageTitleOnOnePage']      = $this->showPageTitleOnOnePage($this->data['post']->id);
 
         $this->data['quicklinksPlacement']           = $this->data['post']->quicklinksPlacement;
         $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
@@ -312,6 +313,22 @@ class Singular extends \Municipio\Controller\BaseController
         }
 
         return false;
+    }
+
+    /**
+     * Determine whether to display the featured image on a single post based on configuration.
+     *
+     * @param int $postId The ID of the post (optional, default is 0 for the current post).
+     *
+     * @return bool True if the featured image caption should be displayed, false otherwise.
+     */
+    private function displayFeaturedImageCaptionOnSinglePost(int $postId)
+    {
+        return (bool) apply_filters(
+            'Municipio/Controller/Singular/displayFeaturedImageCaptionOnSinglePost',
+            get_field('post_single_show_featured_image_caption', $postId),
+            $postId
+        );
     }
 
     /**
