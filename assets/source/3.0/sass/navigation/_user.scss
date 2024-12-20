@@ -42,6 +42,10 @@ $user-background-width: var(--user-background-width, 0px) !default;
 
     .user__button {
         min-width: 0;
+
+        @include mq('md') {
+            display: none;
+        }
     }
 
     // User placed in the drawer
@@ -51,12 +55,25 @@ $user-background-width: var(--user-background-width, 0px) !default;
         left: 0;
         width: 100%;
         padding: calc($base * 2);
+        margin-top: 100%;
+
+        &.user--active .user__container {
+            display: flex;
+        }
+
+        .user__button {
+            display: none;
+        }
     }
 
     // Logged in user
     &.user--active {
         .user__container {
             gap: calc($base * .25);
+            display: none;
+            @include mq('md') {
+                display: flex;
+            }
         }
 
         .user__name {

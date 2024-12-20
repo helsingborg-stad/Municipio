@@ -67,15 +67,17 @@
                     'expandLabel' => $lang->expand
                 ])
             @endnav  
-
-            @includeWhen(
-                !empty($customizer->headerLoginLogoutShowInMobileMenu),
-                'partials.header.components.user',
-                [
-                    'classList' => ['user--drawer']
-                ]
-            )
         @endslot
+        @if (!empty($customizer->headerLoginLogoutShowInMobileMenu))
+            @slot('afterMenu')
+                @include(
+                    'partials.header.components.user',
+                    [
+                        'classList' => ['user--drawer']
+                    ]
+                )
+            @endslot
+        @endif
       @else
       {{-- No menu items found --}}
       @endif
