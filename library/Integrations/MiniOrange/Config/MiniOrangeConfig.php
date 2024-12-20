@@ -11,7 +11,7 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function isEnabled(): bool
   {
-    return defined('MO_SAML_PLUGIN_DIR');
+    return true; //defined('MO_SAML_PLUGIN_DIR');
   }
 
   /**
@@ -31,6 +31,6 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    */
   public function getCurrentProvider(): string
   {
-    return "";
+    return get_option('mo_saml_identity_provider_identifier_name', false);
   }
 }
