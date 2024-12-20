@@ -5,11 +5,11 @@ namespace Municipio\Integrations\MiniOrange\Provider;
 use Municipio\Integrations\MiniOrange\Provider\ProviderInterface;
 use Mo_Saml_Options_Enum_Attribute_Mapping;
 
-class AzureAdProvider implements ProviderInterface
+class DefaultProvider implements ProviderInterface
 {
-  public function identifier(): string
+  public function identifier(): ?string
   {
-    return '';
+    return null;
   }
   public function getMap(): array
   {

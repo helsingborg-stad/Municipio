@@ -398,7 +398,7 @@ class App
 
         //Mapper
         $mappingProviders = [
-            new \Municipio\Integrations\MiniOrange\Provider\AzureAdProvider(),
+            new \Municipio\Integrations\MiniOrange\Provider\DefaultProvider(),
         ];
         $attributeMapper = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();

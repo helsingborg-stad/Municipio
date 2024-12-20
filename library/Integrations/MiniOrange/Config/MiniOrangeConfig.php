@@ -36,8 +36,8 @@ class MiniOrangeConfig implements MiniOrangeConfigInterface
    *
    * @return string
    */
-  public function getCurrentProvider(): string
+  public function getCurrentProvider(): ?string
   {
-    return $this->wpService->getOption('mo_saml_identity_provider_identifier_name', false);
+    return $this->wpService->getOption('mo_saml_identity_provider_identifier_name', null) ?? null;
   }
 }
