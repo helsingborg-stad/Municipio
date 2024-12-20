@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Integrations\MiniOrange;
+namespace Municipio\Integrations\MiniOrange;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
@@ -14,7 +14,7 @@ class MoveAdminPageToSettings implements Hookable
     public function __construct(private WpService $wpService)
     {
         $this->movableConfiguration = array(
-        'mo_saml_settings' => __("SSO Settings", 'municipio'),
+            'mo_saml_settings' => __("SSO Settings", 'municipio'),
         );
     }
 
