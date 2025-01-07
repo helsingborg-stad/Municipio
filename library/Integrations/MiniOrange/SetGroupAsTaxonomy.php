@@ -25,30 +25,46 @@ class SetGroupAsTaxonomy implements Hookable
   /**
    * Set the group as a taxonomy
    *
-   * @param string $groupName
-   * @param string $groupValue
+   * @param int $userId
+   * @param string|array $groupName
    * @return void
    */
-    public function setGroupAsTaxonomy(int $userId, string $groupName): void
+    public function setGroupAsTaxonomy(int $userId, string|array $groupName): void
     {
-        $taxonomy = $this->config->getUserGroupTaxonomy();
+        $taxonomy  = $this->config->getUserGroupTaxonomy();
+        $groupName = $this->getGroupNameFromMixed($groupName);
+
         if ($termId = $this->createOrGetTermFromString($groupName, $taxonomy) && $userId) {
             wp_set_object_terms($userId, $termId, $taxonomy, false);
         }
     }
 
+    /**
+     * Set the group as a taxonomy
+     *
+     * @param string|array $groupName
+     * @return string|null $groupName
+     */
+    private function getGroupNameFromMixed(mixed $groupName): ?string
+    {
+        if (empty($groupName)) {
+            return null;
+        }
+        if (is_array($groupName)) {
+            $groupName = array_pop($groupName);
+        }
+        return $groupName;
+    }
+
   /**
    * Create a taxonomy from a string
    *
-   * @param string $groupName
+   * @param string|array $groupName
    * @param string $taxonomy
    * @return int|null
    */
     private function createOrGetTermFromString(string $groupName, $taxonomy): ?int
     {
-        if (empty($groupName)) {
-            return null;
-        }
         $term = get_term_by('name', $groupName, $taxonomy);
         if (!$term) {
             $result = wp_insert_term($groupName, $taxonomy);
