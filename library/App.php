@@ -403,6 +403,10 @@ class App
         $attributeMapper = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
 
+        //Create user group taxonomy
+        $createUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\CreateUserGroupTaxonomy($this->wpService, $config);
+        $createUserGroupTaxonomy->addHooks();
+
         //Set group as taxonomy
         $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
         $setGroupAsTaxonomy->addHooks();
