@@ -33,9 +33,17 @@ class CreateUserGroupTaxonomy implements Hookable
             $taxonomy,
             'user',
             array(
-            'label'        => $this->wpService->__('User Groups', 'municipio'),
-            'hierarchical' => false,
-            'public'       => false,
+              'label'        => $this->wpService->__('User Groups', 'municipio'),
+              'hierarchical' => false,
+              'public'       => false, 
+              'show_ui'      => true,
+              'show_in_rest' => false,
+              'capabilities' => array(
+                'manage_terms' => 'edit_users',
+                'edit_terms'   => 'edit_users',
+                'delete_terms' => 'edit_users',
+                'assign_terms' => 'edit_users',
+              ),
             )
         );
     }
