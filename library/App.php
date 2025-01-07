@@ -424,7 +424,6 @@ class App
         $displayUserGroupTaxonomyInUserProfile->addHooks();
         $populateUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\PopulateUserGroupTaxonomySelectField($this->wpService, $config);
         $populateUserGroupTaxonomy->addHooks();
-
     }
 
     /**

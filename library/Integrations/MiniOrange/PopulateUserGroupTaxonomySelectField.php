@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace Municipio\Integrations\MiniOrange;
 
 use WpService\WpService;
@@ -28,7 +29,7 @@ class PopulateUserGroupTaxonomySelectField implements Hookable
     public function populateUserGroupChoices($field): array
     {
         $terms = get_terms(array(
-            'taxonomy' => $this->config->getUserGroupTaxonomy(),
+            'taxonomy'   => $this->config->getUserGroupTaxonomy(),
             'hide_empty' => false
         ));
 

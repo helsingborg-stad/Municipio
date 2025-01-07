@@ -18,7 +18,7 @@ class DisplayUserGroupTaxonomyInUserProfile implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('acf/init', array($this, 'registerUserGroupField'));
+        $this->wpService->addAction('init', array($this, 'registerUserGroupField'));
     }
 
     /**
