@@ -5,10 +5,11 @@ namespace Municipio\Integrations\MiniOrange;
 use AcfService\AcfService;
 use WpService\WpService;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig;
 
-class DisplayUserGroupTaxonomySelectOnProfileForm implements Hookable
+class DisplayUserGroupTaxonomyInUserProfile implements Hookable
 {
-    public function __construct(private WpService $wpService, private AcfService $acfService)
+    public function __construct(private WpService $wpService, private AcfService $acfService, private MiniOrangeConfig $config)
     {
     }
 
@@ -17,7 +18,7 @@ class DisplayUserGroupTaxonomySelectOnProfileForm implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('acf/include_fields', array($this, 'registerUserGroupField'));
+        $this->wpService->addAction('acf/init', array($this, 'registerUserGroupField'));
     }
 
     /**
@@ -25,18 +26,18 @@ class DisplayUserGroupTaxonomySelectOnProfileForm implements Hookable
      */
     public function registerUserGroupField(): void
     {
-        if ( ! function_exists( 'acf_add_local_field_group' ) ) {
-            return;
+        if(!method_exists($this->acfService, 'addLocalFieldGroup')) {
+            return; 
         }
 
-        $this->acfService->acfAddLocalFieldGroup(array(
+        $this->acfService->addLocalFieldGroup(array(
             'key' => 'group_677d3c36476fa',
-            'title' => 'User Group',
+            'title' => $this->wpService->__('User Group', 'municipio'),
             'fields' => array(
                 array(
                     'key' => 'field_677d3c3942a21',
-                    'label' => 'User Group',
-                    'name' => 'user_group',
+                    'label' => $this->wpService->__('User Group', 'municipio'),
+                    'name' => $this->config->getUserGroupTaxonomy(),
                     'aria-label' => '',
                     'type' => 'select',
                     'instructions' => '',
@@ -76,14 +77,7 @@ class DisplayUserGroupTaxonomySelectOnProfileForm implements Hookable
             'hide_on_screen' => '',
             'active' => true,
             'description' => '',
-            'show_in_rest' => 0,
-            'acfe_display_title' => '',
-            'acfe_autosync' => array(
-                0 => 'json',
-            ),
-            'acfe_form' => 0,
-            'acfe_meta' => '',
-            'acfe_note' => '',
+            'show_in_rest' => 0
         ) );
     }
 }
