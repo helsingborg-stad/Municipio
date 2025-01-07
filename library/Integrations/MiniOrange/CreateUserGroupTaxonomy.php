@@ -17,7 +17,7 @@ class CreateUserGroupTaxonomy implements Hookable
    */
     public function addHooks(): void
     {
-        $this->wpService->addAction('init', array($this, 'registerUserGroupTaxonomy'));
+        $this->wpService->addAction('init', array($this, 'registerUserGroupTaxonomy'), 5);
     }
 
   /**
