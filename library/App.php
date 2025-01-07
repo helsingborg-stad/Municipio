@@ -418,6 +418,12 @@ class App
         //Add user group to admin menu
         $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
         $displayUserGroupTaxonomyLinkInAdminUi->addHooks();
+
+        //Add user group to user profile & populate
+        $displayUserGroupTaxonomyInUserProfile = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
+        $displayUserGroupTaxonomyInUserProfile->addHooks();
+        $populateUserGroupTaxonomySelectField = new \Municipio\Integrations\MiniOrange\PopulateUserGroupTaxonomySelectField($this->wpService, $config);
+        $populateUserGroupTaxonomySelectField->addHooks();
     }
 
     /**
