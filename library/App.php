@@ -400,7 +400,7 @@ class App
         $mappingProviders = [
             new \Municipio\Integrations\MiniOrange\Provider\DefaultProvider(),
         ];
-        $attributeMapper = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
+        $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
 
         //Create user group taxonomy
