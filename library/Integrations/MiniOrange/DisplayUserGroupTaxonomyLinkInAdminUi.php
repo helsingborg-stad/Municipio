@@ -8,12 +8,8 @@ use Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig;
 
 class DisplayUserGroupTaxonomyLinkInAdminUi implements Hookable
 {
-    private string $taxonomySlug;
-
     public function __construct(private WpService $wpService, private MiniOrangeConfig $config)
     {
-        // Get the taxonomy slug from the config
-        $this->taxonomySlug = $this->config->getUserGroupTaxonomy();
     }
 
     /**
@@ -31,11 +27,11 @@ class DisplayUserGroupTaxonomyLinkInAdminUi implements Hookable
     {
         // Ensure that the taxonomy appears under the Users menu
         $this->wpService->addSubmenuPage(
-            'users.php',  // Parent slug (Users menu)
-            'User Groups',  // Page title
-            'User Groups',  // Menu title
-            'manage_options',  // Capability required to access this page
-            'edit-tags.php?taxonomy=' . $this->taxonomySlug  // URL to taxonomy management page
+            'users.php',
+            $this->wpService->__('User Groups', 'municipio'),
+            $this->wpService->__('User Groups', 'municipio'),
+            'manage_options',
+            'edit-tags.php?taxonomy=' . $this->config->getUserGroupTaxonomy()
         );
     }
 }
