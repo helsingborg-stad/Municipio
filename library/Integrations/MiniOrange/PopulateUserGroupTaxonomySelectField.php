@@ -29,7 +29,7 @@ class PopulateUserGroupTaxonomySelectField implements Hookable
     {
         $terms = get_terms(array(
             'taxonomy' => $this->config->getUserGroupTaxonomy(),
-            'hide_empty' => false, // Include even empty terms
+            'hide_empty' => false
         ));
 
         $choices = [];
