@@ -410,6 +410,10 @@ class App
         //Set group as taxonomy
         $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
         $setGroupAsTaxonomy->addHooks();
+
+        //Add user group to users list
+        $displayUserGroupTaxonomyInUsersList = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
+        $displayUserGroupTaxonomyInUsersList->addHooks();
     }
 
     /**
