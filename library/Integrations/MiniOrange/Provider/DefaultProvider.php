@@ -11,6 +11,7 @@ class DefaultProvider implements ProviderInterface
   {
     return null;
   }
+  
   public function getMap(): array
   {
     return [

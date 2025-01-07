@@ -396,12 +396,16 @@ class App
         $requireSsoLogin = new \Municipio\Integrations\MiniOrange\RequireSsoLogin($this->wpService, $config);
         $requireSsoLogin->addHooks();
 
-        //Mapper
+        //Map values to WordPress user
         $mappingProviders = [
             new \Municipio\Integrations\MiniOrange\Provider\DefaultProvider(),
         ];
         $attributeMapper = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
+
+        //Set group as taxonomy
+        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
+        $setGroupAsTaxonomy->addHooks();
     }
 
     /**
