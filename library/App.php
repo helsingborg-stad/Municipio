@@ -251,7 +251,7 @@ class App
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
         /* Integration: MiniOrange */
-        $moveAdminPageToSettings = new \Municipio\Admin\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
+        $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
 
         /* Admin uploads */
@@ -387,13 +387,29 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $config = new \Municipio\Admin\Integrations\MiniOrange\Config\MiniOrangeConfig();
+        $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
         if ($config->isEnabled() === false) {
             return;
         }
 
-        $requireSsoLogin = new \Municipio\Admin\Integrations\MiniOrange\RequireSsoLogin($this->wpService, $config);
+        //Require SSO login
+        $requireSsoLogin = new \Municipio\Integrations\MiniOrange\RequireSsoLogin($this->wpService, $config);
         $requireSsoLogin->addHooks();
+
+        //Map values to WordPress user
+        $mappingProviders = [
+            new \Municipio\Integrations\MiniOrange\Provider\DefaultProvider(),
+        ];
+        $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
+        $attributeMapper->addHooks();
+
+        //Create user group taxonomy
+        $createUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\CreateUserGroupTaxonomy($this->wpService, $config);
+        $createUserGroupTaxonomy->addHooks();
+
+        //Set group as taxonomy
+        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
+        $setGroupAsTaxonomy->addHooks();
     }
 
     /**
