@@ -31,44 +31,38 @@ class DisplayUserGroupTaxonomyInUserProfile implements Hookable
         }
 
         $this->acfService->addLocalFieldGroup(array(
+
             'key'                   => 'group_677d3c36476fa',
             'title'                 => $this->wpService->__('User Group', 'municipio'),
             'fields'                => array(
                 array(
-                    'key'                => 'field_677d3c3942a21',
-                    'label'              => $this->wpService->__('User Group', 'municipio'),
-                    'name'               => 'user_group',
-                    'aria-label'         => '',
-                    'type'               => 'acfe_taxonomy_terms',
-                    'instructions'       => '',
-                    'required'           => 0,
-                    'conditional_logic'  => 0,
-                    'wrapper'            => array(
+                    'key'                  => 'field_677d3c3942a21',
+                    'label'                => $this->wpService->__('User Group', 'municipio'),
+                    'name'                 => 'user_group',
+                    'aria-label'           => '',
+                    'type'                 => 'taxonomy',
+                    'instructions'         => '',
+                    'required'             => 0,
+                    'conditional_logic'    => 0,
+                    'wrapper'              => array(
                         'width' => '',
                         'class' => '',
                         'id'    => '',
                     ),
-                    'taxonomy'           => array(
-                        0 => 'user_group',
+                    'taxonomy'             => 'user_group',
+                    'add_term'             => 0,
+                    'save_terms'           => 1,
+                    'load_terms'           => 1,
+                    'return_format'        => 'id',
+                    'field_type'           => 'select',
+                    'allow_null'           => 1,
+                    'acfe_bidirectional'   => array(
+                        'acfe_bidirectional_enabled' => '0',
                     ),
-                    'allow_terms'        => '',
-                    'allow_level'        => '',
-                    'field_type'         => 'select',
-                    'default_value'      => array(),
-                    'return_format'      => 'id',
-                    'ui'                 => 1,
-                    'allow_null'         => 1,
-                    'placeholder'        => '',
-                    'search_placeholder' => '',
-                    'multiple'           => 0,
-                    'ajax'               => 1,
-                    'save_terms'         => 1,
-                    'load_terms'         => 1,
-                    'choices'            => array(),
-                    'layout'             => '',
-                    'toggle'             => 0,
-                    'allow_custom'       => 0,
-                    'other_choice'       => 0,
+                    'bidirectional'        => 0,
+                    'multiple'             => 0,
+                    'bidirectional_target' => array(
+                    ),
                 ),
             ),
             'location'              => array(
