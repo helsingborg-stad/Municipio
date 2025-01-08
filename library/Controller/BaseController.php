@@ -3,7 +3,6 @@
 namespace Municipio\Controller;
 
 use WP_Term;
-
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
@@ -444,14 +443,14 @@ class BaseController
 
     /**
      * Get current user group
-     * 
+     *
      * @return string|null
      */
     private function getCurrentUserGroup(): ?WP_Term
     {
         //Check login
         $user = $this->wpService->wpGetCurrentUser();
-        if(!$user) {
+        if (!$user) {
             return null;
         }
 
@@ -462,7 +461,7 @@ class BaseController
         }
 
         //Only get first item
-        if(is_array($userGroup)) {
+        if (is_array($userGroup)) {
             $userGroup = array_shift($userGroup);
         }
 
@@ -471,7 +470,7 @@ class BaseController
 
     /**
      * Get the current user group URL
-     * 
+     *
      * @param WP_Term|null $term
      * @return string
      */
