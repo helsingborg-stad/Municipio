@@ -47,7 +47,7 @@ class SetGroupAsTaxonomy implements Hookable
         }
 
         if ($termId = $this->createOrGetTermFromString($groupName, $taxonomy)) {
-            wp_set_object_terms($userId, $termId, $taxonomy, false);
+            $this->wpService->wpSetObjectTerms($userId, $termId, $taxonomy, false);
         }
     }
 
