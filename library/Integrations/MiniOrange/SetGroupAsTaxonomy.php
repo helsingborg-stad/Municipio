@@ -77,10 +77,10 @@ class SetGroupAsTaxonomy implements Hookable
    */
     private function createOrGetTermFromString(string $groupName, $taxonomy): ?int
     {
-        $term = get_term_by('name', $groupName, $taxonomy);
+        $term = $this->wpService->getTermBy('name', $groupName, $taxonomy);
         if (!$term) {
-            $result = wp_insert_term($groupName, $taxonomy);
-            if (is_wp_error($result)) {
+            $result = $this->wpService->wpInsertTerm($groupName, $taxonomy);
+            if ($this->wpService->isWpError($result)) {
                 return null;
             }
             $termId = $result['term_id'];
