@@ -34,7 +34,19 @@ class SetGroupAsTaxonomy implements Hookable
         $taxonomy  = $this->config->getUserGroupTaxonomy();
         $groupName = $this->getGroupNameFromMixed($groupName);
 
-        if ($termId = $this->createOrGetTermFromString($groupName, $taxonomy) && $userId) {
+        if(!$taxonomy) {
+            return;
+        }
+
+        if(!$groupName || is_numeric($groupName)) {
+            return;
+        }
+
+        if(!$userId) {
+            return;
+        }
+
+        if ($termId = $this->createOrGetTermFromString($groupName, $taxonomy)) {
             wp_set_object_terms($userId, $termId, $taxonomy, false);
         }
     }
@@ -51,7 +63,7 @@ class SetGroupAsTaxonomy implements Hookable
             return null;
         }
         if (is_array($groupName)) {
-            $groupName = array_pop($groupName);
+            $groupName = $groupName[0] ?? null;
         }
         return $groupName;
     }
