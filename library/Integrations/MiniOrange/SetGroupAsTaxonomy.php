@@ -34,15 +34,15 @@ class SetGroupAsTaxonomy implements Hookable
         $taxonomy  = $this->config->getUserGroupTaxonomy();
         $groupName = $this->getGroupNameFromMixed($groupName);
 
-        if(!$taxonomy) {
+        if (!$taxonomy) {
             return;
         }
 
-        if(!$groupName || is_numeric($groupName)) {
+        if (!$groupName || is_numeric($groupName)) {
             return;
         }
 
-        if(!$userId) {
+        if (!$userId) {
             return;
         }
 
