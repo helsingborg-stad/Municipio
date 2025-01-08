@@ -513,8 +513,10 @@ class BaseController
         if ($typeOfLink === 'blog_id') {
             $blogId = $this->acfService->getField('blog_id', $termId);
             if ($blogId) {
-                $blogDetails = get_blog_details($blogId);
-                return $blogDetails ? $blogDetails->siteurl : null;
+                $blogDetails = $this->wpService->getBlogDetails($blogId);
+                return (function (?object $details): ?string {
+                    return $details ? '//' . $details->domain . $details->path : null;
+                })($blogDetails);
             }
             return null;
         }

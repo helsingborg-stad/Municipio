@@ -13,8 +13,8 @@
 
   @button([
       'href' => $userGroupUrl,
-      'text' => 'Go to ' . $userGroup->name,
-      'icon' => 'home_pin',
+      'text' => 'Gå till ' . $userGroup->name,
+      'icon' => 'badge',
       'color' => 'primary',
       'style' => 'filled',
       'size' => 'sm',
