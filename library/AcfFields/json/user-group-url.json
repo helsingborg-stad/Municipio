@@ -1,0 +1,158 @@
+[{
+    "key": "group_677e6a05e347c",
+    "title": "User Group Home Url",
+    "fields": [
+        {
+            "key": "field_677e6a08b2126",
+            "label": "Select type of link",
+            "name": "user_group_type_of_link",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "disabled": "Disabled",
+                "arbitrary_url": "Arbitrary URL",
+                "post_type": "Post Type",
+                "blog_id": "Network Site (multisite only)"
+            },
+            "default_value": "disabled",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_677e6ad862963",
+            "label": "Arbitrary URL",
+            "name": "arbitrary_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_677e6a08b2126",
+                        "operator": "==",
+                        "value": "arbitrary_url"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_677e6b1765fc5",
+            "label": "Post Type",
+            "name": "post_type",
+            "aria-label": "",
+            "type": "acfe_post_types",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_677e6a08b2126",
+                        "operator": "==",
+                        "value": "post_type"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "field_type": "select",
+            "default_value": [],
+            "return_format": "object",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 1,
+            "search_placeholder": "",
+            "allow_custom": 0,
+            "choices": [],
+            "placeholder": "",
+            "layout": "",
+            "toggle": 0,
+            "other_choice": 0
+        },
+        {
+            "key": "field_677e6b8534123",
+            "label": "Blog",
+            "name": "blog_id",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_677e6a08b2126",
+                        "operator": "==",
+                        "value": "blog_id"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "ui": 1,
+            "ajax": 1,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "user_group"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
