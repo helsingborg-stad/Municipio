@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2024-12-17 08:35+0100\n"
-"PO-Revision-Date: 2024-12-20 08:41+0100\n"
+"POT-Creation-Date: 2025-01-08 10:14+0100\n"
+"PO-Revision-Date: 2025-01-08 10:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Source-Locale: sv_SE\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -62,8 +62,9 @@ msgstr "Färg"
 #: library/Customizer/Sections/Header/Logotype.php:39
 #: library/Customizer/Sections/Menu/Drawer.php:24
 #: library/Customizer/Sections/Menu/Drawer.php:47
-#: library/Customizer/Sections/Menu/MegaMenu.php:163
-#: library/Customizer/Sections/Menu/MegaMenu.php:202
+#: library/Customizer/Sections/Menu/MegaMenu.php:174
+#: library/Customizer/Sections/Menu/MegaMenu.php:282
+#: library/Customizer/Sections/Menu/MegaMenu.php:320
 #: library/Customizer/Sections/Menu/Quicklinks.php:158
 #: library/Customizer/Sections/Menu/Siteselector.php:82
 #: library/Customizer/Sections/Menu/Tabmenu.php:20
@@ -81,8 +82,9 @@ msgstr "Primär"
 #: library/Customizer/Sections/Header/Logotype.php:40
 #: library/Customizer/Sections/Menu/Drawer.php:25
 #: library/Customizer/Sections/Menu/Drawer.php:48
-#: library/Customizer/Sections/Menu/MegaMenu.php:164
-#: library/Customizer/Sections/Menu/MegaMenu.php:203
+#: library/Customizer/Sections/Menu/MegaMenu.php:175
+#: library/Customizer/Sections/Menu/MegaMenu.php:283
+#: library/Customizer/Sections/Menu/MegaMenu.php:321
 #: library/Customizer/Sections/Menu/Quicklinks.php:159
 #: library/Customizer/Sections/Menu/Siteselector.php:83
 #: library/Customizer/Sections/Menu/Tabmenu.php:21
@@ -105,7 +107,9 @@ msgstr "Sekundär"
 #: library/Customizer/Sections/Header/Appearance.php:69
 #: library/Customizer/Sections/Header/Layout.php:199
 #: library/Customizer/Sections/Menu/MegaMenu.php:105
-#: library/Customizer/Sections/Menu/MegaMenu.php:165
+#: library/Customizer/Sections/Menu/MegaMenu.php:176
+#: library/Customizer/Sections/Menu/MegaMenu.php:213
+#: library/Customizer/Sections/Menu/MegaMenu.php:284
 #: library/Customizer/Sections/Menu/Quicklinks.php:185
 #: library/Customizer/Sections/Menu/Quicklinks.php:238
 #: library/Customizer/Sections/Menu/Tabmenu.php:19
@@ -223,7 +227,7 @@ msgstr "Bredd på innehåll"
 
 #: library/AcfFields/php/block-container.php:44
 #: library/Customizer/PanelsRegistry.php:312
-#: library/Customizer/Sections/Button.php:144
+#: library/Customizer/Sections/Button.php:148
 #: library/Customizer/Sections/Colors.php:518
 msgid "Standard"
 msgstr "Standard"
@@ -529,7 +533,7 @@ msgstr "Aktivera Gutenberg redigerare"
 #: library/Customizer/Sections/Menu/Behaviour.php:54
 #: library/Customizer/Sections/Menu/Behaviour.php:70
 #: library/Customizer/Sections/Menu/Behaviour.php:86
-#: library/Customizer/Sections/Menu/MegaMenu.php:249
+#: library/Customizer/Sections/Menu/MegaMenu.php:367
 msgid "Disabled"
 msgstr "Inaktiverad"
 
@@ -620,7 +624,7 @@ msgid "Add section"
 msgstr "Lägg till sektion"
 
 #: library/AcfFields/php/options-login-logout.php:6
-#: library/Admin/Integrations/MiniOrange/MoveAdminPageToSettings.php:17
+#: library/Integrations/MiniOrange/MoveAdminPageToSettings.php:17
 #, fuzzy
 #| msgid "Settings"
 msgid "SSO Settings"
@@ -650,7 +654,7 @@ msgstr ""
 #: library/Customizer/Sections/Menu/Behaviour.php:53
 #: library/Customizer/Sections/Menu/Behaviour.php:69
 #: library/Customizer/Sections/Menu/Behaviour.php:85
-#: library/Customizer/Sections/Menu/MegaMenu.php:248
+#: library/Customizer/Sections/Menu/MegaMenu.php:366
 msgid "Enabled"
 msgstr "Aktiverad"
 
@@ -5016,6 +5020,7 @@ msgstr ""
 #: library/Admin/Gutenberg/Blocks/BlockManager.php:39
 #: library/Customizer/Sections/Borders.php:101
 #: library/Customizer/Sections/Menu/MegaMenu.php:106
+#: library/Customizer/Sections/Menu/MegaMenu.php:214
 msgid "Button"
 msgstr "Knapp"
 
@@ -5027,15 +5032,27 @@ msgstr "Visningsinställningar"
 msgid "Featured image"
 msgstr "Utvald bild"
 
-#: library/AcfFields/php/options-page-display.php:22
+#: library/AcfFields/php/options-page-display.php:23
 msgid "Show featured image in single template"
 msgstr "Visa utvald bild i singel-template"
 
-#: library/AcfFields/php/options-page-display.php:29
+#: library/AcfFields/php/options-page-display.php:30
+#, fuzzy
+#| msgid "No animation"
+msgid "Show image caption"
+msgstr "Ingen animation"
+
+#: library/AcfFields/php/options-page-display.php:50
+#, fuzzy
+#| msgid "Show featured image in single template"
+msgid "Show image caption in single template"
+msgstr "Visa utvald bild i singel-template"
+
+#: library/AcfFields/php/options-page-display.php:58
 msgid "Show title"
 msgstr "Visa titel"
 
-#: library/AcfFields/php/options-page-display.php:40
+#: library/AcfFields/php/options-page-display.php:70
 msgid "Show title in One Page template"
 msgstr "Visa titel i One Page-template"
 
@@ -5098,7 +5115,7 @@ msgid "Below page content"
 msgstr "Efter sidinnehållet"
 
 #: library/AcfFields/php/options-theme-author.php:6
-#: library/Controller/Singular.php:162
+#: library/Controller/Singular.php:163
 #: library/Customizer/PanelsRegistry.php:520 library/Upgrade.php:727
 msgid "Author"
 msgstr "Författare"
@@ -28320,7 +28337,7 @@ msgid "Introduction"
 msgstr "Inledning"
 
 #: library/Api/Pdf/PdfGenerator.php:433
-#: library/Customizer/Sections/Menu/MegaMenu.php:230
+#: library/Customizer/Sections/Menu/MegaMenu.php:348
 msgid "Cover"
 msgstr "Omslag"
 
@@ -28346,7 +28363,7 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: library/App.php:762 library/Customizer/Sections/Header/LoginLogout.php:22
+#: library/App.php:790 library/Customizer/Sections/Header/LoginLogout.php:22
 msgid "Never"
 msgstr ""
 
@@ -28508,14 +28525,7 @@ msgstr "Logga in"
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:392
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:32
-#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:36
-#: library/Helper/Navigation.php:766
-msgid "Home"
-msgstr "Hem"
-
-#: library/Controller/BaseController.php:400
+#: library/Controller/BaseController.php:397
 msgid "Visit"
 msgstr "Besök"
 
@@ -28550,6 +28560,11 @@ msgstr ""
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
+#: library/Controller/Navigation/Decorators/Breadcrumb/AppendHomeIconMenuItem.php:35
+#: library/Helper/Navigation.php:766
+msgid "Home"
+msgstr "Hem"
+
 #: library/Controller/Search.php:13
 msgid "The searchquery did not match any content."
 msgstr "Sökfrågan matchade inget innehåll."
@@ -28570,17 +28585,17 @@ msgstr "Sök efter"
 msgid "View page"
 msgstr "Visa sida"
 
-#: library/Controller/Singular.php:63
+#: library/Controller/Singular.php:64
 #, fuzzy
 #| msgid "reply"
 msgid "Reply"
 msgstr "reply"
 
-#: library/Controller/Singular.php:64
+#: library/Controller/Singular.php:65
 msgid "Log in to Reply"
 msgstr ""
 
-#: library/Controller/Singular.php:301
+#: library/Controller/Singular.php:302
 #, php-format
 msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
@@ -28972,7 +28987,7 @@ msgstr ""
 
 #: library/Customizer/PanelsRegistry.php:319
 #: library/Customizer/Sections/Field.php:16
-#: library/Customizer/Sections/Header/LoginLogout.php:34
+#: library/Customizer/Sections/Header/LoginLogout.php:48
 #: library/Customizer/Sections/Menu/MegaMenu.php:17
 #: library/Customizer/Sections/Menu/Quicklinks.php:15
 msgid "Appearance"
@@ -29353,7 +29368,7 @@ msgstr "Knapputseende"
 msgid "Choose the shape of the buttons."
 msgstr "Form på knappar."
 
-#: library/Customizer/Sections/Button.php:145
+#: library/Customizer/Sections/Button.php:149
 #: library/Customizer/Sections/Menu/Siteselector.php:119
 #: library/Customizer/Sections/Search.php:156
 #: library/Customizer/Sections/Tags.php:21
@@ -29384,7 +29399,7 @@ msgstr "Bas"
 #: library/Customizer/Sections/Colors.php:431
 #: library/Customizer/Sections/Colors.php:475
 #: library/Customizer/Sections/Colors.php:565
-#: library/Customizer/Sections/Header/LoginLogout.php:54
+#: library/Customizer/Sections/Header/LoginLogout.php:68
 #: library/Customizer/Sections/OpenStreetMap.php:22
 #: library/Customizer/Sections/SliderDefault.php:143
 #: library/Customizer/Sections/SliderHero.php:96
@@ -29399,7 +29414,7 @@ msgstr "Mörk"
 #: library/Customizer/Sections/Colors.php:476
 #: library/Customizer/Sections/Colors.php:519
 #: library/Customizer/Sections/Colors.php:566
-#: library/Customizer/Sections/Header/LoginLogout.php:53
+#: library/Customizer/Sections/Header/LoginLogout.php:67
 #: library/Customizer/Sections/Icons.php:34
 msgid "Light"
 msgstr "Ljus"
@@ -29604,7 +29619,7 @@ msgid "Frame border width"
 msgstr "Storlek på kantlinje"
 
 #: library/Customizer/Sections/Field.php:17
-#: library/Customizer/Sections/Header/LoginLogout.php:35
+#: library/Customizer/Sections/Header/LoginLogout.php:49
 #: library/Customizer/Sections/Menu/MegaMenu.php:18
 #: library/Customizer/Sections/Menu/Quicklinks.php:16
 msgid ""
@@ -29613,14 +29628,14 @@ msgid ""
 msgstr "Välj mellan fördefinierat utseende eller anpassa fritt."
 
 #: library/Customizer/Sections/Field.php:22
-#: library/Customizer/Sections/Header/LoginLogout.php:40
+#: library/Customizer/Sections/Header/LoginLogout.php:54
 #: library/Customizer/Sections/Menu/MegaMenu.php:23
 #: library/Customizer/Sections/Menu/Quicklinks.php:21
 msgid "Predefined appearance"
 msgstr "Fördefinierade utseende"
 
 #: library/Customizer/Sections/Field.php:23
-#: library/Customizer/Sections/Header/LoginLogout.php:41
+#: library/Customizer/Sections/Header/LoginLogout.php:55
 #: library/Customizer/Sections/Menu/MegaMenu.php:24
 #: library/Customizer/Sections/Menu/Quicklinks.php:22
 msgid "Custom appearance"
@@ -29928,30 +29943,36 @@ msgstr "Välj när logga in/ut knapp ska vara synlig"
 msgid "Login and Logout"
 msgstr "Logga in och logga ut"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:48
-#: library/Customizer/Sections/Menu/MegaMenu.php:197
+#: library/Customizer/Sections/Header/LoginLogout.php:34
+#, fuzzy
+#| msgid "Option in mobile menu"
+msgid "Show in mobile menu"
+msgstr "Inställning i mobilmeny"
+
+#: library/Customizer/Sections/Header/LoginLogout.php:62
+#: library/Customizer/Sections/Menu/MegaMenu.php:315
 #: library/Customizer/Sections/Menu/Quicklinks.php:153
 #: library/Customizer/Sections/Menu/Siteselector.php:76
 msgid "Color scheme"
 msgstr "Färgschema"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:73
+#: library/Customizer/Sections/Header/LoginLogout.php:87
 msgid "Custom colors user colors"
 msgstr "Anpassade användarfärger"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:78
+#: library/Customizer/Sections/Header/LoginLogout.php:92
 msgid "Logout link color"
 msgstr "Logga ut länkfärg"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:79
+#: library/Customizer/Sections/Header/LoginLogout.php:93
 msgid "Logout link color hover"
 msgstr "Logga ut länkfärg aktiv"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:80
+#: library/Customizer/Sections/Header/LoginLogout.php:94
 msgid "User name color"
 msgstr "Användare namn färg"
 
-#: library/Customizer/Sections/Header/LoginLogout.php:117
+#: library/Customizer/Sections/Header/LoginLogout.php:131
 msgid "Custom background color"
 msgstr "Bakgrundsfärg för ikon"
 
@@ -30281,39 +30302,66 @@ msgid "Body"
 msgstr "Brödtext"
 
 #: library/Customizer/Sections/Menu/MegaMenu.php:101
-#: library/Customizer/Sections/Menu/MegaMenu.php:120
+#: library/Customizer/Sections/Menu/MegaMenu.php:132
 msgid "Sets the style of the main items"
 msgstr "Ställer in stilen för huvudobjekten"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:124
+#: library/Customizer/Sections/Menu/MegaMenu.php:136
+#: library/Customizer/Sections/Menu/MegaMenu.php:244
 msgid "Filled button"
 msgstr "Ifylld knapp"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:125
+#: library/Customizer/Sections/Menu/MegaMenu.php:137
+#: library/Customizer/Sections/Menu/MegaMenu.php:245
 msgid "Default button"
 msgstr "Default button"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:126
+#: library/Customizer/Sections/Menu/MegaMenu.php:138
+#: library/Customizer/Sections/Menu/MegaMenu.php:246
 msgid "Outlined button"
 msgstr "Inramad knapp"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:158
+#: library/Customizer/Sections/Menu/MegaMenu.php:169
 msgid "Color of the button"
 msgstr "Färg på knappen"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:159
+#: library/Customizer/Sections/Menu/MegaMenu.php:170
 msgid "Sets the color of the button. The custom color will be ignored."
 msgstr "Ställer in färgen på knappen. Den anpassade färgen ignoreras."
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:224
+#: library/Customizer/Sections/Menu/MegaMenu.php:209
+#, fuzzy
+#| msgid "Sets the style of the main items"
+msgid "Sets the style of the child items"
+msgstr "Ställer in stilen för huvudobjekten"
+
+#: library/Customizer/Sections/Menu/MegaMenu.php:240
+#, fuzzy
+#| msgid "Sets the style of the main items"
+msgid "Sets the style of the child buttons"
+msgstr "Ställer in stilen för huvudobjekten"
+
+#: library/Customizer/Sections/Menu/MegaMenu.php:277
+#, fuzzy
+#| msgid "Color of the button"
+msgid "Color of the child buttons"
+msgstr "Färg på knappen"
+
+#: library/Customizer/Sections/Menu/MegaMenu.php:278
+#, fuzzy
+#| msgid "Sets the color of the button. The custom color will be ignored."
+msgid "Sets the color of the child buttons. The custom color will be ignored."
+msgstr "Ställer in färgen på knappen. Den anpassade färgen ignoreras."
+
+#: library/Customizer/Sections/Menu/MegaMenu.php:342
 msgid "Cover full page"
 msgstr "Omslag hela sidan"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:229
+#: library/Customizer/Sections/Menu/MegaMenu.php:347
 msgid "No cover"
 msgstr "Utan omslag"
 
-#: library/Customizer/Sections/Menu/MegaMenu.php:243
+#: library/Customizer/Sections/Menu/MegaMenu.php:361
 msgid "Show on mobile"
 msgstr "Visa på mobil"
 
@@ -31040,6 +31088,22 @@ msgstr "Återställ"
 #, php-format
 msgid "Image files must be smaller than %s"
 msgstr ""
+
+#: library/Integrations/MiniOrange/CreateUserGroupTaxonomy.php:36
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyLinkInAdminUi.php:31
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyLinkInAdminUi.php:32
+msgid "User Groups"
+msgstr "Användargrupper"
+
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:35
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:39
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUsersList.php:35
+msgid "User Group"
+msgstr "Användargrupp"
+
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUsersList.php:54
+msgid "No Group Assigned"
+msgstr "Ingen grupp tilldelad"
 
 #: library/Oembed/OembedFilters.php:39 library/Oembed/OembedFilters.php:45
 msgid "We need your consent to continue"
