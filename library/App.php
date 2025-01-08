@@ -422,6 +422,10 @@ class App
         //Add user group to user profile & populate
         $displayUserGroupTaxonomyInUserProfile = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
         $displayUserGroupTaxonomyInUserProfile->addHooks();
+
+        //User group url
+        $populateUserGroupUrlBlogIdField = new \Municipio\Integrations\MiniOrange\PopulateUserGroupUrlBlogIdField($this->wpService);
+        $populateUserGroupUrlBlogIdField->addHooks();
     }
 
     /**
