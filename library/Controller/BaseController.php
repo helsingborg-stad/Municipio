@@ -344,6 +344,9 @@ class BaseController
         $this->data['userGroup']    = $this->getCurrentUserGroup();
         $this->data['userGroupUrl'] = $this->getCurrentUserGroupUrl($this->data['userGroup']);
 
+        // User basic details
+        $this->data['userDetails'] = $this->getUserDetails();
+
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
 
@@ -518,6 +521,28 @@ class BaseController
 
         // Default case (should not occur)
         return null;
+    }
+
+    /**
+     * Get the current user details
+     *
+     * @return object
+     */
+    private function getUserDetails(): ?object
+    {
+        $user = $this->wpService->wpGetCurrentUser();
+
+        if (!$user) {
+            return null;
+        }
+
+        return (object) [
+            'id'    => $user->ID,
+            'email'         => $user->user_email,
+            'displayname'   => $user->display_name,
+            'firstname'     => $user->first_name,
+            'lastname'      => $user->last_name,
+        ];
     }
 
     /**

@@ -73,6 +73,11 @@
                         </div>
                     @endif
 
+                    {{-- User group --}}
+                    @include('partials.header.user.group.url')
+
+                    {{-- Above columns sidebar --}}
+
                     @hasSection('above')
                         <div class="o-grid u-print-display--none">
                             <div class="o-grid-12">
