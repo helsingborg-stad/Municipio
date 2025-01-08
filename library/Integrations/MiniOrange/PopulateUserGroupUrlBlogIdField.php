@@ -23,8 +23,11 @@ class PopulateUserGroupUrlBlogIdField implements Hookable
    */
     public function populateUserGroupUrlBlogIdField($field)
     {
+        if(!$this->wpService->isMultisite()) {
+          return $field;
+        }
         $field['choices'] = [];
-        $blogs            = get_sites(['number' => 500]) ?? [];
+        $blogs            = $this->wpService->getSites(['number' => 500]) ?? [];
         foreach ($blogs as $blog) {
             $field['choices'][$blog->blog_id] = 'https://' . $blog->domain . $blog->path;
         }

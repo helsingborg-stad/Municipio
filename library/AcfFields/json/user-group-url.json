@@ -108,25 +108,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "1": "https:\/\/dev.local.municipio.tech\/",
-                "2": "https:\/\/dev.local.municipio.tech\/slf\/",
-                "3": "https:\/\/dev.local.municipio.tech\/sff\/",
-                "5": "https:\/\/dev.local.municipio.tech\/hr\/",
-                "7": "https:\/\/dev.local.municipio.tech\/joa-gammalt\/",
-                "8": "https:\/\/dev.local.municipio.tech\/mf\/",
-                "9": "https:\/\/dev.local.municipio.tech\/sbf\/",
-                "10": "https:\/\/dev.local.municipio.tech\/fortroendevald\/",
-                "11": "https:\/\/dev.local.municipio.tech\/vof\/",
-                "12": "https:\/\/dev.local.municipio.tech\/sof\/",
-                "13": "https:\/\/dev.local.municipio.tech\/kf\/",
-                "14": "https:\/\/dev.local.municipio.tech\/aterbruket\/",
-                "15": "https:\/\/dev.local.municipio.tech\/amf\/",
-                "17": "https:\/\/dev.local.municipio.tech\/inkopssidan\/",
-                "18": "https:\/\/dev.local.municipio.tech\/ff\/",
-                "19": "https:\/\/dev.local.municipio.tech\/bibliotekhelsingborg\/",
-                "20": "https:\/\/dev.local.municipio.tech\/jobbaival\/"
-            },
+            "choices": {},
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -164,4 +146,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

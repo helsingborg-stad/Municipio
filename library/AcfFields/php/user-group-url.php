@@ -1,7 +1,9 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_677e6a05e347c',
     'title' => __('User Group Home Url', 'municipio'),
     'fields' => array(
@@ -111,25 +113,7 @@
                 'class' => '',
                 'id' => '',
             ),
-            'choices' => array(
-                1 => __('https://dev.local.municipio.tech/', 'municipio'),
-                2 => __('https://dev.local.municipio.tech/slf/', 'municipio'),
-                3 => __('https://dev.local.municipio.tech/sff/', 'municipio'),
-                5 => __('https://dev.local.municipio.tech/hr/', 'municipio'),
-                7 => __('https://dev.local.municipio.tech/joa-gammalt/', 'municipio'),
-                8 => __('https://dev.local.municipio.tech/mf/', 'municipio'),
-                9 => __('https://dev.local.municipio.tech/sbf/', 'municipio'),
-                10 => __('https://dev.local.municipio.tech/fortroendevald/', 'municipio'),
-                11 => __('https://dev.local.municipio.tech/vof/', 'municipio'),
-                12 => __('https://dev.local.municipio.tech/sof/', 'municipio'),
-                13 => __('https://dev.local.municipio.tech/kf/', 'municipio'),
-                14 => __('https://dev.local.municipio.tech/aterbruket/', 'municipio'),
-                15 => __('https://dev.local.municipio.tech/amf/', 'municipio'),
-                17 => __('https://dev.local.municipio.tech/inkopssidan/', 'municipio'),
-                18 => __('https://dev.local.municipio.tech/ff/', 'municipio'),
-                19 => __('https://dev.local.municipio.tech/bibliotekhelsingborg/', 'municipio'),
-                20 => __('https://dev.local.municipio.tech/jobbaival/', 'municipio'),
-            ),
+            'choices' => array(),
             'default_value' => false,
             'return_format' => 'value',
             'multiple' => 0,
@@ -167,4 +151,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}
