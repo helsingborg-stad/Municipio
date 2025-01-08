@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2025-01-08 10:14+0100\n"
-"PO-Revision-Date: 2025-01-08 10:15+0100\n"
+"PO-Revision-Date: 2025-01-08 10:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -632,17 +632,20 @@ msgstr "Inställningar"
 
 #: library/AcfFields/php/options-login-logout.php:10
 msgid "Require SSO Login"
-msgstr ""
+msgstr "Kräv SSO inloggning"
 
 #: library/AcfFields/php/options-login-logout.php:14
 msgid ""
 "This feature disables the manual login ability. All attempts to login will "
 "be redirected to the IdP configured with MiniOrange SSO."
 msgstr ""
+"Den här funktionen inaktiverar möjligheten att logga in manuellt. Alla "
+"inloggningsförsök omdirigeras till IdP:n som är konfigurerad med MiniOrange "
+"SSO."
 
 #: library/AcfFields/php/options-login-logout.php:22
 msgid "* Requires MiniOrange SSO"
-msgstr ""
+msgstr "* MiniOrange måste vara aktiverat"
 
 #: library/AcfFields/php/options-login-logout.php:24
 #: library/AcfFields/php/options-login-redirect.php:24
@@ -675,10 +678,12 @@ msgid ""
 "This feature will redirect the user to the login page, if an internal "
 "context has been detected."
 msgstr ""
+"Den här funktionen omdirigerar användaren till inloggningssidan om en intern "
+"kontext har upptäckts."
 
 #: library/AcfFields/php/options-login-redirect.php:22
 msgid "* Requires Broken Links Detector Plugin"
-msgstr ""
+msgstr "* Broken Links Detector krävs"
 
 #: library/AcfFields/php/options-menu-floating.php:6
 #: library/AcfFields/php/options-theme-google-translate.php:59
@@ -28111,11 +28116,11 @@ msgstr "Vänligen fyll i alla obligatoriska fält."
 
 #: library/Admin/Login/AddLoginAndLogoutNotices.php:27
 msgid "Login successful"
-msgstr ""
+msgstr "Inloggad, välkommen tillbaka!"
 
 #: library/Admin/Login/AddLoginAndLogoutNotices.php:37
 msgid "Logout successful"
-msgstr ""
+msgstr "Utloggning lyckades"
 
 #: library/Admin/Login/LogUserLoginTime.php:54
 #: library/Admin/LoginTracking.php:35
@@ -28132,15 +28137,15 @@ msgstr "Logga in och logga ut"
 #: library/Customizer/PanelsRegistry.php:331
 #: library/Customizer/Sections/Header/Layout.php:316
 msgid "Login/Logout"
-msgstr ""
+msgstr "Logga in / Logga ut"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:28
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: library/Admin/Login/RegisterLoginLogoutOptionsPage.php:29
 msgid "The SSO Configuration has been saved."
-msgstr ""
+msgstr "Konfigurationen av SSO lyckades."
 
 #: library/Admin/Options/AttachmentConsent.php:24
 msgid "Consent ID"
