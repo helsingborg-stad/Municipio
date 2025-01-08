@@ -87,6 +87,14 @@ class Enqueue
         wp_enqueue_script(
             'customizer-flexible-header',
             self::getAssetWithCacheBust('js/customizer-flexible-header.js'),
+            array('acf-input', 'jquery'),
+            false,
+            true
+        );
+        
+        wp_enqueue_script(
+            'customizer-flexible-header',
+            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
             array('jquery', 'customize-controls'),
             false,
             true
