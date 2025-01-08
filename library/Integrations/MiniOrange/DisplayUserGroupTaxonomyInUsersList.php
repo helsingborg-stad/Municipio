@@ -47,8 +47,8 @@ class DisplayUserGroupTaxonomyInUsersList implements Hookable
     public function renderUserGroupColumn(string $value, string $column, int $userId): string
     {
         if ($column === 'user_group') {
-            $terms = wp_get_object_terms($userId, $this->taxonomy);
-            if (!empty($terms) && !is_wp_error($terms)) {
+            $terms = $this->wpService->wpGetObjectTerms($userId, $this->taxonomy);
+            if (!empty($terms) && !$this->wpService->isWpError($terms)) {
                 return implode(', ', $this->wpService->wpListPluck($terms, 'name'));
             }
             return $this->wpService->__('No Group Assigned', 'municipio');
