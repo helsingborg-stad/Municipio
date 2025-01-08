@@ -51,7 +51,7 @@ class RequireSsoLogin implements Hookable
         }
 
         // Redirect to the SSO URL
-        wp_redirect($this->getSsoUrl());
+        $this->wpService->wpRedirect($this->getSsoUrl());
         exit;
     }
 
@@ -62,7 +62,7 @@ class RequireSsoLogin implements Hookable
    */
     private function getSsoUrl(): ?string
     {
-        $url = $_SERVER['REQUEST_URI'] ?? home_url('/wp-login.php');
+        $url = $_SERVER['REQUEST_URI'] ?? $this->wpService->homeUrl('/wp-login.php');
 
         $url = add_query_arg(
             'option',
