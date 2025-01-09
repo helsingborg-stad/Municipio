@@ -31,7 +31,7 @@ class SingularPlace extends \Municipio\Controller\Singular
     public function addHooks(): void
     {
         // Append location link to listing items
-        add_filter('Municipio/Controller/SingularContentType/listing', [$this, 'appendListItems'], 10, 2);
+        add_filter('Municipio/Controller/SingularPlace/listing', [$this, 'appendListItems'], 10, 2);
         add_filter('Municipio/viewData', [$this, 'populatePostWithAdditionalPlaceViewData'], 10, 1);
     }
 
@@ -172,7 +172,7 @@ class SingularPlace extends \Municipio\Controller\Singular
 
         // Apply filters to listing items
         $list = apply_filters(
-            'Municipio/Controller/SingularContentType/listing',
+            'Municipio/Controller/SingularPlace/listing',
             $list,
             $fields
         );
