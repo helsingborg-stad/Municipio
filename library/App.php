@@ -359,7 +359,7 @@ class App
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
 
-        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService);
+        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService, $this->acfService);
         $addLoginAndLogoutNotices->addHooks();
 
         $logUserLoginTime = new \Municipio\Admin\Login\LogUserLoginTime($this->wpService);
