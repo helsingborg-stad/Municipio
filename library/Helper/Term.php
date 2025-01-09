@@ -12,23 +12,6 @@ use Municipio\Helper\Term\Term as TermHelper;
 class Term
 {
     /**
-     * `getTermColour` returns the colour of a term.
-     * If no colour is set, it will return the colour of the first ancestor that has a colour set.
-     *
-     * @deprecated Use Municipio\Helper\Term\Term::getTermColor() instead.
-     *
-     * @param int|string|WP_Term $term The term to get the colour for. Can be a term object, term ID or term slug.
-     * @param string $taxonomy The taxonomy of the term. Default is an empty string.
-     *
-     * @return false|string A string of the colour of the term in HEX format.
-     */
-    public static function getTermColour($term, string $taxonomy = '')
-    {
-        trigger_error('Use Municipio\Helper\Term\Term::getTermColor() instead.', E_USER_DEPRECATED);
-        return self::getTermColor($term, $taxonomy);
-    }
-
-    /**
      * Alias with American English spelling for getTermColour()
      *
      * @deprecated Use Municipio\Helper\Term\Term::getTermColor() instead.
