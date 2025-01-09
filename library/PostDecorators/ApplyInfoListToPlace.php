@@ -35,7 +35,7 @@ class ApplyInfoListToPlace implements PostDecorator
             $list['website'] = $this->listingHelper::createListingItem(__('Visit website', 'municipio'), $fields['website'], ['src' => 'language']);
         }
 
-        $post->placeInfo = apply_filters('Municipio/Controller/SingularContentType/listing', $list, $fields);
+        $post->placeInfo = apply_filters('Municipio/Controller/SingularPlace/listing', $list, $fields);
 
         return $post;
     }
