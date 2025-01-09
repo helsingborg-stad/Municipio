@@ -87,14 +87,6 @@ class Enqueue
         wp_enqueue_script(
             'customizer-flexible-header',
             self::getAssetWithCacheBust('js/customizer-flexible-header.js'),
-            array('acf-input', 'jquery'),
-            false,
-            true
-        );
-        
-        wp_enqueue_script(
-            'customizer-flexible-header',
-            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
             array('jquery', 'customize-controls'),
             false,
             true
@@ -156,8 +148,22 @@ class Enqueue
     {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
-            wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
+            wp_enqueue_script(
+                'options-reading',
+                self::getAssetWithCacheBust('js/options-reading.js'), 
+                array('jquery'), 
+                null, 
+                true
+            );
         }
+
+        wp_enqueue_script(
+            'hidden-post-status-conditional',
+            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
+            array('acf-input', 'jquery'),
+            false,
+            true
+        );
     }
 
      /**

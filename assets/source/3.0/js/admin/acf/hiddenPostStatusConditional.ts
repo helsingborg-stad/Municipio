@@ -26,6 +26,7 @@ class HiddenPostStatusConditional {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("HELLO")
     if (typeof acf === 'undefined') {
         return;
     }
@@ -39,3 +40,5 @@ document.addEventListener('DOMContentLoaded', function() {
         new HiddenPostStatusConditional(hiddenAcfPostStatusField, inputs as NodeListOf<HTMLInputElement>, saveButton as HTMLElement);
     }
 });
+
+console.log("HELLO")
