@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject;
 
+use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\TermIcon\TermIconInterface;
 
@@ -62,6 +63,14 @@ class PostObject implements PostObjectInterface
      * @inheritDoc
      */
     public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
+    {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIcon(): ?IconInterface
     {
         return null;
     }

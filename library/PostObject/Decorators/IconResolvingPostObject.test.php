@@ -1,0 +1,38 @@
+<?php
+
+namespace Municipio\PostObject\Decorators;
+
+use Municipio\PostObject\Icon\IconInterface;
+use Municipio\PostObject\Icon\Resolvers\IconResolverInterface;
+use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
+use Municipio\PostObject\PostObject;
+use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\TestCase;
+
+class IconResolvingPostObjectTest extends TestCase
+{
+    /**
+     * @testdox class can be instantiated
+     */
+    public function testClassCanBeInstantiated()
+    {
+        $decorator = new IconResolvingPostObject(new PostObject(), new NullIconResolver());
+        $this->assertInstanceOf(IconResolvingPostObject::class, $decorator);
+    }
+
+    /**
+     * @testdox getIcon() calls provided icon resolver
+     */
+    public function testGetIconCallsProvidedIconResolver()
+    {
+        $icon         = $this->createMock(IconInterface::class);
+        $iconResolver = $this->createMock(IconResolverInterface::class);
+
+        $icon->method('getIcon')->willReturn('test-icon');
+        $iconResolver->method('resolve')->willReturn($icon);
+
+        $postObject = new IconResolvingPostObject(new PostObject(), $iconResolver);
+
+        $this->assertEquals('test-icon', $postObject->getIcon()->getIcon());
+    }
+}

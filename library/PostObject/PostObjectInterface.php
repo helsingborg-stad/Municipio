@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject;
 
+use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\TermIcon\TermIconInterface;
 
 interface PostObjectInterface
@@ -54,4 +55,11 @@ interface PostObjectInterface
      * Get the post type.
      */
     public function getPostType(): string;
+
+    /**
+     * Get the post object icon.
+     *
+     * @return IconInterface|null The post object icon or null if none is found.
+     */
+    public function getIcon(): ?IconInterface;
 }

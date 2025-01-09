@@ -9,8 +9,10 @@ use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Municipio\PostObject\TermIcon\TryGetTermIcon;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
+use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Decorators\PostObjectWithTermIcons;
+use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
 
@@ -151,6 +153,7 @@ class Post
 
         $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
         $postObject = new PostObjectWithTermIcons($postObject, $wpService, new TryGetTermIcon());
+        $postObject = new IconResolvingPostObject($postObject, new NullIconResolver());
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
