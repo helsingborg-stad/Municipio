@@ -52,7 +52,13 @@ class Listing
             if (!$term || is_wp_error($term)) {
                 continue;
             }
-            $term->icon = \Municipio\Helper\Term::getTermIcon($term);
+
+            $termHelper = new \Municipio\Helper\Term\Term(
+                \Municipio\Helper\WpService::get(),
+                \Municipio\Helper\AcfService::get()
+            );
+
+            $term->icon = $termHelper->getTermIcon($term);
             $terms[]    = $term;
         }
         return $terms;

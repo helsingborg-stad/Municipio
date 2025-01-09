@@ -126,7 +126,12 @@ class Archive extends \Municipio\Controller\BaseController
             return false;
         }
 
-        return \Municipio\Helper\Term::getTermColor($term->term_id, $term->taxonomy);
+        $termHelper = new \Municipio\Helper\Term\Term(
+            \Municipio\Helper\WpService::get(),
+            \Municipio\Helper\AcfService::get()
+        );
+
+        return $termHelper->getTermColor($term->term_id, $term->taxonomy);
     }
 
     /**
@@ -144,7 +149,12 @@ class Archive extends \Municipio\Controller\BaseController
             return false;
         }
 
-        return \Municipio\Helper\Term::getTermIcon($term->term_id, $term->taxonomy);
+        $termHelper = new \Municipio\Helper\Term\Term(
+            \Municipio\Helper\WpService::get(),
+            \Municipio\Helper\AcfService::get()
+        );
+
+        return $termHelper->getTermIcon($term->term_id, $term->taxonomy);
     }
 
     /**
