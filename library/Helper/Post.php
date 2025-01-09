@@ -456,16 +456,17 @@ class Post
     private static function getPostTermIcon($postId, $postType)
     {
         $taxonomies = get_object_taxonomies($postType);
+        $termIcon   = [];
+        $termColor  = false;
+        $termHelper = new \Municipio\Helper\Term\Term(\Municipio\Helper\WpService::get(), \Municipio\Helper\AcfService::get());
 
-        $termIcon  = [];
-        $termColor = false;
         foreach ($taxonomies as $taxonomy) {
             $terms = get_the_terms($postId, $taxonomy);
             if (!empty($terms)) {
                 foreach ($terms as $term) {
                     if (empty($termIcon)) {
-                        $icon  = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
-                        $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
+                        $icon  = $termHelper->getTermIcon($term, $taxonomy);
+                        $color = $termHelper->getTermColor($term, $taxonomy);
                         if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
                             $termIcon['icon']            = $icon['src'];
                             $termIcon['size']            = 'md';

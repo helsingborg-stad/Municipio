@@ -14,8 +14,13 @@ class TryGetTermIcon implements TryGetTermIconInterface
      */
     public function tryGetTermIcon(int $termId, string $taxonomy): ?TermIconInterface
     {
-        $icon  = \Municipio\Helper\Term::getTermIcon($termId, $taxonomy);
-        $color = \Municipio\Helper\Term::getTermColor($termId, $taxonomy);
+        $termHelper = new \Municipio\Helper\Term\Term(
+            \Municipio\Helper\WpService::get(),
+            \Municipio\Helper\AcfService::get()
+        );
+
+        $icon  = $termHelper->getTermIcon($termId, $taxonomy);
+        $color = $termHelper->getTermColor($termId, $taxonomy);
 
         if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
             return $this->createTermIcon($termId, $icon['src'], $color);
