@@ -29,7 +29,7 @@ class UserGroupRestriction
         return $user;
     }
 
-    private function getUserGroups(WP_User $user): array
+    private function getUserGroups(WP_User $user): ?string
     {
         static $userGroups;
 
@@ -37,8 +37,7 @@ class UserGroupRestriction
             $userGroups = $this->wpService->wpGetPostTerms($user->ID, $this->userGroupTaxonomy);
 
             if ($this->wpService->isWpError($userGroups) || empty($userGroups)) {
-                $userGroups = [];
-                return $userGroups;
+                return ""; // Return an empty string if no terms are found or there's an error
             }
 
             $userGroups = array_map(function ($term) {
@@ -46,7 +45,8 @@ class UserGroupRestriction
             }, $userGroups);
         }
 
-        return $userGroups;
+        // Return the first value, or an empty string if $userGroups is empty
+        return $userGroups[0] ?? null;
     }
 
     public function restrictPosts($query)
@@ -57,7 +57,7 @@ class UserGroupRestriction
             return;
         }
         
-        $userGroups = $this->getUserGroups($user);
+        $userGroup = $this->getUserGroups($user);
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {
@@ -74,13 +74,13 @@ class UserGroupRestriction
             'relation' => 'OR',
             [
                 'key' => $this->userGroupMetaKey,
-                'value' => $userGroups,
-                'compare' => 'IN',
+                'compare' => 'NOT EXISTS',
             ],
             [
                 'key' => $this->userGroupMetaKey,
-                'compare' => 'NOT EXISTS',
-            ],
+                'value' => $userGroup,
+                'compare' => 'IN',
+            ]
         ];
 
         $query->set('meta_query', $metaQuery);

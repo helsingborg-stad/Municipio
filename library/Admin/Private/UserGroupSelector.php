@@ -3,10 +3,10 @@
 namespace Municipio\Admin\Private;
 
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddPostMeta;
 use WpService\Contracts\DeletePostMeta;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetTerms;
-use WpService\Contracts\UpdatePostMeta;
 
 /**
  * Represents a UserGroupSelector class.
@@ -19,7 +19,7 @@ class UserGroupSelector
     /**
      * Constructor for the UserGroupSelector class.
      */
-    public function __construct(private AddAction&DeletePostMeta&UpdatePostMeta&GetPostMeta&GetTerms $wpService)
+    public function __construct(private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms $wpService)
     {
         $this->wpService->addAction('post_submitbox_misc_actions', array($this, 'addUserVisibilitySelect'), 10);
         $this->wpService->addAction('attachment_submitbox_misc_actions', array($this, 'addUserVisibilitySelect'), 10);
@@ -40,14 +40,15 @@ class UserGroupSelector
      */
     public function saveUserVisibilitySelect($postId)
     {
+        $this->wpService->deletePostMeta($postId, 'user-group-visibility');
+
         if (empty($_POST['user-group-visibility'])) {
-            $this->wpService->deletePostMeta($postId, 'user-group-visibility');
             return;
         }
 
-        $combined = array_combine($_POST['user-group-visibility'], $_POST['user-group-visibility']);
-
-        $this->wpService->updatePostMeta($postId, 'user-group-visibility', $combined);
+        foreach ($_POST['user-group-visibility'] as $group) {
+            $this->wpService->addPostMeta($postId, 'user-group-visibility', $group, false);
+        }
     }
 
     /**
@@ -77,7 +78,7 @@ class UserGroupSelector
             return;
         }
 
-        $checked = $this->wpService->getPostMeta($post->ID, 'user-group-visibility', true) ?: [];
+        $checked = $this->wpService->getPostMeta($post->ID, 'user-group-visibility') ?: [];
 
         echo '
         <div id="user-group-visibility" class="misc-pub-section" style="display: none;">
