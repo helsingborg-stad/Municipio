@@ -126,7 +126,7 @@ class Archive extends \Municipio\Controller\BaseController
             return false;
         }
 
-        return \Municipio\Helper\Term::getTermColour($term->term_id, $term->taxonomy);
+        return \Municipio\Helper\Term::getTermColor($term->term_id, $term->taxonomy);
     }
 
     /**

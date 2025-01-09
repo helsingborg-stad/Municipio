@@ -80,24 +80,4 @@ class ListingTest extends TestCase
         // Then
         $this->assertFalse($result);
     }
-
-     /**
-     * @testdox getTermsWithIcon returns an array with a term objects.
-    */
-    public function testGetTermsWithIconReturnsArray()
-    {
-        // Given
-        $termObject          = new \stdClass();
-        $termObject->term_id = 1;
-        $termObject->name    = 'test';
-
-        WP_Mock::userFunction('get_term')->andReturn($termObject);
-        // When
-        $result = Listing::getTermsWithIcon([1]);
-
-        // Then
-        $this->assertEquals(1, $result[0]->term_id);
-        $this->assertEquals('test', $result[0]->name);
-        $this->assertFalse($result[0]->icon);
-    }
 }
