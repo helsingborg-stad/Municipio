@@ -10,7 +10,7 @@ use WpService\Contracts\IsWpError;
 
 class UserGroupRestriction
 {
-    private string $userGroupMetaKey = 'user-group-visibility';
+    private string $userGroupMetaKey  = 'user-group-visibility';
     private string $userGroupTaxonomy = 'user_group';
 
     public function __construct(private AddAction&WpGetCurrentUser&WpGetPostTerms&IsWpError $wpService)
@@ -52,12 +52,12 @@ class UserGroupRestriction
     public function restrictPosts($query)
     {
         $user = $this->getUser();
-        
+
         if (empty($user->ID)) {
             return;
         }
-        
-        $userGroup = $this->getUserGroups($user);
+
+        $userGroup  = $this->getUserGroups($user);
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {
@@ -73,12 +73,12 @@ class UserGroupRestriction
         $metaQuery[] = [
             'relation' => 'OR',
             [
-                'key' => $this->userGroupMetaKey,
+                'key'     => $this->userGroupMetaKey,
                 'compare' => 'NOT EXISTS',
             ],
             [
-                'key' => $this->userGroupMetaKey,
-                'value' => $userGroup,
+                'key'     => $this->userGroupMetaKey,
+                'value'   => $userGroup,
                 'compare' => 'IN',
             ]
         ];

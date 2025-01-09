@@ -16,7 +16,7 @@ use WpService\Contracts\GetTerms;
  */
 class UserGroupSelector
 {
-    private string $userGroupMetaKey = 'user-group-visibility';
+    private string $userGroupMetaKey  = 'user-group-visibility';
     private string $userGroupTaxonomy = 'user_group';
 
     /**
