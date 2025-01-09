@@ -39,7 +39,7 @@ class Term implements GetTermColor, GetTermIcon
             return false;
         }
 
-        $color = $this->acfService->getField('colour', $term->term_id);
+        $color = $this->acfService->getField('colour', 'term_' . $term->term_id);
 
         if (is_string($color) && "" !== $color && !str_starts_with($color, '#')) {
             $color = "#{$color}";
@@ -109,7 +109,7 @@ class Term implements GetTermColor, GetTermIcon
             return false;
         }
 
-        $termIcon = $this->acfService->getField('icon', $term->term_id);
+        $termIcon = $this->acfService->getField('icon', 'term_' . $term->term_id);
         $type     = !empty($termIcon['type']) ? $termIcon['type'] : false;
         if ($type === 'svg' && !empty($termIcon['svg']['ID'])) {
             $attachment = $this->wpService->wpGetAttachmentImageUrl($termIcon['svg']['ID'], 'full');

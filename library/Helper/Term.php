@@ -24,7 +24,7 @@ class Term
      */
     public static function getTermColour($term, string $taxonomy = '')
     {
-        _doing_it_wrong(__METHOD__, 'Use Municipio\Helper\Term\Term::getTermColor() instead.');
+        trigger_error('Use Municipio\Helper\Term\Term::getTermColor() instead.', E_USER_DEPRECATED);
         return self::getTermColor($term, $taxonomy);
     }
 
@@ -35,7 +35,7 @@ class Term
      */
     public static function getTermColor($term, string $taxonomy = '')
     {
-        _doing_it_wrong(__METHOD__, 'Use Municipio\Helper\Term\Term::getTermColor() instead.');
+        trigger_error('Use Municipio\Helper\Term\Term::getTermColor() instead.', E_USER_DEPRECATED);
         $termHelper = new TermHelper(WpService::get(), AcfService::get());
         return $termHelper->getTermColor($term, $taxonomy);
     }
@@ -52,7 +52,7 @@ class Term
      */
     public static function getTermIcon($term, string $taxonomy = '')
     {
-        _doing_it_wrong(__METHOD__, 'Use Municipio\Helper\Term\Term::getTermIcon() instead.');
+        trigger_error('Use Municipio\Helper\Term\Term::getTermIcon() instead.', E_USER_DEPRECATED);
         $termHelper = new TermHelper(WpService::get(), AcfService::get());
 
         return $termHelper->getTermIcon($term, $taxonomy);
