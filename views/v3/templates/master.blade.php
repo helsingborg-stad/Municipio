@@ -73,6 +73,7 @@
                         </div>
                     @endif
 
+                    {{-- Above columns sidebar --}}
                     @hasSection('above')
                         <div class="o-grid u-print-display--none">
                             <div class="o-grid-12">
@@ -82,8 +83,7 @@
                     @endif
 
                     <!--  Main content padder -->
-                    <div
-                        class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
+                    <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
                         <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
 
                             @hasSection('sidebar-left')
