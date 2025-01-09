@@ -10,6 +10,9 @@ use Throwable;
  */
 class Enqueue
 {
+    /**
+     * Enqueue constructor.
+     */
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
