@@ -38,10 +38,12 @@ class User
         $wpService = \Municipio\Helper\WpService::get();
 
         //Check login
-        $user = $wpService->wpGetCurrentUser();
-        if (!$user) {
+        if (!$wpService->isUserLoggedIn()) {
             return null;
         }
+
+        //Get user
+        $user = $wpService->wpGetCurrentUser();
 
         //Check if user has a group
         $userGroup = $wpService->wpGetObjectTerms($user->ID, 'user_group');
