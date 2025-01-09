@@ -66,11 +66,11 @@ class User
     public static function getCurrentUserGroupUrl(?WP_Term $term): ?string
     {
         //Init services
-        $wpService = \Municipio\Helper\WpService::get();
+        $wpService  = \Municipio\Helper\WpService::get();
         $acfService = \Municipio\Helper\AcfService::get();
 
         // Get the current user group
-        if($term === null){
+        if ($term === null) {
             $term = self::getCurrentUserGroup();
         }
 

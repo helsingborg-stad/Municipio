@@ -454,11 +454,11 @@ class BaseController
         }
 
         return (object) [
-            'id'    => $user->ID,
-            'email'         => $user->user_email,
-            'displayname'   => $user->display_name,
-            'firstname'     => $user->first_name,
-            'lastname'      => $user->last_name,
+            'id'          => $user->ID,
+            'email'       => $user->user_email,
+            'displayname' => $user->display_name,
+            'firstname'   => $user->first_name,
+            'lastname'    => $user->last_name,
         ];
     }
 
