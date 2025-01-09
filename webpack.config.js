@@ -29,6 +29,7 @@ module.exports = {
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/customizer-flexible-header': './assets/source/3.0/js/admin/customizerFlexibleHeader.ts',
         'js/hidden-post-status-conditional': './assets/source/3.0/js/admin/acf/hiddenPostStatusConditional.ts',
+        'js/user-group-visibility': './assets/source/3.0/js/admin/private/userGroupVisibility.ts',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',

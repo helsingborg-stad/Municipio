@@ -14,6 +14,7 @@ class HiddenPostStatusConditional {
         this.inputs.forEach((input) => {
             if (input.checked) {
                 this.hiddenAcfPostStatusField.val(input.value);
+                this.dispatchCustomEvent(input.value);
             }
         });
     }
@@ -23,10 +24,14 @@ class HiddenPostStatusConditional {
             this.setCurrentSavedValue();
         });
     }
+
+    private dispatchCustomEvent(value: string): void {
+        const event = new CustomEvent('currentPostStatus', { detail: value });
+        window.dispatchEvent(event);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("HELLO")
     if (typeof acf === 'undefined') {
         return;
     }
@@ -40,5 +45,3 @@ document.addEventListener('DOMContentLoaded', function() {
         new HiddenPostStatusConditional(hiddenAcfPostStatusField, inputs as NodeListOf<HTMLInputElement>, saveButton as HTMLElement);
     }
 });
-
-console.log("HELLO")

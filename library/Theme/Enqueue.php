@@ -158,12 +158,20 @@ class Enqueue
         }
 
         wp_enqueue_script(
+            'user-group-visibility',
+            self::getAssetWithCacheBust('js/user-group-visibility.js'),
+            array(),
+            false,
+            true
+        );
+
+        wp_enqueue_script(
             'hidden-post-status-conditional',
             self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
             array('acf-input', 'jquery'),
             false,
             true
-        );
+        );       
     }
 
      /**

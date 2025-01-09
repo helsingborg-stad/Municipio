@@ -256,6 +256,9 @@ class App
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
+        new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
+        new \Municipio\Admin\Private\UserGroupSelector($this->wpService);
+
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
         $this->hooksRegistrar->register($moveAdminPageToSettings);
