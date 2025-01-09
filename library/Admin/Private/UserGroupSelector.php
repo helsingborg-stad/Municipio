@@ -8,8 +8,17 @@ use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetTerms;
 use WpService\Contracts\UpdatePostMeta;
 
+/**
+ * Represents a UserGroupSelector class.
+ *
+ * This class is responsible for handling user group selection functionality.
+ * It is located in the file UserGroupSelector.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
+ */
 class UserGroupSelector
 {
+    /**
+     * Constructor for the UserGroupSelector class.
+     */
     public function __construct(private AddAction&DeletePostMeta&UpdatePostMeta&GetPostMeta&GetTerms $wpService)
     {
         $this->wpService->addAction('post_submitbox_misc_actions', array($this, 'addUserVisibilitySelect'), 10);
@@ -18,6 +27,17 @@ class UserGroupSelector
         $this->wpService->addAction('edit_attachment', array($this, 'saveUserVisibilitySelect'));
     }
 
+    /**
+     * Handles saving user group visibility settings for a post.
+     *
+     * This function checks if the 'user-group-visibility' input is present in the `$_POST` data. 
+     * If it is empty, the corresponding post meta is deleted. Otherwise, it combines the input
+     * into an associative array and updates the 'user-group-visibility' post meta.
+     *
+     * @param int $postId The ID of the post being saved.
+     *
+     * @return void
+     */
     public function saveUserVisibilitySelect($postId)
     {
         if (empty($_POST['user-group-visibility'])) {
@@ -30,6 +50,17 @@ class UserGroupSelector
         $this->wpService->updatePostMeta($postId, 'user-group-visibility', $combined);
     }
 
+    /**
+     * Adds a user visibility select field to the admin panel.
+     *
+     * This method adds a user visibility select field to the admin panel for a specific post.
+     * The select field allows the user to choose which user groups can see the post.
+     * The user groups are retrieved from the 'user_group' taxonomy.
+     * The select field is populated with checkboxes for each user group.
+     * The checkboxes are pre-checked if the post has already been assigned to those user groups.
+     *
+     * @return void
+     */
     public function addUserVisibilitySelect()
     {
         global $post;
@@ -67,5 +98,4 @@ class UserGroupSelector
         </div>
         ';
     }
-    
 }
