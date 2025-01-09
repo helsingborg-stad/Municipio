@@ -16,6 +16,9 @@ use WpService\Contracts\GetTerms;
  */
 class UserGroupSelector
 {
+    private string $userGroupMetaKey = 'user-group-visibility';
+    private string $userGroupTaxonomy = 'user_group';
+
     /**
      * Constructor for the UserGroupSelector class.
      */
@@ -40,14 +43,14 @@ class UserGroupSelector
      */
     public function saveUserVisibilitySelect($postId)
     {
-        $this->wpService->deletePostMeta($postId, 'user-group-visibility');
+        $this->wpService->deletePostMeta($postId, $this->userGroupMetaKey);
 
-        if (empty($_POST['user-group-visibility'])) {
+        if (empty($_POST[$this->userGroupMetaKey])) {
             return;
         }
 
-        foreach ($_POST['user-group-visibility'] as $group) {
-            $this->wpService->addPostMeta($postId, 'user-group-visibility', $group, false);
+        foreach ($_POST[$this->userGroupMetaKey] as $group) {
+            $this->wpService->addPostMeta($postId, $this->userGroupMetaKey, $group, false);
         }
     }
 
@@ -70,7 +73,7 @@ class UserGroupSelector
             empty($post->post_type) ||
             empty($terms = $this->wpService->getTerms(
                 [
-                    'taxonomy'   => 'user_group',
+                    'taxonomy'   => $this->userGroupTaxonomy,
                     'hide_empty' => false
                 ]
             ))
@@ -78,10 +81,10 @@ class UserGroupSelector
             return;
         }
 
-        $checked = $this->wpService->getPostMeta($post->ID, 'user-group-visibility') ?: [];
+        $checked = $this->wpService->getPostMeta($post->ID, $this->userGroupMetaKey) ?: [];
 
         echo '
-        <div id="user-group-visibility" class="misc-pub-section" style="display: none;">
+        <div id="' . $this->userGroupMetaKey . '" class="misc-pub-section" style="display: none;">
             <label>' . __('User group visibility', 'municipio') . '</label>
             <br><br>
         ';
@@ -89,7 +92,7 @@ class UserGroupSelector
         foreach ($terms as $term) {
             echo '
             <label style="display: block; margin-bottom: 5px;">
-                <input type="checkbox" name="user-group-visibility[]" value="' . $term->slug . '" ' . (in_array($term->slug, $checked) ? 'checked' : '') . '>
+                <input type="checkbox" name="' . $this->userGroupMetaKey . '[]" value="' . $term->slug . '" ' . (in_array($term->slug, $checked) ? 'checked' : '') . '>
                 ' . $term->name . '
             </label>
             ';
