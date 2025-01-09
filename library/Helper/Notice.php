@@ -9,9 +9,9 @@ class Notice
      * @param string $text  Notice text
      * @param string $class Notice html class
      */
-    public static function add($text, $class = 'warning', $icon = null)
+    public static function add($text, $class = 'warning', $icon = null, $action = null, $dismissable = false)
     {
-        add_filter('Municipio/viewData', function ($data) use ($text, $class, $icon) {
+        add_filter('Municipio/viewData', function ($data) use ($text, $class, $icon, $action, $dismissable) {
             $data['notice'][] = [
                 'type'    => $class,
                 'message' => [
@@ -23,6 +23,8 @@ class Notice
                     'size'  => 'md',
                     'color' => 'white'
                 ],
+                'action' => $action ?? null,
+                'dismissable' => $dismissable ?? false,
                 'classList' => [
                     't-toast__notice'
                 ]
