@@ -2,6 +2,7 @@
 
 namespace Municipio\Controller;
 
+use WP_Term;
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
@@ -339,6 +340,13 @@ class BaseController
             $this->getCurrentUrl(['loggedout' => 'true'])
         );
 
+        // User group
+        $this->data['userGroup']    = $this->getCurrentUserGroup();
+        $this->data['userGroupUrl'] = $this->getCurrentUserGroupUrl($this->data['userGroup']);
+
+        // User basic details
+        $this->data['userDetails'] = $this->getUserDetails();
+
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
 
@@ -434,6 +442,109 @@ class BaseController
             $googleTranslate = new \Municipio\Helper\GoogleTranslate();
 
             $this->init();
+    }
+
+    /**
+     * Get current user group
+     *
+     * @return string|null
+     */
+    private function getCurrentUserGroup(): ?WP_Term
+    {
+        //Check login
+        $user = $this->wpService->wpGetCurrentUser();
+        if (!$user) {
+            return null;
+        }
+
+        //Check if user has a group
+        $userGroup = $this->wpService->wpGetObjectTerms($user->ID, 'user_group');
+        if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
+            return null;
+        }
+
+        //Only get first item
+        if (is_array($userGroup)) {
+            $userGroup = array_shift($userGroup);
+        }
+
+        return is_a($userGroup, 'WP_Term') ? $userGroup : null;
+    }
+
+    /**
+     * Get the current user group URL
+     *
+     * @param WP_Term|null $term
+     * @return string
+     */
+    private function getCurrentUserGroupUrl(?WP_Term $term): ?string
+    {
+        // Ensure term exists
+        if (!$term) {
+            return null;
+        }
+
+        // Create the term ID
+        $termId = 'user_group_' . $term->term_id;
+
+        // Get the selected type of link
+        $typeOfLink = $this->acfService->getField('user_group_type_of_link', $termId);
+
+        // Return null if the option is disabled
+        if ($typeOfLink === 'disabled') {
+            return null;
+        }
+
+        // Handle arbitrary URL
+        if ($typeOfLink === 'arbitrary_url') {
+            return $this->acfService->getField('arbitrary_url', $termId) ?: null;
+        }
+
+        // Handle post type
+        if ($typeOfLink === 'post_type') {
+            $postObject = $this->acfService->getField('post_type', $termId);
+            if ($postObject && isset($postObject->ID)) {
+                return get_permalink($postObject->ID);
+            }
+            return null;
+        }
+
+        // Handle blog ID in multisite
+        if ($typeOfLink === 'blog_id') {
+            $blogId = $this->acfService->getField('blog_id', $termId);
+            if ($blogId) {
+                $blogDetails = $this->wpService->getBlogDetails($blogId);
+                return (function (?object $details): ?string {
+                    return $details ? '//' . $details->domain . $details->path : null;
+                })($blogDetails);
+            }
+            return null;
+        }
+
+        // Default case (should not occur)
+        return null;
+    }
+
+    /**
+     * Get the current user details
+     *
+     * @return object
+     */
+    private function getUserDetails(): ?object
+    {
+        $user = $this->wpService->wpGetCurrentUser();
+
+        if (!$user) {
+            return null;
+        }
+
+        return (object) [
+            'id'    => $user->ID,
+            'email'         => $user->user_email,
+            'displayname'   => $user->display_name,
+            'firstname'     => $user->first_name,
+            'lastname'      => $user->last_name,
+        ];
     }
 
     /**

@@ -122,6 +122,7 @@ add_action('init', function () use ($wpService) {
         'widget-media'                               => 'group_5b2b70c0bde2f',
         'media-attachments'                          => 'group_650857c9f2cce',
         'hidden-validation'                          => 'group_654a2a57e6897',
+        'user-group-url'                             => 'group_677e6a05e347c',
     ));
 
     $acfExportManager->autoExport($autoExportIds);
