@@ -30,7 +30,7 @@ class UserGroupSelector
     /**
      * Handles saving user group visibility settings for a post.
      *
-     * This function checks if the 'user-group-visibility' input is present in the `$_POST` data. 
+     * This function checks if the 'user-group-visibility' input is present in the `$_POST` data.
      * If it is empty, the corresponding post meta is deleted. Otherwise, it combines the input
      * into an associative array and updates the 'user-group-visibility' post meta.
      *
@@ -64,27 +64,27 @@ class UserGroupSelector
     public function addUserVisibilitySelect()
     {
         global $post;
-    
+
         if (
             empty($post->post_type) ||
             empty($terms = $this->wpService->getTerms(
                 [
-                    'taxonomy' => 'user_group',
+                    'taxonomy'   => 'user_group',
                     'hide_empty' => false
                 ]
             ))
         ) {
             return;
         }
-    
+
         $checked = $this->wpService->getPostMeta($post->ID, 'user-group-visibility', true) ?: [];
-    
+
         echo '
         <div id="user-group-visibility" class="misc-pub-section" style="display: none;">
             <label>' . __('User group visibility', 'municipio') . '</label>
             <br><br>
         ';
-    
+
         foreach ($terms as $term) {
             echo '
             <label style="display: block; margin-bottom: 5px;">
@@ -93,7 +93,7 @@ class UserGroupSelector
             </label>
             ';
         }
-        
+
         echo '
         </div>
         ';

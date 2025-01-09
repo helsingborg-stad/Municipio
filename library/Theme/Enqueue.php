@@ -150,9 +150,9 @@ class Enqueue
         if ($pagenow == 'options-reading.php') {
             wp_enqueue_script(
                 'options-reading',
-                self::getAssetWithCacheBust('js/options-reading.js'), 
-                array('jquery'), 
-                null, 
+                self::getAssetWithCacheBust('js/options-reading.js'),
+                array('jquery'),
+                null,
                 true
             );
         }
@@ -171,7 +171,7 @@ class Enqueue
             array('acf-input', 'jquery'),
             false,
             true
-        );       
+        );
     }
 
      /**

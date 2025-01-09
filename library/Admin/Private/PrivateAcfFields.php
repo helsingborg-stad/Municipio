@@ -38,17 +38,18 @@ class PrivateAcfFields
      * @param array $field The field array to add the conditional logic rule to.
      * @return array The modified field array with the added conditional logic rule.
      */
-    public function conditionallyShowBasedOnStatus( $field ) {
+    public function conditionallyShowBasedOnStatus($field)
+    {
         if (!isset($field['conditional_logic']) || !is_array($field['conditional_logic'])) {
             $field['conditional_logic'] = [];
         }
 
-        $field['conditional_logic'][] = 
+        $field['conditional_logic'][] =
             [
                 [
-                    'field' => $this->hiddenInputKey,
+                    'field'    => $this->hiddenInputKey,
                     'operator' => '==',
-                    'value' => 'private'
+                    'value'    => 'private'
                 ]
             ];
 
