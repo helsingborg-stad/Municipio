@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2025-01-08 10:14+0100\n"
-"PO-Revision-Date: 2025-01-08 10:38+0100\n"
+"POT-Creation-Date: 2025-01-09 14:47+0100\n"
+"PO-Revision-Date: 2025-01-09 14:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -525,6 +525,7 @@ msgstr "Aktivera Gutenberg redigerare"
 #: library/AcfFields/php/options-login-logout.php:25
 #: library/AcfFields/php/options-login-redirect.php:25
 #: library/AcfFields/php/options-theme-features.php:25
+#: library/AcfFields/php/user-group-url.php:25
 #: library/Customizer/Sections/Colors.php:172
 #: library/Customizer/Sections/Divider.php:90
 #: library/Customizer/Sections/Divider.php:166
@@ -2531,6 +2532,7 @@ msgid "history"
 msgstr "history"
 
 #: library/AcfFields/php/options-menu-icon.php:474
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:39
 msgid "home"
 msgstr "hem"
 
@@ -27812,6 +27814,44 @@ msgstr "Adress"
 msgid "Visiting Address"
 msgstr "Besöksadress"
 
+#: library/AcfFields/php/user-group-url.php:8
+#, fuzzy
+#| msgid "User Group"
+msgid "User Group Home Url"
+msgstr "Användargrupp"
+
+#: library/AcfFields/php/user-group-url.php:12
+#, fuzzy
+#| msgid "Select font"
+msgid "Select type of link"
+msgstr "Välj typsnitt"
+
+#: library/AcfFields/php/user-group-url.php:26
+#: library/AcfFields/php/user-group-url.php:42
+msgid "Arbitrary URL"
+msgstr ""
+
+#: library/AcfFields/php/user-group-url.php:27
+#: library/AcfFields/php/user-group-url.php:67
+#, fuzzy
+#| msgid "Post Types"
+msgid "Post Type"
+msgstr "Posttyper"
+
+#: library/AcfFields/php/user-group-url.php:28
+msgid "Network Site (multisite only)"
+msgstr ""
+
+#: library/AcfFields/php/user-group-url.php:30
+#, fuzzy
+#| msgid "Disabled"
+msgid "disabled"
+msgstr "Inaktiverad"
+
+#: library/AcfFields/php/user-group-url.php:96
+msgid "Blog"
+msgstr ""
+
 #: library/AcfFields/php/widget-contact.php:17
 msgid "Contact person"
 msgstr "Kontaktperson"
@@ -28104,11 +28144,16 @@ msgstr "Behållare-block"
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:27
-msgid "Login successful"
-msgstr "Inloggad, välkommen tillbaka!"
-
 #: library/Admin/Login/AddLoginAndLogoutNotices.php:37
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:42
+msgid "Login successful"
+msgstr "Inloggad!"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:39
+msgid "Go to"
+msgstr "Gå till"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:53
 msgid "Logout successful"
 msgstr "Utloggning lyckades"
 
@@ -28358,7 +28403,7 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: library/App.php:790 library/Customizer/Sections/Header/LoginLogout.php:22
+#: library/App.php:794 library/Customizer/Sections/Header/LoginLogout.php:22
 msgid "Never"
 msgstr "Aldrig"
 
@@ -28484,43 +28529,43 @@ msgstr "API-resurser"
 msgid "API Resource"
 msgstr "API-resurs"
 
-#: library/Controller/Archive.php:500
+#: library/Controller/Archive.php:510
 msgid "Select"
 msgstr "Välj"
 
-#: library/Controller/Archive.php:696
+#: library/Controller/Archive.php:706
 #: library/Customizer/Sections/FooterSub.php:194
 msgid "Title"
 msgstr "Rubrik"
 
-#: library/Controller/Archive.php:696 library/Helper/TranslatedLabels.php:65
+#: library/Controller/Archive.php:706 library/Helper/TranslatedLabels.php:65
 #: library/Helper/TranslatedLabels.php:76
 msgid "Published"
 msgstr "Publicerad"
 
-#: library/Controller/BaseController.php:385
+#: library/Controller/BaseController.php:389
 msgid "Search for content"
 msgstr "Sök efter innehåll"
 
-#: library/Controller/BaseController.php:386
+#: library/Controller/BaseController.php:390
 msgid "No items found at this query."
 msgstr "Inga inlägg kunde hittas med den här sökfrågan."
 
-#: library/Controller/BaseController.php:387
+#: library/Controller/BaseController.php:391
 #: library/Customizer/Sections/Header/LoginLogout.php:23
 msgid "Logout"
 msgstr "Logga ut"
 
-#: library/Controller/BaseController.php:388
+#: library/Controller/BaseController.php:392
 msgid "Login"
 msgstr "Logga in"
 
-#: library/Controller/BaseController.php:389
+#: library/Controller/BaseController.php:393
 #: library/Helper/TranslatedLabels.php:54
 msgid "Close"
 msgstr "Stäng"
 
-#: library/Controller/BaseController.php:397
+#: library/Controller/BaseController.php:401
 msgid "Visit"
 msgstr "Besök"
 
@@ -31060,8 +31105,8 @@ msgstr "Bildfiler måste vara mindre än %s"
 msgid "User Groups"
 msgstr "Användargrupper"
 
-#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:35
-#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:39
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:36
+#: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUserProfile.php:40
 #: library/Integrations/MiniOrange/DisplayUserGroupTaxonomyInUsersList.php:35
 msgid "User Group"
 msgstr "Användargrupp"
