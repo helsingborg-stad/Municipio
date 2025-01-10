@@ -18,7 +18,7 @@ use WpService\Contracts\IsWpError;
  */
 class UserGroupRestriction implements Hookable
 {
-    private string $userGroupMetaKey  = 'user-group-visibility';
+    private string $userGroupMetaKey = 'user-group-visibility';
 
     /**
      * UserGroupRestriction class constructor.

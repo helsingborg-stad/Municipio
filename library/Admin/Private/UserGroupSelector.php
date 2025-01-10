@@ -112,30 +112,40 @@ class UserGroupSelector implements Hookable
         $this->renderPrivateVisibilityList($terms, $checked);
     }
 
+    /**
+     * Renders the private visibility list.
+     *
+     * This method is responsible for rendering the private visibility list in the user group selector.
+     * It generates HTML code for displaying checkboxes with user group terms.
+     *
+     * @param array $terms   An array of user group terms.
+     * @param array $checked An array of checked user group terms.
+     *
+     * @return void
+     */
     private function renderPrivateVisibilityList(array $terms, array $checked)
-{
-    echo sprintf(
-        '<div id="%s" class="misc-pub-section" style="display: none;">
+    {
+        echo sprintf(
+            '<div id="%s" class="misc-pub-section" style="display: none;">
             <label>%s</label>
             <br><br>',
             $this->userGroupMetaKey,
             __('User group visibility', 'municipio')
-    );
+        );
 
-    foreach ($terms as $term) {
-        echo sprintf(
-            '<label style="display: block; margin-bottom: 5px;">
+        foreach ($terms as $term) {
+            echo sprintf(
+                '<label style="display: block; margin-bottom: 5px;">
                 <input type="checkbox" name="%s[]" value="%s" %s>
                 %s
             </label>',
-            $this->userGroupMetaKey,
-            $term->slug,
-            $this->wpService->checked(in_array($term->slug, $checked), true, false),
-            $term->name
-        );
+                $this->userGroupMetaKey,
+                $term->slug,
+                $this->wpService->checked(in_array($term->slug, $checked), true, false),
+                $term->name
+            );
+        }
+
+        echo '</div>';
     }
-
-    echo '</div>';
-}
-
 }
