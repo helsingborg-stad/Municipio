@@ -134,12 +134,12 @@
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
     @if ($notice)
-        @element(['classList' => ['t-toast', 't-toast--bottom', 't-toast--left']])
+        @toast(['position' => 'bottom-left'])
             @foreach ($notice as $noticeItem)
-                @notice($noticeItem)
-                @endnotice
+                @toast__item($noticeItem)
+                @endtoast__item
             @endforeach
-        @endelement
+        @endtoast
     @endif
             
     {{-- Wordpress required call to wp_footer() --}}
