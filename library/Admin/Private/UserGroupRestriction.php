@@ -8,6 +8,12 @@ use WpService\Contracts\WpGetPostTerms;
 use WP_User;
 use WpService\Contracts\IsWpError;
 
+/**
+ * UserGroupRestriction class.
+ *
+ * This class is responsible for handling user group restrictions.
+ * It is located in the file UserGroupRestriction.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
+ */
 class UserGroupRestriction
 {
     private string $userGroupMetaKey  = 'user-group-visibility';
