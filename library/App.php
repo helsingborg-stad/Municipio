@@ -258,7 +258,7 @@ class App
 
         if ($this->wpService->isAdmin()) {
             new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
-            new \Municipio\Admin\Private\UserGroupSelector($this->wpService);
+           (new \Municipio\Admin\Private\UserGroupSelector($this->wpService))->addHooks();
         } else {
             (new \Municipio\Admin\Private\UserGroupRestriction($this->wpService))->addHooks();
         }
