@@ -35,7 +35,8 @@ class AddLoginAndLogoutNotices implements Hookable
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login', [
                 'url'  => $currentUserGroupUrl,
                 'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
-                ]);
+                ],
+              'session');
             } else {
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
             }
