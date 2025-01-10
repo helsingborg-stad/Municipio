@@ -32,6 +32,13 @@ class UserGroupRestriction implements Hookable
     {
     }
 
+    /**
+     * Adds hooks for the UserGroupSelector class.
+     *
+     * This method adds hooks for the UserGroupSelector class.
+     *
+     * @return void
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'), 1);
