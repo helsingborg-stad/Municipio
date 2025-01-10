@@ -2,11 +2,8 @@
 
 namespace Municipio\PostObject\Icon\Resolvers;
 
-use Municipio\Helper\Term\Contracts\GetTermColor;
-use Municipio\Helper\Term\Contracts\GetTermIcon;
-use Municipio\PostObject\Icon\Icon;
-use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\PostObjectInterface;
+use Municipio\Helper\Term\Contracts\{GetTermColor, GetTermIcon};
+use Municipio\PostObject\{PostObjectInterface, Icon\Icon, Icon\IconInterface};
 use WpService\Contracts\{GetObjectTaxonomies, GetTheTerms};
 
 /**
@@ -42,15 +39,13 @@ class TermIconResolver implements IconResolverInterface
             return $this->innerResolver->resolve();
         }
 
-        $term = $terms[0];
-
-        $icon = $this->termHelper->getTermIcon($term);
+        $icon = $this->termHelper->getTermIcon($terms[0]);
 
         if (empty($icon)) {
             return $this->innerResolver->resolve();
         }
 
-        $color = $this->termHelper->getTermColor($term);
+        $color = $this->termHelper->getTermColor($terms[0]);
 
         return $this->getIconInstance($icon, $color ?? null);
     }
