@@ -55,18 +55,35 @@ class TermIconResolver implements IconResolverInterface
         return $this->getIconInstance($icon, $color ?? null);
     }
 
+    /**
+     * Get icon instance.
+     *
+     * @param array $icon
+     * @param string|null $color
+     *
+     * @return IconInterface
+     */
     private function getIconInstance(array $icon, ?string $color = null): IconInterface
     {
         return new class ($icon, $color) extends Icon implements IconInterface {
+            /**
+             * Constructor.
+             */
             public function __construct(private array $icon, private ?string $color)
             {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getIcon(): string
             {
                 return $this->icon['src'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getCustomColor(): string
             {
                 return $this->color ?? '';
