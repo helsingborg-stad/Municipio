@@ -123,15 +123,23 @@ class AddLoginAndLogoutNotices implements Hookable
             $currentUserGroupUrl = User::getCurrentUserGroupUrl($currentUserGroup);
             $userPrefersGroupUrl = User::getUserPrefersGroupUrl();
 
+
+            // No url to prefer
             if (!$currentUserGroupUrl) {
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
                 return;
             }
 
-            if ($currentUserGroupUrl && !$userPrefersGroupUrl) {
-                $this->messageWhenUserPrefersUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
-            } else {
+            // User prefers group url, and are given option to remove this setting
+            if ($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
+                $this->shouldOfferRemovingGroupUrlAsHome($currentUserGroup, $currentUserGroupUrl);
+                return;
+            }
+
+            // User does not prefer group url, and are given option to set this as home
+            if($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
                 $this->messageWhenUserDoesNotPreferUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
+                return;
             }
         }
     }
@@ -181,6 +189,8 @@ class AddLoginAndLogoutNotices implements Hookable
 
     /**
      * Add notice when user logs out
+     * 
+     * @return void
      */
     public function addNoticeWhenUserLogsOut(): void
     {
@@ -189,8 +199,37 @@ class AddLoginAndLogoutNotices implements Hookable
         }
     }
 
+    /**
+     * Add query params to url
+     * 
+     * @param string $url
+     * @param array $params
+     * 
+     * @return string
+     */
     private function addQueryParamsToUrl(string $url, array $params): string
     {
         return add_query_arg($params, $url);
+    }
+
+    /**
+     * Should offer setting group url as home
+     * 
+     * @return bool
+     */
+    private function shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool
+    {
+        return ($currentUserGroupUrl && !$userPrefersGroupUrl);
+    }
+
+    /**
+     * Should offer removing group url as home, 
+     * a negative of shouldOfferSettingGroupUrlAsHome
+     * 
+     * @return bool
+     */
+    private function shouldOfferRemovingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool
+    {
+        return !$this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl);
     }
 }

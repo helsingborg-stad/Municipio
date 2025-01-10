@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
-"POT-Creation-Date: 2025-01-09 14:47+0100\n"
-"PO-Revision-Date: 2025-01-09 14:47+0100\n"
+"POT-Creation-Date: 2025-01-10 20:48+0100\n"
+"PO-Revision-Date: 2025-01-10 20:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -2532,7 +2532,7 @@ msgid "history"
 msgstr "history"
 
 #: library/AcfFields/php/options-menu-icon.php:474
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:39
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:163
 msgid "home"
 msgstr "hem"
 
@@ -28144,16 +28144,40 @@ msgstr "Behållare-block"
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:37
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:42
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:46
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:65
+msgid "Save this page as default home"
+msgstr "Ställ in den här sidan som startsida för mig"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:85
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:106
+msgid "Option saved"
+msgstr "Sparat"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:86
+msgid "Option already saved"
+msgstr "Sparat"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:107
+msgid "Option could not be saved at the moment"
+msgstr "Inställningen kunde inte sparas"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:129
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:153
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:176
 msgid "Login successful"
-msgstr "Inloggad!"
+msgstr "Inloggad, välkommen tillbaka!"
 
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:39
-msgid "Go to"
-msgstr "Gå till"
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:162
+#, php-format
+msgid "Go to %s"
+msgstr "Gå till %s"
 
-#: library/Admin/Login/AddLoginAndLogoutNotices.php:53
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:184
+msgid "Go to default home"
+msgstr "Gå till gemensamma sidor"
+
+#: library/Admin/Login/AddLoginAndLogoutNotices.php:198
 msgid "Logout successful"
 msgstr "Utloggning lyckades"
 
@@ -28403,7 +28427,7 @@ msgstr "Välj en annan startsida"
 msgid "View data."
 msgstr "Visa data."
 
-#: library/App.php:794 library/Customizer/Sections/Header/LoginLogout.php:22
+#: library/App.php:797 library/Customizer/Sections/Header/LoginLogout.php:22
 msgid "Never"
 msgstr "Aldrig"
 
@@ -30869,7 +30893,7 @@ msgstr "Kunde inte skapa en identifierare för den sidoinladdade filen."
 msgid "Tailor"
 msgstr "Specialanpassa"
 
-#: library/Helper/Post.php:246
+#: library/Helper/Post.php:255
 msgid "Item is missing content"
 msgstr "Objektet saknar innehåll"
 
