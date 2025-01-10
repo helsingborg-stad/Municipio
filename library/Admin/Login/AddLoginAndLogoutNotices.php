@@ -9,135 +9,128 @@ use Municipio\Helper\User;
 
 class AddLoginAndLogoutNotices implements Hookable
 {
+    private const META_KEY = 'user_prefers_group_url';
+
     public function __construct(private WpService $wpService, private AcfService $acfService)
     {
     }
 
-  /**
-   * Add hooks
-   */
+    /**
+     * Add hooks
+     */
     public function addHooks(): void
     {
-
-      //Logon and logout notices
+        // Logon and logout notices
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsIn'));
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsOut'));
 
-      // Offer persistant
+        // Offer persistant
         $this->wpService->addAction('init', array($this, 'offerPersistantGroupUrl'));
         $this->wpService->addAction('init', array($this, 'offerPersistantHomeUrl'));
 
-      // Set persistant url
+        // Set persistant url
         $this->wpService->addAction('init', array($this, 'setPersistantGroupUrl'));
         $this->wpService->addAction('init', array($this, 'setPersistantHomeUrl'));
     }
 
     /**
      * Offer persistant group url
-     * 
-     * @return void
      */
-    public function offerPersistantGroupUrl()
+    public function offerPersistantGroupUrl(): void
     {
         if ((bool)($_GET['offerPersistantGroupUrl'] ?? false)) {
-          \Municipio\Helper\Notice::add(
-            __('Login successful', 'municipio'),
-            'info',
-            'login',
-            [
-            'url'  => './?setPersistantGroupUrl=true',
-            'text' => __('Save this page as default home', 'municipio')
-            ],
-            'session'
-          );
+            \Municipio\Helper\Notice::add(
+                __('Login successful', 'municipio'),
+                'info',
+                'save',
+                [
+                    'url'  => './?setPersistantGroupUrl=true',
+                    'text' => __('Save this page as default home', 'municipio'),
+                ],
+                'session'
+            );
         }
     }
 
     /**
      * Offer persistant home url
-     * 
-     * @return void
      */
-    public function offerPersistantHomeUrl()
+    public function offerPersistantHomeUrl(): void
     {
         if ((bool)($_GET['offerPersistantHomeUrl'] ?? false)) {
-          \Municipio\Helper\Notice::add(
-            __('Login successful', 'municipio'),
-            'info',
-            'login',
-            [
-            'url'  => './?setPersistantHomeUrl=true',
-            'text' => __('Save this page as default home', 'municipio')
-            ],
-            'session'
-          );
+            \Municipio\Helper\Notice::add(
+                __('Login successful', 'municipio'),
+                'info',
+                'save',
+                [
+                    'url'  => './?setPersistantHomeUrl=true',
+                    'text' => __('Save this page as default home', 'municipio'),
+                ],
+                'session'
+            );
         }
     }
 
     /**
      * Set persistant group url
-     * 
-     * @return void
      */
-    public function setPersistantGroupUrl()
+    public function setPersistantGroupUrl(): void
     {
         if ((bool)($_GET['setPersistantGroupUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
-          $result = $this->wpService->updateUserMeta(
-            $this->wpService->getCurrentUserId(),
-            'user_prefers_group_url',
-            true
-          );
+            $result = $this->wpService->updateUserMeta(
+                $this->wpService->getCurrentUserId(),
+                self::META_KEY,
+                true
+            );
 
-          if($result) {
-            \Municipio\Helper\Notice::add(
-              __('Option saved', 'municipio'), 'info', 'home'
-            );
-          } else {
-            \Municipio\Helper\Notice::add(
-              __('Option could not be saved at the moment', 'municipio'), 'warning', 'home'
-            );
-          }
+            $message = $result
+                ? __('Option saved', 'municipio')
+                : __('Option could not be saved at the moment', 'municipio');
+
+            $type = $result ? 'info' : 'warning';
+            $icon = $result ? 'check' : 'warning';
+
+            \Municipio\Helper\Notice::add($message, $type, $icon);
         }
     }
 
     /**
      * Set persistant home url
-     * 
-     * @return void
      */
-    public function setPersistantHomeUrl()
+    public function setPersistantHomeUrl(): void
     {
         if ((bool)($_GET['setPersistantHomeUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
-          $result = $this->wpService->deleteUserMeta(
-            $this->wpService->getCurrentUserId(),
-            'user_prefers_group_url'
-          );
+            $result = $this->wpService->deleteUserMeta(
+                $this->wpService->getCurrentUserId(),
+                self::META_KEY,
+            );
 
-          if($result === true) {
-            \Municipio\Helper\Notice::add(__('Option saved', 'municipio'), 'info', 'home');
-          } else {
-            \Municipio\Helper\Notice::add(__('Option could not be saved at the moment', 'municipio'), 'warning', 'home');
-          }
+            $message = $result
+                ? __('Option saved', 'municipio')
+                : __('Option could not be saved at the moment', 'municipio');
+
+            $type = $result ? 'info' : 'warning';
+            $icon = $result ? 'check' : 'warning';
+
+            \Municipio\Helper\Notice::add($message, $type, $icon);
         }
     }
 
-  /**
-   * Add notice when user logs in
-   */
-    public function addNoticeWhenUserLogsIn()
+    /**
+     * Add notice when user logs in
+     */
+    public function addNoticeWhenUserLogsIn(): void
     {
         if ((bool)($_GET['loggedin'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $currentUserGroup    = User::getCurrentUserGroup();
             $currentUserGroupUrl = User::getCurrentUserGroupUrl($currentUserGroup);
             $userPrefersGroupUrl = User::getUserPrefersGroupUrl();
 
-            // If user has no group (or no url is set), show default message
-            if(!$currentUserGroupUrl) {
+            if (!$currentUserGroupUrl) {
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
                 return;
             }
 
-            // If user has a group and prefers group url, show message with group url
             if ($currentUserGroupUrl && !$userPrefersGroupUrl) {
                 $this->messageWhenUserPrefersUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
             } else {
@@ -148,54 +141,51 @@ class AddLoginAndLogoutNotices implements Hookable
 
     /**
      * Show message with user group
-     *
-     * @param WP_Term $currentUserGroup
-     * @param string $currentUserGroupUrl
      */
-    private function messageWhenUserPrefersUserGroupUrl($currentUserGroup, $currentUserGroupUrl)
+    private function messageWhenUserPrefersUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
     {
-      \Municipio\Helper\Notice::add(
-        __('Login successful', 'municipio'),
-        'info',
-        'login',
-        [
-        'url'  => $this->addQueryParamsToUrl(
-          $currentUserGroupUrl,
-          ['offerPersistantGroupUrl' => 'true']
-        ),
-        'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
-        ],
-        'session'
-      );
+        \Municipio\Helper\Notice::add(
+            __('Login successful', 'municipio'),
+            'info',
+            'login',
+            [
+                'url'  => $this->addQueryParamsToUrl(
+                    $currentUserGroupUrl,
+                    ['offerPersistantGroupUrl' => 'true']
+                ),
+                'text' => sprintf(
+                    __('Go to %s', 'municipio'),
+                    $currentUserGroup->name ?? __('home', 'municipio')
+                ),
+            ],
+            'session'
+        );
     }
 
     /**
      * Show message without user group
-     *
-     * @param WP_Term $currentUserGroup
-     * @param string $currentUserGroupUrl
      */
-    private function messageWhenUserDoesNotPreferUserGroupUrl($currentUserGroup, $currentUserGroupUrl)
+    private function messageWhenUserDoesNotPreferUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
     {
-      \Municipio\Helper\Notice::add(
-        __('Login successful', 'municipio'),
-        'info',
-        'login',
-        [
-        'url'  => $this->addQueryParamsToUrl(
-          $this->wpService->homeUrl(),
-          ['offerPersistantHomeUrl' => 'true']
-        ),
-        'text' => __('Go to main site', 'municipio'),
-        ],
-        'session'
-      );
+        \Municipio\Helper\Notice::add(
+            __('Login successful', 'municipio'),
+            'info',
+            'login',
+            [
+                'url'  => $this->addQueryParamsToUrl(
+                    $this->wpService->homeUrl(),
+                    ['offerPersistantHomeUrl' => 'true']
+                ),
+                'text' => __('Go to main site', 'municipio'),
+            ],
+            'session'
+        );
     }
 
-  /**
-   * Add notice when user logs out
-   */
-    public function addNoticeWhenUserLogsOut()
+    /**
+     * Add notice when user logs out
+     */
+    public function addNoticeWhenUserLogsOut(): void
     {
         if ((bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
             \Municipio\Helper\Notice::add(__('Logout successful', 'municipio'), 'info', 'logout');
@@ -204,7 +194,6 @@ class AddLoginAndLogoutNotices implements Hookable
 
     private function addQueryParamsToUrl(string $url, array $params): string
     {
-      return add_query_arg($params, $url);
+        return add_query_arg($params, $url);
     }
-    
 }
