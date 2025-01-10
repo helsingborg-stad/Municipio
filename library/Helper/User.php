@@ -135,12 +135,17 @@ class User
 
         $perfersGroupUrl = $wpService->getUserMeta(
             $wpService->wpGetCurrentUser()->ID, 
-            'prefers_group_url', 
+            self::getUserPrefersGroupUrlMetaKey(), 
             false
         );
         if ($perfersGroupUrl === 'true') {
             return true;
         }
         return false;
+    }
+
+    public static function getUserPrefersGroupUrlMetaKey(): string
+    {
+        return 'user_prefers_group_url';
     }
 }

@@ -9,8 +9,6 @@ use Municipio\Helper\User;
 
 class AddLoginAndLogoutNotices implements Hookable
 {
-    private const META_KEY = 'user_prefers_group_url';
-
     public function __construct(private WpService $wpService, private AcfService $acfService)
     {
     }
@@ -40,7 +38,7 @@ class AddLoginAndLogoutNotices implements Hookable
     {
         if ((bool)($_GET['offerPersistantGroupUrl'] ?? false)) {
             \Municipio\Helper\Notice::add(
-                __('Login successful', 'municipio'),
+                '',
                 'info',
                 'save',
                 [
@@ -59,7 +57,7 @@ class AddLoginAndLogoutNotices implements Hookable
     {
         if ((bool)($_GET['offerPersistantHomeUrl'] ?? false)) {
             \Municipio\Helper\Notice::add(
-                __('Login successful', 'municipio'),
+                '',
                 'info',
                 'save',
                 [
@@ -79,7 +77,7 @@ class AddLoginAndLogoutNotices implements Hookable
         if ((bool)($_GET['setPersistantGroupUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $result = $this->wpService->updateUserMeta(
                 $this->wpService->getCurrentUserId(),
-                self::META_KEY,
+                User::getUserPrefersGroupUrlMetaKey(),
                 true
             );
 
@@ -102,7 +100,7 @@ class AddLoginAndLogoutNotices implements Hookable
         if ((bool)($_GET['setPersistantHomeUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $result = $this->wpService->deleteUserMeta(
                 $this->wpService->getCurrentUserId(),
-                self::META_KEY,
+                User::getUserPrefersGroupUrlMetaKey()
             );
 
             $message = $result
