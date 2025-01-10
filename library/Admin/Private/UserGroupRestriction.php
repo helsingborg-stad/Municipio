@@ -2,6 +2,7 @@
 
 namespace Municipio\Admin\Private;
 
+use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
@@ -15,10 +16,9 @@ use WpService\Contracts\IsWpError;
  * This class is responsible for handling user group restrictions.
  * It is located in the file UserGroupRestriction.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
  */
-class UserGroupRestriction
+class UserGroupRestriction implements Hookable
 {
     private string $userGroupMetaKey  = 'user-group-visibility';
-    private string $userGroupTaxonomy = 'user_group';
 
     /**
      * UserGroupRestriction class constructor.
@@ -30,7 +30,11 @@ class UserGroupRestriction
      */
     public function __construct(private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService)
     {
-        $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'));
+    }
+
+    public function addHooks(): void
+    {
+        $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'), 1);
     }
 
     /**

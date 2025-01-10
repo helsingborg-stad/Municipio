@@ -260,7 +260,7 @@ class App
             new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
             new \Municipio\Admin\Private\UserGroupSelector($this->wpService);
         } else {
-            new \Municipio\Admin\Private\UserGroupRestriction($this->wpService);
+            (new \Municipio\Admin\Private\UserGroupRestriction($this->wpService))->addHooks();
         }
 
 
