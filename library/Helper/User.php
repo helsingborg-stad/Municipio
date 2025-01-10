@@ -121,4 +121,26 @@ class User
         // Default case (should not occur)
         return null;
     }
+
+    /**
+     * Get the user prefers group URL.
+     * This indicates that the user prefers to be 
+     * redirected to the group URL after login.
+     *
+     * @return bool
+     */
+    public static function getUserPrefersGroupUrl(): bool
+    {
+        $wpService = \Municipio\Helper\WpService::get();
+
+        $perfersGroupUrl = $wpService->getUserMeta(
+            $wpService->wpGetCurrentUser()->ID, 
+            'prefers_group_url', 
+            false
+        );
+        if ($perfersGroupUrl === 'true') {
+            return true;
+        }
+        return false;
+    }
 }
