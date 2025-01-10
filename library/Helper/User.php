@@ -65,7 +65,7 @@ class User
      * @param WP_Term|null $term
      * @return string
      */
-    public static function getCurrentUserGroupUrl(?WP_Term $term): ?string
+    public static function getCurrentUserGroupUrl(?WP_Term $term = null): ?string
     {
         //Init services
         $wpService  = \Municipio\Helper\WpService::get();
