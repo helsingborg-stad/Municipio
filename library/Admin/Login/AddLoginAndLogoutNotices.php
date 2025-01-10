@@ -81,14 +81,15 @@ class AddLoginAndLogoutNotices implements Hookable
                 true
             );
 
+            var_dump($result);
+
             $message = $result
                 ? __('Option saved', 'municipio')
-                : __('Option could not be saved at the moment', 'municipio');
+                : __('Option already saved', 'municipio');
 
-            $type = $result ? 'info' : 'warning';
-            $icon = $result ? 'check' : 'warning';
+            $icon = $result ? 'check_circle' : 'preliminary';
 
-            \Municipio\Helper\Notice::add($message, $type, $icon);
+            \Municipio\Helper\Notice::add($message, 'info', $icon);
         }
     }
 
@@ -108,7 +109,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 : __('Option could not be saved at the moment', 'municipio');
 
             $type = $result ? 'info' : 'warning';
-            $icon = $result ? 'check' : 'warning';
+            $icon = $result ? 'check_circle' : 'preliminary';
 
             \Municipio\Helper\Notice::add($message, $type, $icon);
         }
