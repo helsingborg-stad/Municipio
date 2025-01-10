@@ -1,6 +1,7 @@
 /* Hide validation field group on One Page templates */
 #acf-group_654a2a57e6897,
 #acf-group_671241997f07d,
-[data-key="field_6718c31e2862b"]  {
+[data-key="field_6718c31e2862b"],
+[aria-hidden="true"] {
     display: none !important;
 }
