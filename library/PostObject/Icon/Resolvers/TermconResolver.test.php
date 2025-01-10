@@ -115,7 +115,7 @@ class TermIconResolverTest extends TestCase
         $icon     = $resolver->resolve();
 
         $this->assertEquals('testIcon', $icon->getIcon());
-        $this->assertEquals('testColor', $icon->getColor());
+        $this->assertEquals('testColor', $icon->getCustomColor());
     }
 
     private function getTermHelper(array $returnValues = []): GetTermIcon&GetTermColor

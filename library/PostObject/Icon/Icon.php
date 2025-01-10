@@ -12,7 +12,7 @@ class Icon implements IconInterface
      */
     public function getSize(): string
     {
-        return false;
+        return 'md';
     }
 
     /**
@@ -60,7 +60,7 @@ class Icon implements IconInterface
      */
     public function getFilled(): bool
     {
-        return true;
+        return false;
     }
 
     /**

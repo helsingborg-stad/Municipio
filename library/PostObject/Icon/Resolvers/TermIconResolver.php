@@ -67,7 +67,7 @@ class TermIconResolver implements IconResolverInterface
                 return $this->icon['src'];
             }
 
-            public function getColor(): string
+            public function getCustomColor(): string
             {
                 return $this->color ?? '';
             }
