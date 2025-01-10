@@ -30,22 +30,44 @@ class AddLoginAndLogoutNotices implements Hookable
         if ((bool)($_GET['loggedin'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $currentUserGroup    = User::getCurrentUserGroup();
             $currentUserGroupUrl = User::getCurrentUserGroupUrl($currentUserGroup);
+            $userPrefersGroupUrl = User::getUserPrefersGroupUrl();
 
-            if ($currentUserGroupUrl) {
-                \Municipio\Helper\Notice::add(
-                    __('Login successful', 'municipio'),
-                    'info',
-                    'login',
-                    [
-                    'url'  => $currentUserGroupUrl,
-                    'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
-                    ],
-                    'session'
-                );
+            if ($currentUserGroupUrl && !$userPrefersGroupUrl) {
+                $this->showMessageWithUserGroup($currentUserGroup, $currentUserGroupUrl);
+            } elseif($currentUserGroupUrl && $userPrefersGroupUrl) {
+                $this->showMessageWithoutUserGroup($currentUserGroup, $currentUserGroupUrl);
             } else {
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
             }
         }
+    }
+
+    private function showMessageWithUserGroup($currentUserGroup, $currentUserGroupUrl)
+    {
+      \Municipio\Helper\Notice::add(
+        __('Login successful', 'municipio'),
+        'info',
+        'login',
+        [
+        'url'  => $currentUserGroupUrl,
+        'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
+        ],
+        'session'
+      );
+    }
+
+    private function showMessageWithoutUserGroup($currentUserGroup, $currentUserGroupUrl)
+    {
+      \Municipio\Helper\Notice::add(
+        __('Login successful', 'municipio'),
+        'info',
+        'login',
+        [
+        'url'  => $this->wpService->homeUrl(),
+        'text' => __('Go to main site', 'municipio'),
+        ],
+        'session'
+      );
     }
 
   /**
