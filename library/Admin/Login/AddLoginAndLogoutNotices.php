@@ -32,11 +32,13 @@ class AddLoginAndLogoutNotices implements Hookable
             $currentUserGroupUrl = User::getCurrentUserGroupUrl($currentUserGroup);
 
             if ($currentUserGroupUrl) {
-                \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login', [
-                'url'  => $currentUserGroupUrl,
-                'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
+                \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login', 
+                [
+                  'url'  => $currentUserGroupUrl,
+                  'text' => __('Go to', 'municipio') . ' ' . $currentUserGroup->name ?? __('home', 'municipio')
                 ],
-              'session');
+                'session'
+            );
             } else {
                 \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
             }
