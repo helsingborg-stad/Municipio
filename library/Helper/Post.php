@@ -13,6 +13,7 @@ use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Decorators\PostObjectWithTermIcons;
+use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
 use Municipio\PostObject\PostObject;
@@ -155,7 +156,10 @@ class Post
 
         $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
         $postObject = new PostObjectWithTermIcons($postObject, $wpService, new TryGetTermIcon());
-        $postObject = new IconResolvingPostObject($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver()));
+
+        $iconResolver = new CachedIconResolver($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver()));
+        $postObject   = new IconResolvingPostObject($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), $iconResolver));
+
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
