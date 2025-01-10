@@ -81,8 +81,6 @@ class AddLoginAndLogoutNotices implements Hookable
                 true
             );
 
-            var_dump($result);
-
             $message = $result
                 ? __('Option saved', 'municipio')
                 : __('Option already saved', 'municipio');
