@@ -6,6 +6,7 @@ use WpService\Contracts\AddAction;
 use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
 use WP_User;
+use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
 
 /**
@@ -27,25 +28,9 @@ class UserGroupRestriction
      * @param WpGetPostTerms $wpService An instance of the WpGetPostTerms class.
      * @param IsWpError $wpService An instance of the IsWpError class.
      */
-    public function __construct(private AddAction&WpGetCurrentUser&WpGetPostTerms&IsWpError $wpService)
+    public function __construct(private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService)
     {
         $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'));
-    }
-
-    /**
-     * Retrieves the current user.
-     *
-     * @return WP_User The current user object.
-     */
-    private function getUser(): WP_User
-    {
-        static $user;
-
-        if (!$user) {
-            $user = $this->wpService->wpGetCurrentUser();
-        }
-
-        return $user;
     }
 
     /**
@@ -54,23 +39,11 @@ class UserGroupRestriction
      * @param WP_User $user The user object.
      * @return string|null The user groups as a string or null if no user groups are found.
      */
-    private function getUserGroups(WP_User $user): ?string
+    private function getUserGroups(): ?string
     {
-        static $userGroups;
+        $userGroup = \Municipio\Helper\User::getCurrentUserGroup();
 
-        if (!$userGroups) {
-            $userGroups = $this->wpService->wpGetPostTerms($user->ID, $this->userGroupTaxonomy);
-
-            if ($this->wpService->isWpError($userGroups) || empty($userGroups)) {
-                return null;
-            }
-
-            $userGroups = array_map(function ($term) {
-                return $term->slug;
-            }, $userGroups);
-        }
-
-        return $userGroups[0] ?? null;
+        return $userGroup->slug ?? null;
     }
 
     /**
@@ -81,13 +54,11 @@ class UserGroupRestriction
      */
     public function restrictPosts($query)
     {
-        $user = $this->getUser();
-
-        if (empty($user->ID)) {
+        if (!$this->wpService->isUserLoggedIn()) {
             return;
         }
 
-        $userGroup  = $this->getUserGroups($user);
+        $userGroup  = $this->getUserGroups();
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {
