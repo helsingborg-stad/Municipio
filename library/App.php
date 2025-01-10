@@ -376,6 +376,9 @@ class App
 
         $doNotHaltAuthWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltAuthWhenNonceIsMissing($this->wpService);
         $doNotHaltAuthWhenNonceIsMissing->addHooks();
+
+        $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPrefered($this->wpService);
+        $redirectUserToGroupUrlIfIsPrefered->addHooks();
     }
 
     /**

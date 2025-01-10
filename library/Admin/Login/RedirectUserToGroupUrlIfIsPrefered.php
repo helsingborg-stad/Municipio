@@ -7,7 +7,7 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use Municipio\Helper\User;
 
-class AddLoginAndLogoutNotices implements Hookable
+class RedirectUserToGroupUrlIfIsPrefered implements Hookable
 {
     public function __construct(private WpService $wpService)
     {
