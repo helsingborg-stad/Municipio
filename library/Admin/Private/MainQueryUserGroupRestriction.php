@@ -13,7 +13,7 @@ use WpService\Contracts\IsUserLoggedIn;
  *
  * This class implements the Hookable interface and is responsible for handling user group restrictions in the main query.
  */
-class MainQueryUserGroupRestriction 
+class MainQueryUserGroupRestriction
 {
     private string $userGroupMetaKey = 'user-group-visibility';
 
@@ -35,16 +35,16 @@ class MainQueryUserGroupRestriction
     public function shouldRestrict(?int $postId): bool
     {
         if (
-            !$this->wpService->isUserLoggedIn() || 
-            $this->wpService->isPostPubliclyViewable() || 
-            empty($postId)) 
-        {
+            !$this->wpService->isUserLoggedIn() ||
+            $this->wpService->isPostPubliclyViewable() ||
+            empty($postId)
+        ) {
             return false;
         }
 
         $userGroup         = \Municipio\Admin\Private\Helper\GetUserGroup::getUserGroups();
         $postUserGroupMeta = $this->wpService->getPostMeta(
-            $postId, 
+            $postId,
             $this->userGroupMetaKey
         );
 

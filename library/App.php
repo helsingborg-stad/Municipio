@@ -110,10 +110,10 @@ class App
          * Template
          */
         new \Municipio\Template(
-            $menuBuilder, 
+            $menuBuilder,
             $menuDirector,
-            $this->acfService, 
-            $this->wpService, 
+            $this->acfService,
+            $this->wpService,
             $this->schemaDataConfig,
             $mainQueryUserGroupRestriction
         );
