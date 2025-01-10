@@ -176,7 +176,7 @@ class AddLoginAndLogoutNotices implements Hookable
                     $this->wpService->homeUrl(),
                     ['offerPersistantHomeUrl' => 'true']
                 ),
-                'text' => __('Go to main site', 'municipio'),
+                'text' => __('Go to default home', 'municipio'),
             ],
             'session'
         );
