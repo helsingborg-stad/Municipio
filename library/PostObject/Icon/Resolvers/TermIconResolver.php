@@ -29,25 +29,20 @@ class TermIconResolver implements IconResolverInterface
     {
         $taxonomies = $this->wpService->getObjectTaxonomies($this->postObject->getPostType());
 
-        if (empty($taxonomies)) {
-            return $this->innerResolver->resolve();
+        if (!empty($taxonomies)) {
+            $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomies[0]);
+
+            if (!empty($terms)) {
+                $icon = $this->termHelper->getTermIcon($terms[0]);
+
+                if (!empty($icon)) {
+                    $color = $this->termHelper->getTermColor($terms[0]);
+                    return $this->getIconInstance($icon, $color ?? null);
+                }
+            }
         }
 
-        $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomies[0]);
-
-        if (empty($terms)) {
-            return $this->innerResolver->resolve();
-        }
-
-        $icon = $this->termHelper->getTermIcon($terms[0]);
-
-        if (empty($icon)) {
-            return $this->innerResolver->resolve();
-        }
-
-        $color = $this->termHelper->getTermColor($terms[0]);
-
-        return $this->getIconInstance($icon, $color ?? null);
+        return  $this->innerResolver->resolve();
     }
 
     /**

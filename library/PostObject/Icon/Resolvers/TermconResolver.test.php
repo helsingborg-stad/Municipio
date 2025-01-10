@@ -121,12 +121,14 @@ class TermIconResolverTest extends TestCase
     private function getTermHelper(array $returnValues = []): GetTermIcon&GetTermColor
     {
         return new class ($returnValues) implements GetTermIcon, GetTermColor {
+            public static $getTermIconCallCount = 0;
             public function __construct(private array $returnValues)
             {
             }
 
             public function getTermIcon(int|string|\WP_Term $term, string $taxonomy = ''): array|false
             {
+                self::$getTermIconCallCount++;
                 return $this->returnValues['getTermIcon'] ?? false;
             }
 
