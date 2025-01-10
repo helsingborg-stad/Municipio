@@ -59,13 +59,6 @@ class UserGroupSelector implements Hookable
      */
     public function saveUserVisibilitySelect($postId)
     {
-        if (
-            !isset($_POST['user_visibility_nonce']) ||
-            !$this->wpService->wpVerifyNonce($_POST['user_visibility_nonce'], 'save_user_visibility')
-        ) {
-            return;
-        }
-
         if (!$this->wpService->currentUserCan('edit_post', $postId)) {
             return;
         }

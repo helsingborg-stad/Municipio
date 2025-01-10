@@ -94,9 +94,29 @@ class App
         );
 
         /**
+         * User group
+         */
+        if ($this->wpService->isAdmin()) {
+            new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
+            (new \Municipio\Admin\Private\UserGroupSelector($this->wpService))->addHooks();
+        } else {
+            (new \Municipio\Admin\Private\UserGroupRestriction($this->wpService))->addHooks();
+        }
+
+        $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction($this->wpService);
+
+
+        /**
          * Template
          */
-        new \Municipio\Template($menuBuilder, $menuDirector, $this->acfService, $this->wpService, $this->schemaDataConfig);
+        new \Municipio\Template(
+            $menuBuilder, 
+            $menuDirector,
+            $this->acfService, 
+            $this->wpService, 
+            $this->schemaDataConfig,
+            $mainQueryUserGroupRestriction
+        );
 
         /**
          * Theme
@@ -255,14 +275,6 @@ class App
         new \Municipio\Admin\UI\Editor();
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
-
-        if ($this->wpService->isAdmin()) {
-            new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
-            (new \Municipio\Admin\Private\UserGroupSelector($this->wpService))->addHooks();
-        } else {
-            (new \Municipio\Admin\Private\UserGroupRestriction($this->wpService))->addHooks();
-        }
-
 
         /* Integration: MiniOrange */
         $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);

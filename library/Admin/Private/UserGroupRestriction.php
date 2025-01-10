@@ -45,31 +45,18 @@ class UserGroupRestriction implements Hookable
     }
 
     /**
-     * Retrieves the user groups for a given user.
-     *
-     * @param WP_User $user The user object.
-     * @return string|null The user groups as a string or null if no user groups are found.
-     */
-    private function getUserGroups(): ?string
-    {
-        $userGroup = \Municipio\Helper\User::getCurrentUserGroup();
-
-        return $userGroup->slug ?? null;
-    }
-
-    /**
      * Restricts the posts in a query based on user group restrictions.
      *
      * @param WP_Query $query The WP_Query object representing the current query.
      * @return void
      */
-    public function restrictPosts($query)
+    public function restrictPosts($query): void
     {
         if (!$this->wpService->isUserLoggedIn()) {
             return;
         }
 
-        $userGroup  = $this->getUserGroups();
+        $userGroup  = \Municipio\Admin\Private\Helper\GetUserGroup::getUserGroups();
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {

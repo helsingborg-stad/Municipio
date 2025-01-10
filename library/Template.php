@@ -6,6 +6,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use ComponentLibrary\Init;
 use HelsingborgStad\BladeService\BladeServiceInterface;
+use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
@@ -34,7 +35,8 @@ class Template
         private MenuDirector $menuDirector,
         private AcfService $acfService,
         private WpService $wpService,
-        private SchemaDataConfigInterface $schemaDataConfig
+        private SchemaDataConfigInterface $schemaDataConfig,
+        private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -146,9 +148,13 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
-        if (!is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive()) {
+        if (
+            !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
+            $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
+        ) {
             $template = '404';
         }
+
 
         //Do something before controller creation
         do_action_deprecated(
