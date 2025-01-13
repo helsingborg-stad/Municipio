@@ -242,7 +242,7 @@ class App
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
-        new \Municipio\Admin\Roles\Editor();
+        new \Municipio\Admin\Roles\Editor($this->helperService);
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
