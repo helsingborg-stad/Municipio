@@ -17,7 +17,7 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('login_redirect', array($this, 'redirectToGroupUrl'), 5, 3);
+        $this->wpService->addAction('login_redirect', array($this, 'redirectToGroupUrl'), 50, 3);
     }
 
     /**
@@ -28,10 +28,13 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
      * 
      * @return string
      */
-    public function redirectToGroupUrl($redirect_to, $request, $userInHook) {
-        if (is_a($userInHook, 'WP_User') && $userInHook->ID > 0) {
-            $this->userHelper->setUser($userInHook);
+    public function redirectToGroupUrl($redirectTo, $request, $userInHook) {
+        if($this->wpService->isWpError($userInHook)) {
+            return $redirectTo;
+        }
 
+        $user = $this->userHelper->setUser($userInHook);
+        if ($user != null) {
             $perfersGroupUrl    = $this->userHelper->getUserPrefersGroupUrl();
             $groupUrl           = $this->userHelper->getUserGroupUrl();
 
@@ -39,6 +42,6 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
                 return $groupUrl;
             }
         }
-        return $redirect_to;
+        return $redirectTo;
     }
 }
