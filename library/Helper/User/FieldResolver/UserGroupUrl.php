@@ -2,9 +2,11 @@
 
 namespace Municipio\Helper\User\FieldResolver;
 
+use Municipio\Helper\User\FieldResolver\UserGroupUrlInterface;
+
 use WP_Term;
 
-class UserGroupUrl
+class UserGroupUrl implements UserGroupUrlInterface
 {
     public function __construct(protected string $type, protected WP_Term $term, protected $acfService, protected $wpService, protected $userConfig)
     {
