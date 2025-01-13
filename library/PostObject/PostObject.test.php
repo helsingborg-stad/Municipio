@@ -49,27 +49,11 @@ class PostObjectTest extends TestCase
     }
 
     /**
-     * @testdox getTermIcons() returns an empty array
-     */
-    public function testGetTermIconsReturnsAnEmptyArray()
-    {
-        $this->assertEquals([], $this->instance->getTermIcons());
-    }
-
-    /**
      * @testdox getPostType() returns an empty string
      */
     public function testGetPostTypeReturnsAnEmptyString()
     {
         $this->assertEquals('', $this->instance->getPostType());
-    }
-
-    /**
-     * @testdox getTermIcon() returns null
-     */
-    public function testGetTermIconReturnsNull()
-    {
-        $this->assertNull($this->instance->getTermIcon());
     }
 
     /**

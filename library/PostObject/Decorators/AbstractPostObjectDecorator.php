@@ -48,25 +48,9 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getTermIcons(): array
-    {
-        return $this->postObject->getTermIcons();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getPostType(): string
     {
         return $this->postObject->getPostType();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
-    {
-        return $this->postObject->getTermIcon($taxonomy);
     }
 
     /**

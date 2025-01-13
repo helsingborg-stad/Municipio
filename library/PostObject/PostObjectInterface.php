@@ -36,22 +36,6 @@ interface PostObjectInterface
     public function getCommentCount(): int;
 
     /**
-     * Get the term icons.
-     *
-     * @return \Municipio\PostObject\TermIcon\TermIconInterface[]
-     */
-    public function getTermIcons(): array;
-
-    /**
-     * Get the term icon.
-     * The first term icon found.
-     *
-     * @param string|null $taxonomy Optional taxonomy to get the term icon from. If null, the first term icon found will be returned regardless of taxonomy.
-     * @return \Municipio\PostObject\TermIcon\TermIconInterface|null The first term icon found or null if none is found.
-     */
-    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface;
-
-    /**
      * Get the post type.
      */
     public function getPostType(): string;
