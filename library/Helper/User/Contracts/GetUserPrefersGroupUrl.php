@@ -4,5 +4,5 @@ namespace Municipio\Helper\User\Contracts;
 
 interface GetUserPrefersGroupUrl
 {
-    public function getUserPrefersGroupUrl(): bool;
+    public function getUserPrefersGroupUrl(): ?bool;
 }

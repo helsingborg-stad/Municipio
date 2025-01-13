@@ -180,7 +180,7 @@ class AddLoginAndLogoutNotices implements Hookable
     {
         //Get network main site url if link type is blog_id 
         if($urlType == 'blog_id' && $this->wpService->isMultisite()) {
-            $url = $this->wpService->getSiteUrl($this->wpService->getMainSiteId() ?? null);
+            $url = $this->wpService->getHomeUrl($this->wpService->getMainSiteId() ?? null);
         } else {
             $url = $this->wpService->homeUrl();
         }

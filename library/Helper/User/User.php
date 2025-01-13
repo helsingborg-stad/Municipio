@@ -146,10 +146,10 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
      *
      * @return bool
      */
-    public function getUserPrefersGroupUrl(): bool
+    public function getUserPrefersGroupUrl(): ?bool
     {
         if(!$this->user) {
-            return false;
+            return null;
         }
 
         $perfersGroupUrl = $this->wpService->getUserMeta(
