@@ -20,7 +20,7 @@ class AddLoginAndLogoutNotices implements Hookable
     public function addHooks(): void
     {
         //Set current user
-        add_action('init', [$this->userHelper, 'setUser'], 5);
+        add_action('init', [$this->userHelper, 'setUser'], 5, 0);
 
         // Logon and logout notices
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsIn'));

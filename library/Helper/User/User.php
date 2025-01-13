@@ -42,7 +42,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     {
         $currentUser = $user ?? $this->wpService->wpGetCurrentUser();
         if(is_a($currentUser, 'WP_User') && $currentUser->ID > 0) {
-            return $this->user = $this->setUser($currentUser);
+            return $this->user = $currentUser;
         }
         return null;
     }
