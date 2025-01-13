@@ -111,6 +111,7 @@ add_action('init', function () use ($wpService) {
         'options-customize-footer'                   => 'group_5afa94c88e1aa',
         'options-login-logout'                       => 'group_67597150948c7',
         'options-login-redirect'                     => 'group_675aecfbf2f3d',
+        'post-icon'                                  => 'group_6784bb5c51d70',
         'resource-fields'                            => 'group_653a509450198',
         'user-author-image'                          => 'group_56c714b46105e',
         'widget-contact'                             => 'group_56c58bade87dc',
