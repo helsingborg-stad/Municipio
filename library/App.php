@@ -131,7 +131,6 @@ class App
         $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
 
             // Place
-            $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData();
             $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
             $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace(
                 $this->acfService,
