@@ -42,6 +42,12 @@ class PostIconResolver implements IconResolverInterface
         return $this->innerResolver->resolve();
     }
 
+    /**
+     * Check if value is an SVG icon.
+     *
+     * @param array $value
+     * @return bool
+     */
     private function isSvgIcon($value): bool
     {
         if (empty($value) || !is_array($value)) {
@@ -59,6 +65,12 @@ class PostIconResolver implements IconResolverInterface
         return true;
     }
 
+    /**
+     * Check if value is a material icon.
+     *
+     * @param array $value
+     * @return bool
+     */
     private function isMaterialIcon($value): bool
     {
         if (empty($value) || !is_array($value)) {
