@@ -3,7 +3,6 @@
 namespace Municipio\Helper\User\FieldResolver;
 
 use Municipio\Helper\User\FieldResolver\UserGroupUrlInterface;
-
 use WP_Term;
 
 class UserGroupUrl implements UserGroupUrlInterface

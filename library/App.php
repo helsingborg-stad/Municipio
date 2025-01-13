@@ -228,7 +228,7 @@ class App
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
 
 
-        /* User */ 
+        /* User */
         $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
 
         /**

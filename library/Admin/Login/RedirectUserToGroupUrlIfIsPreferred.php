@@ -22,27 +22,28 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
 
     /**
      * Redirect user to group url if user prefers group url
-     * 
+     *
      * @param string $redirect_to
      * @param WP_User $user
-     * 
+     *
      * @return string
      */
-    public function redirectToGroupUrl($redirectTo, $request, $userInHook) {
-        if($this->wpService->isWpError($userInHook)) {
+    public function redirectToGroupUrl($redirectTo, $request, $userInHook)
+    {
+        if ($this->wpService->isWpError($userInHook)) {
             return $redirectTo;
         }
 
         $user = $this->userHelper->setUser($userInHook);
         if ($user != null) {
-            $perfersGroupUrl    = $this->userHelper->getUserPrefersGroupUrl();
-            $groupUrl           = $this->userHelper->getUserGroupUrl();
+            $perfersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
+            $groupUrl        = $this->userHelper->getUserGroupUrl();
 
             if ($perfersGroupUrl && $groupUrl) {
                 return add_query_arg(
                     $groupUrl,
                     ['offerPersistantHomeUrl' => 'true']
-                ); 
+                );
             }
         }
         return $redirectTo;

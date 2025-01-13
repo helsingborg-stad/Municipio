@@ -9,12 +9,12 @@ interface UserConfigInterface
    *
    * @return string
    */
-  public function getUserGroupTaxonomyName(): string;
+    public function getUserGroupTaxonomyName(): string;
 
   /**
    * Get the meta key for user prefers group URL setting.
    *
    * @return string
    */
-  public function getUserPrefersGroupUrlMetaKey(): string;
+    public function getUserPrefersGroupUrlMetaKey(): string;
 }

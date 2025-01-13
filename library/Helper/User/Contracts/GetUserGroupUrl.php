@@ -8,5 +8,3 @@ interface GetUserGroupUrl
 {
     public function getUserGroupUrl(?WP_Term $term = null): ?string;
 }
-
-

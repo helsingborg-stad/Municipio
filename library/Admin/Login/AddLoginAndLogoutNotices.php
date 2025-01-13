@@ -123,10 +123,10 @@ class AddLoginAndLogoutNotices implements Hookable
     public function addNoticeWhenUserLogsIn(): void
     {
         if ((bool)($_GET['loggedin'] ?? false) && $this->wpService->isUserLoggedIn()) {
-            $currentUserGroup           = $this->userHelper->getUserGroup();
-            $currentUserGroupUrl        = $this->userHelper->getUserGroupUrl();
-            $userPrefersGroupUrl        = $this->userHelper->getUserPrefersGroupUrl();
-            $userPrefersGroupUrlType    = $this->userHelper->getUserGroupUrlType();
+            $currentUserGroup        = $this->userHelper->getUserGroup();
+            $currentUserGroupUrl     = $this->userHelper->getUserGroupUrl();
+            $userPrefersGroupUrl     = $this->userHelper->getUserPrefersGroupUrl();
+            $userPrefersGroupUrlType = $this->userHelper->getUserGroupUrlType();
 
             // No url to prefer
             if (!$currentUserGroupUrl) {
@@ -141,7 +141,7 @@ class AddLoginAndLogoutNotices implements Hookable
             }
 
             // User does not prefer group url, and are given option to set this as home
-            if($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
+            if ($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
                 $this->messageWhenUserDoesNotPreferUserGroupUrl(
                     $userPrefersGroupUrlType
                 );
@@ -178,8 +178,8 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     private function messageWhenUserDoesNotPreferUserGroupUrl(string $urlType): void
     {
-        //Get network main site url if link type is blog_id 
-        if($urlType == 'blog_id' && $this->wpService->isMultisite()) {
+        //Get network main site url if link type is blog_id
+        if ($urlType == 'blog_id' && $this->wpService->isMultisite()) {
             $url = $this->wpService->getHomeUrl($this->wpService->getMainSiteId() ?? null);
         } else {
             $url = $this->wpService->homeUrl();
@@ -205,7 +205,7 @@ class AddLoginAndLogoutNotices implements Hookable
 
     /**
      * Add notice when user logs out
-     * 
+     *
      * @return void
      */
     public function addNoticeWhenUserLogsOut(): void
@@ -217,10 +217,10 @@ class AddLoginAndLogoutNotices implements Hookable
 
     /**
      * Add query params to url
-     * 
+     *
      * @param string $url
      * @param array $params
-     * 
+     *
      * @return string
      */
     private function addQueryParamsToUrl(string $url, array $params): string
@@ -230,7 +230,7 @@ class AddLoginAndLogoutNotices implements Hookable
 
     /**
      * Should offer setting group url as home
-     * 
+     *
      * @return bool
      */
     private function shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool
@@ -239,9 +239,9 @@ class AddLoginAndLogoutNotices implements Hookable
     }
 
     /**
-     * Should offer removing group url as home, 
+     * Should offer removing group url as home,
      * a negative of shouldOfferSettingGroupUrlAsHome
-     * 
+     *
      * @return bool
      */
     private function shouldOfferRemovingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool

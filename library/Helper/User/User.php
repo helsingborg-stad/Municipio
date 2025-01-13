@@ -8,16 +8,13 @@ use WpService\Contracts\IsWpError;
 use WpService\Contracts\GetUserMeta;
 use WpService\Contracts\GetBlogDetails;
 use AcfService\Contracts\GetField;
-
 use Municipio\Helper\User\Config\UserConfigInterface;
-
 use Municipio\Helper\User\Contracts\SetUser;
 use Municipio\Helper\User\Contracts\UserHasRole;
 use Municipio\Helper\User\Contracts\GetUserGroup;
 use Municipio\Helper\User\Contracts\GetUserGroupUrl;
 use Municipio\Helper\User\Contracts\GetUserGroupUrlType;
 use Municipio\Helper\User\Contracts\GetUserPrefersGroupUrl;
-
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use WP_Term;
 use WP_User;
@@ -30,7 +27,8 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
         private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig
-    ){}
+    ) {
+    }
 
     /**
      * Set current user
@@ -41,7 +39,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     public function setUser(?WP_User $user = null): ?WP_User
     {
         $currentUser = $user ?? $this->wpService->wpGetCurrentUser();
-        if(is_a($currentUser, 'WP_User') && $currentUser->ID > 0) {
+        if (is_a($currentUser, 'WP_User') && $currentUser->ID > 0) {
             return $this->user = $currentUser;
         }
         return null;
@@ -55,7 +53,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
      */
     public function userHasRole(string|array $roles): bool
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return false;
         }
 
@@ -77,7 +75,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
      */
     public function getUserGroup(): ?WP_Term
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return null;
         }
 
@@ -103,7 +101,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
      */
     public function getUserGroupUrl(?WP_Term $term = null): ?string
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return null;
         }
 
@@ -126,9 +124,9 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
 
     /**
      * Get the user group URL type
-     * 
+     *
      * @param WP_Term|null $term
-     * 
+     *
      * @return string|null
      */
     public function getUserGroupUrlType(?WP_Term $term = null): ?string
@@ -141,20 +139,20 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
 
     /**
      * Get the user prefers group URL.
-     * This indicates that the user prefers to be 
+     * This indicates that the user prefers to be
      * redirected to the group URL after login.
      *
      * @return bool
      */
     public function getUserPrefersGroupUrl(): ?bool
     {
-        if(!$this->user) {
+        if (!$this->user) {
             return null;
         }
 
         $perfersGroupUrl = $this->wpService->getUserMeta(
-            $this->user->ID, 
-            $this->userConfig->getUserPrefersGroupUrlMetaKey(), 
+            $this->user->ID,
+            $this->userConfig->getUserPrefersGroupUrlMetaKey(),
             true
         );
         if ($perfersGroupUrl) {
