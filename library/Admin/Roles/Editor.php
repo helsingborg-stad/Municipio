@@ -2,11 +2,12 @@
 
 namespace Municipio\Admin\Roles;
 
+use Municipio\Helper\User\Contracts\UserHasRole;
 class Editor
 {
-    public function __construct()
+    public function __construct(private UserHasRole $userHelper)
     {
-        if (\Municipio\Helper\User::hasRole('editor')) {
+        if ($userHelper->userHasRole('editor')) {
             add_action('admin_init', array($this, 'adminRedirects'), 1);
             add_action('admin_menu', array($this, 'adminMenus'), 9000);
         }
@@ -79,7 +80,7 @@ class Editor
 
     public function redirectToDashboard()
     {
-        if (\Municipio\Helper\User::hasRole('editor')) {
+        if ($this->userHelper->userHasRole('editor')) {
             wp_redirect(admin_url());
             exit;
         }

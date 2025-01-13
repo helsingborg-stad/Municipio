@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Helper;
+namespace Municipio\Helper\User;
 
 use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetObjectTerms;

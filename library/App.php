@@ -57,6 +57,8 @@ use wpdb;
 use WpService\WpService;
 use Municipio\Admin\Login\EnqueueStyles;
 use Municipio\Admin\Login\ChangeLogotypeData;
+use Municipio\Helper\User\Config\UserConfig;
+use Municipio\Helper\User\Config\UserConfigInterface;
 
 /**
  * Class App
@@ -224,6 +226,11 @@ class App
         $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
 
+
+        /* User */ 
+        $userHelper = new \Municipio\Helper\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig());
+        $userHelper->setUser();
+
         /**
          * Admin
          */
@@ -242,7 +249,7 @@ class App
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
-        new \Municipio\Admin\Roles\Editor($this->helperService);
+        new \Municipio\Admin\Roles\Editor($this->wpService);
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
