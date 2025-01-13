@@ -123,9 +123,10 @@ class AddLoginAndLogoutNotices implements Hookable
     public function addNoticeWhenUserLogsIn(): void
     {
         if ((bool)($_GET['loggedin'] ?? false) && $this->wpService->isUserLoggedIn()) {
-            $currentUserGroup    = $this->userHelper->getUserGroup();
-            $currentUserGroupUrl = $this->userHelper->getUserGroupUrl();
-            $userPrefersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
+            $currentUserGroup           = $this->userHelper->getUserGroup();
+            $currentUserGroupUrl        = $this->userHelper->getUserGroupUrl();
+            $userPrefersGroupUrl        = $this->userHelper->getUserPrefersGroupUrl();
+            $userPrefersGroupUrlType    = $this->userHelper->getUserGroupUrlType();
 
             // No url to prefer
             if (!$currentUserGroupUrl) {
@@ -141,7 +142,9 @@ class AddLoginAndLogoutNotices implements Hookable
 
             // User does not prefer group url, and are given option to set this as home
             if($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
-                $this->messageWhenUserDoesNotPreferUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
+                $this->messageWhenUserDoesNotPreferUserGroupUrl(
+                    $userPrefersGroupUrlType
+                );
                 return;
             }
         }
@@ -173,15 +176,23 @@ class AddLoginAndLogoutNotices implements Hookable
     /**
      * Show message without user group
      */
-    private function messageWhenUserDoesNotPreferUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
+    private function messageWhenUserDoesNotPreferUserGroupUrl(string $urlType): void
     {
+        //Get network main site url if link type is blog_id 
+        if($urlType == 'blog_id' && $this->wpService->isMultisite()) {
+            $url = $this->wpService->getSiteUrl($this->wpService->getMainSiteId() ?? null);
+        } else {
+            $url = $this->wpService->homeUrl();
+        }
+
+        //Add notice
         \Municipio\Helper\Notice::add(
             __('Login successful', 'municipio'),
             'info',
             'login',
             [
                 'url'  => $this->addQueryParamsToUrl(
-                    $this->wpService->homeUrl(),
+                    $url,
                     [
                       'offerPersistantGroupUrl' => 'true'
                     ]
