@@ -46,25 +46,9 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getTermIcons(): array
-    {
-        return [];
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getPostType(): string
     {
         return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTermIcon(?string $taxonomy = null): ?TermIconInterface
-    {
-        return null;
     }
 
     /**

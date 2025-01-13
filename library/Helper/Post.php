@@ -8,11 +8,9 @@ use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Municipio\Helper\Term\Term;
-use Municipio\PostObject\TermIcon\TryGetTermIcon;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
-use Municipio\PostObject\Decorators\PostObjectWithTermIcons;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
@@ -155,7 +153,6 @@ class Post
         $wpService      = \Municipio\Helper\WpService::get();
 
         $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
-        $postObject = new PostObjectWithTermIcons($postObject, $wpService, new TryGetTermIcon());
 
         $iconResolver = new CachedIconResolver($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver()));
         $postObject   = new IconResolvingPostObject($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), $iconResolver));
