@@ -120,7 +120,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
 
         // Get the URL
         return (
-            new UserGroupUrl($typeOfLink, $term, $this->acfService, $$this->wpService, $this->userConfig)
+            new UserGroupUrl($typeOfLink, $term, $this->acfService, $this->wpService, $this->userConfig)
         )->get();
     }
 
