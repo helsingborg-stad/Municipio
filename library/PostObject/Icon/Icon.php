@@ -5,14 +5,23 @@ namespace Municipio\PostObject\Icon;
 /**
  * Icon class that adhere to the Icon component atttibutes.
  */
-class Icon implements IconInterface
+class Icon implements IconInterface, IconFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param array $properties Icon properties. Default is empty array.
+     */
+    public function __construct(private array $properties = [])
+    {
+    }
+
     /**
      * @inheritDoc
      */
     public function getSize(): string
     {
-        return 'md';
+        return $this->properties['size'] ?? 'md';
     }
 
     /**
@@ -20,7 +29,7 @@ class Icon implements IconInterface
      */
     public function getLabel(): string
     {
-        return false;
+        return $this->properties['label'] ?? false;
     }
 
     /**
@@ -28,7 +37,7 @@ class Icon implements IconInterface
      */
     public function getIcon(): string
     {
-        return false;
+        return $this->properties['icon'] ?? false;
     }
 
     /**
@@ -36,7 +45,7 @@ class Icon implements IconInterface
      */
     public function getColor(): string
     {
-        return false;
+        return $this->properties['color'] ?? false;
     }
 
     /**
@@ -44,7 +53,7 @@ class Icon implements IconInterface
      */
     public function getCustomColor(): string
     {
-        return false;
+        return $this->properties['customColor'] ?? false;
     }
 
     /**
@@ -52,7 +61,7 @@ class Icon implements IconInterface
      */
     public function getComponentElement(): string
     {
-        return 'span';
+        return $this->properties['componentElement'] ?? 'span';
     }
 
     /**
@@ -60,7 +69,7 @@ class Icon implements IconInterface
      */
     public function getFilled(): bool
     {
-        return false;
+        return $this->properties['filled'] ?? false;
     }
 
     /**
@@ -68,7 +77,7 @@ class Icon implements IconInterface
      */
     public function getDecorative(): bool
     {
-        return false;
+        return $this->properties['decorative'] ?? false;
     }
 
     /**
@@ -86,5 +95,13 @@ class Icon implements IconInterface
             'filled'           => $this->getFilled(),
             'decorative'       => $this->getDecorative(),
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function create(array $properties = []): IconInterface
+    {
+        return new self($properties);
     }
 }

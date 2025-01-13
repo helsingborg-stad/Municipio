@@ -13,6 +13,7 @@ use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
+use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
 use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
 use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
@@ -151,11 +152,14 @@ class Post
     {
         $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
         $wpService      = \Municipio\Helper\WpService::get();
+        $acfService     = \Municipio\Helper\AcfService::get();
 
         $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
 
-        $iconResolver = new CachedIconResolver($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver()));
-        $postObject   = new IconResolvingPostObject($postObject, new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), $iconResolver));
+        $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
+        $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);
+        $iconResolver = new CachedIconResolver($postObject, $iconResolver);
+        $postObject   = new IconResolvingPostObject($postObject, $iconResolver);
 
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
