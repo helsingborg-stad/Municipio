@@ -59,6 +59,7 @@ use Municipio\Admin\Login\EnqueueStyles;
 use Municipio\Admin\Login\ChangeLogotypeData;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\Config\UserConfigInterface;
+use Municipio\Helper\User\User;
 
 /**
  * Class App
@@ -228,8 +229,7 @@ class App
 
 
         /* User */ 
-        $userHelper = new \Municipio\Helper\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig());
-        $userHelper->setUser();
+        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
 
         /**
          * Admin
@@ -249,7 +249,7 @@ class App
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
-        new \Municipio\Admin\Roles\Editor($this->wpService);
+        new \Municipio\Admin\Roles\Editor($userHelper);
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
@@ -363,10 +363,13 @@ class App
      */
     private function setupLoginLogout(): void
     {
+        //Needs setUser to be called before using the user object
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig());
+
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
 
-        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService, $this->acfService);
+        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService, $this->acfService, $userHelper, new UserConfig());
         $addLoginAndLogoutNotices->addHooks();
 
         $logUserLoginTime = new \Municipio\Admin\Login\LogUserLoginTime($this->wpService);
@@ -384,7 +387,7 @@ class App
         $doNotHaltAuthWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltAuthWhenNonceIsMissing($this->wpService);
         $doNotHaltAuthWhenNonceIsMissing->addHooks();
 
-        $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPrefered($this->wpService);
+        $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPreferred($this->wpService, $userHelper);
         $redirectUserToGroupUrlIfIsPrefered->addHooks();
     }
 

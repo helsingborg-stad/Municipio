@@ -3,13 +3,14 @@
 namespace Municipio\Admin\Login;
 
 use AcfService\AcfService;
+use Municipio\Helper\User\Config\UserConfig;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
-use Municipio\Helper\User;
+use Municipio\Helper\User\User;
 
 class AddLoginAndLogoutNotices implements Hookable
 {
-    public function __construct(private WpService $wpService, private AcfService $acfService)
+    public function __construct(private WpService $wpService, private AcfService $acfService, private User $userHelper, private UserConfig $userConfig)
     {
     }
 
@@ -18,6 +19,9 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function addHooks(): void
     {
+        //Set current user
+        add_action('init', [$this->userHelper, 'setUser'], 5);
+
         // Logon and logout notices
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsIn'));
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsOut'));
@@ -42,7 +46,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 'info',
                 'save',
                 [
-                    'url'  => './?setPersistantGroupUrl=true',
+                    'url'  => './?setPersistantGroupUrl=true&uid=' . $this->wpService->getCurrentUserId(),
                     'text' => __('Save this page as default home', 'municipio'),
                 ],
                 'session'
@@ -61,7 +65,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 'info',
                 'save',
                 [
-                    'url'  => './?setPersistantHomeUrl=true',
+                    'url'  => './?setPersistantHomeUrl=true&uid=' . $this->wpService->getCurrentUserId(),
                     'text' => __('Save this page as default home', 'municipio'),
                 ],
                 'session'
@@ -77,7 +81,7 @@ class AddLoginAndLogoutNotices implements Hookable
         if ((bool)($_GET['setPersistantGroupUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $result = $this->wpService->updateUserMeta(
                 $this->wpService->getCurrentUserId(),
-                User::getUserPrefersGroupUrlMetaKey(),
+                $this->userConfig->getUserPrefersGroupUrlMetaKey(),
                 true
             );
 
@@ -99,7 +103,7 @@ class AddLoginAndLogoutNotices implements Hookable
         if ((bool)($_GET['setPersistantHomeUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
             $result = $this->wpService->deleteUserMeta(
                 $this->wpService->getCurrentUserId(),
-                User::getUserPrefersGroupUrlMetaKey()
+                $this->userConfig->getUserPrefersGroupUrlMetaKey(),
             );
 
             $message = $result
@@ -119,10 +123,9 @@ class AddLoginAndLogoutNotices implements Hookable
     public function addNoticeWhenUserLogsIn(): void
     {
         if ((bool)($_GET['loggedin'] ?? false) && $this->wpService->isUserLoggedIn()) {
-            $currentUserGroup    = User::getCurrentUserGroup();
-            $currentUserGroupUrl = User::getCurrentUserGroupUrl($currentUserGroup);
-            $userPrefersGroupUrl = User::getUserPrefersGroupUrl();
-
+            $currentUserGroup    = $this->userHelper->getUserGroup();
+            $currentUserGroupUrl = $this->userHelper->getUserGroupUrl();
+            $userPrefersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
 
             // No url to prefer
             if (!$currentUserGroupUrl) {
@@ -131,8 +134,8 @@ class AddLoginAndLogoutNotices implements Hookable
             }
 
             // User prefers group url, and are given option to remove this setting
-            if ($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
-                $this->shouldOfferRemovingGroupUrlAsHome($currentUserGroup, $currentUserGroupUrl);
+            if ($this->shouldOfferRemovingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
+                $this->messageWhenUserPrefersUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
                 return;
             }
 
@@ -156,7 +159,7 @@ class AddLoginAndLogoutNotices implements Hookable
             [
                 'url'  => $this->addQueryParamsToUrl(
                     $currentUserGroupUrl,
-                    ['offerPersistantGroupUrl' => 'true']
+                    ['offerPersistantHomeUrl' => 'true']
                 ),
                 'text' => sprintf(
                     __('Go to %s', 'municipio'),
@@ -179,7 +182,9 @@ class AddLoginAndLogoutNotices implements Hookable
             [
                 'url'  => $this->addQueryParamsToUrl(
                     $this->wpService->homeUrl(),
-                    ['offerPersistantHomeUrl' => 'true']
+                    [
+                      'offerPersistantGroupUrl' => 'true'
+                    ]
                 ),
                 'text' => __('Go to default home', 'municipio'),
             ],
