@@ -13,7 +13,6 @@ use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
-use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdTest;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
@@ -61,8 +60,7 @@ class Post
                 'post_language',
                 'reading_time',
                 'quicklinks',
-                'call_to_action_items',
-                'term_icon'
+                'call_to_action_items'
             ],
             $data
         );
@@ -332,10 +330,6 @@ class Post
             $postObject->termsUnlinked = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
         }
 
-        if (in_array('term_icon', $appendFields) && !empty($postObject->terms) && !empty($postObject->post_type)) {
-            $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
-        }
-
         if (in_array('post_language', $appendFields)) {
             $siteLang = strtolower(get_bloginfo('language') ?? '');
             $postLang = strtolower(get_field('lang', $postObject->ID) ?? $siteLang);
@@ -454,55 +448,6 @@ class Post
         }
 
         return [strip_shortcodes($postObject->post_content), false];
-    }
-
-    /**
-     * Get the icon and color associated with terms for a post.
-     *
-     * Iterates through the taxonomies of the post type and retrieves the terms.
-     * For each term, it gets the icon and color using the \Municipio\Helper\Term class.
-     * The first found icon and color are used to build an associative array representing
-     * the term icon, which includes properties like icon source, size, color, and background color.
-     * The resulting array is then filtered using 'Municipio/Helper/Post/getPostTermIcon' filter.
-     *
-     * @param int    $postId   The post identifier.
-     * @param string $postType The post type.
-     * @return array The term icon associative array.
-     */
-    private static function getPostTermIcon($postId, $postType)
-    {
-        $taxonomies = get_object_taxonomies($postType);
-        $termIcon   = [];
-        $termColor  = false;
-        $termHelper = new \Municipio\Helper\Term\Term(\Municipio\Helper\WpService::get(), \Municipio\Helper\AcfService::get());
-
-        foreach ($taxonomies as $taxonomy) {
-            $terms = get_the_terms($postId, $taxonomy);
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    if (empty($termIcon)) {
-                        $icon  = $termHelper->getTermIcon($term, $taxonomy);
-                        $color = $termHelper->getTermColor($term, $taxonomy);
-                        if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
-                            $termIcon['icon']            = $icon['src'];
-                            $termIcon['size']            = 'md';
-                            $termIcon['color']           = 'white';
-                            $termIcon['backgroundColor'] = $color;
-                        }
-
-                        if (!empty($color)) {
-                            $termColor = $color;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (empty($termIcon) && !empty($termColor)) {
-            $termIcon['backgroundColor'] = $color;
-        }
-
-        return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
     }
 
     /**
