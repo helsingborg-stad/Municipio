@@ -9,6 +9,10 @@ use WpService\Contracts\IsMultisite;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
+/**
+ * Post object decorator that can fetch post data from another blog.
+ * If the post is from another blog, it will switch to that blog to fetch the data.
+ */
 class PostObjectFromOtherBlog implements PostObjectInterface
 {
     /**
