@@ -4,14 +4,27 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\TermIcon\TermIconInterface;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\MsIsSwitched;
 
 /**
- * Abstract post object decorator.
+ * PostObjectWithOtherBlogIdFromSwitchedState
  */
-abstract class AbstractPostObjectDecorator implements PostObjectInterface
+class PostObjectWithOtherBlogIdFromSwitchedState implements PostObjectInterface
 {
-    protected PostObjectInterface $postObject;
+    private ?int $blogId = null;
+
+    /**
+     * Constructor.
+     */
+    public function __construct(
+        private PostObjectInterface $postObject,
+        private MsIsSwitched&GetCurrentBlogId $wpService
+    ) {
+        if ($this->wpService->msIsSwitched() === true) {
+            $this->blogId = $this->wpService->getCurrentBlogId();
+        }
+    }
 
     /**
      * @inheritDoc
@@ -59,5 +72,13 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     public function getIcon(): ?IconInterface
     {
         return $this->postObject->getIcon();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlogId(): int
+    {
+        return $this->blogId ?? $this->postObject->getBlogId();
     }
 }

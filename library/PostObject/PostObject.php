@@ -4,13 +4,20 @@ namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\TermIcon\TermIconInterface;
+use WpService\Contracts\GetCurrentBlogId;
 
 /**
  * PostObject
  */
 class PostObject implements PostObjectInterface
 {
+    /**
+     * Constructor.
+     */
+    public function __construct(private GetCurrentBlogId $wpService)
+    {
+    }
+
     /**
      * @inheritDoc
      */
@@ -57,5 +64,13 @@ class PostObject implements PostObjectInterface
     public function getIcon(): ?IconInterface
     {
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlogId(): int
+    {
+        return $this->wpService->getCurrentBlogId();
     }
 }

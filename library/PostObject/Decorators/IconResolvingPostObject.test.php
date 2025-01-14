@@ -6,8 +6,8 @@ use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\Icon\Resolvers\IconResolverInterface;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\PostObject;
-use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class IconResolvingPostObjectTest extends TestCase
 {
@@ -16,7 +16,7 @@ class IconResolvingPostObjectTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $decorator = new IconResolvingPostObject(new PostObject(), new NullIconResolver());
+        $decorator = new IconResolvingPostObject(new PostObject(new FakeWpService()), new NullIconResolver());
         $this->assertInstanceOf(IconResolvingPostObject::class, $decorator);
     }
 
@@ -31,7 +31,7 @@ class IconResolvingPostObjectTest extends TestCase
         $icon->method('getIcon')->willReturn('test-icon');
         $iconResolver->method('resolve')->willReturn($icon);
 
-        $postObject = new IconResolvingPostObject(new PostObject(), $iconResolver);
+        $postObject = new IconResolvingPostObject(new PostObject(new FakeWpService()), $iconResolver);
 
         $this->assertEquals('test-icon', $postObject->getIcon()->getIcon());
     }

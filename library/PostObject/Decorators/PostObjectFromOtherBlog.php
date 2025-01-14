@@ -2,28 +2,26 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use AllowDynamicProperties;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\IsMultisite;
+use WpService\Contracts\RestoreCurrentBlog;
+use WpService\Contracts\SwitchToBlog;
 
 /**
- * Backwards compatible PostObject.
- *
- * This class is used to make sure that the PostObjectInterface is backwards compatible with the old PostObject class.
+ * Post object decorator that can fetch post data from another blog.
+ * If the post is from another blog, it will switch to that blog to fetch the data.
  */
-#[AllowDynamicProperties]
-class BackwardsCompatiblePostObject implements PostObjectInterface
+class PostObjectFromOtherBlog implements PostObjectInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $postObject, object $legacyPost)
-    {
-        foreach ($legacyPost as $key => $value) {
-            if (!isset($this->{$key})) {
-                $this->{$key} = $value;
-            }
-        }
+    public function __construct(
+        private PostObjectInterface $postObject,
+        private IsMultisite&GetCurrentBlogId&SwitchToBlog&RestoreCurrentBlog $wpService
+    ) {
     }
 
     /**
@@ -71,7 +69,18 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
      */
     public function getIcon(): ?IconInterface
     {
-        return $this->postObject->getIcon();
+        if (!$this->wpService->isMultisite()) {
+            return $this->postObject->getIcon();
+        }
+
+        if ($this->getBlogId() === $this->wpService->getCurrentBlogId()) {
+            return $this->postObject->getIcon();
+        }
+
+        $this->wpService->switchToBlog($this->getBlogId());
+        $icon = $this->postObject->getIcon();
+        $this->wpService->restoreCurrentBlog();
+        return $icon;
     }
 
     /**
@@ -79,6 +88,6 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->postObject->getBlogId();
+        return $this->blogId ?? $this->postObject->getBlogId();
     }
 }

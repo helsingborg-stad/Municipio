@@ -30,7 +30,7 @@ class CachedIconResolver implements IconResolverInterface
      */
     public function resolve(): ?IconInterface
     {
-        $cacheKey = (string)$this->postObject->getId();
+        $cacheKey = "{$this->postObject->getBlogId()}_{$this->postObject->getId()}";
 
         if (array_key_exists($cacheKey, self::$cache)) {
             return self::$cache[$cacheKey];

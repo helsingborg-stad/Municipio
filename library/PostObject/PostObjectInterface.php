@@ -46,4 +46,12 @@ interface PostObjectInterface
      * @return IconInterface|null The post object icon or null if none is found.
      */
     public function getIcon(): ?IconInterface;
+
+    /**
+     * Get the post object blog id.
+     * Returns the blog id of the post objects origin.
+     *
+     * @return int
+     */
+    public function getBlogId(): int;
 }
