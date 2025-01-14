@@ -24,8 +24,6 @@ use Municipio\Helper\User\User as UserHelper;
  */
 class UserGroupSelector implements Hookable
 {
-
-    
     /**
      * Constructor for the UserGroupSelector class.
      */
@@ -34,8 +32,7 @@ class UserGroupSelector implements Hookable
         private UserHelper $userHelper,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
-    )
-    {
+    ) {
     }
 
     /**
@@ -70,7 +67,7 @@ class UserGroupSelector implements Hookable
             return;
         }
 
-        $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(); 
+        $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey();
 
         $this->wpService->deletePostMeta($postId, $metaKey);
 
@@ -80,9 +77,9 @@ class UserGroupSelector implements Hookable
 
         foreach ($_POST[$metaKey] as $group) {
             $this->wpService->addPostMeta(
-                $postId, 
-                $metaKey, 
-                $this->wpService->sanitizeTextField($group), 
+                $postId,
+                $metaKey,
+                $this->wpService->sanitizeTextField($group),
                 false
             );
         }
@@ -115,7 +112,7 @@ class UserGroupSelector implements Hookable
         }
 
         $checked = $this->wpService->getPostMeta(
-            $post->ID, 
+            $post->ID,
             $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey()
         ) ?: [];
         $this->renderPrivateVisibilityList($terms, $checked);
@@ -148,7 +145,7 @@ class UserGroupSelector implements Hookable
                 <input type="checkbox" name="%s[]" value="%s" %s>
                 %s
             </label>',
-            $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
+                $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
                 $term->slug,
                 $this->wpService->checked(in_array($term->slug, $checked), true, false),
                 $term->name

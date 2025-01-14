@@ -8,7 +8,6 @@ use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
-
 use Municipio\Helper\User\User;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 
@@ -31,10 +30,10 @@ class UserGroupRestriction implements Hookable
      * @param IsWpError $wpService An instance of the IsWpError class.
      */
     public function __construct(
-        private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService, 
+        private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
         private User $userHelper,
-        private UserGroupRestrictionConfig $userGroupRestrictionConfig)
-    {
+        private UserGroupRestrictionConfig $userGroupRestrictionConfig
+    ) {
     }
 
     /**
@@ -63,7 +62,7 @@ class UserGroupRestriction implements Hookable
 
         // Set user & get user group
         $this->userHelper->setUser();
-        $userGroup = $this->userHelper->getUserGroup(); 
+        $userGroup = $this->userHelper->getUserGroup();
         $userGroup = $userGroup->slug ?? null;
 
         $postStatus = $query->get('post_status');

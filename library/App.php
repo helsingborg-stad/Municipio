@@ -93,11 +93,11 @@ class App
             $this->wpService
         );
 
-        /* 
-         * Helpers 
+        /*
+         * Helpers
          */
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
 
         /**
          * User group
@@ -121,8 +121,8 @@ class App
         }
 
         $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
-            $this->wpService, 
-            $userHelper, 
+            $this->wpService,
+            $userHelper,
             $userGroupRestrictionConfig
         );
 

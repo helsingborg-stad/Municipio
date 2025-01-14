@@ -17,18 +17,16 @@ use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
  */
 class MainQueryUserGroupRestriction
 {
-
     /**
      * Class MainQueryUserGroupRestriction
      *
      * This class handles the user group restriction for the main query.
      */
     public function __construct(
-        private AddAction&IsUserLoggedIn&IsPostPubliclyViewable&GetPostMeta&GetQueriedObjectId $wpService, 
+        private AddAction&IsUserLoggedIn&IsPostPubliclyViewable&GetPostMeta&GetQueriedObjectId $wpService,
         private User $userHelper,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
-    )
-    {
+    ) {
     }
 
     /**
@@ -40,8 +38,8 @@ class MainQueryUserGroupRestriction
     public function shouldRestrict(?int $postId): bool
     {
         // Check if post ID is set
-        if(empty($postId)) {
-            return false; 
+        if (empty($postId)) {
+            return false;
         }
 
         // Check if user is logged in or post is publicly viewable
@@ -51,7 +49,7 @@ class MainQueryUserGroupRestriction
 
         // Set user & get user group
         $this->userHelper->setUser();
-        $userGroup = $this->userHelper->getUserGroup(); 
+        $userGroup = $this->userHelper->getUserGroup();
         $userGroup = $userGroup->slug ?? null;
 
         // Get post user group meta
