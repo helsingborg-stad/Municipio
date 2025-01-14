@@ -100,14 +100,9 @@ class UserGroupSelector implements Hookable
     {
         global $post;
 
-        if (
-            empty($terms = $this->wpService->getTerms(
-                [
-                    'taxonomy'   => $this->userHelperConfig->getUserGroupTaxonomyName(),
-                    'hide_empty' => false
-                ]
-            ))
-        ) {
+        $terms = $this->wpService->getTerms([ 'taxonomy' => $this->userHelperConfig->getUserGroupTaxonomyName(), 'hide_empty' => false ]);
+
+        if (empty($terms) || !is_array($terms)) {
             return;
         }
 
