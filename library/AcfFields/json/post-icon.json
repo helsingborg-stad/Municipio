@@ -202,8 +202,8 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
-    "style": "seamless",
+    "position": "side",
+    "style": "default",
     "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
