@@ -3,6 +3,8 @@
 namespace Municipio\PostObject;
 
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Implementations\FakeWpService;
 
 /**
  * PostObject
@@ -13,7 +15,9 @@ class PostObjectTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->instance = new PostObject();
+        $this->instance = new PostObject(new FakeWpService([
+            'getCurrentBlogId' => 1,
+        ]));
     }
 
     /**
@@ -62,5 +66,13 @@ class PostObjectTest extends TestCase
     public function testGetIconReturnsNull()
     {
         $this->assertNull($this->instance->getIcon());
+    }
+
+    /**
+     * @testdox getBlogId() current blog id
+     */
+    public function testGetBlogIdReturns1()
+    {
+        $this->assertEquals(1, $this->instance->getBlogId());
     }
 }

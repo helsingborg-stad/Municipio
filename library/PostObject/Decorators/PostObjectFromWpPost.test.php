@@ -17,7 +17,7 @@ class PostObjectFromWpPostTest extends TestCase
         $wpService = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
         $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
 
-        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, $wpService);
+        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
 
         $result = $instance->getCommentCount();
 
@@ -32,7 +32,7 @@ class PostObjectFromWpPostTest extends TestCase
         $wpService = new FakeWpService(['getPermalink' => 'http://example.com']);
         $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
 
-        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, $wpService);
+        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
 
         $result = $instance->getPermalink();
 
@@ -45,7 +45,7 @@ class PostObjectFromWpPostTest extends TestCase
     public function testGetTitleReturnsTitle()
     {
         $wpPost   = WpMockFactory::createWpPost(['post_title' => 'Title']);
-        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, new FakeWpService());
+        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('Title', $instance->getTitle());
     }
@@ -56,7 +56,7 @@ class PostObjectFromWpPostTest extends TestCase
     public function testGetPostTypeReturnsPostType()
     {
         $wpPost   = WpMockFactory::createWpPost(['post_type' => 'post']);
-        $instance = new PostObjectFromWpPost(new PostObject(), $wpPost, new FakeWpService());
+        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('post', $instance->getPostType());
     }

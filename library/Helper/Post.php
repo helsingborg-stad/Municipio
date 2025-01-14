@@ -154,7 +154,7 @@ class Post
         $wpService      = \Municipio\Helper\WpService::get();
         $acfService     = \Municipio\Helper\AcfService::get();
 
-        $postObject = new PostObjectFromWpPost(new PostObject(), $post, $wpService);
+        $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
 
         $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
         $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);

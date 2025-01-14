@@ -60,4 +60,12 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     {
         return $this->postObject->getIcon();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlogId(): int
+    {
+        return $this->postObject->getBlogId();
+    }
 }
