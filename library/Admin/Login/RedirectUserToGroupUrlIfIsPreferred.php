@@ -39,12 +39,9 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
         if ($user != null) {
             $perfersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
             $groupUrl        = $this->userHelper->getUserGroupUrl();
-            
+        
             if ($perfersGroupUrl && $groupUrl) {
-                return add_query_arg(
-                    $groupUrl,
-                    ['offerPersistantHomeUrl' => 'true']
-                );
+                return add_query_arg(['offerPersistantHomeUrl' => 'true'], $groupUrl);
             }
         }
         return $redirectTo;
