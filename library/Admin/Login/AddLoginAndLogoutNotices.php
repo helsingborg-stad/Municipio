@@ -47,7 +47,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 'save',
                 [
                     'url'  => './?setPersistantGroupUrl=true&uid=' . $this->wpService->getCurrentUserId(),
-                    'text' => __('Save this page as default home', 'municipio'),
+                    'text' => $this->wpService->__('Save this page as default home', 'municipio'),
                 ],
                 'session'
             );
@@ -66,7 +66,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 'save',
                 [
                     'url'  => './?setPersistantHomeUrl=true&uid=' . $this->wpService->getCurrentUserId(),
-                    'text' => __('Save this page as default home', 'municipio'),
+                    'text' => $this->wpService->__('Save this page as default home', 'municipio'),
                 ],
                 'session'
             );
@@ -86,8 +86,8 @@ class AddLoginAndLogoutNotices implements Hookable
             );
 
             $message = $result
-                ? __('Option saved', 'municipio')
-                : __('Option already saved', 'municipio');
+                ? $this->wpService->__('Option saved', 'municipio')
+                : $this->wpService->__('Option already saved', 'municipio');
 
             $icon = $result ? 'check_circle' : 'preliminary';
 
@@ -107,8 +107,8 @@ class AddLoginAndLogoutNotices implements Hookable
             );
 
             $message = $result
-                ? __('Option saved', 'municipio')
-                : __('Option could not be saved at the moment', 'municipio');
+                ? $this->wpService->__('Option saved', 'municipio')
+                : $this->wpService->__('Option could not be saved at the moment', 'municipio');
 
             $type = $result ? 'info' : 'warning';
             $icon = $result ? 'check_circle' : 'preliminary';
@@ -130,7 +130,7 @@ class AddLoginAndLogoutNotices implements Hookable
 
             // No url to prefer
             if (!$currentUserGroupUrl) {
-                \Municipio\Helper\Notice::add(__('Login successful', 'municipio'), 'info', 'login');
+                \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
                 return;
             }
 
@@ -156,7 +156,7 @@ class AddLoginAndLogoutNotices implements Hookable
     private function messageWhenUserPrefersUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
     {
         \Municipio\Helper\Notice::add(
-            __('Login successful', 'municipio'),
+            $this->wpService->__('Login successful', 'municipio'),
             'info',
             'login',
             [
@@ -165,8 +165,8 @@ class AddLoginAndLogoutNotices implements Hookable
                     ['offerPersistantHomeUrl' => 'true']
                 ),
                 'text' => sprintf(
-                    __('Go to %s', 'municipio'),
-                    $currentUserGroup->name ?? __('home', 'municipio')
+                    $this->wpService->__('Go to %s', 'municipio'),
+                    $currentUserGroup->name ?? $this->wpService->__('home', 'municipio')
                 ),
             ],
             'session'
@@ -187,7 +187,7 @@ class AddLoginAndLogoutNotices implements Hookable
 
         //Add notice
         \Municipio\Helper\Notice::add(
-            __('Login successful', 'municipio'),
+            $this->wpService->__('Login successful', 'municipio'),
             'info',
             'login',
             [
@@ -197,7 +197,7 @@ class AddLoginAndLogoutNotices implements Hookable
                       'offerPersistantGroupUrl' => 'true'
                     ]
                 ),
-                'text' => __('Go to default home', 'municipio'),
+                'text' => $this->wpService->__('Go to default home', 'municipio'),
             ],
             'session'
         );
@@ -211,7 +211,7 @@ class AddLoginAndLogoutNotices implements Hookable
     public function addNoticeWhenUserLogsOut(): void
     {
         if ((bool)($_GET['loggedout'] ?? false) && !$this->wpService->isUserLoggedIn()) {
-            \Municipio\Helper\Notice::add(__('Logout successful', 'municipio'), 'info', 'logout');
+            \Municipio\Helper\Notice::add($this->wpService->__('Logout successful', 'municipio'), 'info', 'logout');
         }
     }
 
