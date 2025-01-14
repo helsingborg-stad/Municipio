@@ -10,6 +10,9 @@ use Throwable;
  */
 class Enqueue
 {
+    /**
+     * Enqueue constructor.
+     */
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -148,8 +151,30 @@ class Enqueue
     {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
-            wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
+            wp_enqueue_script(
+                'options-reading',
+                self::getAssetWithCacheBust('js/options-reading.js'),
+                array('jquery'),
+                null,
+                true
+            );
         }
+
+        wp_enqueue_script(
+            'user-group-visibility',
+            self::getAssetWithCacheBust('js/user-group-visibility.js'),
+            array(),
+            false,
+            true
+        );
+
+        wp_enqueue_script(
+            'hidden-post-status-conditional',
+            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
+            array('acf-input', 'jquery'),
+            false,
+            true
+        );
     }
 
      /**

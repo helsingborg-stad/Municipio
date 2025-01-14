@@ -93,10 +93,50 @@ class App
             $this->wpService
         );
 
+        /*
+         * Helpers
+         */
+        $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
+        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+
+        /**
+         * User group
+         */
+        $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+
+        if ($this->wpService->isAdmin()) {
+            new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
+            (new \Municipio\Admin\Private\UserGroupSelector(
+                $this->wpService,
+                $userHelper,
+                $userHelperConfig,
+                $userGroupRestrictionConfig
+            ))->addHooks();
+        } else {
+            (new \Municipio\Admin\Private\UserGroupRestriction(
+                $this->wpService,
+                $userHelper,
+                $userGroupRestrictionConfig
+            ))->addHooks();
+        }
+
+        $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
+            $this->wpService,
+            $userHelper,
+            $userGroupRestrictionConfig
+        );
+
         /**
          * Template
          */
-        new \Municipio\Template($menuBuilder, $menuDirector, $this->acfService, $this->wpService, $this->schemaDataConfig);
+        new \Municipio\Template(
+            $menuBuilder,
+            $menuDirector,
+            $this->acfService,
+            $this->wpService,
+            $this->schemaDataConfig,
+            $mainQueryUserGroupRestriction
+        );
 
         /**
          * Theme
@@ -225,10 +265,6 @@ class App
         new \Municipio\Comment\Form();
         $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
-
-
-        /* User */
-        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
 
         /**
          * Admin
