@@ -9,14 +9,61 @@ use Municipio\PostObject\PostObjectInterface;
 /**
  * IconResolvingPostObject
  */
-class IconResolvingPostObject extends AbstractPostObjectDecorator implements PostObjectInterface
+class IconResolvingPostObject implements PostObjectInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(PostObjectInterface $inner, private IconResolverInterface $iconResolver)
+    public function __construct(private PostObjectInterface $postObject, private IconResolverInterface $iconResolver)
     {
-        $this->postObject = $inner;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): int
+    {
+        return $this->postObject->getId();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTitle(): string
+    {
+        return $this->postObject->getTitle();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPermalink(): string
+    {
+        return $this->postObject->getPermalink();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCommentCount(): int
+    {
+        return $this->postObject->getCommentCount();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPostType(): string
+    {
+        return $this->postObject->getPostType();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlogId(): int
+    {
+        return $this->postObject->getBlogId();
     }
 
     /**

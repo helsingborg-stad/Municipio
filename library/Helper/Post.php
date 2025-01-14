@@ -10,7 +10,10 @@ use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Municipio\Helper\Term\Term;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\IconResolvingPostObject;
+use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
+use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdTest;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
@@ -155,11 +158,14 @@ class Post
         $acfService     = \Municipio\Helper\AcfService::get();
 
         $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
+        $postObject = new PostObjectWithOtherBlogIdFromSwitchedState($postObject, $wpService);
 
         $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
         $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);
         $iconResolver = new CachedIconResolver($postObject, $iconResolver);
-        $postObject   = new IconResolvingPostObject($postObject, $iconResolver);
+
+        $postObject = new IconResolvingPostObject($postObject, $iconResolver);
+        $postObject = new PostObjectFromOtherBlog($postObject, $wpService);
 
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 

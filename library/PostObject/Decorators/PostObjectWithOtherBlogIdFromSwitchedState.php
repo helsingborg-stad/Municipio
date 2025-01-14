@@ -3,24 +3,27 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
-use WP_Post;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetCommentCount;
-use WpService\Contracts\GetPermalink;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\MsIsSwitched;
 
 /**
- * PostObject from WP_Post.
+ * PostObjectWithOtherBlogIdFromSwitchedState
  */
-class PostObjectFromWpPost implements PostObjectInterface
+class PostObjectWithOtherBlogIdFromSwitchedState implements PostObjectInterface
 {
+    private ?int $blogId = null;
+
     /**
      * Constructor.
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private WP_Post $wpPost,
-        private GetPermalink&GetCommentCount $wpService
+        private MsIsSwitched&GetCurrentBlogId $wpService
     ) {
+        if ($this->wpService->msIsSwitched() === true) {
+            $this->blogId = $this->wpService->getCurrentBlogId();
+        }
     }
 
     /**
@@ -28,7 +31,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getId(): int
     {
-        return $this->wpPost->ID;
+        return $this->postObject->getId();
     }
 
     /**
@@ -36,7 +39,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getTitle(): string
     {
-        return $this->wpPost->post_title;
+        return $this->postObject->getTitle();
     }
 
     /**
@@ -44,7 +47,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        return $this->wpService->getPermalink($this->wpPost);
+        return $this->postObject->getPermalink();
     }
 
     /**
@@ -52,7 +55,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getCommentCount(): int
     {
-        return $this->wpService->getCommentCount($this->getId())['approved'];
+        return $this->postObject->getCommentCount();
     }
 
     /**
@@ -60,7 +63,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getPostType(): string
     {
-        return $this->wpPost->post_type;
+        return $this->postObject->getPostType();
     }
 
     /**
@@ -76,6 +79,6 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->postObject->getBlogId();
+        return $this->blogId ?? $this->postObject->getBlogId();
     }
 }

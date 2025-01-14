@@ -4,14 +4,21 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\TermIcon\TermIconInterface;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\IsMultisite;
+use WpService\Contracts\RestoreCurrentBlog;
+use WpService\Contracts\SwitchToBlog;
 
-/**
- * Abstract post object decorator.
- */
-abstract class AbstractPostObjectDecorator implements PostObjectInterface
+class PostObjectFromOtherBlog implements PostObjectInterface
 {
-    protected PostObjectInterface $postObject;
+    /**
+     * Constructor.
+     */
+    public function __construct(
+        private PostObjectInterface $postObject,
+        private IsMultisite&GetCurrentBlogId&SwitchToBlog&RestoreCurrentBlog $wpService
+    ) {
+    }
 
     /**
      * @inheritDoc
@@ -58,7 +65,18 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
      */
     public function getIcon(): ?IconInterface
     {
-        return $this->postObject->getIcon();
+        if (!$this->wpService->isMultisite()) {
+            return $this->postObject->getIcon();
+        }
+
+        if ($this->getBlogId() === $this->wpService->getCurrentBlogId()) {
+            return $this->postObject->getIcon();
+        }
+
+        $this->wpService->switchToBlog($this->getBlogId());
+        $icon = $this->postObject->getIcon();
+        $this->wpService->restoreCurrentBlog();
+        return $icon;
     }
 
     /**
@@ -66,6 +84,6 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->postObject->getBlogId();
+        return $this->blogId ?? $this->postObject->getBlogId();
     }
 }
