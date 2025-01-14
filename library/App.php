@@ -93,18 +93,36 @@ class App
             $this->wpService
         );
 
+        /* 
+         * Helpers 
+         */
+        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
+
         /**
          * User group
          */
+        $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+
         if ($this->wpService->isAdmin()) {
             new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
-            (new \Municipio\Admin\Private\UserGroupSelector($this->wpService))->addHooks();
+            (new \Municipio\Admin\Private\UserGroupSelector(
+                $this->wpService,
+                $userHelper,
+                $userGroupRestrictionConfig
+            ))->addHooks();
         } else {
-            (new \Municipio\Admin\Private\UserGroupRestriction($this->wpService))->addHooks();
+            (new \Municipio\Admin\Private\UserGroupRestriction(
+                $this->wpService,
+                $userHelper,
+                $userGroupRestrictionConfig
+            ))->addHooks();
         }
 
-        $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction($this->wpService);
-
+        $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
+            $this->wpService, 
+            $userHelper, 
+            $userGroupRestrictionConfig
+        );
 
         /**
          * Template
@@ -245,10 +263,6 @@ class App
         new \Municipio\Comment\Form();
         $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
         $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
-
-
-        /* User */
-        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
 
         /**
          * Admin

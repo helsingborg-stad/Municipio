@@ -6,9 +6,11 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
-use WP_User;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
+
+use Municipio\Helper\User\User;
+use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 
 /**
  * UserGroupRestriction class.
@@ -28,7 +30,10 @@ class UserGroupRestriction implements Hookable
      * @param WpGetPostTerms $wpService An instance of the WpGetPostTerms class.
      * @param IsWpError $wpService An instance of the IsWpError class.
      */
-    public function __construct(private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService)
+    public function __construct(
+        private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService, 
+        private User $userHelper,
+        private UserGroupRestrictionConfig $userGroupRestrictionConfig)
     {
     }
 
@@ -56,7 +61,11 @@ class UserGroupRestriction implements Hookable
             return;
         }
 
-        $userGroup  = \Municipio\Admin\Private\Helper\GetUserGroup::getUserGroups();
+        // Set user & get user group
+        $this->userHelper->setUser();
+        $userGroup = $this->userHelper->getUserGroup(); 
+        $userGroup = $userGroup->slug ?? null;
+
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {
@@ -72,11 +81,11 @@ class UserGroupRestriction implements Hookable
         $metaQuery[] = [
             'relation' => 'OR',
             [
-                'key'     => $this->userGroupMetaKey,
+                'key'     => $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
                 'compare' => 'NOT EXISTS',
             ],
             [
-                'key'     => $this->userGroupMetaKey,
+                'key'     => $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
                 'value'   => $userGroup,
                 'compare' => 'IN',
             ]

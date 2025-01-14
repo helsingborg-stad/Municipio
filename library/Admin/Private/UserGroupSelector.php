@@ -12,6 +12,8 @@ use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetTerms;
 use WpService\Contracts\SanitizeTextField;
 use WpService\Contracts\WpVerifyNonce;
+use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
+use Municipio\Helper\User\User;
 
 /**
  * Represents a UserGroupSelector class.
@@ -21,13 +23,16 @@ use WpService\Contracts\WpVerifyNonce;
  */
 class UserGroupSelector implements Hookable
 {
-    private string $userGroupMetaKey  = 'user-group-visibility';
     private string $userGroupTaxonomy = 'user_group';
 
     /**
      * Constructor for the UserGroupSelector class.
      */
-    public function __construct(private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService)
+    public function __construct(
+        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
+        private User $userHelper,
+        private UserGroupRestrictionConfig $userGroupRestrictionConfig
+    )
     {
     }
 
@@ -63,15 +68,21 @@ class UserGroupSelector implements Hookable
             return;
         }
 
-        $this->wpService->deletePostMeta($postId, $this->userGroupMetaKey);
+        $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(); 
 
-        if (empty($_POST[$this->userGroupMetaKey])) {
+        $this->wpService->deletePostMeta($postId, $metaKey);
+
+        if (empty($_POST[$metaKey])) {
             return;
         }
 
-        foreach ($_POST[$this->userGroupMetaKey] as $group) {
-            $group = $this->wpService->sanitizeTextField($group);
-            $this->wpService->addPostMeta($postId, $this->userGroupMetaKey, $group, false);
+        foreach ($_POST[$metaKey] as $group) {
+            $this->wpService->addPostMeta(
+                $postId, 
+                $metaKey, 
+                $this->wpService->sanitizeTextField($group), 
+                false
+            );
         }
     }
 
@@ -101,7 +112,10 @@ class UserGroupSelector implements Hookable
             return;
         }
 
-        $checked = $this->wpService->getPostMeta($post->ID, $this->userGroupMetaKey) ?: [];
+        $checked = $this->wpService->getPostMeta(
+            $post->ID, 
+            $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey()
+        ) ?: [];
         $this->renderPrivateVisibilityList($terms, $checked);
     }
 
@@ -122,7 +136,7 @@ class UserGroupSelector implements Hookable
             '<div id="%s" class="misc-pub-section" style="display: none;">
             <label>%s</label>
             <br><br>',
-            $this->userGroupMetaKey,
+            $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
             __('User group visibility', 'municipio')
         );
 
@@ -132,7 +146,7 @@ class UserGroupSelector implements Hookable
                 <input type="checkbox" name="%s[]" value="%s" %s>
                 %s
             </label>',
-                $this->userGroupMetaKey,
+            $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey(),
                 $term->slug,
                 $this->wpService->checked(in_array($term->slug, $checked), true, false),
                 $term->name

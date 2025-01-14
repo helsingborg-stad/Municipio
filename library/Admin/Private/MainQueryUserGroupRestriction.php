@@ -7,6 +7,8 @@ use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetQueriedObjectId;
 use WpService\Contracts\IsPostPubliclyViewable;
 use WpService\Contracts\IsUserLoggedIn;
+use Municipio\Helper\User\User;
+use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 
 /**
  * UserGroupRestrictionMainQuery class.
@@ -15,14 +17,17 @@ use WpService\Contracts\IsUserLoggedIn;
  */
 class MainQueryUserGroupRestriction
 {
-    private string $userGroupMetaKey = 'user-group-visibility';
 
     /**
      * Class MainQueryUserGroupRestriction
      *
      * This class handles the user group restriction for the main query.
      */
-    public function __construct(private AddAction&IsUserLoggedIn&IsPostPubliclyViewable&GetPostMeta&GetQueriedObjectId $wpService)
+    public function __construct(
+        private AddAction&IsUserLoggedIn&IsPostPubliclyViewable&GetPostMeta&GetQueriedObjectId $wpService, 
+        private User $userHelper,
+        private UserGroupRestrictionConfig $userGroupRestrictionConfig
+    )
     {
     }
 
@@ -34,20 +39,28 @@ class MainQueryUserGroupRestriction
      */
     public function shouldRestrict(?int $postId): bool
     {
-        if (
-            !$this->wpService->isUserLoggedIn() ||
-            $this->wpService->isPostPubliclyViewable() ||
-            empty($postId)
-        ) {
+        // Check if post ID is set
+        if(empty($postId)) {
+            return false; 
+        }
+
+        // Check if user is logged in or post is publicly viewable
+        if (!$this->wpService->isUserLoggedIn() || $this->wpService->isPostPubliclyViewable()) {
             return false;
         }
 
-        $userGroup         = \Municipio\Admin\Private\Helper\GetUserGroup::getUserGroups();
+        // Set user & get user group
+        $this->userHelper->setUser();
+        $userGroup = $this->userHelper->getUserGroup(); 
+        $userGroup = $userGroup->slug ?? null;
+
+        // Get post user group meta
         $postUserGroupMeta = $this->wpService->getPostMeta(
             $postId,
-            $this->userGroupMetaKey
+            $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey()
         );
 
+        //Check for matching user group
         if (!empty($postUserGroupMeta) && !in_array($userGroup, $postUserGroupMeta)) {
             return true;
         }
