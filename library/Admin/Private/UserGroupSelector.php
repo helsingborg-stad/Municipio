@@ -13,7 +13,8 @@ use WpService\Contracts\GetTerms;
 use WpService\Contracts\SanitizeTextField;
 use WpService\Contracts\WpVerifyNonce;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
-use Municipio\Helper\User\User;
+use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
+use Municipio\Helper\User\User as UserHelper;
 
 /**
  * Represents a UserGroupSelector class.
@@ -23,14 +24,15 @@ use Municipio\Helper\User\User;
  */
 class UserGroupSelector implements Hookable
 {
-    private string $userGroupTaxonomy = 'user_group';
 
+    
     /**
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
         private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
-        private User $userHelper,
+        private UserHelper $userHelper,
+        private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
     )
     {
@@ -104,7 +106,7 @@ class UserGroupSelector implements Hookable
         if (
             empty($terms = $this->wpService->getTerms(
                 [
-                    'taxonomy'   => $this->userGroupTaxonomy,
+                    'taxonomy'   => $this->userHelperConfig->getUserGroupTaxonomyName(),
                     'hide_empty' => false
                 ]
             ))

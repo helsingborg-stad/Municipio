@@ -96,7 +96,8 @@ class App
         /* 
          * Helpers 
          */
-        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new UserConfig());
+        $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
+        $userHelper = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
 
         /**
          * User group
@@ -108,6 +109,7 @@ class App
             (new \Municipio\Admin\Private\UserGroupSelector(
                 $this->wpService,
                 $userHelper,
+                $userHelperConfig,
                 $userGroupRestrictionConfig
             ))->addHooks();
         } else {
