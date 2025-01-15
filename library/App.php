@@ -476,7 +476,7 @@ class App
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig();
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
 
-        if ($config->isEnabled() === false || $userGroupConfig->isEnabled() === false) {
+        if ($config->isEnabled() === false) {
             return;
         }
 
@@ -490,6 +490,10 @@ class App
         ];
         $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
+
+        if ($userGroupConfig->isEnabled() === false) {
+            return;
+        }
 
         // Set group as taxonomy
         $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup($this->wpService, $termHelper, $userGroupConfig);
