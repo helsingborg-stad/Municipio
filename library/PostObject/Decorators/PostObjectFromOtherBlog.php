@@ -92,16 +92,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     }
 
     /**
-     * Determine if we should switch to another blog.
-     *
-     * @return bool
-     */
-    private function shouldSwitch(): bool
-    {
-        return $this->wpService->isMultisite() && $this->getBlogId() !== $this->wpService->getCurrentBlogId();
-    }
-
-    /**
      * Switch to another blog.
      */
     private function switch(): void

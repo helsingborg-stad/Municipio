@@ -3,7 +3,9 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\{RestoreCurrentBlog, SwitchToBlog};
 use WpService\Implementations\FakeWpService;
 
 class PostObjectFromOtherBlogTest extends TestCase
@@ -13,12 +15,9 @@ class PostObjectFromOtherBlogTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $wpService  = new FakeWpService();
-        $postObject = $this->createStub(PostObjectInterface::class);
-
         $this->assertInstanceOf(
             PostObjectFromOtherBlog::class,
-            new PostObjectFromOtherBlog($postObject, $wpService, 1)
+            new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 1)
         );
     }
 
@@ -28,10 +27,7 @@ class PostObjectFromOtherBlogTest extends TestCase
      */
     public function testGetBlogIdReturnsTheProvidedBlogId()
     {
-        $wpService  = new FakeWpService();
-        $postObject = $this->createStub(PostObjectInterface::class);
-
-        $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
+        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 2);
 
         $this->assertEquals(2, $decorator->getBlogId());
     }
@@ -42,9 +38,8 @@ class PostObjectFromOtherBlogTest extends TestCase
      */
     public function testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue(string $function)
     {
-        $wpService  = new FakeWpService(['switchToBlog' => true, 'restoreCurrentBlog' => true]);
-        $postObject = $this->createStub(PostObjectInterface::class);
-        $decorator  = new PostObjectFromOtherBlog($postObject, $wpService, 2);
+        $wpService = $this->getWpService();
+        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $wpService, 2);
 
         $decorator->{$function}();
 
@@ -59,5 +54,15 @@ class PostObjectFromOtherBlogTest extends TestCase
             'getPermalink' => ['getPermalink'],
             'getIcon'      => ['getIcon'],
         ];
+    }
+
+    private function getPostObject(): PostObjectInterface|MockObject
+    {
+        return $this->createStub(PostObjectInterface::class);
+    }
+
+    private function getWpService(): SwitchToBlog&RestoreCurrentBlog
+    {
+        return new FakeWpService(['switchToBlog' => true, 'restoreCurrentBlog' => true]);
     }
 }
