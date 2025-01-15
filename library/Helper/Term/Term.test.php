@@ -189,4 +189,43 @@ class TermTests extends TestCase
         $this->assertEquals('description', $icon['description']);
         $this->assertEquals('description', $icon['alt']);
     }
+
+    /**
+     * @testdox createOrGetTermIdFromString() returns termId if term already exists
+     */
+    public function testCreateOrGetTermIdFromStringReturnsTermIdIfTermAlreadyExists()
+    {
+        $wpService  = new FakeWpService(['getTermBy' => WpMockFactory::createWpTerm(['term_id' => 123])]);
+        $termHelper = new Term($wpService, new FakeAcfService());
+
+        $this->assertEquals(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
+    }
+
+    /**
+     * @testdox createOrGetTermIdFromString() returns null if term could no be created
+     */
+    public function testCreateOrGetTermIdFromStringReturnsNullIfTermCouldNotBeCreated()
+    {
+        $wpService  = new FakeWpService([
+            'getTermBy'    => false,
+            'wpInsertTerm' => WpMockFactory::createWpError(),
+            'isWpError'    => true]);
+        $termHelper = new Term($wpService, new FakeAcfService());
+
+        $this->assertNull($termHelper->createOrGetTermIdFromString('term', 'category'));
+    }
+
+    /**
+     * @testdox createOrGetTermIdFromString() returns termId if term was created
+     */
+    public function testCreateOrGetTermIdFromStringReturnsTermIdIfTermWasCreated()
+    {
+        $wpService  = new FakeWpService([
+            'getTermBy'    => false,
+            'wpInsertTerm' => ['term_id' => 123],
+            'isWpError'    => false]);
+        $termHelper = new Term($wpService, new FakeAcfService());
+
+        $this->assertEquals(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
+    }
 }
