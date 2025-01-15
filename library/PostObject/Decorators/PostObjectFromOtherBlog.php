@@ -45,7 +45,11 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        return $this->postObject->getPermalink();
+        if (!$this->shouldSwitch()) {
+            return $this->postObject->getPermalink();
+        }
+
+        return $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink());
     }
 
     /**
@@ -69,18 +73,11 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getIcon(): ?IconInterface
     {
-        if (!$this->wpService->isMultisite()) {
+        if (!$this->shouldSwitch()) {
             return $this->postObject->getIcon();
         }
 
-        if ($this->getBlogId() === $this->wpService->getCurrentBlogId()) {
-            return $this->postObject->getIcon();
-        }
-
-        $this->wpService->switchToBlog($this->getBlogId());
-        $icon = $this->postObject->getIcon();
-        $this->wpService->restoreCurrentBlog();
-        return $icon;
+        return $this->getValueFromOtherBlog(fn() => $this->postObject->getIcon());
     }
 
     /**
@@ -89,5 +86,43 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     public function getBlogId(): int
     {
         return $this->blogId ?? $this->postObject->getBlogId();
+    }
+
+    /**
+     * Get the value from another blog.
+     */
+    private function getValueFromOtherBlog(callable $callback)
+    {
+        $this->switch();
+        $value = $callback();
+        $this->restore();
+
+        return $value;
+    }
+
+    /**
+     * Determine if we should switch to another blog.
+     *
+     * @return bool
+     */
+    private function shouldSwitch(): bool
+    {
+        return $this->wpService->isMultisite() && $this->getBlogId() !== $this->wpService->getCurrentBlogId();
+    }
+
+    /**
+     * Switch to another blog.
+     */
+    private function switch(): void
+    {
+        $this->wpService->switchToBlog($this->getBlogId());
+    }
+
+    /**
+     * Restore the current blog.
+     */
+    private function restore(): void
+    {
+        $this->wpService->restoreCurrentBlog();
     }
 }
