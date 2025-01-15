@@ -451,15 +451,15 @@ class App
         $displayUserGroupTaxonomyInUsersList->addHooks();
 
         // Add user group to admin menu
-        $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
+        $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\UserGroup\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
         $displayUserGroupTaxonomyLinkInAdminUi->addHooks();
 
         // Add user group to user profile & populate
-        $displayUserGroupTaxonomyInUserProfile = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
+        $displayUserGroupTaxonomyInUserProfile = new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
         $displayUserGroupTaxonomyInUserProfile->addHooks();
 
         // User group url
-        $populateUserGroupUrlBlogIdField = new \Municipio\Integrations\MiniOrange\PopulateUserGroupUrlBlogIdField($this->wpService);
+        $populateUserGroupUrlBlogIdField = new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService);
         $populateUserGroupUrlBlogIdField->addHooks();
     }
 
