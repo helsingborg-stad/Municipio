@@ -1,16 +1,25 @@
 <?php
 
-namespace Municipio\Integrations\MiniOrange;
+namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 
+/**
+ * Populate User Group URL blog id field.
+ */
 class PopulateUserGroupUrlBlogIdField implements Hookable
 {
+    /**
+     * Constructor.
+     */
     public function __construct(private WpService $wpService)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addFilter('acf/load_field/key=field_677e6b8534123', array($this, 'populateUserGroupUrlBlogIdField'));
@@ -23,8 +32,8 @@ class PopulateUserGroupUrlBlogIdField implements Hookable
    */
     public function populateUserGroupUrlBlogIdField($field)
     {
-        if(!$this->wpService->isMultisite()) {
-          return $field;
+        if (!$this->wpService->isMultisite()) {
+            return $field;
         }
         $field['choices'] = [];
         $blogs            = $this->wpService->getSites(['number' => 500]) ?? [];
