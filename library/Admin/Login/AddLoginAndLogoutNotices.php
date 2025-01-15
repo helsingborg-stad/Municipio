@@ -84,10 +84,10 @@ class AddLoginAndLogoutNotices implements Hookable
                 $this->userConfig->getUserPrefersGroupUrlMetaKey(),
                 true
             );
-
+            
             $message = $result
                 ? $this->wpService->__('Option saved', 'municipio')
-                : $this->wpService->__('Option already saved', 'municipio');
+                : $this->wpService->__('Option saved', 'municipio');
 
             $icon = $result ? 'check_circle' : 'preliminary';
 
@@ -108,12 +108,11 @@ class AddLoginAndLogoutNotices implements Hookable
 
             $message = $result
                 ? $this->wpService->__('Option saved', 'municipio')
-                : $this->wpService->__('Option could not be saved at the moment', 'municipio');
+                : $this->wpService->__('Option saved', 'municipio');
 
-            $type = $result ? 'info' : 'warning';
             $icon = $result ? 'check_circle' : 'preliminary';
 
-            \Municipio\Helper\Notice::add($message, $type, $icon);
+            \Municipio\Helper\Notice::add($message, 'info', $icon);
         }
     }
 
@@ -128,24 +127,23 @@ class AddLoginAndLogoutNotices implements Hookable
             $userPrefersGroupUrl     = $this->userHelper->getUserPrefersGroupUrl();
             $userPrefersGroupUrlType = $this->userHelper->getUserGroupUrlType();
 
-            // No url to prefer
-            if (!$currentUserGroupUrl) {
-                \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
-                return;
-            }
+            \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
 
-            // User prefers group url, and are given option to remove this setting
-            if ($this->shouldOfferRemovingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
-                $this->messageWhenUserPrefersUserGroupUrl($currentUserGroup, $currentUserGroupUrl);
-                return;
-            }
+            if($currentUserGroupUrl) {
+                if($userPrefersGroupUrl) {
+                    $this->messageWhenUserPrefersUserGroupUrl(
+                        $userPrefersGroupUrlType
+                    );
+                    return; 
+                }
 
-            // User does not prefer group url, and are given option to set this as home
-            if ($this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl)) {
-                $this->messageWhenUserDoesNotPreferUserGroupUrl(
-                    $userPrefersGroupUrlType
-                );
-                return;
+                if(!$userPrefersGroupUrl) {
+                    $this->messageWhenUserDoesNotPreferUserGroupUrl(
+                        $currentUserGroup,
+                        $currentUserGroupUrl
+                    );
+                    return;
+                }
             }
         }
     }
@@ -153,30 +151,7 @@ class AddLoginAndLogoutNotices implements Hookable
     /**
      * Show message with user group
      */
-    private function messageWhenUserPrefersUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
-    {
-        \Municipio\Helper\Notice::add(
-            $this->wpService->__('Login successful', 'municipio'),
-            'info',
-            'login',
-            [
-                'url'  => $this->addQueryParamsToUrl(
-                    $currentUserGroupUrl,
-                    ['offerPersistantHomeUrl' => 'true']
-                ),
-                'text' => sprintf(
-                    $this->wpService->__('Go to %s', 'municipio'),
-                    $currentUserGroup->name ?? $this->wpService->__('home', 'municipio')
-                ),
-            ],
-            'session'
-        );
-    }
-
-    /**
-     * Show message without user group
-     */
-    private function messageWhenUserDoesNotPreferUserGroupUrl(string $urlType): void
+    private function messageWhenUserPrefersUserGroupUrl(string $urlType): void
     {
         //Get network main site url if link type is blog_id
         if ($urlType == 'blog_id' && $this->wpService->isMultisite()) {
@@ -187,17 +162,40 @@ class AddLoginAndLogoutNotices implements Hookable
 
         //Add notice
         \Municipio\Helper\Notice::add(
-            $this->wpService->__('Login successful', 'municipio'),
+            '',
             'info',
             'login',
             [
                 'url'  => $this->addQueryParamsToUrl(
                     $url,
                     [
-                      'offerPersistantGroupUrl' => 'true'
+                      'offerPersistantHomeUrl' => 'true'
                     ]
                 ),
                 'text' => $this->wpService->__('Go to default home', 'municipio'),
+            ],
+            'session'
+        );
+    }
+
+    /**
+     * Show message without user group
+     */
+    private function messageWhenUserDoesNotPreferUserGroupUrl(\WP_Term $currentUserGroup, string $currentUserGroupUrl): void
+    {
+        \Municipio\Helper\Notice::add(
+            '',
+            'info',
+            'login',
+            [
+                'url'  => $this->addQueryParamsToUrl(
+                    $currentUserGroupUrl,
+                    ['offerPersistantGroupUrl' => 'true']
+                ),
+                'text' => sprintf(
+                    $this->wpService->__('Go to %s', 'municipio'),
+                    $currentUserGroup->name ?? $this->wpService->__('home', 'municipio')
+                ),
             ],
             'session'
         );
@@ -226,26 +224,5 @@ class AddLoginAndLogoutNotices implements Hookable
     private function addQueryParamsToUrl(string $url, array $params): string
     {
         return add_query_arg($params, $url);
-    }
-
-    /**
-     * Should offer setting group url as home
-     *
-     * @return bool
-     */
-    private function shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool
-    {
-        return ($currentUserGroupUrl && !$userPrefersGroupUrl);
-    }
-
-    /**
-     * Should offer removing group url as home,
-     * a negative of shouldOfferSettingGroupUrlAsHome
-     *
-     * @return bool
-     */
-    private function shouldOfferRemovingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl): bool
-    {
-        return !$this->shouldOfferSettingGroupUrlAsHome($currentUserGroupUrl, $userPrefersGroupUrl);
     }
 }
