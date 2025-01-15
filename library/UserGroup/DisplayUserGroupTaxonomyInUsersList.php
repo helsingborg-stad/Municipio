@@ -1,16 +1,22 @@
 <?php
 
-namespace Municipio\Integrations\MiniOrange;
+namespace Municipio\UserGroup;
 
 use WpService\WpService;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig;
+use Municipio\UserGroup\Config\UserGroupConfigInterface;
 
+/**
+ * Display User Group taxonomy in the Users List table
+ */
 class DisplayUserGroupTaxonomyInUsersList implements Hookable
 {
     private string $taxonomy;
 
-    public function __construct(private WpService $wpService, private MiniOrangeConfig $config)
+    /**
+     * Constructor
+     */
+    public function __construct(private WpService $wpService, private UserGroupConfigInterface $config)
     {
         $this->taxonomy = $this->config->getUserGroupTaxonomy();
     }

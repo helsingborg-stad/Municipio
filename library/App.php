@@ -447,7 +447,7 @@ class App
         $createUserGroupTaxonomy->addHooks();
 
         // Add user group to users list
-        $displayUserGroupTaxonomyInUsersList = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
+        $displayUserGroupTaxonomyInUsersList = new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
         $displayUserGroupTaxonomyInUsersList->addHooks();
 
         // Add user group to admin menu
