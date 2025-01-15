@@ -359,6 +359,11 @@ class App
         $this->setupLoginLogout();
 
         /**
+         * UserGroup feature
+         */
+        $this->setupUserGroupFeature();
+
+        /**
          * MiniOrange integration
          */
         $this->setUpMiniOrangeIntegration();
@@ -424,6 +429,13 @@ class App
 
         $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPreferred($this->wpService, $userHelper);
         $redirectUserToGroupUrlIfIsPrefered->addHooks();
+    }
+
+    /**
+     * Set up the user group feature.
+     */
+    private function setupUserGroupFeature(): void
+    {
     }
 
     /**
