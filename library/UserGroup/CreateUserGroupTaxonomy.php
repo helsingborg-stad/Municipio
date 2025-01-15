@@ -6,6 +6,9 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WpService\Contracts\{__, AddAction, RegisterTaxonomy};
 
+/**
+ * Create User Group taxonomy.
+ */
 class CreateUserGroupTaxonomy implements Hookable
 {
     /**

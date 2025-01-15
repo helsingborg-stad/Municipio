@@ -7,8 +7,14 @@ use WpService\WpService;
 use Municipio\Helper\User\User;
 use WpService\Contracts\AddQueryArg;
 
+/**
+ * Redirect user to group url if user prefers group url
+ */
 class RedirectUserToGroupUrlIfIsPreferred implements Hookable
 {
+    /**
+     * Constructor.
+     */
     public function __construct(private WpService&AddQueryArg $wpService, private User $userHelper)
     {
     }
