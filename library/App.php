@@ -103,15 +103,19 @@ class App
          * User group
          */
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+        $userGroupConfig            = new \Municipio\UserGroup\Config\UserGroupConfig();
 
         if ($this->wpService->isAdmin()) {
             new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
-            (new \Municipio\Admin\Private\UserGroupSelector(
-                $this->wpService,
-                $userHelper,
-                $userHelperConfig,
-                $userGroupRestrictionConfig
-            ))->addHooks();
+
+            if ($userGroupConfig->isEnabled()) {
+                (new \Municipio\Admin\Private\UserGroupSelector(
+                    $this->wpService,
+                    $userGroupConfig->getUserGroupTaxonomy(),
+                    $userHelperConfig,
+                    $userGroupRestrictionConfig
+                ))->addHooks();
+            }
         } else {
             (new \Municipio\Admin\Private\UserGroupRestriction(
                 $this->wpService,
