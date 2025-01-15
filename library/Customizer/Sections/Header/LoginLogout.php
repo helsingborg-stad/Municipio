@@ -131,17 +131,11 @@ class LoginLogout
             'label'           => esc_html__('Custom background color', 'municipio'),
             'section'         => $sectionID,
             'priority'        => 10,
-            'default'         => '#ffffff00',
-            'choices'         => [
-                'alpha' => true,
-            ],
+            'default'         => '#ffffff',
             'palettes'        => $colorPalette,
             'output'          => [
                 [
-                    'type' => 'controller'
-                ],
-                [
-                    'element'  => '.user.user--has-background',
+                    'element'  => '.user',
                     'property' => '--user-background-color'
                 ]
             ],

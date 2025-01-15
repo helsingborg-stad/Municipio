@@ -58,20 +58,4 @@
             @endtypography
         @endlink
     @endgroup
-
-    <!-- Logout mobile -->
-    @button([
-        'text' => $lang->logout,
-        'color' => 'basic',
-        'style' => 'basic',
-        'href' => $logoutUrl,
-        'classList' => [
-            'user__button',
-            'js-action-logout-click'
-        ],
-    ])
-    @endbutton
 @endelement
-
-
-

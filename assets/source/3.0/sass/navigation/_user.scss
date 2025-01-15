@@ -1,17 +1,19 @@
-// Light
-$user-background-color: var(--user-background-color, transparent) !default;
 $user-background-width: var(--user-background-width, 0px) !default;
 
 // Colors
 .user {
-    --user-active-author-color: #{$color-light};
-    --user-active-text-color: #{$color-white};
-    --user-active-text-color-hover: #{$color-white};
+    --user-active-author-color: #{$color-black};
+    --user-active-text-color: #{$color-dark};
+    --user-active-text-color-hover: #{$color-black};
+
+    --user-background-color: #{$color-white};
 
     &.user--dark {
-        --user-active-author-color: #{$color-black};
-        --user-active-text-color: #{$color-dark};
-        --user-active-text-color-hover: #{$color-black};
+        --user-active-author-color: #{$color-white};
+        --user-active-text-color: #{$color-lightest};
+        --user-active-text-color-hover: #{$color-white};
+    
+        --user-background-color: #{$color-darker};
     }
 }
 
@@ -30,22 +32,20 @@ $user-background-width: var(--user-background-width, 0px) !default;
 }
 
 .user {
-    &.user--has-background {
-        padding-left: calc($base * 2);
-        padding-right: calc($base * 2);
-    
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: $user-background-width;
-            transition: width .3s;
-            background-color: $user-background-color;
-            transform: translateX(calc(-1 * $base * 2));
-            z-index: -1;
-        }  
-    }
+    padding-left: calc($base * 2);
+    padding-right: calc($base * 2);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: $user-background-width;
+        transition: width .3s;
+        background-color: var(--user-background-color);
+        transform: translateX(calc(-1 * $base * 2));
+        z-index: -1;
+    }  
 
     .user__button {
         min-width: 0;
@@ -70,10 +70,6 @@ $user-background-width: var(--user-background-width, 0px) !default;
 
         &.user--active .user__container {
             display: flex;
-        }
-
-        .user__button {
-            display: none;
         }
     }
 
