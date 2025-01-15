@@ -102,17 +102,17 @@ class LoginLogout
             'output'          => [
                 [
                     'choice'   => 'user-active-text-color',
-                    'element'  => '.user.user--active',
+                    'element'  => '.user',
                     'property' => '--user-active-text-color'
                 ],
                 [
                     'choice'   => 'user-active-text-color-hover',
-                    'element'  => '.user.user--active',
+                    'element'  => '.user',
                     'property' => '--user-active-text-color-hover'
                 ],
                 [
                     'choice'   => 'user-active-author-color',
-                    'element'  => '.user.user--active',
+                    'element'  => '.user',
                     'property' => '--user-active-author-color'
                 ],
             ],
@@ -131,17 +131,11 @@ class LoginLogout
             'label'           => esc_html__('Custom background color', 'municipio'),
             'section'         => $sectionID,
             'priority'        => 10,
-            'default'         => '#ffffff00',
-            'choices'         => [
-                'alpha' => true,
-            ],
+            'default'         => '#ffffff',
             'palettes'        => $colorPalette,
             'output'          => [
                 [
-                    'type' => 'controller'
-                ],
-                [
-                    'element'  => '.user.user--has-background',
+                    'element'  => '.user',
                     'property' => '--user-background-color'
                 ]
             ],
