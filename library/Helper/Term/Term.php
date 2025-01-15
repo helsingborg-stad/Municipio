@@ -3,23 +3,22 @@
 namespace Municipio\Helper\Term;
 
 use AcfService\Contracts\GetField;
+use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\Term\Contracts\GetTermColor;
 use Municipio\Helper\Term\Contracts\GetTermIcon;
-use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\GetAncestors;
-use WpService\Contracts\GetTermBy;
-use WpService\Contracts\WpGetAttachmentImageUrl;
+use WP_Term;
+use WpService\Contracts\{WpInsertTerm, WpGetAttachmentImageUrl, IsWpError, GetTermBy, GetAncestors, ApplyFilters};
 
 /**
  * Class Term
  */
-class Term implements GetTermColor, GetTermIcon
+class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private GetTermBy&ApplyFilters&GetAncestors&WpGetAttachmentImageUrl $wpService,
+        private GetTermBy&ApplyFilters&GetAncestors&WpGetAttachmentImageUrl&WpInsertTerm&IsWpError $wpService,
         private GetField $acfService
     ) {
     }
@@ -137,5 +136,25 @@ class Term implements GetTermColor, GetTermIcon
         }
 
         return $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createOrGetTermIdFromString(string $termString, string $taxonomy): ?int
+    {
+        $term = $this->wpService->getTermBy('name', $termString, $taxonomy, 'OBJECT');
+
+        if (!$term) {
+            $result = $this->wpService->wpInsertTerm($termString, $taxonomy);
+            if ($this->wpService->isWpError($result)) {
+                return null;
+            }
+            $termId = $result['term_id'];
+        } else {
+            $termId = $term->term_id;
+        }
+
+        return $termId ?? null;
     }
 }

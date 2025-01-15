@@ -1,30 +1,38 @@
 <?php
 
-namespace Municipio\Integrations\MiniOrange;
+namespace Municipio\UserGroup;
 
-use WpService\WpService;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig;
+use Municipio\UserGroup\Config\UserGroupConfigInterface;
+use WpService\Contracts\{__, AddAction, RegisterTaxonomy};
 
+/**
+ * Create User Group taxonomy.
+ */
 class CreateUserGroupTaxonomy implements Hookable
 {
-    public function __construct(private WpService $wpService, private MiniOrangeConfig $config)
-    {
+    /**
+     * Constructor.
+     */
+    public function __construct(
+        private AddAction&RegisterTaxonomy&__ $wpService,
+        private UserGroupConfigInterface $config
+    ) {
     }
 
-  /**
-   * Add hooks to register the user group taxonomy
-   */
+    /**
+     * Add hooks to register the user group taxonomy
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('init', array($this, 'registerUserGroupTaxonomy'), 5);
     }
 
-  /**
-   * Register the user group taxonomy
-   *
-   * @return void
-   */
+    /**
+     * Register the user group taxonomy
+     *
+     * @return void
+     */
     public function registerUserGroupTaxonomy(): void
     {
         $taxonomy = $this->config->getUserGroupTaxonomy();
@@ -35,7 +43,7 @@ class CreateUserGroupTaxonomy implements Hookable
             array(
               'label'        => $this->wpService->__('User Groups', 'municipio'),
               'hierarchical' => false,
-              'public'       => false, 
+              'public'       => false,
               'show_ui'      => true,
               'show_in_rest' => false,
               'capabilities' => array(

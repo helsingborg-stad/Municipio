@@ -9,6 +9,7 @@ use WP_Comment_Query;
 use WP_Error;
 use WP_Post;
 use WP_Term;
+use WP_Taxonomy;
 use wpdb;
 
 /**
@@ -54,6 +55,16 @@ class WpMockFactory extends TestCase
     public static function createWpCommentQuery(array $args = []): MockObject|WP_Comment_Query
     {
         return self::buildMockWithArgs('WP_Comment_Query', $args);
+    }
+
+    /**
+     * Create a mock WP_Taxonomy object.
+     *
+     * @param array $args
+     */
+    public static function createWpTaxonomy(array $args = []): MockObject|WP_Taxonomy
+    {
+        return self::buildMockWithArgs('WP_Taxonomy', $args);
     }
 
     /**
