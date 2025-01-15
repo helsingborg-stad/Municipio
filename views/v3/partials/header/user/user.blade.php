@@ -3,7 +3,6 @@
         'user', 
         'user--active', 
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
-        $loginLogoutHasBackgroundColor ? 'user--has-background' : '',
         'u-print-display--none'
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.logout'],
