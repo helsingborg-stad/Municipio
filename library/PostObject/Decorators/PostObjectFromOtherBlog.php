@@ -88,6 +88,9 @@ class PostObjectFromOtherBlog implements PostObjectInterface
         return $this->blogId ?? $this->postObject->getBlogId();
     }
 
+    /**
+     * Get the value from another blog.
+     */
     private function getValueFromOtherBlog(callable $callback)
     {
         $this->switch();
@@ -107,11 +110,17 @@ class PostObjectFromOtherBlog implements PostObjectInterface
         return $this->wpService->isMultisite() && $this->getBlogId() !== $this->wpService->getCurrentBlogId();
     }
 
+    /**
+     * Switch to another blog.
+     */
     private function switch(): void
     {
         $this->wpService->switchToBlog($this->getBlogId());
     }
 
+    /**
+     * Restore the current blog.
+     */
     private function restore(): void
     {
         $this->wpService->restoreCurrentBlog();
