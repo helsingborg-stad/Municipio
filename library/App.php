@@ -443,7 +443,7 @@ class App
         }
 
         // Create user group taxonomy
-        $createUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\CreateUserGroupTaxonomy($this->wpService, $config);
+        $createUserGroupTaxonomy = new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config);
         $createUserGroupTaxonomy->addHooks();
 
         // Set group as taxonomy
