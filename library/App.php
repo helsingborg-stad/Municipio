@@ -436,6 +436,35 @@ class App
      */
     private function setupUserGroupFeature(): void
     {
+        $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
+
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        // Create user group taxonomy
+        $createUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\CreateUserGroupTaxonomy($this->wpService, $config);
+        $createUserGroupTaxonomy->addHooks();
+
+        // Set group as taxonomy
+        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
+        $setGroupAsTaxonomy->addHooks();
+
+        // Add user group to users list
+        $displayUserGroupTaxonomyInUsersList = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
+        $displayUserGroupTaxonomyInUsersList->addHooks();
+
+        // Add user group to admin menu
+        $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
+        $displayUserGroupTaxonomyLinkInAdminUi->addHooks();
+
+        // Add user group to user profile & populate
+        $displayUserGroupTaxonomyInUserProfile = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
+        $displayUserGroupTaxonomyInUserProfile->addHooks();
+
+        // User group url
+        $populateUserGroupUrlBlogIdField = new \Municipio\Integrations\MiniOrange\PopulateUserGroupUrlBlogIdField($this->wpService);
+        $populateUserGroupUrlBlogIdField->addHooks();
     }
 
     /**
@@ -448,6 +477,7 @@ class App
     private function setUpMiniOrangeIntegration(): void
     {
         $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
+
         if ($config->isEnabled() === false) {
             return;
         }
@@ -462,30 +492,6 @@ class App
         ];
         $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
-
-        //Create user group taxonomy
-        $createUserGroupTaxonomy = new \Municipio\Integrations\MiniOrange\CreateUserGroupTaxonomy($this->wpService, $config);
-        $createUserGroupTaxonomy->addHooks();
-
-        //Set group as taxonomy
-        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetGroupAsTaxonomy($this->wpService, $config);
-        $setGroupAsTaxonomy->addHooks();
-
-        //Add user group to users list
-        $displayUserGroupTaxonomyInUsersList = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
-        $displayUserGroupTaxonomyInUsersList->addHooks();
-
-        //Add user group to admin menu
-        $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
-        $displayUserGroupTaxonomyLinkInAdminUi->addHooks();
-
-        //Add user group to user profile & populate
-        $displayUserGroupTaxonomyInUserProfile = new \Municipio\Integrations\MiniOrange\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
-        $displayUserGroupTaxonomyInUserProfile->addHooks();
-
-        //User group url
-        $populateUserGroupUrlBlogIdField = new \Municipio\Integrations\MiniOrange\PopulateUserGroupUrlBlogIdField($this->wpService);
-        $populateUserGroupUrlBlogIdField->addHooks();
     }
 
     /**
