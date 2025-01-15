@@ -5,10 +5,11 @@ namespace Municipio\Admin\Login;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use Municipio\Helper\User\User;
+use WpService\Contracts\AddQueryArg;
 
 class RedirectUserToGroupUrlIfIsPreferred implements Hookable
 {
-    public function __construct(private WpService $wpService, private User $userHelper)
+    public function __construct(private WpService&AddQueryArg $wpService, private User $userHelper)
     {
     }
 
@@ -39,12 +40,14 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
         if ($user != null) {
             $perfersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
             $groupUrl        = $this->userHelper->getUserGroupUrl();
-        
+
             if ($perfersGroupUrl && $groupUrl) {
-                return add_query_arg(['offerPersistantHomeUrl' => 'true'], $groupUrl);
+                return $this->wpService->addQueryArg([
+                    'loggedin'     => 'true',
+                    'prefersgroup' => 'true'
+                ], $groupUrl);
             }
         }
         return $redirectTo;
     }
-
 }
