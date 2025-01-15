@@ -19,8 +19,6 @@ use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
  */
 class UserGroupRestriction implements Hookable
 {
-    private string $userGroupMetaKey = 'user-group-visibility';
-
     /**
      * UserGroupRestriction class constructor.
      *
