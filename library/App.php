@@ -436,7 +436,7 @@ class App
      */
     private function setupUserGroupFeature(): void
     {
-        $config = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
+        $config = new \Municipio\UserGroup\Config\UserGroupConfig();
 
         if ($config->isEnabled() === false) {
             return;
