@@ -3,7 +3,9 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObjectInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WpService\Contracts\{RestoreCurrentBlog, SwitchToBlog};
 use WpService\Implementations\FakeWpService;
 
 class PostObjectFromOtherBlogTest extends TestCase
@@ -13,27 +15,54 @@ class PostObjectFromOtherBlogTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $wpService  = new FakeWpService();
-        $postObject = $this->createStub(PostObjectInterface::class);
-
         $this->assertInstanceOf(
             PostObjectFromOtherBlog::class,
-            new PostObjectFromOtherBlog($postObject, $wpService)
+            new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 1)
         );
     }
 
+
     /**
-     * @testdox getIcon() performs a switch to the correct blog if the post is from another blog
+     * @testdox getBlogId returns the provided blog id
      */
-    public function testGetIconSwitchesToCorrectBlog()
+    public function testGetBlogIdReturnsTheProvidedBlogId()
     {
-        $wpService  = new FakeWpService(['isMultisite' => true, 'getCurrentBlogId' => 1, 'switchToBlog' => true, 'restoreCurrentBlog' => true]);
-        $postObject = $this->createStub(PostObjectInterface::class);
-        $postObject->method('getBlogId')->willReturn(2);
-        $decoratedPostObject = new PostObjectFromOtherBlog($postObject, $wpService);
+        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 2);
 
-        $decoratedPostObject->getIcon();
+        $this->assertEquals(2, $decorator->getBlogId());
+    }
 
+    /**
+     * @testdox switches to the blog using the provided blog id when getting the value and restores the current blog after
+     * @dataProvider provideFunctions
+     */
+    public function testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue(string $function)
+    {
+        $wpService = $this->getWpService();
+        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $wpService, 2);
+
+        $decorator->{$function}();
+
+        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
         $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+    }
+
+    public function provideFunctions(): array
+    {
+        return [
+            'getPermalink' => ['getPermalink'],
+            'getIcon'      => ['getIcon'],
+        ];
+    }
+
+    private function getPostObject(): PostObjectInterface|MockObject
+    {
+        return $this->createStub(PostObjectInterface::class);
+    }
+
+    private function getWpService(): SwitchToBlog&RestoreCurrentBlog
+    {
+        return new FakeWpService(['switchToBlog' => true, 'restoreCurrentBlog' => true]);
     }
 }

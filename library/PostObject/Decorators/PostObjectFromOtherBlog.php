@@ -4,8 +4,6 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetCurrentBlogId;
-use WpService\Contracts\IsMultisite;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
@@ -20,7 +18,8 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private IsMultisite&GetCurrentBlogId&SwitchToBlog&RestoreCurrentBlog $wpService
+        private SwitchToBlog&RestoreCurrentBlog $wpService,
+        private int $blogId
     ) {
     }
 
@@ -45,10 +44,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        if (!$this->shouldSwitch()) {
-            return $this->postObject->getPermalink();
-        }
-
         return $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink());
     }
 
@@ -73,10 +68,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getIcon(): ?IconInterface
     {
-        if (!$this->shouldSwitch()) {
-            return $this->postObject->getIcon();
-        }
-
         return $this->getValueFromOtherBlog(fn() => $this->postObject->getIcon());
     }
 
@@ -85,7 +76,7 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->blogId ?? $this->postObject->getBlogId();
+        return $this->blogId;
     }
 
     /**
@@ -98,16 +89,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
         $this->restore();
 
         return $value;
-    }
-
-    /**
-     * Determine if we should switch to another blog.
-     *
-     * @return bool
-     */
-    private function shouldSwitch(): bool
-    {
-        return $this->wpService->isMultisite() && $this->getBlogId() !== $this->wpService->getCurrentBlogId();
     }
 
     /**
