@@ -454,6 +454,9 @@ class App
 
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
+
+        // Redirect to user group url after SSO login if using MiniOrange plugin for SSO login
+        (new \Municipio\UserGroup\RedirectToUserGroupUrlAfterSsoLogin($userHelper, $this->wpService))->addHooks();
     }
 
     /**
@@ -483,6 +486,9 @@ class App
         ];
         $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
         $attributeMapper->addHooks();
+
+        // Allow redirect after SSO login
+        (new \Municipio\Integrations\MiniOrange\AllowRedirectAfterSsoLogin($this->wpService))->addHooks();
 
         if ($userGroupConfig->isEnabled() === false) {
             return;
