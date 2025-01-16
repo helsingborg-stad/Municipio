@@ -32,6 +32,8 @@ class AllowRedirectAfterSsoLogin implements Hookable
 
     /**
      * Allow redirect after SSO login.
+     * 
+     * @suppress PhanUnusedVariable, IntelephenseUnusedVariable
      *
      * @return void
      */
