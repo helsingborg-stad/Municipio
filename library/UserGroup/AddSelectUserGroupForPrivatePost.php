@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Private;
+namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
@@ -19,9 +19,8 @@ use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
  * Represents a UserGroupSelector class.
  *
  * This class is responsible for handling user group selection functionality.
- * It is located in the file UserGroupSelector.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
  */
-class UserGroupSelector implements Hookable
+class AddSelectUserGroupForPrivatePost implements Hookable
 {
     /**
      * Constructor for the UserGroupSelector class.

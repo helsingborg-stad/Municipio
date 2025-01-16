@@ -104,32 +104,17 @@ class App
          * User group
          */
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
-        $userGroupConfig            = new \Municipio\UserGroup\Config\UserGroupConfig();
-
-        if ($this->wpService->isAdmin()) {
-            new \Municipio\Admin\Private\PrivateAcfFields($this->wpService);
-
-            if ($userGroupConfig->isEnabled()) {
-                (new \Municipio\Admin\Private\UserGroupSelector(
-                    $this->wpService,
-                    $userGroupConfig->getUserGroupTaxonomy(),
-                    $userHelperConfig,
-                    $userGroupRestrictionConfig
-                ))->addHooks();
-            }
-        } else {
-            (new \Municipio\Admin\Private\UserGroupRestriction(
-                $this->wpService,
-                $userHelper,
-                $userGroupRestrictionConfig
-            ))->addHooks();
-        }
 
         $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
             $this->wpService,
             $userHelper,
             $userGroupRestrictionConfig
         );
+
+        /**
+         * Allow posts in private visibility to have further conditions to be shown.
+         */
+        (new \Municipio\Admin\Private\PrivateAcfFields($this->wpService))->addHooks();
 
         /**
          * Template
@@ -447,25 +432,32 @@ class App
             return;
         }
 
+        // Setup dependencies
+        $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+        $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
+        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+        $userHelper->setUser(); // Set to current user
+
         // Create user group taxonomy
-        $createUserGroupTaxonomy = new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config);
-        $createUserGroupTaxonomy->addHooks();
+        (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
 
         // Add user group to users list
-        $displayUserGroupTaxonomyInUsersList = new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config);
-        $displayUserGroupTaxonomyInUsersList->addHooks();
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config))->addHooks();
 
         // Add user group to admin menu
-        $displayUserGroupTaxonomyLinkInAdminUi = new \Municipio\UserGroup\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config);
-        $displayUserGroupTaxonomyLinkInAdminUi->addHooks();
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config))->addHooks();
 
         // Add user group to user profile & populate
-        $displayUserGroupTaxonomyInUserProfile = new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config);
-        $displayUserGroupTaxonomyInUserProfile->addHooks();
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config))->addHooks();
 
         // User group url
-        $populateUserGroupUrlBlogIdField = new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService);
-        $populateUserGroupUrlBlogIdField->addHooks();
+        (new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService))->addHooks();
+
+        // Add user group select to edit post when private
+        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost($this->wpService, $config->getUserGroupTaxonomy(), $userHelperConfig, $userGroupRestrictionConfig))->addHooks();
+
+        // Restrict private posts to user group
+        (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
     }
 
     /**

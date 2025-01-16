@@ -2,7 +2,8 @@
 
 namespace Municipio\Admin\Private;
 
-use WpService\Contracts\ApplyFilters;
+use Municipio\HooksRegistrar\Hookable;
+use WpService\Contracts\{ApplyFilters, AddFilter};
 
 /**
  * PrivateAcfFields class.
@@ -12,21 +13,26 @@ use WpService\Contracts\ApplyFilters;
  * @package Municipio
  * @subpackage Admin\Private
  */
-class PrivateAcfFields
+class PrivateAcfFields implements Hookable
 {
     private string $hiddenInputKey = 'field_67124199dcb25';
 
     /**
      * Constructor for the PrivateAcfFields class.
-     *
-     * @param ApplyFilters $wpService The ApplyFilters instance.
      */
-    public function __construct(private ApplyFilters $wpService)
+    public function __construct(private ApplyFilters&AddFilter $wpService)
+    {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addHooks(): void
     {
         $fields = $this->wpService->applyFilters('Municipio/Private/PrivateAcfFields/fields', []);
 
         foreach ($fields as $field) {
-            add_filter('acf/prepare_field/key=' . $field, array($this, 'conditionallyShowBasedOnStatus'));
+            $this->wpService->addFilter('acf/prepare_field/key=' . $field, array($this, 'conditionallyShowBasedOnStatus'));
         }
     }
 

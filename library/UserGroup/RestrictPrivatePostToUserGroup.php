@@ -1,28 +1,28 @@
 <?php
 
-namespace Municipio\Admin\Private;
+namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Contracts\GetUserGroup;
+use WpService\Contracts\IsAdmin;
 
 /**
- * UserGroupRestriction class.
+ * RestrictPrivatePostToUserGroup class.
  *
  * This class is responsible for handling user group restrictions.
  */
-class UserGroupRestriction implements Hookable
+class RestrictPrivatePostToUserGroup implements Hookable
 {
     /**
      * UserGroupRestriction class constructor.
      */
     public function __construct(
-        private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
+        private IsAdmin&AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
         private GetUserGroup $userHelper,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
     ) {
@@ -37,6 +37,10 @@ class UserGroupRestriction implements Hookable
      */
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'), 1);
     }
 
