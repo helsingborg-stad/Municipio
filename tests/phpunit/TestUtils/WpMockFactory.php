@@ -78,6 +78,11 @@ class WpMockFactory extends TestCase
         return self::buildMockWithArgs('wpdb', $args);
     }
 
+    /**
+     * Create a mock WP_User object.
+     *
+     * @param array $args
+     */
     public static function createWpUser(array $args = []): MockObject|WP_User
     {
         return self::buildMockWithArgs('WP_User', $args);

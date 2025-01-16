@@ -6,8 +6,14 @@ use Municipio\Helper\User\FieldResolver\UserGroupUrlInterface;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 
+/**
+ * User group URL field resolver.
+ */
 class UserGroupUrl implements UserGroupUrlInterface
 {
+    /**
+     * Constructor.
+     */
     public function __construct(
         protected string $type,
         protected WP_Term $term,

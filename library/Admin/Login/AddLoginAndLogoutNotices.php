@@ -8,8 +8,14 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use Municipio\Helper\User\User;
 
+/**
+ * Add login and logout notices
+ */
 class AddLoginAndLogoutNotices implements Hookable
 {
+    /**
+     * Constructor
+     */
     public function __construct(private WpService $wpService, private AcfService $acfService, private User $userHelper, private UserConfig $userConfig)
     {
     }

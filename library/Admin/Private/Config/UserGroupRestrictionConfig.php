@@ -2,6 +2,9 @@
 
 namespace Municipio\Admin\Private\Config;
 
+/**
+ * User group restriction config
+ */
 class UserGroupRestrictionConfig implements UserGroupRestrictionConfigInterface
 {
     /**
