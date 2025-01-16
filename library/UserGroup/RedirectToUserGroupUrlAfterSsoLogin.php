@@ -34,10 +34,12 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
      */
     public function getRedirectUrl(string $url, int|null $userId = null): string
     {
-        if (!$this->userHelper->getUserGroupUrl()) {
+        $userGroupUrl = $this->userHelper->getUserGroupUrl(null, $userId);
+        
+        if (!$userGroupUrl) {
             return $url;
         }
 
-        return $this->userHelper->getUserGroupUrl();
+        return $userGroupUrl;
     }
 }
