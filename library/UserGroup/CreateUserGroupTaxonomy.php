@@ -4,7 +4,7 @@ namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
-use WpService\Contracts\{__, AddAction, RegisterTaxonomy};
+use WpService\Contracts\{__, AddAction, RegisterTaxonomy, IsMultisite, IsMainSite};
 
 /**
  * Create User Group taxonomy.
@@ -15,7 +15,7 @@ class CreateUserGroupTaxonomy implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&RegisterTaxonomy&__ $wpService,
+        private AddAction&RegisterTaxonomy&__&IsMultisite&IsMainSite $wpService,
         private UserGroupConfigInterface $config
     ) {
     }
@@ -35,24 +35,44 @@ class CreateUserGroupTaxonomy implements Hookable
      */
     public function registerUserGroupTaxonomy(): void
     {
-        $taxonomy = $this->config->getUserGroupTaxonomy();
+        if (!$this->shouldRegisterTaxonomy()) {
+            return;
+        }
 
         $this->wpService->registerTaxonomy(
-            $taxonomy,
+            $this->config->getUserGroupTaxonomy(),
             'user',
             array(
-              'label'        => $this->wpService->__('User Groups', 'municipio'),
-              'hierarchical' => false,
-              'public'       => false,
-              'show_ui'      => true,
-              'show_in_rest' => false,
-              'capabilities' => array(
-                'manage_terms' => 'edit_users',
-                'edit_terms'   => 'edit_users',
-                'delete_terms' => 'edit_users',
-                'assign_terms' => 'edit_users',
-              ),
+                'label'        => $this->wpService->__('User Groups', 'municipio'),
+                'hierarchical' => false,
+                'public'       => false,
+                'show_ui'      => true,
+                'show_in_rest' => false,
+                'capabilities' => array(
+                    'manage_terms' => 'edit_users',
+                    'edit_terms'   => 'edit_users',
+                    'delete_terms' => 'edit_users',
+                    'assign_terms' => 'edit_users',
+                ),
             )
         );
+    }
+
+    /**
+     * Check if the taxonomy should be registered
+     * Registers if: Is not multisite or is multisite and is main site
+     * @return bool
+     */
+    private function shouldRegisterTaxonomy(): bool
+    {
+        if (!$this->wpService->isMultisite()) {
+            return true;
+        }
+
+        if ($this->wpService->isMultisite() && $this->wpService->isMainSite()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -3,6 +3,7 @@
 namespace Municipio\UserGroup\Config;
 
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
 
 class UserGroupConfigTest extends TestCase
 {
@@ -11,7 +12,12 @@ class UserGroupConfigTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $userGroupConfig = new UserGroupConfig();
+        $userGroupConfig = new UserGroupConfig(
+            new FakeWpService([
+                'isMultisite'   => true,
+                'getMainSiteId' => 1
+            ])
+        );
         $this->assertInstanceOf(UserGroupConfig::class, $userGroupConfig);
     }
 
@@ -20,7 +26,12 @@ class UserGroupConfigTest extends TestCase
      */
     public function testIsEnabledReturnsTrue()
     {
-        $userGroupConfig = new UserGroupConfig();
+        $userGroupConfig = new UserGroupConfig(
+            new FakeWpService([
+                'isMultisite'   => true,
+                'getMainSiteId' => 1
+            ])
+        );
         $this->assertTrue($userGroupConfig->isEnabled());
     }
 
@@ -29,7 +40,12 @@ class UserGroupConfigTest extends TestCase
      */
     public function testGetUserGroupTaxonomyReturnsExpectedTaxonomyName()
     {
-        $userGroupConfig = new UserGroupConfig();
+        $userGroupConfig = new UserGroupConfig(
+            new FakeWpService([
+                'isMultisite'   => true,
+                'getMainSiteId' => 1
+            ])
+        );
         $this->assertEquals('user_group', $userGroupConfig->getUserGroupTaxonomy());
     }
 }

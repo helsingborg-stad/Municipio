@@ -93,7 +93,7 @@ class App
         /*
          * Helpers
          */
-        $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig();
+        $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig);
 
@@ -391,7 +391,7 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig());
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService));
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
@@ -423,7 +423,7 @@ class App
      */
     private function setupUserGroupFeature(): void
     {
-        $config = new \Municipio\UserGroup\Config\UserGroupConfig();
+        $config = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
 
         if ($config->isEnabled() === false) {
             return;
@@ -469,7 +469,7 @@ class App
     private function setUpMiniOrangeIntegration(): void
     {
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
-        $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig();
+        $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
 
         if ($config->isEnabled() === false) {
