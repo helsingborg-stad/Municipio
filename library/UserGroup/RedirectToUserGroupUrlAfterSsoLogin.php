@@ -23,7 +23,7 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addFilter(\Municipio\Integrations\MiniOrange\AllowRedirectAfterSsoLogin::REDIRECT_URL_FILTER_HOOK, [$this, 'getRedirectUrl'], 10, 1);
+        $this->wpService->addFilter(\Municipio\Integrations\MiniOrange\AllowRedirectAfterSsoLogin::REDIRECT_URL_FILTER_HOOK, [$this, 'getRedirectUrl'], 10, 2);
     }
 
     /**
@@ -32,7 +32,7 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
      * @param string $url
      * @return string
      */
-    public function getRedirectUrl(string $url): string
+    public function getRedirectUrl(string $url, int|null $userId = null): string
     {
         if (!$this->userHelper->getUserGroupUrl()) {
             return $url;
