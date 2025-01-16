@@ -27,7 +27,7 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('set_logged_in_cookie', [$this, 'allowRedirectAfterSsoLogin']);
+        $this->wpService->addAction('set_logged_in_cookie', [$this, 'allowRedirectAfterSsoLogin'], 10, 4);
     }
 
     /**
@@ -35,13 +35,13 @@ class AllowRedirectAfterSsoLogin implements Hookable
      *
      * @return void
      */
-    public function allowRedirectAfterSsoLogin(): void
+    public function allowRedirectAfterSsoLogin(string $loggedInCookie, int $expire, int $expiration, int $userId): void
     {
         if (!$this->doingMiniOrgangeLogin() || $this->isCustomMiniOrgangeLoginRedirectApplied()) {
             return;
         }
 
-        if (!empty($redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, ''))) {
+        if (!empty($redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId))) {
             $this->setAppliedFlag();
             $this->wpService->wpSafeRedirect($redirectUrl);
         }
