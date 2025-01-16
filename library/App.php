@@ -95,7 +95,8 @@ class App
          */
         $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig);
+        $termHelper       = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
+        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig, $termHelper);
 
         /**
          * User group
@@ -391,7 +392,7 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService));
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService));
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
@@ -432,7 +433,8 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config);
+        $termHelper                 = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
+        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config, $termHelper);
 
         // Create user group taxonomy
         (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
@@ -470,6 +472,7 @@ class App
     {
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
+        $userHelper      = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig(), $userGroupConfig, $termHelper);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
 
         if ($config->isEnabled() === false) {
@@ -495,7 +498,7 @@ class App
         }
 
         // Set group as taxonomy
-        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup($this->wpService, $termHelper, $userGroupConfig);
+        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup($this->wpService, $termHelper, $userGroupConfig, $userHelper);
         $setGroupAsTaxonomy->addHooks();
     }
 

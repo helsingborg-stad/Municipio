@@ -2,10 +2,11 @@
 
 namespace Municipio\Helper\User;
 
-use WpService\Contracts\{GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
+use WpService\Contracts\{GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy, WpSetObjectTerms};
 use AcfService\Contracts\GetField;
+use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
+use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
@@ -14,16 +15,17 @@ use WP_User;
 /**
  * User helper.
  */
-class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser
+class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy $wpService,
+        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy&WpSetObjectTerms $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig,
-        private UserGroupConfigInterface $userGroupConfig
+        private UserGroupConfigInterface $userGroupConfig,
+        private CreateOrGetTermIdFromString $termHelper
     ) {
     }
 
@@ -159,5 +161,23 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
             return true;
         }
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUserGroup(string $groupName, null|WP_User|int $user = null): void
+    {
+        $user = $this->getUser($user);
+
+        if (!$user) {
+            return;
+        }
+
+        $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy();
+
+        if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
+            $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
+        }
     }
 }
