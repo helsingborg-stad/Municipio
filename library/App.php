@@ -55,10 +55,7 @@ use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
 use WpService\WpService;
-use Municipio\Admin\Login\EnqueueStyles;
-use Municipio\Admin\Login\ChangeLogotypeData;
 use Municipio\Helper\User\Config\UserConfig;
-use Municipio\Helper\User\Config\UserConfigInterface;
 use Municipio\Helper\User\User;
 
 /**
@@ -96,8 +93,9 @@ class App
         /*
          * Helpers
          */
+        $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig();
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig);
         $userHelper->setUser();
 
         /**
@@ -394,7 +392,7 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig());
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig());
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
@@ -435,7 +433,7 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config);
         $userHelper->setUser(); // Set to current user
 
         // Create user group taxonomy

@@ -16,6 +16,7 @@ use Municipio\Helper\User\Contracts\GetUserGroupUrl;
 use Municipio\Helper\User\Contracts\GetUserGroupUrlType;
 use Municipio\Helper\User\Contracts\GetUserPrefersGroupUrl;
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
+use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 use WP_User;
 
@@ -26,7 +27,8 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     public function __construct(
         private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails $wpService,
         private GetField $acfService,
-        private UserConfigInterface $userConfig
+        private UserConfigInterface $userConfig,
+        private UserGroupConfigInterface $userGroupConfig
     ) {
     }
 
@@ -81,7 +83,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
 
         $user = $this->user;
 
-        $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userConfig->getUserGroupTaxonomyName());
+        $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
             return null;
         }
@@ -132,7 +134,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     public function getUserGroupUrlType(?WP_Term $term = null): ?string
     {
         $term ??= $this->getUserGroup();
-        $termId = $this->userConfig->getUserGroupTaxonomyName() . '_' . $term->term_id;
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy() . '_' . $term->term_id;
 
         return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
     }
