@@ -70,6 +70,8 @@ class PrefillIconChoice
         $materialIcons = \Municipio\Helper\Icons::getIcons();
         $customIcons   = (new Icons(new WpCache()))->getIcons();
 
+        $field['choices'][''] = __('None', 'municipio');
+
         if (is_array($materialIcons) && !empty($materialIcons)) {
             foreach ($materialIcons as $materialIcon) {
                 $field['choices'][$materialIcon] = '<i class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined" style="float: left;">' .

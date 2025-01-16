@@ -3,7 +3,6 @@
         'user', 
         'user--inactive', 
         !empty($customizer->loginLogoutColorScheme) ? 'user--' . $customizer->loginLogoutColorScheme : '',
-        $loginLogoutHasBackgroundColor ? 'user--has-background' : '',
         'u-print-display--none'
     ], $classList ?? []),
     'context' => ['header.loginlogout', 'header.loginlogout.login'],
@@ -30,15 +29,12 @@
         ])
         @endavatar
     @endlink
-
     @button([
         'text' => $lang->login,
         'color' => 'basic',
         'style' => 'basic',
         'href' => $loginUrl,
         'classList' => [
-            'u-display--none@xs',
-            'u-display--none@sm',
             'user__button',
             'js-action-login-click'
         ],
