@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Admin\Private;
+namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
@@ -14,22 +14,20 @@ use WpService\Contracts\SanitizeTextField;
 use WpService\Contracts\WpVerifyNonce;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
-use Municipio\Helper\User\User as UserHelper;
 
 /**
  * Represents a UserGroupSelector class.
  *
  * This class is responsible for handling user group selection functionality.
- * It is located in the file UserGroupSelector.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
  */
-class UserGroupSelector implements Hookable
+class AddSelectUserGroupForPrivatePost implements Hookable
 {
     /**
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
         private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
-        private UserHelper $userHelper,
+        private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
     ) {
@@ -100,7 +98,7 @@ class UserGroupSelector implements Hookable
     {
         global $post;
 
-        $terms = $this->wpService->getTerms([ 'taxonomy' => $this->userHelperConfig->getUserGroupTaxonomyName(), 'hide_empty' => false ]);
+        $terms = $this->wpService->getTerms([ 'taxonomy' => $this->userGroupTaxonomyName, 'hide_empty' => false ]);
 
         if (empty($terms) || !is_array($terms)) {
             return;

@@ -1,37 +1,29 @@
 <?php
 
-namespace Municipio\Admin\Private;
+namespace Municipio\UserGroup;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
-use Municipio\Helper\User\User;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
+use Municipio\Helper\User\Contracts\GetUserGroup;
+use WpService\Contracts\IsAdmin;
 
 /**
- * UserGroupRestriction class.
+ * RestrictPrivatePostToUserGroup class.
  *
  * This class is responsible for handling user group restrictions.
- * It is located in the file UserGroupRestriction.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
  */
-class UserGroupRestriction implements Hookable
+class RestrictPrivatePostToUserGroup implements Hookable
 {
-    private string $userGroupMetaKey = 'user-group-visibility';
-
     /**
      * UserGroupRestriction class constructor.
-     *
-     * @param AddAction $wpService An instance of the AddAction class.
-     * @param WpGetCurrentUser $wpService An instance of the WpGetCurrentUser class.
-     * @param WpGetPostTerms $wpService An instance of the WpGetPostTerms class.
-     * @param IsWpError $wpService An instance of the IsWpError class.
      */
     public function __construct(
-        private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
-        private User $userHelper,
+        private IsAdmin&AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
+        private GetUserGroup $userHelper,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
     ) {
     }
@@ -45,6 +37,10 @@ class UserGroupRestriction implements Hookable
      */
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addAction('pre_get_posts', array($this, 'restrictPosts'), 1);
     }
 
@@ -61,10 +57,8 @@ class UserGroupRestriction implements Hookable
         }
 
         // Set user & get user group
-        $this->userHelper->setUser();
-        $userGroup = $this->userHelper->getUserGroup();
-        $userGroup = $userGroup->slug ?? null;
-
+        $userGroup  = $this->userHelper->getUserGroup();
+        $userGroup  = $userGroup->slug ?? null;
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {

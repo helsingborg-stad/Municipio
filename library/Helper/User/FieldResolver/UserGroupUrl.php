@@ -3,12 +3,25 @@
 namespace Municipio\Helper\User\FieldResolver;
 
 use Municipio\Helper\User\FieldResolver\UserGroupUrlInterface;
+use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 
+/**
+ * User group URL field resolver.
+ */
 class UserGroupUrl implements UserGroupUrlInterface
 {
-    public function __construct(protected string $type, protected WP_Term $term, protected $acfService, protected $wpService, protected $userConfig)
-    {
+    /**
+     * Constructor.
+     */
+    public function __construct(
+        protected string $type,
+        protected WP_Term $term,
+        protected $acfService,
+        protected $wpService,
+        protected $userConfig,
+        protected UserGroupConfigInterface $userGroupConfig
+    ) {
     }
 
     /**
@@ -18,7 +31,7 @@ class UserGroupUrl implements UserGroupUrlInterface
      */
     public function get(): ?string
     {
-        $termId = $this->userConfig->getUserGroupTaxonomyName() . '_' . $this->term->term_id;
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy() . '_' . $this->term->term_id;
 
         return match ($this->type) {
             'arbitrary_url' => $this->resolveArbitraryUrl($termId),

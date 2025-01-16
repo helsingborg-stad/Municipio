@@ -8,8 +8,14 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use Municipio\Helper\User\User;
 
+/**
+ * Add login and logout notices
+ */
 class AddLoginAndLogoutNotices implements Hookable
 {
+    /**
+     * Constructor
+     */
     public function __construct(private WpService $wpService, private AcfService $acfService, private User $userHelper, private UserConfig $userConfig)
     {
     }
@@ -19,9 +25,6 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function addHooks(): void
     {
-        //Set current user
-        add_action('init', [$this->userHelper, 'setUser'], 5, 0);
-
         // Logon and logout notices
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsIn'));
         $this->wpService->addAction('init', array($this, 'addNoticeWhenUserLogsOut'));
@@ -84,7 +87,7 @@ class AddLoginAndLogoutNotices implements Hookable
                 $this->userConfig->getUserPrefersGroupUrlMetaKey(),
                 true
             );
-            
+
             $message = $result
                 ? $this->wpService->__('Option saved', 'municipio')
                 : $this->wpService->__('Option saved', 'municipio');
@@ -129,15 +132,15 @@ class AddLoginAndLogoutNotices implements Hookable
 
             \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
 
-            if($currentUserGroupUrl) {
-                if($userPrefersGroupUrl) {
+            if ($currentUserGroupUrl) {
+                if ($userPrefersGroupUrl) {
                     $this->messageWhenUserPrefersUserGroupUrl(
                         $userPrefersGroupUrlType
                     );
-                    return; 
+                    return;
                 }
 
-                if(!$userPrefersGroupUrl) {
+                if (!$userPrefersGroupUrl) {
                     $this->messageWhenUserDoesNotPreferUserGroupUrl(
                         $currentUserGroup,
                         $currentUserGroupUrl
