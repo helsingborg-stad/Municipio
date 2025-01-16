@@ -39,7 +39,7 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
      */
     public function testAllowRedirectAfterSsoLoginDoesNothingIfNotDoingMiniOrangeLogin()
     {
-        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => true]);
+        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => '']);
         $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
 
         $_POST = [];
@@ -59,13 +59,55 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
      */
     public function testAllowRedirectAfterSsoLoginAppliesFilterToRelayStateIfDoingMiniOrangeLogin()
     {
-        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => true]);
+        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => '']);
         $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
 
         $_POST = ['SAMLResponse' => 'foo', 'RelayState' => 'bar'];
         $allowRedirectAfterSsoLogin->allowRedirectAfterSsoLogin();
 
-        $this->assertEquals('Municipio/Integrations/MiniOrange/AllowRedirectAfterSsoLogin/RelayState', $wpService->methodCalls['applyFilters'][0][0]);
-        $this->assertEquals('bar', $wpService->methodCalls['applyFilters'][0][1]);
+        $this->assertEquals($allowRedirectAfterSsoLogin::REDIRECT_URL_FILTER_HOOK, $wpService->methodCalls['applyFilters'][0][0]);
+        $this->assertEquals('', $wpService->methodCalls['applyFilters'][0][1]);
+    }
+
+    /**
+     * @testdox allowRedirectAfterSsoLogin() redirects if filter returns a none empty string
+     */
+    public function testAllowRedirectAfterSsoLoginRedirectsIfFilterReturnsAValidUrl()
+    {
+        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => 'http://example.com', 'wpSafeRedirect' => true]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $_POST = ['SAMLResponse' => 'foo', 'RelayState' => 'bar'];
+        $allowRedirectAfterSsoLogin->allowRedirectAfterSsoLogin();
+
+        $this->assertEquals('http://example.com', $wpService->methodCalls['wpSafeRedirect'][0][0]);
+    }
+
+    /**
+     * @testdox allowRedirectAfterSsoLogin() sets a flag to indicate that the redirect has been applied
+     */
+    public function testAllowRedirectAfterSsoLoginSetsAFlagToIndicateThatTheRedirectHasBeenApplied()
+    {
+        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => 'http://example.com', 'wpSafeRedirect' => true]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $_POST = ['SAMLResponse' => 'foo', 'RelayState' => 'bar'];
+        $allowRedirectAfterSsoLogin->allowRedirectAfterSsoLogin();
+
+        $this->assertTrue($_POST[$allowRedirectAfterSsoLogin::APPLIED_FLAG]);
+    }
+
+    /**
+     * @testdox allowRedirectAfterSsoLogin() does not attempt to redirect if redirection flag is already set
+     */
+    public function testAllowRedirectAfterSsoLoginDoesNotAttemptToRedirectIfRedirectionFlagIsAlreadySet()
+    {
+        $wpService                  = new FakeWpService(['addAction' => true, 'applyFilters' => 'http://example.com', 'wpSafeRedirect' => true]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $_POST = ['SAMLResponse' => 'foo', 'RelayState' => 'bar', 'customMiniOrgangeLoginRedirectApplied' => true];
+        $allowRedirectAfterSsoLogin->allowRedirectAfterSsoLogin();
+
+        $this->assertArrayNotHasKey('wpSafeRedirect', $wpService->methodCalls);
     }
 }
