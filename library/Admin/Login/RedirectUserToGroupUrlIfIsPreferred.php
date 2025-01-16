@@ -42,10 +42,10 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
             return $redirectTo;
         }
 
-        $user = $this->userHelper->setUser($userInHook);
+        $user = $this->userHelper->getUser($userInHook);
         if ($user != null) {
-            $perfersGroupUrl = $this->userHelper->getUserPrefersGroupUrl();
-            $groupUrl        = $this->userHelper->getUserGroupUrl();
+            $perfersGroupUrl = $this->userHelper->getUserPrefersGroupUrl($user);
+            $groupUrl        = $this->userHelper->getUserGroupUrl(null, $user);
 
             if ($perfersGroupUrl && $groupUrl) {
                 return $this->wpService->addQueryArg([

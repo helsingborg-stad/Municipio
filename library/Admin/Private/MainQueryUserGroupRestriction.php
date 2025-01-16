@@ -48,7 +48,6 @@ class MainQueryUserGroupRestriction
         }
 
         // Set user & get user group
-        $this->userHelper->setUser();
         $userGroup = $this->userHelper->getUserGroup();
         $userGroup = $userGroup->slug ?? null;
 

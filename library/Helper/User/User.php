@@ -2,30 +2,25 @@
 
 namespace Municipio\Helper\User;
 
-use WpService\Contracts\WpGetCurrentUser;
-use WpService\Contracts\WpGetObjectTerms;
-use WpService\Contracts\IsWpError;
-use WpService\Contracts\GetUserMeta;
-use WpService\Contracts\GetBlogDetails;
+use WpService\Contracts\{GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
 use AcfService\Contracts\GetField;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\SetUser;
-use Municipio\Helper\User\Contracts\UserHasRole;
-use Municipio\Helper\User\Contracts\GetUserGroup;
-use Municipio\Helper\User\Contracts\GetUserGroupUrl;
-use Municipio\Helper\User\Contracts\GetUserGroupUrlType;
-use Municipio\Helper\User\Contracts\GetUserPrefersGroupUrl;
+use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 use WP_User;
 
-class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl
+/**
+ * User helper.
+ */
+class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser
 {
-    private ?WP_User $user = null;
-
+    /**
+     * Constructor.
+     */
     public function __construct(
-        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails $wpService,
+        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig,
         private UserGroupConfigInterface $userGroupConfig
@@ -33,29 +28,41 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     }
 
     /**
-     * Set current user
-     *
-     * @param WP_User $user
-     * @return void
+     * @inheritDoc
      */
-    public function setUser(?WP_User $user = null): ?WP_User
+    public function getUser(null|WP_User|int $user = null): ?WP_User
     {
-        $currentUser = $user ?? $this->wpService->wpGetCurrentUser();
-        if (is_a($currentUser, 'WP_User') && $currentUser->ID > 0) {
-            return $this->user = $currentUser;
+        if (is_a($user, 'WP_User') && $user->ID > 0) {
+            return $user;
         }
+
+        if (is_int($user) && $user > 0) {
+            $retrievedUser = $this->wpService->getUserBy('ID', $user);
+
+            if (is_a($retrievedUser, 'WP_User')) {
+                return $retrievedUser;
+            }
+        }
+
+        if (is_null($user)) {
+            $retrievedUser = $this->wpService->wpGetCurrentUser();
+
+            if (is_a($retrievedUser, 'WP_User') && $retrievedUser->ID > 0) {
+                return $retrievedUser;
+            }
+        }
+
         return null;
     }
 
     /**
-     * Check if user has a specific role
-     * Can also check multiple roles, returns true if any of exists for the user
-     * @param  string|array  $roles Role or roles to check
-     * @return boolean
+     * @inheritDoc
      */
-    public function userHasRole(string|array $roles): bool
+    public function userHasRole(string|array $roles, null|WP_User|int $user = null): bool
     {
-        if (!$this->user) {
+        $user = $this->getUser($user);
+
+        if (!$user) {
             return false;
         }
 
@@ -63,7 +70,7 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
             $roles = array($roles);
         }
 
-        if (!array_intersect($roles, $this->user->roles)) {
+        if (!array_intersect($roles, $user->roles)) {
             return false;
         }
 
@@ -71,17 +78,15 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     }
 
     /**
-     * Get user group
-     *
-     * @return string|null
+     * @inheritDoc
      */
-    public function getUserGroup(): ?WP_Term
+    public function getUserGroup(null|\WP_User|int $user = null): ?WP_Term
     {
-        if (!$this->user) {
+        $user = $this->getUser($user);
+
+        if (!$user) {
             return null;
         }
-
-        $user = $this->user;
 
         $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
@@ -96,19 +101,18 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
     }
 
     /**
-     * Get the user group URL
-     *
-     * @param WP_Term|null $term
-     * @return string
+     * @inheritDoc
      */
-    public function getUserGroupUrl(?WP_Term $term = null): ?string
+    public function getUserGroupUrl(?WP_Term $term = null, null|WP_User|int $user = null): ?string
     {
-        if (!$this->user) {
+        $user = $this->getUser($user);
+
+        if (!$user) {
             return null;
         }
 
         // Get the user group
-        $term ??= $this->getUserGroup();
+        $term ??= $this->getUserGroup($user);
 
         // Ensure term exists
         if (!$term) {
@@ -116,44 +120,38 @@ class User implements SetUser, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUs
         }
 
         // Get the selected type of link
-        $typeOfLink = $this->getUserGroupUrlType($term);
+        $typeOfLink = $this->getUserGroupUrlType($term, $user);
 
         // Get the URL
         return (
-            new UserGroupUrl($typeOfLink, $term, $this->acfService, $this->wpService, $this->userConfig)
+            new UserGroupUrl($typeOfLink, $term, $this->acfService, $this->wpService, $this->userConfig, $this->userGroupConfig)
         )->get();
     }
 
     /**
-     * Get the user group URL type
-     *
-     * @param WP_Term|null $term
-     *
-     * @return string|null
+     * @inheritDoc
      */
-    public function getUserGroupUrlType(?WP_Term $term = null): ?string
+    public function getUserGroupUrlType(?WP_Term $term = null, null|WP_User|int $user = null): ?string
     {
-        $term ??= $this->getUserGroup();
-        $termId = $this->userGroupConfig->getUserGroupTaxonomy() . '_' . $term->term_id;
+        $term ??= $this->getUserGroup($user);
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
         return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
     }
 
     /**
-     * Get the user prefers group URL.
-     * This indicates that the user prefers to be
-     * redirected to the group URL after login.
-     *
-     * @return bool
+     * @inheritDoc
      */
-    public function getUserPrefersGroupUrl(): ?bool
+    public function getUserPrefersGroupUrl(null|WP_User|int $user = null): ?bool
     {
-        if (!$this->user) {
+        $user = $this->getUser($user);
+
+        if (!$user) {
             return null;
         }
 
         $perfersGroupUrl = $this->wpService->getUserMeta(
-            $this->user->ID,
+            $user->ID,
             $this->userConfig->getUserPrefersGroupUrlMetaKey(),
             true
         );

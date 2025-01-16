@@ -8,7 +8,6 @@ class Editor
 {
     public function __construct(private User $userHelper)
     {
-        $userHelper->setUser();
         if ($userHelper->userHasRole('editor')) {
             add_action('admin_init', array($this, 'adminRedirects'), 1);
             add_action('admin_menu', array($this, 'adminMenus'), 9000);
@@ -82,7 +81,6 @@ class Editor
 
     public function redirectToDashboard()
     {
-        $this->userHelper->setUser();
         if ($this->userHelper->userHasRole('editor')) {
             wp_redirect(admin_url());
             exit;

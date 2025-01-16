@@ -96,7 +96,6 @@ class App
         $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig();
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig);
-        $userHelper->setUser();
 
         /**
          * User group
@@ -434,7 +433,6 @@ class App
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config);
-        $userHelper->setUser(); // Set to current user
 
         // Create user group taxonomy
         (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
