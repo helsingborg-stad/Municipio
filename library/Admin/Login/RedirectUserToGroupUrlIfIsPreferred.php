@@ -3,9 +3,11 @@
 namespace Municipio\Admin\Login;
 
 use Municipio\HooksRegistrar\Hookable;
-use WpService\WpService;
 use Municipio\Helper\User\User;
 use WpService\Contracts\AddQueryArg;
+use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\IsWpError;
 
 /**
  * Redirect user to group url if user prefers group url
@@ -15,7 +17,7 @@ class RedirectUserToGroupUrlIfIsPreferred implements Hookable
     /**
      * Constructor.
      */
-    public function __construct(private WpService&AddQueryArg $wpService, private User $userHelper)
+    public function __construct(private AddAction&AddQueryArg&IsWpError&AddFilter $wpService, private User $userHelper)
     {
     }
 
