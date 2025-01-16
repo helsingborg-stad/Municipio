@@ -454,6 +454,9 @@ class App
 
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
+
+        // Redirect to user group url after SSO login if using MiniOrange plugin for SSO login
+        (new \Municipio\UserGroup\RedirectToUserGroupUrlAfterSsoLogin($userHelper, $this->wpService))->addHooks();
     }
 
     /**
