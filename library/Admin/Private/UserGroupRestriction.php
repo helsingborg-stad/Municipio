@@ -8,28 +8,22 @@ use WpService\Contracts\WpGetCurrentUser;
 use WpService\Contracts\WpGetPostTerms;
 use WpService\Contracts\IsUserLoggedIn;
 use WpService\Contracts\IsWpError;
-use Municipio\Helper\User\User;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
+use Municipio\Helper\User\Contracts\GetUserGroup;
 
 /**
  * UserGroupRestriction class.
  *
  * This class is responsible for handling user group restrictions.
- * It is located in the file UserGroupRestriction.php in the directory /workspaces/municipio-deployment/wp-content/themes/municipio/library/Admin/Private/.
  */
 class UserGroupRestriction implements Hookable
 {
     /**
      * UserGroupRestriction class constructor.
-     *
-     * @param AddAction $wpService An instance of the AddAction class.
-     * @param WpGetCurrentUser $wpService An instance of the WpGetCurrentUser class.
-     * @param WpGetPostTerms $wpService An instance of the WpGetPostTerms class.
-     * @param IsWpError $wpService An instance of the IsWpError class.
      */
     public function __construct(
         private AddAction&IsUserLoggedIn&WpGetPostTerms&IsWpError $wpService,
-        private User $userHelper,
+        private GetUserGroup $userHelper,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig
     ) {
     }
@@ -59,10 +53,8 @@ class UserGroupRestriction implements Hookable
         }
 
         // Set user & get user group
-        $this->userHelper->setUser();
-        $userGroup = $this->userHelper->getUserGroup();
-        $userGroup = $userGroup->slug ?? null;
-
+        $userGroup  = $this->userHelper->getUserGroup();
+        $userGroup  = $userGroup->slug ?? null;
         $postStatus = $query->get('post_status');
 
         if (!$this->canHavePrivatePosts($postStatus)) {

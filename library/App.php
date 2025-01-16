@@ -98,6 +98,7 @@ class App
          */
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig);
+        $userHelper->setUser();
 
         /**
          * User group
