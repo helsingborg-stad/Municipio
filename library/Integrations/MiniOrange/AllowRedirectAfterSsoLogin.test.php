@@ -81,7 +81,9 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
             'addAction'      => true,
             'applyFilters'   => $redirectTo,
             'addFilter'      => true,
-            'wpSafeRedirect' => true]);
+            'wpSafeRedirect' => true,
+            'homeUrl'        => 'https://example.com/'
+        ]);
 
         $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
 
@@ -105,7 +107,9 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
             'addAction'      => true,
             'applyFilters'   => $redirectTo,
             'addFilter'      => true,
-            'wpSafeRedirect' => true]);
+            'wpSafeRedirect' => true,
+            'homeUrl'        => 'https://example.com/'
+        ]);
 
         $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
 
