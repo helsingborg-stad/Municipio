@@ -2,7 +2,6 @@
 
 namespace Municipio\Helper\SiteSwitcher;
 
-use Municipio\Helper\WpService;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
@@ -27,7 +26,9 @@ class SiteSwitcher
         try {
             return $callable(...func_get_args());
         } finally {
-            $this->wpService->restoreCurrentBlog();
+            do {
+                $result = $this->wpService->restoreCurrentBlog();
+            } while ($result !== false);
         }
     }
 }

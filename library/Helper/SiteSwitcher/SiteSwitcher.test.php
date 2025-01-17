@@ -29,24 +29,24 @@ class SiteSwitcherTest extends TestCase
         global $current_blog_id;
 
         $siteSwitcher = new SiteSwitcher(
-          new FakeWpService([
-            'switchToBlog' => function ($siteId) {
+            new FakeWpService([
+            'switchToBlog'       => function ($siteId) {
                 global $current_blog_id;
-                $current_blog_id = $siteId;
+                return $current_blog_id = $siteId;
             },
             'restoreCurrentBlog' => function () {
                 global $current_blog_id;
-                $current_blog_id = 1; // Reset to default
+                return $current_blog_id = 1; // Reset to default
             }
-          ])
+            ])
         );
 
-        $originalBlogId = 1; // Mock the original blog ID
-        $targetBlogId = 2;   // Mock the target blog ID
+        $originalBlogId  = 1; // Mock the original blog ID
+        $targetBlogId    = 2;   // Mock the target blog ID
         $current_blog_id = $originalBlogId;
 
         $callableExecuted = false;
-        $result = $siteSwitcher->runInSite(
+        $result           = $siteSwitcher->runInSite(
             $targetBlogId,
             function () use (&$callableExecuted, $targetBlogId) {
                 global $current_blog_id;
@@ -79,20 +79,22 @@ class SiteSwitcherTest extends TestCase
         global $current_blog_id;
 
         $siteSwitcher = new SiteSwitcher(
-          new FakeWpService([
-            'switchToBlog' => function ($siteId) {
+            new FakeWpService([
+            'switchToBlog'       => function ($siteId) {
                 global $current_blog_id;
                 $current_blog_id = $siteId;
+                return true;
             },
             'restoreCurrentBlog' => function () {
                 global $current_blog_id;
                 $current_blog_id = 1; // Reset to default
+                return true;
             }
-          ])
+            ])
         );
 
-        $originalBlogId = 1; // Mock the original blog ID
-        $targetBlogId = 2;   // Mock the target blog ID
+        $originalBlogId  = 1; // Mock the original blog ID
+        $targetBlogId    = 2;   // Mock the target blog ID
         $current_blog_id = $originalBlogId;
 
         $this->expectException(\RuntimeException::class);
