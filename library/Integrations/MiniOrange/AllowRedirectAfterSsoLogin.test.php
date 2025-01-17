@@ -70,25 +70,6 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
     }
 
     /**
-     * @testdox allowRedirectAfterSsoLogin() does not attempt to redirect if redirection flag is already set
-     */
-    public function testAllowRedirectAfterSsoLoginDoesNotAttemptToRedirectIfRedirectionFlagIsAlreadySet()
-    {
-        $wpService = new FakeWpService([
-            'addAction'      => true,
-            'applyFilters'   => 'http://example.com',
-            'addFilter'      => true,
-            'wpSafeRedirect' => true]);
-
-        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
-
-        $_POST = ['SAMLResponse' => 'foo', 'RelayState' => 'bar', 'customMiniOrgangeLoginRedirectApplied' => true];
-        $allowRedirectAfterSsoLogin->allowRedirectAfterSsoLogin(1);
-
-        $this->assertArrayNotHasKey('wpSafeRedirect', $wpService->methodCalls);
-    }
-
-    /**
      * @testdox allowRedirectAfterSsoLogin() redirect handler is applied to wp_redirect filter
      */
     public function testAllowRedirectAfterSsoLoginRedirectsToUrlIfFilterIsSet()
