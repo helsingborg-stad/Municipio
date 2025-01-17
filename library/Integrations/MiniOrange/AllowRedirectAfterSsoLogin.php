@@ -108,9 +108,8 @@ class AllowRedirectAfterSsoLogin implements Hookable
      *
      * @return bool
      */
-    private function loginRequestOriginatesFromHomeUrl($location): bool
+    public function loginRequestOriginatesFromHomeUrl($location): bool
     {
-
         // If the location is not a valid URL, assume it is a relative path
         if(filter_var($location, FILTER_VALIDATE_URL) === false) {
             $location = $this->wpService->homeUrl(
