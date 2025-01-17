@@ -50,14 +50,19 @@ class PrivateAcfFields implements Hookable
             $field['conditional_logic'] = [];
         }
 
-        $field['conditional_logic'][] =
-            [
-                [
-                    'field'    => $this->hiddenInputKey,
-                    'operator' => '==',
-                    'value'    => 'private'
-                ]
-            ];
+        $conditional = [
+            'field'    => $this->hiddenInputKey,
+            'operator' => '==',
+            'value'    => 'private'
+        ];
+
+        if (!empty($field['conditional_logic'])) {
+            foreach ($field['conditional_logic'] as &$logicGroup) {
+                $logicGroup[] = $conditional;
+            }
+        } else {
+            $field['conditional_logic'][] = [$conditional];
+        }
 
         return $field;
     }
