@@ -2,8 +2,16 @@
 
 namespace Municipio\Helper\SiteSwitcher;
 
+use Municipio\Helper\WpService;
+use WpService\Contracts\RestoreCurrentBlog;
+use WpService\Contracts\SwitchToBlog;
+
 class SiteSwitcher
 {
+    public function __construct(private SwitchToBlog&RestoreCurrentBlog $wpService)
+    {
+    }
+
     /**
      * Execute a callable within the context of a specific site.
      *
@@ -14,12 +22,12 @@ class SiteSwitcher
      */
     public function runInSite(int $siteId, callable $callable, mixed $callableContext = null): mixed
     {
-        switch_to_blog($siteId);
+        $this->wpService->switchToBlog($siteId);
 
         try {
             return $callable(...func_get_args());
         } finally {
-            restore_current_blog();
+            $this->wpService->restoreCurrentBlog();
         }
     }
 }
