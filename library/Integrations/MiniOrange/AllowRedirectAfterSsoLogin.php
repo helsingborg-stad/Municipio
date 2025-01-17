@@ -31,18 +31,19 @@ class AllowRedirectAfterSsoLogin implements Hookable
 
     /**
      * Set logged in cookie filter proxy.
-     * 
+     *
      * @param string $loggedInCookie
      * @param int $expire
      * @param int $expiration
      * @param int $userId
-     * 
+     *
      * @suppress PhanUnusedVariable, IntelephenseUnusedVariable
-     * 
+     *
      * @return void
      */
-    public function setLoggedInCookieFilterProxy(string $loggedInCookie, int $expire, int $expiration, int $userId) {
-        $this->allowRedirectAfterSsoLogin($userId); 
+    public function setLoggedInCookieFilterProxy(string $loggedInCookie, int $expire, int $expiration, int $userId): void
+    {
+        $this->allowRedirectAfterSsoLogin($userId);
     }
 
     /**
@@ -56,28 +57,29 @@ class AllowRedirectAfterSsoLogin implements Hookable
             return;
         }
 
-        $redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId); 
+        $redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId);
 
         if (!empty($redirectUrl)) {
-            $redirectHandler    = function($location) use ($redirectUrl) {
+            $redirectHandler = function ($location) use ($redirectUrl) {
                 return ($location === $this->getRelayState()) ? $redirectUrl : $location;
-            }; 
+            };
             $this->wpService->addFilter('wp_redirect', $redirectHandler, 5, 1);
         }
     }
 
     /**
      * Get RelayState.
-     * 
+     *
      * @return string|null
      */
-    private function getRelayState(): ?string {
+    private function getRelayState(): ?string
+    {
         return $_POST['RelayState'] ?? null;
     }
 
     /**
      * Get SAML response.
-     * 
+     *
      * @return string|null
      */
     private function getSamlResponse(): ?string
@@ -95,4 +97,3 @@ class AllowRedirectAfterSsoLogin implements Hookable
         return $this->getSamlResponse() && $this->getRelayState();
     }
 }
- 
