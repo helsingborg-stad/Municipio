@@ -57,6 +57,8 @@ use wpdb;
 use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+
 
 /**
  * Class App
@@ -95,7 +97,14 @@ class App
          */
         $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper       = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $userGroupConfig, new \Municipio\Helper\Term\Term($this->wpService, $this->acfService));
+        $userHelper       = new \Municipio\Helper\User\User(
+            $this->wpService, 
+            $this->acfService, 
+            $userHelperConfig, 
+            $userGroupConfig, 
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher()  
+        );
 
         /**
          * User group
@@ -391,7 +400,7 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService));
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher());
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
@@ -432,7 +441,7 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config, new \Municipio\Helper\Term\Term($this->wpService, $this->acfService));
+        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config, new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher());
 
         // Create user group taxonomy
         (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
@@ -468,7 +477,7 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $userHelper      = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService));
+        $userHelper      = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher());
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
