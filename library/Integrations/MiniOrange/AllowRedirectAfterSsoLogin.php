@@ -4,21 +4,20 @@ namespace Municipio\Integrations\MiniOrange;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\WpSafeRedirect;
 
 /**
  * Allow redirect after SSO login.
  */
 class AllowRedirectAfterSsoLogin implements Hookable
 {
-    public const APPLIED_FLAG             = 'customMiniOrgangeLoginRedirectApplied';
     public const REDIRECT_URL_FILTER_HOOK = 'Municipio/Integrations/MiniOrange/AllowRedirectAfterSsoLogin/RedirectUrl';
 
     /**
      * Constructor.
      */
-    public function __construct(private AddAction&ApplyFilters&WpSafeRedirect $wpService)
+    public function __construct(private AddAction&ApplyFilters&AddFilter $wpService)
     {
     }
 
@@ -27,7 +26,11 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('set_logged_in_cookie', [$this, 'allowRedirectAfterSsoLogin'], 10, 4);
+        $this->wpService->addAction('set_logged_in_cookie', [$this, 'setLoggedInCookieFilterProxy'], 10, 4);
+    }
+
+    public function setLoggedInCookieFilterProxy(string $loggedInCookie, int $expire, int $expiration, int $userId) {
+        $this->allowRedirectAfterSsoLogin($userId); 
     }
 
     /**
@@ -37,16 +40,30 @@ class AllowRedirectAfterSsoLogin implements Hookable
      *
      * @return void
      */
-    public function allowRedirectAfterSsoLogin(string $loggedInCookie, int $expire, int $expiration, int $userId): void
+    public function allowRedirectAfterSsoLogin(int $userId): void
     {
-        if (!$this->doingMiniOrgangeLogin() || $this->isCustomMiniOrgangeLoginRedirectApplied()) {
+        if (!$this->doingMiniOrgangeLogin()) {
             return;
         }
 
-        if (!empty($redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId))) {
-            $this->setAppliedFlag();
-            $this->wpService->wpSafeRedirect($redirectUrl);
+        $redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId); 
+
+        if (!empty($redirectUrl)) {
+            $redirectHandler    = function($location) use ($redirectUrl) {
+                return ($location === $this->getRelayState()) ? $redirectUrl : $location;
+            }; 
+            $this->wpService->addFilter('wp_redirect', $redirectHandler, 5, 1);
         }
+    }
+
+    /** */
+    private function getRelayState (): ?string {
+        return $_POST['RelayState'] ?? null;
+    }
+
+    private function getSamlResponse(): ?string
+    {
+        return $_POST['SAMLResponse'] ?? null;
     }
 
     /**
@@ -56,24 +73,7 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     private function doingMiniOrgangeLogin(): bool
     {
-        return isset($_POST['SAMLResponse']) && isset($_POST['RelayState']);
-    }
-
-    /**
-     * Set applied flag.
-     */
-    private function setAppliedFlag(): void
-    {
-        $_POST[self::APPLIED_FLAG] = true;
-    }
-
-    /**
-     * Check if custom MiniOrgange login redirect is applied.
-     *
-     * @return bool
-     */
-    private function isCustomMiniOrgangeLoginRedirectApplied(): bool
-    {
-        return isset($_POST[self::APPLIED_FLAG]);
+        return $this->getSamlResponse() && $this->getRelayState();
     }
 }
+ 
