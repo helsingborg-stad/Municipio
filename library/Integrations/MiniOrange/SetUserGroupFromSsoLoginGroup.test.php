@@ -2,8 +2,7 @@
 
 namespace Municipio\Integrations\MiniOrange;
 
-use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
-use Municipio\UserGroup\Config\UserGroupConfigInterface;
+use Municipio\Helper\User\Contracts\SetUserGroup;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -14,9 +13,8 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $termHelper         = $this->createMock(CreateOrGetTermIdFromString::class);
-        $config             = $this->createMock(UserGroupConfigInterface::class);
-        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup(new FakeWpService(), $termHelper, $config);
+        $userHelper         = $this->createMock(SetUserGroup::class);
+        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup(new FakeWpService(), $userHelper);
 
         $this->assertInstanceOf(SetUserGroupFromSsoLoginGroup::class, $setGroupAsTaxonomy);
     }
@@ -27,10 +25,9 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfGroupNameIsNumeric()
     {
         $wpService  = new FakeWpService();
-        $termHelper = $this->createMock(CreateOrGetTermIdFromString::class);
-        $config     = $this->createMock(UserGroupConfigInterface::class);
+        $userHelper = $this->createMock(SetUserGroup::class);
 
-        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $termHelper, $config);
+        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $userHelper);
         $setGroupAsTaxonomy->setUserGroupFromSsoLoginGroup(1, 1);
 
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
@@ -42,10 +39,9 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfGroupNameIsEmpty()
     {
         $wpService  = new FakeWpService();
-        $termHelper = $this->createMock(CreateOrGetTermIdFromString::class);
-        $config     = $this->createMock(UserGroupConfigInterface::class);
+        $userHelper = $this->createMock(SetUserGroup::class);
 
-        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $termHelper, $config);
+        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $userHelper);
         $setGroupAsTaxonomy->setUserGroupFromSsoLoginGroup(1, '');
 
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
@@ -57,10 +53,9 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
     public function testSetUserGroupFromSsoLoginGroupDoesNotConnectUserToTermIfUserIdIsEmpty()
     {
         $wpService  = new FakeWpService();
-        $termHelper = $this->createMock(CreateOrGetTermIdFromString::class);
-        $config     = $this->createMock(UserGroupConfigInterface::class);
+        $userHelper = $this->createMock(SetUserGroup::class);
 
-        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $termHelper, $config);
+        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $userHelper);
         $setGroupAsTaxonomy->setUserGroupFromSsoLoginGroup(0, 'group');
 
         $this->assertArrayNotHasKey('wpSetObjectTerms', $wpService->methodCalls);
@@ -72,14 +67,10 @@ class SetUserGroupFromSsoLoginGroupTest extends TestCase
     public function testSetUserGroupFromSsoLoginGroupConnectsUserToTerm()
     {
         $wpService  = new FakeWpService(['wpSetObjectTerms' => []]);
-        $termHelper = $this->createMock(CreateOrGetTermIdFromString::class);
-        $config     = $this->createMock(UserGroupConfigInterface::class);
+        $userHelper = $this->createMock(SetUserGroup::class);
+        $userHelper->expects($this->once())->method('setUserGroup');
 
-        $termHelper->method('createOrGetTermIdFromString')->willReturn(1);
-
-        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $termHelper, $config);
+        $setGroupAsTaxonomy = new SetUserGroupFromSsoLoginGroup($wpService, $userHelper);
         $setGroupAsTaxonomy->setUserGroupFromSsoLoginGroup(1, 'group');
-
-        $this->assertArrayHasKey('wpSetObjectTerms', $wpService->methodCalls);
     }
 }

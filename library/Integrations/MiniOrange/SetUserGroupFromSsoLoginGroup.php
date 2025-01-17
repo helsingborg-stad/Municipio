@@ -2,9 +2,8 @@
 
 namespace Municipio\Integrations\MiniOrange;
 
-use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
+use Municipio\Helper\User\Contracts\SetUserGroup;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WpService\Contracts\{AddAction, GetTermBy, IsWpError, WpInsertTerm, WpSetObjectTerms};
 
 /**
@@ -17,8 +16,7 @@ class SetUserGroupFromSsoLoginGroup implements Hookable
      */
     public function __construct(
         private AddAction&WpSetObjectTerms&GetTermBy&WpInsertTerm&IsWpError $wpService,
-        private CreateOrGetTermIdFromString $termHelper,
-        private UserGroupConfigInterface $config
+        private SetUserGroup $userHelper
     ) {
     }
 
@@ -41,20 +39,13 @@ class SetUserGroupFromSsoLoginGroup implements Hookable
      */
     public function setUserGroupFromSsoLoginGroup(int $userId, string|array $groupName): void
     {
-        $taxonomy  = $this->config->getUserGroupTaxonomy();
         $groupName = $this->getGroupNameFromMixed($groupName);
 
         if (!$groupName || is_numeric($groupName)) {
             return;
         }
 
-        if (!$userId) {
-            return;
-        }
-
-        if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
-            $this->wpService->wpSetObjectTerms($userId, $termId, $taxonomy, false);
-        }
+        $this->userHelper->setUserGroup($groupName, $userId);
     }
 
     /**

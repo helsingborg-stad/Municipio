@@ -2,14 +2,15 @@
 
 namespace Municipio\Helper\User;
 
-use WpService\Contracts\{AddQueryArg, GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
 use AcfService\Contracts\GetField;
+use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 use WP_User;
+use WpService\WpService;
 
 /**
  * User helper.
@@ -21,16 +22,18 @@ class User implements
     GetUserGroupUrlType,
     GetUserPrefersGroupUrl,
     GetUser,
-    GetRedirectToGroupUrl
+    GetRedirectToGroupUrl,
+    SetUserGroup
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy&AddQueryArg $wpService,
+        private WpService $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig,
-        private UserGroupConfigInterface $userGroupConfig
+        private UserGroupConfigInterface $userGroupConfig,
+        private CreateOrGetTermIdFromString $termHelper
     ) {
     }
 
@@ -95,7 +98,10 @@ class User implements
             return null;
         }
 
+        $this->maybeSwitchToMainSite();
         $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
+        $this->switchToCurrentBlogIfSwitched();
+
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
             return null;
         }
@@ -143,7 +149,9 @@ class User implements
         $term ??= $this->getUserGroup($user);
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
+        $this->maybeSwitchToMainSite();
         return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
+        $this->switchToCurrentBlogIfSwitched();
     }
 
     /**
@@ -157,11 +165,10 @@ class User implements
             return null;
         }
 
-        $perfersGroupUrl = $this->wpService->getUserMeta(
-            $user->ID,
-            $this->userConfig->getUserPrefersGroupUrlMetaKey(),
-            true
-        );
+        $this->maybeSwitchToMainSite();
+        $perfersGroupUrl = $this->wpService->getUserMeta($user->ID, $this->userConfig->getUserPrefersGroupUrlMetaKey(), true);
+        $this->switchToCurrentBlogIfSwitched();
+
         if ($perfersGroupUrl) {
             return true;
         }
@@ -190,5 +197,55 @@ class User implements
         }
 
         return null;
+    }
+
+/**
+     * Switch to main site if multisite and not on main site.
+     */
+    private function maybeSwitchToMainSite(): void
+    {
+        if (!$this->wpService->isMultisite() || $this->wpService->isMainSite()) {
+            return;
+        }
+
+        if ($this->wpService->getMainSiteId() === $this->wpService->getCurrentBlogId()) {
+            return;
+        }
+
+        $this->wpService->switchToBlog($this->wpService->getMainSiteId());
+    }
+
+    /**
+     * Switch back from main site if multisite and switched.
+     */
+    private function switchToCurrentBlogIfSwitched(): void
+    {
+        if (!$this->wpService->isMultisite() || !$this->wpService->msIsSwitched()) {
+            return;
+        }
+
+        $this->wpService->restoreCurrentBlog();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUserGroup(string $groupName, null|WP_User|int $user = null): void
+    {
+        $user = $this->getUser($user);
+
+        if (!$user) {
+            return;
+        }
+
+        $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy();
+
+        $this->maybeSwitchToMainSite();
+
+        if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
+            $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
+        }
+
+        $this->switchToCurrentBlogIfSwitched();
     }
 }
