@@ -2,7 +2,6 @@
 
 namespace Municipio\Helper\User;
 
-use WpService\Contracts\{GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
 use AcfService\Contracts\GetField;
 use Municipio\Helper\User\Config\UserConfigInterface;
 use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
@@ -10,6 +9,7 @@ use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 use WP_User;
+use WpService\WpService;
 
 /**
  * User helper.
@@ -20,7 +20,7 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
      * Constructor.
      */
     public function __construct(
-        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy $wpService,
+        private WpService $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig,
         private UserGroupConfigInterface $userGroupConfig
@@ -88,7 +88,10 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
             return null;
         }
 
+        $this->maybeSwitchToMainSite();
         $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
+        $this->switchToCurrentBlogIfSwitched();
+
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
             return null;
         }
@@ -136,7 +139,9 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
         $term ??= $this->getUserGroup($user);
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
+        $this->maybeSwitchToMainSite();
         return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
+        $this->switchToCurrentBlogIfSwitched();
     }
 
     /**
@@ -150,14 +155,41 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
             return null;
         }
 
-        $perfersGroupUrl = $this->wpService->getUserMeta(
-            $user->ID,
-            $this->userConfig->getUserPrefersGroupUrlMetaKey(),
-            true
-        );
+        $this->maybeSwitchToMainSite();
+        $perfersGroupUrl = $this->wpService->getUserMeta($user->ID, $this->userConfig->getUserPrefersGroupUrlMetaKey(), true);
+        $this->switchToCurrentBlogIfSwitched();
+
         if ($perfersGroupUrl) {
             return true;
         }
         return false;
+    }
+
+/**
+     * Switch to main site if multisite and not on main site.
+     */
+    private function maybeSwitchToMainSite(): void
+    {
+        if (!$this->wpService->isMultisite() || $this->wpService->isMainSite()) {
+            return;
+        }
+
+        if ($this->wpService->getMainSiteId() === $this->wpService->getCurrentBlogId()) {
+            return;
+        }
+
+        $this->wpService->switchToBlog($this->wpService->getMainSiteId());
+    }
+
+    /**
+     * Switch back from main site if multisite and switched.
+     */
+    private function switchToCurrentBlogIfSwitched(): void
+    {
+        if (!$this->wpService->isMultisite() || !$this->wpService->msIsSwitched()) {
+            return;
+        }
+
+        $this->wpService->restoreCurrentBlog();
     }
 }
