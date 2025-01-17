@@ -2,10 +2,10 @@
 
 namespace Municipio\Helper\User;
 
-use WpService\Contracts\{GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
+use WpService\Contracts\{AddQueryArg, GetBlogDetails, GetUserMeta, IsWpError, WpGetObjectTerms, WpGetCurrentUser, GetUserBy};
 use AcfService\Contracts\GetField;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
@@ -14,13 +14,20 @@ use WP_User;
 /**
  * User helper.
  */
-class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser
+class User implements
+    UserHasRole,
+    GetUserGroup,
+    GetUserGroupUrl,
+    GetUserGroupUrlType,
+    GetUserPrefersGroupUrl,
+    GetUser,
+    GetRedirectToGroupUrl
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy $wpService,
+        private WpGetCurrentUser&WpGetObjectTerms&IsWpError&GetUserMeta&GetBlogDetails&GetUserBy&AddQueryArg $wpService,
         private GetField $acfService,
         private UserConfigInterface $userConfig,
         private UserGroupConfigInterface $userGroupConfig
@@ -159,5 +166,29 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
             return true;
         }
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRedirectToGroupUrl(null|WP_User|int $user = null): ?string
+    {
+        $user = $this->getUser($user);
+
+        if (!$user) {
+            return null;
+        }
+
+        $perfersGroupUrl = $this->getUserPrefersGroupUrl($user);
+        $groupUrl        = $this->getUserGroupUrl(null, $user);
+
+        if ($perfersGroupUrl && $groupUrl) {
+            return $this->wpService->addQueryArg([
+                'loggedin'     => 'true',
+                'prefersgroup' => 'true'
+            ], $groupUrl);
+        }
+
+        return null;
     }
 }
