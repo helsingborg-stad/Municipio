@@ -3,6 +3,7 @@
 namespace Municipio\Helper\User;
 
 use AcfService\Implementations\FakeAcfService;
+use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
 use Municipio\TestUtils\WpMockFactory;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
@@ -20,7 +21,8 @@ class UserTest extends TestCase
             new FakeWpService(),
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class)
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -35,7 +37,8 @@ class UserTest extends TestCase
             new FakeWpService(),
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class)
         );
 
         $wpUser = WpMockFactory::createWpUser(['ID' => 1]);
@@ -52,7 +55,8 @@ class UserTest extends TestCase
             new FakeWpService(),
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class)
         );
 
         $wpUser = WpMockFactory::createWpUser(['ID' => 0]);
@@ -71,7 +75,8 @@ class UserTest extends TestCase
             $wpService,
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class)
         );
 
         $this->assertEquals(123, $user->getUser()->ID);
@@ -90,7 +95,8 @@ class UserTest extends TestCase
             $wpService,
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class)
         );
 
         $this->assertEquals(123, $user->getUser(123)->ID);
@@ -109,7 +115,8 @@ class UserTest extends TestCase
             $wpService,
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class)
+            $this->createStub(UserGroupConfigInterface::class),
+            $this->createStub(CreateOrGetTermIdFromString::class),
         );
 
         $this->assertNull($user->getUser(123));
