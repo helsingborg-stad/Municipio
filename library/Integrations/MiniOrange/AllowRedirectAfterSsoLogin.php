@@ -29,14 +29,24 @@ class AllowRedirectAfterSsoLogin implements Hookable
         $this->wpService->addAction('set_logged_in_cookie', [$this, 'setLoggedInCookieFilterProxy'], 10, 4);
     }
 
+    /**
+     * Set logged in cookie filter proxy.
+     * 
+     * @param string $loggedInCookie
+     * @param int $expire
+     * @param int $expiration
+     * @param int $userId
+     * 
+     * @suppress PhanUnusedVariable, IntelephenseUnusedVariable
+     * 
+     * @return void
+     */
     public function setLoggedInCookieFilterProxy(string $loggedInCookie, int $expire, int $expiration, int $userId) {
         $this->allowRedirectAfterSsoLogin($userId); 
     }
 
     /**
      * Allow redirect after SSO login.
-     * 
-     * @suppress PhanUnusedVariable, IntelephenseUnusedVariable
      *
      * @return void
      */
@@ -56,11 +66,20 @@ class AllowRedirectAfterSsoLogin implements Hookable
         }
     }
 
-    /** */
-    private function getRelayState (): ?string {
+    /**
+     * Get RelayState.
+     * 
+     * @return string|null
+     */
+    private function getRelayState(): ?string {
         return $_POST['RelayState'] ?? null;
     }
 
+    /**
+     * Get SAML response.
+     * 
+     * @return string|null
+     */
     private function getSamlResponse(): ?string
     {
         return $_POST['SAMLResponse'] ?? null;
