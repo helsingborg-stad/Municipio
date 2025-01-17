@@ -4,21 +4,21 @@ namespace Municipio\Integrations\MiniOrange;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
-use WpService\Contracts\WpSafeRedirect;
+use WpService\Contracts\HomeUrl;
 
 /**
  * Allow redirect after SSO login.
  */
 class AllowRedirectAfterSsoLogin implements Hookable
 {
-    public const APPLIED_FLAG             = 'customMiniOrgangeLoginRedirectApplied';
     public const REDIRECT_URL_FILTER_HOOK = 'Municipio/Integrations/MiniOrange/AllowRedirectAfterSsoLogin/RedirectUrl';
 
     /**
      * Constructor.
      */
-    public function __construct(private AddAction&ApplyFilters&WpSafeRedirect $wpService)
+    public function __construct(private AddAction&ApplyFilters&AddFilter&HomeUrl $wpService)
     {
     }
 
@@ -27,7 +27,24 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('set_logged_in_cookie', [$this, 'allowRedirectAfterSsoLogin']);
+        $this->wpService->addAction('set_logged_in_cookie', [$this, 'setLoggedInCookieFilterProxy'], 10, 4);
+    }
+
+    /**
+     * Set logged in cookie filter proxy.
+     *
+     * @param string $loggedInCookie
+     * @param int $expire
+     * @param int $expiration
+     * @param int $userId
+     *
+     * @suppress PhanUnusedVariable, IntelephenseUnusedVariable
+     *
+     * @return void
+     */
+    public function setLoggedInCookieFilterProxy(string $loggedInCookie, int $expire, int $expiration, int $userId): void
+    {
+        $this->allowRedirectAfterSsoLogin($userId);
     }
 
     /**
@@ -35,16 +52,43 @@ class AllowRedirectAfterSsoLogin implements Hookable
      *
      * @return void
      */
-    public function allowRedirectAfterSsoLogin(): void
+    public function allowRedirectAfterSsoLogin(int $userId): void
     {
-        if (!$this->doingMiniOrgangeLogin() || $this->isCustomMiniOrgangeLoginRedirectApplied()) {
+        if (!$this->doingMiniOrgangeLogin()) {
             return;
         }
 
-        if (!empty($redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, ''))) {
-            $this->setAppliedFlag();
-            $this->wpService->wpSafeRedirect($redirectUrl);
+        $redirectUrl = $this->wpService->applyFilters(self::REDIRECT_URL_FILTER_HOOK, '', $userId);
+
+        if (!empty($redirectUrl)) {
+            $redirectHandler = function ($location) use ($redirectUrl) {
+                if (!$this->loginRequestOriginatesFromHomeUrl($location)) {
+                    return $location;
+                }
+                return ($location === $this->getRelayState()) ? $redirectUrl : $location;
+            };
+            $this->wpService->addFilter('wp_redirect', $redirectHandler, 5, 1);
         }
+    }
+
+    /**
+     * Get RelayState.
+     *
+     * @return string|null
+     */
+    private function getRelayState(): ?string
+    {
+        return $_POST['RelayState'] ?? null;
+    }
+
+    /**
+     * Get SAML response.
+     *
+     * @return string|null
+     */
+    private function getSamlResponse(): ?string
+    {
+        return $_POST['SAMLResponse'] ?? null;
     }
 
     /**
@@ -54,24 +98,28 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     private function doingMiniOrgangeLogin(): bool
     {
-        return isset($_POST['SAMLResponse']) && isset($_POST['RelayState']);
+        return $this->getSamlResponse() && $this->getRelayState();
     }
 
     /**
-     * Set applied flag.
-     */
-    private function setAppliedFlag(): void
-    {
-        $_POST[self::APPLIED_FLAG] = true;
-    }
-
-    /**
-     * Check if custom MiniOrgange login redirect is applied.
+     * Check if login request originates from home URL.
+     *
+     * @param string $location
      *
      * @return bool
      */
-    private function isCustomMiniOrgangeLoginRedirectApplied(): bool
+    public function loginRequestOriginatesFromHomeUrl($location): bool
     {
-        return isset($_POST[self::APPLIED_FLAG]);
+        // If the location is not a valid URL, assume it is a relative path
+        // and prepend a fake protocol, and domain to make it a valid and parseable URL
+        if (filter_var($location, FILTER_VALIDATE_URL) === false) {
+            $location = 'https://fakeurl.io/' . trim($location ?: '', '/');
+        }
+
+        // Get and normalize urls
+        $location = rtrim(parse_url($location, PHP_URL_PATH) ?? '', '/');
+        $homeUrl  = rtrim(parse_url($this->wpService->homeUrl(), PHP_URL_PATH) ?? '', '/');
+
+        return $location === $homeUrl;
     }
 }

@@ -5,7 +5,7 @@ namespace Municipio\Helper\User;
 use AcfService\Contracts\GetField;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
@@ -15,7 +15,15 @@ use WpService\WpService;
 /**
  * User helper.
  */
-class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup
+class User implements
+    UserHasRole,
+    GetUserGroup,
+    GetUserGroupUrl,
+    GetUserGroupUrlType,
+    GetUserPrefersGroupUrl,
+    GetUser,
+    GetRedirectToGroupUrl,
+    SetUserGroup
 {
     /**
      * Constructor.
@@ -165,6 +173,30 @@ class User implements UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUr
             return true;
         }
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRedirectToGroupUrl(null|WP_User|int $user = null): ?string
+    {
+        $user = $this->getUser($user);
+
+        if (!$user) {
+            return null;
+        }
+
+        $perfersGroupUrl = $this->getUserPrefersGroupUrl($user);
+        $groupUrl        = $this->getUserGroupUrl(null, $user);
+
+        if ($perfersGroupUrl && $groupUrl) {
+            return $this->wpService->addQueryArg([
+                'loggedin'     => 'true',
+                'prefersgroup' => 'true'
+            ], $groupUrl);
+        }
+
+        return null;
     }
 
 /**

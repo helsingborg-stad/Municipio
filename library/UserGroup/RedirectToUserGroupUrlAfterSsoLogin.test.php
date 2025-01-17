@@ -3,6 +3,7 @@
 namespace Municipio\UserGroup;
 
 use Municipio\Helper\User\Contracts\GetUserGroupUrl;
+use Municipio\Helper\User\User;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -13,7 +14,7 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $userHelper = $this->createMock(GetUserGroupUrl::class);
+        $userHelper = $this->createMock(User::class);
         $sut        = new RedirectToUserGroupUrlAfterSsoLogin($userHelper, new FakeWpService());
         $this->assertInstanceOf(RedirectToUserGroupUrlAfterSsoLogin::class, $sut);
     }
@@ -23,7 +24,7 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
      */
     public function testAddHooksAddsFilterToRedirectUrl()
     {
-        $userHelper = $this->createMock(GetUserGroupUrl::class);
+        $userHelper = $this->createMock(User::class);
         $wpService  = new FakeWpService(['addFilter' => true]);
         $sut        = new RedirectToUserGroupUrlAfterSsoLogin($userHelper, $wpService);
 
@@ -40,8 +41,8 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
      */
     public function testGetRedirectUrlReturnsUrlFromGetUserGroupUrl()
     {
-        $userHelper = $this->createMock(GetUserGroupUrl::class);
-        $userHelper->method('getUserGroupUrl')->willReturn('http://example.com');
+        $userHelper = $this->createMock(User::class);
+        $userHelper->method('getRedirectToGroupUrl')->willReturn('http://example.com');
         $sut = new RedirectToUserGroupUrlAfterSsoLogin($userHelper, new FakeWpService());
         $this->assertEquals('http://example.com', $sut->getRedirectUrl('http://example.org'));
     }
@@ -51,8 +52,8 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
      */
     public function testGetRedirectUrlReturnsOriginalUrlIfGetUserGroupUrlReturnsNull()
     {
-        $userHelper = $this->createMock(GetUserGroupUrl::class);
-        $userHelper->method('getUserGroupUrl')->willReturn(null);
+        $userHelper = $this->createMock(User::class);
+        $userHelper->method('getRedirectToGroupUrl')->willReturn(null);
         $sut = new RedirectToUserGroupUrlAfterSsoLogin($userHelper, new FakeWpService());
         $this->assertEquals('http://example.org', $sut->getRedirectUrl('http://example.org'));
     }
