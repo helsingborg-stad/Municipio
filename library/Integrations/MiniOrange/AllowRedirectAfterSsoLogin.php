@@ -6,6 +6,7 @@ use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
+use WpService\Contracts\HomeUrl;
 
 /**
  * Allow redirect after SSO login.
@@ -17,7 +18,7 @@ class AllowRedirectAfterSsoLogin implements Hookable
     /**
      * Constructor.
      */
-    public function __construct(private AddAction&ApplyFilters&AddFilter $wpService)
+    public function __construct(private AddAction&ApplyFilters&AddFilter&HomeUrl $wpService)
     {
     }
 
@@ -61,6 +62,9 @@ class AllowRedirectAfterSsoLogin implements Hookable
 
         if (!empty($redirectUrl)) {
             $redirectHandler = function ($location) use ($redirectUrl) {
+                if (!$this->loginRequestOriginatesFromHomeUrl($location)) {
+                    return $location;
+                }
                 return ($location === $this->getRelayState()) ? $redirectUrl : $location;
             };
             $this->wpService->addFilter('wp_redirect', $redirectHandler, 5, 1);
@@ -95,5 +99,29 @@ class AllowRedirectAfterSsoLogin implements Hookable
     private function doingMiniOrgangeLogin(): bool
     {
         return $this->getSamlResponse() && $this->getRelayState();
+    }
+
+    /**
+     * Check if login request originates from home URL.
+     *
+     * @param string $location
+     *
+     * @return bool
+     */
+    private function loginRequestOriginatesFromHomeUrl($location): bool
+    {
+
+        // If the location is not a valid URL, assume it is a relative path
+        if(filter_var($location, FILTER_VALIDATE_URL) === false) {
+            $location = $this->wpService->homeUrl(
+                $location
+            );
+        }
+
+        // Get and normalize urls
+        $location = rtrim(parse_url($location, PHP_URL_PATH), '/');
+        $homeUrl  = rtrim(parse_url($this->wpService->homeUrl(), PHP_URL_PATH), '/');
+
+        return $location === $homeUrl;
     }
 }
