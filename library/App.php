@@ -59,7 +59,6 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
-
 /**
  * Class App
  * @package Municipio
@@ -98,12 +97,12 @@ class App
         $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper       = new \Municipio\Helper\User\User(
-            $this->wpService, 
-            $this->acfService, 
-            $userHelperConfig, 
-            $userGroupConfig, 
+            $this->wpService,
+            $this->acfService,
+            $userHelperConfig,
+            $userGroupConfig,
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher()  
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher()
         );
 
         /**

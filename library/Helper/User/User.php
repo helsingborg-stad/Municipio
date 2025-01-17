@@ -101,10 +101,10 @@ class User implements
         }
 
         $userGroup = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(), 
-            function() use ($user) {
+            $this->wpService->getMainSiteId(),
+            function () use ($user) {
                 return $this->wpService->wpGetObjectTerms(
-                    $user->ID, 
+                    $user->ID,
                     $this->userGroupConfig->getUserGroupTaxonomy()
                 );
             }
@@ -145,18 +145,18 @@ class User implements
 
         // Initialize the URL resolver
         $urlResolver = new UserGroupUrl(
-            $typeOfLink, 
-            $term, 
-            $this->acfService, 
-            $this->wpService, 
-            $this->userConfig, 
+            $typeOfLink,
+            $term,
+            $this->acfService,
+            $this->wpService,
+            $this->userConfig,
             $this->userGroupConfig
         );
 
         // Resolve the URL
         $resolvedUrl = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(), 
-            function() use ($urlResolver) {
+            $this->wpService->getMainSiteId(),
+            function () use ($urlResolver) {
                 return $urlResolver->get();
             }
         );
@@ -173,8 +173,8 @@ class User implements
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
         $userGroupUrlType = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(), 
-            function() use ($termId) {
+            $this->wpService->getMainSiteId(),
+            function () use ($termId) {
                 return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
             }
         );
@@ -194,11 +194,11 @@ class User implements
         }
 
         $perfersGroupUrl = $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(), 
-            function() use ($user) {
+            $this->wpService->getMainSiteId(),
+            function () use ($user) {
                 return $this->wpService->getUserMeta(
-                    $user->ID, 
-                    $this->userConfig->getUserPrefersGroupUrlMetaKey(), 
+                    $user->ID,
+                    $this->userConfig->getUserPrefersGroupUrlMetaKey(),
                     true
                 );
             }
@@ -248,8 +248,8 @@ class User implements
         $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy();
 
         $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(), 
-            function() use ($groupName, $taxonomy, $user) {
+            $this->wpService->getMainSiteId(),
+            function () use ($groupName, $taxonomy, $user) {
                 if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
                     $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
                 }
