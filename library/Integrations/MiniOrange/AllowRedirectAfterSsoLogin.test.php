@@ -120,4 +120,60 @@ class AllowRedirectAfterSsoLoginTest extends TestCase
         $this->assertEquals('wp_redirect', $wpService->methodCalls['addFilter'][0][0]);
         $this->assertEquals('http://urlNotMatchingRelayStateUrl.com', $redirectHandlerResult);
     }
+
+    /**
+     * @testdox loginRequestOriginatesFromHomeUrl() returns true if relative location matches home URL
+     */
+    public function testLoginRequestOriginatesFromHomeUrlReturnsTrueForRelativeUrlMatchingHomeUrl()
+    {
+        $homeUrl      = 'https://example.com';
+        $relativePath = '/';
+
+        $wpService                  = new FakeWpService(['homeUrl' => $homeUrl]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $this->assertTrue($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($relativePath));
+    }
+
+    /**
+     * @testdox loginRequestOriginatesFromHomeUrl() returns false if relative location does not match home URL
+     */
+    public function testLoginRequestOriginatesFromHomeUrlReturnsFalseForRelativeUrlNotMatchingHomeUrl()
+    {
+        $homeUrl      = 'https://example.com/somepath';
+        $relativePath = '/different-path';
+
+        $wpService                  = new FakeWpService(['homeUrl' => $homeUrl]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $this->assertFalse($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($relativePath));
+    }
+
+    /**
+     * @testdox loginRequestOriginatesFromHomeUrl() returns true if absolute URL path matches home URL
+     */
+    public function testLoginRequestOriginatesFromHomeUrlReturnsTrueForAbsoluteUrlMatchingHomeUrl()
+    {
+        $homeUrl     = 'https://example.com';
+        $absoluteUrl = 'https://example.com/';
+
+        $wpService                  = new FakeWpService(['homeUrl' => $homeUrl]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $this->assertTrue($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($absoluteUrl));
+    }
+
+    /**
+     * @testdox loginRequestOriginatesFromHomeUrl() returns false if absolute URL path does not match home URL
+     */
+    public function testLoginRequestOriginatesFromHomeUrlReturnsFalseForAbsoluteUrlNotMatchingHomeUrl()
+    {
+        $homeUrl     = 'https://example.com';
+        $absoluteUrl = 'https://example.com/different-path';
+
+        $wpService                  = new FakeWpService(['homeUrl' => $homeUrl]);
+        $allowRedirectAfterSsoLogin = new AllowRedirectAfterSsoLogin($wpService);
+
+        $this->assertFalse($allowRedirectAfterSsoLogin->loginRequestOriginatesFromHomeUrl($absoluteUrl));
+    }
 }
