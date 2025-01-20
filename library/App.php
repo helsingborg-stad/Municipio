@@ -180,6 +180,9 @@ class App
             $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
             $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($this->wpService, $decorator);
 
+            //Seo Redirect
+            $decorator = new \Municipio\PostDecorators\ApplySeoRedirect($this->wpService, $decorator);
+
             return $decorator->apply($post);
         }, 10, 1);
 
