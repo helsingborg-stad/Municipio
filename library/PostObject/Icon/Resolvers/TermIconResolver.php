@@ -11,7 +11,7 @@ use WpService\Contracts\{GetObjectTaxonomies, GetTheTerms};
  */
 class TermIconResolver implements IconResolverInterface
 {
-    private static array $termIcons = [];
+    private static array $termIcons  = [];
     private static array $termColors = [];
 
     /**
@@ -41,6 +41,12 @@ class TermIconResolver implements IconResolverInterface
         return  $this->innerResolver->resolve();
     }
 
+    /**
+     * Retrieves the icon and color associated with a term from the given taxonomies.
+     *
+     * @param array $taxonomies An array of taxonomies to search for terms.
+     * @return array An array containing the icon and color associated with the term, or [null, null] if no matching term is found.
+     */
     private function getIconFromTerm(array $taxonomies)
     {
         foreach ($taxonomies as $taxonomy) {
@@ -59,8 +65,8 @@ class TermIconResolver implements IconResolverInterface
                     return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
                 }
 
-                self::$termIcons[$term->term_id] = $this->termHelper->getTermIcon($term);
-                self::$termColors[$term->term_id] = !empty(self::$termIcons[$term->term_id]) ?$this->termHelper->getTermColor($term) : false;
+                self::$termIcons[$term->term_id]  = $this->termHelper->getTermIcon($term);
+                self::$termColors[$term->term_id] = !empty(self::$termIcons[$term->term_id]) ? $this->termHelper->getTermColor($term) : false;
 
                 if (self::$termIcons[$term->term_id]) {
                     return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
