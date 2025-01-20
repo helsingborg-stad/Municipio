@@ -81,7 +81,7 @@ class PostIconResolver implements IconResolverInterface
             return false;
         }
 
-        if (!isset($value['icon']) || !isset($value['icon']['material_icon'])) {
+        if (!isset($value['icon']) || empty($value['icon']['material_icon'])) {
             return false;
         }
 
