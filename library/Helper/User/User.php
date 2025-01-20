@@ -9,6 +9,7 @@ use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUser
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
+use Municipio\UserGroup\CreateUserGroupTaxonomy;
 use WP_Term;
 use WP_User;
 use WpService\WpService;
@@ -103,6 +104,12 @@ class User implements
         $userGroup = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {
+
+                (new \Municipio\UserGroup\CreateUserGroupTaxonomy(
+                    $this->wpService,
+                    $this->userGroupConfig
+                ))->registerUserGroupTaxonomy(); 
+
                 return $this->wpService->wpGetObjectTerms(
                     $user->ID,
                     $this->userGroupConfig->getUserGroupTaxonomy()
