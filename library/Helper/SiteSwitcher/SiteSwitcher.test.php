@@ -10,15 +10,15 @@ class SiteSwitcherTest extends TestCase
     protected function setUp(): void
     {
         // Reset global state for testing
-        global $current_blog_id;
-        $current_blog_id = 1; // Default blog ID
+        global $blog_id;
+        $blog_id = 1; // Default blog ID
     }
 
     protected function tearDown(): void
     {
         // Reset global state after each test
-        global $current_blog_id;
-        $current_blog_id = 1; // Reset to default
+        global $blog_id;
+        $blog_id = 1; // Reset to default
     }
 
     /**
@@ -26,33 +26,35 @@ class SiteSwitcherTest extends TestCase
      */
     public function testRunInSiteSwitchesToSpecifiedSiteAndRestoresOriginalSite()
     {
-        global $current_blog_id;
+        global $blog_id;
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
             'switchToBlog'       => function ($siteId) {
-                global $current_blog_id;
-                return $current_blog_id = $siteId;
+                global $blog_id;
+                $blog_id = $siteId;
+                return true;
             },
             'restoreCurrentBlog' => function () {
-                global $current_blog_id;
-                return $current_blog_id = 1; // Reset to default
+                global $blog_id;
+                $blog_id = 1; // Reset to default
+                return false;
             }
             ])
         );
 
-        $originalBlogId  = 1; // Mock the original blog ID
-        $targetBlogId    = 2;   // Mock the target blog ID
-        $current_blog_id = $originalBlogId;
+        $originalBlogId = 1; // Mock the original blog ID
+        $targetBlogId   = 2;   // Mock the target blog ID
+        $blog_id        = $originalBlogId;
 
         $callableExecuted = false;
         $result           = $siteSwitcher->runInSite(
             $targetBlogId,
             function () use (&$callableExecuted, $targetBlogId) {
-                global $current_blog_id;
+                global $blog_id;
 
                 // Assert that the blog ID has switched
-                $this->assertEquals($targetBlogId, $current_blog_id);
+                $this->assertEquals($targetBlogId, $blog_id);
 
                 $callableExecuted = true;
 
@@ -65,7 +67,7 @@ class SiteSwitcherTest extends TestCase
         $this->assertTrue($callableExecuted);
 
         // Assert that the original blog ID was restored
-        $this->assertEquals($originalBlogId, $current_blog_id);
+        $this->assertEquals($originalBlogId, $blog_id);
 
         // Assert the callable's return value
         $this->assertEquals('Callable executed', $result);
@@ -76,26 +78,26 @@ class SiteSwitcherTest extends TestCase
      */
     public function testRunInSiteRestoresOriginalSiteOnException()
     {
-        global $current_blog_id;
+        global $blog_id;
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
             'switchToBlog'       => function ($siteId) {
-                global $current_blog_id;
-                $current_blog_id = $siteId;
+                global $blog_id;
+                $blog_id = $siteId;
                 return true;
             },
             'restoreCurrentBlog' => function () {
-                global $current_blog_id;
-                $current_blog_id = 1; // Reset to default
-                return true;
+                global $blog_id;
+                $blog_id = 1; // Reset to default
+                return false;
             }
             ])
         );
 
-        $originalBlogId  = 1; // Mock the original blog ID
-        $targetBlogId    = 2;   // Mock the target blog ID
-        $current_blog_id = $originalBlogId;
+        $originalBlogId = 1; // Mock the original blog ID
+        $targetBlogId   = 2;   // Mock the target blog ID
+        $blog_id        = $originalBlogId;
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Test exception');
@@ -104,10 +106,10 @@ class SiteSwitcherTest extends TestCase
             $siteSwitcher->runInSite(
                 $targetBlogId,
                 function () {
-                    global $current_blog_id;
+                    global $blog_id;
 
                     // Assert that the blog ID has switched
-                    $this->assertEquals(2, $current_blog_id);
+                    $this->assertEquals(2, $blog_id);
 
                     // Throw an exception to simulate failure
                     throw new \RuntimeException('Test exception');
@@ -115,7 +117,7 @@ class SiteSwitcherTest extends TestCase
             );
         } finally {
             // Assert that the original blog ID was restored
-            $this->assertEquals($originalBlogId, $current_blog_id);
+            $this->assertEquals($originalBlogId, $blog_id);
         }
     }
 }
