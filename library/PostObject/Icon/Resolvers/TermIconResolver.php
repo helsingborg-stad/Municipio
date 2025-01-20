@@ -11,6 +11,9 @@ use WpService\Contracts\{GetObjectTaxonomies, GetTheTerms};
  */
 class TermIconResolver implements IconResolverInterface
 {
+    private static array $termIcons = [];
+    private static array $termColors = [];
+
     /**
      * Constructor.
      */
@@ -29,20 +32,43 @@ class TermIconResolver implements IconResolverInterface
     {
         $taxonomies = $this->wpService->getObjectTaxonomies($this->postObject->getPostType());
 
-        if (!empty($taxonomies)) {
-            $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomies[0]);
+        [$icon, $iconColor] = $this->getIconFromTerm($taxonomies);
 
-            if (!empty($terms)) {
-                $icon = $this->termHelper->getTermIcon($terms[0]);
+        if ($icon) {
+            return $this->getIconInstance($icon, $iconColor);
+        }
 
-                if (!empty($icon)) {
-                    $color = $this->termHelper->getTermColor($terms[0]);
-                    return $this->getIconInstance($icon, $color ?? null);
+        return  $this->innerResolver->resolve();
+    }
+
+    private function getIconFromTerm(array $taxonomies)
+    {
+        foreach ($taxonomies as $taxonomy) {
+            $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomy);
+
+            if (empty($terms)) {
+                continue;
+            }
+
+            foreach ($terms as $term) {
+                if (in_array($term->term_id, self::$termIcons)) {
+                    if (empty(self::$termsIcons[$term->term_id])) {
+                        continue;
+                    }
+
+                    return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
+                }
+
+                self::$termIcons[$term->term_id] = $this->termHelper->getTermIcon($term);
+                self::$termColors[$term->term_id] = !empty(self::$termIcons[$term->term_id]) ?$this->termHelper->getTermColor($term) : false;
+
+                if (self::$termIcons[$term->term_id]) {
+                    return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
                 }
             }
         }
 
-        return  $this->innerResolver->resolve();
+        return [null, null];
     }
 
     /**
