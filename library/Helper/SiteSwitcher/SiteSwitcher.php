@@ -26,9 +26,7 @@ class SiteSwitcher
         try {
             return $callable(...func_get_args());
         } finally {
-            do {
-                $result = $this->wpService->restoreCurrentBlog();
-            } while ($result !== false);
+            $this->wpService->restoreCurrentBlog();
         }
     }
 }
