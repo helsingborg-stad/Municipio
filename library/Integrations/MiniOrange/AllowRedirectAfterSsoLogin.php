@@ -54,7 +54,7 @@ class AllowRedirectAfterSsoLogin implements Hookable
      */
     public function allowRedirectAfterSsoLogin(int $userId): void
     {
-        if (!$this->doingMiniOrgangeLogin()) {
+        if (!$this->doingMiniOrangeLogin()) {
             return;
         }
 
@@ -96,7 +96,7 @@ class AllowRedirectAfterSsoLogin implements Hookable
      *
      * @return bool
      */
-    private function doingMiniOrgangeLogin(): bool
+    private function doingMiniOrangeLogin(): bool
     {
         return $this->getSamlResponse() && $this->getRelayState();
     }
