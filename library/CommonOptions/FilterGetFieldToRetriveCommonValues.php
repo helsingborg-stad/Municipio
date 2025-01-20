@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\Library\CommonOptions;
+namespace Municipio\CommonOptions;
 
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use WpService\WpService;
 use Municipio\HooksRegistrar\Hookable;
 
-class CommonOptions implements Hookable
+class FilterGetFieldToRetriveCommonValues implements Hookable
 {
     //TODO: Populate this with a options page
     protected array $optionsToFilter = [
@@ -18,7 +18,7 @@ class CommonOptions implements Hookable
 
     public function addHooks(): void
     {
-      add_filter('pre_option', [$this, 'filterOption'], 10, 3);
+      $this->wpService->addFilter('pre_option', [$this, 'filterOption'], 10, 3);
     }
 
     /**
@@ -60,7 +60,7 @@ class CommonOptions implements Hookable
         return $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($option, $default) {
-              return get_option($option, $default);
+              return $this->wpService->getOption($option, $default);
             }
         );
     }

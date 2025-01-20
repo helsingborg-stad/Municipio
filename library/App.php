@@ -58,6 +58,7 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\CommonOptions\CommonOptionsConfig;
 
 /**
  * Class App
@@ -370,6 +371,36 @@ class App
          * Broken links
          */
         $this->setUpBrokenLinksIntegration();
+
+        /** 
+         * Setup common options
+         */
+        $this->setUpCommonOptions();
+    }
+
+    /**
+     * Set up the common options feature.
+     *
+     * This method initializes the common options feature by creating an instance of the
+     * RegisterCommonOptionsAdminPage class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setUpCommonOptions(): void
+    {
+        $config = new \Municipio\CommonOptions\CommonOptionsConfig(
+            $this->wpService, 
+            $this->acfService, 
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+        );
+
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        //Admin page
+        $registerCommonOptionsAdminPage = new \Municipio\CommonOptions\RegisterCommonOptionsAdminPage($this->wpService, $this->acfService);
+        $registerCommonOptionsAdminPage->addHooks();
     }
 
     /**
