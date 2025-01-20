@@ -258,6 +258,12 @@ class User implements
             $this->wpService->getMainSiteId(),
             function () use ($groupName, $taxonomy, $user) {
                 if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
+                    
+                    (new CreateUserGroupTaxonomy(
+                        $this->wpService,
+                        $this->userGroupConfig
+                    ))->registerUserGroupTaxonomy();
+
                     $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
                 }
             }
