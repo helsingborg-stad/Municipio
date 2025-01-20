@@ -401,6 +401,14 @@ class App
         //Admin page
         $registerCommonOptionsAdminPage = new \Municipio\CommonOptions\RegisterCommonOptionsAdminPage($this->wpService, $this->acfService);
         $registerCommonOptionsAdminPage->addHooks();
+
+        //Populate admin page fields
+        $populateFieldGroupSelect = new \Municipio\CommonOptions\PopulateFieldGroupSelect($this->wpService, $this->acfService, $config);
+        $populateFieldGroupSelect->addHooks();
+
+        //Disable fields
+        //$disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonOptions\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService), $config);
+        //$disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
     }
 
     /**

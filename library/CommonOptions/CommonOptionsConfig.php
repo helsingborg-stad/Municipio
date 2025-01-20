@@ -29,7 +29,17 @@ class CommonOptionsConfig implements CommonOptionsConfigInterface
    */
   public function getOptionsKey(): string
   {
-    return 'sitewide_common_acf_fields';
+    return 'sitewide_common_acf_fieldgroups';
+  }
+
+  /**
+   * The options key where settings of this feature are stored.
+   * 
+   * @return string
+   */
+  public function getOptionsSelectFieldKey(): string
+  {
+    return 'sitewide_common_acf_fieldgroup_value';
   }
 
   /**

@@ -15,7 +15,7 @@ class RegisterCommonOptionsAdminPage implements Hookable
 
   public function addHooks(): void
   {
-    $this->wpService->addAction('admin_menu', [$this, 'addAdminPage']);
+    $this->wpService->addAction('init', [$this, 'addAdminPage']);
   }
 
   public function addAdminPage(): void
@@ -23,9 +23,9 @@ class RegisterCommonOptionsAdminPage implements Hookable
     if(!$this->wpService->isMainSite()) {
       return;
     }
-    
+
     $this->acfService->addOptionsPage([
-      'page_title'  => $this->wpService->__('Common Options Options', 'municipio'),
+      'page_title'  => $this->wpService->__('Common Options', 'municipio'),
       'menu_title'  => $this->wpService->__('Common Options', 'municipio'),
       'menu_slug'   => 'common-options',
       'capability'  => 'manage_options',
