@@ -5,6 +5,7 @@ namespace Municipio\Helper\User;
 use AcfService\Implementations\FakeAcfService;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\TestUtils\WpMockFactory;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +23,8 @@ class UserTest extends TestCase
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class)
+            $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -38,7 +40,8 @@ class UserTest extends TestCase
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class)
+            $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $wpUser = WpMockFactory::createWpUser(['ID' => 1]);
@@ -56,7 +59,8 @@ class UserTest extends TestCase
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class)
+            $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $wpUser = WpMockFactory::createWpUser(['ID' => 0]);
@@ -76,7 +80,8 @@ class UserTest extends TestCase
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class)
+            $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $this->assertEquals(123, $user->getUser()->ID);
@@ -96,7 +101,8 @@ class UserTest extends TestCase
             new FakeAcfService(),
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class)
+            $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $this->assertEquals(123, $user->getUser(123)->ID);
@@ -117,6 +123,7 @@ class UserTest extends TestCase
             $this->createStub(UserConfigInterface::class),
             $this->createStub(UserGroupConfigInterface::class),
             $this->createStub(CreateOrGetTermIdFromString::class),
+            $this->createStub(SiteSwitcher::class)
         );
 
         $this->assertNull($user->getUser(123));

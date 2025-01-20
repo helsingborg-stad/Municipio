@@ -7,6 +7,7 @@ use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
 use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use WP_Term;
 use WP_User;
@@ -33,7 +34,8 @@ class User implements
         private GetField $acfService,
         private UserConfigInterface $userConfig,
         private UserGroupConfigInterface $userGroupConfig,
-        private CreateOrGetTermIdFromString $termHelper
+        private CreateOrGetTermIdFromString $termHelper,
+        private SiteSwitcher $siteSwitcher
     ) {
     }
 
@@ -98,9 +100,15 @@ class User implements
             return null;
         }
 
-        $this->maybeSwitchToMainSite();
-        $userGroup = $this->wpService->wpGetObjectTerms($user->ID, $this->userGroupConfig->getUserGroupTaxonomy());
-        $this->switchToCurrentBlogIfSwitched();
+        $userGroup = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($user) {
+                return $this->wpService->wpGetObjectTerms(
+                    $user->ID,
+                    $this->userGroupConfig->getUserGroupTaxonomy()
+                );
+            }
+        );
 
         if (empty($userGroup) || $this->wpService->isWpError($userGroup)) {
             return null;
@@ -135,10 +143,25 @@ class User implements
         // Get the selected type of link
         $typeOfLink = $this->getUserGroupUrlType($term, $user);
 
-        // Get the URL
-        return (
-            new UserGroupUrl($typeOfLink, $term, $this->acfService, $this->wpService, $this->userConfig, $this->userGroupConfig)
-        )->get();
+        // Initialize the URL resolver
+        $urlResolver = new UserGroupUrl(
+            $typeOfLink,
+            $term,
+            $this->acfService,
+            $this->wpService,
+            $this->userConfig,
+            $this->userGroupConfig
+        );
+
+        // Resolve the URL
+        $resolvedUrl = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($urlResolver) {
+                return $urlResolver->get();
+            }
+        );
+
+        return $resolvedUrl;
     }
 
     /**
@@ -149,9 +172,14 @@ class User implements
         $term ??= $this->getUserGroup($user);
         $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
 
-        $this->maybeSwitchToMainSite();
-        return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
-        $this->switchToCurrentBlogIfSwitched();
+        $userGroupUrlType = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($termId) {
+                return $this->acfService->getField('user_group_type_of_link', $termId) ?: null;
+            }
+        );
+
+        return $userGroupUrlType;
     }
 
     /**
@@ -165,9 +193,16 @@ class User implements
             return null;
         }
 
-        $this->maybeSwitchToMainSite();
-        $perfersGroupUrl = $this->wpService->getUserMeta($user->ID, $this->userConfig->getUserPrefersGroupUrlMetaKey(), true);
-        $this->switchToCurrentBlogIfSwitched();
+        $perfersGroupUrl = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($user) {
+                return $this->wpService->getUserMeta(
+                    $user->ID,
+                    $this->userConfig->getUserPrefersGroupUrlMetaKey(),
+                    true
+                );
+            }
+        );
 
         if ($perfersGroupUrl) {
             return true;
@@ -199,34 +234,6 @@ class User implements
         return null;
     }
 
-/**
-     * Switch to main site if multisite and not on main site.
-     */
-    private function maybeSwitchToMainSite(): void
-    {
-        if (!$this->wpService->isMultisite() || $this->wpService->isMainSite()) {
-            return;
-        }
-
-        if ($this->wpService->getMainSiteId() === $this->wpService->getCurrentBlogId()) {
-            return;
-        }
-
-        $this->wpService->switchToBlog($this->wpService->getMainSiteId());
-    }
-
-    /**
-     * Switch back from main site if multisite and switched.
-     */
-    private function switchToCurrentBlogIfSwitched(): void
-    {
-        if (!$this->wpService->isMultisite() || !$this->wpService->msIsSwitched()) {
-            return;
-        }
-
-        $this->wpService->restoreCurrentBlog();
-    }
-
     /**
      * @inheritDoc
      */
@@ -240,12 +247,13 @@ class User implements
 
         $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy();
 
-        $this->maybeSwitchToMainSite();
-
-        if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
-            $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
-        }
-
-        $this->switchToCurrentBlogIfSwitched();
+        $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($groupName, $taxonomy, $user) {
+                if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
+                    $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
+                }
+            }
+        );
     }
 }
