@@ -23,5 +23,5 @@ interface CommonOptionsConfigInterface
    *
    * @return array
    */
-  public function getAcfFieldsToFilter(): array;
+  public function getAcfFieldGroupsToFilter(): array;
 }

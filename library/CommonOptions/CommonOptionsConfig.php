@@ -47,10 +47,13 @@ class CommonOptionsConfig implements CommonOptionsConfigInterface
    *
    * @return array
    */
-  public function getAcfFieldsToFilter(): array
+  public function getAcfFieldGroupsToFilter(): array
   {
-    return $this->siteSwitcher->runInSite($this->wpService->getMainSiteId(), function () {
-      return $this->acfService->getField($this->getOptionsKey(), 'options') ?? [];
-    });
+    return $this->siteSwitcher->runInSite(
+      $this->wpService->getMainSiteId(), 
+      function () {
+        return $this->acfService->getField($this->getOptionsKey(), 'options') ?? [];
+      }
+  );
   }
 }
