@@ -35,10 +35,6 @@ class CreateUserGroupTaxonomy implements Hookable
      */
     public function registerUserGroupTaxonomy(): void
     {
-        if (!$this->shouldRegisterTaxonomy()) {
-            return;
-        }
-
         $this->wpService->registerTaxonomy(
             $this->config->getUserGroupTaxonomy(),
             'user',
@@ -56,23 +52,5 @@ class CreateUserGroupTaxonomy implements Hookable
                 ),
             )
         );
-    }
-
-    /**
-     * Check if the taxonomy should be registered
-     * Registers if: Is not multisite or is multisite and is main site
-     * @return bool
-     */
-    private function shouldRegisterTaxonomy(): bool
-    {
-        if (!$this->wpService->isMultisite()) {
-            return true;
-        }
-
-        if ($this->wpService->isMultisite() && $this->wpService->isMainSite()) {
-            return true;
-        }
-
-        return false;
     }
 }
