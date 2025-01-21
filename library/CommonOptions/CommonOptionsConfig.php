@@ -27,7 +27,6 @@ class CommonOptionsConfig implements CommonOptionsConfigInterface
    */
   public function getShouldDisableFieldGroups(): bool
   {
-    return true;
     return !$this->wpService->isMainSite() && $this->wpService->isAdmin();
   }
 
