@@ -30,7 +30,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Populates the $fieldsToFilter array dynamically from ACF field groups provided in the config.
-     * 
+     *
      * @return void
      */
     public function populateFieldsToFilter(): void
@@ -40,8 +40,8 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         foreach ($acfGroupKeys as $groupData) {
             foreach ($groupData as $groupId) {
                 $this->fieldsToFilter = array_merge(
-                  $this->fieldsToFilter, 
-                  $this->getFieldKeysForGroup($groupId) ?: []
+                    $this->fieldsToFilter,
+                    $this->getFieldKeysForGroup($groupId) ?: []
                 );
             }
         }
@@ -69,10 +69,10 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     public function filterFieldValue(mixed $defaultValue, null|string|int $id, array $field)
     {
-      if (in_array($id, ['option', 'options']) && in_array($field['key'], $this->fieldsToFilter, true)) {
-        return $this->getFieldValueFromMainBlog($field['name'], $defaultValue);
-      }
-      return $defaultValue;
+        if (in_array($id, ['option', 'options']) && in_array($field['key'], $this->fieldsToFilter, true)) {
+            return $this->getFieldValueFromMainBlog($field['name'], $defaultValue);
+        }
+        return $defaultValue;
     }
 
     /**
@@ -84,11 +84,11 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     protected function getFieldValueFromMainBlog(string $fieldKey, $defaultValue = null): mixed
     {
-      return $this->siteSwitcher->runInSite(
-          $this->wpService->getMainSiteId(),
-          function () use ($fieldKey, $defaultValue) {
-              return $this->wpService->getOption($fieldKey, $defaultValue);
-          }
-      );
+        return $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($fieldKey, $defaultValue) {
+                return $this->wpService->getOption($fieldKey, $defaultValue);
+            }
+        );
     }
 }

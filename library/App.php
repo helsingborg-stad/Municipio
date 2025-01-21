@@ -372,7 +372,7 @@ class App
          */
         $this->setUpBrokenLinksIntegration();
 
-        /** 
+        /**
          * Setup common options
          */
         $this->setUpCommonOptions();
@@ -391,8 +391,8 @@ class App
         $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService);
 
         $config = new \Municipio\CommonOptions\CommonOptionsConfig(
-            $this->wpService, 
-            $this->acfService, 
+            $this->wpService,
+            $this->acfService,
             $siteSwitcher
         );
 

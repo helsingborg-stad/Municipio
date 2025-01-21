@@ -31,8 +31,8 @@ class ApplySeoRedirect implements PostDecorator
 
         $seoRedirectMetaUrl = $this->wpService->getPostMeta($post->ID, 'redirect', true);
 
-        if(filter_var($seoRedirectMetaUrl, FILTER_VALIDATE_URL)) {
-          $post->permalink = $seoRedirectMetaUrl;
+        if (filter_var($seoRedirectMetaUrl, FILTER_VALIDATE_URL)) {
+            $post->permalink = $seoRedirectMetaUrl;
         }
 
         return $post;

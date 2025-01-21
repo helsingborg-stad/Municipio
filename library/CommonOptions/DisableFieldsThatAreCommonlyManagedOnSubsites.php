@@ -11,9 +11,9 @@ use Municipio\CommonOptions\CommonOptionsConfigInterface;
 class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 {
     public function __construct(
-        private WpService $wpService, 
-        private AcfService $acfService, 
-        private SiteSwitcher $siteSwitcher, 
+        private WpService $wpService,
+        private AcfService $acfService,
+        private SiteSwitcher $siteSwitcher,
         private CommonOptionsConfigInterface $config
     ) {
     }
@@ -25,7 +25,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 
     /**
      * Disable fields that are commonly managed on subsites.
-     * 
+     *
      * @return void
      */
     public function disableFieldGroups(): void
@@ -98,24 +98,24 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
         $mainBlogEditUrl = $this->wpService->getAdminUrl(
             $this->wpService->getMainSiteId(),
             $currentAdminPageSlug
-        ); 
+        );
 
         return [
-            '_name' => 'acf_disabled_field',
-            'id' => $field['id'],
-            'label' => __('Notice', 'municipio'),
+            '_name'        => 'acf_disabled_field',
+            'id'           => $field['id'],
+            'label'        => __('Notice', 'municipio'),
             'instructions' => __('Some settings for this group are only available on the main blog.', 'municipio'),
-            'required' => false,
-            'type' => 'message',
-            'key' => "{$acfGroupKey}_notice",
-            'message' => '<a href="' . $mainBlogEditUrl . '" class="button button-primary">' . __('Edit settings on main blog', 'municipio') . '</a>',
-            'wrapper' => ['width' => '100%'],
+            'required'     => false,
+            'type'         => 'message',
+            'key'          => "{$acfGroupKey}_notice",
+            'message'      => '<a href="' . $mainBlogEditUrl . '" class="button button-primary">' . __('Edit settings on main blog', 'municipio') . '</a>',
+            'wrapper'      => ['width' => '100%'],
         ];
     }
 
     /**
      * Get the current admin page slug.
-     * 
+     *
      * @return string
      */
     private function getCurrentAdminPageSlug(): string
@@ -124,10 +124,10 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 
         // Get all query parameters (if any) as a query string
         $queryString = http_build_query($_GET);
-    
+
         // Combine the script name with the query string
         $slug = $queryString ? "{$script}?{$queryString}" : $script;
-    
+
         return $slug;
     }
 }
