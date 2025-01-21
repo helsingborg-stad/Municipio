@@ -1,15 +1,15 @@
 <?php
 
-namespace Municipio\CommonOptions;
+namespace Municipio\CommonFieldGroups;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\WpService;
 use AcfService\AcfService;
-use Municipio\CommonOptions\CommonOptionsConfig;
+use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
-class PopulateFieldGroupSelect implements Hookable
+class PopulateCommonFieldGroupSelect implements Hookable
 {
-    public function __construct(private WpService $wpService, private AcfService $acfService, private CommonOptionsConfig $config)
+    public function __construct(private WpService $wpService, private AcfService $acfService, private CommonFieldGroupsConfigInterface $config)
     {
     }
 

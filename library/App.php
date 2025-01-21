@@ -375,7 +375,7 @@ class App
         /**
          * Setup common options
          */
-        $this->setUpCommonOptions();
+        $this->setUpCommonFieldGroups();
     }
 
     /**
@@ -386,34 +386,35 @@ class App
      *
      * @return void
      */
-    private function setUpCommonOptions(): void
+    private function setUpCommonFieldGroups(): void
     {
+        //Init dependencies
         $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService);
-
-        $config = new \Municipio\CommonOptions\CommonOptionsConfig(
+        $config = new \Municipio\CommonFieldGroups\CommonFieldGroupsConfig(
             $this->wpService,
             $this->acfService,
             $siteSwitcher
         );
 
+        //Check if feature is enabled
         if ($config->isEnabled() === false) {
             return;
         }
 
         //Admin page
-        $registerCommonOptionsAdminPage = new \Municipio\CommonOptions\RegisterCommonOptionsAdminPage($this->wpService, $this->acfService);
-        $registerCommonOptionsAdminPage->addHooks();
+        $registerCommonFieldGroupsOptionsAdminPage = new \Municipio\CommonFieldGroups\RegisterCommonFieldGroupsOptionsAdminPage($this->wpService, $this->acfService);
+        $registerCommonFieldGroupsOptionsAdminPage->addHooks();
 
         //Populate admin page fields
-        $populateFieldGroupSelect = new \Municipio\CommonOptions\PopulateFieldGroupSelect($this->wpService, $this->acfService, $config);
-        $populateFieldGroupSelect->addHooks();
+        $populateCommonFieldGroupSelect = new \Municipio\CommonFieldGroups\PopulateCommonFieldGroupSelect($this->wpService, $this->acfService, $config);
+        $populateCommonFieldGroupSelect->addHooks();
 
         //Disable fields
-        $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonOptions\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonFieldGroups\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
         $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
 
         //Modify field choices
-        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonOptions\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonFieldGroups\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
         $filterGetFieldToRetriveCommonValues->addHooks();
     }
 

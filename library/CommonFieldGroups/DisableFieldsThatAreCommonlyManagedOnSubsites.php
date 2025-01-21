@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\CommonOptions;
+namespace Municipio\CommonFieldGroups;
 
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\CommonOptions\CommonOptionsConfigInterface;
+use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
 class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 {
@@ -14,7 +14,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
         private WpService $wpService,
         private AcfService $acfService,
         private SiteSwitcher $siteSwitcher,
-        private CommonOptionsConfigInterface $config
+        private CommonFieldGroupsConfigInterface $config
     ) {
     }
 

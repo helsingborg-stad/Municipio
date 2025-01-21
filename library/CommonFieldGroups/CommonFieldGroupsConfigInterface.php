@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\CommonOptions;
+namespace Municipio\CommonFieldGroups;
 
-interface CommonOptionsConfigInterface
+interface CommonFieldGroupsConfigInterface
 {
   /**
    * Check if the feature is enabled.

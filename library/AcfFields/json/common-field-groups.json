@@ -58,39 +58,8 @@
                         "id": ""
                     },
                     "choices": {
-                        "group_643d4ad89569a": "ACF Google Maps Settings",
-                        "group_60b496c06687c": "Aktivera Gutenberg",
-                        "group_5afa94c88e1aa": "Anpassa taxonomier",
-                        "group_653a1673dc501": "Api Resurser - Api:s",
-                        "group_675aecfbf2f3d": "Brutna l\u00e4nkar",
                         "group_678e65a73edb3": "Common Field Groups",
-                        "group_6718e9e8554ca": "Context Detect",
-                        "group_57148a9b42fd5": "Custom CSS",
-                        "group_573184999aa2c": "Custom JS",
-                        "group_66d94ae935cfb": "External Content",
-                        "group_5b45f5d0c19c7": "Feedback GDPR",
-                        "group_591191a388456": "Feedback f\u00f6r posttyper",
-                        "group_57ff4f49ac8c1": "Format",
-                        "group_56caee123c53f": "F\u00f6rfattare",
-                        "group_5ac334058cc33": "GDPR",
-                        "group_63ecfd0993f44": "Liked posts",
-                        "group_56cc6f8fe86d3": "Google Translate",
-                        "group_56b34353ef1eb": "Hantera posttyper",
-                        "group_56c5e23aa271c": "Hantera taxonomier",
-                        "group_59118fb9c53de": "Inst\u00e4llningar f\u00f6r feedback",
-                        "group_67173bdc92fde": "Kommentarsinst\u00e4llningar",
-                        "group_6718e7ca78c94": "Local Domain Settings",
-                        "group_66d94a4867cec": "Post types Schema settings",
-                        "group_61eaa5feb2601": "RekAI Inst\u00e4llningar",
-                        "group_5aa1543e70216": "Report settings",
-                        "group_5afa93c0a25e1": "Rubrik",
-                        "group_67597150948c7": "SSO Inst\u00e4llningar",
-                        "group_57e2869d5225e": "Search notices",
-                        "group_56c6ba934d682": "Standard-posttyper",
-                        "group_591c150dd4561": "Summaries",
-                        "group_6639e9aa1409f": "Theme features",
-                        "group_56cacd2f1873f": "Timestamp",
-                        "group_591c026b10920": "Vidarebefordring av feedback"
+                        "group_5aa1543e70216": "Report settings"
                     },
                     "default_value": false,
                     "return_format": "value",
@@ -111,7 +80,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "common-options"
+                "value": "common-field-groups"
             }
         ]
     ],

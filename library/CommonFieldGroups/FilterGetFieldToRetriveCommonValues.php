@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\CommonOptions;
+namespace Municipio\CommonFieldGroups;
 
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\CommonOptions\CommonOptionsConfigInterface;
+use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
@@ -18,7 +18,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         private WpService $wpService,
         private AcfService $acfService,
         private SiteSwitcher $siteSwitcher,
-        private CommonOptionsConfigInterface $config // Inject the config service
+        private CommonFieldGroupsConfigInterface $config // Inject the config service
     ) {
     }
 

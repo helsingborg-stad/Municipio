@@ -1,12 +1,13 @@
 <?php
 
-namespace Municipio\CommonOptions;
+namespace Municipio\CommonFieldGroups;
 
 use AcfService\AcfService;
 use WpService\WpService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
-class CommonOptionsConfig implements CommonOptionsConfigInterface
+class CommonFieldGroupsConfig implements CommonFieldGroupsConfigInterface
 {
     public function __construct(private WpService $wpService, private AcfService $acfService, private SiteSwitcher $siteSwitcher)
     {
