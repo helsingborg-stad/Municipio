@@ -1,0 +1,135 @@
+[{
+    "key": "group_678e65a73edb3",
+    "title": "Common Field Groups",
+    "fields": [
+        {
+            "key": "field_678fb6b1caa9e",
+            "label": "Common Field Groups Feature Description",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "This feature allows you to select fields that should be manage from the main site id (that is this site). Field groups will not be rendered on the subsites; Instead a link will be rendered to take the user to the main site for editing of the option. \r\n\r\nPlease select the field groups that you want to manage centrally below.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_678e65abcf203",
+            "label": "Common Field Groups",
+            "name": "sitewide_common_acf_fieldgroups",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "acfe_repeater_stylised_button": 0,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "L\u00e4gg till rad",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_678e6610d5287",
+                    "label": "Select a fieldgroup",
+                    "name": "sitewide_common_acf_fieldgroup_value",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "group_643d4ad89569a": "ACF Google Maps Settings",
+                        "group_60b496c06687c": "Aktivera Gutenberg",
+                        "group_5afa94c88e1aa": "Anpassa taxonomier",
+                        "group_653a1673dc501": "Api Resurser - Api:s",
+                        "group_675aecfbf2f3d": "Brutna l\u00e4nkar",
+                        "group_678e65a73edb3": "Common Field Groups",
+                        "group_6718e9e8554ca": "Context Detect",
+                        "group_57148a9b42fd5": "Custom CSS",
+                        "group_573184999aa2c": "Custom JS",
+                        "group_66d94ae935cfb": "External Content",
+                        "group_5b45f5d0c19c7": "Feedback GDPR",
+                        "group_591191a388456": "Feedback f\u00f6r posttyper",
+                        "group_57ff4f49ac8c1": "Format",
+                        "group_56caee123c53f": "F\u00f6rfattare",
+                        "group_5ac334058cc33": "GDPR",
+                        "group_63ecfd0993f44": "Liked posts",
+                        "group_56cc6f8fe86d3": "Google Translate",
+                        "group_56b34353ef1eb": "Hantera posttyper",
+                        "group_56c5e23aa271c": "Hantera taxonomier",
+                        "group_59118fb9c53de": "Inst\u00e4llningar f\u00f6r feedback",
+                        "group_67173bdc92fde": "Kommentarsinst\u00e4llningar",
+                        "group_6718e7ca78c94": "Local Domain Settings",
+                        "group_66d94a4867cec": "Post types Schema settings",
+                        "group_61eaa5feb2601": "RekAI Inst\u00e4llningar",
+                        "group_5aa1543e70216": "Report settings",
+                        "group_5afa93c0a25e1": "Rubrik",
+                        "group_67597150948c7": "SSO Inst\u00e4llningar",
+                        "group_57e2869d5225e": "Search notices",
+                        "group_56c6ba934d682": "Standard-posttyper",
+                        "group_591c150dd4561": "Summaries",
+                        "group_6639e9aa1409f": "Theme features",
+                        "group_56cacd2f1873f": "Timestamp",
+                        "group_591c026b10920": "Vidarebefordring av feedback"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_678e65abcf203"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "common-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
