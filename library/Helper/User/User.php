@@ -150,6 +150,10 @@ class User implements
         // Get the selected type of link
         $typeOfLink = $this->getUserGroupUrlType($term, $user);
 
+        if (!$typeOfLink) {
+            return null;
+        }
+
         // Initialize the URL resolver
         $urlResolver = new UserGroupUrl(
             $typeOfLink,
