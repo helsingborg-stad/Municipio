@@ -14,12 +14,12 @@ class BackwardsCompatiblePostObjectTest extends TestCase
     public function testInheritsPublicPropertiesFromObject()
     {
         $legacyPost = (object) [
-            'permalink' => 'http://example.com',
+            'title' => 'TestTitle',
         ];
 
         $result = new BackwardsCompatiblePostObject($this->getPostObject(), $legacyPost);
 
-        $this->assertEquals('http://example.com', $result->permalink);
+        $this->assertEquals('TestTitle', $result->title);
     }
 
     /**
@@ -33,6 +33,33 @@ class BackwardsCompatiblePostObjectTest extends TestCase
         $result = new BackwardsCompatiblePostObject($postObject, (object) []);
 
         $this->assertEquals(123, $result->getId());
+    }
+
+    /**
+     * @testdox does not set ->permalink from legacy post
+     */
+    public function testDoesNotSetPermalinkFromLegacyPost()
+    {
+        $legacyPost = (object) [
+            'permalink' => 'http://example.com',
+        ];
+
+        $result = new BackwardsCompatiblePostObject($this->getPostObject(), $legacyPost);
+
+        $this->assertNotEquals('http://example.com', @$result->permalink);
+    }
+
+    /**
+     * @testdox ->permalink returns the result from PostObject::getPermalink()
+     */
+    public function testPermalinkReturnsTheResultFromPostObjectGetPermalink()
+    {
+        $postObject = $this->getPostObject();
+        $postObject->expects($this->once())->method('getPermalink')->willReturn('http://example.com');
+
+        $result = new BackwardsCompatiblePostObject($postObject, (object) []);
+
+        $this->assertEquals('http://example.com', $result->permalink);
     }
 
     private function getPostObject(): PostObjectInterface|MockObject
