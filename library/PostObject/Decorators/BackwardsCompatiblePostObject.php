@@ -19,7 +19,7 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $postObject, object $legacyPost)
+    public function __construct(private PostObjectInterface $postObject, private object $legacyPost)
     {
         foreach ($legacyPost as $key => $value) {
             if (array_key_exists($key, self::PROPERTY_TO_METHOD_MAP)) {
@@ -43,6 +43,21 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
         if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
             return $this->{self::PROPERTY_TO_METHOD_MAP[$name]}();
         }
+    }
+
+    /**
+     * Magic setter.
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name, $value)
+    {
+        if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
+            return;
+        }
+
+        $this->{$name} = $value;
     }
 
     /**
