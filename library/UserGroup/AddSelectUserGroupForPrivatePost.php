@@ -14,6 +14,7 @@ use WpService\Contracts\SanitizeTextField;
 use WpService\Contracts\WpVerifyNonce;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
+use Municipio\Helper\User\GetUserGroupTerms;
 
 /**
  * Represents a UserGroupSelector class.
@@ -29,7 +30,8 @@ class AddSelectUserGroupForPrivatePost implements Hookable
         private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
         private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
-        private UserGroupRestrictionConfig $userGroupRestrictionConfig
+        private UserGroupRestrictionConfig $userGroupRestrictionConfig,
+        private GetUserGroupTerms $getUserGroupTerms
     ) {
     }
 
@@ -97,8 +99,8 @@ class AddSelectUserGroupForPrivatePost implements Hookable
     public function addUserVisibilitySelect()
     {
         global $post;
-
-        $terms = $this->wpService->getTerms([ 'taxonomy' => $this->userGroupTaxonomyName, 'hide_empty' => false ]);
+        
+        $terms = $this->getUserGroupTerms->get();
 
         if (empty($terms) || !is_array($terms)) {
             return;
