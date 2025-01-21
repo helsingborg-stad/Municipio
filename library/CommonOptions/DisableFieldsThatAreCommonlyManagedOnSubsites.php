@@ -30,7 +30,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
      */
     public function disableFieldGroups(): void
     {
-        if (!$this->shouldDisableFieldGroups()) {
+        if (!$this->config->getShouldDisableFieldGroups()) {
             return;
         }
 
@@ -129,16 +129,5 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
         $slug = $queryString ? "{$script}?{$queryString}" : $script;
     
         return $slug;
-    }
-
-    /**
-     * Check if the field groups should be disabled.
-     * 
-     * @return bool
-     */
-    private function shouldDisableFieldGroups(): bool
-    {
-        return true;
-        return !$this->wpService->isMainSite() && $this->wpService->isAdmin();
     }
 }

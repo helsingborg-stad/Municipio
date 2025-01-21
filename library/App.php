@@ -411,6 +411,10 @@ class App
         //Disable fields
         $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonOptions\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
         $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
+
+        //Modify field choices
+        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonOptions\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $filterGetFieldToRetriveCommonValues->addHooks();
     }
 
     /**
