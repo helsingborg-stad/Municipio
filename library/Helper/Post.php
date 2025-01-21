@@ -13,6 +13,7 @@ use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
+use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
 use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
@@ -156,6 +157,7 @@ class Post
         $acfService     = \Municipio\Helper\AcfService::get();
 
         $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
+        $postObject = new PostObjectWithSeoRedirect($postObject, $wpService);
 
         $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
         $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);
