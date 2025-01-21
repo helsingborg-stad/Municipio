@@ -476,8 +476,8 @@ class App
             $config->getUserGroupTaxonomy(),
             $userHelperConfig,
             $userGroupRestrictionConfig,
-            $getUserGroupTerms)
-        )->addHooks();
+            $getUserGroupTerms
+        ))->addHooks();
 
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
@@ -503,7 +503,6 @@ class App
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
         );
-
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);

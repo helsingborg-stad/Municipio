@@ -38,7 +38,7 @@ class GetUserGroupTermsTest extends TestCase
         $getUserGroupTerms = new GetUserGroupTerms(
             new FakeWpService(
                 [
-                    'getTerms' => function () {
+                    'getTerms'    => function () {
                         return [
                             (object) ['term_id' => 1, 'name' => 'Group 1'],
                             (object) ['term_id' => 2, 'name' => 'Group 2'],
@@ -47,7 +47,7 @@ class GetUserGroupTermsTest extends TestCase
                     'isMultisite' => function () {
                         return false;
                     },
-                    'isMainSite' => function () {
+                    'isMainSite'  => function () {
                         return false;
                     },
                 ]
