@@ -471,7 +471,13 @@ class App
         (new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService))->addHooks();
 
         // Add user group select to edit post when private
-        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost($this->wpService, $config->getUserGroupTaxonomy(), $userHelperConfig, $userGroupRestrictionConfig, $getUserGroupTerms))->addHooks();
+        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost(
+            $this->wpService, 
+            $config->getUserGroupTaxonomy(), 
+            $userHelperConfig, 
+            $userGroupRestrictionConfig, 
+            $getUserGroupTerms)
+        )->addHooks();
 
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
