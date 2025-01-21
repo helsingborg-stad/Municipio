@@ -472,10 +472,10 @@ class App
 
         // Add user group select to edit post when private
         (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost(
-            $this->wpService, 
-            $config->getUserGroupTaxonomy(), 
-            $userHelperConfig, 
-            $userGroupRestrictionConfig, 
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
+            $userHelperConfig,
+            $userGroupRestrictionConfig,
             $getUserGroupTerms)
         )->addHooks();
 
@@ -495,7 +495,15 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $userHelper      = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService));
+        $userHelper      = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            new \Municipio\Helper\User\Config\UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+        );
+
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
