@@ -13,7 +13,8 @@ use WpService\Contracts\GetMainSiteId;
  *
  * This class is responsible for retrieving the group terms associated with a user.
  */
-class GetUserGroupTerms {
+class GetUserGroupTerms
+{
     private ?array $userGroupTaxonomyTerms = null;
 
     /**
@@ -64,7 +65,7 @@ class GetUserGroupTerms {
     private function getTerms()
     {
         $userGroupTerms = $this->wpService->getTerms([
-            'taxonomy' => $this->userGroupTaxonomyName,
+            'taxonomy'   => $this->userGroupTaxonomyName,
             'hide_empty' => false,
         ]);
 

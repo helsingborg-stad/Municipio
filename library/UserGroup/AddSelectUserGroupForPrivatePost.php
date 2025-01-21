@@ -99,7 +99,7 @@ class AddSelectUserGroupForPrivatePost implements Hookable
     public function addUserVisibilitySelect()
     {
         global $post;
-        
+
         $terms = $this->getUserGroupTerms->get();
 
         if (empty($terms) || !is_array($terms)) {

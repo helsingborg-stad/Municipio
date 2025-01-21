@@ -441,17 +441,17 @@ class App
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
         $userHelper                 = new \Municipio\Helper\User\User(
-            $this->wpService, 
-            $this->acfService, 
-            $userHelperConfig, 
-            $config, 
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), 
+            $this->wpService,
+            $this->acfService,
+            $userHelperConfig,
+            $config,
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
         );
 
         $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
-            $this->wpService, 
-            $config->getUserGroupTaxonomy(), 
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
         );
 
