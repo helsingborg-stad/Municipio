@@ -388,10 +388,12 @@ class App
      */
     private function setUpCommonOptions(): void
     {
+        $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService);
+
         $config = new \Municipio\CommonOptions\CommonOptionsConfig(
             $this->wpService, 
             $this->acfService, 
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+            $siteSwitcher
         );
 
         if ($config->isEnabled() === false) {
@@ -407,8 +409,8 @@ class App
         $populateFieldGroupSelect->addHooks();
 
         //Disable fields
-        //$disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonOptions\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService), $config);
-        //$disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
+        $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonOptions\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
     }
 
     /**

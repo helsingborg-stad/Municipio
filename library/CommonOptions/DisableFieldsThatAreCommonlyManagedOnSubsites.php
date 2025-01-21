@@ -8,10 +8,8 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonOptions\CommonOptionsConfigInterface;
 
-class DisableFieldGroupsOnSubsites implements Hookable
+class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 {
-    private array $disabledGroups = [];
-
     public function __construct(
         private WpService $wpService, 
         private AcfService $acfService, 
@@ -22,12 +20,11 @@ class DisableFieldGroupsOnSubsites implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('acf/init', [$this, 'disableFieldGroups']);
-        $this->wpService->addAction('admin_notices', [$this, 'showDisabledGroupsNotice']);
+        $this->wpService->addAction('init', [$this, 'disableFieldGroups']);
     }
 
     /**
-     * Disables field groups that are commonly managed on subsites.
+     * Disable fields that are commonly managed on subsites.
      * 
      * @return void
      */
@@ -38,48 +35,100 @@ class DisableFieldGroupsOnSubsites implements Hookable
         }
 
         if ($acfGroupKeysToFilter = $this->config->getAcfFieldGroupsToFilter()) {
-            foreach ($acfGroupKeysToFilter as $key => $mainSiteUrl) {
-                $this->wpService->addFilter('acf/load_field_group', function ($fieldGroup) use ($key, $mainSiteUrl) {
-                    if ($fieldGroup['key'] === $key) {
-                        $fieldGroup['active'] = false; // Disables the field group.
-                        $fieldGroup['description'] = __('MANAGED FROM MAIN SITE: ', 'municipio') . ($fieldGroup['description'] ?? '');
-                        $this->disabledGroups[] = [
-                            'title' => $fieldGroup['title'],
-                            'url'   => $mainSiteUrl,
-                        ]; // Store the title and main site URL for the notice.
-                    }
-                    return $fieldGroup;
-                });
+            foreach ($acfGroupKeysToFilter as $acfGroupKey) {
+                $acfGroupKey = array_pop($acfGroupKey);
+
+                // Add a filter to disable fields for this group
+                $this->wpService->addFilter('acf/prepare_field', function ($field) use ($acfGroupKey) {
+                    return $this->filterFieldForGroup($field, $acfGroupKey);
+                }, 10, 1);
             }
         }
     }
 
     /**
-     * Display a notice about disabled field groups with links to the main site.
-     * 
-     * @return void
+     * Filter a field for a specific group: Add a notice or disable the field.
+     *
+     * @param array $field
+     * @param string $acfGroupKey
+     * @return array|false
      */
-    public function showDisabledGroupsNotice(): void
+    private function filterFieldForGroup(array $field, string $acfGroupKey)
     {
-        if (empty($this->disabledGroups)) {
-            return;
+        static $processedGroups = [];
+
+        // Ensure we only handle fields with the correct parent
+        if (!$this->isFieldInGroup($field, $acfGroupKey)) {
+            return $field;
         }
 
-        $message = __('The following field groups have been disabled as they are managed from the main site:', 'municipio');
-        $message .= '<ul>';
-        foreach ($this->disabledGroups as $group) {
-            $message .= sprintf(
-                '<li><a href="%s" target="_blank">%s</a></li>',
-                esc_url($group['url']),
-                esc_html($group['title'])
-            );
+        // Check if we've already added a notice for this group
+        if (!in_array($acfGroupKey, $processedGroups, true)) {
+            $processedGroups[] = $acfGroupKey;
+            return $this->createNoticeField($field, $acfGroupKey);
         }
-        $message .= '</ul>';
 
-        printf(
-            '<div class="notice notice-info is-dismissible"><p>%s</p></div>',
-            $message
-        );
+        // Disable subsequent fields in the group
+        return false;
+    }
+
+    /**
+     * Check if a field belongs to a specific group.
+     *
+     * @param array $field
+     * @param string $acfGroupKey
+     * @return bool
+     */
+    private function isFieldInGroup(array $field, string $acfGroupKey): bool
+    {
+        return !empty($field['parent']) && $field['parent'] === $acfGroupKey;
+    }
+
+    /**
+     * Create the notice field.
+     *
+     * @param array $field
+     * @param string $acfGroupKey
+     * @return array
+     */
+    private function createNoticeField(array $field, string $acfGroupKey): array
+    {
+        $currentAdminPageSlug = $this->getCurrentAdminPageSlug();
+
+        $mainBlogEditUrl = $this->wpService->getAdminUrl(
+            $this->wpService->getMainSiteId(),
+            $currentAdminPageSlug
+        ); 
+
+        return [
+            '_name' => 'acf_disabled_field',
+            'id' => $field['id'],
+            'label' => __('Notice', 'municipio'),
+            'instructions' => __('Some settings for this group are only available on the main blog.', 'municipio'),
+            'required' => false,
+            'type' => 'message',
+            'key' => "{$acfGroupKey}_notice",
+            'message' => '<a href="' . $mainBlogEditUrl . '" class="button button-primary">' . __('Edit settings on main blog', 'municipio') . '</a>',
+            'wrapper' => ['width' => '100%'],
+        ];
+    }
+
+    /**
+     * Get the current admin page slug.
+     * 
+     * @return string
+     */
+    private function getCurrentAdminPageSlug(): string
+    {
+        $script = basename($_SERVER['PHP_SELF']);
+
+        // Get all query parameters (if any) as a query string
+        $queryString = http_build_query($_GET);
+    
+        // Combine the script name with the query string
+        $slug = $queryString ? "{$script}?{$queryString}" : $script;
+    
+        return $slug;
     }
 
     /**
@@ -89,6 +138,7 @@ class DisableFieldGroupsOnSubsites implements Hookable
      */
     private function shouldDisableFieldGroups(): bool
     {
-        return !$this->wpService->isMainSite();
+        return true;
+        return !$this->wpService->isMainSite() && $this->wpService->isAdmin();
     }
 }
