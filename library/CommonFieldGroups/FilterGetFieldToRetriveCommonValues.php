@@ -10,15 +10,13 @@ use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
-    // Initially empty; will be populated dynamically
     protected array $fieldsToFilter = [];
 
-    // Constructor with dependency injection
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
         private SiteSwitcher $siteSwitcher,
-        private CommonFieldGroupsConfigInterface $config // Inject the config service
+        private CommonFieldGroupsConfigInterface $config
     ) {
     }
 
