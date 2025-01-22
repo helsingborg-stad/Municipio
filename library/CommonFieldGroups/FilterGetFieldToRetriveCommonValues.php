@@ -23,6 +23,9 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     public function addHooks(): void
     {
+        if(!$this->wpService->isMainSite()) {
+            return;
+        }
         $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 3);
         $this->wpService->addFilter('acf/load_value', [$this, 'filterFieldValue'], 10, 3);
     }
