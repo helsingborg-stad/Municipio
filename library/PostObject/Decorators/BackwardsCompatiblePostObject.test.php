@@ -62,6 +62,18 @@ class BackwardsCompatiblePostObjectTest extends TestCase
         $this->assertEquals('http://example.com', $result->permalink);
     }
 
+    /**
+     * @testdox does not allow setting permalink via magic setter
+     */
+    public function testDoesNotAllowSettingPermalinkViaMagicSetter()
+    {
+        $result = new BackwardsCompatiblePostObject($this->getPostObject(), (object) []);
+
+        $result->permalink = 'http://example.com';
+
+        $this->assertNotEquals('http://example.com', @$result->permalink);
+    }
+
     private function getPostObject(): PostObjectInterface|MockObject
     {
         return $this->createMock(PostObjectInterface::class);
