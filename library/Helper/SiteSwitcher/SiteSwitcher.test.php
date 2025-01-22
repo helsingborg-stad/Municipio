@@ -4,6 +4,7 @@ namespace Municipio\Helper\SiteSwitcher;
 
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
+use AcfService\Implementations\FakeAcfService;
 
 class SiteSwitcherTest extends TestCase
 {
@@ -40,7 +41,8 @@ class SiteSwitcherTest extends TestCase
                 $blog_id = 1; // Reset to default
                 return false;
             }
-            ])
+            ]),
+            new FakeAcfService()
         );
 
         $originalBlogId = 1; // Mock the original blog ID
@@ -82,17 +84,18 @@ class SiteSwitcherTest extends TestCase
 
         $siteSwitcher = new SiteSwitcher(
             new FakeWpService([
-            'switchToBlog'       => function ($siteId) {
-                global $blog_id;
-                $blog_id = $siteId;
-                return true;
-            },
-            'restoreCurrentBlog' => function () {
-                global $blog_id;
-                $blog_id = 1; // Reset to default
-                return false;
-            }
-            ])
+                'switchToBlog'       => function ($siteId) {
+                    global $blog_id;
+                    $blog_id = $siteId;
+                    return true;
+                },
+                'restoreCurrentBlog' => function () {
+                    global $blog_id;
+                    $blog_id = 1; // Reset to default
+                    return false;
+                }
+            ]),
+            new FakeAcfService()
         );
 
         $originalBlogId = 1; // Mock the original blog ID

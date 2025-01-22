@@ -125,6 +125,7 @@ add_action('init', function () use ($wpService) {
         'hidden-validation'                          => 'group_654a2a57e6897',
         'user-group-url'                             => 'group_677e6a05e347c',
         'post-status-conditional'                    => 'group_671241997f07d',
+        'common-field-groups'                        => 'group_678e65a73edb3',
     ));
 
     $acfExportManager->autoExport($autoExportIds);
