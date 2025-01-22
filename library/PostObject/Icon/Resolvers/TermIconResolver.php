@@ -11,9 +11,6 @@ use WpService\Contracts\{GetObjectTaxonomies, GetTheTerms};
  */
 class TermIconResolver implements IconResolverInterface
 {
-    private static array $termIcons  = [];
-    private static array $termColors = [];
-
     /**
      * Constructor.
      */
@@ -32,50 +29,59 @@ class TermIconResolver implements IconResolverInterface
     {
         $taxonomies = $this->wpService->getObjectTaxonomies($this->postObject->getPostType());
 
-        [$icon, $iconColor] = $this->getIconFromTerm($taxonomies);
-
-        if ($icon) {
-            return $this->getIconInstance($icon, $iconColor);
-        }
-
-        return  $this->innerResolver->resolve();
+        return $this->getTermIconFromTaxonomies($taxonomies) ?? $this->innerResolver->resolve();
     }
 
     /**
-     * Retrieves the icon and color associated with a term from the given taxonomies.
+     * Get term icon from taxonomies.
      *
-     * @param array $taxonomies An array of taxonomies to search for terms.
-     * @return array An array containing the icon and color associated with the term, or [null, null] if no matching term is found.
+     * @param string[] $taxonomies taxonomy names
+     * @return IconInterface|null
      */
-    private function getIconFromTerm(array $taxonomies)
+    private function getTermIconFromTaxonomies(array $taxonomies): ?IconInterface
     {
+        if (empty($taxonomies)) {
+            return null;
+        }
+
         foreach ($taxonomies as $taxonomy) {
             $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomy);
 
-            if (empty($terms)) {
+            if (!is_array($terms) || empty($terms)) {
                 continue;
             }
 
-            foreach ($terms as $term) {
-                if (in_array($term->term_id, self::$termIcons)) {
-                    if (empty(self::$termsIcons[$term->term_id])) {
-                        continue;
-                    }
-
-                    return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
-                }
-
-                self::$termIcons[$term->term_id]  = $this->termHelper->getTermIcon($term);
-                self::$termColors[$term->term_id] = !empty(self::$termIcons[$term->term_id]) ? $this->termHelper->getTermColor($term) : false;
-
-                if (self::$termIcons[$term->term_id]) {
-                    return [self::$termIcons[$term->term_id], self::$termColors[$term->term_id] ?? null];
-                }
+            if (!is_null($termIcon = $this->getTermIconFromTerms($terms))) {
+                return $termIcon;
             }
         }
 
-        return [null, null];
+        return null;
     }
+
+    /**
+     * Get term icon from terms.
+     *
+     * @param WP_Term[] $terms
+     * @return IconInterface|null
+     */
+    private function getTermIconFromTerms(array $terms): ?IconInterface
+    {
+        foreach ($terms as $term) {
+            $icon = $this->termHelper->getTermIcon($term);
+
+            if (!is_array($icon) || empty($icon)) {
+                continue;
+            }
+
+            $color = $this->termHelper->getTermColor($term);
+
+            return $this->getIconInstance($icon, $color);
+        }
+
+        return null;
+    }
+
 
     /**
      * Get icon instance.
