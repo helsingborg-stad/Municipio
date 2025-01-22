@@ -63,6 +63,6 @@ class CommonFieldGroupsConfig implements CommonFieldGroupsConfigInterface
             function () {
                 return $this->acfService->getField($this->getOptionsKey(), 'options') ?? [];
             }
-        );
+        ) ?: [];
     }
 }
