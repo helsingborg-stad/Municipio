@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Municipio\CommonFieldGroups;
 
@@ -34,42 +34,40 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
             return;
         }
 
-        if ($acfGroupKeysToFilter = $this->config->getAcfFieldGroupsToFilter()) {
-            foreach ($acfGroupKeysToFilter as $acfGroupKey) {
-                $acfGroupKey = array_pop($acfGroupKey);
-
-                // Add a filter to disable fields for this group
-                $this->wpService->addFilter('acf/prepare_field', function ($field) use ($acfGroupKey) {
-                    return $this->filterFieldForGroup($field, $acfGroupKey);
-                }, 10, 1);
-            }
+        $acfGroupKeysToFilter = $this->config->getAcfFieldGroupsToFilter();
+        foreach ($acfGroupKeysToFilter as $acfGroupKey) {
+            $acfGroupKey = array_pop($acfGroupKey);
+            $this->registerFieldFilter($acfGroupKey);
         }
     }
 
     /**
-     * Filter a field for a specific group: Add a notice or disable the field.
+     * Register the field filter for a specific group key.
+     *
+     * @param string $acfGroupKey
+     * @return void
+     */
+    private function registerFieldFilter(string $acfGroupKey): void
+    {
+        $this->wpService->addFilter('acf/prepare_field', function ($field) use ($acfGroupKey) {
+            return $this->processField($field, $acfGroupKey);
+        }, 10, 1);
+    }
+
+    /**
+     * Process a field and determine if it should be disabled or replaced with a notice.
      *
      * @param array $field
      * @param string $acfGroupKey
      * @return array|false
      */
-    private function filterFieldForGroup(array $field, string $acfGroupKey)
+    public function processField(array $field, string $acfGroupKey)
     {
-        static $processedGroups = [];
-
-        // Ensure we only handle fields with the correct parent
         if (!$this->isFieldInGroup($field, $acfGroupKey)) {
             return $field;
         }
 
-        // Check if we've already added a notice for this group
-        if (!in_array($acfGroupKey, $processedGroups, true)) {
-            $processedGroups[] = $acfGroupKey;
-            return $this->createNoticeField($field, $acfGroupKey);
-        }
-
-        // Disable subsequent fields in the group
-        return false;
+        return $this->createNoticeField($field, $acfGroupKey);
     }
 
     /**
@@ -93,22 +91,20 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
      */
     private function createNoticeField(array $field, string $acfGroupKey): array
     {
-        $currentAdminPageSlug = $this->getCurrentAdminPageSlug();
-
         $mainBlogEditUrl = $this->wpService->getAdminUrl(
             $this->wpService->getMainSiteId(),
-            $currentAdminPageSlug
+            $this->getCurrentAdminPageSlug()
         );
 
         return [
             '_name'        => 'acf_disabled_field',
             'id'           => $field['id'],
-            'label'        => __('Notice', 'municipio'),
-            'instructions' => __('Some settings for this group are only available on the main blog.', 'municipio'),
+            'label'        => $this->wpService->__('Notice', 'municipio'),
+            'instructions' => $this->wpService->__('Some settings for this group are only available on the main blog.', 'municipio'),
             'required'     => false,
             'type'         => 'message',
             'key'          => "{$acfGroupKey}_notice",
-            'message'      => '<a href="' . $mainBlogEditUrl . '" class="button button-primary">' . __('Edit settings on main blog', 'municipio') . '</a>',
+            'message'      => '<a href="' . $mainBlogEditUrl . '" class="button button-primary">' . $this->wpService->__('Edit settings on main blog', 'municipio') . '</a>',
             'wrapper'      => ['width' => '100%'],
         ];
     }
@@ -122,12 +118,10 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
     {
         $script = basename($_SERVER['PHP_SELF']);
 
-        // Get all query parameters (if any) as a query string
+        // Retrieve query parameters as a string, if any
         $queryString = http_build_query($_GET);
 
-        // Combine the script name with the query string
-        $slug = $queryString ? "{$script}?{$queryString}" : $script;
-
-        return $slug;
+        // Combine the script and query string
+        return $queryString ? "{$script}?{$queryString}" : $script;
     }
 }
