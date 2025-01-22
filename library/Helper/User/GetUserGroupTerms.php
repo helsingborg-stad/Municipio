@@ -69,6 +69,6 @@ class GetUserGroupTerms
             'hide_empty' => false,
         ]);
 
-        return $userGroupTerms ?: [];
+        return is_array($userGroupTerms) ? $userGroupTerms : [];
     }
 }
