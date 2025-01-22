@@ -32,7 +32,7 @@ class SiteSwitcher implements SiteSwitcherInterface
      */
     public function getOptionFromSite(int $siteId, string $optionName): mixed
     {
-        return $this->runInSite($siteId, function ($optionName) {
+        return $this->runInSite($siteId, function () use($optionName) {
             return $this->wpService->getOption($optionName);
         }, $optionName);
     }
@@ -42,7 +42,7 @@ class SiteSwitcher implements SiteSwitcherInterface
      */
     public function getFieldFromSite(int $siteId, string $fieldSelector): mixed
     {
-        return $this->runInSite($siteId, function ($fieldSelector) {
+        return $this->runInSite($siteId, function () use ($fieldSelector) {
             return $this->acfService->getField($fieldSelector, 'option');
         }, $fieldSelector);
     }
