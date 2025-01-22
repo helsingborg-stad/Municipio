@@ -71,13 +71,13 @@ class AddSelectUserGroupForPrivatePost implements Hookable
             return;
         }
 
-        $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey();
-
-        $this->wpService->deletePostMeta($postId, $metaKey);
-
         if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
             return;
         }
+
+        $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey();
+
+        $this->wpService->deletePostMeta($postId, $metaKey);
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (empty($_POST[$metaKey])) {
