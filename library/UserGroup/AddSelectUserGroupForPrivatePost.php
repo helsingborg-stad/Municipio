@@ -13,8 +13,11 @@ use WpService\Contracts\GetTerms;
 use WpService\Contracts\SanitizeTextField;
 use WpService\Contracts\WpVerifyNonce;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
+use Municipio\Helper\Nonce\Contracts\PrintNonceField;
+use Municipio\Helper\Nonce\Contracts\VerifyNonceField;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
 use Municipio\Helper\User\GetUserGroupTerms;
+use WpService\Contracts\CheckAdminReferer;
 
 /**
  * Represents a UserGroupSelector class.
@@ -23,15 +26,19 @@ use Municipio\Helper\User\GetUserGroupTerms;
  */
 class AddSelectUserGroupForPrivatePost implements Hookable
 {
+    private const NONCE_ACTION = 'municipio_user_group_visibility_update';
+    private const NONCE_NAME   = '_municipio_user_group_visibility_nonce';
+
     /**
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
-        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
+        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked&CheckAdminReferer $wpService,
         private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig,
-        private GetUserGroupTerms $getUserGroupTerms
+        private GetUserGroupTerms $getUserGroupTerms,
+        private PrintNonceField&VerifyNonceField $nonceService
     ) {
     }
 
@@ -71,10 +78,16 @@ class AddSelectUserGroupForPrivatePost implements Hookable
 
         $this->wpService->deletePostMeta($postId, $metaKey);
 
+        if ($this->nonceService->verifyNonceField(self::NONCE_NAME, self::NONCE_ACTION) === false) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (empty($_POST[$metaKey])) {
             return;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         foreach ($_POST[$metaKey] as $group) {
             $this->wpService->addPostMeta(
                 $postId,
@@ -146,6 +159,8 @@ class AddSelectUserGroupForPrivatePost implements Hookable
                 $term->name
             );
         }
+
+        $this->nonceService->printNonceField(self::NONCE_ACTION, self::NONCE_NAME);
 
         echo '</div>';
     }

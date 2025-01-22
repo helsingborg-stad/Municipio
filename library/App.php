@@ -476,7 +476,8 @@ class App
             $config->getUserGroupTaxonomy(),
             $userHelperConfig,
             $userGroupRestrictionConfig,
-            $getUserGroupTerms
+            $getUserGroupTerms,
+            new \Municipio\Helper\Nonce\NonceService($this->wpService)
         ))->addHooks();
 
         // Restrict private posts to user group
