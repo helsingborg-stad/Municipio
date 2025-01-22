@@ -102,7 +102,10 @@ class SingularProject extends \Municipio\Controller\Singular
         if (!empty($this->data['post']->schemaObject['employee']['alternateName'])) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->contact,
-                'value' => $this->data['post']->schemaObject['employee']['alternateName']
+                'value' => [
+                    $this->data['post']->schemaObject['employee']['alternateName'],
+                    $this->getEmailLinkFromEmployee($this->data['post']->schemaObject['employee'])
+                ]
             ];
         }
 
@@ -112,6 +115,23 @@ class SingularProject extends \Municipio\Controller\Singular
                 'value' => $this->data['budget']
             ];
         }
+    }
+
+    /**
+     * Gets an email link from an employee.
+     *
+     * @param array $employee
+     * @return string|null
+     */
+    private function getEmailLinkFromEmployee(array $employee): ?string
+    {
+        if ($employee['email'] === null) {
+            return null;
+        }
+
+        $email = strtolower($employee['email']);
+
+        return '<a href="mailto:' . $email . '">' . $email . '</a>';
     }
 
     /**
