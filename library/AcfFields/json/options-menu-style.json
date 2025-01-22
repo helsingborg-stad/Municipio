@@ -6,6 +6,7 @@
             "key": "field_61dc486ea78df",
             "label": "Style",
             "name": "menu_item_style",
+            "aria-label": "",
             "type": "select",
             "instructions": "Display as button should be limited to one item per menu. This item should not have any children.",
             "required": 0,
@@ -25,7 +26,9 @@
             "ui": 0,
             "return_format": "value",
             "ajax": 0,
-            "placeholder": ""
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
         }
     ],
     "location": [
@@ -34,6 +37,13 @@
                 "param": "nav_menu_item",
                 "operator": "==",
                 "value": "location\/main-menu"
+            }
+        ],
+        [
+            {
+                "param": "nav_menu_item",
+                "operator": "==",
+                "value": "location\/mega-menu"
             }
         ]
     ],
@@ -44,6 +54,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 
