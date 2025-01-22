@@ -41,7 +41,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
 
         foreach ($storedComponentData as $filter) {
             $passFilterRules = false;
-            
+
             $andOperators = array_filter($filter['contexts'], function ($context) {
                 return in_array($context['operator'], ['===', '!=='], true);
             });
@@ -84,7 +84,7 @@ class Component extends AbstractApplicator implements ApplicatorInterface
     private function checkAndOperators(array $andOperators, array $contexts)
     {
         foreach ($andOperators as $andOperator) {
-            $context = $andOperator['context'];
+            $context  = $andOperator['context'];
             $operator = $andOperator['operator'];
 
             if (
