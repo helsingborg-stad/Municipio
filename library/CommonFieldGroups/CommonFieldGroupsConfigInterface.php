@@ -16,6 +16,11 @@ interface CommonFieldGroupsConfigInterface
    */
     public function getShouldDisableFieldGroups(): bool;
 
+    /**
+     * Check if we are in a context where field values should be filtered
+     */
+    public function getShouldFilterFieldValues(): bool;
+
   /**
    * The options key where settings of this feature are stored.
    *

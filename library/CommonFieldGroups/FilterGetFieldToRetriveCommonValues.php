@@ -23,11 +23,14 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     public function addHooks(): void
     {
-        if(!$this->wpService->isMainSite()) {
+        if (!$this->config->getShouldFilterFieldValues()) {
             return;
         }
-        $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 3);
-        $this->wpService->addFilter('acf/load_value', [$this, 'filterFieldValue'], 10, 3);
+
+        $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 0);
+        $this->wpService->addFilter('init', [$this, 'initFilterOnFieldsToFilter'], 10, 3);
+
+        //$this->wpService->addFilter('acf/load_value', [$this, 'filterFieldValue'], 10, 3);
     }
 
     /**
@@ -48,6 +51,13 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             }
         }
         $this->fieldsToFilter = array_unique($this->fieldsToFilter);
+    }
+
+    public function initFilterOnFieldsToFilter()
+    {
+        foreach ($this->fieldsToFilter as $fieldKey) {
+            $this->wpService->addFilter('acf/load_value/key=' . $fieldKey, [$this, 'filterFieldValue'], 10, 3);
+        }
     }
 
     /**
@@ -75,10 +85,17 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     public function filterFieldValue(mixed $localValue, null|string|int $id, array $field)
     {
-        if (in_array($id, ['option', 'options']) && in_array($field['key'], $this->fieldsToFilter, true)) {
-            return $this->getFieldValueFromMainBlog($field['name']);
+        //Do not process anything that not is an option field
+        if (!in_array($id, ['option', 'options'])) {
+           return $localValue;
         }
-        return $localValue;
+
+        // If we are on the main site, return the local value
+        if($this->wpService->isMainSite()) {
+            return $localValue;
+        }
+        
+        return $this->getFieldValueFromMainBlog($field['key'], $localValue);
     }
 
     /**

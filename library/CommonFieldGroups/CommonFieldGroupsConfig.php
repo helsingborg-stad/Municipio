@@ -31,6 +31,14 @@ class CommonFieldGroupsConfig implements CommonFieldGroupsConfigInterface
         return !$this->wpService->isMainSite() && $this->wpService->isAdmin();
     }
 
+    /**
+     * Check if we are in a context where field values should be filtered
+     */
+    public function getShouldFilterFieldValues(): bool
+    {
+        return !$this->wpService->isMainSite();
+    }
+
   /**
    * The options key where settings of this feature are stored.
    *

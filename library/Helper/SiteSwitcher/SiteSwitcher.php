@@ -34,7 +34,7 @@ class SiteSwitcher implements SiteSwitcherInterface
     {
         return $this->runInSite($siteId, function () use($optionName) {
             return $this->wpService->getOption($optionName);
-        }, $optionName);
+        });
     }
 
     /**
@@ -44,6 +44,6 @@ class SiteSwitcher implements SiteSwitcherInterface
     {
         return $this->runInSite($siteId, function () use ($fieldSelector) {
             return $this->acfService->getField($fieldSelector, 'option');
-        }, $fieldSelector);
+        });
     }
 }
