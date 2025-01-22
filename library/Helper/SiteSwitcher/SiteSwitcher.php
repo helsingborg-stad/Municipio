@@ -2,22 +2,19 @@
 
 namespace Municipio\Helper\SiteSwitcher;
 
-use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
+use WpService\Contracts\RestoreCurrentBlog;
+use WpService\Contracts\GetOption;
+use AcfService\Contracts\GetField;
 
-class SiteSwitcher
+class SiteSwitcher implements SiteSwitcherInterface
 {
-    public function __construct(private SwitchToBlog&RestoreCurrentBlog $wpService)
+    public function __construct(private SwitchToBlog&RestoreCurrentBlog&GetOption $wpService, private GetField $acfService)
     {
     }
 
     /**
-     * Execute a callable within the context of a specific site.
-     *
-     * @param int $siteId
-     * @param callable $callable
-     * @param mixed $callableContext Contextual data to pass to the callable.
-     * @return mixed The result of the callable execution.
+     * @inheritDoc
      */
     public function runInSite(int $siteId, callable $callable, mixed $callableContext = null): mixed
     {
@@ -28,5 +25,25 @@ class SiteSwitcher
         } finally {
             $this->wpService->restoreCurrentBlog();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOptionFromSite(int $siteId, string $optionName): mixed
+    {
+        return $this->runInSite($siteId, function ($optionName) {
+            return $this->wpService->getOption($optionName);
+        }, $optionName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFieldFromSite(int $siteId, string $fieldSelector): mixed
+    {
+        return $this->runInSite($siteId, function ($fieldSelector) {
+            return $this->acfService->getField($fieldSelector, 'option');
+        }, $fieldSelector);
     }
 }

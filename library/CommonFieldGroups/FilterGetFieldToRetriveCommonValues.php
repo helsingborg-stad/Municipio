@@ -7,6 +7,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
@@ -15,7 +16,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
-        private SiteSwitcher $siteSwitcher,
+        private SiteSwitcherInterface $siteSwitcher,
         private CommonFieldGroupsConfigInterface $config
     ) {
     }
@@ -64,33 +65,31 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     /**
      * Filters the ACF field value based on predefined conditions.
      *
-     * @param mixed  $value   The current value of the field.
+     * @param mixed  $localValue   The current value of the field.
      * @param int    $postId  The ID of the post being edited.
      * @param string $field   The field object being loaded.
      * @return mixed The filtered value for the field.
      */
-    public function filterFieldValue(mixed $defaultValue, null|string|int $id, array $field)
+    public function filterFieldValue(mixed $localValue, null|string|int $id, array $field)
     {
         if (in_array($id, ['option', 'options']) && in_array($field['key'], $this->fieldsToFilter, true)) {
-            return $this->getFieldValueFromMainBlog($field['name'], $defaultValue);
+            return $this->getFieldValueFromMainBlog($field['name']);
         }
-        return $defaultValue;
+        return $localValue;
     }
 
     /**
      * Fetches the field value from the main blog using the SiteSwitcher.
      *
-     * @param string $fieldKey The key of the field.
+     * @param string $optionKey The key of the field.
      * @param mixed  $default The default value if the field does not exist.
      * @return mixed The field value.
      */
-    protected function getFieldValueFromMainBlog(string $fieldKey, $defaultValue = null): mixed
+    protected function getFieldValueFromMainBlog(string $optionKey): mixed
     {
-        return $this->siteSwitcher->runInSite(
-            $this->wpService->getMainSiteId(),
-            function () use ($fieldKey, $defaultValue) {
-                return $this->wpService->getOption($fieldKey, $defaultValue);
-            }
+        return $this->siteSwitcher->getFieldFromSite(
+            $this->wpService->getMainSiteId(), 
+            $optionKey
         );
     }
 }
