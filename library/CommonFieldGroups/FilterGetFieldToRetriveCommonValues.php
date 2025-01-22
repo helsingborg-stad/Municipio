@@ -10,7 +10,7 @@ use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
-    protected array $fieldsToFilter = [];
+    public array $fieldsToFilter = [];
 
     public function __construct(
         private WpService $wpService,
@@ -52,9 +52,13 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      * @param string $groupId The ACF field group ID.
      * @return array The field keys in the group.
      */
-    protected function getFieldKeysForGroup(string $groupId): array
+    public function getFieldKeysForGroup(string $groupId): array
     {
-        return array_map(fn($field) => $field['key'], acf_get_fields($groupId) ?: []); //TODO: Implement acf_get_fields in acf service
+        //TODO: Remove when acf function is delcared in service
+        $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
+
+        // Call the function and return the field keys
+        return array_map(fn($field) => $field['key'], $func($groupId) ?: []);
     }
 
     /**
