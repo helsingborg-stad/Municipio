@@ -54,4 +54,22 @@ interface PostObjectInterface
      * @return int
      */
     public function getBlogId(): int;
+
+    /**
+     * Get the post object publish timestamp.
+     *
+     * @param bool $gmt Whether to return the GMT time.
+     *
+     * @return int
+     */
+    public function getPublishedTime(bool $gmt = false): int;
+
+    /**
+     * Get the post object modified timestamp.
+     *
+     * @param bool $gmt Whether to return the GMT time.
+     *
+     * @return int
+     */
+    public function getModifiedTime(bool $gmt = false): int;
 }

@@ -87,4 +87,20 @@ class PostObjectWithSeoRedirect implements PostObjectInterface
     {
         return $this->postObject->getIcon();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPublishedTime(bool $gmt = false): int
+    {
+        return $this->postObject->getPublishedTime($gmt);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getModifiedTime(bool $gmt = false): int
+    {
+        return $this->postObject->getModifiedTime($gmt);
+    }
 }
