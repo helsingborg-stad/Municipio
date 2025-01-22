@@ -19,25 +19,25 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
     protected function setUp(): void
     {
         $this->wpService = new FakeWpService([
-            'addAction' => function ($hook, $callback) {
+            'addAction'     => function ($hook, $callback) {
                 $this->assertEquals('init', $hook);
                 $this->assertIsCallable($callback);
                 return true;
             },
-            'addFilter' => function ($hook, $callback, $priority, $acceptedArgs) {
+            'addFilter'     => function ($hook, $callback, $priority, $acceptedArgs) {
                 $this->assertEquals('acf/prepare_field', $hook);
                 $this->assertIsCallable($callback);
                 $this->assertEquals(10, $priority);
                 $this->assertEquals(1, $acceptedArgs);
                 return true;
             },
-            'getAdminUrl' => fn($siteId, $slug) => "https://example.com/site-{$siteId}/{$slug}",
+            'getAdminUrl'   => fn($siteId, $slug) => "https://example.com/site-{$siteId}/{$slug}",
             'getMainSiteId' => fn() => 1,
-            '__' => fn($text) => $text,
-            '__e' => fn($text) => $text,
+            '__'            => fn($text) => $text,
+            '__e'           => fn($text) => $text,
         ]);
 
-        $this->acfService = new FakeAcfService([]);
+        $this->acfService   = new FakeAcfService([]);
         $this->siteSwitcher = $this->createMock(SiteSwitcher::class);
 
         $this->config = new class implements CommonFieldGroupsConfigInterface {
@@ -91,7 +91,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
      */
     public function testProcessFieldAddsNoticeForGroup(): void
     {
-        $field = ['parent' => 'group_1', 'id' => 'field_1'];
+        $field  = ['parent' => 'group_1', 'id' => 'field_1'];
         $result = $this->instance->processField($field, 'group_1');
 
         $this->assertArrayHasKey('_name', $result);
@@ -103,7 +103,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
      */
     public function testProcessFieldReturnsFieldForUnmatchedGroup(): void
     {
-        $field = ['parent' => 'group_2', 'id' => 'field_1'];
+        $field  = ['parent' => 'group_2', 'id' => 'field_1'];
         $result = $this->instance->processField($field, 'group_1');
 
         $this->assertEquals($field, $result);
@@ -114,7 +114,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
      */
     public function testProcessFieldReturnsNoticeWithCorrectUrl(): void
     {
-        $field = ['parent' => 'group_1', 'id' => 'field_1'];
+        $field  = ['parent' => 'group_1', 'id' => 'field_1'];
         $result = $this->instance->processField($field, 'group_1');
 
         $this->assertStringContainsString('https://example.com/site-1', $result['message']);
@@ -126,9 +126,9 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
     public function testProcessFieldReturnsNoticeWithCorrectUrlAndQueryParameters(): void
     {
         $_SERVER['PHP_SELF'] = '/wp-admin/post.php';
-		$_GET = ['utm_source' => 'acf_field_notice', 'action' => 'edit'];
+        $_GET                = ['utm_source' => 'acf_field_notice', 'action' => 'edit'];
 
-        $field = ['parent' => 'group_1', 'id' => 'field_1'];
+        $field  = ['parent' => 'group_1', 'id' => 'field_1'];
         $result = $this->instance->processField($field, 'group_1');
 
         $this->assertStringContainsString('https://example.com/site-1', $result['message']);
