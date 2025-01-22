@@ -55,11 +55,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     public function getFieldKeysForGroup(string $groupId): array
     {
-        //TODO: Remove when acf function is delcared in service
-        $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
-
-        // Call the function and return the field keys
-        return array_map(fn($field) => $field['key'], $func($groupId) ?: []);
+        return array_map(fn($field) => $field['key'], $this->acfService->acfGetFields($groupId) ?: []);
     }
 
     /**
