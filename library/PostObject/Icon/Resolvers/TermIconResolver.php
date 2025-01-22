@@ -29,21 +29,59 @@ class TermIconResolver implements IconResolverInterface
     {
         $taxonomies = $this->wpService->getObjectTaxonomies($this->postObject->getPostType());
 
-        if (!empty($taxonomies)) {
-            $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomies[0]);
+        return $this->getTermIconFromTaxonomies($taxonomies) ?? $this->innerResolver->resolve();
+    }
 
-            if (!empty($terms)) {
-                $icon = $this->termHelper->getTermIcon($terms[0]);
+    /**
+     * Get term icon from taxonomies.
+     *
+     * @param string[] $taxonomies taxonomy names
+     * @return IconInterface|null
+     */
+    private function getTermIconFromTaxonomies(array $taxonomies): ?IconInterface
+    {
+        if (empty($taxonomies)) {
+            return null;
+        }
 
-                if (!empty($icon)) {
-                    $color = $this->termHelper->getTermColor($terms[0]);
-                    return $this->getIconInstance($icon, $color ?? null);
-                }
+        foreach ($taxonomies as $taxonomy) {
+            $terms = $this->wpService->getTheTerms($this->postObject->getId(), $taxonomy);
+
+            if (!is_array($terms) || empty($terms)) {
+                continue;
+            }
+
+            if (!is_null($termIcon = $this->getTermIconFromTerms($terms))) {
+                return $termIcon;
             }
         }
 
-        return  $this->innerResolver->resolve();
+        return null;
     }
+
+    /**
+     * Get term icon from terms.
+     *
+     * @param WP_Term[] $terms
+     * @return IconInterface|null
+     */
+    private function getTermIconFromTerms(array $terms): ?IconInterface
+    {
+        foreach ($terms as $term) {
+            $icon = $this->termHelper->getTermIcon($term);
+
+            if (!is_array($icon) || empty($icon)) {
+                continue;
+            }
+
+            $color = $this->termHelper->getTermColor($term);
+
+            return $this->getIconInstance($icon, $color);
+        }
+
+        return null;
+    }
+
 
     /**
      * Get icon instance.

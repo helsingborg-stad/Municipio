@@ -58,6 +58,7 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\CommonOptions\CommonOptionsConfig;
 
 /**
  * Class App
@@ -102,7 +103,7 @@ class App
             $userHelperConfig,
             $userGroupConfig,
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
         /**
@@ -367,6 +368,51 @@ class App
          * Broken links
          */
         $this->setUpBrokenLinksIntegration();
+
+        /**
+         * Setup common options
+         */
+        $this->setUpCommonFieldGroups();
+    }
+
+    /**
+     * Set up the common options feature.
+     *
+     * This method initializes the common options feature by creating an instance of the
+     * RegisterCommonOptionsAdminPage class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setUpCommonFieldGroups(): void
+    {
+        //Init dependencies
+        $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService);
+        $config       = new \Municipio\CommonFieldGroups\CommonFieldGroupsConfig(
+            $this->wpService,
+            $this->acfService,
+            $siteSwitcher
+        );
+
+        //Check if feature is enabled
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        //Admin page
+        $registerCommonFieldGroupsOptionsAdminPage = new \Municipio\CommonFieldGroups\RegisterCommonFieldGroupsOptionsAdminPage($this->wpService, $this->acfService);
+        $registerCommonFieldGroupsOptionsAdminPage->addHooks();
+
+        //Populate admin page fields
+        $populateCommonFieldGroupSelect = new \Municipio\CommonFieldGroups\PopulateCommonFieldGroupSelect($this->wpService, $this->acfService, $config);
+        $populateCommonFieldGroupSelect->addHooks();
+
+        //Disable fields
+        $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonFieldGroups\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
+
+        //Modify field choices
+        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonFieldGroups\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $filterGetFieldToRetriveCommonValues->addHooks();
     }
 
     /**
@@ -399,7 +445,7 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService));
+        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService));   
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
@@ -440,19 +486,20 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
+      
         $userHelper                 = new \Municipio\Helper\User\User(
             $this->wpService,
             $this->acfService,
             $userHelperConfig,
             $config,
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
         $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
             $this->wpService,
             $config->getUserGroupTaxonomy(),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
         // Create user group taxonomy
@@ -502,8 +549,9 @@ class App
             new \Municipio\Helper\User\Config\UserConfig(),
             new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService)
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
+      
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
