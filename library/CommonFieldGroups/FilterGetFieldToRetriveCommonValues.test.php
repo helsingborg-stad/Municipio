@@ -90,7 +90,7 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
     /**
      * @testdox filterFieldValue should return value from main blog if option key exists in fields to filter and blog id is 1
      */
-    public function testfilterFieldValue(): void
+    public function testfilterFieldValueReturnsMainBlogValueIfOptionKeyIsListed(): void
     {
         $this->instance->fieldsToFilter = ['field_1', 'field_2'];
 
@@ -108,7 +108,7 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
     }
 
     //Test that filterFieldValue should return local value if option key does not exists in fields to filter
-    public function testfilterFieldValue2(): void
+    public function testfilterFieldValueReturnsLocalBlogValueIfOptionKeyIsNotListed(): void
     {
         $this->instance->fieldsToFilter = ['field_1', 'field_2'];
 
@@ -121,8 +121,8 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
         );
     }
 
-    //Test that only id option pass 
-    public function testfilterFieldValue3(): void
+    //Test that filterFieldValue should return local value if context id is not option or options
+    public function testfilterFieldValueReturnsLocalBlogValueIfIdNotOptioOrOptions(): void
     {
         $this->instance->fieldsToFilter = ['field_1', 'field_2'];
 
