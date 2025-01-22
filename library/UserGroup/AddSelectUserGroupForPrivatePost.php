@@ -11,10 +11,11 @@ use WpService\Contracts\DeletePostMeta;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetTerms;
 use WpService\Contracts\SanitizeTextField;
-use WpService\Contracts\WpVerifyNonce;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
 use Municipio\Helper\User\GetUserGroupTerms;
+use WpService\Contracts\CheckAdminReferer;
+use WpService\Contracts\WpNonceField;
 
 /**
  * Represents a UserGroupSelector class.
@@ -23,11 +24,14 @@ use Municipio\Helper\User\GetUserGroupTerms;
  */
 class AddSelectUserGroupForPrivatePost implements Hookable
 {
+    private const NONCE_ACTION = 'municipio_user_group_visibility_update';
+    private const NONCE_NAME   = '_municipio_user_group_visibility_nonce';
+
     /**
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
-        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&WpVerifyNonce&CurrentUserCan&Checked $wpService,
+        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&CurrentUserCan&Checked&WpNonceField&CheckAdminReferer $wpService,
         private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig,
@@ -71,10 +75,16 @@ class AddSelectUserGroupForPrivatePost implements Hookable
 
         $this->wpService->deletePostMeta($postId, $metaKey);
 
+        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (empty($_POST[$metaKey])) {
             return;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         foreach ($_POST[$metaKey] as $group) {
             $this->wpService->addPostMeta(
                 $postId,
@@ -146,6 +156,8 @@ class AddSelectUserGroupForPrivatePost implements Hookable
                 $term->name
             );
         }
+
+        $this->wpService->wpNonceField(self::NONCE_ACTION, self::NONCE_NAME, true, true);
 
         echo '</div>';
     }
