@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Municipio\CommonFieldGroups;
 
@@ -11,7 +11,7 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
     private PopulateCommonFieldGroupSelect $instance;
     private FakeWpService $wpService;
     private FakeAcfService $acfService;
-    private FakeCommonFieldGroupsConfig $config;
+    private CommonFieldGroupsConfigInterface $config;
 
     protected function setUp(): void
     {
@@ -27,8 +27,8 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
             'getFieldGroups' => function () {
                 return [
                     [
-                        'key' => 'group_1',
-                        'title' => 'Group 1',
+                        'key'      => 'group_1',
+                        'title'    => 'Group 1',
                         'location' => [
                             [
                                 [
@@ -39,8 +39,8 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
                         ],
                     ],
                     [
-                        'key' => 'group_2',
-                        'title' => 'Group 2',
+                        'key'      => 'group_2',
+                        'title'    => 'Group 2',
                         'location' => [
                             [
                                 [
@@ -54,11 +54,32 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
             },
         ]);
 
-        $this->config = new FakeCommonFieldGroupsConfig([
-            'getOptionsSelectFieldKey' => function () {
-                return 'options_select_field';
-            },
-        ]);
+        $this->config = new class implements CommonFieldGroupsConfigInterface {
+            public function isEnabled(): bool
+            {
+                return true;
+            }
+
+            public function getShouldDisableFieldGroups(): bool
+            {
+                return false;
+            }
+
+            public function getOptionsKey(): string
+            {
+                return 'sitewide_common_acf_fieldgroups';
+            }
+
+            public function getOptionsSelectFieldKey(): string
+            {
+                return 'sitewide_common_acf_fieldgroup_value';
+            }
+
+            public function getAcfFieldGroupsToFilter(): array
+            {
+                return [];
+            }
+        };
 
         $this->instance = new PopulateCommonFieldGroupSelect($this->wpService, $this->acfService, $this->config);
     }
@@ -127,53 +148,9 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
     private function invokePrivateMethod(object $object, string $method, array $parameters = [])
     {
         $reflection = new \ReflectionClass($object);
-        $method = $reflection->getMethod($method);
+        $method     = $reflection->getMethod($method);
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
-    }
-}
-
-class FakeCommonFieldGroupsConfig implements CommonFieldGroupsConfigInterface
-{
-    private $methods = [];
-
-    public function __construct(array $methods = [])
-    {
-        $this->methods = $methods;
-    }
-
-    public function __call($name, $arguments)
-    {
-        if (isset($this->methods[$name])) {
-            return call_user_func_array($this->methods[$name], $arguments);
-        }
-
-        throw new \BadMethodCallException("Method {$name} not found.");
-    }
-
-    public function isEnabled(): bool
-    {
-        return true;
-    }
-
-    public function getShouldDisableFieldGroups(): bool
-    {
-        return false;
-    }
-
-    public function getOptionsKey(): string
-    {
-        return 'sitewide_common_acf_fieldgroups';
-    }
-
-    public function getOptionsSelectFieldKey(): string
-    {
-        return 'sitewide_common_acf_fieldgroup_value';
-    }
-
-    public function getAcfFieldGroupsToFilter(): array
-    {
-        return [];
     }
 }

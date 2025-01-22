@@ -390,7 +390,7 @@ class App
     {
         //Init dependencies
         $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService);
-        $config = new \Municipio\CommonFieldGroups\CommonFieldGroupsConfig(
+        $config       = new \Municipio\CommonFieldGroups\CommonFieldGroupsConfig(
             $this->wpService,
             $this->acfService,
             $siteSwitcher
