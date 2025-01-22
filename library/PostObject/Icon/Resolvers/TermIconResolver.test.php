@@ -67,10 +67,11 @@ class TermIconResolverTest extends TestCase
         $postObject    = $this->createMock(PostObjectInterface::class);
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [WpMockFactory::createWpTerm()]]);
+            'getTheTerms'         => [
+                WpMockFactory::createWpTerm(['term_id' => 3])]
+            ]);
         $innerResolver = $this->createMock(IconResolverInterface::class);
         $innerResolver->expects($this->once())->method('resolve');
-
         $resolver = new TermIconResolver($postObject, $wpService, $this->getTermHelper(), $innerResolver);
 
         $resolver->resolve();
@@ -84,7 +85,9 @@ class TermIconResolverTest extends TestCase
         $postObject    = $this->createMock(PostObjectInterface::class);
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [WpMockFactory::createWpTerm()]]);
+            'getTheTerms'         => [
+                WpMockFactory::createWpTerm(['term_id' => 3])]
+            ]);
         $termHelper    = $this->getTermHelper([
             'getTermIcon'  => ['src' => 'testIcon', 'type' => 'testType'],
             'getTermColor' => 'testColor'
@@ -104,7 +107,9 @@ class TermIconResolverTest extends TestCase
         $postObject    = $this->createMock(PostObjectInterface::class);
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [WpMockFactory::createWpTerm()]]);
+            'getTheTerms'         => [
+                WpMockFactory::createWpTerm(['term_id' => 3])]
+            ]);
         $termHelper    = $this->getTermHelper([
             'getTermIcon'  => ['src' => 'testIcon', 'type' => 'testType'],
             'getTermColor' => 'testColor'

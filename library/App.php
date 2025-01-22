@@ -181,9 +181,6 @@ class App
             $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
             $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($this->wpService, $decorator);
 
-            //Seo Redirect
-            $decorator = new \Municipio\PostDecorators\ApplySeoRedirect($this->wpService, $decorator);
-
             return $decorator->apply($post);
         }, 10, 1);
 
@@ -489,7 +486,21 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
-        $userHelper                 = new \Municipio\Helper\User\User($this->wpService, $this->acfService, $userHelperConfig, $config, new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService));
+      
+        $userHelper                 = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            $userHelperConfig,
+            $config,
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+
+        $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
 
         // Create user group taxonomy
         (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
@@ -507,7 +518,13 @@ class App
         (new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService))->addHooks();
 
         // Add user group select to edit post when private
-        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost($this->wpService, $config->getUserGroupTaxonomy(), $userHelperConfig, $userGroupRestrictionConfig))->addHooks();
+        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost(
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
+            $userHelperConfig,
+            $userGroupRestrictionConfig,
+            $getUserGroupTerms
+        ))->addHooks();
 
         // Restrict private posts to user group
         (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
@@ -525,7 +542,15 @@ class App
      */
     private function setUpMiniOrangeIntegration(): void
     {
-        $userHelper      = new \Municipio\Helper\User\User($this->wpService, $this->acfService, new \Municipio\Helper\User\Config\UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService));
+        $userHelper      = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            new \Municipio\Helper\User\Config\UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+      
         $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
         $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
         $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);

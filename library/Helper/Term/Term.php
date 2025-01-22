@@ -28,14 +28,21 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
      */
     public function getTermColor(int|string|\WP_Term $term, string $taxonomy = ''): false|string
     {
+        static $cache = [];
+        $cacheKey     = md5(json_encode($term)) . md5($taxonomy);
+
+        if (array_key_exists($cacheKey, $cache)) {
+            return $cache[$cacheKey];
+        }
+
         if (empty($term)) {
-            return false;
+            return $cache[$cacheKey] = false;
         }
 
         $term = $this->getTerm($term, $taxonomy);
 
         if (empty($term)) {
-            return false;
+            return $cache[$cacheKey] = false;
         }
 
         $color = $this->acfService->getField('colour', 'term_' . $term->term_id);
@@ -46,7 +53,8 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
             $color = $this->getAncestorTermColor($term);
         }
 
-        return $this->wpService->applyFilters('Municipio/getTermColour', $color, $term, $taxonomy);
+        $result                  = $this->wpService->applyFilters('Municipio/getTermColour', $color, $term, $taxonomy);
+        return $cache[$cacheKey] = $result;
     }
 
     /**
@@ -102,10 +110,17 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
      */
     public function getTermIcon(int|string|\WP_Term $term, string $taxonomy = ''): array|false
     {
+        static $cache = [];
+        $cacheKey     = md5(json_encode($term)) . md5($taxonomy);
+
+        if (array_key_exists($cacheKey, $cache)) {
+            return $cache[$cacheKey];
+        }
+
         $term = self::getTerm($term, $taxonomy);
 
         if (empty($term)) {
-            return false;
+            return $cache[$cacheKey] = false;
         }
 
         $termIcon = $this->acfService->getField('icon', 'term_' . $term->term_id);
@@ -135,7 +150,7 @@ class Term implements GetTermColor, GetTermIcon, CreateOrGetTermIdFromString
             $result = false;
         }
 
-        return $result;
+        return $cache[$cacheKey] = $result;
     }
 
     /**

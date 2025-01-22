@@ -19,6 +19,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is empty
+     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsEmpty()
     {
@@ -30,6 +31,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is not found when passing an ID or slug
+     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsNotFoundWhenPassingAnIdOrSlug()
     {
@@ -42,6 +44,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is found but has no colour and no ancestors
+     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsFoundButHasNoColour()
     {
@@ -58,6 +61,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns the colour of the term if it has one
+     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsTheColourOfTheTermIfItHasOne()
     {
@@ -73,6 +77,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() prepends a hash to the colour if it does not have one
+     * @runInSeparateProcess
      */
     public function testGetTermColorPrependsAHashToTheColourIfItDoesNotHaveOne()
     {
@@ -125,6 +130,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermIcon() returns false if term can not be found by ID or slug
+     * @runInSeparateProcess
      */
     public function testGetTermIconReturnsFalseIfTermCanNotBeFoundByIdOrSlug()
     {
@@ -137,6 +143,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermIcon() returns false if term has no icon
+     * @runInSeparateProcess
      */
     public function testGetTermIconReturnsFalseIfTermHasNoIcon()
     {
@@ -152,6 +159,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermIcon() returns the icon of the term if it has one
+     * @runInSeparateProcess
      */
     public function testGetTermIconReturnsTheIconOfTheTermIfItHasOne()
     {
@@ -167,6 +175,7 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermIcon() returns the SVG icon of the term if it has one
+     * @runInSeparateProcess
      */
     public function testGetTermIconReturnsTheSvgIconOfTheTermIfItHasOne()
     {
@@ -188,6 +197,24 @@ class TermTests extends TestCase
         $this->assertEquals('svg', $icon['type']);
         $this->assertEquals('description', $icon['description']);
         $this->assertEquals('description', $icon['alt']);
+    }
+
+    /**
+     * @testdox getTermIcon() returns cached result if term has been checked before
+     */
+    public function testGetTermIconReturnsCachedResultIfTermHasBeenCheckedBefore()
+    {
+        $acfService = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
+        $wpService  = new FakeWpService([
+            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+            'applyFilters' => fn($hook, $value) => $value]);
+
+        $termHelper = new Term($wpService, $acfService);
+
+        $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
+        $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
+
+        $this->assertCount(1, $acfService->methodCalls['getField']);
     }
 
     /**

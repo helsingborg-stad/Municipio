@@ -127,7 +127,7 @@ class Flexible implements HeaderInterface
         [$desktopOrderedItems, $mobileOrderedItems] = $this->getOrderedMenuItems($settingCamelCased);
 
         $this->hasSearch            = $this->hasSearch($desktopOrderedItems, $mobileOrderedItems);
-        $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems);
+        $this->hasSeparateBrandText = $this->hasSeparateBrandText($desktopOrderedItems, $mobileOrderedItems ?: []);
 
         // Building the items
         $items = $this->flipKeyValueTransformer->transform($desktopOrderedItems, $mobileOrderedItems);
@@ -164,12 +164,14 @@ class Flexible implements HeaderInterface
     // Gets the ordered menu items from the customizer.
     private function getOrderedMenuItems(string $settingCamelCased): array
     {
-        return [
-            $this->customizer->{$settingCamelCased} ?: [],
-            ($this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}))
-                ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
-                : [],
-        ];
+        $shouldGetMobileOrderedItems = fn() => $this->isResponsive && isset($this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive});
+
+        $desktopOrderedItems = $this->customizer->{$settingCamelCased};
+        $mobileOrderedItems  = $shouldGetMobileOrderedItems()
+            ? $this->customizer->{$settingCamelCased . $this->headerSettingKeyResponsive}
+            : [];
+
+        return [ $desktopOrderedItems ?: [], $mobileOrderedItems ?: [] ];
     }
 
     // Gets the camelCased setting name.

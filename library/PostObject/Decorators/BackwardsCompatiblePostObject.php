@@ -14,16 +14,50 @@ use Municipio\PostObject\PostObjectInterface;
 #[AllowDynamicProperties]
 class BackwardsCompatiblePostObject implements PostObjectInterface
 {
+    private const PROPERTY_TO_METHOD_MAP = ['permalink' => 'getPermalink'];
+
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $postObject, object $legacyPost)
+    public function __construct(private PostObjectInterface $postObject, private object $legacyPost)
     {
         foreach ($legacyPost as $key => $value) {
+            if (array_key_exists($key, self::PROPERTY_TO_METHOD_MAP)) {
+                continue;
+            }
+
             if (!isset($this->{$key})) {
                 $this->{$key} = $value;
             }
         }
+    }
+
+    /**
+     * Magic getter.
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
+            return $this->{self::PROPERTY_TO_METHOD_MAP[$name]}();
+        }
+    }
+
+    /**
+     * Magic setter.
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name, $value)
+    {
+        if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
+            return;
+        }
+
+        $this->{$name} = $value;
     }
 
     /**
