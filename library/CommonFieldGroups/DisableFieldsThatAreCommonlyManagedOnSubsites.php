@@ -111,7 +111,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
             '_name'        => 'acf_disabled_field',
             'id'           => $field['id'],
             'label'        => $this->wpService->__('Notice', 'municipio'),
-            'instructions' => $this->wpService->__('Some settings for this group are only available on the main blog.', 'municipio'),
+            'instructions' => $this->wpService->__('The settings for this group are only available on the main blog.', 'municipio'),
             'required'     => false,
             'type'         => 'message',
             'key'          => "{$acfGroupKey}_notice",
