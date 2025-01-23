@@ -8,9 +8,9 @@ use WpService\Contracts\GetOption;
 class GetStickyOption
 {
     public function __construct(
-        private StickyPostConfigInterface $stickyPostConfig, 
+        private StickyPostConfigInterface $stickyPostConfig,
         private GetOption $wpService
-    ) {  
+    ) {
     }
 
     public function getOptionKey(string $suffix): string

@@ -80,8 +80,8 @@ class AddStickyCheckboxForPost implements Hookable
         global $post;
 
         if (
-            !isset($post) || 
-            !$this->wpService->currentUserCan('edit_post', $post->ID) || 
+            !isset($post) ||
+            !$this->wpService->currentUserCan('edit_post', $post->ID) ||
             empty($post->post_type)
         ) {
             return;
