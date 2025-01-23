@@ -3,31 +3,30 @@
 namespace Municipio\StickyPost;
 
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\StickyPost\Config\StickyPostConfigInterface;
+use Municipio\StickyPost\Helper\GetStickyOption as GetStickyOptionHelper;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\AddPostMeta;
 use WpService\Contracts\Checked;
 use WpService\Contracts\CurrentUserCan;
-use WpService\Contracts\DeletePostMeta;
-use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetOption;
+use WpService\Contracts\GetPostType;
+use WpService\Contracts\UpdateOption;
 
 /**
- * Represents a AddStickyCheckboxForPrivatePost class.
+ * Represents a AddStickyCheckboxForPost class.
  *
  * This class is responsible for adding a sticky checkbox for private posts.
  */
-class AddStickyCheckboxForPrivatePost implements Hookable
+class AddStickyCheckboxForPost implements Hookable
 {
-
     /**
-     * Constructor for the AddStickyCheckboxForPrivatePost class.
+     * Constructor for the AddStickyCheckboxForPost class.
      */
     public function __construct(
-        private StickyPostConfigInterface $stickyPostConfig,
-        private AddAction&CurrentUserCan&GetPostMeta&Checked&__&AddPostMeta&DeletePostMeta $wpService
-    )
-    {}
+        private GetStickyOptionHelper $getStickyOptionHelper,
+        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType $wpService
+    ) {
+    }
 
     /**
      * Adds hooks for the StickyPost class.
@@ -50,19 +49,23 @@ class AddStickyCheckboxForPrivatePost implements Hookable
      * @param int $postId The ID of the post.
      * @return void
      */
-    public function saveStickyCheckboxValue($postId): void
+    public function saveStickyCheckboxValue(int $postId): void
     {
         if (!$this->wpService->currentUserCan('edit_post', $postId)) {
             return;
         }
 
-        $metaKey = $this->stickyPostConfig->getStickyPostMetaKey();
+        $postType     = $this->wpService->getPostType($postId);
+        $optionName   = $this->getStickyOptionHelper->getOptionKey($postType);
+        $stickyOption = $this->getStickyOptionHelper->getOption($postType);
 
-        if (isset($_POST[$metaKey])) {
-            $this->wpService->addPostMeta($postId, $metaKey, true, true);
+        if (isset($_POST[$optionName])) {
+            $stickyOption[$postId] = $postId;
         } else {
-            $this->wpService->deletePostMeta($postId, $metaKey);
+            unset($stickyOption[$postId]);
         }
+
+        $this->wpService->updateOption($optionName, $stickyOption);
     }
 
     /**
@@ -72,35 +75,40 @@ class AddStickyCheckboxForPrivatePost implements Hookable
      *
      * @return void
      */
-    public function addStickyCheckbox()
+    public function addStickyCheckbox(): void
     {
         global $post;
 
-        if (!$this->wpService->currentUserCan('edit_post', $post->ID)) {
+        if (
+            !isset($post) || 
+            !$this->wpService->currentUserCan('edit_post', $post->ID) || 
+            empty($post->post_type)
+        ) {
             return;
         }
 
-        $sticky = $this->wpService->getPostMeta($post->ID, $this->stickyPostConfig->getStickyPostMetaKey(), true);
-        $checked = $this->wpService->checked($sticky, true, false);
+        $stickyOption = $this->getStickyOptionHelper->getOption($post->post_type);
+        $checked      = $this->wpService->checked(array_key_exists($post->ID, $stickyOption), true, false);
 
-        $this->renderStickyCheckbox($checked);
-
+        $this->renderStickyCheckbox($checked, $post->post_type);
     }
 
     /**
      * Renders a sticky checkbox for a private post.
      *
-     * @param bool $checked Whether the checkbox should be checked or not.
+     * @param string $checked
      * @return void
      */
-    private function renderStickyCheckbox(bool $checked)
+    private function renderStickyCheckbox(string $checked, string $postType): void
     {
-        echo sprintf('
+        echo sprintf(
+            '
             <div class="misc-pub-section misc-pub-sticky">
-            <label><input type="checkbox" name="sticky-post" value="true" %s> %s</label>
-            </div>', 
-            $checked ? 'checked' : '',
-             $this->wpService->__('Make this post sticky', 'municipio')
+            <label><input type="checkbox" name="%s" value="true" %s> %s</label>
+            </div>',
+            $this->getStickyOptionHelper->getOptionKey($postType),
+            $checked,
+            $this->wpService->__('Make this post sticky', 'municipio')
         );
     }
 }

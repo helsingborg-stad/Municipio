@@ -449,8 +449,12 @@ class App
     private function setupStickyPosts(): void
     {
         $stickyPostConfig = new \Municipio\StickyPost\Config\StickyPostConfig();
-        (new \Municipio\StickyPost\AddStickyCheckboxForPrivatePost(
+        $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption(
             $stickyPostConfig,
+            $this->wpService
+        );
+        (new \Municipio\StickyPost\AddStickyCheckboxForPost(
+            $stickyPostHelper,
             $this->wpService
         ))->addHooks();
     }

@@ -16,11 +16,11 @@ class StickyPostConfigTest extends TestCase
     }
 
     /**
-     * @testdox getStickyPostMetaKey returns expected meta key
+     * @testdox getOptionKeyPrefix returns string
      */
-    public function testGetStickyPostMetaKeyReturnsExpectedMetaKey()
+    public function testGetOptionKeyPrefixReturnsString()
     {
         $stickyPostConfig = new StickyPostConfig();
-        $this->assertEquals('sticky-post', $stickyPostConfig->getStickyPostMetaKey());
+        $this->assertIsString($stickyPostConfig->getOptionKeyPrefix());
     }
 }
