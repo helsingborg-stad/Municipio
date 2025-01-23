@@ -27,10 +27,8 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             return;
         }
 
-        $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 0);
-        $this->wpService->addFilter('init', [$this, 'initFilterOnFieldsToFilter'], 10, 3);
-
-        //$this->wpService->addFilter('acf/load_value', [$this, 'filterFieldValue'], 10, 3);
+        $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 20, 0);
+        $this->wpService->addFilter('init', [$this, 'initFilterOnFieldsToFilter'], 30, 0);
     }
 
     /**
@@ -53,11 +51,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $this->fieldsToFilter = array_unique($this->fieldsToFilter);
     }
 
-    public function initFilterOnFieldsToFilter()
+    /**
+     * Load values from main blog. 
+     */
+    public function initFilterOnFieldsToFilter(): void
     {
-        foreach ($this->fieldsToFilter as $fieldKey) {
-            $this->wpService->addFilter('acf/load_value/key=' . $fieldKey, [$this, 'filterFieldValue'], 10, 3);
-        }
+        $this->wpService->addFilter('acf/pre_load_value', [$this, 'filterFieldValue'], 999, 3);
     }
 
     /**
@@ -72,7 +71,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
 
         // Call the function and return the field keys
-        return array_map(fn($field) => $field['key'], $func($groupId) ?: []);
+        return array_map(fn($field) => $field['name'], $func($groupId) ?: []);
     }
 
     /**
@@ -83,19 +82,23 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      * @param string $field   The field object being loaded.
      * @return mixed The filtered value for the field.
      */
-    public function filterFieldValue(mixed $localValue, null|string|int $id, array $field)
+    public function filterFieldValue(mixed $nullValue, null|string|int $id, array $field)
     {
-        //Do not process anything that not is an option field
-        if (!in_array($id, ['option', 'options'])) {
-           return $localValue;
+        //Only options
+        if(!in_array($id, ['option', 'options'])) {
+            return $nullValue; 
         }
 
         // If we are on the main site, return the local value
         if($this->wpService->isMainSite()) {
-            return $localValue;
+            return $nullValue;
         }
-        
-        return $this->getFieldValueFromMainBlog($field['key'], $localValue);
+
+        if(in_array($field['name'], $this->fieldsToFilter)) {
+            return $this->getFieldValueFromMainBlog($field['name'], $nullValue);
+        }
+
+        return $nullValue; 
     }
 
     /**
