@@ -73,7 +73,7 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
             public function getShouldFilterFieldValues(): bool
             {
                 return true;
-            }   
+            }
 
             public function getOptionsSelectFieldKey(): string
             {

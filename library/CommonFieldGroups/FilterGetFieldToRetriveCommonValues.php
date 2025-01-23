@@ -21,6 +21,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     ) {
     }
 
+    /**
+     * Adds the hooks for filtering the field values.
+     * This also checks that the site is not main site.
+     *
+     * @return void
+     */
     public function addHooks(): void
     {
         if (!$this->config->getShouldFilterFieldValues()) {
@@ -52,7 +58,9 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     }
 
     /**
-     * Load values from main blog. 
+     * Adds a pre load value filter to filter the field values.
+     *
+     * @return void
      */
     public function initFilterOnFieldsToFilter(): void
     {
@@ -77,28 +85,30 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     /**
      * Filters the ACF field value based on predefined conditions.
      *
-     * @param mixed  $localValue   The current value of the field.
-     * @param int    $postId  The ID of the post being edited.
+     * @param mixed  $nullValue   DEfault value of a field, if anything but null is returned, this value will be used.
+     * @param int    $postId  The ID of the post being edited (may be option or page id).
      * @param string $field   The field object being loaded.
      * @return mixed The filtered value for the field.
      */
     public function filterFieldValue(mixed $nullValue, null|string|int $id, array $field)
     {
-        //Only options
-        if(!in_array($id, ['option', 'options'])) {
-            return $nullValue; 
-        }
-
-        // If we are on the main site, return the local value
-        if($this->wpService->isMainSite()) {
+        //Only process options
+        if (!in_array($id, ['option', 'options'])) {
             return $nullValue;
         }
 
-        if(in_array($field['name'], $this->fieldsToFilter)) {
+        // If we are on the main site, return the local value
+        if ($this->wpService->isMainSite()) {
+            return $nullValue;
+        }
+
+        // If the field is in the fields to filter array, get the value from the main blog
+        // Names are used due to the fact that the field object is not fully loaded (does not include key).
+        if (in_array($field['name'], $this->fieldsToFilter)) {
             return $this->getFieldValueFromMainBlog($field['name'], $nullValue);
         }
 
-        return $nullValue; 
+        return $nullValue;
     }
 
     /**
@@ -111,7 +121,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     protected function getFieldValueFromMainBlog(string $optionKey): mixed
     {
         return $this->siteSwitcher->getFieldFromSite(
-            $this->wpService->getMainSiteId(), 
+            $this->wpService->getMainSiteId(),
             $optionKey
         );
     }

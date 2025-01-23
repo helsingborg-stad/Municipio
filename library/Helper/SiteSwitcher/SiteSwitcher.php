@@ -32,7 +32,7 @@ class SiteSwitcher implements SiteSwitcherInterface
      */
     public function getOptionFromSite(int $siteId, string $optionName): mixed
     {
-        return $this->runInSite($siteId, function () use($optionName) {
+        return $this->runInSite($siteId, function () use ($optionName) {
             return $this->wpService->getOption($optionName);
         });
     }

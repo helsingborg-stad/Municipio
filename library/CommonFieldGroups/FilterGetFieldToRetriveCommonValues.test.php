@@ -105,11 +105,9 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
             ->willReturn('main_blog_value');
 
         $this->assertEquals(
-            'main_blog_value', 
+            'main_blog_value',
             $this->instance->filterFieldValue('local_value', 'option', ['key' => 'field_1', 'name' => 'field_name'])
         );
-
-        
     }
 
     //Test that filterFieldValue should return local value if option key does not exists in fields to filter
@@ -121,7 +119,7 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
             ->method('getFieldFromSite');
 
         $this->assertEquals(
-            'local_value', 
+            'local_value',
             $this->instance->filterFieldValue('local_value', 'option', ['key' => 'field_3', 'name' => 'field_name'])
         );
     }
@@ -135,9 +133,8 @@ class FilterGetFieldToRetriveCommonValuesTest extends TestCase
             ->method('getFieldFromSite');
 
         $this->assertEquals(
-            'local_value', 
+            'local_value',
             $this->instance->filterFieldValue('local_value', 15, ['key' => 'field_1', 'name' => 'field_name'])
         );
     }
-
 }
