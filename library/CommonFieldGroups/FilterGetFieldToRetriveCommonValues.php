@@ -50,7 +50,8 @@ public function populateFieldsToFilter(): void
     }
 
     // Add additional custom fields to filter
-    $this->fieldsToFilter[] = ['name' => 'broken_links_local_domains', 'key' => 'field_6718e7d0b54f7'];
+    $this->fieldsToFilter[] = ['name' => 'broken_links_local_domains_0_domain', 'key' => 'field_6718e860b54f9'];
+    $this->fieldsToFilter[] = ['name' => 'broken_links_local_domains_1_domain', 'key' => 'field_6718e860b54f9'];
 
     // Ensure unique fields by filtering out duplicates based on `name`
     $this->fieldsToFilter = array_unique($this->fieldsToFilter, SORT_REGULAR);
