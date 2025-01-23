@@ -70,6 +70,11 @@ class PopulateCommonFieldGroupSelectTest extends TestCase
                 return 'sitewide_common_acf_fieldgroups';
             }
 
+            public function getShouldFilterFieldValues(): bool
+            {
+                return true;
+            }   
+
             public function getOptionsSelectFieldKey(): string
             {
                 return 'sitewide_common_acf_fieldgroup_value';

@@ -51,6 +51,11 @@ class DisableFieldsThatAreCommonlyManagedOnSubsitesTest extends TestCase
                 return true;
             }
 
+            public function getShouldFilterFieldValues(): bool
+            {
+                return true;
+            }
+
             public function getOptionsKey(): string
             {
                 return 'sitewide_common_acf_fieldgroups';
