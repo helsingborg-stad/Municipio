@@ -72,53 +72,42 @@ public function populateFieldsToFilter(): void
     );
 
     // Add the stored values to this site's filters
-    // Filter both the value and the meta key reference
-foreach ($this->fieldsKeyValueStore as $optionKey => $optionValue) {
-    // 1. Allow get_option to find the value
-    $this->wpService->addFilter(
-        'pre_option_' . $optionKey,
-        function ($localValue) use ($optionValue) {
-            return $optionValue; // Return the main site’s value
-        }
-    );
-
-    // 2. Allow get_field to find the value via ACF
-    $this->wpService->addFilter(
-        'acf/pre_load_value/name=' . $optionKey,
-        function ($localValue) use ($optionValue) {
-            return $optionValue; // Return the main site’s value for the field
-        }
-    );
-
-    $this->wpService->addFilter(
-        'acf/load_value/name=' . $optionKey,
-        function ($localValue) use ($optionValue) {
-            return $optionValue; // Return the main site’s value for the field
-        }
-    );
-
-    // Handle the meta key reference (_options_)
-    if (str_starts_with($optionKey, '_options_')) {
-        $fieldKey = str_replace('_options_', '', $optionKey);
-
-        // Ensure that ACF can also find the field key reference
+    foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
         $this->wpService->addFilter(
-            'acf/pre_load_value/name=' . $fieldKey,
-            function ($localValue) use ($optionValue) {
-                return $optionValue; // Provide the field key reference
-            }
+            'pre_option_' . $fieldKey,
+            fn($localValue) => $fieldValue
         );
 
-        $this->wpService->addFilter(
-            'acf/load_value/name=' . $fieldKey,
-            function ($localValue) use ($optionValue) {
-                return $optionValue; // Provide the field key reference
-            }
-        );
+        // Handle only unprefixed keys for ACF filters
+        if (!str_starts_with($fieldKey, '_')) {
+            
+            //Works, little less data fetching
+            $this->wpService->addFilter(
+                'acf/pre_load_value',
+                function ($localValue, $postId, $field) use ($fieldKey, $fieldValue) {
+                    if ($field['name'] === $fieldKey) {
+                        return $fieldValue; // Match the field by its name and return the main site's value
+                    }
+                    return $localValue; // Return the default value for other fields
+                },
+                10,
+                3 // Correct argument count for this filter
+            );
+
+            //Works too, 
+            /*$this->wpService->addFilter(
+                'acf/load_value/name=' . $fieldKey,
+                function ($localValue) use ($fieldValue) {
+                    return $fieldValue; // Return the main site's value for ACF
+                }
+            );*/ 
+        }
+        
     }
-}
 
     if (isset($_GET['debug'])) {
+
+
         foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
             var_dump([
                 'key' => $fieldKey,
