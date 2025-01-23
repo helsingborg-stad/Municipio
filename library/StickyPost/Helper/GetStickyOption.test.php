@@ -17,9 +17,9 @@ class GetStickyOptionTest extends TestCase
      */
     public function testGetOptionKeyReturnsString()
     {
-        $stickyPostConfig = new StickyPostConfig();
+        $stickyPostConfig  = new StickyPostConfig();
         $getOptionInstance = new GetStickyOption(
-            $stickyPostConfig, 
+            $stickyPostConfig,
             new FakeWpService([
                 'getOption' => []
             ])
@@ -34,9 +34,9 @@ class GetStickyOptionTest extends TestCase
      */
     public function testGetOptionReturnsEmptyArray()
     {
-        $stickyPostConfig = new StickyPostConfig();
+        $stickyPostConfig  = new StickyPostConfig();
         $getOptionInstance = new GetStickyOption(
-            $stickyPostConfig, 
+            $stickyPostConfig,
             new FakeWpService([
                 'getOption' => null
             ])
@@ -51,7 +51,7 @@ class GetStickyOptionTest extends TestCase
      */
     public function testGetOptionReturnsArrayWithStickyPosts()
     {
-        $stickyPostConfig = new StickyPostConfig();
+        $stickyPostConfig  = new StickyPostConfig();
         $getOptionInstance = new GetStickyOption(
             $stickyPostConfig,
             new FakeWpService([

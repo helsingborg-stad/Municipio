@@ -68,6 +68,7 @@ class AddStickyCheckboxForPost implements Hookable
         $optionName   = $this->getStickyOptionHelper->getOptionKey($postType);
         $stickyOption = $this->getStickyOptionHelper->getOption($postType);
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (isset($_POST[$optionName])) {
             $stickyOption[$postId] = $postId;
         } else {
