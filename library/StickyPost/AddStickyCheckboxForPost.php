@@ -71,7 +71,10 @@ class AddStickyCheckboxForPost implements Hookable
     /**
      * Adds a sticky checkbox for private posts.
      *
-     * This method adds a sticky checkbox for private posts. It checks if the current user has the capability to edit the post. If not, the method returns without performing any action. Otherwise, it retrieves the sticky post meta value for the post and determines whether the checkbox should be checked or not. Finally, it renders the sticky checkbox with the provided checked value.
+     * This method adds a sticky checkbox for private posts. It checks if the current user has the capability to 
+     * edit the post. If not, the method returns without performing any action. Otherwise, it retrieves the 
+     * sticky post meta value for the post and determines whether the checkbox should be checked or not. 
+     * Finally, it renders the sticky checkbox with the provided checked value.
      *
      * @return void
      */
