@@ -62,7 +62,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
 
         // Call the function and return the field keys
-        return array_map(fn($field) => $field['key'], $func($groupId) ?: []);
+        return array_map(fn($field) => $field['name'], $func($groupId) ?: []);
     }
 
     /**
@@ -75,9 +75,19 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     public function filterFieldValue(mixed $localValue, null|string|int $id, array $field)
     {
-        if (in_array($id, ['option', 'options']) && in_array($field['key'], $this->fieldsToFilter, true)) {
+        
+        if(!in_array($id, ['option', 'options'])) {
+            return $localValue;
+        }
+
+        if($this->wpService->isMainSite()) {
+            return $localValue;
+        }
+
+        if (in_array($field['name'], $this->fieldsToFilter)) {
             return $this->getFieldValueFromMainBlog($field['name']);
         }
+        
         return $localValue;
     }
 
