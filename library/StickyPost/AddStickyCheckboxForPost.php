@@ -6,11 +6,13 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\StickyPost\Helper\GetStickyOption as GetStickyOptionHelper;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\CheckAdminReferer;
 use WpService\Contracts\Checked;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\UpdateOption;
+use WpService\Contracts\WpNonceField;
 
 /**
  * Represents a AddStickyCheckboxForPost class.
@@ -19,12 +21,15 @@ use WpService\Contracts\UpdateOption;
  */
 class AddStickyCheckboxForPost implements Hookable
 {
+    private const NONCE_ACTION = 'municipio_sticky_post_update';
+    private const NONCE_NAME   = '_municipio_sticky_post_nonce';
+
     /**
      * Constructor for the AddStickyCheckboxForPost class.
      */
     public function __construct(
         private GetStickyOptionHelper $getStickyOptionHelper,
-        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType $wpService
+        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer $wpService
     ) {
     }
 
@@ -51,7 +56,11 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function saveStickyCheckboxValue(int $postId): void
     {
-        if (!$this->wpService->currentUserCan('edit_post', $postId)) {
+        if (
+            !$this->wpService->currentUserCan('edit_post', $postId) ||
+            $this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false
+        ) {
+            die;
             return;
         }
 
@@ -108,10 +117,14 @@ class AddStickyCheckboxForPost implements Hookable
             '
             <div class="misc-pub-section misc-pub-sticky">
             <label><input type="checkbox" name="%s" value="true" %s> %s</label>
-            </div>',
+            ',
             $this->getStickyOptionHelper->getOptionKey($postType),
             $checked,
             $this->wpService->__('Make this post sticky', 'municipio')
         );
+
+        $this->wpService->wpNonceField(self::NONCE_ACTION, self::NONCE_NAME, true, true);
+
+        echo '</div>';
     }
 }
