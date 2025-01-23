@@ -23,7 +23,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     public function addHooks(): void
     {
-        if(!$this->wpService->isMainSite()) {
+        if($this->wpService->isMainSite()) {
             return;
         }
         $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 3);
