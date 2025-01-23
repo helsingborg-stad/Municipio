@@ -28,12 +28,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             return;
         }
         
-        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);
-
-        /*add_action('init', function() {
-            $this->wpService->addFilter('acf/pre_load_value', [$this, 'filterFieldValue'], 5, 3);
-        }, 15);*/ 
-       
+        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);       
     }
 
     /**
@@ -94,11 +89,13 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         }
 
         foreach($this->fieldsKeyValueStore as $optionKey => $optionValue) {
-            var_dump([
-                'key' => $optionKey,
-                'get-field' => get_field($optionKey, 'option'),
-                'get-option' => get_option($optionKey)
-            ]);
+            if(isset($_GET['debug'])) {
+                var_dump([
+                    'key' => $optionKey,
+                    'get-field' => get_field($optionKey, 'option'),
+                    'get-option' => get_option($optionKey)
+                ]);
+            }
         }
     }
 
