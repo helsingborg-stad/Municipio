@@ -20,7 +20,7 @@ class DisableFieldsThatAreCommonlyManagedOnSubsites implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('init', [$this, 'disableFieldGroups']);
+        $this->wpService->addAction('admin_init', [$this, 'disableFieldGroups']);
     }
 
     /**
