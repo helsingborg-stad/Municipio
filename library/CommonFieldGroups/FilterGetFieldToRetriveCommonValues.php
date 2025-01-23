@@ -72,18 +72,58 @@ public function populateFieldsToFilter(): void
     );
 
     // Add the stored values to this site's filters
-    foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
+    // Filter both the value and the meta key reference
+foreach ($this->fieldsKeyValueStore as $optionKey => $optionValue) {
+    // 1. Allow get_option to find the value
+    $this->wpService->addFilter(
+        'pre_option_' . $optionKey,
+        function ($localValue) use ($optionValue) {
+            return $optionValue; // Return the main site’s value
+        }
+    );
+
+    // 2. Allow get_field to find the value via ACF
+    $this->wpService->addFilter(
+        'acf/pre_load_value/name=' . $optionKey,
+        function ($localValue) use ($optionValue) {
+            return $optionValue; // Return the main site’s value for the field
+        }
+    );
+
+    $this->wpService->addFilter(
+        'acf/load_value/name=' . $optionKey,
+        function ($localValue) use ($optionValue) {
+            return $optionValue; // Return the main site’s value for the field
+        }
+    );
+
+    // Handle the meta key reference (_options_)
+    if (str_starts_with($optionKey, '_options_')) {
+        $fieldKey = str_replace('_options_', '', $optionKey);
+
+        // Ensure that ACF can also find the field key reference
         $this->wpService->addFilter(
-            'pre_option_' . $fieldKey,
-            fn($localValue) => $fieldValue
+            'acf/pre_load_value/name=' . $fieldKey,
+            function ($localValue) use ($optionValue) {
+                return $optionValue; // Provide the field key reference
+            }
+        );
+
+        $this->wpService->addFilter(
+            'acf/load_value/name=' . $fieldKey,
+            function ($localValue) use ($optionValue) {
+                return $optionValue; // Provide the field key reference
+            }
         );
     }
+}
 
     if (isset($_GET['debug'])) {
         foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
             var_dump([
                 'key' => $fieldKey,
                 'value' => $fieldValue,
+                'get-field' => get_field($fieldKey),
                 'get-option' => get_option($fieldKey),
             ]);
         }
