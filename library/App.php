@@ -470,10 +470,10 @@ class App
     {
         //Needs setUser to be called before using the user object
         $userHelper = new User(
-            $this->wpService, $this->acfService, 
-            new UserConfig(), 
-            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), 
-            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), 
+            $this->wpService, $this->acfService,
+            new UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
