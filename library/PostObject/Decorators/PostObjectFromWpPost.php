@@ -84,7 +84,7 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getPublishedTime(bool $gmt = false): int
     {
-        return $this->postObject->getPublishedTime($gmt);
+        return strtotime($gmt ? $this->wpPost->post_date_gmt : $this->wpPost->post_date);
     }
 
     /**
@@ -92,6 +92,6 @@ class PostObjectFromWpPost implements PostObjectInterface
      */
     public function getModifiedTime(bool $gmt = false): int
     {
-        return $this->postObject->getModifiedTime($gmt);
+        return strtotime($gmt ? $this->wpPost->post_modified_gmt : $this->wpPost->post_modified);
     }
 }
