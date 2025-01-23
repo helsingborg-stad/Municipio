@@ -12,6 +12,7 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
     public array $fieldsToFilter = [];
+    public array $fieldsKeyValueStore = []; 
 
     public function __construct(
         private WpService $wpService,
@@ -26,8 +27,13 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         if($this->wpService->isMainSite()) {
             return;
         }
-        $this->wpService->addFilter('init', [$this, 'populateFieldsToFilter'], 10, 3);
-        $this->wpService->addFilter('acf/load_value', [$this, 'filterFieldValue'], 10, 3);
+        
+        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);
+
+        /*add_action('init', function() {
+            $this->wpService->addFilter('acf/pre_load_value', [$this, 'filterFieldValue'], 5, 3);
+        }, 15);*/ 
+       
     }
 
     /**
@@ -38,7 +44,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     public function populateFieldsToFilter(): void
     {
         $acfGroupKeys = $this->config->getAcfFieldGroupsToFilter();
-
+ 
         foreach ($acfGroupKeys as $groupData) {
             foreach ($groupData as $groupId) {
                 $this->fieldsToFilter = array_merge(
@@ -47,7 +53,53 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                 );
             }
         }
-        $this->fieldsToFilter = array_unique($this->fieldsToFilter);
+
+        //TODO: Handle resolving of fields with repeaters. 
+        //TODO: Also, filter all _options_* prefixes, to return the field id. 
+        $this->fieldsToFilter[] = "broken_links_local_domains_0_domain"; 
+        $this->fieldsToFilter[] = "broken_links_local_domains_1_domain"; 
+        
+        //Make unique array
+        $this->fieldsToFilter = $fieldsToFilter = array_unique($this->fieldsToFilter);
+
+        //Get all values from the keys provided
+        $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function() {
+                foreach($this->fieldsToFilter as $fieldToFilter) {
+                    $fieldToFilterWithPrefix = "options_" . $fieldToFilter; 
+                    $this->fieldsKeyValueStore[$fieldToFilter] = get_option($fieldToFilterWithPrefix, false); 
+                }
+            }
+        );
+
+        //Filter the stored values into to this site
+        foreach($this->fieldsKeyValueStore as $optionKey => $optionValue) {
+            
+            //Allow get_option to find this
+            $this->wpService->addFilter(
+                'pre_option_' . $optionKey, 
+                function($localValue) use ($optionValue) {  
+                    return $optionValue;
+                }
+            );
+
+            //Allow get_field to find this
+            $this->wpService->addFilter(
+                'acf/load_value/name=' . $optionKey,
+                function($localValue) use ($optionValue) {  
+                    return $optionValue;
+                }
+            );
+        }
+
+        foreach($this->fieldsKeyValueStore as $optionKey => $optionValue) {
+            var_dump([
+                'key' => $optionKey,
+                'get-field' => get_field($optionKey, 'option'),
+                'get-option' => get_option($optionKey)
+            ]);
+        }
     }
 
     /**
@@ -84,7 +136,11 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             return $localValue;
         }
 
+        
+
         if (in_array($field['name'], $this->fieldsToFilter)) {
+
+            
             return $this->getFieldValueFromMainBlog($field['name']);
         }
         
