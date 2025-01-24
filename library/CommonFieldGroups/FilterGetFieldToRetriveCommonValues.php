@@ -43,9 +43,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         if ($this->wpService->isMainSite()) {
             return;
         }
-
         $this->wpService->addAction('init', [$this, 'initializeFieldsToFilter']);
-        $this->wpService->addAction('wp_head', [$this, 'debugFields']);
     }
 
     /**
@@ -120,12 +118,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         if (!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
             $this->wpService->addFilter('acf/pre_format_value', function ($null, $value, $postId, $field, $escape_html) use ($baseKey) {
                 if (!in_array($postId, ['options', 'option'])) {
-                    return null;
+                    return $null;
                 }
                 if ($field['name'] == $baseKey) {
                     return $value;
                 }
-                return null;
+                return $null;
             }, 10, 5);
 
             $this->processSubFields($field, $optionKey);
@@ -180,50 +178,6 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                 );
             }
         }
-    }
-
-    /**
-     * Debug fields
-     * Handy debugger function for development purposes.
-     * This function will be removed later on.
-     *
-     * @return void
-     */
-    public function debugFields(): void
-    {
-        $queryParams = $_GET ?? [];
-        if (!isset($queryParams['debugCommon'])) {
-            return;
-        }
-
-        $fnDebugMessage = function (string $message) {
-
-            echo PHP_EOL . PHP_EOL . "-------------------------" ;
-            echo PHP_EOL . $message . PHP_EOL;
-            echo "-------------------------" . PHP_EOL . PHP_EOL ;
-        };
-
-        echo '<pre>';
-        $fnDebugMessage("DEBUG MODE ON");
-
-        foreach ($this->fieldsToFilter as $field) {
-            var_dump($field['name'], [
-                'key'        => $field['key'],
-                'type'       => $field['type'],
-                'name'       => $field['name'],
-                'get_field'  => $this->acfService->getField($field['name'], 'option'),
-                'get_option' => $this->wpService->getOption('options_' . $field['name']),
-            ]);
-        }
-
-        if (isset($queryParams['debugCommonExit'])) {
-            $fnDebugMessage("DEBUG MODE EXIT");
-            echo '</pre>';
-            die();
-        }
-
-        echo '</pre>';
-        $fnDebugMessage("DEBUG MODE END");
     }
 
     /**
