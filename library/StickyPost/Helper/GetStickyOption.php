@@ -59,7 +59,7 @@ class GetStickyOption
         if (!is_array($option)) {
             $option = [];
         }
-        
+
         self::$optionsCache[$key] = $option;
 
         return $option;
