@@ -25,7 +25,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     public function addHooks(): void
     {
         if($this->wpService->isMainSite()) {
-            return;
+           // return;
         }
         
         $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);       
@@ -61,6 +61,7 @@ public function populateFieldsToFilter(): void
         $this->wpService->getMainSiteId(),
         function () {
             foreach ($this->fieldsToFilter as $field) {
+                var_dump($field);
                 $optionKey = "options_" . $field['name'];           // Key for actual option value
                 $metaKey = "_options_" . $field['name'];           // Key for field key (meta reference)
 
@@ -82,7 +83,7 @@ public function populateFieldsToFilter(): void
         if (!str_starts_with($fieldKey, '_')) {
             
             //Works, little less data fetching
-            $this->wpService->addFilter(
+            /*$this->wpService->addFilter(
                 'acf/pre_load_value',
                 function ($localValue, $postId, $field) use ($fieldKey, $fieldValue) {
                     if ($field['name'] === $fieldKey) {
@@ -92,15 +93,15 @@ public function populateFieldsToFilter(): void
                 },
                 10,
                 3 // Correct argument count for this filter
-            );
+            );*/
 
             //Works too, 
-            /*$this->wpService->addFilter(
+            $this->wpService->addFilter(
                 'acf/load_value/name=' . $fieldKey,
-                function ($localValue) use ($fieldValue) {
-                    return $fieldValue; // Return the main site's value for ACF
-                }
-            );*/ 
+                function ($value, $post_id, $field) use ($fieldValue) {
+                    return apply_filters( 'acf/format_value', $fieldValue, $post_id, $field );
+                }, 10, 3
+            ); 
         }
         
     }
@@ -132,7 +133,7 @@ public function getFieldKeysForGroup(string $groupId): array
 
     // Return both 'name' and 'key' for each field
     return array_map(
-        fn($field) => ['name' => $field['name'], 'key' => $field['key']],
+        fn($field) => ['name' => $field['name'], 'key' => $field['key'], 'type' => $field['type']],
         $func($groupId) ?: []
     );
 }
