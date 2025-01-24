@@ -59,7 +59,7 @@ class GetStickyOptionTest extends TestCase
             ])
         );
 
-        $result = $getOptionInstance->getOption('test');
+        $result = $getOptionInstance->getOption('test2');
         $this->assertEquals(['1' => '1'], $result);
     }
 }
