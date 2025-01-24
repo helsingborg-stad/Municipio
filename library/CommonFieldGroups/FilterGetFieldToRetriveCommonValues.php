@@ -101,9 +101,9 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $this->fieldsKeyValueStore[$optionKey] = $this->wpService->getOption($optionKey);
         $this->fieldsKeyValueStore[$acfFieldMetaKey] = $this->wpService->getOption($acfFieldMetaKey);
 
-        // Handle true/false fields
-        if ($field['type'] === "true_false") {
-            $this->fieldsKeyValueStore[$optionKey] = (bool)$this->fieldsKeyValueStore[$optionKey];
+        // Handle true/false fields (convert to bool)
+        if ($field['type'] === "true_false" && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
+            $this->fieldsKeyValueStore[$optionKey] = (bool) $this->fieldsKeyValueStore[$optionKey];
         }
 
         // Handle subfields for repeaters or similar structures
