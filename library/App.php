@@ -350,6 +350,11 @@ class App
         $this->setupComponentContextFilters();
 
         /**
+         * Sticky posts
+         */
+        $this->setupStickyPosts();
+
+        /**
          * Login screen
          */
         $this->setupLoginLogout();
@@ -436,6 +441,25 @@ class App
     }
 
     /**
+     * Sets up the sticky posts feature.
+     *
+     * This method initializes the sticky posts feature by creating an instance of the
+     * StickyPosts class and passing
+     */
+    private function setupStickyPosts(): void
+    {
+        $stickyPostConfig = new \Municipio\StickyPost\Config\StickyPostConfig();
+        $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption(
+            $stickyPostConfig,
+            $this->wpService
+        );
+        (new \Municipio\StickyPost\AddStickyCheckboxForPost(
+            $stickyPostHelper,
+            $this->wpService
+        ))->addHooks();
+    }
+
+    /**
      * Set up the custom login screen.
      *
      * This method is responsible to apply design changes to the login screen.
@@ -445,7 +469,14 @@ class App
     private function setupLoginLogout(): void
     {
         //Needs setUser to be called before using the user object
-        $userHelper = new User($this->wpService, $this->acfService, new UserConfig(), new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService), new \Municipio\Helper\Term\Term($this->wpService, $this->acfService), new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService));
+        $userHelper = new User(
+            $this->wpService,
+            $this->acfService,
+            new UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
 
         $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
         $filterAuthUrls->addHooks();
