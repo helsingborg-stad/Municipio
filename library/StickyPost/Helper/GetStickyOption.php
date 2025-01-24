@@ -12,8 +12,6 @@ use WpService\Contracts\GetOption;
  */
 class GetStickyOption
 {
-    private static array $optionsCache = [];
-
     /**
      * Constructor for the GetStickyOption class.
      *
@@ -47,10 +45,6 @@ class GetStickyOption
     {
         $key = $this->getOptionKey($suffix);
 
-        if (isset(self::$optionsCache[$key])) {
-            return self::$optionsCache[$key];
-        }
-
         $option = $this->wpService->getOption(
             $this->getOptionKey($suffix),
             []
@@ -59,8 +53,6 @@ class GetStickyOption
         if (!is_array($option)) {
             $option = [];
         }
-
-        self::$optionsCache[$key] = $option;
 
         return $option;
     }
