@@ -28,7 +28,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
            // return;
         }
         
-        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);       
+        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);     
     }
 
     /**
@@ -49,9 +49,27 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             }
         }
 
-        // Ensure unique fields by filtering out duplicates based on `name`
-        $this->fieldsToFilter = array_unique($this->fieldsToFilter, SORT_REGULAR);
+        $this->buildFieldData();
 
+        if(isset($_GET['common'])) {
+            $this->doFieldFiltering();
+        }
+
+        if (isset($_GET['debug'])) {
+            echo "DEBUG MODE ON: "; 
+            foreach ($this->fieldsToFilter as $field) {
+                var_dump([
+                    'key' => $field['key'],
+                    'type' => $field['type'],
+                    'name' => $field['name'],
+                    'get-field' => get_field($field['name']),
+                    'get-option' => get_option('options_' .$field['name']),
+                ]);
+            }
+        }
+    }
+
+    public function buildFieldData() {
         // Retrieve the values for each field from the main site
         $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
@@ -91,14 +109,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
                         $this->fieldsKeyValueStore[$optionKey] = $fieldArrayFormat;
                     }
-
-                    //Poplate main repeater field with repeater data from subfields
-
-
                 }
             }
         );
+    }
 
+    public function doFieldFiltering() {
         // Add the stored values to this site's filters
         foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
             $this->wpService->addFilter(
@@ -122,6 +138,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                     3
                 );*/ 
 
+                var_dump('FILTERING: acf/load_value/name=' . $fieldKey);
                 //Works too, 
                 $this->wpService->addFilter(
                     'acf/load_value/name=' . $fieldKey,
@@ -132,17 +149,6 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                 );
             }
             
-        }
-
-        if (isset($_GET['debug'])) {
-            foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
-                var_dump([
-                    'key' => $fieldKey,
-                    'value' => $fieldValue,
-                    'get-field' => get_field($fieldKey),
-                    'get-option' => get_option($fieldKey),
-                ]);
-            }
         }
     }
 
