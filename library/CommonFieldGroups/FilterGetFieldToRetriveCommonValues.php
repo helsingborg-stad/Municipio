@@ -11,18 +11,18 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 
 /**
  * FilterGetFieldToRetriveCommonValues
- * 
+ *
  * This class is responsible for filtering fields to retrieve common values.
- * 
+ *
  * This class will need some extensive refactoring in the future. Also tests will need to be written.
  * The debug function will be removed after release validation.
- * 
+ *
  * @category Municipio
  */
 
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
-    private array $fieldsToFilter = [];
+    private array $fieldsToFilter      = [];
     private array $fieldsKeyValueStore = [];
 
     public function __construct(
@@ -30,11 +30,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         private AcfService $acfService,
         private SiteSwitcherInterface $siteSwitcher,
         private CommonFieldGroupsConfigInterface $config
-    ) {}
+    ) {
+    }
 
     /**
      * Add hooks
-     * 
+     *
      * @return void
      */
     public function addHooks(): void
@@ -49,7 +50,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Initialize fields to filter
-     * 
+     *
      * @param array $queryParams
      * @return void
      */
@@ -62,7 +63,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Populate fields to filter
-     * 
+     *
      * @return void
      */
     private function populateFieldsToFilter(): void
@@ -71,7 +72,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
         foreach ($acfGroupKeys as $groupData) {
             foreach ($groupData as $groupId) {
-                $fields = $this->getFieldsForGroup($groupId);
+                $fields               = $this->getFieldsForGroup($groupId);
                 $this->fieldsToFilter = array_merge($this->fieldsToFilter, $fields);
             }
         }
@@ -79,7 +80,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Populate field values
-     * 
+     *
      * @return void
      */
     private function populateFieldValues(): void
@@ -96,18 +97,18 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Fetch field value
-     * 
+     *
      * @param array $field
      * @return void
      */
     private function fetchFieldValue(array $field): void
     {
-        $baseKey = $field['name']; 
-        $optionKey = "options_" . $field['name'];
+        $baseKey         = $field['name'];
+        $optionKey       = "options_" . $field['name'];
         $acfFieldMetaKey = "_options_" . $field['name'];
 
         // Fetch main value and ACF metadata key
-        $this->fieldsKeyValueStore[$optionKey] = $this->wpService->getOption($optionKey);
+        $this->fieldsKeyValueStore[$optionKey]       = $this->wpService->getOption($optionKey);
         $this->fieldsKeyValueStore[$acfFieldMetaKey] = $this->wpService->getOption($acfFieldMetaKey);
 
         // Handle true/false fields (convert to bool)
@@ -117,16 +118,15 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
         // Handle subfields for repeaters or similar structures
         if (!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
-
-            $this->wpService->addFilter('acf/pre_format_value', function($null, $value, $postId, $field, $escape_html) use($baseKey) {
-                if(!in_array($postId, ['options', 'option'])) {
+            $this->wpService->addFilter('acf/pre_format_value', function ($null, $value, $postId, $field, $escape_html) use ($baseKey) {
+                if (!in_array($postId, ['options', 'option'])) {
                     return null;
                 }
-                if($field['name'] == $baseKey) {
+                if ($field['name'] == $baseKey) {
                     return $value;
                 }
                 return null;
-            }, 10, 5); 
+            }, 10, 5);
 
             $this->processSubFields($field, $optionKey);
         }
@@ -134,20 +134,20 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Process subfields for repeaters or similar structures
-     * 
+     *
      * @param array $field
      * @param string $optionKey
      * @return void
      */
     private function processSubFields(array $field, string $optionKey): void
     {
-        $fieldArray = [];
+        $fieldArray      = [];
         $numberOfEntries = (int)$this->fieldsKeyValueStore[$optionKey];
 
         foreach ($field['sub_fields'] as $subField) {
             for ($i = 0; $i < $numberOfEntries; $i++) {
-                $subFieldKey = $optionKey . "_" . $i . "_" . $subField['name'];
-                $subFieldValue = $this->wpService->getOption($subFieldKey);
+                $subFieldKey                       = $optionKey . "_" . $i . "_" . $subField['name'];
+                $subFieldValue                     = $this->wpService->getOption($subFieldKey);
                 $fieldArray[$i][$subField['name']] = $subFieldValue;
 
                 $this->fieldsKeyValueStore[$subFieldKey] = $subFieldValue;
@@ -159,7 +159,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Apply filters to fields
-     * 
+     *
      * @return void
      */
     private function applyFiltersToFields(): void
@@ -184,9 +184,9 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
     /**
      * Debug fields
-     * Handy debugger function for development purposes. 
+     * Handy debugger function for development purposes.
      * This function will be removed later on.
-     * 
+     *
      * @return void
      */
     public function debugFields(): void
@@ -197,7 +197,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         }
 
         $fnDebugMessage = function (string $message) {
-            
+
             echo PHP_EOL . PHP_EOL . "-------------------------" ;
             echo PHP_EOL . $message . PHP_EOL;
             echo "-------------------------" . PHP_EOL . PHP_EOL ;
@@ -208,27 +208,27 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
         foreach ($this->fieldsToFilter as $field) {
             var_dump($field['name'], [
-                'key' => $field['key'],
-                'type' => $field['type'],
-                'name' => $field['name'],
-                'get_field' => $this->acfService->getField($field['name'], 'option'),
+                'key'        => $field['key'],
+                'type'       => $field['type'],
+                'name'       => $field['name'],
+                'get_field'  => $this->acfService->getField($field['name'], 'option'),
                 'get_option' => $this->wpService->getOption('options_' . $field['name']),
             ]);
         }
 
-        if(isset($queryParams['debugCommonExit'])) {
+        if (isset($queryParams['debugCommonExit'])) {
             $fnDebugMessage("DEBUG MODE EXIT");
             echo '</pre>';
             die();
         }
-        
+
         echo '</pre>';
         $fnDebugMessage("DEBUG MODE END");
     }
 
     /**
      * Get acf fields for a specific group
-     * 
+     *
      * @param string $groupId
      * @return array
      */
