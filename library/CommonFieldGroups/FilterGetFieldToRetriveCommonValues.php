@@ -29,6 +29,24 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         }
         
         $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);     
+
+        $this->wpService->addAction('wp_head', function() {
+            if (isset($_GET['debug'])) {
+                echo "DEBUG MODE ON: "; 
+                foreach ($this->fieldsToFilter as $field) {
+
+                    var_dump($field['name']); 
+
+                    var_dump([
+                        'key' => $field['key'],
+                        'type' => $field['type'],
+                        'name' => $field['name'],
+                        'get-field' => get_field($field['name'], 'option'),
+                        'get-option' => get_option('options_' .$field['name']),
+                    ]);
+                }
+            }
+        });
     }
 
     /**
@@ -55,18 +73,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             $this->doFieldFiltering();
         }
 
-        if (isset($_GET['debug'])) {
-            echo "DEBUG MODE ON: "; 
-            foreach ($this->fieldsToFilter as $field) {
-                var_dump([
-                    'key' => $field['key'],
-                    'type' => $field['type'],
-                    'name' => $field['name'],
-                    'get-field' => get_field($field['name']),
-                    'get-option' => get_option('options_' .$field['name']),
-                ]);
-            }
-        }
+       
     }
 
     public function buildFieldData() {
@@ -78,15 +85,22 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                     $optionKey = "options_" . $field['name'];           // Key for actual option value
                     $acfFieldMetaKey = "_options_" . $field['name']; 
 
+                    
+
                     // Fetch both the value and the field key reference
                     $this->fieldsKeyValueStore[$optionKey] = get_option($optionKey, false); // Main value
                     $this->fieldsKeyValueStore[$acfFieldMetaKey] = get_option($acfFieldMetaKey, false);    // Field key reference
+
+
+                    //True false
+                    if($field['type'] == "true_false") {
+                        $this->fieldsKeyValueStore[$optionKey] = ($this->fieldsKeyValueStore[$optionKey]) == 1 ? true : false;
+                    } 
 
                     //Filter sub fields
                     if(!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
 
                         $fieldArrayFormat = []; 
-
 
                         $numberOfFields = $this->fieldsKeyValueStore[$optionKey]; 
                         if (is_numeric($numberOfFields) && $numberOfFields > 0) {
@@ -96,16 +110,23 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
                                 for ($i = 0; $i < (int)$numberOfFields; $i++) {
                                     $subFieldOptionKey = $optionKey . "_" . $i . "_" . $subFieldName; 
+
+                                    
+
                                     $this->fieldsKeyValueStore[$subFieldOptionKey] = get_option($subFieldOptionKey, false);
 
 
+                                    var_dump("SBFOPK: " . $subFieldOptionKey, "SBFOPN: " . $subFieldName, $this->fieldsKeyValueStore[$subFieldOptionKey]);
+
                                     //Build array format 
-                                    $fieldArrayFormat[][$subFieldName] = $this->fieldsKeyValueStore[$subFieldOptionKey];
+                                    $fieldArrayFormat[$i][$subFieldName] = $this->fieldsKeyValueStore[$subFieldOptionKey];
 
 
                                 }
                             }
                         }
+
+                        var_dump($fieldArrayFormat);
 
                         $this->fieldsKeyValueStore[$optionKey] = $fieldArrayFormat;
                     }
@@ -126,27 +147,28 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             if (!str_starts_with($fieldKey, '_')) {
                 
                 //Works, little less data fetching
-                /*$this->wpService->addFilter(
+                $this->wpService->addFilter(
                     'acf/pre_load_value',
                     function ($localValue, $postId, $field) use ($fieldKey, $fieldValue) {
-                        if ($field['name'] === $fieldKey) {
-                            return apply_filters( 'acf/format_value', $fieldValue, $postId, $field );
+
+                        if ('options_' . $field['name'] === $fieldKey) {
+                            return $fieldValue;
+                            //return apply_filters( 'acf/format_value', $fieldValue, $postId, $field, 10, 3);
                         }
                         return $localValue;
                     },
                     10,
                     3
-                );*/ 
+                );
 
-                var_dump('FILTERING: acf/load_value/name=' . $fieldKey);
                 //Works too, 
-                $this->wpService->addFilter(
-                    'acf/load_value/name=' . $fieldKey,
+                /*$this->wpService->addFilter(
+                    'acf/load_value/name=' . str_replace("options_", "", $fieldKey),
                     function ($value, $postId, $field) use ($fieldValue) {
                         return apply_filters( 'acf/format_value', $fieldValue, $postId, $field);
                     },
                     10, 3
-                );
+                );*/ 
             }
             
         }
@@ -164,9 +186,6 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
 
         // Return both 'name' and 'key' for each field
-        return array_map(
-            fn($field) => ['name' => $field['name'], 'key' => $field['key'], 'type' => $field['type'], 'sub_fields' => $field['sub_fields'] ?? null],
-            $func($groupId) ?: []
-        );
+        return $func($groupId) ?: [];
     }
 }
