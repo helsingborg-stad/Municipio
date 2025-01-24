@@ -8,184 +8,196 @@ use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
-//TODO: Refactor everything!
+
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
-    public array $fieldsToFilter = [];
-    public array $fieldsKeyValueStore = []; 
+    private array $fieldsToFilter = [];
+    private array $fieldsKeyValueStore = [];
 
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
         private SiteSwitcherInterface $siteSwitcher,
         private CommonFieldGroupsConfigInterface $config
-    ) {
-    }
+    ) {}
 
+    /**
+     * Add hooks
+     * 
+     * @return void
+     */
     public function addHooks(): void
     {
-        if($this->wpService->isMainSite()) {
-           // return;
+        if ($this->wpService->isMainSite()) {
+            return;
         }
-        
-        $this->wpService->addAction('init', [$this, 'populateFieldsToFilter'], 10, 3);     
 
-        $this->wpService->addAction('wp_head', function() {
-            if (isset($_GET['debug'])) {
-                echo "DEBUG MODE ON: "; 
-                foreach ($this->fieldsToFilter as $field) {
-
-                    var_dump($field['name']); 
-
-                    var_dump([
-                        'key' => $field['key'],
-                        'type' => $field['type'],
-                        'name' => $field['name'],
-                        'get-field' => get_field($field['name'], 'option'),
-                        'get-option' => get_option('options_' .$field['name']),
-                    ]);
-                }
-            }
-        });
+        $this->wpService->addAction('init', fn() => $this->initializeFieldsToFilter($_GET ?? []));
+        $this->wpService->addAction('wp_head', fn() => $this->debugFields($_GET ?? []));
     }
 
     /**
-     * Populates the $fieldsToFilter array dynamically from ACF field groups provided in the config.
-     *
+     * Initialize fields to filter
+     * 
+     * @param array $queryParams
      * @return void
      */
-    public function populateFieldsToFilter(): void
+    public function initializeFieldsToFilter(array $queryParams): void
+    {
+        $this->populateFieldsToFilter();
+        $this->populateFieldValues();
+
+        if (isset($queryParams['common'])) {
+            $this->applyFiltersToFields();
+        }
+    }
+
+    /**
+     * Populate fields to filter
+     * 
+     * @return void
+     */
+    private function populateFieldsToFilter(): void
     {
         $acfGroupKeys = $this->config->getAcfFieldGroupsToFilter();
 
         foreach ($acfGroupKeys as $groupData) {
             foreach ($groupData as $groupId) {
-                $fields = $this->getFieldKeysForGroup($groupId);
-                foreach ($fields as $field) {
-                    $this->fieldsToFilter[] = $field; // Append fields (with both name and key)
-                }
+                $fields = $this->getFieldsForGroup($groupId);
+                $this->fieldsToFilter = array_merge($this->fieldsToFilter, $fields);
             }
         }
-
-        $this->buildFieldData();
-
-        if(isset($_GET['common'])) {
-            $this->doFieldFiltering();
-        }
-
-       
     }
 
-    public function buildFieldData() {
-        // Retrieve the values for each field from the main site
+    /**
+     * Populate field values
+     * 
+     * @return void
+     */
+    private function populateFieldValues(): void
+    {
         $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
-            function () { 
+            function () {
                 foreach ($this->fieldsToFilter as $field) {
-                    $optionKey = "options_" . $field['name'];           // Key for actual option value
-                    $acfFieldMetaKey = "_options_" . $field['name']; 
-
-                    
-
-                    // Fetch both the value and the field key reference
-                    $this->fieldsKeyValueStore[$optionKey] = get_option($optionKey, false); // Main value
-                    $this->fieldsKeyValueStore[$acfFieldMetaKey] = get_option($acfFieldMetaKey, false);    // Field key reference
-
-
-                    //True false
-                    if($field['type'] == "true_false") {
-                        $this->fieldsKeyValueStore[$optionKey] = ($this->fieldsKeyValueStore[$optionKey]) == 1 ? true : false;
-                    } 
-
-                    //Filter sub fields
-                    if(!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
-
-                        $fieldArrayFormat = []; 
-
-                        $numberOfFields = $this->fieldsKeyValueStore[$optionKey]; 
-                        if (is_numeric($numberOfFields) && $numberOfFields > 0) {
-                            
-                            foreach($field['sub_fields'] as $subField) {
-                                $subFieldName = $subField['name'];
-
-                                for ($i = 0; $i < (int)$numberOfFields; $i++) {
-                                    $subFieldOptionKey = $optionKey . "_" . $i . "_" . $subFieldName; 
-
-                                    
-
-                                    $this->fieldsKeyValueStore[$subFieldOptionKey] = get_option($subFieldOptionKey, false);
-
-
-                                    var_dump("SBFOPK: " . $subFieldOptionKey, "SBFOPN: " . $subFieldName, $this->fieldsKeyValueStore[$subFieldOptionKey]);
-
-                                    //Build array format 
-                                    $fieldArrayFormat[$i][$subFieldName] = $this->fieldsKeyValueStore[$subFieldOptionKey];
-
-
-                                }
-                            }
-                        }
-
-                        var_dump($fieldArrayFormat);
-
-                        $this->fieldsKeyValueStore[$optionKey] = $fieldArrayFormat;
-                    }
+                    $this->fetchFieldValue($field);
                 }
             }
         );
     }
 
-    public function doFieldFiltering() {
-        // Add the stored values to this site's filters
-        foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
-            $this->wpService->addFilter(
-                'pre_option_' . $fieldKey,
-                fn($localValue) => $fieldValue
-            );
+    /**
+     * Fetch field value
+     * 
+     * @param array $field
+     * @return void
+     */
+    private function fetchFieldValue(array $field): void
+    {
+        $optionKey = "options_" . $field['name'];
+        $acfFieldMetaKey = "_options_" . $field['name'];
 
-            // Handle only unprefixed keys for ACF filters
-            if (!str_starts_with($fieldKey, '_')) {
-                
-                //Works, little less data fetching
-                $this->wpService->addFilter(
-                    'acf/pre_load_value',
-                    function ($localValue, $postId, $field) use ($fieldKey, $fieldValue) {
+        // Fetch main value and ACF metadata key
+        $this->fieldsKeyValueStore[$optionKey] = $this->wpService->getOption($optionKey);
+        $this->fieldsKeyValueStore[$acfFieldMetaKey] = $this->wpService->getOption($acfFieldMetaKey);
 
-                        if ('options_' . $field['name'] === $fieldKey) {
-                            return $fieldValue;
-                            //return apply_filters( 'acf/format_value', $fieldValue, $postId, $field, 10, 3);
-                        }
-                        return $localValue;
-                    },
-                    10,
-                    3
-                );
+        // Handle true/false fields
+        if ($field['type'] === "true_false") {
+            $this->fieldsKeyValueStore[$optionKey] = (bool)$this->fieldsKeyValueStore[$optionKey];
+        }
 
-                //Works too, 
-                /*$this->wpService->addFilter(
-                    'acf/load_value/name=' . str_replace("options_", "", $fieldKey),
-                    function ($value, $postId, $field) use ($fieldValue) {
-                        return apply_filters( 'acf/format_value', $fieldValue, $postId, $field);
-                    },
-                    10, 3
-                );*/ 
-            }
-            
+        // Handle subfields for repeaters or similar structures
+        if (!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
+            $this->processSubFields($field, $optionKey);
         }
     }
 
     /**
-     * Retrieves the field keys for a specific ACF field group by its ID.
-     *
-     * @param string $groupId The ACF field group ID.
-     * @return array An array of fields with both 'name' and 'key'.
+     * Process subfields for repeaters or similar structures
+     * 
+     * @param array $field
+     * @param string $optionKey
+     * @return void
      */
-    public function getFieldKeysForGroup(string $groupId): array
+    private function processSubFields(array $field, string $optionKey): void
     {
-        // TODO: Remove when acf function is declared in service
-        $func = $this->acfService->acfGetFields ?? 'acf_get_fields';
+        $fieldArray = [];
+        $numberOfEntries = (int)$this->fieldsKeyValueStore[$optionKey];
 
-        // Return both 'name' and 'key' for each field
-        return $func($groupId) ?: [];
+        foreach ($field['sub_fields'] as $subField) {
+            for ($i = 0; $i < $numberOfEntries; $i++) {
+                $subFieldKey = $optionKey . "_" . $i . "_" . $subField['name'];
+                $subFieldValue = $this->wpService->getOption($subFieldKey);
+                $fieldArray[$i][$subField['name']] = $subFieldValue;
+
+                $this->fieldsKeyValueStore[$subFieldKey] = $subFieldValue;
+            }
+        }
+
+        $this->fieldsKeyValueStore[$optionKey] = $fieldArray;
+    }
+
+    /**
+     * Apply filters to fields
+     * 
+     * @return void
+     */
+    private function applyFiltersToFields(): void
+    {
+        foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
+            $this->wpService->addFilter(
+                'pre_option_' . $fieldKey,
+                fn() => $fieldValue
+            );
+
+            // Apply ACF-specific filters for unprefixed keys
+            if (!str_starts_with($fieldKey, '_')) {
+                $this->wpService->addFilter(
+                    'acf/pre_load_value',
+                    fn($localValue, $postId, $field) =>
+                        ('options_' . $field['name'] === $fieldKey ? $fieldValue : $localValue),
+                    10,
+                    3
+                );
+            }
+        }
+    }
+
+    /**
+     * Debug fields
+     * Handy debugger function for development purposes. 
+     * This function will be removed later on.
+     * 
+     * @param array $queryParams
+     * @return void
+     */
+    private function debugFields(array $queryParams): void
+    {
+        if (!isset($queryParams['debug'])) {
+            return;
+        }
+
+        echo "DEBUG MODE ON:" . PHP_EOL;
+        foreach ($this->fieldsToFilter as $field) {
+            var_dump($field['name'], [
+                'key' => $field['key'],
+                'type' => $field['type'],
+                'name' => $field['name'],
+                'get_field' => $this->acfService->getField($field['name'], 'option'),
+                'get_option' => $this->wpService->getOption('options_' . $field['name']),
+            ]);
+        }
+    }
+
+    /**
+     * Get acf fields for a specific group
+     * 
+     * @param string $groupId
+     * @return array
+     */
+    private function getFieldsForGroup(string $groupId): array
+    {
+        $fetchFields = $this->acfService->acfGetFields ?? 'acf_get_fields';
+        return $fetchFields($groupId) ?: [];
     }
 }
