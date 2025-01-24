@@ -49,25 +49,28 @@ public function populateFieldsToFilter(): void
         }
     }
 
-    // Add additional custom fields to filter
-    $this->fieldsToFilter[] = ['name' => 'broken_links_local_domains_0_domain', 'key' => 'field_6718e860b54f9'];
-    $this->fieldsToFilter[] = ['name' => 'broken_links_local_domains_1_domain', 'key' => 'field_6718e860b54f9'];
-
     // Ensure unique fields by filtering out duplicates based on `name`
     $this->fieldsToFilter = array_unique($this->fieldsToFilter, SORT_REGULAR);
 
     // Retrieve the values for each field from the main site
     $this->siteSwitcher->runInSite(
         $this->wpService->getMainSiteId(),
-        function () {
+        function () { 
             foreach ($this->fieldsToFilter as $field) {
-                var_dump($field);
                 $optionKey = "options_" . $field['name'];           // Key for actual option value
-                $metaKey = "_options_" . $field['name'];           // Key for field key (meta reference)
+                $acfFieldMetaKey = "_options_" . $field['name']; 
 
                 // Fetch both the value and the field key reference
                 $this->fieldsKeyValueStore[$optionKey] = get_option($optionKey, false); // Main value
-                $this->fieldsKeyValueStore[$metaKey] = get_option($metaKey, false);    // Field key reference
+                $this->fieldsKeyValueStore[$acfFieldMetaKey] = get_option($acfFieldMetaKey, false);    // Field key reference
+
+                if(!empty($field['sub_fields'])) {
+                    foreach($field['sub_fields'] as $subFieldIterationKey => $subFieldSpecification) {
+                        $subFieldOptionKey = $optionKey . "_" . $subFieldIterationKey . "_" . $subFieldSpecification['name']; 
+                        $this->fieldsKeyValueStore[$subFieldOptionKey] = get_option($subFieldOptionKey, false);
+                    }
+                }
+
             }
         }
     );
@@ -83,32 +86,30 @@ public function populateFieldsToFilter(): void
         if (!str_starts_with($fieldKey, '_')) {
             
             //Works, little less data fetching
-            /*$this->wpService->addFilter(
+            $this->wpService->addFilter(
                 'acf/pre_load_value',
                 function ($localValue, $postId, $field) use ($fieldKey, $fieldValue) {
                     if ($field['name'] === $fieldKey) {
-                        return $fieldValue; // Match the field by its name and return the main site's value
+                        return apply_filters( 'acf/format_value', $fieldValue, $postId, $field );
                     }
-                    return $localValue; // Return the default value for other fields
+                    return $localValue;
                 },
                 10,
-                3 // Correct argument count for this filter
-            );*/
+                3
+            );
 
             //Works too, 
-            $this->wpService->addFilter(
+            /*$this->wpService->addFilter(
                 'acf/load_value/name=' . $fieldKey,
-                function ($value, $post_id, $field) use ($fieldValue) {
+                function ( $value, $post_id, $field) use ($fieldValue) {
                     return apply_filters( 'acf/format_value', $fieldValue, $post_id, $field );
                 }, 10, 3
-            ); 
+            ); */ 
         }
         
     }
 
     if (isset($_GET['debug'])) {
-
-
         foreach ($this->fieldsKeyValueStore as $fieldKey => $fieldValue) {
             var_dump([
                 'key' => $fieldKey,
@@ -133,7 +134,7 @@ public function getFieldKeysForGroup(string $groupId): array
 
     // Return both 'name' and 'key' for each field
     return array_map(
-        fn($field) => ['name' => $field['name'], 'key' => $field['key'], 'type' => $field['type']],
+        fn($field) => ['name' => $field['name'], 'key' => $field['key'], 'type' => $field['type'], 'sub_fields' => $field['sub_fields']],
         $func($groupId) ?: []
     );
 }
