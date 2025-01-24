@@ -94,6 +94,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     private function fetchFieldValue(array $field): void
     {
+        $baseKey = $field['name']; 
         $optionKey = "options_" . $field['name'];
         $acfFieldMetaKey = "_options_" . $field['name'];
 
@@ -108,6 +109,17 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
         // Handle subfields for repeaters or similar structures
         if (!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
+
+            $this->wpService->addFilter('acf/pre_format_value', function($null, $value, $postId, $field, $escape_html) use($baseKey) {
+                if(!in_array($postId, ['options', 'option'])) {
+                    return null;
+                }
+                if($field['name'] == $baseKey) {
+                    return $value;
+                }
+                return null;
+            }, 10, 5); 
+
             $this->processSubFields($field, $optionKey);
         }
     }
@@ -154,8 +166,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             if (!str_starts_with($fieldKey, '_')) {
                 $this->wpService->addFilter(
                     'acf/pre_load_value',
-                    fn($localValue, $postId, $field) =>
-                        ('options_' . $field['name'] === $fieldKey ? $fieldValue : $localValue),
+                    fn($localValue, $postId, $field) => ('options_' . $field['name'] === $fieldKey ? $fieldValue : $localValue),
                     10,
                     3
                 );
