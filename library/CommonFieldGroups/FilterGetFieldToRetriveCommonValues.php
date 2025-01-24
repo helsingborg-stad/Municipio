@@ -9,6 +9,17 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 
+/**
+ * FilterGetFieldToRetriveCommonValues
+ * 
+ * This class is responsible for filtering fields to retrieve common values.
+ * 
+ * This class will need some extensive refactoring in the future. Also tests will need to be written.
+ * The debug function will be removed after release validation.
+ * 
+ * @category Municipio
+ */
+
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
     private array $fieldsToFilter = [];
@@ -32,8 +43,8 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             return;
         }
 
-        $this->wpService->addAction('init', fn() => $this->initializeFieldsToFilter($_GET ?? []));
-        $this->wpService->addAction('wp_head', fn() => $this->debugFields($_GET ?? []));
+        $this->wpService->addAction('init', [$this, 'initializeFieldsToFilter']);
+        $this->wpService->addAction('wp_head', [$this, 'debugFields']);
     }
 
     /**
@@ -42,14 +53,11 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      * @param array $queryParams
      * @return void
      */
-    public function initializeFieldsToFilter(array $queryParams): void
+    public function initializeFieldsToFilter(): void
     {
         $this->populateFieldsToFilter();
         $this->populateFieldValues();
-
-        if (isset($queryParams['common'])) {
-            $this->applyFiltersToFields();
-        }
+        $this->applyFiltersToFields();
     }
 
     /**
@@ -179,11 +187,11 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      * Handy debugger function for development purposes. 
      * This function will be removed later on.
      * 
-     * @param array $queryParams
      * @return void
      */
-    private function debugFields(array $queryParams): void
+    public function debugFields(): void
     {
+        $queryParams = $_GET ?? [];
         if (!isset($queryParams['debugCommon'])) {
             return;
         }
