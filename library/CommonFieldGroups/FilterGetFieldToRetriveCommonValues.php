@@ -8,7 +8,7 @@ use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
-
+//TODO: Refactor everything!
 class FilterGetFieldToRetriveCommonValues implements Hookable
 {
     public array $fieldsToFilter = [];
@@ -66,17 +66,34 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
 
                     //Filter sub fields
                     if(!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
+
+                        $fieldArrayFormat = []; 
+
+
                         $numberOfFields = $this->fieldsKeyValueStore[$optionKey]; 
                         if (is_numeric($numberOfFields) && $numberOfFields > 0) {
                             
-                            $subFieldName = $field['sub_fields'][0]['name'];
+                            foreach($field['sub_fields'] as $subField) {
+                                $subFieldName = $subField['name'];
 
-                            for ($i = 0; $i < (int)$numberOfFields; $i++) {
-                                $subFieldOptionKey = $optionKey . "_" . $i . "_" . $subFieldName; 
-                                $this->fieldsKeyValueStore[$subFieldOptionKey] = get_option($subFieldOptionKey, false);
+                                for ($i = 0; $i < (int)$numberOfFields; $i++) {
+                                    $subFieldOptionKey = $optionKey . "_" . $i . "_" . $subFieldName; 
+                                    $this->fieldsKeyValueStore[$subFieldOptionKey] = get_option($subFieldOptionKey, false);
+
+
+                                    //Build array format 
+                                    $fieldArrayFormat[][$subFieldName] = $this->fieldsKeyValueStore[$subFieldOptionKey];
+
+
+                                }
                             }
                         }
+
+                        $this->fieldsKeyValueStore[$optionKey] = $fieldArrayFormat;
                     }
+
+                    //Poplate main repeater field with repeater data from subfields
+
 
                 }
             }
@@ -144,21 +161,6 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         return array_map(
             fn($field) => ['name' => $field['name'], 'key' => $field['key'], 'type' => $field['type'], 'sub_fields' => $field['sub_fields'] ?? null],
             $func($groupId) ?: []
-        );
-    }
-
-    /**
-     * Fetches the field value from the main blog using the SiteSwitcher.
-     *
-     * @param string $optionKey The key of the field.
-     * @param mixed  $default The default value if the field does not exist.
-     * @return mixed The field value.
-     */
-    protected function getFieldValueFromMainBlog(string $optionKey): mixed
-    {
-        return $this->siteSwitcher->getFieldFromSite(
-            $this->wpService->getMainSiteId(), 
-            $optionKey
         );
     }
 }
