@@ -173,11 +173,20 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
      */
     private function debugFields(array $queryParams): void
     {
-        if (!isset($queryParams['debug'])) {
+        if (!isset($queryParams['debugCommon'])) {
             return;
         }
 
-        echo "DEBUG MODE ON:" . PHP_EOL;
+        $fnDebugMessage = function (string $message) {
+            
+            echo PHP_EOL . PHP_EOL . "-------------------------" ;
+            echo PHP_EOL . $message . PHP_EOL;
+            echo "-------------------------" . PHP_EOL . PHP_EOL ;
+        };
+
+        echo '<pre>';
+        $fnDebugMessage("DEBUG MODE ON");
+
         foreach ($this->fieldsToFilter as $field) {
             var_dump($field['name'], [
                 'key' => $field['key'],
@@ -187,6 +196,15 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
                 'get_option' => $this->wpService->getOption('options_' . $field['name']),
             ]);
         }
+
+        if(isset($queryParams['debugCommonExit'])) {
+            $fnDebugMessage("DEBUG MODE EXIT");
+            echo '</pre>';
+            die();
+        }
+        
+        echo '</pre>';
+        $fnDebugMessage("DEBUG MODE END");
     }
 
     /**
