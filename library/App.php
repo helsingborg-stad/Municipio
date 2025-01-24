@@ -457,6 +457,11 @@ class App
             $stickyPostHelper,
             $this->wpService
         ))->addHooks();
+
+        (new \Municipio\StickyPost\AddStickyLabelToPost(
+            $stickyPostHelper,
+            $this->wpService
+        ))->addHooks();
     }
 
     /**

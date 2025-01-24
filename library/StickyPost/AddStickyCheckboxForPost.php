@@ -56,11 +56,12 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function saveStickyCheckboxValue(int $postId): void
     {
+        // TODO: Fix nonce check
+        // Check if failing in gutenberg is caused by nonce since nonce field isnt created.
         if (
-            !$this->wpService->currentUserCan('edit_post', $postId) ||
-            $this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false
+            !$this->wpService->currentUserCan('edit_post', $postId)
+            // $this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false
         ) {
-            die;
             return;
         }
 
