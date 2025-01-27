@@ -50,7 +50,7 @@ class SliderHero
                 [
                     'type'    => 'modifier',
                     'context' => [
-                        'context' => 'module.slider.hero.slider-item', 
+                        'context'  => 'module.slider.hero.slider-item',
                         'operator' => '=='
                     ]
                 ]
@@ -75,7 +75,7 @@ class SliderHero
                 [
                     'type'    => 'modifier',
                     'context' => [
-                        'context' => 'module.slider.hero.slider-item', 
+                        'context'  => 'module.slider.hero.slider-item',
                         'operator' => '=='
                     ]
                 ]
@@ -100,7 +100,7 @@ class SliderHero
                     'type'    => 'component_data',
                     'dataKey' => 'overlay',
                     'context' => [
-                        'context' => 'module.slider.hero.slider-item', 
+                        'context'  => 'module.slider.hero.slider-item',
                         'operator' => '=='
                     ]
                 ]

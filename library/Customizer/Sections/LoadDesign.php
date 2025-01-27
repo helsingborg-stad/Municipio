@@ -42,8 +42,7 @@ class LoadDesign
         ));
 
         // Disable info
-        if(!$this->isBlogPublished()) {
-
+        if (!$this->isBlogPublished()) {
             new \Kirki\Pro\Field\Divider(
                 [
                     'settings' => 'load_design_state_divider',
