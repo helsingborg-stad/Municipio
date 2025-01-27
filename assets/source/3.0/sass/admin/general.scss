@@ -1,3 +1,5 @@
-#sticky-span {
+#sticky-span,
+.inline-edit-status + .alignleft [name="sticky"],
+.inline-edit-status + .alignleft [name="sticky"] + .checkbox-title {
     display: none !important;
 }
