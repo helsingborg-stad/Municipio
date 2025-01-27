@@ -71,9 +71,9 @@ class AddSelectUserGroupForPrivatePost implements Hookable
             return;
         }
 
-        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
-            return;
-        }
+        // if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
+        //     return;
+        // }
 
         $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey();
 
