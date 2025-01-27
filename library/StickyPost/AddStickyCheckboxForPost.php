@@ -13,6 +13,7 @@ use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\UpdateOption;
+use WpService\Contracts\UseBlockEditorForPost;
 use WpService\Contracts\WpNonceField;
 
 /**
@@ -30,7 +31,7 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function __construct(
         private GetStickyOptionHelper $getStickyOptionHelper,
-        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer&GetPostTypeObject $wpService
+        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer&GetPostTypeObject&UseBlockEditorForPost $wpService
     ) {
     }
 
@@ -57,12 +58,15 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function saveStickyCheckboxValue(int $postId): void
     {
-        // TODO: Fix nonce check
-        // Check if failing in gutenberg is caused by nonce since nonce field isnt created.
-        if (
-            !$this->wpService->currentUserCan('edit_post', $postId)
-            // $this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false
-        ) {
+        if ($this->wpService->useBlockEditorForPost($postId) === true) {
+            return;
+        }
+
+        if (!$this->wpService->currentUserCan('edit_post', $postId)) {
+            return;
+        }
+
+        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
             return;
         }
 
