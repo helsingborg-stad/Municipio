@@ -30,8 +30,8 @@ class PageTreeAppendMenuItemsFetchUrl implements MenuInterface
         $menu = $this->inner->getMenu();
 
         $targetMenuIdentifiers = [
-            'mobile'          => 'mobile',
-            'sidebar'         => 'sidebar',
+            'mobile'  => 'mobile',
+            'sidebar' => 'sidebar',
         ];
 
         $identifier = $this->getConfig()->getIdentifier();

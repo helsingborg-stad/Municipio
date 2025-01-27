@@ -7,7 +7,7 @@ namespace Municipio\Controller\Header;
  *
  * This class is responsible for transforming the margin data.
  */
-class MarginTransformer 
+class MarginTransformer
 {
     /**
      * Class MarginTransformer
@@ -15,7 +15,8 @@ class MarginTransformer
      * This class is responsible for transforming the margin data of the header.
      */
     public function __construct(private object $data)
-    {}
+    {
+    }
 
     /**
      * Transforms the header menu items by applying margin classes based on the settings.

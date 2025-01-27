@@ -36,8 +36,8 @@ class MenuConstructor
 
         $navMenuObject = GetMenuData::getNavMenuObject($menu);
 
-        $structuredMenu['items']           = $menuItems;
-        $structuredMenu['title']           = $navMenuObject ? $navMenuObject->name : null;
+        $structuredMenu['items'] = $menuItems;
+        $structuredMenu['title'] = $navMenuObject ? $navMenuObject->name : null;
 
         return $structuredMenu;
     }

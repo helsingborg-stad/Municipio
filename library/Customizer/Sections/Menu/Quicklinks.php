@@ -93,7 +93,7 @@ class Quicklinks
               'value'    => 'custom',
             ]
           ],
-        ]);
+          ]);
 
         KirkiField::addField([
         'type'             => 'slider',

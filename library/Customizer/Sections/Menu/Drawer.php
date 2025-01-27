@@ -20,16 +20,16 @@ class Drawer
             'default'     => '',
             'priority'    => 10,
             'choices'     => [
-                ''  => esc_html__('Basic', 'municipio'),
-                'primary' => esc_html__('Primary', 'municipio'),
+                ''          => esc_html__('Basic', 'municipio'),
+                'primary'   => esc_html__('Primary', 'municipio'),
                 'secondary' => esc_html__('Secondary', 'municipio'),
             ],
-            'output'          => [
+            'output'      => [
                 [
                     'type'    => 'modifier',
                     'context' => [
                       'site.header.drawer'
-                  ],
+                    ],
                 ]
             ],
         ]);
@@ -43,16 +43,16 @@ class Drawer
             'default'     => 'duotone-primary',
             'priority'    => 10,
             'choices'     => [
-                ''  => esc_html__('Basic', 'municipio'),
-                'duotone-primary' => esc_html__('Primary', 'municipio'),
+                ''                  => esc_html__('Basic', 'municipio'),
+                'duotone-primary'   => esc_html__('Primary', 'municipio'),
                 'duotone-secondary' => esc_html__('Secondary', 'municipio'),
             ],
-            'output'          => [
+            'output'      => [
                 [
                     'type'    => 'modifier',
                     'context' => [
                       'site.header.drawer'
-                  ],
+                    ],
                 ]
             ],
         ]);
