@@ -91,9 +91,9 @@ class IntermidiateImageHandler implements Hookable
         if (!$this->wpService->isWpError($imageEditor)) {
             // Get the original image dimensions
             $originalSize = $imageEditor->get_size();
-            
+
             // Determine target dimensions using min() to avoid upscaling
-            $targetWidth = min($image->getWidth(), $originalSize['width']);
+            $targetWidth  = min($image->getWidth(), $originalSize['width']);
             $targetHeight = min($image->getHeight(), $originalSize['height']);
 
             // Resize the image

@@ -9,7 +9,7 @@ use WpService\WpService;
 
 class RedirectToLoginWhenInternalContext implements Hookable
 {
-    private const USER_LOGGED_OUT_KEY = 'user_logged_out';
+    private const USER_LOGGED_OUT_KEY                   = 'user_logged_out';
     private const USER_HAS_BEEN_AUTO_LOGGED_IN_ONCE_KEY = 'user_has_been_auto_logged_in_once';
 
     public function __construct(private WpService $wpService, private BrokenLinksConfig $config)
@@ -55,9 +55,9 @@ class RedirectToLoginWhenInternalContext implements Hookable
 
     /**
      * Get current url
-     * 
+     *
      * @param array $queryParam
-     * 
+     *
      * @return string
      */
     private function getCurrentUrl(array $queryParam = []): string

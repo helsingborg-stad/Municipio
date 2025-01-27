@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Municipio\Admin\Login;
 
@@ -52,7 +52,7 @@ class DoNotHaltAuthWhenNonceIsMissing implements Hookable
      * @param string $nonceKey
      * @return void
      */
-    private function resetLogoutNonce(string $nonceKey) : void
+    private function resetLogoutNonce(string $nonceKey): void
     {
         if (!$this->wpService->wpVerifyNonce(($_REQUEST['_wpnonce'] ?? ''), $nonceKey)) {
             $_REQUEST['_wpnonce'] = $this->wpService->wpCreateNonce($nonceKey);
