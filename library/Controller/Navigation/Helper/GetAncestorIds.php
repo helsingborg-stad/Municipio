@@ -75,7 +75,7 @@ class GetAncestorIds
             $matchingMenuItem = array_filter($menuItems, function ($item) use ($id) {
                 return $item['id'] == $id;
             });
-            
+
             $matchingMenuItem = reset($matchingMenuItem);
 
             if ($matchingMenuItem['post_parent'] == 0) {

@@ -167,11 +167,11 @@ class Images
                 (int) $attachmentId,
                 [$conentContainerWidth, false],
                 new ImageResolver()
-            );*/ 
+            );*/
 
             $imageSrc = wp_get_attachment_image_src($attachmentId, [$conentContainerWidth, false]);
 
-            if($imageSrc && isset($imageSrc[0])) {
+            if ($imageSrc && isset($imageSrc[0])) {
                 $html = render_blade_view('partials.content.image', [
                     'src'              => $imageSrc[0],
                     'caption'          => $captionText,
@@ -179,8 +179,9 @@ class Images
                     'imgAttributeList' => [
                         'parsed' => true,
                     ],
-                    'attributeList' => [
-                        'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                    'attributeList'    => [
+                        'style' => sprintf(
+                            'width: min(%s, 100%%); height: auto;',
                             ($image->getAttribute('width') ?? 1920) . 'px'
                         )
                     ]
@@ -198,8 +199,9 @@ class Images
                 'imgAttributeList' => [
                     'parsed' => true
                 ],
-                'attributeList' => [
-                    'style' => sprintf('width: min(%s, 100%%); height: auto;',
+                'attributeList'    => [
+                    'style' => sprintf(
+                        'width: min(%s, 100%%); height: auto;',
                         ($image->getAttribute('width') ?? 1920) . 'px'
                     )
                 ]

@@ -11,6 +11,7 @@ use WpService\Contracts\Checked;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetPostType;
+use WpService\Contracts\GetPostTypeObject;
 use WpService\Contracts\UpdateOption;
 use WpService\Contracts\UseBlockEditorForPost;
 use WpService\Contracts\WpNonceField;
@@ -30,7 +31,7 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function __construct(
         private GetStickyOptionHelper $getStickyOptionHelper,
-        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer&UseBlockEditorForPost $wpService
+        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer&GetPostTypeObject&UseBlockEditorForPost $wpService
     ) {
     }
 
@@ -102,6 +103,11 @@ class AddStickyCheckboxForPost implements Hookable
             !$this->wpService->currentUserCan('edit_post', $post->ID) ||
             empty($post->post_type)
         ) {
+            return;
+        }
+
+        $postType = $this->wpService->getPostTypeObject($post->post_type);
+        if (!$postType || !$postType->public) {
             return;
         }
 

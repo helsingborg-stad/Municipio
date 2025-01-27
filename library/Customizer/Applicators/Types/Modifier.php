@@ -41,11 +41,10 @@ class Modifier extends AbstractApplicator implements ApplicatorInterface
         $returnModifiers = [];
 
         foreach ($modifiers as $filter) {
-
-            if(empty($filter['value']) || !is_string($filter['value'])) {
+            if (empty($filter['value']) || !is_string($filter['value'])) {
                 continue;
             }
-            
+
             $passFilterRules = false;
 
             foreach ($filter['contexts'] as $filterContext) {

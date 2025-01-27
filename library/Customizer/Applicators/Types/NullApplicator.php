@@ -2,7 +2,7 @@
 
 /**
  * NullApplicator.php
- * 
+ *
  * Build tor mocking and testing purposes.
  *
  * @package Municipio\Customizer\Applicators\Types

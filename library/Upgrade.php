@@ -670,7 +670,7 @@ class Upgrade
     public function v_34($db): bool
     {
         $header = get_theme_mod('header_apperance');
-        if($header == 'casual') {
+        if ($header == 'casual') {
             set_theme_mod('header_width', 'wide');
         }
         return true;
@@ -679,7 +679,7 @@ class Upgrade
     public function v_35($db): bool
     {
         $header = get_theme_mod('header_apperance');
-        if($header == '' || !$header) {
+        if ($header == '' || !$header) {
             set_theme_mod('header_width', 'wide');
         }
         return true;
@@ -691,8 +691,9 @@ class Upgrade
         return true;
     }
 
-    public function v_37($db) {
-        $applicators = [
+    public function v_37($db)
+    {
+        $applicators     = [
             new NullApplicator($this->wpService),
         ];
         $customizerCache = new \Municipio\Customizer\Applicators\ApplicatorCache(
