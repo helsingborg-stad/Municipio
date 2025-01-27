@@ -63,7 +63,7 @@ class E401 extends \Municipio\Controller\BaseController
                 'href'  => '/',
                 'icon'  => 'home',
                 'color' => 'secondary',
-                'style' => 'outlined'
+                'style' => 'filled'
             ]
         );
     }

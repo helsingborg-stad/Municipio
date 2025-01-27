@@ -3,6 +3,18 @@
         {{ $heading }}
     @endtypography
 
+    @form([
+        'action' => esc_url(site_url('wp-login.php', 'login_post'))
+    ])
+        @php 
+            do_action('login_form');
+        @endphp
+        <input type="text" name="log" id="user_login" required>
+        <input type="password" name="pwd" id="user_pass" required>
+        <input type="hidden" name="redirect_to" value="https://localhost:60330/news/test/">
+        <input type="submit" name="wp-submit" value="Log In">
+    @endform
+
     <div class="t-401__buttons">
         @foreach($actionButtons as $button) 
             @button([
