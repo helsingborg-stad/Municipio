@@ -128,6 +128,9 @@ class Enqueue
     {
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
+
+        wp_register_style('general-css', self::getAssetWithCacheBust('css/general.css'));
+        wp_enqueue_style('general-css');
     }
 
     /**
