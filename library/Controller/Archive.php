@@ -664,12 +664,44 @@ class Archive extends \Municipio\Controller\BaseController
                     );
                 }
 
+                $post->archiveDate       = $this->tryFormatDateToUnixTimestamp($post->archiveDate);
                 $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
 
                 $preparedPosts[] = $post;
             }
         }
         return $preparedPosts;
+    }
+
+    /**
+     * Try to format a date to a unix timestamp
+     *
+     * @param mixed $date The date to format
+     * @return int|null The formatted date as a unix timestamp or null if the date could not be formatted
+     */
+    public function tryFormatDateToUnixTimestamp(mixed $date): ?int
+    {
+        if (is_int($date)) {
+            return $date;
+        }
+
+        $date = str_ireplace($this->getLiteralDateStringReplaceMap()[0], $this->getLiteralDateStringReplaceMap()[1], $date);
+
+        return strtotime($date) ?: null;
+    }
+
+    /**
+     * Get the literal date string replace map
+     * @return array
+     */
+    private function getLiteralDateStringReplaceMap(): array
+    {
+        $wpService = \Municipio\Helper\WpService::get();
+
+        return [
+            [ $wpService->__('January'), $wpService->__('February'), $wpService->__('March'), $wpService->__('April'), $wpService->__('May'), $wpService->__('June'), $wpService->__('July'), $wpService->__('August'), $wpService->__('September'), $wpService->__('October'), $wpService->__('November'), $wpService->__('December'), $wpService->__('Jan'), $wpService->__('Feb'), $wpService->__('Mar'), $wpService->__('Apr'), $wpService->__('May'), $wpService->__('Jun'), $wpService->__('Jul'), $wpService->__('Aug'), $wpService->__('Sep'), $wpService->__('Oct'), $wpService->__('Nov'), $wpService->__('Dec'), $wpService->__('Monday'), $wpService->__('Tuesday'), $wpService->__('Wednesday'), $wpService->__('Thursday'), $wpService->__('Friday'), $wpService->__('Saturday'), $wpService->__('Sunday'), $wpService->__('Mon'), $wpService->__('Tue'), $wpService->__('Wed'), $wpService->__('Thu'), $wpService->__('Fri'), $wpService->__('Sat'), $wpService->__('Sun') ],
+            [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
+        ];
     }
 
     /**
