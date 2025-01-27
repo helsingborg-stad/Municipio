@@ -128,9 +128,6 @@ class Enqueue
     {
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
-
-        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
-        wp_enqueue_style('material-symbols-fonts');
     }
 
     /**
