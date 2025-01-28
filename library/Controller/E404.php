@@ -24,28 +24,14 @@ class E404 extends \Municipio\Controller\BaseController
         $this->data['subheading'] = $this->getSubheading();
 
         //Actions
-        $this->data['actionButtons'] = (object) array(
-            'goBack' => (object) [
-                'label' => __("Go back", 'municipio'),
-                'href'  => 'javascript:history.go(-1);',
-                'icon'  => 'arrow_back',
-                'color' => 'primary',
-                'style' => 'filled'
-            ],
-            'goHome' => (object) [
-                'label' => __("Go to homepage", 'municipio'),
-                'href'  => '/',
-                'icon'  => 'home',
-                'color' => 'secondary',
-                'style' => 'filled'
-            ]
-        );
+        $shouldLinkToArchive = $this->getPostTypeArchivePermalink() !== null ? [
+            'label' => __("Show all", 'municipio'),
+            'href'  => $this->data['archiveLink']
+        ] : [];
 
-        //Change to go back link if is archive
-        if ($this->getPostTypeArchivePermalink() !== null) {
-            $this->data['actionButtons']->goBack->label = __("Show all", 'municipio');
-            $this->data['actionButtons']->goBack->href  = $this->data['archiveLink'];
-        }
+        $this->data['actionButtons']   = [];
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton($shouldLinkToArchive);
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
     }
 
     /**

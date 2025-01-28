@@ -148,11 +148,17 @@ class Template
     */
     public function loadController(string $template = ''): array
     {
+        global $wp_query;
+
         if (
             !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
             $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
         ) {
-            $template = '404';
+            if ($wp_query->found_posts > 0) {
+                $template = '401';
+            } else {
+                $template = '404';
+            }
         }
 
         //Do something before controller creation
@@ -186,6 +192,11 @@ class Template
                 'condition'       => ('403' === $template),
                 'controllerClass' => \Municipio\Controller\E403::class,
                 'controllerPath'  => ControllerHelper::locateController('E403'),
+            ],
+            [
+                'condition'       => ('401' === $template),
+                'controllerClass' => \Municipio\Controller\E401::class,
+                'controllerPath'  => ControllerHelper::locateController('E401'),
             ],
             [
                 'condition'       => $shouldUseSchemaController(),
@@ -327,6 +338,7 @@ class Template
             'page'       => 'page.blade.php',
             '404'        => '404.blade.php',
             '403'        => '403.blade.php',
+            '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
             'author'     => 'author.blade.php',
             'category'   => 'category.blade.php',
