@@ -21,6 +21,15 @@ class ArchiveTest extends TestCase
     }
 
     /**
+     * @testdox tryFormatDateToUnixTimestamp() returns the same int as provided
+     */
+    public function testTryFormatDateToUnixTimestampReturnsSameIntAsProvided()
+    {
+        $archive = $this->getArchiveWithoutConstructor();
+        $this->assertEquals(1234567890, $archive->tryFormatDateToUnixTimestamp(1234567890));
+    }
+
+    /**
      * @testdox tryFormatDateToUnixTimestamp() returns null on invalid date string
      */
     public function testTryFormatDateToUnixTimestampReturnsNullOnInvalidString()
