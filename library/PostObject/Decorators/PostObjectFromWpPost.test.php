@@ -60,4 +60,52 @@ class PostObjectFromWpPostTest extends TestCase
 
         $this->assertEquals('post', $instance->getPostType());
     }
+
+    /**
+     * @testdox getPublishedTime returns timestamp from the WP_Post->post_date
+     */
+    public function testGetPublishedTimeReturnsTimestampFromTheWpPostPostDate()
+    {
+        $dateTimeString = date('Y-m-d H:i:s', $now = time());
+        $wpPost         = WpMockFactory::createWpPost(['post_date' => $dateTimeString]);
+        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+
+        $this->assertEquals($now, $instance->getPublishedTime());
+    }
+
+    /**
+     * @testdox getPublishedTime returns gmt timestamp from the WP_Post->post_date_gmt
+     */
+    public function testGetPublishedTimeReturnsGmtTimestampFromTheWpPostPostDateGmt()
+    {
+        $dateTimeString = date('Y-m-d H:i:s', $now = time());
+        $wpPost         = WpMockFactory::createWpPost(['post_date_gmt' => $dateTimeString]);
+        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+
+        $this->assertEquals($now, $instance->getPublishedTime(true));
+    }
+
+    /**
+     * @testdox getModifiedTime returns timestamp from the WP_Post->post_modified
+     */
+    public function testGetModifiedTimeReturnsTimestampFromTheWpPostPostModified()
+    {
+        $dateTimeString = date('Y-m-d H:i:s', $now = time());
+        $wpPost         = WpMockFactory::createWpPost(['post_modified' => $dateTimeString]);
+        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+
+        $this->assertEquals($now, $instance->getModifiedTime());
+    }
+
+    /**
+     * @testdox getModifiedTime returns gmt timestamp from the WP_Post->post_modified_gmt
+     */
+    public function testGetModifiedTimeReturnsGmtTimestampFromTheWpPostPostModifiedGmt()
+    {
+        $dateTimeString = date('Y-m-d H:i:s', $now = time());
+        $wpPost         = WpMockFactory::createWpPost(['post_modified_gmt' => $dateTimeString]);
+        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+
+        $this->assertEquals($now, $instance->getModifiedTime(true));
+    }
 }

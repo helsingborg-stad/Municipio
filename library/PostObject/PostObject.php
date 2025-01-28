@@ -73,4 +73,20 @@ class PostObject implements PostObjectInterface
     {
         return $this->wpService->getCurrentBlogId();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPublishedTime(bool $gmt = false): int
+    {
+        return 0;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getModifiedTime(bool $gmt = false): int
+    {
+        return 0;
+    }
 }

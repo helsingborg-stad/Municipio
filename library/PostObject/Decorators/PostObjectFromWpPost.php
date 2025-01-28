@@ -78,4 +78,20 @@ class PostObjectFromWpPost implements PostObjectInterface
     {
         return $this->postObject->getBlogId();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPublishedTime(bool $gmt = false): int
+    {
+        return strtotime($gmt ? $this->wpPost->post_date_gmt : $this->wpPost->post_date);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getModifiedTime(bool $gmt = false): int
+    {
+        return strtotime($gmt ? $this->wpPost->post_modified_gmt : $this->wpPost->post_modified);
+    }
 }

@@ -35,7 +35,7 @@
                     {{$lang->publish}}: 
                     @date([
                         'action' => 'formatDate',
-                        'timestamp' => $post->postDate
+                        'timestamp' => $post->getPublishedTime()
                     ])
                     @enddate
                 @endtypography	
@@ -44,7 +44,7 @@
                     {{$lang->updated}}: 
                     @date([
                         'action' => 'formatDate',
-                        'timestamp' => $post->postModified
+                        'timestamp' => $post->getModifiedTime()
                     ])
                     @enddate
                 @endtypography	

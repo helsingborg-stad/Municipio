@@ -664,12 +664,48 @@ class Archive extends \Municipio\Controller\BaseController
                     );
                 }
 
+                $post->archiveDate       = $this->tryFormatDateToUnixTimestamp($post->archiveDate);
                 $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
 
                 $preparedPosts[] = $post;
             }
         }
         return $preparedPosts;
+    }
+
+    /**
+     * Try to format a date to a unix timestamp
+     *
+     * @param mixed $date The date to format
+     * @return int|null The formatted date as a unix timestamp or null if the date could not be formatted
+     */
+    public function tryFormatDateToUnixTimestamp(mixed $date): ?int
+    {
+        if (is_int($date)) {
+            return $date;
+        }
+
+        $date = str_ireplace($this->getLiteralDateStringReplaceMap()[0], $this->getLiteralDateStringReplaceMap()[1], $date);
+
+        return strtotime($date) ?: null;
+    }
+
+    /**
+     * Get the literal date string replace map
+     * @return array
+     */
+    private function getLiteralDateStringReplaceMap(): array
+    {
+        $wpService       = \Municipio\Helper\WpService::get();
+        $literals        = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
+        $literalsShort   = array_map(fn($literal) => substr($literal, 0, 3), $literals);
+        $translated      = array_map(fn($literal) => $wpService->__($literal), $literals);
+        $translatedShort = array_map(fn($literal) => $wpService->__(substr($literal, 0, 3)), $literals);
+
+        $search  = array_merge($translated, $translatedShort);
+        $replace = array_merge($literals, $literalsShort);
+
+        return [$search, $replace];
     }
 
     /**
