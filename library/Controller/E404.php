@@ -40,7 +40,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return apply_filters('Municipio/404/Heading', __("Oops! The page you requested cannot be found.", 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/404/Heading', $this->wpService->__("Oops! The page you requested cannot be found.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**
@@ -49,7 +49,7 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getSubheading()
     {
-        return str_replace("%s", $this->getRequestedPostType(), apply_filters('Municipio/404/Body', __("The %s you are looking for is either moved or removed.", 'municipio'), $this->getRequestedPostType()));
+        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', $this->wpService->__("The %s you are looking for is either moved or removed.", 'municipio'), $this->getRequestedPostType()));
     }
 
     /**
@@ -65,10 +65,10 @@ class E404 extends \Municipio\Controller\BaseController
 
         //Default to page if not set
         if (!isset($postType) || is_null($postType)) {
-            $postType = __("post");
+            $postType = $this->wpService->__("post");
         }
 
-        return apply_filters('Municipio/404/PostType', $postType);
+        return $this->wpService->applyFilters('Municipio/404/PostType', $postType);
     }
 
     /**
@@ -77,9 +77,9 @@ class E404 extends \Municipio\Controller\BaseController
      */
     private function getPostTypeArchivePermalink()
     {
-        return apply_filters(
+        return $this->wpService->applyFilters(
             'Municipio/404/ArchivePermalink',
-            !is_null($this->getRequestedPostType()) && $this->getRequestedPostType() != "post" ? get_post_type_archive_link($this->getRequestedPostType()) : null
+            !is_null($this->getRequestedPostType()) && $this->getRequestedPostType() != "post" ? $this->wpService->getPostTypeArchiveLink($this->getRequestedPostType()) : null
         );
     }
 }

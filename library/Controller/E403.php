@@ -53,8 +53,6 @@ class E403 extends \Municipio\Controller\BaseController
      */
     public function init()
     {
-        global $wp;
-
         parent::init();
 
         //Get local instance of wp_query
@@ -78,7 +76,7 @@ class E403 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return $this->wpService->applyFilters('Municipio/403/Heading', __("Your user group do not have access to view this post.", 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/403/Heading', $this->wpService->__("Your user group do not have access to view this post.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**

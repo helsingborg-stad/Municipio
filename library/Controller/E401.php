@@ -65,7 +65,7 @@ class E401 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return $this->wpService->applyFilters('Municipio/401/Heading', __("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/401/Heading', $this->wpService->__("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**
