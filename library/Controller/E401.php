@@ -50,12 +50,13 @@ class E401 extends \Municipio\Controller\BaseController
         $this->data['heading'] = $this->getHeading();
 
         // Current URL
-        $this->data['currentUrl'] = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
+        $currentUrl = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
 
         //Actions
         $this->data['actionButtons']   = [];
         $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
         $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getLoginButton([], $currentUrl);
     }
 
     /**
