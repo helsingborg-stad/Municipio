@@ -6,10 +6,10 @@
     <div class="t-404__buttons">
         @foreach($actionButtons as $button) 
             @button([
-                'text' => $button->label,
-                'href' => $button->href,
-                'color' => $button->color,
-                'style' => $button->style,
+                'text' => $button['label'],
+                'href' => $button['href'],
+                'color' => $button['color'],
+                'style' => $button['style'],
                 'classList' => [
                     'u-margin__right--2', 
                     'u-margin__bottom--2', 
@@ -17,7 +17,7 @@
                     'u-display--block@xs'
                 ],
                 'size' => 'lg',
-                'icon' => $button->icon,
+                'icon' => $button['icon'],
                 'reversePositions' => true,
             ])
             @endbutton
