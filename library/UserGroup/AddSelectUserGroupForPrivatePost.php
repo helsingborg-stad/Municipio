@@ -14,9 +14,9 @@ use WpService\Contracts\SanitizeTextField;
 use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
 use Municipio\Helper\User\GetUserGroupTerms;
-use WpService\Contracts\CheckAdminReferer;
 use WpService\Contracts\UseBlockEditorForPost;
 use WpService\Contracts\WpNonceField;
+use WpService\Contracts\WpVerifyNonce;
 
 /**
  * Represents a UserGroupSelector class.
@@ -32,7 +32,7 @@ class AddSelectUserGroupForPrivatePost implements Hookable
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
-        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&CurrentUserCan&Checked&WpNonceField&CheckAdminReferer&UseBlockEditorForPost $wpService,
+        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&CurrentUserCan&Checked&WpNonceField&WpVerifyNonce&UseBlockEditorForPost $wpService,
         private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig,
@@ -76,7 +76,7 @@ class AddSelectUserGroupForPrivatePost implements Hookable
             return;
         }
 
-        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
+        if (!$this->wpService->wpVerifyNonce(self::NONCE_ACTION, self::NONCE_NAME)) {
             return;
         }
 

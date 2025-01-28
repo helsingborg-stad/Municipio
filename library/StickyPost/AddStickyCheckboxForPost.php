@@ -6,7 +6,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\StickyPost\Helper\GetStickyOption as GetStickyOptionHelper;
 use WpService\Contracts\__;
 use WpService\Contracts\AddAction;
-use WpService\Contracts\CheckAdminReferer;
+use WpService\Contracts\WpVerifyNonce;
 use WpService\Contracts\Checked;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\GetOption;
@@ -31,7 +31,7 @@ class AddStickyCheckboxForPost implements Hookable
      */
     public function __construct(
         private GetStickyOptionHelper $getStickyOptionHelper,
-        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&CheckAdminReferer&GetPostTypeObject&UseBlockEditorForPost $wpService
+        private AddAction&CurrentUserCan&Checked&__&GetOption&UpdateOption&GetPostType&WpNonceField&WpVerifyNonce&GetPostTypeObject&UseBlockEditorForPost $wpService
     ) {
     }
 
@@ -66,7 +66,7 @@ class AddStickyCheckboxForPost implements Hookable
             return;
         }
 
-        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
+        if (!$this->wpService->wpVerifyNonce(self::NONCE_ACTION, self::NONCE_NAME)) {
             return;
         }
 
