@@ -50,7 +50,7 @@ class E401 extends \Municipio\Controller\BaseController
         $this->data['heading'] = $this->getHeading();
 
         // Current URL
-        $this->data['currentUrl'] = $this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request));
+        $this->data['currentUrl'] = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
 
         //Actions
         $this->data['actionButtons']   = [];
