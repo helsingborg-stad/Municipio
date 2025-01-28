@@ -378,6 +378,26 @@ class App
          * Setup common options
          */
         $this->setUpCommonFieldGroups();
+
+        /**
+         * Setup global notices
+         */
+        $this->setUpGlobalNotices();
+    }
+
+    /**
+     * Set up the global notices feature.
+     *
+     * This method initializes the global notices feature by creating an instance of the
+     * RegisterGlobalNoticesFieldGroupsAdminPage class and passing the WordPress service instance.
+     * The method then adds the hooks to the WordPress service instance.
+     * @return void
+     */
+    private function setUpGlobalNotices(): void
+    {
+        //Admin
+        $registerGlobalNoticesFieldGroupsAdminPage = new \Municipio\GlobalNotices\RegisterGlobalNoticesFieldGroupsAdminPage($this->wpService, $this->acfService);
+        $registerGlobalNoticesFieldGroupsAdminPage->addHooks();
     }
 
     /**
