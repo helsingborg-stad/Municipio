@@ -161,7 +161,6 @@ class Template
             }
         }
 
-
         //Do something before controller creation
         do_action_deprecated(
             'Municipio/blade/before_load_controller',
@@ -188,6 +187,11 @@ class Template
                 'condition'       => ('404' === $template),
                 'controllerClass' => \Municipio\Controller\E404::class,
                 'controllerPath'  => ControllerHelper::locateController('E404'),
+            ],
+            [
+                'condition'       => ('403' === $template),
+                'controllerClass' => \Municipio\Controller\E403::class,
+                'controllerPath'  => ControllerHelper::locateController('E403'),
             ],
             [
                 'condition'       => ('401' === $template),
@@ -333,6 +337,7 @@ class Template
             'single'     => 'single.blade.php',
             'page'       => 'page.blade.php',
             '404'        => '404.blade.php',
+            '403'        => '403.blade.php',
             '401'        => '401.blade.php',
             'archive'    => 'archive.blade.php',
             'author'     => 'author.blade.php',
