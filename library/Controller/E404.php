@@ -2,10 +2,16 @@
 
 namespace Municipio\Controller;
 
+/**
+ * 404 controller
+ */
 class E404 extends \Municipio\Controller\BaseController
 {
     public $query;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();

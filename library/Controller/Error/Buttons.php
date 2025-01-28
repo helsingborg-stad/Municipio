@@ -4,8 +4,17 @@ namespace Municipio\Controller\Error;
 
 use Municipio\Helper\WpService;
 
+/**
+ * Button arguments
+ */
 class Buttons
 {
+    /**
+     * Get home button
+     *
+     * @param array $args
+     * @return array
+     */
     public static function getHomeButton(array $args = []): array
     {
         return array_merge($args, [
@@ -17,6 +26,12 @@ class Buttons
         ]);
     }
 
+    /**
+     * Get return button
+     *
+     * @param array $args
+     * @return array
+     */
     public static function getReturnButton(array $args = []): array
     {
         return array_merge($args, [
@@ -28,6 +43,13 @@ class Buttons
         ]);
     }
 
+    /**
+     * Get login button
+     *
+     * @param array $args
+     * @param string|null $redirectTo
+     * @return array
+     */
     public static function getLoginButton(array $args = [], ?string $redirectTo = null): array
     {
         $wpService = WpService::get();
