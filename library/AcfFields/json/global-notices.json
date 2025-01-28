@@ -8,7 +8,7 @@
             "name": "global_notices",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "",
+            "instructions": "The global notices feature will add a notices globally on the whole site in the style that you have chosen. You will also get the ability, to add an action.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -17,7 +17,7 @@
                 "id": ""
             },
             "acfe_repeater_stylised_button": 1,
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -35,7 +35,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "33.33",
                         "class": "",
                         "id": ""
                     },
@@ -47,12 +47,12 @@
                     "default_value": "toast",
                     "return_format": "value",
                     "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
@@ -65,7 +65,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "33.33",
                         "class": "",
                         "id": ""
                     },
@@ -78,12 +78,12 @@
                     "default_value": "info",
                     "return_format": "value",
                     "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
@@ -96,7 +96,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "33.33",
                         "class": "",
                         "id": ""
                     },
@@ -104,12 +104,12 @@
                     "default_value": false,
                     "return_format": "value",
                     "multiple": 0,
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
-                    "placeholder": "",
                     "allow_custom": 0,
                     "search_placeholder": "",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 1,
+                    "placeholder": "",
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
@@ -136,7 +136,7 @@
                 },
                 {
                     "key": "field_6798fb904462e",
-                    "label": "User Constraints",
+                    "label": "Constraints",
                     "name": "constraints",
                     "aria-label": "",
                     "type": "checkbox",
@@ -149,10 +149,10 @@
                         "id": ""
                     },
                     "choices": {
-                        "##User Constraints": "##User Constraints",
+                        "##User status": "##User status",
                         "loggedin": "Authenticated users",
                         "loggedout": "Un authenticated users",
-                        "##Page Constraints": "##Page Constraints",
+                        "##Page": "##Page",
                         "frontpage": "Frontpage",
                         "subpage": "Subpages"
                     },
@@ -164,28 +164,10 @@
                     ],
                     "return_format": "value",
                     "allow_custom": 0,
-                    "layout": "vertical",
-                    "toggle": 0,
+                    "layout": "horizontal",
+                    "toggle": 1,
                     "save_custom": 0,
                     "custom_choice_button_text": "L\u00e4gg till nytt val",
-                    "parent_repeater": "field_6798fa24c712e"
-                },
-                {
-                    "key": "field_6798fc239dc37",
-                    "label": "",
-                    "name": "",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
@@ -244,7 +226,7 @@
                                 ]
                             ],
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -272,7 +254,7 @@
                                 ]
                             ],
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -283,6 +265,65 @@
                     "acfe_group_modal_close": 0,
                     "acfe_group_modal_button": "",
                     "acfe_group_modal_size": "large",
+                    "parent_repeater": "field_6798fa24c712e"
+                },
+                {
+                    "key": "field_6799001b0fe0f",
+                    "label": "Dismissable",
+                    "name": "dismissable",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "This message can be dismissed",
+                    "default_value": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "ui": 1,
+                    "parent_repeater": "field_6798fa24c712e"
+                },
+                {
+                    "key": "field_6799005a0fe10",
+                    "label": "Dismissal lifetime",
+                    "name": "dismissal_lifetime",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_6799001b0fe0f",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "session": "Dismissed until user restarts browser",
+                        "permanent": "Dismissed \"forever\"",
+                        "temporary": "Dismissed until page reload"
+                    },
+                    "default_value": "session",
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "allow_null": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
                     "parent_repeater": "field_6798fa24c712e"
                 }
             ]
