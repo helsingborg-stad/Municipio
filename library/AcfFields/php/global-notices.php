@@ -310,7 +310,7 @@
                         ),
                     ),
                     'wrapper' => array(
-                        'width' => '',
+                        'width' => '50',
                         'class' => '',
                         'id' => '',
                     ),
