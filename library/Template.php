@@ -155,7 +155,11 @@ class Template
             $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
         ) {
             if ($wp_query->found_posts > 0) {
-                $template = '401';
+                if (!is_user_logged_in()) {
+                    $template = '401';
+                } else {
+                    $template = '403';
+                }
             } else {
                 $template = '404';
             }
