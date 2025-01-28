@@ -46,7 +46,7 @@ class AddStickyCheckboxForPost implements Hookable
     {
         $this->wpService->addAction('post_submitbox_misc_actions', array($this, 'addStickyCheckbox'), 10);
         $this->wpService->addAction('attachment_submitbox_misc_actions', array($this, 'addStickyCheckbox'), 10);
-        $this->wpService->addAction('save_post', array($this, 'saveStickyCheckboxValue'));
+        $this->wpService->addAction('edit_post', array($this, 'saveStickyCheckboxValue'));
         $this->wpService->addAction('edit_attachment', array($this, 'saveStickyCheckboxValue'));
     }
 

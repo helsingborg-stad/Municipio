@@ -51,7 +51,7 @@ class AddSelectUserGroupForPrivatePost implements Hookable
     {
         $this->wpService->addAction('post_submitbox_misc_actions', array($this, 'addUserVisibilitySelect'), 10);
         $this->wpService->addAction('attachment_submitbox_misc_actions', array($this, 'addUserVisibilitySelect'), 10);
-        $this->wpService->addAction('save_post', array($this, 'saveUserVisibilitySelect'));
+        $this->wpService->addAction('edit_post', array($this, 'saveUserVisibilitySelect'));
         $this->wpService->addAction('edit_attachment', array($this, 'saveUserVisibilitySelect'));
     }
 
