@@ -15,6 +15,7 @@ use Municipio\Admin\Private\Config\UserGroupRestrictionConfig;
 use Municipio\Helper\User\Config\UserConfig as UserHelperConfig;
 use Municipio\Helper\User\GetUserGroupTerms;
 use WpService\Contracts\CheckAdminReferer;
+use WpService\Contracts\UseBlockEditorForPost;
 use WpService\Contracts\WpNonceField;
 
 /**
@@ -31,7 +32,7 @@ class AddSelectUserGroupForPrivatePost implements Hookable
      * Constructor for the UserGroupSelector class.
      */
     public function __construct(
-        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&CurrentUserCan&Checked&WpNonceField&CheckAdminReferer $wpService,
+        private AddAction&DeletePostMeta&AddPostMeta&GetPostMeta&GetTerms&SanitizeTextField&CurrentUserCan&Checked&WpNonceField&CheckAdminReferer&UseBlockEditorForPost $wpService,
         private string $userGroupTaxonomyName,
         private UserHelperConfig $userHelperConfig,
         private UserGroupRestrictionConfig $userGroupRestrictionConfig,
@@ -67,13 +68,17 @@ class AddSelectUserGroupForPrivatePost implements Hookable
      */
     public function saveUserVisibilitySelect($postId)
     {
+        if ($this->wpService->useBlockEditorForPost($postId) === true) {
+            return;
+        }
+
         if (!$this->wpService->currentUserCan('edit_post', $postId)) {
             return;
         }
 
-        // if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
-        //     return;
-        // }
+        if ($this->wpService->checkAdminReferer(self::NONCE_ACTION, self::NONCE_NAME) === false) {
+            return;
+        }
 
         $metaKey = $this->userGroupRestrictionConfig->getUserGroupVisibilityMetaKey();
 

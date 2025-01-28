@@ -31,6 +31,11 @@ class DisplayUserGroupTaxonomyLinkInAdminUi implements Hookable
      */
     public function addTaxonomyMenuLink(): void
     {
+        //Check if taxonomy is enabled
+        if ($this->wpService->getTaxonomy($this->config->getUserGroupTaxonomy()) === null) {
+            return;
+        }
+
         // Ensure that the taxonomy appears under the Users menu
         $this->wpService->addSubmenuPage(
             'users.php',
