@@ -18,8 +18,8 @@
     </exclude>
     <report>
       <text outputFile="php://stdout" showUncoveredFiles="true"/>
-      <html outputDirectory="./tests/phpunit/.coverage"/>
-      <clover outputFile="./tests/phpunit/.coverage/clover.xml"/>
+      <html outputDirectory="./.coverage"/>
+      <clover outputFile="./.coverage/clover.xml"/>
     </report>
   </coverage>
 
