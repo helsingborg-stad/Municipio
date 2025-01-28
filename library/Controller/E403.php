@@ -43,18 +43,16 @@ class E403 extends \Municipio\Controller\BaseController
      * Set the title
      * @return string
      */
-    public function setup403Title()
+    public function setup403Title(): string
     {
         return $this->wpService->applyFilters('Municipio/403/Title', '403 - Municipio');
     }
 
     /**
-     * Init function
+     * @inheritdoc
      */
     public function init()
     {
-        global $wp;
-
         parent::init();
 
         //Get local instance of wp_query
@@ -76,16 +74,16 @@ class E403 extends \Municipio\Controller\BaseController
      * Returns the heading
      * @return  string
      */
-    protected function getHeading()
+    protected function getHeading(): string
     {
-        return $this->wpService->applyFilters('Municipio/403/Heading', __("Your user group do not have access to view this post.", 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/403/Heading', $this->wpService->__("Your user group do not have access to view this post.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**
      * Returns the posttype requested, if post found, default to post.
      * @return string
      */
-    private function getRequestedPostType()
+    private function getRequestedPostType(): string
     {
         //Get queried posttype
         if (isset($this->query->query) && isset($this->query->query['post_type'])) {

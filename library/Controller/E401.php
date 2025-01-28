@@ -7,10 +7,16 @@ use Municipio\Controller\Navigation\MenuDirector;
 use WpService\WpService;
 use AcfService\AcfService;
 
+/**
+ * 401 controller
+ */
 class E401 extends \Municipio\Controller\BaseController
 {
     public $query;
 
+    /**
+     * Constructor
+     */
     public function __construct(
         protected MenuBuilderInterface $menuBuilder,
         protected MenuDirector $menuDirector,
@@ -29,11 +35,19 @@ class E401 extends \Municipio\Controller\BaseController
         );
     }
 
-    public function setup401Title()
+    /**
+     * Setup 401 title
+     *
+     * @return string
+     */
+    public function setup401Title(): string
     {
         return $this->wpService->applyFilters('Municipio/401/Title', '401 - Municipio');
     }
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         global $wp;
@@ -50,28 +64,29 @@ class E401 extends \Municipio\Controller\BaseController
         $this->data['heading'] = $this->getHeading();
 
         // Current URL
-        $this->data['currentUrl'] = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
+        $currentUrl = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
 
         //Actions
         $this->data['actionButtons']   = [];
         $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
         $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getLoginButton([], $currentUrl);
     }
 
     /**
      * Returns the heading
      * @return  string
      */
-    protected function getHeading()
+    protected function getHeading(): string
     {
-        return $this->wpService->applyFilters('Municipio/401/Heading', __("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/401/Heading', $this->wpService->__("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**
      * Returns the posttype requested, if post found, default to post.
      * @return string
      */
-    private function getRequestedPostType()
+    private function getRequestedPostType(): string
     {
         //Get queried posttype
         if (isset($this->query->query) && isset($this->query->query['post_type'])) {
