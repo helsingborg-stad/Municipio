@@ -16,8 +16,7 @@ class E401 extends \Municipio\Controller\BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService
-    )
-    {
+    ) {
         $this->wpService->statusHeader(401);
 
         $this->wpService->addFilter('wp_title', array($this, 'setup401Title'));
@@ -37,6 +36,8 @@ class E401 extends \Municipio\Controller\BaseController
 
     public function init()
     {
+        global $wp;
+
         parent::init();
 
         //Get local instance of wp_query
@@ -45,27 +46,16 @@ class E401 extends \Municipio\Controller\BaseController
         //Get current post type to view
         $this->data['postType'] = $this->getRequestedPostType();
 
-        //Content
-        $this->data['heading']    = $this->getHeading();
-        $this->data['subheading'] = $this->getSubheading();
+        //Heading
+        $this->data['heading'] = $this->getHeading();
+
+        // Current URL
+        $this->data['currentUrl'] = $this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request));
 
         //Actions
-        $this->data['actionButtons'] = (object) array(
-            'goBack' => (object) [
-                'label' => __("Go back", 'municipio'),
-                'href'  => 'javascript:history.go(-1);',
-                'icon'  => 'arrow_back',
-                'color' => 'primary',
-                'style' => 'filled'
-            ],
-            'goHome' => (object) [
-                'label' => __("Go to homepage", 'municipio'),
-                'href'  => '/',
-                'icon'  => 'home',
-                'color' => 'secondary',
-                'style' => 'filled'
-            ]
-        );
+        $this->data['actionButtons']   = [];
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
+        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
     }
 
     /**
@@ -74,16 +64,7 @@ class E401 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return $this->wpService->applyFilters('Municipio/401/Heading', __("You need to be logged in to view this post.", 'municipio'), $this->getRequestedPostType());
-    }
-
-    /**
-     * Returns the body
-     * @return string
-     */
-    protected function getSubheading()
-    {
-        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/401/Body', $this->wpService->__("The %s you are looking for is either moved or removed.", 'municipio'), $this->getRequestedPostType()));
+        return $this->wpService->applyFilters('Municipio/401/Heading', __("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
     }
 
     /**
