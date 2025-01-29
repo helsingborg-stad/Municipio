@@ -5,10 +5,8 @@ namespace Municipio\GlobalNotices;
 use AcfService\AcfService;
 use WpService\WpService;
 
-class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
+class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, GetAndApplyGlobalNoticesInterface
 {
-    private $noticeDataKey = 'notice';
-
     public function __construct(private WpService $wpService, private AcfService $acfService, private GlobalNoticesConfig $config)
     {
     }
@@ -107,13 +105,15 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
      */
     public function filterViewData(array $data): array
     {
-        if (!isset($data[$this->noticeDataKey]) || !is_array($data[$this->noticeDataKey])) {
-            $data[$this->noticeDataKey] = [];
+        $noticeDataKey = $this->config->getNoticeDataKey();
+
+        if (!isset($data[$noticeDataKey]) || !is_array($data[$noticeDataKey])) {
+            $data[$noticeDataKey] = [];
         }
 
         foreach ($this->config->getLocations() as $location) {
-            $data[$this->noticeDataKey][$location] ??= [];
-            $data[$this->noticeDataKey][$location]   = $this->getGlobalNoticesByLocation($location);
+            $data[$noticeDataKey][$location] ??= [];
+            $data[$noticeDataKey][$location]   = $this->getGlobalNoticesByLocation($location);
         }
         return $data;
     }

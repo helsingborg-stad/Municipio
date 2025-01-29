@@ -14,10 +14,15 @@ enum GlobalNoticeLocation: string
     }
 }
 
-class GlobalNoticesConfig
+class GlobalNoticesConfig implements GlobalNoticesConfigInterface
 {
     public function getLocations(): array
     {
         return GlobalNoticeLocation::values();
+    }
+
+    public function getNoticeDataKey(): string
+    {
+        return 'notice';
     }
 }
