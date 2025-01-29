@@ -28,20 +28,24 @@ class PrefillIconChoice
             'material_icon',
             'mega_menu_button_icon',
             'box_icon',
-            'icon'
+            'field_6798fafa0eda7' // Global Notices icon
         ]);
 
 
         foreach ($fieldNames as $fieldName) {
+
+            $isKey = strpos($fieldName, 'field_') === 0;
+            $targetOperator = $isKey ? 'key' : 'name';
+
             $this->wpService->addFilter(
-                'acf/prepare_field/name=' . $fieldName,
+                'acf/prepare_field/'.$targetOperator.'=' . $fieldName,
                 array($this, 'setDefaultIconIfEmpty'),
                 10,
                 1
             );
 
             $this->wpService->addFilter(
-                'acf/load_field/name=' . $fieldName,
+                'acf/load_field/'.$targetOperator.'=' . $fieldName,
                 array($this, 'addIconsList'),
                 10,
                 1
