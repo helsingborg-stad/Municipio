@@ -106,10 +106,8 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, Ge
     public function filterViewData(array $data): array
     {
         $noticeDataKey = $this->config->getNoticeDataKey();
-
-        if (!isset($data[$noticeDataKey]) || !is_array($data[$noticeDataKey])) {
-            $data[$noticeDataKey] = [];
-        }
+        
+        $data[$noticeDataKey] = $data[$noticeDataKey] ?? [];
 
         foreach ($this->config->getLocations() as $location) {
             $data[$noticeDataKey][$location] ??= [];
