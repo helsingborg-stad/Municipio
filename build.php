@@ -5,9 +5,9 @@ if (php_sapi_name() !== 'cli') {
     exit(0);
 }
 
-/* Parameters: 
+/* Parameters:
  --no-composer      Does not install vendors. Just create the autoloader.
- --cleanup          Remove removeables. 
+ --cleanup          Remove removeables.
  --install-npm      Install NPM package instead
 */
 
@@ -15,30 +15,30 @@ if (php_sapi_name() !== 'cli') {
 $buildCommands = [];
 
 //Add composer build, if flag --no-composer is undefined.
-//Dump autloader. 
+//Dump autloader.
 //Only if composer.json exists.
-if(file_exists('composer.json')) {
-    if(is_array($argv) && !in_array('--no-composer', $argv)) {
-        $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev'; 
+if (file_exists('composer.json')) {
+    if (is_array($argv) && !in_array('--no-composer', $argv)) {
+        $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev';
     }
     $buildCommands[] = 'composer dump-autoload';
 }
 
 //Run npm if package.json is found
-if(file_exists('package.json') && file_exists('package-lock.json')) {
-    if(is_array($argv) && !in_array('--install-npm', $argv)) {
+if (file_exists('package.json') && file_exists('package-lock.json')) {
+    if (is_array($argv) && !in_array('--install-npm', $argv)) {
         $buildCommands[] = 'npm ci --no-progress --no-audit';
     } else {
-        $npmPackage = json_decode(file_get_contents('package.json'));
+        $npmPackage      = json_decode(file_get_contents('package.json'));
         $buildCommands[] = "npm install $npmPackage->name";
         $buildCommands[] = "rm -rf ./dist";
         $buildCommands[] = "mv node_modules/$npmPackage->name/dist ./";
     }
-} elseif(file_exists('package.json') && !file_exists('package-lock.json')) {
-    if(is_array($argv) && !in_array('--install-npm', $argv)) {
+} elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
+    if (is_array($argv) && !in_array('--install-npm', $argv)) {
         $buildCommands[] = 'npm install --no-progress --no-audit';
     } else {
-        $npmPackage = json_decode(file_get_contents('package.json'));
+        $npmPackage      = json_decode(file_get_contents('package.json'));
         $buildCommands[] = "npm install $npmPackage->name";
         $buildCommands[] = "rm -rf ./dist";
         $buildCommands[] = "mv node_modules/$npmPackage->name/dist ./";
@@ -72,12 +72,12 @@ $removables = [
 $dirName = basename(dirname(__FILE__));
 
 // Run all build commands.
-$output = '';
+$output   = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "---- Running build command '$buildCommand' for $dirName. ----\n";
     $timeStart = microtime(true);
-    $exitCode = executeCommand($buildCommand);
+    $exitCode  = executeCommand($buildCommand);
     $buildTime = round(microtime(true) - $timeStart);
     print "---- Done build command '$buildCommand' for $dirName.  Build time: $buildTime seconds. ----\n";
     if ($exitCode > 0) {
@@ -86,7 +86,7 @@ foreach ($buildCommands as $buildCommand) {
 }
 
 // Remove files and directories if '--cleanup' argument is supplied to save local developers from disasters.
-if(is_array($argv) && in_array('--cleanup', $argv)) {
+if (is_array($argv) && in_array('--cleanup', $argv)) {
     foreach ($removables as $removable) {
         if (file_exists($removable)) {
             print "Removing $removable from $dirName\n";
