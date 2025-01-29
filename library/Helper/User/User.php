@@ -107,7 +107,8 @@ class User implements
 
                 (new \Municipio\UserGroup\CreateUserGroupTaxonomy(
                     $this->wpService,
-                    $this->userGroupConfig
+                    $this->userGroupConfig,
+                    $this->siteSwitcher
                 ))->registerUserGroupTaxonomy();
 
                 return $this->wpService->wpGetObjectTerms(
@@ -264,7 +265,8 @@ class User implements
                 if ($termId = $this->termHelper->createOrGetTermIdFromString($groupName, $taxonomy)) {
                     (new CreateUserGroupTaxonomy(
                         $this->wpService,
-                        $this->userGroupConfig
+                        $this->userGroupConfig,
+                        $this->siteSwitcher
                     ))->registerUserGroupTaxonomy();
 
                     $this->wpService->wpSetObjectTerms($user->ID, $termId, $taxonomy, false);
