@@ -160,7 +160,7 @@
                         "loggedin",
                         "loggedout",
                         "frontpage",
-                        "subpages"
+                        "subpage"
                     ],
                     "return_format": "value",
                     "allow_custom": 0,
@@ -204,9 +204,9 @@
                             },
                             "message": "",
                             "default_value": 0,
-                            "ui": 0,
                             "ui_on_text": "",
-                            "ui_off_text": ""
+                            "ui_off_text": "",
+                            "ui": 1
                         },
                         {
                             "key": "field_6798fc5e9dc39",
@@ -268,62 +268,84 @@
                     "parent_repeater": "field_6798fa24c712e"
                 },
                 {
-                    "key": "field_6799001b0fe0f",
+                    "key": "field_6799cf0e2826f",
                     "label": "Dismissable",
                     "name": "dismissable",
                     "aria-label": "",
-                    "type": "true_false",
+                    "type": "group",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "50",
+                        "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "message": "This message can be dismissed",
-                    "default_value": 1,
-                    "ui_on_text": "",
-                    "ui_off_text": "",
-                    "ui": 1,
-                    "parent_repeater": "field_6798fa24c712e"
-                },
-                {
-                    "key": "field_6799005a0fe10",
-                    "label": "Dismissal lifetime",
-                    "name": "dismissal_lifetime",
-                    "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_6799001b0fe0f",
-                                "operator": "==",
-                                "value": "1"
-                            }
-                        ]
+                    "layout": "block",
+                    "acfe_seamless_style": 0,
+                    "acfe_group_modal": 0,
+                    "sub_fields": [
+                        {
+                            "key": "field_6799001b0fe0f",
+                            "label": "Dismissable",
+                            "name": "is_dismissable",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "This message can be dismissed",
+                            "default_value": 1,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_6799005a0fe10",
+                            "label": "Dismissal lifetime",
+                            "name": "lifetime",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6799001b0fe0f",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "session": "Dismissed until user restarts browser",
+                                "permanent": "Dismissed \"forever\"",
+                                "temporary": "Dismissed until page reload"
+                            },
+                            "default_value": "session",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_custom": 0,
+                            "search_placeholder": "",
+                            "allow_null": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "placeholder": ""
+                        }
                     ],
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "choices": {
-                        "session": "Dismissed until user restarts browser",
-                        "permanent": "Dismissed \"forever\"",
-                        "temporary": "Dismissed until page reload"
-                    },
-                    "default_value": "session",
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
-                    "allow_null": 0,
-                    "ui": 1,
-                    "ajax": 0,
-                    "placeholder": "",
+                    "acfe_group_modal_close": 0,
+                    "acfe_group_modal_button": "",
+                    "acfe_group_modal_size": "large",
                     "parent_repeater": "field_6798fa24c712e"
                 }
             ]
