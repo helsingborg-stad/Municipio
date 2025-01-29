@@ -36,7 +36,7 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, Ge
      *
      * @return array
      */
-    public function mapGlobalNotice(array $notice): ?array
+    public function mapGlobalNotice(array $notice): array
     {
         $extractAction = fn($action) => !empty($action['has_action'] ?? false)
         ? ['url' => $action['target'] ?? '', 'text' => $action['label'] ?? '']
