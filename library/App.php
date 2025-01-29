@@ -398,6 +398,10 @@ class App
         //Admin
         $registerGlobalNoticesFieldGroupsAdminPage = new \Municipio\GlobalNotices\RegisterGlobalNoticesFieldGroupsAdminPage($this->wpService, $this->acfService);
         $registerGlobalNoticesFieldGroupsAdminPage->addHooks();
+
+        //Get and apply global notices
+        $getAndApplyGlobalNotices = new \Municipio\GlobalNotices\GetAndApplyGlobalNotices($this->wpService, $this->acfService, new \Municipio\GlobalNotices\GlobalNoticesConfig());
+        $getAndApplyGlobalNotices->addHooks();
     }
 
     /**
