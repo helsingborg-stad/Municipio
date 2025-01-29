@@ -6,7 +6,7 @@ enum GlobalNoticeLocation: string
 {
   case TOAST = 'toast';
   case BANNER = 'banner';
-  case MODAL = 'modal';
+  case CONTENT = 'content';
 
   public static function values(): array
   {

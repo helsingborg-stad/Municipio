@@ -44,7 +44,7 @@
                     ),
                     'choices' => array(
                         'toast' => __('Toast', 'municipio'),
-                        'top' => __('Top Banner', 'municipio'),
+                        'banner' => __('Top Banner', 'municipio'),
                         'content' => __('Above Content', 'municipio'),
                     ),
                     'default_value' => __('toast', 'municipio'),

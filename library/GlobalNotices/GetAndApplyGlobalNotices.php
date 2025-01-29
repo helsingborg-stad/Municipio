@@ -7,7 +7,7 @@ use WpService\WpService;
 
 class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
 {
-    private $noticeDataKey = 'notices';
+    private $noticeDataKey = 'notice';
 
     public function __construct(private WpService $wpService, private AcfService $acfService, private GlobalNoticesConfig $config)
     {
@@ -15,7 +15,7 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
 
     public function addHooks(): void
     {
-      $this->wpService->addFilter('Municipio/viewData', [$this, 'filterViewData']);
+      $this->wpService->addFilter('Municipio/viewData', [$this, 'filterViewData'], 10, 1);
     }
 
     /**
@@ -41,10 +41,10 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
     public function mapGlobalNotice(array $notice): ?array
     {
       return [
-        'message' => $notice['message'],
+        'message' => ['text' => $notice['message']],
         'location' => $notice['location'],
         'type' => $notice['type'],
-        'icon' => $notice['icon'],
+        'icon' => ['name' => $notice['icon']],
         'action' => $notice['action'],
         'dismissable' => $notice['dismissable'],
         'classList' => $this->classListByLocation($notice['location'] ?? ''),
@@ -62,7 +62,11 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
     {
       switch ($location) {
         case 'toast':
-          return ['t-toast__notice'];
+          return [];
+        case 'banner':
+          return ['u-margin--0', 'u-rounded--none'];
+        case 'content':
+          return [];
         default:
           return [];
       }
@@ -79,14 +83,13 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
     {
       $constraints = $notice['constraints'] ?? null;
       if (!is_array($constraints)) {
-          return true;
+        return true;
       }
 
-      $userLoggedIn = $this->wpService->isUserLoggedIn() ? 'loggedin' : 'loggedout';
-      $currentPageType = $this->wpService->isFrontPage() ? 'frontpage' : 'subpage';
+      $userLoggedIn     = $this->wpService->isUserLoggedIn() ? 'loggedin' : 'loggedout';
+      $currentPageType  = $this->wpService->isFrontPage() ? 'frontpage' : 'subpage';
 
-      return in_array($userLoggedIn, $constraints) 
-          && in_array($currentPageType, $constraints);
+      return in_array($userLoggedIn, $constraints) && in_array($currentPageType, $constraints);
     }
 
     /**
@@ -100,19 +103,19 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
     {
       return array_values(array_filter(
         $this->getGlobalNotices(),
-        fn($globalNotice) => isset($globalNotice['location']) && $globalNotice['location'] === $location
+        fn($notice) => isset($notice['location']) && $notice['location'] === $location
       ));
     }
 
     /**
      * WordPress filter callback to inject global notices into view data.
      */
-    public function filterViewData(array $viewData): array
+    public function filterViewData(array $data): array
     {
       foreach ($this->config->getLocations() as $location) {
-        $viewData[$this->noticeDataKey][$location] ??= [];
-        $viewData[$this->noticeDataKey][$location] = $this->getGlobalNoticesByLocation($location);
+        $data[$this->noticeDataKey][$location] ??= [];
+        $data[$this->noticeDataKey][$location] = $this->getGlobalNoticesByLocation($location);
       }
-      return $viewData;
+      return $data;
     }
 }

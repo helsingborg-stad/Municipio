@@ -41,7 +41,7 @@
                     },
                     "choices": {
                         "toast": "Toast",
-                        "top": "Top Banner",
+                        "banner": "Top Banner",
                         "content": "Above Content"
                     },
                     "default_value": "toast",

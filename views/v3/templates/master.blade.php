@@ -34,6 +34,14 @@
             data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
 
+        {{-- Notices as banner style --}}
+        @if ($notice && $notice['banner'])
+            @foreach ($notice['banner'] as $noticeItem)
+                @notice($noticeItem)
+                @endnotice
+            @endforeach
+        @endif
+
         {{-- Site banner --}}
         @section('site-banner')
             @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
@@ -54,10 +62,22 @@
             @yield('hero-top-sidebar')
         @endif
 
-        
-
         {{-- Before page layout --}}
         @yield('before-layout')
+
+        {{-- Notices before content --}}
+        @if ($notice && $notice['content'])
+            <div class="o-container u-margin__top--4">
+                <div class="o-grid o-grid--no-margin">
+                    <div class="o-grid-12">
+                        @foreach ($notice['content'] as $noticeItem)
+                            @notice($noticeItem)
+                            @endnotice
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
 
         {{-- Page layout --}}
         <main id="main-content">
@@ -133,9 +153,9 @@
 
     {{-- Notices Notice::add() --}}
     {{-- Shows up in the bottom left corner as toast messages --}}
-    @if ($notice)
+    @if ($notice && $notice['toast'])
         @toast(['position' => 'bottom-left'])
-            @foreach ($notice as $noticeItem)
+            @foreach ($notice['toast'] as $noticeItem)
                 @toast__item($noticeItem)
                 @endtoast__item
             @endforeach
