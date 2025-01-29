@@ -66,7 +66,8 @@ class AddStickyCheckboxForPost implements Hookable
             return;
         }
 
-        if (!$this->wpService->wpVerifyNonce(self::NONCE_ACTION, self::NONCE_NAME)) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (empty($_POST[self::NONCE_NAME]) || !$this->wpService->wpVerifyNonce($_POST[self::NONCE_NAME], self::NONCE_ACTION)) {
             return;
         }
 
