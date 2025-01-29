@@ -40,36 +40,27 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
      */
     public function mapGlobalNotice(array $notice): ?array
     {
-      return [
-        'message' => ['text' => $notice['message']],
-        'location' => $notice['location'],
-        'type' => $notice['type'],
-        'icon' => ['name' => $notice['icon']],
-        'action' => $notice['action'],
-        'dismissable' => $notice['dismissable'],
-        'classList' => $this->classListByLocation($notice['location'] ?? ''),
-      ];
-    }
+      $extractAction = fn($action) => !empty($action['has_action'] ?? false) 
+        ? ['url' => $action['target'] ?? '', 'text' => $action['label'] ?? '']
+        : false;
 
-    /**
-     * Get class list by location.
-     * 
-     * @param string $location The location to get class list for.
-     * 
-     * @return array
-     */
-    public function classListByLocation(string $location): array
-    {
-      switch ($location) {
-        case 'toast':
-          return [];
-        case 'banner':
-          return ['u-margin--0', 'u-rounded--none'];
-        case 'content':
-          return [];
-        default:
-          return [];
-      }
+      $extractDismissable = fn($dismissable) => !empty($dismissable['is_dismissable'] ?? false) 
+          ? ($dismissable['lifetime'] ?? 0) 
+          : false;
+
+      $addClassByLocation = fn(string $location): array => [
+          'banner' => ['u-margin--0', 'u-rounded--none']
+      ][$location] ?? [];
+
+      return [
+          'message'     => ['text' => $notice['message'] ?? ''],
+          'location'    => $notice['location'] ?? 'toast',
+          'type'        => $notice['type'] ?? 'info',
+          'icon'        => ['name' => $notice['icon'] ?? ''],
+          'action'      => $extractAction($notice['action'] ?? false),
+          'dismissable' => $extractDismissable($notice['dismissable'] ?? false),
+          'classList'   => $addClassByLocation($notice['location'] ?? 'toast')
+      ];
     }
 
     /**

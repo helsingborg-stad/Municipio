@@ -334,7 +334,7 @@
                             'choices' => array(
                                 'session' => __('Dismissed until user restarts browser', 'municipio'),
                                 'permanent' => __('Dismissed "forever"', 'municipio'),
-                                'temporary' => __('Dismissed until page reload', 'municipio'),
+                                'immediate' => __('Dismissed until page reload', 'municipio'),
                             ),
                             'default_value' => __('session', 'municipio'),
                             'return_format' => 'value',

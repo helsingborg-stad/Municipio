@@ -330,7 +330,7 @@
                             "choices": {
                                 "session": "Dismissed until user restarts browser",
                                 "permanent": "Dismissed \"forever\"",
-                                "temporary": "Dismissed until page reload"
+                                "immediate": "Dismissed until page reload"
                             },
                             "default_value": "session",
                             "return_format": "value",
