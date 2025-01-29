@@ -31,8 +31,8 @@ if (file_exists('package.json') && file_exists('package-lock.json')) {
     } else {
         $npmPackage      = json_decode(file_get_contents('package.json'));
         $buildCommands[] = "npm install $npmPackage->name";
-        $buildCommands[] = "rm -rf ./dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/dist ./";
+        $buildCommands[] = "rm -rf ./assets/dist";
+        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
     }
 } elseif (file_exists('package.json') && !file_exists('package-lock.json')) {
     if (is_array($argv) && !in_array('--install-npm', $argv)) {
@@ -40,8 +40,8 @@ if (file_exists('package.json') && file_exists('package-lock.json')) {
     } else {
         $npmPackage      = json_decode(file_get_contents('package.json'));
         $buildCommands[] = "npm install $npmPackage->name";
-        $buildCommands[] = "rm -rf ./dist";
-        $buildCommands[] = "mv node_modules/$npmPackage->name/dist ./";
+        $buildCommands[] = "rm -rf ./assets/dist";
+        $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
     }
 }
 
