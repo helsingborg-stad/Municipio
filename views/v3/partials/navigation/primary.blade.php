@@ -11,7 +11,7 @@
 >
     @nav([
         'id' => 'menu-primary',
-        'items' => $primaryMenuItems,
+        'items' => $primaryMenu['items'],
         'allowStyle' => true,
         'direction' => 'horizontal',
         'classList' => array_merge(

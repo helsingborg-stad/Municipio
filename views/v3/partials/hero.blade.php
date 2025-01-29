@@ -1,6 +1,6 @@
 @section('hero')
     @if (is_active_sidebar('slider-area'))
-        <div class="o-container o-container--fullwidth u-print-display--none" id="sidebar-slider-area--container">
+        <div class="o-container o-container--fullwidth o-container--remove-spacing u-print-display--none" id="sidebar-slider-area--container">
 
             @includeIf('partials.sidebar', [
                 'id' => 'slider-area',

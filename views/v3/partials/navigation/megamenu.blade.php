@@ -1,11 +1,10 @@
-@if (!empty($megaMenuItems))
+@if (!empty($megaMenu['items']))
     @megaMenu([
-        'id' => 'menu-mega',
-        'menuItems' => $megaMenuItems,
-        'showSearch' => $showMegaMenuSearch,
+        'id' => 'mega-menu',
+        'menuItems' => $megaMenu['items'],
         'mobile' => $customizer->megaMenuMobile,
         'attributeList' => [
-            'aria-hidden' => 'true'
+            'aria-hidden' => 'true',
         ],
         'context' => ['site.megamenu.nav']
 

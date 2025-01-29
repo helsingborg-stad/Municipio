@@ -10,14 +10,20 @@
                 'containerAware' => true,
                 'bordered' => true
             ])
-                @if (!empty($post->callToActionItems['floating']))
-                    @slot('floating')
-                        @icon($post->callToActionItems['floating'])
+                @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
+                    @element($callToActionItems['floating']['wrapper'] ?? [])
+                        @icon($callToActionItems['floating']['icon'])
                         @endicon
-                    @endslot
+                    @endelement
                 @endif
                 @if ($displayFeaturedImage && !empty($post->images['thumbnail16:9']['src']))
                     @slot('before')
+                    @if($post->imageContract) 
+                        @image([
+                            'src' => $post->imageContract
+                        ])
+                        @endimage
+                    @else 
                         @image([
                             'src' => $post->images['thumbnail16:9']['src'],
                             'alt' => $post->images['thumbnail16:9']['alt'],
@@ -26,6 +32,8 @@
                             'placeholderText' => ''
                         ])
                         @endimage
+                    @endif
+                        
                     @endslot
                 @endif
 

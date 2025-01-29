@@ -53,22 +53,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,post,posts": "post: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/posts",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,page,pages": "page: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pages",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,attachment,media": "attachment: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/media",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,nav_menu_item,menu-items": "nav_menu_item: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menu-items",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_block,blocks": "wp_block: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/blocks",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_template,templates": "wp_template: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/templates",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_template_part,template-parts": "wp_template_part: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/template-parts",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_navigation,navigation": "wp_navigation: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/navigation",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_font_family,font-families": "wp_font_family: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/font-families",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_font_face,font-families\/(?P<font_family_id>[\\d]+)\/font-faces": "wp_font_face: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/font-families\/(?P<font_family_id>[\\d]+)\/font-faces",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,pre-school,pre-school": "pre-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/pre-school",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,elementary-school,elementary-school": "elementary-school: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/elementary-school",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,person,person": "person: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/person",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,modal-content,modal-content": "modal-content: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/modal-content"
-            },
+            "choices": {},
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -101,15 +86,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,category,categories": "category: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/categories",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,post_tag,tags": "post_tag: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/tags",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,nav_menu,menus": "nav_menu: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/menus",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,wp_pattern_category,wp_pattern_category": "wp_pattern_category: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/wp_pattern_category",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,area,area": "area: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/area",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,usp,usp": "usp: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/usp",
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,grade,grade": "grade: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/grade"
-            },
+            "choices": {},
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -142,9 +119,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/,attachment,media": "attachment: https:\/\/skolor.helsingborg.io\/wp-json\/wp\/v2\/media"
-            },
+            "choices": {},
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -1240,4 +1215,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+

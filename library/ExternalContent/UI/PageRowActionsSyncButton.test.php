@@ -29,7 +29,7 @@ class PageRowActionsSyncButtonTest extends TestCase
      */
     public function testFiltersAreAddedForBothPageRowActionsAndPostRowActions()
     {
-        $wpService                = new \WpService\Implementations\FakeWpService();
+        $wpService                = new \WpService\Implementations\FakeWpService(['currentUserCan' => true, 'addFilter' => true]);
         $pageRowActionsSyncButton = new \Municipio\ExternalContent\UI\PageRowActionsSyncButton([], $wpService);
 
         $pageRowActionsSyncButton->addHooks();

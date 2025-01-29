@@ -30,7 +30,17 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
             'methods'             => 'GET',
             'callback'            => array($this, 'handleRequest'),
-            'permission_callback' => '__return_true'
+            'permission_callback' => '__return_true',
+            'args'                => [
+                'after'  => [
+                    'required'          => false,
+                    'validate_callback' => fn ($param) => is_string($param) && strtotime($param),
+                ],
+                'before' => [
+                    'required'          => false,
+                    'validate_callback' => fn ($param) => is_string($param) && strtotime($param),
+                ]
+            ],
         ));
     }
 
@@ -88,7 +98,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
      */
     private function handleArchivePosts($postType = '', $queryParams = false)
     {
-        $posts = $this->getPostsFromArchiveQuery($postType);
+        $posts = $this->getPostsFromArchiveQuery($postType, $queryParams);
 
         $postsWithTerms    = [];
         $postsWithoutTerms = [];
@@ -125,7 +135,15 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         return $postsWithTerms;
     }
 
-    private function getPostsFromArchiveQuery($postType = '')
+    /**
+     * Retrieves posts from the archive query based on the given parameters.
+     *
+     * @param string $postType    The post type.
+     * @param array  $queryParams The query parameters.
+     *
+     * @return array The retrieved posts.
+     */
+    private function getPostsFromArchiveQuery($postType = '', $queryParams = false)
     {
         $orderBy   = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         $order     = get_theme_mod('archive_' . $postType . '_order_direction');
@@ -135,7 +153,7 @@ class PdfArchiveEndpoint extends RestApiEndpoint
             'post_type'      => $postType,
             'tax_query'      => [],
             'date_query'     => [
-                'inclusive' => true,
+                'inclusive' => false,
             ],
             'posts_per_page' => -1,
             'orderby'        => !empty($orderBy) ? $orderBy : 'post_date',
@@ -143,15 +161,14 @@ class PdfArchiveEndpoint extends RestApiEndpoint
         ];
 
         if (!empty($queryParams) && is_array($queryParams)) {
-            if (!empty($queryParams['from'])) {
-                $args['date_query']['after'] = $queryParams['from'];
-                unset($queryParams['from']);
+            if (!empty($queryParams['after'])) {
+                $args['date_query']['after'] = $queryParams['after'];
+                unset($queryParams['after']);
             }
 
-            if (!empty($queryParams['to'])) {
-                $args['date_query']['before']  = $queryParams['to'];
-                $args['date_query']['compare'] = '<=';
-                unset($queryParams['to']);
+            if (!empty($queryParams['before'])) {
+                $args['date_query']['before'] = $queryParams['before'];
+                unset($queryParams['before']);
             }
 
             if (isset($args['date_query']['after']) && isset($args['date_query']['before'])) {

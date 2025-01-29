@@ -1,4 +1,4 @@
-@includeWhen(!empty($megaMenuItems), 'partials.navigation.trigger.megamenu', [
+@includeWhen(!empty($megaMenu['items']), 'partials.navigation.trigger.megamenu', [
     'context' => $context ?? [],
     'classList' => [
         'mega-menu-trigger'

@@ -1,9 +1,11 @@
 @extends('templates.single')
 
 @section('hero-top-sidebar')
-    @hero([ 'image' => $imageUrl, 'heroView' => 'twoColumn', 'background' => '#f7f7f7', ])
+    @hero([ 'image' => $image, 'heroView' => 'twoColumn', 'classList' => ['u-color__bg--lightest'] ])
         @slot('content')
-            @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $category !!} @endtypography
+            @if (!empty($technology))
+                @typography([ 'element' => 'span', 'classList' => ['page-header_meta'] ]) {!! $technology !!} @endtypography
+            @endif
             @typography([
                 'element' => 'h1',
                 'variant' => 'h1',
@@ -12,7 +14,13 @@
                 {{ $post->postTitle }}
             @endtypography
 
-            @tooltip([ 'label' => $status, 'icon' => 'info' ]) @endtooltip
+            @if (!empty($status))
+                @typography([
+                    'element' => 'b',
+                ])
+                    {{$status}}
+                @endtypography
+            @endif
             @progressBar([ 'value' => $progress ]) @endprogressBar
 
         @endslot
@@ -25,21 +33,22 @@
 @stop
 
 @section('sidebar.right-sidebar.before')
-
-    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']])
-        {{$lang->information}}
-    @endtypography
-
     @paper(['padding' => 2])
         @collection()
             @foreach ($informationList as $item)
                 @collection__item([])
-                    @typography(['element' => 'h4'])
+                    @typography(['element' => 'h2', 'variant' => 'h3'])
                         {{$item['label']}}
                     @endtypography
-                    @typography([])
-                        {{$item['value']}}
-                    @endtypography
+                    @if(is_array($item['value']))
+                        @foreach ($item['value'] as $value)
+                            @if(!empty($value))
+                                @typography(){!!$value!!}@endtypography
+                            @endif
+                        @endforeach
+                    @else
+                        @typography(){{$item['value']}}@endtypography
+                    @endif
                 @endcollection__item
             @endforeach
         @endcollection

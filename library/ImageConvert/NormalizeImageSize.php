@@ -8,16 +8,21 @@ use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\ApplyFilters;
 use WpService\Contracts\GetAttachedFile;
-use WpService\Contracts\GetAttachmentUrl;
+use WpService\Contracts\WpGetAttachmentUrl;
+use WpService\Contracts\IsAdmin;
 
 class NormalizeImageSize implements Hookable
 {
-    public function __construct(private ApplyFilters&GetAttachedFile&GetAttachmentUrl&AddFilter $wpService, private ImageConvertConfig $config)
+    public function __construct(private ApplyFilters&GetAttachedFile&WpGetAttachmentUrl&AddFilter&IsAdmin $wpService, private ImageConvertConfig $config)
     {
     }
 
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'normalizeImageSize'],
@@ -26,6 +31,13 @@ class NormalizeImageSize implements Hookable
         );
     }
 
+    /**
+     * Normalize the size of an image to ensure it does not exceed the maximum allowed dimensions.
+     *
+     * @param ImageContract $image The image to normalize.
+     *
+     * @return ImageContract|bool The normalized image or false if the image could not be normalized.
+     */
     public function normalizeImageSize(ImageContract $image): ImageContract|bool
     {
         // Normalize incomplete size arrays by adding false values for missing dimensions.

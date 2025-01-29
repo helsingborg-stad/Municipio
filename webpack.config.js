@@ -18,6 +18,7 @@ module.exports = {
         'js/municipio': './assets/source/3.0/js/municipio.js',
         'js/instantpage': './node_modules/instant.page/instantpage.js',
         'js/mce': './assets/source/3.0/mce-js/mce-buttons.js',
+        'js/mce-table': './assets/source/3.0/mce-js/mce-table.js',
         'css/mce': './assets/source/3.0/sass/mce.scss',
         'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
         'js/pdf': './assets/source/3.0/js/pdf.ts',
@@ -27,6 +28,8 @@ module.exports = {
         'js/design-share': './assets/source/3.0/js/admin/designShare.ts',
         'js/customizer-preview': './assets/source/3.0/js/admin/customizerPreview.js',
         'js/customizer-flexible-header': './assets/source/3.0/js/admin/customizerFlexibleHeader.ts',
+        'js/hidden-post-status-conditional': './assets/source/3.0/js/admin/acf/hiddenPostStatusConditional.ts',
+        'js/user-group-visibility': './assets/source/3.0/js/admin/private/userGroupVisibility.ts',
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
@@ -34,6 +37,10 @@ module.exports = {
         /* Admin css */
         'css/acf': './assets/source/3.0/sass/admin/acf.scss',
         'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
+        'css/general': './assets/source/3.0/sass/admin/general.scss',
+
+        /* Login css */
+        'css/login': './assets/source/3.0/sass/admin/login.scss',
 
         /* Legacy 2.0  */
         'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',

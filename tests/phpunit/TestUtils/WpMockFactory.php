@@ -5,8 +5,13 @@ namespace Municipio\TestUtils;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use WP_Comment_Query;
+use WP_Error;
 use WP_Post;
 use WP_Term;
+use WP_Taxonomy;
+use wpdb;
+use WP_User;
 
 /**
  * Class WpMockFactory.
@@ -34,6 +39,56 @@ class WpMockFactory extends TestCase
     }
 
     /**
+     * Create a mock WP_Error object.
+     *
+     * @param array $args
+     */
+    public static function createWpError(array $args = []): MockObject|WP_Error
+    {
+        return self::buildMockWithArgs('WP_Error', $args);
+    }
+
+    /**
+     * Create a mock WP_Error object.
+     *
+     * @param array $args
+     */
+    public static function createWpCommentQuery(array $args = []): MockObject|WP_Comment_Query
+    {
+        return self::buildMockWithArgs('WP_Comment_Query', $args);
+    }
+
+    /**
+     * Create a mock WP_Taxonomy object.
+     *
+     * @param array $args
+     */
+    public static function createWpTaxonomy(array $args = []): MockObject|WP_Taxonomy
+    {
+        return self::buildMockWithArgs('WP_Taxonomy', $args);
+    }
+
+    /**
+     * Create a mock wpdb object.
+     *
+     * @param array $args
+     */
+    public static function createWpdb(array $args = []): MockObject|wpdb
+    {
+        return self::buildMockWithArgs('wpdb', $args);
+    }
+
+    /**
+     * Create a mock WP_User object.
+     *
+     * @param array $args
+     */
+    public static function createWpUser(array $args = []): MockObject|WP_User
+    {
+        return self::buildMockWithArgs('WP_User', $args);
+    }
+
+    /**
      * Build a mock object with arguments.
      *
      * @param string $className
@@ -41,9 +96,21 @@ class WpMockFactory extends TestCase
     private static function buildMockWithArgs(string $className, array $args): MockObject
     {
         $testCase = self::getTestCaseInstance();
-        $mock     = $testCase->getMockBuilder(stdClass::class)->setMockClassName($className)->getMock();
+        $mock     = $testCase->getMockBuilder(stdClass::class)->setMockClassName($className);
+
+        $methods = array_map(
+            fn($key) => is_callable($args[$key]) ? $key : null,
+            array_keys($args)
+        );
+
+        $mock = $mock->addMethods(array_filter($methods))->getMock();
 
         foreach ($args as $key => $value) {
+            if (is_callable($value)) {
+                $mock->method($key)->willReturnCallback($value);
+                continue;
+            }
+
             $mock->{$key} = $value;
         }
 

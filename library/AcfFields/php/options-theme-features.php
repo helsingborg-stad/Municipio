@@ -25,27 +25,6 @@
             'ui_off_text' => __('Disabled', 'municipio'),
             'ui' => 1,
         ),
-        1 => array(
-            'key' => 'field_666bd2536d776',
-            'label' => __('Schema.org data', 'municipio'),
-            'name' => 'mun_schemadata_enabled',
-            'aria-label' => '',
-            'type' => 'true_false',
-            'instructions' => __('Allows setting Schema.org formatted data to posts.<br><br>
-<span class="dashicons dashicons-info-outline"></span> This feature will not work as expected if opCache is enabled and <code>opCache.saveComments</code> is set to "Off".', 'municipio'),
-            'required' => 0,
-            'conditional_logic' => 0,
-            'wrapper' => array(
-                'width' => '',
-                'class' => '',
-                'id' => '',
-            ),
-            'message' => '',
-            'default_value' => 0,
-            'ui_on_text' => __('Enabled', 'municipio'),
-            'ui_off_text' => __('Disabled', 'municipio'),
-            'ui' => 1,
-        ),
     ),
     'location' => array(
         0 => array(

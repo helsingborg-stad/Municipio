@@ -4,13 +4,22 @@ namespace Municipio\ExternalContent\Sync\Triggers;
 
 use WpService\Contracts\DoAction;
 
-class TriggerSync
+/**
+ * Class TriggerSync
+ */
+class TriggerSync implements TriggerSyncInterface
 {
+    /**
+     * Constructor.
+     */
     public function __construct(
         private DoAction $wpService
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function trigger(string $postType, ?int $postId = null): void
     {
         /**

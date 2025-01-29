@@ -11,7 +11,7 @@
     <meta name="pubdate" content="{{ $pagePublished }}">
     <meta name="moddate" content="{{ $pageModified }}">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=yes">
     <meta name="HandheldFriendly" content="true">
 
@@ -29,11 +29,15 @@
     {!! $wpHeader !!}
 
 </head>
-
 <body class="{{ $bodyClass }}" data-js-page-id="{{ $pageID }}" data-js-post-type="{{ $postType }}"
-    @if ($customizer->headerSticky === 'sticky') data-js-toggle-item="mega-menu"
+    @if ($customizer->headerSticky === 'sticky' && empty($headerData['nonStickyMegaMenu'])) data-js-toggle-item="mega-menu"
             data-js-toggle-class="mega-menu-open" @endif>
     <div class="site-wrapper">
+
+        {{-- Site banner --}}
+        @section('site-banner')
+            @includeIf('partials.sidebar', ['id' => 'header-area-site-banner', 'classes' => []])
+        @show
 
         {{-- Site header --}}
         @section('site-header')
@@ -50,13 +54,7 @@
             @yield('hero-top-sidebar')
         @endif
 
-        {{-- Notices Notice::add() --}}
-        @if ($notice)
-            @foreach ($notice as $noticeItem)
-                @notice($noticeItem)
-                @endnotice
-            @endforeach
-        @endif
+        
 
         {{-- Before page layout --}}
         @yield('before-layout')
@@ -66,6 +64,7 @@
             @section('layout')
                 <div class="o-container">
 
+                    {{-- Helper navigation --}}
                     @hasSection('helper-navigation')
                         <div class="o-grid o-grid--no-margin u-print-display--none">
                             <div class="o-grid-12">
@@ -74,6 +73,7 @@
                         </div>
                     @endif
 
+                    {{-- Above columns sidebar --}}
                     @hasSection('above')
                         <div class="o-grid u-print-display--none">
                             <div class="o-grid-12">
@@ -83,8 +83,7 @@
                     @endif
 
                     <!--  Main content padder -->
-                    <div
-                        class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
+                    <div class="u-padding__x--{{ $mainContentPadding['md'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@lg u-padding__x--{{ $mainContentPadding['lg'] }}@xl u-margin__bottom--12">
                         <div class="o-grid o-grid--nowrap@lg o-grid--nowrap@xl">
 
                             @hasSection('sidebar-left')
@@ -130,8 +129,19 @@
     @show
 
     {{-- Floating menu --}}
-    @includeWhen($floatingMenuItems, 'partials.navigation.floating')
+    @includeWhen(!empty($floatingMenu['items']), 'partials.navigation.floating')
 
+    {{-- Notices Notice::add() --}}
+    {{-- Shows up in the bottom left corner as toast messages --}}
+    @if ($notice)
+        @toast(['position' => 'bottom-left'])
+            @foreach ($notice as $noticeItem)
+                @toast__item($noticeItem)
+                @endtoast__item
+            @endforeach
+        @endtoast
+    @endif
+            
     {{-- Wordpress required call to wp_footer() --}}
     {!! $wpFooter !!}
 

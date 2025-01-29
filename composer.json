@@ -25,16 +25,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "composer/installers": "^1.0",
         "symfony/polyfill-mbstring": "1.17.0",
         "helsingborg-stad/acf-export-manager": ">=1.0.0",
         "pragmarx/ia-arr": "^7.3",
-        "ouun/kirki-module-fonts_upload": "^1.0.1",
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4",
         "spatie/schema-org": "^3.9",
-        "helsingborg-stad/wpservice": "^1.7",
+        "helsingborg-stad/wpservice": "^2.0",
         "helsingborg-stad/acfservice": "~0.4"
     },
     "extra": {
@@ -51,7 +50,7 @@
         ],
         "test:wp_mock": "PHPUNIT_GROUP=WP_MOCK phpunit --testdox --no-coverage --group=wp_mock",
         "test": "phpunit --testdox --no-coverage --exclude=wp_mock",
-        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox",
+        "test:coverage": "XDEBUG_MODE=coverage phpunit --testdox --exclude=wp_mock",
         "lint": "vendor/bin/phpcs",
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
@@ -85,5 +84,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.26.1"
+    "version": "5.121.5"
 }

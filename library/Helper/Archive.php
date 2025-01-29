@@ -2,6 +2,12 @@
 
 namespace Municipio\Helper;
 
+/**
+ * Archive class.
+ *
+ * This class is responsible for handling archive related functionality.
+ * It is located in the file /workspaces/municipio-deployment/wp-content/themes/municipio/library/Helper/Archive.php.
+ */
 class Archive
 {
     /**
@@ -19,27 +25,56 @@ class Archive
         }
         return false;
     }
+
+    /**
+     * Converts a post type name to camel case.
+     *
+     * @param string $postType The post type name to convert.
+     * @return string The converted post type name in camel case.
+     */
     public static function camelCasePostTypeName($postType)
     {
-        return str_replace(' ', '', ucwords(str_replace('-', ' ', $postType)));
+        return str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $postType)));
     }
+
     /**
      * Get the template style for this archive
      *
      * @param string $postType  The post type to get the option from
      * @param string $default   The default value, if not found.
+     * @param string $postType  The post type to get the option from
      *
      * @return string
      */
-    public static function getTemplate($args, string $default = 'cards'): string
+    public static function getTemplate($args, string $default = 'cards', $postType = null): string
     {
-        if (is_object($args) && isset($args->style) && !empty($args->style)) {
-            return $args->style;
+        $schemaKey         = 'schema';
+        $archiveAppearance = $default;
+
+        if (empty($args->style)) {
+            return $archiveAppearance;
         }
 
-        return $default;
+        $archiveAppearance = $args->style;
+
+        if ($postType && $archiveAppearance === $schemaKey) {
+            $schemaType = \Municipio\SchemaData\Helper\GetSchemaType::getSchemaTypeFromPostType($postType);
+
+            if ($schemaType) {
+                $archiveAppearance = $schemaKey . '-' . lcfirst($schemaType);
+            }
+        }
+
+        return $archiveAppearance;
     }
 
+    /**
+     * Determines whether to show pagination for an archive page.
+     *
+     * @param string $archiveBaseUrl The base URL for the archive page.
+     * @param int $maxNumPages The maximum number of pages for the archive.
+     * @return bool Returns true if pagination should be shown, false otherwise.
+     */
     public static function showPagination($archiveBaseUrl, $maxNumPages)
     {
 
@@ -87,7 +122,12 @@ class Archive
     */
     public static function setQueryString($number)
     {
-        parse_str($_SERVER['QUERY_STRING'], $queryArgList);
+        $queryArgList = [];
+
+        if (isset($_SERVER['QUERY_STRING'])) {
+            parse_str($_SERVER['QUERY_STRING'], $queryArgList);
+        }
+
         $queryArgList['paged'] = $number;
         $queryString           = http_build_query($queryArgList) . "\n";
 
@@ -153,6 +193,13 @@ class Archive
             isset($args->enabledFilters) && is_array($args->enabledFilters) ? $args->enabledFilters : []
         );
     }
+
+    /**
+     * Retrieves the facetting type based on the provided arguments.
+     *
+     * @param object $args The arguments for retrieving the facetting type.
+     * @return bool The facetting type.
+     */
     public static function getFacettingType($args)
     {
         if (!is_object($args)) {
@@ -165,6 +212,12 @@ class Archive
         return (bool) $args->filterType;
     }
 
+    /**
+     * Display the reading time based on the provided arguments.
+     *
+     * @param object $args The arguments for displaying the reading time.
+     * @return bool Returns true if the reading time is set in the arguments, false otherwise.
+     */
     public static function displayReadingTime($args)
     {
         if (!is_object($args)) {
@@ -177,6 +230,13 @@ class Archive
 
         return (bool) $args->readingTime;
     }
+
+    /**
+     * Display the featured image based on the provided arguments.
+     *
+     * @param object $args The arguments for displaying the featured image.
+     * @return bool Returns true if the featured image should be displayed, false otherwise.
+     */
     public static function displayFeaturedImage($args)
     {
         if (!is_object($args)) {
@@ -189,10 +249,18 @@ class Archive
 
         return (bool) $args->displayFeaturedImage;
     }
+
+    /**
+     * Display the featured image on archive pages.
+     *
+     * @param array $args The arguments for displaying the featured image.
+     * @return mixed The result of the displayFeaturedImage function.
+     */
     public static function displayFeaturedImageOnArchive($args)
     {
         return self::displayFeaturedImage($args);
     }
+
     /**
      * Create a grid column size
      * @param  array $archiveProps

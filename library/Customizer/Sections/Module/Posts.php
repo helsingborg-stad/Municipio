@@ -78,35 +78,5 @@ class Posts
               ]
           ],
         ]);
-
-        KirkiField::addField([
-          'type'        => 'switch',
-          'settings'    => 'mod_posts_display_post_icon',
-          'label'       => esc_html__('Display term icon', 'municipio'),
-          'description' => esc_html__('Display an icon on the post if the post has a term with an icon set', 'municipio'),
-          'section'     => $sectionID,
-          'default'     => 'off',
-          'priority'    => 10,
-          'choices'     => [
-            'on'  => __('On', 'municipio'),
-            'off' => __('Off', 'municipio'),
-          ],
-          'output'      => [
-              [
-                'type'    => 'component_data',
-                'dataKey' => 'displayIcon',
-                'context' => [
-                  ['context' => 'module.posts.segment', 'operator' => '=='],
-                  ['context' => 'module.posts.block', 'operator' => '=='],
-                  ['context' => 'module.posts.collection__item', 'operator' => '=='],
-                  ['context' => 'module.manual-input.card', 'operator' => '=='],
-                  ['context' => 'module.manual-input.collection__item', 'operator' => '=='],
-                  ['context' => 'module.manual-input.block', 'operator' => '=='],
-                  ['context' => 'module.manual-input.segment', 'operator' => '=='],
-                  ['context' => 'module.posts.index', 'operator' => '==']
-                ],
-              ],
-          ],
-        ]);
     }
 }

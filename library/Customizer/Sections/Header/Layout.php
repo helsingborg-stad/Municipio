@@ -274,6 +274,18 @@ class Layout
     {
         $activeItems = get_nav_menu_locations();
 
+        if (!isset($activeItems['main-menu']) && get_theme_mod('primary_menu_pagetree_fallback', false)) {
+            $activeItems['main-menu'] = 0;
+        }
+
+        if (!isset($activeItems['mega-menu']) && get_theme_mod('mega_menu_pagetree_fallback', false)) {
+            $activeItems['mega-menu'] = 0;
+        }
+
+        if (!isset($activeItems['secondary-menu']) && get_theme_mod('mobile_menu_pagetree_fallback', false)) {
+            $activeItems['secondary-menu'] = 0;
+        }
+
         if (empty($activeItems)) {
             return [];
         }
@@ -298,8 +310,10 @@ class Layout
         $filteredMenuOptions = [
             'header-search-form' => __('Search Form', 'municipio'),
             'search-modal'       => __('Search Button', 'municipio'),
+            'collapsible-search' => __('Collapsible Search', 'municipio'),
             'logotype'           => __('Logotype', 'municipio'),
-            'brand-text'         => __('Brand Text', 'municipio')
+            'brand-text'         => __('Brand Text', 'municipio'),
+            'user'               => __('Login/Logout', 'municipio'),
         ];
 
         foreach ($allowedMenus as $menuSlug => $menuData) {

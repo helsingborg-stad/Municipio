@@ -5,21 +5,27 @@ namespace Municipio\ImageConvert;
 use Municipio\ImageConvert\Contract\ImageContract;
 use WpService\Contracts\AddFilter;
 use WpService\Contracts\IsWpError;
-use WpService\Contracts\UploadDir;
-use WpService\Contracts\GetImageEditor;
+use WpService\Contracts\IsAdmin;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ImageConvert\Config\ImageConvertConfig;
 use Municipio\Helper\File;
-use WP_Image_Editor_Imagick;
+use WpService\Contracts\WpGetImageEditor;
+use WpService\Contracts\WpUploadDir;
+use WpService\Contracts\WpGetAttachmentMetadata;
+use WpService\Contracts\WpAttachmentIs;
 
 class IntermidiateImageHandler implements Hookable
 {
-    public function __construct(private AddFilter&isWpError&GetImageEditor&UploadDir $wpService, private ImageConvertConfig $config)
+    public function __construct(private AddFilter&isWpError&WpGetImageEditor&WpUploadDir&WpGetAttachmentMetadata&IsAdmin&WpAttachmentIs $wpService, private ImageConvertConfig $config)
     {
     }
 
     public function addHooks(): void
     {
+        if ($this->wpService->isAdmin()) {
+            return;
+        }
+
         $this->wpService->addFilter(
             $this->config->createFilterKey('imageDownsize'),
             [$this, 'createIntermidiateImage'],
@@ -69,44 +75,133 @@ class IntermidiateImageHandler implements Hookable
      */
     private function convertImage(ImageContract $image): ImageContract|false
     {
-        $sourceFilePath       = $image->getPath();
-        $targetFormatSuffix   = $this->config->intermidiateImageFormat()['suffix'];
-        $targetFormatMime     = $this->config->intermidiateImageFormat()['mime'];
-        $intermediateLocation = $image->getIntermidiateLocation($targetFormatSuffix);
-
-        // Check if the source file exists.
-        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
+        if (!$this->canConvertImage($image, $this->config)) {
+            $this->imageConversionError('Image conversion is not possible from the source file. The image may not exist, be too large, or lacking the relevant metadata', $image);
             return false;
         }
 
-        $imageEditor = $this->wpService->getImageEditor($sourceFilePath);
+        $intermediateLocation = $image->getIntermidiateLocation(
+            $this->config->intermidiateImageFormat()['suffix']
+        );
+
+        $imageEditor = $this->wpService->wpGetImageEditor(
+            $image->getPath()
+        );
 
         if (!$this->wpService->isWpError($imageEditor)) {
-            //Make the resize
-            $imageEditor->resize(
-                $image->getWidth(),
-                $image->getHeight(),
-                true
-            );
+            // Get the original image dimensions
+            $originalSize = $imageEditor->get_size();
+
+            // Determine target dimensions using min() to avoid upscaling
+            $targetWidth  = min($image->getWidth(), $originalSize['width']);
+            $targetHeight = min($image->getHeight(), $originalSize['height']);
+
+            // Resize the image
+            $imageEditor->resize($targetWidth, $targetHeight, true);
 
             // Attempt to save the image in the target format and size
-            $savedImage = $imageEditor->save(
-                $intermediateLocation['path'],
-                $targetFormatMime
-            );
+            $savedImage = $imageEditor->save($intermediateLocation['path']);
 
             if (!$this->wpService->isWpError($savedImage)) {
                 $image->setUrl($intermediateLocation['url']);
                 $image->setPath($intermediateLocation['path']);
                 return $image;
             } else {
-                $this->imageConversionError('Error saving image as ' . $targetFormatSuffix . ': ' . $savedImage->get_error_message(), $image);
+                $this->imageConversionError('Error saving image: ' . $savedImage->get_error_message(), $image);
             }
         } else {
             $this->imageConversionError('Error creating image editor: ' . $imageEditor->get_error_message(), $image);
         }
 
         return false;
+    }
+
+    private function canConvertImage(ImageContract $image, ImageConvertConfig $config): bool
+    {
+        //Get image details
+        $sourceFilePath = $image->getPath();
+        $sourceFileId   = $image->getId();
+
+        // The Source file must exist
+        if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
+            return false;
+        }
+
+        // The image must exist in database, and be a image
+        if (!$this->wpService->wpAttachmentIs('image', $sourceFileId)) {
+            return false;
+        }
+
+        //Get attachment filesize, if exceeds max size, return false
+        $sourceFileSize = $this->getSourceFileSize($sourceFileId, $sourceFilePath);
+        if (!$sourceFileSize || ($sourceFileSize > $config->maxSourceFileSize())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the size of an attachment from its metadata, with a fallback to the filesystem.
+     *
+     * @param int $attachmentId The attachment ID.
+     * @param string $sourceFilePath The path to the source file.
+     *
+     * @return int|false The size of the attachment in bytes, or false if the file does not exist. With a warning.
+     */
+    private function getSourceFileSize($attachmentId, $sourceFilePath): int|false
+    {
+        $size = $this->wpService->wpGetAttachmentMetadata($attachmentId, 'filesize');
+        if ($size) {
+            return intval($size);
+        }
+        return filesize($sourceFilePath);
+    }
+
+    /**
+     * Get the value of a meta key from the metadata of an attachment.
+     *
+     * @param int $attachmentId The attachment ID.
+     * @param string $metaKey The meta key to search for.
+     *
+     * @return mixed The value of the meta key, or false if the key was not found.
+     */
+    private function getAttachmentMetaData($attachmentId, $metaKey): mixed
+    {
+        $metaData = $this->wpService->wpGetAttachmentMetadata($attachmentId);
+        if ($metaData !== false) {
+            if ($result = $this->searchKeyRecursively($metaKey, $metaData)) {
+                return $result;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Search for a key in a multidimensional array recursively.
+     *
+     * @param string $metaKey The key to search for.
+     * @param array $metaData The array to search in.
+     *
+     * @return mixed|null The value of the key if found, otherwise null.
+     */
+    private function searchKeyRecursively($metaKey, $metaData)
+    {
+        if (array_key_exists($metaKey, $metaData)) {
+            return $metaData[$metaKey];
+        }
+
+        foreach ($metaData as $key => $value) {
+            // If the value is an array, search recursively
+            if (is_array($value)) {
+                $result = $this->searchKeyRecursively($metaKey, $value);
+                if ($result !== null) {
+                    return $result;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

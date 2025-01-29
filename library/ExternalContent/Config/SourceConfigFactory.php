@@ -2,11 +2,13 @@
 
 namespace Municipio\ExternalContent\Config;
 
-use Generator;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
+/**
+ * Factory class for creating SourceConfig instances.
+ */
 class SourceConfigFactory
 {
     private array $subFieldNames = [
@@ -25,9 +27,16 @@ class SourceConfigFactory
     private array $taxonomySubFieldNames = [
         'from_schema_property',
         'singular_name',
-        'name'
+        'name',
+        'hierarchical'
     ];
 
+    /**
+     * SourceConfigFactory constructor.
+     *
+     * @param SchemaDataConfigInterface $schemaDataConfig
+     * @param GetOption&GetOptions $wpService
+     */
     public function __construct(
         private SchemaDataConfigInterface $schemaDataConfig,
         private GetOption&GetOptions $wpService
@@ -44,69 +53,111 @@ class SourceConfigFactory
         return array_map([$this, 'createSourceConfigsFromNamedSettings'], $this->getNamedSettingsArray());
     }
 
+    /**
+     * Create a SourceConfig instance from named settings.
+     *
+     * @param array $namedSettings The named settings array.
+     * @return SourceConfigInterface The created SourceConfig instance.
+     */
     private function createSourceConfigsFromNamedSettings(array $namedSettings): SourceConfigInterface
     {
         $schemaType =
             isset($namedSettings['post_type'])
-                ? $this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type'])
+                ? ($this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type']) ?? "")
                 : '';
         return new class ($namedSettings, $schemaType) implements SourceConfigInterface {
+            /**
+             * Constructor.
+             */
             public function __construct(
                 private array $namedSettings,
                 private string $schemaType
             ) {
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getPostType(): string
             {
                 return $this->namedSettings['post_type'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSchemaType(): string
             {
                 return $this->schemaType;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getAutomaticImportSchedule(): string
             {
                 return $this->namedSettings['automatic_import_schedule'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceType(): string
             {
                 return $this->namedSettings['source_type'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceJsonFilePath(): string
             {
                 return $this->namedSettings['source_json_file_path'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceTypesenseApiKey(): string
             {
                 return $this->namedSettings['source_typesense_api_key'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceTypesenseProtocol(): string
             {
                 return $this->namedSettings['source_typesense_protocol'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceTypesenseHost(): string
             {
                 return $this->namedSettings['source_typesense_host'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceTypesensePort(): string
             {
                 return $this->namedSettings['source_typesense_port'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getSourceTypesenseCollection(): string
             {
                 return $this->namedSettings['source_typesense_collection'];
             }
 
+            /**
+             * @inheritDoc
+             */
             public function getTaxonomies(): array
             {
                 if (empty($this->namedSettings['taxonomies'])) {
@@ -115,23 +166,43 @@ class SourceConfigFactory
 
                 return array_map(function ($taxonomy) {
                     return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
+                        /**
+                         * Constructor.
+                         */
                         public function __construct(private array $taxonomy)
                         {
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getFromSchemaProperty(): string
                         {
                             return $this->taxonomy['from_schema_property'];
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getSingularName(): string
                         {
                             return $this->taxonomy['singular_name'];
                         }
 
+                        /**
+                         * @inheritDoc
+                         */
                         public function getName(): string
                         {
                             return $this->taxonomy['name'];
+                        }
+
+                        /**
+                         * @inheritDoc
+                         */
+                        public function isHierarchical(): bool
+                        {
+                            return in_array($this->taxonomy['hierarchical'], [1, true, '1', 'true']);
                         }
                     };
                 }, $this->namedSettings['taxonomies']);
@@ -139,6 +210,11 @@ class SourceConfigFactory
         };
     }
 
+    /**
+     * Get named settings array.
+     *
+     * @return array The named settings array.
+     */
     private function getNamedSettingsArray(): array
     {
         $groupName = 'options_external_content_sources';
@@ -156,12 +232,26 @@ class SourceConfigFactory
         return $this->buildNamedSettings($groupName, $nbrOfRows, $settings);
     }
 
+    /**
+     * Get the number of rows for a group.
+     *
+     * @param string $groupName The group name.
+     * @return int The number of rows.
+     */
     private function getNumberOfRows(string $groupName): int
     {
         $nbrOfRows = $this->wpService->getOption($groupName, null);
         return intval($nbrOfRows);
     }
 
+    /**
+     * Fetch options from the database.
+     *
+     * @param string $groupName The group name.
+     * @param int $nbrOfRows The number of rows.
+     * @param array $subFieldNames The sub field names.
+     * @return array The fetched options.
+     */
     private function fetchOptions(string $groupName, int $nbrOfRows, array $subFieldNames): array
     {
         $optionNames = [];
@@ -176,6 +266,14 @@ class SourceConfigFactory
         return $this->wpService->getOptions($optionNames);
     }
 
+    /**
+     * Fetch taxonomy options from the database.
+     *
+     * @param string $groupName The group name.
+     * @param int $nbrOfRows The number of rows.
+     * @param array $options The options.
+     * @return array The fetched taxonomy options.
+     */
     private function fetchTaxonomyOptions(string $groupName, int $nbrOfRows, array $options): array
     {
         $taxonomyOptionNames = [];
@@ -199,6 +297,14 @@ class SourceConfigFactory
         return $this->wpService->getOptions($taxonomyOptionNames);
     }
 
+    /**
+     * Build named settings.
+     *
+     * @param string $groupName The group name.
+     * @param int $nbrOfRows The number of rows.
+     * @param array $settings The settings.
+     * @return array The named settings.
+     */
     private function buildNamedSettings(string $groupName, int $nbrOfRows, array $settings): array
     {
         $namedSettings = [];
@@ -211,6 +317,14 @@ class SourceConfigFactory
         return $namedSettings;
     }
 
+    /**
+     * Build row settings.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param array $settings The settings.
+     * @return array The row settings.
+     */
     private function buildRowSettings(string $groupName, int $rowIndex, array $settings): array
     {
         $rowSettings = [];
@@ -226,6 +340,14 @@ class SourceConfigFactory
         return $rowSettings;
     }
 
+    /**
+     * Build taxonomy settings.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param array $settings The settings.
+     * @return array The taxonomy settings.
+     */
     private function buildTaxonomySettings(string $groupName, int $rowIndex, array $settings): array
     {
         $nbrOfTaxonomyRows = intval($settings["{$groupName}_{$rowIndex}_taxonomies"] ?? 0);
@@ -243,6 +365,15 @@ class SourceConfigFactory
         return $taxonomies;
     }
 
+    /**
+     * Build single taxonomy.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param int $taxonomyRowIndex The taxonomy row index.
+     * @param array $settings The settings.
+     * @return array The taxonomy.
+     */
     private function buildSingleTaxonomy(string $groupName, int $rowIndex, int $taxonomyRowIndex, array $settings): array
     {
         $taxonomy = [];

@@ -10,6 +10,9 @@ use Throwable;
  */
 class Enqueue
 {
+    /**
+     * Enqueue constructor.
+     */
     public function __construct()
     {
         if (!defined('ASSETS_DIST_PATH')) {
@@ -99,6 +102,11 @@ class Enqueue
                 'hiddenValue' => get_theme_mod('header_sortable_hidden_storage'),
                 'lang'        => [
                     'alignment' => __('Alignment', 'municipio'),
+                    'margin'    => __('Margin', 'municipio'),
+                    'left'      => __('Left', 'municipio'),
+                    'right'     => __('Right', 'municipio'),
+                    'both'      => __('Both', 'municipio'),
+                    'none'      => __('None', 'municipio'),
                 ]
             ]
         );
@@ -121,8 +129,8 @@ class Enqueue
         wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
         wp_enqueue_style('acf-css');
 
-        wp_register_style('material-symbols-fonts', self::getAssetWithCacheBust('fonts/material-symbols.css'));
-        wp_enqueue_style('material-symbols-fonts');
+        wp_register_style('general-css', self::getAssetWithCacheBust('css/general.css'));
+        wp_enqueue_style('general-css');
     }
 
     /**
@@ -143,8 +151,30 @@ class Enqueue
     {
         global $pagenow;
         if ($pagenow == 'options-reading.php') {
-            wp_enqueue_script('options-reading', self::getAssetWithCacheBust('js/options-reading.js'), array('jquery'), null, true);
+            wp_enqueue_script(
+                'options-reading',
+                self::getAssetWithCacheBust('js/options-reading.js'),
+                array('jquery'),
+                null,
+                true
+            );
         }
+
+        wp_enqueue_script(
+            'user-group-visibility',
+            self::getAssetWithCacheBust('js/user-group-visibility.js'),
+            array(),
+            false,
+            true
+        );
+
+        wp_enqueue_script(
+            'hidden-post-status-conditional',
+            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
+            array('acf-input', 'jquery'),
+            false,
+            true
+        );
     }
 
      /**

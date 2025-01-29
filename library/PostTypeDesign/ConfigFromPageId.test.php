@@ -4,10 +4,10 @@ namespace Municipio\PostTypeDesign;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\PostTypeDesign\ConfigFromPageId;
-use WpService\Contracts\IsWPError;
-use WpService\Contracts\RemoteGet;
-use WpService\Contracts\RemoteRetrieveBody;
+use WpService\Contracts\IsWpError;
+use WpService\Contracts\WpRemoteRetrieveBody;
 use WP_Error;
+use WpService\Contracts\WpRemoteGet;
 
 class ConfigFromPageIdTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ConfigFromPageIdTest extends TestCase
     public function testGetReturnsArrayWithValues()
     {
         $wpService = $this->getWpService([
-            'remoteRetrieveBody' => '{"mods": {"test": "test"}, "css": "test"}'
+            'wpRemoteRetrieveBody' => '{"mods": {"test": "test"}, "css": "test"}'
         ]);
         $instance  = new ConfigFromPageId($wpService);
 
@@ -53,7 +53,7 @@ class ConfigFromPageIdTest extends TestCase
 
     private function getWpService(array $db = [])
     {
-        return new class ($db) implements IsWPError, RemoteGet, RemoteRetrieveBody {
+        return new class ($db) implements IsWpError, WpRemoteGet, WpRemoteRetrieveBody {
             public function __construct(private array $db)
             {
             }
@@ -63,14 +63,14 @@ class ConfigFromPageIdTest extends TestCase
                 return $this->db['isWPError'] ?? false;
             }
 
-            public function remoteGet(string $url, array $args = []): array|WP_Error
+            public function wpRemoteGet(string $url, array $args = []): array|WP_Error
             {
-                return $this->db['remoteGet'] ?? [];
+                return $this->db['wpRemoteGet'] ?? [];
             }
 
-            public function remoteRetrieveBody(array|WP_Error $response): string
+            public function wpRemoteRetrieveBody(array|WP_Error $response): string
             {
-                return $this->db['remoteRetrieveBody'] ?? "";
+                return $this->db['wpRemoteRetrieveBody'] ?? "";
             }
         };
     }

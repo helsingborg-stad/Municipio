@@ -2,8 +2,16 @@
 
 namespace Municipio\Theme;
 
+/**
+ * Class General
+ *
+ * The General class is responsible for handling various general functionalities of the theme.
+ */
 class General
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         add_action('init', array($this, 'bemItClassDefinition'));
@@ -40,6 +48,15 @@ class General
             return $class;
         });
 
+        add_filter('Municipio/bodyClass', function ($class) {
+
+            if (current_user_can('upload_files')) {
+                $class .= ' user-can-upload_files';
+            }
+
+            return $class;
+        });
+
         add_filter('Municipio/HeaderHTML', function ($html) {
             return str_replace(
                 ' />',
@@ -49,7 +66,9 @@ class General
         });
 
         add_filter('ComponentLibrary/Component/Date/Data', function ($data) {
-            $data['format'] = \Municipio\Helper\DateFormat::getDateFormat('date');
+            $data['format']   = \Municipio\Helper\DateFormat::getDateFormat('date');
+            $data['region']   = \Municipio\Helper\DateFormat::getLocale();
+            $data['timezone'] = \Municipio\Helper\DateFormat::getTimezone();
             return $data;
         });
     }
@@ -256,23 +275,25 @@ class General
     }
 
     /**
-     * Filter for adding accessibility items
-     * @deprecated version 3.0.0
+     * Decodes HTML entities in a given title.
      *
-     * @param array $items Default item array
-     *
-     * @return array        Modified item array
+     * @param string $title The title to decode.
+     * @return string The decoded title.
      */
-    public function accessibilityItems(array $items = [])
-    {
-        $accessibility = new \Municipio\Helper\Navigation('accessibility');
-        return $accessibility->getAccessibilityItems();
-    }
-
     public static function htmlEntityDecodeTitle($title): string
     {
         return html_entity_decode($title);
     }
+
+    /**
+     * Decodes HTML entities in the names of WP_Term objects.
+     *
+     * This method takes an array of WP_Term objects and decodes the HTML entities in their names.
+     * It modifies the names of the WP_Term objects in the input array directly.
+     *
+     * @param array $terms An array of WP_Term objects.
+     * @return array The modified array of WP_Term objects with decoded names.
+     */
     public static function htmlEntityDecodeTermNames(array $terms): array
     {
         foreach ($terms as &$term) {

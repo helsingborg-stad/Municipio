@@ -2,13 +2,11 @@
 
 namespace Municipio\SchemaData\Utils;
 
-use Mockery;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
-use stdClass;
 use WP_Post;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPost;
@@ -67,7 +65,7 @@ class OutputPostSchemaJsonInSingleHeadTest extends TestCase {
             public function __construct(private array $db)
             {
             }
-            public function addAction(string $tag, callable $functionToAdd, int $priority = 10, int $acceptedArgs = 1): bool
+            public function addAction(string $hookName, callable $callback, int $priority = 10, int $acceptedArgs = 1): true
             {
                 $this->calls['addAction'][] = func_get_args();
                 return true;

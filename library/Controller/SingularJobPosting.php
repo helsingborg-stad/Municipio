@@ -10,14 +10,46 @@ class SingularJobPosting extends \Municipio\Controller\Singular
     protected object $postMeta;
     public string $view = 'single-schema-jobposting';
 
+    /**
+     * @inheritDoc
+     */
     public function init()
     {
+
         parent::init();
+
+
+        $this->data['post'] = $this->sanitizeValidThroughDateString($this->data['post']);
         $this->populateLanguageObject();
         $this->populateInformationList();
         $this->setExpired();
     }
 
+    /**
+     * Sanitize the validThrough date string.
+     *
+     * @param object $post
+     * @return object
+     */
+    private function sanitizeValidThroughDateString($post): object
+    {
+        if (empty($post->schemaObject['validThrough'])) {
+            return $post;
+        }
+
+        try {
+            $date = new \DateTime($post->schemaObject['validThrough']);
+            $post->schemaObject->setProperty('validThrough', $date->format('Y-m-d'));
+        } catch (\Exception $e) {
+            error_log('Failed to parse date: ' . $post->schemaObject['validThrough']);
+        }
+
+        return $post;
+    }
+
+    /**
+     * Populate the language object.
+     */
     private function populateLanguageObject(): void
     {
         $this->data['lang']->contact                     = __('Contact', 'municipio');
@@ -34,12 +66,20 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         $this->data['lang']->expired                     = __('expired', 'municipio');
     }
 
+    /**
+     * Set the expired flag.
+     */
     private function setExpired(): void
     {
         $this->data['expired'] = $this->isExpired();
     }
 
-    private function getValidThroughListItemValue(): string
+    /**
+     * Get the validThrough list item value.
+     *
+     * @return string
+     */
+    public function getValidThroughListItemValue(?int $currentTimestamp = null): string
     {
         $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
 
@@ -47,8 +87,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             return $this->data['post']->schemaObject['validThrough'];
         }
 
-        $daysUntilValidThrough = $validThroughTimeStamp - time();
-        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d', $currentTimestamp));
+        $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
         $value                 = $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
@@ -56,14 +96,19 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->today . ')';
         } elseif ($daysUntilValidThrough === 1) {
             $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->tomorrow . ')';
-        } elseif ($this->isExpired()) {
+        } elseif ($this->isExpired($currentTimestamp)) {
             $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->expired . ')';
         }
 
         return $value;
     }
 
-    private function isExpired(): bool
+    /**
+     * Check if the job posting is expired.
+     *
+     * @return bool
+     */
+    private function isExpired(?int $currentTimestamp = null): bool
     {
         $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
 
@@ -71,13 +116,16 @@ class SingularJobPosting extends \Municipio\Controller\Singular
             return false;
         }
 
-        $daysUntilValidThrough = $validThroughTimeStamp - time();
-        $daysUntilValidThrough = round($daysUntilValidThrough / (60 * 60 * 24));
+        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d', $currentTimestamp));
+        $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
 
         return $daysUntilValidThrough < 0;
     }
 
+    /**
+     * Populate the information list.
+     */
     private function populateInformationList(): void
     {
         $this->data['informationList'] = [];

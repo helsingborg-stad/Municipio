@@ -23,7 +23,7 @@
         @endif
 
         {!! $hook->innerLoopStart !!}
-        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating'])))
+        @if (!empty($showPageTitleOnOnePage) && !empty($post) && (!empty($post->postTitle) || !empty($post->callToActionItems['floating']['icon'])))
             @group([
                 'justifyContent' => 'space-between',
                 'classList' => [
@@ -42,9 +42,11 @@
                         {!! $post->postTitle !!}
                     @endtypography
                 @endif
-                @if (!empty($post->callToActionItems['floating']))
-                    @icon($post->callToActionItems['floating'])
-                    @endicon
+                @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
+                    @element($callToActionItems['floating']['wrapper'] ?? [])
+                        @icon($callToActionItems['floating']['icon'])
+                        @endicon
+                    @endelement
                 @endif
             @endgroup
         @endif

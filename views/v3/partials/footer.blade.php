@@ -1,5 +1,5 @@
 @if (is_active_sidebar('bottom-sidebar'))
-    <div class="o-container o-container--fullwidth">
+    <div class="o-container o-container--fullwidth o-container--remove-spacing">
         <div class="o-grid bottom-sidebar">
             <?php dynamic_sidebar('bottom-sidebar'); ?>
         </div>

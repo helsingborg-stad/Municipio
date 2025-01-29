@@ -3,6 +3,7 @@
 namespace Municipio\Content\ResourceFromApi;
 
 use Municipio\Helper\RestRequestHelper;
+use WpService\Contracts\GetPostType;
 
 /**
  * Class ResourcePostType
@@ -11,6 +12,13 @@ use Municipio\Helper\RestRequestHelper;
 class ResourcePostType
 {
     public const POST_TYPE_NAME = 'api-resource';
+
+    /**
+     * ResourcePostType constructor.
+     */
+    public function __construct(private GetPostType $wpService)
+    {
+    }
 
     /**
      * Adds hooks for the ResourcePostType class.
@@ -84,6 +92,10 @@ class ResourcePostType
      */
     public function loadPostTypeSourceOptions($field): ?array
     {
+        if ($this->wpService->getPostType() === 'acf-field-group') {
+            return $field;
+        }
+
         $choices = [];
 
         if (!function_exists('get_field')) {
@@ -144,6 +156,9 @@ class ResourcePostType
      */
     public function loadTaxonomySourceOptions($field): ?array
     {
+        if ($this->wpService->getPostType() === 'acf-field-group') {
+            return $field;
+        }
 
         $choices = [];
 
@@ -205,6 +220,10 @@ class ResourcePostType
      */
     public function loadAttachmentSourceOptions($field): ?array
     {
+        if ($this->wpService->getPostType() === 'acf-field-group') {
+            return $field;
+        }
+
         $choices = [];
 
         if (!function_exists('get_field')) {
@@ -266,6 +285,9 @@ class ResourcePostType
      */
     public function loadAttachmentArgumentsPostTypes($field): array
     {
+        if ($this->wpService->getPostType() === 'acf-field-group') {
+            return $field;
+        }
 
         $choices = [];
 

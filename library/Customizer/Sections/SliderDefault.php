@@ -94,13 +94,9 @@ class SliderDefault
                     'type'    => 'modifier',
                     'context' => [
                         [
-                            'context'  => 'module.slider-item',
+                            'context'  => 'module.slider.default.slider-item',
                             'operator' => '=='
                         ],
-                        [
-                            'context'  => 'sidebar.slider-area.module.slider-item',
-                            'operator' => '!='
-                        ]
                     ]
                 ]
             ],
@@ -125,12 +121,8 @@ class SliderDefault
                     'type'    => 'modifier',
                     'context' => [
                         [
-                            'context'  => 'module.slider-item',
+                            'context'  => 'module.slider.default.slider-item',
                             'operator' => '==',
-                        ],
-                        [
-                            'context'  => 'sidebar.slider-area.module.slider-item',
-                            'operator' => '!=',
                         ]
                     ]
                 ]
@@ -156,12 +148,8 @@ class SliderDefault
                     'dataKey' => 'overlay',
                     'context' => [
                         [
-                            'context'  => 'module.slider-item',
+                            'context'  => 'module.slider.default.slider-item',
                             'operator' => '==',
-                        ],
-                        [
-                            'context'  => 'sidebar.slider-area.module.slider-item',
-                            'operator' => '!=',
                         ]
                     ]
                 ]

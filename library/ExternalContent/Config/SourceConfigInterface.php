@@ -28,7 +28,7 @@ interface SourceConfigInterface
     /**
      * Get the taxonomies to import to
      *
-     * @return SourceTaxonomyConfigInteface[]
+     * @return \Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface[]
      */
     public function getTaxonomies(): array;
 

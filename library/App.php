@@ -10,6 +10,8 @@ use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
 use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
+use Municipio\Comment\OptionalDisableDiscussionFeature;
+use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
@@ -17,9 +19,18 @@ use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;
 use Municipio\Content\ResourceFromApi\PostTypeFromResource;
 use Municipio\Content\ResourceFromApi\ResourceType;
 use Municipio\Content\ResourceFromApi\TaxonomyFromResource;
+use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\Controller\Navigation\MenuBuilder;
+use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
+use Municipio\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
+use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
+use Municipio\ExternalContent\Sync\Triggers\TriggerSyncIfNotInProgress;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
+use Municipio\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
@@ -42,7 +53,12 @@ use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
+use wpdb;
 use WpService\WpService;
+use Municipio\Helper\User\Config\UserConfig;
+use Municipio\Helper\User\User;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\CommonOptions\CommonOptionsConfig;
 
 /**
  * Class App
@@ -58,7 +74,8 @@ class App
         private AcfService $acfService,
         private HooksRegistrarInterface $hooksRegistrar,
         private AcfFieldContentModifierRegistrarInterface $acfFieldContentModifierRegistrar,
-        private SchemaDataConfigInterface $schemaDataConfig
+        private SchemaDataConfigInterface $schemaDataConfig,
+        private wpdb $wpdb
     ) {
         /**
          * Upgrade
@@ -66,9 +83,56 @@ class App
         new \Municipio\Upgrade($this->wpService, $this->acfService);
 
         /**
+         * Upgrade
+         */
+        $menuDirector = new MenuDirector();
+        $menuBuilder  = new MenuBuilder(
+            new MenuConfig(),
+            $this->acfService,
+            $this->wpService
+        );
+
+        /*
+         * Helpers
+         */
+        $userGroupConfig  = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
+        $userHelperConfig = new \Municipio\Helper\User\Config\UserConfig();
+        $userHelper       = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            $userHelperConfig,
+            $userGroupConfig,
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+
+        /**
+         * User group
+         */
+        $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+
+        $mainQueryUserGroupRestriction = new \Municipio\Admin\Private\MainQueryUserGroupRestriction(
+            $this->wpService,
+            $userHelper,
+            $userGroupRestrictionConfig
+        );
+
+        /**
+         * Allow posts in private visibility to have further conditions to be shown.
+         */
+        (new \Municipio\Admin\Private\PrivateAcfFields($this->wpService))->addHooks();
+
+        /**
          * Template
          */
-        new \Municipio\Template($this->acfService, $this->wpService, $this->schemaDataConfig);
+        new \Municipio\Template(
+            $menuBuilder,
+            $menuDirector,
+            $this->acfService,
+            $this->wpService,
+            $this->schemaDataConfig,
+            $mainQueryUserGroupRestriction
+        );
 
         /**
          * Theme
@@ -77,13 +141,12 @@ class App
         new \Municipio\Theme\Support();
         new \Municipio\Theme\Sidebars();
         new \Municipio\Theme\General();
-        new \Municipio\Theme\ImageSizeFilter();
         new \Municipio\Theme\CustomCodeInput();
         new \Municipio\Theme\Blog();
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes());
+        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService));
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -106,13 +169,17 @@ class App
          */
         $this->wpService->addFilter('Municipio/Helper/Post/postObject', function (WP_Post $post) {
 
-            $decorator = new \Municipio\PostDecorators\ApplyOpenStreetMapData();
-            $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService, $decorator);
+            // Place
+            $decorator = new \Municipio\PostDecorators\ApplyBookingLinkToPlace($this->acfService);
             $decorator = new \Municipio\PostDecorators\ApplyInfoListToPlace(
                 $this->acfService,
                 new Listing(),
                 $decorator
             );
+
+            // Project
+            $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
+            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($this->wpService, $decorator);
 
             return $decorator->apply($post);
         }, 10, 1);
@@ -122,7 +189,7 @@ class App
          */
 
         // Register the actual post type to be used for resources.
-        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType();
+        $resourcePostType = new \Municipio\Content\ResourceFromApi\ResourcePostType($this->wpService);
         $resourcePostType->addHooks();
 
         // Set up registry.
@@ -192,13 +259,14 @@ class App
         new \Municipio\Comment\Likes();
         new \Municipio\Comment\Filters();
         new \Municipio\Comment\Form();
+        $this->hooksRegistrar->register(new OptionalDisableDiscussionFeature($this->wpService, $this->acfService));
+        $this->hooksRegistrar->register(new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService));
 
         /**
          * Admin
          */
         new \Municipio\Admin\Gutenberg\Gutenberg();
         new \Municipio\Admin\General();
-        new \Municipio\Admin\LoginTracking();
 
         new \Municipio\Admin\Gutenberg\Blocks\BlockManager();
 
@@ -208,11 +276,11 @@ class App
         new \Municipio\Admin\Options\ContentEditor();
         new \Municipio\Admin\Options\AttachmentConsent();
 
-        new \Municipio\Admin\Acf\PrefillIconChoice();
+        new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
-        new \Municipio\Admin\Roles\General();
-        new \Municipio\Admin\Roles\Editor();
+        new \Municipio\Admin\Roles\General($this->wpService);
+        new \Municipio\Admin\Roles\Editor($userHelper);
 
         new \Municipio\Admin\UI\BackEnd();
         new \Municipio\Admin\UI\FrontEnd();
@@ -220,6 +288,11 @@ class App
 
         new \Municipio\Admin\TinyMce\LoadPlugins();
 
+        /* Integration: MiniOrange */
+        $moveAdminPageToSettings = new \Municipio\Integrations\MiniOrange\MoveAdminPageToSettings($this->wpService);
+        $this->hooksRegistrar->register($moveAdminPageToSettings);
+
+        /* Admin uploads */
         $uploads = new \Municipio\Admin\Uploads();
         $uploads->addHooks();
 
@@ -227,19 +300,18 @@ class App
          * Api
          */
         RestApiEndpointsRegistry::add(new \Municipio\Api\Media\Sideload());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children());
-        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender());
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\Children($menuBuilder, $menuDirector));
+        RestApiEndpointsRegistry::add(new \Municipio\Api\Navigation\ChildrenRender($menuBuilder, $menuDirector));
         RestApiEndpointsRegistry::add(new \Municipio\Api\View\Render());
 
         $pdfHelper    = new \Municipio\Api\Pdf\PdfHelper();
         $pdfGenerator = new \Municipio\Api\Pdf\PdfGenerator($pdfHelper);
         $pdfGenerator->addHooks();
 
-
         /**
          * Customizer
          */
-        new \Municipio\Customizer();
+        new \Municipio\Customizer($this->wpService, $this->wpdb);
 
         /**
          * Block customizations
@@ -271,6 +343,297 @@ class App
          * Image convert
          */
         $this->setupImageConvert();
+
+        /**
+         * Component Context filters
+         */
+        $this->setupComponentContextFilters();
+
+        /**
+         * Sticky posts
+         */
+        $this->setupStickyPosts();
+
+        /**
+         * Login screen
+         */
+        $this->setupLoginLogout();
+
+        /**
+         * UserGroup feature
+         */
+        $this->setupUserGroupFeature();
+
+        /**
+         * MiniOrange integration
+         */
+        $this->setUpMiniOrangeIntegration();
+
+        /**
+         * Broken links
+         */
+        $this->setUpBrokenLinksIntegration();
+
+        /**
+         * Setup common options
+         */
+        $this->setUpCommonFieldGroups();
+    }
+
+    /**
+     * Set up the common options feature.
+     *
+     * This method initializes the common options feature by creating an instance of the
+     * RegisterCommonOptionsAdminPage class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setUpCommonFieldGroups(): void
+    {
+        //Init dependencies
+        $siteSwitcher = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService);
+        $config       = new \Municipio\CommonFieldGroups\CommonFieldGroupsConfig(
+            $this->wpService,
+            $this->acfService,
+            $siteSwitcher
+        );
+
+        //Check if feature is enabled
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        //Admin page
+        $registerCommonFieldGroupsOptionsAdminPage = new \Municipio\CommonFieldGroups\RegisterCommonFieldGroupsOptionsAdminPage($this->wpService, $this->acfService);
+        $registerCommonFieldGroupsOptionsAdminPage->addHooks();
+
+        //Populate admin page fields
+        $populateCommonFieldGroupSelect = new \Municipio\CommonFieldGroups\PopulateCommonFieldGroupSelect($this->wpService, $this->acfService, $config);
+        $populateCommonFieldGroupSelect->addHooks();
+
+        //Disable fields
+        $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonFieldGroups\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
+
+        //Modify field choices
+        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonFieldGroups\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $filterGetFieldToRetriveCommonValues->addHooks();
+    }
+
+    /**
+     * Sets up the broken links integration.
+     *
+     * This method initializes the broken links integration by creating an instance of the
+     * RedirectToLoginWhenInternalContext class and passing the WordPress service instance.
+     *
+     * @return void
+     */
+
+    private function setUpBrokenLinksIntegration(): void
+    {
+        $config = new \Municipio\Integrations\BrokenLinks\Config\BrokenLinksConfig();
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        $redirect = new \Municipio\Integrations\BrokenLinks\RedirectToLoginWhenInternalContext($this->wpService, $config);
+        $redirect->addHooks();
+    }
+
+    /**
+     * Sets up the sticky posts feature.
+     *
+     * This method initializes the sticky posts feature by creating an instance of the
+     * StickyPosts class and passing
+     */
+    private function setupStickyPosts(): void
+    {
+        $stickyPostConfig = new \Municipio\StickyPost\Config\StickyPostConfig();
+        $stickyPostHelper = new \Municipio\StickyPost\Helper\GetStickyOption(
+            $stickyPostConfig,
+            $this->wpService
+        );
+        (new \Municipio\StickyPost\AddStickyCheckboxForPost(
+            $stickyPostHelper,
+            $this->wpService
+        ))->addHooks();
+
+        (new \Municipio\StickyPost\AddStickyLabelToPost(
+            $stickyPostHelper,
+            $this->wpService
+        ))->addHooks();
+    }
+
+    /**
+     * Set up the custom login screen.
+     *
+     * This method is responsible to apply design changes to the login screen.
+     *
+     * @return void
+     */
+    private function setupLoginLogout(): void
+    {
+        //Needs setUser to be called before using the user object
+        $userHelper = new User(
+            $this->wpService,
+            $this->acfService,
+            new UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+
+        $filterAuthUrls = new \Municipio\Admin\Login\RelationalLoginLogourUrls($this->wpService);
+        $filterAuthUrls->addHooks();
+
+        $addLoginAndLogoutNotices = new \Municipio\Admin\Login\AddLoginAndLogoutNotices($this->wpService, $this->acfService, $userHelper, new UserConfig());
+        $addLoginAndLogoutNotices->addHooks();
+
+        $logUserLoginTime = new \Municipio\Admin\Login\LogUserLoginTime($this->wpService);
+        $logUserLoginTime->addHooks();
+
+        $registerLoginLogoutOptionsPage = new \Municipio\Admin\Login\RegisterLoginLogoutOptionsPage($this->wpService, $this->acfService);
+        $registerLoginLogoutOptionsPage->addHooks();
+
+        $enqueueLoginScreenStyles = new \Municipio\Admin\Login\EnqueueLoginScreenStyles($this->wpService);
+        $enqueueLoginScreenStyles->addHooks();
+
+        $setLoginScreenLogotypeData = new \Municipio\Admin\Login\SetLoginScreenLogotypeData($this->wpService);
+        $setLoginScreenLogotypeData->addHooks();
+
+        $doNotHaltAuthWhenNonceIsMissing = new \Municipio\Admin\Login\DoNotHaltAuthWhenNonceIsMissing($this->wpService);
+        $doNotHaltAuthWhenNonceIsMissing->addHooks();
+
+        $redirectUserToGroupUrlIfIsPrefered = new \Municipio\Admin\Login\RedirectUserToGroupUrlIfIsPreferred($this->wpService, $userHelper);
+        $redirectUserToGroupUrlIfIsPrefered->addHooks();
+    }
+
+    /**
+     * Set up the user group feature.
+     */
+    private function setupUserGroupFeature(): void
+    {
+        $config = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
+
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        // Setup dependencies
+        $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
+        $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
+        $siteSwitcher               = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService);
+
+        $userHelper = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            $userHelperConfig,
+            $config,
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            $siteSwitcher
+        );
+
+        $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+
+        // Create user group taxonomy
+        (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config, $siteSwitcher))->addHooks();
+
+        // Add user group to users list
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config))->addHooks();
+
+        // Add user group to admin menu
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyLinkInAdminUi($this->wpService, $config))->addHooks();
+
+        // Add user group to user profile & populate
+        (new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUserProfile($this->wpService, $this->acfService, $config))->addHooks();
+
+        // User group url
+        (new \Municipio\UserGroup\PopulateUserGroupUrlBlogIdField($this->wpService))->addHooks();
+
+        // Add user group select to edit post when private
+        (new \Municipio\UserGroup\AddSelectUserGroupForPrivatePost(
+            $this->wpService,
+            $config->getUserGroupTaxonomy(),
+            $userHelperConfig,
+            $userGroupRestrictionConfig,
+            $getUserGroupTerms
+        ))->addHooks();
+
+        // Restrict private posts to user group
+        (new \Municipio\UserGroup\RestrictPrivatePostToUserGroup($this->wpService, $userHelper, $userGroupRestrictionConfig))->addHooks();
+
+        // Redirect to user group url after SSO login if using MiniOrange plugin for SSO login
+        (new \Municipio\UserGroup\RedirectToUserGroupUrlAfterSsoLogin($userHelper, $this->wpService))->addHooks();
+    }
+
+    /**
+     * Set up the MiniOrange integration.
+     *
+     * This method is responsible for setting up the MiniOrange integration.
+     *
+     * @return void
+     */
+    private function setUpMiniOrangeIntegration(): void
+    {
+        $userHelper = new \Municipio\Helper\User\User(
+            $this->wpService,
+            $this->acfService,
+            new \Municipio\Helper\User\Config\UserConfig(),
+            new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService),
+            new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+        );
+
+        $termHelper      = new \Municipio\Helper\Term\Term($this->wpService, $this->acfService);
+        $userGroupConfig = new \Municipio\UserGroup\Config\UserGroupConfig($this->wpService);
+        $config          = new \Municipio\Integrations\MiniOrange\Config\MiniOrangeConfig($this->wpService);
+
+        if ($config->isEnabled() === false) {
+            return;
+        }
+
+        //Require SSO login
+        $requireSsoLogin = new \Municipio\Integrations\MiniOrange\RequireSsoLogin($this->wpService, $config);
+        $requireSsoLogin->addHooks();
+
+        //Map values to WordPress user
+        $mappingProviders = [
+            new \Municipio\Integrations\MiniOrange\Provider\DefaultProvider(),
+        ];
+        $attributeMapper  = new \Municipio\Integrations\MiniOrange\AttributeMapper($this->wpService, $config, ...$mappingProviders);
+        $attributeMapper->addHooks();
+
+        // Allow redirect after SSO login
+        (new \Municipio\Integrations\MiniOrange\AllowRedirectAfterSsoLogin($this->wpService))->addHooks();
+
+        if ($userGroupConfig->isEnabled() === false) {
+            return;
+        }
+
+        // Set group as taxonomy
+        $setGroupAsTaxonomy = new \Municipio\Integrations\MiniOrange\SetUserGroupFromSsoLoginGroup($this->wpService, $userHelper);
+        $setGroupAsTaxonomy->addHooks();
+    }
+
+    /**
+     * Sets up the component context filters.
+     *
+     * This method initializes the component context filters by creating instances of the
+     * CurrentSidebar and CompressedCollections classes and passing the WordPress service instance.
+     *
+     * @return void
+     */
+    private function setupComponentContextFilters(): void
+    {
+        $currentSidebar = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CurrentSidebar($this->wpService);
+        $currentSidebar->addHooks();
+
+        $compressedCollections = new \Municipio\Integrations\Component\ContextFilters\Sidebar\CompressedCollections($this->wpService, $currentSidebar);
+        $compressedCollections->addHooks();
     }
 
     /**
@@ -289,7 +652,8 @@ class App
             'Municipio/ImageConvert',
             'webp',
             90,
-            1920
+            1920,
+            5
         );
 
         //Check if image convert is enabled
@@ -409,11 +773,7 @@ class App
             ]);
         });
 
-        if (!$this->schemaDataConfig->featureIsEnabled()) {
-            return;
-        }
-
-        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes();
+        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
         $schemaPropSanitizer               = new NullSanitizer();
         $schemaPropSanitizer               = new StringSanitizer($schemaPropSanitizer);
         $schemaPropSanitizer               = new BooleanSanitizer($schemaPropSanitizer);
@@ -447,7 +807,7 @@ class App
         /**
          * Limit schema types and properties.
          */
-        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes();
+        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService);
         $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
         $this->hooksRegistrar->register(new LimitSchemaTypesAndProperties(
             $enabledSchemaTypes->getEnabledSchemaTypesAndProperties(),
@@ -514,13 +874,14 @@ class App
     private function setupExternalContent(): void
     {
         /**
+         * Allow cron to edit posts.
+         */
+        $this->hooksRegistrar->register(new AllowCronToEditPosts($this->wpService));
+
+        /**
          * Feature config
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
-
-        if (!$this->schemaDataConfig->featureIsEnabled()) {
-            return;
-        }
 
         /**
          * Register taxonomies for external content.
@@ -531,9 +892,7 @@ class App
                 $taxonomyItem = new TaxonomyItem(
                     $config->getSchemaType(),
                     [$config->getPostType()],
-                    $taxonomyConfig->getFromSchemaProperty(),
-                    $taxonomyConfig->getSingularName(),
-                    $taxonomyConfig->getName(),
+                    $taxonomyConfig,
                     $this->wpService
                 );
                 $taxonomyItem->register(); // Register the taxonomy.
@@ -573,7 +932,8 @@ class App
         $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
             $sources,
             $taxonomyItems,
-            $this->wpService
+            $this->wpService,
+            $this->wpdb
         );
         $this->hooksRegistrar->register($syncEventListener);
 
@@ -621,7 +981,7 @@ class App
         /**
          * Populate cron_schedule field options.
          */
-        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->getSchedules());
+        $scheduleOptions = array_map(fn($schedule) => $schedule['display'], $this->wpService->wpGetSchedules());
         array_unshift($scheduleOptions, __('Never', 'municipio'));
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9961f781e',
@@ -645,8 +1005,22 @@ class App
         /**
          * Trigger sync of external content.
          */
+        $triggerSync = new TriggerSync($this->wpService);
+        $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
+        $triggerSync = new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams(
+            $this->wpService,
+            $triggerSync
+        );
+        $this->hooksRegistrar->register($triggerSync);
+
+        /**
+         * Hide synced media from media library in admin.
+         */
         $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams($this->wpService)
+            new HideSyncedMediaFromAdminMediaLibrary(
+                ThumbnailDecorator::META_KEY,
+                $this->wpService
+            )
         );
     }
 }

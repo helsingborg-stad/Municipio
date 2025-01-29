@@ -2,10 +2,44 @@
 
 namespace Municipio\Helper\Navigation;
 
+use Municipio\Helper\Navigation\GetMenuData;
+
+/**
+ * Class MenuConstructor
+ *
+ * This class represents a menu constructor that is responsible for constructing menus in the WordPress theme.
+ *
+ * @package Helper\Navigation
+ */
 class MenuConstructor
 {
-    public function __construct(private string $identifier = "")
+    /**
+     * Class MenuConstructor
+     *
+     * This class represents a menu constructor that is responsible for constructing menus in the WordPress theme.
+     *
+     * @package Helper\Navigation
+     */
+    public function __construct(private string $identifier = "", private ?int $menuId = null, private ?int $pageId = null)
     {
+    }
+
+    /**
+     * Structure the menu items into a hierarchical structure.
+     *
+     * @param array $menuItems The menu items to be structured.
+     * @param string|int $menu The ID or slug of the menu.
+     */
+    public function structureMenu(array $menuItems, string|int $menu)
+    {
+        $structuredMenu = [];
+
+        $navMenuObject = GetMenuData::getNavMenuObject($menu);
+
+        $structuredMenu['items'] = $menuItems;
+        $structuredMenu['title'] = $navMenuObject ? $navMenuObject->name : null;
+
+        return $structuredMenu;
     }
 
     /**

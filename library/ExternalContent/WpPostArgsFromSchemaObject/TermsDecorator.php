@@ -8,8 +8,8 @@ use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\PropertyValue;
 use WP_Term;
-use WpService\Contracts\InsertTerm;
 use WpService\Contracts\TermExists;
+use WpService\Contracts\WpInsertTerm;
 
 /**
  * Class WpPostMetaFactoryVersionDecorator
@@ -25,7 +25,7 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
     public function __construct(
         private array $taxonomyItems,
         private WpTermFactoryInterface $wpTermFactory,
-        private InsertTerm&TermExists $wpService,
+        private WpInsertTerm&TermExists $wpService,
         private WpPostArgsFromSchemaObjectInterface $inner
     ) {
     }
@@ -167,7 +167,7 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
                 return $termExists['term_id'];
             }
 
-            $insertedTerm = $this->wpService->insertTerm($term->name, $taxonomy);
+            $insertedTerm = $this->wpService->wpInsertTerm($term->name, $taxonomy);
 
             if (is_array($insertedTerm) && isset($insertedTerm['term_id'])) {
                 return $insertedTerm['term_id'];

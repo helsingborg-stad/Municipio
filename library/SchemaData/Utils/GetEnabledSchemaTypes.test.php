@@ -3,12 +3,17 @@
 namespace Municipio\SchemaData\Utils;
 
 use PHPUnit\Framework\TestCase;
+use WpService\Implementations\FakeWpService;
+use WpService\WpService;
 
 class GetEnabledSchemaTypesTest extends TestCase
 {
+    private WpService $wpService;
+
     private function getEnabledSchemaTypes(): array
     {
-        $getEnabledSchemaTypes = new GetEnabledSchemaTypes();
+        $this->wpService       = new FakeWpService(['applyFilters' => fn ($filter, $value) => $value ]);
+        $getEnabledSchemaTypes = new GetEnabledSchemaTypes($this->wpService);
         return $getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();
     }
 
@@ -46,5 +51,25 @@ class GetEnabledSchemaTypesTest extends TestCase
         $this->assertContains('department', $enabledSchemaTypes['Project']);
         $this->assertContains('employee', $enabledSchemaTypes['Project']);
         $this->assertContains('funding', $enabledSchemaTypes['Project']);
+    }
+
+    public function testContainsSpecialAnnouncement()
+    {
+        $this->assertArrayHasKey('SpecialAnnouncement', $this->getEnabledSchemaTypes());
+    }
+
+    public function testSpecialAnnouncementProperties()
+    {
+        $enabledSchemaTypes = $this->getEnabledSchemaTypes();
+        $this->assertContains('@id', $enabledSchemaTypes['SpecialAnnouncement']);
+        $this->assertContains('description', $enabledSchemaTypes['SpecialAnnouncement']);
+        $this->assertContains('name', $enabledSchemaTypes['SpecialAnnouncement']);
+    }
+
+    public function testFilterIsApplied()
+    {
+        $enabledSchemaTypes = $this->getEnabledSchemaTypes();
+        $this->assertEquals('Municipio/SchemaData/EnabledSchemaTypes', $this->wpService->methodCalls['applyFilters'][0][0]);
+        $this->assertEquals($enabledSchemaTypes, $this->wpService->methodCalls['applyFilters'][0][1]);
     }
 }

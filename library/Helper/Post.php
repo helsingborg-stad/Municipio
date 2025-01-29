@@ -5,6 +5,21 @@ namespace Municipio\Helper;
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Image;
 use WP_Post;
+use Municipio\Integrations\Component\ImageResolver;
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Helper\Term\Term;
+use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
+use Municipio\PostObject\Decorators\IconResolvingPostObject;
+use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
+use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
+use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
+use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
+use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
+use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
+use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
+use Municipio\PostObject\PostObject;
+use Municipio\PostObject\PostObjectInterface;
 
 /**
  * Class Post
@@ -22,20 +37,16 @@ class Post
      * @param object $post WP_Post object
      * @param mixed $data Additional data for post object
      *
-     * @return object Transformed WP_Post object
+     * @return PostObjectInterface $postObject
      */
-    public static function preparePostObject(\WP_Post $post, $data = null): object
+    public static function preparePostObject(\WP_Post $post, $data = null): PostObjectInterface
     {
         // Create a unique cache key based on the post ID and serialized data
-        $serializedPost = serialize(get_object_vars($post));
-        $cacheKey       = md5($serializedPost . '_' . serialize($data));
+        $cacheGroup = 'preparePostObject';
+        $cacheKey   = md5(serialize(get_object_vars($post)) . '_' . serialize($data));
 
-        if (!isset(self::$runtimeCache['preparePostObject'])) {
-            self::$runtimeCache['preparePostObject'] = [];
-        }
-
-        if (isset(self::$runtimeCache['preparePostObject'][$cacheKey])) {
-            return self::$runtimeCache['preparePostObject'][$cacheKey];
+        if (self::isInCache($cacheGroup, $cacheKey)) {
+            return self::getFromCache($cacheGroup, $cacheKey);
         }
 
         // Perform the original operations
@@ -50,15 +61,12 @@ class Post
                 'post_language',
                 'reading_time',
                 'quicklinks',
-                'call_to_action_items',
-                'term_icon'
+                'call_to_action_items'
             ],
             $data
         );
 
-        return self::$runtimeCache['preparePostObject'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
-            $post
-        );
+        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
     }
 
      /**
@@ -79,18 +87,15 @@ class Post
      * @param   object   $post    WP_Post object
      * @param mixed $data Additional data for post object
      *
-     * @return  object   $post    Transformed WP_Post object
+     * @return PostObjectInterface $postObject
      */
-    public static function preparePostObjectArchive(\WP_Post $post, $data = null): object
+    public static function preparePostObjectArchive(\WP_Post $post, $data = null): PostObjectInterface
     {
-        $cacheKey = md5($post->ID . '_' . serialize($data));
+        $cacheGroup = 'preparePostObjectArchive';
+        $cacheKey   = md5($post->guid . '_' . serialize($data));
 
-        if (!isset(self::$runtimeCache['preparePostObjectArchive'])) {
-            self::$runtimeCache['preparePostObjectArchive'] = [];
-        }
-
-        if (isset(self::$runtimeCache['preparePostObjectArchive'][$cacheKey])) {
-            return self::$runtimeCache['preparePostObjectArchive'][$cacheKey];
+        if (self::isInCache($cacheGroup, $cacheKey)) {
+            return self::getFromCache($cacheGroup, $cacheKey);
         }
 
         $post = self::complementObject(
@@ -107,9 +112,68 @@ class Post
             $data
         );
 
-        return self::$runtimeCache['preparePostObjectArchive'][$cacheKey] = \Municipio\Helper\FormatObject::camelCase(
-            $post
-        );
+        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
+    }
+
+    /**
+     * Alias for preparePostObjectArchive
+     *
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return bool
+     */
+    private static function isInCache($cacheGroup, $cacheKey): bool
+    {
+        if (!isset(self::$runtimeCache[$cacheGroup])) {
+            self::$runtimeCache[$cacheGroup] = [];
+        }
+
+        return isset(self::$runtimeCache[$cacheGroup][$cacheKey]);
+    }
+
+    /**
+     * Get post object from cache
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return PostObjectInterface
+     */
+    private static function getFromCache($cacheGroup, $cacheKey): PostObjectInterface
+    {
+        return self::$runtimeCache[$cacheGroup][$cacheKey];
+    }
+
+    /**
+     * Prepare post object before sending to view
+     *
+     * @param WP_Post $post WP_Post object
+     * @param string $cacheGroup Cache group
+     * @param string $cacheKey Cache key
+     * @return PostObjectInterface
+     */
+    private static function convertWpPostToPostObject(WP_Post $post, string $cacheGroup, string $cacheKey): PostObjectInterface
+    {
+        $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
+        $wpService      = \Municipio\Helper\WpService::get();
+        $acfService     = \Municipio\Helper\AcfService::get();
+
+        $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
+        $postObject = new PostObjectWithSeoRedirect($postObject, $wpService);
+
+        $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
+        $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);
+        $iconResolver = new CachedIconResolver($postObject, $iconResolver);
+
+        $postObject = new IconResolvingPostObject($postObject, $iconResolver);
+
+        if ($wpService->isMultiSite() && $wpService->msIsSwitched()) {
+            $postObject = new PostObjectFromOtherBlog($postObject, $wpService, $wpService->getCurrentBlogId());
+        }
+
+        $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
+
+        self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
+
+        return $postObject;
     }
 
     /**
@@ -134,7 +198,7 @@ class Post
 
         if (
             !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
-            && has_blocks($postObject->post_content) && isset($data['quicklinksMenuItems'])
+            && has_blocks($postObject->post_content) && isset($data['quicklinksMenu']['items'])
         ) {
                 $postObject->displayQuicklinksAfterContent = false;
                 // Add quicklinks after first block
@@ -145,7 +209,7 @@ class Post
                     render_blade_view(
                         'partials.navigation.fixed-after-block',
                         [
-                        'quicklinksMenuItems' => $data['quicklinksMenuItems'],
+                        'quicklinksMenu'      => $data['quicklinksMenu']['items'],
                         'quicklinksPlacement' => $postObject->quicklinksPlacement,
                         'customizer'          => $data['customizer'],
                         'lang'                => $data['lang'],
@@ -248,6 +312,15 @@ class Post
         $postObject->images['featuredImage']   = self::getFeaturedImage($postObject->ID, [1080, false]);
         $postObject->images['thumbnail_12:16'] = $postObject->images['thumbnail_3:4'];
 
+        //Get image contract
+        if ($thumbnailId = get_post_thumbnail_id($postObject->ID)) {
+            $postObject->imageContract = ImageComponentContract::factory(
+                (int) $thumbnailId,
+                [1920, false],
+                new ImageResolver()
+            );
+        }
+
         //Deprecated
         $postObject->thumbnail        = $postObject->images['thumbnail_16:9'];
         $postObject->thumbnail_tall   = $postObject->images['thumbnail_4:3'];
@@ -259,10 +332,6 @@ class Post
             $taxonomiesToDisplay       = $data['taxonomiesToDisplay'] ?? null;
             $postObject->terms         = self::getPostTerms($postObject->ID, true, $taxonomiesToDisplay);
             $postObject->termsUnlinked = self::getPostTerms($postObject->ID, false, $taxonomiesToDisplay);
-        }
-
-        if (in_array('term_icon', $appendFields) && !empty($postObject->terms) && !empty($postObject->post_type)) {
-            $postObject->termIcon = self::getPostTermIcon($postObject->ID, $postObject->post_type);
         }
 
         if (in_array('post_language', $appendFields)) {
@@ -311,7 +380,11 @@ class Post
                 $part = str_replace('<!-- /wp:more -->', '', $part);
             }
 
-            $excerpt = self::replaceBuiltinClasses(self::createLeadElement(self::removeEmptyPTag(array_shift($parts))));
+            $excerpt = self::removeEmptyPTag(array_shift($parts));
+            $excerpt = self::createLeadElement($excerpt);
+            $excerpt = self::replaceBuiltinClasses($excerpt);
+            $excerpt = self::handleBlocksInExcerpt($excerpt);
+
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag(implode(PHP_EOL, $parts)));
         } else {
             $excerpt = "";
@@ -334,6 +407,25 @@ class Post
 
         // Build post_content_filtered
         return $excerpt . $content;
+    }
+
+    /*
+     * Handle blocks in excerpt.
+     * If the excerpt contains blocks, the blocks are rendered and returned.
+     * Otherwise, the excerpt is returned as is.
+     *
+     * @param string $excerpt The post excerpt.
+     * @return string The excerpt with blocks rendered.
+     */
+    private static function handleBlocksInExcerpt(string $excerpt): string
+    {
+        if (!preg_match('/<!--\s?wp:acf\/[a-zA-Z0-9_-]+/', $excerpt)) {
+            return $excerpt;
+        }
+
+        $excerpt = apply_filters('the_content', $excerpt);
+
+        return $excerpt;
     }
 
     /*
@@ -360,54 +452,6 @@ class Post
         }
 
         return [strip_shortcodes($postObject->post_content), false];
-    }
-
-    /**
-     * Get the icon and color associated with terms for a post.
-     *
-     * Iterates through the taxonomies of the post type and retrieves the terms.
-     * For each term, it gets the icon and color using the \Municipio\Helper\Term class.
-     * The first found icon and color are used to build an associative array representing
-     * the term icon, which includes properties like icon source, size, color, and background color.
-     * The resulting array is then filtered using 'Municipio/Helper/Post/getPostTermIcon' filter.
-     *
-     * @param int    $postId   The post identifier.
-     * @param string $postType The post type.
-     * @return array The term icon associative array.
-     */
-    private static function getPostTermIcon($postId, $postType)
-    {
-        $taxonomies = get_object_taxonomies($postType);
-
-        $termIcon  = [];
-        $termColor = false;
-        foreach ($taxonomies as $taxonomy) {
-            $terms = get_the_terms($postId, $taxonomy);
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    if (empty($termIcon)) {
-                        $icon  = \Municipio\Helper\Term::getTermIcon($term, $taxonomy);
-                        $color = \Municipio\Helper\Term::getTermColor($term, $taxonomy);
-                        if (!empty($icon) && !empty($icon['src']) && $icon['type'] == 'icon') {
-                            $termIcon['icon']            = $icon['src'];
-                            $termIcon['size']            = 'md';
-                            $termIcon['color']           = 'white';
-                            $termIcon['backgroundColor'] = $color;
-                        }
-
-                        if (!empty($color)) {
-                            $termColor = $color;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (empty($termIcon) && !empty($termColor)) {
-            $termIcon['backgroundColor'] = $color;
-        }
-
-        return \apply_filters('Municipio/Helper/Post/getPostTermIcon', $termIcon);
     }
 
     /**

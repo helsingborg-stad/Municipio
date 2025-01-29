@@ -7,13 +7,27 @@ use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
+use WpService\Contracts\UpdatePostMeta;
 
+/**
+ * Decorator for adding thumbnail to post args.
+ */
 class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner, private MediaSideloadImage&GetPosts $wpService)
-    {
+    public const META_KEY = 'synced_from_external_source';
+
+    /**
+     * Constructor.
+     */
+    public function __construct(
+        private WpPostArgsFromSchemaObjectInterface $inner,
+        private MediaSideloadImage&GetPosts&UpdatePostMeta $wpService
+    ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(BaseType $schemaObject, SourceInterface $source): array
     {
         $post     = $this->inner->create($schemaObject, $source);
@@ -24,6 +38,14 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
 
             if (empty($attachmentId)) {
                 $attachmentId = $this->wpService->mediaSideloadImage($imageUrl, 0, null, 'id');
+
+                if (!empty($attachmentId) && !($attachmentId instanceof \WP_Error)) {
+                    $this->wpService->updatePostMeta($attachmentId, self::META_KEY, true);
+                }
+            }
+
+            if (empty($attachmentId) || $attachmentId instanceof \WP_Error) {
+                return $post;
             }
 
             $post['meta_input']['_thumbnail_id'] = $attachmentId;
@@ -32,6 +54,12 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
         return $post;
     }
 
+    /**
+     * Get attachment by source url.
+     *
+     * @param string $sourceUrl
+     * @return int|null
+     */
     private function getAttachmentBySourceUrl(string $sourceUrl): ?int
     {
         $attachment = $this->wpService->getPosts([
@@ -44,6 +72,12 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
         return empty($attachment) ? null : $attachment[0]->ID;
     }
 
+    /**
+     * Get image url from schema object.
+     *
+     * @param BaseType $schemaObject
+     * @return string|null
+     */
     private function getImageUrl(BaseType $schemaObject): ?string
     {
         $image = $schemaObject->getProperty('image');

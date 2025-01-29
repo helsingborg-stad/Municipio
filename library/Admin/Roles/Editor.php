@@ -2,11 +2,19 @@
 
 namespace Municipio\Admin\Roles;
 
+use Municipio\Helper\User\User;
+
+/**
+ * Editor
+ */
 class Editor
 {
-    public function __construct()
+    /**
+     * Constructor
+     */
+    public function __construct(private User $userHelper)
     {
-        if (\Municipio\Helper\User::hasRole('editor')) {
+        if ($userHelper->userHasRole('editor')) {
             add_action('admin_init', array($this, 'adminRedirects'), 1);
             add_action('admin_menu', array($this, 'adminMenus'), 9000);
         }
@@ -15,6 +23,9 @@ class Editor
         add_filter('acf/allow_unfiltered_html', '__return_true');
     }
 
+    /**
+     * Redirects and limitations for editors
+     */
     public function adminRedirects()
     {
         //Add capability
@@ -31,6 +42,9 @@ class Editor
         add_action('load-options-writing.php', array($this, 'redirectToDashboard'));
     }
 
+    /**
+     * Limitations for editors
+     */
     public function adminMenus()
     {
         //Edit theme options limitations
@@ -62,6 +76,9 @@ class Editor
         $this->removeFromAdminMenu('admin.php?page=gf_help');
     }
 
+    /**
+     * Add capabilities
+     */
     public function addCapabilities()
     {
         $administrator = get_role('administrator');
@@ -77,14 +94,20 @@ class Editor
         $editor->add_cap('unfiltered_html');
     }
 
+    /**
+     * Redirect to dashboard
+     */
     public function redirectToDashboard()
     {
-        if (\Municipio\Helper\User::hasRole('editor')) {
+        if ($this->userHelper->userHasRole('editor')) {
             wp_redirect(admin_url());
             exit;
         }
     }
 
+    /**
+     * Remove from admin menu
+     */
     public function removeFromAdminMenu($slug, $subMenuSlug = null)
     {
         if (is_null($subMenuSlug)) {
@@ -94,9 +117,11 @@ class Editor
         }
     }
 
+    /**
+     * Remove from admin menu advanced
+     */
     public function removeFromAdminMenuAdvanced($slug)
     {
-        global $menu;
         global $submenu;
 
         $slug = str_replace('admin.php?page=', '', $slug);

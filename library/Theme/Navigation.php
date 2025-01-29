@@ -16,11 +16,15 @@ class Navigation
     public function __construct(private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes)
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
-        add_filter('Municipio/Navigation/Item', array($this, 'appendFetchUrl'), 10, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleButtons'), 10, 2);
     }
 
+    /**
+     * Returns an array of available menu locations.
+     *
+     * @return array An associative array of menu locations.
+     */
     public static function getMenuLocations()
     {
         return array(
@@ -102,7 +106,10 @@ class Navigation
 
         if (is_array($publicPostTypes) && !empty($publicPostTypes)) {
             foreach ($publicPostTypes as $postTypeSlug => $postType) {
-                if ($postType->has_archive !== true && ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))) {
+                if (
+                    $postType->has_archive !== true &&
+                    ($postTypeSlug != 'post' && !get_post_type_archive_link($postTypeSlug))
+                ) {
                     continue;
                 }
 
@@ -147,34 +154,6 @@ class Navigation
         }
 
         return $schemaTypeMenus;
-    }
-
-    public function appendFetchUrl($item, $identifier)
-    {
-        $targetMenuIdentifiers = ['mobile', 'sidebar'];
-
-        if (!in_array($identifier, $targetMenuIdentifiers)) {
-            return $item;
-        }
-
-        if (isset($item['id']) && is_numeric($item['id'])) {
-            $depth = $this->getPageDepth($item['id']) + 1;
-        } else {
-            $depth = 1;
-        }
-
-        $dataFetchUrl = apply_filters(
-            'Municipio/homeUrl',
-            esc_url(get_home_url())
-        )   . '/wp-json/municipio/v1/navigation/children/render'
-            . '?' . 'pageId=' .  $item['id'] . '&viewPath=' . 'partials.navigation.'
-            . $identifier . '&identifier=' . $identifier . '&depth=' . $depth;
-
-        $item['attributeList'] = array(
-            'data-fetch-url' => $dataFetchUrl
-        );
-
-        return $item;
     }
 
     /**

@@ -3,9 +3,11 @@
 @section('primary-navigation')
 
     <div class="c-header__menu c-header__menu--primary">
-
-        <div class="c-header__flex-content o-container o-container--wide">
-            
+        @element([
+            'baseClass' => 'o-container',
+            'classList' => ['o-container', 'c-header__flex-content'],
+            'context' => ['site.header.casual-container', 'site.header.container']
+        ])
             {{-- Header logo --}}
             @link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
                 @if($headerBrandEnabled)
@@ -30,7 +32,7 @@
 
             {{-- Primary menu --}}
             @includeWhen(
-                !empty($primaryMenuItems), 
+                !empty($primaryMenu['items']), 
                 'partials.navigation.primary', 
                 [
                     'context' => [
@@ -44,7 +46,7 @@
             )
 
             {{-- Siteselector menu items --}}
-            @includeWhen($siteselectorMenuItems, 'partials.navigation.siteselector')
+            @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
 
             {{-- Search form in header --}}
             @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
@@ -53,20 +55,19 @@
             @includeIf('user.account')
 
             {{-- Language selector --}}
-            @if (!empty($languageMenuItems))
-                <div class="site-language-menu" js-toggle-item="language-menu-toggle" js-toggle-class="is-expanded">
-                    @includeIf('partials.navigation.trigger.language')
-                    @includeIf('partials.navigation.language')
-                </div>
-            @endif
+            @includeWhen(!empty($languageMenu['items']), 'partials.header.components.language')
 
             {{-- Hambuger menu trigger --}}
             @includeIf('partials.navigation.trigger.megamenu', ['context' => ['site.header.megamenu-trigger', 'site.header.casual.megamenu-trigger']])
 
             {{-- Drawer menu --}}
             @includeIf('partials.navigation.drawer')
-            
-        </div>
+
+            {{-- User (login/logout) --}}
+            @include('partials.header.components.user', ['classList' => ['u-order--11']])
+
+        @endelement
+
     </div>
 
     @includeIf('partials.navigation.megamenu')

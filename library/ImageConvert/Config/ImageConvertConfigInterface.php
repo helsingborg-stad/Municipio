@@ -12,4 +12,5 @@ interface ImageConvertConfigInterface
     public function maxImageDimension(): int;
     public function intermidiateImageFormat(): array;
     public function intermidiateImageQuality(): int;
+    public function maxSourceFileSize(): int;
 }

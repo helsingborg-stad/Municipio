@@ -85,7 +85,7 @@ class FormatObject
      *
      * @return A DOMNode object.
      */
-    public static function createNodeFromString(DOMDocument $doc, string $str)
+    public static function createNodeFromString(DOMDocument $doc, string $str): \DOMNode
     {
         $d = new \DOMDocument();
         $d->loadHTML('<?xml encoding="utf-8" ?>' . $str, LIBXML_NOERROR);

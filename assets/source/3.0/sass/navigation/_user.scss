@@ -1,0 +1,108 @@
+$user-background-width: var(--user-background-width, 0px) !default;
+
+// Colors
+.user {
+    --user-active-author-color: #{$color-black};
+    --user-active-text-color: #{$color-dark};
+    --user-active-text-color-hover: #{$color-black};
+
+    --user-background-color: #{$color-white};
+
+    &.user--dark {
+        --user-active-author-color: #{$color-white};
+        --user-active-text-color: #{$color-lightest};
+        --user-active-text-color-hover: #{$color-white};
+    
+        --user-background-color: #{$color-darker};
+    }
+}
+
+// General settings
+.user {
+    display: flex;
+    align-items: center;
+    gap: calc($base * 2);
+
+    .user__link { 
+        display: flex;
+        align-items: center;
+        gap: calc($base * .5);
+        text-decoration: none;
+    }
+}
+
+.user {
+    padding-left: calc($base * 2);
+    padding-right: calc($base * 2);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: $user-background-width;
+        transition: width .3s;
+        background-color: var(--user-background-color);
+        transform: translateX(calc(-1 * $base * 2));
+        z-index: -1;
+    }  
+
+    .user__button {
+        min-width: 0;
+
+        .c-button__label-text {
+            color: var(--user-active-text-color);
+        }
+
+        &:hover .c-button__label-text {
+            color: var(--user-active-text-color-hover);
+        }
+    }
+
+    // User placed in the drawer
+    &.user--drawer {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: calc($base * 2);
+        margin-top: 100%;
+
+        &.user--active .user__container {
+            display: flex;
+        }
+    }
+
+    // Logged in user
+    &.user--active {
+        .user__container {
+            gap: calc($base * .25);
+            display: flex;
+        }
+
+        .user__name {
+            font-weight: bold;
+            line-height: 1;
+            max-width: calc($base * 25);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user__link-text {
+            font-size: $font-size-meta;
+        }
+
+        .user__name {
+            color: var(--user-active-author-color);
+        }
+        
+        .user__link {
+            color: var(--user-active-text-color);
+
+            &:hover {
+                color: var(--user-active-text-color-hover);
+            }
+        }
+    }
+}

@@ -2,6 +2,8 @@
 
 namespace Municipio\SchemaData\Utils;
 
+use WpService\Contracts\ApplyFilters;
+
 /**
  * Class GetEnabledSchemaTypes
  *
@@ -10,14 +12,21 @@ namespace Municipio\SchemaData\Utils;
 class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
 {
     /**
+     * Constructor
+     */
+    public function __construct(private ApplyFilters $wpService)
+    {
+    }
+
+    /**
      * @inheritDoc
      */
     public function getEnabledSchemaTypesAndProperties(): array
     {
-        return array(
-            'Place'      => array('geo', 'telephone', 'url'),
-            'School'     => array(),
-            'Project'    => array(
+        $typesAndProps = array(
+            'Place'               => array('geo', 'telephone', 'url'),
+            'School'              => array(),
+            'Project'             => array(
                 '@id',
                 'description',
                 'name',
@@ -25,7 +34,7 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'employee',
                 'funding',
             ),
-            'JobPosting' => array(
+            'JobPosting'          => array(
                 '@id',
                 'applicationContact',
                 'datePosted',
@@ -38,7 +47,15 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'relevantOccupation',
                 'url',
                 'validThrough',
-            )
+            ),
+            'SpecialAnnouncement' => array(
+                '@id',
+                'description',
+                'datePosted',
+                'name',
+            ),
         );
+
+        return $this->wpService->applyFilters('Municipio/SchemaData/EnabledSchemaTypes', $typesAndProps);
     }
 }

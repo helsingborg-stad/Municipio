@@ -2,7 +2,7 @@
 
 namespace Municipio\ImageConvert\Contract;
 
-use WpService\Contracts\GetAttachmentUrl;
+use WpService\Contracts\WpGetAttachmentUrl;
 use WpService\Contracts\GetAttachedFile;
 
 class ImageContract implements ImageContractInterface
@@ -17,7 +17,7 @@ class ImageContract implements ImageContractInterface
     ];
 
     // Constructor using property promotion
-    public function __construct(private GetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $width, int|string|bool|null $height)
+    public function __construct(private WpGetAttachmentUrl&GetAttachedFile $wpService, private int $id, int|string|bool|null $width, int|string|bool|null $height)
     {
         $this->width  = $this->sanitizeDimension($width, 'width');
         $this->height = $this->sanitizeDimension($height, 'height');
@@ -30,7 +30,7 @@ class ImageContract implements ImageContractInterface
         if (array_key_exists($id, self::$attachmentRuntimeCache)) {
             return self::$attachmentRuntimeCache['url'][$id];
         }
-        return self::$attachmentRuntimeCache['url'][$id] = $this->wpService->getAttachmentUrl($id);
+        return self::$attachmentRuntimeCache['url'][$id] = $this->wpService->wpGetAttachmentUrl($id);
     }
 
     private function createAttachmentPath(int $id): string
@@ -98,11 +98,18 @@ class ImageContract implements ImageContractInterface
                 return $path;
             }
 
+            // If the server can't convert between formats,
+            // we need to create an intermediate image in the same
+            // format as the source image.
+            $canConvertBetweenFormats = function (): bool {
+                return extension_loaded('imagick');
+            };
+
             $dirname   = $fileInfo['dirname'];
             $filename  = $fileInfo['filename'];
             $extension = $fileInfo['extension'];
 
-            if (!is_null($suffix)) {
+            if (!is_null($suffix) && $canConvertBetweenFormats() === true) {
                 $extension = $suffix;
             }
 
@@ -135,7 +142,7 @@ class ImageContract implements ImageContractInterface
         $this->height = $height;
     }
 
-    public static function factory(GetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $width, int|string|bool|null $height): self
+    public static function factory(WpGetAttachmentUrl&GetAttachedFile $wpService, int $id, int|string|bool|null $width, int|string|bool|null $height): self
     {
         return new self($wpService, $id, $width, $height);
     }

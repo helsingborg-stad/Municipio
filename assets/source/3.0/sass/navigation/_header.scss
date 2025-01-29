@@ -37,19 +37,7 @@ $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
         max-width: 100%;
 
         .c-brand__container {
-            height: 100px;
-        }
-
-        @include mq('xs') {
-            height: clamp(calc(#{$base} * 3), calc($brand-height * 0.65), $brand-height);
-        }
-    
-        @include mq('md') {
-            height: clamp(calc(#{$base} * 3), calc($brand-height * 0.75), $brand-height);
-        } 
-    
-        @include mq('lg') {
-            height: $brand-height;
+            height: calc($base * 12.5);
         }
     }
 
@@ -77,10 +65,29 @@ body.mega-menu-open.mega-menu-mobile {
 /* Remove body scroll */
 body.mega-menu-open {
     .c-header--sticky {
-        height: 100%;
-        width: 100%;
-        overflow: auto;
-        position: fixed;
+        &::not(.c-header--flexible) {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            position: fixed;
+        }
+
+        &.c-header--flexible {
+            .c-megamenu {
+                max-height: unset;
+                min-height: 100vh;
+                position: absolute;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .c-megamenu__menu {
+                max-height: calc(100vh - ($base * 20));
+                overflow: scroll;
+                padding-bottom: calc($base * 4);
+                padding-top: calc($base * 4);
+            }
+        }
 
         .c-megamenu {
             height: 100%;

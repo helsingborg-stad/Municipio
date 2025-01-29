@@ -1,4 +1,4 @@
-@if (!empty($mobileMenuItems))
+@if (!empty($mobileMenu['items']))
 @drawer([
     'toggleButtonData' => [
         'id' => 'mobile-menu-trigger-open',
@@ -19,11 +19,12 @@
     'id' => 'drawer',
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
-        'c-drawer--' . (!empty($mobileMenuItems)&&!empty($mobileMenuSecondaryItems) ? 'duotone' : 'monotone'),
+        'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),
         's-drawer-menu'
     ],
     'label' => $lang->close,
-    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes
+    'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
+    'context' => ['site.header.drawer'],
 ])
 
     @slot('search')
@@ -34,12 +35,12 @@
             )
     @endslot
 
-    @if (!empty($mobileMenuItems)||!empty($mobileMenuSecondaryItems)) 
+    @if (!empty($mobileMenu['items'])||!empty($mobileSecondaryMenu['items'])) 
     @slot('menu')
         @includeIf(
             'partials.navigation.mobile', 
                 [
-                    'menuItems' => $mobileMenuItems, 
+                    'mobileMenu' => $mobileMenu, 
                     'classList' => [
                         'c-nav--drawer',
                         'site-nav-mobile__primary',
@@ -47,7 +48,7 @@
                         's-nav-drawer-primary'
                     ]
                 ]
-            )  
+            )
 
                 {{-- No ajax in wp-menus, thus not in its own file --}}
 
@@ -59,7 +60,7 @@
                         's-nav-drawer',
                         's-nav-drawer-secondary'
                     ],
-                    'items' => $mobileMenuSecondaryItems,
+                    'items' => $mobileSecondaryMenu['items'],
                     'direction' => 'vertical',
                     'includeToggle' => true,
                     'height' => 'sm',
@@ -67,6 +68,16 @@
                 ])
             @endnav  
         @endslot
+        @if (!empty($customizer->headerLoginLogoutShowInMobileMenu))
+            @slot('afterMenu')
+                @include(
+                    'partials.header.components.user',
+                    [
+                        'classList' => ['user--drawer']
+                    ]
+                )
+            @endslot
+        @endif
       @else
       {{-- No menu items found --}}
       @endif

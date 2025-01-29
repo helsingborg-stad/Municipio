@@ -64,6 +64,8 @@ class CustomPostType
                 'not_found_in_trash' => sprintf(__('No %s found in trash', 'municipio'), $typeDefinition['post_type_name'])
             );
 
+            $labels = apply_filters('Municipio/CustomPostType/labels', $labels, $typeDefinition);
+
             $supports = array('title', 'editor');
 
             if (!empty($typeDefinition['supports'])) {

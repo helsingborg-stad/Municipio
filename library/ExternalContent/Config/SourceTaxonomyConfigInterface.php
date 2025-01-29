@@ -24,4 +24,11 @@ interface SourceTaxonomyConfigInterface
      * @return string
      */
     public function getSingularName(): string;
+
+    /**
+     * Get the hierarchical status of the taxonomy.
+     *
+     * @return bool
+     */
+    public function isHierarchical(): bool;
 }
