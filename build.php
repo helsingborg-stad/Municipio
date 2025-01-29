@@ -5,21 +5,21 @@ if (php_sapi_name() !== 'cli') {
     exit(0);
 }
 
-/* Parameters: 
+/* Parameters:
  --no-composer      Does not install vendors. Just create the autoloader.
- --cleanup          Remove removeables. 
- --allow-gulp       Allow gulp to be used. 
+ --cleanup          Remove removeables.
+ --allow-gulp       Allow gulp to be used.
 */
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
 $buildCommands = [];
 
 //Add composer build, if flag --no-composer is undefined.
-//Dump autloader. 
+//Dump autloader.
 //Only if composer.json exists.
-if(file_exists('composer.json')) {
-    if(is_array($argv) && !in_array('--no-composer', $argv)) {
-        $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev'; 
+if (file_exists('composer.json')) {
+    if (is_array($argv) && !in_array('--no-composer', $argv)) {
+        $buildCommands[] = 'composer install --prefer-dist --no-progress --no-dev';
     }
     $buildCommands[] = 'composer dump-autoload';
 }
@@ -28,10 +28,10 @@ if(file_exists('composer.json')) {
 $buildCommands[] = 'npm update --no-progress --no-audit';
 
 //Run build if package-lock.json is found
-if(file_exists('package-lock.json') && !file_exists('gulp.js')) {
+if (file_exists('package-lock.json') && !file_exists('gulp.js')) {
     $buildCommands[] = 'npx --yes browserslist@latest --update-db';
     $buildCommands[] = 'npm run build';
-} elseif(file_exists('package-lock.json') && file_exists('gulp.js') && is_array($argv) && in_array('--allow-gulp', $argv)) {
+} elseif (file_exists('package-lock.json') && file_exists('gulp.js') && is_array($argv) && in_array('--allow-gulp', $argv)) {
     $buildCommands[] = 'gulp';
 }
 
@@ -63,12 +63,12 @@ $removables = [
 $dirName = basename(dirname(__FILE__));
 
 // Run all build commands.
-$output = '';
+$output   = '';
 $exitCode = 0;
 foreach ($buildCommands as $buildCommand) {
     print "---- Running build command '$buildCommand' for $dirName. ----\n";
     $timeStart = microtime(true);
-    $exitCode = executeCommand($buildCommand);
+    $exitCode  = executeCommand($buildCommand);
     $buildTime = round(microtime(true) - $timeStart);
     print "---- Done build command '$buildCommand' for $dirName.  Build time: $buildTime seconds. ----\n";
     if ($exitCode > 0) {
@@ -77,7 +77,7 @@ foreach ($buildCommands as $buildCommand) {
 }
 
 // Remove files and directories if '--cleanup' argument is supplied to save local developers from disasters.
-if(is_array($argv) && in_array('--cleanup', $argv)) {
+if (is_array($argv) && in_array('--cleanup', $argv)) {
     foreach ($removables as $removable) {
         if (file_exists($removable)) {
             print "Removing $removable from $dirName\n";
