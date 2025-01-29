@@ -21,12 +21,12 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, Ge
      *
      * @return array|null
      */
-    public function getGlobalNotices(): ?array
+    public function getGlobalNotices(): array
     {
         $notices = $this->acfService->getField('global_notices', 'option') ?? [];
         $notices = array_filter($notices, [$this, 'filterByConstraints']);
         $notices = array_map([$this, 'mapGlobalNotice'], $notices);
-        return $notices ?: null;
+        return $notices ?: [];
     }
 
     /**
