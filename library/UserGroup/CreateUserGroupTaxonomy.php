@@ -2,9 +2,10 @@
 
 namespace Municipio\UserGroup;
 
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
-use WpService\Contracts\{__, AddAction, RegisterTaxonomy, IsMultisite, IsMainSite};
+use WpService\Contracts\{__, AddAction, GetMainSiteId, RegisterTaxonomy, IsMultisite, IsMainSite};
 
 /**
  * Create User Group taxonomy.
@@ -15,8 +16,9 @@ class CreateUserGroupTaxonomy implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&RegisterTaxonomy&__&IsMultisite&IsMainSite $wpService,
-        private UserGroupConfigInterface $config
+        private AddAction&RegisterTaxonomy&__&IsMultisite&IsMainSite&GetMainSiteId $wpService,
+        private UserGroupConfigInterface $config,
+        private SiteSwitcherInterface $siteSwitcher
     ) {
     }
 
@@ -29,7 +31,7 @@ class CreateUserGroupTaxonomy implements Hookable
     }
 
     /**
-     * Register the user group taxonomy
+     * Register the user group taxonomy on the main site if multisite
      *
      * @return void
      */
@@ -39,6 +41,21 @@ class CreateUserGroupTaxonomy implements Hookable
             return;
         }
 
+        $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () {
+                $this->registerTaxonomy();
+            }
+        );
+    }
+
+    /**
+     * Register the taxonomy
+     *
+     * @return void
+     */
+    private function registerTaxonomy()
+    {
         $this->wpService->registerTaxonomy(
             $this->config->getUserGroupTaxonomy(),
             'user',
@@ -65,14 +82,6 @@ class CreateUserGroupTaxonomy implements Hookable
      */
     private function shouldRegisterTaxonomy(): bool
     {
-        if (!$this->wpService->isMultisite()) {
-            return true;
-        }
-
-        if ($this->wpService->isMultisite() && $this->wpService->isMainSite()) {
-            return true;
-        }
-
-        return false;
+        return $this->wpService->isMultisite();
     }
 }

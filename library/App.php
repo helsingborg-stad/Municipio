@@ -522,6 +522,7 @@ class App
         // Setup dependencies
         $userGroupRestrictionConfig = new \Municipio\Admin\Private\Config\UserGroupRestrictionConfig();
         $userHelperConfig           = new \Municipio\Helper\User\Config\UserConfig();
+        $siteSwitcher               = new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService);
 
         $userHelper = new \Municipio\Helper\User\User(
             $this->wpService,
@@ -529,7 +530,7 @@ class App
             $userHelperConfig,
             $config,
             new \Municipio\Helper\Term\Term($this->wpService, $this->acfService),
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+            $siteSwitcher
         );
 
         $getUserGroupTerms = new \Municipio\Helper\User\GetUserGroupTerms(
@@ -539,7 +540,7 @@ class App
         );
 
         // Create user group taxonomy
-        (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config))->addHooks();
+        (new \Municipio\UserGroup\CreateUserGroupTaxonomy($this->wpService, $config, $siteSwitcher))->addHooks();
 
         // Add user group to users list
         (new \Municipio\UserGroup\DisplayUserGroupTaxonomyInUsersList($this->wpService, $config))->addHooks();
