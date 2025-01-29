@@ -49,14 +49,14 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
           : false;
 
       $addClassByLocation = fn(string $location): array => [
-          'banner' => ['u-margin--0', 'u-rounded--none']
+          'banner' => ['u-margin--0', 'u-rounded--0']
       ][$location] ?? [];
 
       return [
           'message'     => ['text' => $notice['message'] ?? ''],
           'location'    => $notice['location'] ?? 'toast',
           'type'        => $notice['type'] ?? 'info',
-          'icon'        => ['name' => $notice['icon'] ?? ''],
+          'icon'        => ['name' => $notice['icon'] ?? ''] ?: false,
           'action'      => $extractAction($notice['action'] ?? false),
           'dismissable' => $extractDismissable($notice['dismissable'] ?? false),
           'classList'   => $addClassByLocation($notice['location'] ?? 'toast')
@@ -100,9 +100,17 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable
 
     /**
      * WordPress filter callback to inject global notices into view data.
+     * 
+     * @param array $data The view data.
+     * 
+     * @return array
      */
     public function filterViewData(array $data): array
     {
+      if (!isset($data[$this->noticeDataKey]) || !is_array($data[$this->noticeDataKey])) {
+        $data[$this->noticeDataKey] = [];
+      }
+
       foreach ($this->config->getLocations() as $location) {
         $data[$this->noticeDataKey][$location] ??= [];
         $data[$this->noticeDataKey][$location] = $this->getGlobalNoticesByLocation($location);
