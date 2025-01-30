@@ -30,7 +30,7 @@ if (file_exists('package.json') && file_exists('package-lock.json')) {
         $buildCommands[] = 'npm ci --no-progress --no-audit';
     } else {
         $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name";
+        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
         $buildCommands[] = "rm -rf ./assets/dist";
         $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
     }
@@ -39,7 +39,7 @@ if (file_exists('package.json') && file_exists('package-lock.json')) {
         $buildCommands[] = 'npm install --no-progress --no-audit';
     } else {
         $npmPackage      = json_decode(file_get_contents('package.json'));
-        $buildCommands[] = "npm install $npmPackage->name";
+        $buildCommands[] = "npm install $npmPackage->name --omit=dev";
         $buildCommands[] = "rm -rf ./assets/dist";
         $buildCommands[] = "mv node_modules/$npmPackage->name/assets/dist ./assets/";
     }
