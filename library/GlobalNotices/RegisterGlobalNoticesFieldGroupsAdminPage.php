@@ -27,6 +27,7 @@ class RegisterGlobalNoticesFieldGroupsAdminPage implements Hookable
             'redirect'        => true,
             'update_button'   => $this->wpService->__('Save', 'municipio'),
             'updated_message' => $this->wpService->__('Global notices has been saved.', 'municipio'),
+            'icon_url'        => 'dashicons-megaphone'
         ]);
     }
 }
