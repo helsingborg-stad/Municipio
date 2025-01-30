@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "5.122.0",
+    "version": "5.122.1",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -76,7 +76,7 @@
         "instant.page": "^5.2.0",
         "process": "^0.11.10"
     },
-    "dependencies": {},
+    "dependencies": [],
     "browser": {
         "child_process": false
     },
