@@ -53,7 +53,7 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
       - name: Run CI
         if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') != '' }}
-        run: npm ci --no-progress --no-audit
+        run: npm ci --no-progress --no-audit --include=dev
       - name: Run build
         if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') == '' }}
         run: npx --yes browserslist@latest --update-db && npm run build
