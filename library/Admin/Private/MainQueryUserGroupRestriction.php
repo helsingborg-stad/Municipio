@@ -43,7 +43,7 @@ class MainQueryUserGroupRestriction
         }
 
         // Check if user is logged in or post is publicly viewable
-        if (!$this->wpService->isUserLoggedIn() || $this->wpService->isPostPubliclyViewable()) {
+        if (!$this->wpService->isUserLoggedIn() || $this->wpService->isPostPubliclyViewable($postId)) {
             return false;
         }
 
