@@ -6,6 +6,7 @@ use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 use Municipio\Helper\WP;
 use WP_Post;
+use Municipio\PostObject\PostObjectInterface;
 
 /**
  * Class Singular
@@ -40,7 +41,9 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
-        $this->data['signature'] = $this->getSignature();
+        $this->data['signature'] = $this->getSignature(
+            $this->data['post']
+        );
 
         //Reading time
         $this->data['readingTime'] = $this->getReadingTime($this->data['post']->postContent);
@@ -140,31 +143,22 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * @return mixed
      */
-    public function getSignature(): object
+    public function getSignature(PostObjectInterface $post): object
     {
-        $postId        = $this->data['post']->id;
-        $displayAuthor = get_field('page_show_author', 'option');
-        $displayAvatar = get_field('page_show_author_image', 'option');
-        $linkAuthor    = get_field('page_link_to_author_archive', 'option');
+        $displayAuthor = $this->acfService->getField('page_show_author', 'option');
+        $displayAvatar = $this->acfService->getField('page_show_author_image', 'option');
+        $linkAuthor    = $this->acfService->getField('page_link_to_author_archive', 'option');
 
-        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option'));
-        $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
-
-        if ($displayPublish) {
-            $published = $this->getPostDates($this->data['post']->id)->published;
-        }
-
-        if ($displayUpdated) {
-            $updated = $this->getPostDates($this->data['post']->id)->updated;
-        }
+        $displayPublish = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_published', 'option') ?? []);
+        $displayUpdated = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_updated', 'option') ?? []);
 
         return (object) [
-        'avatar'    => ($displayAvatar ? $this->getAuthor($postId)->avatar : ""),
-        'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-        'name'      => ($displayAuthor ? $this->getAuthor($postId)->name : ""),
-        'link'      => ($linkAuthor ? $this->getAuthor($postId)->link : ""),
-        'published' => ($displayPublish ? $published : false),
-        'updated'   => ($displayUpdated ? $updated : false),
+            'avatar'    => ($displayAvatar ? $this->getAuthor($post->getId())->avatar : ""),
+            'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
+            'name'      => ($displayAuthor ? $this->getAuthor($post->getId())->name : ""),
+            'link'      => ($linkAuthor ? $this->getAuthor($post->getId())->link : ""),
+            'published' => ($displayPublish ? $post->getPublishedTime() : false),
+            'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
         ];
     }
 
