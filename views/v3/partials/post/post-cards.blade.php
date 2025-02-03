@@ -10,7 +10,10 @@
                     'content' => $post->excerptShort,
                     'tags' => $post->termsUnlinked,
                     'meta' => $displayReadingTime ? $post->readingTime : '',
-                    'date' => $post->archiveDate,
+                    'date' => [
+                        'timestamp' => $post->archiveDate,
+                        'format' => $post->archiveDateFormat
+                    ],
                     'dateBadge' => $post->archiveDateFormat == 'date-badge',
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
