@@ -5,7 +5,10 @@
                 'heading'             => $post->postTitle,
                 'content'             => $post->excerpt,
                 'image'               => $post->imageContract ?? $post->images['thumbnail16:9'],
-                'date'                => $post->postDateFormatted,
+                'date'                => [
+                    'timestamp' => $post->archiveDate,
+                    'format'    => $post->archiveDateFormat,
+                ],
                 'readTime'            => $post->readingTime,
                 'link'                => $post->permalink,
                 'context' => ['archive', 'archive.list', 'archive.list.news-item'],
