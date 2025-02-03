@@ -6,6 +6,7 @@ use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 use Municipio\Helper\WP;
 use WP_Post;
+use Municipio\PostObject\PostObjectInterface;
 
 /**
  * Class Singular
@@ -142,20 +143,20 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * @return mixed
      */
-    public function getSignature($post): object
+    public function getSignature(PostObjectInterface $post): object
     {
-        $displayAuthor = get_field('page_show_author', 'option');
-        $displayAvatar = get_field('page_show_author_image', 'option');
-        $linkAuthor    = get_field('page_link_to_author_archive', 'option');
+        $displayAuthor = $this->acfService->getField('page_show_author', 'option');
+        $displayAvatar = $this->acfService->getField('page_show_author_image', 'option');
+        $linkAuthor    = $this->acfService->getField('page_link_to_author_archive', 'option');
 
-        $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option'));
-        $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
+        $displayPublish = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_published', 'option') ?? []);
+        $displayUpdated = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_updated', 'option') ?? []);
 
         return (object) [
-            'avatar'    => ($displayAvatar ? $this->getAuthor($post->id)->avatar : ""),
+            'avatar'    => ($displayAvatar ? $this->getAuthor($post->getId())->avatar : ""),
             'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-            'name'      => ($displayAuthor ? $this->getAuthor($post->id)->name : ""),
-            'link'      => ($linkAuthor ? $this->getAuthor($post->id)->link : ""),
+            'name'      => ($displayAuthor ? $this->getAuthor($post->getId())->name : ""),
+            'link'      => ($linkAuthor ? $this->getAuthor($post->getId())->link : ""),
             'published' => ($displayPublish ? $post->getPublishedTime() : false),
             'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
         ];
