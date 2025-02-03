@@ -83,6 +83,8 @@
     @endif
     @section('article.terms.after')@show
 
+    {!! $hook->articleContentAfter !!}
+
     <!-- Blog style author signature -->
     @section('content.below')
         @includeWhen(
