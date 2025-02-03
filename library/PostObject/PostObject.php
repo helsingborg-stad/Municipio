@@ -89,4 +89,12 @@ class PostObject implements PostObjectInterface
     {
         return 0;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateTimestamp(): int
+    {
+        return 0;
+    }
 }

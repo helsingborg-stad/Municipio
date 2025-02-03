@@ -8,10 +8,13 @@ use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Municipio\Helper\Term\Term;
+use Municipio\PostObject\Date\ArchiveDateSettingResolver;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
 use Municipio\PostObject\Decorators\PostObjectFromWpPost;
+use Municipio\PostObject\Decorators\PostDateTimestamp;
+use Municipio\PostObject\Decorators\PostObjectDateTimestamp;
 use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
 use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
 use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
@@ -20,6 +23,9 @@ use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
 use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
 use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\PostObject\Date\CachedArchiveDateSettingResolver;
+use Municipio\PostObject\Date\CachedTimestampResolver;
+use Municipio\PostObject\Date\TimestampResolver;
 
 /**
  * Class Post
@@ -158,6 +164,12 @@ class Post
 
         $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $wpService);
+
+        $archiveDateSettingResolver = new ArchiveDateSettingResolver($postObject, $wpService);
+        $archiveDateSettingResolver = new CachedArchiveDateSettingResolver($postObject, $wpService, $archiveDateSettingResolver);
+        $timestampResolver          = new TimestampResolver($postObject, $wpService, $archiveDateSettingResolver);
+        $timestampResolver          = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
+        $postObject                 = new PostObjectDateTimestamp($postObject, $wpService, $timestampResolver);
 
         $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
         $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);

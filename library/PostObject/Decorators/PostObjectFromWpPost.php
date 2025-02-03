@@ -94,4 +94,12 @@ class PostObjectFromWpPost implements PostObjectInterface
     {
         return strtotime($gmt ? $this->wpPost->post_modified_gmt : $this->wpPost->post_modified);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateTimestamp(): int
+    {
+        return $this->getPublishedTime();
+    }
 }

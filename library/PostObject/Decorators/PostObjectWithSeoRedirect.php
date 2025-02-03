@@ -103,4 +103,12 @@ class PostObjectWithSeoRedirect implements PostObjectInterface
     {
         return $this->postObject->getModifiedTime($gmt);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDateTimestamp(): int
+    {
+        return $this->postObject->getDateTimestamp();
+    }
 }

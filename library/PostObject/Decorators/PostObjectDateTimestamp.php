@@ -4,27 +4,32 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\RestoreCurrentBlog;
-use WpService\Contracts\SwitchToBlog;
+use WpService\Contracts\GetPostMeta;
+use Municipio\PostObject\Date\TimestampResolverInterface;
 
 /**
- * Post object decorator that can fetch post data from another blog.
- * If the post is from another blog, it will switch to that blog to fetch the data.
+ * PostObjectWithSeoRedirect class.
+ *
+ * Applies the SEO redirect to the post object permalink if a redirect is set.
  */
-class PostObjectFromOtherBlog implements PostObjectInterface
+class PostObjectDateTimestamp implements PostObjectInterface
 {
+    private static $archiveDateSettings = [];
+
     /**
      * Constructor.
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog $wpService,
-        private int $blogId
-    ) {
+        private GetPostMeta $wpService,
+        private TimestampResolverInterface $timestampResolver
+    )
+    {
     }
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getId(): int
     {
@@ -33,6 +38,7 @@ class PostObjectFromOtherBlog implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getTitle(): string
     {
@@ -44,11 +50,12 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink());
+        return $this->postObject->getPermalink();
     }
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getCommentCount(): int
     {
@@ -57,6 +64,7 @@ class PostObjectFromOtherBlog implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getPostType(): string
     {
@@ -65,46 +73,20 @@ class PostObjectFromOtherBlog implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
-    public function getIcon(): ?IconInterface
+    public function getBlogId(): int
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getIcon());
+        return $this->postObject->getBlogId();
     }
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
-    public function getBlogId(): int
+    public function getIcon(): ?IconInterface
     {
-        return $this->blogId;
-    }
-
-    /**
-     * Get the value from another blog.
-     */
-    private function getValueFromOtherBlog(callable $callback)
-    {
-        $this->switch();
-        $value = $callback();
-        $this->restore();
-
-        return $value;
-    }
-
-    /**
-     * Switch to another blog.
-     */
-    private function switch(): void
-    {
-        $this->wpService->switchToBlog($this->getBlogId());
-    }
-
-    /**
-     * Restore the current blog.
-     */
-    private function restore(): void
-    {
-        $this->wpService->restoreCurrentBlog();
+        return $this->postObject->getIcon();
     }
 
     /**
@@ -128,6 +110,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
      */
     public function getDateTimestamp(): int
     {
-        return $this->postObject->getDateTimestamp();
+        return $this->timestampResolver->resolve();
     }
 }
