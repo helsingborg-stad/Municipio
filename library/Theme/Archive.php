@@ -2,13 +2,74 @@
 
 namespace Municipio\Theme;
 
+use Municipio\Helper\WpService;
+
+/**
+ * Archive
+ */
 class Archive
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
-        add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
-        add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
+        $wpService = WpService::get();
+        $wpService->addAction('pre_get_posts', array($this, 'onlyFirstLevel'));
+        $wpService->addAction('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
+        $wpService->addAction('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
+        $wpService->addAction('pre_get_posts', array($this, 'addOrderByFallback'), 40, 1);
+    }
+
+    /**
+     * Add fallback orderby to main query
+     * Avoids inconsistency in ordering when using date or modified as orderby and multiple posts have the same date or modified.
+     *
+     * @param $query The query to show current archive page return
+     * @return void
+     */
+    public function addOrderByFallback(&$query): void
+    {
+        if ($query->is_main_query()) {
+            $orderBy = $query->get('orderby') ?: null;
+
+            if (!$this->shouldAppendSecondaryOrderby($orderBy)) {
+                return;
+            }
+
+            if (is_array($orderBy) && is_numeric(key($orderBy))) {
+                $orderBy = $orderBy[key($orderBy)];
+            }
+
+            $orderBy = is_array($orderBy) ? [...$orderBy, 'ID'] : [$orderBy => $query->get('order'), 'ID'];
+
+            $query->set('orderby', $orderBy);
+        }
+    }
+
+    /**
+     * Check if we should append secondary orderby
+     *
+     * @param $orderBy The orderby value
+     * @return bool
+     */
+    private function shouldAppendSecondaryOrderby($orderBy): bool
+    {
+        if (is_string($orderBy) && in_array($orderBy, ['date', 'modified'])) {
+            return true;
+        }
+
+        if (is_array($orderBy) && count($orderBy) === 1) {
+            if (in_array('date', $orderBy) || in_array('modified', $orderBy)) {
+                return true;
+            }
+
+            if (array_key_exists('date', $orderBy) || array_key_exists('modified', $orderBy)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /*

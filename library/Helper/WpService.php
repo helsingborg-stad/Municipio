@@ -21,10 +21,7 @@ class WpService
      */
     public static function set(OriginalWpService $wpService): void
     {
-        if (self::$wpService === null) {
-            // Allow setting once to prevent accidental overwriting.
-            self::$wpService = $wpService;
-        }
+        self::$wpService = $wpService;
     }
 
     /**
