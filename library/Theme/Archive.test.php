@@ -47,6 +47,41 @@ class ArchiveTest extends TestCase
     }
 
     /**
+     * @testdox addOrderByFallback() ensures that order is preserved when appending ID to orderby
+     * @dataProvider provideOrderByWithExpectedOrder
+     */
+    public function testAddOrderByFallbackEnsuresThatOrderIsPreservedWhenAppendingIdToOrderby($orderBy, $order, $expected)
+    {
+        WpService::set(new FakeWpService(['addAction' => true]));
+        $query = $this->getWpQuery();
+        $query->set('orderby', $orderBy);
+        $query->set('order', $order);
+        $archive = new Archive();
+
+        $archive->addOrderByFallback($query);
+
+        $this->assertEquals($expected, $query->get('orderby'));
+    }
+
+    public function provideOrderByWithExpectedOrder()
+    {
+        return [
+            'date ASC'                                    => ['date', 'ASC', ['date' => 'ASC', 'ID']],
+            'date DESC'                                   => ['date', 'DESC', ['date' => 'DESC', 'ID']],
+            'modified ASC'                                => ['modified', 'ASC', ['modified' => 'ASC', 'ID']],
+            'modified DESC'                               => ['modified', 'DESC', ['modified' => 'DESC', 'ID']],
+            'array with one value (date ASC)'             => [['date'], 'ASC', ['date' => 'ASC', 'ID']],
+            'array with one value (date DESC)'            => [['date'], 'DESC', ['date' => 'DESC', 'ID']],
+            'array with one value (modified ASC)'         => [['modified'], 'ASC', ['modified' => 'ASC', 'ID']],
+            'array with one value (modified DESC)'        => [['modified'], 'DESC', ['modified' => 'DESC', 'ID']],
+            'array with key and value (date => ASC)'      => [['date' => 'ASC'], 'DESC', ['date' => 'ASC', 'ID']],
+            'array with key and value (date => DESC)'     => [['date' => 'DESC'], 'DESC', ['date' => 'DESC', 'ID']],
+            'array with key and value (modified => ASC)'  => [['modified' => 'ASC'], 'ASC', ['modified' => 'ASC', 'ID']],
+            'array with key and value (modified => DESC)' => [['modified' => 'DESC'], 'DESC', ['modified' => 'DESC', 'ID']],
+        ];
+    }
+
+    /**
      * @testdox addOrderByFallback() does not append ID to orderby if orderby is not date or modified
      * @dataProvider provideOrderByMismatch
      */

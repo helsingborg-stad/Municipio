@@ -101,6 +101,10 @@ class User implements
             return null;
         }
 
+        if (!$this->wpService->isMultisite()) {
+            return null;
+        }
+
         $userGroup = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {

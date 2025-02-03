@@ -37,7 +37,11 @@ class Archive
                 return;
             }
 
-            $orderBy = is_array($orderBy) ? [...$orderBy, 'ID'] : [$orderBy, 'ID'];
+            if (is_array($orderBy) && is_numeric(key($orderBy))) {
+                $orderBy = $orderBy[key($orderBy)];
+            }
+
+            $orderBy = is_array($orderBy) ? [...$orderBy, 'ID'] : [$orderBy => $query->get('order'), 'ID'];
 
             $query->set('orderby', $orderBy);
         }
