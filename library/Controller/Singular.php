@@ -40,7 +40,9 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
-        $this->data['signature'] = $this->getSignature();
+        $this->data['signature'] = $this->getSignature(
+            $this->data['post']
+        );
 
         //Reading time
         $this->data['readingTime'] = $this->getReadingTime($this->data['post']->postContent);
@@ -140,9 +142,8 @@ class Singular extends \Municipio\Controller\BaseController
     /**
      * @return mixed
      */
-    public function getSignature(): object
+    public function getSignature($post): object
     {
-        $postId        = $this->data['post']->id;
         $displayAuthor = get_field('page_show_author', 'option');
         $displayAvatar = get_field('page_show_author_image', 'option');
         $linkAuthor    = get_field('page_link_to_author_archive', 'option');
@@ -150,21 +151,13 @@ class Singular extends \Municipio\Controller\BaseController
         $displayPublish = in_array($this->data['postType'], (array) get_field('show_date_published', 'option'));
         $displayUpdated = in_array($this->data['postType'], (array) get_field('show_date_updated', 'option'));
 
-        if ($displayPublish) {
-            $published = $this->getPostDates($this->data['post']->id)->published;
-        }
-
-        if ($displayUpdated) {
-            $updated = $this->getPostDates($this->data['post']->id)->updated;
-        }
-
         return (object) [
-        'avatar'    => ($displayAvatar ? $this->getAuthor($postId)->avatar : ""),
-        'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-        'name'      => ($displayAuthor ? $this->getAuthor($postId)->name : ""),
-        'link'      => ($linkAuthor ? $this->getAuthor($postId)->link : ""),
-        'published' => ($displayPublish ? $published : false),
-        'updated'   => ($displayUpdated ? $updated : false),
+            'avatar'    => ($displayAvatar ? $this->getAuthor($post->id)->avatar : ""),
+            'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
+            'name'      => ($displayAuthor ? $this->getAuthor($post->id)->name : ""),
+            'link'      => ($linkAuthor ? $this->getAuthor($post->id)->link : ""),
+            'published' => ($displayPublish ? $post->getPublishedTime() : false),
+            'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
         ];
     }
 
