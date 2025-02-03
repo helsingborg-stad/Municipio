@@ -9,6 +9,23 @@ class Archive
         add_action('pre_get_posts', array($this, 'onlyFirstLevel'));
         add_action('pre_get_posts', array($this, 'enablePageForPostTypeChildren'), 30, 1);
         add_action('pre_get_posts', array($this, 'filterNumberOfPostsInArchive'), 20, 1);
+        add_action('pre_get_posts', array($this, 'addOrderByFallback'), 40, 1);
+    }
+
+    /**
+     * Add fallback orderby to main query
+     * Avoids inconsistency in ordering when using date or modified as orderby and multiple posts have the same date or modified.
+     *
+     * @param $query The query to show current archive page return
+     * @return void
+     */
+    public function addOrderByFallback($query): void
+    {
+        if ($query->is_main_query()) {
+            if ($query->get('orderby') === 'date' || $query->get('orderby') === 'modified') {
+                $query->set('orderby', [$query->get('orderby'), 'ID']);
+            }
+        }
     }
 
     /*
