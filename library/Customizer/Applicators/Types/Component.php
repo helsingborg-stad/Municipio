@@ -26,6 +26,13 @@ class Component extends AbstractApplicator implements ApplicatorInterface
         $this->wpService->addFilter('ComponentLibrary/Component/Data', [$this, 'applyDataFilterFunction'], 10, 1);
     }
 
+    /**
+     * Apply data filter function to the provided data.
+     *
+     * @param array $data The data to apply the filter on.
+     * @return array The filtered data.
+     * @throws Error If the operator or context is not set correctly.
+     */
     public function applyDataFilterFunction($data)
     {
         $storedComponentData = $this->cachedData;
@@ -35,20 +42,25 @@ class Component extends AbstractApplicator implements ApplicatorInterface
         foreach ($storedComponentData as $filter) {
             $passFilterRules = false;
 
+            $andOperators = array_filter($filter['contexts'], function ($context) {
+                return in_array($context['operator'], ['===', '!=='], true);
+            });
+
             foreach ($filter['contexts'] as $filterContext) {
                 // Operator and context must be set
                 if (!isset($filterContext['operator']) || !isset($filterContext['context'])) {
-                    throw new Error("Operator must be != or == to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
+                    throw new Error("Operator must be !=, !== or ==, === to be used in ComponentData applicator. Context must be set. Provided values: " . print_r($filterContext, true));
                 }
 
                 // Operator must be != or ==
-                if (!in_array($filterContext['operator'], ["!=", "=="])) {
-                    throw new Error("Operator must be != or == to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
+                if (!in_array($filterContext['operator'], ["!=", "==", "!==", "==="])) {
+                    throw new Error("Operator must be !=, !== or ==, === to be used in ComponentData applicator. Provided value: " . $filterContext['operator']);
                 }
 
                 if (
-                    ($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
-                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))
+                    (($filterContext['operator'] == "==" && in_array($filterContext['context'], $contexts)) ||
+                    ($filterContext['operator'] == "!=" && !in_array($filterContext['context'], $contexts))) &&
+                    $this->checkAndOperators($andOperators, $contexts)
                 ) {
                     $passFilterRules = true;
                 }
@@ -60,6 +72,30 @@ class Component extends AbstractApplicator implements ApplicatorInterface
         }
 
         return $data;
+    }
+
+    /**
+     * Checks if all the given contexts satisfy the specified operators.
+     *
+     * @param array $andOperators An array of and operators, each containing a 'context' and 'operator'.
+     * @param array $contexts An array of contexts to check against.
+     * @return bool Returns true if all the contexts satisfy the operators, false otherwise.
+     */
+    private function checkAndOperators(array $andOperators, array $contexts)
+    {
+        foreach ($andOperators as $andOperator) {
+            $context  = $andOperator['context'];
+            $operator = $andOperator['operator'];
+
+            if (
+                ($operator == "===" && !in_array($context, $contexts)) ||
+                ($operator == "!==" && in_array($context, $contexts))
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getData(): array

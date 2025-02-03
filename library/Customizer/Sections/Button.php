@@ -129,7 +129,7 @@ class Button
                         ],
                         [
                             'context'  => 'component.megamenu.button.child',
-                            'operator' => '!='
+                            'operator' => '!=='
                         ],
                     ],
                 ],
