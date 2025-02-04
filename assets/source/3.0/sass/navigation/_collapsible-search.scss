@@ -17,26 +17,13 @@
         overflow: hidden;
         z-index: $level-7;
         opacity: 0;
-  
-        @media (max-width: 799px) {
-          position: fixed;
-          top: calc(var(--base, 8px) * 1.5);
-        }
         
         &.open {
-          width: calc(100% - calc(var(--base, 8px) * 3.5));
+          width: calc(var(--base, 8px) * 35);
           opacity: 1;
   
           @media (min-width: 800px) {
             width: calc(var(--base, 8px) * 50);
-          }
-  
-          @media (max-width: 799px) {
-            right: calc(var(--base, 8px) * 2);
-  
-            #{$parent}__group {
-              width: 100%;
-            }
           }
         }
         
@@ -140,15 +127,3 @@
       }
     }
   }
-  
-  .admin-bar {
-    .collapsible-search-form {
-      position: relative;
-    
-      &__form {
-        @media (max-width: 799px) {
-          top: var(--wp-admin--admin-bar--height, 32px);
-        }
-      }
-    }
-}
