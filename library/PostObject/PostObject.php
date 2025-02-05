@@ -93,7 +93,7 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getDateTimestamp(): int
+    public function getArchiveDateTimestamp(): int
     {
         return 0;
     }

@@ -93,8 +93,8 @@ class IconResolvingPostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getDateTimestamp(): int
+    public function getArchiveDateTimestamp(): int
     {
-        return $this->postObject->getDateTimestamp();
+        return $this->postObject->getArchiveDateTimestamp();
     }
 }

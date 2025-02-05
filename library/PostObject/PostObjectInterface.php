@@ -78,5 +78,5 @@ interface PostObjectInterface
      *
      * @return int
      */
-    public function getDateTimestamp(): int;
+    public function getArchiveDateTimestamp(): int;
 }

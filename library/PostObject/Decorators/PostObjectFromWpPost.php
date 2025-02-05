@@ -98,8 +98,8 @@ class PostObjectFromWpPost implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getDateTimestamp(): int
+    public function getArchiveDateTimestamp(): int
     {
-        return $this->getPublishedTime();
+        return $this->postObject->getArchiveDateTimestamp();
     }
 }
