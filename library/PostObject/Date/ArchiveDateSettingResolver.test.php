@@ -15,7 +15,7 @@ class ArchiveDateSettingResolverTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
-            ArchiveDateSettingResolver::class, 
+            ArchiveDateSettingResolver::class,
             new ArchiveDateSettingResolver($this->createMock(PostObjectInterface::class), new FakeWpService())
         );
     }
@@ -27,7 +27,7 @@ class ArchiveDateSettingResolverTest extends TestCase
     public function testResolveReturnsFoundArchiveSetting()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
-        $wpService = new FakeWpService(['getThemeMod' => 'metaKey']);
+        $wpService  = new FakeWpService(['getThemeMod' => 'metaKey']);
 
         $resolver = new ArchiveDateSettingResolver($postObject, $wpService);
 

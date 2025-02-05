@@ -16,8 +16,7 @@ class ArchiveDateSettingResolver implements ArchiveDateSettingResolverInterface
     public function __construct(
         private PostObjectInterface $postObject,
         private GetThemeMod $wpService
-    )
-    {
+    ) {
     }
 
     /**

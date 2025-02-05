@@ -17,7 +17,7 @@ class PostObjectDateTimestampTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $resolver = $this->createMock(TimestampResolverInterface::class);
+        $resolver  = $this->createMock(TimestampResolverInterface::class);
         $decorator = new PostObjectDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
         $this->assertInstanceOf(PostObjectDateTimestamp::class, $decorator);
     }

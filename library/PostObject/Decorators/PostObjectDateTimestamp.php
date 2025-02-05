@@ -23,8 +23,7 @@ class PostObjectDateTimestamp implements PostObjectInterface
         private PostObjectInterface $postObject,
         private GetPostMeta $wpService,
         private TimestampResolverInterface $timestampResolver
-    )
-    {
+    ) {
     }
 
     /**

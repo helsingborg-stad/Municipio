@@ -23,9 +23,7 @@ class TimestampResolver implements TimestampResolverInterface
         private PostObjectInterface $postObject,
         private GetPostMeta $wpService,
         private ArchiveDateSettingResolverInterface $archiveDateSetting
-
-    )
-    {
+    ) {
     }
 
     /**

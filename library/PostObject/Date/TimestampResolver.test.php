@@ -30,7 +30,7 @@ class TimestampResolverTest extends TestCase
      */
     public function testResolvesMetaKeyValueAndReturnUnix()
     {
-        $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject         = $this->createMock(PostObjectInterface::class);
         $archiveDateSetting = $this->createMock(ArchiveDateSettingResolverInterface::class);
 
         $resolver = new TimestampResolver($postObject, new FakeWpService(['getPostMeta' => '10 September 2000']), $archiveDateSetting);
@@ -38,8 +38,8 @@ class TimestampResolverTest extends TestCase
         $result = $resolver->resolve();
 
         $this->assertEquals(968544000, $result);
-    }    
-    
+    }
+
     /**
      * @testdox resolve returns post published date if meta key is post_date
      * @runInSeparateProcess
@@ -82,7 +82,7 @@ class TimestampResolverTest extends TestCase
      */
     public function testReturnsZeroIfUnableToConvertToUnix()
     {
-        $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject         = $this->createMock(PostObjectInterface::class);
         $archiveDateSetting = $this->createMock(ArchiveDateSettingResolverInterface::class);
 
         $resolver = new TimestampResolver($postObject, new FakeWpService(), $archiveDateSetting);

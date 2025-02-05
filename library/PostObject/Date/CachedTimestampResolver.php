@@ -20,8 +20,7 @@ class CachedTimestampResolver implements TimestampResolverInterface
         private PostObjectInterface $postObject,
         private GetThemeMod&GetPostMeta $wpService,
         private TimestampResolverInterface $innerResolver
-    )
-    {
+    ) {
     }
 
     /**

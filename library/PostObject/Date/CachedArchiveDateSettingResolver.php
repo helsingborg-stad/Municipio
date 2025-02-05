@@ -19,8 +19,7 @@ class CachedArchiveDateSettingResolver implements ArchiveDateSettingResolverInte
         private PostObjectInterface $postObject,
         private GetThemeMod $wpService,
         private ArchiveDateSettingResolverInterface $innerResolver
-    )
-    {
+    ) {
     }
 
     /**
