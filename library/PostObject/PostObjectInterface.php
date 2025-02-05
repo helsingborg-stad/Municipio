@@ -72,4 +72,11 @@ interface PostObjectInterface
      * @return int
      */
     public function getModifiedTime(bool $gmt = false): int;
+
+    /**
+     * Get the post object date timestamp.
+     *
+     * @return int
+     */
+    public function getArchiveDateTimestamp(): int;
 }

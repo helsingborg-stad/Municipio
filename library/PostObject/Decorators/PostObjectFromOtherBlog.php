@@ -122,4 +122,12 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     {
         return $this->postObject->getModifiedTime($gmt);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getArchiveDateTimestamp(): int
+    {
+        return $this->postObject->getArchiveDateTimestamp();
+    }
 }
