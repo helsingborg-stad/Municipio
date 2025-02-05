@@ -4,20 +4,22 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetPostMeta;
+use Municipio\PostObject\Date\ArchiveDateSettingResolverInterface;
 
 /**
  * PostObjectWithSeoRedirect class.
  *
  * Applies the SEO redirect to the post object permalink if a redirect is set.
  */
-class PostObjectWithSeoRedirect implements PostObjectInterface
+class PostObjectArchiveDateFormat implements PostObjectInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(private PostObjectInterface $postObject, private GetPostMeta $wpService)
-    {
+    public function __construct(
+        private PostObjectInterface $postObject,
+        private ArchiveDateSettingResolverInterface $dateSettingResolver
+    ) {
     }
 
     /**
@@ -43,12 +45,6 @@ class PostObjectWithSeoRedirect implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        $seoRedirectMetaUrl = $this->wpService->getPostMeta($this->postObject->getId(), 'redirect', true);
-
-        if (filter_var($seoRedirectMetaUrl, FILTER_VALIDATE_URL)) {
-            return $seoRedirectMetaUrl;
-        }
-
         return $this->postObject->getPermalink();
     }
 
@@ -117,6 +113,6 @@ class PostObjectWithSeoRedirect implements PostObjectInterface
      */
     public function getArchiveDateFormat(): string
     {
-        return $this->postObject->getArchiveDateFormat();
+        return $this->dateSettingResolver->resolve();
     }
 }

@@ -4,7 +4,6 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetPostMeta;
 use Municipio\PostObject\Date\TimestampResolverInterface;
 
 /**
@@ -14,14 +13,11 @@ use Municipio\PostObject\Date\TimestampResolverInterface;
  */
 class PostObjectArchiveDateTimestamp implements PostObjectInterface
 {
-    private static $archiveDateSettings = [];
-
     /**
      * Constructor.
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private GetPostMeta $wpService,
         private TimestampResolverInterface $timestampResolver
     ) {
     }
@@ -110,5 +106,13 @@ class PostObjectArchiveDateTimestamp implements PostObjectInterface
     public function getArchiveDateTimestamp(): int
     {
         return $this->timestampResolver->resolve();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getArchiveDateFormat(): string
+    {
+        return $this->postObject->getArchiveDateFormat();
     }
 }

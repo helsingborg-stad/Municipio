@@ -97,4 +97,12 @@ class IconResolvingPostObject implements PostObjectInterface
     {
         return $this->postObject->getArchiveDateTimestamp();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getArchiveDateFormat(): string
+    {
+        return $this->postObject->getArchiveDateFormat();
+    }
 }
