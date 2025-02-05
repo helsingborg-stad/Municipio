@@ -6,8 +6,8 @@
                 'content'             => $post->excerpt,
                 'image'               => $post->imageContract ?? $post->images['thumbnail16:9'],
                 'date'                => [
-                    'timestamp' => $post->archiveDate,
-                    'format'    => $post->archiveDateFormat,
+                    'timestamp' => $post->getArchiveDateTimestamp(),
+                    'format'    => $post->getArchiveDateFormat(),
                 ],
                 'readTime'            => $post->readingTime,
                 'link'                => $post->permalink,

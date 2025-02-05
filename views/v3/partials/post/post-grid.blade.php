@@ -17,10 +17,10 @@
                         'backgroundColor' => 'secondary'
                     ],
                     'date' => [
-                        'timestamp' => $post->archiveDate,
-                        'format' => $post->archiveDateFormat
+                        'timestamp' => $post->getArchiveDateTimestamp(),
+                        'format'    => $post->getArchiveDateFormat(),
                     ],
-                    'dateBadge' => $post->archiveDateFormat == 'date-badge',
+                    'dateBadge' => $post->getArchiveDateFormat() == 'date-badge',
                     'classList' => ['t-archive-block'],
                     'context' => ['archive', 'archive.list', 'archive.list.block'],
                 ])

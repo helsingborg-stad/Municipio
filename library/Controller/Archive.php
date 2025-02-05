@@ -12,6 +12,8 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
+
+    // TODO: Remove these?
     private static $gridSize;
 
     private static $randomGridBase = array();
@@ -609,6 +611,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param   array $posts    The posts
      * @return  array           The posts - with archive date
      */
+    // TODO: Check if needed or if some functionality is needed
     public function getDate($posts, $archiveProps)
     {
         $preparedPosts = [];
@@ -694,6 +697,7 @@ class Archive extends \Municipio\Controller\BaseController
      * Get the literal date string replace map
      * @return array
      */
+    // TODO: Check if needed
     private function getLiteralDateStringReplaceMap(): array
     {
         $wpService       = \Municipio\Helper\WpService::get();
@@ -714,6 +718,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $key
      * @return string $dateFormat
      */
+    // TODO: Check if needed
     private function getDateFormatString(string $key): string
     {
         switch ($key) {
