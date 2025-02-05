@@ -3,14 +3,11 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Date\TimestampResolverInterface;
-use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\Icon\Resolvers\IconResolverInterface;
-use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
 use Municipio\PostObject\PostObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class PostObjectDateTimestampTest extends TestCase
+class PostObjectArchiveDateTimestampTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
@@ -18,8 +15,8 @@ class PostObjectDateTimestampTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $resolver  = $this->createMock(TimestampResolverInterface::class);
-        $decorator = new PostObjectDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
-        $this->assertInstanceOf(PostObjectDateTimestamp::class, $decorator);
+        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
+        $this->assertInstanceOf(PostObjectArchiveDateTimestamp::class, $decorator);
     }
 
     /**
@@ -30,8 +27,8 @@ class PostObjectDateTimestampTest extends TestCase
         $resolver = $this->createMock(TimestampResolverInterface::class);
         $resolver->method('resolve')->willReturn(123);
 
-        $decorator = new PostObjectDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
+        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
 
-        $this->assertEquals(123, $decorator->getDateTimestamp());
+        $this->assertEquals(123, $decorator->getArchiveDateTimestamp());
     }
 }

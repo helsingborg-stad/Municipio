@@ -26,6 +26,7 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Date\CachedArchiveDateSettingResolver;
 use Municipio\PostObject\Date\CachedTimestampResolver;
 use Municipio\PostObject\Date\TimestampResolver;
+use Municipio\PostObject\Decorators\PostObjectArchiveDateTimestamp;
 
 /**
  * Class Post
@@ -169,7 +170,7 @@ class Post
         $archiveDateSettingResolver = new CachedArchiveDateSettingResolver($postObject, $wpService, $archiveDateSettingResolver);
         $timestampResolver          = new TimestampResolver($postObject, $wpService, $archiveDateSettingResolver);
         $timestampResolver          = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
-        $postObject                 = new PostObjectDateTimestamp($postObject, $wpService, $timestampResolver);
+        $postObject                 = new PostObjectArchiveDateTimestamp($postObject, $wpService, $timestampResolver);
 
         $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
         $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);

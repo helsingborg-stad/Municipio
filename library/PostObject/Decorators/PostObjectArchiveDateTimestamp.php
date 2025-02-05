@@ -12,7 +12,7 @@ use Municipio\PostObject\Date\TimestampResolverInterface;
  *
  * Applies the SEO redirect to the post object permalink if a redirect is set.
  */
-class PostObjectDateTimestamp implements PostObjectInterface
+class PostObjectArchiveDateTimestamp implements PostObjectInterface
 {
     private static $archiveDateSettings = [];
 
@@ -107,7 +107,7 @@ class PostObjectDateTimestamp implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getDateTimestamp(): int
+    public function getArchiveDateTimestamp(): int
     {
         return $this->timestampResolver->resolve();
     }
