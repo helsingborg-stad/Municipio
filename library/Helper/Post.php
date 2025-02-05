@@ -8,7 +8,9 @@ use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 use Municipio\Helper\Term\Term;
+use Municipio\PostObject\Date\ArchiveDateFormatResolver;
 use Municipio\PostObject\Date\ArchiveDateSourceResolver;
+use Municipio\PostObject\Date\CachedArchiveDateFormatResolver;
 use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
 use Municipio\PostObject\Decorators\IconResolvingPostObject;
 use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
@@ -167,12 +169,14 @@ class Post
         $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $wpService);
 
-        $archiveDateSettingResolver = new ArchiveDateSourceResolver($postObject, $wpService);
-        $archiveDateSettingResolver = new CachedArchiveDateSourceResolver($postObject, $wpService, $archiveDateSettingResolver);
+        $archiveDateFormatResolver = new ArchiveDateFormatResolver($postObject, $wpService);
+        $archiveDateFormatResolver = new CachedArchiveDateFormatResolver($postObject, $archiveDateFormatResolver);
+        $postObject = new PostObjectArchiveDateFormat($postObject, $archiveDateFormatResolver);
 
-        $postObject = new PostObjectArchiveDateFormat($postObject, $archiveDateSettingResolver);
+        $archiveDateSourceResolver = new ArchiveDateSourceResolver($postObject, $wpService);
+        $archiveDateSourceResolver = new CachedArchiveDateSourceResolver($postObject, $archiveDateSourceResolver);
 
-        $timestampResolver = new TimestampResolver($postObject, $wpService, $archiveDateSettingResolver);
+        $timestampResolver = new TimestampResolver($postObject, $wpService, $archiveDateSourceResolver);
         $timestampResolver = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
 
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $timestampResolver);

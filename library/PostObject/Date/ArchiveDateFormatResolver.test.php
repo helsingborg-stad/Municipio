@@ -29,7 +29,7 @@ class ArchiveDateFormatResolverTest extends TestCase
         $postObject = $this->createMock(PostObjectInterface::class);
         $wpService  = new FakeWpService(['getThemeMod' => 'date-time']);
 
-        $resolver = new ArchiveDateSourceResolver($postObject, $wpService);
+        $resolver = new ArchiveDateFormatResolver($postObject, $wpService);
 
         $result = $resolver->resolve();
 

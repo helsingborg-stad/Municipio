@@ -2,9 +2,9 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use Municipio\PostObject\Date\ArchiveDateFormatResolverInterface;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\Date\ArchiveDateSourceResolverInterface;
 
 /**
  * PostObjectWithSeoRedirect class.
@@ -18,7 +18,7 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private ArchiveDateSourceResolverInterface $dateSettingResolver
+        private ArchiveDateFormatResolverInterface $dateSettingResolver
     ) {
     }
 

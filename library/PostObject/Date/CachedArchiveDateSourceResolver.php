@@ -3,7 +3,6 @@
 namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetThemeMod;
 
 /**
  * CachedArchiveDateSourceResolver class.
@@ -17,8 +16,7 @@ class CachedArchiveDateSourceResolver implements ArchiveDateSourceResolverInterf
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private GetThemeMod $wpService,
-        private ArchiveDateSourceResolverInterface $innerResolver
+        private ArchiveDateSourceResolver $innerResolver
     ) {
     }
 

@@ -5,7 +5,7 @@ namespace Municipio\PostObject\Date;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Date\ArchiveDateFormatResolverInterface;
 
-class CachedArchiveDateFormatResolver
+class CachedArchiveDateFormatResolver implements ArchiveDateFormatResolverInterface
 {
     private static array $cache = [];
 

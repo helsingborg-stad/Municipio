@@ -4,7 +4,6 @@ namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
-use WpService\Implementations\FakeWpService;
 
 class CachedArchiveDateSourceResolverTest extends TestCase
 {
@@ -18,7 +17,6 @@ class CachedArchiveDateSourceResolverTest extends TestCase
             CachedArchiveDateSourceResolver::class,
             new CachedArchiveDateSourceResolver(
                 $this->createMock(PostObjectInterface::class),
-                new FakeWpService(),
                 $this->createMock(ArchiveDateSourceResolverInterface::class)
             )
         );
@@ -36,7 +34,7 @@ class CachedArchiveDateSourceResolverTest extends TestCase
         $innerResolver = $this->createMock(ArchiveDateSourceResolverInterface::class);
         $innerResolver->expects($this->exactly(1))->method('resolve')->willReturn('metaKey');
 
-        $resolver = new CachedArchiveDateSourceResolver($postObject, new FakeWpService(), $innerResolver);
+        $resolver = new CachedArchiveDateSourceResolver($postObject, $innerResolver);
 
         $result = $resolver->resolve();
         $result = $resolver->resolve();
