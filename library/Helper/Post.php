@@ -171,7 +171,7 @@ class Post
 
         $archiveDateFormatResolver = new ArchiveDateFormatResolver($postObject, $wpService);
         $archiveDateFormatResolver = new CachedArchiveDateFormatResolver($postObject, $archiveDateFormatResolver);
-        $postObject = new PostObjectArchiveDateFormat($postObject, $archiveDateFormatResolver);
+        $postObject                = new PostObjectArchiveDateFormat($postObject, $archiveDateFormatResolver);
 
         $archiveDateSourceResolver = new ArchiveDateSourceResolver($postObject, $wpService);
         $archiveDateSourceResolver = new CachedArchiveDateSourceResolver($postObject, $archiveDateSourceResolver);
