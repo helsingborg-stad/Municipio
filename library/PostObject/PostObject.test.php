@@ -89,6 +89,6 @@ class PostObjectTest extends TestCase
      */
     public function testGetArchiveDateFormatReturnsDefaultFormat()
     {
-        $this->assertEquals('Y-m-d H:i', $this->instance->getArchiveDateFormat());
+        $this->assertEquals('date-time', $this->instance->getArchiveDateFormat());
     }
 }

@@ -6,7 +6,7 @@ use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class CachedArchiveDateSettingResolverTest extends TestCase
+class CachedArchiveDateFormatResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
@@ -15,11 +15,10 @@ class CachedArchiveDateSettingResolverTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
-            CachedArchiveDateSettingResolver::class,
-            new CachedArchiveDateSettingResolver(
+            CachedArchiveDateFormatResolver::class,
+            new CachedArchiveDateFormatResolver(
                 $this->createMock(PostObjectInterface::class),
-                new FakeWpService(),
-                $this->createMock(ArchiveDateSettingResolverInterface::class)
+                $this->createMock(ArchiveDateFormatResolverInterface::class)
             )
         );
     }
@@ -33,14 +32,14 @@ class CachedArchiveDateSettingResolverTest extends TestCase
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getPostType')->willReturn('post_type');
         $postObject->method('getBlogId')->willReturn(1);
-        $innerResolver = $this->createMock(ArchiveDateSettingResolverInterface::class);
-        $innerResolver->expects($this->exactly(1))->method('resolve')->willReturn('metaKey');
+        $innerResolver = $this->createMock(ArchiveDateFormatResolverInterface::class);
+        $innerResolver->expects($this->exactly(1))->method('resolve')->willReturn('date');
 
-        $resolver = new CachedArchiveDateSettingResolver($postObject, new FakeWpService(), $innerResolver);
+        $resolver = new CachedArchiveDateFormatResolver($postObject, $innerResolver);
 
         $result = $resolver->resolve();
         $result = $resolver->resolve();
 
-        $this->assertEquals('metaKey', $result);
+        $this->assertEquals('date', $result);
     }
 }

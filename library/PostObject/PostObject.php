@@ -103,6 +103,6 @@ class PostObject implements PostObjectInterface
      */
     public function getArchiveDateFormat(): string
     {
-        return 'Y-m-d H:i';
+        return 'date-time';
     }
 }

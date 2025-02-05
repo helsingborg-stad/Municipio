@@ -2,7 +2,7 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\Date\ArchiveDateSettingResolverInterface;
+use Municipio\PostObject\Date\ArchiveDateSourceResolverInterface;
 use Municipio\PostObject\PostObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -14,7 +14,7 @@ class PostObjectArchiveDateFormatTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $resolver  = $this->createMock(ArchiveDateSettingResolverInterface::class);
+        $resolver  = $this->createMock(ArchiveDateSourceResolverInterface::class);
         $decorator = new PostObjectArchiveDateFormat(new PostObject(new FakeWpService()), $resolver);
         $this->assertInstanceOf(PostObjectArchiveDateFormat::class, $decorator);
     }
@@ -24,7 +24,7 @@ class PostObjectArchiveDateFormatTest extends TestCase
      */
     public function testReturnsFormat()
     {
-        $resolver = $this->createMock(ArchiveDateSettingResolverInterface::class);
+        $resolver = $this->createMock(ArchiveDateSourceResolverInterface::class);
         $resolver->method('resolve')->willReturn('H:i');
 
         $decorator = new PostObjectArchiveDateFormat(new PostObject(new FakeWpService()), $resolver);

@@ -4,7 +4,7 @@ namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetPostMeta;
-use Municipio\PostObject\Date\ArchiveDateSettingResolverInterface;
+use Municipio\PostObject\Date\ArchiveDateSourceResolverInterface;
 
 /**
  * TimestampResolver class.
@@ -22,7 +22,7 @@ class TimestampResolver implements TimestampResolverInterface
     public function __construct(
         private PostObjectInterface $postObject,
         private GetPostMeta $wpService,
-        private ArchiveDateSettingResolverInterface $archiveDateSetting
+        private ArchiveDateSourceResolverInterface $archiveDateSetting
     ) {
     }
 
