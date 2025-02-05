@@ -6,9 +6,9 @@ use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetThemeMod;
 
 /**
- * ArchiveDateSettingResolver class.
+ * ArchiveDateSourceResolver class.
  */
-class ArchiveDateSettingResolver implements ArchiveDateSettingResolverInterface
+class ArchiveDateSourceResolver implements ArchiveDateSourceResolverInterface
 {
     /**
      * Constructor.

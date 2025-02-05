@@ -6,7 +6,7 @@ use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class ArchiveDateSettingResolverTest extends TestCase
+class ArchiveDateFormatResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
@@ -15,8 +15,8 @@ class ArchiveDateSettingResolverTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $this->assertInstanceOf(
-            ArchiveDateSettingResolver::class,
-            new ArchiveDateSettingResolver($this->createMock(PostObjectInterface::class), new FakeWpService())
+            ArchiveDateFormatResolver::class,
+            new ArchiveDateFormatResolver($this->createMock(PostObjectInterface::class), new FakeWpService())
         );
     }
 
@@ -27,14 +27,12 @@ class ArchiveDateSettingResolverTest extends TestCase
     public function testResolveReturnsFoundArchiveSetting()
     {
         $postObject = $this->createMock(PostObjectInterface::class);
-        $wpService  = new FakeWpService(['getThemeMod' => 'metaKey']);
+        $wpService  = new FakeWpService(['getThemeMod' => 'date-time']);
 
-        $resolver = new ArchiveDateSettingResolver($postObject, $wpService);
+        $resolver = new ArchiveDateFormatResolver($postObject, $wpService);
 
         $result = $resolver->resolve();
 
-        $this->assertEquals('metaKey', $result);
+        $this->assertEquals('date-time', $result);
     }
-
-    // TODO: How do i check default value?
 }

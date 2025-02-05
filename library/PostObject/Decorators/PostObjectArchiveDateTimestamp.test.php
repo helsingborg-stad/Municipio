@@ -15,7 +15,7 @@ class PostObjectArchiveDateTimestampTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $resolver  = $this->createMock(TimestampResolverInterface::class);
-        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
+        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), $resolver);
         $this->assertInstanceOf(PostObjectArchiveDateTimestamp::class, $decorator);
     }
 
@@ -27,7 +27,7 @@ class PostObjectArchiveDateTimestampTest extends TestCase
         $resolver = $this->createMock(TimestampResolverInterface::class);
         $resolver->method('resolve')->willReturn(123);
 
-        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), new FakeWpService(), $resolver);
+        $decorator = new PostObjectArchiveDateTimestamp(new PostObject(new FakeWpService()), $resolver);
 
         $this->assertEquals(123, $decorator->getArchiveDateTimestamp());
     }

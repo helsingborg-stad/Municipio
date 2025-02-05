@@ -97,4 +97,12 @@ class PostObject implements PostObjectInterface
     {
         return 0;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getArchiveDateFormat(): string
+    {
+        return 'date-time';
+    }
 }

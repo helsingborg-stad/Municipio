@@ -3,9 +3,9 @@
 namespace Municipio\PostObject\Date;
 
 /**
- * ArchiveDateSettingResolverInterface interface.
+ * ArchiveDateSourceResolverInterface interface.
  */
-interface ArchiveDateSettingResolverInterface
+interface ArchiveDateSourceResolverInterface
 {
     /**
      * Resolve the archive date setting.

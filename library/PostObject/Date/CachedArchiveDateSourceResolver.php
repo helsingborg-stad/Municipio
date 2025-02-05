@@ -3,12 +3,11 @@
 namespace Municipio\PostObject\Date;
 
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetThemeMod;
 
 /**
- * CachedArchiveDateSettingResolver class.
+ * CachedArchiveDateSourceResolver class.
  */
-class CachedArchiveDateSettingResolver implements ArchiveDateSettingResolverInterface
+class CachedArchiveDateSourceResolver implements ArchiveDateSourceResolverInterface
 {
     private static array $cache = [];
 
@@ -17,8 +16,7 @@ class CachedArchiveDateSettingResolver implements ArchiveDateSettingResolverInte
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private GetThemeMod $wpService,
-        private ArchiveDateSettingResolverInterface $innerResolver
+        private ArchiveDateSourceResolverInterface $innerResolver
     ) {
     }
 
@@ -32,6 +30,7 @@ class CachedArchiveDateSettingResolver implements ArchiveDateSettingResolverInte
         if (array_key_exists($cacheKey, self::$cache)) {
             return self::$cache[$cacheKey];
         }
+
         return self::$cache[$cacheKey] = (string) $this->innerResolver->resolve();
     }
 }

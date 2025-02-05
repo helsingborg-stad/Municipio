@@ -75,4 +75,20 @@ class PostObjectTest extends TestCase
     {
         $this->assertEquals(1, $this->instance->getBlogId());
     }
+
+    /**
+     * @testdox getArchiveDateTimestamp() returns 0
+     */
+    public function testGetArchiveDateTimestampReturns0()
+    {
+        $this->assertEquals(0, $this->instance->getArchiveDateTimestamp());
+    }
+
+    /**
+     * @testdox getArchiveDateFormat() returns default format
+     */
+    public function testGetArchiveDateFormatReturnsDefaultFormat()
+    {
+        $this->assertEquals('date-time', $this->instance->getArchiveDateFormat());
+    }
 }
