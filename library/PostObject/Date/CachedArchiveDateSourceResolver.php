@@ -16,7 +16,7 @@ class CachedArchiveDateSourceResolver implements ArchiveDateSourceResolverInterf
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private ArchiveDateSourceResolver $innerResolver
+        private ArchiveDateSourceResolverInterface $innerResolver
     ) {
     }
 
