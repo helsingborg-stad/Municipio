@@ -2,6 +2,9 @@
 
 namespace Municipio\Helper;
 
+/**
+ * StringToTime class.
+ */
 class StringToTime
 {
     /**

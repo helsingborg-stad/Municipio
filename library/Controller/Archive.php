@@ -619,7 +619,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-                $post     = \Municipio\Helper\Post::preparePostObject($post);
+                $post = \Municipio\Helper\Post::preparePostObject($post);
 
                 $preparedPosts['items'][] =
                     [
