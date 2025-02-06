@@ -79,9 +79,9 @@ class PostObjectTest extends TestCase
     /**
      * @testdox getArchiveDateTimestamp() returns 0
      */
-    public function testGetArchiveDateTimestampReturns0()
+    public function testGetArchiveDateTimestampReturnsNull()
     {
-        $this->assertEquals(0, $this->instance->getArchiveDateTimestamp());
+        $this->assertEquals(null, $this->instance->getArchiveDateTimestamp());
     }
 
     /**

@@ -9,5 +9,5 @@ interface TimestampResolverInterface
      *
      * @return int
      */
-    public function resolve(): int;
+    public function resolve(): ?int;
 }

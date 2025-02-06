@@ -78,7 +78,7 @@ interface PostObjectInterface
      *
      * @return int
      */
-    public function getArchiveDateTimestamp(): int;
+    public function getArchiveDateTimestamp(): ?int;
 
     /**
      * Get the post object date format.
