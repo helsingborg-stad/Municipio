@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject\Date;
 
+use Municipio\Helper\StringToTimeInterface;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -19,7 +20,8 @@ class TimestampResolverTest extends TestCase
             new TimestampResolver(
                 $this->createMock(PostObjectInterface::class),
                 new FakeWpService(),
-                $this->createMock(ArchiveDateSourceResolverInterface::class)
+                $this->createMock(ArchiveDateSourceResolverInterface::class),
+                $this->createMock(StringToTimeInterface::class)
             )
         );
     }
@@ -30,10 +32,19 @@ class TimestampResolverTest extends TestCase
      */
     public function testResolvesMetaKeyValueAndReturnUnix()
     {
+        $dateString = '10 Januari 2000';
+        \Municipio\Helper\WpService::set(new FakeWpService(['getPostMeta' => $dateString, '__' => 'Januari']));
         $postObject         = $this->createMock(PostObjectInterface::class);
         $archiveDateSetting = $this->createMock(ArchiveDateSourceResolverInterface::class);
+        $stringToTime       = $this->createMock(StringToTimeInterface::class);
+        $stringToTime->method('convert')->with($dateString)->willReturn(968544000);
 
-        $resolver = new TimestampResolver($postObject, new FakeWpService(['getPostMeta' => '10 September 2000']), $archiveDateSetting);
+        $resolver = new TimestampResolver(
+            $postObject,
+            new FakeWpService(['getPostMeta' => $dateString]),
+            $archiveDateSetting,
+            $stringToTime
+        );
 
         $result = $resolver->resolve();
 
@@ -51,7 +62,12 @@ class TimestampResolverTest extends TestCase
         $archiveDateSetting = $this->createMock(ArchiveDateSourceResolverInterface::class);
         $archiveDateSetting->method('resolve')->willReturn('post_date');
 
-        $resolver = new TimestampResolver($postObject, new FakeWpService(), $archiveDateSetting);
+        $resolver = new TimestampResolver(
+            $postObject,
+            new FakeWpService(),
+            $archiveDateSetting,
+            $this->createMock(StringToTimeInterface::class)
+        );
 
         $result = $resolver->resolve();
 
@@ -69,7 +85,12 @@ class TimestampResolverTest extends TestCase
         $archiveDateSetting = $this->createMock(ArchiveDateSourceResolverInterface::class);
         $archiveDateSetting->method('resolve')->willReturn('post_modified');
 
-        $resolver = new TimestampResolver($postObject, new FakeWpService(), $archiveDateSetting);
+        $resolver = new TimestampResolver(
+            $postObject,
+            new FakeWpService(),
+            $archiveDateSetting,
+            $this->createMock(StringToTimeInterface::class)
+        );
 
         $result = $resolver->resolve();
 
@@ -85,7 +106,12 @@ class TimestampResolverTest extends TestCase
         $postObject         = $this->createMock(PostObjectInterface::class);
         $archiveDateSetting = $this->createMock(ArchiveDateSourceResolverInterface::class);
 
-        $resolver = new TimestampResolver($postObject, new FakeWpService(), $archiveDateSetting);
+        $resolver = new TimestampResolver(
+            $postObject,
+            new FakeWpService(),
+            $archiveDateSetting,
+            $this->createMock(StringToTimeInterface::class)
+        );
 
         $result = $resolver->resolve();
 

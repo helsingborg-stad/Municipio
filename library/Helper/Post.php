@@ -175,9 +175,9 @@ class Post
 
         $archiveDateSourceResolver = new ArchiveDateSourceResolver($postObject, $wpService);
         $archiveDateSourceResolver = new CachedArchiveDateSourceResolver($postObject, $archiveDateSourceResolver);
-
-        $timestampResolver = new TimestampResolver($postObject, $wpService, $archiveDateSourceResolver);
-        $timestampResolver = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
+        $stringToTimeHelper        = new StringToTime($wpService);
+        $timestampResolver         = new TimestampResolver($postObject, $wpService, $archiveDateSourceResolver, $stringToTimeHelper);
+        $timestampResolver         = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
 
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $timestampResolver);
 

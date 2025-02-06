@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject\Date;
 
+use Municipio\Helper\StringToTimeInterface;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetPostMeta;
 use Municipio\PostObject\Date\ArchiveDateSourceResolverInterface;
@@ -22,7 +23,8 @@ class TimestampResolver implements TimestampResolverInterface
     public function __construct(
         private PostObjectInterface $postObject,
         private GetPostMeta $wpService,
-        private ArchiveDateSourceResolverInterface $archiveDateSetting
+        private ArchiveDateSourceResolverInterface $archiveDateSetting,
+        private StringToTimeInterface $stringToTime
     ) {
     }
 
@@ -54,7 +56,7 @@ class TimestampResolver implements TimestampResolverInterface
         $metaValue = $this->wpService->getPostMeta($this->postObject->getId(), $archiveDateSetting, true);
 
         if ($metaValue) {
-            return \Municipio\Helper\StringToTime::convert($metaValue);
+            return $this->stringToTime->convert($metaValue);
         }
 
         return null;

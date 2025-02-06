@@ -13,8 +13,7 @@ class StringToTimeTest extends TestCase
      */
     public function testTryFormatDateToUnixTimestampReturnsUnixTimestampFromString($dateString)
     {
-        WpService::set($this->getWpServiceWithTranslatedDateStrings());
-        $this->assertIsInt(\Municipio\Helper\StringToTime::convert($dateString));
+        $this->assertIsInt((new StringToTime($this->getWpServiceWithTranslatedDateStrings()))->convert($dateString));
     }
 
     /**
@@ -22,7 +21,7 @@ class StringToTimeTest extends TestCase
      */
     public function testTryFormatDateToUnixTimestampReturnsSameIntAsProvided()
     {
-        $this->assertEquals(1234567890, \Municipio\Helper\StringToTime::convert(1234567890));
+        $this->assertEquals(1234567890, (new StringToTime(new FakeWpService(['__' => 'string'])))->convert(1234567890));
     }
 
     /**
@@ -30,7 +29,7 @@ class StringToTimeTest extends TestCase
      */
     public function testTryFormatDateToUnixTimestampReturnsNullOnInvalidString()
     {
-        $this->assertNull(\Municipio\Helper\StringToTime::convert('invalid date string'));
+        $this->assertNull((new StringToTime(new FakeWpService(['__' => 'not a valid string'])))->convert('invalid date string'));
     }
 
     private function getWpServiceWithTranslatedDateStrings()
