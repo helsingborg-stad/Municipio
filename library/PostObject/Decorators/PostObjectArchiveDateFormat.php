@@ -113,7 +113,6 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
      */
     public function getArchiveDateFormat(): string
     {
-        // echo '<pre>' . print_r( $this->archiveDateFormatSettingResolver->resolve(), true ) . '</pre>';
         return $this->archiveDateFormatSettingResolver->resolve();
     }
 }

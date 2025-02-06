@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Helper\WP;
 use Municipio\Controller\Navigation\Config\MenuConfig;
+use Municipio\PostObject\PostObjectInterface;
 
 /**
  * Class Archive
@@ -12,14 +13,6 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
  */
 class Archive extends \Municipio\Controller\BaseController
 {
-
-    // TODO: Remove these?
-    private static $gridSize;
-
-    private static $randomGridBase = array();
-    private static $gridRow        = array();
-    private static $gridColumns    = array();
-
     /**
      * Initializes the Archive controller.
      *
@@ -52,7 +45,6 @@ class Archive extends \Municipio\Controller\BaseController
 
         //The posts
         $this->data['posts']           = $this->getPosts($template);
-        $this->data['posts']           = $this->getDate($this->data['posts'], $this->data['archiveProps']);
         $this->data['anyPostHasImage'] = $this->anyPostHasImage($this->data['posts']);
 
         //Set default values to query parameters
@@ -606,134 +598,6 @@ class Archive extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Prepare a date to show in view
-     *
-     * @param   array $posts    The posts
-     * @return  array           The posts - with archive date
-     */
-    // TODO: Check if needed or if some functionality is needed
-    public function getDate($posts, $archiveProps)
-    {
-        $preparedPosts = [];
-
-        //Set defaults
-        if (is_array($posts) && !empty($posts)) {
-            foreach ($posts as $post) {
-                if (!is_object($post)) {
-                    continue;
-                }
-                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
-                $post->archiveDate       = false;
-            }
-        }
-
-        if (!isset($archiveProps->dateField) || is_null($archiveProps->dateField) || $archiveProps->dateField === 'none') {
-            return $posts;
-        }
-
-        $isMetaKey = in_array($archiveProps->dateField, ['post_date', 'post_modified']) ? false : true;
-
-        if ($isMetaKey == true) {
-            $targetFieldName = $archiveProps->dateField;
-        } else {
-            $targetFieldName = \Municipio\Helper\FormatObject::camelCase($archiveProps->dateField) . 'Gmt';
-        }
-
-        if (is_array($posts) && !empty($posts)) {
-            foreach ($posts as $post) {
-                if (!is_object($post)) {
-                    continue;
-                }
-
-                //Defaults
-                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
-                $post->archiveDate       = false;
-
-                if (!is_null($archiveProps->dateField)) {
-                    if ($isMetaKey === true) {
-                        $post->archiveDate = get_post_meta($post->id, $post, true);
-                    } elseif (isset($post->{$targetFieldName})) {
-                        $post->archiveDate = $post->{$targetFieldName};
-                    }
-                }
-
-                $post->archiveDate = apply_filters('Municipio/Controller/Archive/getDate', $post->archiveDate, $post);
-                if (!isset($post->archiveDate)) {
-                    $post->archiveDate = false;
-                } else {
-                    $post->archiveDate = wp_date(
-                        $this->getDateFormatString($archiveProps->dateFormat),
-                        strtotime($post->archiveDate),
-                    );
-                }
-
-                $post->archiveDate       = $this->tryFormatDateToUnixTimestamp($post->archiveDate);
-                $post->archiveDateFormat = $archiveProps->dateFormat ?? 'default';
-
-                $preparedPosts[] = $post;
-            }
-        }
-        return $preparedPosts;
-    }
-
-    /**
-     * Try to format a date to a unix timestamp
-     *
-     * @param mixed $date The date to format
-     * @return int|null The formatted date as a unix timestamp or null if the date could not be formatted
-     */
-    public function tryFormatDateToUnixTimestamp(mixed $date): ?int
-    {
-        if (is_int($date)) {
-            return $date;
-        }
-
-        $date = str_ireplace($this->getLiteralDateStringReplaceMap()[0], $this->getLiteralDateStringReplaceMap()[1], $date);
-
-        return strtotime($date) ?: null;
-    }
-
-    /**
-     * Get the literal date string replace map
-     * @return array
-     */
-    // TODO: Check if needed
-    private function getLiteralDateStringReplaceMap(): array
-    {
-        $wpService       = \Municipio\Helper\WpService::get();
-        $literals        = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
-        $literalsShort   = array_map(fn($literal) => substr($literal, 0, 3), $literals);
-        $translated      = array_map(fn($literal) => $wpService->__($literal), $literals);
-        $translatedShort = array_map(fn($literal) => $wpService->__(substr($literal, 0, 3)), $literals);
-
-        $search  = array_merge($translated, $translatedShort);
-        $replace = array_merge($literals, $literalsShort);
-
-        return [$search, $replace];
-    }
-
-    /**
-     * Switch between different date formats
-     *
-     * @param string $key
-     * @return string $dateFormat
-     */
-    // TODO: Check if needed
-    private function getDateFormatString(string $key): string
-    {
-        switch ($key) {
-            case 'date':
-                return get_option('date_format');
-            case 'date-time':
-                return get_option('date_format') . " " . get_option('time_format');
-            case 'date-badge':
-                return "Y-m-d";
-            default:
-                return get_option('date_format') . " " . get_option('time_format');
-        }
-    }
-
-    /**
      * Prepare posts for list output
      *
      * @param   array $posts    The posts
@@ -741,7 +605,6 @@ class Archive extends \Municipio\Controller\BaseController
      */
     protected function getListItems(array $posts): array
     {
-        $dateFormat    = \Municipio\Helper\DateFormat::getDateFormat('date');
         $preparedPosts = [
             'items'    => [],
             'headings' => [__('Title', 'municipio'), __('Published', 'municipio')]
@@ -756,8 +619,7 @@ class Archive extends \Municipio\Controller\BaseController
 
         if (is_array($posts) && !empty($posts)) {
             foreach ($posts as $post) {
-                $post     = \Municipio\Helper\Post::preparePostObject($post);
-                $postDate = wp_date($dateFormat, strtotime($post->postDate));
+                $post = \Municipio\Helper\Post::preparePostObject($post);
 
                 $preparedPosts['items'][] =
                     [
@@ -765,11 +627,11 @@ class Archive extends \Municipio\Controller\BaseController
                         'href'    => WP::getPermalink($post->id),
                         'columns' => [
                             $post->postTitle,
-                            $post->post_date = $postDate
+                            $post->post_date = $post->getArchiveDateTimestamp()
                         ]
                     ];
 
-                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts, $dateFormat);
+                $preparedPosts = $this->prepareTaxonomyColumns($post, $preparedPosts);
             }
         }
 
@@ -784,7 +646,7 @@ class Archive extends \Municipio\Controller\BaseController
      * @param string $dateFormat The date format.
      * @return array The array of prepared posts with taxonomy columns.
      */
-    private function prepareTaxonomyColumns($post, $preparedPosts, string $dateFormat)
+    private function prepareTaxonomyColumns(PostObjectInterface $post, $preparedPosts)
     {
         if (!empty($this->data['archiveProps']->taxonomiesToDisplay)) {
             foreach ($this->data['archiveProps']->taxonomiesToDisplay as $taxonomy) {
@@ -796,32 +658,12 @@ class Archive extends \Municipio\Controller\BaseController
                 }
 
                 $termNames = array_map(fn($term) => $term->name, $terms);
-                $termNames = $this->formatTermNames($termNames, $dateFormat);
+                array_unshift($termNames, $post->getArchiveDateTimestamp() ?? '');
 
                 $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
             }
         }
 
         return $preparedPosts;
-    }
-
-    /**
-     * Format term names.
-     *
-     * @param array $termNames The term names to format.
-     * @return array The formatted term names.
-     */
-    private function formatTermNames(array $termNames, string $dateFormat): array
-    {
-        return array_map(
-            function ($term) use ($dateFormat) {
-                $date = strtotime(str_replace(',', '', $term));
-
-                return $date !== false
-                    ? wp_date($dateFormat, strtotime($term))
-                    : $term;
-            },
-            $termNames
-        );
     }
 }
