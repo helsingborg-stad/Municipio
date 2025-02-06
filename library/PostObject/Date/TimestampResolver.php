@@ -54,7 +54,7 @@ class TimestampResolver implements TimestampResolverInterface
         $metaValue = $this->wpService->getPostMeta($this->postObject->getId(), $archiveDateSetting, true);
 
         if ($metaValue) {
-            return strtotime($metaValue);
+            return \Municipio\Helper\StringToTime::convert($metaValue);
         }
 
         return null;

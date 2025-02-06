@@ -1,23 +1,20 @@
 <?php
 
-namespace Municipio\Controller;
+namespace Municipio\Helper;
 
-use Municipio\Helper\WpService;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
-class ArchiveTest extends TestCase
+class StringToTimeTest extends TestCase
 {
-    /**
+     /**
      * @testdox tryFormatDateToUnixTimestamp() returns a unix timestamp when given a valid date string
      * @dataProvider provideValidDateStrings
      */
     public function testTryFormatDateToUnixTimestampReturnsUnixTimestampFromString($dateString)
     {
         WpService::set($this->getWpServiceWithTranslatedDateStrings());
-        $archive = $this->getArchiveWithoutConstructor();
-        $this->assertIsInt($archive->tryFormatDateToUnixTimestamp($dateString));
+        $this->assertIsInt(\Municipio\Helper\StringToTime::convert($dateString));
     }
 
     /**
@@ -25,8 +22,7 @@ class ArchiveTest extends TestCase
      */
     public function testTryFormatDateToUnixTimestampReturnsSameIntAsProvided()
     {
-        $archive = $this->getArchiveWithoutConstructor();
-        $this->assertEquals(1234567890, $archive->tryFormatDateToUnixTimestamp(1234567890));
+        $this->assertEquals(1234567890, \Municipio\Helper\StringToTime::convert(1234567890));
     }
 
     /**
@@ -34,8 +30,7 @@ class ArchiveTest extends TestCase
      */
     public function testTryFormatDateToUnixTimestampReturnsNullOnInvalidString()
     {
-        $archive = $this->getArchiveWithoutConstructor();
-        $this->assertNull($archive->tryFormatDateToUnixTimestamp('invalid date string'));
+        $this->assertNull(\Municipio\Helper\StringToTime::convert('invalid date string'));
     }
 
     private function getWpServiceWithTranslatedDateStrings()
@@ -101,13 +96,5 @@ class ArchiveTest extends TestCase
             'Mån, Januari 27, 2025'   => ['Mån, Januari 27, 2025'],
             'mån, januari 27, 2025'   => ['mån, januari 27, 2025'],
         ];
-    }
-
-    private function getArchiveWithoutConstructor(): Archive|MockObject
-    {
-        return $this->getMockBuilder(Archive::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['__construct'])
-            ->getMock();
     }
 }
