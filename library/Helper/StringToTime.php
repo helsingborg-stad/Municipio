@@ -9,6 +9,9 @@ use WpService\Contracts\__;
  */
 class StringToTime implements StringToTimeInterface
 {
+    /**
+     * StringToTime constructor.
+     */
     public function __construct(private __ $wpService)
     {
     }
