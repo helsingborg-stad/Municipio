@@ -31,12 +31,16 @@ class TimestampResolver implements TimestampResolverInterface
      *
      * @return int
      */
-    public function resolve(): int
+    public function resolve(): ?int
     {
         $archiveDateSetting = $this->archiveDateSetting->resolve();
 
         if (in_array($archiveDateSetting, $this->defaultTimestamps)) {
             return $this->getDefaultTimestamp($archiveDateSetting);
+        }
+
+        if ($archiveDateSetting === 'none') {
+            return null;
         }
 
         return $this->getDateMetaValue($archiveDateSetting);
@@ -45,7 +49,7 @@ class TimestampResolver implements TimestampResolverInterface
     /**
      * Get the date meta value.
      */
-    private function getDateMetaValue(string $archiveDateSetting): int
+    private function getDateMetaValue(string $archiveDateSetting): ?int
     {
         $metaValue = $this->wpService->getPostMeta($this->postObject->getId(), $archiveDateSetting, true);
 
@@ -53,7 +57,7 @@ class TimestampResolver implements TimestampResolverInterface
             return strtotime($metaValue);
         }
 
-        return 0;
+        return null;
     }
 
     /**

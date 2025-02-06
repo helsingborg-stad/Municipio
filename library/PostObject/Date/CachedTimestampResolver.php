@@ -28,7 +28,7 @@ class CachedTimestampResolver implements TimestampResolverInterface
      *
      * @return int
      */
-    public function resolve(): int
+    public function resolve(): ?int
     {
         $cacheKey = "{$this->postObject->getBlogId()}_{$this->postObject->getId()}";
 
