@@ -30,7 +30,7 @@ class CachedTimestampResolver implements TimestampResolverInterface
      */
     public function resolve(): ?int
     {
-        $cacheKey = "{$this->postObject->getBlogId()}_{$this->postObject->getId()}";
+        $cacheKey = "{$this->postObject->getBlogId()}_{$this->postObject->getId()}_{$this->postObject->getPublishedTime()}";
 
         if (array_key_exists($cacheKey, self::$idCache)) {
             return self::$idCache[$cacheKey];
