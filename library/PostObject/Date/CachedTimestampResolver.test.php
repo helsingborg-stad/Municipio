@@ -33,6 +33,7 @@ class CachedTimestampResolverTest extends TestCase
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getId')->willReturn(1);
         $postObject->method('getBlogId')->willReturn(1);
+        $postObject->method('getPublishedTime')->willReturn("2025-02-10 12:00:00");
         $innerResolver = $this->createMock(TimestampResolverInterface::class);
         $innerResolver->expects($this->exactly(1))->method('resolve')->willReturn(123);
 
