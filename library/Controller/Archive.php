@@ -627,7 +627,7 @@ class Archive extends \Municipio\Controller\BaseController
                         'href'    => WP::getPermalink($post->id),
                         'columns' => [
                             $post->postTitle,
-                            $post->post_date = $post->getArchiveDateTimestamp()
+                            $post->post_date = wp_date(get_option('date_format'), $post->getArchiveDateTimestamp())
                         ]
                     ];
 
@@ -657,8 +657,29 @@ class Archive extends \Municipio\Controller\BaseController
                     continue;
                 }
 
-                $termNames = array_map(fn($term) => $term->name, $terms);
-                array_unshift($termNames, $post->getArchiveDateTimestamp() ?? '');
+                $termNames = array_map(function ($term) {
+                    $name = trim($term->name ?? '');
+
+                    $datePatterns = [
+                        '/^\d{4}-\d{2}-\d{2}$/',         // YYYY-MM-DD
+                        '/^\d{2}\/\d{2}\/\d{4}$/',       // DD/MM/YYYY or MM/DD/YYYY
+                        '/^\d{2}-\d{2}-\d{4}$/',         // DD-MM-YYYY
+                        '/^\w+ \d{4}$/',                 // "Month YYYY"
+                        '/^\d{1,2} \p{L}+, \d{4}$/u',    // "30 january, 2025"
+                    ];
+                    foreach ($datePatterns as $pattern) {
+                        if (preg_match($pattern, $name)) {
+                            $timestamp = strtotime($name);
+
+                            // Ensure strtotime() returned a valid timestamp
+                            if ($timestamp && $timestamp > 0) {
+                                return wp_date(get_option('date_format'), $timestamp);
+                            }
+                        }
+                    }
+
+                    return $name;
+                }, $terms);
 
                 $preparedPosts['items'][count($preparedPosts['items']) - 1]['columns'][$taxonomy] = join(', ', $termNames);
             }
