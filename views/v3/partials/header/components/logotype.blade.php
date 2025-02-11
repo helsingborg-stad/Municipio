@@ -1,4 +1,4 @@
-@link(['href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
+@link(['id' => 'header-logotype', 'href' => $homeUrl, 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
     @if($headerBrandEnabled && !$headerData['hasSeparateBrandText'])
         @brand([
             'logotype' => [
