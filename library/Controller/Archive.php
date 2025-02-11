@@ -627,7 +627,7 @@ class Archive extends \Municipio\Controller\BaseController
                         'href'    => WP::getPermalink($post->id),
                         'columns' => [
                             $post->postTitle,
-                            $post->post_date = wp_date(get_option( 'date_format' ), $post->getArchiveDateTimestamp())
+                            $post->post_date = wp_date(get_option('date_format'), $post->getArchiveDateTimestamp())
                         ]
                     ];
 
@@ -657,7 +657,7 @@ class Archive extends \Municipio\Controller\BaseController
                     continue;
                 }
 
-                $termNames = array_map(function($term) {    
+                $termNames = array_map(function ($term) {
                     if ($timestamp = strtotime($term->name ?? '')) {
                         return wp_date(get_option('date_format'), $timestamp);
                     }
