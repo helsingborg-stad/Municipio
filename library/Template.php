@@ -12,6 +12,7 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
 /**
  * Class Template
@@ -36,7 +37,8 @@ class Template
         private AcfService $acfService,
         private WpService $wpService,
         private SchemaDataConfigInterface $schemaDataConfig,
-        private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction
+        private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction,
+        private SiteSwitcher $siteSwitcher
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -280,7 +282,7 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService);
+        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService, $this->siteSwitcher);
     }
     /**
      * @param $view

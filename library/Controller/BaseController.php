@@ -13,6 +13,7 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
+use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
 /**
  * This class serves as the base controller for all controllers in the theme.
@@ -60,7 +61,8 @@ class BaseController
         protected MenuBuilderInterface $menuBuilder,
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
-        protected AcfService $acfService
+        protected AcfService $acfService,
+        protected SiteSwitcher $siteSwitcher
     ) {
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
@@ -82,7 +84,6 @@ class BaseController
         $this->data['adminUrl']           = $this->getAdminUrl();
         $this->data['homeUrlPath']        = parse_url(get_home_url(), PHP_URL_PATH);
         $this->data['siteName']           = $this->getSiteName();
-
 
         //View porperties
         $this->data['isFrontPage'] = is_front_page() || is_home() ? true : false;
@@ -806,12 +807,24 @@ class BaseController
     }
 
     /**
-     * Get home url
+     * Get the appropriate home URL, considering multisite and subdirectory setups.
+     *
      * @return string
      */
     protected function getHomeUrl(): string
     {
-        return apply_filters('Municipio/homeUrl', esc_url(get_home_url()));
+        if (is_multisite() && !is_subdomain_install() && !is_main_site()) {
+            $homeUrl = $this->siteSwitcher->runInSite(
+                $this->wpService->getMainSiteId(),
+                function () {
+                    return $this->getHomeUrl();
+                }
+            );
+        } else {
+            $homeUrl = get_home_url();
+        }
+
+        return apply_filters('Municipio/homeUrl', esc_url($homeUrl));
     }
 
     /**

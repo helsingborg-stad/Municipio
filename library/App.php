@@ -131,7 +131,8 @@ class App
             $this->acfService,
             $this->wpService,
             $this->schemaDataConfig,
-            $mainQueryUserGroupRestriction
+            $mainQueryUserGroupRestriction,
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
         );
 
         /**
