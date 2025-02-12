@@ -671,12 +671,8 @@ class Post
                 'c-image',
                 'c-image__caption',
                 'c-image__image wp-image-',
-                'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-float--left@xl u-margin__y--2 
-                u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl 
-                u-width--100@xs',
-                'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-float--right@xl 
-                u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl 
-                u-width--100@xs',
+                'u-float--left@sm u-float--left@md u-float--left@lg u-float--left@xl u-float--left@xl u-margin__y--2 u-margin__right--2@sm u-margin__right--2@md u-margin__right--2@lg u-margin__right--2@xl u-width--100@xs',
+                'u-float--right@sm u-float--right@md u-float--right@lg u-float--right@xl u-float--right@xl u-margin__y--2 u-margin__left--2@sm u-margin__left--2@md u-margin__left--2@lg u-margin__left--2@xl u-width--100@xs',
                 '',
                 'u-margin__x--auto u-text-align--center',
 
