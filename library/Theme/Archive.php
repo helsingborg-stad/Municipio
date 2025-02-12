@@ -41,7 +41,7 @@ class Archive
                 $orderBy = $orderBy[key($orderBy)];
             }
 
-            $orderBy = is_array($orderBy) ? [...$orderBy, 'ID'] : [$orderBy => $query->get('order'), 'ID'];
+            $orderBy = is_array($orderBy) ? [...$orderBy, 'ID' => 'ASC'] : [$orderBy => $query->get('order'), 'ID' => 'ASC'];
 
             $query->set('orderby', $orderBy);
         }

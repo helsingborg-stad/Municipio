@@ -31,7 +31,8 @@ class ArchiveTest extends TestCase
 
         $archive->addOrderByFallback($query);
 
-        $this->assertContains('ID', $query->get('orderby'));
+        $this->assertArrayHasKey('ID', $query->get('orderby'));
+        $this->assertEquals('ASC', $query->get('orderby')['ID']);
     }
 
     public function provideOrderByMatch()
@@ -66,18 +67,18 @@ class ArchiveTest extends TestCase
     public function provideOrderByWithExpectedOrder()
     {
         return [
-            'date ASC'                                    => ['date', 'ASC', ['date' => 'ASC', 'ID']],
-            'date DESC'                                   => ['date', 'DESC', ['date' => 'DESC', 'ID']],
-            'modified ASC'                                => ['modified', 'ASC', ['modified' => 'ASC', 'ID']],
-            'modified DESC'                               => ['modified', 'DESC', ['modified' => 'DESC', 'ID']],
-            'array with one value (date ASC)'             => [['date'], 'ASC', ['date' => 'ASC', 'ID']],
-            'array with one value (date DESC)'            => [['date'], 'DESC', ['date' => 'DESC', 'ID']],
-            'array with one value (modified ASC)'         => [['modified'], 'ASC', ['modified' => 'ASC', 'ID']],
-            'array with one value (modified DESC)'        => [['modified'], 'DESC', ['modified' => 'DESC', 'ID']],
-            'array with key and value (date => ASC)'      => [['date' => 'ASC'], 'DESC', ['date' => 'ASC', 'ID']],
-            'array with key and value (date => DESC)'     => [['date' => 'DESC'], 'DESC', ['date' => 'DESC', 'ID']],
-            'array with key and value (modified => ASC)'  => [['modified' => 'ASC'], 'ASC', ['modified' => 'ASC', 'ID']],
-            'array with key and value (modified => DESC)' => [['modified' => 'DESC'], 'DESC', ['modified' => 'DESC', 'ID']],
+            'date ASC'                                    => ['date', 'ASC', ['date' => 'ASC', 'ID' => 'ASC']],
+            'date DESC'                                   => ['date', 'DESC', ['date' => 'DESC', 'ID' => 'ASC']],
+            'modified ASC'                                => ['modified', 'ASC', ['modified' => 'ASC', 'ID' => 'ASC']],
+            'modified DESC'                               => ['modified', 'DESC', ['modified' => 'DESC', 'ID' => 'ASC']],
+            'array with one value (date ASC)'             => [['date'], 'ASC', ['date' => 'ASC', 'ID' => 'ASC']],
+            'array with one value (date DESC)'            => [['date'], 'DESC', ['date' => 'DESC', 'ID' => 'ASC']],
+            'array with one value (modified ASC)'         => [['modified'], 'ASC', ['modified' => 'ASC', 'ID' => 'ASC']],
+            'array with one value (modified DESC)'        => [['modified'], 'DESC', ['modified' => 'DESC', 'ID' => 'ASC']],
+            'array with key and value (date => ASC)'      => [['date' => 'ASC'], 'DESC', ['date' => 'ASC', 'ID' => 'ASC']],
+            'array with key and value (date => DESC)'     => [['date' => 'DESC'], 'DESC', ['date' => 'DESC', 'ID' => 'ASC']],
+            'array with key and value (modified => ASC)'  => [['modified' => 'ASC'], 'ASC', ['modified' => 'ASC', 'ID' => 'ASC']],
+            'array with key and value (modified => DESC)' => [['modified' => 'DESC'], 'DESC', ['modified' => 'DESC', 'ID' => 'ASC']],
         ];
     }
 
