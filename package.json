@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/municipio",
-    "version": "5.129.9",
+    "version": "5.129.10",
     "description": "The official wordpress theme of Helsingborg Stad",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
