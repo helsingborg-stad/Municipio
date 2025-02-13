@@ -12,6 +12,7 @@ use WP_Term;
 use WP_Taxonomy;
 use wpdb;
 use WP_User;
+use WP_Query;
 
 /**
  * Class WpMockFactory.
@@ -86,6 +87,16 @@ class WpMockFactory extends TestCase
     public static function createWpUser(array $args = []): MockObject|WP_User
     {
         return self::buildMockWithArgs('WP_User', $args);
+    }
+
+    /**
+     * Create a mock WP_Query object.
+     *
+     * @param array $args
+     */
+    public static function createWpQuery(array $args = []): MockObject|WP_Query
+    {
+        return self::buildMockWithArgs('WP_Query', $args);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\UI;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Query;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\GetCurrentScreen;
 use WpService\Contracts\IsAdmin;
 
 /**
@@ -37,18 +38,20 @@ class HideSyncedMediaFromAdminMediaLibrary implements Hookable
      *
      * @param WP_Query $query
      */
-    public function preGetPosts(WP_Query $query): void
+    public function preGetPosts(WP_Query &$query): void
     {
-        if (!$this->wpService->isAdmin() || !$query->is_main_query() || $query->get('post_type') !== 'attachment') {
+        $postType = $query->query['post_type'] ?? '';
+
+        if (!$this->wpService->isAdmin() || $postType !== 'attachment') {
             return;
         }
 
-        $metaQuery   = $query->get('meta_query') ?: [];
+        $metaQuery   = $query->query_vars['meta_query'] ?? [];
         $metaQuery[] = [
             'key'     => $this->metaKey,
             'compare' => 'NOT EXISTS',
         ];
 
-        $query->set('meta_query', $metaQuery);
+        $query->query_vars['meta_query'] = $metaQuery;
     }
 }
