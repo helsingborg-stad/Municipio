@@ -37,18 +37,31 @@ class HideSyncedMediaFromAdminMediaLibrary implements Hookable
      *
      * @param WP_Query $query
      */
-    public function preGetPosts(WP_Query $query): void
+    public function preGetPosts(WP_Query &$query): void
     {
-        if (!$this->wpService->isAdmin() || !$query->is_main_query() || $query->get('post_type') !== 'attachment') {
+        if (!$this->shouldModifyQuery($query)) {
             return;
         }
 
-        $metaQuery   = $query->get('meta_query') ?: [];
+        $metaQuery   = $query->query_vars['meta_query'] ?? [];
         $metaQuery[] = [
             'key'     => $this->metaKey,
             'compare' => 'NOT EXISTS',
         ];
 
-        $query->set('meta_query', $metaQuery);
+        $query->query_vars['meta_query'] = $metaQuery;
+    }
+
+    /**
+     * Determine if the query should be modified.
+     *
+     * @param WP_Query $query
+     * @return bool
+     */
+    private function shouldModifyQuery(WP_Query $query): bool
+    {
+        $postType = $query->query['post_type'] ?? '';
+
+        return $this->wpService->isAdmin() && $postType === 'attachment';
     }
 }
