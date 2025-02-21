@@ -30,7 +30,7 @@
     @slot('search')
         @includeWhen(
                 $showMobileSearchDrawer,
-                'partials.search.mobile-search-form',
+                'partials.search.drawer-search-form',
                 ['classList' => ['search-form', 'u-margin__top--2', 'u-width--100']]
             )
     @endslot

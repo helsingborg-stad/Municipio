@@ -69,7 +69,8 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
 #hero-search-form,
 #header-search-form,
 #menu-mega,
-#mobile-search-form {
+#mobile-search-form,
+#drawer-search-form {
   &.c-form.search-form,
   .c-form {
     .c-field__inner,
@@ -86,7 +87,9 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
 #header-search-form input[type="search"],
 #header-search-form .c-field__inner,
 #mobile-search-form input[type="search"],
-#mobile-search-form .c-field__inner {
+#mobile-search-form .c-field__inner,
+#drawer-search-form input[type="search"],
+#drawer-search-form .c-field__inner {
   border-radius: inherit;
   border: none;
 }
