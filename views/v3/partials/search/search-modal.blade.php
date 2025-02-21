@@ -32,7 +32,7 @@
                 'size' => 'lg',
                 'radius' => 'md',
                 'icon' => ['icon' => 'search'],
-                'attributeList' => ['autofocus' => '1'],
+                'attributeList' => ['autofocus' => ''],
             ])
             @endfield
 
