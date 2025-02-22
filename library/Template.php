@@ -295,17 +295,15 @@ class Template
                 ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
                 ->render();
 
-            // Adds the option to make html more readable.
-            // This is a option that is intended for permanent
-            // use. But cannot be implemented due to some html
-            // issues.
-            if (class_exists('tidy') && isset($_GET['tidy'])) {
+            // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
+            if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
                 $tidy = new \tidy();
 
                 $tidy->parseString($markup, [
                     'indent'       => true,
                     'output-xhtml' => false,
-                    'wrap'         => PHP_INT_MAX
+                    'wrap'         => PHP_INT_MAX,
+                    'doctype'      => 'html5'
                 ], 'utf8');
 
                 $tidy->cleanRepair();
