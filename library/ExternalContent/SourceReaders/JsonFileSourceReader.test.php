@@ -5,8 +5,7 @@ namespace Municipio\ExternalContent\SourceReaders;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use WpService\FileSystem\FileExists;
-use WpService\FileSystem\GetFileContent;
+use WpService\FileSystem\FileSystem;
 
 class JsonFileSourceReaderTest extends TestCase {
     
@@ -14,7 +13,7 @@ class JsonFileSourceReaderTest extends TestCase {
      * @testdox class can be instantiated
      */
     public function testCanBeInstantiated() {
-        $jsonFileSourceReader = new JsonFileSourceReader('', $this->getGetFileContentMock(), $this->getFileExistsMock(), $this->getJsonToSchemaObjectsMock());
+        $jsonFileSourceReader = new JsonFileSourceReader('', $this->getFileSystemMock(), $this->getJsonToSchemaObjectsMock());
         $this->assertInstanceOf(JsonFileSourceReader::class, $jsonFileSourceReader);
     }
 
@@ -22,9 +21,9 @@ class JsonFileSourceReaderTest extends TestCase {
      * @testdox getSourceData() returns an array
      */
     public function testGetSourceDataReturnsArrayOfSchemaObjects() {
-        $fileExists = $this->getFileExistsMock();
-        $fileExists->method('fileExists')->willReturn(true);
-        $jsonFileSourceReader = new JsonFileSourceReader('', $this->getGetFileContentMock(), $fileExists, $this->getJsonToSchemaObjectsMock());
+        $fileSystem = $this->getFileSystemMock();
+        $fileSystem->method('fileExists')->willReturn(true);
+        $jsonFileSourceReader = new JsonFileSourceReader('', $fileSystem, $this->getJsonToSchemaObjectsMock());
         $this->assertIsArray($jsonFileSourceReader->getSourceData());
     }
 
@@ -32,16 +31,15 @@ class JsonFileSourceReaderTest extends TestCase {
      * @testdox getSourceData() transforms json to schema objects
      */
     public function testGetSourceDataReturnsArrayOfSchemaObjectsFoundInJsonFile() {
-        $fileExists = $this->getFileExistsMock();
-        $fileExists->method('fileExists')->willReturn(true);
+        $fileSystem = $this->getFileSystemMock();
+        $fileSystem->method('fileExists')->willReturn(true);
         $json = '[{ "@context": "https://schema.org", "@type": "Organization", "name": "Helsingborgs stad"}]';
-        $getFileContent = $this->getGetFileContentMock();
         $jsonToSchemaObjects = $this->getJsonToSchemaObjectsMock();
         
-        $getFileContent->expects($this->once())->method('getFileContent')->willReturn($json);
+        $fileSystem->expects($this->once())->method('getFileContent')->willReturn($json);
         $jsonToSchemaObjects->method('transform')->with($json)->willReturn([]);
 
-        $jsonFileSourceReader = new JsonFileSourceReader('', $getFileContent, $fileExists, $jsonToSchemaObjects);
+        $jsonFileSourceReader = new JsonFileSourceReader('', $fileSystem, $jsonToSchemaObjects);
         $jsonFileSourceReader->getSourceData();
     }
 
@@ -49,11 +47,11 @@ class JsonFileSourceReaderTest extends TestCase {
      * @testdox getSourceData() throws if file does not exist
      */
     public function testGetSourceDataThrowsIfFileDoesNotExist() {
-        $fileExists = $this->getFileExistsMock();
-        $fileExists->method('fileExists')->willReturn(false);
+        $fileSystem = $this->getFileSystemMock();
+        $fileSystem->method('fileExists')->willReturn(false);
 
         $this->expectException(\InvalidArgumentException::class);
-        $jsonFileSourceReader = new JsonFileSourceReader('invalid filePath', $this->getGetFileContentMock(), $fileExists, $this->getJsonToSchemaObjectsMock());
+        $jsonFileSourceReader = new JsonFileSourceReader('invalid filePath', $fileSystem, $this->getJsonToSchemaObjectsMock());
         $jsonFileSourceReader->getSourceData();
     }
 
@@ -61,11 +59,7 @@ class JsonFileSourceReaderTest extends TestCase {
         return $this->createMock(JsonToSchemaObjects::class);
     }
 
-    private function getGetFileContentMock(): GetFileContent|MockObject {
-        return $this->createMock(GetFileContent::class);
-    }
-
-    private function getFileExistsMock(): FileExists|MockObject {
-        return $this->createMock(FileExists::class);
+    private function getFileSystemMock(): FileSystem|MockObject {
+        return $this->createMock(FileSystem::class);
     }
 }
