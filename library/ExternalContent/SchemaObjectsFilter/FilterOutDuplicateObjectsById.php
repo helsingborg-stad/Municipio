@@ -2,8 +2,6 @@
 
 namespace Municipio\ExternalContent\SchemaObjectsFilter;
 
-use Spatie\SchemaOrg\BaseType;
-
 /**
  * Class FilterOutDuplicateObjectsById
  *
