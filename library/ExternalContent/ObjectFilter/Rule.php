@@ -9,7 +9,7 @@ use Municipio\ExternalContent\ObjectFilter\Contracts\RuleInterface;
 /**
  * Rule class.
  *
- * Simple implementation of the RuleInterface.
+ * Basic implementation of the RuleInterface.
  */
 class Rule implements RuleInterface
 {
