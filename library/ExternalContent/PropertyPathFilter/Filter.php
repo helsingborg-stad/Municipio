@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\ObjectFilter;
+namespace Municipio\ExternalContent\PropertyPathFilter;
 
-use Municipio\ExternalContent\ObjectFilter\Contracts\FilterInterface;
-use Municipio\ExternalContent\ObjectFilter\Contracts\RuleSetInterface;
+use Municipio\ExternalContent\PropertyPathFilter\Contracts\FilterInterface;
+use Municipio\ExternalContent\PropertyPathFilter\Contracts\RuleSetInterface;
 
 /**
  * Class Filter
