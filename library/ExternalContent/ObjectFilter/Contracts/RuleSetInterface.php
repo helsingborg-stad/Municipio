@@ -4,12 +4,12 @@ namespace Municipio\ExternalContent\ObjectFilter\Contracts;
 
 use Municipio\ExternalContent\ObjectFilter\Contracts\Enums\Relation;
 
-interface RuleSet
+interface RuleSetInterface
 {
     /**
      * Get the rules to apply.
      *
-     * @return Rule[]
+     * @return RuleInterface[]
      */
     public function getRules(): array;
 

@@ -2,12 +2,12 @@
 
 namespace Municipio\ExternalContent\ObjectFilter\Contracts;
 
-interface Filter
+interface FilterInterface
 {
     /**
      * Get the rulesets to apply.
      *
-     * @return RuleSet[]
+     * @return RuleSetInterface[]
      */
     public function getRuleSets(): array;
 }

@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\ObjectFilter\Contracts;
 use Municipio\ExternalContent\ObjectFilter\Contracts\Enums\Operator;
 use Municipio\ExternalContent\ObjectFilter\Contracts\Enums\Relation;
 
-interface Rule
+interface RuleInterface
 {
     /**
      * Get the property path to the target property on object.
