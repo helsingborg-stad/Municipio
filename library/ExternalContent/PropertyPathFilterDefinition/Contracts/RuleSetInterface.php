@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\Contracts;
+namespace Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts;
 
-use Municipio\ExternalContent\PropertyPathFilter\Contracts\Enums\Relation;
+use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\Enums\Relation;
 
 interface RuleSetInterface
 {

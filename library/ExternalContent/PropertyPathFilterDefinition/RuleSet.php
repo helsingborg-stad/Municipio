@@ -1,10 +1,10 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter;
+namespace Municipio\ExternalContent\PropertyPathFilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\Contracts\Enums\Relation;
-use Municipio\ExternalContent\PropertyPathFilter\Contracts\RuleSetInterface;
-use Municipio\ExternalContent\PropertyPathFilter\Contracts\RuleInterface;
+use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\Enums\Relation;
+use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\RuleSetInterface;
+use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\RuleInterface;
 
 /**
  * RuleSet class.
