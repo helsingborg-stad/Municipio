@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilterDefinition;
+namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\RuleSetInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSetInterface;
 use PHPUnit\Framework\TestCase;
 
 class FilterTest extends TestCase

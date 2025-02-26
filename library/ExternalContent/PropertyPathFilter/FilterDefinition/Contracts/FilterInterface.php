@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts;
+namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts;
 
 interface FilterInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilterDefinition;
+namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilterDefinition\Contracts\Enums\Relation;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
