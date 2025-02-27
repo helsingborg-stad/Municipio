@@ -3,8 +3,7 @@
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule as RuleInterface;
 
 /**
  * Rule class.
@@ -24,8 +23,7 @@ class Rule implements RuleInterface
     public function __construct(
         private string $propertyPath,
         private string $value,
-        private Operator $operator = Operator::EQUALS,
-        private Relation $relation = Relation::AND
+        private Operator $operator = Operator::EQUALS
     ) {
     }
 
@@ -51,13 +49,5 @@ class Rule implements RuleInterface
     public function getValue(): string
     {
         return $this->value;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getRelation(): Relation
-    {
-        return $this->relation;
     }
 }

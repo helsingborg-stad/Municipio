@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contract
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
 
-interface RuleInterface
+interface Rule
 {
     /**
      * Get the property path to the target property on object.
@@ -27,11 +27,4 @@ interface RuleInterface
      * @return string
      */
     public function getValue(): string;
-
-    /**
-     * Get the relation to use when combining multiple rules.
-     *
-     * @return Relation
-     */
-    public function getRelation(): Relation;
 }

@@ -3,7 +3,6 @@
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
@@ -42,14 +41,5 @@ class RuleTest extends TestCase
     {
         $rule = new Rule('propertyPath', 'value');
         $this->assertEquals('value', $rule->getValue());
-    }
-
-    /**
-     * @testdox getRelation() returns provided Relation
-     */
-    public function testGetRelationReturnsRelation()
-    {
-        $rule = new Rule('propertyPath', 'value', Operator::EQUALS, Relation::AND);
-        $this->assertEquals(Relation::AND, $rule->getRelation());
     }
 }

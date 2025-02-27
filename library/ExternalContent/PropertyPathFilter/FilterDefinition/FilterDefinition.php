@@ -2,20 +2,20 @@
 
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterInterface;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSetInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSet;
 
 /**
- * Class Filter
+ * Class FilterDefinition
  *
  * Basic implementation of the FilterInterface.
  */
-class Filter implements FilterInterface
+class FilterDefinition implements FilterDefinitionInterface
 {
     /**
      * Filter constructor.
      *
-     * @param RuleSetInterface[] $ruleSets
+     * @param RuleSet[] $ruleSets
      */
     public function __construct(private array $ruleSets)
     {

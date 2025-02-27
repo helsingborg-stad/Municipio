@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule;
 use PHPUnit\Framework\TestCase;
 
 class RuleSetTest extends TestCase
@@ -23,7 +23,7 @@ class RuleSetTest extends TestCase
     public function testCanBeInstantiatedWithEmptyRules()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $ruleSet = new RuleSet([]);
+        new RuleSet([]);
     }
 
     /**
@@ -35,17 +35,8 @@ class RuleSetTest extends TestCase
         $this->assertCount(2, $ruleSet->getRules());
     }
 
-    /**
-     * @testdox getRelation() returns provided relation
-     */
-    public function testGetRelationReturnsRelation()
-    {
-        $ruleSet = new RuleSet($this->getArrayOfRules(), Relation::OR);
-        $this->assertEquals(Relation::OR, $ruleSet->getRelation());
-    }
-
     private function getArrayOfRules(int $nbrOfRulesInArray = 1): array
     {
-        return array_fill(0, $nbrOfRulesInArray, $this->createMock(RuleInterface::class));
+        return array_fill(0, $nbrOfRulesInArray, $this->createMock(Rule::class));
     }
 }

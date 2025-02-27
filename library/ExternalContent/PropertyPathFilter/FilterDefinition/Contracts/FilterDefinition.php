@@ -2,12 +2,12 @@
 
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts;
 
-interface FilterInterface
+interface FilterDefinition
 {
     /**
      * Get the rulesets to apply.
      *
-     * @return RuleSetInterface[]
+     * @return RuleSet[]
      */
     public function getRuleSets(): array;
 }

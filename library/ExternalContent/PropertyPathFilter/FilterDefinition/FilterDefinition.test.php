@@ -2,18 +2,18 @@
 
 namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSetInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSet;
 use PHPUnit\Framework\TestCase;
 
-class FilterTest extends TestCase
+class FilterDefinitionTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
      */
     public function testCanBeInstantiated()
     {
-        $filter = new Filter($this->getArrayOfRuleSets());
-        $this->assertInstanceOf(Filter::class, $filter);
+        $filterDefinition = new FilterDefinition($this->getArrayOfRuleSets());
+        $this->assertInstanceOf(FilterDefinition::class, $filterDefinition);
     }
 
     /**
@@ -22,7 +22,7 @@ class FilterTest extends TestCase
     public function testCanBeInstantiatedWithEmptyRuleSets()
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Filter([]);
+        new FilterDefinition([]);
     }
 
     /**
@@ -30,13 +30,13 @@ class FilterTest extends TestCase
      */
     public function testGetRuleSetsReturnsRuleSets()
     {
-        $ruleSets = $this->getArrayOfRuleSets(2);
-        $filter   = new Filter($ruleSets);
-        $this->assertCount(2, $filter->getRuleSets());
+        $ruleSets         = $this->getArrayOfRuleSets(2);
+        $filterDefinition = new FilterDefinition($ruleSets);
+        $this->assertCount(2, $filterDefinition->getRuleSets());
     }
 
     private function getArrayOfRuleSets(int $nbrOfRuleSetsInArray = 1): array
     {
-        return array_fill(0, $nbrOfRuleSetsInArray, $this->createMock(RuleSetInterface::class));
+        return array_fill(0, $nbrOfRuleSetsInArray, $this->createMock(RuleSet::class));
     }
 }
