@@ -8,6 +8,9 @@ use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule
 use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSet;
 use Municipio\ExternalContent\PropertyPathFilter\Transforms\Contracts\FilterDefinitionToString;
 
+/**
+ * Transforms a FilterDefinition into a Typesense-compatible filter string.
+ */
 class FilterDefinitionToTypesenseParams implements FilterDefinitionToString
 {
     /**
