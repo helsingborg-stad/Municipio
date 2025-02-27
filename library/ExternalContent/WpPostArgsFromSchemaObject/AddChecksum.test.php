@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Thing;
 
@@ -14,10 +13,26 @@ class AddChecksumTest extends TestCase
     public function testAppliesChecksum()
     {
         $schemaObject = new Thing();
-        $factory      = new AddChecksum(new WpPostFactory());
+        $factory      = new AddChecksum($this->getInnerFactory());
 
-        $result = $factory->create($schemaObject, new Source('', ''));
+        $result = $factory->create($schemaObject);
 
         $this->assertEquals('8f11aed0a9fa79ac707b8a4846a74f27', $result['meta_input']['checksum']);
+    }
+
+    private function getInnerFactory(): WpPostArgsFromSchemaObjectInterface
+    {
+        return new class implements WpPostArgsFromSchemaObjectInterface {
+            public function create(\Spatie\SchemaOrg\BaseType $schemaObject): array
+            {
+                return [
+                    'post_title'   => '',
+                    'post_content' => '',
+                    'post_status'  => 'publish',
+                    'post_type'    => '',
+                    'meta_input'   => []
+                ];
+            }
+        };
     }
 }

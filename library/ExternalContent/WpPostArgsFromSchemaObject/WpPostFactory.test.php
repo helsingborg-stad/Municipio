@@ -15,9 +15,9 @@ class WpPostFactoryTest extends TestCase
     public function testCreate()
     {
         $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title', 'description' => 'Content', ]);
-        $wpPostFactory = new WpPostFactory();
+        $wpPostFactory = new WpPostFactory('test_post_type');
 
-        $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
+        $wpPost = $wpPostFactory->create($schemaObject);
 
         $this->assertEquals('Title', $wpPost['post_title']);
         $this->assertEquals('Content', $wpPost['post_content']);
@@ -29,9 +29,9 @@ class WpPostFactoryTest extends TestCase
     public function testCreateWithPublishStatus()
     {
         $schemaObject  = $this->getBaseTypeInstance();
-        $wpPostFactory = new WpPostFactory();
+        $wpPostFactory = new WpPostFactory('test_post_type');
 
-        $wpPost = $wpPostFactory->create($schemaObject, $this->getSource());
+        $wpPost = $wpPostFactory->create($schemaObject,);
 
         $this->assertEquals('publish', $wpPost['post_status']);
     }
@@ -44,10 +44,5 @@ class WpPostFactoryTest extends TestCase
                 $this->properties = $properties;
             }
         };
-    }
-
-    private function getSource(): SourceInterface
-    {
-        return new Source('', '');
     }
 }

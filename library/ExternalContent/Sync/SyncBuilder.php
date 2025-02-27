@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\Sync;
 
+use Municipio\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\AddChecksum;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\DateDecorator;
@@ -9,6 +10,7 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\IdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\JobPostingDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\MetaPropertyValueDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\OriginIdDecorator;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\PostTypeDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
@@ -28,14 +30,14 @@ class SyncBuilder implements SyncBuilderInterface
      *
      * @param string $postType
      * @param int|null $postId
-     * @param SourceInterface[] $sources
+     * @param SourceReaderInterface $sourceReader
      * @param TaxonomyItemInterface[] $taxonomyItems
      * @param WpService $wpService
      */
     public function __construct(
         private string $postType,
         private ?int $postId,
-        private array $sources,
+        private SourceReaderInterface $sourceReader,
         private array $taxonomyItems,
         private WpService $wpService,
         private wpdb $wpdb
@@ -57,13 +59,14 @@ class SyncBuilder implements SyncBuilderInterface
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
 
         $postArgsFromSchemaObject = new WpPostFactory();
+        $postArgsFromSchemaObject = new PostTypeDecorator($this->postType, $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new DateDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new IdDecorator($postArgsFromSchemaObject, $this->wpService);
+        $postArgsFromSchemaObject = new IdDecorator($this->postType, $source->getId(), $postArgsFromSchemaObject, $this->wpService);
         $postArgsFromSchemaObject = new JobPostingDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new SchemaDataDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new OriginIdDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, $this->wpService);
-        $postArgsFromSchemaObject = new SourceIdDecorator($postArgsFromSchemaObject);
+        $postArgsFromSchemaObject = new SourceIdDecorator($source->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new TermsDecorator($this->taxonomyItems, $wpTermFactory, $this->wpService, $postArgsFromSchemaObject); // phpcs:ignore Generic.Files.LineLength.TooLong
         $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);

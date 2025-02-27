@@ -16,10 +16,9 @@ class SourceIdDecoratorTest extends TestCase
     public function testAppliesSourceId()
     {
         $schemaObject = $this->getSchemaObject();
-        $source       = $this->getSource();
-        $factory      = new SourceIdDecorator(new WpPostFactory());
+        $factory      = new SourceIdDecorator('foo', new WpPostFactory());
 
-        $result = $factory->create($schemaObject, $source);
+        $result = $factory->create($schemaObject);
 
         $this->assertEquals('foo', $result['meta_input']['sourceId']);
     }
@@ -27,32 +26,6 @@ class SourceIdDecoratorTest extends TestCase
     private function getSchemaObject(): BaseType
     {
         return new class extends BaseType {
-        };
-    }
-
-    private function getSource(): SourceInterface
-    {
-        return new class implements SourceInterface {
-            public function getId(): string
-            {
-                return 'foo';
-            }
-            public function getObject(string|int $id): ?BaseType
-            {
-                return new Thing();
-            }
-            public function getObjects(?WP_Query $query = null): array
-            {
-                return [];
-            }
-            public function getPostType(): string
-            {
-                return '';
-            }
-            public function getSchemaObjectType(): string
-            {
-                return '';
-            }
         };
     }
 }

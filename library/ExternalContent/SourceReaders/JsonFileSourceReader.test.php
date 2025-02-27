@@ -3,9 +3,11 @@
 namespace Municipio\ExternalContent\SourceReaders;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
+use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileExists;
+use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileGetContents;
+use Municipio\ExternalContent\SourceReaders\FileSystem\FileSystem;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use WpService\FileSystem\FileSystem;
 
 class JsonFileSourceReaderTest extends TestCase {
     
@@ -36,7 +38,7 @@ class JsonFileSourceReaderTest extends TestCase {
         $json = '[{ "@context": "https://schema.org", "@type": "Organization", "name": "Helsingborgs stad"}]';
         $jsonToSchemaObjects = $this->getJsonToSchemaObjectsMock();
         
-        $fileSystem->expects($this->once())->method('getFileContent')->willReturn($json);
+        $fileSystem->expects($this->once())->method('fileGetContents')->willReturn($json);
         $jsonToSchemaObjects->method('transform')->with($json)->willReturn([]);
 
         $jsonFileSourceReader = new JsonFileSourceReader('', $fileSystem, $jsonToSchemaObjects);

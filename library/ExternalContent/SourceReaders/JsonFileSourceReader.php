@@ -3,13 +3,14 @@
 namespace Municipio\ExternalContent\SourceReaders;
 
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
-use WpService\FileSystem\FileSystem;
+use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileExists;
+use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileGetContents;
 
 class JsonFileSourceReader implements SourceReaderInterface
 {
     public function __construct(
         private string $filePath,
-        private FileSystem $fileSystem,
+        private FileGetContents&FileExists $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
     )
     {
@@ -24,7 +25,7 @@ class JsonFileSourceReader implements SourceReaderInterface
             throw new \InvalidArgumentException('File does not exist');
         }
 
-        $fileContent = $this->fileSystem->getFileContent($this->filePath);
+        $fileContent = $this->fileSystem->fileGetContents($this->filePath);
         return $this->jsonToSchemaObjects->transform( $fileContent );
     }
 }

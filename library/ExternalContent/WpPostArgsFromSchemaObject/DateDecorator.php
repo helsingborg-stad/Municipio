@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
 class DateDecorator implements WpPostArgsFromSchemaObjectInterface
@@ -11,10 +10,10 @@ class DateDecorator implements WpPostArgsFromSchemaObjectInterface
     {
     }
 
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
         return array_merge(
-            $this->inner->create($schemaObject, $source),
+            $this->inner->create($schemaObject),
             [
                 'post_date'     => $schemaObject['datePublished'] ?? null,
                 'post_modified' => $schemaObject['dateModified'] ?? null,

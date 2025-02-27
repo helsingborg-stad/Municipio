@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
@@ -33,9 +32,9 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
-        $post                  = $this->inner->create($schemaObject, $source);
+        $post                  = $this->inner->create($schemaObject);
         $matchingTaxonomyItems = $this->tryGetMatchingTaxonomyItems($schemaObject);
 
         if (!isset($post['tax_input'])) {

@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
 use WpService\Contracts\GetPosts;
@@ -28,9 +27,9 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
-        $post     = $this->inner->create($schemaObject, $source);
+        $post     = $this->inner->create($schemaObject);
         $imageUrl = $this->getImageUrl($schemaObject);
 
         if (!empty($imageUrl)) {

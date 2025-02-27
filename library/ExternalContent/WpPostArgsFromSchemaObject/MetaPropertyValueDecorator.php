@@ -2,9 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\JobPosting;
 
 /**
  * Add all PropertyValue objects found in custom property @meta as meta data in post.
@@ -23,13 +21,13 @@ class MetaPropertyValueDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
         $postArgs     = [];
         $propertyName = '@meta';
 
         if ($this->inner !== null) {
-            $postArgs = $this->inner->create($schemaObject, $source);
+            $postArgs = $this->inner->create($schemaObject);
         }
 
         if ($schemaObject->hasProperty($propertyName) && is_array($schemaObject->getProperty($propertyName))) {

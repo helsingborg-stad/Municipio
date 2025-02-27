@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
 
@@ -12,9 +11,9 @@ class OriginIdDecorator implements WpPostArgsFromSchemaObjectInterface
     {
     }
 
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
-        $post                           = $this->inner->create($schemaObject, $source);
+        $post                           = $this->inner->create($schemaObject);
         $post['meta_input']['originId'] = $schemaObject['@id'];
 
         return $post;

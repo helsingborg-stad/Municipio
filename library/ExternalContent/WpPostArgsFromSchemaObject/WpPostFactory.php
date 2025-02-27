@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
 /**
@@ -16,10 +15,9 @@ class WpPostFactory implements WpPostArgsFromSchemaObjectInterface
      * Creates WordPress post arguments from a schema object.
      *
      * @param BaseType $schemaObject The schema object containing post data.
-     * @param SourceInterface $source The source interface providing additional data.
      * @return array The array of WordPress post arguments.
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
         $title   = html_entity_decode($schemaObject['name'] ?? '');
         $title   = urldecode($title);
@@ -30,7 +28,6 @@ class WpPostFactory implements WpPostArgsFromSchemaObjectInterface
             'post_title'   => $title,
             'post_content' => $content,
             'post_status'  => 'publish',
-            'post_type'    => $source->getPostType(),
             'meta_input'   => []
         ];
     }

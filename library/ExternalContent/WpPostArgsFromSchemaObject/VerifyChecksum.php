@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\GetPostMeta;
 
@@ -28,9 +27,9 @@ class VerifyChecksum implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function create(BaseType $schemaObject): array
     {
-        $postArgs = $this->inner->create($schemaObject, $source);
+        $postArgs = $this->inner->create($schemaObject);
 
         if (!isset($postArgs['meta_input']['checksum']) || !isset($postArgs['ID'])) {
             return $postArgs;
