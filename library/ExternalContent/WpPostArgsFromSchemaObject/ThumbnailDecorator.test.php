@@ -2,8 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\Source;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
@@ -21,9 +19,9 @@ class ThumbnailDecoratorTest extends TestCase
         $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
-        $decorator = new ThumbnailDecorator(new WpPostFactory('test_post_type'), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostArgsFromSchemaObject('test_post_type'), $wpService);
 
-        $post = $decorator->create($schemaObject);
+        $post = $decorator->transform($schemaObject);
 
         $this->assertEquals($url, $wpService->methodCalls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
@@ -40,9 +38,9 @@ class ThumbnailDecoratorTest extends TestCase
         $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $imageProperty);
-        $decorator = new ThumbnailDecorator(new WpPostFactory('test_post_type'), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostArgsFromSchemaObject('test_post_type'), $wpService);
 
-        $post = $decorator->create($schemaObject);
+        $post = $decorator->transform($schemaObject);
 
         $this->assertEquals($url, $wpService->methodCalls['mediaSideloadImage'][0][0]);
         $this->assertEquals(1, $post['meta_input']['_thumbnail_id']);
@@ -57,9 +55,9 @@ class ThumbnailDecoratorTest extends TestCase
         $wpService    = new FakeWpService(['getPosts' => [(object)['ID' => 123]]]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
-        $decorator = new ThumbnailDecorator(new WpPostFactory('test_post_type'), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostArgsFromSchemaObject('test_post_type'), $wpService);
 
-        $post = $decorator->create($schemaObject);
+        $post = $decorator->transform($schemaObject);
 
         $this->assertArrayNotHasKey('mediaSideloadImage', $wpService->methodCalls);
         $this->assertEquals(123, $post['meta_input']['_thumbnail_id']);
@@ -75,9 +73,9 @@ class ThumbnailDecoratorTest extends TestCase
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
 
-        $decorator = new ThumbnailDecorator(new WpPostFactory('test_post_type'), $wpService);
+        $decorator = new ThumbnailDecorator(new WpPostArgsFromSchemaObject('test_post_type'), $wpService);
 
-        $post = $decorator->create($schemaObject);
+        $post = $decorator->transform($schemaObject);
 
         $this->assertArrayNotHasKey('_thumbnail_id', $post['meta_input']);
     }
@@ -89,11 +87,11 @@ class ThumbnailDecoratorTest extends TestCase
     {
         $url          = 'https://example.com/image.jpg';
         $wpService    = new FakeWpService(['mediaSideloadImage' => 1, 'getPosts' => [], 'updatePostMeta' => true]);
-        $decorator    = new ThumbnailDecorator(new WpPostFactory('test_post_type'), $wpService);
+        $decorator    = new ThumbnailDecorator(new WpPostArgsFromSchemaObject('test_post_type'), $wpService);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
 
-        $decorator->create($schemaObject);
+        $decorator->transform($schemaObject);
 
         $this->assertEquals(1, $wpService->methodCalls['updatePostMeta'][0][0]);
         $this->assertEquals('synced_from_external_source', $wpService->methodCalls['updatePostMeta'][0][1]);

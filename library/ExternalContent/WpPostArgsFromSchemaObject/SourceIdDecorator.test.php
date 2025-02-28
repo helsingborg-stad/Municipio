@@ -2,11 +2,8 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Thing;
-use WP_Query;
 
 class SourceIdDecoratorTest extends TestCase
 {
@@ -16,9 +13,9 @@ class SourceIdDecoratorTest extends TestCase
     public function testAppliesSourceId()
     {
         $schemaObject = $this->getSchemaObject();
-        $factory      = new SourceIdDecorator('foo', new WpPostFactory());
+        $factory      = new SourceIdDecorator('foo', new WpPostArgsFromSchemaObject());
 
-        $result = $factory->create($schemaObject);
+        $result = $factory->transform($schemaObject);
 
         $this->assertEquals('foo', $result['meta_input']['sourceId']);
     }

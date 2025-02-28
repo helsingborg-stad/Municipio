@@ -15,9 +15,9 @@ class OriginIdDecoratorTest extends TestCase
     {
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('@id', 'foo');
-        $factory = new OriginIdDecorator(new WpPostFactory());
+        $factory = new OriginIdDecorator(new WpPostArgsFromSchemaObject());
 
-        $result = $factory->create($schemaObject, new Source('', ''));
+        $result = $factory->transform($schemaObject, new Source('', ''));
 
         $this->assertEquals('foo', $result['meta_input']['originId']);
     }

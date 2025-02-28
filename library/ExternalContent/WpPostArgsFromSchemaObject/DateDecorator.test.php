@@ -19,10 +19,10 @@ class DateDecoratorTest extends TestCase
         ]);
 
         $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
-        $inner->method('create')->willReturn([]);
+        $inner->method('transform')->willReturn([]);
 
         $wpPostFactory = new DateDecorator($inner);
-        $wpPost        = $wpPostFactory->create($schemaObject, new Source('', ''));
+        $wpPost        = $wpPostFactory->transform($schemaObject, new Source('', ''));
 
         $this->assertEquals('2021-01-01', $wpPost['post_date']);
         $this->assertEquals('2021-01-02', $wpPost['post_modified']);

@@ -23,8 +23,8 @@ class PostTypeDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        return [...$this->inner->create($schemaObject), 'post_type' => $this->postType];
+        return [...$this->inner->transform($schemaObject), 'post_type' => $this->postType];
     }
 }

@@ -18,9 +18,9 @@ class IdDecorator implements WpPostArgsFromSchemaObjectInterface
     ) {
     }
 
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        $post = $this->inner->create($schemaObject);
+        $post = $this->inner->transform($schemaObject);
 
         if (!empty($schemaObject['@id'])) {
             $postWithSameOriginId = $this->wpService->getPosts([

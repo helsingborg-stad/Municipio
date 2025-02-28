@@ -29,10 +29,10 @@ class TermsDecoratorTest extends TestCase
             [$this->getTaxonomyItem()],
             $this->getWpTermFactory(),
             $wpService,
-            new WpPostFactory()
+            new WpPostArgsFromSchemaObject()
         );
 
-        $postData = $termsDecorator->create($schemaObject, $this->getSource());
+        $postData = $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals([1], $postData['tax_input']['test_taxonomy']);
     }
@@ -49,10 +49,10 @@ class TermsDecoratorTest extends TestCase
             [$this->getTaxonomyItem()],
             $this->getWpTermFactory(),
             $wpService,
-            new WpPostFactory()
+            new WpPostArgsFromSchemaObject()
         );
 
-        $postData = $termsDecorator->create($schemaObject, $this->getSource());
+        $postData = $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals([3], $postData['tax_input']['test_taxonomy']);
     }
@@ -68,8 +68,8 @@ class TermsDecoratorTest extends TestCase
         $termFactory  = $this->getWpTermFactory();
         $taxonomyItem = $this->getTaxonomyItem('Event', 'actor', 'test_taxonomy');
 
-        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
-        $termsDecorator->create($schemaObject, $this->getSource());
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
+        $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals('testPerson', $termFactory->calls[0][0]);
     }
@@ -85,8 +85,8 @@ class TermsDecoratorTest extends TestCase
         $termFactory  = $this->getWpTermFactory();
         $taxonomyItem = $this->getTaxonomyItem('Event', 'actor.callSign', 'test_taxonomy');
 
-        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
-        $termsDecorator->create($schemaObject, $this->getSource());
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
+        $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals('The Joker', $termFactory->calls[0][0]);
     }
@@ -102,8 +102,8 @@ class TermsDecoratorTest extends TestCase
         $termFactory  = $this->getWpTermFactory();
         $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.illness', 'test_taxonomy');
 
-        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
-        $termsDecorator->create($schemaObject, $this->getSource());
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
+        $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals('Mental', $termFactory->calls[0][0]);
     }
@@ -119,8 +119,8 @@ class TermsDecoratorTest extends TestCase
         $termFactory  = $this->getWpTermFactory();
         $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.illness', 'test_taxonomy');
 
-        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
-        $termsDecorator->create($schemaObject, $this->getSource());
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
+        $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertEquals('Mental', $termFactory->calls[0][0]);
     }
@@ -140,8 +140,8 @@ class TermsDecoratorTest extends TestCase
         $termFactory  = $this->getWpTermFactory();
         $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.foo', 'test_taxonomy');
 
-        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostFactory());
-        $termsDecorator->create($schemaObject, $this->getSource());
+        $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
+        $termsDecorator->transform($schemaObject, $this->getSource());
 
         $this->assertCount(1, $termFactory->calls);
         $this->assertEquals('Bar', $termFactory->calls[0][0]);

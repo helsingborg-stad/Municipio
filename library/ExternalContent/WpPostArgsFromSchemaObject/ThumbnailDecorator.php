@@ -27,9 +27,9 @@ class ThumbnailDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        $post     = $this->inner->create($schemaObject);
+        $post     = $this->inner->transform($schemaObject);
         $imageUrl = $this->getImageUrl($schemaObject);
 
         if (!empty($imageUrl)) {

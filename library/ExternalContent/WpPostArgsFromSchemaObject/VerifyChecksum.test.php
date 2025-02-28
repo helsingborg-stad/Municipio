@@ -19,10 +19,10 @@ class VerifyChecksumTest extends TestCase
          * @var WpPostArgsFromSchemaObjectInterface|\PHPUnit\Framework\MockObject\MockObject $inner
          */
         $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
-        $inner->method('create')->willReturn(['ID' => 123, 'meta_input' => ['checksum' => '321']]);
+        $inner->method('transform')->willReturn(['ID' => 123, 'meta_input' => ['checksum' => '321']]);
 
         $verifyChecksum = new VerifyChecksum($inner, new FakeWpService(['getPostMeta' => '321']));
-        $postArgs       = $verifyChecksum->create(new Thing(), $this->getSourceMock());
+        $postArgs       = $verifyChecksum->transform(new Thing(), $this->getSourceMock());
 
         $this->assertEquals(-1, $postArgs['ID']);
     }
@@ -36,10 +36,10 @@ class VerifyChecksumTest extends TestCase
          * @var WpPostArgsFromSchemaObjectInterface|\PHPUnit\Framework\MockObject\MockObject $inner
          */
         $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
-        $inner->method('create')->willReturn(['ID' => 123, 'meta_input' => ['checksum' => '321']]);
+        $inner->method('transform')->willReturn(['ID' => 123, 'meta_input' => ['checksum' => '321']]);
 
         $verifyChecksum = new VerifyChecksum($inner, new FakeWpService(['getPostMeta' => '123']));
-        $postArgs       = $verifyChecksum->create(new Thing(), $this->getSourceMock());
+        $postArgs       = $verifyChecksum->transform(new Thing(), $this->getSourceMock());
 
         $this->assertEquals(123, $postArgs['ID']);
     }
@@ -53,10 +53,10 @@ class VerifyChecksumTest extends TestCase
          * @var WpPostArgsFromSchemaObjectInterface|\PHPUnit\Framework\MockObject\MockObject $inner
          */
         $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
-        $inner->method('create')->willReturn(['ID' => 123]);
+        $inner->method('transform')->willReturn(['ID' => 123]);
 
         $verifyChecksum = new VerifyChecksum($inner, new FakeWpService(['getPostMeta' => '123']));
-        $postArgs       = $verifyChecksum->create(new Thing(), $this->getSourceMock());
+        $postArgs       = $verifyChecksum->transform(new Thing(), $this->getSourceMock());
 
         $this->assertEquals(123, $postArgs['ID']);
     }
@@ -70,10 +70,10 @@ class VerifyChecksumTest extends TestCase
          * @var WpPostArgsFromSchemaObjectInterface|\PHPUnit\Framework\MockObject\MockObject $inner
          */
         $inner = $this->createMock(WpPostArgsFromSchemaObjectInterface::class);
-        $inner->method('create')->willReturn(['meta_input' => ['checksum' => '321']]);
+        $inner->method('transform')->willReturn(['meta_input' => ['checksum' => '321']]);
 
         $verifyChecksum = new VerifyChecksum($inner, new FakeWpService(['getPostMeta' => '321']));
-        $postArgs       = $verifyChecksum->create(new Thing(), $this->getSourceMock());
+        $postArgs       = $verifyChecksum->transform(new Thing(), $this->getSourceMock());
 
         $this->assertArrayNotHasKey('ID', $postArgs);
     }

@@ -27,9 +27,9 @@ class VerifyChecksum implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        $postArgs = $this->inner->create($schemaObject);
+        $postArgs = $this->inner->transform($schemaObject);
 
         if (!isset($postArgs['meta_input']['checksum']) || !isset($postArgs['ID'])) {
             return $postArgs;

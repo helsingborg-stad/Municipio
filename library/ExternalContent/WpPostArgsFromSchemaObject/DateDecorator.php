@@ -10,10 +10,10 @@ class DateDecorator implements WpPostArgsFromSchemaObjectInterface
     {
     }
 
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
         return array_merge(
-            $this->inner->create($schemaObject),
+            $this->inner->transform($schemaObject),
             [
                 'post_date'     => $schemaObject['datePublished'] ?? null,
                 'post_modified' => $schemaObject['dateModified'] ?? null,

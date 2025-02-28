@@ -11,9 +11,9 @@ class OriginIdDecorator implements WpPostArgsFromSchemaObjectInterface
     {
     }
 
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        $post                           = $this->inner->create($schemaObject);
+        $post                           = $this->inner->transform($schemaObject);
         $post['meta_input']['originId'] = $schemaObject['@id'];
 
         return $post;

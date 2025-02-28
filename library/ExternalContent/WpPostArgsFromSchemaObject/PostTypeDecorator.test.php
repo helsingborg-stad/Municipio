@@ -2,9 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Schema;
 
 class PostTypeDecoratorTest extends TestCase
@@ -14,7 +12,7 @@ class PostTypeDecoratorTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $factory = new PostTypeDecorator('test_post_type', new WpPostFactory());
+        $factory = new PostTypeDecorator('test_post_type', new WpPostArgsFromSchemaObject());
         $this->assertInstanceOf(PostTypeDecorator::class, $factory);
     }
 
@@ -24,8 +22,8 @@ class PostTypeDecoratorTest extends TestCase
     public function testCreate()
     {
         $schemaObject = Schema::thing();
-        $factory      = new PostTypeDecorator('test_post_type', new WpPostFactory());
-        $postArgs     = $factory->create($schemaObject);
+        $factory      = new PostTypeDecorator('test_post_type', new WpPostArgsFromSchemaObject());
+        $postArgs     = $factory->transform($schemaObject);
 
         $this->assertEquals('test_post_type', $postArgs['post_type']);
     }

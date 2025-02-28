@@ -13,11 +13,11 @@ class JobPostingDecoratorTest extends TestCase
      */
     public function testSetsTitleFromNameIfTitleIsMissing()
     {
-        $factory      = new JobPostingDecorator(new WpPostFactory());
+        $factory      = new JobPostingDecorator(new WpPostArgsFromSchemaObject());
         $schemaObject = new JobPosting();
 
         $schemaObject->title('Job title');
-        $post = $factory->create($schemaObject, new Source('', ''));
+        $post = $factory->transform($schemaObject, new Source('', ''));
 
         $this->assertEquals('Job title', $post['post_title']);
     }

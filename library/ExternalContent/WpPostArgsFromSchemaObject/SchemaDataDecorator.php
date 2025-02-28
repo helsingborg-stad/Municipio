@@ -24,9 +24,9 @@ class SchemaDataDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject): array
+    public function transform(BaseType $schemaObject): array
     {
-        $post                             = $this->inner->create($schemaObject);
+        $post                             = $this->inner->transform($schemaObject);
         $post['meta_input']['schemaData'] = $schemaObject->toArray();
 
         if (isset($post['meta_input']['schemaData']['id'])) {

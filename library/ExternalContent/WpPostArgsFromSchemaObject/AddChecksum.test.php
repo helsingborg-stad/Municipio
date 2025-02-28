@@ -15,7 +15,7 @@ class AddChecksumTest extends TestCase
         $schemaObject = new Thing();
         $factory      = new AddChecksum($this->getInnerFactory());
 
-        $result = $factory->create($schemaObject);
+        $result = $factory->transform($schemaObject);
 
         $this->assertEquals('8f11aed0a9fa79ac707b8a4846a74f27', $result['meta_input']['checksum']);
     }
@@ -23,7 +23,7 @@ class AddChecksumTest extends TestCase
     private function getInnerFactory(): WpPostArgsFromSchemaObjectInterface
     {
         return new class implements WpPostArgsFromSchemaObjectInterface {
-            public function create(\Spatie\SchemaOrg\BaseType $schemaObject): array
+            public function transform(\Spatie\SchemaOrg\BaseType $schemaObject): array
             {
                 return [
                     'post_title'   => '',
