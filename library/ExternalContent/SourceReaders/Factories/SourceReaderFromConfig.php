@@ -34,7 +34,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     {
         return match ($config->getSourceType()) {
             'json' => new JsonFileSourceReader($config->getSourceJsonFilePath(), new FileSystem(), new SimpleJsonConverter()),
-            'typesense' => new TypesenseSourceReader($this->getTypesenApi($config), ''),
+            'typesense' => new TypesenseSourceReader($this->getTypesenApi($config), '', new SimpleJsonConverter()),
             default => new SourceReader()
         };
     }

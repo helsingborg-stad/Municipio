@@ -952,15 +952,27 @@ class App
         ))->createSources();
 
         /**
+         * Sync external content.
+         */
+        $this->wpService->addAction('Municipio/ExternalContent/Sync', function (string $postType, ?int $postId = null) use ($sourceConfigs) {
+            $sourceConfig               = reset(array_filter($sourceConfigs, fn($config) => $config->getPostType() === $postType));
+            $sourceReader               = (new \Municipio\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
+            $wpPostArgsFromSchemaObject = (new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();
+            $syncHandler                = new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceReader, $wpPostArgsFromSchemaObject, $this->wpService);
+
+            $syncHandler->sync();
+        });
+
+        /**
          * Start sync if event is triggered.
          */
-        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
-            $sources,
-            $taxonomyItems,
-            $this->wpService,
-            $this->wpdb
-        );
-        $this->hooksRegistrar->register($syncEventListener);
+        // $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
+        //     $sources,
+        //     $taxonomyItems,
+        //     $this->wpService,
+        //     $this->wpdb
+        // );
+        // $this->hooksRegistrar->register($syncEventListener);
 
         /**
          * Only run the following if user is admin.
@@ -1031,7 +1043,7 @@ class App
          * Trigger sync of external content.
          */
         $triggerSync = new TriggerSync($this->wpService);
-        $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
+        // $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
         $triggerSync = new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams(
             $this->wpService,
             $triggerSync

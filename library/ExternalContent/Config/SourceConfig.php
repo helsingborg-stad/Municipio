@@ -126,4 +126,12 @@ class SourceConfig implements SourceConfigInterface
     {
         return $this->sourceTypesenseCollection;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): string
+    {
+        return $this->postType;
+    }
 }

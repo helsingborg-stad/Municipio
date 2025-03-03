@@ -65,149 +65,76 @@ class SourceConfigFactory
             isset($namedSettings['post_type'])
                 ? ($this->schemaDataConfig->tryGetSchemaTypeFromPostType($namedSettings['post_type']) ?? "")
                 : '';
-        return new class ($namedSettings, $schemaType) implements SourceConfigInterface {
-            /**
-             * Constructor.
-             */
-            public function __construct(
-                private array $namedSettings,
-                private string $schemaType
-            ) {
-            }
 
-            /**
-             * @inheritDoc
-             */
-            public function getPostType(): string
-            {
-                return $this->namedSettings['post_type'];
-            }
+        return new SourceConfig(
+            $namedSettings['post_type'] ?? '',
+            $namedSettings['automatic_import_schedule'] ?? '',
+            $schemaType,
+            $namedSettings['source_type'] ?? '',
+            $this->getArrayOfSourceTaxonomyConfigs($namedSettings['taxonomies']),
+            $namedSettings['source_json_file_path'] ?? '',
+            $namedSettings['source_typesense_api_key'] ?? '',
+            $namedSettings['source_typesense_protocol'] ?? '',
+            $namedSettings['source_typesense_host'] ?? '',
+            $namedSettings['source_typesense_port'] ?? '',
+            $namedSettings['source_typesense_collection'] ?? ''
+        );
+    }
 
-            /**
-             * @inheritDoc
-             */
-            public function getSchemaType(): string
-            {
-                return $this->schemaType;
-            }
+    /**
+     * Retrieves an array of source taxonomy configurations.
+     *
+     * @param array $taxonomies An array of taxonomies to get configurations for.
+     * @return array An array of source taxonomy configurations.
+     */
+    private function getArrayOfSourceTaxonomyConfigs(array $taxonomies): array
+    {
+        if (empty($taxonomies)) {
+            return [];
+        }
 
-            /**
-             * @inheritDoc
-             */
-            public function getAutomaticImportSchedule(): string
-            {
-                return $this->namedSettings['automatic_import_schedule'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceType(): string
-            {
-                return $this->namedSettings['source_type'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceJsonFilePath(): string
-            {
-                return $this->namedSettings['source_json_file_path'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceTypesenseApiKey(): string
-            {
-                return $this->namedSettings['source_typesense_api_key'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceTypesenseProtocol(): string
-            {
-                return $this->namedSettings['source_typesense_protocol'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceTypesenseHost(): string
-            {
-                return $this->namedSettings['source_typesense_host'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceTypesensePort(): string
-            {
-                return $this->namedSettings['source_typesense_port'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSourceTypesenseCollection(): string
-            {
-                return $this->namedSettings['source_typesense_collection'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getTaxonomies(): array
-            {
-                if (empty($this->namedSettings['taxonomies'])) {
-                    return [];
+        return array_map(function ($taxonomy) {
+            return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
+                /**
+                 * Constructor.
+                 */
+                public function __construct(private array $taxonomy)
+                {
                 }
 
-                return array_map(function ($taxonomy) {
-                    return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
-                        /**
-                         * Constructor.
-                         */
-                        public function __construct(private array $taxonomy)
-                        {
-                        }
+                /**
+                 * @inheritDoc
+                 */
+                public function getFromSchemaProperty(): string
+                {
+                    return $this->taxonomy['from_schema_property'];
+                }
 
-                        /**
-                         * @inheritDoc
-                         */
-                        public function getFromSchemaProperty(): string
-                        {
-                            return $this->taxonomy['from_schema_property'];
-                        }
+                /**
+                 * @inheritDoc
+                 */
+                public function getSingularName(): string
+                {
+                    return $this->taxonomy['singular_name'];
+                }
 
-                        /**
-                         * @inheritDoc
-                         */
-                        public function getSingularName(): string
-                        {
-                            return $this->taxonomy['singular_name'];
-                        }
+                /**
+                 * @inheritDoc
+                 */
+                public function getName(): string
+                {
+                    return $this->taxonomy['name'];
+                }
 
-                        /**
-                         * @inheritDoc
-                         */
-                        public function getName(): string
-                        {
-                            return $this->taxonomy['name'];
-                        }
-
-                        /**
-                         * @inheritDoc
-                         */
-                        public function isHierarchical(): bool
-                        {
-                            return in_array($this->taxonomy['hierarchical'], [1, true, '1', 'true']);
-                        }
-                    };
-                }, $this->namedSettings['taxonomies']);
-            }
-        };
+                /**
+                 * @inheritDoc
+                 */
+                public function isHierarchical(): bool
+                {
+                    return in_array($this->taxonomy['hierarchical'], [1, true, '1', 'true']);
+                }
+            };
+        }, $taxonomies);
     }
 
     /**

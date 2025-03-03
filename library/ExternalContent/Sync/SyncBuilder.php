@@ -15,8 +15,8 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SchemaDataDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\SourceIdDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\TermsDecorator;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
-use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostFactory;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\VerifyChecksum;
+use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObject;
 use wpdb;
 use WpService\WpService;
 
@@ -58,7 +58,7 @@ class SyncBuilder implements SyncBuilderInterface
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
         $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
 
-        $postArgsFromSchemaObject = new WpPostFactory();
+        $postArgsFromSchemaObject = new WpPostArgsFromSchemaObject();
         $postArgsFromSchemaObject = new PostTypeDecorator($this->postType, $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new DateDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new IdDecorator($this->postType, $source->getId(), $postArgsFromSchemaObject, $this->wpService);

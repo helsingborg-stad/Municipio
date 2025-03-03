@@ -80,4 +80,9 @@ interface SourceConfigInterface
      * @return string
      */
     public function getSourceTypesenseCollection(): string;
+
+    /**
+     * Get the source unique ID
+     */
+    public function getId(): string;
 }

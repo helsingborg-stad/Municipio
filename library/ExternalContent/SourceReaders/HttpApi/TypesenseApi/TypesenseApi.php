@@ -106,7 +106,8 @@ class TypesenseApi implements ApiGET
              */
             public function getBody(): array
             {
-                return json_decode($this->response['body'], true);
+                $decodedBody = json_decode($this->response['body'], true);
+                return $decodedBody['hits'] ?? [];
             }
 
             /**

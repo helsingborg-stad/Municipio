@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
+use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\PropertyValue;
@@ -18,11 +18,13 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * WpPostMetaFactoryVersionDecorator constructor.
      *
-     * @param TaxonomyItemInterface[] $taxonomyItems
+     * @param SourceTaxonomyConfigInterface[] $taxonomyItems
      * @param WpPostMetaFactoryInterface $inner
+     * @param WpTermFactoryInterface $wpTermFactory
+     * @param WpPostArgsFromSchemaObjectInterface $inner
      */
     public function __construct(
-        private array $taxonomyItems,
+        private array $taxonomyConfigs,
         private WpTermFactoryInterface $wpTermFactory,
         private WpInsertTerm&TermExists $wpService,
         private WpPostArgsFromSchemaObjectInterface $inner
@@ -34,22 +36,21 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
      */
     public function transform(BaseType $schemaObject): array
     {
-        $post                  = $this->inner->transform($schemaObject);
-        $matchingTaxonomyItems = $this->tryGetMatchingTaxonomyItems($schemaObject);
+        $post = $this->inner->transform($schemaObject);
 
         if (!isset($post['tax_input'])) {
             $post['tax_input'] = [];
         }
 
-        foreach ($matchingTaxonomyItems as $taxonomyItem) {
-            $termNames = $this->getTermNamesFromSchemaProperty($schemaObject, $taxonomyItem);
+        foreach ($this->taxonomyConfigs as $taxonomyConfig) {
+            $termNames = $this->getTermNamesFromSchemaProperty($schemaObject, $taxonomyConfig);
             $wpTerms   = array_map(fn ($term) => $this->wpTermFactory->create(
                 $term,
-                $taxonomyItem->getName()
+                $taxonomyConfig->getName()
             ), $termNames);
-            $termIds   = $this->getTermIdsFromTerms($wpTerms, $taxonomyItem->getName());
+            $termIds   = $this->getTermIdsFromTerms($wpTerms, $taxonomyConfig->getName());
 
-            $post['tax_input'][$taxonomyItem->getName()] = $termIds;
+            $post['tax_input'][$taxonomyConfig->getName()] = $termIds;
         }
 
         return $post;
@@ -59,17 +60,17 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
      * Get term names from schema property.
      *
      * @param BaseType $schemaObject
-     * @param TaxonomyItemInterface $taxonomyItem
+     * @param SourceTaxonomyConfigInterface $taxonomyItem
      * @return string[]
      */
     private function getTermNamesFromSchemaProperty(
         BaseType $schemaObject,
-        TaxonomyItemInterface $taxonomyItem
+        SourceTaxonomyConfigInterface $taxonomyItem
     ): array {
         $results = [];
         $value   = $this->getSchemaObjectPropertyValueByPropertyPath(
             $schemaObject,
-            $taxonomyItem->getSchemaObjectProperty()
+            $taxonomyItem->getFromSchemaProperty()
         );
 
         array_walk_recursive($value, function ($item) use (&$results) {
@@ -130,22 +131,6 @@ class TermsDecorator implements WpPostArgsFromSchemaObjectInterface
             $value instanceof BaseType => $value->getProperty('name'),
             default => null,
         };
-    }
-
-    /**
-     * Get matching taxonomy items.
-     *
-     * @param BaseType $schemaObject
-     * @return TaxonomyItemInterface[]
-     */
-    private function tryGetMatchingTaxonomyItems(BaseType $schemaObject): array
-    {
-        return array_filter(
-            $this->taxonomyItems,
-            fn($taxonomyItem) =>
-                $taxonomyItem->getSchemaObjectType() === $schemaObject->getType() &&
-            $schemaObject->hasProperty($taxonomyItem->getSchemaObjectProperty())
-        );
     }
 
     /**

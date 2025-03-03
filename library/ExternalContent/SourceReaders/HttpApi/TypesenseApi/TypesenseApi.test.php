@@ -57,7 +57,7 @@ class TypesenseApiTest extends TestCase
     public function testGetReturnsApiResponseObject()
     {
         $wpService = new FakeWpService([
-            'wpRemoteGet' => ['body' => json_encode(['prop' => 'value']), 'headers' => ['test-header'], 'response' => ['code' => 200]],
+            'wpRemoteGet' => ['body' => json_encode(['hits' => [['prop' => 'value']]]), 'headers' => ['test-header'], 'response' => ['code' => 200]],
         ]);
 
         $typesenseApi = new TypesenseApi($this->getConfigMock(), $wpService);
@@ -65,7 +65,7 @@ class TypesenseApiTest extends TestCase
         $apiResponse = $typesenseApi->get('test-endpoint');
 
         $this->assertEquals(200, $apiResponse->getStatusCode());
-        $this->assertEquals(['prop' => 'value'], $apiResponse->getBody());
+        $this->assertEquals([['prop' => 'value']], $apiResponse->getBody());
         $this->assertEquals(['test-header'], $apiResponse->getHeaders());
     }
 

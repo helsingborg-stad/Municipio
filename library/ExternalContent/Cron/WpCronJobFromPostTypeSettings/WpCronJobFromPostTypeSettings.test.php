@@ -97,6 +97,10 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
             {
                 return '';
             }
+            public function getId(): string
+            {
+                return 'test-id';
+            }
         };
     }
 }

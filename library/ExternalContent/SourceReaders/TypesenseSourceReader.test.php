@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\SourceReaders;
 
+use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\SourceReaders\HttpApi\ApiGET;
 use Municipio\ExternalContent\SourceReaders\HttpApi\ApiResponse;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -14,22 +15,22 @@ class TypesenseSourceReaderTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-        $typesenseSourceReader = new TypesenseSourceReader($this->getApiMock(), 'end/point');
+        $typesenseSourceReader = new TypesenseSourceReader($this->getApiMock(), 'end/point', new SimpleJsonConverter());
         $this->assertInstanceOf(TypesenseSourceReader::class, $typesenseSourceReader);
     }
 
     /**
-     * @testdox getSourceData calls api for data untill it gets a null response
+     * @testdox getSourceData calls api for data untill it gets a empty response
      */
     public function testGetSourceDataCallsApiForDataUntillItGetsANullResponse()
     {
-        $api                   = $this->getApiMock([ $this->getApiResponseMock(), $this->getApiResponseMock([], 404) ]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point');
+        $api                   = $this->getApiMock([ $this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404) ]);
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
 
         $typesenseSourceReader->getSourceData();
 
-        $this->assertEquals('end/point?page=1', $api->calls[0]);
-        $this->assertEquals('end/point?page=2', $api->calls[1]);
+        $this->assertStringContainsString('?page=1', $api->calls[0]);
+        $this->assertStringContainsString('?page=2', $api->calls[1]);
     }
 
     /**
@@ -37,13 +38,39 @@ class TypesenseSourceReaderTest extends TestCase
      */
     public function testPageNumberIsAppendedCorrectlyToEndpointWithAlreadyDefinedGetParameters()
     {
-        $api                   = $this->getApiMock([$this->getApiResponseMock(), $this->getApiResponseMock([], 404)]);
-        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point?param=value');
+        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock(['foo']), $this->getApiResponseMock([], 404)]);
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point?param=value', new SimpleJsonConverter());
 
         $typesenseSourceReader->getSourceData();
 
-        $this->assertEquals('end/point?param=value&page=1', $api->calls[0]);
-        $this->assertEquals('end/point?param=value&page=2', $api->calls[1]);
+        $this->assertStringContainsString('&page=1', $api->calls[0]);
+        $this->assertStringContainsString('&page=2', $api->calls[1]);
+    }
+
+    /**
+     * @testdox per_page param is appended to endpoint
+     */
+    public function testPerPageParamIsAppendedToEndpoint()
+    {
+        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
+
+        $typesenseSourceReader->getSourceData();
+
+        $this->assertStringContainsString('&per_page=250', $api->calls[0]);
+    }
+
+    /**
+     * @testdox query param is appended to endpoint
+     */
+    public function testQueryParamIsAppendedToEndpoint()
+    {
+        $api                   = $this->getApiMock([$this->getApiResponseMock(['foo']), $this->getApiResponseMock()]);
+        $typesenseSourceReader = new TypesenseSourceReader($api, 'end/point', new SimpleJsonConverter());
+
+        $typesenseSourceReader->getSourceData();
+
+        $this->assertStringContainsString('&q=*', $api->calls[0]);
     }
 
     private function getApiMock(array $consecutiveReturns = []): ApiGET

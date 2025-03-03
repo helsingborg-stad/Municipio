@@ -2,10 +2,9 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
+use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
 use Municipio\ExternalContent\Sources\Source;
 use Municipio\ExternalContent\Sources\SourceInterface;
-use Municipio\ExternalContent\Taxonomy\TaxonomyItemInterface;
-use Municipio\ExternalContent\Taxonomy\NullTaxonomyItem;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
@@ -66,7 +65,7 @@ class TermsDecoratorTest extends TestCase
         $schemaObject->actor(Schema::person()->name('testPerson'));
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
-        $taxonomyItem = $this->getTaxonomyItem('Event', 'actor', 'test_taxonomy');
+        $taxonomyItem = $this->getTaxonomyItem('actor', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
         $termsDecorator->transform($schemaObject, $this->getSource());
@@ -83,7 +82,7 @@ class TermsDecoratorTest extends TestCase
         $schemaObject->actor(Schema::person()->name('Heath Ledger')->callSign('The Joker'));
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
-        $taxonomyItem = $this->getTaxonomyItem('Event', 'actor.callSign', 'test_taxonomy');
+        $taxonomyItem = $this->getTaxonomyItem('actor.callSign', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
         $termsDecorator->transform($schemaObject, $this->getSource());
@@ -100,7 +99,7 @@ class TermsDecoratorTest extends TestCase
         $schemaObject->setProperty('@meta', [Schema::propertyValue()->name('illness')->value('Mental')]);
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
-        $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.illness', 'test_taxonomy');
+        $taxonomyItem = $this->getTaxonomyItem('@meta.illness', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
         $termsDecorator->transform($schemaObject, $this->getSource());
@@ -117,7 +116,7 @@ class TermsDecoratorTest extends TestCase
         $schemaObject->setProperty('@meta', Schema::propertyValue()->name('illness')->value('Mental'));
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
-        $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.illness', 'test_taxonomy');
+        $taxonomyItem = $this->getTaxonomyItem('@meta.illness', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
         $termsDecorator->transform($schemaObject, $this->getSource());
@@ -138,7 +137,7 @@ class TermsDecoratorTest extends TestCase
         ]);
         $wpService    = new FakeWpService(['termExists' => ['term_id' => 3]]);
         $termFactory  = $this->getWpTermFactory();
-        $taxonomyItem = $this->getTaxonomyItem('Event', '@meta.foo', 'test_taxonomy');
+        $taxonomyItem = $this->getTaxonomyItem('@meta.foo', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
         $termsDecorator->transform($schemaObject, $this->getSource());
@@ -160,20 +159,14 @@ class TermsDecoratorTest extends TestCase
     }
 
     private function getTaxonomyItem(
-        string $type = 'Event',
         string $property = 'keywords',
         string $name = 'test_taxonomy'
-    ): TaxonomyItemInterface {
-        return new class ($type, $property, $name) extends NullTaxonomyItem {
+    ): SourceTaxonomyConfigInterface {
+        return new class ($property, $name) implements SourceTaxonomyConfigInterface {
             public function __construct(
-                private string $type,
                 private string $property,
                 private string $name
             ) {
-            }
-            public function getSchemaObjectType(): string
-            {
-                return $this->type;
             }
 
             public function getName(): string
@@ -181,9 +174,19 @@ class TermsDecoratorTest extends TestCase
                 return $this->name;
             }
 
-            public function getSchemaObjectProperty(): string
+            public function getFromSchemaProperty(): string
             {
                 return $this->property;
+            }
+
+            public function getSingularName(): string
+            {
+                return '';
+            }
+
+            public function isHierarchical(): bool
+            {
+                return false;
             }
         };
     }
