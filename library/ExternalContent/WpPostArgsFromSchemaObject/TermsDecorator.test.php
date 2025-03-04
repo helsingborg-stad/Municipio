@@ -3,8 +3,6 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
-use Municipio\ExternalContent\Sources\Source;
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +29,7 @@ class TermsDecoratorTest extends TestCase
             new WpPostArgsFromSchemaObject()
         );
 
-        $postData = $termsDecorator->transform($schemaObject, $this->getSource());
+        $postData = $termsDecorator->transform($schemaObject);
 
         $this->assertEquals([1], $postData['tax_input']['test_taxonomy']);
     }
@@ -51,7 +49,7 @@ class TermsDecoratorTest extends TestCase
             new WpPostArgsFromSchemaObject()
         );
 
-        $postData = $termsDecorator->transform($schemaObject, $this->getSource());
+        $postData = $termsDecorator->transform($schemaObject);
 
         $this->assertEquals([3], $postData['tax_input']['test_taxonomy']);
     }
@@ -68,7 +66,7 @@ class TermsDecoratorTest extends TestCase
         $taxonomyItem = $this->getTaxonomyItem('actor', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
-        $termsDecorator->transform($schemaObject, $this->getSource());
+        $termsDecorator->transform($schemaObject);
 
         $this->assertEquals('testPerson', $termFactory->calls[0][0]);
     }
@@ -85,7 +83,7 @@ class TermsDecoratorTest extends TestCase
         $taxonomyItem = $this->getTaxonomyItem('actor.callSign', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
-        $termsDecorator->transform($schemaObject, $this->getSource());
+        $termsDecorator->transform($schemaObject);
 
         $this->assertEquals('The Joker', $termFactory->calls[0][0]);
     }
@@ -102,7 +100,7 @@ class TermsDecoratorTest extends TestCase
         $taxonomyItem = $this->getTaxonomyItem('@meta.illness', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
-        $termsDecorator->transform($schemaObject, $this->getSource());
+        $termsDecorator->transform($schemaObject);
 
         $this->assertEquals('Mental', $termFactory->calls[0][0]);
     }
@@ -119,7 +117,7 @@ class TermsDecoratorTest extends TestCase
         $taxonomyItem = $this->getTaxonomyItem('@meta.illness', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
-        $termsDecorator->transform($schemaObject, $this->getSource());
+        $termsDecorator->transform($schemaObject);
 
         $this->assertEquals('Mental', $termFactory->calls[0][0]);
     }
@@ -140,7 +138,7 @@ class TermsDecoratorTest extends TestCase
         $taxonomyItem = $this->getTaxonomyItem('@meta.foo', 'test_taxonomy');
 
         $termsDecorator = new TermsDecorator([$taxonomyItem], $termFactory, $wpService, new WpPostArgsFromSchemaObject());
-        $termsDecorator->transform($schemaObject, $this->getSource());
+        $termsDecorator->transform($schemaObject);
 
         $this->assertCount(1, $termFactory->calls);
         $this->assertEquals('Bar', $termFactory->calls[0][0]);
@@ -184,15 +182,15 @@ class TermsDecoratorTest extends TestCase
                 return '';
             }
 
+            public function getPluralName(): string
+            {
+                return '';
+            }
+
             public function isHierarchical(): bool
             {
                 return false;
             }
         };
-    }
-
-    private function getSource(): SourceInterface
-    {
-        return new Source('test_post_type', 'Thing');
     }
 }

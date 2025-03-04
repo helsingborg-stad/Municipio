@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Sync\Triggers;
+namespace Municipio\ExternalContent\SyncHandler\Triggers;
 
 use WpService\Contracts\DoAction;
 

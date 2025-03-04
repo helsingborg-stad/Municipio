@@ -17,7 +17,7 @@ class JobPostingDecoratorTest extends TestCase
         $schemaObject = new JobPosting();
 
         $schemaObject->title('Job title');
-        $post = $factory->transform($schemaObject, new Source('', ''));
+        $post = $factory->transform($schemaObject);
 
         $this->assertEquals('Job title', $post['post_title']);
     }

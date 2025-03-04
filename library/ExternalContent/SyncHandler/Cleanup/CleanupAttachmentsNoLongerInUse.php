@@ -1,32 +1,42 @@
 <?php
 
-namespace Municipio\ExternalContent\Sync;
+namespace Municipio\ExternalContent\SyncHandler\Cleanup;
 
+use Municipio\ExternalContent\SyncHandler\SyncHandler;
+use Municipio\HooksRegistrar\Hookable;
 use wpdb;
+use WpService\Contracts\AddAction;
 use WpService\Contracts\WpDeleteAttachment;
 
 /**
- * Class PruneAttachmentsNoLongerInSource
+ * Cleanup attachments that are no longer in use.
  */
-class PruneAttachmentsNoLongerInUse implements SyncSourceToLocalInterface
+class CleanupAttachmentsNoLongerInUse implements Hookable
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private WpDeleteAttachment $wpService,
-        private wpdb $db,
-        private ?SyncSourceToLocalInterface $inner = null
+        private AddAction&WpDeleteAttachment $wpService,
+        private wpdb $db
     ) {
     }
 
     /**
      * @inheritDoc
      */
-    public function sync(): void
+    public function addHooks(): void
     {
-        $this->inner?->sync();
+        $this->wpService->addAction(SyncHandler::ACTION_AFTER, [$this, 'cleanup']);
+    }
 
+    /**
+     * Cleanup attachments that are no longer in use.
+     *
+     * @return void
+     */
+    public function cleanup(): void
+    {
         $attachmentIds = $this->getAllAttachmentIdsNotInUse();
 
         foreach ($attachmentIds as $attachmentId) {

@@ -12,6 +12,13 @@ use Spatie\SchemaOrg\BaseType;
 class WpPostArgsFromSchemaObject implements WpPostArgsFromSchemaObjectInterface
 {
     /**
+     * WpArgsFromSchemaObject constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * Creates WordPress post arguments from a schema object.
      *
      * @param BaseType $schemaObject The schema object containing post data.

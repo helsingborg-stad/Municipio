@@ -22,7 +22,7 @@ class DateDecoratorTest extends TestCase
         $inner->method('transform')->willReturn([]);
 
         $wpPostFactory = new DateDecorator($inner);
-        $wpPost        = $wpPostFactory->transform($schemaObject, new Source('', ''));
+        $wpPost        = $wpPostFactory->transform($schemaObject);
 
         $this->assertEquals('2021-01-01', $wpPost['post_date']);
         $this->assertEquals('2021-01-02', $wpPost['post_modified']);

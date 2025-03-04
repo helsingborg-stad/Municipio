@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\ExternalContent\Sync\Triggers;
+namespace Municipio\ExternalContent\SyncHandler\Triggers;
 
-use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgressInterface;
+use Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressInterface;
 
 /**
  * Class TriggerSyncIfNotInProgress

@@ -47,6 +47,27 @@ class SyncHandlerTest extends TestCase
         $this->assertSame($wpPostArgs, $firstParamOfFirstCallToWpInsertPost);
     }
 
+    /**
+     * @testdox does action after sync
+     */
+    public function testDoesActionAfterSync()
+    {
+        $sourceReader  = $this->getSourceReaderMock();
+        $wpPostFactory = $this->getWpPostFactoryMock();
+        $wpService     = $this->getWpServiceMock();
+        $syncHandler   = new SyncHandler($sourceReader, $wpPostFactory, $wpService);
+        $sourceData    = [ Schema::thing() ];
+        $wpPostArgs    = ['title' => 'Title 1'];
+
+        $sourceReader->method('getSourceData')->willReturn($sourceData);
+        $wpPostFactory->method('transform')->willReturn($wpPostArgs);
+
+        $syncHandler->sync();
+        $firstParamOfFirstCallToDoAction = $wpService->methodCalls['doAction'][0][0];
+
+        $this->assertSame('Municipio/ExternalContent/Sync/After', $firstParamOfFirstCallToDoAction);
+    }
+
     private function getSourceReaderMock(): SourceReaderInterface|MockObject
     {
         return $this->createMock(SourceReaderInterface::class);

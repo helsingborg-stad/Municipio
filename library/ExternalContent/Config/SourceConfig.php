@@ -16,7 +16,7 @@ class SourceConfig implements SourceConfigInterface
      * @param string $automaticImportSchedule
      * @param string $schemaType
      * @param string $sourceType
-     * @param array $taxonomies
+     * @param SourceTaxonomyConfigInterface[] $taxonomies
      * @param string $sourceJsonFilePath
      * @param string $sourceTypesenseApiKey
      * @param string $sourceTypesenseProtocol

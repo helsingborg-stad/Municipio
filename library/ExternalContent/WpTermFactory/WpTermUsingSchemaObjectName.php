@@ -17,7 +17,11 @@ class WpTermUsingSchemaObjectName implements WpTermFactoryInterface
 
         // If schemaobject extends basetype, we can get the name from the schemaobject
         if ($schemaObject instanceof BaseType) {
-            $term->name = $schemaObject['name'] ?? $term->name;
+            $name = $schemaObject['name'] ?? $term->name;
+
+            if (is_string($name)) {
+                $term->name = $schemaObject['name'] ?? $term->name;
+            }
         }
 
         return $term;

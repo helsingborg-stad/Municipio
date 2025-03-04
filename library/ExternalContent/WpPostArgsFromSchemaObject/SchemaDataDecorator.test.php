@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Schema;
@@ -16,7 +15,7 @@ class SchemaDataDecoratorTest extends TestCase
     {
         $schemaObject = Schema::thing()->setProperty('foo', 'bar');
         $factory      = new SchemaDataDecorator(new WpPostArgsFromSchemaObject());
-        $result       = $factory->transform($schemaObject, new Source('', ''));
+        $result       = $factory->transform($schemaObject);
 
         $this->assertEquals($schemaObject->toArray(), $result['meta_input']['schemaData']);
     }
@@ -28,7 +27,7 @@ class SchemaDataDecoratorTest extends TestCase
     {
         $schemaObject = Schema::thing()->setProperty('foo', 'bar')->setProperty('id', '123');
         $factory      = new SchemaDataDecorator(new WpPostArgsFromSchemaObject());
-        $result       = $factory->transform($schemaObject, new Source('', ''));
+        $result       = $factory->transform($schemaObject);
 
         $this->assertArrayNotHasKey('id', $result['meta_input']['schemaData']);
     }

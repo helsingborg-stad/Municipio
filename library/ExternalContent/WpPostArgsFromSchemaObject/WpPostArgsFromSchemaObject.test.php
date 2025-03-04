@@ -13,7 +13,7 @@ class WpArgsFromSchemaObjectTest extends TestCase
     public function testCreate()
     {
         $schemaObject  = $this->getBaseTypeInstance([ 'name' => 'Title', 'description' => 'Content', ]);
-        $wpPostFactory = new WpPostArgsFromSchemaObject('test_post_type');
+        $wpPostFactory = new WpPostArgsFromSchemaObject();
 
         $wpPost = $wpPostFactory->transform($schemaObject);
 
@@ -27,7 +27,7 @@ class WpArgsFromSchemaObjectTest extends TestCase
     public function testCreateWithPublishStatus()
     {
         $schemaObject  = $this->getBaseTypeInstance();
-        $wpPostFactory = new WpPostArgsFromSchemaObject('test_post_type');
+        $wpPostFactory = new WpPostArgsFromSchemaObject();
 
         $wpPost = $wpPostFactory->transform($schemaObject,);
 

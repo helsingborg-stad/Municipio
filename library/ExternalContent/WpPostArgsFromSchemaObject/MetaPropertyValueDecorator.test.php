@@ -18,7 +18,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
         $schemaObject->setProperty('@meta', [Schema::propertyValue()->name('foo')->value('bar')]);
         $factory = new MetaPropertyValueDecorator();
 
-        $postArgs = $factory->transform($schemaObject, new Source('', ''));
+        $postArgs = $factory->transform($schemaObject);
 
         $this->assertEquals('bar', $postArgs['meta_input']['foo']);
     }
@@ -35,7 +35,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
         ]);
         $factory = new MetaPropertyValueDecorator();
 
-        $postArgs = $factory->transform($schemaObject, new Source('', ''));
+        $postArgs = $factory->transform($schemaObject);
 
         $this->assertEmpty($postArgs['meta_input']);
     }
@@ -52,7 +52,7 @@ class MetaPropertyValueDecoratorTest extends TestCase
         ]);
 
         $factory  = new MetaPropertyValueDecorator();
-        $postArgs = $factory->transform($schemaObject, new Source('', ''));
+        $postArgs = $factory->transform($schemaObject);
 
         $this->assertEmpty($postArgs['meta_input']);
     }

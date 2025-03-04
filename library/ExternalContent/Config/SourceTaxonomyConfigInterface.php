@@ -12,11 +12,16 @@ interface SourceTaxonomyConfigInterface
     public function getFromSchemaProperty(): string;
 
     /**
-     * Get the name of the taxonomy.
+     * Get the name of the taxonomy ad it is should be registered in WordPress.
      *
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * Get the plural name of the taxonomy.
+     */
+    public function getPluralName(): string;
 
     /**
      * Get the singular name of the taxonomy.

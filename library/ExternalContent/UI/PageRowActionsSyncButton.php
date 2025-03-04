@@ -55,14 +55,14 @@ class PageRowActionsSyncButton implements Hookable
 
         $urlParams = sprintf(
             '&%s&%s=%s',
-            \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
-            \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_POST_ID,
+            \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER,
+            \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams::GET_PARAM_POST_ID,
             $post->ID
         );
 
         $url = $this->wpService->wpNonceUrl($_SERVER['REQUEST_URI'] ?? '', -1) . $urlParams;
 
-        $actions[\Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
+        $actions[\Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER] = sprintf(
             '<a href="%s">%s</a>',
             $url,
             __('Sync this post from remote source', 'municipio')

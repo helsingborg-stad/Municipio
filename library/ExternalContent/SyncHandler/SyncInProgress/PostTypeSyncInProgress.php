@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Sync\SyncInPorgress;
+namespace Municipio\ExternalContent\SyncHandler\SyncInProgress;
 
 use WpService\Contracts\GetTransient;
 use WpService\Contracts\DeleteTransient;

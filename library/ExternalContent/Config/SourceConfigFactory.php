@@ -71,7 +71,7 @@ class SourceConfigFactory
             $namedSettings['automatic_import_schedule'] ?? '',
             $schemaType,
             $namedSettings['source_type'] ?? '',
-            $this->getArrayOfSourceTaxonomyConfigs($namedSettings['taxonomies']),
+            $this->getArrayOfSourceTaxonomyConfigs($schemaType, $namedSettings['taxonomies']),
             $namedSettings['source_json_file_path'] ?? '',
             $namedSettings['source_typesense_api_key'] ?? '',
             $namedSettings['source_typesense_protocol'] ?? '',
@@ -87,54 +87,28 @@ class SourceConfigFactory
      * @param array $taxonomies An array of taxonomies to get configurations for.
      * @return array An array of source taxonomy configurations.
      */
-    private function getArrayOfSourceTaxonomyConfigs(array $taxonomies): array
+    private function getArrayOfSourceTaxonomyConfigs(string $schemaType, array $taxonomies): array
     {
         if (empty($taxonomies)) {
             return [];
         }
 
-        return array_map(function ($taxonomy) {
-            return new class ($taxonomy) implements SourceTaxonomyConfigInterface {
-                /**
-                 * Constructor.
-                 */
-                public function __construct(private array $taxonomy)
-                {
-                }
+        $taxonomyConfigurations = array_map(function ($taxonomy) use ($schemaType) {
 
-                /**
-                 * @inheritDoc
-                 */
-                public function getFromSchemaProperty(): string
-                {
-                    return $this->taxonomy['from_schema_property'];
-                }
+            if (empty($taxonomy['from_schema_property']) || empty($taxonomy['name']) || empty($taxonomy['singular_name'])) {
+                return null;
+            }
 
-                /**
-                 * @inheritDoc
-                 */
-                public function getSingularName(): string
-                {
-                    return $this->taxonomy['singular_name'];
-                }
-
-                /**
-                 * @inheritDoc
-                 */
-                public function getName(): string
-                {
-                    return $this->taxonomy['name'];
-                }
-
-                /**
-                 * @inheritDoc
-                 */
-                public function isHierarchical(): bool
-                {
-                    return in_array($this->taxonomy['hierarchical'], [1, true, '1', 'true']);
-                }
-            };
+            return new SourceTaxonomyConfig(
+                $schemaType,
+                $taxonomy['from_schema_property'],
+                $taxonomy['name'],
+                $taxonomy['singular_name'],
+                in_array($taxonomy['hierarchical'], [1, true, '1', 'true'])
+            );
         }, $taxonomies);
+
+        return array_filter($taxonomyConfigurations);
     }
 
     /**
@@ -153,8 +127,7 @@ class SourceConfigFactory
 
         $options         = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
         $taxonomyOptions = $this->fetchTaxonomyOptions($groupName, $nbrOfRows, $options);
-
-        $settings = array_merge($options, $taxonomyOptions);
+        $settings        = array_merge($options, $taxonomyOptions);
 
         return $this->buildNamedSettings($groupName, $nbrOfRows, $settings);
     }
