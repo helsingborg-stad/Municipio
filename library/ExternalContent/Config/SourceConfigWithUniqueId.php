@@ -2,6 +2,8 @@
 
 namespace Municipio\ExternalContent\Config;
 
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition;
+
 /**
  * Class SourceConfig
  *
@@ -101,6 +103,14 @@ class SourceConfigWithUniqueId implements SourceConfigInterface
     public function getSourceTypesenseCollection(): string
     {
         return $this->inner->getSourceTypesenseCollection();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFilterDefinition(): FilterDefinition
+    {
+        return $this->inner->getFilterDefinition();
     }
 
     /**

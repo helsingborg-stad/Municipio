@@ -17,15 +17,6 @@ class FilterDefinitionTest extends TestCase
     }
 
     /**
-     * @testdox class can not be instantiated with empty ruleSets
-     */
-    public function testCanBeInstantiatedWithEmptyRuleSets()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        new FilterDefinition([]);
-    }
-
-    /**
      * @testdox getRuleSets() returns provided ruleSets
      */
     public function testGetRuleSetsReturnsRuleSets()

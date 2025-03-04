@@ -926,6 +926,7 @@ class App
          * Sync external content.
          */
         $this->wpService->addAction('Municipio/ExternalContent/Sync', function (string $postType, ?int $postId = null) use ($sourceConfigs) {
+
             $sourceConfig       = reset(array_filter($sourceConfigs, fn($config) => $config->getPostType() === $postType));
             $sourceReader       = (new \Municipio\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
             $schemaObjectToPost = (new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();

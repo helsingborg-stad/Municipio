@@ -19,9 +19,6 @@ class FilterDefinition implements FilterDefinitionInterface
      */
     public function __construct(private array $ruleSets)
     {
-        if (empty($ruleSets)) {
-            throw new \InvalidArgumentException('No rulesets provided.');
-        }
     }
 
     /**

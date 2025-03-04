@@ -2,6 +2,8 @@
 
 namespace Municipio\ExternalContent\Config;
 
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition;
+
 interface SourceConfigInterface
 {
     /**
@@ -85,4 +87,11 @@ interface SourceConfigInterface
      * Get the source unique ID
      */
     public function getId(): string;
+
+    /**
+     * Retrieves the filter definition.
+     *
+     * @return FilterDefinition The filter definition.
+     */
+    public function getFilterDefinition(): FilterDefinition;
 }

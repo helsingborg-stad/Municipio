@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\Config;
 
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\FilterDefinition;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
@@ -77,7 +78,8 @@ class SourceConfigFactory
             $namedSettings['source_typesense_protocol'] ?? '',
             $namedSettings['source_typesense_host'] ?? '',
             $namedSettings['source_typesense_port'] ?? '',
-            $namedSettings['source_typesense_collection'] ?? ''
+            $namedSettings['source_typesense_collection'] ?? '',
+            new FilterDefinition([])
         );
     }
 
