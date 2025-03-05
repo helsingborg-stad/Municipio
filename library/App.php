@@ -929,38 +929,7 @@ class App
         /**
          * Sync external content.
          */
-        $this->wpService->addAction('Municipio/ExternalContent/Sync', function (string $postType, ?int $postId = null) use ($sourceConfigs) {
-
-            $sourceConfigsWithMatchingPostType = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $postType);
-            $sourceConfig                      = reset($sourceConfigsWithMatchingPostType);
-
-            if (is_int($postId)) {
-                $originId = $this->wpService->getPostMeta($postId, 'originId', true);
-
-                if (empty($originId)) {
-                    return;
-                }
-
-                $filterDefinition = new FilterDefinition([new RuleSet([new Rule('@id', $originId)])]);
-                $sourceConfig     = new SourceConfigWithCustomFilterDefinition($filterDefinition, $sourceConfig);
-            }
-
-            $sourceReader       = (new \Municipio\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
-            $schemaObjectToPost = (new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();
-            $syncHandler        = new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceReader, $schemaObjectToPost, $this->wpService);
-
-            // Cleanup only if a sync is triggered to trigger whole collection.
-            if (is_null($postId)) {
-                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
-                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
-                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupTermsNoLongerInUse($sourceConfig, $this->wpService))->addHooks();
-            }
-
-            // Apply filters before sync.
-            (new \Municipio\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
-
-            $syncHandler->sync();
-        }, 10, 2);
+        (new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceConfigs, $this->wpService))->addHooks();
 
         /**
          * Only run the following if user is admin.
