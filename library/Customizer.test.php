@@ -4,11 +4,8 @@ namespace Municipio;
 
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use Municipio\TestUtils\WpMockFactory;
+use wpdb;
 
-/**
- * @group wp_mock
- */
 class CustomizerTest extends TestCase
 {
     /**
@@ -20,7 +17,7 @@ class CustomizerTest extends TestCase
           'addFilter' => true,
           'addAction' => true
         ]);
-        $wpdb      = WpMockFactory::createWpdb([]);
+        $wpdb      = new wpdb('', '', '', '');
 
         $value      = '';
         $default    = ['foo' => 'bar'];

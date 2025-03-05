@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\UI;
 
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use WP_Query;
 use WpService\Implementations\FakeWpService;
