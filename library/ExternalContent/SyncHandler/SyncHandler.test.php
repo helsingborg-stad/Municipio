@@ -48,6 +48,27 @@ class SyncHandlerTest extends TestCase
     }
 
     /**
+     * @testdox applies filter to schema objects before sync
+     */
+    public function testAppliesFilterToSchemaObjectsBeforeSync()
+    {
+        $sourceReader  = $this->getSourceReaderMock();
+        $wpPostFactory = $this->getWpPostFactoryMock();
+        $wpService     = $this->getWpServiceMock();
+        $syncHandler   = new SyncHandler($sourceReader, $wpPostFactory, $wpService);
+        $sourceData    = [ Schema::thing() ];
+        $wpPostArgs    = ['title' => 'Title 1'];
+
+        $sourceReader->method('getSourceData')->willReturn($sourceData);
+        $wpPostFactory->method('transform')->willReturn($wpPostArgs);
+
+        $syncHandler->sync();
+        $firstParamOfFirstCallToApplyFiltersRefArray = $wpService->methodCalls['applyFiltersRefArray'][0][0];
+
+        $this->assertSame(SyncHandler::FILTER_BEFORE, $firstParamOfFirstCallToApplyFiltersRefArray);
+    }
+
+    /**
      * @testdox does action after sync
      */
     public function testDoesActionAfterSync()
@@ -65,7 +86,7 @@ class SyncHandlerTest extends TestCase
         $syncHandler->sync();
         $firstParamOfFirstCallToDoAction = $wpService->methodCalls['doActionRefArray'][0][0];
 
-        $this->assertSame('Municipio/ExternalContent/Sync/After', $firstParamOfFirstCallToDoAction);
+        $this->assertSame(SyncHandler::ACTION_AFTER, $firstParamOfFirstCallToDoAction);
     }
 
     private function getSourceReaderMock(): SourceReaderInterface|MockObject
