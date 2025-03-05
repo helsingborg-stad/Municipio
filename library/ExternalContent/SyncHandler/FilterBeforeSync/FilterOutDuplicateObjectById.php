@@ -6,8 +6,14 @@ use Municipio\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\HooksRegistrar\Hookable;
 use Spatie\SchemaOrg\BaseType;
 
+/**
+ * Class FilterOutDuplicateObjectById
+ */
 class FilterOutDuplicateObjectById implements Hookable
 {
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         add_filter(SyncHandler::FILTER_BEFORE, [$this, 'filter']);

@@ -13,6 +13,11 @@ class SourceConfigWithUniqueId implements SourceConfigInterface
 {
     private ?string $uniqueId = null;
 
+    /**
+     * SourceConfig constructor.
+     *
+     * @param SourceConfigInterface $inner
+     */
     public function __construct(private SourceConfigInterface $inner)
     {
     }
@@ -125,6 +130,13 @@ class SourceConfigWithUniqueId implements SourceConfigInterface
         return $this->uniqueId;
     }
 
+    /**
+     * Generate a unique id based on the given id.
+     *
+     * @param string $id
+     *
+     * @return string
+     */
     private function generateUniqueId(string $id): string
     {
         static $idRegistry = [];

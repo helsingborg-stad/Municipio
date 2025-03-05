@@ -10,6 +10,14 @@ use WpService\Contracts\GetPosts;
  */
 class IdDecorator implements WpPostArgsFromSchemaObjectInterface
 {
+    /**
+     * Class constructor.
+     *
+     * @param string $postType
+     * @param string $sourceId
+     * @param WpPostArgsFromSchemaObjectInterface $inner
+     * @param GetPosts $wpService
+     */
     public function __construct(
         private string $postType,
         private string $sourceId,
@@ -18,6 +26,9 @@ class IdDecorator implements WpPostArgsFromSchemaObjectInterface
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function transform(BaseType $schemaObject): array
     {
         $post = $this->inner->transform($schemaObject);

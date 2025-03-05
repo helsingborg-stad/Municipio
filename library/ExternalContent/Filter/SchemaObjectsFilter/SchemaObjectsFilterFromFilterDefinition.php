@@ -6,12 +6,23 @@ use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
 use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 use Municipio\ExternalContent\Filter\GetValueByPathFromArray\GetValueByPathFromArray;
 
+/**
+ * Class SchemaObjectsFilterFromFilterDefinition
+ */
 class SchemaObjectsFilterFromFilterDefinition implements SchemaObjectsFilterInterface
 {
+    /**
+     * SchemaObjectsFilterFromFilterDefinition constructor.
+     *
+     * @param FilterDefinition $filterDefinition
+     */
     public function __construct(private FilterDefinition $filterDefinition)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function filter(array $schemaObjects): array
     {
         $getValueByPathFromArray = new GetValueByPathFromArray();

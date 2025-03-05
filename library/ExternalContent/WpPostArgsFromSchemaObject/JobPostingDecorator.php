@@ -33,6 +33,13 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
         return $post;
     }
 
+    /**
+     * Apply properties from JobPosting schema object.
+     *
+     * @param array $post The post array.
+     * @param JobPosting $schemaObject The JobPosting schema object.
+     * @return array The post array with properties applied.
+     */
     private function applyPropertiesFromJobPosting(array $post, JobPosting $schemaObject): array
     {
         if (!empty($schemaObject['title'])) {

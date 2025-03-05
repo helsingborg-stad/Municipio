@@ -4,12 +4,23 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Spatie\SchemaOrg\BaseType;
 
+/**
+ * Class DateDecorator
+ */
 class DateDecorator implements WpPostArgsFromSchemaObjectInterface
 {
+    /**
+     * DateDecorator constructor.
+     *
+     * @param WpPostArgsFromSchemaObjectInterface $inner
+     */
     public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function transform(BaseType $schemaObject): array
     {
         return array_merge(

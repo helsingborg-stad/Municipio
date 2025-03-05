@@ -2,8 +2,20 @@
 
 namespace Municipio\ExternalContent\Config;
 
+/**
+ * Class SourceTaxonomyConfig
+ */
 class SourceTaxonomyConfig implements SourceTaxonomyConfigInterface
 {
+    /**
+     * SourceTaxonomyConfig constructor.
+     *
+     * @param string $schemaObjectType
+     * @param string $fromSchemaProperty
+     * @param string $pluralName
+     * @param string $singularName
+     * @param bool $hierarchical
+     */
     public function __construct(
         private string $schemaObjectType,
         private string $fromSchemaProperty,

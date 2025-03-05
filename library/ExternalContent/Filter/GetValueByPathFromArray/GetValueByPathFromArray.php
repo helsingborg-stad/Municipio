@@ -2,8 +2,18 @@
 
 namespace Municipio\ExternalContent\Filter\GetValueByPathFromArray;
 
+/**
+ * Class GetValueByPathFromArray
+ */
 class GetValueByPathFromArray
 {
+    /**
+     * Get value by path from array
+     *
+     * @param array $array
+     * @param string $path
+     * @return mixed
+     */
     public function getValueByPath(array $array, $path): mixed
     {
         $path = explode('.', $path);
@@ -11,6 +21,13 @@ class GetValueByPathFromArray
         return $this->getValueByPathRecursive($array, $path);
     }
 
+    /**
+     * Get value by path from array recursive
+     *
+     * @param array $array
+     * @param array $path
+     * @return mixed
+     */
     private function getValueByPathRecursive(array $array, array $path): mixed
     {
         $key = array_shift($path);

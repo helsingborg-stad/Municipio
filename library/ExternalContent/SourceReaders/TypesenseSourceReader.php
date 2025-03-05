@@ -65,21 +65,46 @@ class TypesenseSourceReader implements SourceReaderInterface
         return $apiResponse->getBody();
     }
 
+    /**
+     * Appends the page parameter to the given GET parameters string.
+     *
+     * @param int $page The page number to append.
+     * @param string $getParamsString The GET parameters string to append to.
+     * @return string The GET parameters string with the page parameter appended.
+     */
     private function appendPageToGetParamsString(int $page, string $getParamsString): string
     {
         return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'page=' . $page;
     }
 
+    /**
+     * Appends the query parameter to the given GET parameters string.
+     *
+     * @param string $getParamsString The GET parameters string to append to.
+     * @return string The GET parameters string with the query parameter appended.
+     */
     private function appendQueryToGetParamsString(string $getParamsString): string
     {
         return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'q=*';
     }
 
+    /**
+     * Appends the per_page parameter to the given GET parameters string.
+     *
+     * @param string $getParamsString The GET parameters string to append to.
+     * @return string The GET parameters string with the per_page parameter appended.
+     */
     private function appendPerPageToGetParamsString(string $getParamsString): string
     {
         return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'per_page=250';
     }
 
+    /**
+     * Checks if the given string contains GET parameters.
+     *
+     * @param string $getParamsString The string to check.
+     * @return bool True if the string contains GET parameters, false otherwise.
+     */
     private function stringContainsGetParams(string $getParamsString): bool
     {
         return strpos($getParamsString, '?') !== false;
