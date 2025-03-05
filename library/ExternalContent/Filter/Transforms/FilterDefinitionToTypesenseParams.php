@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\Transforms;
+namespace Municipio\ExternalContent\Filter\Transforms;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSet;
-use Municipio\ExternalContent\PropertyPathFilter\Transforms\Contracts\FilterDefinitionToString;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\RuleSet;
+use Municipio\ExternalContent\Filter\Transforms\Contracts\FilterDefinitionToString;
 
 /**
  * Transforms a FilterDefinition into a Typesense-compatible filter string.

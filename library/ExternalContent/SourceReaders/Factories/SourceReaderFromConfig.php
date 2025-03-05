@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\SourceReaders\Factories;
 
 use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
-use Municipio\ExternalContent\PropertyPathFilter\Transforms\FilterDefinitionToTypesenseParams;
+use Municipio\ExternalContent\Filter\Transforms\FilterDefinitionToTypesenseParams;
 use Municipio\ExternalContent\SourceReaders\FileSystem\FileSystem;
 use Municipio\ExternalContent\SourceReaders\HttpApi\TypesenseApi\TypesenseApi;
 use Municipio\ExternalContent\SourceReaders\JsonFileSourceReader;
@@ -39,6 +39,12 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         };
     }
 
+    /**
+     * Creates and returns a JsonFileSourceReader instance based on the provided configuration.
+     *
+     * @param SourceConfigInterface $config The configuration object for the source reader.
+     * @return JsonFileSourceReader The created JsonFileSourceReader instance.
+     */
     private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
         return new JsonFileSourceReader($config->getSourceJsonFilePath(), new FileSystem(), new SimpleJsonConverter());

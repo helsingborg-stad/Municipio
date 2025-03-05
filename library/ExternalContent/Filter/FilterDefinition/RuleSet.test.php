@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
+namespace Municipio\ExternalContent\Filter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Relation;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Rule;
 use PHPUnit\Framework\TestCase;
 
 class RuleSetTest extends TestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\Transforms;
+namespace Municipio\ExternalContent\Filter\Transforms;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\FilterDefinition;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Rule;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\RuleSet;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

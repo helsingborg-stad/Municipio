@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
+namespace Municipio\ExternalContent\Filter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule as RuleInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Rule as RuleInterface;
 
 /**
  * Rule class.

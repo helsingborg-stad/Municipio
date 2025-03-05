@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Config;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 
 /**
  * Class SourceConfig

@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition;
+namespace Municipio\ExternalContent\Filter\FilterDefinition;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\RuleSet as RuleSetInterface;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\RuleSet as RuleSetInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Rule;
 
 /**
  * RuleSet class.

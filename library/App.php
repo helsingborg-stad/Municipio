@@ -56,9 +56,9 @@ use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\CommonOptions\CommonOptionsConfig;
 use Municipio\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\FilterDefinition;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Rule;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\RuleSet;
+use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 
 /**

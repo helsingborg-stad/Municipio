@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter;
+namespace Municipio\ExternalContent\Filter;
 
 class GetValueByPathFromArray
 {

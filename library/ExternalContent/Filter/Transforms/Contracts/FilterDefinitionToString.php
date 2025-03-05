@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\Transforms\Contracts;
+namespace Municipio\ExternalContent\Filter\Transforms\Contracts;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 
 interface FilterDefinitionToString
 {

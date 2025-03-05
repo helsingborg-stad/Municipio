@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\Config;
 
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 

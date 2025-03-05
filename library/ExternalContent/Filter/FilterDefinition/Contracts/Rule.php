@@ -1,9 +1,9 @@
 <?php
 
-namespace Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts;
+namespace Municipio\ExternalContent\Filter\FilterDefinition\Contracts;
 
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Operator;
-use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Contracts\Enums\Relation;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Relation;
 
 interface Rule
 {
