@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\SourceReaders;
 
+use Municipio\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\JsonToSchemaObjects;
 use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileExists;
 use Municipio\ExternalContent\SourceReaders\FileSystem\Contracts\FileGetContents;
@@ -10,6 +11,7 @@ class JsonFileSourceReader implements SourceReaderInterface
 {
     public function __construct(
         private string $filePath,
+        private SchemaObjectsFilterInterface $schemaObjectsFilter,
         private FileGetContents&FileExists $fileSystem,
         private JsonToSchemaObjects $jsonToSchemaObjects,
     )
@@ -26,6 +28,8 @@ class JsonFileSourceReader implements SourceReaderInterface
         }
 
         $fileContent = $this->fileSystem->fileGetContents($this->filePath);
-        return $this->jsonToSchemaObjects->transform( $fileContent );
+        $schemaObjects = $this->jsonToSchemaObjects->transform( $fileContent );
+        
+        return $this->schemaObjectsFilter->filter($schemaObjects);
     }
 }

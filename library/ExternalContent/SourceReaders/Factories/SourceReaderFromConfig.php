@@ -3,6 +3,7 @@
 namespace Municipio\ExternalContent\SourceReaders\Factories;
 
 use Municipio\ExternalContent\Config\SourceConfigInterface;
+use Municipio\ExternalContent\Filter\SchemaObjectsFilter\SchemaObjectsFilterFromFilterDefinition;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
 use Municipio\ExternalContent\Filter\Transforms\FilterDefinitionToTypesenseParams;
 use Municipio\ExternalContent\SourceReaders\FileSystem\FileSystem;
@@ -47,7 +48,8 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
      */
     private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
-        return new JsonFileSourceReader($config->getSourceJsonFilePath(), new FileSystem(), new SimpleJsonConverter());
+        $schemaObjectsFilter = new SchemaObjectsFilterFromFilterDefinition($config->getFilterDefinition());
+        return new JsonFileSourceReader($config->getSourceJsonFilePath(), $schemaObjectsFilter, new FileSystem(), new SimpleJsonConverter());
     }
 
     /**

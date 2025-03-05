@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\ExternalContent\Filter;
+namespace Municipio\ExternalContent\Filter\GetValueByPathFromArray;
 
 use PHPUnit\Framework\TestCase;
 
