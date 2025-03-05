@@ -4,8 +4,8 @@ namespace Municipio\ExternalContent\Taxonomy;
 
 use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Taxonomy;
 use WpService\Contracts\RegisterTaxonomy;
 
 class RegisterTaxonomiesFromSourceConfigTest extends TestCase
@@ -55,7 +55,7 @@ class RegisterTaxonomiesFromSourceConfigTest extends TestCase
                     'query_var'         => true,
                     'rewrite'           => ['slug' => 'custom_taxonomy']
                 ]
-            )->willReturn(WpMockFactory::createWpTaxonomy());
+            )->willReturn(new WP_Taxonomy('custom_taxonomy', 'custom_post_type'));
 
         $registerTaxonomiesFromSourceConfig = new RegisterTaxonomiesFromSourceConfig($sourceConfig, $wpService);
         $registerTaxonomiesFromSourceConfig->registerTaxonomies();

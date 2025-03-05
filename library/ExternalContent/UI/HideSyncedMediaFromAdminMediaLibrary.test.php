@@ -4,6 +4,7 @@ namespace Municipio\ExternalContent\UI;
 
 use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Query;
 use WpService\Implementations\FakeWpService;
 
 class HideSyncedMediaFromAdminMediaLibraryTest extends TestCase
@@ -15,11 +16,13 @@ class HideSyncedMediaFromAdminMediaLibraryTest extends TestCase
     {
         $metaKey = 'some-meta-key';
 
-        $wpService = new FakeWpService(['isAdmin' => true]);
-        $query     = WpMockFactory::createWpQuery(['query' => ['post_type' => 'attachment'], 'query_vars' => []]);
+        $wpService           = new FakeWpService(['isAdmin' => true]);
+        $wpQuery             = new WP_Query();
+        $wpQuery->query_vars = [];
+        $wpQuery->query      = ['post_type' => 'attachment'];
 
         $hideSyncedMediaFromAdminMediaLibrary = new HideSyncedMediaFromAdminMediaLibrary($metaKey, $wpService);
-        $hideSyncedMediaFromAdminMediaLibrary->preGetPosts($query);
+        $hideSyncedMediaFromAdminMediaLibrary->preGetPosts($wpQuery);
 
         $this->assertEquals(
             [
@@ -28,7 +31,7 @@ class HideSyncedMediaFromAdminMediaLibraryTest extends TestCase
                     'compare' => 'NOT EXISTS',
                 ],
             ],
-            $query->query_vars['meta_query']
+            $wpQuery->query_vars['meta_query']
         );
     }
 }

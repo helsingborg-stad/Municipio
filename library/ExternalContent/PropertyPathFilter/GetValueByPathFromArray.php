@@ -25,7 +25,6 @@ class GetValueByPathFromArray
             }, $array[$key]);
         }
 
-
         return $this->getValueByPathRecursive($array[$key], $path);
     }
 }

@@ -3,9 +3,9 @@
 namespace Municipio\ExternalContent\SourceReaders\HttpApi\TypesenseApi;
 
 use Municipio\ExternalContent\Config\SourceConfigInterface;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WP_Error;
 use WpService\Implementations\FakeWpService;
 
 class TypesenseApiTest extends TestCase
@@ -40,9 +40,11 @@ class TypesenseApiTest extends TestCase
      */
     public function testGetThrowsExceptionIfWpErrorIsReturned()
     {
+        $wpError = $this->createMock(WP_Error::class);
+        $wpError->method('get_error_message')->willReturn('test-error');
 
         $wpService    = new FakeWpService([
-            'wpRemoteGet' => WpMockFactory::createWpError(['get_error_message' => fn() => 'test-error']),
+            'wpRemoteGet' => $wpError,
             'escHtml'     => fn($input) => $input,
         ]);
         $typesenseApi = new TypesenseApi($this->getConfigMock(), $wpService);

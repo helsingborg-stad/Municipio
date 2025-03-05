@@ -4,7 +4,6 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Event;
@@ -151,7 +150,10 @@ class TermsDecoratorTest extends TestCase
             public function create(BaseType|string $schemaObject, string $taxonomy): WP_Term
             {
                 $this->calls[] = func_get_args();
-                return WpMockFactory::createWpTerm(['term_id' => 3, 'name' => $schemaObject]);
+                $term          = new WP_Term([]);
+                $term->term_id = 3;
+                $term->name    = $schemaObject;
+                return $term;
             }
         };
     }

@@ -6,9 +6,9 @@ use AcfService\Implementations\FakeAcfService;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
-use Municipio\TestUtils\WpMockFactory;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use PHPUnit\Framework\TestCase;
+use WP_User;
 use WpService\Implementations\FakeWpService;
 
 class UserTest extends TestCase
@@ -21,10 +21,10 @@ class UserTest extends TestCase
         $user = new User(
             new FakeWpService(),
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -38,13 +38,14 @@ class UserTest extends TestCase
         $user = new User(
             new FakeWpService(),
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
-        $wpUser = WpMockFactory::createWpUser(['ID' => 1]);
+        $wpUser     = new WP_User();
+        $wpUser->ID = 1;
 
         $this->assertEquals($wpUser, $user->getUser($wpUser));
     }
@@ -57,13 +58,14 @@ class UserTest extends TestCase
         $user = new User(
             new FakeWpService(),
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
-        $wpUser = WpMockFactory::createWpUser(['ID' => 0]);
+        $wpUser     = new WP_User();
+        $wpUser->ID = 0;
 
         $this->assertNull($user->getUser($wpUser));
     }
@@ -73,15 +75,17 @@ class UserTest extends TestCase
      */
     public function testGetUserReturnsCurrentUserIfNoUserIsProvidedAndUserIsLoggedIn()
     {
-        $wpService = new FakeWpService(['wpGetCurrentUser' => WpMockFactory::createWpUser(['ID' => 123])]);
+        $wpUser     = new WP_User();
+        $wpUser->ID = 123;
+        $wpService  = new FakeWpService(['wpGetCurrentUser' => $wpUser]);
 
         $user = new User(
             $wpService,
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
         $this->assertEquals(123, $user->getUser()->ID);
@@ -92,17 +96,19 @@ class UserTest extends TestCase
      */
     public function testGetUserReturnsUserFromDbIfUserIdIsProvidedAndUserExists()
     {
-        $wpService = new FakeWpService([
-            'getUserBy' => WpMockFactory::createWpUser(['ID' => 123])
+        $wpUser     = new WP_User();
+        $wpUser->ID = 123;
+        $wpService  = new FakeWpService([
+            'getUserBy' => $wpUser
         ]);
 
         $user = new User(
             $wpService,
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
         $this->assertEquals(123, $user->getUser(123)->ID);
@@ -120,10 +126,10 @@ class UserTest extends TestCase
         $user = new User(
             $wpService,
             new FakeAcfService(),
-            $this->createStub(UserConfigInterface::class),
-            $this->createStub(UserGroupConfigInterface::class),
-            $this->createStub(CreateOrGetTermIdFromString::class),
-            $this->createStub(SiteSwitcher::class)
+            $this->createMock(UserConfigInterface::class),
+            $this->createMock(UserGroupConfigInterface::class),
+            $this->createMock(CreateOrGetTermIdFromString::class),
+            $this->createMock(SiteSwitcher::class)
         );
 
         $this->assertNull($user->getUser(123));

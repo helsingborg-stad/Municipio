@@ -3,10 +3,10 @@
 namespace Municipio\UserGroup;
 
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
-use Municipio\TestUtils\WpMockFactory;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use WP_Taxonomy;
 use WpService\Implementations\FakeWpService;
 
 class CreateUserGroupTaxonomyTest extends TestCase
@@ -42,7 +42,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
      */
     public function testRegisterUserGroupTaxonomyRegistersTaxonomyOnMain()
     {
-        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => WpMockFactory::createWpTaxonomy(), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
+        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
         $config    = $this->getConfig();
         $config->method('getUserGroupTaxonomy')->willReturn('test_taxonomy');
         $siteSwitcher = $this->getSiteSwitcher();
@@ -59,7 +59,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
      */
     public function testRegisterUserGroupTaxonomyRegistersTaxonomy()
     {
-        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => WpMockFactory::createWpTaxonomy(), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
+        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => true]);
         $config    = $this->getConfig();
         $config->method('getUserGroupTaxonomy')->willReturn('test_taxonomy');
         $siteSwitcher = $this->getSiteSwitcher();
@@ -76,7 +76,7 @@ class CreateUserGroupTaxonomyTest extends TestCase
      */
     public function testRegisterUserGroupTaxonomyDoesNotRegisterTaxonomyIfNotMainSite()
     {
-        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => WpMockFactory::createWpTaxonomy(), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => false]);
+        $wpService = new FakeWpService(['registerTaxonomy' => true, '__' => fn($string) => $string, 'registerTaxonomy' => new WP_Taxonomy('', ''), 'isMultisite' => true, 'getMainSiteId' => 1, 'isMainSite' => false]);
         $config    = $this->getConfig();
         $config->method('getUserGroupTaxonomy')->willReturn('test_taxonomy');
         $createUserGroupTaxonomy = new CreateUserGroupTaxonomy($wpService, $config, $this->getSiteSwitcher());

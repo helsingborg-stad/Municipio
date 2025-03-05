@@ -2,10 +2,10 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\ImageObject;
+use WP_Error;
 use WpService\Implementations\FakeWpService;
 
 class ThumbnailDecoratorTest extends TestCase
@@ -69,7 +69,7 @@ class ThumbnailDecoratorTest extends TestCase
     public function testDoesNotConnectToPostIfSideloadFails(): void
     {
         $url          = 'https://example.com/image.jpg';
-        $wpService    = new FakeWpService(['mediaSideloadImage' => WpMockFactory::createWpError(), 'getPosts' => []]);
+        $wpService    = new FakeWpService(['mediaSideloadImage' => new WP_Error(), 'getPosts' => []]);
         $schemaObject = $this->getSchemaObject();
         $schemaObject->setProperty('image', $url);
 

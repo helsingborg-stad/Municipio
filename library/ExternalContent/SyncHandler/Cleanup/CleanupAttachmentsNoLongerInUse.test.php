@@ -3,8 +3,8 @@
 namespace Municipio\ExternalContent\SyncHandler\Cleanup;
 
 use Municipio\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use wpdb;
 use WpService\Implementations\FakeWpService;
 
 class CleanupAttachmentsNoLongerInUseTest extends TestCase
@@ -14,7 +14,7 @@ class CleanupAttachmentsNoLongerInUseTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $cleanup = new CleanupAttachmentsNoLongerInUse(new FakeWpService(), WpMockFactory::createWpdb());
+        $cleanup = new CleanupAttachmentsNoLongerInUse(new FakeWpService(), new wpdb('', '', '', ''));
         $this->assertInstanceOf(CleanupAttachmentsNoLongerInUse::class, $cleanup);
     }
 
@@ -24,7 +24,7 @@ class CleanupAttachmentsNoLongerInUseTest extends TestCase
     public function testAddHookAddsHookForCleanupMethod()
     {
         $wpService = new FakeWpService(['addAction' => true]);
-        $cleanup   = new CleanupAttachmentsNoLongerInUse($wpService, WpMockFactory::createWpdb());
+        $cleanup   = new CleanupAttachmentsNoLongerInUse($wpService, new wpdb('', '', '', ''));
 
         $cleanup->addHooks();
 
@@ -40,10 +40,10 @@ class CleanupAttachmentsNoLongerInUseTest extends TestCase
     {
         $attachmentId = 1;
         $wpService    = new FakeWpService();
-        $wpdb         = WpMockFactory::createWpdb([
-            'postmeta'    => 'postmeta',
-            'prepare'     => fn($query, ...$args) => $query,
-            'get_results' => fn() => [(object)['post_id' => $attachmentId]]]);
+        $wpdb         = $this->createMock(wpdb::class);
+        $wpdb->method('get_results')->willReturn([(object)['post_id' => $attachmentId]]);
+        $wpdb->method('prepare')->willReturnArgument(0);
+        $wpdb->method('delete')->willReturn(true);
 
         $sut = new CleanupAttachmentsNoLongerInUse($wpService, $wpdb);
         $sut->cleanup();

@@ -3,9 +3,9 @@
 namespace Municipio\ExternalContent\SyncHandler\Cleanup;
 
 use Municipio\ExternalContent\SyncHandler\SyncHandler;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\Schema;
+use WP_Post;
 use WpService\Implementations\FakeWpService;
 
 class CleanupPostsNoLongerInSourceTest extends TestCase
@@ -53,8 +53,10 @@ class CleanupPostsNoLongerInSourceTest extends TestCase
      */
     public function testCallsWpDeletePostForEachPostThatIsNoLongerInTheSource()
     {
-        $postsToBeDeleted = [WpMockFactory::createWpPost(['ID' => 2])];
-        $wpService        = new FakeWpService(['getPosts' => $postsToBeDeleted, 'wpDeletePost' => WpMockFactory::createWpPost()]);
+        $post             = new WP_Post([]);
+        $post->ID         = 2;
+        $postsToBeDeleted = [$post];
+        $wpService        = new FakeWpService(['getPosts' => $postsToBeDeleted, 'wpDeletePost' => new WP_Post([])]);
         $cleanup          = new CleanupPostsNoLongerInSource('post', $wpService);
 
         $cleanup->cleanup([Schema::thing()->setProperty('@id', '1')]);

@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\UI;
 
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Post;
 
 class PageRowActionsSyncButtonTest extends TestCase
 {
@@ -21,7 +21,7 @@ class PageRowActionsSyncButtonTest extends TestCase
     public function testAddSyncButtonReturnsAnArray()
     {
         $pageRowActionsSyncButton = new \Municipio\ExternalContent\UI\PageRowActionsSyncButton([], new \WpService\Implementations\FakeWpService());
-        $this->assertIsArray($pageRowActionsSyncButton->addSyncButton([], WpMockFactory::createWpPost()));
+        $this->assertIsArray($pageRowActionsSyncButton->addSyncButton([], new WP_Post([])));
     }
 
     /**

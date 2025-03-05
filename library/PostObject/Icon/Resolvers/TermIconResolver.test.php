@@ -6,7 +6,6 @@ use Municipio\Helper\Term\Contracts\GetTermColor;
 use Municipio\Helper\Term\Contracts\GetTermIcon;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use WP_Term;
 use WpService\Implementations\FakeWpService;
@@ -65,10 +64,11 @@ class TermIconResolverTest extends TestCase
     public function testResolveReturnsNullIfTermHasNoIcon()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
+        $term          = new WP_Term([]);
+        $term->term_id = 3;
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [
-                WpMockFactory::createWpTerm(['term_id' => 3])]
+            'getTheTerms'         => [$term]
             ]);
         $innerResolver = $this->createMock(IconResolverInterface::class);
         $innerResolver->expects($this->once())->method('resolve');
@@ -83,10 +83,12 @@ class TermIconResolverTest extends TestCase
     public function testResolveReturnsIconInterfaceIfTermHasIcon()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
+        $term          = new WP_Term([]);
+        $term->term_id = 3;
+
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [
-                WpMockFactory::createWpTerm(['term_id' => 3])]
+            'getTheTerms'         => [$term]
             ]);
         $termHelper    = $this->getTermHelper([
             'getTermIcon'  => ['src' => 'testIcon', 'type' => 'testType'],
@@ -105,10 +107,11 @@ class TermIconResolverTest extends TestCase
     public function testResolveReturnsIconInterfaceWithCorrectValues()
     {
         $postObject    = $this->createMock(PostObjectInterface::class);
+        $term          = new WP_Term([]);
+        $term->term_id = 3;
         $wpService     = new FakeWpService([
             'getObjectTaxonomies' => ['category'],
-            'getTheTerms'         => [
-                WpMockFactory::createWpTerm(['term_id' => 3])]
+            'getTheTerms'         => [$term]
             ]);
         $termHelper    = $this->getTermHelper([
             'getTermIcon'  => ['src' => 'testIcon', 'type' => 'testType'],
