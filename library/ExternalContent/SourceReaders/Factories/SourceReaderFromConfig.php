@@ -4,8 +4,8 @@ namespace Municipio\ExternalContent\SourceReaders\Factories;
 
 use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\JsonToSchemaObjects\SimpleJsonConverter;
+use Municipio\ExternalContent\PropertyPathFilter\Transforms\FilterDefinitionToTypesenseParams;
 use Municipio\ExternalContent\SourceReaders\FileSystem\FileSystem;
-use Municipio\ExternalContent\SourceReaders\HttpApi\ApiGET;
 use Municipio\ExternalContent\SourceReaders\HttpApi\TypesenseApi\TypesenseApi;
 use Municipio\ExternalContent\SourceReaders\JsonFileSourceReader;
 use Municipio\ExternalContent\SourceReaders\SourceReader;
@@ -33,20 +33,29 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
     public function create(SourceConfigInterface $config): SourceReaderInterface
     {
         return match ($config->getSourceType()) {
-            'json' => new JsonFileSourceReader($config->getSourceJsonFilePath(), new FileSystem(), new SimpleJsonConverter()),
-            'typesense' => new TypesenseSourceReader($this->getTypesenApi($config), '', new SimpleJsonConverter()),
+            'json' => $this->getJsonFileSourceReader($config),
+            'typesense' => $this->getTypesenseSourceReader($config),
             default => new SourceReader()
         };
     }
 
-    /**
-     * Get Typesense API
-     *
-     * @param SourceConfigInterface $config
-     * @return ApiGET
-     */
-    private function getTypesenApi(SourceConfigInterface $config): ApiGET
+    private function getJsonFileSourceReader(SourceConfigInterface $config): JsonFileSourceReader
     {
-        return new TypesenseApi($config, WpService::get());
+        return new JsonFileSourceReader($config->getSourceJsonFilePath(), new FileSystem(), new SimpleJsonConverter());
+    }
+
+    /**
+     * Creates and returns a TypesenseSourceReader instance based on the provided configuration.
+     *
+     * @param SourceConfigInterface $config The configuration object for the source reader.
+     * @return TypesenseSourceReader The created TypesenseSourceReader instance.
+     */
+    private function getTypesenseSourceReader(SourceConfigInterface $config): TypesenseSourceReader
+    {
+        $api                               = new TypesenseApi($config, WpService::get());
+        $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
+        $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
+
+        return new TypesenseSourceReader($api, $getParamsString, new SimpleJsonConverter());
     }
 }

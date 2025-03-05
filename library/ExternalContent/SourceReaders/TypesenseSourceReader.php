@@ -12,10 +12,14 @@ class TypesenseSourceReader implements SourceReaderInterface
 {
     /**
      * Constructor.
+     *
+     * @param ApiGET $api The API to use for fetching data.
+     * @param string $getParamsString The initial GET parameters to use when fetching data.
+     * @param JsonToSchemaObjects $jsonConverter The JSON converter to use when transforming data.
      */
     public function __construct(
         private ApiGET $api,
-        private string $endpoint,
+        private string $getParamsString,
         private JsonToSchemaObjects $jsonConverter
     ) {
     }
@@ -48,11 +52,11 @@ class TypesenseSourceReader implements SourceReaderInterface
      */
     private function fetchPageData(int $page): ?array
     {
-        $endpoint = $this->appendPageToEndpoint($page, $this->endpoint);
-        $endpoint = $this->appendQueryToEndpoint($endpoint);
-        $endpoint = $this->appendPerPageToEndpoint($endpoint);
+        $getParamsString = $this->appendPageToGetParamsString($page, $this->getParamsString);
+        $getParamsString = $this->appendQueryToGetParamsString($getParamsString);
+        $getParamsString = $this->appendPerPageToGetParamsString($getParamsString);
 
-        $apiResponse = $this->api->get($endpoint);
+        $apiResponse = $this->api->get($getParamsString);
 
         if ($apiResponse->getStatusCode() !== 200 || empty($apiResponse->getBody())) {
             return null;
@@ -61,23 +65,23 @@ class TypesenseSourceReader implements SourceReaderInterface
         return $apiResponse->getBody();
     }
 
-    private function appendPageToEndpoint(int $page, string $endpoint): string
+    private function appendPageToGetParamsString(int $page, string $getParamsString): string
     {
-        return $endpoint . ($this->endpointContainsGetParams($endpoint) ? '&' : '?') . 'page=' . $page;
+        return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'page=' . $page;
     }
 
-    private function appendQueryToEndpoint(string $endpoint): string
+    private function appendQueryToGetParamsString(string $getParamsString): string
     {
-        return $endpoint . ($this->endpointContainsGetParams($endpoint) ? '&' : '?') . 'q=*';
+        return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'q=*';
     }
 
-    private function appendPerPageToEndpoint(string $endpoint): string
+    private function appendPerPageToGetParamsString(string $getParamsString): string
     {
-        return $endpoint . ($this->endpointContainsGetParams($endpoint) ? '&' : '?') . 'per_page=250';
+        return $getParamsString . ($this->stringContainsGetParams($getParamsString) ? '&' : '?') . 'per_page=250';
     }
 
-    private function endpointContainsGetParams(string $endpoint): bool
+    private function stringContainsGetParams(string $getParamsString): bool
     {
-        return strpos($endpoint, '?') !== false;
+        return strpos($getParamsString, '?') !== false;
     }
 }

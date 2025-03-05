@@ -5,7 +5,7 @@ namespace Municipio\ExternalContent\SyncHandler;
 use Municipio\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
-use WpService\Contracts\{WpInsertPost, DoAction};
+use WpService\Contracts\{WpInsertPost, DoAction, DoActionRefArray};
 
 /**
  * Class SyncHandler
@@ -19,12 +19,12 @@ class SyncHandler implements SyncHandlerInterface
      *
      * @param SourceReaderInterface $sourceReader
      * @param WpPostArgsFromSchemaObjectInterface $wpPostFactory
-     * @param WpInsertPost&DoAction $wpService
+     * @param WpInsertPost&DoAction&DoActionRefArray $wpService
      */
     public function __construct(
         private SourceReaderInterface $sourceReader,
         private WpPostArgsFromSchemaObjectInterface $wpPostArgsFromSchemaObject,
-        private WpInsertPost&DoAction $wpService
+        private WpInsertPost&DoActionRefArray $wpService
     ) {
     }
 
@@ -45,6 +45,6 @@ class SyncHandler implements SyncHandlerInterface
          *
          * @param BaseType[] $schemaObjects
          */
-        $this->wpService->doAction(self::ACTION_AFTER, $schemaObjects);
+        $this->wpService->doActionRefArray(self::ACTION_AFTER, [$schemaObjects]);
     }
 }

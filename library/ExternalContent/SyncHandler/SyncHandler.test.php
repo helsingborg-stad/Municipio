@@ -63,7 +63,7 @@ class SyncHandlerTest extends TestCase
         $wpPostFactory->method('transform')->willReturn($wpPostArgs);
 
         $syncHandler->sync();
-        $firstParamOfFirstCallToDoAction = $wpService->methodCalls['doAction'][0][0];
+        $firstParamOfFirstCallToDoAction = $wpService->methodCalls['doActionRefArray'][0][0];
 
         $this->assertSame('Municipio/ExternalContent/Sync/After', $firstParamOfFirstCallToDoAction);
     }

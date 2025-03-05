@@ -55,6 +55,10 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\CommonOptions\CommonOptionsConfig;
+use Municipio\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\Rule;
+use Municipio\ExternalContent\PropertyPathFilter\FilterDefinition\RuleSet;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 
 /**
@@ -901,7 +905,7 @@ class App
         (new AllowCronToEditPosts($this->wpService))->addHooks();
 
         /**
-         * Feature config
+         * Configurations for external content sources.
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
@@ -927,18 +931,33 @@ class App
          */
         $this->wpService->addAction('Municipio/ExternalContent/Sync', function (string $postType, ?int $postId = null) use ($sourceConfigs) {
 
-            $sourceConfig       = reset(array_filter($sourceConfigs, fn($config) => $config->getPostType() === $postType));
+            $sourceConfigsWithMatchingPostType = array_filter($sourceConfigs, fn($config) => $config->getPostType() === $postType);
+            $sourceConfig                      = reset($sourceConfigsWithMatchingPostType);
+
+            if (is_int($postId)) {
+                $originId = $this->wpService->getPostMeta($postId, 'originId', true);
+
+                if (empty($originId)) {
+                    return;
+                }
+
+                $filterDefinition = new FilterDefinition([new RuleSet([new Rule('@id', $originId)])]);
+                $sourceConfig     = new SourceConfigWithCustomFilterDefinition($filterDefinition, $sourceConfig);
+            }
+
             $sourceReader       = (new \Municipio\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
             $schemaObjectToPost = (new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();
             $syncHandler        = new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceReader, $schemaObjectToPost, $this->wpService);
 
-            // Cleanup
-            (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
-            (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
-            (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupTermsNoLongerInUse($sourceConfig, $this->wpService))->addHooks();
+            // Cleanup only if a sync is triggered to trigger whole collection.
+            if (is_null($postId)) {
+                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
+                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
+                (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupTermsNoLongerInUse($sourceConfig, $this->wpService))->addHooks();
+            }
 
             $syncHandler->sync();
-        });
+        }, 10, 2);
 
         /**
          * Only run the following if user is admin.
@@ -1005,7 +1024,7 @@ class App
          * Trigger sync of external content.
          */
         $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSync($this->wpService);
-        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress(new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService), $triggerSync);
+        //$triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress(new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService), $triggerSync);
         (new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams($this->wpService, $triggerSync))->addHooks();
 
         /**
