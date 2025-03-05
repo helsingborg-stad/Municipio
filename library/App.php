@@ -956,6 +956,9 @@ class App
                 (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupTermsNoLongerInUse($sourceConfig, $this->wpService))->addHooks();
             }
 
+            // Apply filters before sync.
+            (new \Municipio\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
+
             $syncHandler->sync();
         }, 10, 2);
 
