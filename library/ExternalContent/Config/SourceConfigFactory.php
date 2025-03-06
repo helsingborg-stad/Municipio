@@ -124,6 +124,12 @@ class SourceConfigFactory
         return array_filter($taxonomyConfigurations);
     }
 
+    /**
+     * Get filter definition from named settings.
+     *
+     * @param array $namedSettings The named settings array.
+     * @return FilterDefinitionInterface The filter definition.
+     */
     public function getFilterDefinitionFromNamedSettings(array $namedSettings): FilterDefinitionInterface
     {
         $rules = array_map(function ($rule) {
@@ -221,6 +227,14 @@ class SourceConfigFactory
         return $this->wpService->getOptions($taxonomyOptionNames);
     }
 
+    /**
+     * Fetch filter rules options from the database.
+     *
+     * @param string $groupName The group name.
+     * @param int $nbrOfRows The number of rows.
+     * @param array $options The options.
+     * @return array The fetched filter rules options.
+     */
     private function fetchFilterRulesOptions(string $groupName, int $nbrOfRows, array $options): array
     {
         $filterRulesOptionNames = [];
@@ -313,6 +327,14 @@ class SourceConfigFactory
         return $taxonomies;
     }
 
+    /**
+     * Build filter rules settings.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param array $settings The settings.
+     * @return array The filter rules settings.
+     */
     private function buildFilterRulesSettings(string $groupName, int $rowIndex, array $settings): array
     {
         $nbrOfFilterRules = intval($settings["{$groupName}_{$rowIndex}_rules"] ?? 0);
@@ -353,6 +375,15 @@ class SourceConfigFactory
         return $taxonomy;
     }
 
+    /**
+     * Build single filter rule.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param int $filterRuleRowIndex The filter rule row index.
+     * @param array $settings The settings.
+     * @return array The filter rule.
+     */
     private function buildSingleFilterRule(string $groupName, int $rowIndex, int $filterRuleRowIndex, array $settings): array
     {
         $filterRule = [];
