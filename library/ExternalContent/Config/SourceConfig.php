@@ -2,6 +2,8 @@
 
 namespace Municipio\ExternalContent\Config;
 
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
+
 /**
  * Class SourceConfig
  *
@@ -16,7 +18,7 @@ class SourceConfig implements SourceConfigInterface
      * @param string $automaticImportSchedule
      * @param string $schemaType
      * @param string $sourceType
-     * @param array $taxonomies
+     * @param SourceTaxonomyConfigInterface[] $taxonomies
      * @param string $sourceJsonFilePath
      * @param string $sourceTypesenseApiKey
      * @param string $sourceTypesenseProtocol
@@ -25,17 +27,18 @@ class SourceConfig implements SourceConfigInterface
      * @param string $sourceTypesenseCollection
      */
     public function __construct(
-        private string $postType = '',
-        private string $automaticImportSchedule = '',
-        private string $schemaType = '',
-        private string $sourceType = '',
-        private array $taxonomies = [],
-        private string $sourceJsonFilePath = '',
-        private string $sourceTypesenseApiKey = '',
-        private string $sourceTypesenseProtocol = '',
-        private string $sourceTypesenseHost = '',
-        private string $sourceTypesensePort = '',
-        private string $sourceTypesenseCollection = ''
+        private string $postType,
+        private string $automaticImportSchedule,
+        private string $schemaType,
+        private string $sourceType,
+        private array $taxonomies,
+        private string $sourceJsonFilePath,
+        private string $sourceTypesenseApiKey,
+        private string $sourceTypesenseProtocol,
+        private string $sourceTypesenseHost,
+        private string $sourceTypesensePort,
+        private string $sourceTypesenseCollection,
+        private FilterDefinition $filterDefinition
     ) {
     }
 
@@ -125,5 +128,21 @@ class SourceConfig implements SourceConfigInterface
     public function getSourceTypesenseCollection(): string
     {
         return $this->sourceTypesenseCollection;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): string
+    {
+        return $this->postType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getFilterDefinition(): FilterDefinition
+    {
+        return $this->filterDefinition;
     }
 }

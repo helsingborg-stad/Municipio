@@ -25,10 +25,6 @@ use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;
-use Municipio\ExternalContent\Sync\SyncInPorgress\PostTypeSyncInProgress;
-use Municipio\ExternalContent\Sync\Triggers\TriggerSync;
-use Municipio\ExternalContent\Sync\Triggers\TriggerSyncIfNotInProgress;
-use Municipio\ExternalContent\Taxonomy\TaxonomyItem;
 use Municipio\ExternalContent\UI\HideSyncedMediaFromAdminMediaLibrary;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
@@ -59,6 +55,11 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\CommonOptions\CommonOptionsConfig;
+use Municipio\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
+use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 
 /**
  * Class App
@@ -901,66 +902,34 @@ class App
         /**
          * Allow cron to edit posts.
          */
-        $this->hooksRegistrar->register(new AllowCronToEditPosts($this->wpService));
+        (new AllowCronToEditPosts($this->wpService))->addHooks();
 
         /**
-         * Feature config
+         * Configurations for external content sources.
          */
         $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
         /**
-         * Register taxonomies for external content.
-         * @var TaxonomyItem[] $taxonomyItems
+         * Register taxonomies from source configurations.
          */
-        $taxonomyItems = array_merge(...array_map(function ($config) {
-            return array_map(function ($taxonomyConfig) use ($config) {
-                $taxonomyItem = new TaxonomyItem(
-                    $config->getSchemaType(),
-                    [$config->getPostType()],
-                    $taxonomyConfig,
-                    $this->wpService
-                );
-                $taxonomyItem->register(); // Register the taxonomy.
-                return $taxonomyItem;
-            }, $config->getTaxonomies() ?: []);
-        }, $sourceConfigs));
+        foreach ($sourceConfigs as $sourceConfig) {
+            (new RegisterTaxonomiesFromSourceConfig($sourceConfig, $this->wpService))->registerTaxonomies();
+        }
 
         /**
          * Setup cron jobs on config change.
          */
-        $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange(
-                $sourceConfigs,
-                new WpCronJobManager('municipio_external_content_sync_', $this->wpService),
-                $this->wpService
-            )
-        );
+        (new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange($sourceConfigs, new WpCronJobManager('municipio_external_content_sync_', $this->wpService), $this->wpService))->addHooks();
 
         /**
          * Disable editing of post type using external content source.
          */
-        $this->hooksRegistrar->register(
-            new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService)
-        );
+        (new DisableEditingOfPostTypeUsingExternalContentSource($sourceConfigs, $this->wpService))->addHooks();
 
         /**
-         * Build sources to sync from.
+         * Sync external content.
          */
-        $sources = (new \Municipio\ExternalContent\Sources\SourceFactory(
-            $sourceConfigs,
-            $this->wpService
-        ))->createSources();
-
-        /**
-         * Start sync if event is triggered.
-         */
-        $syncEventListener = new \Municipio\ExternalContent\Sync\SyncEventListener(
-            $sources,
-            $taxonomyItems,
-            $this->wpService,
-            $this->wpdb
-        );
-        $this->hooksRegistrar->register($syncEventListener);
+        (new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceConfigs, $this->wpService))->addHooks();
 
         /**
          * Only run the following if user is admin.
@@ -1016,36 +985,23 @@ class App
         /**
          * Add sync button to post list.
          */
-        $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService)
-        );
+        (new \Municipio\ExternalContent\UI\PostTableSyncButton($sourceConfigs, $this->wpService))->addHooks();
 
         /**
          * Add sync button to post row.
          */
-        $this->hooksRegistrar->register(
-            new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService)
-        );
+        (new \Municipio\ExternalContent\UI\PageRowActionsSyncButton($sourceConfigs, $this->wpService))->addHooks();
 
         /**
          * Trigger sync of external content.
          */
-        $triggerSync = new TriggerSync($this->wpService);
-        $triggerSync = new TriggerSyncIfNotInProgress(new PostTypeSyncInProgress($this->wpService), $triggerSync);
-        $triggerSync = new \Municipio\ExternalContent\Sync\Triggers\TriggerSyncFromGetParams(
-            $this->wpService,
-            $triggerSync
-        );
-        $this->hooksRegistrar->register($triggerSync);
+        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSync($this->wpService);
+        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress(new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService), $triggerSync);
+        (new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams($this->wpService, $triggerSync))->addHooks();
 
         /**
          * Hide synced media from media library in admin.
          */
-        $this->hooksRegistrar->register(
-            new HideSyncedMediaFromAdminMediaLibrary(
-                ThumbnailDecorator::META_KEY,
-                $this->wpService
-            )
-        );
+        (new HideSyncedMediaFromAdminMediaLibrary(ThumbnailDecorator::META_KEY, $this->wpService))->addHooks();
     }
 }

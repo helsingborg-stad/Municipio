@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\Utils;
 
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Thing;
@@ -76,7 +75,7 @@ class OutputPostSchemaJsonInSingleHeadTest extends TestCase {
             }
             public function getPost(null|int|WP_Post $post = null, string $output = 'OBJECT', string $filter = "raw"): WP_Post|array|null
             {
-                return WpMockFactory::createWpPost(['ID' => 1]);
+                return new WP_Post((object) ['ID' => 1]);
             }
         };
     }

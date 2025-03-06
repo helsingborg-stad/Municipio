@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use WpService\Contracts\GetPosts;
 
@@ -11,17 +10,32 @@ use WpService\Contracts\GetPosts;
  */
 class IdDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner, private GetPosts $wpService)
-    {
+    /**
+     * Class constructor.
+     *
+     * @param string $postType
+     * @param string $sourceId
+     * @param WpPostArgsFromSchemaObjectInterface $inner
+     * @param GetPosts $wpService
+     */
+    public function __construct(
+        private string $postType,
+        private string $sourceId,
+        private WpPostArgsFromSchemaObjectInterface $inner,
+        private GetPosts $wpService
+    ) {
     }
 
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    /**
+     * @inheritDoc
+     */
+    public function transform(BaseType $schemaObject): array
     {
-        $post = $this->inner->create($schemaObject, $source);
+        $post = $this->inner->transform($schemaObject);
 
         if (!empty($schemaObject['@id'])) {
             $postWithSameOriginId = $this->wpService->getPosts([
-                'post_type'      => $source->getPostType(),
+                'post_type'      => $this->postType,
                 'posts_per_page' => 1,
                 'fields'         => 'ids',
                 'meta_query'     => [
@@ -33,7 +47,7 @@ class IdDecorator implements WpPostArgsFromSchemaObjectInterface
                     ],
                     [
                         'key'     => 'sourceId',
-                        'value'   => $source->getId(),
+                        'value'   => $this->sourceId,
                         'compare' => '='
                     ]
                 ]

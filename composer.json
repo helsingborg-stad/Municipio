@@ -55,7 +55,8 @@
         "lint:changed": "vendor/bin/phpcs-changed origin/main",
         "fix": "vendor/bin/phpcbf",
         "fix:changed": "vendor/bin/phpcbf-changed origin/main",
-        "post-update-cmd": []
+        "post-update-cmd": [],
+        "unused": "vendor/bin/class-leak check library"
     },
     "config": {
         "allow-plugins": {
@@ -68,7 +69,9 @@
         "helsingborg-stad/phpcs": "^0.3.1",
         "10up/wp_mock": "dev-trunk#1.0.1",
         "php-mock/php-mock-mockery": "^1.4",
-        "php-stubs/wordpress-stubs": "^6.5"
+        "php-stubs/wordpress-stubs": "^6.7",
+        "dg/bypass-finals": "^1.9",
+        "tomasvotruba/class-leak": "^2.0"
     },
     "autoload": {
         "psr-4": {

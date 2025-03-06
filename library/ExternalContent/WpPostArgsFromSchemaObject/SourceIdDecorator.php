@@ -2,19 +2,30 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
+/**
+ * Class SourceIdDecorator
+ */
 class SourceIdDecorator implements WpPostArgsFromSchemaObjectInterface
 {
-    public function __construct(private WpPostArgsFromSchemaObjectInterface $inner)
+    /**
+     * SourceIdDecorator constructor.
+     *
+     * @param string $sourceId
+     * @param WpPostArgsFromSchemaObjectInterface $inner
+     */
+    public function __construct(private string $sourceId, private WpPostArgsFromSchemaObjectInterface $inner)
     {
     }
 
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    /**
+     * @inheritDoc
+     */
+    public function transform(BaseType $schemaObject): array
     {
-        $post                           = $this->inner->create($schemaObject, $source);
-        $post['meta_input']['sourceId'] = $source->getId();
+        $post                           = $this->inner->transform($schemaObject);
+        $post['meta_input']['sourceId'] = $this->sourceId;
 
         return $post;
     }

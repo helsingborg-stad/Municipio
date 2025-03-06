@@ -209,6 +209,10 @@ class User implements
             return null;
         }
 
+        if (!$this->wpService->isMultisite()) {
+            return null;
+        }
+
         $perfersGroupUrl = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {

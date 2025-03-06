@@ -6,6 +6,7 @@ use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\Ex
 use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
 use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
 use Municipio\ExternalContent\Config\SourceConfigInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
 
@@ -96,6 +97,14 @@ class WpCronJobFromPostTypeSettingsTest extends TestCase
             public function getSourceTypesenseProtocol(): string
             {
                 return '';
+            }
+            public function getId(): string
+            {
+                return 'test-id';
+            }
+            public function getFilterDefinition(): FilterDefinition
+            {
+                return new FilterDefinition([]);
             }
         };
     }

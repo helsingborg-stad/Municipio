@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 
 /**
@@ -22,10 +21,10 @@ class AddChecksum implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function transform(BaseType $schemaObject): array
     {
-        $postArgs = $this->inner->create($schemaObject, $source);
-        $checksum = md5(json_encode($this->inner->create($schemaObject, $source)));
+        $postArgs = $this->inner->transform($schemaObject);
+        $checksum = md5(json_encode($this->inner->transform($schemaObject)));
 
         if (!isset($postArgs['meta_input'])) {
             $postArgs['meta_input'] = [];

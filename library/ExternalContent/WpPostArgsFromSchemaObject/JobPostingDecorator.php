@@ -2,7 +2,6 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Municipio\ExternalContent\Sources\SourceInterface;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\JobPosting;
 
@@ -23,9 +22,9 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
     /**
      * @inheritDoc
      */
-    public function create(BaseType $schemaObject, SourceInterface $source): array
+    public function transform(BaseType $schemaObject): array
     {
-        $post = $this->inner->create($schemaObject, $source);
+        $post = $this->inner->transform($schemaObject);
 
         if ($schemaObject instanceof JobPosting) {
             $post = $this->applyPropertiesFromJobPosting($post, $schemaObject);
@@ -34,6 +33,13 @@ class JobPostingDecorator implements WpPostArgsFromSchemaObjectInterface
         return $post;
     }
 
+    /**
+     * Apply properties from JobPosting schema object.
+     *
+     * @param array $post The post array.
+     * @param JobPosting $schemaObject The JobPosting schema object.
+     * @return array The post array with properties applied.
+     */
     private function applyPropertiesFromJobPosting(array $post, JobPosting $schemaObject): array
     {
         if (!empty($schemaObject['title'])) {

@@ -3,8 +3,8 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\PostObject;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Post;
 use WpService\Implementations\FakeWpService;
 
 class PostObjectFromWpPostTest extends TestCase
@@ -14,8 +14,9 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetCommentCountReturnsAmountOfComments()
     {
-        $wpService = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
-        $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
+        $wpService  = new FakeWpService(['getCommentCount' => ['approved' => 2]]);
+        $wpPost     = new WP_Post([]);
+        $wpPost->ID = 1;
 
         $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
 
@@ -29,8 +30,9 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetPermalinkReturnsPermalink()
     {
-        $wpService = new FakeWpService(['getPermalink' => 'http://example.com']);
-        $wpPost    = WpMockFactory::createWpPost(['ID' => 1]);
+        $wpService  = new FakeWpService(['getPermalink' => 'http://example.com']);
+        $wpPost     = new WP_Post([]);
+        $wpPost->ID = 1;
 
         $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
 
@@ -44,8 +46,9 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetTitleReturnsTitle()
     {
-        $wpPost   = WpMockFactory::createWpPost(['post_title' => 'Title']);
-        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $wpPost             = new WP_Post([]);
+        $wpPost->post_title = 'Title';
+        $instance           = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('Title', $instance->getTitle());
     }
@@ -55,8 +58,9 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetPostTypeReturnsPostType()
     {
-        $wpPost   = WpMockFactory::createWpPost(['post_type' => 'post']);
-        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $wpPost            = new WP_Post([]);
+        $wpPost->post_date = 'post';
+        $instance          = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('post', $instance->getPostType());
     }
@@ -66,9 +70,10 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetPublishedTimeReturnsTimestampFromTheWpPostPostDate()
     {
-        $dateTimeString = date('Y-m-d H:i:s', $now = time());
-        $wpPost         = WpMockFactory::createWpPost(['post_date' => $dateTimeString]);
-        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $dateTimeString    = date('Y-m-d H:i:s', $now = time());
+        $wpPost            = new WP_Post([]);
+        $wpPost->post_date = $dateTimeString;
+        $instance          = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getPublishedTime());
     }
@@ -78,9 +83,10 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetPublishedTimeReturnsGmtTimestampFromTheWpPostPostDateGmt()
     {
-        $dateTimeString = date('Y-m-d H:i:s', $now = time());
-        $wpPost         = WpMockFactory::createWpPost(['post_date_gmt' => $dateTimeString]);
-        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $dateTimeString        = date('Y-m-d H:i:s', $now = time());
+        $wpPost                = new WP_Post([]);
+        $wpPost->post_date_gmt = $dateTimeString;
+        $instance              = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getPublishedTime(true));
     }
@@ -90,9 +96,10 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetModifiedTimeReturnsTimestampFromTheWpPostPostModified()
     {
-        $dateTimeString = date('Y-m-d H:i:s', $now = time());
-        $wpPost         = WpMockFactory::createWpPost(['post_modified' => $dateTimeString]);
-        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $dateTimeString        = date('Y-m-d H:i:s', $now = time());
+        $wpPost                = new WP_Post([]);
+        $wpPost->post_modified = $dateTimeString;
+        $instance              = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getModifiedTime());
     }
@@ -102,9 +109,10 @@ class PostObjectFromWpPostTest extends TestCase
      */
     public function testGetModifiedTimeReturnsGmtTimestampFromTheWpPostPostModifiedGmt()
     {
-        $dateTimeString = date('Y-m-d H:i:s', $now = time());
-        $wpPost         = WpMockFactory::createWpPost(['post_modified_gmt' => $dateTimeString]);
-        $instance       = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $dateTimeString            = date('Y-m-d H:i:s', $now = time());
+        $wpPost                    = new WP_Post([]);
+        $wpPost->post_modified_gmt = $dateTimeString;
+        $instance                  = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getModifiedTime(true));
     }

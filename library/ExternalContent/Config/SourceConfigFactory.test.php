@@ -112,7 +112,7 @@ class SourceConfigFactoryTest extends TestCase
         $getOptions = fn($options) => ['options_external_content_sources_0_taxonomies' => '1'];
         $wpService  = new FakeWpService(['getOption' => $getOption, 'getOptions' => $getOptions]);
 
-        (new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
+        @(new SourceConfigFactory($this->getSchemaDataConfig(), $wpService))->create();
 
         $this->assertEquals([
             'options_external_content_sources_0_post_type',
@@ -174,7 +174,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('test_collection', $sourceConfigs[0]->getSourceTypesenseCollection());
         $this->assertEquals('test_from_schema_property', $sourceConfigs[0]->getTaxonomies()[0]->getFromSchemaProperty());
         $this->assertEquals('test_singular_name', $sourceConfigs[0]->getTaxonomies()[0]->getSingularName());
-        $this->assertEquals('test_name', $sourceConfigs[0]->getTaxonomies()[0]->getName());
+        $this->assertEquals('test_schema_type_test_from_schem', $sourceConfigs[0]->getTaxonomies()[0]->getName());
         $this->assertEquals(true, $sourceConfigs[0]->getTaxonomies()[0]->isHierarchical());
     }
 

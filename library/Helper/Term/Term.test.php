@@ -3,8 +3,9 @@
 namespace Municipio\Helper\Term;
 
 use AcfService\Implementations\FakeAcfService;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Error;
+use WP_Term;
 use WpService\Implementations\FakeWpService;
 
 class TermTests extends TestCase
@@ -48,9 +49,12 @@ class TermTests extends TestCase
      */
     public function testGetTermColorReturnsFalseIfTermIsFoundButHasNoColour()
     {
-        $acfService = new FakeAcfService(['getField' => null]);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $acfService     = new FakeAcfService(['getField' => null]);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'getAncestors' => [],
             'applyFilters' => fn($hook, $value) => $value]);
 
@@ -65,12 +69,15 @@ class TermTests extends TestCase
      */
     public function testGetTermColorReturnsTheColourOfTheTermIfItHasOne()
     {
-        $acfService = new FakeAcfService(['getField' => '#000000']);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $acfService     = new FakeAcfService(['getField' => '#000000']);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'applyFilters' => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
+        $termHelper     = new Term($wpService, $acfService);
 
         $this->assertEquals('#000000', $termHelper->getTermColor(123, 'category'));
     }
@@ -81,12 +88,15 @@ class TermTests extends TestCase
      */
     public function testGetTermColorPrependsAHashToTheColourIfItDoesNotHaveOne()
     {
-        $acfService = new FakeAcfService(['getField' => '000000']);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $acfService     = new FakeAcfService(['getField' => '000000']);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'applyFilters' => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
+        $termHelper     = new Term($wpService, $acfService);
 
         $this->assertEquals('#000000', $termHelper->getTermColor(123, 'category'));
     }
@@ -96,10 +106,13 @@ class TermTests extends TestCase
      */
     public function testGetAncestorTermColorReturnsFalseIfTermHasNoAncestors()
     {
-        $wpService  = new FakeWpService(['getAncestors' => []]);
-        $termHelper = new Term($wpService, new FakeAcfService());
+        $wpService      = new FakeWpService(['getAncestors' => []]);
+        $termHelper     = new Term($wpService, new FakeAcfService());
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
 
-        $this->assertFalse($termHelper->getAncestorTermColor(WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category'])));
+        $this->assertFalse($termHelper->getAncestorTermColor($term));
     }
 
     /**
@@ -107,12 +120,15 @@ class TermTests extends TestCase
      */
     public function testGetAncestorTermColorReturnsFalseIfNoAncestorHasAColour()
     {
-        $acfService = new FakeAcfService(['getField' => null]);
-        $wpService  = new FakeWpService([ 'getAncestors' => [1, 2, 3]]);
+        $acfService     = new FakeAcfService(['getField' => null]);
+        $wpService      = new FakeWpService([ 'getAncestors' => [1, 2, 3]]);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
 
         $termHelper = new Term($wpService, $acfService);
 
-        $this->assertFalse($termHelper->getAncestorTermColor(WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category'])));
+        $this->assertFalse($termHelper->getAncestorTermColor($term));
     }
 
     /**
@@ -120,12 +136,16 @@ class TermTests extends TestCase
      */
     public function testGetAncestorTermColorReturnsTheColourOfTheFirstAncestorThatHasAColour()
     {
-        $acfService = new FakeAcfService(['getField' => '#000000']);
-        $wpService  = new FakeWpService([ 'getAncestors' => [1, 2, 3]]);
+        $acfService     = new FakeAcfService(['getField' => '#000000']);
+        $wpService      = new FakeWpService([ 'getAncestors' => [1, 2, 3]]);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
 
         $termHelper = new Term($wpService, $acfService);
 
-        $this->assertEquals('#000000', $termHelper->getAncestorTermColor(WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category'])));
+
+        $this->assertEquals('#000000', $termHelper->getAncestorTermColor($term));
     }
 
     /**
@@ -147,12 +167,15 @@ class TermTests extends TestCase
      */
     public function testGetTermIconReturnsFalseIfTermHasNoIcon()
     {
-        $acfService = new FakeAcfService(['getField' => null]);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $acfService     = new FakeAcfService(['getField' => null]);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'applyFilters' => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
+        $termHelper     = new Term($wpService, $acfService);
 
         $this->assertFalse($termHelper->getTermIcon(123, 'category'));
     }
@@ -163,12 +186,15 @@ class TermTests extends TestCase
      */
     public function testGetTermIconReturnsTheIconOfTheTermIfItHasOne()
     {
-        $acfService = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $acfService     = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'applyFilters' => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
+        $termHelper     = new Term($wpService, $acfService);
 
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
     }
@@ -179,19 +205,22 @@ class TermTests extends TestCase
      */
     public function testGetTermIconReturnsTheSvgIconOfTheTermIfItHasOne()
     {
-        $acfService = new FakeAcfService([
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $acfService     = new FakeAcfService([
             'getField' => [
                 'type'     => 'svg',
                 'svg_icon' => '<svg></svg>',
                 'svg'      => ['ID' => 1, 'description' => 'description']]
             ]);
-        $wpService  = new FakeWpService([
-            'getTermBy'               => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $wpService      = new FakeWpService([
+            'getTermBy'               => $term,
             'wpGetAttachmentImageUrl' => 'attachment-url',
             'applyFilters'            => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
-        $icon       = $termHelper->getTermIcon(123, 'category');
+        $termHelper     = new Term($wpService, $acfService);
+        $icon           = $termHelper->getTermIcon(123, 'category');
 
         $this->assertEquals('attachment-url', $icon['src']);
         $this->assertEquals('svg', $icon['type']);
@@ -204,12 +233,15 @@ class TermTests extends TestCase
      */
     public function testGetTermIconReturnsCachedResultIfTermHasBeenCheckedBefore()
     {
-        $acfService = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
-        $wpService  = new FakeWpService([
-            'getTermBy'    => WpMockFactory::createWpTerm(['term_id' => 123, 'taxonomy' => 'category']),
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $acfService     = new FakeAcfService(['getField' => ['type' => 'icon', 'material_icon' => 'home']]);
+        $wpService      = new FakeWpService([
+            'getTermBy'    => $term,
             'applyFilters' => fn($hook, $value) => $value]);
 
-        $termHelper = new Term($wpService, $acfService);
+        $termHelper     = new Term($wpService, $acfService);
 
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
         $this->assertEquals(['src' => 'home', 'type' => 'icon'], $termHelper->getTermIcon(123, 'category'));
@@ -222,8 +254,12 @@ class TermTests extends TestCase
      */
     public function testCreateOrGetTermIdFromStringReturnsTermIdIfTermAlreadyExists()
     {
-        $wpService  = new FakeWpService(['getTermBy' => WpMockFactory::createWpTerm(['term_id' => 123])]);
-        $termHelper = new Term($wpService, new FakeAcfService());
+
+        $term           = new WP_Term([]);
+        $term->term_id  = 123;
+        $term->taxonomy = 'category';
+        $wpService      = new FakeWpService(['getTermBy' => $term]);
+        $termHelper     = new Term($wpService, new FakeAcfService());
 
         $this->assertEquals(123, $termHelper->createOrGetTermIdFromString('term', 'category'));
     }
@@ -235,7 +271,7 @@ class TermTests extends TestCase
     {
         $wpService  = new FakeWpService([
             'getTermBy'    => false,
-            'wpInsertTerm' => WpMockFactory::createWpError(),
+            'wpInsertTerm' => new WP_Error(),
             'isWpError'    => true]);
         $termHelper = new Term($wpService, new FakeAcfService());
 

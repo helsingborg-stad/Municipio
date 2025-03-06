@@ -4,8 +4,8 @@ namespace Municipio\Comment;
 
 use AcfService\AcfService;
 use AcfService\Implementations\FakeAcfService;
-use Municipio\TestUtils\WpMockFactory;
 use PHPUnit\Framework\TestCase;
+use WP_Comment_Query;
 use WpService\Implementations\FakeWpService;
 use WpService\WpService;
 
@@ -32,8 +32,9 @@ class OptionalHideDiscussionWhenLoggedOutTest extends TestCase
     public function testNotHiddenWhenLoggedIn(): void
     {
         $this->setUpServices(true, true);
-        $commentQuery = WpMockFactory::createWpCommentQuery(['query_vars' => []]);
-        $sut          = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
+        $commentQuery             = new WP_Comment_Query();
+        $commentQuery->query_vars = [];
+        $sut                      = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
         $sut->hideDiscussionFromLoggedOutUser($commentQuery);
 
         $this->assertArrayNotHasKey('post__in', $commentQuery->query_vars);
@@ -42,8 +43,9 @@ class OptionalHideDiscussionWhenLoggedOutTest extends TestCase
     public function testNotHiddenWhenLoggedOutAndOptionDisabled(): void
     {
         $this->setUpServices(false, false);
-        $commentQuery = WpMockFactory::createWpCommentQuery(['query_vars' => []]);
-        $sut          = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
+        $commentQuery             = new WP_Comment_Query();
+        $commentQuery->query_vars = [];
+        $sut                      = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
         $sut->hideDiscussionFromLoggedOutUser($commentQuery);
 
         $this->assertArrayNotHasKey('post__in', $commentQuery->query_vars);
@@ -52,8 +54,9 @@ class OptionalHideDiscussionWhenLoggedOutTest extends TestCase
     public function testHiddenWhenLoggedOutAndOptionEnabled(): void
     {
         $this->setUpServices(false, true);
-        $commentQuery = WpMockFactory::createWpCommentQuery(['query_vars' => []]);
-        $sut          = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
+        $commentQuery             = new WP_Comment_Query();
+        $commentQuery->query_vars = [];
+        $sut                      = new OptionalHideDiscussionWhenLoggedOut($this->wpService, $this->acfService);
         $sut->hideDiscussionFromLoggedOutUser($commentQuery);
 
         $this->assertEquals([0], $commentQuery->query_vars['post__in']);

@@ -29,7 +29,7 @@
     
     <rule ref="Squiz.Commenting.ClassComment.Missing">
         <type>warning</type>
-        <exclude-pattern>./library/**/*.test.php</exclude-pattern>
+        <exclude-pattern>./library/*.test.php</exclude-pattern>
         <exclude-pattern>./tests/phpunit/tests/**/*.php</exclude-pattern>
     </rule>
 
