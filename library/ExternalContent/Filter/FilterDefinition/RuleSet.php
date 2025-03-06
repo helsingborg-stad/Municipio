@@ -21,9 +21,6 @@ class RuleSet implements RuleSetInterface
     public function __construct(
         private array $rules,
     ) {
-        if (empty($rules)) {
-            throw new \InvalidArgumentException('Rules must not be empty.');
-        }
     }
 
     /**

@@ -63,6 +63,7 @@ class SourceReaderFromConfig implements SourceReaderFromConfigInterface
         $api                               = new TypesenseApi($config, WpService::get());
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $getParamsString                   = $filterDefinitionToTypesenseParams->transform($config->getFilterDefinition());
+        $getParamsString                   = !empty($getParamsString) ? '?' . $getParamsString : ''; // Add '?' if there are any parameters
 
         return new TypesenseSourceReader($api, $getParamsString, new SimpleJsonConverter());
     }
