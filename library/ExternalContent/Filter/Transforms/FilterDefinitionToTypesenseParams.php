@@ -30,7 +30,7 @@ class FilterDefinitionToTypesenseParams implements FilterDefinitionToString
         }
 
         // Join multiple rule set strings with the logical OR operator.
-        return implode('||', $filterStrings);
+        return 'filter_by=' . implode('||', $filterStrings);
     }
 
     /**

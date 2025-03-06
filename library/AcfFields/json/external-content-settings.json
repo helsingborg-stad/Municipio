@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_66da923803552",
-            "label": "External Content Sources",
+            "label": "",
             "name": "external_content_sources",
             "aria-label": "",
             "type": "repeater",
@@ -13,7 +13,7 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "acf-admin-page",
                 "id": ""
             },
             "acfe_repeater_stylised_button": 1,
@@ -22,7 +22,7 @@
             "min": 0,
             "max": 0,
             "collapsed": "",
-            "button_label": "Add Row",
+            "button_label": "Add Source",
             "rows_per_page": 20,
             "sub_fields": [
                 {
@@ -35,7 +35,7 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "33",
                         "class": "",
                         "id": ""
                     },
@@ -44,7 +44,8 @@
                     "return_format": "value",
                     "multiple": 0,
                     "allow_null": 0,
-                    "ui": 1,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
                     "allow_custom": 0,
@@ -61,7 +62,7 @@
                     "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "33",
                         "class": "",
                         "id": ""
                     },
@@ -72,12 +73,40 @@
                     "default_value": "json",
                     "return_format": "value",
                     "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
                     "allow_null": 0,
-                    "ui": 1,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_66da923803552"
+                },
+                {
+                    "key": "field_66da9961f781e",
+                    "label": "Automatic import schedule",
+                    "name": "automatic_import_schedule",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "34",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": [],
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
                     "parent_repeater": "field_66da923803552"
                 },
                 {
@@ -110,33 +139,6 @@
                     "parent_repeater": "field_66da923803552"
                 },
                 {
-                    "key": "field_66da933b4c9a3",
-                    "label": "API key",
-                    "name": "source_typesense_api_key",
-                    "aria-label": "",
-                    "type": "password",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": [
-                        [
-                            {
-                                "field": "field_66da92a003554",
-                                "operator": "==",
-                                "value": "typesense"
-                            }
-                        ]
-                    ],
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_66da923803552"
-                },
-                {
                     "key": "field_66da93814c9a4",
                     "label": "Protocol",
                     "name": "source_typesense_protocol",
@@ -154,7 +156,7 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "",
+                        "width": "11",
                         "class": "",
                         "id": ""
                     },
@@ -165,12 +167,13 @@
                     "default_value": "https",
                     "return_format": "value",
                     "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
                     "allow_null": 0,
+                    "allow_in_bindings": 1,
                     "ui": 0,
                     "ajax": 0,
                     "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
                     "parent_repeater": "field_66da923803552"
                 },
                 {
@@ -191,12 +194,13 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "",
+                        "width": "26",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -207,7 +211,7 @@
                     "label": "Port",
                     "name": "source_typesense_port",
                     "aria-label": "",
-                    "type": "number",
+                    "type": "text",
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": [
@@ -220,15 +224,14 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "",
+                        "width": "11",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
-                    "min": "",
-                    "max": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
-                    "step": "",
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_66da923803552"
@@ -251,41 +254,46 @@
                         ]
                     ],
                     "wrapper": {
-                        "width": "",
+                        "width": "26",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_66da923803552"
                 },
                 {
-                    "key": "field_66da9961f781e",
-                    "label": "Automatic import schedule",
-                    "name": "automatic_import_schedule",
+                    "key": "field_66da933b4c9a3",
+                    "label": "API key",
+                    "name": "source_typesense_api_key",
                     "aria-label": "",
-                    "type": "select",
+                    "type": "text",
                     "instructions": "",
                     "required": 0,
-                    "conditional_logic": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_66da92a003554",
+                                "operator": "==",
+                                "value": "typesense"
+                            }
+                        ]
+                    ],
                     "wrapper": {
-                        "width": "",
+                        "width": "26",
                         "class": "",
                         "id": ""
                     },
-                    "choices": [],
-                    "default_value": false,
-                    "return_format": "value",
-                    "multiple": 0,
-                    "allow_custom": 0,
-                    "search_placeholder": "",
-                    "allow_null": 0,
-                    "ui": 0,
-                    "ajax": 0,
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
                     "placeholder": "",
+                    "prepend": "",
+                    "append": "",
                     "parent_repeater": "field_66da923803552"
                 },
                 {
@@ -390,12 +398,112 @@
                             },
                             "message": "",
                             "default_value": 0,
+                            "allow_in_bindings": 1,
                             "ui": 0,
                             "ui_on_text": "",
                             "ui_off_text": "",
                             "parent_repeater": "field_66da99ce96264"
                         }
                     ]
+                },
+                {
+                    "key": "field_67c940e8a3f5d",
+                    "label": "Filters rules",
+                    "name": "rules",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "acfe_repeater_stylised_button": 0,
+                    "layout": "table",
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Add filter rule",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_67c9411ba3f5e",
+                            "label": "Property path",
+                            "name": "property_path",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_67c940e8a3f5d"
+                        },
+                        {
+                            "key": "field_67c9413ba3f5f",
+                            "label": "Operator",
+                            "name": "operator",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "EQUALS": "is equal to",
+                                "NOT_EQUALS": "is not equal to"
+                            },
+                            "default_value": "EQUALS",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "allow_custom": 0,
+                            "search_placeholder": "",
+                            "parent_repeater": "field_67c940e8a3f5d"
+                        },
+                        {
+                            "key": "field_67c941a5a3f60",
+                            "label": "value",
+                            "name": "value",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "40",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_67c940e8a3f5d"
+                        }
+                    ],
+                    "parent_repeater": "field_66da923803552"
                 }
             ]
         }
@@ -410,7 +518,7 @@
         ]
     ],
     "menu_order": 0,
-    "position": "normal",
+    "position": "acf_after_title",
     "style": "seamless",
     "label_placement": "top",
     "instruction_placement": "label",

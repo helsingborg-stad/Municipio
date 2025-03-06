@@ -18,15 +18,6 @@ class RuleSetTest extends TestCase
     }
 
     /**
-     * @testdox class can not be instantiated with empty rules
-     */
-    public function testCanBeInstantiatedWithEmptyRules()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        new RuleSet([]);
-    }
-
-    /**
      * @testdox getRules() returns provided rules
      */
     public function testGetRulesReturnsRules()

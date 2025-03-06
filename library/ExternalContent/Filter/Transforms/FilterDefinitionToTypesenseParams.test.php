@@ -41,7 +41,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
 
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
 
-        $this->assertEquals('propertyName:=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
+        $this->assertEquals('filter_by=propertyName:=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
     }
 
     /**
@@ -54,8 +54,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $filterDefinition = new FilterDefinition([$ruleSet]);
 
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
-
-        $this->assertEquals('propertyName:!=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
+        $this->assertEquals('filter_by=propertyName:!=propertyValue', $filterDefinitionToTypesenseParams->transform($filterDefinition));
     }
 
     /**
@@ -71,7 +70,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $transformed                       = $filterDefinitionToTypesenseParams->transform($filterDefinition);
 
-        $this->assertEquals('propertyName1:=propertyValue1&&propertyName2:=propertyValue2', $transformed);
+        $this->assertEquals('filter_by=propertyName1:=propertyValue1&&propertyName2:=propertyValue2', $transformed);
     }
 
     /**
@@ -88,7 +87,7 @@ class FilterDefinitionToTypesenseParamsTest extends TestCase
         $filterDefinitionToTypesenseParams = new FilterDefinitionToTypesenseParams();
         $transformed                       = $filterDefinitionToTypesenseParams->transform($filterDefinition);
 
-        $this->assertEquals('(propertyName1:=propertyValue1)||(propertyName2:=propertyValue2)', $transformed);
+        $this->assertEquals('filter_by=(propertyName1:=propertyValue1)||(propertyName2:=propertyValue2)', $transformed);
     }
 
     private function getFilterDefinitionMock(): FilterDefinitionInterface|MockObject

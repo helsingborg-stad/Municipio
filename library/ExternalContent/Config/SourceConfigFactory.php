@@ -3,7 +3,11 @@
 namespace Municipio\ExternalContent\Config;
 
 use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
 use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
+use Municipio\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;
+use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
+use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;
 
@@ -22,7 +26,8 @@ class SourceConfigFactory
         'source_typesense_protocol',
         'source_typesense_host',
         'source_typesense_port',
-        'source_typesense_collection'
+        'source_typesense_collection',
+        'rules',
     ];
 
     private array $taxonomySubFieldNames = [
@@ -30,6 +35,12 @@ class SourceConfigFactory
         'singular_name',
         'name',
         'hierarchical'
+    ];
+
+    private array $filterRulesSubFieldNames = [
+        'property_path',
+        'operator',
+        'value',
     ];
 
     /**
@@ -79,7 +90,7 @@ class SourceConfigFactory
             $namedSettings['source_typesense_host'] ?? '',
             $namedSettings['source_typesense_port'] ?? '',
             $namedSettings['source_typesense_collection'] ?? '',
-            new FilterDefinition([])
+            $this->getFilterDefinitionFromNamedSettings($namedSettings['rules']),
         );
     }
 
@@ -114,6 +125,22 @@ class SourceConfigFactory
     }
 
     /**
+     * Get filter definition from named settings.
+     *
+     * @param array $namedSettings The named settings array.
+     * @return FilterDefinitionInterface The filter definition.
+     */
+    public function getFilterDefinitionFromNamedSettings(array $namedSettings): FilterDefinitionInterface
+    {
+        $rules = array_map(function ($rule) {
+            $operator = $rule['operator'] === 'NOT_EQUALS' ? Operator::NOT_EQUALS : Operator::EQUALS;
+            return new Rule($rule['property_path'], $rule['value'], $operator);
+        }, $namedSettings);
+
+        return new FilterDefinition([new RuleSet($rules)]);
+    }
+
+    /**
      * Get named settings array.
      *
      * @return array The named settings array.
@@ -127,9 +154,10 @@ class SourceConfigFactory
             return [];
         }
 
-        $options         = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
-        $taxonomyOptions = $this->fetchTaxonomyOptions($groupName, $nbrOfRows, $options);
-        $settings        = array_merge($options, $taxonomyOptions);
+        $options            = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
+        $taxonomyOptions    = $this->fetchTaxonomyOptions($groupName, $nbrOfRows, $options);
+        $filterRulesOptions = $this->fetchFilterRulesOptions($groupName, $nbrOfRows, $options);
+        $settings           = array_merge($options, $taxonomyOptions, $filterRulesOptions);
 
         return $this->buildNamedSettings($groupName, $nbrOfRows, $settings);
     }
@@ -200,6 +228,37 @@ class SourceConfigFactory
     }
 
     /**
+     * Fetch filter rules options from the database.
+     *
+     * @param string $groupName The group name.
+     * @param int $nbrOfRows The number of rows.
+     * @param array $options The options.
+     * @return array The fetched filter rules options.
+     */
+    private function fetchFilterRulesOptions(string $groupName, int $nbrOfRows, array $options): array
+    {
+        $filterRulesOptionNames = [];
+
+        foreach (range(1, $nbrOfRows) as $row) {
+            $rowIndex         = $row - 1;
+            $nbrOfFilterRules = intval($options["{$groupName}_{$rowIndex}_rules"] ?? 0);
+
+            if ($nbrOfFilterRules === 0) {
+                continue;
+            }
+
+            foreach (range(1, $nbrOfFilterRules) as $filterRuleRow) {
+                $filterRuleRowIndex = $filterRuleRow - 1;
+                foreach ($this->filterRulesSubFieldNames as $subFieldName) {
+                    $filterRulesOptionNames[] = "{$groupName}_{$rowIndex}_rules_{$filterRuleRowIndex}_{$subFieldName}";
+                }
+            }
+        }
+
+        return $this->wpService->getOptions($filterRulesOptionNames);
+    }
+
+    /**
      * Build named settings.
      *
      * @param string $groupName The group name.
@@ -238,6 +297,7 @@ class SourceConfigFactory
         }
 
         $rowSettings['taxonomies'] = $this->buildTaxonomySettings($groupName, $rowIndex, $settings);
+        $rowSettings['rules']      = $this->buildFilterRulesSettings($groupName, $rowIndex, $settings);
 
         return $rowSettings;
     }
@@ -268,6 +328,31 @@ class SourceConfigFactory
     }
 
     /**
+     * Build filter rules settings.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param array $settings The settings.
+     * @return array The filter rules settings.
+     */
+    private function buildFilterRulesSettings(string $groupName, int $rowIndex, array $settings): array
+    {
+        $nbrOfFilterRules = intval($settings["{$groupName}_{$rowIndex}_rules"] ?? 0);
+        $filterRules      = [];
+
+        if ($nbrOfFilterRules === 0) {
+            return $filterRules;
+        }
+
+        foreach (range(1, $nbrOfFilterRules) as $filterRuleRow) {
+            $filterRuleRowIndex = $filterRuleRow - 1;
+            $filterRules[]      = $this->buildSingleFilterRule($groupName, $rowIndex, $filterRuleRowIndex, $settings);
+        }
+
+        return $filterRules;
+    }
+
+    /**
      * Build single taxonomy.
      *
      * @param string $groupName The group name.
@@ -288,5 +373,28 @@ class SourceConfigFactory
         }
 
         return $taxonomy;
+    }
+
+    /**
+     * Build single filter rule.
+     *
+     * @param string $groupName The group name.
+     * @param int $rowIndex The row index.
+     * @param int $filterRuleRowIndex The filter rule row index.
+     * @param array $settings The settings.
+     * @return array The filter rule.
+     */
+    private function buildSingleFilterRule(string $groupName, int $rowIndex, int $filterRuleRowIndex, array $settings): array
+    {
+        $filterRule = [];
+
+        foreach ($this->filterRulesSubFieldNames as $subFieldName) {
+            $key = "{$groupName}_{$rowIndex}_rules_{$filterRuleRowIndex}_{$subFieldName}";
+            if (isset($settings[$key])) {
+                $filterRule[$subFieldName] = $settings[$key];
+            }
+        }
+
+        return $filterRule;
     }
 }
