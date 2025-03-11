@@ -16,6 +16,10 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Inject access token in .npmrc
+        run: | 
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
       - name: Install dependencies
         run: npm install
 
