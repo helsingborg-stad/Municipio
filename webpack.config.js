@@ -33,6 +33,7 @@ module.exports = {
         'js/widgets-area-hider': './assets/source/3.0/js/admin/widgetsAreaHider.js',
         'js/customizer-error-handling': './assets/source/3.0/js/admin/customizerErrorHandling.ts',
         'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
+        'js/event-source-progress': './assets/source/3.0/js/admin/eventSourceProgress/index.ts',
 
         /* Admin css */
         'css/acf': './assets/source/3.0/sass/admin/acf.scss',
@@ -128,6 +129,17 @@ module.exports = {
                 ],
             },
             {
+                test: /\?raw$/,
+                use: [
+                    {
+                        loader: 'raw-loader',
+                        options: {
+                            esModule: false,
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     {
@@ -169,7 +181,7 @@ module.exports = {
 
         new WebpackManifestPlugin({
             // Filter manifest items
-            filter: function(file) {
+            filter: function (file) {
                 // Don't include source maps
                 if (file.path.match(/\.(map)$/)) {
                     return false;
@@ -180,30 +192,30 @@ module.exports = {
                 return true;
             },
             // Custom mapping of manifest item goes here
-            map: function(file) {
+            map: function (file) {
                 return file;
             },
         }),
         /** Parse the icon specification in material-symbols, make json */
         function () {
             const filePath = path.resolve(__dirname, 'node_modules', 'material-symbols', 'index.d.ts');
-            
+
             fs.readFile(filePath, 'utf8', (err, data) => {
                 if (err || !data) {
                     console.error(err ? `Error reading icon file: ${filePath} [${err}]` : `No data in icon file: ${filePath}`);
                     return;
                 }
-        
+
                 const [startIndex, endIndex] = [
-                    data.indexOf('['), 
+                    data.indexOf('['),
                     data.indexOf(']')
                 ];
-                
+
                 if (startIndex === -1 || endIndex === -1) {
                     console.error('Could not parse source file. Source file malformed.');
                     return;
                 }
-        
+
                 let iconArray = [];
                 try {
                     iconArray = JSON.parse(data.substring(startIndex, endIndex + 1));
@@ -211,11 +223,11 @@ module.exports = {
                     console.error(`Error parsing icon data: ${parseError}`);
                     return;
                 }
-        
+
                 const json = JSON.stringify(iconArray, null, 2);
                 const resultDirectory = path.resolve(__dirname, 'assets', 'generated');
                 const resultFilepath = path.resolve(resultDirectory, 'icon.json');
-        
+
                 try {
                     fs.mkdirSync(resultDirectory, { recursive: true });
                     fs.writeFileSync(resultFilepath, json);

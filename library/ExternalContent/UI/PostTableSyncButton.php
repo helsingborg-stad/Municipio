@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\UI;
 
+use Municipio\ExternalContent\Rest\AjaxSync;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\CurrentUserCan;
@@ -54,11 +55,11 @@ class PostTableSyncButton implements Hookable
             return;
         }
 
-        $classes    = 'button button-primary';
-        $label      = __('Sync all posts from remote source', 'municipio');
-        $requestUri = $_SERVER['REQUEST_URI'] ?? '';
-        $url        = $this->wpService->wpNonceUrl($requestUri, -1) . '&' . \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams::GET_PARAM_TRIGGER;
+        $classes  = 'button button-primary';
+        $label    = __('Sync all posts from remote source', 'municipio');
+        $ajaxUrl  = admin_url('admin-ajax.php');
+        $ajaxUrl .= '?action=' . AjaxSync::$action . '&post_type=' . $this->wpService->getCurrentScreen()->post_type;
 
-        echo '<a class="' . $classes . '" href="' . $url . '">' . $label . '<a>';
+        echo '<a data-js-progress-url="' . esc_url($ajaxUrl) . '" class="' . $classes . '" href="#">' . $label . '</a>';
     }
 }
