@@ -934,7 +934,7 @@ class App
         /**
          * Ajax sync.
          */
-        (new \Municipio\ExternalContent\Rest\AjaxSync($sourceConfigs, $postTypeSyncInProgress))->addHooks();
+        (new \Municipio\ExternalContent\Rest\AjaxSync($sourceConfigs, $postTypeSyncInProgress, $this->wpService))->addHooks();
 
         /**
          * Only run the following if user is admin.

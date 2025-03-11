@@ -65,18 +65,18 @@ class SyncHandler implements Hookable
         $this->applyFiltersBeforeSync($sourceConfig);
 
 
-        $this->progressService->setMessage('Fetching source data...');
+        $this->progressService->setMessage($this->wpService->__('Fetching source data...', 'municipio'));
         $schemaObjects = $this->getSourceReader($sourceConfig)->getSourceData();
         $schemaObjects = array_values($schemaObjects); // Reset array keys to avoid issues with missing keys.
         $count         = count($schemaObjects);
 
-        $this->progressService->setMessage("Converting {$count} schema objects to WP_Post objects.");
+        $this->progressService->setMessage(sprintf($this->wpService->__("Converting %s schema objects to WP_Post objects.", 'municipio'), $count));
 
         $wpPostArgsArray = [];
         $totalObjects    = count($schemaObjects);
         for ($i = 0; $i < count($schemaObjects); $i++) {
             $iPlusOne = $i + 1;
-            $this->progressService->setMessage("Converting post {$iPlusOne} of {$totalObjects}...");
+            $this->progressService->setMessage(sprintf($this->wpService->__("Converting post %s of %s...", 'municipio'), $iPlusOne, $totalObjects));
             $this->progressService->setPercentage(($iPlusOne / $totalObjects) * 100);
             if ($schemaObjects[$i] === null) {
                 continue;
@@ -90,7 +90,7 @@ class SyncHandler implements Hookable
 
         $schemaObjects = $this->wpService->applyFiltersRefArray(self::FILTER_BEFORE, [$schemaObjects]);
 
-        $this->progressService->setMessage("Inserting posts...");
+        $this->progressService->setMessage($this->wpService->__("Inserting posts...", 'municipio'));
         $this->progressService->setPercentage(0);
 
         for ($i = 0; $i < count($wpPostArgsArray); $i++) {
@@ -99,7 +99,7 @@ class SyncHandler implements Hookable
             $this->progressService->setPercentage(($iPlusOne / $count) * 100);
         }
 
-        $this->progressService->setMessage("Cleaning up...");
+        $this->progressService->setMessage($this->wpService->__("Cleaning up...", 'municipio'));
 
         /**
          * Action after sync.
