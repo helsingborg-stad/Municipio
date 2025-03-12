@@ -54,6 +54,7 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'datePosted',
                 'name',
             ),
+            'Event'               => array( '*' ),
         );
 
         return $this->wpService->applyFilters('Municipio/SchemaData/EnabledSchemaTypes', $typesAndProps);
