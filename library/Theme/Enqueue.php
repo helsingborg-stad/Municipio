@@ -175,6 +175,14 @@ class Enqueue
             false,
             true
         );
+
+        wp_enqueue_script(
+            'event-source-progress',
+            self::getAssetWithCacheBust('js/event-source-progress.js'),
+            array(),
+            false,
+            true
+        );
     }
 
      /**
