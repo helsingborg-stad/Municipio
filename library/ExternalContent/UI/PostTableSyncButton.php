@@ -5,6 +5,7 @@ namespace Municipio\ExternalContent\UI;
 use Municipio\ExternalContent\Rest\AjaxSync;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AdminUrl;
 use WpService\Contracts\CurrentUserCan;
 use WpService\Contracts\EscHtml;
 use WpService\Contracts\GetCurrentScreen;
@@ -23,7 +24,7 @@ class PostTableSyncButton implements Hookable
      */
     public function __construct(
         private array $sourceConfigs,
-        private AddAction&GetCurrentScreen&SubmitButton&WpNonceUrl&EscHtml&CurrentUserCan $wpService
+        private AddAction&GetCurrentScreen&SubmitButton&WpNonceUrl&EscHtml&CurrentUserCan&AdminUrl $wpService
     ) {
     }
 
@@ -57,7 +58,7 @@ class PostTableSyncButton implements Hookable
 
         $classes  = 'button button-primary';
         $label    = __('Sync all posts from remote source', 'municipio');
-        $ajaxUrl  = admin_url('admin-ajax.php');
+        $ajaxUrl  = $this->wpService->adminUrl('admin-ajax.php');
         $ajaxUrl .= '?action=' . AjaxSync::$action . '&post_type=' . $this->wpService->getCurrentScreen()->post_type;
 
         echo '<a data-js-progress-url="' . esc_url($ajaxUrl) . '" class="' . $classes . '" href="#">' . $label . '</a>';
