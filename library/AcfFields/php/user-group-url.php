@@ -150,7 +150,7 @@
         5 => array(
             'key' => 'field_67d1a95c1a77f',
             'label' => __('User can prefer group url', 'municipio'),
-            'name' => 'user_can_prefer_group_url',
+            'name' => 'user_group_user_can_prefer_group_url',
             'aria-label' => '',
             'type' => 'true_false',
             'instructions' => '',

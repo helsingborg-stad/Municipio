@@ -282,4 +282,22 @@ class User implements
             }
         );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function canPreferGroupUrl(?WP_Term $term = null, null|WP_User|int $user = null): bool
+    {
+        $term ??= $this->getUserGroup($user);
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
+
+        $userGroupUrlType = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($termId) {
+                return $this->acfService->getField('user_group_user_can_prefer_group_url', $termId) ?: false;
+            }
+        ) ?? false;
+
+        return (bool) $userGroupUrlType;
+    }
 }

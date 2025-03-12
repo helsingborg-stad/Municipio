@@ -145,7 +145,7 @@
         {
             "key": "field_67d1a95c1a77f",
             "label": "User can prefer group url",
-            "name": "user_can_prefer_group_url",
+            "name": "user_group_user_can_prefer_group_url",
             "aria-label": "",
             "type": "true_false",
             "instructions": "",
