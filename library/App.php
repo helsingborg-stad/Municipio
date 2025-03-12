@@ -60,6 +60,8 @@ use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
 use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\Progress\SseProgressService;
+use Municipio\ProgressReporter\HttpHeader\HttpHeader;
 
 /**
  * Class App
@@ -899,15 +901,13 @@ class App
      */
     private function setupExternalContent(): void
     {
+        $postTypeSyncInProgress = new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService);
+        $sourceConfigs          = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
+
         /**
          * Allow cron to edit posts.
          */
         (new AllowCronToEditPosts($this->wpService))->addHooks();
-
-        /**
-         * Configurations for external content sources.
-         */
-        $sourceConfigs = (new ConfigSourceConfigFactory($this->schemaDataConfig, $this->wpService))->create();
 
         /**
          * Register taxonomies from source configurations.
@@ -929,7 +929,12 @@ class App
         /**
          * Sync external content.
          */
-        (new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceConfigs, $this->wpService))->addHooks();
+        (new \Municipio\ExternalContent\SyncHandler\SyncHandler($sourceConfigs, $this->wpService, new \Municipio\ProgressReporter\NullProgressReporterService()))->addHooks();
+
+        /**
+         * Ajax sync.
+         */
+        (new \Municipio\ExternalContent\Rest\AjaxSync($sourceConfigs, $postTypeSyncInProgress, $this->wpService))->addHooks();
 
         /**
          * Only run the following if user is admin.
@@ -996,7 +1001,7 @@ class App
          * Trigger sync of external content.
          */
         $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSync($this->wpService);
-        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress(new \Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgress($this->wpService), $triggerSync);
+        $triggerSync = new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncIfNotInProgress($postTypeSyncInProgress, $triggerSync);
         (new \Municipio\ExternalContent\SyncHandler\Triggers\TriggerSyncFromGetParams($this->wpService, $triggerSync))->addHooks();
 
         /**

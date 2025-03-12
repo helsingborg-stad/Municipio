@@ -1,5 +1,12 @@
 #sticky-span,
-.inline-edit-status + .alignleft [name="sticky"],
-.inline-edit-status + .alignleft [name="sticky"] + .checkbox-title {
+.inline-edit-status+.alignleft [name="sticky"],
+.inline-edit-status+.alignleft [name="sticky"]+.checkbox-title {
     display: none !important;
+}
+
+.tablenav progress-bar-with-label {
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    padding-left: 16px;
 }
