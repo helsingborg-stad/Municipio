@@ -5,7 +5,7 @@ namespace Municipio\Helper\User;
 use AcfService\Contracts\GetField;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
@@ -25,7 +25,8 @@ class User implements
     GetUserPrefersGroupUrl,
     GetUser,
     GetRedirectToGroupUrl,
-    SetUserGroup
+    SetUserGroup,
+    CanPreferGroupUrl
 {
     /**
      * Constructor.
@@ -242,9 +243,9 @@ class User implements
         }
 
         $perfersGroupUrl = $this->getUserPrefersGroupUrl($user);
-        $groupUrl        = $this->getUserGroupUrl(null, $user);
+        $groupUrl        = $perfersGroupUrl ? $this->getUserGroupUrl(null, $user) : null;
 
-        if ($perfersGroupUrl && $groupUrl) {
+        if ($groupUrl) {
             return $this->wpService->addQueryArg([
                 'loggedin'     => 'true',
                 'prefersgroup' => 'true'
@@ -281,5 +282,23 @@ class User implements
                 }
             }
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function canPreferGroupUrl(?WP_Term $term = null, null|WP_User|int $user = null): bool
+    {
+        $term ??= $this->getUserGroup($user);
+        $termId = $this->userGroupConfig->getUserGroupTaxonomy($user) . '_' . $term->term_id;
+
+        $userGroupUrlType = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($termId) {
+                return $this->acfService->getField('user_group_user_can_prefer_group_url', $termId) ?: false;
+            }
+        ) ?? false;
+
+        return (bool) $userGroupUrlType;
     }
 }
