@@ -42,9 +42,9 @@ class RedirectToUserGroupUrlAfterSsoLoginTest extends TestCase
     public function testGetRedirectUrlReturnsUrlFromGetUserGroupUrl()
     {
         $userHelper = $this->createMock(User::class);
-        $userHelper->method('getRedirectToGroupUrl')->willReturn('http://example.com');
+        $userHelper->method('getRedirectToGroupUrl')->willReturn('http://example.org');
         $sut = new RedirectToUserGroupUrlAfterSsoLogin($userHelper, new FakeWpService());
-        $this->assertEquals('http://example.com', $sut->getRedirectUrl('http://example.org'));
+        $this->assertEquals('http://example.org', $sut->getRedirectUrl('http://example.org'));
     }
 
     /**
