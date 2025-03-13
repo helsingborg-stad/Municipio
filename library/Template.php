@@ -310,8 +310,10 @@ class Template
 
                 $tidy->cleanRepair();
 
+                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $tidy;
             } else {
+                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $markup;
             }
         } catch (\Throwable $e) {
