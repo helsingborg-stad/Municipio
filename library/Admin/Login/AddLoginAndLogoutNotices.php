@@ -43,7 +43,7 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function offerPersistantGroupUrl(): void
     {
-        if ((bool)($_GET['offerPersistantGroupUrl'] ?? false)) {
+        if ((bool)($_GET['offerPersistantGroupUrl'] ?? false) && $this->userHelper->canPreferGroupUrl()) {
             \Municipio\Helper\Notice::add(
                 '',
                 'info',
@@ -62,7 +62,7 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function offerPersistantHomeUrl(): void
     {
-        if ((bool)($_GET['offerPersistantHomeUrl'] ?? false)) {
+        if ((bool)($_GET['offerPersistantHomeUrl'] ?? false) && $this->userHelper->canPreferGroupUrl()) {
             \Municipio\Helper\Notice::add(
                 '',
                 'info',
