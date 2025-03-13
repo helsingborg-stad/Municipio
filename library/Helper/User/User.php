@@ -26,7 +26,8 @@ class User implements
     GetUserPrefersGroupUrl,
     GetUser,
     GetRedirectToGroupUrl,
-    SetUserGroup
+    SetUserGroup,
+    CanPreferGroupUrl
 {
     /**
      * Constructor.
@@ -213,13 +214,7 @@ class User implements
         if (!$this->wpService->isMultisite()) {
             return null;
         }
-
-        // Check if user can prefer group URL (feature enabled)
-        if (!$this->canPreferGroupUrl(null, $user)) {
-            return false;
-        }
-
-        // Check if user prefers group URL
+        
         $perfersGroupUrl = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {

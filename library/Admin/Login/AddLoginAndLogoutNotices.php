@@ -81,7 +81,7 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function setPersistantGroupUrl(): void
     {
-        if ((bool)($_GET['setPersistantGroupUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
+        if ((bool)($_GET['setPersistantGroupUrl'] ?? false) && $this->wpService->isUserLoggedIn() && $this->userHelper->canPreferGroupUrl()) {
             $result = $this->wpService->updateUserMeta(
                 $this->wpService->getCurrentUserId(),
                 $this->userConfig->getUserPrefersGroupUrlMetaKey(),
@@ -103,7 +103,7 @@ class AddLoginAndLogoutNotices implements Hookable
      */
     public function setPersistantHomeUrl(): void
     {
-        if ((bool)($_GET['setPersistantHomeUrl'] ?? false) && $this->wpService->isUserLoggedIn()) {
+        if ((bool)($_GET['setPersistantHomeUrl'] ?? false) && $this->wpService->isUserLoggedIn() && $this->userHelper->canPreferGroupUrl()) {
             $result = $this->wpService->deleteUserMeta(
                 $this->wpService->getCurrentUserId(),
                 $this->userConfig->getUserPrefersGroupUrlMetaKey(),
@@ -129,10 +129,29 @@ class AddLoginAndLogoutNotices implements Hookable
             $currentUserGroupUrl     = $this->userHelper->getUserGroupUrl();
             $userPrefersGroupUrl     = $this->userHelper->getUserPrefersGroupUrl();
             $userPrefersGroupUrlType = $this->userHelper->getUserGroupUrlType();
+            $userCanPreferGroupUrl  = $this->userHelper->canPreferGroupUrl();
 
             \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
 
-            if ($currentUserGroupUrl) {
+            // If user cannot prefer group URL and user has a group URL, show a notice 
+            if(!$userCanPreferGroupUrl && $currentUserGroupUrl) {
+                \Municipio\Helper\Notice::add(
+                    '',
+                    'info',
+                    'login',
+                    [
+                        'url'  => $currentUserGroupUrl,
+                        'text' => sprintf(
+                            $this->wpService->__('Go to %s', 'municipio'),
+                            $currentUserGroup->name ?? $this->wpService->__('home', 'municipio')
+                        ),
+                    ],
+                    'session'
+                );
+                return;
+            }
+
+            if ($userCanPreferGroupUrl && $currentUserGroupUrl) {
                 if ($userPrefersGroupUrl) {
                     $this->messageWhenUserPrefersUserGroupUrl(
                         $userPrefersGroupUrlType
