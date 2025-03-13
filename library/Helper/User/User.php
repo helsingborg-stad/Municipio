@@ -214,6 +214,12 @@ class User implements
             return null;
         }
 
+        // Check if user can prefer group URL (feature enabled)
+        if (!$this->canPreferGroupUrl(null, $user)) {
+            return false;
+        }
+
+        // Check if user prefers group URL
         $perfersGroupUrl = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {
@@ -243,9 +249,9 @@ class User implements
         }
 
         $perfersGroupUrl = $this->getUserPrefersGroupUrl($user);
-        $groupUrl        = $this->getUserGroupUrl(null, $user);
+        $groupUrl        = $perfersGroupUrl ? $this->getUserGroupUrl(null, $user) : null;
 
-        if ($perfersGroupUrl && $groupUrl) {
+        if ($groupUrl) {
             return $this->wpService->addQueryArg([
                 'loggedin'     => 'true',
                 'prefersgroup' => 'true'
