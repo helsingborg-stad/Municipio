@@ -153,7 +153,7 @@
             'name' => 'user_group_user_can_prefer_group_url',
             'aria-label' => '',
             'type' => 'true_false',
-            'instructions' => '',
+            'instructions' => __('This option enables the ability for the user to save the user group page as homepage (after login).', 'municipio'),
             'required' => 0,
             'conditional_logic' => array(
                 0 => array(
@@ -171,11 +171,11 @@
             ),
             'is_publicly_hidden' => 0,
             'is_privately_hidden' => 0,
-            'message' => __('This option enables the ability for the user to save the user group page as homepage (after login).', 'municipio'),
+            'message' => __('Allow user to prefer group url', 'municipio'),
             'default_value' => 1,
-            'ui_on_text' => __('Enabled', 'municipio'),
-            'ui_off_text' => __('Disabled', 'municipio'),
-            'ui' => 1,
+            'ui' => 0,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
         ),
     ),
     'location' => array(

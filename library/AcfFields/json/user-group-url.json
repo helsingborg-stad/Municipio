@@ -148,7 +148,7 @@
             "name": "user_group_user_can_prefer_group_url",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "This option enables the ability for the user to save the user group page as homepage (after login).",
             "required": 0,
             "conditional_logic": [
                 [
@@ -166,11 +166,11 @@
             },
             "is_publicly_hidden": 0,
             "is_privately_hidden": 0,
-            "message": "This option enables the ability for the user to save the user group page as homepage (after login).",
+            "message": "Allow user to prefer group url",
             "default_value": 1,
-            "ui_on_text": "Enabled",
-            "ui_off_text": "Disabled",
-            "ui": 1
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
