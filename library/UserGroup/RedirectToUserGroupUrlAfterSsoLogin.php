@@ -44,9 +44,6 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
             $userId
         ) : null;
 
-        var_dump($userGroupRedirectUrl);
-        die;
-
         if ($userGroupRedirectUrl != null) {
             return $userGroupRedirectUrl;
         }
