@@ -10,7 +10,6 @@ use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
 use Municipio\UserGroup\CreateUserGroupTaxonomy;
-
 use WP_Term;
 use WP_User;
 use WpService\WpService;
@@ -214,7 +213,7 @@ class User implements
         if (!$this->wpService->isMultisite()) {
             return null;
         }
-        
+
         $perfersGroupUrl = $this->siteSwitcher->runInSite(
             $this->wpService->getMainSiteId(),
             function () use ($user) {

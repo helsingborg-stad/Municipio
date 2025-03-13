@@ -38,7 +38,8 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
     {
         // Check if can prefer group and has a group URL prefered
         $userGroupRedirectUrl = $this->userHelper->canPreferGroupUrl(
-            null, $userId
+            null,
+            $userId
         ) ? $this->userHelper->getRedirectToGroupUrl(
             $userId
         ) : null;

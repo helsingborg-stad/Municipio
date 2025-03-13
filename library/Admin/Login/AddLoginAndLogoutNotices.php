@@ -129,12 +129,12 @@ class AddLoginAndLogoutNotices implements Hookable
             $currentUserGroupUrl     = $this->userHelper->getUserGroupUrl();
             $userPrefersGroupUrl     = $this->userHelper->getUserPrefersGroupUrl();
             $userPrefersGroupUrlType = $this->userHelper->getUserGroupUrlType();
-            $userCanPreferGroupUrl  = $this->userHelper->canPreferGroupUrl();
+            $userCanPreferGroupUrl   = $this->userHelper->canPreferGroupUrl();
 
             \Municipio\Helper\Notice::add($this->wpService->__('Login successful', 'municipio'), 'info', 'login');
 
-            // If user cannot prefer group URL and user has a group URL, show a notice 
-            if(!$userCanPreferGroupUrl && $currentUserGroupUrl) {
+            // If user cannot prefer group URL and user has a group URL, show a notice
+            if (!$userCanPreferGroupUrl && $currentUserGroupUrl) {
                 \Municipio\Helper\Notice::add(
                     '',
                     'info',
