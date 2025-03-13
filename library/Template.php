@@ -300,12 +300,12 @@ class Template
                 $tidy = new \tidy();
 
                 $tidy->parseString($markup, [
-                    'indent'                => true,
-                    'output-xhtml'          => false,
-                    'wrap'                  => PHP_INT_MAX,
-                    'doctype'               => 'html5',
-                    'drop-empty-elements'   => false,
-                    'drop-empty-paras'      => false
+                    'indent'              => true,
+                    'output-xhtml'        => false,
+                    'wrap'                => PHP_INT_MAX,
+                    'doctype'             => 'html5',
+                    'drop-empty-elements' => false,
+                    'drop-empty-paras'    => false
                 ], 'utf8');
 
                 $tidy->cleanRepair();
