@@ -3,6 +3,7 @@
 namespace Municipio\ProgressReporter;
 
 use Municipio\ProgressReporter\HttpHeader\HttpHeaderInterface;
+use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlushInterface;
 
 /**
  * Class SseProgressReporterService
@@ -13,8 +14,9 @@ class SseProgressReporterService implements ProgressReporterInterface
      * SseProgressReporterService constructor.
      *
      * @param HttpHeaderInterface $httpHeader
+     * @param OutputBufferFlushInterface $ob
      */
-    public function __construct(private HttpHeaderInterface $httpHeader)
+    public function __construct(private HttpHeaderInterface $httpHeader, private OutputBufferFlushInterface $ob)
     {
     }
 
@@ -28,6 +30,9 @@ class SseProgressReporterService implements ProgressReporterInterface
         $this->httpHeader->sendHeader("Cache-Control: no-cache");
 
         echo "event: start\n";
+
+        // Register shutdown function to handle fatal errors
+        register_shutdown_function([$this, 'handleShutdown']);
     }
 
     /**
@@ -35,21 +40,35 @@ class SseProgressReporterService implements ProgressReporterInterface
      */
     public function setMessage(string $message): void
     {
-        ob_flush();
-        flush();
         echo "event: message\n";
         echo "data: $message\n\n";
+        $this->ob->flush();
     }
 
     /**
      * @inheritDoc
      */
-    public function setPercentage(int $percentage): void
+    public function setPercentage(int|float $percentage): void
     {
-        ob_flush();
-        flush();
+        $percentage = (int) $percentage;
+
         echo "event: progress\n";
         echo "data: $percentage\n\n";
+
+        $this->ob->flush();
+    }
+
+    /**
+     * Handle script shutdown and send error event if a fatal error occurred.
+     */
+    private function handleShutdown(): void
+    {
+        $error = error_get_last();
+        if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+            echo "event: error\n";
+            echo "data: {$error['message']}\n\n";
+            $this->ob->flush();
+        }
     }
 
     /**
@@ -57,10 +76,9 @@ class SseProgressReporterService implements ProgressReporterInterface
      */
     public function finish(string $message): void
     {
-        ob_flush();
-        flush();
         echo "event: finish\n";
         echo "data: $message\n\n";
+        $this->ob->flush();
         exit();
     }
 }

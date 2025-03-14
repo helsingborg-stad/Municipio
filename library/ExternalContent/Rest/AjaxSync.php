@@ -8,6 +8,7 @@ use Municipio\ExternalContent\SyncHandler\SyncInProgress\PostTypeSyncInProgressI
 use Municipio\Helper\WpService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\HttpHeader\HttpHeader;
+use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlush;
 use WpService\Contracts\__;
 
 /**
@@ -54,14 +55,14 @@ class AjaxSync implements Hookable
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-        $progressReporter = new \Municipio\ProgressReporter\SseProgressReporterService(new HttpHeader());
+        $progressReporter = new \Municipio\ProgressReporter\SseProgressReporterService(new HttpHeader(), new OutputBufferFlush());
         $syncHandler      = new SyncHandler($this->sourceConfigs, WpService::get(), $progressReporter);
         $progressReporter->start();
 
-        if ($this->inProgress->isInProgress($postType)) {
-            $progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
-            return;
-        }
+        // if ($this->inProgress->isInProgress($postType)) {
+        //     $progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
+        //     return;
+        // }
 
         $this->inProgress->setInProgress($postType, true);
 

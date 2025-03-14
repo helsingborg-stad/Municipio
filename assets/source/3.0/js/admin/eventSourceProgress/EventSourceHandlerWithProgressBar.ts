@@ -28,12 +28,14 @@ export default class EventSourceHandlerWithProgressBar {
         source.addEventListener('message', this.updateLabel.bind(this));
         source.addEventListener('progress', this.updateProgress.bind(this));
         source.addEventListener('finish', this.finish.bind(this));
+        source.addEventListener('error', this.handleError.bind(this));
     }
 
     private removeEventListeners(source: EventSource): void {
         source.removeEventListener('message', this.updateLabel.bind(this));
         source.removeEventListener('progress', this.updateProgress.bind(this));
         source.removeEventListener('finish', this.finish.bind(this));
+        source.removeEventListener('error', this.handleError.bind(this));
     }
 
     private updateLabel(event: MessageEvent) {
@@ -46,6 +48,12 @@ export default class EventSourceHandlerWithProgressBar {
 
     private finish(event: MessageEvent) {
         this.progressBar.update({ label: event.data, value: 100 });
+        this.source!.close();
+        this.removeEventListeners(this.source!);
+    }
+
+    private handleError(event: MessageEvent) {
+        this.progressBar.update({ label: 'An error occurred', value: 100 });
         this.source!.close();
         this.removeEventListeners(this.source!);
     }
