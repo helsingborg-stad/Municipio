@@ -93,10 +93,11 @@ class GetAndApplyGlobalNotices implements \Municipio\HooksRegistrar\Hookable, Ge
      */
     public function getGlobalNoticesByLocation(string $location): array
     {
-        return array_values(array_filter(
+        $notices = array_values(array_filter(
             $this->getGlobalNotices(),
             fn($notice) => isset($notice['location']) && $notice['location'] === $location
         ));
+        return array_map(fn($notice) => array_diff_key($notice, ['location' => '']), $notices);
     }
 
     /**
