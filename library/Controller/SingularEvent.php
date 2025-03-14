@@ -5,9 +5,9 @@ namespace Municipio\Controller;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
 use Municipio\Helper\Post;
+use Municipio\Helper\WpService;
 use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Contracts\EventContract;
-use WpService\WpService;
 
 /**
  * Class SingularEvent
@@ -33,20 +33,25 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $location = $schemaObject->getProperty('location') ?? null;
 
-        $this->data['locationLinkAttributes'] = $location ? $this->getPlaceLinkAttributesFromPlaceSchema($location) : null;
-        $this->data['locationLinkText']       = $location ? $location['name'] ?? null : null;
-        $this->data['durationText']           = $this->getDurationText($schemaObject);
-        $this->data['priceListItems']         = $this->getPriceList($schemaObject);
-        $this->data['icsDownloadLink']        = $this->getIcsDownloadLink($schemaObject);
-        $this->data['eventsInTheSameSeries']  = $this->getEventsInTheSameSeries($schemaObject);
-        $this->data['dateAndTime']            = $this->getDateAndTime($schemaObject);
+        $this->data['placeUrl']              = $location ? $this->getPlaceUrl($location) : null;
+        $this->data['placeName']             = $location ? $location['name'] ?? null : null;
+        $this->data['placeAddress']          = $location ? $location['address'] : null;
+        $this->data['durationText']          = $this->getDurationText($schemaObject);
+        $this->data['priceListItems']        = $this->getPriceList($schemaObject);
+        $this->data['icsDownloadLink']       = $this->getIcsDownloadLink($schemaObject);
+        $this->data['eventsInTheSameSeries'] = $this->getEventsInTheSameSeries($schemaObject);
+        $this->data['dateAndTime']           = $this->getDateAndTime($schemaObject);
+        $this->data['bookingLink']           = $schemaObject->getProperty('offers')[0]['url'] ?? null;
+        $this->data['organizers']            = $schemaObject->getProperty('organizer') ?? [];
+        $this->data['organizers']            = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
+
 
         $this->data['dateAndTimeForEventsInSameSeries'] = array_map(function ($postObject) {
             return $this->getDateAndTime($postObject->schemaObject);
         }, $this->data['eventsInTheSameSeries']);
 
-        echo '<pre>' . print_r($schemaObject, true) . '</pre>';
-        die();
+        // echo '<pre>' . print_r($schemaObject, true) . '</pre>';
+        // die();
     }
 
     /**
@@ -54,7 +59,7 @@ class SingularEvent extends \Municipio\Controller\Singular
      *
      * @return array
      */
-    public function getPlaceLinkAttributesFromPlaceSchema(array $place): array
+    public function getPlaceUrl(array $place): string
     {
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         $placeName     = $place['name'] ?? '';
@@ -63,11 +68,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         $placeLink     = $googleMapsUrl . urlencode($placeName . ', ' . $placeAddress);
 
-        return array(
-            'target' => '_blank',
-            'href'   => $placeLink,
-            'title'  => $placeName,
-        );
+        return $placeLink;
     }
 
     /**
