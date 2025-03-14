@@ -3,6 +3,26 @@
     "title": "User Group Home Url",
     "fields": [
         {
+            "key": "field_67d1aa4aedab2",
+            "label": "User Group URL",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "is_publicly_hidden": 0,
+            "is_privately_hidden": 0,
+            "message": "This feature adds the following functionality: \r\n- Display a link to the usergroups homepage as a toast if any defined. \r\n- An optional redirect will be offered to the user, if they want to be redirected to the homepage automatically after login.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_677e6a08b2126",
             "label": "Select type of link",
             "name": "user_group_type_of_link",
@@ -108,7 +128,10 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {},
+            "choices": {
+                "1": "https:\/\/dev.local.municipio.tech\/",
+                "2": "https:\/\/dev.local.municipio.tech\/dev-one\/"
+            },
             "default_value": false,
             "return_format": "value",
             "multiple": 0,
@@ -118,6 +141,36 @@
             "ui": 1,
             "ajax": 1,
             "placeholder": ""
+        },
+        {
+            "key": "field_67d1a95c1a77f",
+            "label": "User can prefer group url",
+            "name": "user_group_user_can_prefer_group_url",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "This option enables the ability for the user to save the user group page as homepage (after login).",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_677e6a08b2126",
+                        "operator": "!=",
+                        "value": "disabled"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "is_publicly_hidden": 0,
+            "is_privately_hidden": 0,
+            "message": "Allow user to prefer group url",
+            "default_value": 1,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -132,18 +185,11 @@
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "left",
+    "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "show_in_rest": 0,
-    "acfe_display_title": "",
-    "acfe_autosync": [
-        "json"
-    ],
-    "acfe_form": 0,
-    "acfe_meta": "",
-    "acfe_note": ""
+    "show_in_rest": 0
 }]
-
+

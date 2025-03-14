@@ -2,10 +2,11 @@
 
 namespace Municipio\UserGroup;
 
+use Municipio\Helper\User\Contracts\CanPreferGroupUrl;
 use Municipio\Helper\User\Contracts\GetUserGroupUrl;
+use Municipio\Helper\User\Contracts\GetRedirectToGroupUrl;
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
-use Municipio\Helper\User\Contracts\GetRedirectToGroupUrl;
 
 /**
  * Redirect to user group URL after SSO login.
@@ -15,7 +16,7 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
     /**
      * Constructor.
      */
-    public function __construct(private GetUserGroupUrl&GetRedirectToGroupUrl $userHelper, private AddFilter $wpService)
+    public function __construct(private GetUserGroupUrl&GetRedirectToGroupUrl&CanPreferGroupUrl $userHelper, private AddFilter $wpService)
     {
     }
 
@@ -35,7 +36,13 @@ class RedirectToUserGroupUrlAfterSsoLogin implements Hookable
      */
     public function getRedirectUrl(string $redirectTo, int|null $userId = null): string
     {
-        $userGroupRedirectUrl = $this->userHelper->getRedirectToGroupUrl($userId);
+        // Check if can prefer group and has a group URL prefered
+        $userGroupRedirectUrl = $this->userHelper->canPreferGroupUrl(
+            null,
+            $userId
+        ) ? $this->userHelper->getRedirectToGroupUrl(
+            $userId
+        ) : null;
 
         if ($userGroupRedirectUrl != null) {
             return $userGroupRedirectUrl;

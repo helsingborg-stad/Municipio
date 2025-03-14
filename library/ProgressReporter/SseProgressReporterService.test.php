@@ -3,6 +3,7 @@
 namespace Municipio\ProgressReporter;
 
 use Municipio\ProgressReporter\HttpHeader\HttpHeaderInterface;
+use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlushInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -13,8 +14,7 @@ class SseProgressReporterServiceTest extends TestCase
      */
     public function testCanBeInstantiated()
     {
-
-        $service = new SseProgressReporterService($this->getHttpHeader());
+        $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
         $this->assertInstanceOf(SseProgressReporterService::class, $service);
     }
 
@@ -23,7 +23,7 @@ class SseProgressReporterServiceTest extends TestCase
      */
     public function testStartMethodSetsHeaders()
     {
-        $service = new SseProgressReporterService($this->getHttpHeader());
+        $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
 
         $this->expectOutputRegex('/Content-Type: text\/event-stream/');
         $this->expectOutputRegex('/X-Accel-Buffering: no/');
@@ -37,7 +37,7 @@ class SseProgressReporterServiceTest extends TestCase
      */
     public function testStartMethodSendsStartEvent()
     {
-        $service = new SseProgressReporterService($this->getHttpHeader());
+        $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
 
         $this->expectOutputRegex('/event: start\n/');
 
@@ -49,7 +49,7 @@ class SseProgressReporterServiceTest extends TestCase
      */
     public function testSetMessageMethodSendsMessageEvent()
     {
-        $service = new SseProgressReporterService($this->getHttpHeader());
+        $service = new SseProgressReporterService($this->getHttpHeader(), $this->getObFlushMock());
 
         $this->expectOutputRegex('/event: message\n/');
 
@@ -65,5 +65,10 @@ class SseProgressReporterServiceTest extends TestCase
                 return $this;
             }
         };
+    }
+
+    private function getObFlushMock(): OutputBufferFlushInterface|MockObject
+    {
+        return $this->createMock(OutputBufferFlushInterface::class);
     }
 }
