@@ -59,10 +59,10 @@ class AjaxSync implements Hookable
         $syncHandler      = new SyncHandler($this->sourceConfigs, WpService::get(), $progressReporter);
         $progressReporter->start();
 
-        // if ($this->inProgress->isInProgress($postType)) {
-        //     $progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
-        //     return;
-        // }
+        if ($this->inProgress->isInProgress($postType)) {
+            $progressReporter->finish($this->wpService->__('Sync already in progress', 'municipio'));
+            return;
+        }
 
         $this->inProgress->setInProgress($postType, true);
 
