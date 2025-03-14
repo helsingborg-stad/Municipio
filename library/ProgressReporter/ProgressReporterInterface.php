@@ -25,7 +25,7 @@ interface ProgressReporterInterface
      * @param int $percentage The progress percentage.
      * @return void
      */
-    public function setPercentage(int $percentage): void;
+    public function setPercentage(int|float $percentage): void;
 
     /**
      * Finish the progress.
