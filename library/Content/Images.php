@@ -5,8 +5,14 @@ namespace Municipio\Content;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 
+/**
+ * Class Images
+ */
 class Images
 {
+    /**
+     * Images constructor.
+     */
     public function __construct()
     {
         add_filter('the_content', array($this, 'normalizeImages'), 11);
