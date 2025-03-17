@@ -249,6 +249,7 @@ class Images
         // Reconstruct the URL without the query part
         $sanitizedUrl  = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
         $sanitizedUrl .= isset($parsedUrl['host']) ? $parsedUrl['host'] : '';
+        $sanitizedUrl .= isset($parsedUrl['port']) && !in_array($parsedUrl['port'], [80, 443]) ? ':' . $parsedUrl['port'] : '';
         $sanitizedUrl .= isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
 
         // Remove the pixelsize
