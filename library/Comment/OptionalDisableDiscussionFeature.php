@@ -24,6 +24,16 @@ class OptionalDisableDiscussionFeature implements Hookable
      */
     public function addHooks(): void
     {
+        $this->wpService->addAction('init', [$this, 'addHooksConditional'], 1);
+    }
+
+    /**
+     * Adds hooks conditionally depending on the settings.
+     * 
+     * @return void
+     */
+    public function addHooksConditional(): void
+    {
         if (!$this->isDisabled()) {
             return;
         }
