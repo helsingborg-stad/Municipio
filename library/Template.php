@@ -330,6 +330,11 @@ class Template
                     $cleanedHtml
                 );
 
+                // Drop comments
+                if(!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
+                    $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
+                }
+
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $cleanedHtml;
             } else {
