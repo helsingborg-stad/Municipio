@@ -321,10 +321,11 @@ class Template
                     $cleanedHtml
                 );
 
+                // Minify inline <script> content
                 $cleanedHtml = preg_replace_callback(
-                    '/<script(?:\s+[^>]*)?>(.*?)<\/script>/is',
+                    '/<script\b([^>]*)>(.*?)<\/script>/is',
                     function ($matches) {
-                        return '<script>' . $this->minifyJs($matches[1]) . '</script>';
+                        return '<script' . $matches[1] . '>' . $this->minifyJs($matches[2]) . '</script>';
                     },
                     $cleanedHtml
                 );
