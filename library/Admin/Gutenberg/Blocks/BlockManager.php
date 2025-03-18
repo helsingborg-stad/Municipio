@@ -190,7 +190,9 @@ class BlockManager
                 if (empty($data['attributeList'])) {
                     $data['attributeList'] = [];
                 }
-                $data['attributeList']['id'] = $data['anchor'];
+                if(!empty($data['anchor'])) {
+                    $data['attributeList']['id'] = $data['anchor'];
+                }
             }
 
             echo render_blade_view(
