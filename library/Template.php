@@ -384,7 +384,9 @@ class Template
         if (defined('MUNIPIO_DISABLE_JS_MINIFY') && constant('MUNIPIO_DISABLE_JS_MINIFY') === true) {
             return $js;
         }
-        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($js));
+
+        $js = preg_replace('/^[ \t]*\/\/.*$/m', '', $js); // Remove single line comments
+        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($js)); // Minify
     }
 
     /**
