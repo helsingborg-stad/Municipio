@@ -334,6 +334,12 @@ class Template
                 if(!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
                     $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
                 }
+              
+                //Drop attibute that no longer is to spec
+                $cleanedHtml = $this->dropPropertyAttributes([
+                    'style' => ['type' => 'text/css'], 
+                    'script' => ['type' => 'text/javascript'],
+                ], $cleanedHtml);
 
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $cleanedHtml;
@@ -376,6 +382,32 @@ class Template
             return $js;
         }
         return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($js));
+    }
+
+    /**
+     * Drop attributes from HTML tags
+     * 
+     * @param array $dropAttributesConfig The configuration for what attributes to remove
+     * @param string $cleanedHtml The HTML to clean
+     * 
+     * @return string The cleaned HTML
+     */
+    private function dropPropertyAttributes(array $dropAttributesConfig, string $cleanedHtml): string
+    {
+        foreach ($dropAttributesConfig as $tag => $attributes) {
+            foreach ($attributes as $attribute => $value) {
+                // Create the pattern to match the attribute with the specified value
+                $pattern = '/<' . $tag . '\s+([^>]*\s*)' . $attribute . '=["\']' . preg_quote($value, '/') . '["\']([^>]*)>/is';
+
+                // Replace the matched tag by removing the specified attribute
+                $cleanedHtml = preg_replace_callback($pattern, function ($matches) use ($tag) {
+                    // Rebuild the tag without the specified attribute
+                    return '<' . $tag . ' ' . $matches[1] . $matches[2] . '>';
+                }, $cleanedHtml);
+            }
+        }
+
+        return $cleanedHtml;
     }
 
     /**
