@@ -334,6 +334,9 @@ class Template
                 if(!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
                     $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
                 }
+
+                // Drop empty id attributes
+                $cleanedHtml = preg_replace('/id=""/', '', $cleanedHtml);
               
                 //Drop attibute that no longer is to spec
                 $cleanedHtml = $this->dropPropertyAttributes([
