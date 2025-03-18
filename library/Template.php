@@ -308,10 +308,30 @@ class Template
                     'drop-empty-paras'    => false
                 ], 'utf8');
 
+                // Clean and repair the document
                 $tidy->cleanRepair();
+                $cleanedHtml = (string) $tidy;
+
+                // Minify inline <style> and <script> content
+                $cleanedHtml = preg_replace_callback(
+                    '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
+                    function ($matches) {
+                        return '<style>' . $this->minifyCss($matches[1]) . '</style>';
+                    },
+                    $cleanedHtml
+                );
+
+                // Minify inline <script> content
+                $cleanedHtml = preg_replace_callback(
+                    '/<script\b([^>]*)>(.*?)<\/script>/is',
+                    function ($matches) {
+                        return '<script' . $matches[1] . '>' . $this->minifyJs($matches[2]) . '</script>';
+                    },
+                    $cleanedHtml
+                );
 
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $tidy;
+                echo $cleanedHtml;
             } else {
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $markup;
@@ -321,6 +341,36 @@ class Template
         }
 
         return false;
+    }
+
+    /**
+     * Minify CSS by removing excessive whitespace
+     *
+     * @param string $css The CSS to minify
+     *
+     * @return string The minified CSS
+     */
+    private function minifyCss(string $css): string
+    {
+        if (defined('MUNIPIO_DISABLE_CSS_MINIFY') && constant('MUNIPIO_DISABLE_CSS_MINIFY') === true) {
+            return $css;
+        }
+        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($css));
+    }
+
+    /**
+     * Minify JS by removing excessive whitespace
+     *
+     * @param string $js The JS to minify
+     *
+     * @return string The minified JS
+     */
+    private function minifyJs(string $js): string
+    {
+        if (defined('MUNIPIO_DISABLE_JS_MINIFY') && constant('MUNIPIO_DISABLE_JS_MINIFY') === true) {
+            return $js;
+        }
+        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($js));
     }
 
     /**
