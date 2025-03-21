@@ -45,6 +45,11 @@ class SchemaObjectWithPropertiesFromExternalContent implements SchemaObjectFromP
             $schema = call_user_func(array(new Schema(), $schemaData['@type']));
 
             foreach ($schemaData as $propertyName => $propertyValue) {
+                if (in_array('*', $allowedSchemaTypesAndProperties[$schemaData['@type']])) {
+                    $schema->setProperty($propertyName, $propertyValue);
+                    continue;
+                }
+
                 if (!in_array($propertyName, $allowedSchemaTypesAndProperties[$schemaData['@type']])) {
                     continue;
                 }

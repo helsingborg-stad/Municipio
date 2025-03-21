@@ -6,6 +6,7 @@ use Municipio\ExternalContent\Config\SourceConfigInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\{
     AddChecksum,
     DateDecorator,
+    EventDatesDecorator,
     IdDecorator,
     JobPostingDecorator,
     MetaPropertyValueDecorator,
@@ -52,6 +53,8 @@ class Factory implements FactoryInterface
         $postArgsFromSchemaObject = new SourceIdDecorator($this->sourceConfig->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new TermsDecorator($this->sourceConfig->getTaxonomies(), $this->getWpTermFactory(), WpService::get(), $postArgsFromSchemaObject); // phpcs:ignore Generic.Files.LineLength.TooLong
+        $postArgsFromSchemaObject = new EventDatesDecorator($postArgsFromSchemaObject);
+
         $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, WpService::get());
 

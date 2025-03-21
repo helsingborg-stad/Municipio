@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-11T12:22:11+00:00\n"
+"POT-Creation-Date: 2025-03-21T10:12:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio\n"
@@ -728,7 +728,7 @@ msgstr ""
 #: AcfFields/php/options-login-logout.php:27
 #: AcfFields/php/options-login-redirect.php:27
 #: AcfFields/php/options-theme-features.php:27
-#: AcfFields/php/user-group-url.php:25
+#: AcfFields/php/user-group-url.php:47
 #: Customizer/Sections/Colors.php:172
 #: Customizer/Sections/Divider.php:90
 #: Customizer/Sections/Divider.php:166
@@ -2704,7 +2704,8 @@ msgid "history"
 msgstr ""
 
 #: AcfFields/php/options-menu-icon.php:476
-#: Admin/Login/AddLoginAndLogoutNotices.php:200
+#: Admin/Login/AddLoginAndLogoutNotices.php:146
+#: Admin/Login/AddLoginAndLogoutNotices.php:219
 msgid "home"
 msgstr ""
 
@@ -6255,6 +6256,7 @@ msgstr ""
 
 #: AcfFields/php/post-icon.php:147
 #: AcfFields/php/term-icon-and-colour.php:143
+#: Controller/SingularEvent.php:52
 msgid "Description"
 msgstr ""
 
@@ -6619,29 +6621,60 @@ msgid "User Group Home Url"
 msgstr ""
 
 #: AcfFields/php/user-group-url.php:12
-msgid "Select type of link"
+msgid "User Group URL"
 msgstr ""
 
 #: AcfFields/php/user-group-url.php:26
-#: AcfFields/php/user-group-url.php:42
+msgid ""
+"This feature adds the following functionality: \r\n"
+"- Display a link to the usergroups homepage as a toast if any defined. \r\n"
+"- An optional redirect will be offered to the user, if they want to be redirected to the homepage automatically after login."
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:34
+msgid "Select type of link"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:48
+#: AcfFields/php/user-group-url.php:64
 msgid "Arbitrary URL"
 msgstr ""
 
-#: AcfFields/php/user-group-url.php:27
-#: AcfFields/php/user-group-url.php:67
+#: AcfFields/php/user-group-url.php:49
+#: AcfFields/php/user-group-url.php:89
 msgid "Post Type"
 msgstr ""
 
-#: AcfFields/php/user-group-url.php:28
+#: AcfFields/php/user-group-url.php:50
 msgid "Network Site (multisite only)"
 msgstr ""
 
-#: AcfFields/php/user-group-url.php:30
+#: AcfFields/php/user-group-url.php:52
 msgid "disabled"
 msgstr ""
 
-#: AcfFields/php/user-group-url.php:96
+#: AcfFields/php/user-group-url.php:118
 msgid "Blog"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:139
+msgid "https://dev.local.municipio.tech/"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:140
+msgid "https://dev.local.municipio.tech/dev-one/"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:154
+msgid "User can prefer group url"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:158
+msgid "This option enables the ability for the user to save the user group page as homepage (after login)."
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:176
+msgid "Allow user to prefer group url"
 msgstr ""
 
 #: AcfFields/php/widget-contact.php:19
@@ -6912,7 +6945,7 @@ msgid "A container block"
 msgstr ""
 
 #: Admin/Gutenberg/Blocks/BlockManager.php:138
-#: Admin/Gutenberg/Blocks/BlockManager.php:205
+#: Admin/Gutenberg/Blocks/BlockManager.php:207
 msgid "Please fill in all required fields."
 msgstr ""
 
@@ -6928,19 +6961,20 @@ msgstr ""
 msgid "Option saved"
 msgstr ""
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:133
+#: Admin/Login/AddLoginAndLogoutNotices.php:134
 msgid "Login successful"
 msgstr ""
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:178
-msgid "Go to default home"
-msgstr ""
-
-#: Admin/Login/AddLoginAndLogoutNotices.php:199
+#: Admin/Login/AddLoginAndLogoutNotices.php:145
+#: Admin/Login/AddLoginAndLogoutNotices.php:218
 msgid "Go to %s"
 msgstr ""
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:215
+#: Admin/Login/AddLoginAndLogoutNotices.php:197
+msgid "Go to default home"
+msgstr ""
+
+#: Admin/Login/AddLoginAndLogoutNotices.php:234
 msgid "Logout successful"
 msgstr ""
 
@@ -7414,6 +7448,62 @@ msgid "This content was published more than %s day ago."
 msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
+
+#: Controller/SingularEvent.php:53
+msgid "Add to calendar"
+msgstr ""
+
+#: Controller/SingularEvent.php:54
+msgid "Tickets & registration"
+msgstr ""
+
+#: Controller/SingularEvent.php:55
+msgid "Go to booking page"
+msgstr ""
+
+#: Controller/SingularEvent.php:56
+msgid "Tickets are sold according to the reseller."
+msgstr ""
+
+#: Controller/SingularEvent.php:57
+msgid "Dates"
+msgstr ""
+
+#: Controller/SingularEvent.php:58
+msgid "More dates"
+msgstr ""
+
+#: Controller/SingularEvent.php:59
+msgid "Place"
+msgstr ""
+
+#: Controller/SingularEvent.php:60
+msgid "Price"
+msgstr ""
+
+#: Controller/SingularEvent.php:61
+msgid "Organizers"
+msgstr ""
+
+#: Controller/SingularEvent.php:62
+msgid "Accessibility"
+msgstr ""
+
+#: Controller/SingularEvent.php:105
+msgid "%s-%s (%d hours %d min)"
+msgstr ""
+
+#: Controller/SingularEvent.php:113
+msgid "%s-%s (%d hours)"
+msgstr ""
+
+#: Controller/SingularEvent.php:121
+msgid "%s-%s (%d min)"
+msgstr ""
+
+#: Controller/SingularEvent.php:184
+msgid "Price not available"
+msgstr ""
 
 #: Controller/SingularJobPosting.php:55
 #: Controller/SingularProject.php:70
@@ -9391,15 +9481,15 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:49
+#: ExternalContent/Rest/AjaxSync.php:51
 msgid "Missing post_type parameter"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:61
+#: ExternalContent/Rest/AjaxSync.php:63
 msgid "Sync already in progress"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:71
+#: ExternalContent/Rest/AjaxSync.php:73
 msgid "Sync completed. Reload page to see changes."
 msgstr ""
 
@@ -9427,7 +9517,7 @@ msgstr ""
 msgid "Sync this post from remote source"
 msgstr ""
 
-#: ExternalContent/UI/PostTableSyncButton.php:59
+#: ExternalContent/UI/PostTableSyncButton.php:60
 msgid "Sync all posts from remote source"
 msgstr ""
 
