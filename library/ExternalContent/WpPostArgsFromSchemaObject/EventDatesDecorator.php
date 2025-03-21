@@ -5,6 +5,9 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Spatie\SchemaOrg\BaseType;
 
+/**
+ * Class EventDatesDecorator
+ */
 class EventDatesDecorator implements WpPostArgsFromSchemaObjectInterface
 {
     /**

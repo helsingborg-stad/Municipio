@@ -129,6 +129,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         return '';
     }
 
+    /**
+     * Get date and time
+     *
+     * @param BaseType&EventContract $event
+     * @return array
+     */
     private function getDateAndTime(BaseType&EventContract $event): array
     {
         return [
@@ -181,6 +187,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         return new PriceListItem($name, $price);
     }
 
+    /**
+     * Get ICS download link
+     *
+     * @param BaseType&EventContract $event
+     * @return string
+     */
     private function getIcsDownloadLink(BaseType&EventContract $event): string
     {
         $startDate = $event->getProperty('startDate');
@@ -207,6 +219,12 @@ class SingularEvent extends \Municipio\Controller\Singular
         return $icsData = 'data:text/calendar;charset=utf8,' . $icsData;
     }
 
+    /**
+     * Get events in the same series
+     *
+     * @param BaseType&EventContract $event
+     * @return array
+     */
     private function getEventsInTheSameSeries(BaseType&EventContract $event): array
     {
         if (empty($event->getProperty('eventsInSameSeries'))) {
