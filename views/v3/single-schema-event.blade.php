@@ -1,18 +1,16 @@
 @extends('templates.single')
 
 @section('hero-top-sidebar')
-    @image([ 'src'=> $post->imageContract, 'fullWidth' => true, ])@endimage
+    @hero([
+        "image" => $post->imageContract,
+        "size" => "small"
+    ])
+    @endhero
 @stop
 
 @section('article.content')
     
-    
-
-    @typography(['variant' => 'h2'])
-        Beskrivning
-    @endtypography
-    
-    {!!$post->schemaObject['description'] ?? ''!!}
+    {!!$post->schemaObject['description']!!}
 
     @button([
         'href' => $icsDownloadLink,
@@ -20,7 +18,7 @@
         'style' => 'filled',
         'size' => 'md',
         'fullWidth' => false,
-        'text' => 'Lägg till i kalender',
+        'text' => $lang->addToCalendar,
         'icon' => 'calendar_add_on',
         'classList' => ['u-margin__top--4']
     ])
@@ -35,8 +33,8 @@
         @if(!empty($bookingLink))
 
             <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'location_on', 'header' => 'Biljetter & anmälan'])
-                @paper()
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'local_activity', 'header' => $lang->bookingTitle])
+                @paper(['padding' => 2])
                     @collection()
                         @collection__item()
                             @button([
@@ -45,18 +43,17 @@
                                 'style' => 'filled',
                                 'size' => 'lg',
                                 'fullWidth' => true,
-                                'text' => 'Gå till bokningssidan'
+                                'text' => $lang->bookingButton,
                             ])
                             @endbutton
-                            <small>Biljetter säljs enligt återförsäljare.</small>
+                            <small>{!!$lang->bookingDisclaimer!!}</small>
                         @endcollection__item
                     @endcollection
                 @endpaper
             </div>
         @endif
-
         <div>
-            @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => 'Datum och tider'])
+            @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => $lang->datesTitle])
             @paper(['padding' => 2])
                 @collection()
                     @collection__item()
@@ -65,18 +62,21 @@
                     @endcollection__item
                     @if(!empty($dateAndTimeForEventsInSameSeries))
                         @collection__item()
-                            @typography(['variant' => 'h3'])
-                                Övriga datum
-                            @endtypography
+                            @accordion(['attributeList' => ['style' =>  'margin: calc(var(--base, 8px)*-2);']])
+                                @accordion__item([ 'heading' => $lang->moreDates ])
+                                    @element(['componentElement' => 'div', 'classList' => ['u-display--grid', 'u-gap-2']])
+                                        @foreach($dateAndTimeForEventsInSameSeries as $event)
+
+                                                <div>
+                                                    <strong>{!!$event['local']!!}</strong>
+                                                    @typography(){!!$event['time']!!}@endtypography
+                                                </div>
+
+                                        @endforeach
+                                    @endelement
+                                @endaccordion__item
+                            @endaccordion
                         @endcollection__item
-                        @foreach($dateAndTimeForEventsInSameSeries as $event)
-                            @collection__item()
-                                <div>
-                                    <strong>{!!$event['local']!!}</strong>
-                                    @typography(){!!$event['time']!!}@endtypography
-                                </div>
-                            @endcollection__item
-                        @endforeach
                     @endif
                 @endcollection
             @endpaper
@@ -84,7 +84,7 @@
 
         @if(!empty($placeUrl) && !empty($placeName) && !empty($placeAddress))
             <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'location_on', 'header' => 'Plats'])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'location_on', 'header' => $lang->placeTitle])
                 
                 @paper(['padding' => 2])
                     @collection()
@@ -105,7 +105,7 @@
 
         @if(!empty($priceListItems))
             <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'local_activity', 'header' => 'Priser'])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'payments', 'header' => $lang->priceTitle]) <!-- Updated to use lang variable -->
                 @paper(['padding' => 2])
                     @collection()
                         @foreach ($priceListItems as $priceListItem)
@@ -124,30 +124,60 @@
         @if(!empty($organizers))
 
             <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => 'Organisatörer'])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->organizersTitle]) <!-- Updated to use lang variable -->
+
+                @paper(['padding' => 2, 'classList' => ['u-margin__top--1', 'u-padding--4']])
+                    @foreach($organizers as $organizer)
+                            @if(!empty($organizer['name'])) 
+
+                                <div>
+                                    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']]){!!$organizer['name']!!}@endtypography
+
+                                    @if(!empty($organizer['url']))
+                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                            @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink
+                                        @endelement
+                                    @endif
+                                    
+                                    @if(!empty($organizer['email']))
+                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                            @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink
+                                        @endelement
+                                    @endif
+                                    @if(!empty($organizer['telephone']))
+                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate']])
+                                            @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink
+                                        @endelement
+                                    @endif
+                                    
+
+                                </div>
+
+                            @endif
+                        @endforeach
+                @endpaper
+            </div>
+        @endif
+
+        @if(!empty($physicalAccessibilityFeatures))
+
+            <div>
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->accessibilityTitle])
 
                 @paper(['padding' => 2, 'classList' => ['u-margin__top--1']])
                     @collection()
-                    @foreach($organizers as $organizer)
                         @collection__item
-                            <div>
-                                <strong>{!!$organizer['name']!!}</strong><br>
-                                @if(!empty($organizer['url']))
-                                    @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink<br>
-                                @endif
-                                @if(!empty($organizer['email']))
-                                    @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink<br>
-                                @endif
-                                @if(!empty($organizer['telephone']))
-                                    @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink<br>
-                                @endif
-                            </div>
-                            @endcollection__item
-                        @endforeach
+                            @element(['componentElement' => 'ul'])
+                                @foreach($physicalAccessibilityFeatures as $feature)
+                                    @element(['componentElement' => 'li']){!! $feature !!}@endelement
+                                @endforeach
+                            @endelement
+                        @endcollection__item
                     @endcollection  
                 @endpaper
             </div>
         @endif
+
     </div>
 
 @stop

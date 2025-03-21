@@ -24,34 +24,42 @@ class SingularEvent extends \Municipio\Controller\Singular
     {
         parent::init();
 
-        // echo '<pre>' . print_r($this->data['post'], true) . '</pre>';
-        // die();
+        $this->populateLanguageObject();
 
-        /* @var EventContract $schemaObject */
-        $schemaObject = $this->data['post']->schemaObject;
-
-
-        $location = $schemaObject->getProperty('location') ?? null;
-
-        $this->data['placeUrl']              = $location ? $this->getPlaceUrl($location) : null;
-        $this->data['placeName']             = $location ? $location['name'] ?? null : null;
-        $this->data['placeAddress']          = $location ? $location['address'] : null;
-        $this->data['durationText']          = $this->getDurationText($schemaObject);
-        $this->data['priceListItems']        = $this->getPriceList($schemaObject);
-        $this->data['icsDownloadLink']       = $this->getIcsDownloadLink($schemaObject);
-        $this->data['eventsInTheSameSeries'] = $this->getEventsInTheSameSeries($schemaObject);
-        $this->data['dateAndTime']           = $this->getDateAndTime($schemaObject);
-        $this->data['bookingLink']           = $schemaObject->getProperty('offers')[0]['url'] ?? null;
-        $this->data['organizers']            = $schemaObject->getProperty('organizer') ?? [];
-        $this->data['organizers']            = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
-
+        $this->data['placeUrl']                      = $this->data['post']->schemaObject->getProperty('location') ? $this->getPlaceUrl($this->data['post']->schemaObject->getProperty('location')) : null;
+        $this->data['placeName']                     = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['name'] ?? null : null;
+        $this->data['placeAddress']                  = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['address'] : null;
+        $this->data['durationText']                  = $this->getDurationText($this->data['post']->schemaObject);
+        $this->data['priceListItems']                = $this->getPriceList($this->data['post']->schemaObject);
+        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->data['post']->schemaObject);
+        $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries($this->data['post']->schemaObject);
+        $this->data['dateAndTime']                   = $this->getDateAndTime($this->data['post']->schemaObject);
+        $this->data['bookingLink']                   = $this->data['post']->schemaObject->getProperty('offers')[0]['url'] ?? null;
+        $this->data['organizers']                    = $this->data['post']->schemaObject->getProperty('organizer') ?? [];
+        $this->data['organizers']                    = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
+        $this->data['physicalAccessibilityFeatures'] = $this->data['post']->schemaObject->getProperty('physicalAccessibilityFeatures') ?? null;
 
         $this->data['dateAndTimeForEventsInSameSeries'] = array_map(function ($postObject) {
             return $this->getDateAndTime($postObject->schemaObject);
         }, $this->data['eventsInTheSameSeries']);
+    }
 
-        // echo '<pre>' . print_r($schemaObject, true) . '</pre>';
-        // die();
+        /**
+     * Populate the language object.
+     */
+    private function populateLanguageObject(): void
+    {
+        $this->data['lang']->description        = $this->wpService->__('Description', 'municipio');
+        $this->data['lang']->addToCalendar      = $this->wpService->__('Add to calendar', 'municipio');
+        $this->data['lang']->bookingTitle       = $this->wpService->__('Tickets & registration', 'municipio');
+        $this->data['lang']->bookingButton      = $this->wpService->__('Go to booking page', 'municipio');
+        $this->data['lang']->bookingDisclaimer  = $this->wpService->__('Tickets are sold according to the reseller.', 'municipio');
+        $this->data['lang']->datesTitle         = $this->wpService->__('Dates', 'municipio');
+        $this->data['lang']->moreDates          = $this->wpService->__('More dates', 'municipio');
+        $this->data['lang']->placeTitle         = $this->wpService->__('Place', 'municipio');
+        $this->data['lang']->priceTitle         = $this->wpService->__('Price', 'municipio');
+        $this->data['lang']->organizersTitle    = $this->wpService->__('Organizers', 'municipio');
+        $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
     }
 
     /**
@@ -84,14 +92,38 @@ class SingularEvent extends \Municipio\Controller\Singular
         $endDate   = $event->getProperty('endDate');
 
         if ($startDate && $endDate) {
-            $startTime = date('H:i', strtotime($startDate));
-            $endTime   = date('H:i', strtotime($endDate));
+            $startTime = ucfirst($this->wpService->dateI18n('H:i', strtotime($startDate)));
+            $endTime   = ucfirst($this->wpService->dateI18n('H:i', strtotime($endDate)));
 
             $duration = strtotime($endDate) - strtotime($startDate);
             $hours    = floor($duration / 3600);
             $minutes  = ($duration % 3600) / 60;
 
-            return sprintf('%s-%s (%d hours %d min)', $startTime, $endTime, $hours, $minutes);
+            if ($hours > 0) {
+                if ($minutes > 0) {
+                    return sprintf(
+                        $this->wpService->__('%s-%s (%d hours %d min)', 'municipio'),
+                        $startTime,
+                        $endTime,
+                        $hours,
+                        $minutes
+                    );
+                } else {
+                    return sprintf(
+                        $this->wpService->__('%s-%s (%d hours)', 'municipio'),
+                        $startTime,
+                        $endTime,
+                        $hours
+                    );
+                }
+            } else {
+                return sprintf(
+                    $this->wpService->__('%s-%s (%d min)', 'municipio'),
+                    $startTime,
+                    $endTime,
+                    $minutes
+                );
+            }
         }
 
         return '';
@@ -100,7 +132,7 @@ class SingularEvent extends \Municipio\Controller\Singular
     private function getDateAndTime(BaseType&EventContract $event): array
     {
         return [
-            'local' => date('l j F Y', strtotime($event->getProperty('startDate'))),
+            'local' => ucfirst($this->wpService->dateI18n('l j F Y', strtotime($event->getProperty('startDate')))),
             'time'  => $this->getDurationText($event),
         ];
     }
@@ -143,7 +175,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         } elseif (isset($priceSpecification['price'])) {
             $price = $priceSpecification['price'] . ' ' . $currency;
         } else {
-            $price = WpService::get()->__('Price not available', 'municipio');
+            $price = $this->wpService->__('Price not available', 'municipio');
         }
 
         return new PriceListItem($name, $price);
@@ -177,29 +209,19 @@ class SingularEvent extends \Municipio\Controller\Singular
 
     private function getEventsInTheSameSeries(BaseType&EventContract $event): array
     {
-        $keywords = $event->getProperty('keywords');
-        $commonId = null;
-
-        foreach ($keywords as $keyword) {
-            if ($keyword['inDefinedTermSet']['name'] === 'event-ids') {
-                $commonId = $keyword['name'];
-                break;
-            }
-        }
-
-        if (!$commonId) {
+        if (empty($event->getProperty('eventsInSameSeries'))) {
             return [];
         }
 
-        $commonIdLength = strlen($commonId);
+        $eventIds = array_map(fn($eventInSerie) => $eventInSerie['@id'], $event->getProperty('eventsInSameSeries'));
 
-        $posts = get_posts([
-            'post_type'    => 'event',
+        $posts = $this->wpService->getPosts([
+            'post_type'    => $this->data['post']->getPostType(),
             'meta_query'   => [
                 [
-                    'key'     => 'schemaData',
-                    'value'   => "\"https://schema.org/EventIds\";}s:4:\"name\";s:{$commonIdLength}:\"{$commonId}\"",
-                    'compare' => 'LIKE'
+                    'key'     => 'originId',
+                    'value'   => $eventIds,
+                    'compare' => 'IN'
                 ],
             ],
             'post__not_in' => [$this->data['post']->getId()],

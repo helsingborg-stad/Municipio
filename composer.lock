@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a444faf22da578c6153614f1e509d801",
+    "content-hash": "6cc41d13aa05bf4d9e351ebcbbecdb96",
     "packages": [
         {
             "name": "composer/installers",
@@ -298,6 +298,78 @@
                 "source": "https://github.com/helsingborg-stad/acfservice/tree/0.9.0"
             },
             "time": "2025-01-22T12:42:05+00:00"
+        },
+        {
+            "name": "helsingborg-stad/schema-org",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/schema-org.git",
+                "reference": "b9d1bee7b1afb926d8685a37aed83bb2b80a2350"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/schema-org/zipball/b9d1bee7b1afb926d8685a37aed83bb2b80a2350",
+                "reference": "b9d1bee7b1afb926d8685a37aed83bb2b80a2350",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.6",
+                "graham-campbell/analyzer": "^4.2",
+                "illuminate/collections": "^8.62.0",
+                "league/flysystem": "^2.3.0 || ^3.0",
+                "pestphp/pest": "^1.21",
+                "symfony/console": "^5.3.7 || 6.0",
+                "twig/twig": "^3.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\SchemaOrg\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A fluent builder Schema.org types and ld+json generator",
+            "homepage": "https://github.com/spatie/schema-org",
+            "keywords": [
+                "helsingborg",
+                "schema-org"
+            ],
+            "support": {
+                "source": "https://github.com/helsingborg-stad/schema-org/tree/1.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-03-20T08:44:42+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -639,79 +711,6 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.7.0"
             },
             "time": "2024-10-27T17:38:32+00:00"
-        },
-        {
-            "name": "spatie/schema-org",
-            "version": "3.23.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/schema-org.git",
-                "reference": "a8dc1b6fcdd06afc1ab084c3ead9b7a4c3d7a35d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/schema-org/zipball/a8dc1b6fcdd06afc1ab084c3ead9b7a4c3d7a35d",
-                "reference": "a8dc1b6fcdd06afc1ab084c3ead9b7a4c3d7a35d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.6",
-                "graham-campbell/analyzer": "^4.2",
-                "illuminate/collections": "^8.62.0",
-                "league/flysystem": "^2.3.0 || ^3.0",
-                "pestphp/pest": "^1.21",
-                "symfony/console": "^5.3.7 || 6.0",
-                "twig/twig": "^3.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\SchemaOrg\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian De Deyne",
-                    "email": "sebastian@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Tom Witkowski",
-                    "email": "dev.gummibeer@gmail.com",
-                    "homepage": "https://gummibeer.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A fluent builder Schema.org types and ld+json generator",
-            "homepage": "https://github.com/spatie/schema-org",
-            "keywords": [
-                "schema-org",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/schema-org/issues",
-                "source": "https://github.com/spatie/schema-org/tree/3.23.1"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-01-31T14:54:12+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
