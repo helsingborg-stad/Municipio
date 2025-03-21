@@ -84,9 +84,9 @@
                                     'data-belowelement' => 'div-comment-'.$comment->comment_ID,
                                     'data-respondelement' => 'respond',
                                     'rev' => 'nofollow',
-                                    'js-toggle-trigger' => 'hide-reply-'.$comment->comment_ID,
-                                    'js-toggle-item' => 'hide-reply-'.$comment->comment_ID,
-                                    'js-toggle-class' => 'u-display--none'
+                                    'data-js-toggle-trigger' => 'hide-reply-'.$comment->comment_ID,
+                                    'data-js-toggle-item' => 'hide-reply-'.$comment->comment_ID,
+                                    'data-js-toggle-class' => 'u-display--none'
                                 ],
                                 'classList' => ['comment-reply-link']
                             ])

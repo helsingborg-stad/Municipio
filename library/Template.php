@@ -308,10 +308,44 @@ class Template
                     'drop-empty-paras'    => false
                 ], 'utf8');
 
+                // Clean and repair the document
                 $tidy->cleanRepair();
+                $cleanedHtml = (string) $tidy;
+
+                // Minify inline <style> and <script> content
+                $cleanedHtml = preg_replace_callback(
+                    '/<style(?:\s+[^>]*)?>(.*?)<\/style>/is',
+                    function ($matches) {
+                        return '<style>' . $this->minifyCss($matches[1]) . '</style>';
+                    },
+                    $cleanedHtml
+                );
+
+                // Minify inline <script> content
+                $cleanedHtml = preg_replace_callback(
+                    '/<script\b([^>]*)>(.*?)<\/script>/is',
+                    function ($matches) {
+                        return '<script' . $matches[1] . '>' . $this->minifyJs($matches[2]) . '</script>';
+                    },
+                    $cleanedHtml
+                );
+
+                // Drop comments
+                if(!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
+                    $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
+                }
+
+                // Drop empty id attributes
+                $cleanedHtml = preg_replace('/id=""/', '', $cleanedHtml);
+              
+                //Drop attibute that no longer is to spec
+                $cleanedHtml = $this->dropPropertyAttributes([
+                    'style' => ['type' => 'text/css'], 
+                    'script' => ['type' => 'text/javascript'],
+                ], $cleanedHtml);
 
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                echo $tidy;
+                echo $cleanedHtml;
             } else {
                 //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo $markup;
@@ -321,6 +355,64 @@ class Template
         }
 
         return false;
+    }
+
+    /**
+     * Minify CSS by removing excessive whitespace
+     *
+     * @param string $css The CSS to minify
+     *
+     * @return string The minified CSS
+     */
+    private function minifyCss(string $css): string
+    {
+        if (defined('MUNIPIO_DISABLE_CSS_MINIFY') && constant('MUNIPIO_DISABLE_CSS_MINIFY') === true) {
+            return $css;
+        }
+        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($css));
+    }
+
+    /**
+     * Minify JS by removing excessive whitespace
+     *
+     * @param string $js The JS to minify
+     *
+     * @return string The minified JS
+     */
+    private function minifyJs(string $js): string
+    {
+        if (defined('MUNIPIO_DISABLE_JS_MINIFY') && constant('MUNIPIO_DISABLE_JS_MINIFY') === true) {
+            return $js;
+        }
+
+        $js = preg_replace('/^[ \t]*\/\/.*$/m', '', $js); // Remove single line comments
+        return preg_replace(['/\/\*.*?\*\//s', '/\s+/'], ['', ' '], trim($js)); // Minify
+    }
+
+    /**
+     * Drop attributes from HTML tags
+     * 
+     * @param array $dropAttributesConfig The configuration for what attributes to remove
+     * @param string $cleanedHtml The HTML to clean
+     * 
+     * @return string The cleaned HTML
+     */
+    private function dropPropertyAttributes(array $dropAttributesConfig, string $cleanedHtml): string
+    {
+        foreach ($dropAttributesConfig as $tag => $attributes) {
+            foreach ($attributes as $attribute => $value) {
+                // Create the pattern to match the attribute with the specified value
+                $pattern = '/<' . $tag . '\s+([^>]*\s*)' . $attribute . '=["\']' . preg_quote($value, '/') . '["\']([^>]*)>/is';
+
+                // Replace the matched tag by removing the specified attribute
+                $cleanedHtml = preg_replace_callback($pattern, function ($matches) use ($tag) {
+                    // Rebuild the tag without the specified attribute
+                    return '<' . $tag . ' ' . $matches[1] . $matches[2] . '>';
+                }, $cleanedHtml);
+            }
+        }
+
+        return $cleanedHtml;
     }
 
     /**
