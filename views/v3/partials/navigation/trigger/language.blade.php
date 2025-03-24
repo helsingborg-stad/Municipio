@@ -8,7 +8,8 @@
     'reversePositions' => true,
     'toggle' => true,
     'classList' => [
-        'site-language-menu-button'
+        'site-language-menu-button',
+        's-header-button'
     ],
     'attributeList' => [
         'data-js-toggle-trigger' => 'language-menu-toggle',

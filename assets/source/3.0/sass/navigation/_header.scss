@@ -1,5 +1,6 @@
 $brand-height: calc(var(--c-header-logotype-height, 6) * #{$base});
 $brand-text-color: var(--c-header-brand-color, var(--color-black, #000));
+$c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
 
 //Spacing
 .c-header .c-header__flex-content {
@@ -104,6 +105,12 @@ body.mega-menu-open {
 
     &.sticky-header {
         overflow: hidden;
+    }
+}
+
+.site-header .s-header-button {
+    .c-button__label {
+        color: $c-nav-h-color-contrasting;
     }
 }
 

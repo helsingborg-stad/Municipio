@@ -7,11 +7,10 @@
         'toggle' => true,
         'icon' => !empty($megaMenuLabels->buttonIcon) ? $megaMenuLabels->buttonIcon : 'menu',
         'text' => !empty($megaMenuLabels->buttonLabel) ? $megaMenuLabels->buttonLabel : $lang->menu,
-        'classList' => $classList ??
+        'classList' => array_merge($classList ??
             (!$customizer->megaMenuMobile ? 
-            ['mega-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] 
-            : 
-            ['mega-menu-trigger'])
+            ['mega-menu-trigger','u-display--none@xs','u-display--none@sm','u-display--none@md'] : 
+            ['mega-menu-trigger']), ['s-header-button'])
         ,
         'classListText' => [
             'u-display--none@xs',
