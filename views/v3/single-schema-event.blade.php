@@ -160,7 +160,7 @@
         @if(!empty($physicalAccessibilityFeatures))
 
             @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->accessibilityTitle])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'accessibility', 'header' => $lang->accessibilityTitle])
 
                 @paper(['padding' => 2, 'classList' => ['u-margin__top--1']])
                     @collection()

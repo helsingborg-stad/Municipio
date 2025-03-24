@@ -69,7 +69,6 @@ class SingularEvent extends \Municipio\Controller\Singular
      */
     public function getPlaceUrl(array $place): string
     {
-        $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         $placeName     = $place['name'] ?? '';
         $placeAddress  = $place['address'] ?? '';
 
