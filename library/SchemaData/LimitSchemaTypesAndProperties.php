@@ -31,7 +31,10 @@ class LimitSchemaTypesAndProperties implements Hookable
             return $schemaProperties;
         }
 
-        $allowedProps = $this->allowedSchemaTypesWithProps[$schemaType];
-        return array_filter($schemaProperties, fn ($propertyName) => in_array($propertyName, $allowedProps), ARRAY_FILTER_USE_KEY);
+        if( in_array('*', $this->allowedSchemaTypesWithProps[$schemaType]) ){
+            return $schemaProperties;
+        }
+
+        return array_filter($schemaProperties, fn ($propertyName) => in_array($propertyName, $this->allowedSchemaTypesWithProps[$schemaType]), ARRAY_FILTER_USE_KEY);
     }
 }

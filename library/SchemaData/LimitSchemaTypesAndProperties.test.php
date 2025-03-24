@@ -45,4 +45,14 @@ class LimitSchemaTypesAndPropertiesTest extends TestCase
         $sut = new LimitSchemaTypesAndProperties([], new FakeWpService());
         $this->assertEquals(['someProp'], $sut->filterSchemaProperties(['someProp'], 'SomeSchemaType'));
     }
+
+    /**
+     * @testdox filterSchemaProperties() returns all properties if allowed properties contains set to *
+     */
+
+    public function testReturnsAllPropertiesIfAllowedPropertiesContainsWildcard()
+    {
+        $sut = new LimitSchemaTypesAndProperties(['type1' => ['*']], new FakeWpService());
+        $this->assertEquals(['prop1' => 'value1', 'prop2' => 'value2'], $sut->filterSchemaProperties(['prop1' => 'value1', 'prop2' => 'value2'], 'type1'));
+    }
 }
