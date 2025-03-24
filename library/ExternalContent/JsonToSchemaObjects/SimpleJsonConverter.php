@@ -2,6 +2,7 @@
 
 namespace Municipio\ExternalContent\JsonToSchemaObjects;
 
+use Spatie\SchemaOrg\BaseType;
 use Spatie\SchemaOrg\Schema;
 
 class SimpleJsonConverter implements JsonToSchemaObjects {
@@ -22,12 +23,14 @@ class SimpleJsonConverter implements JsonToSchemaObjects {
         return $objects;
     }
 
-    private function typeFromString(string $type): object
+    private function typeFromString(string $type): BaseType
     {
-        return Schema::{lcfirst($type)}();
+        $type = str_replace('schema:', '', $type);
+        $schema = Schema::{lcfirst($type)}();
+        return $schema;
     }
 
-    private function generateSchemaObject(array $jsonObject): object
+    private function generateSchemaObject(array $jsonObject): BaseType
     {
         $object = $this->typeFromString($jsonObject['@type']);
             
@@ -40,6 +43,8 @@ class SimpleJsonConverter implements JsonToSchemaObjects {
                 foreach($value as $index => $item) {
                     if( is_array($item) && isset($item['@type']) ) {
                         $convertedValue[$index] = $this->generateSchemaObject($item);
+                    } else {
+                        $convertedValue[$index] = $item;
                     }
                 }
                 $value = $convertedValue;

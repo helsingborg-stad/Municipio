@@ -707,7 +707,7 @@ msgstr "Aktivera Gutenberg redigerare"
 #: AcfFields/php/options-login-logout.php:27
 #: AcfFields/php/options-login-redirect.php:27
 #: AcfFields/php/options-theme-features.php:27
-#: AcfFields/php/user-group-url.php:25
+#: AcfFields/php/user-group-url.php:47
 #: Customizer/Sections/Colors.php:172
 #: Customizer/Sections/Divider.php:90
 #: Customizer/Sections/Divider.php:166
@@ -2683,7 +2683,8 @@ msgid "history"
 msgstr "history"
 
 #: AcfFields/php/options-menu-icon.php:476
-#: Admin/Login/AddLoginAndLogoutNotices.php:200
+#: Admin/Login/AddLoginAndLogoutNotices.php:146
+#: Admin/Login/AddLoginAndLogoutNotices.php:219
 msgid "home"
 msgstr "hem"
 
@@ -6234,6 +6235,7 @@ msgstr "ikon"
 
 #: AcfFields/php/post-icon.php:147
 #: AcfFields/php/term-icon-and-colour.php:143
+#: Controller/SingularEvent.php:52
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -6597,29 +6599,29 @@ msgstr "Besöksadress"
 msgid "User Group Home Url"
 msgstr "Användargruppens hemadress"
 
-#: AcfFields/php/user-group-url.php:12
+#: AcfFields/php/user-group-url.php:34
 msgid "Select type of link"
 msgstr "Välj typ av länk"
 
-#: AcfFields/php/user-group-url.php:26
-#: AcfFields/php/user-group-url.php:42
+#: AcfFields/php/user-group-url.php:48
+#: AcfFields/php/user-group-url.php:64
 msgid "Arbitrary URL"
 msgstr "Godtycklig URL"
 
-#: AcfFields/php/user-group-url.php:27
-#: AcfFields/php/user-group-url.php:67
+#: AcfFields/php/user-group-url.php:49
+#: AcfFields/php/user-group-url.php:89
 msgid "Post Type"
 msgstr "Posttyp"
 
-#: AcfFields/php/user-group-url.php:28
+#: AcfFields/php/user-group-url.php:50
 msgid "Network Site (multisite only)"
 msgstr "Nätverkssite"
 
-#: AcfFields/php/user-group-url.php:30
+#: AcfFields/php/user-group-url.php:52
 msgid "disabled"
 msgstr ""
 
-#: AcfFields/php/user-group-url.php:96
+#: AcfFields/php/user-group-url.php:118
 msgid "Blog"
 msgstr "Blogg"
 
@@ -6891,7 +6893,7 @@ msgid "A container block"
 msgstr "Behållare-block"
 
 #: Admin/Gutenberg/Blocks/BlockManager.php:138
-#: Admin/Gutenberg/Blocks/BlockManager.php:205
+#: Admin/Gutenberg/Blocks/BlockManager.php:207
 msgid "Please fill in all required fields."
 msgstr "Vänligen fyll i alla obligatoriska fält."
 
@@ -6907,20 +6909,21 @@ msgstr "Ställ in den här sidan som startsida för mig"
 msgid "Option saved"
 msgstr "Sparat"
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:133
+#: Admin/Login/AddLoginAndLogoutNotices.php:134
 msgid "Login successful"
 msgstr "Inloggad, välkommen tillbaka!"
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:178
+#: Admin/Login/AddLoginAndLogoutNotices.php:197
 msgid "Go to default home"
 msgstr "Gå till gemensamma sidor"
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:199
+#: Admin/Login/AddLoginAndLogoutNotices.php:145
+#: Admin/Login/AddLoginAndLogoutNotices.php:218
 #, php-format
 msgid "Go to %s"
 msgstr "Gå till %s"
 
-#: Admin/Login/AddLoginAndLogoutNotices.php:215
+#: Admin/Login/AddLoginAndLogoutNotices.php:234
 msgid "Logout successful"
 msgstr "Utloggning lyckades"
 
@@ -9409,7 +9412,7 @@ msgstr "Normal"
 msgid "Sync this post from remote source"
 msgstr "Synka denna post från extern källa"
 
-#: ExternalContent/UI/PostTableSyncButton.php:59
+#: ExternalContent/UI/PostTableSyncButton.php:60
 msgid "Sync all posts from remote source"
 msgstr "Synka alla poster från extern källa"
 
@@ -10234,15 +10237,15 @@ msgstr ""
 msgid "value"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:49
+#: ExternalContent/Rest/AjaxSync.php:51
 msgid "Missing post_type parameter"
 msgstr ""
 
-#: ExternalContent/Rest/AjaxSync.php:61
+#: ExternalContent/Rest/AjaxSync.php:63
 msgid "Sync already in progress"
 msgstr "Synkronisering pågår redan"
 
-#: ExternalContent/Rest/AjaxSync.php:71
+#: ExternalContent/Rest/AjaxSync.php:73
 msgid "Sync completed. Reload page to see changes."
 msgstr "Synkronisering klar. Ladda om sidan för att visa ändringar."
 
@@ -10265,3 +10268,90 @@ msgstr "Lagrar inlägg..."
 #: ExternalContent/SyncHandler/SyncHandler.php:102
 msgid "Cleaning up..."
 msgstr "Städar upp..."
+
+#: AcfFields/php/user-group-url.php:12
+msgid "User Group URL"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:26
+msgid ""
+"This feature adds the following functionality: \r\n"
+"- Display a link to the usergroups homepage as a toast if any defined. \r\n"
+"- An optional redirect will be offered to the user, if they want to be redirected to the homepage automatically after login."
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:139
+msgid "https://dev.local.municipio.tech/"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:140
+msgid "https://dev.local.municipio.tech/dev-one/"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:154
+msgid "User can prefer group url"
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:158
+msgid "This option enables the ability for the user to save the user group page as homepage (after login)."
+msgstr ""
+
+#: AcfFields/php/user-group-url.php:176
+msgid "Allow user to prefer group url"
+msgstr ""
+
+#: Controller/SingularEvent.php:53
+msgid "Add to calendar"
+msgstr "Lägg till i kalender"
+
+#: Controller/SingularEvent.php:54
+msgid "Tickets & registration"
+msgstr "Biljetter & bokning"
+
+#: Controller/SingularEvent.php:55
+msgid "Go to booking page"
+msgstr "Gå till bokninssida"
+
+#: Controller/SingularEvent.php:56
+msgid "Tickets are sold according to the reseller."
+msgstr "Biljetter säljs enligt återförsäljare."
+
+#: Controller/SingularEvent.php:57
+msgid "Dates"
+msgstr "Datum"
+
+#: Controller/SingularEvent.php:58
+msgid "More dates"
+msgstr "Fler tillfällen"
+
+#: Controller/SingularEvent.php:59
+msgid "Place"
+msgstr "Plats"
+
+#: Controller/SingularEvent.php:60
+msgid "Price"
+msgstr "Pris"
+
+#: Controller/SingularEvent.php:61
+msgid "Organizers"
+msgstr "Organisatörer"
+
+#: Controller/SingularEvent.php:62
+msgid "Accessibility"
+msgstr "Tillgänglighet"
+
+#: Controller/SingularEvent.php:105
+msgid "%s-%s (%d hours %d min)"
+msgstr "%s-%s (%d timmar %d min)"
+
+#: Controller/SingularEvent.php:113
+msgid "%s-%s (%d hours)"
+msgstr "%s-%s (%d timmar)"
+
+#: Controller/SingularEvent.php:121
+msgid "%s-%s (%d min)"
+msgstr "%s-%s (%d min)"
+
+#: Controller/SingularEvent.php:184
+msgid "Price not available"
+msgstr "Pris ej tillgängligt"
