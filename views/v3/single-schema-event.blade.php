@@ -28,11 +28,11 @@
 
 @section('sidebar.right-sidebar.before')
 
-    <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
+    @element(['classList' => ['u-display--flex', 'u-flex-direction--column', 'u-flex--gridgap']])
 
         @if(!empty($bookingLink))
 
-            <div>
+            @element([])
                 @include('partials.post.schema.event.sidebar-header', ['icon' => 'local_activity', 'header' => $lang->bookingTitle])
                 @paper(['padding' => 2])
                     @collection()
@@ -46,13 +46,13 @@
                                 'text' => $lang->bookingButton,
                             ])
                             @endbutton
-                            <small>{!!$lang->bookingDisclaimer!!}</small>
+                            @element(['componentElement' => 'small']){!!$lang->bookingDisclaimer!!}@endelement
                         @endcollection__item
                     @endcollection
                 @endpaper
-            </div>
+            @endelement
         @endif
-        <div>
+        @element([])
             @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => $lang->datesTitle])
             @paper(['padding' => 2])
                 @collection()
@@ -64,13 +64,13 @@
                         @collection__item()
                             @accordion(['attributeList' => ['style' =>  'margin: calc(var(--base, 8px)*-2);']])
                                 @accordion__item([ 'heading' => $lang->moreDates ])
-                                    @element(['componentElement' => 'div', 'classList' => ['u-display--grid', 'u-gap-2']])
+                                    @element(['classList' => ['u-display--grid', 'u-gap-2']])
                                         @foreach($dateAndTimeForEventsInSameSeries as $event)
 
-                                                <div>
-                                                    <strong>{!!$event['local']!!}</strong>
+                                                @element([])
+                                                    @element(['componentElement' => 'strong']){!!$event['local']!!}@endelement
                                                     @typography(){!!$event['time']!!}@endtypography
-                                                </div>
+                                                @endelement
 
                                         @endforeach
                                     @endelement
@@ -80,88 +80,86 @@
                     @endif
                 @endcollection
             @endpaper
-        </div>
+        @endelement
 
         @if(!empty($placeUrl) && !empty($placeName) && !empty($placeAddress))
-            <div>
+            @element([])
                 @include('partials.post.schema.event.sidebar-header', ['icon' => 'location_on', 'header' => $lang->placeTitle])
                 
                 @paper(['padding' => 2])
                     @collection()
                         @collection__item
 
-                            <strong>{!!$placeName!!}</strong>
-                            <address>
+                            @element(['componentElement' => 'strong']){!!$placeName!!}@endelement
+                            @element(['componentElement' => 'address'])
                                 @link(['href' => $placeUrl])
                                     {!!$placeAddress!!}
                                 @endlink
-                            </address>
+                            @endelement
                             
                         @endcollection__item
                     @endcollection
                 @endpaper
-            </div>
+            @endelement
         @endif
 
         @if(!empty($priceListItems))
-            <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'payments', 'header' => $lang->priceTitle]) <!-- Updated to use lang variable -->
+            @element([])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'payments', 'header' => $lang->priceTitle])
                 @paper(['padding' => 2])
                     @collection()
                         @foreach ($priceListItems as $priceListItem)
                             @collection__item()
-                                <div>
-                                    <strong>{!! $priceListItem->getName() !!}</strong>
-                                    <span>{!! $priceListItem->getPrice() !!}</span>
-                                </div>
+                                @element([])
+                                    @element(['componentElement' => 'strong']){!! $priceListItem->getName() !!}@endelement
+                                    @element(['componentElement' => 'span']){!! $priceListItem->getPrice() !!}@endelement
+                                @endelement
                             @endcollection__item
                         @endforeach
                     @endcollection
                 @endpaper
-            </div>
+            @endelement
         @endif
 
         @if(!empty($organizers))
 
-            <div>
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->organizersTitle]) <!-- Updated to use lang variable -->
+            @element([])
+                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->organizersTitle])
 
                 @paper(['padding' => 2, 'classList' => ['u-margin__top--1', 'u-padding--4']])
                     @foreach($organizers as $organizer)
                             @if(!empty($organizer['name'])) 
 
-                                <div>
+                                @element([])
                                     @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']]){!!$organizer['name']!!}@endtypography
 
                                     @if(!empty($organizer['url']))
-                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                        @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
                                             @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink
                                         @endelement
                                     @endif
                                     
                                     @if(!empty($organizer['email']))
-                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                        @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
                                             @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink
                                         @endelement
                                     @endif
                                     @if(!empty($organizer['telephone']))
-                                        @element(['componentElement' => 'div', 'classList' => ['u-width--100', 'u-truncate']])
+                                        @element(['classList' => ['u-width--100', 'u-truncate']])
                                             @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink
                                         @endelement
                                     @endif
-                                    
-
-                                </div>
+                                @endelement
 
                             @endif
                         @endforeach
                 @endpaper
-            </div>
+            @endelement
         @endif
 
         @if(!empty($physicalAccessibilityFeatures))
 
-            <div>
+            @element([])
                 @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->accessibilityTitle])
 
                 @paper(['padding' => 2, 'classList' => ['u-margin__top--1']])
@@ -175,9 +173,9 @@
                         @endcollection__item
                     @endcollection  
                 @endpaper
-            </div>
+            @endelement
         @endif
 
-    </div>
+    @endelement
 
 @stop
