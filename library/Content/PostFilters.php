@@ -292,7 +292,7 @@ class PostFilters
     public function doPostOrderBy($query)
     {
         if (!$this->shouldFilter($query)) {
-            return $query;
+            return;
         }
 
         $postType = $this->getCurrentPostType($query);
@@ -302,18 +302,18 @@ class PostFilters
         }
 
         if (!$this->isMetaQuery($orderBy)) {
-            $query->set(
-                'orderby',
-                str_replace('post_', '', $orderBy)
-            );
-        } elseif ($orderBy == 'meta_key') {
+            $query->set('orderby', str_replace('post_', '', $orderBy));
+        } elseif ($orderBy === 'meta_key') {
             if ($orderBy = $this->getQueryString($orderBy, false)) {
                 $query->set('meta_key', $orderBy);
                 $query->set('orderby', 'meta_value');
             }
+        } elseif ($this->isMetaQuery($orderBy)) {
+            $query->set('meta_key', $orderBy);
+            $query->set('orderby', 'meta_value');
         }
 
-        return $query;
+        return;
     }
 
     private function currentTaxonomy()
