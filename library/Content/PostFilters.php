@@ -320,8 +320,6 @@ class PostFilters
             $query->set('meta_key', $orderBy);
             $query->set('orderby', 'meta_value');
         }
-
-        return;
     }
 
     /**
