@@ -45,7 +45,7 @@
                 'attributeList' => [
                     'aria-label' => $lang->search,
                 ],
-                'classList' => ['t-search-modal__submit']
+                'classList' => ['t-search-modal__submit', 's-header-button']
             ])
             @endbutton
 

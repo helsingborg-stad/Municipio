@@ -7,7 +7,7 @@
         'size' => $customizer->headerTriggerButtonSize,
         'icon' => 'menu',
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
-        'classList' => ['mobile-menu-trigger', 'u-order--10'],
+        'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],
         'text' => $lang->menu,
         'reversePositions' => true,
         'toggle' => true,

@@ -52,7 +52,7 @@
     @endform
 
     @button([
-        'classList' => ['collapsible-search-form__trigger-button'],
+        'classList' => ['collapsible-search-form__trigger-button', 's-header-button'],
         'text' => __('Search', 'municipio'),
         'style' => 'basic',
         'icon' => 'search',

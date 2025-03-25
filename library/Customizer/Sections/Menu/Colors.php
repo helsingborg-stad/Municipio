@@ -53,7 +53,7 @@ class Colors
             ],
             'primary'          => (object) [
                 'label'      => esc_html__('Primary navigation', 'municipio'),
-                'scopeClass' => '.s-nav-primary',
+                'scopeClass' => '.s-nav-primary, .s-header-button',
                 'types'      => [
                     'horizontal',
                     'dropdown'
