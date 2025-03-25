@@ -2,8 +2,16 @@
 
 namespace Municipio\Content;
 
+/**
+ * Class PostFilters
+ *
+ * Handles various post filters and queries for the Municipio theme.
+ */
 class PostFilters
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         add_filter('template_include', array($this, 'enablePostTypeArchiveSearch'), 1);
@@ -316,6 +324,9 @@ class PostFilters
         return;
     }
 
+    /**
+     * Get current taxonomy
+     */
     private function currentTaxonomy()
     {
         $queriedObject = get_queried_object();
@@ -411,6 +422,10 @@ class PostFilters
         }
         return true;
     }
+
+    /**
+     * Suppress filters on font attachments
+     */
     public function suppressFiltersOnFontAttachments($query)
     {
         /**
