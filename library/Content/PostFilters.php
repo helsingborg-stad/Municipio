@@ -312,6 +312,7 @@ class PostFilters
         if ($this->isMetaQuery($orderBy) === false) {
             $query->set('orderby', str_replace('post_', '', $orderBy));
         } elseif ($orderBy === 'meta_key') {
+            error_log('"meta_key" should not be used as orderby. Use "orderby" instead.', E_USER_DEPRECATED);
             if ($orderBy = $this->getQueryString($orderBy, false)) {
                 $query->set('meta_key', $orderBy);
                 $query->set('orderby', 'meta_value');
