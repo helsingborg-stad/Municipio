@@ -264,7 +264,7 @@ class PostFilters
      */
     public function doPostOrderDirection($query)
     {
-        if (!$this->shouldFilter($query)) {
+        if ($this->shouldFilter($query) === false) {
             return $query;
         }
 
@@ -301,7 +301,7 @@ class PostFilters
             $orderBy = get_theme_mod('archive_' . $postType . '_order_by', 'post_date');
         }
 
-        if (!$this->isMetaQuery($orderBy)) {
+        if ($this->isMetaQuery($orderBy) === false) {
             $query->set('orderby', str_replace('post_', '', $orderBy));
         } elseif ($orderBy === 'meta_key') {
             if ($orderBy = $this->getQueryString($orderBy, false)) {
