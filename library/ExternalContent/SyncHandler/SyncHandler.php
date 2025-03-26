@@ -45,7 +45,7 @@ class SyncHandler implements Hookable
     /**
      * @inheritDoc
      */
-    public function sync(string $postType, ?int $postId): void
+    public function sync(string $postType, ?int $postId = null): void
     {
         // allow sync to take longer than current max_execution_time
         set_time_limit(0);
