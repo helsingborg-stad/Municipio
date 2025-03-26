@@ -14,10 +14,16 @@ class OutputBuffer implements OutputBufferInterface
      */
     public function flush(): void
     {
-        ob_flush();
+        if (ob_get_length() > 0) {
+            ob_flush();
+        }
+
         flush();
     }
 
+    /**
+     * Disables the output buffer by ending and flushing it.
+     */
     public function disable(): void
     {
         ob_end_flush();
