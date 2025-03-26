@@ -108,7 +108,7 @@ body.mega-menu-open {
     }
 }
 
-.site-header .s-header-button {
+.site-header:not(.c-header--business) .s-header-button {
     .c-button__label {
         color: $c-nav-h-color-contrasting;
     }

@@ -36,7 +36,6 @@ class Component extends AbstractApplicator implements ApplicatorInterface
     public function applyDataFilterFunction($data)
     {
         $storedComponentData = $this->cachedData;
-
         $contexts = isset($data['context']) ? (array) $data['context'] : [];
 
         foreach ($storedComponentData as $filter) {
