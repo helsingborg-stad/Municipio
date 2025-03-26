@@ -3,7 +3,7 @@
 namespace Municipio\ProgressReporter;
 
 use Municipio\ProgressReporter\HttpHeader\HttpHeaderInterface;
-use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlushInterface;
+use Municipio\ProgressReporter\OutputBuffer\OutputBufferInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -67,8 +67,8 @@ class SseProgressReporterServiceTest extends TestCase
         };
     }
 
-    private function getObFlushMock(): OutputBufferFlushInterface|MockObject
+    private function getObFlushMock(): OutputBufferInterface|MockObject
     {
-        return $this->createMock(OutputBufferFlushInterface::class);
+        return $this->createMock(OutputBufferInterface::class);
     }
 }

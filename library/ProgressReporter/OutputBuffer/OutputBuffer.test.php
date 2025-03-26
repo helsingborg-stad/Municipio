@@ -1,18 +1,18 @@
 <?php
 
-namespace Municipio\ProgressReporter\OutputBufferFlush;
+namespace Municipio\ProgressReporter\OutputBuffer;
 
 use PHPUnit\Framework\TestCase;
-use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlush;
+use Municipio\ProgressReporter\OutputBuffer\OutputBuffer;
 
-class OutputBufferFlushTest extends TestCase
+class OutputBufferTest extends TestCase
 {
     /**
      * Test that flush method calls ob_flush and flush when output buffer has content
      */
     public function testFlushWithContent()
     {
-        $outputBufferFlush = new OutputBufferFlush();
+        $outputBuffer = new OutputBuffer();
 
         // Start output buffering and add content
         ob_start();
@@ -21,7 +21,7 @@ class OutputBufferFlushTest extends TestCase
         // Expect ob_flush and flush to be called
         $this->expectOutputString('test content');
 
-        $outputBufferFlush->flush();
+        $outputBuffer->flush();
 
         // Clean up
         ob_end_clean();
@@ -32,7 +32,7 @@ class OutputBufferFlushTest extends TestCase
      */
     public function testFlushWithoutContent()
     {
-        $outputBufferFlush = new OutputBufferFlush();
+        $outputBuffer = new OutputBuffer();
 
         // Start output buffering without adding content
         ob_start();
@@ -40,9 +40,25 @@ class OutputBufferFlushTest extends TestCase
         // Expect no output
         $this->expectOutputString('');
 
-        $outputBufferFlush->flush();
+        $outputBuffer->flush();
 
         // Clean up
         ob_end_clean();
+    }
+
+    /**
+     * Test that disable method calls ob_end_flush
+     */
+    public function testDisable()
+    {
+        $outputBuffer = new OutputBuffer();
+
+        $outputBuffer->disable();
+
+        $this->assertEquals(0, ob_get_level());
+        $this->assertEmpty(ob_get_status());
+
+        // enable output buffering again to avoid errors in other tests
+        ob_start();
     }
 }

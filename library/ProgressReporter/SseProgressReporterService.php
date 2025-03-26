@@ -3,7 +3,7 @@
 namespace Municipio\ProgressReporter;
 
 use Municipio\ProgressReporter\HttpHeader\HttpHeaderInterface;
-use Municipio\ProgressReporter\OutputBufferFlush\OutputBufferFlushInterface;
+use Municipio\ProgressReporter\OutputBuffer\OutputBufferInterface;
 
 /**
  * Class SseProgressReporterService
@@ -14,9 +14,9 @@ class SseProgressReporterService implements ProgressReporterInterface
      * SseProgressReporterService constructor.
      *
      * @param HttpHeaderInterface $httpHeader
-     * @param OutputBufferFlushInterface $ob
+     * @param OutputBufferInterface $ob
      */
-    public function __construct(private HttpHeaderInterface $httpHeader, private OutputBufferFlushInterface $ob)
+    public function __construct(private HttpHeaderInterface $httpHeader, private OutputBufferInterface $ob)
     {
     }
 
@@ -25,6 +25,8 @@ class SseProgressReporterService implements ProgressReporterInterface
      */
     public function start(): void
     {
+        $this->ob->disable();
+
         $this->httpHeader->sendHeader("Content-Type: text/event-stream");
         $this->httpHeader->sendHeader("X-Accel-Buffering: no");
         $this->httpHeader->sendHeader("Cache-Control: no-cache");
@@ -51,10 +53,8 @@ class SseProgressReporterService implements ProgressReporterInterface
     public function setPercentage(int|float $percentage): void
     {
         $percentage = (int) $percentage;
-
         echo "event: progress\n";
         echo "data: $percentage\n\n";
-
         $this->ob->flush();
     }
 
