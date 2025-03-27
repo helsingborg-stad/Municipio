@@ -58,7 +58,7 @@
                     ])
                     @endtags
                     @typography([])
-                        {{ $post->excerptShorter }}
+                        {{ \Municipio\Helper\Sanitize::sanitizeATags($post->excerptShorter) }}
                     @endtypography
                 @endgroup
             @endcollection__item

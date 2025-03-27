@@ -7,7 +7,7 @@
                     'image' => $post->imageContract ?? $post->images['thumbnail16:9'],
                     'heading' => $post->postTitle,
                     'classList' => ['t-archive-card', 'u-height--100', 'u-display--flex', 'u-level-2'],
-                    'content' => $post->excerptShort,
+                    'content' => \Municipio\Helper\Sanitize::sanitizeATags($post->excerptShort),
                     'tags' => $post->termsUnlinked,
                     'meta' => $displayReadingTime ? $post->readingTime : '',
                     'date' => [
