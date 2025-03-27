@@ -9,20 +9,37 @@
 @stop
 
 @section('article.content')
+
+
+    @section('article.title.before')
+        @if($eventIsInThePast)
+            @notice([
+                'type' => 'warning',
+                'message' => [
+                    'text' => $lang->expiredEventNotice,
+                ],
+                'icon' => [
+                    'name' => 'schedule'
+                ]
+            ])@endnotice
+        @endif
+    @stop
     
     {!!$post->schemaObject['description']!!}
 
-    @button([
-        'href' => $icsDownloadLink,
-        'color' => 'primary',
-        'style' => 'filled',
-        'size' => 'md',
-        'fullWidth' => false,
-        'text' => $lang->addToCalendar,
-        'icon' => 'calendar_add_on',
-        'classList' => ['u-margin__top--4']
-    ])
-    @endbutton
+    @if(!$eventIsInThePast)
+        @button([
+            'href' => $icsDownloadLink,
+            'color' => 'primary',
+            'style' => 'filled',
+            'size' => 'md',
+            'fullWidth' => false,
+            'text' => $lang->addToCalendar,
+            'icon' => 'calendar_add_on',
+            'classList' => ['u-margin__top--4']
+        ])
+        @endbutton
+    @endif
     
 @stop
 
@@ -30,7 +47,7 @@
 
     @element(['classList' => ['u-display--flex', 'u-flex-direction--column', 'u-flex--gridgap']])
 
-        @if(!empty($bookingLink))
+        @if(!empty($bookingLink) && !$eventIsInThePast)
 
             @element([])
                 @include('partials.post.schema.event.sidebar-header', ['icon' => 'local_activity', 'header' => $lang->bookingTitle])
