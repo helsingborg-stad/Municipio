@@ -4,6 +4,7 @@
     'action'    => $homeUrl,
     'classList' => $classList ?? [
         'search-form', 
+        'u-margin__bottom--0',
         'u-print-display--none', 
         'u-display--flex@lg', 
         'u-display--flex@xl', 
