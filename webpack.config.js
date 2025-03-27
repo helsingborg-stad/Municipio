@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
@@ -118,12 +117,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: [autoprefixer],
-                            }
-                        },
+                        loader: 'postcss-loader'
                     },
                     'sass-loader'
                 ],

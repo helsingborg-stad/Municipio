@@ -45,7 +45,6 @@
         "@material-symbols/font-400": "^0.27.0",
         "@material-symbols/font-600": "^0.27.0",
         "@types/jest": "^29.5.14",
-        "autoprefixer": "^10.4.2",
         "babel-loader": "^8.2.3",
         "body-parser": "^1.19.1",
         "browser-sync": "^2.27.7",
