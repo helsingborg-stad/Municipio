@@ -44,7 +44,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         }, $this->data['eventsInTheSameSeries']);
     }
 
-        /**
+    /**
      * Populate the language object.
      */
     private function populateLanguageObject(): void
@@ -69,8 +69,8 @@ class SingularEvent extends \Municipio\Controller\Singular
      */
     public function getPlaceUrl(array $place): string
     {
-        $placeName     = $place['name'] ?? '';
-        $placeAddress  = $place['address'] ?? '';
+        $placeName    = $place['name'] ?? '';
+        $placeAddress = $place['address'] ?? '';
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         $placeLink     = $googleMapsUrl . urlencode($placeName . ', ' . $placeAddress);

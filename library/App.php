@@ -163,6 +163,7 @@ class App
         new \Municipio\Content\CustomPostType();
         new \Municipio\Content\CustomTaxonomy();
         new \Municipio\Content\PostFilters();
+        (new \Municipio\Content\PostFilters\RemoveExpiredEventsFromMainArchiveQuery($this->wpService, $this->schemaDataConfig))->addHooks();
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
