@@ -26,22 +26,24 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $this->populateLanguageObject();
 
-        $this->data['placeUrl']                      = $this->data['post']->schemaObject->getProperty('location') ? $this->getPlaceUrl($this->data['post']->schemaObject->getProperty('location')) : null;
-        $this->data['placeName']                     = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['name'] ?? null : null;
-        $this->data['placeAddress']                  = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['address'] : null;
-        $this->data['durationText']                  = $this->getDurationText($this->data['post']->schemaObject);
-        $this->data['priceListItems']                = $this->getPriceList($this->data['post']->schemaObject);
-        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->data['post']->schemaObject);
-        $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries($this->data['post']->schemaObject);
-        $this->data['dateAndTime']                   = $this->getDateAndTime($this->data['post']->schemaObject);
-        $this->data['bookingLink']                   = $this->data['post']->schemaObject->getProperty('offers')[0]['url'] ?? null;
-        $this->data['organizers']                    = $this->data['post']->schemaObject->getProperty('organizer') ?? [];
-        $this->data['organizers']                    = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
-        $this->data['physicalAccessibilityFeatures'] = $this->data['post']->schemaObject->getProperty('physicalAccessibilityFeatures') ?? null;
-
+        $this->data['placeUrl']                         = $this->data['post']->schemaObject->getProperty('location') ? $this->getPlaceUrl($this->data['post']->schemaObject->getProperty('location')) : null;
+        $this->data['placeName']                        = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['name'] ?? null : null;
+        $this->data['placeAddress']                     = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['address'] : null;
+        $this->data['durationText']                     = $this->getDurationText($this->data['post']->schemaObject);
+        $this->data['priceListItems']                   = $this->getPriceList($this->data['post']->schemaObject);
+        $this->data['icsDownloadLink']                  = $this->getIcsDownloadLink($this->data['post']->schemaObject);
+        $this->data['eventsInTheSameSeries']            = $this->getEventsInTheSameSeries($this->data['post']->schemaObject);
+        $this->data['dateAndTime']                      = $this->getDateAndTime($this->data['post']->schemaObject);
+        $this->data['bookingLink']                      = $this->data['post']->schemaObject->getProperty('offers')[0]['url'] ?? null;
+        $this->data['organizers']                       = $this->data['post']->schemaObject->getProperty('organizer') ?? [];
+        $this->data['organizers']                       = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
+        $this->data['physicalAccessibilityFeatures']    = $this->data['post']->schemaObject->getProperty('physicalAccessibilityFeatures') ?? null;
+        $this->data['eventIsInThePast']                 = $this->eventIsInThePast();
         $this->data['dateAndTimeForEventsInSameSeries'] = array_map(function ($postObject) {
             return $this->getDateAndTime($postObject->schemaObject);
         }, $this->data['eventsInTheSameSeries']);
+
+        $this->trySetHttpStatusHeader();
     }
 
     /**
@@ -60,6 +62,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['lang']->priceTitle         = $this->wpService->__('Price', 'municipio');
         $this->data['lang']->organizersTitle    = $this->wpService->__('Organizers', 'municipio');
         $this->data['lang']->accessibilityTitle = $this->wpService->__('Accessibility', 'municipio');
+        $this->data['lang']->expiredEventNotice = $this->wpService->__('This event has already taken place.', 'municipio');
     }
 
     /**
@@ -245,5 +248,25 @@ class SingularEvent extends \Municipio\Controller\Singular
         ]);
 
         return array_map(fn($post) => Post::preparePostObject($post), $posts);
+    }
+
+    /**
+     * Try to set HTTP status header
+     * If the event is in the past, set 410 Gone
+     */
+    private function trySetHttpStatusHeader(): void
+    {
+        if ($this->eventIsInThePast()) {
+            $this->wpService->statusHeader(410);
+        }
+    }
+
+    /**
+     * Check if the event is in the past
+     */
+    private function eventIsInThePast(): bool
+    {
+        $startDate = $this->data['post']->schemaObject->getProperty('endDate');
+        return strtotime($startDate) < time();
     }
 }
