@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-21T10:12:09+00:00\n"
+"POT-Creation-Date: 2025-03-27T12:46:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: municipio\n"
@@ -6256,7 +6256,7 @@ msgstr ""
 
 #: AcfFields/php/post-icon.php:147
 #: AcfFields/php/term-icon-and-colour.php:143
-#: Controller/SingularEvent.php:52
+#: Controller/SingularEvent.php:54
 msgid "Description"
 msgstr ""
 
@@ -7449,59 +7449,63 @@ msgid_plural "This content was published more than %s days ago."
 msgstr[0] ""
 msgstr[1] ""
 
-#: Controller/SingularEvent.php:53
+#: Controller/SingularEvent.php:55
 msgid "Add to calendar"
 msgstr ""
 
-#: Controller/SingularEvent.php:54
+#: Controller/SingularEvent.php:56
 msgid "Tickets & registration"
 msgstr ""
 
-#: Controller/SingularEvent.php:55
+#: Controller/SingularEvent.php:57
 msgid "Go to booking page"
 msgstr ""
 
-#: Controller/SingularEvent.php:56
+#: Controller/SingularEvent.php:58
 msgid "Tickets are sold according to the reseller."
 msgstr ""
 
-#: Controller/SingularEvent.php:57
+#: Controller/SingularEvent.php:59
 msgid "Dates"
 msgstr ""
 
-#: Controller/SingularEvent.php:58
+#: Controller/SingularEvent.php:60
 msgid "More dates"
 msgstr ""
 
-#: Controller/SingularEvent.php:59
+#: Controller/SingularEvent.php:61
 msgid "Place"
 msgstr ""
 
-#: Controller/SingularEvent.php:60
+#: Controller/SingularEvent.php:62
 msgid "Price"
 msgstr ""
 
-#: Controller/SingularEvent.php:61
+#: Controller/SingularEvent.php:63
 msgid "Organizers"
 msgstr ""
 
-#: Controller/SingularEvent.php:62
+#: Controller/SingularEvent.php:64
 msgid "Accessibility"
 msgstr ""
 
-#: Controller/SingularEvent.php:105
+#: Controller/SingularEvent.php:65
+msgid "This event has already taken place."
+msgstr ""
+
+#: Controller/SingularEvent.php:107
 msgid "%s-%s (%d hours %d min)"
 msgstr ""
 
-#: Controller/SingularEvent.php:113
+#: Controller/SingularEvent.php:115
 msgid "%s-%s (%d hours)"
 msgstr ""
 
-#: Controller/SingularEvent.php:121
+#: Controller/SingularEvent.php:123
 msgid "%s-%s (%d min)"
 msgstr ""
 
-#: Controller/SingularEvent.php:184
+#: Controller/SingularEvent.php:186
 msgid "Price not available"
 msgstr ""
 

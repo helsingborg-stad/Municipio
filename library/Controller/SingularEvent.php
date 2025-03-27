@@ -38,7 +38,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $this->data['organizers']                       = $this->data['post']->schemaObject->getProperty('organizer') ?? [];
         $this->data['organizers']                       = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
         $this->data['physicalAccessibilityFeatures']    = $this->data['post']->schemaObject->getProperty('physicalAccessibilityFeatures') ?? null;
-        $this->data['eventIsInThePast']                 = !$this->eventIsInThePast();
+        $this->data['eventIsInThePast']                 = $this->eventIsInThePast();
         $this->data['dateAndTimeForEventsInSameSeries'] = array_map(function ($postObject) {
             return $this->getDateAndTime($postObject->schemaObject);
         }, $this->data['eventsInTheSameSeries']);
