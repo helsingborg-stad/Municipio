@@ -61,6 +61,21 @@
     {{-- Mega menu --}}
     @includeIf('partials.navigation.megamenu')
 
+    @includeWhen(
+        $showHeaderSearch, 
+        'partials.search.mobile-search-form',[
+            'classList' => [
+                'search-form',
+                'u-padding__y--2', 
+                'u-padding__x--3', 
+                'u-width--auto',
+                'u-display--none@lg',
+                'u-display--none@xl',
+                'u-print-display--none'
+            ]
+        ]
+    )
+
 @stop
 
 @section('secondary-navigation')
