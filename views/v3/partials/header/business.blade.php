@@ -37,7 +37,7 @@
             @includeWhen(!empty($siteselectorMenu['items']), 'partials.navigation.siteselector')
             
             {{-- Search form in header --}}
-            @includeWhen($showHeaderSearch, 'partials.search.header-search-form')
+            @includeWhen($showHeaderSearchDesktop, 'partials.search.header-search-form')
             
             {{-- User account --}}
             @includeIf('user.account')
@@ -62,7 +62,7 @@
     @includeIf('partials.navigation.megamenu')
 
     @includeWhen(
-        $showMobileSearch, 
+        $showHeaderSearchMobile, 
         'partials.search.mobile-search-form',[
             'classList' => [
                 'search-form',

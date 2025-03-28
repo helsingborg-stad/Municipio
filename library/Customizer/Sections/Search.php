@@ -130,13 +130,15 @@ class Search
     public function getSearchDisplayOptions(): array
     {
         return [
-            'hero'       => __('Hero on frontpage', 'municipio'),
-            'header_sub' => __('Header on sub pages', 'municipio'),
-            'header'     => __('Header on frontpage', 'municipio'),
-            'mainmenu'   => __('Option in main menu', 'municipio'),
-            'mobile'     => __('Option in mobile menu', 'municipio'),
-            'mega_menu'  => __('Mega menu', 'municipio'),
-            'quicklinks' => __('Quicklinks menu', 'municipio'),
+            'hero'              => __('Hero on frontpage', 'municipio'),
+            'header_sub'        => __('Header on sub pages (desktop)', 'municipio'),
+            'header'            => __('Header on frontpage (desktop)', 'municipio'),
+            'header_mobile'     => __('Header on frontpage (mobile)', 'municipio'),
+            'header_mobile_sub' => __('Header on frontpage (mobile)', 'municipio'),
+            'mainmenu'          => __('Option in main menu', 'municipio'),
+            'mobile'            => __('Option in mobile menu', 'municipio'),
+            'mega_menu'         => __('Mega menu', 'municipio'),
+            'quicklinks'        => __('Quicklinks menu', 'municipio'),
         ];
     }
 
