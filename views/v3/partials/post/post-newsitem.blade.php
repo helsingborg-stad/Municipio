@@ -3,7 +3,7 @@
         @foreach($posts as $post)
         @newsItem([
                 'heading'             => $post->postTitle,
-                'content'             => $post->excerpt,
+                'content'             => \Municipio\Helper\Sanitize::sanitizeATags($post->excerpt),
                 'image'               => $post->imageContract ?? $post->images['thumbnail16:9'],
                 'date'                => [
                     'timestamp' => $post->getArchiveDateTimestamp(),
