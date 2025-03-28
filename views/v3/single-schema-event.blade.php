@@ -70,23 +70,21 @@
             @endelement
         @endif
         @element([])
-            @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => $lang->datesTitle])
+            @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => $lang->occassionsTitle])
             @paper(['padding' => 2])
                 @collection()
                     @collection__item()
-                        @element(['componentElement' => 'strong']){!!$dateAndTime['local']!!}@endelement
-                        @typography(){!!$dateAndTime['time']!!}@endtypography
+                        @typography(){!!$occassion!!}@endtypography
                     @endcollection__item
-                    @if(!empty($dateAndTimeForEventsInSameSeries))
+                    @if(!empty($occassions))
                         @collection__item()
                             @accordion(['attributeList' => ['style' =>  'margin: calc(var(--base, 8px)*-2);']])
-                                @accordion__item([ 'heading' => $lang->moreDates ])
+                                @accordion__item([ 'heading' => $lang->moreOccassions ])
                                     @element(['classList' => ['u-display--grid', 'u-gap-2']])
-                                        @foreach($dateAndTimeForEventsInSameSeries as $event)
+                                        @foreach($occassions as $occassion)
 
                                                 @element([])
-                                                    @element(['componentElement' => 'strong']){!!$event['local']!!}@endelement
-                                                    @typography(){!!$event['time']!!}@endtypography
+                                                    @typography(){!!$occassion!!}@endtypography
                                                 @endelement
 
                                         @endforeach
