@@ -6235,7 +6235,7 @@ msgstr "ikon"
 
 #: AcfFields/php/post-icon.php:147
 #: AcfFields/php/term-icon-and-colour.php:143
-#: Controller/SingularEvent.php:54
+#: Controller/SingularEvent.php:53
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -10300,62 +10300,50 @@ msgstr ""
 msgid "Allow user to prefer group url"
 msgstr ""
 
-#: Controller/SingularEvent.php:55
+#: Controller/SingularEvent.php:54
 msgid "Add to calendar"
 msgstr "Lägg till i kalender"
 
-#: Controller/SingularEvent.php:56
+#: Controller/SingularEvent.php:55
 msgid "Tickets & registration"
 msgstr "Biljetter & bokning"
 
-#: Controller/SingularEvent.php:57
+#: Controller/SingularEvent.php:56
 msgid "Go to booking page"
 msgstr "Gå till bokninssida"
 
-#: Controller/SingularEvent.php:58
+#: Controller/SingularEvent.php:57
 msgid "Tickets are sold according to the reseller."
 msgstr "Biljetter säljs enligt återförsäljare."
 
-#: Controller/SingularEvent.php:59
-msgid "Dates"
-msgstr "Datum"
-
 #: Controller/SingularEvent.php:60
-msgid "More dates"
-msgstr "Fler tillfällen"
-
-#: Controller/SingularEvent.php:61
 msgid "Place"
 msgstr "Plats"
 
-#: Controller/SingularEvent.php:62
+#: Controller/SingularEvent.php:61
 msgid "Price"
 msgstr "Pris"
 
-#: Controller/SingularEvent.php:63
+#: Controller/SingularEvent.php:62
 msgid "Organizers"
 msgstr "Organisatörer"
 
-#: Controller/SingularEvent.php:64
+#: Controller/SingularEvent.php:63
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
-#: Controller/SingularEvent.php:107
-msgid "%s-%s (%d hours %d min)"
-msgstr "%s-%s (%d timmar %d min)"
-
-#: Controller/SingularEvent.php:115
-msgid "%s-%s (%d hours)"
-msgstr "%s-%s (%d timmar)"
-
-#: Controller/SingularEvent.php:123
-msgid "%s-%s (%d min)"
-msgstr "%s-%s (%d min)"
-
-#: Controller/SingularEvent.php:186
+#: Controller/SingularEvent.php:148
 msgid "Price not available"
 msgstr "Pris ej tillgängligt"
 
-#: Controller/SingularEvent.php:65
+#: Controller/SingularEvent.php:64
 msgid "This event has already taken place."
 msgstr "Detta evenemang har redan ägt rum."
+
+#: Controller/SingularEvent.php:58
+msgid "Date and time"
+msgstr "Datum & tid"
+
+#: Controller/SingularEvent.php:59
+msgid "Other occassions"
+msgstr "Fler tillfällen"

@@ -27,170 +27,129 @@
     
     {!!$post->schemaObject['description']!!}
 
-    @if(!$eventIsInThePast)
-        @button([
-            'href' => $icsDownloadLink,
-            'color' => 'primary',
-            'style' => 'filled',
-            'size' => 'md',
-            'fullWidth' => false,
-            'text' => $lang->addToCalendar,
-            'icon' => 'calendar_add_on',
-            'classList' => ['u-margin__top--4']
-        ])
-        @endbutton
-    @endif
+    @element()
+
+        @if(!empty($placeUrl) && !empty($placeName) && !empty($placeAddress))
+            @iconSection(['icon' => ['icon' => 'location_on', 'size' => 'md']])
+                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->placeTitle])
+                @element(['componentElement' => 'strong']){!!$placeName!!}@endelement
+                @element(['componentElement' => 'address'])
+                    @link(['href' => $placeUrl])
+                        {!!$placeAddress!!}
+                    @endlink
+                @endelement
+            @endiconSection
+
+        @endif
+
+        @if(!empty($priceListItems))
+            @iconSection(['icon' => ['icon' => 'payments', 'size' => 'md']])
+                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->priceTitle])
+                @foreach ($priceListItems as $priceListItem)
+                    @element([])
+                        @element(['componentElement' => 'strong']){!!$priceListItem->getName() !!}@endelement
+                        @element(['componentElement' => 'span']){!! $priceListItem->getPrice() !!}@endelement
+                    @endelement
+                @endforeach
+            @endiconSection
+        @endif
+
+        @if(!empty($organizers))
+            @iconSection(['icon' => ['icon' => 'group', 'size' => 'md']])
+                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->organizersTitle])
+                @foreach($organizers as $organizer)
+                    @if(!empty($organizer['name'])) 
+
+                        @element([])
+                            @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2']]){!!$organizer['name']!!}@endtypography
+
+                            @if(!empty($organizer['url']))
+                                @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                    @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink
+                                @endelement
+                            @endif
+                            
+                            @if(!empty($organizer['email']))
+                                @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
+                                    @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink
+                                @endelement
+                            @endif
+                            @if(!empty($organizer['telephone']))
+                                @element(['classList' => ['u-width--100', 'u-truncate']])
+                                    @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink
+                                @endelement
+                            @endif
+                        @endelement
+
+                    @endif
+                @endforeach
+            @endiconSection
+        @endif
+    @endelement
     
 @stop
 
 @section('sidebar.right-sidebar.before')
 
-    @element(['classList' => ['u-display--flex', 'u-flex-direction--column', 'u-flex--gridgap']])
-
-        @if(!empty($bookingLink) && !$eventIsInThePast)
-
-            @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'local_activity', 'header' => $lang->bookingTitle])
-                @paper(['padding' => 2])
-                    @collection()
-                        @collection__item()
-                            @button([
-                                'href' => $bookingLink,
-                                'color' => 'primary',
-                                'style' => 'filled',
-                                'size' => 'lg',
-                                'fullWidth' => true,
-                                'text' => $lang->bookingButton,
-                            ])
-                            @endbutton
-                            @element(['componentElement' => 'small']){!!$lang->bookingDisclaimer!!}@endelement
-                        @endcollection__item
-                    @endcollection
-                @endpaper
-            @endelement
+    @iconSection(['icon' => ['icon' => 'event', 'size' => 'md']])
+        @include('partials.post.schema.event.icon-section-header', ['header' => $lang->occassionsTitle])
+        @typography(){!!$occassion!!}@endtypography
+        @if(!$eventIsInThePast)
+            @button([
+                'href' => $icsDownloadLink,
+                'color' => 'primary',
+                'style' => 'filled',
+                'size' => 'md',
+                'fullWidth' => true,
+                'text' => $lang->addToCalendar,
+                'icon' => 'calendar_add_on',
+                'classList' => ['u-margin__top--4']
+            ])
+            @endbutton
         @endif
-        @element([])
-            @include('partials.post.schema.event.sidebar-header', ['icon' => 'schedule', 'header' => $lang->occassionsTitle])
-            @paper(['padding' => 2])
-                @collection()
-                    @collection__item()
+    @endiconSection
+
+    @if(!empty($bookingLink) && !$eventIsInThePast)
+        @iconSection(['icon' => ['icon' => 'local_activity', 'size' => 'md']])
+            @include('partials.post.schema.event.icon-section-header', ['header' => $lang->bookingTitle])
+            @button([
+                'href' => $bookingLink,
+                'color' => 'primary',
+                'style' => 'filled',
+                'size' => 'md',
+                'icon' => 'arrow_forward',
+                'fullWidth' => true,
+                'text' => $lang->bookingButton,
+            ])
+            @endbutton
+            @element(['componentElement' => 'small']){!!$lang->bookingDisclaimer!!}@endelement
+        @endiconSection
+    @endif
+
+    @if(!empty($occassions))
+        @iconSection(['icon' => ['icon' => 'calendar_month', 'size' => 'md']])
+            @include('partials.post.schema.event.icon-section-header', ['header' => $lang->moreOccassions])
+            @element(['componentElement' => 'ul'])
+                @foreach($occassions as $occassion)
+                    @element(['componentElement' => 'li'])
                         @typography(){!!$occassion!!}@endtypography
-                    @endcollection__item
-                    @if(!empty($occassions))
-                        @collection__item()
-                            @accordion(['attributeList' => ['style' =>  'margin: calc(var(--base, 8px)*-2);']])
-                                @accordion__item([ 'heading' => $lang->moreOccassions ])
-                                    @element(['classList' => ['u-display--grid', 'u-gap-2']])
-                                        @foreach($occassions as $occassion)
-
-                                                @element([])
-                                                    @typography(){!!$occassion!!}@endtypography
-                                                @endelement
-
-                                        @endforeach
-                                    @endelement
-                                @endaccordion__item
-                            @endaccordion
-                        @endcollection__item
-                    @endif
-                @endcollection
-            @endpaper
-        @endelement
-
-        @if(!empty($placeUrl) && !empty($placeName) && !empty($placeAddress))
-            @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'location_on', 'header' => $lang->placeTitle])
-                
-                @paper(['padding' => 2])
-                    @collection()
-                        @collection__item
-
-                            @element(['componentElement' => 'strong']){!!$placeName!!}@endelement
-                            @element(['componentElement' => 'address'])
-                                @link(['href' => $placeUrl])
-                                    {!!$placeAddress!!}
-                                @endlink
-                            @endelement
-                            
-                        @endcollection__item
-                    @endcollection
-                @endpaper
+                    @endelement
+                @endforeach
             @endelement
-        @endif
+        @endiconSection
+    @endif
 
-        @if(!empty($priceListItems))
-            @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'payments', 'header' => $lang->priceTitle])
-                @paper(['padding' => 2])
-                    @collection()
-                        @foreach ($priceListItems as $priceListItem)
-                            @collection__item()
-                                @element([])
-                                    @element(['componentElement' => 'strong']){!! $priceListItem->getName() !!}@endelement
-                                    @element(['componentElement' => 'span']){!! $priceListItem->getPrice() !!}@endelement
-                                @endelement
-                            @endcollection__item
-                        @endforeach
-                    @endcollection
-                @endpaper
+    @if(!empty($physicalAccessibilityFeatures))
+
+        @iconSection(['icon' => ['icon' => 'accessibility', 'size' => 'md']])
+            @include('partials.post.schema.event.icon-section-header', ['header' => $lang->accessibilityTitle])
+            @element(['componentElement' => 'ul'])
+                @foreach($physicalAccessibilityFeatures as $feature)
+                    @element(['componentElement' => 'li']){!! $feature !!}@endelement
+                @endforeach
             @endelement
-        @endif
+        @endiconSection
+    @endif
 
-        @if(!empty($organizers))
-
-            @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'info', 'header' => $lang->organizersTitle])
-
-                @paper(['padding' => 2, 'classList' => ['u-margin__top--1', 'u-padding--4']])
-                    @foreach($organizers as $organizer)
-                            @if(!empty($organizer['name'])) 
-
-                                @element([])
-                                    @typography(['element' => 'h3', 'classList' => ['u-margin__bottom--2']]){!!$organizer['name']!!}@endtypography
-
-                                    @if(!empty($organizer['url']))
-                                        @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
-                                            @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink
-                                        @endelement
-                                    @endif
-                                    
-                                    @if(!empty($organizer['email']))
-                                        @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
-                                            @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink
-                                        @endelement
-                                    @endif
-                                    @if(!empty($organizer['telephone']))
-                                        @element(['classList' => ['u-width--100', 'u-truncate']])
-                                            @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink
-                                        @endelement
-                                    @endif
-                                @endelement
-
-                            @endif
-                        @endforeach
-                @endpaper
-            @endelement
-        @endif
-
-        @if(!empty($physicalAccessibilityFeatures))
-
-            @element([])
-                @include('partials.post.schema.event.sidebar-header', ['icon' => 'accessibility', 'header' => $lang->accessibilityTitle])
-
-                @paper(['padding' => 2, 'classList' => ['u-margin__top--1']])
-                    @collection()
-                        @collection__item
-                            @element(['componentElement' => 'ul'])
-                                @foreach($physicalAccessibilityFeatures as $feature)
-                                    @element(['componentElement' => 'li']){!! $feature !!}@endelement
-                                @endforeach
-                            @endelement
-                        @endcollection__item
-                    @endcollection  
-                @endpaper
-            @endelement
-        @endif
-
-    @endelement
 
 @stop
