@@ -6,7 +6,7 @@
     row-gap: calc($base * 1);
 
     li {
-        white-space: nowrap;
+        overflow-wrap: break-word;
     }
 
     /* Dropdown accessibility menu items */

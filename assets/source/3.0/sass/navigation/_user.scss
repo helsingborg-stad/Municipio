@@ -84,7 +84,7 @@ $user-background-width: var(--user-background-width, 0px) !default;
             font-weight: bold;
             line-height: 1;
             max-width: calc($base * 25);
-            white-space: nowrap;
+            overflow-wrap: break-word;
             overflow: hidden;
             text-overflow: ellipsis;
         }
