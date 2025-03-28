@@ -348,14 +348,14 @@ class BaseController
         $this->data['showAdminNotices'] = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS
 
         //Search
-        $this->data['showHeaderSearch']       = $this->showSearchForm('header');
-        $this->data['showNavigationSearch']   = $this->showSearchForm('navigation');
-        $this->data['showQuicklinksSearch']   = $this->showSearchForm('quicklinks');
-        $this->data['showMegaMenuSearch']     = $this->showSearchForm('mega-menu');
-        $this->data['showHeroSearch']         = $this->showSearchForm('hero');
-        $this->data['showMobileSearch']       = $this->showSearchForm('mobile');
-        $this->data['showMobileSearchDrawer'] = $this->showSearchForm('mobile-drawer');
-        $this->data['searchQuery']            = get_search_query();
+        $this->data['showHeaderSearchDesktop'] = $this->showSearchForm('header');
+        $this->data['showHeaderSearchMobile']  = $this->showSearchForm('mobile');
+        $this->data['showNavigationSearch']    = $this->showSearchForm('navigation');
+        $this->data['showQuicklinksSearch']    = $this->showSearchForm('quicklinks');
+        $this->data['showMegaMenuSearch']      = $this->showSearchForm('mega-menu');
+        $this->data['showHeroSearch']          = $this->showSearchForm('hero');
+        $this->data['showMobileSearchDrawer']  = $this->showSearchForm('mobile-drawer');
+        $this->data['searchQuery']             = get_search_query();
 
         // Current posttype
         $this->data['postTypeDetails'] = \Municipio\Helper\PostType::postTypeDetails();
@@ -772,7 +772,6 @@ class BaseController
                 return is_front_page() && in_array($location, $enabledLocations);
 
             case 'mobile-drawer':
-            case 'mobile':
                 return in_array('mobile', $enabledLocations);
 
             case 'header':
@@ -782,6 +781,13 @@ class BaseController
                 return is_front_page()
                     ? in_array('header', $enabledLocations)
                     : in_array('header_sub', $enabledLocations);
+            case 'mobile':
+                if (is_search()) {
+                    return false;
+                }
+                return is_front_page()
+                    ? in_array('header_mobile', $enabledLocations)
+                    : in_array('header_mobile_sub', $enabledLocations);
 
             case 'navigation':
                 return !is_search() && in_array('mainmenu', $enabledLocations);
