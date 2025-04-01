@@ -86,7 +86,6 @@ class SingularEvent extends \Municipio\Controller\Singular
      * @param BaseType&EventContract $event
      * @return string
      */
-
     public function getOccassionText(BaseType&EventContract $event): string
     {
         $startDate = $event->getProperty('startDate');
@@ -103,6 +102,31 @@ class SingularEvent extends \Municipio\Controller\Singular
         $end   = $days > 0
             ? ucfirst($this->wpService->dateI18n('j F Y H:i', strtotime($endDate)))
             : ucfirst($this->wpService->dateI18n('H:i', strtotime($endDate)));
+
+        return "{$start} - {$end}";
+    }
+
+    public function getDate(BaseType&EventContract $event): string
+    {
+        $startDate = $event->getProperty('startDate');
+        return $startDate ? ucfirst($this->wpService->dateI18n('j F Y', strtotime($startDate))) : '';
+    }
+
+    public function getTime(BaseType&EventContract $event): string
+    {
+        $start = $event->getProperty('startDate');
+        $end   = $event->getProperty('endDate');
+
+
+        if (!$start || !$end) {
+            return '';
+        }
+
+        $duration = strtotime($end) - strtotime($start);
+        $days     = floor($duration / 86400);
+
+        $start = ucfirst($this->wpService->dateI18n('H:i', strtotime($start)));
+        $end   = ucfirst($this->wpService->dateI18n('H:i', strtotime($end)));
 
         return "{$start} - {$end}";
     }
