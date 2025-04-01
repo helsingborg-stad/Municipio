@@ -1,4 +1,14 @@
-<article class="c-article c-article--readable-width s-article u-clearfix" id="article" {!! !empty($postLanguage) ? 'lang="' . $postLanguage . '"' : '' !!}>
+@element([
+    'componentElement' => 'article',
+    'id' => 'article',
+    'attributeList' => array_merge(
+        !empty($postLanguage) ? ['lang' => $postLanguage] : [],
+    ),
+    'classList' => array_merge(
+        $centerContent ? ['u-margin__x--auto'] : [],
+        [ 'c-article', 'c-article--readable-width', 's-article', 'u-clearfix' ]
+    ),
+])
 
     <!-- Title -->
     @section('article.title.before')@show
@@ -97,4 +107,4 @@
         )
     @endsection
 
-</article>
+@endelement
