@@ -20,7 +20,8 @@
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),
-        's-drawer-menu'
+        's-drawer-menu',
+        'c-drawer--indent-sublevels'
     ],
     'label' => $lang->close,
     'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
@@ -64,7 +65,8 @@
                     'direction' => 'vertical',
                     'includeToggle' => true,
                     'height' => 'sm',
-                    'expandLabel' => $lang->expand
+                    'expandLabel' => $lang->expand,
+                    'context' => 'site.mobile-menu'
                 ])
             @endnav  
         @endslot

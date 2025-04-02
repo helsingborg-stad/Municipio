@@ -6,7 +6,8 @@
         'includeToggle' => true,
         'classList' => $classList,
         'depth' => $depth ?? 1,
-        'expandLabel' => $lang->expand
+        'expandLabel' => $lang->expand,
+        'context' => 'site.mobile-menu'
     ])
     @endnav
 @else
