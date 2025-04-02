@@ -56,7 +56,9 @@ class FontUploads implements Hookable
             if ($url = $this->wpService->wpGetAttachmentUrl($font->ID)) {
                 $fonts[$font->post_name] = [
                     'name' => $font->post_title ?? __('Untitled Font', 'municipio'),
-                    'type' => $this->wpService->wpCheckFiletype($url)['ext'] ?? null,
+                    'type' => $this->wpService->wpCheckFiletypeAndExt(
+                        $url, basename($url),
+                    )['ext'] ?? null,
                     'url'  => str_replace($this->wpService->homeUrl(), '', $url),
                 ];
             }
