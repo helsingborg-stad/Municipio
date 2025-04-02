@@ -4,8 +4,8 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Thing;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Thing;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
 

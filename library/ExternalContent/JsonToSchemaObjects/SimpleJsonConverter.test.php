@@ -40,7 +40,7 @@ class SimpleJsonConverterTest extends TestCase {
         $converter = new SimpleJsonConverter();
         $schemaObjects = $converter->transform($json);
 
-        $this->assertInstanceOf('Spatie\SchemaOrg\Event', $schemaObjects[0]);
+        $this->assertInstanceOf('Municipio\Schema\Event', $schemaObjects[0]);
     }
 
     /**
@@ -60,8 +60,8 @@ class SimpleJsonConverterTest extends TestCase {
         $converter = new SimpleJsonConverter();
         $schemaObjects = $converter->transform($json);
 
-        $this->assertInstanceOf('Spatie\SchemaOrg\Thing', $schemaObjects[0]);
-        $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image'));
+        $this->assertInstanceOf('Municipio\Schema\Thing', $schemaObjects[0]);
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image'));
     }
 
     /**
@@ -87,7 +87,7 @@ class SimpleJsonConverterTest extends TestCase {
         $converter = new SimpleJsonConverter();
         $schemaObjects = $converter->transform($json);
 
-        $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image')[0]);
-        $this->assertInstanceOf('Spatie\SchemaOrg\ImageObject', $schemaObjects[0]->getProperty('image')[1]);
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image')[0]);
+        $this->assertInstanceOf('Municipio\Schema\ImageObject', $schemaObjects[0]->getProperty('image')[1]);
     }
 }

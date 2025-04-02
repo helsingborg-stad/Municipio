@@ -67,7 +67,7 @@ class JsonFileSourceReaderTest extends TestCase {
         $schemaObjectsFilter = $this->getSchemaObjectsFilterMock();
         
         $fileSystem->method('fileGetContents')->willReturn($json);
-        $jsonToSchemaObjects->method('transform')->with($json)->willReturn([new \Spatie\SchemaOrg\Schema()]);
+        $jsonToSchemaObjects->method('transform')->with($json)->willReturn([new \Municipio\Schema\Schema()]);
 
         $schemaObjectsFilter->expects($this->once())->method('filter')->willReturn(['filteredResults']);
         $jsonFileSourceReader = new JsonFileSourceReader('', $schemaObjectsFilter, $fileSystem, $jsonToSchemaObjects);

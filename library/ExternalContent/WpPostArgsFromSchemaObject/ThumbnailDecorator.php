@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\ImageObject;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\ImageObject;
 use WpService\Contracts\GetPosts;
 use WpService\Contracts\MediaSideloadImage;
 use WpService\Contracts\UpdatePostMeta;

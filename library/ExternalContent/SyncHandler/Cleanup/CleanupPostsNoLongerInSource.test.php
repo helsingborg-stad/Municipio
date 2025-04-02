@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\SyncHandler\Cleanup;
 
 use Municipio\ExternalContent\SyncHandler\SyncHandler;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
 

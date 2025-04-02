@@ -3,8 +3,8 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
 use WP_Post;
 use WpService\Contracts\GetPostMeta;
 

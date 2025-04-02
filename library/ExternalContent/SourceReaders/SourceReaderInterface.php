@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\SourceReaders;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 interface SourceReaderInterface
 {

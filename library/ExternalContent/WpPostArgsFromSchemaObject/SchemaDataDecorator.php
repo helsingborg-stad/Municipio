@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 /**
  * Class SchemaDataDecorator

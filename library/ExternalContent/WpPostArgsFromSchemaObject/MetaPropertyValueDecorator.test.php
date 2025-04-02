@@ -4,8 +4,8 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
 
 class MetaPropertyValueDecoratorTest extends TestCase
 {

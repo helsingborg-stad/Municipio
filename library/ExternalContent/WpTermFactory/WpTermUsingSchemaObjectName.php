@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpTermFactory;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 use WP_Term;
 
 /**

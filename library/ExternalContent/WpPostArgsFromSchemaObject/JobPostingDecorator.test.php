@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\JobPosting;
+use Municipio\Schema\JobPosting;
 
 class JobPostingDecoratorTest extends TestCase
 {

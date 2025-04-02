@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\JobPosting;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\JobPosting;
 
 /**
  * Decorate specifically for JobPosting schema type.

@@ -2,15 +2,34 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
+/**
+ * Sanitizes the value of a Google Maps ACF field to a GeoCoordinates object.
+ *
+ * This class implements the SchemaPropertyValueSanitizer interface and is responsible for
+ * converting an array containing latitude and longitude into a GeoCoordinates object.
+ */
 class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizer
 {
     private mixed $value;
     private array $allowedTypes;
 
+    /**
+     * Constructor for the GeoCoordinatesFromAcfGoogleMapsFieldSanitizer class.
+     *
+     * @param SchemaPropertyValueSanitizer $inner The inner sanitizer to delegate to if the value is not a GeoCoordinates.
+     */
     public function __construct(private $inner = new NullSanitizer())
     {
     }
 
+    /**
+     * Sanitizes the given value based on the allowed types.
+     *
+     * @param mixed $value The value to sanitize.
+     * @param array $allowedTypes The allowed types for the value.
+     *
+     * @return mixed The sanitized value.
+     */
     public function sanitize(mixed $value, array $allowedTypes): mixed
     {
         $this->value        = $value;
@@ -29,6 +48,11 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
         return $this->inner->sanitize($value, $allowedTypes);
     }
 
+    /**
+     * Determines if the value should be sanitized to a GeoCoordinates object.
+     *
+     * @return bool True if the value should be sanitized, false otherwise.
+     */
     private function shouldSanitize(): bool
     {
         return
@@ -38,9 +62,14 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
             isset($this->value['lng']);
     }
 
-    private function getGeoCoordinatesFromValue(): \Spatie\SchemaOrg\GeoCoordinates
+    /**
+     * Converts the value to a GeoCoordinates object.
+     *
+     * @return \Municipio\Schema\GeoCoordinates The GeoCoordinates object.
+     */
+    private function getGeoCoordinatesFromValue(): \Municipio\Schema\GeoCoordinates
     {
-        $postalAddress = new \Spatie\SchemaOrg\GeoCoordinates();
+        $postalAddress = new \Municipio\Schema\GeoCoordinates();
 
         $postalAddress['latitude']       = $this->value['lat'];
         $postalAddress['longitude']      = $this->value['lng'];

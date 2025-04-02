@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\SyncHandler\Cleanup;
 
 use Municipio\ExternalContent\SyncHandler\SyncHandler;
 use Municipio\HooksRegistrar\Hookable;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 use WpService\Contracts\{AddAction, GetPosts, WpDeletePost};
 
 /**
