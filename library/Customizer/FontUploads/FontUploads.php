@@ -20,10 +20,18 @@ class FontUploads implements Hookable
         'woff2' => 'application/font-woff2',
     );
 
+    /**
+     * Constructor
+     *
+     * @param WpService $wpService
+     */
     public function __construct(private WpService $wpService)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addFilter('upload_mimes', array($this, 'addFontMimes'), 1, 1);
