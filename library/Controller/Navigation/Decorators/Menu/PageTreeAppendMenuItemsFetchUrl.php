@@ -41,10 +41,12 @@ class PageTreeAppendMenuItemsFetchUrl implements MenuInterface
 
         $homeUrl = $this->wpService->applyFilters('Municipio/homeUrl', $this->wpService->escUrl($this->wpService->getHomeUrl()));
 
+        $depth = isset($_GET['depth']) ? intval($_GET['depth']) + 1 : 2;
+
         foreach ($menu['items'] as &$menuItem) {
             $fetchUrl = $homeUrl
             . '/wp-json/municipio/v1/navigation/children/render'
-            . '?' . 'pageId=' .  $menuItem['id'] . '&viewPath=' . 'partials.navigation.'
+            . '?' . 'pageId=' .  $menuItem['id'] . '&depth=' . $depth . '&viewPath=' . 'partials.navigation.'
             . $targetMenuIdentifiers[$identifier] . '&identifier='
             . $targetMenuIdentifiers[$identifier];
 
