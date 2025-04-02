@@ -6,8 +6,20 @@ use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use Municipio\Schema\Schema;
 use WpService\Contracts\ApplyFilters;
 
+/**
+ * Class GetAcfFieldGroupBySchemaType
+ *
+ * @package Municipio\SchemaData\SchemaPropertiesForm
+ */
 class GetAcfFieldGroupBySchemaType implements GetAcfFieldGroupBySchemaTypeInterface
 {
+    /**
+     * GetAcfFieldGroupBySchemaType constructor.
+     *
+     * @param ApplyFilters $wpService
+     * @param GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes
+     * @param GetFormFieldsBySchemaPropertiesInterface $getFormFieldsBySchemaProperties
+     */
     public function __construct(
         private ApplyFilters $wpService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
@@ -15,6 +27,13 @@ class GetAcfFieldGroupBySchemaType implements GetAcfFieldGroupBySchemaTypeInterf
     ) {
     }
 
+    /**
+     * Get ACF field group by schema type.
+     *
+     * @param string $schemaType
+     *
+     * @return array
+     */
     public function getAcfFieldGroup(string $schemaType): array
     {
         if (!$this->isValidSchemaType($schemaType)) {
@@ -41,6 +60,13 @@ class GetAcfFieldGroupBySchemaType implements GetAcfFieldGroupBySchemaTypeInterf
         ];
     }
 
+    /**
+     * Check if the schema type is valid.
+     *
+     * @param string $schemaType
+     *
+     * @return bool
+     */
     private function isValidSchemaType(string $schemaType): bool
     {
         return !empty($schemaType) && method_exists(Schema::class, $schemaType);

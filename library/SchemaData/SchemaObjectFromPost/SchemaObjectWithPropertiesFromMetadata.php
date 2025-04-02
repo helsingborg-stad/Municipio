@@ -9,8 +9,21 @@ use Municipio\Schema\BaseType;
 use WP_Post;
 use WpService\Contracts\GetPostMeta;
 
+/**
+ * Class SchemaObjectWithPropertiesFromMetadata
+ *
+ * @package Municipio\SchemaData\SchemaObjectFromPost
+ */
 class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInterface
 {
+    /**
+     * SchemaObjectWithPropertiesFromMetadata constructor.
+     *
+     * @param GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes
+     * @param GetPostMeta $wpService
+     * @param SchemaPropertyValueSanitizer $schemaPropertyValueSanitizer
+     * @param SchemaObjectFromPostInterface $inner
+     */
     public function __construct(
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
         private GetPostMeta $wpService,
@@ -19,6 +32,13 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
     ) {
     }
 
+    /**
+     * Create a schema object from a post.
+     *
+     * @param WP_Post $post
+     *
+     * @return BaseType
+     */
     public function create(WP_Post $post): BaseType
     {
         $schema           = $this->inner->create($post);
