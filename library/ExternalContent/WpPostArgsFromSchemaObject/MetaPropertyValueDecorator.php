@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 /**
  * Add all PropertyValue objects found in custom property @meta as meta data in post.

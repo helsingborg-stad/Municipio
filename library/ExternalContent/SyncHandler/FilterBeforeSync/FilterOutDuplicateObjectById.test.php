@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\SyncHandler\FilterBeforeSync;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 
 class FilterOutDuplicateObjectByIdTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 
 class PostTypeDecoratorTest extends TestCase
 {

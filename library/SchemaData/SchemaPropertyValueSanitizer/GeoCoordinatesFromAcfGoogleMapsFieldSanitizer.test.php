@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\GeoCoordinates;
+use Municipio\Schema\GeoCoordinates;
 
 class GeoCoordinatesFromAcfGoogleMapsFieldSanitizerTest extends TestCase
 {

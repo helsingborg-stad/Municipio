@@ -38,9 +38,9 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
             isset($this->value['lng']);
     }
 
-    private function getGeoCoordinatesFromValue(): \Spatie\SchemaOrg\GeoCoordinates
+    private function getGeoCoordinatesFromValue(): \Municipio\Schema\GeoCoordinates
     {
-        $postalAddress = new \Spatie\SchemaOrg\GeoCoordinates();
+        $postalAddress = new \Municipio\Schema\GeoCoordinates();
 
         $postalAddress['latitude']       = $this->value['lat'];
         $postalAddress['longitude']      = $this->value['lng'];

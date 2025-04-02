@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 use WP_Post;
 use WpService\Contracts\GetThePostThumbnailUrl;
 

@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 class OriginIdDecoratorTest extends TestCase
 {

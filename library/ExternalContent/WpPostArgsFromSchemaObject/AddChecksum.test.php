@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Thing;
+use Municipio\Schema\Thing;
 
 class AddChecksumTest extends TestCase
 {
@@ -23,7 +23,7 @@ class AddChecksumTest extends TestCase
     private function getInnerFactory(): WpPostArgsFromSchemaObjectInterface
     {
         return new class implements WpPostArgsFromSchemaObjectInterface {
-            public function transform(\Spatie\SchemaOrg\BaseType $schemaObject): array
+            public function transform(\Municipio\Schema\BaseType $schemaObject): array
             {
                 return [
                     'post_title'   => '',

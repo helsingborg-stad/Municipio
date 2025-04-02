@@ -7,7 +7,7 @@ use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
 use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 
 class SchemaObjectsFilterFromFilterDefinitionTest extends TestCase
 {

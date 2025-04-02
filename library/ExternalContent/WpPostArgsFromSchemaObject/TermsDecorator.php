@@ -4,8 +4,8 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\PropertyValue;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\PropertyValue;
 use WP_Term;
 use WpService\Contracts\TermExists;
 use WpService\Contracts\WpInsertTerm;

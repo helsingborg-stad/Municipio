@@ -5,9 +5,9 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 use Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface;
 use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Event;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Event;
+use Municipio\Schema\Schema;
 use WP_Term;
 use WpService\Implementations\FakeWpService;
 

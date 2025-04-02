@@ -3,7 +3,7 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\Thing;
+use Municipio\Schema\Thing;
 use WpService\Implementations\FakeWpService;
 
 class VerifyChecksumTest extends TestCase

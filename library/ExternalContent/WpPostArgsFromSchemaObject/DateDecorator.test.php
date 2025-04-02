@@ -4,7 +4,7 @@ namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use Municipio\ExternalContent\Sources\Source;
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 class DateDecoratorTest extends TestCase
 {

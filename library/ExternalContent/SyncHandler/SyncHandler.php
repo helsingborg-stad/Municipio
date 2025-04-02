@@ -11,7 +11,7 @@ use Municipio\ExternalContent\SourceReaders\SourceReaderInterface;
 use Municipio\ExternalContent\WpPostArgsFromSchemaObject\WpPostArgsFromSchemaObjectInterface;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\ProgressReporter\ProgressReporterInterface;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 use WpService\WpService;
 
 /**

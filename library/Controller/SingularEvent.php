@@ -6,8 +6,8 @@ use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
 use Municipio\Helper\Post;
 use Municipio\Helper\WpService;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Contracts\EventContract;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Contracts\EventContract;
 
 /**
  * Class SingularEvent

@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\Acf\Utils;
 
 use ReflectionClass;
 use ReflectionMethod;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 
 class SchemaTypesFromSpatie implements GetSchemaTypesInterface
 {

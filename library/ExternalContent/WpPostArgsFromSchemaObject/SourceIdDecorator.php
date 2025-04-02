@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 /**
  * Class SourceIdDecorator

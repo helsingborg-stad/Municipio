@@ -5,7 +5,7 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 use Municipio\SchemaData\Utils\IGetSchemaPropertiesWithParamTypes;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 use WP_Post;
 use WpService\Contracts\GetPostMeta;
 

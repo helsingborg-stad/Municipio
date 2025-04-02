@@ -2,8 +2,8 @@
 
 namespace Municipio\ExternalContent\JsonToSchemaObjects;
 
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
 
 class SimpleJsonConverter implements JsonToSchemaObjects {
     

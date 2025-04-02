@@ -2,7 +2,7 @@
 
 namespace Municipio\ExternalContent\Filter\SchemaObjectsFilter;
 
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 interface SchemaObjectsFilterInterface
 {

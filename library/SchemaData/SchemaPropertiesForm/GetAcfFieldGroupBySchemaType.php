@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm;
 
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
-use Spatie\SchemaOrg\Schema;
+use Municipio\Schema\Schema;
 use WpService\Contracts\ApplyFilters;
 
 class GetAcfFieldGroupBySchemaType implements GetAcfFieldGroupBySchemaTypeInterface

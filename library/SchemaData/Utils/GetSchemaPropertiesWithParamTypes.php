@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\Utils;
 
 use ReflectionClass;
 use ReflectionMethod;
-use Spatie\SchemaOrg\BaseType;
+use Municipio\Schema\BaseType;
 
 class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamTypesInterface
 {
@@ -44,7 +44,7 @@ class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamT
 
     private function sanitizeParamType(string $type): string
     {
-        $re    = '/^(\\\\Spatie).+(Contracts\\\\)(.+)(Contract)(\[])?$/';
+        $re    = '/^(\\\\Municipio\\\\Schema).+(Contracts\\\\)(.+)(Contract)(\[])?$/';
         $subst = "$3$5";
         return preg_replace($re, $subst, $type);
     }

@@ -3,8 +3,8 @@
 namespace Municipio\ExternalContent\WpPostArgsFromSchemaObject;
 
 use PHPUnit\Framework\TestCase;
-use Spatie\SchemaOrg\BaseType;
-use Spatie\SchemaOrg\ImageObject;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\ImageObject;
 use WP_Error;
 use WpService\Implementations\FakeWpService;
 
