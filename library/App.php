@@ -36,9 +36,6 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedI
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata;
-use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\FieldWithIdentifiers;
-use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\GeoCoordinatesField;
-use Municipio\SchemaData\SchemaPropertiesForm\FormFieldFromSchemaProperty\StringField;
 use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
 use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer;
@@ -53,15 +50,7 @@ use wpdb;
 use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
-use Municipio\Helper\SiteSwitcher\SiteSwitcher;
-use Municipio\CommonOptions\CommonOptionsConfig;
-use Municipio\ExternalContent\Config\SourceConfigWithCustomFilterDefinition;
-use Municipio\ExternalContent\Filter\FilterDefinition\FilterDefinition;
-use Municipio\ExternalContent\Filter\FilterDefinition\Rule;
-use Municipio\ExternalContent\Filter\FilterDefinition\RuleSet;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
-use Municipio\Progress\SseProgressService;
-use Municipio\ProgressReporter\HttpHeader\HttpHeader;
 
 /**
  * Class App
@@ -869,10 +858,7 @@ class App
         /**
          * Register form for schema properties on posts.
          */
-        $formFieldFactory                  = new FieldWithIdentifiers();
-        $formFieldFactory                  = new StringField($formFieldFactory);
-        $formFieldFactory                  = new GeoCoordinatesField($formFieldFactory);
-        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $formFieldFactory);
+        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService);
         $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType(
             $this->wpService,
             $getSchemaPropertiesWithParamTypes,
