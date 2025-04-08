@@ -115,4 +115,12 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
     {
         return $this->archiveDateFormatSettingResolver->resolve();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        return $this->postObject->getSchemaProperty($property);
+    }
 }

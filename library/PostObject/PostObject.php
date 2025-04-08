@@ -105,4 +105,12 @@ class PostObject implements PostObjectInterface
     {
         return 'date-time';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        return null;
+    }
 }

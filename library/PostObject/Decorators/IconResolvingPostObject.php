@@ -105,4 +105,12 @@ class IconResolvingPostObject implements PostObjectInterface
     {
         return $this->postObject->getArchiveDateFormat();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        return $this->postObject->getSchemaProperty($property);
+    }
 }
