@@ -9,6 +9,11 @@ use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetThePostThumbnailUrl;
 
+/**
+ * SchemaObjectFromPostFactory.
+ *
+ * Factory for creating SchemaObjectFromPost instances.
+ */
 class SchemaObjectFromPostFactory implements FactoryInterface
 {
     /**

@@ -35,6 +35,11 @@ class PostObjectWithSchemaObject implements PostObjectInterface
         return $this->getSchemaObject()->getProperty($property);
     }
 
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType
+     */
     private function getSchemaObject(): BaseType
     {
         static $schemaObject = null;
@@ -47,6 +52,9 @@ class PostObjectWithSchemaObject implements PostObjectInterface
         return $schemaObject;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function __get(string $name): mixed
     {
         if ($name === 'schemaObject') {
