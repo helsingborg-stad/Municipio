@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\Utils\IGetSchemaPropertiesWithParamTypes;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
@@ -33,13 +34,9 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
     }
 
     /**
-     * Create a schema object from a post.
-     *
-     * @param WP_Post $post
-     *
-     * @return BaseType
+     * @inheritDoc
      */
-    public function create(WP_Post $post): BaseType
+    public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schema           = $this->inner->create($post);
         $schemaProperties = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);

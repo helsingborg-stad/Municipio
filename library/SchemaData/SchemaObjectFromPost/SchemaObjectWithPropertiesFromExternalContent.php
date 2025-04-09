@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
@@ -32,7 +33,7 @@ class SchemaObjectWithPropertiesFromExternalContent implements SchemaObjectFromP
     /**
      * @inheritDoc
      */
-    public function create(WP_Post $post): BaseType
+    public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schemaData                      = $this->wpService->getPostMeta($post->ID, 'schemaData', true);
         $allowedSchemaTypesAndProperties = $this->getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();

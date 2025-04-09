@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WP_Post;
 use WpService\Contracts\GetThePostThumbnailUrl;
@@ -32,7 +33,7 @@ class SchemaObjectWithImageFromFeaturedImage implements SchemaObjectFromPostInte
      *
      * @return BaseType
      */
-    public function create(WP_Post $post): BaseType
+    public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schema          = $this->inner->create($post);
         $schema['image'] = $this->wpService->getThePostThumbnailUrl($post->ID, 'full') ?: null;
