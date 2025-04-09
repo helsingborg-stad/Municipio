@@ -91,4 +91,12 @@ class PostObjectTest extends TestCase
     {
         $this->assertEquals('date-time', $this->instance->getArchiveDateFormat());
     }
+
+    /**
+     * @testdox getSchemaProperty() returns null
+     */
+    public function testGetSchemaPropertyReturnsNull()
+    {
+        $this->assertEquals(null, $this->instance->getSchemaProperty('non_existing_property'));
+    }
 }

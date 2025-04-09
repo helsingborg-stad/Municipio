@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WP_Post;
 
@@ -22,13 +23,9 @@ class SchemaObjectWithNameFromTitle implements SchemaObjectFromPostInterface
     }
 
     /**
-     * Create a schema object from a post.
-     *
-     * @param WP_Post $post
-     *
-     * @return BaseType
+     * @inheritDoc
      */
-    public function create(WP_Post $post): BaseType
+    public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schema         = $this->inner->create($post);
         $schema['name'] = $post->post_title;

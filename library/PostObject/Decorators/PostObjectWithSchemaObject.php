@@ -2,24 +2,67 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\Date\ArchiveDateFormatResolverInterface;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 
 /**
- * PostObjectWithSeoRedirect class.
+ * Decorator for PostObject that adds schema object functionality.
  *
- * Applies the SEO redirect to the post object permalink if a redirect is set.
+ * @package Municipio\PostObject\Decorators
  */
-class PostObjectArchiveDateFormat implements PostObjectInterface
+class PostObjectWithSchemaObject implements PostObjectInterface
 {
     /**
      * Constructor.
      */
     public function __construct(
         private PostObjectInterface $postObject,
-        private ArchiveDateFormatResolverInterface $archiveDateFormatSettingResolver
+        private SchemaObjectFromPostInterface $schemaObjectFromPost
     ) {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        if ($property === '@type') {
+            return $this->getSchemaObject()->getType();
+        }
+
+        return $this->getSchemaObject()->getProperty($property);
+    }
+
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType
+     */
+    private function getSchemaObject(): BaseType
+    {
+        static $schemaObject = null;
+
+        if ($schemaObject === null) {
+            $schemaObject                   = $this->schemaObjectFromPost->create($this->postObject);
+            $this->postObject->schemaObject = $schemaObject;
+        }
+
+        return $schemaObject;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __get(string $name): mixed
+    {
+        if ($name === 'schemaObject') {
+            trigger_error('Deprecated: Use getSchemaObject() instead.', E_USER_DEPRECATED);
+            return $this->getSchemaObject();
+        }
+
+        return $this->postObject->__get($name);
     }
 
     /**
@@ -42,6 +85,7 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getPermalink(): string
     {
@@ -86,6 +130,7 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getPublishedTime(bool $gmt = false): int
     {
@@ -94,6 +139,7 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getModifiedTime(bool $gmt = false): int
     {
@@ -102,6 +148,7 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getArchiveDateTimestamp(): ?int
     {
@@ -110,17 +157,10 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getArchiveDateFormat(): string
     {
-        return $this->archiveDateFormatSettingResolver->resolve();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaProperty(string $property): mixed
-    {
-        return $this->postObject->getSchemaProperty($property);
+        return $this->postObject->getArchiveDateFormat();
     }
 }

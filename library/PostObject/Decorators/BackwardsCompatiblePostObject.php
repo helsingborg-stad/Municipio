@@ -43,6 +43,8 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
         if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
             return $this->{self::PROPERTY_TO_METHOD_MAP[$name]}();
         }
+
+        return $this->postObject->__get($name);
     }
 
     /**
@@ -146,5 +148,13 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     public function getArchiveDateFormat(): string
     {
         return $this->postObject->getArchiveDateFormat();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        return $this->postObject->getSchemaProperty($property);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\Utils\IGetSchemaPropertiesWithParamTypes;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizerInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use Municipio\Schema\BaseType;
 use WP_Post;
@@ -21,25 +22,21 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
      *
      * @param GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes
      * @param GetPostMeta $wpService
-     * @param SchemaPropertyValueSanitizer $schemaPropertyValueSanitizer
+     * @param SchemaPropertyValueSanitizerInterface $SchemaPropertyValueSanitizerInterface
      * @param SchemaObjectFromPostInterface $inner
      */
     public function __construct(
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
         private GetPostMeta $wpService,
-        private SchemaPropertyValueSanitizer $schemaPropertyValueSanitizer,
+        private SchemaPropertyValueSanitizerInterface $SchemaPropertyValueSanitizerInterface,
         private SchemaObjectFromPostInterface $inner
     ) {
     }
 
     /**
-     * Create a schema object from a post.
-     *
-     * @param WP_Post $post
-     *
-     * @return BaseType
+     * @inheritDoc
      */
-    public function create(WP_Post $post): BaseType
+    public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schema           = $this->inner->create($post);
         $schemaProperties = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
@@ -49,7 +46,7 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
 
         foreach ($schemaProperties as $propertyName => $acceptedPropertyTypes) {
             if (isset($postMeta[$metaKeyPrefix . $propertyName])) {
-                $schema->setProperty($propertyName, $this->schemaPropertyValueSanitizer->sanitize(maybe_unserialize($postMeta[$metaKeyPrefix . $propertyName][0]), $acceptedPropertyTypes));
+                $schema->setProperty($propertyName, $this->SchemaPropertyValueSanitizerInterface->sanitize(maybe_unserialize($postMeta[$metaKeyPrefix . $propertyName][0]), $acceptedPropertyTypes));
             }
         }
 

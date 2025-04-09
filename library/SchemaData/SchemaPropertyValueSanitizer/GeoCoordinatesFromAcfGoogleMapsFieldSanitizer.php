@@ -5,10 +5,10 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 /**
  * Sanitizes the value of a Google Maps ACF field to a GeoCoordinates object.
  *
- * This class implements the SchemaPropertyValueSanitizer interface and is responsible for
+ * This class implements the SchemaPropertyValueSanitizerInterface interface and is responsible for
  * converting an array containing latitude and longitude into a GeoCoordinates object.
  */
-class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizer
+class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     private mixed $value;
     private array $allowedTypes;
@@ -16,7 +16,7 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
     /**
      * Constructor for the GeoCoordinatesFromAcfGoogleMapsFieldSanitizer class.
      *
-     * @param SchemaPropertyValueSanitizer $inner The inner sanitizer to delegate to if the value is not a GeoCoordinates.
+     * @param SchemaPropertyValueSanitizerInterface $inner The inner sanitizer to delegate to if the value is not a GeoCoordinates.
      */
     public function __construct(private $inner = new NullSanitizer())
     {

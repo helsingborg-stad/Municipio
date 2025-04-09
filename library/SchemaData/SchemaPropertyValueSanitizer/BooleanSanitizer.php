@@ -6,9 +6,9 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
  *
  * Class BooleanSanitizer
  *
- * This class implements the SchemaPropertyValueSanitizer interface and provides methods to sanitize boolean values.
+ * This class implements the SchemaPropertyValueSanitizerInterface interface and provides methods to sanitize boolean values.
  */
-class BooleanSanitizer implements SchemaPropertyValueSanitizer
+class BooleanSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     /**
      * Class constructor.

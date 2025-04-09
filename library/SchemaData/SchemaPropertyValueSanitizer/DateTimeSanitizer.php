@@ -4,7 +4,12 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
 use DateTime;
 
-class DateTimeSanitizer implements SchemaPropertyValueSanitizer
+/**
+ * DateTimeSanitizer.
+ *
+ * Sanitizes DateTime values.
+ */
+class DateTimeSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     /**
      * Class constructor.
@@ -31,6 +36,12 @@ class DateTimeSanitizer implements SchemaPropertyValueSanitizer
         return $this->inner->sanitize($value, $allowedTypes);
     }
 
+    /**
+     * Sanitize the date value.
+     *
+     * @param mixed $value The value to sanitize.
+     * @return DateTime|string|null The sanitized date value.
+     */
     private function sanitizeDate($value): DateTime|string|null
     {
         if (is_string($value)) {

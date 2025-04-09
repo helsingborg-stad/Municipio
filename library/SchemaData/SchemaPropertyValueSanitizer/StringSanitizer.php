@@ -2,12 +2,23 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
-class StringSanitizer implements SchemaPropertyValueSanitizer
+/**
+ * StringSanitizer.
+ *
+ * Sanitizes string values.
+ */
+class StringSanitizer implements SchemaPropertyValueSanitizerInterface
 {
+    /**
+     * Constructor.
+     */
     public function __construct(private $inner = new NullSanitizer())
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function sanitize(mixed $value, array $allowedTypes): mixed
     {
         if (is_string($value) && in_array('string', $allowedTypes)) {

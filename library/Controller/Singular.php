@@ -5,8 +5,8 @@ namespace Municipio\Controller;
 use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 use Municipio\Helper\WP;
-use WP_Post;
 use Municipio\PostObject\PostObjectInterface;
+use WP_Post;
 
 /**
  * Class Singular
@@ -14,6 +14,8 @@ use Municipio\PostObject\PostObjectInterface;
  */
 class Singular extends \Municipio\Controller\BaseController
 {
+    protected PostObjectInterface $post;
+
     /**
      * @return array|void
      */
@@ -29,6 +31,7 @@ class Singular extends \Municipio\Controller\BaseController
             return $this->data;
         }
 
+        $this->post                = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 

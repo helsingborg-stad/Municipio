@@ -86,4 +86,12 @@ interface PostObjectInterface
      * @return string
      */
     public function getArchiveDateFormat(): string;
+
+    /**
+     * Get schema property.
+     *
+     * @param string $property The schema property to get.
+     * @return mixed The value of the schema property. Will return null if the property does not exist.
+     */
+    public function getSchemaProperty(string $property): mixed;
 }

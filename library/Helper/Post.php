@@ -7,29 +7,8 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
-use Municipio\Helper\Term\Term;
-use Municipio\PostObject\Date\ArchiveDateFormatResolver;
-use Municipio\PostObject\Date\ArchiveDateSourceResolver;
-use Municipio\PostObject\Date\CachedArchiveDateFormatResolver;
-use Municipio\PostObject\Decorators\BackwardsCompatiblePostObject;
-use Municipio\PostObject\Decorators\IconResolvingPostObject;
-use Municipio\PostObject\Decorators\PostObjectFromOtherBlog;
-use Municipio\PostObject\Decorators\PostObjectFromWpPost;
-use Municipio\PostObject\Decorators\PostDateTimestamp;
-use Municipio\PostObject\Decorators\PostObjectDateTimestamp;
-use Municipio\PostObject\Decorators\PostObjectWithOtherBlogIdFromSwitchedState;
-use Municipio\PostObject\Decorators\PostObjectWithSeoRedirect;
-use Municipio\PostObject\Icon\Resolvers\CachedIconResolver;
-use Municipio\PostObject\Icon\Resolvers\NullIconResolver;
-use Municipio\PostObject\Icon\Resolvers\PostIconResolver;
-use Municipio\PostObject\Icon\Resolvers\TermIconResolver;
-use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\PostObject\Date\CachedArchiveDateSourceResolver;
-use Municipio\PostObject\Date\CachedTimestampResolver;
-use Municipio\PostObject\Date\TimestampResolver;
-use Municipio\PostObject\Decorators\PostObjectArchiveDateFormat;
-use Municipio\PostObject\Decorators\PostObjectArchiveDateTimestamp;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 
 /**
  * Class Post
@@ -39,6 +18,16 @@ class Post
 {
     //Stores cache in runtime
     public static $runtimeCache = [];
+    private static PostObjectFromWpPostFactoryInterface $postObjectFromWpPostFactory;
+
+    /**
+     * Set dependencies
+     */
+    public static function setDependencies(
+        PostObjectFromWpPostFactoryInterface $postObjectFromWpPostFactory
+    ) {
+        self::$postObjectFromWpPostFactory = $postObjectFromWpPostFactory;
+    }
 
     /**
      * Prepare post object before sending to view
@@ -76,7 +65,9 @@ class Post
             $data
         );
 
-        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
+        self::$runtimeCache[$cacheGroup][$cacheKey] = self::convertWpPostToPostObject($post);
+
+        return self::$runtimeCache[$cacheGroup][$cacheKey];
     }
 
      /**
@@ -122,7 +113,9 @@ class Post
             $data
         );
 
-        return self::convertWpPostToPostObject($post, $cacheGroup, $cacheKey);
+        self::$runtimeCache[$cacheGroup][$cacheKey] = self::convertWpPostToPostObject($post);
+
+        return self::$runtimeCache[$cacheGroup][$cacheKey];
     }
 
     /**
@@ -156,46 +149,11 @@ class Post
      * Prepare post object before sending to view
      *
      * @param WP_Post $post WP_Post object
-     * @param string $cacheGroup Cache group
-     * @param string $cacheKey Cache key
      * @return PostObjectInterface
      */
-    private static function convertWpPostToPostObject(WP_Post $post, string $cacheGroup, string $cacheKey): PostObjectInterface
+    private static function convertWpPostToPostObject(WP_Post $post): PostObjectInterface
     {
-        $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
-        $wpService      = \Municipio\Helper\WpService::get();
-        $acfService     = \Municipio\Helper\AcfService::get();
-
-        $postObject = new PostObjectFromWpPost(new PostObject($wpService), $post, $wpService);
-        $postObject = new PostObjectWithSeoRedirect($postObject, $wpService);
-
-        $archiveDateFormatResolver = new ArchiveDateFormatResolver($postObject, $wpService);
-        $archiveDateFormatResolver = new CachedArchiveDateFormatResolver($postObject, $archiveDateFormatResolver);
-        $postObject                = new PostObjectArchiveDateFormat($postObject, $archiveDateFormatResolver);
-
-        $archiveDateSourceResolver = new ArchiveDateSourceResolver($postObject, $wpService);
-        $archiveDateSourceResolver = new CachedArchiveDateSourceResolver($postObject, $archiveDateSourceResolver);
-        $stringToTimeHelper        = new StringToTime($wpService);
-        $timestampResolver         = new TimestampResolver($postObject, $wpService, $archiveDateSourceResolver, $stringToTimeHelper);
-        $timestampResolver         = new CachedTimestampResolver($postObject, $wpService, $timestampResolver);
-
-        $postObject = new PostObjectArchiveDateTimestamp($postObject, $timestampResolver);
-
-        $iconResolver = new TermIconResolver($postObject, $wpService, new Term($wpService, AcfService::get()), new NullIconResolver());
-        $iconResolver = new PostIconResolver($postObject, $acfService, $iconResolver);
-        $iconResolver = new CachedIconResolver($postObject, $iconResolver);
-
-        $postObject = new IconResolvingPostObject($postObject, $iconResolver);
-
-        if ($wpService->isMultiSite() && $wpService->msIsSwitched()) {
-            $postObject = new PostObjectFromOtherBlog($postObject, $wpService, $wpService->getCurrentBlogId());
-        }
-
-        $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
-
-        self::$runtimeCache[$cacheGroup][$cacheKey] = $postObject;
-
-        return $postObject;
+        return self::$postObjectFromWpPostFactory->create($post);
     }
 
     /**
