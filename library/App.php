@@ -31,11 +31,6 @@ use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
 use Municipio\SchemaData\LimitSchemaTypesAndProperties;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithImageFromFeaturedImage;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithNameFromTitle;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromExternalContent;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectWithPropertiesFromMetadata;
 use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
 use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer;
@@ -51,6 +46,7 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 
 /**
  * Class App
@@ -799,20 +795,13 @@ class App
         $schemaPropSanitizer               = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropSanitizer);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
-        $schemaObjectFromPost = new SchemaObjectFromPost($this->schemaDataConfig);
-        $schemaObjectFromPost = new SchemaObjectWithNameFromTitle($schemaObjectFromPost);
-        $schemaObjectFromPost = new SchemaObjectWithImageFromFeaturedImage($schemaObjectFromPost, $this->wpService);
-        $schemaObjectFromPost = new SchemaObjectWithPropertiesFromMetadata(
+        $schemaObjectFromPost = (new SchemaObjectFromPostFactory(
+            $this->schemaDataConfig,
+            $this->wpService,
             $getSchemaPropertiesWithParamTypes,
-            $this->wpService,
             $schemaPropSanitizer,
-            $schemaObjectFromPost
-        );
-        $schemaObjectFromPost = new SchemaObjectWithPropertiesFromExternalContent(
-            $this->wpService,
-            $getEnabledSchemaTypes,
-            $schemaObjectFromPost
-        );
+            $getEnabledSchemaTypes
+        ))->create();
 
         $this->wpService->addFilter(
             'Municipio/Helper/Post/postObject',
