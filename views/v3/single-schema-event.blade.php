@@ -49,7 +49,7 @@
 
     @stop
     
-    {!!$post->schemaObject['description']!!}
+    {!!$post->getSchemaProperty('description')!!}
 
     @if(!$eventIsInThePast)
         @button([

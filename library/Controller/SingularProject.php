@@ -27,7 +27,7 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->data['technology'] = $this->implodeProjectTerms($this->getProjectTerm('technology'));
         $this->data['status']     = $this->implodeProjectTerms($this->getProjectTerm('status'));
         $this->data['department'] = $this->implodeProjectTerms($this->getProjectTerm('department'));
-        $this->data['budget']     = $this->data['post']->schemaObject['funding']['amount'] ?? null;
+        $this->data['budget']     = $this->post->getSchemaProperty('funding')['amount'] ?? null;
 
         $this->appendToLangObject();
         $this->setInformationListData();
@@ -99,12 +99,12 @@ class SingularProject extends \Municipio\Controller\Singular
             ];
         }
 
-        if (!empty($this->data['post']->schemaObject['employee']['alternateName'])) {
+        if (!empty($this->post->getSchemaProperty('employee')['alternateName'])) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->contact,
                 'value' => [
-                    $this->data['post']->schemaObject['employee']['alternateName'],
-                    $this->getEmailLinkFromEmployee($this->data['post']->schemaObject['employee'])
+                    $this->post->getSchemaProperty('employee')['alternateName'],
+                    $this->getEmailLinkFromEmployee($this->post->getSchemaProperty('employee'))
                 ]
             ];
         }

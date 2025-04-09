@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizerInterface;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\GetPostMeta;
@@ -20,7 +20,7 @@ class SchemaObjectFromPostFactory implements FactoryInterface
         private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
         private GetThePostThumbnailUrl&GetPostMeta $wpService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
-        private SchemaPropertyValueSanitizer $schemaPropSanitizer,
+        private SchemaPropertyValueSanitizerInterface $schemaPropSanitizer,
         private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes,
     ) {
     }

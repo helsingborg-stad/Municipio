@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
-class StringSanitizer implements SchemaPropertyValueSanitizer
+class StringSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     public function __construct(private $inner = new NullSanitizer())
     {

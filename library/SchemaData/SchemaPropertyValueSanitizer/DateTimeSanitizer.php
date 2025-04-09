@@ -4,7 +4,7 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
 use DateTime;
 
-class DateTimeSanitizer implements SchemaPropertyValueSanitizer
+class DateTimeSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     /**
      * Class constructor.

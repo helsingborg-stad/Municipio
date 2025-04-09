@@ -43,6 +43,8 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
         if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
             return $this->{self::PROPERTY_TO_METHOD_MAP[$name]}();
         }
+
+        return $this->postObject->__get($name);
     }
 
     /**

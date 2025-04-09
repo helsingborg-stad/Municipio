@@ -47,6 +47,7 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 
 /**
  * Class App
@@ -788,28 +789,15 @@ class App
         });
 
         $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
-        $schemaPropSanitizer               = new NullSanitizer();
-        $schemaPropSanitizer               = new StringSanitizer($schemaPropSanitizer);
-        $schemaPropSanitizer               = new BooleanSanitizer($schemaPropSanitizer);
-        $schemaPropSanitizer               = new DateTimeSanitizer($schemaPropSanitizer);
-        $schemaPropSanitizer               = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropSanitizer);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
         $schemaObjectFromPost = (new SchemaObjectFromPostFactory(
             $this->schemaDataConfig,
             $this->wpService,
             $getSchemaPropertiesWithParamTypes,
-            $schemaPropSanitizer,
+            new SchemaPropertyValueSanitizer(),
             $getEnabledSchemaTypes
         ))->create();
-
-        $this->wpService->addFilter(
-            'Municipio/Helper/Post/postObject',
-            fn (WP_Post $post) =>
-            (new \Municipio\PostDecorators\ApplySchemaObject($schemaObjectFromPost))->apply($post),
-            1,
-            1
-        );
 
         /**
          * Limit schema types and properties.

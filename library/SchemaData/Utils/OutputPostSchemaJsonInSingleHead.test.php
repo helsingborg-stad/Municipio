@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\Utils;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
@@ -46,7 +47,7 @@ class OutputPostSchemaJsonInSingleHeadTest extends TestCase {
 
     private function getSchemaObjectFromPost(): SchemaObjectFromPostInterface {
         return new class implements SchemaObjectFromPostInterface {
-            public function create(WP_Post $post): BaseType
+            public function create(WP_Post|PostObjectInterface $post): BaseType
             {
                 return new class extends Thing {
                     public function toScript(): string

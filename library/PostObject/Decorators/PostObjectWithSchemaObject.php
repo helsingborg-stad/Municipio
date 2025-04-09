@@ -4,6 +4,7 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 
 /**
@@ -27,17 +28,33 @@ class PostObjectWithSchemaObject implements PostObjectInterface
      */
     public function getSchemaProperty(string $property): mixed
     {
+        if ($property === '@type') {
+            return $this->getSchemaObject()->getType();
+        }
+
+        return $this->getSchemaObject()->getProperty($property);
+    }
+
+    private function getSchemaObject(): BaseType
+    {
         static $schemaObject = null;
 
         if ($schemaObject === null) {
-            $schemaObject = $this->schemaObjectFromPost->create($this->postObject);
+            $schemaObject                   = $this->schemaObjectFromPost->create($this->postObject);
+            $this->postObject->schemaObject = $schemaObject;
         }
 
-        if ($property === '@type') {
-            return $schemaObject->getType();
+        return $schemaObject;
+    }
+
+    public function __get(string $name): mixed
+    {
+        if ($name === 'schemaObject') {
+            trigger_error('Deprecated: Use getSchemaObject() instead.', E_USER_DEPRECATED);
+            return $this->getSchemaObject();
         }
 
-        return $schemaObject->getProperty($property);
+        return $this->postObject->__get($name);
     }
 
     /**

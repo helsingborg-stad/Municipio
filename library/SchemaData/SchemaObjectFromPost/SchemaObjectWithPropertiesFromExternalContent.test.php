@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
+use Municipio\PostObject\PostObjectInterface;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
@@ -77,7 +78,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     private function schemaObjectFromPost(): SchemaObjectFromPostInterface
     {
         return new class implements SchemaObjectFromPostInterface {
-            public function create(WP_Post $post): BaseType
+            public function create(WP_Post|PostObjectInterface $post): BaseType
             {
                 return new Thing();
             }

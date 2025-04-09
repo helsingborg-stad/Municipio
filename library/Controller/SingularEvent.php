@@ -25,20 +25,20 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $this->populateLanguageObject();
 
-        $this->data['placeUrl']                      = $this->data['post']->schemaObject->getProperty('location') ? $this->getPlaceUrl($this->data['post']->schemaObject->getProperty('location')) : null;
-        $this->data['placeName']                     = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['name'] ?? null : null;
-        $this->data['placeAddress']                  = $this->data['post']->schemaObject->getProperty('location') ? $this->data['post']->schemaObject->getProperty('location')['address'] : null;
-        $this->data['priceListItems']                = $this->getPriceList($this->data['post']->schemaObject);
-        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->data['post']->schemaObject);
-        $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries($this->data['post']->schemaObject);
-        $this->data['occassion']                     = $this->getOccassionText($this->data['post']->schemaObject);
-        $this->data['bookingLink']                   = $this->data['post']->schemaObject->getProperty('offers')[0]['url'] ?? null;
-        $this->data['organizers']                    = $this->data['post']->schemaObject->getProperty('organizer') ?? [];
+        $this->data['placeUrl']                      = $this->post->getSchemaProperty('location') ? $this->getPlaceUrl($this->post->getSchemaProperty('location')) : null;
+        $this->data['placeName']                     = $this->post->getSchemaProperty('location') ? $this->post->getSchemaProperty('location')['name'] ?? null : null;
+        $this->data['placeAddress']                  = $this->post->getSchemaProperty('location') ? $this->post->getSchemaProperty('location')['address'] : null;
+        $this->data['priceListItems']                = $this->getPriceList();
+        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink();
+        $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries();
+        $this->data['occassion']                     = $this->getOccassionText();
+        $this->data['bookingLink']                   = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
+        $this->data['organizers']                    = $this->post->getSchemaProperty('organizer') ?? [];
         $this->data['organizers']                    = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
-        $this->data['physicalAccessibilityFeatures'] = $this->data['post']->schemaObject->getProperty('physicalAccessibilityFeatures') ?? null;
+        $this->data['physicalAccessibilityFeatures'] = $this->post->getSchemaProperty('physicalAccessibilityFeatures') ?? null;
         $this->data['eventIsInThePast']              = $this->eventIsInThePast();
         $this->data['occassions']                    = array_map(function ($postObject) {
-            return $this->getOccassionText($postObject->schemaObject);
+            return $this->getOccassionText();
         }, $this->data['eventsInTheSameSeries']);
 
         $this->trySetHttpStatusHeader();
@@ -82,13 +82,12 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get date text
      *
-     * @param BaseType&EventContract $event
      * @return string
      */
-    public function getOccassionText(BaseType&EventContract $event): string
+    public function getOccassionText(): string
     {
-        $startDate = $event->getProperty('startDate');
-        $endDate   = $event->getProperty('endDate');
+        $startDate = $this->post->getSchemaProperty('startDate');
+        $endDate   = $this->post->getSchemaProperty('endDate');
 
         if (!$startDate || !$endDate) {
             return '';
@@ -108,12 +107,11 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get price list
      *
-     * @param BaseType&EventContract $event
      * @return PriceListItemInterface[]
      */
-    public function getPriceList(BaseType&EventContract $event): array
+    public function getPriceList(): array
     {
-        $offers = $event->getProperty('offers');
+        $offers = $this->post->getSchemaProperty('offers');
 
         if (!$offers) {
             return [];
@@ -152,14 +150,13 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get ICS download link
      *
-     * @param BaseType&EventContract $event
      * @return string
      */
-    private function getIcsDownloadLink(BaseType&EventContract $event): string
+    private function getIcsDownloadLink(): string
     {
-        $startDate = $event->getProperty('startDate');
-        $endDate   = $event->getProperty('endDate');
-        $name      = $event->getProperty('name');
+        $startDate = $this->post->getSchemaProperty('startDate');
+        $endDate   = $this->post->getSchemaProperty('endDate');
+        $name      = $this->post->getSchemaProperty('name');
 
         if (!$startDate || !$endDate || !$name) {
             return '';
@@ -184,19 +181,18 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get events in the same series
      *
-     * @param BaseType&EventContract $event
      * @return array
      */
-    private function getEventsInTheSameSeries(BaseType&EventContract $event): array
+    private function getEventsInTheSameSeries(): array
     {
-        if (empty($event->getProperty('eventsInSameSeries'))) {
+        if (empty($this->post->getSchemaProperty('eventsInSameSeries'))) {
             return [];
         }
 
-        $eventIds = array_map(fn($eventInSerie) => $eventInSerie['@id'], $event->getProperty('eventsInSameSeries'));
+        $eventIds = array_map(fn($eventInSerie) => $eventInSerie['@id'], $this->post->getSchemaProperty('eventsInSameSeries'));
 
         $posts = $this->wpService->getPosts([
-        'post_type'    => $this->data['post']->getPostType(),
+        'post_type'    => $this->post->getPostType(),
         'meta_query'   => [
             [
                 'key'     => 'originId',
@@ -226,7 +222,7 @@ class SingularEvent extends \Municipio\Controller\Singular
      */
     private function eventIsInThePast(): bool
     {
-        $startDate = $this->data['post']->schemaObject->getProperty('endDate');
+        $startDate = $this->post->getSchemaProperty('endDate');
         return strtotime($startDate) < time();
     }
 }

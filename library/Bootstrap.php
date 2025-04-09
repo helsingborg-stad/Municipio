@@ -11,7 +11,12 @@ use Municipio\Config\ConfigServiceFromAcf;
 use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
 use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
 use Municipio\HooksRegistrar\HooksRegistrar;
+use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\AcfFieldContentModifiers\PopulateSchemaTypeFieldOptions;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
+use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
+use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
 use WpService\Implementations\NativeWpService;
 
 if (file_exists(MUNICIPIO_PATH . 'vendor/autoload.php')) {
@@ -45,10 +50,23 @@ $wpService  = new NativeWpService();
 $acfService = new NativeAcfService();
 
 /**
+ * Dependencies.
+ */
+$schemaDataConfigService = new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService);
+$schemaObjectFromPost    = (new SchemaObjectFromPostFactory(
+    $schemaDataConfigService,
+    $wpService,
+    new GetSchemaPropertiesWithParamTypes(),
+    new SchemaPropertyValueSanitizer(),
+    new GetEnabledSchemaTypes($wpService)
+))->create();
+
+/**
  * Service helpers.
  */
 \Municipio\Helper\AcfService::set($acfService);
 \Municipio\Helper\WpService::set($wpService);
+\Municipio\Helper\Post::setDependencies(new CreatePostObjectFromWpPost($wpService, $acfService, $schemaObjectFromPost));
 \Municipio\SchemaData\Helper\GetSchemaType::setAcfService($acfService);
 
 /**
@@ -144,7 +162,7 @@ if (function_exists('get_field')) {
         $acfService,
         new HooksRegistrar(),
         new \Municipio\AcfFieldContentModifiers\Registrar($wpService),
-        new \Municipio\Config\Features\SchemaData\SchemaDataConfigService($wpService),
+        $schemaDataConfigService,
         $wpdb
     );
 } else {

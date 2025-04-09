@@ -35,7 +35,8 @@ class SchemaObjectWithPropertiesFromExternalContent implements SchemaObjectFromP
      */
     public function create(WP_Post|PostObjectInterface $post): BaseType
     {
-        $schemaData                      = $this->wpService->getPostMeta($post->ID, 'schemaData', true);
+        $id                              = $post instanceof PostObjectInterface ? $post->getId() : $post->ID;
+        $schemaData                      = $this->wpService->getPostMeta($id, 'schemaData', true);
         $allowedSchemaTypesAndProperties = $this->getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();
 
         if (
