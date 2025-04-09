@@ -62,7 +62,7 @@ class PostObjectWithSchemaObject implements PostObjectInterface
             return $this->getSchemaObject();
         }
 
-        return $this->postObject->__get($name);
+        return $this->postObject->$name;
     }
 
     /**

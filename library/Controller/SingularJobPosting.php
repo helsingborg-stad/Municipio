@@ -15,11 +15,8 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     public function init()
     {
-
         parent::init();
 
-
-        $this->data['post'] = $this->sanitizeValidThroughDateString($this->data['post']);
         $this->populateLanguageObject();
         $this->populateInformationList();
         $this->setExpired();
@@ -29,22 +26,22 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      * Sanitize the validThrough date string.
      *
      * @param object $post
-     * @return object
+     * @return string|null
      */
-    private function sanitizeValidThroughDateString($post): object
+    private function tryGetFormattedValidThrough(): ?string
     {
-        if (empty($post->schemaObject['validThrough'])) {
-            return $post;
+        if (empty($this->post->getSchemaProperty('validThrough'))) {
+            return null;
         }
 
         try {
-            $date = new \DateTime($post->schemaObject['validThrough']);
-            $post->schemaObject->setProperty('validThrough', $date->format('Y-m-d'));
+            $date = new \DateTime($this->post->getSchemaProperty('validThrough'));
+            return $date->format('Y-m-d');
         } catch (\Exception $e) {
-            error_log('Failed to parse date: ' . $post->schemaObject['validThrough']);
+            error_log('Failed to parse date: ' . $this->post->getSchemaProperty('validThrough'));
         }
 
-        return $post;
+        return null;
     }
 
     /**
@@ -81,23 +78,29 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     public function getValidThroughListItemValue(?int $currentTimestamp = null): string
     {
-        $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
+        $formatted = $this->tryGetFormattedValidThrough();
+
+        if (empty($formatted)) {
+            return $this->post->getSchemaProperty('validThrough') ?? '';
+        }
+
+        $validThroughTimeStamp = strtotime($formatted);
 
         if (empty($validThroughTimeStamp)) {
-            return $this->data['post']->schemaObject['validThrough'];
+            return $this->post->getSchemaProperty('validThrough') ?? '';
         }
 
         $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d', $currentTimestamp));
         $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
-        $value                 = $this->data['post']->schemaObject['validThrough'] . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
+        $value                 = $formatted . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
         if ($daysUntilValidThrough === 0) {
-            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->today . ')';
+            $value = $formatted . ' (' . $this->data['lang']->today . ')';
         } elseif ($daysUntilValidThrough === 1) {
-            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->tomorrow . ')';
+            $value = $formatted . ' (' . $this->data['lang']->tomorrow . ')';
         } elseif ($this->isExpired($currentTimestamp)) {
-            $value = $this->data['post']->schemaObject['validThrough'] . ' (' . $this->data['lang']->expired . ')';
+            $value = $formatted . ' (' . $this->data['lang']->expired . ')';
         }
 
         return $value;
@@ -110,7 +113,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     private function isExpired(?int $currentTimestamp = null): bool
     {
-        $validThroughTimeStamp = strtotime($this->data['post']->schemaObject['validThrough']);
+        $validThroughTimeStamp = strtotime($this->post->getSchemaProperty('validThrough'));
 
         if (empty($validThroughTimeStamp)) {
             return false;
@@ -130,45 +133,62 @@ class SingularJobPosting extends \Municipio\Controller\Singular
     {
         $this->data['informationList'] = [];
 
-        if ($this->data['post']->schemaObject['validThrough'] ?? null) {
+        if ($this->post->getSchemaProperty('validThrough')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->validThrough,
                 'value' => $this->getValidThroughListItemValue()
             ];
         }
 
-        if ($this->data['post']->schemaObject['employmentType'] ?? null) {
+        if ($this->post->getSchemaProperty('employmentType')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->employmentType,
-                'value' => $this->data['post']->schemaObject['employmentType']
+                'value' => $this->post->getSchemaProperty('employmentType')
             ];
         }
 
-        if ($this->data['post']->schemaObject['datePosted'] ?? null) {
+        if ($this->post->getSchemaProperty('datePosted')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->datePosted,
-                'value' => $this->data['post']->schemaObject['datePosted']
+                'value' => $this->post->getSchemaProperty('datePosted')
             ];
         }
 
-        if ($this->data['post']->schemaObject['employmentUnit']['address']['addressRegion'] ?? null || $this->data['post']->schemaObject['employmentUnit']['address']['addressLocality'] ?? null) {
+        if ($this->post->getSchemaProperty('employmentType')) {
+            $this->data['informationList'][] = [
+                'label' => $this->data['lang']->employmentType,
+                'value' => $this->post->getSchemaProperty('employmentType')
+            ];
+        }
+
+        if ($this->post->getSchemaProperty('datePosted')) {
+            $this->data['informationList'][] = [
+                'label' => $this->data['lang']->datePosted,
+                'value' => $this->post->getSchemaProperty('datePosted')
+            ];
+        }
+
+        $addressRegion   = $this->post->getSchemaProperty('employmentUnit')['address']['addressRegion'] ?? null;
+        $addressLocality = $this->post->getSchemaProperty('employmentUnit')['address']['addressLocality'] ?? null;
+
+        if ($addressRegion || $addressLocality) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->organizationAddressLocality,
-                'value' => join(', ', array_filter([$this->data['post']->schemaObject['employmentUnit']['address']['addressLocality'], $this->data['post']->schemaObject['employmentUnit']['address']['addressRegion']]))
+                'value' => join(', ', array_filter([$addressLocality, $addressRegion]))
             ];
         }
 
-        if ($this->data['post']->schemaObject['employmentUnit']['name'] ?? null) {
+        if ($this->post->getSchemaProperty('employmentUnit')['name'] ?? null) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->administration,
-                'value' => $this->data['post']->schemaObject['employmentUnit']['name']
+                'value' => $this->post->getSchemaProperty('employmentUnit')['name'] ?? null
             ];
         }
 
-        if ($this->data['post']->schemaObject['@id'] ?? null) {
+        if ($this->post->getSchemaProperty('@id')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->reference,
-                'value' => $this->data['post']->schemaObject['@id']
+                'value' => $this->post->getSchemaProperty('@id')
             ];
         }
     }
