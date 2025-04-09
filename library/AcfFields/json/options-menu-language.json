@@ -6,6 +6,7 @@
             "key": "field_614449a2d4489",
             "label": "Number of Menu Items",
             "name": "",
+            "aria-label": "",
             "type": "message",
             "instructions": "",
             "required": 0,
@@ -23,6 +24,7 @@
             "key": "field_6141ccdf9d7ef",
             "label": "Disclaimer",
             "name": "language_menu_disclaimer",
+            "aria-label": "",
             "type": "textarea",
             "instructions": "A disclaimer to be shown below language options",
             "required": 0,
@@ -36,12 +38,14 @@
             "placeholder": "",
             "maxlength": "",
             "rows": "",
-            "new_lines": ""
+            "new_lines": "",
+            "acfe_textarea_code": 0
         },
         {
             "key": "field_6141cd72ba87a",
             "label": "More Languages Link",
             "name": "language_menu_more_languages",
+            "aria-label": "",
             "type": "url",
             "instructions": "A link to the translation service where user can select translation language themself",
             "required": 0,
@@ -53,6 +57,26 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_67f554814ab26",
+            "label": "Display current language in list",
+            "name": "display_current_language",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Yes",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -71,6 +95,12 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
 }]
 
