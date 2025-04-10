@@ -38,10 +38,11 @@ class SchemaObjectWithPropertiesFromMetadata implements SchemaObjectFromPostInte
      */
     public function create(WP_Post|PostObjectInterface $post): BaseType
     {
+        $postId           = $post instanceof PostObjectInterface ? $post->getId() : $post->ID;
         $schema           = $this->inner->create($post);
         $schemaProperties = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);
         $metaKeyPrefix    = 'schema_';
-        $postMeta         = $this->wpService->getPostMeta($post->ID);
+        $postMeta         = $this->wpService->getPostMeta($postId);
         $postMeta         = array_filter($postMeta, fn ($key) => str_starts_with($key, $metaKeyPrefix), ARRAY_FILTER_USE_KEY);
 
         foreach ($schemaProperties as $propertyName => $acceptedPropertyTypes) {

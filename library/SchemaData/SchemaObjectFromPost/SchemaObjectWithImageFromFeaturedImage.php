@@ -35,8 +35,9 @@ class SchemaObjectWithImageFromFeaturedImage implements SchemaObjectFromPostInte
      */
     public function create(WP_Post|PostObjectInterface $post): BaseType
     {
+        $postId          = $post instanceof PostObjectInterface ? $post->getId() : $post->ID;
         $schema          = $this->inner->create($post);
-        $schema['image'] = $this->wpService->getThePostThumbnailUrl($post->ID, 'full') ?: null;
+        $schema['image'] = $this->wpService->getThePostThumbnailUrl($postId, 'full') ?: null;
 
         return $schema;
     }

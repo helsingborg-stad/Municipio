@@ -28,7 +28,7 @@ class SchemaObjectWithNameFromTitle implements SchemaObjectFromPostInterface
     public function create(WP_Post|PostObjectInterface $post): BaseType
     {
         $schema         = $this->inner->create($post);
-        $schema['name'] = $post->post_title;
+        $schema['name'] = $post instanceof PostObjectInterface ? $post->getTitle() : $post->post_title;
 
         return $schema;
     }

@@ -33,7 +33,8 @@ class SchemaObjectFromPost implements SchemaObjectFromPostInterface
      */
     public function create(WP_Post|PostObjectInterface $post): BaseType
     {
-        $schemaType = $this->config->tryGetSchemaTypeFromPostType($post->post_type);
+        $postType   = $post instanceof PostObjectInterface ? $post->getPostType() : $post->post_type;
+        $schemaType = $this->config->tryGetSchemaTypeFromPostType($postType);
 
         if (!empty($schemaType) && method_exists(Schema::class, $schemaType)) {
             return Schema::$schemaType();
