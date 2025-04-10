@@ -56,57 +56,5 @@ class Drawer
                 ]
             ],
         ]);
-
-        KirkiField::addField([
-            'type'        => 'select',
-            'settings'    => 'drawer_sublevel_trigger_icon',
-            'label'       => esc_html__('Submenu expand icon', 'municipio'),
-            'description' => esc_html__('The icon that will indicate that a submenu can be expanded', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => '',
-            'priority'    => 10,
-            'choices'     => [
-                ''        => esc_html__('Basic', 'municipio'),
-                'caret'   => esc_html__('Caret', 'municipio'),
-                'plus'    => esc_html__('Plus/Minus', 'municipio'),
-            ],
-            'output'      => [
-                [
-                    'type'    => 'component_data',
-                    'dataKey' => 'sublevelTriggerIcon',
-                    'context' => [
-                    [
-                        'context'  => 'site.mobile-menu',
-                        'operator' => '==',
-                    ],
-                    ]
-                ]
-            ],
-        ]);
-
-        KirkiField::addField([
-            'type'        => 'switch',
-            'settings'    => 'drawer_indent_sublevels',
-            'label'       => esc_html__('Indent each level', 'municipio'),
-            'description' => esc_html__('Submenus will indent one step for every level down', 'municipio'),
-            'section'     => $sectionID,
-            'default'     => false,
-            'choices'   => [
-                true  => esc_html__('Enabled', 'municipio'),
-                false => esc_html__('Disabled', 'municipio'),
-            ],
-            'priority'    => 10,
-            'output'      => [
-                [
-                    'type'    => 'modifier',
-                    'context' => [
-                      'site.header.drawer'
-                    ],
-                    'value_map' => [
-                        true => 'indent-sublevels',
-                    ]
-                ]
-            ],
-        ]);
     }
 }

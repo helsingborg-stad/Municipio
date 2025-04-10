@@ -459,6 +459,11 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_header_panel_tab_menu')
                     ->setTitle(esc_html__('Tab menu', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Tabmenu('municipio_customizer_section_header_panel_tab_menu'))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_vertical')
+                    ->setTitle(esc_html__('Vertical Menu Settings', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Vertical('municipio_customizer_section_vertical'))
             )
             ->register();
     }
