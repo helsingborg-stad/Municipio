@@ -3,7 +3,7 @@
 @section('article.content')
 
     {{$post->getSchemaProperty('employerOverview') ?? ''}}
-    {{$post->getSchemaProperty('description') ?? ''}}
+    {!!$post->getSchemaProperty('description') ?? ''!!}
 
     @if($post->getSchemaProperty('hiringOrganization')['ethicsPolicy'] ?? null)
         @paper(['padding' => 4])
