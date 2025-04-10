@@ -11,6 +11,8 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\FormFieldResolve
  */
 class FieldWithIdentifiers implements FormFieldResolverInterface
 {
+    public const FIELD_PREFIX = 'schema_';
+
     /**
      * FieldWithIdentifiers constructor.
      *
@@ -29,9 +31,9 @@ class FieldWithIdentifiers implements FormFieldResolverInterface
     public function resolve(): array
     {
         return array_merge($this->inner->resolve(), [
-            'key'   => "schema_{$this->propertyName}",
+            'key'   => self::FIELD_PREFIX . $this->propertyName,
             'label' => $this->propertyName,
-            'name'  => "schema_{$this->propertyName}",
+            'name'  => self::FIELD_PREFIX . $this->propertyName,
         ]);
     }
 }
