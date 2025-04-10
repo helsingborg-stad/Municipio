@@ -113,6 +113,10 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     private function isExpired(?int $currentTimestamp = null): bool
     {
+        if (is_null($this->post->getSchemaProperty('validThrough'))) {
+            return false;
+        }
+
         $validThroughTimeStamp = strtotime($this->post->getSchemaProperty('validThrough'));
 
         if (empty($validThroughTimeStamp)) {
