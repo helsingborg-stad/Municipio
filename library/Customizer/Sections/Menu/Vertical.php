@@ -17,11 +17,11 @@ class Vertical
             'label'       => esc_html__('Submenu expand icon', 'municipio'),
             'description' => esc_html__('The icon that will indicate that a submenu can be expanded', 'municipio'),
             'section'     => $sectionID,
-            'default'     => '',
+            'default'     => 'expand_more',
             'priority'    => 10,
             'choices'     => [
                 'expand_more' => esc_html__('Directional Caret', 'municipio'), //Standard material icon class
-                'plusMinus' => esc_html__('Plus/Minus', 'municipio'), //Custom svg
+                'toggleAriaPressedHamburgerClose' => esc_html__('Plus/Minus', 'municipio'), //Custom svg
             ],
             'output'      => [
                 [
@@ -43,7 +43,7 @@ class Vertical
             'label'       => esc_html__('Indent each level', 'municipio'),
             'description' => esc_html__('Submenus will indent one step for every level down', 'municipio'),
             'section'     => $sectionID,
-            'default'     => false,
+            'default'     => '',
             'choices'   => [
                 'indent-sublevels'  => esc_html__('Enabled', 'municipio'),
                 '' => esc_html__('Disabled', 'municipio'),
