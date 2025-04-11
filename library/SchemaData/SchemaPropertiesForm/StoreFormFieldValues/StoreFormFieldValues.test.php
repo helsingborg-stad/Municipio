@@ -48,7 +48,8 @@ class StoreFormFieldValuesTest extends TestCase
         $allowedProperties = ['name', 'description'];
         $schemaObject      = ['name' => 'Old Name', 'description' => 'Old Description'];
 
-        $_POST['acf'] = [
+        $_POST['_wpnonce'] = 'valid_nonce';
+        $_POST['acf']      = [
             'schema_name'        => 'New Name',
             'schema_description' => 'New Description',
         ];
@@ -57,6 +58,7 @@ class StoreFormFieldValuesTest extends TestCase
             'getPostType'    => $postType,
             'getPostMeta'    => $schemaObject,
             'updatePostMeta' => true,
+            'wpVerifyNonce'  => true,
         ]);
 
         $schemaTypeService         = $this->getSchemaTypeService();
@@ -90,15 +92,18 @@ class StoreFormFieldValuesTest extends TestCase
         $allowedProperties = ['name', 'description'];
         $schemaObject      = null;
 
-        $_POST['acf'] = [
+        $_POST['_wpnonce'] = 'valid_nonce';
+        $_POST['acf']      = [
             'schema_name'        => 'New Name',
             'schema_description' => 'New Description',
+
         ];
 
         $wpService = new FakeWpService([
             'getPostType'    => $postType,
             'getPostMeta'    => $schemaObject,
             'updatePostMeta' => true,
+            'wpVerifyNonce'  => true,
         ]);
 
         $schemaTypeService         = $this->getSchemaTypeService();
@@ -127,11 +132,13 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaType        = null;
         $allowedProperties = ['name', 'description'];
         $schemaObject      = ['name' => 'Old Name', 'description' => 'Old Description'];
+        $_POST['_wpnonce'] = 'valid_nonce';
 
         $wpService = new FakeWpService([
             'getPostType'    => $postType,
             'getPostMeta'    => $schemaObject,
             'updatePostMeta' => true,
+            'wpVerifyNonce'  => true,
         ]);
 
         $schemaTypeService         = $this->getSchemaTypeService();
@@ -158,11 +165,13 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaType        = 'schemaType';
         $allowedProperties = [];
         $schemaObject      = ['name' => 'Old Name', 'description' => 'Old Description'];
+        $_POST['_wpnonce'] = 'valid_nonce';
 
         $wpService = new FakeWpService([
             'getPostType'    => $postType,
             'getPostMeta'    => $schemaObject,
             'updatePostMeta' => true,
+            'wpVerifyNonce'  => true,
         ]);
 
         $schemaTypeService         = $this->getSchemaTypeService();
