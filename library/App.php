@@ -844,46 +844,7 @@ class App
         /**
          * Retrive form field values
          */
-        add_action('current_screen', function (WP_Screen $currentScreen) {
-
-            if ($currentScreen->base !== 'post') {
-                return;
-            }
-
-            if (empty($currentScreen->post_type)) {
-                return;
-            }
-
-            // If post types is not connected to a schema type, return.
-            if (!$schemaType = $this->schemaDataConfig->tryGetSchemaTypeFromPostType($currentScreen->post_type)) {
-                return;
-            }
-
-            // Get allowed properties for the schema type.
-            $allowedProperties = (new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService))->getEnabledSchemaTypesAndProperties()[$schemaType] ?? null;
-
-            if (empty($allowedProperties)) {
-                return;
-            }
-
-            if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
-                return;
-            }
-
-            $schemaObject = $this->wpService->getPostMeta($_GET['post'], 'schemaData', true);
-
-            if (empty($schemaObject)) {
-                return;
-            }
-
-            foreach ($allowedProperties as $property) {
-                $fieldName = "schema_{$property}";
-
-                add_filter("acf/load_value/name={$fieldName}", function ($value, $post_id, $field) use ($schemaObject, $property) {
-                    return $schemaObject[$property] ?? $value;
-                }, 11, 3);
-            }
-        }, 10, 1);
+        (new \Municipio\SchemaData\SchemaPropertiesForm\RetrieveFromFieldValues\RetrieveFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
 
         /**
          * Store form field values
