@@ -8,13 +8,20 @@
 ])
 
     @if ($languageMenuOptions->displayCurrentLanguage)
-        <button class="c-button c-button__filled c-button__filled--primary c-button--md c-button__full-width u-font-size--base u-margin__bottom--1 u-padding__left--2" 
-                type="button" aria-label="{{ $languageMenuOptions->currentLanguage }}" disabled>
-            <span class="c-button__label u-justify-content--start">
-                <span class="c-button__loader"></span>
-                <span class="c-button__label-text u-margin__bottom-2 u-disabled">{{ $languageMenuOptions->currentLanguage }}</span>
-            </span>
-        </button>
+        @button([
+            'variant' => 'filled',
+            'size' => 'md',
+            'text' => $languageMenuOptions->currentLanguage,
+            'classList' => [
+                'site-language-menu__default_lang',
+                'u-margin__bottom--1',
+                'u-width--100'
+            ],
+            'attributeList' => [
+                'disabled' => 'disabled',
+            ]
+        ])
+        @endbutton
     @endif
 
     @nav([

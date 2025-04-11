@@ -18,6 +18,12 @@
         }
     }
 
+    .site-language-menu__default_lang {
+        .c-button__label {
+            justify-content: start;
+        }
+    }
+
     .site-language-menu__more {
         border-width: 1px 0 1px 0;
         border-style: solid;

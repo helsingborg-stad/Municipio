@@ -320,17 +320,6 @@ class BaseController
         //Get language menu options
         $this->data['languageMenuOptions'] = $this->getLanguageMenuOptions();
         
-        // Store name of current language if we want to show if
-        if (isset($this->data['languageMenuOptions']->displayCurrentLanguage) &&
-            $this->data['languageMenuOptions']->displayCurrentLanguage === true) {
-                $locale = \get_locale();
-                $this->data['languageMenuOptions']->currentLanguage = class_exists('Locale') 
-                    ? (function_exists('mb_ucfirst') 
-                        ? mb_ucfirst(\Locale::getDisplayLanguage($locale, $locale))
-                        : ucfirst(\Locale::getDisplayLanguage($locale, $locale)))
-                    : $locale;
-        }
-
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars'] = true;
 
@@ -639,10 +628,22 @@ class BaseController
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
-        'disclaimer'             => get_field('language_menu_disclaimer', $options),
-        'moreLanguageLink'       => get_field('language_menu_more_languages', $options),
-        'displayCurrentLanguage' => get_field('display_current_language', $options) ?? false,
+            'disclaimer'             => get_field('language_menu_disclaimer', $options),
+            'moreLanguageLink'       => get_field('language_menu_more_languages', $options),
+            'displayCurrentLanguage' => get_field('display_current_language', $options) ?? false,
+            'currentLanguage'        => null,
         ];
+
+        // IF displayCurrentLanguage is set to true, we will get the current language
+        if ($options['displayCurrentLanguage'] === true) {
+            $locale = \get_locale();
+            $getCurrentLang = fn() => class_exists('Locale')
+                ? (function_exists('mb_ucfirst')
+                    ? mb_ucfirst(\Locale::getDisplayLanguage($locale, $locale))
+                    : ucfirst(\Locale::getDisplayLanguage($locale, $locale)))
+                : $locale;
+            $options['currentLanguage'] = $getCurrentLang();
+        }
 
         return (object) $options;
     }
