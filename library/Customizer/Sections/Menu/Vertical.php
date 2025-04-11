@@ -38,20 +38,21 @@ class Vertical
         ]);
 
         KirkiField::addField([
-            'type'        => 'select',
+            'type'        => 'switch',
             'settings'    => 'vetical_menu_indent_sublevels',
             'label'       => esc_html__('Indent each level', 'municipio'),
             'description' => esc_html__('Submenus will indent one step for every level down', 'municipio'),
             'section'     => $sectionID,
             'default'     => '',
             'choices'   => [
-                'indent-sublevels'  => esc_html__('Enabled', 'municipio'),
-                '' => esc_html__('Disabled', 'municipio'),
+                true  => esc_html__('Enabled', 'municipio'),
+                false => esc_html__('Disabled', 'municipio'),
             ],
             'priority'    => 10,
             'output'      => [
                 [
-                    'type'    => 'modifier',
+                    'type'    => 'component_data',
+                    'dataKey' => 'indentSubLevels',
                     'context' => [
                         [
                             'context'  => 'component.nav',
