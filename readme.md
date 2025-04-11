@@ -145,6 +145,15 @@ Do action on comment like
 do_action('Municipio/comment/save_like', $comment, $userId, $create);
 ```
 
+### Municipio/post/page/edit
+
+Do action on post edit in admin. Runs after the current_screen hook.
+- ```@param int $postId``` - The post ID
+- ```@param string $postType``` - The post type
+```php
+do_action('Municipio/post/page/edit', $postId, $postType);
+```
+
 ## Filters
 
 ### Municipio/Template/viewData
