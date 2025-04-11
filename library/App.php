@@ -847,43 +847,9 @@ class App
         (new \Municipio\SchemaData\SchemaPropertiesForm\RetrieveFromFieldValues\RetrieveFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
 
         /**
-         * Store form field values
+         * Store form field values.
          */
-        add_action('acf/save_post', function ($post_id) {
-
-            // If post types is not connected to a schema type, return.
-            if (!$schemaType = $this->schemaDataConfig->tryGetSchemaTypeFromPostType(get_post_type($post_id))) {
-                return;
-            }
-            // Get allowed properties for the schema type.
-            $allowedProperties = (new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService))->getEnabledSchemaTypesAndProperties()[$schemaType] ?? null;
-
-            // If no allowed properties, return.
-            if (empty($allowedProperties)) {
-                return;
-            }
-
-            // Get the schema object from the post meta.
-            $schemaObject = $this->wpService->getPostMeta($post_id, 'schemaData', true);
-
-            if (empty($schemaObject)) {
-                $schemaTypeLcFirst = lcfirst($schemaType);
-                $schemaObject      = Schema::$schemaTypeLcFirst()->toArray();
-            }
-
-            foreach ($allowedProperties as $property) {
-                $propertyName = 'schema_' . $property;
-
-                if (!isset($_POST['acf'][$propertyName])) {
-                    continue;
-                }
-
-                $schemaObject[$property] = $_POST['acf'][$propertyName] ?: null;
-            }
-
-            // Update the post meta with the modified schema object.
-            $this->wpService->updatePostMeta($post_id, 'schemaData', $schemaObject);
-        });
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
 
         /**
          * External content
