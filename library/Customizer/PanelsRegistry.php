@@ -462,7 +462,7 @@ class PanelsRegistry
             )->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_vertical')
-                    ->setTitle(esc_html__('Vertical Menu Settings', 'municipio'))
+                    ->setTitle(esc_html__('General: Menu Settings (vertical)', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Menu\Vertical('municipio_customizer_section_vertical'))
             )
             ->register();
