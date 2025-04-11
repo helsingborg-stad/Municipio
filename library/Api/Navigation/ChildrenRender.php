@@ -36,7 +36,7 @@ class ChildrenRender extends RestApiEndpoint
             $parentId   = !empty($params['pageId']) ? $params['pageId'] : null;
             $viewPath   = !empty($params['viewPath']) ? $params['viewPath'] : false;
             $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
-            $depth      = !empty($params['depth']) ? $params['depth'] : '0';
+            $depth      = !empty($params['depth']) ? $params['depth'] : '1';
             $lang       = TranslatedLabels::getLang();
 
             if (!empty($parentId)) {

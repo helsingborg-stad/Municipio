@@ -5,7 +5,7 @@
         'color' => $customizer->headerTriggerButtonColor,
         'style' => $customizer->headerTriggerButtonType,
         'size' => $customizer->headerTriggerButtonSize,
-        'icon' => 'menu',
+        'icon' => 'toggleAriaPressedHamburgerClose',
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
         'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],
         'text' => $lang->menu,
@@ -64,7 +64,8 @@
                     'direction' => 'vertical',
                     'includeToggle' => true,
                     'height' => 'sm',
-                    'expandLabel' => $lang->expand
+                    'expandLabel' => $lang->expand,
+                    'context' => 'site.mobile-menu'
                 ])
             @endnav  
         @endslot
