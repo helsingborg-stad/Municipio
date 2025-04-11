@@ -43,7 +43,7 @@ class Vertical
             'label'       => esc_html__('Indent each level', 'municipio'),
             'description' => esc_html__('Submenus will indent one step for every level down', 'municipio'),
             'section'     => $sectionID,
-            'default'     => '',
+            'default'     => false,
             'choices'   => [
                 true  => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
