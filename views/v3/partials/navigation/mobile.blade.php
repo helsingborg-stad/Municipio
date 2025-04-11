@@ -7,7 +7,7 @@
         'classList' => $classList,
         'depth' => $depth ?? 1,
         'expandLabel' => $lang->expand,
-        'context' => 'site.mobile-menu'
+        'context' => ['site.mobile-menu', 'municipio.menu.vertical']
     ])
     @endnav
 @else
