@@ -34,8 +34,11 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     public function addHooks(): void
     {
-        //Create cache on dynamic option generation generation.
+        //Create & apply cache.
         $this->wpService->addAction('kirki_dynamic_css', array($this, 'tryCreateAndApplyCache'), 5);
+
+        //Create & apply cache on rest requests.
+        $this->wpService->addAction('rest_api_init', array($this, 'tryCreateAndApplyCache'), 5);
 
         //Clear cache when customizer is saved (static option cache, and object cache).
         $this->wpService->addAction('customize_save_after', array($this, 'tryClearCache'), 20);
@@ -184,7 +187,7 @@ class ApplicatorCache implements Hookable, ApplicatorCacheInterface
    */
     private function isFrontend(): bool
     {
-        return !is_admin() && !defined('DOING_AJAX') && !defined('REST_REQUEST') && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
+        return !is_admin() && !defined('WP_CLI') && !defined('WP_IMPORTING') && !defined('WP_INSTALLING');
     }
 
   /**
