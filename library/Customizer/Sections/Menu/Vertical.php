@@ -10,7 +10,7 @@ class Vertical
 
     public function __construct(string $sectionID)
     {
-    
+
         KirkiField::addField([
             'type'        => 'select',
             'settings'    => 'vertical_menu_sublevel_trigger_icon',
@@ -20,7 +20,7 @@ class Vertical
             'default'     => 'expand_more',
             'priority'    => 10,
             'choices'     => [
-                'expand_more' => esc_html__('Directional Caret', 'municipio'), //Standard material icon class
+                'expand_more'                => esc_html__('Directional Caret', 'municipio'), //Standard material icon class
                 'toggleAriaPressedPlusMinus' => esc_html__('Plus/Minus', 'municipio'), //Custom svg
             ],
             'output'      => [
@@ -29,7 +29,7 @@ class Vertical
                     'dataKey' => 'expandIcon',
                     'context' => [
                         [
-                            'context'  => 'component.nav',
+                            'context'  => 'municipio.menu.vertical',
                             'operator' => '==',
                         ]
                     ]
@@ -44,7 +44,7 @@ class Vertical
             'description' => esc_html__('Submenus will indent one step for every level down', 'municipio'),
             'section'     => $sectionID,
             'default'     => false,
-            'choices'   => [
+            'choices'     => [
                 true  => esc_html__('Enabled', 'municipio'),
                 false => esc_html__('Disabled', 'municipio'),
             ],
@@ -55,7 +55,7 @@ class Vertical
                     'dataKey' => 'indentSubLevels',
                     'context' => [
                         [
-                            'context'  => 'component.nav',
+                            'context'  => 'municipio.menu.vertical',
                             'operator' => '==',
                         ]
                     ]

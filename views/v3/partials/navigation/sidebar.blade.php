@@ -11,7 +11,7 @@
         'direction' => 'vertical',
         'includeToggle' => true,
         'depth' => $depth ?? 1,
-        'context' => ['sidebar', 'municipio.sidebar'],
+        'context' => ['sidebar', 'municipio.sidebar', 'municipio.menu.vertical'],
         'height' => 'sm',
         'expandLabel' => $lang->expand
     ])
