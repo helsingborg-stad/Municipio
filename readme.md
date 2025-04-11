@@ -148,6 +148,8 @@ do_action('Municipio/comment/save_like', $comment, $userId, $create);
 ### Municipio/post/page/edit
 
 Do action on post edit in admin. Runs after the current_screen hook.
+Useful when something needs to execute when on the edit page of a post in admin and possibly needs access to the current post id or the post type of that post.
+
 - ```@param int $postId``` - The post ID
 - ```@param string $postType``` - The post type
 ```php
