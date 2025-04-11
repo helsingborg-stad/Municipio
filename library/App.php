@@ -41,10 +41,8 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
-use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
-use WP_Screen;
 
 /**
  * Class App
