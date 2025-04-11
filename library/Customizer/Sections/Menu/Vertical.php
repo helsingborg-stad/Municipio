@@ -21,7 +21,7 @@ class Vertical
             'priority'    => 10,
             'choices'     => [
                 'expand_more' => esc_html__('Directional Caret', 'municipio'), //Standard material icon class
-                'toggleAriaPressedHamburgerClose' => esc_html__('Plus/Minus', 'municipio'), //Custom svg
+                'toggleAriaPressedPlusMinus' => esc_html__('Plus/Minus', 'municipio'), //Custom svg
             ],
             'output'      => [
                 [
