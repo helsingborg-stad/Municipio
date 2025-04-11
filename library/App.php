@@ -67,6 +67,11 @@ class App
         private wpdb $wpdb
     ) {
         /**
+         * Run generic custom actions
+         */
+        (new \Municipio\Actions\Admin\PostPageEditAction($this->wpService))->addHooks();
+
+        /**
          * Upgrade
          */
         new \Municipio\Upgrade($this->wpService, $this->acfService);
