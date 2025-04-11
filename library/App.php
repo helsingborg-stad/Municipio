@@ -33,11 +33,6 @@ use Municipio\Helper\Listing;
 use Municipio\SchemaData\LimitSchemaTypesAndProperties;
 use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
 use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\BooleanSanitizer;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\DateTimeSanitizer;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\GeoCoordinatesFromAcfGoogleMapsFieldSanitizer;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\NullSanitizer;
-use Municipio\SchemaData\SchemaPropertyValueSanitizer\StringSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
@@ -841,17 +836,18 @@ class App
          * Register form for schema properties on posts.
          */
         $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService);
-        $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType(
-            $this->wpService,
-            $getSchemaPropertiesWithParamTypes,
-            $acfFormFieldsFromSchemaProperties
-        );
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register(
-            $this->acfService,
-            $this->wpService,
-            $acfFieldGroupFromSchemaType,
-            $this->schemaDataConfig
-        ));
+        $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
+        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
+
+        /**
+         * Retrive form field values
+         */
+        (new \Municipio\SchemaData\SchemaPropertiesForm\RetrieveFromFieldValues\RetrieveFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
+
+        /**
+         * Store form field values.
+         */
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
 
         /**
          * External content
