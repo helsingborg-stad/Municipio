@@ -5,7 +5,7 @@
         'color' => $customizer->headerTriggerButtonColor,
         'style' => $customizer->headerTriggerButtonType,
         'size' => $customizer->headerTriggerButtonSize,
-        'icon' => 'menu',
+        'icon' => 'toggleAriaPressedHamburgerClose',
         'context' => ['site.header.menutrigger', 'site.header.casual.menutrigger'],
         'classList' => ['mobile-menu-trigger', 'u-order--10', 's-header-button'],
         'text' => $lang->menu,
@@ -20,8 +20,7 @@
     'attributeList' => ['data-move-to' => 'body', 'data-js-toggle-item' => 'drawer'],
     'classList' => [
         'c-drawer--' . (!empty($mobileMenu['items'])&&!empty($mobileSecondaryMenu['items']) ? 'duotone' : 'monotone'),
-        's-drawer-menu',
-        'c-drawer--indent-sublevels'
+        's-drawer-menu'
     ],
     'label' => $lang->close,
     'screenSizes' => $screenSizes ?? $customizer->drawerScreenSizes,
