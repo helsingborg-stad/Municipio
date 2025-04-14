@@ -316,9 +316,10 @@ class BaseController
         $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']  = $this->getQuicklinksOptions();
         $this->data['megaMenuLabels']     = $this->getmegaMenuLabels();
+        
         //Get language menu options
         $this->data['languageMenuOptions'] = $this->getLanguageMenuOptions();
-
+        
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars'] = true;
 
@@ -627,9 +628,22 @@ class BaseController
         $options = wp_get_nav_menu_object(get_nav_menu_locations()['language-menu'] ?? '');
 
         $options = [
-        'disclaimer'       => get_field('language_menu_disclaimer', $options),
-        'moreLanguageLink' => get_field('language_menu_more_languages', $options)
+            'disclaimer'             => get_field('language_menu_disclaimer', $options),
+            'moreLanguageLink'       => get_field('language_menu_more_languages', $options),
+            'displayCurrentLanguage' => get_field('display_current_language', $options) ?? false,
+            'currentLanguage'        => null,
         ];
+
+        // IF displayCurrentLanguage is set to true, we will get the current language
+        if ($options['displayCurrentLanguage'] === true) {
+            $locale = \get_locale();
+            $getCurrentLang = fn() => class_exists('Locale')
+                ? (function_exists('mb_ucfirst')
+                    ? mb_ucfirst(\Locale::getDisplayLanguage($locale, $locale))
+                    : ucfirst(\Locale::getDisplayLanguage($locale, $locale)))
+                : $locale;
+            $options['currentLanguage'] = $getCurrentLang();
+        }
 
         return (object) $options;
     }

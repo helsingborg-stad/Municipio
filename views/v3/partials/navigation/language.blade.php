@@ -6,13 +6,31 @@
         'u-color__bg--default',
     ]
 ])
+
+    @if ($languageMenuOptions->displayCurrentLanguage)
+        @button([
+            'variant' => 'filled',
+            'size' => 'md',
+            'text' => $languageMenuOptions->currentLanguage,
+            'classList' => [
+                'site-language-menu__default_lang',
+                'u-margin__bottom--1',
+                'u-width--100'
+            ],
+            'attributeList' => [
+                'disabled' => 'disabled',
+            ]
+        ])
+        @endbutton
+    @endif
+
     @nav([
         'id' => 'menu-language',
         'items' => $languageMenu['items'],
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['s-nav-language'],
-        'height' => 'sm',
+        'height' => 'md',
         'expandLabel' => $lang->expand
     ])
     @endnav
