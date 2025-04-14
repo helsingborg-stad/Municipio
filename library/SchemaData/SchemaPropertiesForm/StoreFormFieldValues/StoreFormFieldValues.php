@@ -40,8 +40,12 @@ class StoreFormFieldValues implements Hookable
      *
      * @param int $postId The ID of the post being saved.
      */
-    public function saveSchemaData(int $postId): void
+    public function saveSchemaData(null|int|string $postId): void
     {
+        if(is_null($postId) || is_string($postId)) {
+            return;
+        }
+
         if (!$this->validNoncePresentInRequest($postId)) {
             return;
         }
