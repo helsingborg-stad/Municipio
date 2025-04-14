@@ -30,7 +30,7 @@
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['s-nav-language'],
-        'height' => 'sm',
+        'height' => 'md',
         'expandLabel' => $lang->expand
     ])
     @endnav
