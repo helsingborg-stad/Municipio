@@ -206,10 +206,6 @@ class Enqueue
      */
     public function style()
     {
-        // Remove default block styles
-        wp_deregister_style('wp-block-library');
-        wp_dequeue_style('wp-block-library');
-
         // Load styleguide css
         wp_register_style('styleguide-css', self::getAssetWithCacheBust('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
