@@ -19,8 +19,14 @@
     }
 
     .site-language-menu__default_lang {
+        &.c-button {
+            padding-left: calc(#{$base} * 2);
+            padding-right: calc(#{$base} * 2);
+        }
         .c-button__label {
             justify-content: start;
+            font-size: 1rem;
+            font-weight: normal;
         }
     }
 
