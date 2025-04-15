@@ -67,7 +67,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
         $providerSlug = $request->get_param('provider');
 
         $provider = $this->resolveProvider($providerSlug);
-        $result   = $provider->search($request->get_param('q'), $request->get_query_params());
+        $result   = $provider->search($request->get_query_params());
 
         return new WP_REST_Response($result, 200);
     }

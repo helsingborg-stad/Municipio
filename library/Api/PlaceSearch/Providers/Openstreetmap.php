@@ -15,6 +15,11 @@ use Municipio\Schema\Schema;
 class Openstreetmap implements PlaceSearchProviderInterface
 {
     /**
+     * The OpenStreetMap Nominatim API URL.
+     */
+    private const API_URL = 'https://nominatim.openstreetmap.org/search';
+
+    /**
      * Openstreetmap constructor.
      *
      * @param WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
@@ -31,10 +36,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
      *
      * @return array An array of place data.
      */
-    public function search(string $query, array $args = []): array
+    public function search(array $args = []): array
     {
-        $url = 'https://nominatim.openstreetmap.org/search?q=' . urlencode($query) . '&format=json';
-
+        $url = $this->createEndpointUrl($args);
         $response = $this->wpService->wpRemoteGet($url);
 
         if ($this->wpService->isWpError($response)) {
@@ -46,6 +50,23 @@ class Openstreetmap implements PlaceSearchProviderInterface
         $data = $this->transformResponseToSchema($response ?: []);
 
         return $data;
+    }
+
+    /**
+     * Create the OpenStreetMap API endpoint URL.
+     *
+     * @param string $query The search query.
+     * @param array  $args  Additional arguments.
+     *
+     * @return string The complete API endpoint URL.
+     */
+    private function createEndpointUrl(array $args = []): string
+    {
+        $args = array_merge($args, [
+            'format' => 'json'
+        ]);
+
+        return self::API_URL . '?' . http_build_query($args);
     }
 
     /**
