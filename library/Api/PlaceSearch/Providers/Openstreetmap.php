@@ -38,7 +38,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function search(array $args = []): array
     {
-        $url = $this->createEndpointUrl($args);
+        $url      = $this->createEndpointUrl($args);
         $response = $this->wpService->wpRemoteGet($url);
 
         if ($this->wpService->isWpError($response)) {
