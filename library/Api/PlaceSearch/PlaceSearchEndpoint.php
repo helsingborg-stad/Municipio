@@ -66,7 +66,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
     {
         $providerSlug = $request->get_param('provider');
 
-        $provider = $this->resolveProvider($providerSlug, $request);
+        $provider = $this->resolveProvider($providerSlug);
         $result   = $provider->search($request->get_param('q'), $request->get_query_params());
 
         return new WP_REST_Response($result, 200);
@@ -80,7 +80,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      *
      * @return PlaceSearchProviderInterface The resolved provider instance.
      */
-    private function resolveProvider(string $providerSlug, WP_REST_Request $request): PlaceSearchProviderInterface
+    private function resolveProvider(string $providerSlug): PlaceSearchProviderInterface
     {
         $class = '\\Municipio\Api\PlaceSearch\Providers\\' . ucfirst($providerSlug);
 
