@@ -82,12 +82,10 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      */
     private function resolveProvider(string $providerSlug): PlaceSearchProviderInterface
     {
-        $class = '\\Municipio\Api\PlaceSearch\Providers\\' . ucfirst($providerSlug);
-
-        if (class_exists($class)) {
-            return new $class($this->wpService);
+        switch ($providerSlug) {
+            case 'openstreetmap':
+            default:
+                return new \Municipio\Api\PlaceSearch\Providers\Openstreetmap($this->wpService);
         }
-
-        return new \Municipio\Api\PlaceSearch\Providers\Openstreetmap($this->wpService);
     }
 }
