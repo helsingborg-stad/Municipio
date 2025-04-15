@@ -19,7 +19,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
      *
      * @param WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService
      */
-    public function __construct(private WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService) {}
+    public function __construct(private WpRemoteGet&IsWpError&WpRemoteRetrieveBody $wpService)
+    {
+    }
 
     /**
      * Search for a place using OpenStreetMap Nominatim API.
@@ -46,6 +48,13 @@ class Openstreetmap implements PlaceSearchProviderInterface
         return $data;
     }
 
+    /**
+     * Transform the OpenStreetMap response to a schema format.
+     *
+     * @param array $response The OpenStreetMap response.
+     *
+     * @return array An array of transformed schema data.
+     */
     private function transformResponseToSchema(array $response): array
     {
         $schemaTransformedItems = [];

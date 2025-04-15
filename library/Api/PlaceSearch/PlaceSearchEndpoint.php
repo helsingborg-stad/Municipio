@@ -20,7 +20,14 @@ class PlaceSearchEndpoint extends RestApiEndpoint
     private const NAMESPACE = 'placesearch/v1';
     private const ROUTE     = '/(?P<provider>[a-zA-Z0-9_-]+)';
 
-    public function __construct(private WpService $wpService) {}
+    /**
+     * PlaceSearchEndpoint constructor.
+     *
+     * @param WpService $wpService The WpService instance.
+     */
+    public function __construct(private WpService $wpService)
+    {
+    }
 
     /**
      * Handles the registration of the REST route.
@@ -33,13 +40,13 @@ class PlaceSearchEndpoint extends RestApiEndpoint
             'methods'             => 'GET',
             'callback'            => array($this, 'handleRequest'),
             'permission_callback' => '__return_true',
-            'args' => [
+            'args'                => [
                 'provider' => [
                     'description' => $this->wpService->__('The provider name.', 'municipio'),
                     'type'        => 'string',
                     'required'    => true,
                 ],
-                'q'       => [
+                'q'        => [
                     'description' => $this->wpService->__('The query to search for.', 'municipio'),
                     'type'        => 'string',
                     'required'    => true,
@@ -61,10 +68,18 @@ class PlaceSearchEndpoint extends RestApiEndpoint
 
         $provider = $this->resolveProvider($providerSlug, $request);
         $result   = $provider->search($request->get_param('q'), $request->get_query_params());
-    
+
         return new WP_REST_Response($result, 200);
     }
 
+    /**
+     * Resolves the provider based on the slug.
+     *
+     * @param string         $providerSlug The provider slug.
+     * @param WP_REST_Request $request      The REST API request object.
+     *
+     * @return PlaceSearchProviderInterface The resolved provider instance.
+     */
     private function resolveProvider(string $providerSlug, WP_REST_Request $request): PlaceSearchProviderInterface
     {
         $class = '\\Municipio\Api\PlaceSearch\Providers\\' . ucfirst($providerSlug);
