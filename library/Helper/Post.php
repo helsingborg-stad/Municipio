@@ -7,6 +7,7 @@ use Municipio\Helper\Image;
 use WP_Post;
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Integrations\Component\ImageFocusResolver;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 
@@ -297,7 +298,8 @@ class Post
             $postObject->imageContract = ImageComponentContract::factory(
                 (int) $thumbnailId,
                 [1920, false],
-                new ImageResolver()
+                new ImageResolver(),
+                new ImageFocusResolver(['id' => $thumbnailId])
             );
         }
 
