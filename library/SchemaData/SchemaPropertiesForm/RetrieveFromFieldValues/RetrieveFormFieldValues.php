@@ -88,7 +88,8 @@ class RetrieveFormFieldValues implements Hookable
      */
     private function getSchemaObject(int $postId): ?array
     {
-        return $this->wpService->getPostMeta($postId, 'schemaData', true);
+        $schemaData = $this->wpService->getPostMeta($postId, 'schemaData', true);
+        return is_array($schemaData) ? $schemaData : null;
     }
 
     /**
