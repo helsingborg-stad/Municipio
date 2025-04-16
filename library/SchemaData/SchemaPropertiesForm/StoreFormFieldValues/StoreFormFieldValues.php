@@ -113,7 +113,13 @@ class StoreFormFieldValues implements Hookable
      */
     private function getSchemaObject(int $postId): ?array
     {
-        return $this->wpService->getPostMeta($postId, 'schemaData', true);
+        $schemaObject = $this->wpService->getPostMeta($postId, 'schemaData', true);
+
+        if (!is_array($schemaObject)) {
+            return null;
+        }
+
+        return $schemaObject;
     }
 
     /**
