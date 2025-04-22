@@ -23,10 +23,10 @@ class SingularProject extends \Municipio\Controller\Singular
         $this->data['progress'] = $this->data['post']->progress ?? null;
         $this->data['image']    = $this->getImageContractOrUrl($this->data['post']->id ?? null);
 
-        $this->data['category']   = $this->implodeProjectTerms($this->getProjectTerm('category'));
-        $this->data['technology'] = $this->implodeProjectTerms($this->getProjectTerm('technology'));
-        $this->data['status']     = $this->implodeProjectTerms($this->getProjectTerm('status'));
-        $this->data['department'] = $this->implodeProjectTerms($this->getProjectTerm('department'));
+        $this->data['category']   = $this->implodeTerms($this->post->getTerms(['project_meta_category']));
+        $this->data['technology'] = $this->implodeTerms($this->post->getTerms(['project_meta_technology']));
+        $this->data['status']     = $this->implodeTerms($this->post->getTerms(['project_meta_status']));
+        $this->data['department'] = $this->implodeTerms($this->post->getTerms(['project_department']));
         $this->data['budget']     = $this->post->getSchemaProperty('funding')['amount'] ?? null;
 
         $this->appendToLangObject();
@@ -135,24 +135,13 @@ class SingularProject extends \Municipio\Controller\Singular
     }
 
     /**
-     * Gets a project term.
+     * Implode WP_terms.
      *
-     * @param string $key
-     * @return array|null
+     * @param \WP_Term[] $terms
+     * @return string
      */
-    private function getProjectTerm(string $key): ?array
+    public function implodeTerms(array $terms): string
     {
-        return isset($this->data['post']->projectTerms[$key]) ? $this->data['post']->projectTerms[$key] : null;
-    }
-
-    /**
-     * Implode project terms.
-     *
-     * @param array|null $termArray
-     * @return string|null
-     */
-    private function implodeProjectTerms(?array $termArray): ?string
-    {
-        return $termArray ? implode(', ', $termArray) : null;
+        return implode(', ', array_map(fn ($term) => $term->name, $terms));
     }
 }
