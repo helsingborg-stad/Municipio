@@ -42,7 +42,7 @@ class StoreFormFieldValues implements Hookable
      */
     public function saveSchemaData(null|int|string $postId): void
     {
-        if(is_null($postId) || is_string($postId)) {
+        if (is_null($postId) || is_string($postId)) {
             return;
         }
 
@@ -113,7 +113,13 @@ class StoreFormFieldValues implements Hookable
      */
     private function getSchemaObject(int $postId): ?array
     {
-        return $this->wpService->getPostMeta($postId, 'schemaData', true);
+        $schemaObject = $this->wpService->getPostMeta($postId, 'schemaData', true);
+
+        if (!is_array($schemaObject)) {
+            return null;
+        }
+
+        return $schemaObject;
     }
 
     /**
