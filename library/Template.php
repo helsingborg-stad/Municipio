@@ -176,17 +176,20 @@ class Template
         );
 
         // Controller conditions
-        $isSingular                  = fn() => is_singular();
-        $isArchive                   = fn() => is_archive() || is_home();
-        $hasSchemaType               = fn() => $this->getCurrentPostSchemaType() !== null;
-        $schemaType                  = fn() => $this->getCurrentPostSchemaType();
-        $templateController          = fn() => ControllerHelper::camelCase($template);
-        $templateControllerPath      = fn() => ControllerHelper::locateController($templateController());
-        $templateControllerNamespace = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
-        $shouldUseSchemaController   = fn() =>  $hasSchemaType() &&
+        $isSingular                       = fn() => is_singular();
+        $isArchive                        = fn() => is_archive() || is_home();
+        $hasSchemaType                    = fn() => $this->getCurrentPostSchemaType() !== null;
+        $schemaType                       = fn() => $this->getCurrentPostSchemaType();
+        $templateController               = fn() => ControllerHelper::camelCase($template);
+        $templateControllerPath           = fn() => ControllerHelper::locateController($templateController());
+        $templateControllerNamespace      = fn() => ControllerHelper::getNamespace($templateControllerPath()) . '\\';
+        $shouldUseSchemaController        = fn() =>  $hasSchemaType() &&
                                                 $isSingular() &&
                                                 class_exists("Municipio\Controller\Singular{$schemaType()}") &&
                                                 (bool)ControllerHelper::locateController("Singular{$schemaType()}");
+        $shouldUseSchemaArchiveController = fn() =>  $isArchive() && $hasSchemaType() &&
+                                                class_exists("Municipio\Controller\Archive{$schemaType()}") &&
+                                                (bool)ControllerHelper::locateController("Archive{$schemaType()}");
 
         $controllers = [
             [
@@ -203,6 +206,11 @@ class Template
                 'condition'       => ('401' === $template),
                 'controllerClass' => \Municipio\Controller\E401::class,
                 'controllerPath'  => ControllerHelper::locateController('E401'),
+            ],
+            [
+                'condition'       => $shouldUseSchemaArchiveController(),
+                'controllerClass' => "Municipio\Controller\Archive{$schemaType()}",
+                'controllerPath'  => ControllerHelper::locateController("Archive{$schemaType()}")
             ],
             [
                 'condition'       => $shouldUseSchemaController(),
@@ -331,16 +339,16 @@ class Template
                 );
 
                 // Drop comments
-                if(!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
+                if (!defined('WP_DEBUG') || defined('WP_DEBUG') && constant('WP_DEBUG') !== true) {
                     $cleanedHtml = preg_replace('/<!--(.|\s)*?-->/', '', $cleanedHtml);
                 }
 
                 // Drop empty id attributes
                 $cleanedHtml = preg_replace('/id=""/', '', $cleanedHtml);
-              
+
                 //Drop attibute that no longer is to spec
                 $cleanedHtml = $this->dropPropertyAttributes([
-                    'style' => ['type' => 'text/css'], 
+                    'style'  => ['type' => 'text/css'],
                     'script' => ['type' => 'text/javascript'],
                 ], $cleanedHtml);
 
@@ -391,10 +399,10 @@ class Template
 
     /**
      * Drop attributes from HTML tags
-     * 
+     *
      * @param array $dropAttributesConfig The configuration for what attributes to remove
      * @param string $cleanedHtml The HTML to clean
-     * 
+     *
      * @return string The cleaned HTML
      */
     private function dropPropertyAttributes(array $dropAttributesConfig, string $cleanedHtml): string
