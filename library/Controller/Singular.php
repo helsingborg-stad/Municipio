@@ -42,7 +42,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['displayFeaturedImageCaption'] = $this->displayFeaturedImageCaptionOnSinglePost($this->data['post']->id);
         $this->data['showPageTitleOnOnePage']      = $this->showPageTitleOnOnePage($this->data['post']->id);
 
-        $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature(
@@ -145,7 +145,7 @@ class Singular extends \Municipio\Controller\BaseController
      * Inserts a "Quicklinks" block after the first block in the post content if certain conditions are met.
      *
      * @param WP_Post|null $postObject The post object whose content will be modified. Can be null.
-     * 
+     *
      * @return WP_Post|null
      */
     private function displayQuicklinksAfterFirstBlock(?WP_Post $postObject): ?WP_Post
@@ -173,11 +173,11 @@ class Singular extends \Municipio\Controller\BaseController
         );
 
         $quicklinksBlock = [
-            'blockName' => 'core/html',
-            'attrs' => ["name" => "quicklinks"],
-            'innerHTML' => $html,
+            'blockName'    => 'core/html',
+            'attrs'        => ["name" => "quicklinks"],
+            'innerHTML'    => $html,
             'innerContent' => [$html],
-            'innerBlocks' => [],
+            'innerBlocks'  => [],
         ];
 
         array_splice($blocks, 1, 0, [$quicklinksBlock]);
