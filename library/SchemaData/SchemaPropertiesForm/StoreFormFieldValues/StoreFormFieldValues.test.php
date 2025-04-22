@@ -82,15 +82,15 @@ class StoreFormFieldValuesTest extends TestCase
     }
 
     /**
-     * @testdox creates a new schema object if it doesn't exist
+     * @testdox creates a new schema object if none is found in post meta
      */
-    public function testCreatesANewSchemaObjectIfItDoesntExist()
+    public function testCreatesANewSchemaObjectIfNoneIsFoundInPostMeta()
     {
         $postId            = 123;
         $postType          = 'post';
         $schemaType        = 'Thing';
         $allowedProperties = ['name', 'description'];
-        $schemaObject      = null;
+        $schemaObjectInDb  = '';
 
         $_POST['_wpnonce'] = 'valid_nonce';
         $_POST['acf']      = [
@@ -101,7 +101,7 @@ class StoreFormFieldValuesTest extends TestCase
 
         $wpService = new FakeWpService([
             'getPostType'    => $postType,
-            'getPostMeta'    => $schemaObject,
+            'getPostMeta'    => $schemaObjectInDb,
             'updatePostMeta' => true,
             'wpVerifyNonce'  => true,
         ]);
