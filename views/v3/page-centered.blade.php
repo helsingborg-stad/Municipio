@@ -12,7 +12,7 @@
 
     @includeIf('partials.sidebar', ['id' => 'content-area', 'classes' => ['o-grid']])
 
-    @includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
+    @includeWhen($quicklinksPlacement === 'below_content', 'partials.navigation.fixed')
 
     {!! $hook->loopEnd !!}
 </div>

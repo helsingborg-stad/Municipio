@@ -873,42 +873,4 @@ class Navigation
             self::$$local = $$global;
         }
     }
-
-    /**
-     * Returns the placement of quicklinks for a given post.
-     *
-     * @param int $postId A WP post ID.
-     *
-     * @return bool|string The value of the 'quicklinks_placement' field for the given post.
-     */
-    public static function getQuicklinksPlacement(int $postId = 0)
-    {
-        if (!function_exists('get_field')) {
-            return false;
-        }
-        return apply_filters(
-            'Municipio/Helper/Navigation/getQuicklinksPlacement',
-            get_field('quicklinks_placement', $postId),
-            $postId
-        );
-    }
-    /**
-     * Returns a boolean value based on whether the quicklinks should be displayed
-     * below the content or not.
-     *
-     * @param int $postId A WP post ID.
-     *
-     * @return boolean True if the quicklinks should be displayed below the content.
-     */
-    public static function displayQuicklinksAfterContent(int $postId = 0)
-    {
-        if (!function_exists('get_field')) {
-            return false;
-        }
-        return apply_filters(
-            'Municipio/Helper/Navigation/displayQuicklinksAfterContent',
-            self::getQuicklinksPlacement($postId) === 'below_content' ? true : false,
-            $postId
-        );
-    }
 }

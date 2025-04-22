@@ -63,6 +63,6 @@
 
     </div>
 
-    @includeWhen($displayQuicklinksAfterContent, 'partials.navigation.fixed')
+    @includeWhen($quicklinksPlacement === 'below_content', 'partials.navigation.fixed')
 
 @stop

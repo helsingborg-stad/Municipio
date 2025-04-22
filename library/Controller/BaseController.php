@@ -13,6 +13,7 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
+use Municipio\Helper\Navigation;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
 /**
@@ -429,8 +430,11 @@ class BaseController
                 'secondaryLoopEnd'     => $this->hook('secondary_loop_end')
             );
 
-            //Quicklinks placement is set in Singular
-            $this->data['displayQuicklinksAfterContent'] = false;
+            $this->data['quicklinksPlacement'] = $this->wpService->applyFilters(
+                'Municipio/QuickLinksPlacement',
+                $this->acfService->getField('quicklinks_placement', $this->data['pageID']),
+                $this->data['pageID']
+            );
 
             // Add filters to add emblem on blocks and cards with placeholders
             add_filter('ComponentLibrary/Component/Icon/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
