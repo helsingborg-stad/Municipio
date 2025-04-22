@@ -179,6 +179,13 @@ class BlockManager
                 }
             }
 
+            if (!empty($data['border_radius'])) {
+                $borderRadiusMap = ['sm' => 2, 'md' => 4, 'lg' => 8];
+                $borderRadius = $borderRadiusMap[$data['border_radius']] ?? 0;
+                $data['classList'][] = 'u-rounded__top--' . $borderRadius;
+                $data['classList'][] = 'u-rounded__bottom--' . $borderRadius;
+            }
+
             if (!empty($data['style'])) {
                 $data['style'] = implode(';', $data['style']);
             } else {
