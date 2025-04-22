@@ -43,6 +43,6 @@ class PostObjectWithSchemaObjectTest extends TestCase
 
     private function getPostObject(): PostObjectInterface
     {
-        return new PostObject(new FakeWpService());
+        return new PostObject(1, new FakeWpService());
     }
 }

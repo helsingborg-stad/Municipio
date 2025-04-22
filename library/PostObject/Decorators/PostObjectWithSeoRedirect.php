@@ -127,4 +127,13 @@ class PostObjectWithSeoRedirect implements PostObjectInterface
     {
         return $this->postObject->getSchemaProperty($property);
     }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getTerms(array $taxonomies): array
+    {
+        return $this->postObject->getTerms($taxonomies);
+    }
 }

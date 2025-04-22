@@ -18,7 +18,7 @@ class PostObjectFromWpPostTest extends TestCase
         $wpPost     = new WP_Post([]);
         $wpPost->ID = 1;
 
-        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
+        $instance = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, $wpService);
 
         $result = $instance->getCommentCount();
 
@@ -34,7 +34,7 @@ class PostObjectFromWpPostTest extends TestCase
         $wpPost     = new WP_Post([]);
         $wpPost->ID = 1;
 
-        $instance = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, $wpService);
+        $instance = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, $wpService);
 
         $result = $instance->getPermalink();
 
@@ -48,7 +48,7 @@ class PostObjectFromWpPostTest extends TestCase
     {
         $wpPost             = new WP_Post([]);
         $wpPost->post_title = 'Title';
-        $instance           = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance           = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('Title', $instance->getTitle());
     }
@@ -60,7 +60,7 @@ class PostObjectFromWpPostTest extends TestCase
     {
         $wpPost            = new WP_Post([]);
         $wpPost->post_date = 'post';
-        $instance          = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance          = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals('post', $instance->getPostType());
     }
@@ -73,7 +73,7 @@ class PostObjectFromWpPostTest extends TestCase
         $dateTimeString    = date('Y-m-d H:i:s', $now = time());
         $wpPost            = new WP_Post([]);
         $wpPost->post_date = $dateTimeString;
-        $instance          = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance          = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getPublishedTime());
     }
@@ -86,7 +86,7 @@ class PostObjectFromWpPostTest extends TestCase
         $dateTimeString        = date('Y-m-d H:i:s', $now = time());
         $wpPost                = new WP_Post([]);
         $wpPost->post_date_gmt = $dateTimeString;
-        $instance              = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance              = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getPublishedTime(true));
     }
@@ -99,7 +99,7 @@ class PostObjectFromWpPostTest extends TestCase
         $dateTimeString        = date('Y-m-d H:i:s', $now = time());
         $wpPost                = new WP_Post([]);
         $wpPost->post_modified = $dateTimeString;
-        $instance              = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance              = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getModifiedTime());
     }
@@ -112,7 +112,7 @@ class PostObjectFromWpPostTest extends TestCase
         $dateTimeString            = date('Y-m-d H:i:s', $now = time());
         $wpPost                    = new WP_Post([]);
         $wpPost->post_modified_gmt = $dateTimeString;
-        $instance                  = new PostObjectFromWpPost(new PostObject(new FakeWpService()), $wpPost, new FakeWpService());
+        $instance                  = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
 
         $this->assertEquals($now, $instance->getModifiedTime(true));
     }

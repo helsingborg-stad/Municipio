@@ -27,6 +27,7 @@ class CreatePostObjectFromWpPostTest extends TestCase
     public function testCreateMethodReturnsPostObjectInterface(): void
     {
         $post       = new \WP_Post([]);
+        $post->ID   = 1;
         $factory    = $this->getInstance();
         $postObject = $factory->create($post);
 

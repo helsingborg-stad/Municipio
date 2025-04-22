@@ -16,7 +16,7 @@ class IconResolvingPostObjectTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $decorator = new IconResolvingPostObject(new PostObject(new FakeWpService()), new NullIconResolver());
+        $decorator = new IconResolvingPostObject(new PostObject(1, new FakeWpService()), new NullIconResolver());
         $this->assertInstanceOf(IconResolvingPostObject::class, $decorator);
     }
 
@@ -31,7 +31,7 @@ class IconResolvingPostObjectTest extends TestCase
         $icon->method('getIcon')->willReturn('test-icon');
         $iconResolver->method('resolve')->willReturn($icon);
 
-        $postObject = new IconResolvingPostObject(new PostObject(new FakeWpService()), $iconResolver);
+        $postObject = new IconResolvingPostObject(new PostObject(1, new FakeWpService()), $iconResolver);
 
         $this->assertEquals('test-icon', $postObject->getIcon()->getIcon());
     }
