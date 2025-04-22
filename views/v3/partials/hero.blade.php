@@ -15,7 +15,7 @@
 
         </div>
     @endif
-    @if (!$displayQuicklinksAfterContent)
+    @if ($quicklinksPlacement !== 'below_content')
         @include('partials.navigation.fixed')
     @endif
 @show

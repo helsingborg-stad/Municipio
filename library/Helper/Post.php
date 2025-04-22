@@ -173,37 +173,6 @@ class Post
             array_merge([], $appendFields) //Ability to add default
         );
 
-        $postObject->quicklinksPlacement           = Navigation::getQuicklinksPlacement($postObject->ID);
-        $postObject->hasQuicklinksAfterFirstBlock  = false;
-        $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
-
-        if (
-            !empty($postObject->quicklinksPlacement) && $postObject->quicklinksPlacement == 'after_first_block'
-            && has_blocks($postObject->post_content) && isset($data['quicklinksMenu']['items'])
-        ) {
-                $postObject->displayQuicklinksAfterContent = false;
-                // Add quicklinks after first block
-            foreach (parse_blocks($postObject->post_content) as $key => $block) {
-                if (0 == $key) {
-                    $postObject->post_content                 =
-                    render_block($block) .
-                    render_blade_view(
-                        'partials.navigation.fixed-after-block',
-                        [
-                        'quicklinksMenu'      => $data['quicklinksMenu']['items'],
-                        'quicklinksPlacement' => $postObject->quicklinksPlacement,
-                        'customizer'          => $data['customizer'],
-                        'lang'                => $data['lang'],
-                        ]
-                    );
-                    $postObject->hasQuicklinksAfterFirstBlock = true;
-                } else {
-                    $postObject->post_content .= render_block($block);
-                }
-            }
-        } else {
-            $postObject->displayQuicklinksAfterContent = Navigation::displayQuicklinksAfterContent($postObject->ID);
-        }
         // Check if password is required for the post
         $passwordRequired = post_password_required($postObject);
 
@@ -373,19 +342,9 @@ class Post
             $content = self::replaceBuiltinClasses(self::removeEmptyPTag($postObject->post_content));
         }
 
-        if ($postObject->hasQuicklinksAfterFirstBlock) {
-            // Temporarily deactivate wpautop from the_content
-            remove_filter('the_content', 'wpautop');
-        }
-
-        // Apply the_content
+        // Apply the_content (will render blocks)
         $excerpt = apply_filters('the_excerpt', $excerpt);
         $content = apply_filters('the_content', $content);
-
-        if ($postObject->hasQuicklinksAfterFirstBlock) {
-            // Add wpautop back to the_content
-            add_filter('the_content', 'wpautop');
-        }
 
         // Build post_content_filtered
         return $excerpt . $content;
