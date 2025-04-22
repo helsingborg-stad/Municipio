@@ -7,10 +7,10 @@
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
                     'metaFirst' => true,
-                    'meta' =>  $getTermsList($post, 'project_meta_technology', ', '),
+                    'meta' =>  $getTermsList($post, 'project_meta_technology'),
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'content' => $getTermsList($post, 'project_meta_category', ' / '),
+                    'content' => $getTermsList($post, 'project_meta_category'),
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
                     'classList' => ['u-height--100']
                 ])  

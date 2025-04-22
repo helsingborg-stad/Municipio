@@ -18,7 +18,7 @@ class ArchiveProject extends \Municipio\Controller\Archive
     {
         parent::init();
 
-        $this->data['getTermsList'] = fn($post, $taxonomy, $separator) => $this->getTermsList($post, $taxonomy, $separator);
+        $this->data['getTermsList'] = fn($post, $taxonomy) => $this->getTermsList($post, $taxonomy);
     }
 
     /**
@@ -26,10 +26,9 @@ class ArchiveProject extends \Municipio\Controller\Archive
      *
      * @param PostObjectInterface $post
      * @param string $taxonomy
-     * @param string $separator
      * @return string
      */
-    private function getTermsList(PostObjectInterface $post, string $taxonomy, string $separator): string
+    private function getTermsList(PostObjectInterface $post, string $taxonomy): string
     {
         $terms = $post->getTerms([$taxonomy]);
 
@@ -37,6 +36,6 @@ class ArchiveProject extends \Municipio\Controller\Archive
             return '';
         }
 
-        return implode($separator, array_map(fn($term) => $term->name, $terms));
+        return implode(' / ', array_map(fn($term) => $term->name, $terms));
     }
 }
