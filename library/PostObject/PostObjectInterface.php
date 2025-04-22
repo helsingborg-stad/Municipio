@@ -94,4 +94,13 @@ interface PostObjectInterface
      * @return mixed The value of the schema property. Will return null if the property does not exist.
      */
     public function getSchemaProperty(string $property): mixed;
+
+    /**
+     * Get the post object terms.
+     *
+     * @param string[] $taxonomies An array of taxonomy slugs to get terms for.
+     * @return \WP_Term[] An array of WP_Term objects.
+     * @see https://developer.wordpress.org/reference/classes/wp_term/
+     */
+    public function getTerms(array $taxonomies): array;
 }

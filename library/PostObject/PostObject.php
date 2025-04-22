@@ -5,6 +5,7 @@ namespace Municipio\PostObject;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\WpGetPostTerms;
 
 /**
  * PostObject
@@ -14,7 +15,7 @@ class PostObject implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private GetCurrentBlogId $wpService)
+    public function __construct(private int $id, private GetCurrentBlogId|WpGetPostTerms $wpService)
     {
     }
 
@@ -23,7 +24,7 @@ class PostObject implements PostObjectInterface
      */
     public function getId(): int
     {
-        return 0;
+        return $this->id;
     }
 
     /**
@@ -112,5 +113,15 @@ class PostObject implements PostObjectInterface
     public function getSchemaProperty(string $property): mixed
     {
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTerms(array $taxonomies): array
+    {
+        $terms = $this->wpService->wpGetPostTerms($this->getId(), $taxonomies);
+
+        return is_array($terms) ? $terms : [];
     }
 }

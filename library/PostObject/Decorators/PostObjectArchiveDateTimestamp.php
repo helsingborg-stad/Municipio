@@ -123,4 +123,12 @@ class PostObjectArchiveDateTimestamp implements PostObjectInterface
     {
         return $this->postObject->getSchemaProperty($property);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getTerms(array $taxonomies): array
+    {
+        return $this->postObject->getTerms($taxonomies);
+    }
 }

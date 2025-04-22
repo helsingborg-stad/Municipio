@@ -163,4 +163,13 @@ class PostObjectWithSchemaObject implements PostObjectInterface
     {
         return $this->postObject->getArchiveDateFormat();
     }
+
+    /**
+     * @inheritDoc
+     * @codeCoverageIgnore
+     */
+    public function getTerms(array $taxonomies): array
+    {
+        return $this->postObject->getTerms($taxonomies);
+    }
 }

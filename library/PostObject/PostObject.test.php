@@ -3,7 +3,8 @@
 namespace Municipio\PostObject;
 
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\GetCurrentBlogId;
+use WP_Error;
+use WP_Term;
 use WpService\Implementations\FakeWpService;
 
 /**
@@ -15,17 +16,15 @@ class PostObjectTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->instance = new PostObject(new FakeWpService([
-            'getCurrentBlogId' => 1,
-        ]));
+        $this->instance = new PostObject(1, new FakeWpService([ 'getCurrentBlogId' => 1 ]));
     }
 
     /**
-     * @testdox getId() returns 0
+     * @testdox getId() returns provided id
      */
     public function testGetIdReturns0()
     {
-        $this->assertEquals(0, $this->instance->getId());
+        $this->assertEquals(1, $this->instance->getId());
     }
 
     /**
@@ -98,5 +97,37 @@ class PostObjectTest extends TestCase
     public function testGetSchemaPropertyReturnsNull()
     {
         $this->assertEquals(null, $this->instance->getSchemaProperty('non_existing_property'));
+    }
+
+    /**
+     * @testdox getTerms returns an empty array if terms could not be retrieved
+     */
+    public function testGetTermsReturnsEmptyArray()
+    {
+        $this->instance = new PostObject(1, new FakeWpService([ 'wpGetPostTerms' => new WP_Error(), ]));
+
+        $this->assertEquals([], $this->instance->getTerms(['category']));
+    }
+
+    /**
+     * @testdox getTerms returns an empty array if no terms are found
+     */
+    public function testGetTermsReturnsEmptyArrayIfNoTermsFound()
+    {
+        $this->instance = new PostObject(1, new FakeWpService([ 'wpGetPostTerms' => [], ]));
+
+        $this->assertEquals([], $this->instance->getTerms(['category']));
+    }
+
+    /**
+     * @testdox getTerms returns an array of terms
+     */
+    public function testGetTermsReturnsArrayOfTerms()
+    {
+        $terms = [ new WP_Term([]), ];
+
+        $this->instance = new PostObject(1, new FakeWpService([ 'wpGetPostTerms' => $terms, ]));
+
+        $this->assertEquals($terms, $this->instance->getTerms(['category']));
     }
 }
