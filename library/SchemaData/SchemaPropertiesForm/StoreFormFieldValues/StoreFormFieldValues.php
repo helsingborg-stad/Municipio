@@ -42,7 +42,7 @@ class StoreFormFieldValues implements Hookable
      */
     public function saveSchemaData(null|int|string $postId): void
     {
-        if(is_null($postId) || is_string($postId)) {
+        if (is_null($postId) || is_string($postId)) {
             return;
         }
 
