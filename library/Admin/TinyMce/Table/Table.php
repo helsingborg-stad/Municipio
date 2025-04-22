@@ -12,7 +12,7 @@ class Table extends \Municipio\Admin\TinyMce\PluginClass
 
     public function addTinyMcePlugin($plugins)
     {
-        $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/js/mce-table.js';
+        $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/' . \Municipio\Helper\CacheBust::name('js/mce-table.js');
         return $plugins;
     }
 }
