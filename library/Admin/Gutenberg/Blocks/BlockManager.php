@@ -151,7 +151,7 @@ class BlockManager
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
 
-        $data['contentClassList'] = 'o-container';
+        $data['contentClassList'] = 'o-container o-container--remove-spacing';
         if (isset($data['content_width']) && $data['content_width'] == 'article') {
             $data['contentClassList'] .= ' c-article c-article--readable-width';
         }
