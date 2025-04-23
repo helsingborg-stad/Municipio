@@ -14,14 +14,10 @@
                 {{ $post->postTitle }}
             @endtypography
 
-            @if (!empty($status))
-                @typography([
-                    'element' => 'b',
-                ])
-                    {{$status}}
-                @endtypography
-            @endif
-            @progressBar([ 'value' => $progress ]) @endprogressBar
+            @typography([ 'element' => 'b', ])
+                {{$progressLabel}}
+            @endtypography
+            @progressBar([ 'value' => $progressPercentage ]) @endprogressBar
 
         @endslot
     @endhero

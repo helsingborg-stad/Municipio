@@ -33,7 +33,7 @@
         "symfony/polyfill-php80": "^1.27",
         "dompdf/dompdf": "^2.0.4",
         "helsingborg-stad/wpservice": "^2.0",
-        "helsingborg-stad/acfservice": "~0.4",
+        "helsingborg-stad/acfservice": "^1.0.0",
         "helsingborg-stad/schema-library": "^0.2"
     },
     "extra": {
@@ -87,5 +87,5 @@
         "helsingborg-stad/component-library": "Required for theme to work properly.",
         "helsingborg-stad/kirki": "Required for theme to work properly."
     },
-    "version": "5.143.1"
+    "version": "5.144.3"
 }

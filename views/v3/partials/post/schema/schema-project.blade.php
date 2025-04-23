@@ -15,26 +15,21 @@
                     'classList' => ['u-height--100']
                 ])  
                     @slot('afterContent')
-                        @if(isset($post->progress))
-                            @group([
-                                'direction' => 'vertical',
-                                'justifyContent' => 'flex-end',
-                                'classList' => ['u-height--100']
+
+                        @group([
+                            'direction' => 'vertical',
+                            'justifyContent' => 'flex-end',
+                            'classList' => ['u-height--100']
+                        ])
+                            @typography([ 'element' => 'b', 'classList' => ['u-margin__left--auto'] ])
+                                {{$getProgressLabel($post)}}
+                            @endtypography
+                            @progressBar([
+                                'value' => $getProgressPercentage($post),
                             ])
-                                @if(isset($post->projectTerms['status'][0]))
-                                    @typography([
-                                        'element' => 'b',
-                                        'classList' => ['u-margin__left--auto']
-                                    ])
-                                        {{$post->projectTerms['status'][0]}}
-                                    @endtypography
-                                @endif
-                                @progressBar([
-                                    'value' => $post->progress,
-                                ])
-                                @endprogressBar
-                            @endgroup
-                        @endif
+                            @endprogressBar
+                        @endgroup
+
                     @endslot
                 @endcard
             </div>
