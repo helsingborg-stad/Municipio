@@ -148,8 +148,6 @@ class BlockManager
     {
         $data = $this->buildData($block['data']);
 
-     
-
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
 
@@ -173,7 +171,7 @@ class BlockManager
             }
 
             // Padding amount
-            if(!empty($data['amount'])) {
+            if (!empty($data['amount'])) {
                 $data['halfAmount'] = ceil($data['amount'] / 2);
                 $data['classList'] .= ' u-padding--' . $data['amount'];
                 $data['classList'] .= ' u-padding--' . $data['halfAmount'] . '@md';
@@ -192,8 +190,8 @@ class BlockManager
 
             // Border radius
             if (!empty($data['border_radius'])) {
-                $borderRadiusMap = ['sm' => 2, 'md' => 4, 'lg' => 8, 'xl' => 16];
-                $borderRadius = $borderRadiusMap[$data['border_radius']] ?? 0;
+                $borderRadiusMap    = ['sm' => 2, 'md' => 4, 'lg' => 8, 'xl' => 16];
+                $borderRadius       = $borderRadiusMap[$data['border_radius']] ?? 0;
                 $data['classList'] .= ' u-rounded__top--' . $borderRadius;
                 $data['classList'] .= ' u-rounded__bottom--' . $borderRadius;
             }
@@ -214,7 +212,7 @@ class BlockManager
                 if (empty($data['attributeList'])) {
                     $data['attributeList'] = [];
                 }
-                if(!empty($data['anchor'])) {
+                if (!empty($data['anchor'])) {
                     $data['attributeList']['id'] = $data['anchor'];
                 }
             }
