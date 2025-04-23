@@ -44,6 +44,7 @@
                 'sm' => __('Small', 'municipio'),
                 'md' => __('Medium', 'municipio'),
                 'lg' => __('Large', 'municipio'),
+                'xl' => __('X-Large', 'municipio'),
             ),
             'default_value' => false,
             'return_format' => 'value',
@@ -56,6 +57,27 @@
             'ajax' => 0,
         ),
         2 => array(
+            'key' => 'field_68088e6bbe241',
+            'label' => __('Amount of shadow', 'municipio'),
+            'name' => 'shadow',
+            'aria-label' => '',
+            'type' => 'range',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => 0,
+            'min' => 0,
+            'max' => 5,
+            'step' => 1,
+            'prepend' => __('Level', 'municipio'),
+            'append' => '',
+        ),
+        3 => array(
             'key' => 'field_644b6d221b7a4',
             'label' => __('Content width', 'municipio'),
             'name' => 'content_width',
@@ -83,7 +105,7 @@
             'allow_custom' => 0,
             'search_placeholder' => '',
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_6405fea65cc8f',
             'label' => __('Background image', 'municipio'),
             'name' => 'backgroundImage',
@@ -110,7 +132,7 @@
             'preview_size' => 'medium',
             'library' => 'all',
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_64831fa89c119',
             'label' => __('Background color type', 'municipio'),
             'name' => 'background_color_type',
@@ -135,7 +157,7 @@
             'save_other_choice' => 0,
             'layout' => 'vertical',
         ),
-        5 => array(
+        6 => array(
             'key' => 'field_63cfdc219a6d3',
             'label' => __('Background color', 'municipio'),
             'name' => 'color',
@@ -161,7 +183,7 @@
             'enable_opacity' => 1,
             'return_format' => 'string',
         ),
-        6 => array(
+        7 => array(
             'key' => 'field_6492ca98d635f',
             'label' => __('Gradient settings', 'municipio'),
             'name' => 'background_gradient_type',
@@ -194,7 +216,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        7 => array(
+        8 => array(
             'key' => 'field_64832f14f941f',
             'label' => __('Gradient angle', 'municipio'),
             'name' => 'background_gradient_angle',
@@ -223,7 +245,7 @@
             'prepend' => '',
             'append' => '',
         ),
-        8 => array(
+        9 => array(
             'key' => 'field_648329b62db2e',
             'label' => __('Gradient background color', 'municipio'),
             'name' => 'background_gradient',
@@ -305,7 +327,7 @@
                 ),
             ),
         ),
-        9 => array(
+        10 => array(
             'key' => 'field_644b77128c900',
             'label' => __('Text color', 'municipio'),
             'name' => 'text_color',

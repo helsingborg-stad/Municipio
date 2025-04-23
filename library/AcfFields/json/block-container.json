@@ -40,7 +40,8 @@
             "choices": {
                 "sm": "Small",
                 "md": "Medium",
-                "lg": "Large"
+                "lg": "Large",
+                "xl": "X-Large"
             },
             "default_value": false,
             "return_format": "value",
@@ -51,6 +52,27 @@
             "allow_null": 1,
             "ui": 1,
             "ajax": 0
+        },
+        {
+            "key": "field_68088e6bbe241",
+            "label": "Amount of shadow",
+            "name": "shadow",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "prepend": "Level",
+            "append": ""
         },
         {
             "key": "field_644b6d221b7a4",
