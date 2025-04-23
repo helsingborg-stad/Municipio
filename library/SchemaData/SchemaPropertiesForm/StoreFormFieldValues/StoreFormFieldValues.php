@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
+use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\Schema;
@@ -22,6 +23,7 @@ class StoreFormFieldValues implements Hookable
      */
     public function __construct(
         private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce $wpService,
+        private DeleteField $acfService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
         private GetEnabledSchemaTypesInterface $getEnabledSchemaTypesService
     ) {
@@ -77,6 +79,9 @@ class StoreFormFieldValues implements Hookable
 
             // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $schemaObject[$property] = $_POST['acf'][$propertyName] ?: null;
+
+            // Avoid storing duplicated data.
+            $this->acfService->deleteField($propertyName, $postId);
         }
 
         // Update the post meta with the modified schema object.

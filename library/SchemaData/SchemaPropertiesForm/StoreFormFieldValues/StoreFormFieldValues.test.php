@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
+use AcfService\Implementations\FakeAcfService;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -17,6 +18,7 @@ class StoreFormFieldValuesTest extends TestCase
     {
         $this->assertInstanceOf(StoreFormFieldValues::class, new StoreFormFieldValues(
             new FakeWpService(),
+            new FakeAcfService(),
             $this->getSchemaTypeService(),
             $this->getEnabledSchemaTypesService()
         ));
@@ -31,7 +33,7 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaTypeService         = $this->getSchemaTypeService();
         $enabledSchemaTypesService = $this->getEnabledSchemaTypesService();
 
-        $storeFormFieldValues = new StoreFormFieldValues($wpService, $schemaTypeService, $enabledSchemaTypesService);
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService);
         $storeFormFieldValues->addHooks();
 
         $this->assertEquals('acf/save_post', $wpService->methodCalls['addAction'][0][0]);
@@ -67,7 +69,7 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaTypeService->method('tryGetSchemaTypeFromPostType')->willReturn($schemaType);
         $enabledSchemaTypesService->method('getEnabledSchemaTypesAndProperties')->willReturn([$schemaType => $allowedProperties]);
 
-        $storeFormFieldValues = new StoreFormFieldValues($wpService, $schemaTypeService, $enabledSchemaTypesService);
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService);
 
         // Simulate the action
         $storeFormFieldValues->saveSchemaData($postId);
@@ -112,7 +114,7 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaTypeService->method('tryGetSchemaTypeFromPostType')->willReturn($schemaType);
         $enabledSchemaTypesService->method('getEnabledSchemaTypesAndProperties')->willReturn([$schemaType => $allowedProperties]);
 
-        $storeFormFieldValues = new StoreFormFieldValues($wpService, $schemaTypeService, $enabledSchemaTypesService);
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService);
 
         // Simulate the action
         $storeFormFieldValues->saveSchemaData($postId);
@@ -147,7 +149,7 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaTypeService->method('tryGetSchemaTypeFromPostType')->willReturn($schemaType);
         $enabledSchemaTypesService->method('getEnabledSchemaTypesAndProperties')->willReturn([$schemaType => $allowedProperties]);
 
-        $storeFormFieldValues = new StoreFormFieldValues($wpService, $schemaTypeService, $enabledSchemaTypesService);
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService);
 
         // Simulate the action
         $storeFormFieldValues->saveSchemaData($postId);
@@ -180,7 +182,7 @@ class StoreFormFieldValuesTest extends TestCase
         $schemaTypeService->method('tryGetSchemaTypeFromPostType')->willReturn($schemaType);
         $enabledSchemaTypesService->method('getEnabledSchemaTypesAndProperties')->willReturn([$schemaType => $allowedProperties]);
 
-        $storeFormFieldValues = new StoreFormFieldValues($wpService, $schemaTypeService, $enabledSchemaTypesService);
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService);
 
         // Simulate the action
         $storeFormFieldValues->saveSchemaData($postId);

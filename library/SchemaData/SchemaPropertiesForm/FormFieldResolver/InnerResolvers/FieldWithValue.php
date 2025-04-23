@@ -2,23 +2,21 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\InnerResolvers;
 
+use Municipio\Helper\AcfService;
 use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\FormFieldResolverInterface;
 
-/**
- * Class StringField
- *
- * This class is responsible for creating a form field with string type.
- */
-class StringField implements FormFieldResolverInterface
+use function AcfService\Implementations\get_field;
+
+class FieldWithValue implements FormFieldResolverInterface
 {
     /**
-     * StringField constructor.
+     * FieldWithIdentifiers constructor.
      *
-     * @param array $acceptedPropertyTypes The accepted property types.
+     * @param string $propertyName The name of the property.
      * @param FormFieldResolverInterface $inner The inner form field resolver.
      */
     public function __construct(
-        private array $acceptedPropertyTypes,
+        private string $propertyName,
         private FormFieldResolverInterface $inner
     ) {
     }
@@ -28,14 +26,8 @@ class StringField implements FormFieldResolverInterface
      */
     public function resolve(): array
     {
-        if (!in_array('string', $this->acceptedPropertyTypes)) {
-            return $this->inner->resolve();
-        }
-
         return array_merge($this->inner->resolve(), [
-            'type'          => 'text',
-            'default_value' => '',
-            'required'      => 0
+            'value' => AcfService::get()->getField(FieldWithIdentifiers::FIELD_PREFIX . $this->propertyName),
         ]);
     }
 }

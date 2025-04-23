@@ -6,6 +6,7 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\InnerResolvers\{
     DateTimeField,
     EmptyField,
     FieldWithIdentifiers,
+    FieldWithValue,
     GeoCoordinatesField,
     StringField
 };
@@ -34,10 +35,11 @@ class FormFieldResolver implements FormFieldResolverInterface
     public function resolve(): array
     {
         $resolver = new EmptyField();
-        $resolver = new StringField($this->acceptedPropertyTypes, $resolver);
-        $resolver = new DateTimeField($this->acceptedPropertyTypes, $resolver);
-        $resolver = new GeoCoordinatesField($this->acceptedPropertyTypes, $resolver);
         $resolver = new FieldWithIdentifiers($this->propertyName, $resolver);
+        $resolver = new FieldWithValue($this->propertyName, $resolver);
+        $resolver = new DateTimeField($this->acceptedPropertyTypes, $resolver);
+        $resolver = new StringField($this->acceptedPropertyTypes, $resolver);
+        $resolver = new GeoCoordinatesField($this->acceptedPropertyTypes, $resolver);
 
         return $resolver->resolve();
     }

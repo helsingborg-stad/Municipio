@@ -41,6 +41,43 @@ class GeoCoordinatesField implements FormFieldResolverInterface
             'center_lng' => '',
             'zoom'       => '',
             'height'     => '',
+            'value'      => $this->sanitizeValue($field['value'] ?? []),
         ]);
+    }
+
+    /**
+     * Sanitizes the field value.
+     *
+     * @param mixed $value The field value.
+     * @return array The sanitized field value.
+     */
+    private function sanitizeValue(mixed $value): array
+    {
+        if (is_array($value)) {
+            return $this->maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat($value);
+        }
+
+        if (json_validate($value)) {
+            return $this->maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat(json_decode($value, true));
+        }
+
+        return [];
+    }
+
+    /**
+     * Converts the field value from schema format to Google Maps field format.
+     *
+     * @param array $value The field value in schema format.
+     * @return array The field value in Google Maps field format.
+     */
+    private function maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat(array $value): array
+    {
+        if (isset($value['latitude']) && isset($value['longitude'])) {
+            $value['lat'] = $value['latitude'];
+            $value['lng'] = $value['longitude'];
+            unset($value['latitude'], $value['longitude']);
+        }
+
+        return $value;
     }
 }

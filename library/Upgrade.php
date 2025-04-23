@@ -705,6 +705,25 @@ class Upgrade
         return true;
     }
 
+    public function v_38($db)
+    {
+        // Get all posts that belong to a specific schema type but does not have the meta key "originId" set.
+
+        $args = [
+            'posts_per_page' => -1,
+            'post_type'      => 'any',
+            'post_status'    => 'any',
+            'meta_query'     => [
+                [
+                    'key'     => 'originId',
+                    'compare' => 'NOT EXISTS'
+                ]
+            ]
+        ];
+
+        return true;
+    }
+
     /**
      * Get all post types
      *
