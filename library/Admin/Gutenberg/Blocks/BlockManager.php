@@ -192,8 +192,7 @@ class BlockManager
             if (!empty($data['border_radius'])) {
                 $borderRadiusMap    = ['sm' => 2, 'md' => 4, 'lg' => 8, 'xl' => 16];
                 $borderRadius       = $borderRadiusMap[$data['border_radius']] ?? 0;
-                $data['classList'] .= ' u-rounded__top--' . $borderRadius;
-                $data['classList'] .= ' u-rounded__bottom--' . $borderRadius;
+                $data['classList'] .= ' u-rounded--' . $borderRadius;
             }
 
             // Shadow
