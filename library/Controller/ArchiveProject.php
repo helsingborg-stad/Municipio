@@ -18,7 +18,31 @@ class ArchiveProject extends \Municipio\Controller\Archive
     {
         parent::init();
 
-        $this->data['getTermsList'] = fn($post, $taxonomy) => $this->getTermsList($post, $taxonomy);
+        $this->data['getTermsList']          = fn($post, $taxonomy) => $this->getTermsList($post, $taxonomy);
+        $this->data['getProgressLabel']      = fn($post) => $this->getProgressLabel($post);
+        $this->data['getProgressPercentage'] = fn($post) => $this->getProgressPercentage($post);
+    }
+
+    /**
+     * Gets the progress label for a given post.
+     *
+     * @param PostObjectInterface $post
+     * @return string
+     */
+    private function getProgressLabel(PostObjectInterface $post): string
+    {
+        return $post->getSchemaProperty('status')['name'] ?? '';
+    }
+
+    /**
+     * Gets the progress percentage for a given post.
+     *
+     * @param PostObjectInterface $post
+     * @return int
+     */
+    private function getProgressPercentage(PostObjectInterface $post): int
+    {
+        return (int) ($post->getSchemaProperty('status')['number'] ?? 0);
     }
 
     /**
