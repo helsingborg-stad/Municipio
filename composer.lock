@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b50f9c4cfe4d45b2768c20f69b806df8",
+    "content-hash": "0cba7e4ae427870c83e76ae09b8c2dae",
     "packages": [
         {
             "name": "composer/installers",
@@ -257,16 +257,16 @@
         },
         {
             "name": "helsingborg-stad/acfservice",
-            "version": "0.10.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acfservice.git",
-                "reference": "6785c102474b81dc2f2106b3e8603c533a638529"
+                "reference": "c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/6785c102474b81dc2f2106b3e8603c533a638529",
-                "reference": "6785c102474b81dc2f2106b3e8603c533a638529",
+                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce",
+                "reference": "c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce",
                 "shasum": ""
             },
             "require": {
@@ -295,9 +295,9 @@
             "description": "Simplifies ACF integration by providing a centralized AcfService that exposes global ACF functions in a streamlined manner. Simplify your development workflow and enhance ACF integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acfservice/issues",
-                "source": "https://github.com/helsingborg-stad/acfservice/tree/0.10.0"
+                "source": "https://github.com/helsingborg-stad/acfservice/tree/1.0.1"
             },
-            "time": "2025-04-23T09:23:20+00:00"
+            "time": "2025-04-23T10:51:02+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
