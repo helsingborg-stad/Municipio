@@ -175,7 +175,7 @@ class BlockManager
                 $data['halfAmount'] = ceil($data['amount'] / 2);
                 $data['classList'] .= ' u-padding--' . $data['amount'];
                 $data['classList'] .= ' u-padding--' . $data['halfAmount'] . '@md';
-                $data['classList'] .= ' u-padding__x--0@xs';
+                $data['classList'] .= ' u-padding__x--2@xs';
                 $data['classList'] .= ' u-padding__x--2@sm';
             }
 
