@@ -42,14 +42,15 @@ class PostObjectWithSchemaObject implements PostObjectInterface
      */
     private function getSchemaObject(): BaseType
     {
-        static $schemaObject = null;
+        static $schemaObjectCache = [];
+        $cacheKey                 = $this->postObject->getId();
 
-        if ($schemaObject === null) {
-            $schemaObject                   = $this->schemaObjectFromPost->create($this->postObject);
-            $this->postObject->schemaObject = $schemaObject;
+        if (!isset($schemaObjectCache[$cacheKey])) {
+            $schemaObjectCache[$cacheKey]   = $this->schemaObjectFromPost->create($this->postObject);
+            $this->postObject->schemaObject = $schemaObjectCache[$cacheKey]; // TODO: remove when all usage of ->schemaObject is removed from the codebase.
         }
 
-        return $schemaObject;
+        return $schemaObjectCache[$cacheKey];
     }
 
     /**
