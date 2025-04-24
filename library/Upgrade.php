@@ -743,52 +743,14 @@ class Upgrade
      */
     public function v_38(): bool
     {
-
-        // Get all post types by looking at the posts table
         global $wpdb;
-        $postTypes               = $wpdb->get_col("SELECT DISTINCT post_type FROM {$wpdb->posts} WHERE post_type NOT IN ('revision', 'nav_menu_item', 'acf-field-group', 'acf-field', 'acf-post-type', 'attachment', 'customize_changeset', 'custom_css', 'oembed_cache', 'wp_block')");
-        $schemaDataConfigService = new SchemaDataConfigService(WpService::get());
+        $version = new \Municipio\Upgrade\V38\Version38($wpdb, new SchemaDataConfigService(WpService::get()), WpService::get());
 
-        $postsWithOldMetaFormat = get_posts([
-            'posts_per_page' => -1,
-            'post_type'      => $postTypes,
-            'post_status'    => 'any',
-            'meta_query'     => [
-                [
-                    'key'     => 'originId',
-                    'compare' => 'NOT EXISTS'
-                ],
-                [
-                    'key'     => 'schemaData',
-                    'compare' => 'NOT EXISTS'
-                ],
-                [
-                    'key'     => 'schema',
-                    'compare' => 'EXISTS'
-                ],
-            ]
-        ]);
-
-
-        foreach ($postsWithOldMetaFormat as $post) {
-            $schemaType = $schemaDataConfigService->tryGetSchemaTypeFromPostType($post->post_type);
-
-            if (empty($schemaType)) {
-                continue;
-            }
-
-            $schemaMeta = array_filter(WpService::get()->getPostMeta($post->ID), function ($key) {
-                return str_starts_with($key, 'schema_');
-            }, ARRAY_FILTER_USE_KEY);
-
-            $schemaObject = Schema::{$schemaType}();
-
-            foreach ($schemaMeta as $key => $value) {
-                $propertyName = str_replace('schema_', '', $key);
-                $schemaObject->{$propertyName}($value[0]);
-            }
-
-            WpService::get()->updatePostMeta($post->ID, 'schemaData', $schemaObject->toArray());
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
         }
 
         return true;
