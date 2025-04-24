@@ -53,12 +53,18 @@ class GeoCoordinatesField implements FormFieldResolverInterface
      */
     private function sanitizeValue(mixed $value): array
     {
-        if (is_array($value)) {
-            return $this->maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat($value);
+
+        if (is_string($value) && json_validate($value)) {
+            $value = json_decode($value, true);
         }
 
-        if (json_validate($value)) {
-            return $this->maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat(json_decode($value, true));
+        // if is serialized
+        if (is_string($value) && is_serialized($value)) {
+            $value = unserialize($value);
+        }
+
+        if (is_array($value)) {
+            return $this->maybeConvertFieldValueFromSchemaFormatToGoogleMapsFieldFormat($value);
         }
 
         return [];

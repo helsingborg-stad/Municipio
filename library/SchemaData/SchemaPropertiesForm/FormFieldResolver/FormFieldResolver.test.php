@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver;
 
+use AcfService\Implementations\FakeAcfService;
 use PHPUnit\Framework\TestCase;
 
 class FormFieldResolverTest extends TestCase
@@ -11,7 +12,7 @@ class FormFieldResolverTest extends TestCase
      */
     public function testClassCanBeInstantiated()
     {
-        $resolver = new FormFieldResolver([], 'propertyName');
+        $resolver = new FormFieldResolver(new FakeAcfService(), [], 'propertyName');
         $this->assertInstanceOf(FormFieldResolver::class, $resolver);
     }
 
@@ -20,7 +21,7 @@ class FormFieldResolverTest extends TestCase
      */
     public function testResolveReturnsArray()
     {
-        $resolver = new FormFieldResolver([], 'propertyName');
+        $resolver = new FormFieldResolver(new FakeAcfService(), [], 'propertyName');
         $result   = $resolver->resolve();
         $this->assertIsArray($result);
     }

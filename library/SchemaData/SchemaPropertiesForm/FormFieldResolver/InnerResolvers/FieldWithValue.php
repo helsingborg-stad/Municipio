@@ -2,11 +2,14 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\InnerResolvers;
 
-use Municipio\Helper\AcfService;
+use AcfService\Contracts\GetField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\FormFieldResolverInterface;
 
-use function AcfService\Implementations\get_field;
-
+/**
+ * Class FieldWithValue
+ *
+ * This class is responsible for resolving the form field properties for a given field with a value.
+ */
 class FieldWithValue implements FormFieldResolverInterface
 {
     /**
@@ -16,6 +19,7 @@ class FieldWithValue implements FormFieldResolverInterface
      * @param FormFieldResolverInterface $inner The inner form field resolver.
      */
     public function __construct(
+        private GetField $acfService,
         private string $propertyName,
         private FormFieldResolverInterface $inner
     ) {
@@ -27,7 +31,7 @@ class FieldWithValue implements FormFieldResolverInterface
     public function resolve(): array
     {
         return array_merge($this->inner->resolve(), [
-            'value' => AcfService::get()->getField(FieldWithIdentifiers::FIELD_PREFIX . $this->propertyName),
+            'value' => $this->acfService->getField(FieldWithIdentifiers::FIELD_PREFIX . $this->propertyName),
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver;
 
+use AcfService\Contracts\GetField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\InnerResolvers\{
     DateTimeField,
     EmptyField,
@@ -22,6 +23,7 @@ class FormFieldResolver implements FormFieldResolverInterface
      * FormFieldResolver constructor.
      */
     public function __construct(
+        private GetField $acfService,
         private array $acceptedPropertyTypes,
         private string $propertyName
     ) {
@@ -36,7 +38,7 @@ class FormFieldResolver implements FormFieldResolverInterface
     {
         $resolver = new EmptyField();
         $resolver = new FieldWithIdentifiers($this->propertyName, $resolver);
-        $resolver = new FieldWithValue($this->propertyName, $resolver);
+        $resolver = new FieldWithValue($this->acfService, $this->propertyName, $resolver);
         $resolver = new DateTimeField($this->acceptedPropertyTypes, $resolver);
         $resolver = new StringField($this->acceptedPropertyTypes, $resolver);
         $resolver = new GeoCoordinatesField($this->acceptedPropertyTypes, $resolver);
