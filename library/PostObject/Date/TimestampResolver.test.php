@@ -11,7 +11,6 @@ class TimestampResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
-     * @runInSeparateProcess
      */
     public function testClassCanBeInstantiated()
     {
@@ -28,7 +27,6 @@ class TimestampResolverTest extends TestCase
 
     /**
      * @testdox resolve returns unix value from meta value
-     * @runInSeparateProcess
      */
     public function testResolvesMetaKeyValueAndReturnUnix()
     {
@@ -53,7 +51,6 @@ class TimestampResolverTest extends TestCase
 
     /**
      * @testdox resolve returns post published date if meta key is post_date
-     * @runInSeparateProcess
      */
     public function testResolvesMetaKeyValueAndReturnPostDatePublished()
     {
@@ -76,7 +73,6 @@ class TimestampResolverTest extends TestCase
 
     /**
      * @testdox resolve returns post modified date if meta key is post_modified
-     * @runInSeparateProcess
      */
     public function testResolvesMetaKeyValueAndReturnPostDateModified()
     {
@@ -99,7 +95,6 @@ class TimestampResolverTest extends TestCase
 
     /**
      * @testdox resolve returns 0 if unable to resolve
-     * @runInSeparateProcess
      */
     public function testReturnsZeroIfUnableToConvertToUnix()
     {

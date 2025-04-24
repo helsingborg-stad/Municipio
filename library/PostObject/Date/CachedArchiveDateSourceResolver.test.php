@@ -9,7 +9,6 @@ class CachedArchiveDateSourceResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
-     * @runInSeparateProcess
      */
     public function testClassCanBeInstantiated()
     {
@@ -24,7 +23,6 @@ class CachedArchiveDateSourceResolverTest extends TestCase
 
     /**
      * @testdox resolve() caches result from inner resolver
-     * @runInSeparateProcess
      */
     public function testResolveCachesResultFromInnerResolver()
     {

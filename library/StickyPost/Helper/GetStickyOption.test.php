@@ -48,7 +48,6 @@ class GetStickyOptionTest extends TestCase
 
     /**
      * @testdox getOptionKey returns array with sticky posts
-     * @runInSeparateProcess
      */
     public function testGetOptionReturnsArrayWithStickyPosts()
     {
