@@ -69,7 +69,7 @@ class App
         /**
          * Upgrade
          */
-        $upgrade = new \Municipio\Upgrade($this->wpService, $this->acfService);
+        new \Municipio\Upgrade($this->wpService, $this->acfService);
 
 
         /**
