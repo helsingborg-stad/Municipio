@@ -846,7 +846,7 @@ class App
         /**
          * Store form field values.
          */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes, $getSchemaPropertiesWithParamTypes))->addHooks();
 
         /**
          * External content
