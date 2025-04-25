@@ -103,4 +103,12 @@ interface PostObjectInterface
      * @see https://developer.wordpress.org/reference/classes/wp_term/
      */
     public function getTerms(array $taxonomies): array;
+
+    /**
+     * Retrieve a value by its key.
+     *
+     * @param string $key The key to retrieve the value for.
+     * @return mixed The value associated with the key, or null if not found.
+     */
+    public function __get(string $key): mixed;
 }

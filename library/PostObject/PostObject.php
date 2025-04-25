@@ -22,6 +22,18 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function __get(string $name): mixed
+    {
+        if (isset($this->postObject->{$name})) {
+            return $this->postObject->{$name};
+        }
+
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getId(): int
     {
         return $this->id;

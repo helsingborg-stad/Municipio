@@ -26,6 +26,14 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function __get(string $name): mixed
+    {
+        return $this->postObject->__get($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getId(): int
     {
         return $this->postObject->getId();

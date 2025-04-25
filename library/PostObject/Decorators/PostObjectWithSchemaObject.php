@@ -56,14 +56,14 @@ class PostObjectWithSchemaObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function __get(string $name): mixed
+    public function __get(string $key): mixed
     {
-        if ($name === 'schemaObject') {
+        if ($key === 'schemaObject') {
             trigger_error('Deprecated: Use getSchemaObject() instead.', E_USER_DEPRECATED);
             return $this->getSchemaObject();
         }
 
-        return $this->postObject->$name;
+        return $this->postObject->__get($key);
     }
 
     /**

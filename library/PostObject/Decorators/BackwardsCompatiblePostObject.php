@@ -33,12 +33,9 @@ class BackwardsCompatiblePostObject implements PostObjectInterface
     }
 
     /**
-     * Magic getter.
-     *
-     * @param string $name
-     * @return mixed
+     * @inheritDoc
      */
-    public function __get($name)
+    public function __get(string $name): mixed
     {
         if (array_key_exists($name, self::PROPERTY_TO_METHOD_MAP)) {
             return $this->{self::PROPERTY_TO_METHOD_MAP[$name]}();

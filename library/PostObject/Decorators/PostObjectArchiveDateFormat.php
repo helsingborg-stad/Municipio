@@ -24,6 +24,14 @@ class PostObjectArchiveDateFormat implements PostObjectInterface
 
     /**
      * @inheritDoc
+     */
+    public function __get(string $name): mixed
+    {
+        return $this->postObject->__get($name);
+    }
+
+    /**
+     * @inheritDoc
      * @codeCoverageIgnore
      */
     public function getId(): int
