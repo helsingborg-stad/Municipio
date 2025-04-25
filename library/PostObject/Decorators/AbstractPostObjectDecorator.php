@@ -3,8 +3,6 @@
 namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\Icon\Resolvers\IconResolverInterface;
-use Municipio\PostObject\PostObject;
 use Municipio\PostObject\PostObjectInterface;
 
 /**
