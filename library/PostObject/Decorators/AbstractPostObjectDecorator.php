@@ -14,6 +14,11 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
 {
     protected PostObjectInterface $postObject;
 
+    /**
+     * AbstractPostObjectDecorator constructor.
+     *
+     * @param PostObjectInterface $postObject The post object to decorate.
+     */
     public function __construct(PostObjectInterface $postObject)
     {
         $this->postObject = $postObject;
