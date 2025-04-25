@@ -54,7 +54,7 @@ class GeoCoordinatesField implements FormFieldResolverInterface
     private function sanitizeValue(mixed $value): array
     {
 
-        if (is_string($value) && json_validate($value)) {
+        if (is_string($value) && $this->isValidJson($value)) {
             $value = json_decode($value, true);
         }
 
@@ -68,6 +68,22 @@ class GeoCoordinatesField implements FormFieldResolverInterface
         }
 
         return [];
+    }
+
+    /**
+     * Checks if a string is valid JSON.
+     *
+     * @param string $string The string to check.
+     * @return bool True if the string is valid JSON, false otherwise.
+     */
+    private function isValidJson(string $string): bool
+    {
+        if (function_exists('json_validate')) {
+            return json_validate($string);
+        }
+
+        json_decode($string);
+        return (json_last_error() === JSON_ERROR_NONE);
     }
 
     /**
