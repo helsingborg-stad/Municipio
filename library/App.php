@@ -371,8 +371,6 @@ class App
          * Setup global notices
          */
         $this->setUpGlobalNotices();
-
-        // $upgrade->v_38();
     }
 
     /**
