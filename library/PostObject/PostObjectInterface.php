@@ -3,7 +3,6 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\TermIcon\TermIconInterface;
 
 interface PostObjectInterface
 {

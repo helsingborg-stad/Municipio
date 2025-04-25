@@ -130,4 +130,12 @@ class PostObjectTest extends TestCase
 
         $this->assertEquals($terms, $this->instance->getTerms(['category']));
     }
+
+    /**
+     * @testdox __get() returns null
+     */
+    public function testMagicGetReturnsNull()
+    {
+        $this->assertEquals(null, $this->instance->non_existing_property);
+    }
 }

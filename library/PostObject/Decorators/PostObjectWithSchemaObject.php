@@ -2,7 +2,7 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\Icon\IconInterface;
+use AllowDynamicProperties;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
@@ -12,15 +12,17 @@ use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
  *
  * @package Municipio\PostObject\Decorators
  */
-class PostObjectWithSchemaObject implements PostObjectInterface
+#[AllowDynamicProperties]
+class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private PostObjectInterface $postObject,
+        PostObjectInterface $postObject,
         private SchemaObjectFromPostInterface $schemaObjectFromPost
     ) {
+        parent::__construct($postObject);
     }
 
     /**
@@ -64,113 +66,5 @@ class PostObjectWithSchemaObject implements PostObjectInterface
         }
 
         return $this->postObject->__get($key);
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getId(): int
-    {
-        return $this->postObject->getId();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getTitle(): string
-    {
-        return $this->postObject->getTitle();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getPermalink(): string
-    {
-        return $this->postObject->getPermalink();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getCommentCount(): int
-    {
-        return $this->postObject->getCommentCount();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getPostType(): string
-    {
-        return $this->postObject->getPostType();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getBlogId(): int
-    {
-        return $this->postObject->getBlogId();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getIcon(): ?IconInterface
-    {
-        return $this->postObject->getIcon();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getPublishedTime(bool $gmt = false): int
-    {
-        return $this->postObject->getPublishedTime($gmt);
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getModifiedTime(bool $gmt = false): int
-    {
-        return $this->postObject->getModifiedTime($gmt);
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getArchiveDateTimestamp(): ?int
-    {
-        return $this->postObject->getArchiveDateTimestamp();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getArchiveDateFormat(): string
-    {
-        return $this->postObject->getArchiveDateFormat();
-    }
-
-    /**
-     * @inheritDoc
-     * @codeCoverageIgnore
-     */
-    public function getTerms(array $taxonomies): array
-    {
-        return $this->postObject->getTerms($taxonomies);
     }
 }
