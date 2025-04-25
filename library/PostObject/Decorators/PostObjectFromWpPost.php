@@ -2,7 +2,6 @@
 
 namespace Municipio\PostObject\Decorators;
 
-use Municipio\PostObject\Icon\IconInterface;
 use WP_Post;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\Contracts\GetCommentCount;
@@ -11,16 +10,17 @@ use WpService\Contracts\GetPermalink;
 /**
  * PostObject from WP_Post.
  */
-class PostObjectFromWpPost implements PostObjectInterface
+class PostObjectFromWpPost extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private PostObjectInterface $postObject,
+        PostObjectInterface $postObject,
         private WP_Post $wpPost,
         private GetPermalink&GetCommentCount $wpService
     ) {
+        parent::__construct($postObject);
     }
 
     /**
@@ -66,22 +66,6 @@ class PostObjectFromWpPost implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getIcon(): ?IconInterface
-    {
-        return $this->postObject->getIcon();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getBlogId(): int
-    {
-        return $this->postObject->getBlogId();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getPublishedTime(bool $gmt = false): int
     {
         return strtotime($gmt ? $this->wpPost->post_date_gmt : $this->wpPost->post_date);
@@ -93,37 +77,5 @@ class PostObjectFromWpPost implements PostObjectInterface
     public function getModifiedTime(bool $gmt = false): int
     {
         return strtotime($gmt ? $this->wpPost->post_modified_gmt : $this->wpPost->post_modified);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArchiveDateTimestamp(): ?int
-    {
-        return $this->postObject->getArchiveDateTimestamp();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArchiveDateFormat(): string
-    {
-        return $this->postObject->getArchiveDateFormat();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaProperty(string $property): mixed
-    {
-        return $this->postObject->getSchemaProperty($property);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTerms(array $taxonomies): array
-    {
-        return $this->postObject->getTerms($taxonomies);
     }
 }

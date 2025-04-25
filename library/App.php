@@ -71,6 +71,7 @@ class App
          */
         new \Municipio\Upgrade($this->wpService, $this->acfService);
 
+
         /**
          * Upgrade
          */
@@ -831,7 +832,7 @@ class App
         /**
          * Register form for schema properties on posts.
          */
-        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService);
+        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $this->acfService);
         $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
         $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
 
@@ -843,7 +844,7 @@ class App
         /**
          * Store form field values.
          */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes, $getSchemaPropertiesWithParamTypes))->addHooks();
 
         /**
          * External content

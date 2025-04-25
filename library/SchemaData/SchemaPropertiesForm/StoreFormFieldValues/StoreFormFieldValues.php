@@ -2,10 +2,12 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
+use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
+use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPostType;
@@ -22,8 +24,10 @@ class StoreFormFieldValues implements Hookable
      */
     public function __construct(
         private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce $wpService,
+        private DeleteField $acfService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
-        private GetEnabledSchemaTypesInterface $getEnabledSchemaTypesService
+        private GetEnabledSchemaTypesInterface $getEnabledSchemaTypesService,
+        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService
     ) {
     }
 
@@ -60,12 +64,15 @@ class StoreFormFieldValues implements Hookable
             return;
         }
 
-        $schemaObject = $this->getSchemaObject($postId);
+        $schemaObject          = $this->getSchemaObject($postId);
+        $schemaTypeLcFirst     = lcfirst($schemaType);
+        $schemaObjectClassName = get_class(Schema::$schemaTypeLcFirst());
+        $schemaProperties      = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObjectClassName);
 
         if (empty($schemaObject)) {
-            $schemaTypeLcFirst = lcfirst($schemaType);
-            $schemaObject      = Schema::$schemaTypeLcFirst()->toArray();
+            $schemaObject = Schema::$schemaTypeLcFirst()->toArray();
         }
+
 
         foreach ($allowedProperties as $property) {
             $propertyName = 'schema_' . $property;
@@ -75,8 +82,17 @@ class StoreFormFieldValues implements Hookable
                 continue;
             }
 
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            $schemaObject[$property] = $_POST['acf'][$propertyName] ?: null;
+            $sanitizers = [
+                new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\Sanitize\SanitizeGeoCoordinates(),
+            ];
+
+            foreach ($sanitizers as $sanitizer) {
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing
+                $schemaObject[$property] = $sanitizer->sanitize($schemaProperties[$property], $_POST['acf'][$propertyName] ?: null);
+            }
+
+            // Avoid storing duplicated data.
+            $this->acfService->deleteField($propertyName, $postId);
         }
 
         // Update the post meta with the modified schema object.

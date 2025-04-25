@@ -1,22 +1,25 @@
 <?php
 
-namespace Municipio\PostObject;
+namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
-use WpService\Contracts\GetCurrentBlogId;
-use WpService\Contracts\WpGetPostTerms;
 
 /**
- * PostObject
+ * AbstractPostObjectDecorator class.
  */
-class PostObject implements PostObjectInterface
+abstract class AbstractPostObjectDecorator implements PostObjectInterface
 {
+    protected PostObjectInterface $postObject;
+
     /**
-     * Constructor.
+     * AbstractPostObjectDecorator constructor.
+     *
+     * @param PostObjectInterface $postObject The post object to decorate.
      */
-    public function __construct(private int $id, private GetCurrentBlogId|WpGetPostTerms $wpService)
+    public function __construct(PostObjectInterface $postObject)
     {
+        $this->postObject = $postObject;
     }
 
     /**
@@ -24,11 +27,7 @@ class PostObject implements PostObjectInterface
      */
     public function __get(string $name): mixed
     {
-        if (isset($this->postObject->{$name})) {
-            return $this->postObject->{$name};
-        }
-
-        return null;
+        return $this->postObject->__get($name);
     }
 
     /**
@@ -36,7 +35,7 @@ class PostObject implements PostObjectInterface
      */
     public function getId(): int
     {
-        return $this->id;
+        return $this->postObject->getId();
     }
 
     /**
@@ -44,7 +43,7 @@ class PostObject implements PostObjectInterface
      */
     public function getTitle(): string
     {
-        return '';
+        return $this->postObject->getTitle();
     }
 
     /**
@@ -52,7 +51,7 @@ class PostObject implements PostObjectInterface
      */
     public function getPermalink(): string
     {
-        return '';
+        return $this->postObject->getPermalink();
     }
 
     /**
@@ -60,7 +59,7 @@ class PostObject implements PostObjectInterface
      */
     public function getCommentCount(): int
     {
-        return 0;
+        return $this->postObject->getCommentCount();
     }
 
     /**
@@ -68,15 +67,7 @@ class PostObject implements PostObjectInterface
      */
     public function getPostType(): string
     {
-        return '';
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getIcon(): ?IconInterface
-    {
-        return null;
+        return $this->postObject->getPostType();
     }
 
     /**
@@ -84,7 +75,15 @@ class PostObject implements PostObjectInterface
      */
     public function getBlogId(): int
     {
-        return $this->wpService->getCurrentBlogId();
+        return $this->postObject->getBlogId();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIcon(): ?IconInterface
+    {
+        return $this->postObject->getIcon();
     }
 
     /**
@@ -92,7 +91,7 @@ class PostObject implements PostObjectInterface
      */
     public function getPublishedTime(bool $gmt = false): int
     {
-        return 0;
+        return $this->postObject->getPublishedTime($gmt);
     }
 
     /**
@@ -100,7 +99,7 @@ class PostObject implements PostObjectInterface
      */
     public function getModifiedTime(bool $gmt = false): int
     {
-        return 0;
+        return $this->postObject->getModifiedTime($gmt);
     }
 
     /**
@@ -108,7 +107,7 @@ class PostObject implements PostObjectInterface
      */
     public function getArchiveDateTimestamp(): ?int
     {
-        return null;
+        return $this->postObject->getArchiveDateTimestamp();
     }
 
     /**
@@ -116,7 +115,7 @@ class PostObject implements PostObjectInterface
      */
     public function getArchiveDateFormat(): string
     {
-        return 'date-time';
+        return $this->postObject->getArchiveDateFormat();
     }
 
     /**
@@ -124,7 +123,7 @@ class PostObject implements PostObjectInterface
      */
     public function getSchemaProperty(string $property): mixed
     {
-        return null;
+        return $this->postObject->getSchemaProperty($property);
     }
 
     /**
@@ -132,8 +131,6 @@ class PostObject implements PostObjectInterface
      */
     public function getTerms(array $taxonomies): array
     {
-        $terms = $this->wpService->wpGetPostTerms($this->getId(), $taxonomies);
-
-        return is_array($terms) ? $terms : [];
+        return $this->postObject->getTerms($taxonomies);
     }
 }
