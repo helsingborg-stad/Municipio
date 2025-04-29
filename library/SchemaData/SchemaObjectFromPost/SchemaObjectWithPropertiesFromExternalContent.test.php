@@ -5,6 +5,7 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
+use Municipio\Schema\Contracts\GeoCoordinatesContract;
 use Municipio\Schema\Thing;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
@@ -43,6 +44,22 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
 
         $this->assertEquals('Thing', $schema->getType());
         $this->assertNull($schema->getProperty('name'));
+    }
+
+    /**
+     * @testdox sanitizes nested schemaData properties from array
+     */
+    public function testSanitizesNestedSchemaDataPropertiesFromArray()
+    {
+        $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'Place', 'geo' => ['@type' => 'GeoCoordinates', 'latitude' => 0, 'longitude' => 0]]]);
+        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->schemaObjectFromPost());
+
+        $post     = (new WP_Post([]));
+        $post->ID = 1;
+
+        $schema = $sut->create($post);
+
+        $this->assertInstanceOf(GeoCoordinatesContract::class, $schema->getProperty('geo'));
     }
 
     private function schemaObjectFromPost(): SchemaObjectFromPostInterface
