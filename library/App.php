@@ -43,6 +43,7 @@ use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
 /**
  * Class App
@@ -137,7 +138,7 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService));
+        new \Municipio\Theme\Navigation(new SchemaTypesInUse($this->wpdb));
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -809,11 +810,11 @@ class App
         /**
          * Register schema types in acf select.
          */
-        $schemaTypes = array_keys($schemaTypesAndProperties);
-        $schemaTypes = array_combine($schemaTypes, $schemaTypes);
+        $getAllSchemaTypes = new \Municipio\SchemaData\Utils\SchemaTypes();
+        $allSchemaTypes    = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9e4dffa66',
-            new ModifyFieldChoices($schemaTypes)
+            new ModifyFieldChoices($allSchemaTypes)
         );
 
         /**

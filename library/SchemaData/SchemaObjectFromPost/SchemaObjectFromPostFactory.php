@@ -4,7 +4,6 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizerInterface;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetThePostThumbnailUrl;
@@ -25,8 +24,7 @@ class SchemaObjectFromPostFactory implements FactoryInterface
         private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,
         private GetThePostThumbnailUrl&GetPostMeta $wpService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypes,
-        private SchemaPropertyValueSanitizerInterface $schemaPropSanitizer,
-        private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes,
+        private SchemaPropertyValueSanitizerInterface $schemaPropSanitizer
     ) {
     }
 
@@ -40,6 +38,6 @@ class SchemaObjectFromPostFactory implements FactoryInterface
         $instance = new SchemaObjectWithImageFromFeaturedImage($instance, $this->wpService);
         $instance = new SchemaObjectWithPropertiesFromMetadata($this->getSchemaPropertiesWithParamTypes, $this->wpService, $this->schemaPropSanitizer, $instance);
 
-        return new SchemaObjectWithPropertiesFromExternalContent($this->wpService, $this->getEnabledSchemaTypes, $instance);
+        return new SchemaObjectWithPropertiesFromExternalContent($this->wpService, $instance);
     }
 }

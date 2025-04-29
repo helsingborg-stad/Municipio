@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\PostObject\PostObjectInterface;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use PHPUnit\Framework\TestCase;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Thing;
@@ -18,7 +17,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     public function testSetsSchemaProperty()
     {
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'JobPosting', 'name' => 'TestSchema']]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
+        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->schemaObjectFromPost());
 
         $post     = (new WP_Post([]));
         $post->ID = 1;
@@ -35,7 +34,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     public function testDoesNotSetSchemaPropertyIfSchemaDataIsEmpty()
     {
         $wpService = new FakeWpService(['getPostMeta' => []]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
+        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->schemaObjectFromPost());
 
         $post     = (new WP_Post([]));
         $post->ID = 1;
@@ -44,35 +43,6 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
 
         $this->assertEquals('Thing', $schema->getType());
         $this->assertNull($schema->getProperty('name'));
-    }
-
-    /**
-     * @testdox Returns result from inner if schema type is not allowed.
-     */
-    public function testDoesNotSetSchemaPropertyIfSchemaTypeIsNotAllowed()
-    {
-        $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'NotAllowedType', 'name' => 'TestSchema']]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent($wpService, $this->getEnabledSchemaTypes(), $this->schemaObjectFromPost());
-
-        $post     = (new WP_Post([]));
-        $post->ID = 1;
-
-        $schema = $sut->create($post);
-
-        $this->assertEquals('Thing', $schema->getType());
-        $this->assertNull($schema->getProperty('name'));
-    }
-
-    private function getEnabledSchemaTypes(): GetEnabledSchemaTypesInterface
-    {
-        return new class implements GetEnabledSchemaTypesInterface {
-            public function getEnabledSchemaTypesAndProperties(): array
-            {
-                return [
-                    'JobPosting' => ['name'],
-                ];
-            }
-        };
     }
 
     private function schemaObjectFromPost(): SchemaObjectFromPostInterface
