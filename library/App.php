@@ -810,11 +810,11 @@ class App
         /**
          * Register schema types in acf select.
          */
-        $schemaTypes = array_keys($schemaTypesAndProperties);
-        $schemaTypes = array_combine($schemaTypes, $schemaTypes);
+        $getAllSchemaTypes = new \Municipio\SchemaData\Utils\SchemaTypes();
+        $allSchemaTypes    = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9e4dffa66',
-            new ModifyFieldChoices($schemaTypes)
+            new ModifyFieldChoices($allSchemaTypes)
         );
 
         /**

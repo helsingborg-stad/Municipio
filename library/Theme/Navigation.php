@@ -134,17 +134,21 @@ class Navigation
     }
 
     /**
-     * Get all schema types menus.
-     * Create a menu specification for each of these.
+     * Generates an array of menu specifications for schema types in use.
      *
-     * @return array
+     * This method iterates through the schema types currently in use and creates
+     * a menu specification for each type. The menu names are formatted as
+     * "{schema-type}-secondary-menu" and include a description indicating their
+     * association with schema types.
+     *
+     * @return array An associative array of schema type menu specifications.
      */
     public function getSchemaTypeMenus(): array
     {
         $schemaTypeMenus = array();
 
-        foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $type) {
-            $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(__('Schema type - %s (above archive posts)', 'municipio'), $type);
+        foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $schemaType) {
+            $schemaTypeMenus[strtolower($schemaType) . '-secondary-menu'] = sprintf(__('Schema type - %s (above archive posts)', 'municipio'), $schemaType);
         }
 
         return $schemaTypeMenus;
