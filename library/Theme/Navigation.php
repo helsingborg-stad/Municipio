@@ -144,7 +144,7 @@ class Navigation
         $schemaTypeMenus = array();
 
         foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $type) {
-            $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(__('Content type - %s (above archive posts)', 'municipio'), $type);
+            $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(__('Schema type - %s (above archive posts)', 'municipio'), $type);
         }
 
         return $schemaTypeMenus;
