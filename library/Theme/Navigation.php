@@ -2,7 +2,7 @@
 
 namespace Municipio\Theme;
 
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
+use Municipio\SchemaData\Utils\Contracts\SchemaTypesInUseInterface;
 
 /**
  * Class Navigation
@@ -13,7 +13,7 @@ class Navigation
     /**
      * Navigation constructor.
      */
-    public function __construct(private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes)
+    public function __construct(private SchemaTypesInUseInterface $schemaTypesInUse)
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
@@ -139,18 +139,12 @@ class Navigation
      *
      * @return array
      */
-    private function getSchemaTypeMenus(): array
+    public function getSchemaTypeMenus(): array
     {
-        $schemaTypeMenus    = array();
-        $enabledSchemaTypes = $this->getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();
+        $schemaTypeMenus = array();
 
-        if (!empty($enabledSchemaTypes)) {
-            foreach ($enabledSchemaTypes as $type => $props) {
-                $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(
-                    __('Content type - %s (sidebar)', 'municipio'),
-                    $type
-                );
-            }
+        foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $type) {
+            $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(__('Content type - %s (above archive posts)', 'municipio'), $type);
         }
 
         return $schemaTypeMenus;
