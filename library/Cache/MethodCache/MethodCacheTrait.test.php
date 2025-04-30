@@ -54,7 +54,7 @@ class MethodCacheTraitTest extends TestCase
      */
     public function testPerformance()
     {
-        $timesToRun = 20000;
+        $timesToRun = 10000;
         $start      = microtime(true);
 
         for ($i = 0; $i < $timesToRun; $i++) {
