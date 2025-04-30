@@ -49,21 +49,32 @@ class MethodCacheTraitTest extends TestCase
     }
 
     /**
-     * @testdox cache() is fast enough to be used in a loop.
-     * @runInSeparateProcess
+     * @testdox performance meets expectations of 50% faster than uncached.
      */
-    public function testPerformance()
+    public function testCachedPerformance()
     {
-        $timesToRun = 10000;
-        $start      = microtime(true);
+        $timesToRun  = 10000;
+        $cachedStart = microtime(true);
 
         for ($i = 0; $i < $timesToRun; $i++) {
-            $this->cache([$this, 'getSameStringAsProvided'], ['test-' . $i]);
+            $this->cache([$this, 'getSameStringAsProvided'], ['testcached']);
         }
 
-        $end           = microtime(true);
-        $executionTime = $end - $start;
-        $this->assertLessThan(1, $executionTime, 'Caching mechanism is too slow.');
+        $cachedEnd           = microtime(true);
+        $cachedExecutionTime = $cachedEnd - $cachedStart;
+
+        $uncachedStart = microtime(true);
+
+        for ($i = 0; $i < $timesToRun; $i++) {
+            $this->getSameStringAsProvided('testuncached-' . $i);
+        }
+
+        $uncachedEnd             = microtime(true);
+        $uncachedExecutionTime   = $uncachedEnd - $uncachedStart;
+        $performanceInPercentage = ($uncachedExecutionTime - $cachedExecutionTime) / $uncachedExecutionTime * 100;
+
+        $this->assertLessThan($uncachedExecutionTime, $cachedExecutionTime, 'Caching mechanism is too slow.');
+        $this->assertGreaterThan(75, $performanceInPercentage, 'Caching mechanism is not 50% faster than uncached.');
     }
 
     private function getSameStringAsProvided(string $string): string

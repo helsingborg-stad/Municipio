@@ -66,6 +66,21 @@ trait MethodCacheTrait
      */
     private function serializeArgs(array $args): string
     {
-        return md5(serialize($GLOBALS) . serialize(get_object_vars($this)) . serialize($args));
+        return
+            serialize($this->getRelevantGlobals()) .
+            serialize(get_object_vars($this)) .
+            serialize($args);
+    }
+
+    /**
+     * Returns the relevant global variables to be used in the cache key.
+     *
+     * @return array The relevant global variables.
+     */
+    private function getRelevantGlobals(): array
+    {
+        return array_filter($GLOBALS, function ($key) {
+            return !in_array($key, ['_SERVER', '_GET', '_POST', '_ENV', '__composer_autoload_files']);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }
