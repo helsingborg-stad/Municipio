@@ -5,14 +5,9 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
-use Municipio\Config\ConfigFactory;
-use Municipio\Config\ConfigService;
-use Municipio\Config\ConfigServiceFromAcf;
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
-use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
+use Municipio\Cache\GlobalCache;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
-use Municipio\SchemaData\AcfFieldContentModifiers\PopulateSchemaTypeFieldOptions;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
@@ -48,6 +43,12 @@ require_once MUNICIPIO_PATH . 'library/Public.php';
  */
 $wpService  = new NativeWpService();
 $acfService = new NativeAcfService();
+
+/**
+ * Cache
+ */
+$cacheService = new \Municipio\Cache\CacheResolver($wpService);
+GlobalCache::setCache($cacheService->resolve());
 
 /**
  * Dependencies.
