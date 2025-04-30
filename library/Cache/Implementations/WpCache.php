@@ -7,6 +7,14 @@ use WpService\Contracts\WpCacheDelete;
 use WpService\Contracts\WpCacheGet;
 use WpService\Contracts\WpCacheSet;
 
+/**
+ * Class WpCache
+ *
+ * This class implements the CacheInterface using WordPress's caching functions.
+ * It provides methods to get, set, and delete cache entries.
+ *
+ * @package Municipio\Cache\Implementations
+ */
 class WpCache implements CacheInterface
 {
     public const DEFAULT_GROUP = "WpCacheDefaultGroup";

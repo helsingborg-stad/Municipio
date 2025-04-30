@@ -4,6 +4,12 @@ namespace Municipio\Cache\Implementations;
 
 use Municipio\Cache\CacheInterface;
 
+/**
+ * StaticCache is a simple in-memory cache implementation.
+ *
+ * This class provides a static cache that stores data in a static array.
+ * It is not suitable for production use, as it does not persist data across requests.
+ */
 class StaticCache implements CacheInterface
 {
     private static $cache      = [];
