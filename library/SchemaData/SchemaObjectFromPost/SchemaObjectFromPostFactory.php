@@ -38,6 +38,6 @@ class SchemaObjectFromPostFactory implements FactoryInterface
         $instance = new SchemaObjectWithImageFromFeaturedImage($instance, $this->wpService);
         $instance = new SchemaObjectWithPropertiesFromMetadata($this->getSchemaPropertiesWithParamTypes, $this->wpService, $this->schemaPropSanitizer, $instance);
 
-        return new SchemaObjectWithPropertiesFromExternalContent($this->wpService, $instance);
+        return new SchemaObjectWithPropertiesFromExternalContent($this->wpService, $instance, $this->getSchemaPropertiesWithParamTypes, $this->schemaPropSanitizer);
     }
 }
