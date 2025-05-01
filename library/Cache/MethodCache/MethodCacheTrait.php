@@ -11,12 +11,17 @@ trait MethodCacheTrait
     /**
      * Caches a function call
      *
-     * @param callable $callable  The function call to cache.
-     * @param array $arguments to function call.
+     * @param callable  $callable   The function call to cache.
+     * @param array     $arguments  Argument sent function call.
+     * @param int|null  $expire     Expiration time in seconds or null for no expiration.
+     * @param array     $mode       Cache mode. Can be 'global' or 'object'. This determines if cache key should account for global variables
+     *                              and/or object properties. Default is ['global', 'object'].
+     *
+     * @return mixed The result of the function call.
      */
-    public function cache(callable $callable, array $args, ?int $expire = null)
+    public function cache(callable $callable, array $args, ?int $expire = null, $mode = ['global', 'object']): mixed
     {
-        $cacheKey   = $this->serializeArgs($args);
+        $cacheKey   = $this->serializeArgs($args, $mode);
         $cacheGroup = $this->serializeCallable($callable);
         $cached     = GlobalCache::getCache()->get($cacheKey, $cacheGroup);
 
@@ -66,12 +71,19 @@ trait MethodCacheTrait
      * @param array $args The arguments to serialize.
      * @return string The serialized arguments.
      */
-    private function serializeArgs(array $args): string
+    private function serializeArgs(array $args, $mode): string
     {
-        return
-            $this->getRelevantGlobalsIdentifier() .
-            $this->getRelevantObjectPropertiesIdentifier($this) .
-            $this->hash($args);
+        $return = '';
+        if(!empty($mode)) {
+            if (in_array('global', $mode)) {
+                $return .= $this->getRelevantGlobalsIdentifier();
+            }
+            if (in_array('object', $mode)) {
+                $return .= $this->getRelevantObjectPropertiesIdentifier($this);
+            }
+        }
+
+        return $this->hash($args) . $return;
     }
 
     /**
