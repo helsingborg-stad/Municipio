@@ -104,7 +104,7 @@ trait MethodCacheTrait
      */
     private function getRelevantObjectPropertiesIdentifier($object): string
     {
-        if(method_exists($object, '__toString')) {
+        if (method_exists($object, '__toString')) {
             return $object->__toString();
         }
         return $this->hash($this->getObjectProperties($object, 'reflection'));
@@ -114,8 +114,8 @@ trait MethodCacheTrait
      * Returns a identifier of the object.
      *
      * @param object $object The object to get details from.
-     * @return string Identifier 
-     * 
+     * @return string Identifier
+     *
      * Notes: We considered to use serialize intstead of json_encode, but it is not
      * as fast as json_encode. Json encode may however generate different hashes for
      * different objects with the same properties due to the order of the properties.
@@ -133,10 +133,10 @@ trait MethodCacheTrait
      * @param object $object The object to get properties from.
      * @param string $mode The mode to use for getting properties ('reflection' or 'native').
      * @return array The properties of the object.
-     * 
+     *
      * Notes: We cosidered both reflection and native mode. Reflection should be slower, but tests have shown
      * that it is actually faster.
-     * 
+     *
      * Reflection: Get a score of appriximately 70%.
      * Native: Get a score of appriximately 50%.
      */
@@ -154,10 +154,10 @@ trait MethodCacheTrait
             return $properties;
         }
 
-        if($mode === 'native') {
+        if ($mode === 'native') {
             return get_object_vars($object);
         }
-        
+
         throw new \InvalidArgumentException('Unsupported mode. Use "reflection" or "native".');
     }
 }
