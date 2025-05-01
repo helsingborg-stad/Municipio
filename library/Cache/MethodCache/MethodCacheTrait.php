@@ -3,6 +3,8 @@
 namespace Municipio\Cache\MethodCache;
 
 use Municipio\Cache\GlobalCache;
+use ReflectionObject;
+use ReflectionProperty;
 
 trait MethodCacheTrait
 {
@@ -67,9 +69,9 @@ trait MethodCacheTrait
     private function serializeArgs(array $args): string
     {
         return
-            serialize($this->getRelevantGlobals()) .
-            serialize(get_object_vars($this)) .
-            serialize($args);
+            $this->getRelevantGlobalsIdentifier() .
+            $this->getRelevantObjectPropertiesIdentifier($this) .
+            $this->hash($args);
     }
 
     /**
@@ -82,5 +84,80 @@ trait MethodCacheTrait
         return array_filter($GLOBALS, function ($key) {
             return !in_array($key, ['_SERVER', '_GET', '_POST', '_ENV', '__composer_autoload_files']);
         }, ARRAY_FILTER_USE_KEY);
+    }
+
+    /**
+     * Returns a identifier of the relevant global variables.
+     *
+     * @return string Identifier
+     */
+    private function getRelevantGlobalsIdentifier(): string
+    {
+        return $this->hash($this->getRelevantGlobals());
+    }
+
+    /**
+     * Returns the relevant object properties to be used in the cache key.
+     *
+     * @param object $object The object to get properties from.
+     * @return string Identifier
+     */
+    private function getRelevantObjectPropertiesIdentifier($object): string
+    {
+        if(method_exists($object, '__toString')) {
+            return $object->__toString();
+        }
+        return $this->hash($this->getObjectProperties($object, 'reflection'));
+    }
+
+    /**
+     * Returns a identifier of the object.
+     *
+     * @param object $object The object to get details from.
+     * @return string Identifier 
+     * 
+     * Notes: We considered to use serialize intstead of json_encode, but it is not
+     * as fast as json_encode. Json encode may however generate different hashes for
+     * different objects with the same properties due to the order of the properties.
+     * If analyze shows that many missing hashes are generated, we can consider
+     * to use serialize instead.
+     */
+    private function hash(string|int|float|bool|array|object $item): string
+    {
+        return (string) crc32(json_encode($item));
+    }
+
+    /**
+     * Returns the properties of an object.
+     *
+     * @param object $object The object to get properties from.
+     * @param string $mode The mode to use for getting properties ('reflection' or 'native').
+     * @return array The properties of the object.
+     * 
+     * Notes: We cosidered both reflection and native mode. Reflection should be slower, but tests have shown
+     * that it is actually faster.
+     * 
+     * Reflection: Get a score of appriximately 70%.
+     * Native: Get a score of appriximately 50%.
+     */
+    private function getObjectProperties($object, $mode = 'reflection'): array
+    {
+        if ($mode === 'reflection') {
+            $reflection = new ReflectionObject($object);
+            $properties = [];
+
+            foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+                $property->setAccessible(true);
+                $properties[$property->getName()] = $property->getValue($object);
+            }
+
+            return $properties;
+        }
+
+        if($mode === 'native') {
+            return get_object_vars($object);
+        }
+        
+        throw new \InvalidArgumentException('Unsupported mode. Use "reflection" or "native".');
     }
 }
