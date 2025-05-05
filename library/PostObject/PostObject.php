@@ -4,6 +4,7 @@ namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
 use WpService\Contracts\GetCurrentBlogId;
 use WpService\Contracts\WpGetPostTerms;
 
@@ -135,5 +136,13 @@ class PostObject implements PostObjectInterface
         $terms = $this->wpService->wpGetPostTerms($this->getId(), $taxonomies);
 
         return is_array($terms) ? $terms : [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchema(): BaseType
+    {
+        return new BaseType();
     }
 }

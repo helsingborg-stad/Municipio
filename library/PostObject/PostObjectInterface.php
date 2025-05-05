@@ -3,6 +3,7 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
+use Municipio\Schema\BaseType;
 
 interface PostObjectInterface
 {
@@ -93,6 +94,13 @@ interface PostObjectInterface
      * @return mixed The value of the schema property. Will return null if the property does not exist.
      */
     public function getSchemaProperty(string $property): mixed;
+
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType The schema object.
+     */
+    public function getSchema(): BaseType;
 
     /**
      * Get the post object terms.

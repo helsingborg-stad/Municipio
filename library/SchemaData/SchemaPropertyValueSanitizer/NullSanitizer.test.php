@@ -6,9 +6,12 @@ use PHPUnit\Framework\TestCase;
 
 class NullSanitizerTest extends TestCase
 {
-    public function testReturnsNull(): void
+    /**
+     * @testdox returns the same value as input
+     */
+    public function testSanitizeReturnsSameValue()
     {
         $sanitizer = new NullSanitizer();
-        $this->assertNull($sanitizer->sanitize('value', []));
+        $this->assertEquals('value', $sanitizer->sanitize('value', []));
     }
 }

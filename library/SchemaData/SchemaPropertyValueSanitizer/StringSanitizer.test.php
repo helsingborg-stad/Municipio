@@ -29,7 +29,9 @@ class StringSanitizerTest extends TestCase
      */
     public function testCallsInnerSanitizer()
     {
-        $sanitizer = new StringSanitizer();
-        $this->assertNull($sanitizer->sanitize([], ['string']));
+        $innerSanitizer = $this->createMock(SchemaPropertyValueSanitizerInterface::class);
+        $innerSanitizer->method('sanitize')->willReturn('innerValue');
+        $sanitizer = new StringSanitizer($innerSanitizer);
+        $this->assertEquals('innerValue', $sanitizer->sanitize([], ['string']));
     }
 }

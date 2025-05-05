@@ -2,11 +2,14 @@
 
 namespace Municipio\Controller;
 
+use DateTime;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Controller\SingularEvent\PriceListItem;
 use Municipio\Helper\Post;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Contracts\EventContract;
+use Municipio\Schema\Event;
+use Municipio\Schema\Place;
 
 /**
  * Class SingularEvent
@@ -25,23 +28,25 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $this->populateLanguageObject();
 
-        $this->data['placeUrl']                      = $this->post->getSchemaProperty('location') ? $this->getPlaceUrl($this->post->getSchemaProperty('location')) : null;
-        $this->data['placeName']                     = $this->post->getSchemaProperty('location') ? $this->post->getSchemaProperty('location')['name'] ?? null : null;
-        $this->data['placeAddress']                  = $this->post->getSchemaProperty('location') ? $this->post->getSchemaProperty('location')['address'] : null;
+        $event = $this->post->getSchema();
+
+        $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
+        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? null;
+        $this->data['placeAddress']                  = $event->getProperty('location')['address'] ?? null;
         $this->data['priceListItems']                = $this->getPriceList();
-        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink();
+        $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->post->getSchema());
         $this->data['eventsInTheSameSeries']         = $this->getEventsInTheSameSeries();
-        $this->data['occassion']                     = $this->getOccassionText();
+        $this->data['occassion']                     = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
         $this->data['bookingLink']                   = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
         $this->data['organizers']                    = $this->post->getSchemaProperty('organizer') ?? [];
         $this->data['organizers']                    = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
         $this->data['physicalAccessibilityFeatures'] = $this->post->getSchemaProperty('physicalAccessibilityFeatures') ?? null;
         $this->data['eventIsInThePast']              = $this->eventIsInThePast();
         $this->data['occassions']                    = array_map(function ($postObject) {
-            return $this->getOccassionText();
+            return $this->getOccassionText($postObject->getSchemaProperty('startDate'), $postObject->getSchemaProperty('endDate'));
         }, $this->data['eventsInTheSameSeries']);
 
-        $this->trySetHttpStatusHeader();
+        $this->trySetHttpStatusHeader($event);
     }
 
     /**
@@ -68,8 +73,12 @@ class SingularEvent extends \Municipio\Controller\Singular
      *
      * @return array
      */
-    public function getPlaceUrl(array $place): string
+    public function getPlaceUrl(?Place $place = null): string
     {
+        if (!$place) {
+            return '';
+        }
+
         $placeName    = $place['name'] ?? '';
         $placeAddress = $place['address'] ?? '';
 
@@ -82,24 +91,26 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Get date text
      *
+     * @param DateTime|null $startDate
+     * @param DateTime|null $endDate
      * @return string
      */
-    public function getOccassionText(): string
+    public function getOccassionText(DateTime|null $startDate, DateTime|null $endDate): string
     {
-        $startDate = $this->post->getSchemaProperty('startDate');
-        $endDate   = $this->post->getSchemaProperty('endDate');
-
         if (!$startDate || !$endDate) {
             return '';
         }
 
-        $duration = strtotime($endDate) - strtotime($startDate);
+        $startDateTimestamp = $startDate->getTimestamp();
+        $endDateTimestamp   = $endDate->getTimestamp();
+
+        $duration = $endDateTimestamp - $startDateTimestamp;
         $days     = floor($duration / 86400);
 
-        $start = ucfirst($this->wpService->dateI18n('j F Y H:i', strtotime($startDate)));
+        $start = ucfirst($this->wpService->dateI18n('j F Y H:i', $startDateTimestamp));
         $end   = $days > 0
-            ? ucfirst($this->wpService->dateI18n('j F Y H:i', strtotime($endDate)))
-            : ucfirst($this->wpService->dateI18n('H:i', strtotime($endDate)));
+            ? ucfirst($this->wpService->dateI18n('j F Y H:i', $endDateTimestamp))
+            : ucfirst($this->wpService->dateI18n('H:i', $endDateTimestamp));
 
         return "{$start} - {$end}";
     }
@@ -152,11 +163,13 @@ class SingularEvent extends \Municipio\Controller\Singular
      *
      * @return string
      */
-    private function getIcsDownloadLink(): string
+    private function getIcsDownloadLink(Event $event): string
     {
-        $startDate = $this->post->getSchemaProperty('startDate');
-        $endDate   = $this->post->getSchemaProperty('endDate');
-        $name      = $this->post->getSchemaProperty('name');
+        /** @var DateTime|null $startDate */
+        $startDate = $event->getProperty('startDate');
+        /** @var DateTime|null $endDate */
+        $endDate = $event->getProperty('endDate');
+        $name    = $event->getProperty('name');
 
         if (!$startDate || !$endDate || !$name) {
             return '';
@@ -166,8 +179,8 @@ class SingularEvent extends \Municipio\Controller\Singular
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
         'BEGIN:VEVENT',
-        'DTSTART:' . date('Ymd\THis\Z', strtotime($startDate)),
-        'DTEND:' . date('Ymd\THis\Z', strtotime($endDate)),
+        'DTSTART:' . $startDate->format('Ymd\THis\Z'),
+        'DTEND:' . $endDate->format('Ymd\THis\Z'),
         'SUMMARY:' . $name,
         'END:VEVENT',
         'END:VCALENDAR',
@@ -210,9 +223,9 @@ class SingularEvent extends \Municipio\Controller\Singular
      * Try to set HTTP status header
      * If the event is in the past, set 410 Gone
      */
-    private function trySetHttpStatusHeader(): void
+    private function trySetHttpStatusHeader(Event $event): void
     {
-        if ($this->eventIsInThePast()) {
+        if ($this->eventIsInThePast($event->getProperty('startDate'))) {
             $this->wpService->statusHeader(410);
         }
     }
@@ -220,9 +233,8 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Check if the event is in the past
      */
-    private function eventIsInThePast(): bool
+    private function eventIsInThePast(?DateTime $startDate = null): bool
     {
-        $startDate = $this->post->getSchemaProperty('endDate');
-        return strtotime($startDate) < time();
+        return $startDate ? $startDate->getTimestamp() < time() : false;
     }
 }
