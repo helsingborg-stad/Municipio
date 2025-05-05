@@ -99,6 +99,11 @@ trait MethodCacheTrait
         return array_filter($GLOBALS, fn ($key) =>  in_array($key, $globalKeysToInclude), ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     * Returns the default excluded global variables.
+     *
+     * @return array The default excluded global variables.
+     */
     private function getDefaultExcludedFromGlobals(): array
     {
         // TODO: apply filter
