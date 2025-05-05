@@ -58,6 +58,28 @@ class PostObjectWithSchemaObjectTest extends TestCase
         $postObject->getSchemaProperty('name');
     }
 
+    /**
+     * @testdox getSchema() returns the schema object
+     */
+    public function testGetSchemaReturnsTheSchemaObject()
+    {
+        // Arrange
+        $schemaObject         = Schema::thing()->name('Foo');
+        $schemaObjectFromPost = $this->getSchemaObjectFromPostInstance();
+        $innerPostObject      = $this->getPostObject();
+        $innerPostObject->method('getId')->willReturn(321);
+        $postObject = new PostObjectWithSchemaObject($this->getPostObject(), $schemaObjectFromPost);
+
+        // Assert
+        $schemaObjectFromPost->expects($this->once())->method('create')->willReturn($schemaObject);
+
+        // Act
+        $result = $postObject->getSchema();
+
+        // Assert
+        $this->assertSame($schemaObject, $result);
+    }
+
     private function getSchemaObjectFromPostInstance(): SchemaObjectFromPostInterface|MockObject
     {
         return $this->createMock(SchemaObjectFromPostInterface::class);

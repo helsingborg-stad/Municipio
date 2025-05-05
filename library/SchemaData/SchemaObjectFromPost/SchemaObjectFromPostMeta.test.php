@@ -13,7 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use WP_Post;
 use WpService\Implementations\FakeWpService;
 
-class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
+class SchemaObjectFromPostMetaTest extends TestCase
 {
     /**
      * @testdox Sets schema property if schemaData is not empty and allowed schema types and properties are set.
@@ -21,7 +21,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     public function testSetsSchemaProperty()
     {
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'JobPosting', 'name' => 'TestSchema']]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent(
+        $sut       = new SchemaObjectFromPostMeta(
             $wpService,
             $this->schemaObjectFromPost(),
             $this->getSchemaPropertiesWithParamTypes(),
@@ -43,7 +43,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     public function testDoesNotSetSchemaPropertyIfSchemaDataIsEmpty()
     {
         $wpService = new FakeWpService(['getPostMeta' => []]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent(
+        $sut       = new SchemaObjectFromPostMeta(
             $wpService,
             $this->schemaObjectFromPost(),
             $this->getSchemaPropertiesWithParamTypes(),
@@ -65,7 +65,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     public function testSanitizesNestedSchemaDataPropertiesFromArray()
     {
         $wpService = new FakeWpService(['getPostMeta' => ['@type' => 'Place', 'geo' => ['@type' => 'GeoCoordinates', 'latitude' => 0, 'longitude' => 0]]]);
-        $sut       = new SchemaObjectWithPropertiesFromExternalContent(
+        $sut       = new SchemaObjectFromPostMeta(
             $wpService,
             $this->schemaObjectFromPost(),
             $this->getSchemaPropertiesWithParamTypes(),
@@ -87,7 +87,7 @@ class SchemaObjectWithPropertiesFromExternalContentTest extends TestCase
     {
         $geoCoordinates = serialize([ '@type' => 'GeoCoordinates', 'latitude' => 0, 'longitude' => 0, ]);
         $wpService      = new FakeWpService(['getPostMeta' => ['@type' => 'Place', 'geo' => $geoCoordinates]]);
-        $sut            = new SchemaObjectWithPropertiesFromExternalContent(
+        $sut            = new SchemaObjectFromPostMeta(
             $wpService,
             $this->schemaObjectFromPost(),
             $this->getSchemaPropertiesWithParamTypes(),

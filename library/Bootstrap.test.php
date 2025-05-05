@@ -8,6 +8,7 @@ class BootstrapTest extends TestCase
 {
     /**
      * @testdox file can be loaded
+     * @runInSeparateProcess
      */
     public function testFileCanBeLoaded()
     {

@@ -11,14 +11,12 @@ use WP_Post;
 use WpService\Contracts\GetPostMeta;
 
 /**
- * Class SchemaObjectWithPropertiesFromExternalContent
- *
- * @package Municipio\SchemaData\SchemaObjectFromPost
+ * Class SchemaObjectFromPostMeta
  */
-class SchemaObjectWithPropertiesFromExternalContent implements SchemaObjectFromPostInterface
+class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
 {
     /**
-     * SchemaObjectWithPropertiesFromExternalContent constructor.
+     * Constructor.
      *
      * @param GetPostMeta $wpService
      * @param SchemaObjectFromPostInterface $inner
@@ -43,7 +41,7 @@ class SchemaObjectWithPropertiesFromExternalContent implements SchemaObjectFromP
             return $this->inner->create($post);
         }
 
-        return $this->generateSchemaObject($schemaData) ?? $this->inner->create($post);
+         return $this->generateSchemaObject($schemaData) ?? $this->inner->create($post);
     }
 
     private function generateSchemaObject(array $schemaData): ?BaseType

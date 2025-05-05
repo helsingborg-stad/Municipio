@@ -4,6 +4,7 @@ namespace Municipio\Controller;
 
 use Municipio\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Schema\Person;
 
 /**
  * Class SingularJobPosting
@@ -121,12 +122,12 @@ class SingularProject extends \Municipio\Controller\Singular
     /**
      * Gets an email link from an employee.
      *
-     * @param array $employee
+     * @param Person|null $employee
      * @return string|null
      */
-    private function getEmailLinkFromEmployee(array $employee): ?string
+    private function getEmailLinkFromEmployee(?Person $employee = null): ?string
     {
-        if ($employee['email'] === null) {
+        if ($employee === null || $employee['email'] === null) {
             return null;
         }
 
