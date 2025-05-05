@@ -19,9 +19,9 @@ trait MethodCacheTrait
      *
      * @return mixed The result of the function call.
      */
-    public function cache(callable $callable, array $args, ?int $expire = null, $mode = ['global', 'object']): mixed
+    public function cache(callable $callable, array $args, ?int $expire = null, bool|array $useGlobalState = false): mixed
     {
-        $cacheKey   = $this->serializeArgs($args, $mode);
+        $cacheKey   = $this->getKey($args, $useGlobalState);
         $cacheGroup = $this->serializeCallable($callable);
         $cached     = GlobalCache::getCache()->get($cacheKey, $cacheGroup);
 
@@ -31,6 +31,7 @@ trait MethodCacheTrait
 
         $value = $this->call($callable, $args);
         GlobalCache::getCache()->set($cacheKey, $value, $cacheGroup, $expire);
+
         return $value;
     }
 
@@ -69,21 +70,19 @@ trait MethodCacheTrait
      * Serializes the arguments to a string.
      *
      * @param array $args The arguments to serialize.
-     * @return string The serialized arguments.
+     * @param bool|array $useGlobalState Whether to use global state in the cache key.
+     * @return string The cache key.
      */
-    private function serializeArgs(array $args, $mode): string
+    private function getKey(array $args, bool|array $useGlobalState): string
     {
-        $return = '';
-        if(!empty($mode)) {
-            if (in_array('global', $mode)) {
-                $return .= $this->getRelevantGlobalsIdentifier();
-            }
-            if (in_array('object', $mode)) {
-                $return .= $this->getRelevantObjectPropertiesIdentifier($this);
-            }
+        if ($useGlobalState !== false) {
+            return
+                $this->hash($args) .
+                $this->getRelevantGlobalsIdentifier($useGlobalState) .
+                $this->getRelevantObjectPropertiesIdentifier($this);
         }
 
-        return $this->hash($args) . $return;
+        return $this->hash($args) . $this->getRelevantObjectPropertiesIdentifier($this);
     }
 
     /**
@@ -91,11 +90,30 @@ trait MethodCacheTrait
      *
      * @return array The relevant global variables.
      */
-    private function getRelevantGlobals(): array
+    private function getRelevantGlobals(array $globalKeysToInclude): array
     {
-        return array_filter($GLOBALS, function ($key) {
-            return !in_array($key, ['_SERVER', '_GET', '_POST', '_ENV', '__composer_autoload_files']);
-        }, ARRAY_FILTER_USE_KEY);
+        if (empty($globalKeysToInclude)) {
+            return array_filter($GLOBALS, fn ($key) =>  !in_array($key, $this->getDefaultExcludedFromGlobals()), ARRAY_FILTER_USE_KEY);
+        }
+
+        return array_filter($GLOBALS, fn ($key) =>  in_array($key, $globalKeysToInclude), ARRAY_FILTER_USE_KEY);
+    }
+
+    private function getDefaultExcludedFromGlobals(): array
+    {
+        // TODO: apply filter
+        return [
+            '__composer_autoload_files',
+            'wp_cache',
+            '_SERVER',
+            '_GET',
+            '_POST',
+            '_COOKIE',
+            '_FILES',
+            '_REQUEST',
+            '_SESSION',
+            '_ENV'
+        ];
     }
 
     /**
@@ -103,9 +121,10 @@ trait MethodCacheTrait
      *
      * @return string Identifier
      */
-    private function getRelevantGlobalsIdentifier(): string
+    private function getRelevantGlobalsIdentifier(true|array $globalKeysToInclude): string
     {
-        return $this->hash($this->getRelevantGlobals());
+        $globalKeysToInclude = $globalKeysToInclude === true ? [] : $globalKeysToInclude;
+        return $this->hash($this->getRelevantGlobals($globalKeysToInclude));
     }
 
     /**
@@ -119,7 +138,7 @@ trait MethodCacheTrait
         if (method_exists($object, '__toString')) {
             return $object->__toString();
         }
-        return $this->hash($this->getObjectProperties($object, 'reflection'));
+        return $this->hash($this->getObjectProperties($object));
     }
 
     /**
@@ -143,33 +162,21 @@ trait MethodCacheTrait
      * Returns the properties of an object.
      *
      * @param object $object The object to get properties from.
-     * @param string $mode The mode to use for getting properties ('reflection' or 'native').
      * @return array The properties of the object.
      *
-     * Notes: We cosidered both reflection and native mode. Reflection should be slower, but tests have shown
+     * Notes: We considered both reflection and native mode (get_object_vars). Reflection should be slower, but tests have shown
      * that it is actually faster.
-     *
-     * Reflection: Get a score of appriximately 70%.
-     * Native: Get a score of appriximately 50%.
      */
-    private function getObjectProperties($object, $mode = 'reflection'): array
+    private function getObjectProperties($object): array
     {
-        if ($mode === 'reflection') {
-            $reflection = new ReflectionObject($object);
-            $properties = [];
+        $reflection = new ReflectionObject($object);
+        $properties = [];
 
-            foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
-                $property->setAccessible(true);
-                $properties[$property->getName()] = $property->getValue($object);
-            }
-
-            return $properties;
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $property->setAccessible(true);
+            $properties[$property->getName()] = $property->getValue($object);
         }
 
-        if ($mode === 'native') {
-            return get_object_vars($object);
-        }
-
-        throw new \InvalidArgumentException('Unsupported mode. Use "reflection" or "native".');
+        return $properties;
     }
 }

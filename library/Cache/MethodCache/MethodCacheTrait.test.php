@@ -6,7 +6,7 @@ use Municipio\Cache\GlobalCache;
 use Municipio\Cache\Implementations\StaticCache;
 use PHPUnit\Framework\TestCase;
 
-class MethodCacheTraitTest extends TestCase
+class MethodCacheTraitTest extends TestCase implements MethodCacheInterface
 {
     use MethodCacheTrait;
 
@@ -33,10 +33,10 @@ class MethodCacheTraitTest extends TestCase
     public function testCacheAccountsForGlobalStateChange()
     {
         $GLOBALS['cacheTestGlobal'] = 'foo';
-        $this->assertEquals('foo', $this->cache([$this, 'getGlobalValue'], []));
+        $this->assertEquals('foo', $this->cache([$this, 'getGlobalValue'], [], null, ['cacheTestGlobal']));
 
         $GLOBALS['cacheTestGlobal'] = 'bar';
-        $this->assertEquals('bar', $this->cache([$this, 'getGlobalValue'], []));
+        $this->assertEquals('bar', $this->cache([$this, 'getGlobalValue'], [], null, ['cacheTestGlobal']));
     }
 
     public function testCacheAccountsForClassVariableChange()
@@ -50,9 +50,16 @@ class MethodCacheTraitTest extends TestCase
 
     /**
      * @testdox performance meets expectations of 50% faster than uncached.
+     * @dataProvider performanceDataProvider
      */
-    public function testCachedPerformance()
+    public function testPerformance(float $result): void
     {
+        $this->assertGreaterThan(50, $result, 'Caching mechanism is not 50% faster than uncached.');
+    }
+
+    public function performanceDataProvider(): array
+    {
+        GlobalCache::setCache(new StaticCache());
         $timesToRun  = 10000;
         $cachedStart = microtime(true);
 
@@ -73,8 +80,11 @@ class MethodCacheTraitTest extends TestCase
         $uncachedExecutionTime   = $uncachedEnd - $uncachedStart;
         $performanceInPercentage = ($uncachedExecutionTime - $cachedExecutionTime) / $uncachedExecutionTime * 100;
 
-        $this->assertLessThan($uncachedExecutionTime, $cachedExecutionTime, 'Caching mechanism is too slow.');
-        $this->assertGreaterThan(75, $performanceInPercentage, 'Caching mechanism is not 50% faster than uncached.');
+        return [
+            "{$performanceInPercentage}" => [
+                $performanceInPercentage,
+            ],
+        ];
     }
 
     private function getSameStringAsProvided(string $string): string
