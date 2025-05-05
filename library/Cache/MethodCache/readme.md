@@ -12,37 +12,52 @@ This feature provides a caching mechanism for function calls using the `MethodCa
 
 ## Methods Overview
 
-### `cache(callable $callable, array $args, ?int $expire = null, $mode = ['global', 'object'])`
+### `cache(callable $callable, array $args, ?int $expire = null, bool|array $useGlobalState = false)`
 
-Caches a function call. This method uses the `serializeArgs` and `serializeCallable` methods to generate the cache key. The cache key can be influenced by global variables and object properties based on the provided mode.
+Caches a function call. This method uses the `getKey` and `serializeCallable` methods to generate the cache key. The cache key can be influenced by global variables and object properties based on the provided mode.
 
 **Parameters:**
 - `$callable`: The function or method to be cached.
 - `$args`: Arguments to pass to the callable.
 - `$expire`: Expiration time in seconds or null for no expiration.
-- `$mode`: Array specifying cache modes. Can be `['global']`, `['object']`, or both `['global', 'object']`.
+- `$useGlobalState`: Boolean or array specifying whether to include global variables in the cache key. If `true`, all globals are included except excluded ones. If an array, only specified global keys are included.
 
 **Returns:**
 - The result of the function call or the cached value if it exists.
 
 ---
 
-### `serializeArgs(array $args, $mode)`
+### `getKey(array $args, bool|array $useGlobalState)`
 
-Serializes the function arguments into a string, appending global and object property identifiers based on the provided mode.
+Generates the cache key by serializing the function arguments, relevant global variables, and object properties.
 
 **Parameters:**
 - `$args`: Arguments for the function call.
-- `$mode`: Array specifying cache modes (`'global'`, `'object'`).
+- `$useGlobalState`: Boolean or array specifying whether to include global variables in the cache key.
 
 **Returns:**
-- A string that represents the serialized arguments, global variables, and object properties.
+- A string representing the cache key.
 
 ---
 
-### `getRelevantGlobalsIdentifier()`
+### `serializeCallable(callable $callable)`
 
-Generates a cache key based on the relevant global variables. Global variables that are excluded are: `_SERVER`, `_GET`, `_POST`, `_ENV`, and `__composer_autoload_files`.
+Serializes the callable into a string to be used as part of the cache key.
+
+**Parameters:**
+- `$callable`: The callable to serialize.
+
+**Returns:**
+- A string representing the serialized callable.
+
+---
+
+### `getRelevantGlobalsIdentifier(bool|array $globalKeysToInclude)`
+
+Generates a cache key based on the relevant global variables. If `$globalKeysToInclude` is `true`, all globals except excluded ones are included. If it is an array, only specified global keys are included.
+
+**Parameters:**
+- `$globalKeysToInclude`: Boolean or array specifying which global variables to include.
 
 **Returns:**
 - A string that identifies relevant global variables.
@@ -61,44 +76,39 @@ Generates a cache key based on the object's public properties. If the object imp
 
 ---
 
-### `__toString()`
+### `hash(string|int|float|bool|array|object $item)`
 
-If the object has a `__toString()` method, it will be used to generate the cache key. This allows for a custom cache key based on object properties.
+Hashes the given item into a string using `crc32` and `json_encode`.
+
+**Parameters:**
+- `$item`: The item to hash.
+
+**Returns:**
+- A string representing the hash of the item.
 
 ---
 
-## Modes
+### `getObjectProperties($object)`
 
-### 1. **Global Mode**
+Retrieves the public properties of an object using reflection.
 
-In **Global Mode**, the cache key includes global variables, excluding system variables like `_SERVER`, `_POST`, `_GET`, etc. This mode is useful when caching depends on the global environment (e.g., session data or request parameters).
+**Parameters:**
+- `$object`: The object to retrieve properties from.
 
-```php
-$mode = ['global']; // Use global variables to generate cache key
-$args = ['param1', 'param2'];
-$cacheResult = $this->cache($callableFunction, $args, null, $mode);
-```
+**Returns:**
+- An array of the object's public properties.
 
-### 2. **Object Mode**
+---
 
-In **Object Mode**, the cache key includes the object's public properties. If the object implements the `__toString()` method, it will be used to generate the cache key. This mode is useful when the cache result depends on the object's state.
+## Use Global State
 
-```php
-$mode = ['object']; // Use object properties to generate cache key
-$args = ['param1', 'param2'];
-$object = new MyClass('value1', 'value2');
-$cacheResult = $this->cache([$object, 'methodName'], $args, null, $mode);
-```
+### 1. **Use Global State**
 
-### 3. **Both Global and Object Modes**
-
-You can combine both **Global Mode** and **Object Mode** by passing both modes in the array. This is useful when both the global environment and object properties should influence the cache key.
+In **Use Global State**, the cache key includes global variables, excluding system variables like `_SERVER`, `_POST`, `_GET`, etc. This mode is useful when caching depends on the global environment (e.g., session data or request parameters). An array of global variable names can be passed to the cache method to include them in the cache key.
 
 ```php
-$mode = ['global', 'object']; // Use both global variables and object properties for cache key
 $args = ['param1', 'param2'];
-$object = new MyClass('value1', 'value2');
-$cacheResult = $this->cache([$object, 'methodName'], $args, null, $mode);
+$cacheResult = $this->cache($callableFunction, $args, null, ['post']);
 ```
 
 ## Using the `__toString()` Method for Cache ID
@@ -128,40 +138,8 @@ When the `__toString()` method is available, it will be called to generate the c
 
 ```php
 $object = new MyClass('value1', 'value2');
-$mode = ['object']; // Use object properties (via __toString) for cache key
 $args = ['param1', 'param2'];
-$cacheResult = $this->cache([$object, 'methodName'], $args, null, $mode);
-```
-
-## Example Usages
-
-### Example 1: Cache with Global Mode Only
-
-```php
-$mode = ['global']; // Only use global variables in the cache key
-$args = ['some', 'arguments'];
-
-$cacheResult = $this->cache($callableFunction, $args, null, $mode);
-```
-
-### Example 2: Cache with Object Mode Only
-
-```php
-$mode = ['object']; // Only use object properties in the cache key
-$args = ['some', 'arguments'];
-
-$object = new MyClass('value1', 'value2');
-$cacheResult = $this->cache([$object, 'methodName'], $args, null, $mode);
-```
-
-### Example 3: Cache with Both Global and Object Modes
-
-```php
-$mode = ['global', 'object']; // Use both global variables and object properties in the cache key
-$args = ['some', 'arguments'];
-
-$object = new MyClass('value1', 'value2');
-$cacheResult = $this->cache([$object, 'methodName'], $args, null, $mode);
+$cacheResult = $this->cache([$object, 'methodName'], $args, null);
 ```
 
 ## Conclusion
