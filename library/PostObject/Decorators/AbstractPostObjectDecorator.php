@@ -4,6 +4,7 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
 
 /**
  * AbstractPostObjectDecorator class.
@@ -124,6 +125,14 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     public function getSchemaProperty(string $property): mixed
     {
         return $this->postObject->getSchemaProperty($property);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchema(): BaseType
+    {
+        return $this->postObject->getSchema();
     }
 
     /**

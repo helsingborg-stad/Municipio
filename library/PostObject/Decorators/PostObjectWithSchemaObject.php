@@ -31,10 +31,10 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
     public function getSchemaProperty(string $property): mixed
     {
         if ($property === '@type') {
-            return $this->getSchemaObject()->getType();
+            return $this->getSchema()->getType();
         }
 
-        return $this->getSchemaObject()->getProperty($property);
+        return $this->getSchema()->getProperty($property);
     }
 
     /**
@@ -42,17 +42,13 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
      *
      * @return BaseType
      */
-    private function getSchemaObject(): BaseType
+    public function getSchema(): BaseType
     {
-        static $schemaObjectCache = [];
-        $cacheKey                 = $this->postObject->getId();
-
-        if (!isset($schemaObjectCache[$cacheKey])) {
-            $schemaObjectCache[$cacheKey]   = $this->schemaObjectFromPost->create($this->postObject);
-            $this->postObject->schemaObject = $schemaObjectCache[$cacheKey]; // TODO: remove when all usage of ->schemaObject is removed from the codebase.
+        if (!isset($this->postObject->schemaObject)) {
+            return @$this->postObject->schemaObject = $this->schemaObjectFromPost->create($this->postObject);
         }
 
-        return $schemaObjectCache[$cacheKey];
+        return $this->postObject->schemaObject;
     }
 
     /**
@@ -61,8 +57,8 @@ class PostObjectWithSchemaObject extends AbstractPostObjectDecorator implements 
     public function __get(string $key): mixed
     {
         if ($key === 'schemaObject') {
-            trigger_error('Deprecated: Use getSchemaObject() instead.', E_USER_DEPRECATED);
-            return $this->getSchemaObject();
+            trigger_error('Deprecated: Use getSchema() instead.', E_USER_DEPRECATED);
+            return $this->getSchema();
         }
 
         return $this->postObject->__get($key);

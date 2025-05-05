@@ -3,6 +3,7 @@
 namespace Municipio\SchemaData\Helper;
 
 use AcfService\Implementations\FakeAcfService;
+use Municipio\Helper\AcfService;
 use PHPUnit\Framework\TestCase;
 
 class GetSchemaTypeTest extends TestCase
