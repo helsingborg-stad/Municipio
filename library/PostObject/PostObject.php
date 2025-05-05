@@ -138,6 +138,9 @@ class PostObject implements PostObjectInterface
         return is_array($terms) ? $terms : [];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSchema(): BaseType
     {
         return new BaseType();

@@ -44,6 +44,12 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
          return $this->generateSchemaObject($schemaData) ?? $this->inner->create($post);
     }
 
+    /**
+     * Generate a schema object from the schema data.
+     *
+     * @param array $schemaData
+     * @return BaseType|null
+     */
     private function generateSchemaObject(array $schemaData): ?BaseType
     {
         $schema = call_user_func(array(new Schema(), $schemaData['@type']));
@@ -64,11 +70,23 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
         return $schema;
     }
 
+    /**
+     * Check if the property value is a schema object.
+     *
+     * @param mixed $propertyValue
+     * @return bool
+     */
     private function propertyValueIsSchemaObject($propertyValue): bool
     {
         return is_array($propertyValue) && isset($propertyValue['@type']);
     }
 
+    /**
+     * Maybe unserialize the property value.
+     *
+     * @param mixed $propertyValue
+     * @return mixed
+     */
     private function maybeUnserialize(mixed $propertyValue): mixed
     {
         if (!is_string($propertyValue)) {
