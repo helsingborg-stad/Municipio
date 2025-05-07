@@ -142,7 +142,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
     {
         $schemaTransformedItems = [];
         foreach ($response as $value) {
-            $address = $value['address'] ?? [];
+            $address       = $value['address'] ?? [];
             $postalAddress = Schema::postalAddress();
             $postalAddress->addressCountry($address['country'] ?? null);
             $postalAddress->addressLocality($address['city'] ?? null);
