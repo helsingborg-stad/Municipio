@@ -31,7 +31,8 @@ class OpenstreetmapTest extends TestCase
         $mockResponse = [
             'lat'          => '59.3293',
             'lon'          => '18.0686',
-            'display_name' => 'Stockholm, Sweden'
+            'display_name' => 'Stockholm, Sweden',
+            'name'         => 'Stockholm',
         ];
 
         $openstreetmap = new Openstreetmap(
@@ -46,7 +47,7 @@ class OpenstreetmapTest extends TestCase
 
         $this->assertEquals('59.3293', $result['latitude']);
         $this->assertEquals('18.0686', $result['longitude']);
-        $this->assertEquals('Stockholm, Sweden', $result['name']);
+        $this->assertEquals('Stockholm', $result['name']);
         $this->assertIsArray($result['address']);
     }
 
@@ -56,7 +57,8 @@ class OpenstreetmapTest extends TestCase
             [
                 'lat'          => '59.3293',
                 'lon'          => '18.0686',
-                'display_name' => 'Stockholm, Sweden'
+                'display_name' => 'Stockholm, Sweden',
+                'name'         => 'Stockholm',
             ]
         ];
 
@@ -69,7 +71,7 @@ class OpenstreetmapTest extends TestCase
         $place = $result[0];
         $this->assertEquals('59.3293', $place['latitude']);
         $this->assertEquals('18.0686', $place['longitude']);
-        $this->assertEquals('Stockholm, Sweden', $place['name']);
+        $this->assertEquals('Stockholm', $place['name']);
         $this->assertIsArray($place['address']);
     }
 
