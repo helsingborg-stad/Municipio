@@ -29,24 +29,24 @@ class OpenstreetmapTest extends TestCase
     public function testCreateEndpointUrlWithSearch()
     {
         $openstreetmap = new Openstreetmap($this->getFakeWpService());
-    
+
         $url = $openstreetmap->createEndpointUrl(['q' => 'test']);
-    
+
         $this->assertStringContainsString('search?', $url);
         $this->assertStringContainsString('format=json', $url);
         $this->assertStringContainsString('q=test', $url);
     }
-    
+
     public function testCreateEndpointUrlWithReverse()
     {
         $openstreetmap = new Openstreetmap($this->getFakeWpService());
-    
+
         $url = $openstreetmap->createEndpointUrl([
             'reverse' => true,
-            'lat' => '59.3293',
-            'lon' => '18.0686'
+            'lat'     => '59.3293',
+            'lon'     => '18.0686'
         ]);
-    
+
         $this->assertStringContainsString('reverse?', $url);
         $this->assertStringContainsString('format=json', $url);
         $this->assertStringContainsString('lat=59.3293', $url);
@@ -57,18 +57,18 @@ class OpenstreetmapTest extends TestCase
     {
         $mockResponse = [
             [
-                'lat' => '59.3293',
-                'lon' => '18.0686',
+                'lat'          => '59.3293',
+                'lon'          => '18.0686',
                 'display_name' => 'Stockholm, Sweden'
             ]
         ];
-    
+
         $openstreetmap = new Openstreetmap(
             $this->getFakeWpService($mockResponse, json_encode($mockResponse))
         );
-    
+
         $result = $openstreetmap->search(['q' => 'Stockholm']);
-    
+
         $place = $result[0];
         $this->assertEquals('59.3293', $place['latitude']);
         $this->assertEquals('18.0686', $place['longitude']);
@@ -78,8 +78,8 @@ class OpenstreetmapTest extends TestCase
     private function getFakeWpService($wpRemoteGet = [], $wpRemoteRetrieveBody = true)
     {
         return new FakeWpService([
-            'wpRemoteGet'   => $wpRemoteGet,
-            'isWpError' => ($wpRemoteGet instanceof \WP_Error) ? true : false,
+            'wpRemoteGet'          => $wpRemoteGet,
+            'isWpError'            => ($wpRemoteGet instanceof \WP_Error) ? true : false,
             'wpRemoteRetrieveBody' => $wpRemoteRetrieveBody,
         ]);
     }

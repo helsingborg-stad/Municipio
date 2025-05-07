@@ -19,7 +19,7 @@ class PlaceSearchEndpointTest extends TestCase
     public function testHandleRegisterRestRouteReturnsTrue()
     {
         $placeSearchEndpoint = new PlaceSearchEndpoint($this->getFakeWpService());
-        $result = $placeSearchEndpoint->handleRegisterRestRoute();
+        $result              = $placeSearchEndpoint->handleRegisterRestRoute();
 
         $this->assertTrue($result);
     }
@@ -70,10 +70,10 @@ class PlaceSearchEndpointTest extends TestCase
     private function getFakeWpService($registerRestRoute = true)
     {
         return new FakeWpService([
-            'registerRestRoute' => $registerRestRoute,
-            '__' => '',
-            'wpRemoteGet' => [],
-            'isWpError' => false,
+            'registerRestRoute'    => $registerRestRoute,
+            '__'                   => '',
+            'wpRemoteGet'          => [],
+            'isWpError'            => false,
             'wpRemoteRetrieveBody' => ''
         ]);
     }

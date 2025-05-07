@@ -51,17 +51,17 @@ class PlaceSearchEndpoint extends RestApiEndpoint
                     'type'        => 'string',
                     'required'    => false,
                 ],
-                'reverse' => [
+                'reverse'  => [
                     'description' => $this->wpService->__('Whether to perform reverse geocoding.', 'municipio'),
                     'type'        => 'boolean',
                     'required'    => false,
                 ],
-                'lat'     => [
+                'lat'      => [
                     'description' => $this->wpService->__('Latitude for reverse geocoding.', 'municipio'),
                     'type'        => 'number',
                     'required'    => false,
                 ],
-                'lng'     => [
+                'lng'      => [
                     'description' => $this->wpService->__('Longitude for reverse geocoding.', 'municipio'),
                     'type'        => 'number',
                     'required'    => false,
@@ -104,9 +104,9 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      */
     public function checkIsRequestInvalid(WP_REST_Request $request): false|string
     {
-        $args = $request->get_query_params();
-        $hasQ = !empty($args['q']);
-        $hasReverse = !empty($args['reverse']);
+        $args           = $request->get_query_params();
+        $hasQ           = !empty($args['q']);
+        $hasReverse     = !empty($args['reverse']);
         $hasCoordinates = $hasReverse && !empty($args['lat']) && !empty($args['lng']);
 
         if (!$hasQ && !$hasReverse) {
