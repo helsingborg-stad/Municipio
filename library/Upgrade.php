@@ -4,7 +4,10 @@ namespace Municipio;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
+use Municipio\Config\Features\SchemaData\SchemaDataConfigService;
 use Municipio\Customizer\Applicators\Types\NullApplicator;
+use Municipio\Helper\WpService;
+use Municipio\Schema\Schema;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
@@ -16,7 +19,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 37; //The db version we want to achive
+    private $dbVersion    = 38; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -536,6 +539,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 26
+     */
     private function v_26($db): bool
     {
         $drawerSizes = get_theme_mod('drawer_screen_sizes');
@@ -546,6 +552,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 27
+     */
     private function v_27($db): bool
     {
         $searchLocations = get_theme_mod('search_display');
@@ -557,6 +566,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 28
+     */
     private function v_28($db): bool
     {
         $args = array(
@@ -579,6 +591,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 29
+     */
     private function v_29($db): bool
     {
         $args = [
@@ -627,12 +642,18 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 31
+     */
     private function v_31($db): bool
     {
         $db->query("DELETE FROM {$db->postmeta} WHERE meta_key LIKE '_oembed%'");
         return true;
     }
 
+    /**
+     * Version 32
+     */
     private function v_32($db): bool
     {
         update_option('css', []);
@@ -667,6 +688,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 34
+     */
     public function v_34($db): bool
     {
         $header = get_theme_mod('header_apperance');
@@ -676,6 +700,9 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 35
+     */
     public function v_35($db): bool
     {
         $header = get_theme_mod('header_apperance');
@@ -685,12 +712,18 @@ class Upgrade
         return true;
     }
 
+    /**
+     * Version 36
+     */
     public function v_36($db): bool
     {
         do_action('Municipio/Customizer/Applicator/Modifiers/RefreshCache');
         return true;
     }
 
+    /**
+     * Version 37
+     */
     public function v_37($db)
     {
         $applicators     = [
@@ -702,6 +735,24 @@ class Upgrade
             ...$applicators
         );
         $customizerCache->tryClearCache();
+        return true;
+    }
+
+    /**
+     * Version 38
+     */
+    public function v_38(): bool
+    {
+        global $wpdb;
+        $version = new \Municipio\Upgrade\V38\Version38($wpdb, new SchemaDataConfigService(WpService::get()), WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
         return true;
     }
 

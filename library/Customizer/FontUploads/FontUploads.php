@@ -67,7 +67,7 @@ class FontUploads implements Hookable
                     'type' => $this->wpService->wpCheckFiletypeAndExt(
                         $url,
                         basename($url),
-                    )['ext'] ?? null,
+                    )['ext'] ?: pathinfo(basename($url), PATHINFO_EXTENSION),
                     'url'  => str_replace($this->wpService->homeUrl(), '', $url),
                 ];
             }
@@ -123,7 +123,7 @@ class FontUploads implements Hookable
                 }',
                 $font['name'],
                 $font['url'],
-                $font['type']
+                $font['type'] ?? 'woff'
             );
 
             echo $this->wpService->wpStripAllTags($fontFaceRule);

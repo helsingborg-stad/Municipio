@@ -5,14 +5,8 @@
  */
 
 use AcfService\Implementations\NativeAcfService;
-use Municipio\Config\ConfigFactory;
-use Municipio\Config\ConfigService;
-use Municipio\Config\ConfigServiceFromAcf;
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsFactory;
-use Municipio\Config\Features\ExternalContent\SourceConfig\SourceConfigFactory;
 use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
-use Municipio\SchemaData\AcfFieldContentModifiers\PopulateSchemaTypeFieldOptions;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;

@@ -11,32 +11,17 @@ use WpService\Contracts\SwitchToBlog;
  * Post object decorator that can fetch post data from another blog.
  * If the post is from another blog, it will switch to that blog to fetch the data.
  */
-class PostObjectFromOtherBlog implements PostObjectInterface
+class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
      */
     public function __construct(
-        private PostObjectInterface $postObject,
+        PostObjectInterface $postObject,
         private SwitchToBlog&RestoreCurrentBlog $wpService,
         private int $blogId
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getId(): int
-    {
-        return $this->postObject->getId();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTitle(): string
-    {
-        return $this->postObject->getTitle();
+        parent::__construct($postObject);
     }
 
     /**
@@ -45,22 +30,6 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     public function getPermalink(): string
     {
         return $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCommentCount(): int
-    {
-        return $this->postObject->getCommentCount();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPostType(): string
-    {
-        return $this->postObject->getPostType();
     }
 
     /**
@@ -105,45 +74,5 @@ class PostObjectFromOtherBlog implements PostObjectInterface
     private function restore(): void
     {
         $this->wpService->restoreCurrentBlog();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPublishedTime(bool $gmt = false): int
-    {
-        return $this->postObject->getPublishedTime($gmt);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getModifiedTime(bool $gmt = false): int
-    {
-        return $this->postObject->getModifiedTime($gmt);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArchiveDateTimestamp(): ?int
-    {
-        return $this->postObject->getArchiveDateTimestamp();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getArchiveDateFormat(): string
-    {
-        return $this->postObject->getArchiveDateFormat();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSchemaProperty(string $property): mixed
-    {
-        return $this->postObject->getSchemaProperty($property);
     }
 }

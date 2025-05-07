@@ -43,6 +43,7 @@ use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
 /**
  * Class App
@@ -70,6 +71,7 @@ class App
          * Upgrade
          */
         new \Municipio\Upgrade($this->wpService, $this->acfService);
+
 
         /**
          * Upgrade
@@ -136,7 +138,7 @@ class App
         new \Municipio\Theme\FileUploads();
         new \Municipio\Theme\Archive();
         new \Municipio\Theme\CustomTemplates();
-        new \Municipio\Theme\Navigation(new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService));
+        new \Municipio\Theme\Navigation(new SchemaTypesInUse($this->wpdb));
         new \Municipio\Theme\Icon();
         new \Municipio\Theme\Forms();
 
@@ -167,10 +169,6 @@ class App
                 new Listing(),
                 $decorator
             );
-
-            // Project
-            $decorator = new \Municipio\PostDecorators\ApplyProjectTerms($decorator);
-            $decorator = new \Municipio\PostDecorators\ApplyProjectProgress($this->wpService, $decorator);
 
             return $decorator->apply($post);
         }, 10, 1);
@@ -813,11 +811,11 @@ class App
         /**
          * Register schema types in acf select.
          */
-        $schemaTypes = array_keys($schemaTypesAndProperties);
-        $schemaTypes = array_combine($schemaTypes, $schemaTypes);
+        $getAllSchemaTypes = new \Municipio\SchemaData\Utils\SchemaTypes();
+        $allSchemaTypes    = array_combine($getAllSchemaTypes->getSchemaTypes(), $getAllSchemaTypes->getSchemaTypes());
         $this->acfFieldContentModifierRegistrar->registerModifier(
             'field_66da9e4dffa66',
-            new ModifyFieldChoices($schemaTypes)
+            new ModifyFieldChoices($allSchemaTypes)
         );
 
         /**
@@ -836,7 +834,7 @@ class App
         /**
          * Register form for schema properties on posts.
          */
-        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService);
+        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $this->acfService);
         $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
         $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
 
@@ -848,7 +846,7 @@ class App
         /**
          * Store form field values.
          */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes, $getSchemaPropertiesWithParamTypes))->addHooks();
 
         /**
          * External content

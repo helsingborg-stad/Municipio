@@ -6,7 +6,7 @@
         ])
         @endhero
     @endif
-    @includeWhen(!$placeQuicklinksAfterContent, 'partials.navigation.fixed')
+    @includeWhen($quicklinksPlacement !== 'below_content', 'partials.navigation.fixed')
     <div class="o-container">
         @paper([
             'attributeList' => [
@@ -70,8 +70,7 @@
         @endpaper
     </div>
 
-    @includeWhen($placeQuicklinksAfterContent, 'partials.navigation.fixed')
-
+    @includeWhen($quicklinksPlacement === 'below_content', 'partials.navigation.fixed')
 @stop
 
 @section('helper-navigation')

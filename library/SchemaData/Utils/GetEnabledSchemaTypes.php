@@ -33,6 +33,7 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
                 'department',
                 'employee',
                 'funding',
+                'status'
             ),
             'JobPosting'          => array(
                 '@id',

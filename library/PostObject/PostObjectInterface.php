@@ -3,7 +3,7 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\TermIcon\TermIconInterface;
+use Municipio\Schema\BaseType;
 
 interface PostObjectInterface
 {
@@ -94,4 +94,28 @@ interface PostObjectInterface
      * @return mixed The value of the schema property. Will return null if the property does not exist.
      */
     public function getSchemaProperty(string $property): mixed;
+
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType The schema object.
+     */
+    public function getSchema(): BaseType;
+
+    /**
+     * Get the post object terms.
+     *
+     * @param string[] $taxonomies An array of taxonomy slugs to get terms for.
+     * @return \WP_Term[] An array of WP_Term objects.
+     * @see https://developer.wordpress.org/reference/classes/wp_term/
+     */
+    public function getTerms(array $taxonomies): array;
+
+    /**
+     * Retrieve a value by its key.
+     *
+     * @param string $key The key to retrieve the value for.
+     * @return mixed The value associated with the key, or null if not found.
+     */
+    public function __get(string $key): mixed;
 }

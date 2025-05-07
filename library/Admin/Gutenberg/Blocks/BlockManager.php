@@ -151,7 +151,7 @@ class BlockManager
         $data['blockType'] = $block['name'];
         $data['classList'] = $this->buildBlockClassList($block);
 
-        $data['contentClassList'] = 'o-container';
+        $data['contentClassList'] = 'o-container o-container--remove-spacing';
         if (isset($data['content_width']) && $data['content_width'] == 'article') {
             $data['contentClassList'] .= ' c-article c-article--readable-width';
         }
@@ -170,6 +170,15 @@ class BlockManager
                 $data['style'][] = $this->getBlockBackgroundGradientStyles($data);
             }
 
+            // Padding amount
+            if (!empty($data['amount'])) {
+                $data['halfAmount'] = ceil($data['amount'] / 2);
+                $data['classList'] .= ' u-padding--' . $data['amount'];
+                $data['classList'] .= ' u-padding--' . $data['halfAmount'] . '@md';
+                $data['classList'] .= ' u-padding__x--2@xs';
+                $data['classList'] .= ' u-padding__x--2@sm';
+            }
+
             if (!empty($data['backgroundImage'])) {
                 $image = wp_get_attachment_image_url($data['backgroundImage'], 'full');
                 if ($image) {
@@ -177,6 +186,18 @@ class BlockManager
                     $data['style'][] = "background-size:cover";
                     $data['style'][] = "background-position:center center";
                 }
+            }
+
+            // Border radius
+            if (!empty($data['border_radius'])) {
+                $borderRadiusMap    = ['sm' => 2, 'md' => 4, 'lg' => 8, 'xl' => 16];
+                $borderRadius       = $borderRadiusMap[$data['border_radius']] ?? 0;
+                $data['classList'] .= ' u-rounded--' . $borderRadius;
+            }
+
+            // Shadow
+            if (!empty($data['shadow'])) {
+                $data['classList'] .= ' u-box-shadow--' . $data['shadow'];
             }
 
             if (!empty($data['style'])) {
@@ -190,7 +211,7 @@ class BlockManager
                 if (empty($data['attributeList'])) {
                     $data['attributeList'] = [];
                 }
-                if(!empty($data['anchor'])) {
+                if (!empty($data['anchor'])) {
                     $data['attributeList']['id'] = $data['anchor'];
                 }
             }

@@ -6,6 +6,7 @@ use Municipio\Helper\Navigation;
 use Municipio\Helper\Archive;
 use Municipio\Helper\WP;
 use Municipio\PostObject\PostObjectInterface;
+use PhpParser\Node\Expr\Print_;
 use WP_Post;
 
 /**
@@ -31,6 +32,8 @@ class Singular extends \Municipio\Controller\BaseController
             return $this->data;
         }
 
+        $originalPostData = $this->displayQuicklinksAfterFirstBlock($originalPostData);
+
         $this->post                = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
@@ -39,9 +42,7 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['displayFeaturedImageCaption'] = $this->displayFeaturedImageCaptionOnSinglePost($this->data['post']->id);
         $this->data['showPageTitleOnOnePage']      = $this->showPageTitleOnOnePage($this->data['post']->id);
 
-        $this->data['quicklinksPlacement']           = $this->data['post']->quicklinksPlacement;
-        $this->data['displayQuicklinksAfterContent'] = $this->data['post']->displayQuicklinksAfterContent;
-        $this->data['featuredImage']                 = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
+        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
 
         //Signature options
         $this->data['signature'] = $this->getSignature(
@@ -92,9 +93,6 @@ class Singular extends \Municipio\Controller\BaseController
         //Get age of post
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        //Position of quicklinks
-        $this->data['placeQuicklinksAfterContent'] = Navigation::displayQuicklinksAfterContent($this->data['post']->id);
-
         return $this->data;
     }
 
@@ -141,6 +139,51 @@ class Singular extends \Municipio\Controller\BaseController
         'md' => 0,
         'lg' => 0
         ];
+    }
+
+    /**
+     * Inserts a "Quicklinks" block after the first block in the post content if certain conditions are met.
+     *
+     * @param WP_Post|null $postObject The post object whose content will be modified. Can be null.
+     *
+     * @return WP_Post|null
+     */
+    private function displayQuicklinksAfterFirstBlock(?WP_Post $postObject): ?WP_Post
+    {
+        if (
+            !$postObject ||
+            $this->data['quicklinksPlacement'] !== 'after_first_block' ||
+            !$this->wpService->hasBlocks($postObject->post_content) ||
+            empty($this->data['quicklinksMenu']['items'])
+        ) {
+            return $postObject;
+        }
+
+        $blocks = $this->wpService->parseBlocks($postObject->post_content);
+
+        $html = render_blade_view(
+            'partials.navigation.fixed-after-block',
+            [
+                'quicklinksMenu'      => $this->data['quicklinksMenu'],
+                'quicklinksPlacement' => $this->data['quicklinksPlacement'],
+                'customizer'          => $this->data['customizer'],
+                'lang'                => $this->data['lang'],
+                'isFrontPage'         => $this->data['isFrontPage'],
+            ]
+        );
+
+        $quicklinksBlock = [
+            'blockName'    => 'core/html',
+            'attrs'        => ["name" => "quicklinks"],
+            'innerHTML'    => $html,
+            'innerContent' => [$html],
+            'innerBlocks'  => [],
+        ];
+
+        array_splice($blocks, 1, 0, [$quicklinksBlock]);
+        $postObject->post_content = $this->wpService->serializeBlocks($blocks);
+
+        return $postObject;
     }
 
     /**
