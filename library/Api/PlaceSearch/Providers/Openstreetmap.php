@@ -150,7 +150,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
             $postalAddress->streetAddress(($address['road'] ?? '') . ' ' . ($address['house_number'] ?? ''));
             $postalAddress->postalCode($address['postcode'] ?? '');
             $postalAddress->addressRegion($address['county'] ?? '');
-            $postalAddress->addressLocality($address['name'] ?? '');
+            $postalAddress->name($address['name'] ?? '');
             $postalAddress->toArray();
 
             $schema = Schema::place();
