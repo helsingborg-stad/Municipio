@@ -29,8 +29,8 @@ class OpenstreetmapTest extends TestCase
     public function testSearchCallsReverseSearchIfReverseIsTrue()
     {
         $mockResponse = [
-            'lat' => '59.3293',
-            'lon' => '18.0686',
+            'lat'          => '59.3293',
+            'lon'          => '18.0686',
             'display_name' => 'Stockholm, Sweden'
         ];
 
