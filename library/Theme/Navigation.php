@@ -2,7 +2,7 @@
 
 namespace Municipio\Theme;
 
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
+use Municipio\SchemaData\Utils\Contracts\SchemaTypesInUseInterface;
 
 /**
  * Class Navigation
@@ -13,7 +13,7 @@ class Navigation
     /**
      * Navigation constructor.
      */
-    public function __construct(private GetEnabledSchemaTypesInterface $getEnabledSchemaTypes)
+    public function __construct(private SchemaTypesInUseInterface $schemaTypesInUse)
     {
         add_action('init', array($this, 'registerNavigationMenus'), 15, 2);
         add_filter('Municipio/Navigation/Item', array($this, 'forceItemStyleTiles'), 10, 2);
@@ -134,23 +134,21 @@ class Navigation
     }
 
     /**
-     * Get all schema types menus.
-     * Create a menu specification for each of these.
+     * Generates an array of menu specifications for schema types in use.
      *
-     * @return array
+     * This method iterates through the schema types currently in use and creates
+     * a menu specification for each type. The menu names are formatted as
+     * "{schema-type}-secondary-menu" and include a description indicating their
+     * association with schema types.
+     *
+     * @return array An associative array of schema type menu specifications.
      */
-    private function getSchemaTypeMenus(): array
+    public function getSchemaTypeMenus(): array
     {
-        $schemaTypeMenus    = array();
-        $enabledSchemaTypes = $this->getEnabledSchemaTypes->getEnabledSchemaTypesAndProperties();
+        $schemaTypeMenus = array();
 
-        if (!empty($enabledSchemaTypes)) {
-            foreach ($enabledSchemaTypes as $type => $props) {
-                $schemaTypeMenus[strtolower($type) . '-secondary-menu'] = sprintf(
-                    __('Content type - %s (sidebar)', 'municipio'),
-                    $type
-                );
-            }
+        foreach ($this->schemaTypesInUse->getSchemaTypesInUse() as $schemaType) {
+            $schemaTypeMenus[strtolower($schemaType) . '-secondary-menu'] = sprintf(__('Schema type - %s (above archive posts)', 'municipio'), $schemaType);
         }
 
         return $schemaTypeMenus;

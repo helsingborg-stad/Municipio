@@ -10,7 +10,6 @@ class ArchiveDateSsourceResolverTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
-     * @runInSeparateProcess
      */
     public function testClassCanBeInstantiated()
     {
@@ -22,7 +21,6 @@ class ArchiveDateSsourceResolverTest extends TestCase
 
     /**
      * @testdox resolve() returns archive post date setting
-     * @runInSeparateProcess
      */
     public function testResolveReturnsFoundArchiveSetting()
     {

@@ -16,7 +16,7 @@ class PostObjectArchiveDateFormatTest extends TestCase
     public function testClassCanBeInstantiated()
     {
         $resolver  = $this->createMock(ArchiveDateFormatResolver::class);
-        $decorator = new PostObjectArchiveDateFormat(new PostObject(new FakeWpService()), $resolver);
+        $decorator = new PostObjectArchiveDateFormat(new PostObject(1, new FakeWpService()), $resolver);
         $this->assertInstanceOf(PostObjectArchiveDateFormat::class, $decorator);
     }
 
@@ -28,7 +28,7 @@ class PostObjectArchiveDateFormatTest extends TestCase
         $resolver = $this->createMock(ArchiveDateFormatResolver::class);
         $resolver->method('resolve')->willReturn('date');
 
-        $decorator = new PostObjectArchiveDateFormat(new PostObject(new FakeWpService()), $resolver);
+        $decorator = new PostObjectArchiveDateFormat(new PostObject(1, new FakeWpService()), $resolver);
 
         $this->assertEquals('date', $decorator->getArchiveDateFormat());
     }

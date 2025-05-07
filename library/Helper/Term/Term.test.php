@@ -20,7 +20,6 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is empty
-     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsEmpty()
     {
@@ -32,7 +31,6 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is not found when passing an ID or slug
-     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsNotFoundWhenPassingAnIdOrSlug()
     {
@@ -45,7 +43,6 @@ class TermTests extends TestCase
 
     /**
      * @testdox getTermColor() returns false if term is found but has no colour and no ancestors
-     * @runInSeparateProcess
      */
     public function testGetTermColorReturnsFalseIfTermIsFoundButHasNoColour()
     {

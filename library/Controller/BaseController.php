@@ -13,6 +13,7 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
+use Municipio\Helper\Navigation;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
 /**
@@ -316,10 +317,10 @@ class BaseController
         $this->data['floatingMenuLabels'] = $this->getFloatingMenuLabels();
         $this->data['quicklinksOptions']  = $this->getQuicklinksOptions();
         $this->data['megaMenuLabels']     = $this->getmegaMenuLabels();
-        
+
         //Get language menu options
         $this->data['languageMenuOptions'] = $this->getLanguageMenuOptions();
-        
+
         // Show sidebars if not set to false in template controllers
         $this->data['showSidebars'] = true;
 
@@ -429,8 +430,11 @@ class BaseController
                 'secondaryLoopEnd'     => $this->hook('secondary_loop_end')
             );
 
-            //Quicklinks placement is set in Singular
-            $this->data['displayQuicklinksAfterContent'] = false;
+            $this->data['quicklinksPlacement'] = $this->wpService->applyFilters(
+                'Municipio/QuickLinksPlacement',
+                $this->acfService->getField('quicklinks_placement', $this->data['pageID']),
+                $this->data['pageID']
+            );
 
             // Add filters to add emblem on blocks and cards with placeholders
             add_filter('ComponentLibrary/Component/Icon/Data', [$this, 'componentDataEmblemFilter'], 10, 1);
@@ -636,8 +640,8 @@ class BaseController
 
         // IF displayCurrentLanguage is set to true, we will get the current language
         if ($options['displayCurrentLanguage'] === true) {
-            $locale = \get_locale();
-            $getCurrentLang = fn() => class_exists('Locale')
+            $locale                     = \get_locale();
+            $getCurrentLang             = fn() => class_exists('Locale')
                 ? (function_exists('mb_ucfirst')
                     ? mb_ucfirst(\Locale::getDisplayLanguage($locale, $locale))
                     : ucfirst(\Locale::getDisplayLanguage($locale, $locale)))

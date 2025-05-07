@@ -35,7 +35,7 @@ class StringField implements FormFieldResolverInterface
         return array_merge($this->inner->resolve(), [
             'type'          => 'text',
             'default_value' => '',
-            'required'      => 0,
+            'required'      => 0
         ]);
     }
 }

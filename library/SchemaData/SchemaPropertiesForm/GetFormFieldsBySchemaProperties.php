@@ -2,6 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm;
 
+use AcfService\Contracts\GetField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\FormFieldResolver;
 use Municipio\SchemaData\SchemaPropertiesForm\FormFieldResolver\FormFieldResolverInterface;
 use WpService\Contracts\ApplyFilters;
@@ -18,6 +19,7 @@ class GetFormFieldsBySchemaProperties implements GetFormFieldsBySchemaProperties
      */
     public function __construct(
         private ApplyFilters $wpService,
+        private GetField $acfService,
     ) {
     }
 
@@ -35,7 +37,7 @@ class GetFormFieldsBySchemaProperties implements GetFormFieldsBySchemaProperties
         $schemaProperties = $this->wpService->applyFilters('Municipio/SchemaData/SchemaProperties', $schemaProperties, $schemaType);
 
         $fields = array_map(function ($propertyName, $acceptedPropertyTypes) {
-            return (new FormFieldResolver($acceptedPropertyTypes, $propertyName))->resolve();
+            return (new FormFieldResolver($this->acfService, $acceptedPropertyTypes, $propertyName))->resolve();
         }, array_keys($schemaProperties), $schemaProperties);
 
         return array_filter($fields, fn($field) => !empty($field['type']));

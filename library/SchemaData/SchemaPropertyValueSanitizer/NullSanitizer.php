@@ -10,10 +10,10 @@ class NullSanitizer implements SchemaPropertyValueSanitizerInterface
     /**
      * @inheritDoc
      *
-     * @return null
+     * @return mixed
      */
     public function sanitize(mixed $value, array $allowedTypes): mixed
     {
-        return null;
+        return $value;
     }
 }

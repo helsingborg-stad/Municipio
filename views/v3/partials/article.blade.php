@@ -5,7 +5,7 @@
         !empty($postLanguage) ? ['lang' => $postLanguage] : [],
     ),
     'classList' => array_merge(
-        $centerContent ? ['u-margin__x--auto'] : [],
+        (isset($centerContent) && $centerContent) ? ['u-margin__x--auto'] : [],
         [ 'c-article', 'c-article--readable-width', 's-article', 'u-clearfix' ]
     ),
 ])

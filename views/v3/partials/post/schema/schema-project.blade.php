@@ -7,34 +7,29 @@
                     'link' => $post->permalink,
                     'heading' => $post->postTitle,
                     'metaFirst' => true,
-                    'meta' =>  !empty($post->projectTerms['technology']) ? implode(' / ', $post->projectTerms['technology']) : '',
+                    'meta' =>  $getTermsList($post, 'project_meta_technology'),
                     'context' => ['archive', 'archive.list', 'archive.list.card'],
                     'containerAware' => true,
-                    'content' => !empty($post->projectTerms['category']) ? implode(' / ', $post->projectTerms['category']) : '',
+                    'content' => $getTermsList($post, 'project_meta_category'),
                     'hasPlaceholder' => $anyPostHasImage && empty($post->images['thumbnail16:9']['src']),
                     'classList' => ['u-height--100']
                 ])  
                     @slot('afterContent')
-                        @if(isset($post->progress))
-                            @group([
-                                'direction' => 'vertical',
-                                'justifyContent' => 'flex-end',
-                                'classList' => ['u-height--100']
+
+                        @group([
+                            'direction' => 'vertical',
+                            'justifyContent' => 'flex-end',
+                            'classList' => ['u-height--100']
+                        ])
+                            @typography([ 'element' => 'b', 'classList' => ['u-margin__left--auto'] ])
+                                {{$getProgressLabel($post)}}
+                            @endtypography
+                            @progressBar([
+                                'value' => $getProgressPercentage($post),
                             ])
-                                @if(isset($post->projectTerms['status'][0]))
-                                    @typography([
-                                        'element' => 'b',
-                                        'classList' => ['u-margin__left--auto']
-                                    ])
-                                        {{$post->projectTerms['status'][0]}}
-                                    @endtypography
-                                @endif
-                                @progressBar([
-                                    'value' => $post->progress,
-                                ])
-                                @endprogressBar
-                            @endgroup
-                        @endif
+                            @endprogressBar
+                        @endgroup
+
                     @endslot
                 @endcard
             </div>

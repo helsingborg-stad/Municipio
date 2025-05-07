@@ -45,7 +45,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
     {
         $camelCasedPost = \Municipio\Helper\FormatObject::camelCase($post);
 
-        $postObject = new PostObject($this->wpService);
+        $postObject = new PostObject($post->ID, $this->wpService);
         $postObject = new PostObjectFromWpPost($postObject, $post, $this->wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $this->wpService);
         $postObject = new PostObjectArchiveDateFormat($postObject, $this->getArchiveDateFormatResolver($postObject));

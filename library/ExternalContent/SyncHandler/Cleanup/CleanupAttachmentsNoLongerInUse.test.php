@@ -34,7 +34,6 @@ class CleanupAttachmentsNoLongerInUseTest extends TestCase
 
     /**
      * @testdox Deletes attachments that are not longer in use.
-     * @runInSeparateProcess
      */
     public function testDeletesAttachmentsNotInUse()
     {
