@@ -65,14 +65,18 @@ class Openstreetmap implements PlaceSearchProviderInterface
     public function createEndpointUrl(array $args = []): string
     {
         $url = self::API_URL . '/' . (!empty($args['reverse']) ? self::REVERSE : self::SEARCH);
+        unset($args['reverse']);
 
         $args = array_merge($args, [
             'format' => 'json'
         ]);
 
-        $test = $url . '?' . http_build_query($args);
+        if (isset($args['lng'])) {
+            $args['lon'] = $args['lng'];
+            unset($args['lng']);
+        }
 
-        return $test;
+        return $url . '?' . http_build_query($args);
     }
 
     /**
