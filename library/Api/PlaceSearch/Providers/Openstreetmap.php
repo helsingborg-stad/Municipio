@@ -17,7 +17,9 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * The OpenStreetMap Nominatim API URL.
      */
-    private const API_URL = 'https://nominatim.openstreetmap.org/search';
+    private const API_URL = 'https://nominatim.openstreetmap.org';
+    private const SEARCH  = 'search';
+    private const REVERSE = 'reverse';
 
     /**
      * Openstreetmap constructor.
@@ -62,11 +64,15 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     private function createEndpointUrl(array $args = []): string
     {
+        $url = self::API_URL . '/' . (!empty($args['reverse']) ? self::REVERSE : self::SEARCH);
+
         $args = array_merge($args, [
             'format' => 'json'
         ]);
 
-        return self::API_URL . '?' . http_build_query($args);
+        $test = $url . '?' . http_build_query($args);
+
+        return $test;
     }
 
     /**

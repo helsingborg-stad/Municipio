@@ -44,12 +44,27 @@ class PlaceSearchEndpoint extends RestApiEndpoint
                 'provider' => [
                     'description' => $this->wpService->__('The provider name.', 'municipio'),
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'q'        => [
                     'description' => $this->wpService->__('The query to search for.', 'municipio'),
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
+                ],
+                'reverse' => [
+                    'description' => $this->wpService->__('Whether to perform reverse geocoding.', 'municipio'),
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'lat'     => [
+                    'description' => $this->wpService->__('Latitude for reverse geocoding.', 'municipio'),
+                    'type'        => 'number',
+                    'required'    => false,
+                ],
+                'lng'     => [
+                    'description' => $this->wpService->__('Longitude for reverse geocoding.', 'municipio'),
+                    'type'        => 'number',
+                    'required'    => false,
                 ],
             ],
         ));
@@ -64,12 +79,45 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
+        $isInvalidRequest = $this->checkIsRequestInvalid($request);
+        if ($isInvalidRequest) {
+            return new WP_REST_Response(array(
+                'code'    => 'invalid_request',
+                'message' => $isInvalidRequest,
+            ), 400);
+        }
+
         $providerSlug = $request->get_param('provider');
 
         $provider = $this->resolveProvider($providerSlug);
         $result   = $provider->search($request->get_query_params());
 
         return new WP_REST_Response($result, 200);
+    }
+
+    /**
+     * Checks if the request is invalid based on the provided parameters.
+     *
+     * @param WP_REST_Request $request The REST API request object.
+     *
+     * @return false|string False if valid, error message if invalid.
+     */
+    private function checkIsRequestInvalid(WP_REST_Request $request): false|string
+    {
+        $args = $request->get_query_params();
+        $hasQ = !empty($args['q']);
+        $hasReverse = !empty($args['reverse']);
+        $hasCoordinates = $hasReverse && !empty($args['lat']) && !empty($args['lng']);
+
+        if (!$hasQ && !$hasReverse) {
+            return $this->wpService->__('Missing q or reverse parameter', 'municipio');
+        }
+
+        if ($hasReverse && !$hasCoordinates) {
+            return $this->wpService->__('Missing lat/lng for reverse geocoding', 'municipio');
+        }
+
+        return false;
     }
 
     /**
