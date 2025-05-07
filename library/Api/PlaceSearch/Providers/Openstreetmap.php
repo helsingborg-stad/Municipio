@@ -6,6 +6,7 @@ use WpService\Contracts\IsWpError;
 use WpService\Contracts\WpRemoteGet;
 use WpService\Contracts\WpRemoteRetrieveBody;
 use Municipio\Schema\Schema;
+use WP_Error;
 
 /**
  * Class Openstreetmap
@@ -17,9 +18,8 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * The OpenStreetMap Nominatim API URL.
      */
-    private const API_URL = 'https://nominatim.openstreetmap.org';
-    private const SEARCH  = 'search';
-    private const REVERSE = 'reverse';
+    private const API_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
+    private const API_REVERSE_SEARCH_URL  = 'https://nominatim.openstreetmap.org/reverse';
 
     /**
      * Openstreetmap constructor.
@@ -40,8 +40,25 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function search(array $args = []): array
     {
-        $url      = $this->createEndpointUrl($args);
-        $response = $this->wpService->wpRemoteGet($url);
+        $data = !empty($args['reverse']) ? $this->fetchReverseSearch($args) : $this->fetchSearch($args);
+
+        if (empty($data)) {
+            return [];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Fetch search results from OpenStreetMap Nominatim API.
+     *
+     * @param array $args The search query and additional arguments.
+     *
+     * @return array An array of transformed schema data.
+     */
+    public function fetchSearch(array $args = []): array
+    {
+        $response = $this->wpService->wpRemoteGet($this->createSearchEndpointUrl($args));
 
         if ($this->wpService->isWpError($response)) {
             return [];
@@ -49,9 +66,50 @@ class Openstreetmap implements PlaceSearchProviderInterface
 
         $response = json_decode($this->wpService->wpRemoteRetrieveBody($response), true);
 
-        $data = $this->transformResponseToSchema($response ?: []);
+        return $this->transformResponseToSchema($response ?: []);
+    }
 
-        return $data;
+    /**
+     * Fetch reverse search results from OpenStreetMap Nominatim API.
+     *
+     * @param array $args The search query and additional arguments.
+     *
+     * @return array An array of transformed schema data.
+     */
+    public function fetchReverseSearch(array $args = []): array
+    {
+        $response = $this->wpService->wpRemoteGet($this->createReverseSearchEndpointUrl($args));
+
+        if ($this->wpService->isWpError($response)) {
+            return [];
+        }
+
+        $response = json_decode($this->wpService->wpRemoteRetrieveBody($response), true);
+
+        return $this->transformResponseToSchema($response ? [$response] : [])[0] ?? [];
+    }
+
+    /**
+     * Create the OpenStreetMap API reverse search endpoint URL.
+     *
+     * @param array $args The search query and additional arguments.
+     *
+     * @return string The complete API endpoint URL.
+     */
+    public function createReverseSearchEndpointUrl(array $args = []): string
+    {
+        $url = self::API_REVERSE_SEARCH_URL;
+
+        $args = array_merge($args, [
+            'format' => 'json',
+            'lon'    => $args['lng'],
+            'lat'    => $args['lat']
+        ]);
+
+        unset($args['lng']);
+        unset($args['reverse']);
+
+        return $url . '?' . http_build_query($args);
     }
 
     /**
@@ -62,19 +120,13 @@ class Openstreetmap implements PlaceSearchProviderInterface
      *
      * @return string The complete API endpoint URL.
      */
-    public function createEndpointUrl(array $args = []): string
+    public function createSearchEndpointUrl(array $args = []): string
     {
-        $url = self::API_URL . '/' . (!empty($args['reverse']) ? self::REVERSE : self::SEARCH);
-        unset($args['reverse']);
+        $url = self::API_SEARCH_URL;
 
         $args = array_merge($args, [
             'format' => 'json'
         ]);
-
-        if (isset($args['lng'])) {
-            $args['lon'] = $args['lng'];
-            unset($args['lng']);
-        }
 
         return $url . '?' . http_build_query($args);
     }
@@ -86,7 +138,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
      *
      * @return array An array of transformed schema data.
      */
-    private function transformResponseToSchema(array $response): array
+    public function transformResponseToSchema(array $response): array
     {
         $schemaTransformedItems = [];
         foreach ($response as $value) {
@@ -97,7 +149,6 @@ class Openstreetmap implements PlaceSearchProviderInterface
 
             $schemaTransformedItems[] = $schema->toArray();
         }
-
         return $schemaTransformedItems;
     }
 }
