@@ -102,7 +102,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      *
      * @return false|string False if valid, error message if invalid.
      */
-    private function checkIsRequestInvalid(WP_REST_Request $request): false|string
+    public function checkIsRequestInvalid(WP_REST_Request $request): false|string
     {
         $args = $request->get_query_params();
         $hasQ = !empty($args['q']);
@@ -128,7 +128,7 @@ class PlaceSearchEndpoint extends RestApiEndpoint
      *
      * @return PlaceSearchProviderInterface The resolved provider instance.
      */
-    private function resolveProvider(string $providerSlug): PlaceSearchProviderInterface
+    public function resolveProvider(string $providerSlug): PlaceSearchProviderInterface
     {
         switch ($providerSlug) {
             case 'openstreetmap':
