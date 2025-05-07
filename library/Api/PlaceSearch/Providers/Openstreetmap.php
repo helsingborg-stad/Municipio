@@ -18,8 +18,8 @@ class Openstreetmap implements PlaceSearchProviderInterface
     /**
      * The OpenStreetMap Nominatim API URL.
      */
-    private const API_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
-    private const API_REVERSE_SEARCH_URL  = 'https://nominatim.openstreetmap.org/reverse';
+    private const API_SEARCH_URL         = 'https://nominatim.openstreetmap.org/search';
+    private const API_REVERSE_SEARCH_URL = 'https://nominatim.openstreetmap.org/reverse';
 
     /**
      * Openstreetmap constructor.
@@ -58,6 +58,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
      */
     public function fetchSearch(array $args = []): array
     {
+        
         $response = $this->wpService->wpRemoteGet($this->createSearchEndpointUrl($args));
 
         if ($this->wpService->isWpError($response)) {
@@ -79,7 +80,6 @@ class Openstreetmap implements PlaceSearchProviderInterface
     public function fetchReverseSearch(array $args = []): array
     {
         $response = $this->wpService->wpRemoteGet($this->createReverseSearchEndpointUrl($args));
-
         if ($this->wpService->isWpError($response)) {
             return [];
         }
@@ -160,6 +160,7 @@ class Openstreetmap implements PlaceSearchProviderInterface
 
             $schemaTransformedItems[] = $schema->toArray();
         }
+
         return $schemaTransformedItems;
     }
 }

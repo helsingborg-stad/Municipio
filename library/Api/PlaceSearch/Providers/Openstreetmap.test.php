@@ -46,7 +46,8 @@ class OpenstreetmapTest extends TestCase
 
         $this->assertEquals('59.3293', $result['latitude']);
         $this->assertEquals('18.0686', $result['longitude']);
-        $this->assertEquals('Stockholm, Sweden', $result['address']);
+        $this->assertEquals('Stockholm, Sweden', $result['name']);
+        $this->assertIsArray($result['address']);
     }
 
     public function testSearchReturnsTransformedResults()
@@ -68,7 +69,8 @@ class OpenstreetmapTest extends TestCase
         $place = $result[0];
         $this->assertEquals('59.3293', $place['latitude']);
         $this->assertEquals('18.0686', $place['longitude']);
-        $this->assertEquals('Stockholm, Sweden', $place['address']);
+        $this->assertEquals('Stockholm, Sweden', $place['name']);
+        $this->assertIsArray($place['address']);
     }
 
     public function testCreateSearchEndpointUrl()
