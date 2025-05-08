@@ -142,10 +142,25 @@ class Openstreetmap implements PlaceSearchProviderInterface
     {
         $schemaTransformedItems = [];
         foreach ($response as $value) {
+            $streetAddress = ($address['road'] ?? '') . ' ' . ($address['house_number'] ?? '');
+            $address       = $value['address'] ?? [];
+
+            $postalAddress = Schema::postalAddress();
+            $postalAddress->addressCountry($address['country'] ?? null);
+            $postalAddress->addressLocality($address['city'] ?? null);
+            $postalAddress->streetAddress(!empty(trim($streetAddress)) ? $streetAddress : null);
+            $postalAddress->postalCode($address['postcode'] ?? null);
+            $postalAddress->addressRegion($address['county'] ?? null);
+            $postalAddress->addressLocality($address['municipality'] ?? null);
+            $postalAddress->name($value['display_name'] ?? null);
+
+            $postalAddress->toArray();
+
             $schema = Schema::place();
-            $schema->latitude($value['lat']);
-            $schema->longitude($value['lon']);
-            $schema->address($value['display_name']);
+            $schema->latitude($value['lat'] ?? null);
+            $schema->longitude($value['lon'] ?? null);
+            $schema->address($postalAddress);
+            $schema->name($value['name'] ?? ($value['display_name'] ?? null));
 
             $schemaTransformedItems[] = $schema->toArray();
         }
