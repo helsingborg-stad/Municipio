@@ -52,7 +52,11 @@ class SchemaObjectFromPostMeta implements SchemaObjectFromPostInterface
      */
     private function generateSchemaObject(array $schemaData): ?BaseType
     {
-        $schema = call_user_func(array(new Schema(), $schemaData['@type']));
+        try {
+            $schema = call_user_func(array(new Schema(), $schemaData['@type']));
+        } catch (\Error $e) {
+            $schema = Schema::thing();
+        }
 
         foreach ($schemaData as $propertyName => $propertyValue) {
             $allowedTypes           = $this->getSchemaPropertiesWithParamTypes->getSchemaPropertiesWithParamTypes($schema::class);

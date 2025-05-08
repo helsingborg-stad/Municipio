@@ -4,11 +4,14 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
 use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\AddAction;
+use WpService\Contracts\AddFilter;
+use WpService\Contracts\GetPost;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\UpdatePostMeta;
@@ -23,10 +26,9 @@ class StoreFormFieldValues implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce $wpService,
+        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce&GetPost&AddFilter $wpService,
         private DeleteField $acfService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
-        private GetEnabledSchemaTypesInterface $getEnabledSchemaTypesService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService
     ) {
     }
@@ -36,67 +38,135 @@ class StoreFormFieldValues implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('acf/save_post', [$this, 'saveSchemaData']);
+        $this->wpService->addFilter('acf/update_value/name=schemaData', [$this, 'saveSchemaData'], 100, 4);
     }
 
     /**
      * Saves the schema data for a given post ID.
-     *
-     * @param int $postId The ID of the post being saved.
      */
-    public function saveSchemaData(null|int|string $postId): void
+    public function saveSchemaData(mixed $value, string|int $postId, array $field, mixed $original): mixed
     {
-        if (is_null($postId) || is_string($postId)) {
-            return;
-        }
-
         if (!$this->validNoncePresentInRequest($postId)) {
-            return;
+            return $value;
         }
 
         $schemaType = $this->getSchemaType($this->wpService->getPostType($postId));
+
         if (!$schemaType) {
-            return;
+            return $value;
         }
 
-        $allowedProperties = $this->getAllowedProperties($schemaType);
-        if (!$allowedProperties) {
-            return;
+        $postedData = $_POST['acf'][$field['key']] ?? [];
+
+        if (empty($postedData)) {
+            return $value;
         }
 
-        $schemaObject          = $this->getSchemaObject($postId);
-        $schemaTypeLcFirst     = lcfirst($schemaType);
-        $schemaObjectClassName = get_class(Schema::$schemaTypeLcFirst());
-        $schemaProperties      = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObjectClassName);
+        $nameKeyMap   = $this->buildNameKeyMap($field['sub_fields']);
+        $nameValueMap = $this->buildNameValueMap($postedData, $nameKeyMap);
 
-        if (empty($schemaObject)) {
-            $schemaObject = Schema::$schemaTypeLcFirst()->toArray();
+        $schemaObject = $this->populateSchemaObjectWithPostedData($this->getSchemaObject($postId, $schemaType), $nameValueMap)->toArray();
+
+        return $schemaObject;
+    }
+
+    private function buildNameKeyMap(array $subFields): array
+    {
+        $nameKeyMap = [];
+
+        foreach ($subFields as $subField) {
+            if (isset($subField['sub_fields'])) {
+                $nameKeyMap[$subField['name']] = [
+                    'key'         => $subField['key'],
+                    'name'        => $subField['name'],
+                    'sub_fields'  => $this->buildNameKeyMap($subField['sub_fields']),
+                    'is_repeater' => $subField['type'] === 'repeater',
+                ];
+            } else {
+                $nameKeyMap[$subField['name']] = ['key' => $subField['key'], 'name' => $subField['name']];
+            }
         }
 
+        return $nameKeyMap;
+    }
 
-        foreach ($allowedProperties as $property) {
-            $propertyName = 'schema_' . $property;
+    private function buildNameValueMap(array $postedData, array $nameKeyMap): array
+    {
+        $nameValueMap = [];
 
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            if (!isset($_POST['acf'][$propertyName])) {
+        foreach ($nameKeyMap as $name => $spec) {
+            if (!empty($spec['sub_fields']) && $spec['is_repeater']) {
+                $nameValueMap[$name] = array_values(array_map(
+                    fn ($item) => $this->buildNameValueMap($item, $spec['sub_fields']),
+                    $postedData[$spec['key']] ?: []
+                ));
+            } elseif (!empty($spec['sub_fields']) && !$spec['is_repeater']) {
+                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']);
+            } elseif (!empty($spec['sub_fields'])) {
+                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']], $spec['sub_fields']);
+            } else {
+                $nameValueMap[$name] = $postedData[$spec['key']] ?? null;
+            }
+        }
+
+        return $nameValueMap;
+    }
+
+    private function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
+    {
+        $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
+        $schemaProperties = [...$schemaProperties, '@id' => ['string']];
+
+        foreach ($nameValueMap as $propertyName => $value) {
+            if (is_string($value) && json_validate(stripslashes($value))) {
+                $value = json_decode(stripslashes($value), true);
+            }
+
+            if (!array_key_exists($propertyName, $schemaProperties)) {
                 continue;
             }
 
-            $sanitizers = [
-                new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\Sanitize\SanitizeGeoCoordinates(),
-            ];
-
-            foreach ($sanitizers as $sanitizer) {
-                // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $schemaObject[$property] = $sanitizer->sanitize($schemaProperties[$property], $_POST['acf'][$propertyName] ?: null);
+            if (is_array($value) && !empty($value['@type'])) {
+                $schemaObject->setProperty(
+                    $propertyName,
+                    $this->populateSchemaObjectWithPostedData(
+                        Schema::{lcfirst($value['@type'])}(),
+                        $value
+                    )
+                );
+            } elseif (is_array($value) && array_key_exists('row-0', $value) && !empty($value['row-0']['@type'])) {
+                $schemaObject->setProperty(
+                    $propertyName,
+                    array_map(
+                        fn ($item) => $this->populateSchemaObjectWithPostedData(
+                            Schema::{lcfirst($item['@type'])}(),
+                            $item
+                        ),
+                        $value
+                    )
+                );
+            } elseif (is_array($value) && in_array('GeoCoordinates', $schemaProperties[$propertyName]) && !empty($value['lat'] && !empty($value['lng']) && !empty($value['address']))) {
+                $schemaObject->setProperty(
+                    $propertyName,
+                    Schema::geoCoordinates()->latitude($value['lat'])->longitude($value['lng'])->address($value['address'])
+                );
+            } elseif (is_array($value) && in_array('Place', $schemaProperties[$propertyName]) && !empty($value['lat'] && !empty($value['lng']) && !empty($value['address']))) {
+                $schemaObject->setProperty(
+                    $propertyName,
+                    Schema::place()->latitude($value['lat'])->longitude($value['lng'])->address($value['address'])
+                );
+            } elseif (is_array($value)) {
+                $schemaObject->setProperty($propertyName, array_map(fn ($item) => $item, $value));
+            } elseif (is_string($value) && in_array('\DateTimeInterface', $schemaProperties[$propertyName]) && @strtotime($value)) {
+                $schemaObject->setProperty($propertyName, new \DateTime($value));
+            } elseif (is_string($value)) {
+                $schemaObject->setProperty($propertyName, $value);
+            } else {
+                $schemaObject->setProperty($propertyName, $value);
             }
-
-            // Avoid storing duplicated data.
-            $this->acfService->deleteField($propertyName, $postId);
         }
 
-        // Update the post meta with the modified schema object.
-        $this->wpService->updatePostMeta($postId, 'schemaData', $schemaObject);
+        return $schemaObject;
     }
 
     /**
@@ -111,31 +181,20 @@ class StoreFormFieldValues implements Hookable
     }
 
     /**
-     * Retrieves the allowed properties for a given schema type.
-     *
-     * @param string $schemaType The schema type to retrieve the allowed properties for.
-     * @return array|null The allowed properties, or null if not found.
-     */
-    private function getAllowedProperties(string $schemaType): ?array
-    {
-        return $this->getEnabledSchemaTypesService->getEnabledSchemaTypesAndProperties()[$schemaType] ?? null;
-    }
-
-    /**
      * Retrieves the schema object for a given post ID.
      *
      * @param int $postId The ID of the post to retrieve the schema object for.
-     * @return array|null The schema object, or null if not found.
+     * @return BaseType The schema object.
      */
-    private function getSchemaObject(int $postId): ?array
+    private function getSchemaObject(int $postId, string $schemaType): BaseType
     {
-        $schemaObject = $this->wpService->getPostMeta($postId, 'schemaData', true);
+        $schemaObject = Post::preparePostObject($this->wpService->getPost($postId))->getSchema();
 
-        if (!is_array($schemaObject)) {
-            return null;
+        if ($schemaObject->getType() === $schemaType) {
+            return $schemaObject;
         }
 
-        return $schemaObject;
+        return Schema::{lcfirst($schemaType)}();
     }
 
     /**

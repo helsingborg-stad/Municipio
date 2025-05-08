@@ -37,10 +37,11 @@ class GetEnabledSchemaTypes implements GetEnabledSchemaTypesInterface
             ),
             'JobPosting'          => array(
                 '@id',
+
                 'applicationContact',
+
                 'datePosted',
                 'description',
-                'directApply',
                 'employerOverview',
                 'employmentType',
                 'employmentUnit',

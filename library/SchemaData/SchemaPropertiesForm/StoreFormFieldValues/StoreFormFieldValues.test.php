@@ -204,6 +204,65 @@ class StoreFormFieldValuesTest extends TestCase
         $this->assertArrayNotHasKey('updatePostMeta', $wpService->methodCalls);
     }
 
+    /**
+     * @testdox stores sub fields in the schema object if they are in request
+     */
+    public function testStoresSubFieldsInSchemaObjectIfTheyAreInRequest()
+    {
+        $postId       = 123;
+        $postType     = 'post';
+        $schemaType   = 'JobPosting';
+        $schemaObject = ['name' => 'Old Name', 'description' => 'Old Description'];
+
+        $_POST = [
+            '_wpnonce' => 'valid_nonce',
+            'acf'      => [
+                'schema_name'               => 'New Name',
+                'schema_description'        => 'New Description',
+                'schema_applicationContact' => [
+                    'name'  => 'John Doe',
+                    'email' => 'john.doe@example.com'
+                ],
+            ]
+        ];
+
+        $wpService = new FakeWpService([
+            'getPostType'    => $postType,
+            'getPostMeta'    => $schemaObject,
+            'updatePostMeta' => true,
+            'wpVerifyNonce'  => true,
+        ]);
+
+        $schemaTypeService         = $this->getSchemaTypeService();
+        $enabledSchemaTypesService = $this->getEnabledSchemaTypesService();
+
+        $schemaTypeService->method('tryGetSchemaTypeFromPostType')->willReturn($schemaType);
+
+        $getSchemaPropertiesWithParamTypesService = $this->getGetSchemaPropertiesWithParamTypesInterface();
+        $getSchemaPropertiesWithParamTypesService->method('getSchemaPropertiesWithParamTypes')->willReturn([
+            'name'        => ['Text'],
+            'description' => ['Text'],
+        ]);
+
+        $storeFormFieldValues = new StoreFormFieldValues($wpService, new FakeAcfService(), $schemaTypeService, $enabledSchemaTypesService, $getSchemaPropertiesWithParamTypesService);
+
+        // Simulate the action
+        $storeFormFieldValues->saveSchemaData($postId);
+
+        // Check if the schema object was updated correctly
+        $expectedSchemaObject = [
+            'name'               => 'New Name',
+            'description'        => 'New Description',
+            'applicationContact' => [
+                '@type' => 'Person',
+                'name'  => 'John Doe',
+                'email' => 'john.doe@example.com',
+            ],
+        ];
+
+        $this->assertEquals($expectedSchemaObject, $wpService->methodCalls['updatePostMeta'][0][2]);
+    }
+
     private function getSchemaTypeService(): TryGetSchemaTypeFromPostType|MockObject
     {
         return $this->createMock(TryGetSchemaTypeFromPostType::class);

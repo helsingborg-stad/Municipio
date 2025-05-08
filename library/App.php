@@ -31,8 +31,6 @@ use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
 use Municipio\SchemaData\LimitSchemaTypesAndProperties;
-use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
-use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
 use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
@@ -42,6 +40,8 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
@@ -833,9 +833,12 @@ class App
         /**
          * Register form for schema properties on posts.
          */
-        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $this->acfService);
-        $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
+        (new \Municipio\SchemaData\SchemaPropertiesForm\Register(
+            $this->acfService,
+            $this->wpService,
+            $this->schemaDataConfig,
+            new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService)
+        ))->addHooks();
 
         /**
          * Retrive form field values
@@ -845,7 +848,7 @@ class App
         /**
          * Store form field values.
          */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes, $getSchemaPropertiesWithParamTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getSchemaPropertiesWithParamTypes))->addHooks();
 
         /**
          * External content

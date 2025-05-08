@@ -4,9 +4,14 @@ namespace Municipio\SchemaData\SchemaPropertiesForm;
 
 use AcfService\Contracts\AddLocalFieldGroup;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactoryInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetCurrentScreen;
+use WpService\Contracts\GetPost;
 use WpService\Contracts\GetPostMeta;
 
 /**
@@ -19,9 +24,9 @@ class Register implements Hookable
      */
     public function __construct(
         private AddLocalFieldGroup $acfService,
-        private AddAction&GetCurrentScreen&GetPostMeta $wpService,
-        private GetAcfFieldGroupBySchemaTypeInterface $getAcfFieldGroupBySchemaType,
+        private AddAction&GetCurrentScreen&GetPostMeta&GetPost $wpService,
         private TryGetSchemaTypeFromPostType $configService,
+        private FormFactoryInterface $formFactory,
     ) {
     }
 
@@ -44,7 +49,30 @@ class Register implements Hookable
             return;
         }
 
-        $this->acfService->addLocalFieldGroup($this->getAcfFieldGroupBySchemaType->getAcfFieldGroup($this->getSchemaType()));
+        $this->acfService->addLocalFieldGroup($this->formFactory->createForm($this->getSchema()));
+    }
+
+    private function getSchema(): BaseType
+    {
+        if ($postId = $this->getPostIdFromRequest()) {
+            $post = $this->wpService->getPost($postId);
+            return Post::preparePostObject($post)->getSchema();
+        }
+
+        return Schema::{strtolower($this->getSchemaType())}();
+    }
+
+    private function getPostIdFromRequest(): int
+    {
+        if (isset($_GET['post']) && is_numeric($_GET['post'])) {
+            return (int)$_GET['post'];
+        }
+
+        if (isset($_POST['post_ID']) && is_numeric($_POST['post_ID'])) {
+            return (int)$_POST['post_ID'];
+        }
+
+        return 0;
     }
 
     /**

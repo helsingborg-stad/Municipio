@@ -31,7 +31,7 @@ class SingularEvent extends \Municipio\Controller\Singular
         $event = $this->post->getSchema();
 
         $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
-        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? null;
+        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? $event->getProperty('location')['address'] ?? null;
         $this->data['placeAddress']                  = $event->getProperty('location')['address'] ?? null;
         $this->data['priceListItems']                = $this->getPriceList();
         $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->post->getSchema());
@@ -79,7 +79,7 @@ class SingularEvent extends \Municipio\Controller\Singular
             return '';
         }
 
-        $placeName    = $place['name'] ?? '';
+        $placeName    = $place['name'] ?? $place['address'] ?? '';
         $placeAddress = $place['address'] ?? '';
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
@@ -151,6 +151,8 @@ class SingularEvent extends \Municipio\Controller\Singular
             }
         } elseif (isset($priceSpecification['price'])) {
             $price = $priceSpecification['price'] . ' ' . $currency;
+        } elseif (isset($offer['price'])) {
+            $price = $offer['price'] . ' ' . $currency;
         } else {
             $price = $this->wpService->__('Price not available', 'municipio');
         }
