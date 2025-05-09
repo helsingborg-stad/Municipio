@@ -3,6 +3,11 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder;
 
 use Municipio\Schema\BaseType;
+use Municipio\Schema\Event;
+use Municipio\Schema\ExhibitionEvent;
+use Municipio\Schema\JobPosting;
+use Municipio\Schema\Place;
+use Municipio\Schema\Project;
 use Municipio\Schema\Schema;
 use Municipio\Schema\StatusEnumeration;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValueInterface;
@@ -163,6 +168,48 @@ class FormFactory implements FormFactoryInterface
         ];
     }
 
+    private function createProjectForm(BaseType $schema): array
+    {
+        return [
+            new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('name')),
+            new WysiwygField('description', $this->wpService->__('Description', 'municipio'), $schema->getProperty('description')),
+            new DateField('foundingDate', $this->wpService->__('Founding Date', 'municipio'), $schema->getProperty('foundingDate')),
+            new GroupField(
+                'department',
+                $this->wpService->__('Department', 'municipio'),
+                [
+                    new HiddenField('@type', '@type', 'Organization'),
+                    new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('department')?->getProperty('name') ?? null),
+                ]
+            ),
+            new GroupField(
+                'funding',
+                $this->wpService->__('Funding', 'municipio'),
+                [
+                    new HiddenField('@type', '@type', 'MonetaryGrant'),
+                    new StringField('amount', $this->wpService->__('Amount', 'municipio'), $schema->getProperty('funding')?->getProperty('amount') ?? null)
+                ]
+            ),
+            new GroupField(
+                'status',
+                $this->wpService->__('Status', 'municipio'),
+                [
+                    new HiddenField('@type', '@type', 'ProgressStatus'),
+                    new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('status')?->getProperty('name') ?? null),
+                    new HiddenField('maxNumber', 'maxNumber', 100),
+                    new HiddenField('minNumber', 'minNumber', 0),
+                    new SelectField('number', $this->wpService->__('Number', 'municipio'), $schema->getProperty('status')?->getProperty('number') ?? null, [
+                        0   => '0%',
+                        25  => '25%',
+                        50  => '50%',
+                        75  => '75%',
+                        100 => '100%',
+                    ]),
+                ]
+            ),
+        ];
+    }
+
     public function prepareFieldName(string $name): string
     {
         return self::FIELD_PREFIX . $name;
@@ -177,10 +224,11 @@ class FormFactory implements FormFactoryInterface
      */
     private function getFields(BaseType $schema): array
     {
-        return match ($schema->getType()) {
-            'Place' => $this->createPlaceForm($schema),
-            'JobPosting' => $this->createJobPostingForm($schema),
-            'Event' => $this->createEventForm($schema),
+        return match ($schema::class) {
+            Place::class => $this->createPlaceForm($schema),
+            JobPosting::class => $this->createJobPostingForm($schema),
+            Event::class => $this->createEventForm($schema),
+            Project::class => $this->createProjectForm($schema),
             default   => []
         };
     }
