@@ -8,7 +8,7 @@ use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
-use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactoryInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactoryInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetCurrentScreen;
 use WpService\Contracts\GetPost;

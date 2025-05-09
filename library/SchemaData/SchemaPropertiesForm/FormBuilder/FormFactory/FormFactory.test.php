@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder;
+namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
 
 use PHPUnit\Framework\TestCase;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
