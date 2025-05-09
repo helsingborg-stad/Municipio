@@ -30,6 +30,7 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $event = $this->post->getSchema();
 
+        $this->data['displayFeaturedImage']          = false;
         $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
         $this->data['placeName']                     = $event->getProperty('location')['name'] ?? $event->getProperty('location')['address'] ?? null;
         $this->data['placeAddress']                  = $event->getProperty('location')['address'] ?? null;
@@ -235,8 +236,14 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Check if the event is in the past
      */
-    private function eventIsInThePast(?DateTime $startDate = null): bool
+    private function eventIsInThePast(): bool
     {
-        return $startDate ? $startDate->getTimestamp() < time() : false;
+        $startDate = $this->post->getSchemaProperty('startDate');
+
+        if (!is_a($startDate, DateTime::class)) {
+            return false;
+        }
+
+        return $startDate->getTimestamp() < time() ? true : false;
     }
 }
