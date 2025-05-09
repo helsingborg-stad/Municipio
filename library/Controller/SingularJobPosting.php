@@ -17,6 +17,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
     {
         parent::init();
 
+        $this->data['displayFeaturedImage'] = false;
         $this->populateLanguageObject();
         $this->populateInformationList();
         $this->setExpired();

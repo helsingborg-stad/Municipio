@@ -22,8 +22,8 @@ class SingularProject extends \Municipio\Controller\Singular
         parent::init();
 
         $this->data['displayFeaturedImage'] = false;
-        $this->data['progressPercentage']   = $this->data['post']->getSchemaProperty('status')['number'] ?? 0;
-        $this->data['progressLabel']        = $this->data['post']->getSchemaProperty('status')['name'] ?? '';
+        $this->data['progressPercentage']   = $this->data['post']->getSchemaProperty('status')?->getProperty('number') ?? 0;
+        $this->data['progressLabel']        = $this->data['post']->getSchemaProperty('status')?->getProperty('name') ?? '';
         $this->data['image']                = $this->getImageContractOrUrl($this->data['post']->id ?? null);
 
         $this->data['category']   = $this->implodeTerms($this->post->getTerms(['project_meta_category']));

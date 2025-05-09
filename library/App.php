@@ -30,8 +30,6 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\SchemaData\LimitSchemaTypesAndProperties;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
@@ -786,26 +784,14 @@ class App
             ]);
         });
 
-        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
         $schemaObjectFromPost = (new SchemaObjectFromPostFactory(
             $this->schemaDataConfig,
             $this->wpService,
             $getSchemaPropertiesWithParamTypes,
-            new SchemaPropertyValueSanitizer(),
-            $getEnabledSchemaTypes
+            new SchemaPropertyValueSanitizer()
         ))->create();
-
-        /**
-         * Limit schema types and properties.
-         */
-        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService);
-        $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $this->hooksRegistrar->register(new LimitSchemaTypesAndProperties(
-            $enabledSchemaTypes->getEnabledSchemaTypesAndProperties(),
-            $this->wpService
-        ));
 
         /**
          * Register schema types in acf select.
@@ -839,11 +825,6 @@ class App
             $this->schemaDataConfig,
             new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService)
         ))->addHooks();
-
-        /**
-         * Retrive form field values
-         */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\RetrieveFromFieldValues\RetrieveFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
 
         /**
          * Store form field values.
