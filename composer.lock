@@ -257,16 +257,16 @@
         },
         {
             "name": "helsingborg-stad/acfservice",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/acfservice.git",
-                "reference": "c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce"
+                "reference": "105f38c54a167015a7dec7e0828f07cd595865a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce",
-                "reference": "c1750a9e4f0d54161e49e7cab9f9cec12d9f4dce",
+                "url": "https://api.github.com/repos/helsingborg-stad/acfservice/zipball/105f38c54a167015a7dec7e0828f07cd595865a1",
+                "reference": "105f38c54a167015a7dec7e0828f07cd595865a1",
                 "shasum": ""
             },
             "require": {
@@ -295,9 +295,9 @@
             "description": "Simplifies ACF integration by providing a centralized AcfService that exposes global ACF functions in a streamlined manner. Simplify your development workflow and enhance ACF integration with ease.",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/acfservice/issues",
-                "source": "https://github.com/helsingborg-stad/acfservice/tree/1.0.1"
+                "source": "https://github.com/helsingborg-stad/acfservice/tree/1.1.0"
             },
-            "time": "2025-04-23T10:51:02+00:00"
+            "time": "2025-05-13T05:33:13+00:00"
         },
         {
             "name": "helsingborg-stad/schema-library",
