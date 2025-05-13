@@ -9,6 +9,7 @@ use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
@@ -16,7 +17,6 @@ use WpService\Contracts\GetPost;
 use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetPostType;
 use WpService\Contracts\UpdatePostMeta;
-use WpService\Contracts\WpVerifyNonce;
 
 /**
  * Handles the storage of form field values for schema data.
@@ -27,10 +27,11 @@ class StoreFormFieldValues implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce&GetPost&AddFilter $wpService,
+        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&GetPost&AddFilter $wpService,
         private DeleteField $acfService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
-        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService
+        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService,
+        private PostNonceValidatorInterface $nonceValidationService
     ) {
     }
 
@@ -47,7 +48,7 @@ class StoreFormFieldValues implements Hookable
      */
     public function saveSchemaData(mixed $value, string|int $postId, array $field, mixed $original): mixed
     {
-        if (!$this->validNoncePresentInRequest($postId)) {
+        if (!$this->nonceValidationService->isValid($postId, $_POST['_wpnonce'] ?? null)) {
             return $value;
         }
 
@@ -220,17 +221,5 @@ class StoreFormFieldValues implements Hookable
         }
 
         return Schema::{lcfirst($schemaType)}();
-    }
-
-    /**
-     * Checks if a valid nonce is present in the request.
-     *
-     * @param int $postId The ID of the post being saved.
-     * @return bool True if a valid nonce is present, false otherwise.
-     */
-    private function validNoncePresentInRequest(int $postId): bool
-    {
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        return !empty($_POST['_wpnonce']) && $this->wpService->wpVerifyNonce($_POST['_wpnonce'], 'update-post_' . $postId);
     }
 }
