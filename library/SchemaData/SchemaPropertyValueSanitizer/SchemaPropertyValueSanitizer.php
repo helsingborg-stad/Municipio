@@ -19,6 +19,7 @@ class SchemaPropertyValueSanitizer implements SchemaPropertyValueSanitizerInterf
         $schemaPropSanitizer = new DateTimeSanitizer($schemaPropSanitizer);
         $schemaPropSanitizer = new PlaceFromAcfGoogleMapsFieldSanitizer($schemaPropSanitizer);
         $schemaPropSanitizer = new GeoCoordinatesFromAcfGoogleMapsFieldSanitizer($schemaPropSanitizer);
+        $schemaPropSanitizer = new ArrayOfImagesSanitizer($schemaPropSanitizer);
 
         return $schemaPropSanitizer->sanitize($value, $allowedTypes);
     }

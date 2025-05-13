@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory;
 
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Event;
+use Municipio\Schema\ExhibitionEvent;
 use Municipio\Schema\JobPosting;
 use Municipio\Schema\Place;
 use Municipio\Schema\Project;
@@ -18,8 +19,6 @@ use WpService\Contracts\__;
 
 class FormFactory implements FormFactoryInterface
 {
-    public const FIELD_PREFIX = 'schema_';
-
     public function __construct(private RegisterFieldValueInterface $registerFieldValue, private __ $wpService)
     {
     }
@@ -47,11 +46,6 @@ class FormFactory implements FormFactoryInterface
         ];
     }
 
-    public function prepareFieldName(string $name): string
-    {
-        return self::FIELD_PREFIX . $name;
-    }
-
     /**
      * Get the fields for the schema.
      *
@@ -65,6 +59,7 @@ class FormFactory implements FormFactoryInterface
             Place::class => (new PlaceFormFactory($this->wpService))->createForm($schema),
             JobPosting::class => (new JobPostingFormFactory($this->wpService))->createForm($schema),
             Event::class => (new EventFormFactory($this->wpService))->createForm($schema),
+            ExhibitionEvent::class => (new ExhibitionEventFormFactory($this->wpService))->createForm($schema),
             Project::class => (new ProjectFormFactory($this->wpService))->createForm($schema),
             default   => []
         };

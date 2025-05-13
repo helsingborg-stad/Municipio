@@ -8,10 +8,12 @@ class WysiwygField extends AbstractField implements FieldInterface
     {
         return [
             // 'type'  => 'textarea',
-            'type'  => 'wysiwyg',
-            'name'  => $this->name,
-            'key'   => $this->getKey(),
-            'label' => $this->label
+            'type'         => 'wysiwyg',
+            'name'         => $this->name,
+            'key'          => $this->getKey(),
+            'label'        => $this->label,
+            'media_upload' => false,
+            'toolbar'      => 'full',
         ];
     }
 

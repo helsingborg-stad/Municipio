@@ -4,6 +4,7 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
 use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\Helper\AcfService;
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
@@ -81,9 +82,14 @@ class StoreFormFieldValues implements Hookable
                     'name'        => $subField['name'],
                     'sub_fields'  => $this->buildNameKeyMap($subField['sub_fields']),
                     'is_repeater' => $subField['type'] === 'repeater',
+                    'type'        => AcfService::get()->getFieldObject($subField['key'])['type'] ?? null
                 ];
             } else {
-                $nameKeyMap[$subField['name']] = ['key' => $subField['key'], 'name' => $subField['name']];
+                $nameKeyMap[$subField['name']] = [
+                    'key'  => $subField['key'],
+                    'name' => $subField['name'],
+                    'type' => AcfService::get()->getFieldObject($subField['key'])['type'] ?? null
+                ];
             }
         }
 
@@ -105,7 +111,10 @@ class StoreFormFieldValues implements Hookable
             } elseif (!empty($spec['sub_fields'])) {
                 $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']], $spec['sub_fields']);
             } else {
-                $nameValueMap[$name] = $postedData[$spec['key']] ?? null;
+                $nameValueMap[$name] = [
+                    'value' => $postedData[$spec['key']] ?? null,
+                    'type'  => $spec['type'] ?? null,
+                ];
             }
         }
 
@@ -117,7 +126,10 @@ class StoreFormFieldValues implements Hookable
         $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
         $schemaProperties = [...$schemaProperties, '@id' => ['string']];
 
-        foreach ($nameValueMap as $propertyName => $value) {
+        foreach ($nameValueMap as $propertyName => $spec) {
+            $value     = $spec['value'] ?? null;
+            $fieldType = $spec['type'] ?? null;
+
             if (is_string($value) && json_validate(stripslashes($value))) {
                 $value = json_decode(stripslashes($value), true);
             }
@@ -126,7 +138,20 @@ class StoreFormFieldValues implements Hookable
                 continue;
             }
 
-            if (is_array($value) && !empty($value['@type'])) {
+            if ($fieldType === 'gallery' && is_array($value) && in_array('ImageObject[]', $schemaProperties[$propertyName])) {
+                $imageIds = array_filter($value, 'is_numeric');
+                $schemaObject->setProperty($propertyName, array_map(
+                    function ($imageId) {
+                        return Schema::imageObject()
+                            ->identifier($imageId)
+                            ->name($this->wpService->getPost($imageId)->post_title)
+                            ->url(wp_get_attachment_image_url($imageId, 'full'))
+                            ->caption(wp_get_attachment_caption($imageId))
+                            ->description(get_post_meta($imageId, '_wp_attachment_image_alt', true));
+                    },
+                    $imageIds
+                ));
+            } elseif (is_array($value) && !empty($value['@type'])) {
                 $schemaObject->setProperty(
                     $propertyName,
                     $this->populateSchemaObjectWithPostedData(
