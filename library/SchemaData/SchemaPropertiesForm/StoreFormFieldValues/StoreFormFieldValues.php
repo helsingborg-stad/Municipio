@@ -2,13 +2,12 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
-use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
-use Municipio\Helper\AcfService;
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\AddAction;
@@ -28,10 +27,10 @@ class StoreFormFieldValues implements Hookable
      */
     public function __construct(
         private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&GetPost&AddFilter $wpService,
-        private DeleteField $acfService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService,
-        private PostNonceValidatorInterface $nonceValidationService
+        private PostNonceValidatorInterface $nonceValidationService,
+        private FieldMapper $fieldMapper
     ) {
     }
 
@@ -64,62 +63,9 @@ class StoreFormFieldValues implements Hookable
             return $value;
         }
 
-        $nameKeyMap   = $this->buildNameKeyMap($field['sub_fields']);
-        $nameValueMap = $this->buildNameValueMap($postedData, $nameKeyMap);
-
-        $schemaObject = $this->populateSchemaObjectWithPostedData($this->getSchemaObject($postId, $schemaType), $nameValueMap)->toArray();
-
-        return $schemaObject;
-    }
-
-    private function buildNameKeyMap(array $subFields): array
-    {
-        $nameKeyMap = [];
-
-        foreach ($subFields as $subField) {
-            if (isset($subField['sub_fields'])) {
-                $nameKeyMap[$subField['name']] = [
-                    'key'         => $subField['key'],
-                    'name'        => $subField['name'],
-                    'sub_fields'  => $this->buildNameKeyMap($subField['sub_fields']),
-                    'is_repeater' => $subField['type'] === 'repeater',
-                    'type'        => AcfService::get()->getFieldObject($subField['key'])['type'] ?? null
-                ];
-            } else {
-                $nameKeyMap[$subField['name']] = [
-                    'key'  => $subField['key'],
-                    'name' => $subField['name'],
-                    'type' => AcfService::get()->getFieldObject($subField['key'])['type'] ?? null
-                ];
-            }
-        }
-
-        return $nameKeyMap;
-    }
-
-    private function buildNameValueMap(array $postedData, array $nameKeyMap): array
-    {
-        $nameValueMap = [];
-
-        foreach ($nameKeyMap as $name => $spec) {
-            if (!empty($spec['sub_fields']) && $spec['is_repeater']) {
-                $nameValueMap[$name] = array_values(array_map(
-                    fn ($item) => $this->buildNameValueMap($item, $spec['sub_fields']),
-                    $postedData[$spec['key']] ?: []
-                ));
-            } elseif (!empty($spec['sub_fields']) && !$spec['is_repeater']) {
-                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']);
-            } elseif (!empty($spec['sub_fields'])) {
-                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']], $spec['sub_fields']);
-            } else {
-                $nameValueMap[$name] = [
-                    'value' => $postedData[$spec['key']] ?? null,
-                    'type'  => $spec['type'] ?? null,
-                ];
-            }
-        }
-
-        return $nameValueMap;
+        $mappedFields = $this->fieldMapper->getMappedFields($field['sub_fields'], $postedData);
+        $schemaObject = $this->getSchemaObject($postId, $schemaType);
+        return $this->populateSchemaObjectWithPostedData($schemaObject, $mappedFields);
     }
 
     private function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
