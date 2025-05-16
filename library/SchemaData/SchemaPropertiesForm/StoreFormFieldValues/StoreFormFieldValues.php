@@ -65,7 +65,8 @@ class StoreFormFieldValues implements Hookable
 
         $mappedFields = $this->fieldMapper->getMappedFields($field['sub_fields'], $postedData);
         $schemaObject = $this->getSchemaObject($postId, $schemaType);
-        return $this->populateSchemaObjectWithPostedData($schemaObject, $mappedFields);
+        $schemaObject = $this->populateSchemaObjectWithPostedData($schemaObject, $mappedFields);
+        return $schemaObject->toArray();
     }
 
     private function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
