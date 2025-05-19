@@ -3,10 +3,10 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler;
 
 use Municipio\Schema\BaseType;
-use Municipio\Schema\Place;
+use Municipio\Schema\GeoCoordinates;
 use Municipio\Schema\Schema;
 
-class PlaceHandler implements SchemaPropertyHandlerInterface
+class GeoCoordinatesHandler implements SchemaPropertyHandlerInterface
 {
     /**
      * Constructor.
@@ -20,7 +20,7 @@ class PlaceHandler implements SchemaPropertyHandlerInterface
      */
     public function supports(string $propertyName, string $fieldType, mixed $value, array $propertyTypes): bool
     {
-        return $fieldType === 'google_map' && in_array('Place', $propertyTypes) && is_array($value) && $this->valueHasGoogleMapFieldContents($value);
+        return $fieldType === 'google_map' && in_array('GeoCoordinates', $propertyTypes) && is_array($value) && $this->valueHasGoogleMapFieldContents($value);
     }
 
     private function valueHasGoogleMapFieldContents(array $value): bool
@@ -33,12 +33,12 @@ class PlaceHandler implements SchemaPropertyHandlerInterface
      */
     public function handle(BaseType $schemaObject, string $propertyName, mixed $value): BaseType
     {
-        return $schemaObject->setProperty($propertyName, $this->getPlaceFromValue($value));
+        return $schemaObject->setProperty($propertyName, $this->getGeoCoordinatesFromValue($value));
     }
 
-    private function getPlaceFromValue(array $value): Place
+    private function getGeoCoordinatesFromValue(array $value): GeoCoordinates
     {
-        return Schema::place()
+        return Schema::geoCoordinates()
             ->setProperty('latitude', $value['lat'])
             ->setProperty('longitude', $value['lng'])
             ->setProperty('address', $value['address']);

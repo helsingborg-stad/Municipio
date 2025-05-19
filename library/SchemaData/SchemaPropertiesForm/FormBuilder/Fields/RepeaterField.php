@@ -10,12 +10,12 @@ class RepeaterField extends AbstractField implements FieldWithSubFieldsInterface
 
         add_filter("acf/load_value/key={$this->getKey()}", function ($value, $postId, $field) {
 
-            foreach (array_values($this->value) as $index => $row) {
+            foreach (array_values($value) as $index => $row) {
                 $subFieldNamePrefix = $field['name'] . '_' . $index . '_';
 
                 foreach ($this->subFields as $subField) {
                     $subFieldName  = $subFieldNamePrefix . $subField->getName();
-                    $subfieldValue = $row[$subField->getName()] ?? null;
+                    $subfieldValue = $row[$subField->getKey()] ?? null;
                     add_filter("acf/load_value/name={$subFieldName}", function ($value) use ($subfieldValue) {
                         return $subfieldValue;
                     });

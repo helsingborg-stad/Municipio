@@ -41,8 +41,9 @@ class StoreFormFieldValues implements Hookable
     ) {
         $this->propertyHandlers = [
             new SchemaPropertyHandler\GalleryHandler($this->wpService),
-            new SchemaPropertyHandler\NestedSchemaObjectHandler($this),
-            new SchemaPropertyHandler\PlaceHandler(),
+            new SchemaPropertyHandler\RepeaterWithSchemaObjectsHandler($this),
+            new SchemaPropertyHandler\GroupWithSchemaObjectHandler($this),
+            new SchemaPropertyHandler\GeoCoordinatesHandler(),
             new SchemaPropertyHandler\EmailHandler(),
             new SchemaPropertyHandler\DateTimeHandler(),
             new SchemaPropertyHandler\DateHandler(),
@@ -86,12 +87,12 @@ class StoreFormFieldValues implements Hookable
         return $schemaObject->toArray();
     }
 
-    public function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
+    public function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $mappedFields): BaseType
     {
         $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
         $schemaProperties = [...$schemaProperties, '@id' => ['string']];
 
-        foreach ($nameValueMap as $mappedField) {
+        foreach ($mappedFields as $mappedField) {
             $value        = $mappedField->getValue();
             $fieldType    = $mappedField->getType() ?? '';
             $propertyName = $mappedField->getName();
