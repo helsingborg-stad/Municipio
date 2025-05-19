@@ -5,19 +5,11 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Schema\BaseType;
-use Municipio\Schema\Schema;
-use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
+use Municipio\Schema\{BaseType, Schema};
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapperInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
-use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\SchemaPropertyHandlerInterface;
-use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
-use WpService\Contracts\AddAction;
-use WpService\Contracts\AddFilter;
-use WpService\Contracts\GetPost;
-use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\GetPostType;
-use WpService\Contracts\UpdatePostMeta;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsInterface;
+use WpService\Contracts\{AddFilter, GetPost, GetPostType};
 
 /**
  * Handles the storage of form field values for schema data.
@@ -25,31 +17,15 @@ use WpService\Contracts\UpdatePostMeta;
 class StoreFormFieldValues implements Hookable
 {
     /**
-     * @var SchemaPropertyHandlerInterface[]
-     */
-    private array $propertyHandlers = [];
-
-    /**
      * Constructor.
      */
     public function __construct(
-        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&GetPost&AddFilter $wpService,
+        private GetPostType&GetPost&AddFilter $wpService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
-        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService,
         private PostNonceValidatorInterface $nonceValidationService,
-        private FieldMapperInterface $fieldMapper
+        private FieldMapperInterface $fieldMapper,
+        private SchemaPropertiesFromMappedFieldsInterface $schemaPropertiesFromMappedFields,
     ) {
-        $this->propertyHandlers = [
-            new SchemaPropertyHandler\GalleryHandler($this->wpService),
-            new SchemaPropertyHandler\RepeaterWithSchemaObjectsHandler($this),
-            new SchemaPropertyHandler\GroupWithSchemaObjectHandler($this),
-            new SchemaPropertyHandler\GeoCoordinatesHandler(),
-            new SchemaPropertyHandler\EmailHandler(),
-            new SchemaPropertyHandler\DateTimeHandler(),
-            new SchemaPropertyHandler\DateHandler(),
-            new SchemaPropertyHandler\UrlHandler(),
-            new SchemaPropertyHandler\TextHandler(),
-        ];
     }
 
     /**
@@ -83,40 +59,9 @@ class StoreFormFieldValues implements Hookable
 
         $mappedFields = $this->fieldMapper->getMappedFields($field['sub_fields'], $postedData);
         $schemaObject = $this->getSchemaObject($postId, $schemaType);
-        $schemaObject = $this->populateSchemaObjectWithPostedData($schemaObject, $mappedFields);
+        $schemaObject = $this->schemaPropertiesFromMappedFields->apply($schemaObject, $mappedFields);
+
         return $schemaObject->toArray();
-    }
-
-    public function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $mappedFields): BaseType
-    {
-        $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
-        $schemaProperties = [...$schemaProperties, '@id' => ['string']];
-
-        foreach ($mappedFields as $mappedField) {
-            $value        = $mappedField->getValue();
-            $fieldType    = $mappedField->getType() ?? '';
-            $propertyName = $mappedField->getName();
-
-            if (is_string($value) && json_validate(stripslashes($value))) {
-                $value = json_decode(stripslashes($value), true);
-            }
-
-            if (!array_key_exists($propertyName, $schemaProperties)) {
-                continue;
-            }
-
-            $propertyTypes = $schemaProperties[$propertyName];
-
-            foreach ($this->propertyHandlers as $handler) {
-                $supports = $handler->supports($propertyName, $fieldType, $value, $propertyTypes);
-                if ($supports) {
-                    $schemaObject = $handler->handle($schemaObject, $propertyName, $value);
-                    break;
-                }
-            }
-        }
-
-        return $schemaObject;
     }
 
     /**

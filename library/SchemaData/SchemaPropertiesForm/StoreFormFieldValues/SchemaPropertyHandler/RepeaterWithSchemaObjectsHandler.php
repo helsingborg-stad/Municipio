@@ -5,14 +5,14 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaP
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\MappedFieldInterface;
-use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactoryInterface;
 
 class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(private StoreFormFieldValues $context)
+    public function __construct(private SchemaPropertiesFromMappedFieldsFactoryInterface $schemaPropertiesFromMappedFieldsFactory)
     {
     }
 
@@ -68,14 +68,14 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
      */
     public function handle(BaseType $schemaObject, string $propertyName, mixed $value): BaseType
     {
-        $subSchemas = array_map(
-            fn ($row) => $this->context->populateSchemaObjectWithPostedData(
+        $schemaPropertiesFromMappedFields = $this->schemaPropertiesFromMappedFieldsFactory->create();
+
+        return $schemaObject->setProperty($propertyName, array_map(
+            fn ($row) => $schemaPropertiesFromMappedFields->apply(
                 Schema::{lcfirst($this->getTypeFromRows([$row]))}(),
                 $row
             ),
             $value
-        );
-
-        return $schemaObject->setProperty($propertyName, $subSchemas);
+        ));
     }
 }

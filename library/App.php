@@ -835,9 +835,9 @@ class App
         (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues(
             $this->wpService,
             $this->schemaDataConfig,
-            $getSchemaPropertiesWithParamTypes,
             new UpdatePostNonceValidatorService($this->wpService),
-            new FieldMapper($this->acfService)
+            new FieldMapper($this->acfService),
+            (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create()
         ))->addHooks();
 
         /**

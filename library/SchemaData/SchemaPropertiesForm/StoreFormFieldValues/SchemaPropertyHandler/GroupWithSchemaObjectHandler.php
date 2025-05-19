@@ -4,14 +4,14 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaP
 
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
-use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactoryInterface;
 
 class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
 {
     /**
      * Constructor.
      */
-    public function __construct(private StoreFormFieldValues $context)
+    public function __construct(private SchemaPropertiesFromMappedFieldsFactoryInterface $schemaPropertiesFromMappedFieldsFactory)
     {
     }
 
@@ -59,12 +59,7 @@ class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
      */
     public function handle(BaseType $schemaObject, string $propertyName, mixed $value): BaseType
     {
-        return $schemaObject->setProperty(
-            $propertyName,
-            $this->context->populateSchemaObjectWithPostedData(
-                Schema::{lcfirst($this->getTypeFromGroup($value))}(),
-                $value
-            )
-        );
+        $schemaPropertiesFromMappedFields = $this->schemaPropertiesFromMappedFieldsFactory->create();
+        return $schemaObject->setProperty($propertyName, $schemaPropertiesFromMappedFields->apply(Schema::{lcfirst($this->getTypeFromGroup($value))}(), $value));
     }
 }
