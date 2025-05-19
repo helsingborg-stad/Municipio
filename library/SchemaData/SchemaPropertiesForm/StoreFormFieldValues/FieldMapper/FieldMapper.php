@@ -48,18 +48,25 @@ class FieldMapper
 
         foreach ($nameKeyMap as $name => $spec) {
             if (!empty($spec['sub_fields']) && $spec['is_repeater']) {
-                $nameValueMap[$name] = array_values(array_map(
-                    fn ($item) => $this->buildNameValueMap($item, $spec['sub_fields']),
-                    $postedData[$spec['key']] ?: []
-                ));
-            } elseif (!empty($spec['sub_fields']) && !$spec['is_repeater']) {
-                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']);
+                $nameValueMap[$name] = [
+                    'value' => array_values(array_map(
+                        fn ($item) => $this->buildNameValueMap($item, $spec['sub_fields']),
+                        $postedData[$spec['key']] ?: []
+                    )),
+                    'type'  => $spec['type'] ?? null,
+                    'name'  => $name,
+                ];
             } elseif (!empty($spec['sub_fields'])) {
-                $nameValueMap[$name] = $this->buildNameValueMap($postedData[$spec['key']], $spec['sub_fields']);
+                $nameValueMap[$name] = [
+                    'value' => $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']),
+                    'type'  => $spec['type'] ?? null,
+                    'name'  => $name,
+                ];
             } else {
                 $nameValueMap[$name] = [
                     'value' => $postedData[$spec['key']] ?? null,
                     'type'  => $spec['type'] ?? null,
+                    'name'  => $name,
                 ];
             }
         }

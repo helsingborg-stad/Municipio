@@ -9,6 +9,7 @@ use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\SchemaPropertyHandlerInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\AddFilter;
@@ -23,6 +24,11 @@ use WpService\Contracts\UpdatePostMeta;
 class StoreFormFieldValues implements Hookable
 {
     /**
+     * @var SchemaPropertyHandlerInterface[]
+     */
+    private array $propertyHandlers = [];
+
+    /**
      * Constructor.
      */
     public function __construct(
@@ -32,6 +38,16 @@ class StoreFormFieldValues implements Hookable
         private PostNonceValidatorInterface $nonceValidationService,
         private FieldMapper $fieldMapper
     ) {
+        $this->propertyHandlers = [
+            new SchemaPropertyHandler\GalleryHandler($this->wpService),
+            new SchemaPropertyHandler\NestedSchemaObjectHandler($this),
+            new SchemaPropertyHandler\PlaceHandler(),
+            new SchemaPropertyHandler\EmailHandler(),
+            new SchemaPropertyHandler\DateTimeHandler(),
+            new SchemaPropertyHandler\DateHandler(),
+            new SchemaPropertyHandler\UrlHandler(),
+            new SchemaPropertyHandler\TextHandler(),
+        ];
     }
 
     /**
@@ -69,14 +85,14 @@ class StoreFormFieldValues implements Hookable
         return $schemaObject->toArray();
     }
 
-    private function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
+    public function populateSchemaObjectWithPostedData(BaseType $schemaObject, array $nameValueMap): BaseType
     {
         $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
         $schemaProperties = [...$schemaProperties, '@id' => ['string']];
 
         foreach ($nameValueMap as $propertyName => $spec) {
-            $value     = $spec['value'] ?? null;
-            $fieldType = $spec['type'] ?? null;
+            $value     = $spec['value'] ?? $spec;
+            $fieldType = $spec['type'] ?? '';
 
             if (is_string($value) && json_validate(stripslashes($value))) {
                 $value = json_decode(stripslashes($value), true);
@@ -86,56 +102,14 @@ class StoreFormFieldValues implements Hookable
                 continue;
             }
 
-            if ($fieldType === 'gallery' && is_array($value) && in_array('ImageObject[]', $schemaProperties[$propertyName])) {
-                $imageIds = array_filter($value, 'is_numeric');
-                $schemaObject->setProperty($propertyName, array_map(
-                    function ($imageId) {
-                        return Schema::imageObject()
-                            ->identifier($imageId)
-                            ->name($this->wpService->getPost($imageId)->post_title)
-                            ->url(wp_get_attachment_image_url($imageId, 'full'))
-                            ->caption(wp_get_attachment_caption($imageId))
-                            ->description(get_post_meta($imageId, '_wp_attachment_image_alt', true));
-                    },
-                    $imageIds
-                ));
-            } elseif (is_array($value) && !empty($value['@type'])) {
-                $schemaObject->setProperty(
-                    $propertyName,
-                    $this->populateSchemaObjectWithPostedData(
-                        Schema::{lcfirst($value['@type'])}(),
-                        $value
-                    )
-                );
-            } elseif (is_array($value) && array_key_exists('row-0', $value) && !empty($value['row-0']['@type'])) {
-                $schemaObject->setProperty(
-                    $propertyName,
-                    array_map(
-                        fn ($item) => $this->populateSchemaObjectWithPostedData(
-                            Schema::{lcfirst($item['@type'])}(),
-                            $item
-                        ),
-                        $value
-                    )
-                );
-            } elseif (is_array($value) && in_array('GeoCoordinates', $schemaProperties[$propertyName]) && !empty($value['lat'] && !empty($value['lng']) && !empty($value['address']))) {
-                $schemaObject->setProperty(
-                    $propertyName,
-                    Schema::geoCoordinates()->latitude($value['lat'])->longitude($value['lng'])->address($value['address'])
-                );
-            } elseif (is_array($value) && in_array('Place', $schemaProperties[$propertyName]) && !empty($value['lat'] && !empty($value['lng']) && !empty($value['address']))) {
-                $schemaObject->setProperty(
-                    $propertyName,
-                    Schema::place()->latitude($value['lat'])->longitude($value['lng'])->address($value['address'])
-                );
-            } elseif (is_array($value)) {
-                $schemaObject->setProperty($propertyName, array_map(fn ($item) => $item, $value));
-            } elseif (is_string($value) && in_array('\DateTimeInterface', $schemaProperties[$propertyName]) && @strtotime($value)) {
-                $schemaObject->setProperty($propertyName, new \DateTime($value));
-            } elseif (is_string($value)) {
-                $schemaObject->setProperty($propertyName, $value);
-            } else {
-                $schemaObject->setProperty($propertyName, $value);
+            $propertyTypes = $schemaProperties[$propertyName];
+
+            foreach ($this->propertyHandlers as $handler) {
+                $supports = $handler->supports($propertyName, $fieldType, $value, $propertyTypes);
+                if ($supports) {
+                    $schemaObject = $handler->handle($schemaObject, $propertyName, $value);
+                    break;
+                }
             }
         }
 
