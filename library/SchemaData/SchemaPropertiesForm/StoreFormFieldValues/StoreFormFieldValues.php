@@ -8,6 +8,7 @@ use Municipio\HooksRegistrar\Hookable;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapperInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\SchemaPropertyHandlerInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
@@ -36,7 +37,7 @@ class StoreFormFieldValues implements Hookable
         private TryGetSchemaTypeFromPostType $schemaTypeService,
         private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService,
         private PostNonceValidatorInterface $nonceValidationService,
-        private FieldMapper $fieldMapper
+        private FieldMapperInterface $fieldMapper
     ) {
         $this->propertyHandlers = [
             new SchemaPropertyHandler\GalleryHandler($this->wpService),
@@ -90,9 +91,10 @@ class StoreFormFieldValues implements Hookable
         $schemaProperties = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObject::class);
         $schemaProperties = [...$schemaProperties, '@id' => ['string']];
 
-        foreach ($nameValueMap as $propertyName => $spec) {
-            $value     = $spec['value'] ?? $spec;
-            $fieldType = $spec['type'] ?? '';
+        foreach ($nameValueMap as $mappedField) {
+            $value        = $mappedField->getValue();
+            $fieldType    = $mappedField->getType() ?? '';
+            $propertyName = $mappedField->getName();
 
             if (is_string($value) && json_validate(stripslashes($value))) {
                 $value = json_decode(stripslashes($value), true);

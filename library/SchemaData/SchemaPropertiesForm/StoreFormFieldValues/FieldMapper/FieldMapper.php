@@ -4,13 +4,16 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMa
 
 use AcfService\Contracts\GetFieldObject;
 
-class FieldMapper
+class FieldMapper implements FieldMapperInterface
 {
     public function __construct(
         private GetFieldObject $acfService
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getMappedFields(array $acfFields, array $postData): array
     {
         $nameKeyMap = $this->buildNameKeyMap($acfFields);
@@ -42,32 +45,40 @@ class FieldMapper
         return $nameKeyMap;
     }
 
+    /**
+     * Build a name-value map from the posted data and the name-key map.
+     *
+     * @param array $postedData  The posted data.
+     * @param array $nameKeyMap  The name-key map.
+     *
+     * @return MappedFieldInterface[] The name-value map.
+     */
     private function buildNameValueMap(array $postedData, array $nameKeyMap): array
     {
         $nameValueMap = [];
 
         foreach ($nameKeyMap as $name => $spec) {
             if (!empty($spec['sub_fields']) && $spec['is_repeater']) {
-                $nameValueMap[$name] = [
-                    'value' => array_values(array_map(
+                $nameValueMap[$name] = new MappedField(
+                    name: $name,
+                    type: $spec['type'] ?? null,
+                    value: array_values(array_map(
                         fn ($item) => $this->buildNameValueMap($item, $spec['sub_fields']),
                         $postedData[$spec['key']] ?: []
-                    )),
-                    'type'  => $spec['type'] ?? null,
-                    'name'  => $name,
-                ];
+                    ))
+                );
             } elseif (!empty($spec['sub_fields'])) {
-                $nameValueMap[$name] = [
-                    'value' => $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']),
-                    'type'  => $spec['type'] ?? null,
-                    'name'  => $name,
-                ];
+                $nameValueMap[$name] = new MappedField(
+                    name: $name,
+                    type: $spec['type'] ?? null,
+                    value: $this->buildNameValueMap($postedData[$spec['key']] ?? [], $spec['sub_fields']),
+                );
             } else {
-                $nameValueMap[$name] = [
-                    'value' => $postedData[$spec['key']] ?? null,
-                    'type'  => $spec['type'] ?? null,
-                    'name'  => $name,
-                ];
+                $nameValueMap[$name] = new MappedField(
+                    name: $name,
+                    type: $spec['type'] ?? null,
+                    value: $postedData[$spec['key']] ?? null,
+                );
             }
         }
 
