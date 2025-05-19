@@ -8,13 +8,26 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\UrlField;
 use WpService\Contracts\__;
 
+/**
+ * Class PlaceFormFactory
+ *
+ * This class is responsible for creating a form for the place schema.
+ */
 class PlaceFormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(
         private __ $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         return [

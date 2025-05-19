@@ -11,13 +11,31 @@ interface FieldInterface
      */
     public function toArray(): array;
 
+    /**
+     * Get the field value.
+     *
+     * @return mixed
+     */
     public function getValue(): mixed;
 
-    public function setValue(mixed $value): void;
-
+    /**
+     * Get the field key.
+     *
+     * @return string
+     */
     public function getKey(): string;
 
+    /**
+     * Get the field name.
+     *
+     * @return string
+     */
     public function getName(): string;
 
+    /**
+     * Get the field label.
+     *
+     * @return string
+     */
     public function getLabel(): string;
 }

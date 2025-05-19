@@ -2,21 +2,32 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class MultilineStringField
+ *
+ * This class is responsible for creating a multiline string field.
+ */
 class MultilineStringField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             // 'type'  => 'textarea',
             'type'  => 'textarea',
-            'name'  => $this->name,
+            'name'  => $this->getName(),
             'key'   => $this->getKey(),
-            'label' => $this->label
+            'label' => $this->getLabel()
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): mixed
     {
-        return is_string($value) ? $value : '';
+        return is_string($this->value) ? $this->value : '';
     }
 }

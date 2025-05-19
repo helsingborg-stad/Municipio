@@ -2,20 +2,31 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class EmailField
+ *
+ * This class is responsible for creating an email field.
+ */
 class EmailField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'  => 'email',
-            'name'  => $this->name,
+            'name'  => $this->getName(),
             'key'   => $this->getKey(),
-            'label' => $this->label
+            'label' => $this->getLabel()
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): mixed
     {
-        return filter_var($value, FILTER_SANITIZE_EMAIL) ?: '';
+        return filter_var($this->value, FILTER_SANITIZE_EMAIL) ? $this->value : '';
     }
 }

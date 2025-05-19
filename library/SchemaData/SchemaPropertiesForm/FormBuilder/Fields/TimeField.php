@@ -2,23 +2,24 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
-use DateTime;
-
+/**
+ * Class TimeField
+ *
+ * This class is responsible for creating a time field.
+ */
 class TimeField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'           => 'time_picker',
             'key'            => $this->getKey(),
-            'name'           => $this->name,
-            'label'          => $this->label,
+            'name'           => $this->getName(),
+            'label'          => $this->getName(),
             'display_format' => 'H:i',
         ];
-    }
-
-    public function getValue(): mixed
-    {
-        return $this->value;
     }
 }

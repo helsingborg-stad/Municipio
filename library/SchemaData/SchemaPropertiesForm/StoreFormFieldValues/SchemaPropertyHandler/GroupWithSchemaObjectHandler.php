@@ -6,6 +6,11 @@ use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactoryInterface;
 
+/**
+ * Class GroupWithSchemaObjectHandler
+ *
+ * Handles the group field type with schema objects.
+ */
 class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
 {
     /**
@@ -31,6 +36,12 @@ class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
         return true;
     }
 
+    /**
+     * Check if the group contains a type.
+     *
+     * @param array $value The value to check.
+     * @return bool True if the group contains a type, false otherwise.
+     */
     private function groupContainsType(array $value): bool
     {
         if (count($value) === 0) {
@@ -43,6 +54,13 @@ class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
 
         return !empty($foundType);
     }
+
+    /**
+     * Get the type from the group.
+     *
+     * @param array $value The value to check.
+     * @return string|null The type if found, null otherwise.
+     */
     private function getTypeFromGroup(array $value): ?string
     {
         $foundTypeField = array_find($value, fn ($mappedField) => $mappedField->getName() === '@type' && !empty($mappedField->getValue()));

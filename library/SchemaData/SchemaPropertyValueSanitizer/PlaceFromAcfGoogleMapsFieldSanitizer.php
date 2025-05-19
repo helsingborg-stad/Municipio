@@ -2,6 +2,9 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
+/**
+ * PlaceFromAcfGoogleMapsFieldSanitizer
+ */
 class PlaceFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     private mixed $value;

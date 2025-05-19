@@ -11,17 +11,31 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RepeaterField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\SelectField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TabField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TypeField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\UrlField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\WysiwygField;
 use WpService\Contracts\__;
 
+/**
+ * Class EventFormFactory
+ *
+ * This class is responsible for creating a form for the event schema.
+ */
 class EventFormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(
         private __ $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         return [
@@ -52,7 +66,7 @@ class EventFormFactory implements FormFactoryInterface
                 $this->wpService->__('Organizer', 'municipio'),
                 is_array($schema->getProperty('organizer')) ? $schema->getProperty('organizer') : [],
                 [
-                    new HiddenField('@type', '@type', 'Organization'),
+                    new TypeField('Organization'),
                     new StringField('name', $this->wpService->__('Name', 'municipio')),
                     new EmailField('email', $this->wpService->__('Email', 'municipio')),
                     new StringField('telephone', $this->wpService->__('Telephone', 'municipio')),
@@ -65,7 +79,7 @@ class EventFormFactory implements FormFactoryInterface
                 $this->wpService->__('Offers', 'municipio'),
                 $schema->getProperty('offers') ?? [],
                 [
-                    new HiddenField('@type', '@type', 'Offer'),
+                    new TypeField('Offer'),
                     new StringField('name', $this->wpService->__('Name', 'municipio')),
                     new StringField('price', $this->wpService->__('Price', 'municipio')),
                     new StringField('priceCurrency', $this->wpService->__('Currency', 'municipio')),

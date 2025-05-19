@@ -18,13 +18,26 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TypeField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\WysiwygField;
 use WpService\Contracts\__;
 
+/**
+ * Class ExhibitionEventFormFactory
+ *
+ * This class is responsible for creating a form for the exhibition event schema.
+ */
 class ExhibitionEventFormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(
         private __ $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         return [

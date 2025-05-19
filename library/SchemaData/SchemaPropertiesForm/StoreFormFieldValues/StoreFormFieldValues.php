@@ -41,6 +41,8 @@ class StoreFormFieldValues implements Hookable
      */
     public function saveSchemaData(mixed $value, string|int $postId, array $field, mixed $original): mixed
     {
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (!$this->nonceValidationService->isValid($postId, $_POST['_wpnonce'] ?? null)) {
             return $value;
         }
@@ -51,6 +53,7 @@ class StoreFormFieldValues implements Hookable
             return $value;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $postedData = $_POST['acf'][$field['key']] ?? [];
 
         if (empty($postedData)) {

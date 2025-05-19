@@ -6,6 +6,11 @@ use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\SchemaPropertyHandlerInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 
+/**
+ * Class SchemaPropertiesFromMappedFields
+ *
+ * Handles the application of mapped fields to schema properties.
+ */
 class SchemaPropertiesFromMappedFields implements SchemaPropertiesFromMappedFieldsInterface
 {
     /**

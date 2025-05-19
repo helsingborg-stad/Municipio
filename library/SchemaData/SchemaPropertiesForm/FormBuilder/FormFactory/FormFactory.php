@@ -17,12 +17,26 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\{
 };
 use WpService\Contracts\__;
 
+/**
+ * Class FormFactory
+ *
+ * This class is responsible for creating a form for the schema.
+ */
 class FormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param RegisterFieldValueInterface $registerFieldValue The field value registration instance.
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(private RegisterFieldValueInterface $registerFieldValue, private __ $wpService)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         $fields = $this->getFields($schema);
@@ -85,6 +99,13 @@ class FormFactory implements FormFactoryInterface
         }
     }
 
+    /**
+     * Register a field value.
+     *
+     * @param FieldInterface $field The field to register.
+     *
+     * @return void
+     */
     private function registerFieldValue(FieldInterface $field): void
     {
         $this->registerFieldValue->register($field);

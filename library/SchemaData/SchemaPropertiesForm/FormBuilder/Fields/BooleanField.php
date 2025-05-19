@@ -2,20 +2,29 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class BooleanField
+ */
 class BooleanField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'  => 'true_false',
-            'name'  => $this->name,
+            'name'  => $this->getName(),
             'key'   => $this->getKey(),
-            'label' => $this->label
+            'label' => $this->getLabel(),
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): mixed
     {
-        return is_bool($value) ? $value : false;
+        return is_bool($this->value) ? $this->value : false;
     }
 }

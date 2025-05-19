@@ -4,8 +4,18 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceVa
 
 use WpService\Contracts\WpVerifyNonce;
 
+/**
+ * Class UpdatePostNonceValidatorService
+ *
+ * Validates nonces for updating posts.
+ */
 class UpdatePostNonceValidatorService implements PostNonceValidatorInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param WpVerifyNonce $wpService
+     */
     public function __construct(private WpVerifyNonce $wpService)
     {
     }

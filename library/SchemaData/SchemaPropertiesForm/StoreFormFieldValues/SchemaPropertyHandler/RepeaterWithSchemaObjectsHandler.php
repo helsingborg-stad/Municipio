@@ -7,6 +7,11 @@ use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\MappedFieldInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactoryInterface;
 
+/**
+ * Class RepeaterWithSchemaObjectsHandler
+ *
+ * Handles the repeater field type with schema objects.
+ */
 class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
 {
     /**
@@ -32,6 +37,12 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
         return true;
     }
 
+    /**
+     * Check if the value contains rows of schema objects.
+     *
+     * @param array $value The value to check.
+     * @return bool True if the value contains rows of schema objects, false otherwise.
+     */
     private function valueContainsRowsOfSchemaObjects(array $value): bool
     {
         if (!isset($value[0]) || !is_array($value[0])) {
@@ -51,6 +62,12 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
         return !empty($foundType);
     }
 
+    /**
+     * Get the type from the rows.
+     *
+     * @param array $rows The rows to check.
+     * @return string|null The type if found, null otherwise.
+     */
     private function getTypeFromRows(array $rows): ?string
     {
         $rows           = array_map(fn ($row) => array_values($row), $rows);

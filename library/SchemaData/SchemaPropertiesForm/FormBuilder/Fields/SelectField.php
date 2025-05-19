@@ -2,29 +2,45 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class SelectField
+ *
+ * This class is responsible for creating a select field.
+ */
 class SelectField extends AbstractField implements FieldInterface
 {
+    /**
+     * SelectField constructor.
+     *
+     * @param string $name
+     * @param string $label
+     * @param mixed  $value
+     * @param array  $choices
+     */
     public function __construct(protected string $name, protected string $label, protected mixed $value = null, protected array $choices = [])
     {
         parent::__construct($name, $label, $value);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'    => 'select',
-            'name'    => $this->name,
+            'name'    => $this->getName(),
             'key'     => $this->getKey(),
-            'label'   => $this->label,
+            'label'   => $this->getLabel(),
             'choices' => $this->getChoices(),
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
-    {
-        return filter_var($value, FILTER_SANITIZE_EMAIL) ?: '';
-    }
-
+    /**
+     * Get the value of the field.
+     *
+     * @return array Options for the select field.
+     */
     private function getChoices(): array
     {
         $choices = [];

@@ -4,6 +4,11 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaP
 
 use Municipio\Schema\BaseType;
 
+/**
+ * Class UrlHandler
+ *
+ * Handles URL properties for schema objects.
+ */
 class EmailHandler implements SchemaPropertyHandlerInterface
 {
     /**

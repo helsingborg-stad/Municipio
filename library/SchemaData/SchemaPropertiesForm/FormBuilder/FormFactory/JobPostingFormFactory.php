@@ -6,20 +6,33 @@ use Municipio\Schema\BaseType;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\DateField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\EmailField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GroupField;
-use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\HiddenField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RepeaterField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TypeField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\UrlField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\WysiwygField;
 use WpService\Contracts\__;
 
+/**
+ * Class JobPostingFormFactory
+ *
+ * This class is responsible for creating a form for the job posting schema.
+ */
 class JobPostingFormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(
         private __ $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         return [
@@ -34,13 +47,13 @@ class JobPostingFormFactory implements FormFactoryInterface
                 'employmentUnit',
                 $this->wpService->__('Employment Unit', 'municipio'),
                 [
-                    new HiddenField('@type', '@type', 'Organization'),
+                    new TypeField('Organization'),
                     new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('name') ?? null),
                     new GroupField(
                         'address',
                         $this->wpService->__('Address', 'municipio'),
                         [
-                            new HiddenField('@type', '@type', 'PostalAddress'),
+                            new TypeField('PostalAddress'),
                             new StringField('addressRegion', $this->wpService->__('Address Region', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('address')?->getProperty('addressRegion') ?? null),
                             new StringField('addressLocality', $this->wpService->__('Address Locality', 'municipio'), $schema->getProperty('employmentUnit')?->getProperty('address')?->getProperty('addressLocality') ?? null)
                         ]
@@ -48,7 +61,7 @@ class JobPostingFormFactory implements FormFactoryInterface
                 ]
             ),
             new GroupField('hiringOrganization', $this->wpService->__('Hiring Organization', 'municipio'), [
-                new HiddenField('@type', '@type', 'Organization'),
+                new TypeField('Organization'),
                 new UrlField('ethicsPolicy', $this->wpService->__('Ethics Policy', 'municipio'), $schema->getProperty('hiringOrganization')?->getProperty('ethicsPolicy') ?? null),
             ]),
             new RepeaterField(
@@ -56,7 +69,7 @@ class JobPostingFormFactory implements FormFactoryInterface
                 $this->wpService->__('Application Contact', 'municipio'),
                 $schema->getProperty('applicationContact') ?? [],
                 [
-                    new HiddenField('@type', '@type', 'ContactPoint'),
+                    new TypeField('ContactPoint'),
                     new StringField('name', $this->wpService->__('Name', 'municipio')),
                     new EmailField('email', $this->wpService->__('Email', 'municipio')),
                     new StringField('telephone', $this->wpService->__('Telephone', 'municipio')),

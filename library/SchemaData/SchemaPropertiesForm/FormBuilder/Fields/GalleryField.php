@@ -4,19 +4,30 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
 use Municipio\Schema\ImageObject;
 
+/**
+ * Class GalleryField
+ *
+ * This class is responsible for creating a gallery field.
+ */
 class GalleryField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'          => 'gallery',
-            'name'          => $this->name,
+            'name'          => $this->getName(),
             'key'           => $this->getKey(),
-            'label'         => $this->label,
+            'label'         => $this->getLabel(),
             'return_format' => 'array',
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getValue(): mixed
     {
         if (!is_array($this->value)) {

@@ -2,20 +2,31 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class StringField
+ *
+ * This class is responsible for creating a string field.
+ */
 class StringField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'  => 'text',
-            'name'  => $this->name,
+            'name'  => $this->getName(),
             'key'   => $this->getKey(),
-            'label' => $this->label
+            'label' => $this->getLabel()
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): mixed
     {
-        return is_string($value) ? $value : '';
+        return is_string($this->value) ? $this->value : '';
     }
 }

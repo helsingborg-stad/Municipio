@@ -2,21 +2,24 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class TabField
+ *
+ * This class is responsible for creating a tab field.
+ */
 class TabField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'      => 'tab',
-            'name'      => $this->name,
+            'name'      => $this->getName(),
             'key'       => $this->getKey(),
-            'label'     => $this->label,
+            'label'     => $this->getLabel(),
             'placement' => 'left'
         ];
-    }
-
-    public function sanitizeValue(mixed $value = null): mixed
-    {
-        return is_string($value) ? $value : '';
     }
 }

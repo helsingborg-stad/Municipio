@@ -2,14 +2,27 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class TypeField
+ *
+ * This class is responsible for creating a hidden field that stores the type of schema.
+ */
 class TypeField extends AbstractField
 {
+    /**
+     * Constructor.
+     *
+     * @param string $type The type of schema.
+     */
     public function __construct(protected string $type)
     {
         parent::__construct('@type', '', $type);
-        add_filter('acf/load_value/key=' . $this->getKey(), [$this, 'loadValue'], 10, 3);
+        add_filter('acf/load_value/key=' . $this->getKey(), [$this, 'loadValue'], 10);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
@@ -24,7 +37,12 @@ class TypeField extends AbstractField
         ];
     }
 
-    public function loadValue($value, $postId, $field): string
+    /**
+     * Load the value of the field.
+     *
+     * @return string The type of schema.
+     */
+    public function loadValue(): string
     {
         return $this->type;
     }

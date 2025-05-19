@@ -3,9 +3,12 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler;
 
 use Municipio\Schema\BaseType;
-use Municipio\Schema\Schema;
-use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues;
 
+/**
+ * Class TextHandler
+ *
+ * Handles text properties for schema objects.
+ */
 class TextHandler implements SchemaPropertyHandlerInterface
 {
     /**

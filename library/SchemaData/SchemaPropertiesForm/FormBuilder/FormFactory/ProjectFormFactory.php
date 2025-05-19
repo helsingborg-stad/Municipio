@@ -8,16 +8,30 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GroupField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\HiddenField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\SelectField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TypeField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\WysiwygField;
 use WpService\Contracts\__;
 
+/**
+ * Class ProjectFormFactory
+ *
+ * This class is responsible for creating a form for the project schema.
+ */
 class ProjectFormFactory implements FormFactoryInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param __ $wpService The WordPress service instance.
+     */
     public function __construct(
         private __ $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function createForm(BaseType $schema): array
     {
         return [
@@ -28,7 +42,7 @@ class ProjectFormFactory implements FormFactoryInterface
                 'department',
                 $this->wpService->__('Department', 'municipio'),
                 [
-                    new HiddenField('@type', '@type', 'Organization'),
+                    new TypeField('Organization'),
                     new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('department')?->getProperty('name') ?? null),
                 ]
             ),
@@ -36,7 +50,7 @@ class ProjectFormFactory implements FormFactoryInterface
                 'funding',
                 $this->wpService->__('Funding', 'municipio'),
                 [
-                    new HiddenField('@type', '@type', 'MonetaryGrant'),
+                    new TypeField('MonetaryGrant'),
                     new StringField('amount', $this->wpService->__('Amount', 'municipio'), $schema->getProperty('funding')?->getProperty('amount') ?? null)
                 ]
             ),
@@ -44,7 +58,7 @@ class ProjectFormFactory implements FormFactoryInterface
                 'status',
                 $this->wpService->__('Status', 'municipio'),
                 [
-                    new HiddenField('@type', '@type', 'ProgressStatus'),
+                    new TypeField('ProgressStatus'),
                     new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('status')?->getProperty('name') ?? null),
                     new HiddenField('maxNumber', 'maxNumber', 100),
                     new HiddenField('minNumber', 'minNumber', 0),

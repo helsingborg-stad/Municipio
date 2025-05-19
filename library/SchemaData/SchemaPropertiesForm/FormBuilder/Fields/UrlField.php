@@ -2,24 +2,31 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class WysiwygField
+ *
+ * This class is responsible for creating a WYSIWYG field.
+ */
 class UrlField extends AbstractField implements FieldInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'  => 'url',
             'key'   => $this->getKey(),
-            'name'  => $this->name,
-            'label' => $this->label,
+            'name'  => $this->getName(),
+            'label' => $this->getLabel(),
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): mixed
     {
-        if (is_string($value) && filter_var($value, FILTER_VALIDATE_URL)) {
-            return $value;
-        }
-
-        return '';
+        return is_string($this->value) && filter_var($this->value, FILTER_VALIDATE_URL) ? $this->value : null;
     }
 }

@@ -52,6 +52,11 @@ class Register implements Hookable
         $this->acfService->addLocalFieldGroup($this->formFactory->createForm($this->getSchema()));
     }
 
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType
+     */
     private function getSchema(): BaseType
     {
         if ($postId = $this->getPostIdFromRequest()) {
@@ -62,13 +67,20 @@ class Register implements Hookable
         return Schema::{strtolower($this->getSchemaType())}();
     }
 
+    /**
+     * Get the post ID from the request.
+     *
+     * @return int
+     */
     private function getPostIdFromRequest(): int
     {
         if (isset($_GET['post']) && is_numeric($_GET['post'])) {
             return (int)$_GET['post'];
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if (isset($_POST['post_ID']) && is_numeric($_POST['post_ID'])) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             return (int)$_POST['post_ID'];
         }
 

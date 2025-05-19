@@ -4,8 +4,18 @@ namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMa
 
 use AcfService\Contracts\GetFieldObject;
 
+/**
+ * Class FieldMapper
+ *
+ * Maps ACF fields to a name-value map.
+ */
 class FieldMapper implements FieldMapperInterface
 {
+    /**
+     * Constructor.
+     *
+     * @param GetFieldObject $acfService
+     */
     public function __construct(
         private GetFieldObject $acfService
     ) {
@@ -20,6 +30,13 @@ class FieldMapper implements FieldMapperInterface
         return $this->buildNameValueMap($postData, $nameKeyMap);
     }
 
+    /**
+     * Build a name-key map from the ACF fields.
+     *
+     * @param array $subFields  The ACF fields.
+     *
+     * @return array The name-key map.
+     */
     private function buildNameKeyMap(array $subFields): array
     {
         $nameKeyMap = [];

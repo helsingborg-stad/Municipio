@@ -2,10 +2,13 @@
 
 namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 
-use DateTime;
-use Municipio\Schema\ImageObject;
 use Municipio\Schema\Schema;
 
+/**
+ * Class ArrayOfImagesSanitizer
+ *
+ * Sanitizes an array of images to ensure they are valid ImageObject schemas.
+ */
 class ArrayOfImagesSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     /**
@@ -29,6 +32,13 @@ class ArrayOfImagesSanitizer implements SchemaPropertyValueSanitizerInterface
         return $this->inner->sanitize($value, $allowedTypes);
     }
 
+    /**
+     * Sanitizes an image object to ensure it is a valid ImageObject schema.
+     *
+     * @param mixed $image The image object to sanitize.
+     *
+     * @return mixed The sanitized image object.
+     */
     private function sanitizeImageObject($image): mixed
     {
         if (is_array($image) && $image['@type'] === 'ImageObject') {

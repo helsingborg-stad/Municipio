@@ -2,31 +2,47 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+/**
+ * Class MultiSelectField
+ *
+ * This class is responsible for creating a multi-select field.
+ */
 class MultiSelectField extends AbstractField implements FieldInterface
 {
+    /**
+     * MultiSelectField constructor.
+     *
+     * @param string $name   The name of the field.
+     * @param string $label  The label of the field.
+     * @param mixed  $value  The value of the field.
+     * @param array  $choices The choices for the multi-select field.
+     */
     public function __construct(protected string $name, protected string $label, protected mixed $value = null, protected array $choices = [])
     {
         parent::__construct($name, $label, $value);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function toArray(): array
     {
         return [
             'type'     => 'select',
-            'name'     => $this->name,
+            'name'     => $this->getName(),
             'key'      => $this->getKey(),
-            'label'    => $this->label,
+            'label'    => $this->getLabel(),
             'multiple' => 1,
             'ui'       => 1,
             'choices'  => $this->getChoices(),
         ];
     }
 
-    public function sanitizeValue(mixed $value = null): mixed
-    {
-        return filter_var($value, FILTER_SANITIZE_EMAIL) ?: '';
-    }
-
+    /**
+     * Get the options for the multi-select field.
+     *
+     * @return array Options for the multi-select field.
+     */
     private function getChoices(): array
     {
         $choices = [];
