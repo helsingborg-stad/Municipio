@@ -3,8 +3,8 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
-use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\Schema\{BaseType, Schema};
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapperInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
@@ -25,6 +25,7 @@ class StoreFormFieldValues implements Hookable
         private PostNonceValidatorInterface $nonceValidationService,
         private FieldMapperInterface $fieldMapper,
         private SchemaPropertiesFromMappedFieldsInterface $schemaPropertiesFromMappedFields,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {
     }
 
@@ -86,7 +87,7 @@ class StoreFormFieldValues implements Hookable
      */
     private function getSchemaObject(int $postId, string $schemaType): BaseType
     {
-        $schemaObject = Post::preparePostObject($this->wpService->getPost($postId))->getSchema();
+        $schemaObject = $this->postObjectFactory->create($this->wpService->getPost($postId))->getSchema();
 
         if ($schemaObject->getType() === $schemaType) {
             return $schemaObject;

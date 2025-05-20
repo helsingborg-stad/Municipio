@@ -37,6 +37,8 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
@@ -837,7 +839,14 @@ class App
             $this->schemaDataConfig,
             new UpdatePostNonceValidatorService($this->wpService),
             new FieldMapper($this->acfService),
-            (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create()
+            (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
+            new CreatePostObjectFromWpPost(
+                $this->wpService,
+                $this->acfService,
+                new SchemaObjectFromPost(
+                    $this->schemaDataConfig,
+                ),
+            ),
         ))->addHooks();
 
         /**
