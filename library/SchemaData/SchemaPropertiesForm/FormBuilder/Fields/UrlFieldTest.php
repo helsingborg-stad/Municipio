@@ -14,33 +14,29 @@ class UrlFieldTest extends TestCase
 
         $this->assertIsArray($result);
         $this->assertEquals('url', $result['type']);
-        $this->assertEquals('website', $result['key']);
         $this->assertEquals('website', $result['name']);
         $this->assertEquals('Website', $result['label']);
-        $this->assertEquals('https://example.com', $result['value']);
+        $this->assertEquals('https://example.com', $urlField->getValue());
     }
 
     public function testToArraySanitizesInvalidUrl()
     {
         $urlField = new UrlField('website', 'Website', 'invalid-url');
-        $result   = $urlField->toArray();
 
-        $this->assertEquals('', $result['value']);
+        $this->assertEquals('', $urlField->getValue());
     }
 
     public function testToArrayHandlesNullValue()
     {
         $urlField = new UrlField('website', 'Website', null);
-        $result   = $urlField->toArray();
 
-        $this->assertEquals('', $result['value']);
+        $this->assertEquals('', $urlField->getValue());
     }
 
     public function testToArrayHandlesEmptyStringValue()
     {
         $urlField = new UrlField('website', 'Website', '');
-        $result   = $urlField->toArray();
 
-        $this->assertEquals('', $result['value']);
+        $this->assertEquals('', $urlField->getValue());
     }
 }

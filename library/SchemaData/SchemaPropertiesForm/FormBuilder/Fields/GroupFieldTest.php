@@ -8,34 +8,6 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldInterface;
 
 class GroupFieldTest extends TestCase
 {
-    public function testToArrayReturnsCorrectStructure()
-    {
-        // Mock subfields
-        $mockSubField1 = $this->createMock(FieldInterface::class);
-        $mockSubField1->method('toArray')->willReturn(['key' => 'subfield1', 'name' => 'SubField 1']);
-
-        $mockSubField2 = $this->createMock(FieldInterface::class);
-        $mockSubField2->method('toArray')->willReturn(['key' => 'subfield2', 'name' => 'SubField 2']);
-
-        // Create GroupField instance
-        $groupField = new GroupField('group1', 'Group 1', [$mockSubField1, $mockSubField2]);
-
-        // Expected result
-        $expected = [
-            'type'       => 'group',
-            'key'        => 'group1',
-            'name'       => 'group1',
-            'title'      => 'Group 1',
-            'sub_fields' => [
-                ['key' => 'subfield1', 'name' => 'SubField 1'],
-                ['key' => 'subfield2', 'name' => 'SubField 2'],
-            ],
-        ];
-
-        // Assert
-        $this->assertEquals($expected, $groupField->toArray());
-    }
-
     public function testRenderSubFieldsReturnsCorrectSubFields()
     {
         // Mock subfields

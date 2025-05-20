@@ -4,8 +4,8 @@ namespace Municipio\SchemaData\SchemaPropertiesForm;
 
 use AcfService\Contracts\AddLocalFieldGroup;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
-use Municipio\Helper\Post;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactoryInterface;
@@ -27,6 +27,7 @@ class Register implements Hookable
         private AddAction&GetCurrentScreen&GetPostMeta&GetPost $wpService,
         private TryGetSchemaTypeFromPostType $configService,
         private FormFactoryInterface $formFactory,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {
     }
 
@@ -61,7 +62,7 @@ class Register implements Hookable
     {
         if ($postId = $this->getPostIdFromRequest()) {
             $post = $this->wpService->getPost($postId);
-            return Post::preparePostObject($post)->getSchema();
+            return $this->postObjectFactory->create($post)->getSchema();
         }
 
         return Schema::{strtolower($this->getSchemaType())}();

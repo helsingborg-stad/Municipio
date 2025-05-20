@@ -1,6 +1,6 @@
 <?php
 
-namespace WPDesk\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper;
+namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper;
 
 use PHPUnit\Framework\TestCase;
 

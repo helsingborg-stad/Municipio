@@ -8,6 +8,7 @@ use Municipio\Schema\ExhibitionEvent;
 use Municipio\Schema\JobPosting;
 use Municipio\Schema\Place;
 use Municipio\Schema\Project;
+use Municipio\Schema\SpecialAnnouncement;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValueInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\{
     FieldInterface,
@@ -40,7 +41,12 @@ class FormFactory implements FormFactoryInterface
     public function createForm(BaseType $schema): array
     {
         $fields = $this->getFields($schema);
-        $group  = new GroupField('schemaData', '', $fields);
+
+        if (empty($fields)) {
+            return [];
+        }
+
+        $group = new GroupField('schemaData', '', $fields);
 
         $this->registerFieldValues([$group]);
 
@@ -75,6 +81,7 @@ class FormFactory implements FormFactoryInterface
             Event::class => (new EventFormFactory($this->wpService))->createForm($schema),
             ExhibitionEvent::class => (new ExhibitionEventFormFactory($this->wpService))->createForm($schema),
             Project::class => (new ProjectFormFactory($this->wpService))->createForm($schema),
+            SpecialAnnouncement::class => (new SpecialAnnouncementFormFactory($this->wpService))->createForm($schema),
             default   => []
         };
     }
