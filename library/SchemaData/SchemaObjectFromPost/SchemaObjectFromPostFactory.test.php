@@ -4,7 +4,6 @@ namespace Municipio\SchemaData\SchemaObjectFromPost;
 
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizerInterface;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
@@ -34,7 +33,6 @@ class SchemaObjectFromPostFactoryTest extends TestCase
             new FakeWpService(),
             $this->createMock(GetSchemaPropertiesWithParamTypesInterface::class),
             $this->createMock(SchemaPropertyValueSanitizerInterface::class),
-            $this->createMock(GetEnabledSchemaTypesInterface::class)
         );
     }
 }

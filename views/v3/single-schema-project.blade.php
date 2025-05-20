@@ -25,7 +25,7 @@
 
 @section('article.title')@stop
 @section('article.content')
-    {!!$post->postContent!!}
+    {!!$post->getSchemaProperty('description')!!}
 @stop
 
 @section('sidebar.right-sidebar.before')

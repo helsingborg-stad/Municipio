@@ -9,7 +9,7 @@ interface GetSchemaPropertiesWithParamTypesInterface
      *
      * @param string $schemaType The schema type.
      *
-     * @return array The schema properties with param types. Example ['propertyName' => ['PostalAddress', 'PostalAddress[]']]
+     * @return array<string, array<string>> The schema properties with param types. Example ['propertyName' => ['PostalAddress', 'PostalAddress[]']]
      */
     public function getSchemaPropertiesWithParamTypes(string $schemaType): array;
 }

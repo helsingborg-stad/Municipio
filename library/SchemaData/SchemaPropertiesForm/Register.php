@@ -5,8 +5,13 @@ namespace Municipio\SchemaData\SchemaPropertiesForm;
 use AcfService\Contracts\AddLocalFieldGroup;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\Schema\BaseType;
+use Municipio\Schema\Schema;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactoryInterface;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetCurrentScreen;
+use WpService\Contracts\GetPost;
 use WpService\Contracts\GetPostMeta;
 
 /**
@@ -19,9 +24,10 @@ class Register implements Hookable
      */
     public function __construct(
         private AddLocalFieldGroup $acfService,
-        private AddAction&GetCurrentScreen&GetPostMeta $wpService,
-        private GetAcfFieldGroupBySchemaTypeInterface $getAcfFieldGroupBySchemaType,
+        private AddAction&GetCurrentScreen&GetPostMeta&GetPost $wpService,
         private TryGetSchemaTypeFromPostType $configService,
+        private FormFactoryInterface $formFactory,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {
     }
 
@@ -44,7 +50,42 @@ class Register implements Hookable
             return;
         }
 
-        $this->acfService->addLocalFieldGroup($this->getAcfFieldGroupBySchemaType->getAcfFieldGroup($this->getSchemaType()));
+        $this->acfService->addLocalFieldGroup($this->formFactory->createForm($this->getSchema()));
+    }
+
+    /**
+     * Get the schema object.
+     *
+     * @return BaseType
+     */
+    private function getSchema(): BaseType
+    {
+        if ($postId = $this->getPostIdFromRequest()) {
+            $post = $this->wpService->getPost($postId);
+            return $this->postObjectFactory->create($post)->getSchema();
+        }
+
+        return Schema::{strtolower($this->getSchemaType())}();
+    }
+
+    /**
+     * Get the post ID from the request.
+     *
+     * @return int
+     */
+    private function getPostIdFromRequest(): int
+    {
+        if (isset($_GET['post']) && is_numeric($_GET['post'])) {
+            return (int)$_GET['post'];
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (isset($_POST['post_ID']) && is_numeric($_POST['post_ID'])) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            return (int)$_POST['post_ID'];
+        }
+
+        return 0;
     }
 
     /**
@@ -66,7 +107,7 @@ class Register implements Hookable
     {
         $screen = $this->wpService->getCurrentScreen();
 
-        return !empty($screen) && $screen->base === 'post' && isset($screen->post_type);
+        return !empty($screen) && $screen->base === 'post' && !empty($screen->post_type);
     }
 
     /**

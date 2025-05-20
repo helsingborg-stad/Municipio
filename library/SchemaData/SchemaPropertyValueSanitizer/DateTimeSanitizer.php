@@ -45,12 +45,10 @@ class DateTimeSanitizer implements SchemaPropertyValueSanitizerInterface
     private function sanitizeDate($value): DateTime|string|null
     {
         if (is_string($value)) {
-            $parsedDate = date_parse($value);
+            $dateTime = date_create($value);
 
-            if ($parsedDate['year'] && $parsedDate['hour']) {
-                return new \DateTime($value);
-            } elseif ($parsedDate['year']) {
-                return (new \DateTime($value))->format('Y-m-d');
+            if ($dateTime) {
+                return $dateTime;
             }
         }
 

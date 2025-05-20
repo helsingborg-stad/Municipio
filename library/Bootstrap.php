@@ -9,7 +9,6 @@ use Municipio\HooksRegistrar\HooksRegistrar;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes;
 use WpService\Implementations\NativeWpService;
 
@@ -51,8 +50,7 @@ $schemaObjectFromPost    = (new SchemaObjectFromPostFactory(
     $schemaDataConfigService,
     $wpService,
     new GetSchemaPropertiesWithParamTypes(),
-    new SchemaPropertyValueSanitizer(),
-    new GetEnabledSchemaTypes($wpService)
+    new SchemaPropertyValueSanitizer()
 ))->create();
 
 /**

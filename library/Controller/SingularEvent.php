@@ -30,8 +30,9 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         $event = $this->post->getSchema();
 
+        $this->data['displayFeaturedImage']          = false;
         $this->data['placeUrl']                      = $this->getPlaceUrl($event->getProperty('location'));
-        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? null;
+        $this->data['placeName']                     = $event->getProperty('location')['name'] ?? $event->getProperty('location')['address'] ?? null;
         $this->data['placeAddress']                  = $event->getProperty('location')['address'] ?? null;
         $this->data['priceListItems']                = $this->getPriceList();
         $this->data['icsDownloadLink']               = $this->getIcsDownloadLink($this->post->getSchema());
@@ -79,7 +80,7 @@ class SingularEvent extends \Municipio\Controller\Singular
             return '';
         }
 
-        $placeName    = $place['name'] ?? '';
+        $placeName    = $place['name'] ?? $place['address'] ?? '';
         $placeAddress = $place['address'] ?? '';
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
@@ -151,6 +152,8 @@ class SingularEvent extends \Municipio\Controller\Singular
             }
         } elseif (isset($priceSpecification['price'])) {
             $price = $priceSpecification['price'] . ' ' . $currency;
+        } elseif (isset($offer['price'])) {
+            $price = $offer['price'] . ' ' . $currency;
         } else {
             $price = $this->wpService->__('Price not available', 'municipio');
         }
@@ -173,6 +176,22 @@ class SingularEvent extends \Municipio\Controller\Singular
 
         if (!$startDate || !$endDate || !$name) {
             return '';
+        }
+
+        if (is_string($startDate)) {
+            $startDate = date_create($startDate);
+
+            if (!$startDate) {
+                return '';
+            }
+        }
+
+        if (is_string($endDate)) {
+            $endDate = date_create($endDate);
+
+            if (!$endDate) {
+                return '';
+            }
         }
 
         $icsData = [
@@ -233,8 +252,14 @@ class SingularEvent extends \Municipio\Controller\Singular
     /**
      * Check if the event is in the past
      */
-    private function eventIsInThePast(?DateTime $startDate = null): bool
+    private function eventIsInThePast(): bool
     {
-        return $startDate ? $startDate->getTimestamp() < time() : false;
+        $startDate = $this->post->getSchemaProperty('startDate');
+
+        if (!is_a($startDate, DateTime::class)) {
+            return false;
+        }
+
+        return $startDate->getTimestamp() < time() ? true : false;
     }
 }

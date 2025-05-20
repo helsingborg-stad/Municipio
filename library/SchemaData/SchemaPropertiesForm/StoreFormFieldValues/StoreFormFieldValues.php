@@ -2,17 +2,14 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
-use AcfService\Contracts\DeleteField;
 use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
-use Municipio\Schema\Schema;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypesInterface;
-use Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypesInterface;
-use WpService\Contracts\AddAction;
-use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\GetPostType;
-use WpService\Contracts\UpdatePostMeta;
-use WpService\Contracts\WpVerifyNonce;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\Schema\{BaseType, Schema};
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapperInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\PostNonceValidatorInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsInterface;
+use WpService\Contracts\{AddFilter, GetPost, GetPostType};
 
 /**
  * Handles the storage of form field values for schema data.
@@ -23,11 +20,12 @@ class StoreFormFieldValues implements Hookable
      * Constructor.
      */
     public function __construct(
-        private AddAction&GetPostType&GetPostMeta&UpdatePostMeta&WpVerifyNonce $wpService,
-        private DeleteField $acfService,
+        private GetPostType&GetPost&AddFilter $wpService,
         private TryGetSchemaTypeFromPostType $schemaTypeService,
-        private GetEnabledSchemaTypesInterface $getEnabledSchemaTypesService,
-        private GetSchemaPropertiesWithParamTypesInterface $getSchemaPropertiesWithParamTypesService
+        private PostNonceValidatorInterface $nonceValidationService,
+        private FieldMapperInterface $fieldMapper,
+        private SchemaPropertiesFromMappedFieldsInterface $schemaPropertiesFromMappedFields,
+        private PostObjectFromWpPostFactoryInterface $postObjectFactory,
     ) {
     }
 
@@ -36,67 +34,43 @@ class StoreFormFieldValues implements Hookable
      */
     public function addHooks(): void
     {
-        $this->wpService->addAction('acf/save_post', [$this, 'saveSchemaData']);
+        $this->wpService->addFilter('acf/update_value/name=schemaData', [$this, 'saveSchemaData'], 100, 4);
     }
 
     /**
      * Saves the schema data for a given post ID.
      *
-     * @param int $postId The ID of the post being saved.
+     * @param mixed $value The current value of the field.
+     * @param string|int $postId The ID of the post being saved.
+     * @param array<string, mixed> $field The field settings.
+     * @param mixed $original The original value of the field.
      */
-    public function saveSchemaData(null|int|string $postId): void
+    public function saveSchemaData(mixed $value, string|int $postId, array $field, mixed $original): mixed
     {
-        if (is_null($postId) || is_string($postId)) {
-            return;
-        }
 
-        if (!$this->validNoncePresentInRequest($postId)) {
-            return;
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (!$this->nonceValidationService->isValid($postId, $_POST['_wpnonce'] ?? null)) {
+            return $value;
         }
 
         $schemaType = $this->getSchemaType($this->wpService->getPostType($postId));
+
         if (!$schemaType) {
-            return;
+            return $value;
         }
 
-        $allowedProperties = $this->getAllowedProperties($schemaType);
-        if (!$allowedProperties) {
-            return;
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $postedData = $_POST['acf'][$field['key']] ?? [];
+
+        if (empty($postedData)) {
+            return $value;
         }
 
-        $schemaObject          = $this->getSchemaObject($postId);
-        $schemaTypeLcFirst     = lcfirst($schemaType);
-        $schemaObjectClassName = get_class(Schema::$schemaTypeLcFirst());
-        $schemaProperties      = $this->getSchemaPropertiesWithParamTypesService->getSchemaPropertiesWithParamTypes($schemaObjectClassName);
+        $mappedFields = $this->fieldMapper->getMappedFields($field['sub_fields'], $postedData);
+        $schemaObject = $this->getSchemaObject($postId, $schemaType);
+        $schemaObject = $this->schemaPropertiesFromMappedFields->apply($schemaObject, $mappedFields);
 
-        if (empty($schemaObject)) {
-            $schemaObject = Schema::$schemaTypeLcFirst()->toArray();
-        }
-
-
-        foreach ($allowedProperties as $property) {
-            $propertyName = 'schema_' . $property;
-
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            if (!isset($_POST['acf'][$propertyName])) {
-                continue;
-            }
-
-            $sanitizers = [
-                new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\Sanitize\SanitizeGeoCoordinates(),
-            ];
-
-            foreach ($sanitizers as $sanitizer) {
-                // phpcs:ignore WordPress.Security.NonceVerification.Missing
-                $schemaObject[$property] = $sanitizer->sanitize($schemaProperties[$property], $_POST['acf'][$propertyName] ?: null);
-            }
-
-            // Avoid storing duplicated data.
-            $this->acfService->deleteField($propertyName, $postId);
-        }
-
-        // Update the post meta with the modified schema object.
-        $this->wpService->updatePostMeta($postId, 'schemaData', $schemaObject);
+        return $schemaObject->toArray();
     }
 
     /**
@@ -111,42 +85,19 @@ class StoreFormFieldValues implements Hookable
     }
 
     /**
-     * Retrieves the allowed properties for a given schema type.
-     *
-     * @param string $schemaType The schema type to retrieve the allowed properties for.
-     * @return array|null The allowed properties, or null if not found.
-     */
-    private function getAllowedProperties(string $schemaType): ?array
-    {
-        return $this->getEnabledSchemaTypesService->getEnabledSchemaTypesAndProperties()[$schemaType] ?? null;
-    }
-
-    /**
      * Retrieves the schema object for a given post ID.
      *
      * @param int $postId The ID of the post to retrieve the schema object for.
-     * @return array|null The schema object, or null if not found.
+     * @return BaseType The schema object.
      */
-    private function getSchemaObject(int $postId): ?array
+    private function getSchemaObject(int $postId, string $schemaType): BaseType
     {
-        $schemaObject = $this->wpService->getPostMeta($postId, 'schemaData', true);
+        $schemaObject = $this->postObjectFactory->create($this->wpService->getPost($postId))->getSchema();
 
-        if (!is_array($schemaObject)) {
-            return null;
+        if ($schemaObject->getType() === $schemaType) {
+            return $schemaObject;
         }
 
-        return $schemaObject;
-    }
-
-    /**
-     * Checks if a valid nonce is present in the request.
-     *
-     * @param int $postId The ID of the post being saved.
-     * @return bool True if a valid nonce is present, false otherwise.
-     */
-    private function validNoncePresentInRequest(int $postId): bool
-    {
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        return !empty($_POST['_wpnonce']) && $this->wpService->wpVerifyNonce($_POST['_wpnonce'], 'update-post_' . $postId);
+        return Schema::{lcfirst($schemaType)}();
     }
 }

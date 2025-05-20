@@ -30,10 +30,6 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\ThumbnailDecorator;
 use Municipio\Helper\ResourceFromApiHelper;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\Helper\Listing;
-use Municipio\SchemaData\LimitSchemaTypesAndProperties;
-use Municipio\SchemaData\SchemaPropertiesForm\GetAcfFieldGroupBySchemaType;
-use Municipio\SchemaData\SchemaPropertiesForm\GetFormFieldsBySchemaProperties;
-use Municipio\SchemaData\Utils\GetEnabledSchemaTypes;
 use WP_Post;
 use WpCronService\WpCronJobManager;
 use wpdb;
@@ -41,7 +37,12 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
+use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\UpdatePostNonceValidatorService;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
@@ -787,26 +788,14 @@ class App
             ]);
         });
 
-        $getEnabledSchemaTypes             = new GetEnabledSchemaTypes($this->wpService);
         $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
 
         $schemaObjectFromPost = (new SchemaObjectFromPostFactory(
             $this->schemaDataConfig,
             $this->wpService,
             $getSchemaPropertiesWithParamTypes,
-            new SchemaPropertyValueSanitizer(),
-            $getEnabledSchemaTypes
+            new SchemaPropertyValueSanitizer()
         ))->create();
-
-        /**
-         * Limit schema types and properties.
-         */
-        $enabledSchemaTypes       = new \Municipio\SchemaData\Utils\GetEnabledSchemaTypes($this->wpService);
-        $schemaTypesAndProperties = $enabledSchemaTypes->getEnabledSchemaTypesAndProperties();
-        $this->hooksRegistrar->register(new LimitSchemaTypesAndProperties(
-            $enabledSchemaTypes->getEnabledSchemaTypesAndProperties(),
-            $this->wpService
-        ));
 
         /**
          * Register schema types in acf select.
@@ -834,19 +823,33 @@ class App
         /**
          * Register form for schema properties on posts.
          */
-        $acfFormFieldsFromSchemaProperties = new GetFormFieldsBySchemaProperties($this->wpService, $this->acfService);
-        $acfFieldGroupFromSchemaType       = new GetAcfFieldGroupBySchemaType($this->wpService, $getSchemaPropertiesWithParamTypes, $acfFormFieldsFromSchemaProperties);
-        $this->hooksRegistrar->register(new \Municipio\SchemaData\SchemaPropertiesForm\Register($this->acfService, $this->wpService, $acfFieldGroupFromSchemaType, $this->schemaDataConfig));
-
-        /**
-         * Retrive form field values
-         */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\RetrieveFromFieldValues\RetrieveFormFieldValues($this->wpService, $this->schemaDataConfig, $getEnabledSchemaTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\Register(
+            $this->acfService,
+            $this->wpService,
+            $this->schemaDataConfig,
+            new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService),
+            new CreatePostObjectFromWpPost(
+                $this->wpService,
+                $this->acfService,
+                $schemaObjectFromPost,
+            ),
+        ))->addHooks();
 
         /**
          * Store form field values.
          */
-        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues($this->wpService, $this->acfService, $this->schemaDataConfig, $getEnabledSchemaTypes, $getSchemaPropertiesWithParamTypes))->addHooks();
+        (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\StoreFormFieldValues(
+            $this->wpService,
+            $this->schemaDataConfig,
+            new UpdatePostNonceValidatorService($this->wpService),
+            new FieldMapper($this->acfService),
+            (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
+            new CreatePostObjectFromWpPost(
+                $this->wpService,
+                $this->acfService,
+                $schemaObjectFromPost,
+            ),
+        ))->addHooks();
 
         /**
          * External content

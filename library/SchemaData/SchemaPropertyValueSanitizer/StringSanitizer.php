@@ -12,7 +12,7 @@ class StringSanitizer implements SchemaPropertyValueSanitizerInterface
     /**
      * Constructor.
      */
-    public function __construct(private $inner = new NullSanitizer())
+    public function __construct(private SchemaPropertyValueSanitizerInterface $inner = new NullSanitizer())
     {
     }
 
