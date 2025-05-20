@@ -27,6 +27,6 @@ class EmailField extends AbstractField implements FieldInterface
      */
     public function getValue(): mixed
     {
-        return filter_var($this->value, FILTER_SANITIZE_EMAIL) ? $this->value : '';
+        return filter_var($this->value, FILTER_VALIDATE_EMAIL) ? $this->value : '';
     }
 }
