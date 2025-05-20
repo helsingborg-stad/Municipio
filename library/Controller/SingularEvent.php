@@ -178,6 +178,22 @@ class SingularEvent extends \Municipio\Controller\Singular
             return '';
         }
 
+        if (is_string($startDate)) {
+            $startDate = date_create($startDate);
+
+            if (!$startDate) {
+                return '';
+            }
+        }
+
+        if (is_string($endDate)) {
+            $endDate = date_create($endDate);
+
+            if (!$endDate) {
+                return '';
+            }
+        }
+
         $icsData = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',

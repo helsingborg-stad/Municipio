@@ -9,7 +9,8 @@ class DateTimeSanitizerTest extends TestCase
     public function testReturnsDateAsString()
     {
         $sanitizer = new DateTimeSanitizer();
-        $this->assertEquals('2021-01-01', $sanitizer->sanitize('2021-01-01', ['\DateTimeInterface']));
+        $sanitized = $sanitizer->sanitize('2021-01-01', ['string']);
+        $this->assertEquals('2021-01-01', $sanitized);
     }
 
     public function testReturnsDateTimeAsDateTime()
@@ -22,6 +23,8 @@ class DateTimeSanitizerTest extends TestCase
     public function testReturnsArrayOfDates()
     {
         $sanitizer = new DateTimeSanitizer();
-        $this->assertEquals(['2021-01-01'], $sanitizer->sanitize(['2021-01-01'], ['\DateTimeInterface[]']));
+        $sanitized = $sanitizer->sanitize(['2021-01-01'], ['\DateTimeInterface[]']);
+
+        $this->assertEquals('2021-01-01', $sanitized[0]->format('Y-m-d'));
     }
 }

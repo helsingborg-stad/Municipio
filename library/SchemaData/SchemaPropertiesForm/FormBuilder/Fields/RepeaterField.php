@@ -25,6 +25,10 @@ class RepeaterField extends AbstractField implements FieldWithSubFieldsInterface
 
         WpService::get()->addFilter("acf/load_value/key={$this->getKey()}", function ($value, $postId, $field) {
 
+            if (empty($value)) {
+                return $value;
+            }
+
             foreach (array_values($value) as $index => $row) {
                 $subFieldNamePrefix = $field['name'] . '_' . $index . '_';
 

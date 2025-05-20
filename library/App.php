@@ -38,7 +38,6 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPost;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
@@ -828,7 +827,12 @@ class App
             $this->acfService,
             $this->wpService,
             $this->schemaDataConfig,
-            new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService)
+            new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService),
+            new CreatePostObjectFromWpPost(
+                $this->wpService,
+                $this->acfService,
+                $schemaObjectFromPost,
+            ),
         ))->addHooks();
 
         /**
@@ -843,9 +847,7 @@ class App
             new CreatePostObjectFromWpPost(
                 $this->wpService,
                 $this->acfService,
-                new SchemaObjectFromPost(
-                    $this->schemaDataConfig,
-                ),
+                $schemaObjectFromPost,
             ),
         ))->addHooks();
 

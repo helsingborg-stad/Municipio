@@ -123,7 +123,7 @@ class Template
                         ? apply_filters_deprecated($tag, array_merge([$value], $params), $v, $m)
                         : apply_filters($tag, ...array_merge([$value], $params));
 
-                return $useFilter
+                return $useFilter§
                     ? $applyFilters($filterTag, $viewData, $filterParams, $isDeprecated, $version, $message)
                     : $viewData;
             },

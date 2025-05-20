@@ -54,7 +54,7 @@ class ExhibitionEventFormFactory implements FormFactoryInterface
                 [
                     new TypeField('Place'),
                     new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('location')?->getProperty('name') ?? null),
-                    new GoogleMapField('geo', $this->wpService->__('Geo', 'municipio'), $schema->getProperty('location')->getProperty('geo')),
+                    new GoogleMapField('geo', $this->wpService->__('Geo', 'municipio'), $schema->getProperty('location')?->getProperty('geo')),
                 ]
             ),
             // TODO: Add description for location.

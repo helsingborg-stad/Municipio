@@ -36,7 +36,10 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         }
 
         try {
-            $date = new \DateTime($this->post->getSchemaProperty('validThrough'));
+            $date = $this->post->getSchemaProperty('validThrough');
+            if (is_null($date)) {
+                return null;
+            }
             return $date->format('Y-m-d');
         } catch (\Exception $e) {
             error_log('Failed to parse date: ' . $this->post->getSchemaProperty('validThrough'));
@@ -79,29 +82,24 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     public function getValidThroughListItemValue(?int $currentTimestamp = null): string
     {
-        $formatted = $this->tryGetFormattedValidThrough();
+        /** @var DateTime|null $validThrough */
+        $validThrough = $this->post->getSchemaProperty('validThrough');
 
-        if (empty($formatted)) {
-            return $this->post->getSchemaProperty('validThrough') ?? '';
+        if (empty($validThrough)) {
+            return '';
         }
 
-        $validThroughTimeStamp = strtotime($formatted);
-
-        if (empty($validThroughTimeStamp)) {
-            return $this->post->getSchemaProperty('validThrough') ?? '';
-        }
-
-        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d', $currentTimestamp));
+        $daysUntilValidThrough = $validThrough->getTimestamp() - strtotime(date('Y-m-d', $currentTimestamp));
         $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
-        $value                 = $formatted . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
+        $value                 = $validThrough->format('Y-m-d') . ' (' . $daysUntilValidThrough . ' ' . $this->data['lang']->days . ')';
 
         if ($daysUntilValidThrough === 0) {
-            $value = $formatted . ' (' . $this->data['lang']->today . ')';
+            $value = $validThrough->format('Y-m-d') . ' (' . $this->data['lang']->today . ')';
         } elseif ($daysUntilValidThrough === 1) {
-            $value = $formatted . ' (' . $this->data['lang']->tomorrow . ')';
+            $value = $validThrough->format('Y-m-d') . ' (' . $this->data['lang']->tomorrow . ')';
         } elseif ($this->isExpired($currentTimestamp)) {
-            $value = $formatted . ' (' . $this->data['lang']->expired . ')';
+            $value = $validThrough->format('Y-m-d') . ' (' . $this->data['lang']->expired . ')';
         }
 
         return $value;
@@ -114,17 +112,14 @@ class SingularJobPosting extends \Municipio\Controller\Singular
      */
     private function isExpired(?int $currentTimestamp = null): bool
     {
-        if (is_null($this->post->getSchemaProperty('validThrough'))) {
+        /** @var \DateTime|null $validThrough */
+        $validThrough = $this->post->getSchemaProperty('validThrough');
+
+        if (empty($validThrough)) {
             return false;
         }
 
-        $validThroughTimeStamp = strtotime($this->post->getSchemaProperty('validThrough'));
-
-        if (empty($validThroughTimeStamp)) {
-            return false;
-        }
-
-        $daysUntilValidThrough = $validThroughTimeStamp - strtotime(date('Y-m-d', $currentTimestamp));
+        $daysUntilValidThrough = $validThrough->getTimestamp() - strtotime(date('Y-m-d', $currentTimestamp));
         $daysUntilValidThrough = floor($daysUntilValidThrough / (60 * 60 * 24));
         $daysUntilValidThrough = intval($daysUntilValidThrough);
 
@@ -155,7 +150,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         if ($this->post->getSchemaProperty('datePosted')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->datePosted,
-                'value' => $this->post->getSchemaProperty('datePosted')
+                'value' => $this->post->getSchemaProperty('datePosted')?->format('Y-m-d')
             ];
         }
 
@@ -169,7 +164,7 @@ class SingularJobPosting extends \Municipio\Controller\Singular
         if ($this->post->getSchemaProperty('datePosted')) {
             $this->data['informationList'][] = [
                 'label' => $this->data['lang']->datePosted,
-                'value' => $this->post->getSchemaProperty('datePosted')
+                'value' => $this->post->getSchemaProperty('datePosted')?->format('Y-m-d')
             ];
         }
 
