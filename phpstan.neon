@@ -1,0 +1,18 @@
+# phpstan.neon
+parameters:
+    parallel:
+        jobSize: 1
+        maximumNumberOfProcesses: 1
+        minimumNumberOfJobsPerProcess: 1
+    unused_public:
+        methods: true
+        properties: true
+        constants: true
+    level: max
+    excludePaths:
+        - *Test.php
+        - *.test.php
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+    ignoreErrors:
+        - identifier: missingType.iterableValue

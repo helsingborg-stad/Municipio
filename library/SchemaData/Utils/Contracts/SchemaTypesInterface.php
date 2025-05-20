@@ -7,7 +7,7 @@ interface SchemaTypesInterface
     /**
      * Get all available schema types
      *
-     * @return array
+     * @return string[]
      */
     public function getSchemaTypes(): array;
 }

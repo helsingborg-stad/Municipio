@@ -11,7 +11,7 @@ interface SchemaPropertyHandlerInterface
      *
      * @param string $propertyName
      * @param mixed $value
-     * @param array $propertyTypes
+     * @param string[] $propertyTypes
      * @return bool
      */
     public function supports(string $propertyName, string $fieldType, mixed $value, array $propertyTypes): bool;

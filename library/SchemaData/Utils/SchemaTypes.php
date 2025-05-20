@@ -15,6 +15,8 @@ class SchemaTypes implements SchemaTypesInterface
 {
     /**
      * SchemaTypes constructor.
+     *
+     * @return string[]
      */
     public function getSchemaTypes(): array
     {
@@ -35,11 +37,18 @@ class SchemaTypes implements SchemaTypesInterface
     private function getSchemaTypesFromFiles(): array
     {
         // Find folder where the Thing class is located
-        $path = dirname((new \ReflectionClass(new Thing()))->getFileName());
+        $fileName = (new \ReflectionClass(new Thing()))->getFileName();
+
+        // If the file name is not found, return an empty array
+        if ($fileName === false) {
+            return [];
+        }
+
+        $path = dirname($fileName);
 
         // Get all PHP files in the folder
         return array_map(function ($file) {
             return basename($file, '.php');
-        }, glob($path . '/*.php'));
+        }, glob($path . '/*.php') ?: []);
     }
 }

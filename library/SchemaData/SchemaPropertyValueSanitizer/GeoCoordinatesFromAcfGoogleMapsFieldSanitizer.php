@@ -11,6 +11,9 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     private mixed $value;
+    /**
+     * @var array<string>
+     */
     private array $allowedTypes;
 
     /**
@@ -18,7 +21,7 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
      *
      * @param SchemaPropertyValueSanitizerInterface $inner The inner sanitizer to delegate to if the value is not a GeoCoordinates.
      */
-    public function __construct(private $inner = new NullSanitizer())
+    public function __construct(private SchemaPropertyValueSanitizerInterface $inner = new NullSanitizer())
     {
     }
 
@@ -26,7 +29,7 @@ class GeoCoordinatesFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyVal
      * Sanitizes the given value based on the allowed types.
      *
      * @param mixed $value The value to sanitize.
-     * @param array $allowedTypes The allowed types for the value.
+     * @param string[] $allowedTypes The allowed types for the value.
      *
      * @return mixed The sanitized value.
      */

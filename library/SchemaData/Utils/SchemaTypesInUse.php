@@ -50,6 +50,6 @@ class SchemaTypesInUse implements SchemaTypesInUseInterface
      */
     private function getQuery(): string
     {
-        return $this->wpdb->prepare("SELECT option_value FROM {$this->wpdb->options} WHERE option_name LIKE %s", self::SCHEMA_TYPE_OPTION_NAME);
+        return $this->wpdb->prepare("SELECT option_value FROM {$this->wpdb->options} WHERE option_name LIKE %s", self::SCHEMA_TYPE_OPTION_NAME) ?? '';
     }
 }

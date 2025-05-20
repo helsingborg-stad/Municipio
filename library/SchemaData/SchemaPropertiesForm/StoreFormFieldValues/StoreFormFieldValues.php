@@ -39,6 +39,11 @@ class StoreFormFieldValues implements Hookable
 
     /**
      * Saves the schema data for a given post ID.
+     *
+     * @param mixed $value The current value of the field.
+     * @param string|int $postId The ID of the post being saved.
+     * @param array<string, mixed> $field The field settings.
+     * @param mixed $original The original value of the field.
      */
     public function saveSchemaData(mixed $value, string|int $postId, array $field, mixed $original): mixed
     {

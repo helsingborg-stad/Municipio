@@ -35,7 +35,7 @@ class SchemaPropertiesFromMappedFields implements SchemaPropertiesFromMappedFiel
 
         foreach ($mappedFields as $mappedField) {
             $value        = $mappedField->getValue();
-            $fieldType    = $mappedField->getType() ?? '';
+            $fieldType    = $mappedField->getType();
             $propertyName = $mappedField->getName();
 
             if (is_string($value) && json_validate(stripslashes($value))) {

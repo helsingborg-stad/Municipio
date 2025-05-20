@@ -107,7 +107,7 @@ class Register implements Hookable
     {
         $screen = $this->wpService->getCurrentScreen();
 
-        return !empty($screen) && $screen->base === 'post' && isset($screen->post_type);
+        return !empty($screen) && $screen->base === 'post' && !empty($screen->post_type);
     }
 
     /**

@@ -18,7 +18,7 @@ class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamT
      *
      * @param string $schemaType The schema type to retrieve properties for.
      *
-     * @return array An associative array of schema properties and their parameter types.
+     * @return array<string, array<string>> An associative array of schema properties and their parameter types.
      */
     public function getSchemaPropertiesWithParamTypes(string $schemaType): array
     {
@@ -34,7 +34,7 @@ class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamT
      *
      * @param string $schemaType The schema type to retrieve properties for.
      *
-     * @return array An associative array of schema properties and their parameter types.
+     * @return array<string, array<string>> An associative array of schema properties and their parameter types.
      */
     private function getSchemaPropertiesFromClass(string $schemaType): array
     {
@@ -56,7 +56,7 @@ class GetSchemaPropertiesWithParamTypes implements GetSchemaPropertiesWithParamT
      *
      * @param ReflectionMethod $method The method to retrieve parameter types from.
      *
-     * @return array An array of parameter types.
+     * @return array<string> An array of parameter types.
      */
     private function getParamTypesFromDocblock(ReflectionMethod $method): array
     {

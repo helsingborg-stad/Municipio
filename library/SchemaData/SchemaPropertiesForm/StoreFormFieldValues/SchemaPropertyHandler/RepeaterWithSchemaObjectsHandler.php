@@ -40,7 +40,7 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
     /**
      * Check if the value contains rows of schema objects.
      *
-     * @param array $value The value to check.
+     * @param mixed[] $value The value to check.
      * @return bool True if the value contains rows of schema objects, false otherwise.
      */
     private function valueContainsRowsOfSchemaObjects(array $value): bool
@@ -65,13 +65,19 @@ class RepeaterWithSchemaObjectsHandler implements SchemaPropertyHandlerInterface
     /**
      * Get the type from the rows.
      *
-     * @param array $rows The rows to check.
+     * @param mixed[] $rows The rows to check.
      * @return string|null The type if found, null otherwise.
      */
     private function getTypeFromRows(array $rows): ?string
     {
         $rows           = array_map(fn ($row) => array_values($row), $rows);
-        $foundTypeField = array_find($rows[0], fn ($mappedField) => $mappedField->getName() === '@type' && !empty($mappedField->getValue()));
+        $foundTypeField = null;
+        foreach ($rows[0] as $mappedField) {
+            if ($mappedField->getName() === '@type' && !empty($mappedField->getValue())) {
+                $foundTypeField = $mappedField;
+                break;
+            }
+        }
 
         if ($foundTypeField) {
             return $foundTypeField->getValue();

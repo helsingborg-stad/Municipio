@@ -17,8 +17,6 @@ class SchemaObjectFromPostFactory implements FactoryInterface
 {
     /**
      * SchemaObjectFromPost constructor.
-     *
-     * @param TryGetSchemaTypeFromPostType $config
      */
     public function __construct(
         private TryGetSchemaTypeFromPostType $tryGetSchemaTypeFromPostType,

@@ -12,8 +12,6 @@ class DateTimeField implements FormFieldResolverInterface
     /**
      * DateTimeField constructor.
      *
-     * @param string $schemaType
-     * @param string $propertyName
      * @param array $acceptedPropertyTypes
      * @param FormFieldResolverInterface $inner
      */

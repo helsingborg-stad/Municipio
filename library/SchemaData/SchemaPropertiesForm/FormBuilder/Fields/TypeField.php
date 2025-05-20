@@ -2,6 +2,8 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields;
 
+use Municipio\Helper\WpService;
+
 /**
  * Class TypeField
  *
@@ -17,7 +19,7 @@ class TypeField extends AbstractField
     public function __construct(protected string $type)
     {
         parent::__construct('@type', '', $type);
-        add_filter('acf/load_value/key=' . $this->getKey(), [$this, 'loadValue'], 10);
+        WpService::get()->addFilter('acf/load_value/key=' . $this->getKey(), [$this, 'loadValue'], 10);
     }
 
     /**

@@ -8,6 +8,9 @@ namespace Municipio\SchemaData\SchemaPropertyValueSanitizer;
 class PlaceFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitizerInterface
 {
     private mixed $value;
+    /**
+     * @var array<string>
+     */
     private array $allowedTypes;
 
     /**
@@ -23,7 +26,7 @@ class PlaceFromAcfGoogleMapsFieldSanitizer implements SchemaPropertyValueSanitiz
      * Sanitizes the given value based on the allowed types.
      *
      * @param mixed $value The value to sanitize.
-     * @param array $allowedTypes The allowed types for the value.
+     * @param string[] $allowedTypes The allowed types for the value.
      *
      * @return mixed The sanitized value.
      */

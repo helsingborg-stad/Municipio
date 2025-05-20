@@ -73,7 +73,7 @@ class ExhibitionEventFormFactory implements FormFactoryInterface
                         DayOfWeek::Friday    => $this->wpService->__('Friday', 'municipio'),
                         DayOfWeek::Saturday  => $this->wpService->__('Saturday', 'municipio'),
                         DayOfWeek::Sunday    => $this->wpService->__('Sunday', 'municipio'),
-                    ], $schema->getProperty('dayOfWeek') ?? []),
+                    ]),
                     new TimeField('opens', $this->wpService->__('Opens', 'municipio')),
                     new TimeField('closes', $this->wpService->__('Closes', 'municipio')),
                     new DateField('validFrom', $this->wpService->__('Valid From', 'municipio')),

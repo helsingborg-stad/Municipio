@@ -63,7 +63,13 @@ class GroupWithSchemaObjectHandler implements SchemaPropertyHandlerInterface
      */
     private function getTypeFromGroup(array $value): ?string
     {
-        $foundTypeField = array_find($value, fn ($mappedField) => $mappedField->getName() === '@type' && !empty($mappedField->getValue()));
+        $foundTypeField = null;
+        foreach ($value as $mappedField) {
+            if ($mappedField->getName() === '@type' && !empty($mappedField->getValue())) {
+                $foundTypeField = $mappedField;
+                break;
+            }
+        }
 
         if ($foundTypeField) {
             return $foundTypeField->getValue();

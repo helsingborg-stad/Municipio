@@ -7,16 +7,14 @@ interface MappedFieldInterface
     /**
      * Constructor.
      *
-     * @param string $name  The name of the field.
-     * @param string $type  The type of the field.
-     * @param mixed  $value The value of the field.
+     * @return string
      */
     public function getName(): string;
 
     /**
      * Get the type of the field.
      *
-     * @return string The type of the field.
+     * @return string The type of the field.@p
      */
     public function getType(): string;
 
