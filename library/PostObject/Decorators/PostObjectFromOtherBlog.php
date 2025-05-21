@@ -32,10 +32,19 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
     {
         $permalink = $this->addOriginIdentifiersToUrl($this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink()));
 
-        // replace the original site url with the current site url
-        $currentSiteUrl = $this->wpService->getSiteUrl();
-        $otherBlogUrl   = $this->wpService->getSiteUrl($this->getBlogId());
-        return str_replace($otherBlogUrl, $currentSiteUrl, $permalink);
+        return $this->replaceOriginalSiteUrl($permalink);
+    }
+
+    /**
+     * Replace the original site URL with the current site URL.
+     *
+     * @param string $url The URL to be modified.
+     *
+     * @return string The modified URL with the original site URL replaced.
+     */
+    private function replaceOriginalSiteUrl(string $url): string
+    {
+        return str_replace($this->wpService->getSiteUrl($this->getBlogId()), $this->wpService->getSiteUrl(), $url);
     }
 
     /**
