@@ -30,9 +30,11 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function getPermalink(): string
     {
-        $permalink = $this->addOriginIdentifiersToUrl($this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink()));
-
-        return $this->replaceOriginalSiteUrl($permalink);
+        return $this->replaceOriginalSiteUrl(
+            $this->addOriginIdentifiersToUrl(
+                $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink())
+            )
+        );
     }
 
     /**
