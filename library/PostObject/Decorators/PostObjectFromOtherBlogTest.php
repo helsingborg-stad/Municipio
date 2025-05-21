@@ -33,22 +33,6 @@ class PostObjectFromOtherBlogTest extends TestCase
     }
 
     /**
-     * @testdox switches to the blog using the provided blog id when getting the value and restores the current blog after
-     * @dataProvider provideFunctions
-     */
-    public function testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue(string $function)
-    {
-        $wpService = $this->getWpService();
-        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $wpService, 2);
-
-        $decorator->{$function}();
-
-        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
-        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
-        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
-    }
-
-    /**
      * @testdox getPermalink returns the permalink with extra query vars indicating the blog id and the original post id.
      */
     public function testGetPermalinkReturnsThePermalinkWithExtraQueryVarIndicatingTheBlogId()

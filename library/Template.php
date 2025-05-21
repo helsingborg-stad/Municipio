@@ -13,6 +13,7 @@ use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 
 /**
  * Class Template
@@ -38,7 +39,8 @@ class Template
         private WpService $wpService,
         private SchemaDataConfigInterface $schemaDataConfig,
         private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction,
-        private SiteSwitcher $siteSwitcher
+        private SiteSwitcher $siteSwitcher,
+        private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -267,7 +269,15 @@ class Template
      */
     public function getCurrentPostSchemaType(): ?string
     {
-        return $this->schemaDataConfig->tryGetSchemaTypeFromPostType($this->wpService->getPostType());
+        global $post;
+
+        if (empty($post)) {
+            return null;
+        }
+
+        $postObject = $this->postObjectFromWpPost->create($post);
+
+        return $postObject->getSchema()->getType() !== 'Thing' ? $postObject->getSchema()->getType() : null;
     }
     /**
      * It loads a controller class and returns an instance of it

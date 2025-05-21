@@ -4,6 +4,7 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\BaseType;
 use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
@@ -32,7 +33,7 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
     {
         return $this->replaceOriginalSiteUrl(
             $this->addOriginIdentifiersToUrl(
-                $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink())
+                $this->postObject->getPermalink()
             )
         );
     }
@@ -67,6 +68,22 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
     public function getIcon(): ?IconInterface
     {
         return $this->getValueFromOtherBlog(fn() => $this->postObject->getIcon());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(string $property): mixed
+    {
+        return $this->getValueFromOtherBlog(fn() => $this->postObject->getSchemaProperty($property));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchema(): BaseType
+    {
+        return $this->getValueFromOtherBlog(fn() => $this->postObject->getSchema());
     }
 
     /**

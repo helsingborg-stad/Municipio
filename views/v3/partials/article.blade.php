@@ -39,7 +39,7 @@
 
     <!-- Blog style author signature -->
     @includeWhen(
-        (!$postTypeDetails->hierarchical || $isBlogStyle), 
+        ($postTypeDetails && !$postTypeDetails->hierarchical || $isBlogStyle), 
         'partials.signature',
         array_merge(
             (array) $signature, 
@@ -98,7 +98,7 @@
     <!-- Blog style author signature -->
     @section('content.below')
         @includeWhen(
-            ($postTypeDetails->hierarchical && !$isBlogStyle), 
+            ($postTypeDetails && $postTypeDetails->hierarchical && !$isBlogStyle), 
             'partials.signature',
             array_merge(
                 (array) $signature, 
