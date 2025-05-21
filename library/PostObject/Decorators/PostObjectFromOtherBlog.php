@@ -29,7 +29,21 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function getPermalink(): string
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink());
+        return $this->addBlogIdQueryVarToUrl($this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink()));
+    }
+
+    /**
+     * Add the blog ID as a query variable to the URL.
+     *
+     * @param string $url The URL to which the blog ID should be added.
+     *
+     * @return string The URL with the blog ID query variable appended.
+     */
+    private function addBlogIdQueryVarToUrl(string $url): string
+    {
+        $varPrefix = empty(parse_url($url)['query']) ? '?' : '&';
+
+        return $url . $varPrefix . 'blog_id=' . $this->getBlogId();
     }
 
     /**

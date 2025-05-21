@@ -48,6 +48,23 @@ class PostObjectFromOtherBlogTest extends TestCase
         $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
     }
 
+    /**
+     * @testdox getPermalink returns the permalink with extra query_var indicating the blog id.
+     */
+    public function testGetPermalinkReturnsThePermalinkWithExtraQueryVarIndicatingTheBlogId()
+    {
+        $postObject = $this->getPostObject();
+        $postObject->method('getPermalink')->willReturn('http://example.com/?p=1');
+
+        $wpService = $this->getWpService();
+        $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
+
+        $this->assertStringContainsString('blog_id=2', $decorator->getPermalink());
+    }
+
+    /**
+     * Datatprovider for testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue
+     */
     public function provideFunctions(): array
     {
         return [
