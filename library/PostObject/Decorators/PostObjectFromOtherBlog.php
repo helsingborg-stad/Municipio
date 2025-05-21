@@ -58,9 +58,7 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     private function addOriginIdentifiersToUrl(string $url): string
     {
-        $varPrefix = empty(parse_url($url)['query']) ? '?' : '&';
-
-        return $url . $varPrefix . 'blog_id=' . $this->getBlogId() . '&p=' . $this->postObject->getId();
+        return $url . (empty(parse_url($url)['query']) ? '?' : '&') . 'blog_id=' . $this->getBlogId() . '&p=' . $this->postObject->getId();
     }
 
     /**
