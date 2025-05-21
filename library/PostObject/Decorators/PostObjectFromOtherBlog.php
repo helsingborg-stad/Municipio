@@ -4,6 +4,7 @@ namespace Municipio\PostObject\Decorators;
 
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
+use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
@@ -18,7 +19,7 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog $wpService,
+        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -29,21 +30,26 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function getPermalink(): string
     {
-        return $this->addBlogIdQueryVarToUrl($this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink()));
+        $permalink = $this->addOriginIdentifiersToUrl($this->getValueFromOtherBlog(fn() => $this->postObject->getPermalink()));
+
+        // replace the original site url with the current site url
+        $currentSiteUrl = $this->wpService->getSiteUrl();
+        $otherBlogUrl   = $this->wpService->getSiteUrl($this->getBlogId());
+        return str_replace($otherBlogUrl, $currentSiteUrl, $permalink);
     }
 
     /**
-     * Add the blog ID as a query variable to the URL.
+     * Add the blog ID and post id as query variables to the URL.
      *
-     * @param string $url The URL to which the blog ID should be added.
+     * @param string $url The URL to which the blog ID and post ID will be appended.
      *
-     * @return string The URL with the blog ID query variable appended.
+     * @return string The URL with the blog ID and post ID query variables appended.
      */
-    private function addBlogIdQueryVarToUrl(string $url): string
+    private function addOriginIdentifiersToUrl(string $url): string
     {
         $varPrefix = empty(parse_url($url)['query']) ? '?' : '&';
 
-        return $url . $varPrefix . 'blog_id=' . $this->getBlogId();
+        return $url . $varPrefix . 'blog_id=' . $this->getBlogId() . '&p=' . $this->postObject->getId();
     }
 
     /**
