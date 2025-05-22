@@ -61,9 +61,8 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     private function addOriginIdentifiersToUrl(string $url): string
     {
-        $querySeparator = $this->getQuerySeparator($url);
-        $blogId         = $this->getBlogId();
-        $postId         = $this->postObject->getId();
+        $blogId = $this->getBlogId();
+        $postId = $this->postObject->getId();
 
         return $this->wpService->addQueryArg(
             [
@@ -72,18 +71,6 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
             ],
             $url
         );
-    }
-
-    /**
-     * Determine the appropriate query separator for the URL.
-     *
-     * @param string $url
-     * @return string
-     */
-    private function getQuerySeparator(string $url): string
-    {
-        $hasQuery = !empty(parse_url($url, PHP_URL_QUERY));
-        return $hasQuery ? '&' : '?';
     }
 
     /**
