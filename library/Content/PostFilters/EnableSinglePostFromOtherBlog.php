@@ -22,11 +22,21 @@ use WpService\Contracts\{
  */
 class EnableSinglePostFromOtherBlog implements Hookable
 {
+    /**
+     * Constructor for the EnableSinglePostFromOtherBlog class.
+     *
+     * @param AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId $wpService
+     *        A service object that provides various WordPress-related actions and filters, including blog switching,
+     *        post type retrieval, multisite checks, and admin checks.
+     */
     public function __construct(
         private AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId $wpService,
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('pre_get_posts', [$this, 'handlePreGetPosts']);
