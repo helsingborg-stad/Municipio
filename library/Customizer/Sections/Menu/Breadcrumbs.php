@@ -36,5 +36,37 @@ class Breadcrumbs
                 ],
             ],
         ]);
+
+        KirkiField::addField([
+            'type'        => 'switch',
+            'settings'    => 'breadcrumb_show_home_icon',
+            'label'    => esc_html__('Show home icon', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => true,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'kirki'),
+                false => esc_html__('Disabled', 'kirki'),
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ]
+        ]);
+
+        KirkiField::addField([
+            'type'        => 'switch',
+            'settings'    => 'breadcrumb_show_prefix_label',
+            'label'    => esc_html__('Show prefix usually used for screen readers only (eg. you are here)', 'municipio'),
+            'section'  => $sectionID,
+            'default'  => false,
+            'priority' => 10,
+            'choices'  => [
+                true  => esc_html__('Enabled', 'kirki'),
+                false => esc_html__('Disabled', 'kirki'),
+            ],
+            'output'   => [
+                ['type' => 'controller']
+            ]
+        ]);
     }
 }
