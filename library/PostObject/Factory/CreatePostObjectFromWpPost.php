@@ -74,8 +74,11 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
             return $this->wpService->getCurrentBlogId();
         }
 
-        if ($this->wpService->isMultiSite() && !empty($_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR]) && !empty($_GET['p'])) {
-            return (int) $_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR];
+        $blogId = $this->wpService->getQueryVar(BlogIdQueryVar::BLOG_ID_QUERY_VAR, null);
+        $postId = $this->wpService->getQueryVar('p', null);
+
+        if ($this->wpService->isMultiSite() && $postId) {
+            return (int) $blogId;
         }
 
         return null;
