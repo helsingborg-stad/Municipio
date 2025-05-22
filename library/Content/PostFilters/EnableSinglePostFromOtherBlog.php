@@ -51,8 +51,10 @@ class EnableSinglePostFromOtherBlog implements Hookable // phpcs:ignore PSR1.Cla
      */
     public function enableSinglePostFromOtherBlog(WP_Query $query): void
     {
+        $otherBlogId = $this->getOtherBlogId();
+
         // Only run for the main query, not in admin, and only if blog_id and p (post ID) are set in the URL.
-        if (!$query->is_main_query() || $this->wpService->isAdmin() || is_null($otherBlogId = $this->getOtherBlogId())) {
+        if (!$query->is_main_query() || $this->wpService->isAdmin() || is_null($otherBlogId)) {
             return;
         }
 
