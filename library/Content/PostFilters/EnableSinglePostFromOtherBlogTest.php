@@ -55,6 +55,6 @@ class EnableSinglePostFromOtherBlogTest extends TestCase
 
         $query->expects($this->once())->method('set')->with('post_type', 'post');
 
-        $instance->enableSinglePostFromOtherBlog($query);
+        $instance->handlePreGetPosts($query);
     }
 }
