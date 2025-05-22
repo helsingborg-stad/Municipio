@@ -85,11 +85,15 @@ class EnableSinglePostFromOtherBlog implements Hookable
      */
     private function getRequestedBlogId(): ?int
     {
-        if ($this->wpService->isMultiSite() && $this->wpService->msIsSwitched()) {
+        if (!$this->wpService->isMultiSite()) {
+            return null;
+        };
+
+        if ($this->wpService->msIsSwitched()) {
             return $this->wpService->getCurrentBlogId();
         }
 
-        if ($this->wpService->isMultiSite() && !empty($_GET['blog_id']) && !empty($_GET['p'])) {
+        if (!empty($_GET['blog_id']) && !empty($_GET['p']) && is_numeric($_GET['blog_id'])) {
             return (int) $_GET['blog_id'];
         }
 
@@ -101,6 +105,8 @@ class EnableSinglePostFromOtherBlog implements Hookable
      */
     private function getRequestedPostId(): ?int
     {
-        return !empty($_GET['p']) ? (int) $_GET['p'] : null;
+        return !empty($_GET['p']) && is_numeric($_GET['p'])
+            ? (int) $_GET['p']
+            : null;
     }
 }
