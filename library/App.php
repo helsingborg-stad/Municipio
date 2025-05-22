@@ -38,7 +38,9 @@ use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
+use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
+use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
@@ -124,7 +126,8 @@ class App
             $this->wpService,
             $this->schemaDataConfig,
             $mainQueryUserGroupRestriction,
-            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService)
+            new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
+            $this->getPostObjectFromWpPostFactory(),
         );
 
         /**
@@ -152,7 +155,9 @@ class App
         new \Municipio\Content\CustomPostType();
         new \Municipio\Content\CustomTaxonomy();
         new \Municipio\Content\PostFilters();
+        (new \Municipio\Content\PostFilters\Contracts\BlogIdQueryVar($this->wpService))->addHooks();
         (new \Municipio\Content\PostFilters\RemoveExpiredEventsFromMainArchiveQuery($this->wpService, $this->schemaDataConfig))->addHooks();
+        (new \Municipio\Content\PostFilters\EnableSinglePostFromOtherBlog($this->wpService))->addHooks();
         new \Municipio\Content\ShortCode();
         new \Municipio\Content\Images();
         new \Municipio\Content\Cache();
@@ -788,15 +793,6 @@ class App
             ]);
         });
 
-        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-
-        $schemaObjectFromPost = (new SchemaObjectFromPostFactory(
-            $this->schemaDataConfig,
-            $this->wpService,
-            $getSchemaPropertiesWithParamTypes,
-            new SchemaPropertyValueSanitizer()
-        ))->create();
-
         /**
          * Register schema types in acf select.
          */
@@ -808,15 +804,10 @@ class App
         );
 
         /**
-         * Shared dependencies.
-         */
-        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
-
-        /**
          * Output schemadata in head of single posts.
          */
         $this->hooksRegistrar->register(new \Municipio\SchemaData\Utils\OutputPostSchemaJsonInSingleHead(
-            $schemaObjectFromPost,
+            $this->getSchemaObjectFromPostFactory(),
             $this->wpService
         ));
 
@@ -828,11 +819,7 @@ class App
             $this->wpService,
             $this->schemaDataConfig,
             new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService),
-            new CreatePostObjectFromWpPost(
-                $this->wpService,
-                $this->acfService,
-                $schemaObjectFromPost,
-            ),
+            $this->getPostObjectFromWpPostFactory(),
         ))->addHooks();
 
         /**
@@ -844,11 +831,7 @@ class App
             new UpdatePostNonceValidatorService($this->wpService),
             new FieldMapper($this->acfService),
             (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
-            new CreatePostObjectFromWpPost(
-                $this->wpService,
-                $this->acfService,
-                $schemaObjectFromPost,
-            ),
+            $this->getPostObjectFromWpPostFactory()
         ))->addHooks();
 
         /**
@@ -975,5 +958,36 @@ class App
          * Hide synced media from media library in admin.
          */
         (new HideSyncedMediaFromAdminMediaLibrary(ThumbnailDecorator::META_KEY, $this->wpService))->addHooks();
+    }
+
+    /**
+     * Get the schema object from post factory.
+     *
+     * @return SchemaObjectFromPostInterface
+     */
+    private function getSchemaObjectFromPostFactory(): SchemaObjectFromPostInterface
+    {
+        $getSchemaPropertiesWithParamTypes = new \Municipio\SchemaData\Utils\GetSchemaPropertiesWithParamTypes();
+
+        return (new SchemaObjectFromPostFactory(
+            $this->schemaDataConfig,
+            $this->wpService,
+            $getSchemaPropertiesWithParamTypes,
+            new SchemaPropertyValueSanitizer()
+        ))->create();
+    }
+
+    /**
+     * Get the post object from WP post factory.
+     *
+     * @return PostObjectFromWpPostFactoryInterface
+     */
+    private function getPostObjectFromWpPostFactory(): PostObjectFromWpPostFactoryInterface
+    {
+        return new CreatePostObjectFromWpPost(
+            $this->wpService,
+            $this->acfService,
+            $this->getSchemaObjectFromPostFactory()
+        );
     }
 }

@@ -39,7 +39,7 @@
 
     <!-- Blog style author signature -->
     @includeWhen(
-        (!$postTypeDetails->hierarchical || $isBlogStyle), 
+        (($postTypeDetails && !$postTypeDetails->hierarchical) || $isBlogStyle),
         'partials.signature',
         array_merge(
             (array) $signature, 
@@ -48,7 +48,7 @@
     )
 
     <!-- Featured image -->
-    @if ($displayFeaturedImage && $featuredImage['src'])
+    @if ($displayFeaturedImage && $featuredImage && $featuredImage['src'])
         @section('article.featuredimage.before')@show
         @if (!empty($featuredImage['src']))
             @image([
@@ -98,7 +98,7 @@
     <!-- Blog style author signature -->
     @section('content.below')
         @includeWhen(
-            ($postTypeDetails->hierarchical && !$isBlogStyle), 
+            (($postTypeDetails && $postTypeDetails->hierarchical) && !$isBlogStyle),
             'partials.signature',
             array_merge(
                 (array) $signature, 
