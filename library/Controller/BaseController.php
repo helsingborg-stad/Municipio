@@ -151,7 +151,6 @@ class BaseController
         $this->menuBuilder->setConfig($breadcrumbMenuConfig);
         $this->menuDirector->buildBreadcrumbMenu();
         $this->data['breadcrumbMenu'] = $this->menuBuilder->getMenu()->getMenu();
-        //$this->data['breadcrumbShowPrefix'] = \Kirki::get_option('breadcrumb_show_prefix_label');
 
         // Mobile menu
         $mobileMenuConfig = new MenuConfig(
