@@ -275,9 +275,9 @@ class Template
             return null;
         }
 
-        $postObject = $this->postObjectFromWpPost->create($post);
+        $schema = $this->postObjectFromWpPost->create($post)->getSchema();
 
-        return $postObject->getSchema()->getType() !== 'Thing' ? $postObject->getSchema()->getType() : null;
+        return $schema->getType() !== 'Thing' ? $schema->getType() : null;
     }
     /**
      * It loads a controller class and returns an instance of it
