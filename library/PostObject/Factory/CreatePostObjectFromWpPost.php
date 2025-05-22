@@ -3,6 +3,7 @@
 namespace Municipio\PostObject\Factory;
 
 use AcfService\AcfService;
+use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use Municipio\Helper\StringToTime;
 use Municipio\Helper\Term\Term;
 use Municipio\PostObject\Date\{ArchiveDateFormatResolver, ArchiveDateFormatResolverInterface, ArchiveDateSourceResolver, ArchiveDateSourceResolverInterface, CachedArchiveDateFormatResolver, CachedArchiveDateSourceResolver, CachedTimestampResolver, TimestampResolver, TimestampResolverInterface};
@@ -73,8 +74,8 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
             return $this->wpService->getCurrentBlogId();
         }
 
-        if ($this->wpService->isMultiSite() && !empty($_GET['blog_id']) && !empty($_GET['p'])) {
-            return (int) $_GET['blog_id'];
+        if ($this->wpService->isMultiSite() && !empty($_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR]) && !empty($_GET['p'])) {
+            return (int) $_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR];
         }
 
         return null;

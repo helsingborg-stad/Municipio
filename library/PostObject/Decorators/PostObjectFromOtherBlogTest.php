@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +52,7 @@ class PostObjectFromOtherBlogTest extends TestCase
 
         $permalink = $decorator->getPermalink();
 
-        $this->assertStringContainsString('blog_id=2', $permalink);
+        $this->assertStringContainsString(BlogIdQueryVar::BLOG_ID_QUERY_VAR . '=2', $permalink);
         $this->assertStringContainsString('p=123', $permalink);
     }
 
@@ -66,6 +67,7 @@ class PostObjectFromOtherBlogTest extends TestCase
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
+            'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
         ]);
         $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
 
@@ -96,6 +98,7 @@ class PostObjectFromOtherBlogTest extends TestCase
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => 'http://example.com',
+            'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
         ]);
     }
 }

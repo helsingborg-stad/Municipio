@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\PostFilters;
 
+use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WP_Query;
@@ -58,14 +59,15 @@ class EnableSinglePostFromOtherBlogTest extends TestCase
             'isMultisite'      => true,
             'msIsSwitched'     => false,
             'getCurrentBlogId' => 1,
-            'addFilter'        => true
+            'addFilter'        => true,
+            'getQueryVar'      => fn($name, $default) => [BlogIdQueryVar::BLOG_ID_QUERY_VAR => 123, 'p' => 456][$name] ?? $default,
         ]));
 
         $query = $this->getWpQuery();
         $query->method('is_main_query')->willReturn(true);
 
-        $_GET['blog_id'] = 123;
-        $_GET['p']       = 456;
+        $_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR] = 123;
+        $_GET['p']                               = 456;
 
         $query->expects($this->once())
             ->method('set')

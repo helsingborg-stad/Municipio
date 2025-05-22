@@ -2,6 +2,7 @@
 
 namespace Municipio\Content\PostFilters;
 
+use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Query;
 use WpService\Contracts\{
@@ -9,6 +10,7 @@ use WpService\Contracts\{
     AddFilter,
     GetCurrentBlogId,
     GetPostType,
+    GetQueryVar,
     IsAdmin,
     IsMultisite,
     MsIsSwitched,
@@ -25,12 +27,12 @@ class EnableSinglePostFromOtherBlog implements Hookable
     /**
      * Constructor for the EnableSinglePostFromOtherBlog class.
      *
-     * @param AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId $wpService
+     * @param AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId&GetQueryVar $wpService
      *        A service object that provides various WordPress-related actions and filters, including blog switching,
      *        post type retrieval, multisite checks, and admin checks.
      */
     public function __construct(
-        private AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId $wpService,
+        private AddAction&AddFilter&IsAdmin&SwitchToBlog&GetPostType&RemoveFilter&RestoreCurrentBlog&IsMultisite&MsIsSwitched&GetCurrentBlogId&GetQueryVar $wpService,
     ) {
     }
 
@@ -54,9 +56,9 @@ class EnableSinglePostFromOtherBlog implements Hookable
         $otherBlogId = $this->getRequestedBlogId();
         $postId      = $this->getRequestedPostId();
 
+        $this->wpService->addFilter('the_posts', [$this, 'restoreOriginalBlog'], 10, 1);
         $this->wpService->switchToBlog($otherBlogId);
         $query->set('post_type', $this->wpService->getPostType($postId));
-        $this->wpService->addFilter('the_posts', [$this, 'restoreOriginalBlog'], 10, 1);
     }
 
     /**
@@ -93,8 +95,10 @@ class EnableSinglePostFromOtherBlog implements Hookable
             return $this->wpService->getCurrentBlogId();
         }
 
-        if (!empty($_GET['blog_id']) && !empty($_GET['p']) && is_numeric($_GET['blog_id'])) {
-            return (int) $_GET['blog_id'];
+        $blogId = $this->wpService->getQueryVar(BlogIdQueryVar::BLOG_ID_QUERY_VAR, null);
+
+        if ($blogId !== null && is_numeric($blogId)) {
+            return (int) $blogId;
         }
 
         return null;
@@ -105,8 +109,12 @@ class EnableSinglePostFromOtherBlog implements Hookable
      */
     private function getRequestedPostId(): ?int
     {
-        return !empty($_GET['p']) && is_numeric($_GET['p'])
-            ? (int) $_GET['p']
-            : null;
+        $postId = $this->wpService->getQueryVar('p', null);
+
+        if ($postId !== null && is_numeric($postId)) {
+            return (int) $postId;
+        }
+
+        return null;
     }
 }

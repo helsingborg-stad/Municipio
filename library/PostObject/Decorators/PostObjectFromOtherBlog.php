@@ -2,9 +2,11 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
+use WpService\Contracts\AddQueryArg;
 use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
@@ -20,7 +22,7 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl $wpService,
+        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -63,7 +65,13 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
         $blogId         = $this->getBlogId();
         $postId         = $this->postObject->getId();
 
-        return "{$url}{$querySeparator}blog_id={$blogId}&p={$postId}";
+        return $this->wpService->addQueryArg(
+            [
+                BlogIdQueryVar::BLOG_ID_QUERY_VAR => $blogId,
+                'p'                               => $postId,
+            ],
+            $url
+        );
     }
 
     /**
