@@ -48,7 +48,7 @@
     )
 
     <!-- Featured image -->
-    @if ($displayFeaturedImage && $featuredImage['src'])
+    @if ($displayFeaturedImage && $featuredImage && $featuredImage['src'])
         @section('article.featuredimage.before')@show
         @if (!empty($featuredImage['src']))
             @image([
