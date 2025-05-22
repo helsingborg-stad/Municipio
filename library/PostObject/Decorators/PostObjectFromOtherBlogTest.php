@@ -5,7 +5,8 @@ namespace Municipio\PostObject\Decorators;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use WpService\Contracts\{RestoreCurrentBlog, SwitchToBlog};
+use WpService\Contracts\RestoreCurrentBlog;
+use WpService\Contracts\SwitchToBlog;
 use WpService\Implementations\FakeWpService;
 
 class PostObjectFromOtherBlogTest extends TestCase
@@ -13,21 +14,27 @@ class PostObjectFromOtherBlogTest extends TestCase
     /**
      * @testdox class can be instantiated
      */
-    public function testCanBeInstantiated()
+    public function testCanBeInstantiated(): void
     {
-        $this->assertInstanceOf(
-            PostObjectFromOtherBlog::class,
-            new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 1)
+        $decorator = new PostObjectFromOtherBlog(
+            $this->createPostObjectStub(),
+            $this->createWpService(),
+            1
         );
-    }
 
+        $this->assertInstanceOf(PostObjectFromOtherBlog::class, $decorator);
+    }
 
     /**
      * @testdox getBlogId returns the provided blog id
      */
-    public function testGetBlogIdReturnsTheProvidedBlogId()
+    public function testGetBlogIdReturnsTheProvidedBlogId(): void
     {
-        $decorator = new PostObjectFromOtherBlog($this->getPostObject(), $this->getWpService(), 2);
+        $decorator = new PostObjectFromOtherBlog(
+            $this->createPostObjectStub(),
+            $this->createWpService(),
+            2
+        );
 
         $this->assertEquals(2, $decorator->getBlogId());
     }
@@ -35,39 +42,40 @@ class PostObjectFromOtherBlogTest extends TestCase
     /**
      * @testdox getPermalink returns the permalink with extra query vars indicating the blog id and the original post id.
      */
-    public function testGetPermalinkReturnsThePermalinkWithExtraQueryVarIndicatingTheBlogId()
+    public function testGetPermalinkAppendsBlogAndPostId(): void
     {
-        $postObject = $this->getPostObject();
+        $postObject = $this->createPostObjectStub();
         $postObject->method('getId')->willReturn(123);
         $postObject->method('getPermalink')->willReturn('http://example.com/hello-world/');
+        $decorator = new PostObjectFromOtherBlog($postObject, $this->createWpService(), 2);
 
-        $wpService = $this->getWpService();
-        $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
+        $permalink = $decorator->getPermalink();
 
-        $this->assertStringContainsString('blog_id=2', $decorator->getPermalink());
-        $this->assertStringContainsString('p=123', $decorator->getPermalink());
+        $this->assertStringContainsString('blog_id=2', $permalink);
+        $this->assertStringContainsString('p=123', $permalink);
     }
 
     /**
      * @testdox getPermalink replaces the original site url with the current site url
      */
-    public function testGetPermalinkReplacesTheOriginalSiteUrlWithTheCurrentSiteUrl()
+    public function testGetPermalinkReplacesSiteUrl(): void
     {
-        $postObject = $this->getPostObject();
+        $postObject = $this->createPostObjectStub();
         $postObject->method('getPermalink')->willReturn('http://other-site.com/hello-world/');
         $wpService = new FakeWpService([
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
         ]);
-
         $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
 
-        $this->assertStringContainsString('http://current-site.com/hello-world/', $decorator->getPermalink());
+        $permalink = $decorator->getPermalink();
+
+        $this->assertStringContainsString('http://current-site.com/hello-world/', $permalink);
     }
 
     /**
-     * Datatprovider for testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue
+     * Data provider for testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue
      */
     public function provideFunctions(): array
     {
@@ -77,13 +85,17 @@ class PostObjectFromOtherBlogTest extends TestCase
         ];
     }
 
-    private function getPostObject(): PostObjectInterface|MockObject
+    private function createPostObjectStub(): PostObjectInterface|MockObject
     {
         return $this->createStub(PostObjectInterface::class);
     }
 
-    private function getWpService(): SwitchToBlog&RestoreCurrentBlog
+    private function createWpService(): SwitchToBlog&RestoreCurrentBlog
     {
-        return new FakeWpService(['switchToBlog' => true, 'restoreCurrentBlog' => true, 'getSiteUrl' => 'http://example.com']);
+        return new FakeWpService([
+            'switchToBlog'       => true,
+            'restoreCurrentBlog' => true,
+            'getSiteUrl'         => 'http://example.com',
+        ]);
     }
 }

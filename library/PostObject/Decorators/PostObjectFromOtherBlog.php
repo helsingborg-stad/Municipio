@@ -31,23 +31,23 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     public function getPermalink(): string
     {
-        return $this->replaceOriginalSiteUrl(
-            $this->addOriginIdentifiersToUrl(
-                $this->postObject->getPermalink()
-            )
-        );
+        $permalink                = $this->postObject->getPermalink();
+        $permalinkWithIdentifiers = $this->addOriginIdentifiersToUrl($permalink);
+        return $this->replaceOriginalSiteUrl($permalinkWithIdentifiers);
     }
 
     /**
-     * Replace the original site URL with the current site URL.
+     * Replace the site URL of the original blog with the current site URL in the given URL.
      *
-     * @param string $url The URL to be modified.
-     *
-     * @return string The modified URL with the original site URL replaced.
+     * @param string $url The URL to modify.
+     * @return string The URL with the original blog's site URL replaced by the current site URL.
      */
     private function replaceOriginalSiteUrl(string $url): string
     {
-        return str_replace($this->wpService->getSiteUrl($this->getBlogId()), $this->wpService->getSiteUrl(), $url);
+        $originalSiteUrl = $this->wpService->getSiteUrl($this->getBlogId());
+        $currentSiteUrl  = $this->wpService->getSiteUrl();
+
+        return str_replace($originalSiteUrl, $currentSiteUrl, $url);
     }
 
     /**
@@ -59,7 +59,23 @@ class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements Pos
      */
     private function addOriginIdentifiersToUrl(string $url): string
     {
-        return $url . (empty(parse_url($url)['query']) ? '?' : '&') . 'blog_id=' . $this->getBlogId() . '&p=' . $this->postObject->getId();
+        $querySeparator = $this->getQuerySeparator($url);
+        $blogId         = $this->getBlogId();
+        $postId         = $this->postObject->getId();
+
+        return "{$url}{$querySeparator}blog_id={$blogId}&p={$postId}";
+    }
+
+    /**
+     * Determine the appropriate query separator for the URL.
+     *
+     * @param string $url
+     * @return string
+     */
+    private function getQuerySeparator(string $url): string
+    {
+        $hasQuery = !empty(parse_url($url, PHP_URL_QUERY));
+        return $hasQuery ? '&' : '?';
     }
 
     /**
