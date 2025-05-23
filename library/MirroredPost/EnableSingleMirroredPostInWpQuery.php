@@ -72,7 +72,7 @@ class EnableSingleMirroredPostInWpQuery implements Hookable
      */
     private function maybeSetupPostTypeOnOriginalBlog(string $postType): void
     {
-        // if post type is not registeered, register it to be able to use it.
+        // if post type is not registered, register it to be able to use it.
         if (!$this->wpService->postTypeExists($postType)) {
             $this->wpService->registerPostType($postType, [ 'public' => true ]);
         }
