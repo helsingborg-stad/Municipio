@@ -8,7 +8,7 @@ The **Mirrored Post** feature enables the retrieval and display of posts from ot
 ### Usage
 To retrieve a mirrored post, the following example can be used for inspiration:
 
-Let's say you have a multisite with two blogs: Blog A and Blog B. You want to display a post from Blog A on Blog B. For the sake of this example lets assume Blog A has the ID of 123 and that the blog has the id of 456.
+Let's say you have a multisite with two blogs: Blog A and Blog B. You want to display a post from Blog A on Blog B. For the sake of this example lets assume a post from blog A has the ID of 123 and that the blog(A) has the id of 456.
 
 The following url can be used to retrieve the mirrored post:
 ```
