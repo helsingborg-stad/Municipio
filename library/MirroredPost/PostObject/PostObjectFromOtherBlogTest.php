@@ -1,8 +1,8 @@
 <?php
 
-namespace Municipio\PostObject\Decorators;
+namespace Municipio\MirroredPost\PostObject;
 
-use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
+use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -10,20 +10,20 @@ use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 use WpService\Implementations\FakeWpService;
 
-class PostObjectFromOtherBlogTest extends TestCase
+class MirroredPostObjectTest extends TestCase
 {
     /**
      * @testdox class can be instantiated
      */
     public function testCanBeInstantiated(): void
     {
-        $decorator = new PostObjectFromOtherBlog(
+        $decorator = new MirroredPostObject(
             $this->createPostObjectStub(),
             $this->createWpService(),
             1
         );
 
-        $this->assertInstanceOf(PostObjectFromOtherBlog::class, $decorator);
+        $this->assertInstanceOf(MirroredPostObject::class, $decorator);
     }
 
     /**
@@ -31,7 +31,7 @@ class PostObjectFromOtherBlogTest extends TestCase
      */
     public function testGetBlogIdReturnsTheProvidedBlogId(): void
     {
-        $decorator = new PostObjectFromOtherBlog(
+        $decorator = new MirroredPostObject(
             $this->createPostObjectStub(),
             $this->createWpService(),
             2
@@ -48,7 +48,7 @@ class PostObjectFromOtherBlogTest extends TestCase
         $postObject = $this->createPostObjectStub();
         $postObject->method('getId')->willReturn(123);
         $postObject->method('getPermalink')->willReturn('http://example.com/hello-world/');
-        $decorator = new PostObjectFromOtherBlog($postObject, $this->createWpService(), 2);
+        $decorator = new MirroredPostObject($postObject, $this->createWpService(), 2);
 
         $permalink = $decorator->getPermalink();
 
@@ -69,7 +69,7 @@ class PostObjectFromOtherBlogTest extends TestCase
             'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
             'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
         ]);
-        $decorator = new PostObjectFromOtherBlog($postObject, $wpService, 2);
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
 
         $permalink = $decorator->getPermalink();
 

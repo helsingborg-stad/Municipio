@@ -3,7 +3,6 @@
 namespace Municipio\PostObject\Factory;
 
 use AcfService\AcfService;
-use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
 use Municipio\Helper\StringToTime;
 use Municipio\Helper\Term\Term;
 use Municipio\PostObject\Date\{ArchiveDateFormatResolver, ArchiveDateFormatResolverInterface, ArchiveDateSourceResolver, ArchiveDateSourceResolverInterface, CachedArchiveDateFormatResolver, CachedArchiveDateSourceResolver, CachedTimestampResolver, TimestampResolver, TimestampResolverInterface};
@@ -16,7 +15,6 @@ use Municipio\PostObject\Decorators\{
     IconResolvingPostObject,
     PostObjectArchiveDateFormat,
     PostObjectArchiveDateTimestamp,
-    PostObjectFromOtherBlog,
     PostObjectFromWpPost,
     PostObjectWithSchemaObject,
     PostObjectWithSeoRedirect
@@ -29,6 +27,8 @@ use Municipio\PostObject\Decorators\{
  */
 class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
 {
+    public const DECORATE_FILTER_NAME = 'Municipio/DecoratePostObject';
+
     /**
      * Constructor.
      */
@@ -54,34 +54,11 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
         $postObject = new IconResolvingPostObject($postObject, $this->getIconResolver($postObject));
         $postObject = new PostObjectWithSchemaObject($postObject, $this->schemaObjectFromPost);
 
-        if ($otherBlogId = $this->getOtherBlogId()) {
-            $postObject = new PostObjectFromOtherBlog($postObject, $this->wpService, $otherBlogId);
-        }
+        $postObject = $this->wpService->applyFilters(self::DECORATE_FILTER_NAME, $postObject);
 
         $postObject = new BackwardsCompatiblePostObject($postObject, $camelCasedPost);
 
         return $postObject;
-    }
-
-    /**
-     * Get the blog ID of the other blog.
-     *
-     * @return int|null The blog ID of the other blog, or null if not applicable.
-     */
-    private function getOtherBlogId(): ?int
-    {
-        if ($this->wpService->isMultiSite() && $this->wpService->msIsSwitched()) {
-            return $this->wpService->getCurrentBlogId();
-        }
-
-        $blogId = $this->wpService->getQueryVar(BlogIdQueryVar::BLOG_ID_QUERY_VAR, null);
-        $postId = $this->wpService->getQueryVar('p', null);
-
-        if ($this->wpService->isMultiSite() && $postId) {
-            return (int) $blogId;
-        }
-
-        return null;
     }
 
     /**

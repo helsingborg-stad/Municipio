@@ -154,6 +154,8 @@ class Template
     {
         global $wp_query;
 
+        $isPubliclyViewable = is_post_publicly_viewable();
+
         if (
             !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
             $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())

@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Content\PostFilters\Contracts;
+namespace Municipio\MirroredPost\Contracts;
 
 use Municipio\HooksRegistrar\Hookable;
 use WpService\Contracts\AddFilter;
