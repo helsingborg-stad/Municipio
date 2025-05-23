@@ -2,13 +2,8 @@
 
 namespace Municipio\MirroredPost;
 
-use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
-use Municipio\MirroredPost\PostObject\MirroredPostObject;
-use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
-use Municipio\PostObject\PostObjectInterface;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;
-use WpService\WpService;
 
 class MirroredPostFeatureTest extends TestCase
 {
@@ -17,7 +12,7 @@ class MirroredPostFeatureTest extends TestCase
      */
     public function testClassCanBeInstantiated(): void
     {
-        $mirroredPostFeature = new MirroredPostFeature(new FakeWpService());
+        $mirroredPostFeature = new MirroredPostFeature($this->getWpService());
 
         $this->assertInstanceOf(MirroredPostFeature::class, $mirroredPostFeature);
     }
@@ -27,7 +22,7 @@ class MirroredPostFeatureTest extends TestCase
      */
     public function testEnableMethodDoesNotThrowException(): void
     {
-        $mirroredPostFeature = new MirroredPostFeature(new FakeWpService());
+        $mirroredPostFeature = new MirroredPostFeature($this->getWpService());
 
         try {
             $mirroredPostFeature->enable();
@@ -35,5 +30,10 @@ class MirroredPostFeatureTest extends TestCase
         } catch (\Exception $e) {
             $this->fail('Enable method threw an exception: ' . $e->getMessage());
         }
+    }
+
+    private function getWpService(): FakeWpService
+    {
+        return new FakeWpService([ 'addFilter' => true, 'addAction' => true ]);
     }
 }

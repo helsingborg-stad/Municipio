@@ -3,6 +3,7 @@
 namespace Municipio\MirroredPost;
 
 use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
+use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogIdInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WP_Query;
@@ -10,14 +11,9 @@ use WpService\Implementations\FakeWpService;
 
 class EnableSingleMirroredPostInWpQueryTest extends TestCase
 {
-    private FakeWpService $wpService;
-    private EnableSingleMirroredPostInWpQuery $instance;
-
     protected function setUp(): void
     {
         parent::setUp();
-        $this->wpService = new FakeWpService();
-        $this->instance  = new EnableSingleMirroredPostInWpQuery($this->wpService);
     }
 
     /**
@@ -25,9 +21,12 @@ class EnableSingleMirroredPostInWpQueryTest extends TestCase
      */
     public function testClassCanBeInstantiated(): void
     {
+        $wpService = new FakeWpService();
+        $instance  = new EnableSingleMirroredPostInWpQuery($wpService, $this->getUtils());
+
         $this->assertInstanceOf(
             EnableSingleMirroredPostInWpQuery::class,
-            $this->instance
+            $instance
         );
     }
 
@@ -37,7 +36,7 @@ class EnableSingleMirroredPostInWpQueryTest extends TestCase
     public function testAddHooksAddsPreGetPostsAction(): void
     {
         $wpService = new FakeWpService(['addAction' => true]);
-        $instance  = new EnableSingleMirroredPostInWpQuery($wpService);
+        $instance  = new EnableSingleMirroredPostInWpQuery($wpService, $this->getUtils());
 
         $instance->addHooks();
 
@@ -52,22 +51,19 @@ class EnableSingleMirroredPostInWpQueryTest extends TestCase
      */
     public function testEnableSingleMirroredPostInWpQueryModifiesQueryCorrectly(): void
     {
-        $instance = new EnableSingleMirroredPostInWpQuery(new FakeWpService([
-            'switchToBlog'     => true,
-            'getPostType'      => 'post',
-            'isAdmin'          => false,
-            'isMultisite'      => true,
-            'msIsSwitched'     => false,
-            'getCurrentBlogId' => 1,
-            'addFilter'        => true,
-            'getQueryVar'      => fn($name, $default) => [BlogIdQueryVar::BLOG_ID_QUERY_VAR => 123, 'p' => 456][$name] ?? $default,
-        ]));
+        $wpService = new FakeWpService([
+            'switchToBlog' => true,
+            'getPostType'  => 'post',
+            'isAdmin'      => false,
+            'addFilter'    => true,
+            'getQueryVar'  => fn($name, $default) => [BlogIdQueryVar::BLOG_ID_QUERY_VAR => 123, 'p' => 456][$name] ?? $default,
+        ]);
+        $utils     = $this->getUtils();
+        $utils->method('getOtherBlogId')->willReturn(123);
+        $instance = new EnableSingleMirroredPostInWpQuery($wpService, $utils);
 
         $query = $this->getWpQuery();
         $query->method('is_main_query')->willReturn(true);
-
-        $_GET[BlogIdQueryVar::BLOG_ID_QUERY_VAR] = 123;
-        $_GET['p']                               = 456;
 
         $query->expects($this->once())
             ->method('set')
@@ -84,5 +80,10 @@ class EnableSingleMirroredPostInWpQueryTest extends TestCase
     private function getWpQuery(): WP_Query|MockObject
     {
         return $this->createMock(WP_Query::class);
+    }
+
+    private function getUtils(): GetOtherBlogIdInterface|MockObject
+    {
+        return $this->createMock(GetOtherBlogIdInterface::class);
     }
 }
