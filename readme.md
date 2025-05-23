@@ -453,6 +453,23 @@ add_filter('Municipio/Controller/SingularContentType/listing', function($listing
     return $listing;
 }, 10, 2);
 ```
+
+### Municipio/DecoratePostObject
+
+Filters the PostObject instance after it has been constructed and decorated.
+
+This filter allows developers to further modify or decorate the PostObject instance before it is returned by the factory. It is useful for injecting additional behavior, properties, or wrappers around the PostObject, enabling extensibility and customization of the post object representation throughout the application.
+
+- `@param \Municipio\PostObject\PostObjectInterface $postObject` - The decorated PostObject instance to be filtered.
+- `@return \Municipio\PostObject\PostObjectInterface` - The (potentially further) decorated PostObject instance.
+
+```php
+add_filter('Municipio/DecoratePostObject', function(PostObjectInterface $postObject):PostObjectInterface {
+    // Example: Add custom decorator or modify the post object
+    return new MyCustomPostObjectDecorator($postObject);
+});
+```
+
 ## REST routes
 The following REST API routes are available from the theme.
 

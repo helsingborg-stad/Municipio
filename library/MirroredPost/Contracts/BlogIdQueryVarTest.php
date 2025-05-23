@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Content\PostFilters\Contracts;
+namespace Municipio\MirroredPost\Contracts;
 
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;

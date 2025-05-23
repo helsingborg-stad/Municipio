@@ -1,23 +1,23 @@
 <?php
 
-namespace Municipio\Content\PostFilters;
+namespace Municipio\MirroredPost;
 
-use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
+use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WP_Query;
 use WpService\Implementations\FakeWpService;
 
-class EnableSinglePostFromOtherBlogTest extends TestCase
+class EnableSingleMirroredPostInWpQueryTest extends TestCase
 {
     private FakeWpService $wpService;
-    private EnableSinglePostFromOtherBlog $instance;
+    private EnableSingleMirroredPostInWpQuery $instance;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->wpService = new FakeWpService();
-        $this->instance  = new EnableSinglePostFromOtherBlog($this->wpService);
+        $this->instance  = new EnableSingleMirroredPostInWpQuery($this->wpService);
     }
 
     /**
@@ -26,7 +26,7 @@ class EnableSinglePostFromOtherBlogTest extends TestCase
     public function testClassCanBeInstantiated(): void
     {
         $this->assertInstanceOf(
-            EnableSinglePostFromOtherBlog::class,
+            EnableSingleMirroredPostInWpQuery::class,
             $this->instance
         );
     }
@@ -37,7 +37,7 @@ class EnableSinglePostFromOtherBlogTest extends TestCase
     public function testAddHooksAddsPreGetPostsAction(): void
     {
         $wpService = new FakeWpService(['addAction' => true]);
-        $instance  = new EnableSinglePostFromOtherBlog($wpService);
+        $instance  = new EnableSingleMirroredPostInWpQuery($wpService);
 
         $instance->addHooks();
 
@@ -48,11 +48,11 @@ class EnableSinglePostFromOtherBlogTest extends TestCase
     }
 
     /**
-     * @testdox enableSinglePostFromOtherBlog modifies the query correctly
+     * @testdox EnableSingleMirroredPostInWpQuery modifies the query correctly
      */
-    public function testEnableSinglePostFromOtherBlogModifiesQueryCorrectly(): void
+    public function testEnableSingleMirroredPostInWpQueryModifiesQueryCorrectly(): void
     {
-        $instance = new EnableSinglePostFromOtherBlog(new FakeWpService([
+        $instance = new EnableSingleMirroredPostInWpQuery(new FakeWpService([
             'switchToBlog'     => true,
             'getPostType'      => 'post',
             'isAdmin'          => false,

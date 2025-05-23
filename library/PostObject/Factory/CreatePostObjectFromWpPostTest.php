@@ -26,17 +26,45 @@ class CreatePostObjectFromWpPostTest extends TestCase
      */
     public function testCreateMethodReturnsPostObjectInterface(): void
     {
-        $post       = new \WP_Post([]);
-        $post->ID   = 1;
+        $post       = $this->getWpPost();
         $factory    = $this->getInstance();
         $postObject = $factory->create($post);
 
         $this->assertInstanceOf(PostObjectInterface::class, $postObject);
     }
 
-    private function getWpService(): WpService
+    /**
+     * @testdox create() method applies filter that allows for adding custom decorators
+     */
+    public function testCreateMethodAppliesFilterForCustomDecorators(): void
     {
-        return new FakeWpService(['isMultisite' => false]);
+        $post             = $this->getWpPost();
+        $customPostObject = $this->createMock(PostObjectInterface::class);
+        $customPostObject->method('getTitle')->willReturn('custom_post_object');
+        $factory    = new CreatePostObjectFromWpPost(
+            $this->getWpService(['applyFilters' => fn($hook, $postObject) => $hook === CreatePostObjectFromWpPost::DECORATE_FILTER_NAME ? $customPostObject : $postObject]),
+            $this->getAcfService(),
+            $this->getSchemaObjectFromPost()
+        );
+
+        $postObject = $factory->create($post);
+
+        $this->assertEquals('custom_post_object', $postObject->getTitle());
+    }
+
+    private function getWpPost(): \WP_Post
+    {
+        $post     = new \WP_Post([]);
+        $post->ID = 1;
+
+        return $post;
+    }
+
+    private function getWpService(array $args = []): WpService
+    {
+        return new FakeWpService(array_merge([
+            'applyFilters' => fn($hook, $postObject) => $postObject,
+        ], $args));
     }
 
     private function getAcfService(): AcfService

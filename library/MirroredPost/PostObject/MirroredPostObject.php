@@ -1,8 +1,9 @@
 <?php
 
-namespace Municipio\PostObject\Decorators;
+namespace Municipio\MirroredPost\PostObject;
 
-use Municipio\Content\PostFilters\Contracts\BlogIdQueryVar;
+use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
+use Municipio\PostObject\Decorators\AbstractPostObjectDecorator;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
@@ -15,7 +16,7 @@ use WpService\Contracts\SwitchToBlog;
  * Post object decorator that can fetch post data from another blog.
  * If the post is from another blog, it will switch to that blog to fetch the data.
  */
-class PostObjectFromOtherBlog extends AbstractPostObjectDecorator implements PostObjectInterface
+class MirroredPostObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
      * Constructor.
