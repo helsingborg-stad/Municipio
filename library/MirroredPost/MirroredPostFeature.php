@@ -11,12 +11,27 @@ use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\WpService;
 
+/**
+ * Class MirroredPostFeature
+ *
+ * This class is responsible for enabling the Mirrored Post feature in WordPress.
+ * It sets up the necessary hooks and filters to handle mirrored posts.
+ */
 class MirroredPostFeature
 {
+    /**
+     * Constructor.
+     */
     public function __construct(private WpService $wpService)
     {
     }
 
+    /**
+     * Enable the Mirrored Post feature.
+     *
+     * This method sets up the necessary hooks and filters to handle mirrored posts.
+     * It adds a query variable for the blog ID and enables the single mirrored post in WordPress.
+     */
     public function enable(): void
     {
         (new BlogIdQueryVar($this->wpService))->addHooks();
