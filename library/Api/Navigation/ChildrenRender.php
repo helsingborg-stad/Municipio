@@ -10,15 +10,27 @@ use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 
+/**
+ * Class ChildrenRender
+ */
 class ChildrenRender extends RestApiEndpoint
 {
     private const NAMESPACE = 'municipio/v1';
     private const ROUTE     = '/navigation/children/render';
 
+    /**
+     * ChildrenRender constructor.
+     *
+     * @param MenuBuilderInterface $menuBuilder
+     * @param MenuDirector         $menuDirector
+     */
     public function __construct(private MenuBuilderInterface $menuBuilder, private MenuDirector $menuDirector)
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function handleRegisterRestRoute(): bool
     {
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
@@ -48,6 +60,9 @@ class ChildrenRender extends RestApiEndpoint
         ));
     }
 
+    /**
+     * @inheritDoc
+     */
     public function handleRequest(WP_REST_Request $request): WP_REST_Response
     {
         $params = $request->get_params();
