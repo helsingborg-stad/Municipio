@@ -18,12 +18,7 @@ class MirroredPostObjectTest extends TestCase
      */
     public function testCanBeInstantiated(): void
     {
-        $decorator = new MirroredPostObject(
-            $this->createPostObjectStub(),
-            $this->createWpService(),
-            1
-        );
-
+        $decorator = $this->createMirroredPostObject(1);
         $this->assertInstanceOf(MirroredPostObject::class, $decorator);
     }
 
@@ -32,12 +27,7 @@ class MirroredPostObjectTest extends TestCase
      */
     public function testGetBlogIdReturnsTheProvidedBlogId(): void
     {
-        $decorator = new MirroredPostObject(
-            $this->createPostObjectStub(),
-            $this->createWpService(),
-            2
-        );
-
+        $decorator = $this->createMirroredPostObject(2);
         $this->assertEquals(2, $decorator->getBlogId());
     }
 
@@ -46,10 +36,11 @@ class MirroredPostObjectTest extends TestCase
      */
     public function testGetPermalinkAppendsBlogAndPostId(): void
     {
-        $postObject = $this->createPostObjectStub();
-        $postObject->method('getId')->willReturn(123);
-        $postObject->method('getPermalink')->willReturn('http://example.com/hello-world/');
-        $decorator = new MirroredPostObject($postObject, $this->createWpService(), 2);
+        $postObject = $this->createPostObjectStub([
+            'getId'        => 123,
+            'getPermalink' => 'http://example.com/hello-world/',
+        ]);
+        $decorator  = new MirroredPostObject($postObject, $this->createWpService(), 2);
 
         $permalink = $decorator->getPermalink();
 
@@ -62,15 +53,16 @@ class MirroredPostObjectTest extends TestCase
      */
     public function testGetPermalinkReplacesSiteUrl(): void
     {
-        $postObject = $this->createPostObjectStub();
-        $postObject->method('getPermalink')->willReturn('http://other-site.com/hello-world/');
-        $wpService = new FakeWpService([
+        $postObject = $this->createPostObjectStub([
+            'getPermalink' => 'http://other-site.com/hello-world/',
+        ]);
+        $wpService  = new FakeWpService([
             'switchToBlog'       => true,
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
             'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
         ]);
-        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
         $permalink = $decorator->getPermalink();
 
@@ -78,25 +70,13 @@ class MirroredPostObjectTest extends TestCase
     }
 
     /**
-     * Data provider for testFunctionSwitchesToTheBlogUsingTheProvidedBlogIdWhenGettingTheValue
-     */
-    public function provideFunctions(): array
-    {
-        return [
-            'getPermalink' => ['getPermalink'],
-            'getIcon'      => ['getIcon'],
-        ];
-    }
-
-    /**
      * @testdox getIcon() switches to the blog using the provided blog id when getting the value
      */
     public function testGetIconSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
-        $postObject = $this->createPostObjectStub();
-        $postObject->method('getIcon')->willReturn(null);
-        $wpService = $this->createWpService();
-        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+        $postObject = $this->createPostObjectStub(['getIcon' => null]);
+        $wpService  = $this->createWpService();
+        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
         $icon = $decorator->getIcon();
 
@@ -106,14 +86,13 @@ class MirroredPostObjectTest extends TestCase
     }
 
     /**
-     * testdox getSchemaProperty() switches to the blog using the provided blog id when getting the value
+     * @testdox getSchemaProperty() switches to the blog using the provided blog id when getting the value
      */
     public function testGetSchemaPropertySwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
-        $postObject = $this->createPostObjectStub();
-        $postObject->method('getSchemaProperty')->willReturn('schema-value');
-        $wpService = $this->createWpService();
-        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+        $postObject = $this->createPostObjectStub(['getSchemaProperty' => 'schema-value']);
+        $wpService  = $this->createWpService();
+        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
         $schemaValue = $decorator->getSchemaProperty('some-property');
 
@@ -123,15 +102,14 @@ class MirroredPostObjectTest extends TestCase
     }
 
     /**
-     * testdox getSchema() switches to the blog using the provided blog id when getting the value
+     * @testdox getSchema() switches to the blog using the provided blog id when getting the value
      */
     public function testGetSchemaSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
     {
-        $postObject = $this->createPostObjectStub();
         $schema     = Schema::thing();
-        $postObject->method('getSchema')->willReturn($schema);
-        $wpService = $this->createWpService();
-        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+        $postObject = $this->createPostObjectStub(['getSchema' => $schema]);
+        $wpService  = $this->createWpService();
+        $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
         $schemaData = $decorator->getSchema();
 
@@ -140,11 +118,33 @@ class MirroredPostObjectTest extends TestCase
         $this->assertEquals($schema, $schemaData);
     }
 
-    private function createPostObjectStub(): PostObjectInterface|MockObject
+    /**
+     * Helper to create a MirroredPostObject with a stubbed PostObject and WpService.
+     */
+    private function createMirroredPostObject(int $blogId): MirroredPostObject
     {
-        return $this->createStub(PostObjectInterface::class);
+        return new MirroredPostObject(
+            $this->createPostObjectStub(),
+            $this->createWpService(),
+            $blogId
+        );
     }
 
+    /**
+     * Helper to create a stub for PostObjectInterface with optional method overrides.
+     */
+    private function createPostObjectStub(array $methods = []): PostObjectInterface|MockObject
+    {
+        $stub = $this->createStub(PostObjectInterface::class);
+        foreach ($methods as $method => $return) {
+            $stub->method($method)->willReturn($return);
+        }
+        return $stub;
+    }
+
+    /**
+     * Helper to create a FakeWpService with default behaviors.
+     */
     private function createWpService(): SwitchToBlog&RestoreCurrentBlog
     {
         return new FakeWpService([

@@ -13,13 +13,12 @@ use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
 
 /**
- * Post object decorator that can fetch post data from another blog.
- * If the post is from another blog, it will switch to that blog to fetch the data.
+ * Decorator for fetching post data from another blog.
  */
 class MirroredPostObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     /**
-     * Constructor.
+     * MirroredPostObject constructor.
      */
     public function __construct(
         PostObjectInterface $postObject,
@@ -34,41 +33,36 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getPermalink(): string
     {
-        $permalink                = $this->postObject->getPermalink();
-        $permalinkWithIdentifiers = $this->addOriginIdentifiersToUrl($permalink);
-        return $this->replaceOriginalSiteUrl($permalinkWithIdentifiers);
+        $permalink = $this->postObject->getPermalink();
+        $permalink = $this->addOriginIdentifiersToUrl($permalink);
+        return $this->replaceOriginalSiteUrl($permalink);
     }
 
     /**
-     * Replace the site URL of the original blog with the current site URL in the given URL.
+     * Replaces the original site URL with the current site URL in the given URL.
      *
      * @param string $url The URL to modify.
-     * @return string The URL with the original blog's site URL replaced by the current site URL.
+     * @return string The modified URL with the original site URL replaced.
      */
     private function replaceOriginalSiteUrl(string $url): string
     {
-        $originalSiteUrl = $this->wpService->getSiteUrl($this->getBlogId());
+        $originalSiteUrl = $this->wpService->getSiteUrl($this->blogId);
         $currentSiteUrl  = $this->wpService->getSiteUrl();
-
         return str_replace($originalSiteUrl, $currentSiteUrl, $url);
     }
 
     /**
-     * Add the blog ID and post id as query variables to the URL.
+     * Adds blog ID and post ID as query arguments to the URL.
      *
-     * @param string $url The URL to which the blog ID and post ID will be appended.
-     *
-     * @return string The URL with the blog ID and post ID query variables appended.
+     * @param string $url The original URL.
+     * @return string The modified URL with additional query arguments.
      */
     private function addOriginIdentifiersToUrl(string $url): string
     {
-        $blogId = $this->getBlogId();
-        $postId = $this->postObject->getId();
-
         return $this->wpService->addQueryArg(
             [
-                BlogIdQueryVar::BLOG_ID_QUERY_VAR => $blogId,
-                'p'                               => $postId,
+                BlogIdQueryVar::BLOG_ID_QUERY_VAR => $this->blogId,
+                'p'                               => $this->postObject->getId(),
             ],
             $url
         );
@@ -79,7 +73,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getIcon(): ?IconInterface
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getIcon());
+        return $this->withSwitchedBlog(fn() => $this->postObject->getIcon());
     }
 
     /**
@@ -87,7 +81,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getSchemaProperty(string $property): mixed
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getSchemaProperty($property));
+        return $this->withSwitchedBlog(fn() => $this->postObject->getSchemaProperty($property));
     }
 
     /**
@@ -95,7 +89,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getSchema(): BaseType
     {
-        return $this->getValueFromOtherBlog(fn() => $this->postObject->getSchema());
+        return $this->withSwitchedBlog(fn() => $this->postObject->getSchema());
     }
 
     /**
@@ -107,30 +101,15 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     }
 
     /**
-     * Get the value from another blog.
+     * Executes a callback with the blog switched, restoring afterwards.
      */
-    private function getValueFromOtherBlog(callable $callback)
+    private function withSwitchedBlog(callable $callback): mixed
     {
-        $this->switch();
-        $value = $callback();
-        $this->restore();
-
-        return $value;
-    }
-
-    /**
-     * Switch to another blog.
-     */
-    private function switch(): void
-    {
-        $this->wpService->switchToBlog($this->getBlogId());
-    }
-
-    /**
-     * Restore the current blog.
-     */
-    private function restore(): void
-    {
-        $this->wpService->restoreCurrentBlog();
+        $this->wpService->switchToBlog($this->blogId);
+        try {
+            return $callback();
+        } finally {
+            $this->wpService->restoreCurrentBlog();
+        }
     }
 }
