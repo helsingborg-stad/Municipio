@@ -2,6 +2,9 @@
 
 namespace Municipio\MirroredPost\Utils\IsMirroredPost;
 
+use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
+use WpService\Contracts\GetQueryVar;
+
 /**
  * Class IsMirroredPost
  *
@@ -11,10 +14,25 @@ namespace Municipio\MirroredPost\Utils\IsMirroredPost;
 class IsMirroredPost implements IsMirroredPostInterface
 {
     /**
+     * Constructor.
+     */
+    public function __construct(private GetQueryVar $wpService)
+    {
+    }
+
+    /**
      * @inheritDoc
      */
     public function isMirrored(): bool
     {
-        return false;
+        if (empty($this->wpService->getQueryVar(BlogIdQueryVar::BLOG_ID_QUERY_VAR, null))) {
+            return false;
+        }
+
+        if (empty($this->wpService->getQueryVar('p', null))) {
+            return false;
+        }
+
+        return true;
     }
 }

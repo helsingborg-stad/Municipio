@@ -15,6 +15,7 @@
     <exclude>
       <directory suffix=".php">./library/AcfFields</directory>
       <directory suffix=".test.php">./library</directory>
+      <directory suffix="Test.php">./library</directory>
     </exclude>
     <report>
       <text outputFile="php://stdout" showUncoveredFiles="true"/>
@@ -33,5 +34,6 @@
 
   <php>
     <ini name="error_reporting" value="E_ALL" />
+    <ini name="memory_limit" value="512M" />
   </php>
 </phpunit>

@@ -7,6 +7,7 @@ use Municipio\MirroredPost\PostObject\MirroredPostObject;
 use Municipio\MirroredPost\Utils\GetOtherBlogId\GetOtherBlogId;
 use Municipio\MirroredPost\Utils\IsMirroredPost\IsMirroredPost;
 use Municipio\MirroredPost\Utils\MirroredPostUtils;
+use Municipio\MirroredPost\Utils\MirroredPostUtilsInterface;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\PostObjectInterface;
 use WpService\WpService;
@@ -16,7 +17,7 @@ use WpService\WpService;
  */
 class MirroredPostFeature
 {
-    private MirroredPostUtils $mirroredPostUtils;
+    private MirroredPostUtilsInterface $mirroredPostUtils;
 
     /**
      * Constructor.
@@ -38,6 +39,7 @@ class MirroredPostFeature
         $this->addBlogIdQueryVarHook();
         $this->enableSingleMirroredPostInWpQuery();
         $this->decoratePostObject();
+        $this->outputCanonicalForMirroredPost();
     }
 
     /**
@@ -86,6 +88,19 @@ class MirroredPostFeature
             return $postObject;
         }
         return new MirroredPostObject($postObject, $this->wpService, $otherBlogId);
+    }
+
+    /**
+     * Output canonical URL for mirrored posts.
+     *
+     * This method sets up the necessary hooks to output the canonical URL for mirrored posts.
+     */
+    private function outputCanonicalForMirroredPost(): void
+    {
+        (new OutputCanonicalForMirroredPost(
+            $this->wpService,
+            $this->mirroredPostUtils
+        ))->addHooks();
     }
 
     /**
