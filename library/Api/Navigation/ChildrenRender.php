@@ -50,7 +50,7 @@ class ChildrenRender extends RestApiEndpoint
                 'depth'      => array(
                     'required'          => false,
                     'validate_callback' => fn($input) => is_numeric($input),
-                    'sanitize_callback' => fn($input) => (int)$input,
+                    'sanitize_callback' => fn($input) => (int)$input < 1 ? 1 : (int)$input,
                 ),
                 'identifier' => array(
                     'required'          => false,
@@ -67,9 +67,8 @@ class ChildrenRender extends RestApiEndpoint
     {
         $params = $request->get_params();
 
-        $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
-        $depth    = !empty($params['depth']) ? $params['depth'] : 1;
-        $lang     = TranslatedLabels::getLang();
+        $depth = !empty($params['depth']) ? $params['depth'] : 1;
+        $lang  = TranslatedLabels::getLang();
 
 
         $menuConfig = new MenuConfig(
@@ -87,8 +86,8 @@ class ChildrenRender extends RestApiEndpoint
 
         return rest_ensure_response(array(
             'parentId' => $params['pageId'],
-            'viewPath' => $viewPath ?: 'partials.navigation.mobile',
-            'markup'   => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
+            'viewPath' => $params['viewPath'] ?: 'partials.navigation.mobile',
+            'markup'   => render_blade_view($params['viewPath'] ?: 'partials.navigation.mobile', [
                 'menuItems' => $menuItems,
                 'homeUrl'   => esc_url(get_home_url()),
                 'depth'     => $depth,
