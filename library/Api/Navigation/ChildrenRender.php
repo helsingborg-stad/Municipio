@@ -24,7 +24,27 @@ class ChildrenRender extends RestApiEndpoint
         return register_rest_route(self::NAMESPACE, self::ROUTE, array(
             'methods'             => 'GET',
             'callback'            => array($this, 'handleRequest'),
-            'permission_callback' => '__return_true'
+            'permission_callback' => '__return_true',
+            'args'                => array(
+                'pageId'     => array(
+                    'required'          => true,
+                    'validate_callback' => fn($input) => is_numeric($input),
+                    'sanitize_callback' => fn($input) => (int)$input,
+                ),
+                'viewPath'   => array(
+                    'required'          => false,
+                    'sanitize_callback' => fn($input) => empty($input) ? false : sanitize_text_field($input),
+                ),
+                'depth'      => array(
+                    'required'          => false,
+                    'validate_callback' => fn($input) => is_numeric($input),
+                    'sanitize_callback' => fn($input) => (int)$input,
+                ),
+                'identifier' => array(
+                    'required'          => false,
+                    'sanitize_callback' => fn($input) => sanitize_text_field($input),
+                ),
+            ),
         ));
     }
 
@@ -32,40 +52,35 @@ class ChildrenRender extends RestApiEndpoint
     {
         $params = $request->get_params();
 
-        if (isset($params['pageId']) && is_numeric($params['pageId'])) {
-            $parentId   = !empty($params['pageId']) ? $params['pageId'] : null;
-            $viewPath   = !empty($params['viewPath']) ? $params['viewPath'] : false;
-            $identifier = !empty($params['identifier']) ? $params['identifier'] : '';
-            $depth      = !empty($params['depth']) ? $params['depth'] : '1';
-            $lang       = TranslatedLabels::getLang();
+        $viewPath = !empty($params['viewPath']) ? $params['viewPath'] : false;
+        $depth    = !empty($params['depth']) ? $params['depth'] : 1;
+        $lang     = TranslatedLabels::getLang();
 
-            if (!empty($parentId)) {
-                $menuConfig = new MenuConfig(
-                    $identifier,
-                    '',
-                    false,
-                    false,
-                    $parentId
-                );
 
-                $this->menuBuilder->setConfig($menuConfig);
-                $this->menuDirector->setBuilder($this->menuBuilder);
-                $this->menuDirector->buildPageTreeMenu();
-                $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
+        $menuConfig = new MenuConfig(
+            $params['identifier'],
+            '',
+            false,
+            false,
+            $params['pageId']
+        );
 
-                return rest_ensure_response(array(
-                    'parentId' => $parentId,
-                    'viewPath' => $viewPath ?: 'partials.navigation.mobile',
-                    'markup'   => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
-                        'menuItems' => $menuItems,
-                        'homeUrl'   => esc_url(get_home_url()),
-                        'depth'     => $depth,
-                        'lang'      => $lang,
-                        'classList' => []
-                    ])
-                ));
-            }
-        }
+        $this->menuBuilder->setConfig($menuConfig);
+        $this->menuDirector->setBuilder($this->menuBuilder);
+        $this->menuDirector->buildPageTreeMenu();
+        $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
+
+        return rest_ensure_response(array(
+            'parentId' => $params['pageId'],
+            'viewPath' => $viewPath ?: 'partials.navigation.mobile',
+            'markup'   => render_blade_view($viewPath ?: 'partials.navigation.mobile', [
+                'menuItems' => $menuItems,
+                'homeUrl'   => esc_url(get_home_url()),
+                'depth'     => $depth,
+                'lang'      => $lang,
+                'classList' => []
+            ])
+        ));
 
         return rest_ensure_response([]);
     }
