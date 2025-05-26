@@ -13,6 +13,9 @@ use WpService\Contracts\GetQueryVar;
  */
 class IsMirroredPost implements IsMirroredPostInterface
 {
+    /**
+     * Constructor.
+     */
     public function __construct(private GetQueryVar $wpService)
     {
     }

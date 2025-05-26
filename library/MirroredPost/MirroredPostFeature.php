@@ -90,6 +90,11 @@ class MirroredPostFeature
         return new MirroredPostObject($postObject, $this->wpService, $otherBlogId);
     }
 
+    /**
+     * Output canonical URL for mirrored posts.
+     *
+     * This method sets up the necessary hooks to output the canonical URL for mirrored posts.
+     */
     private function outputCanonicalForMirroredPost(): void
     {
         (new OutputCanonicalForMirroredPost(
