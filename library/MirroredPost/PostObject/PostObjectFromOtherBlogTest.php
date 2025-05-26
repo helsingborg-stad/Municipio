@@ -4,6 +4,7 @@ namespace Municipio\MirroredPost\PostObject;
 
 use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\PostObjectInterface;
+use Municipio\Schema\Schema;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use WpService\Contracts\RestoreCurrentBlog;
@@ -85,6 +86,58 @@ class MirroredPostObjectTest extends TestCase
             'getPermalink' => ['getPermalink'],
             'getIcon'      => ['getIcon'],
         ];
+    }
+
+    /**
+     * @testdox getIcon() switches to the blog using the provided blog id when getting the value
+     */
+    public function testGetIconSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
+    {
+        $postObject = $this->createPostObjectStub();
+        $postObject->method('getIcon')->willReturn(null);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+
+        $icon = $decorator->getIcon();
+
+        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
+        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertNull($icon);
+    }
+
+    /**
+     * testdox getSchemaProperty() switches to the blog using the provided blog id when getting the value
+     */
+    public function testGetSchemaPropertySwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
+    {
+        $postObject = $this->createPostObjectStub();
+        $postObject->method('getSchemaProperty')->willReturn('schema-value');
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+
+        $schemaValue = $decorator->getSchemaProperty('some-property');
+
+        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
+        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertEquals('schema-value', $schemaValue);
+    }
+
+    /**
+     * testdox getSchema() switches to the blog using the provided blog id when getting the value
+     */
+    public function testGetSchemaSwitchesToTheProvidedBlogIdWhenGettingTheValue(): void
+    {
+        $postObject = $this->createPostObjectStub();
+        $schema     = Schema::thing();
+        $postObject->method('getSchema')->willReturn($schema);
+        $wpService = $this->createWpService();
+        $decorator = new MirroredPostObject($postObject, $wpService, 2);
+
+        $schemaData = $decorator->getSchema();
+
+        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
+        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertEquals($schema, $schemaData);
     }
 
     private function createPostObjectStub(): PostObjectInterface|MockObject
