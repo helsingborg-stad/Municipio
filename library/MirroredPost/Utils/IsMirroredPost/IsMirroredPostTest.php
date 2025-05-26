@@ -26,7 +26,7 @@ class IsMirroredPostTest extends TestCase
     }
 
     /**
-     * @testdox isMirroredPost returns returns true when post is mirrored
+     * @testdox isMirroredPost returns true when post is mirrored
      */
     public function testIsMirroredPostReturnsTrueWhenPostIsMirrored(): void
     {
