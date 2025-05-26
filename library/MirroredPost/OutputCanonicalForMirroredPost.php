@@ -43,7 +43,7 @@ class OutputCanonicalForMirroredPost
      * @param string $canonicalUrl The canonical URL to output.
      * @return string The modified canonical URL if the post is mirrored, otherwise the original URL.
      */
-    public function outputCanonicalTag($canonicalUrl): string
+    public function outputCanonicalTag(string $canonicalUrl): string
     {
         if (!$this->shouldOutputCanonicalTag()) {
             return $canonicalUrl;
