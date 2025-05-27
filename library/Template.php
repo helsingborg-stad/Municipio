@@ -315,6 +315,11 @@ class Template
                 ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
                 ->render();
 
+            $markup = $this->wpService->applyFilters(
+                'Municipio/blade/output',
+                $markup
+            );
+
             // Adds the option to make html more readable and fixes some validation issues (like /> in void elements)
             if (class_exists('tidy') && (!defined('DISABLE_HTML_TIDY') || constant('DISABLE_HTML_TIDY') !== true)) {
                 $tidy = new \tidy();
