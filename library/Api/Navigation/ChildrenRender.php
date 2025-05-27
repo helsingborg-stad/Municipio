@@ -68,7 +68,7 @@ class ChildrenRender extends RestApiEndpoint
     {
         $params = $request->get_params();
 
-        $viewPath = !isset($params['viewPath']) ? 'partials.navigation.mobile' : $params['viewPath'];
+        $viewPath = empty($params['viewPath']) ? 'partials.navigation.mobile' : $params['viewPath'];
         $depth    = !empty($params['depth']) ? $params['depth'] : 1;
         $lang     = TranslatedLabels::getLang();
 
