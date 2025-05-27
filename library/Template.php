@@ -315,8 +315,10 @@ class Template
                 ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
                 ->render();
 
-            $markup = $this->wpService->applyFilters(
-                'Municipio/blade/output',
+            //Hookable filter to get all markup output
+            //Used by WPMUSecurity
+            $this->wpService->applyFilters(
+                'Website/HTML/output',
                 $markup
             );
 
