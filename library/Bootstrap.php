@@ -169,3 +169,5 @@ if (function_exists('get_field')) {
         }
     }
 }
+
+$foo = 'bar';

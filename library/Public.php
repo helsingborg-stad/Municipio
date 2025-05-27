@@ -225,7 +225,9 @@ if (!function_exists('municipio_current_url')) {
      */
     function municipio_current_url()
     {
-        return "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+        $host = isset($_SERVER['HTTP_HOST']) ? filter_var(wp_unslash($_SERVER['HTTP_HOST']), FILTER_SANITIZE_URL) : '';
+        $uri  = isset($_SERVER['REQUEST_URI']) ? filter_var(wp_unslash($_SERVER['REQUEST_URI']), FILTER_SANITIZE_URL) : '';
+        return "//{$host}{$uri}";
     }
 }
 
