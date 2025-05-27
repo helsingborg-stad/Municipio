@@ -30,7 +30,7 @@ if (!function_exists('render_blade_view')) {
                 )
             )->render();
         } catch (\Throwable $e) {
-            if ($formatError === true) {
+            if ($formatError === true && defined('WP_DEBUG') && constant('WP_DEBUG') === true) {
                 $bladeEngine->errorHandler($e)->print();
             } else {
                 throw $e;

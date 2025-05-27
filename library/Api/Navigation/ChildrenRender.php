@@ -9,6 +9,7 @@ use Municipio\Helper\TranslatedLabels;
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
+use WP_Error;
 
 /**
  * Class ChildrenRender
@@ -45,7 +46,7 @@ class ChildrenRender extends RestApiEndpoint
                 ),
                 'viewPath'   => array(
                     'required'          => false,
-                    'sanitize_callback' => fn($input) => empty($input) ? false : sanitize_text_field($input),
+                    'sanitize_callback' => fn($input) => sanitize_text_field($input),
                 ),
                 'depth'      => array(
                     'required'          => false,
@@ -63,12 +64,13 @@ class ChildrenRender extends RestApiEndpoint
     /**
      * @inheritDoc
      */
-    public function handleRequest(WP_REST_Request $request): WP_REST_Response
+    public function handleRequest(WP_REST_Request $request): WP_REST_Response|WP_Error
     {
         $params = $request->get_params();
 
-        $depth = !empty($params['depth']) ? $params['depth'] : 1;
-        $lang  = TranslatedLabels::getLang();
+        $viewPath = !isset($params['viewPath']) ? 'partials.navigation.mobile' : $params['viewPath'];
+        $depth    = !empty($params['depth']) ? $params['depth'] : 1;
+        $lang     = TranslatedLabels::getLang();
 
 
         $menuConfig = new MenuConfig(
@@ -84,18 +86,25 @@ class ChildrenRender extends RestApiEndpoint
         $this->menuDirector->buildPageTreeMenu();
         $menuItems = $this->menuBuilder->getMenu()->getMenu()['items'];
 
+        try {
+            $markup = render_blade_view($viewPath ?: 'partials.navigation.mobile', [
+                    'menuItems' => $menuItems,
+                    'homeUrl'   => esc_url(get_home_url()),
+                    'depth'     => $depth,
+                    'lang'      => $lang,
+                    'classList' => []
+            ]);
+        } catch (\Exception $e) {
+            return rest_ensure_response(new WP_Error(
+                'render_error',
+                __('An error occurred while rendering the menu.', 'municipio')
+            ));
+        }
+
         return rest_ensure_response(array(
             'parentId' => $params['pageId'],
-            'viewPath' => $params['viewPath'] ?: 'partials.navigation.mobile',
-            'markup'   => render_blade_view($params['viewPath'] ?: 'partials.navigation.mobile', [
-                'menuItems' => $menuItems,
-                'homeUrl'   => esc_url(get_home_url()),
-                'depth'     => $depth,
-                'lang'      => $lang,
-                'classList' => []
-            ])
+            'viewPath' => $viewPath,
+            'markup'   => $markup
         ));
-
-        return rest_ensure_response([]);
     }
 }
