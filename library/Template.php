@@ -14,6 +14,7 @@ use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use WP_Post_Type;
 
 /**
  * Class Template
@@ -171,6 +172,10 @@ class Template
             }
         }
 
+        if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
+            $template = '401';
+        }
+
         //Do something before controller creation
         do_action_deprecated(
             'Municipio/blade/before_load_controller',
@@ -262,6 +267,57 @@ class Template
         }
 
         return [];
+    }
+
+    /**
+     * Check if the current archive is assigned to a page for a post type.
+     *
+     * @return bool
+     */
+    private function isPageForPostType(): bool
+    {
+        return $this->getPageForPostTypePageId() !== null;
+    }
+
+    /**
+     * Check if the page assigned to a post type archive is publicly viewable by the current user.
+     *
+     * @return bool
+     */
+    private function isPageForPostTypePubliclyViewable(): bool
+    {
+        $pageId = $this->getPageForPostTypePageId();
+
+        if ($pageId === null) {
+            return false;
+        }
+
+        return is_post_publicly_viewable($pageId);
+    }
+
+    /**
+     * Get the page ID assigned to a post type archive, if any.
+     *
+     * @return int|null The page ID or null if not found.
+     */
+    private function getPageForPostTypePageId(): ?int
+    {
+        if (!is_archive()) {
+            return null;
+        }
+
+        $queriedObject = $this->wpService->getQueriedObject();
+
+        if (
+            !$queriedObject instanceof WP_Post_Type ||
+            !post_type_exists($queriedObject->name)
+        ) {
+            return null;
+        }
+
+        $pageId = get_option('page_for_' . $queriedObject->name);
+
+        return (is_numeric($pageId) && (int)$pageId > 0) ? (int)$pageId : null;
     }
 
     /**
