@@ -14,6 +14,7 @@ use Municipio\Helper\Controller as ControllerHelper;
 use Municipio\Helper\Template as TemplateHelper;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use WP_Post;
 use WP_Post_Type;
 
 /**
@@ -155,8 +156,6 @@ class Template
     {
         global $wp_query;
 
-        $isPubliclyViewable = is_post_publicly_viewable();
-
         if (
             !is_post_publicly_viewable() && !is_user_logged_in() && !is_search() && !is_archive() ||
             $this->mainQueryUserGroupRestriction->shouldRestrict($this->wpService->getQueriedObjectId())
@@ -173,6 +172,16 @@ class Template
         }
 
         if ($this->isPageForPostType() && !$this->isPageForPostTypePubliclyViewable() && !is_user_logged_in()) {
+            $template = '401';
+        }
+
+        // Restrict access to single posts that belong to a post type with an assigned "page for post type"
+        // if that page is not publicly viewable and the user is not logged in.
+        if (
+            $this->singlePostHasPostTypeThatUsesPageForPostType() &&
+            !$this->isPostTypePubliclyViewable() &&
+            !is_user_logged_in()
+        ) {
             $template = '401';
         }
 
@@ -270,6 +279,77 @@ class Template
     }
 
     /**
+     * Determines if the current single post has a post type that uses a "page for post type" assignment.
+     *
+     * @return bool
+     */
+    private function singlePostHasPostTypeThatUsesPageForPostType(): bool
+    {
+        if (!is_singular() || !is_main_query()) {
+            return false;
+        }
+
+        $queriedObject = $this->wpService->getQueriedObject();
+
+        if (!$queriedObject instanceof WP_Post) {
+            return false;
+        }
+
+        return $this->hasPageForPostType($queriedObject->post_type);
+    }
+
+    private function isPostTypePubliclyViewable(): bool
+    {
+        $queriedObject = $this->wpService->getQueriedObject();
+
+        if (!$queriedObject instanceof WP_Post) {
+            return true;
+        }
+
+        $postType = $queriedObject->post_type;
+
+        if (!post_type_exists($postType)) {
+            return true;
+        }
+
+        $pageForPostTypeId = $this->getPageForPostTypePageIdFromPostType($postType);
+
+        if ($pageForPostTypeId === null) {
+            return true;
+        }
+
+        return is_post_publicly_viewable($pageForPostTypeId);
+    }
+
+    /**
+     * Checks if a page is assigned for the given post type.
+     *
+     * @param string $postType
+     * @return bool
+     */
+    private function hasPageForPostType(string $postType): bool
+    {
+        return $this->getPageForPostTypePageIdFromPostType($postType) !== null;
+    }
+
+    /**
+     * Retrieves the page ID assigned to a post type archive, if any.
+     *
+     * @param string $postType
+     * @return int|null
+     */
+    private function getPageForPostTypePageIdFromPostType(string $postType): ?int
+    {
+        $pageId = get_option('page_for_' . $postType);
+
+        if (is_numeric($pageId) && (int)$pageId > 0) {
+            return (int)$pageId;
+        }
+
+        return null;
+    }
+
+    /**
      * Check if the current archive is assigned to a page for a post type.
      *
      * @return bool
@@ -282,14 +362,16 @@ class Template
     /**
      * Check if the page assigned to a post type archive is publicly viewable by the current user.
      *
+     * @param int|null $pageId The page ID to check. If null, it will attempt to get the page ID for the current post type archive.
+     *
      * @return bool
      */
-    private function isPageForPostTypePubliclyViewable(): bool
+    private function isPageForPostTypePubliclyViewable(?int $pageId = null): bool
     {
-        $pageId = $this->getPageForPostTypePageId();
+        $pageId = $pageId === null ? $this->getPageForPostTypePageId() : $pageId;
 
         if ($pageId === null) {
-            return false;
+            return true;
         }
 
         return is_post_publicly_viewable($pageId);
