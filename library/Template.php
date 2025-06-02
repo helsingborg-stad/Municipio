@@ -298,6 +298,14 @@ class Template
         return $this->hasPageForPostType($queriedObject->post_type);
     }
 
+    /**
+     * Checks if the current post type is publicly viewable.
+     *
+     * This method checks if the queried object is a post and if its post type has a page assigned.
+     * If a page is assigned, it checks if that page is publicly viewable.
+     *
+     * @return bool True if the post type is publicly viewable, false otherwise.
+     */
     private function isPostTypePubliclyViewable(): bool
     {
         $queriedObject = $this->wpService->getQueriedObject();
