@@ -76,6 +76,7 @@ class PanelsRegistry
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();
+        self::registerErrorPagesPanel();
     }
 
     public static function registerDesignLibraryPanel()
@@ -403,6 +404,30 @@ class PanelsRegistry
                     ->setID('municipio_customizer_section_tags')
                     ->setTitle(esc_html__('Tags', 'municipio'))
                     ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Tags('municipio_customizer_section_tags'))
+            )->register();
+    }
+
+    /* Error pages panel */
+    public static function registerErrorPagesPanel()
+    {
+        KirkiPanel::create()
+            ->setID('municipio_customizer_panel_error_pages_module')
+            ->setTitle(esc_html__('Error Pages', 'municipio'))
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_401')
+                    ->setTitle(esc_html__('401 Unauthorized', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_401', 401))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_403')
+                    ->setTitle(esc_html__('403 Forbidden', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_403', 403))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_404')
+                    ->setTitle(esc_html__('404 Not found', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_404', 404))
             )->register();
     }
 

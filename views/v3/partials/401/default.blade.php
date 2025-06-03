@@ -3,6 +3,12 @@
         {{ $heading }}
     @endtypography
 
+    @if ($subheading && !empty($subheading))
+        @typography(["classList" => ["c-typhography--401-subheading"]])
+            {{ $subheading }}
+        @endtypography
+    @endif
+
     <div class="t-401__buttons u-margin__top--2">
         @foreach($actionButtons as $button) 
             @button([

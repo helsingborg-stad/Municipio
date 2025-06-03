@@ -1,7 +1,24 @@
 <div class="t-404">
+    @if ($image && !empty($image))
+        <div class="t-404__image">
+            @image([
+                'src' => $image,
+                'alt' => $heading,
+                'classList' => ['c-image--404']
+            ])
+            @endimage
+        </div>
+    @endif
+
     @typography(["element" => "h1", "id" => "header404", "classList" => ["c-typhography--404-heading"]])
         {{ $heading }}
     @endtypography
+
+    @if ($subheading && !empty($subheading))
+        @typography(["classList" => ["c-typhography--404-subheading"]])
+            {{ $subheading }}
+        @endtypography
+    @endif
 
     <div class="t-404__buttons">
         @foreach($actionButtons as $button) 
