@@ -33,6 +33,10 @@ class GetAncestors
         $ancestorStack  = array($postId);
         $fetchAncestors = true;
 
+        //Dynamic post status based on user login state
+        $postStatus = self::isUserLoggedIn() ? ['publish', 'private'] : ['publish'];
+        $postStatus = implode(', ', array_map(fn($status) => "'$status'", $postStatus));
+
         //Fetch ancestors
         while ($fetchAncestors) {
             $ancestorID = $db->get_var(
@@ -40,7 +44,7 @@ class GetAncestors
             SELECT post_parent
             FROM  " . $db->posts . "
             WHERE ID = %d
-            AND post_status = 'publish'
+            AND post_status IN (" . $postStatus . ")
             LIMIT 1
         ", $postId)
             );
@@ -87,5 +91,16 @@ class GetAncestors
         NavigationRuntimeCache::setCache('ancestors', $ancestors);
 
         return $ancestors[$cacheSubKey][$postId];
+    }
+
+    private static function isUserLoggedIn(): bool
+    {
+        static $isUserLoggedIn = null;
+
+        if ($isUserLoggedIn === null) {
+            $isUserLoggedIn = is_user_logged_in();
+        }
+
+        return $isUserLoggedIn;
     }
 }
