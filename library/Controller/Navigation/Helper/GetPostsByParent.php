@@ -28,6 +28,12 @@ class GetPostsByParent
      */
     public static function getPostsByParent(int|array $parent = 0, string|array $postType = 'page'): array
     {
+        static $isUserLoggedIn = null;
+
+        if ($isUserLoggedIn === null) {
+            $isUserLoggedIn = is_user_logged_in();
+        }
+
         //Check if if valid post type string
         if ($postType != 'all' && !is_array($postType) && !post_type_exists($postType) && is_post_type_hierarchical($postType)) {
             return [];

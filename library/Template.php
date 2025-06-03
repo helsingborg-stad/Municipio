@@ -448,7 +448,8 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService, $this->siteSwitcher);
+
+        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService, $this->siteSwitcher, $this->mainQueryUserGroupRestriction);
     }
     /**
      * @param $view

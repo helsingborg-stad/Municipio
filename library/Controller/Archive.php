@@ -570,7 +570,12 @@ class Archive extends \Municipio\Controller\BaseController
             } else {
                 $items = $this->getArchiveItems($this->posts);
             }
-
+            if (isset($_GET['bugmode'])) {
+                foreach ($items as $key => $item) {
+                    echo '<pre>' . print_r($item->getArchiveDateTimestamp(), true) . '</pre>';
+                    die;
+                }
+            }
             return \apply_filters('Municipio/Controller/Archive/getArchivePosts', $items);
         }
 
