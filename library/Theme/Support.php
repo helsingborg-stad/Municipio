@@ -2,6 +2,7 @@
 
 namespace Municipio\Theme;
 
+use WP_Post;
 class Support
 {
     public function __construct()
@@ -28,12 +29,27 @@ class Support
         add_action('template_redirect', array($this, 'attachmentPageRedirect'));
     }
 
-    public function attachmentPageRedirect()
+    /**
+     * Redirects attachment pages to the file URL or sets 404 if attachment page is not allowed.
+     * 
+     * @return void
+     */
+    public function attachmentPageRedirect(): void
     {
-        if (!defined('ATTACHMENT_PAGE') ||  defined('ATTACHMENT_PAGE') && ATTACHMENT_PAGE === false) {
-            if (is_attachment() && !is_search() && !is_archive()) {
+        $redirectFromAttachmentPageToFile   = (bool) (defined('ATTACHMENT_PAGE_REDIRECT') ? constant('ATTACHMENT_PAGE_REDIRECT') : true);
+        $allowAttachmentPage                = (bool) (defined('ALLOW_ATTACHMENT_PAGE') ? constant('ALLOW_ATTACHMENT_PAGE') : false);
+        
+        if ($redirectFromAttachmentPageToFile && is_attachment() && !is_search() && !is_archive()) {
+            global $post;
+            if ($post instanceof WP_Post) {
                 wp_redirect(wp_get_attachment_url($post->ID));
+                exit;
             }
+        }
+
+        if(!$allowAttachmentPage && is_attachment()) {
+            global $wp_query;
+            $wp_query->set_404();
         }
     }
 
