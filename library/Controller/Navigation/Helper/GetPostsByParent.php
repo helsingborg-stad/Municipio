@@ -69,6 +69,11 @@ class GetPostsByParent
         if (!is_array($parent)) {
             $parent = [$parent];
         }
+
+        $postStatus = self::isUserLoggedIn() ? 
+            "post_status IN('publish', 'private')" : 
+            "post_status = 'publish'";
+
         $parent = implode(", ", $parent);
 
         $sql = "
@@ -77,7 +82,7 @@ class GetPostsByParent
           WHERE post_parent IN(" . $parent . ")
           AND " . $postTypeSQL . "
           AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
-          AND post_status='publish'
+          AND " . $postStatus . "
           ORDER BY menu_order, post_title ASC
           LIMIT 3000
         ";
@@ -96,5 +101,16 @@ class GetPostsByParent
 
         //Run query
         return (array) $resultSet;
+    }
+
+    private static function isUserLoggedIn(): bool
+    {
+        static $isUserLoggedIn = null;
+
+        if ($isUserLoggedIn === null) {
+            $isUserLoggedIn = is_user_logged_in();
+        }
+
+        return $isUserLoggedIn;
     }
 }
