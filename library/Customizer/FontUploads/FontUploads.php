@@ -120,6 +120,7 @@ class FontUploads implements Hookable
                     font-display: swap; 
                     font-family: "%s"; 
                     src: url("%s") format("%s"); 
+                    font-weight: 100 900;
                 }',
                 $font['name'],
                 $font['url'],
