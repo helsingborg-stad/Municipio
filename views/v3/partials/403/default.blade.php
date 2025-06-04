@@ -1,4 +1,15 @@
 <div class="t-403">
+    @if ($image && !empty($image))
+        <div class="t-403__image">
+            @image([
+                'src' => $image,
+                'alt' => $heading,
+                'classList' => ['c-image--403']
+            ])
+            @endimage
+        </div>
+    @endif
+
     @typography(["element" => "h1", "id" => "header403", "classList" => ["c-typhography--403-heading"]])
         {{ $heading }}
     @endtypography

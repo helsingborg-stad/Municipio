@@ -63,17 +63,33 @@ class E401 extends \Municipio\Controller\BaseController
         //Get current post type to view
         $this->data['postType'] = $this->getRequestedPostType();
 
-        //Heading
-        $this->data['heading'] = $this->getHeading();
+        //Content
+        $this->data['heading']    = $this->getHeading();
+        $this->data['subheading'] = $this->getSubheading();
 
         // Current URL
         $currentUrl = $this->wpService->escUrl($this->wpService->homeUrl($this->wpService->addQueryArg(array($_GET), $wp->request)));
 
         //Actions
-        $this->data['actionButtons']   = [];
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getLoginButton([], $currentUrl);
+        $actionButtons = isset($this->data['customizer']->error401Buttons)
+            ? $this->data['customizer']->error401Buttons
+            : array_keys(\Municipio\Customizer\Sections\ErrorPages::getButtonChoices('401'));
+
+        $this->data['actionButtons'] = [];
+        if (in_array('return', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
+        }
+        if (in_array('home', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        }
+        if (in_array('login', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getLoginButton([], $currentUrl);
+        }
+
+        //Image
+        $this->data['image'] = isset($this->data['customizer']->error401Image) && !empty($this->data['customizer']->error401Image)
+            ? $this->data['customizer']->error401Image
+            : false;
     }
 
     /**
@@ -82,7 +98,22 @@ class E401 extends \Municipio\Controller\BaseController
      */
     protected function getHeading(): string
     {
-        return $this->wpService->applyFilters('Municipio/401/Heading', $this->wpService->__("This post is password protected, please log in to view this post.", 'municipio'), $this->getRequestedPostType());
+        $heading = isset($this->data['customizer']->error401Heading) && !empty($this->data['customizer']->error401Heading)
+            ? $this->data['customizer']->error401Heading
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultHeading('401');
+        return $this->wpService->applyFilters('Municipio/401/Heading', $this->wpService->__($heading, 'municipio'), $this->getRequestedPostType());
+    }
+
+    /**
+     * Returns the body
+     * @return string
+     */
+    protected function getSubheading()
+    {
+        $subheading = isset($this->data['customizer']->error401Description) && !empty($this->data['customizer']->error401Description)
+            ? $this->data['customizer']->error401Description
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('401');
+        return $this->wpService->applyFilters('Municipio/401/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType());
     }
 
     /**

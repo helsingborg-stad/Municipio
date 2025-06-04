@@ -65,12 +65,26 @@ class E403 extends \Municipio\Controller\BaseController
         $this->data['postType'] = $this->getRequestedPostType();
 
         //Heading
-        $this->data['heading'] = $this->getHeading();
+        $this->data['heading']    = $this->getHeading();
+        $this->data['subheading'] = $this->getSubheading();
 
         //Actions
-        $this->data['actionButtons']   = [];
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        $actionButtons = isset($this->data['customizer']->error403Buttons)
+            ? $this->data['customizer']->error403Buttons
+            : array_keys(\Municipio\Customizer\Sections\ErrorPages::getButtonChoices('403'));
+
+        $this->data['actionButtons'] = [];
+        if (in_array('return', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton();
+        }
+        if (in_array('home', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        }
+
+        //Image
+        $this->data['image'] = isset($this->data['customizer']->error403Image) && !empty($this->data['customizer']->error403Image)
+            ? $this->data['customizer']->error403Image
+            : false;
     }
 
     /**
@@ -79,7 +93,22 @@ class E403 extends \Municipio\Controller\BaseController
      */
     protected function getHeading(): string
     {
-        return $this->wpService->applyFilters('Municipio/403/Heading', $this->wpService->__("Your user group do not have access to view this post.", 'municipio'), $this->getRequestedPostType());
+        $heading = isset($this->data['customizer']->error403Heading) && !empty($this->data['customizer']->error403Heading)
+            ? $this->data['customizer']->error403Heading
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultHeading('403');
+        return $this->wpService->applyFilters('Municipio/403/Heading', $this->wpService->__($heading, 'municipio'), $this->getRequestedPostType());
+    }
+
+    /**
+     * Returns the body
+     * @return string
+     */
+    protected function getSubheading()
+    {
+        $subheading = isset($this->data['customizer']->error403Description) && !empty($this->data['customizer']->error403Description)
+            ? $this->data['customizer']->error403Description
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('403');
+        return $this->wpService->applyFilters('Municipio/403/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType());
     }
 
     /**
