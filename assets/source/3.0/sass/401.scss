@@ -6,7 +6,7 @@
     align-content: center;
     max-width: 800px;
   
-    &:after {
+    &--has-error-backdrop:after {
       position: absolute;
       bottom: 0; 
       right: 0;

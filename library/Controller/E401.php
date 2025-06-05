@@ -57,6 +57,9 @@ class E401 extends \Municipio\Controller\BaseController
 
         parent::init();
 
+        // Wrapper class
+        $wrapperClasses = ['t-401'];
+
         //Get local instance of wp_query
         $this->globalToLocal('wp_query', 'query');
 
@@ -90,6 +93,21 @@ class E401 extends \Municipio\Controller\BaseController
         $this->data['image'] = isset($this->data['customizer']->error401Image) && !empty($this->data['customizer']->error401Image)
             ? $this->data['customizer']->error401Image
             : false;
+
+        // Backdrop
+        $backdrop = isset($this->data['customizer']->error401Backdrop) 
+            ? $this->data['customizer']->error401Backdrop
+            : true;
+
+        // Extra wrapper classes
+        if ($this->data['image']) {
+            $wrapperClasses[] = 't-404--has-image';
+        }
+        if ($backdrop) {
+            $wrapperClasses[] = 't-401--has-error-backdrop';
+        }
+        $wrapperClasses = implode(' ', $wrapperClasses);
+        $this->data['wrapperClasses'] = $this->wpService->applyFilters('Municipio/401/WrapperClasses', $wrapperClasses);
     }
 
     /**

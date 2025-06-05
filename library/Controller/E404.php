@@ -16,6 +16,9 @@ class E404 extends \Municipio\Controller\BaseController
     {
         parent::init();
 
+        // Wrapper class
+        $wrapperClasses = ['t-404'];
+
         //Get local instance of wp_query
         $this->globalToLocal('wp_query', 'query');
 
@@ -51,6 +54,21 @@ class E404 extends \Municipio\Controller\BaseController
         $this->data['image'] = isset($this->data['customizer']->error404Image) && !empty($this->data['customizer']->error404Image)
             ? $this->data['customizer']->error404Image
             : false;
+
+        // Backdrop
+        $backdrop = isset($this->data['customizer']->error404Backdrop) 
+            ? $this->data['customizer']->error404Backdrop
+            : true;
+
+        // Extra wrapper classes
+        if ($this->data['image']) {
+            $wrapperClasses[] = 't-404--has-image';
+        }
+        if ($backdrop) {
+            $wrapperClasses[] = 't-404--has-error-backdrop';
+        }
+        $wrapperClasses = implode(' ', $wrapperClasses);
+        $this->data['wrapperClasses'] = $this->wpService->applyFilters('Municipio/404/WrapperClasses', $wrapperClasses);
     }
 
     /**

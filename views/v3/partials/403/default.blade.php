@@ -1,4 +1,4 @@
-<div class="t-403">
+<div class="{{ $wrapperClasses }}">
     @if ($image && !empty($image))
         <div class="t-403__image">
             @image([
@@ -10,17 +10,19 @@
         </div>
     @endif
 
-    @typography(["element" => "h1", "id" => "header403", "classList" => ["c-typhography--403-heading"]])
-        {{ $heading }}
-    @endtypography
-
-    @if ($subheading && !empty($subheading))
-        @typography(["classList" => ["c-typhography--403-subheading"]])
-            {{ $subheading }}
+    <div class="content">
+        @typography(["element" => "h1", "id" => "header403", "classList" => ["c-typhography--403-heading"]])
+            {{ $heading }}
         @endtypography
-    @endif
 
-    <div class="t-403__buttons">
+        @if ($subheading && !empty($subheading))
+            @typography(["classList" => ["c-typhography--403-subheading"]])
+                {{ $subheading }}
+            @endtypography
+        @endif
+    </div>
+
+    <div class="t-403__buttons u-margin__top--4">
         @foreach($actionButtons as $button) 
             @button([
                 'text' => $button['label'],

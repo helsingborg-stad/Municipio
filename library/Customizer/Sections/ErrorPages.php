@@ -62,6 +62,24 @@ class ErrorPages
                 ]
             ],
         ]);
+
+        KirkiField::addField([
+            'type'        => 'switch',
+            'settings'    => 'error' . $type . '_backdrop',
+            'label'       => esc_html__('Error code backdrop', 'municipio'),
+            'description' => esc_html__('Display a faint backdrop with error code ' . $type, 'municipio'),
+            'section'     => $sectionID,
+            'default'     => 1,
+            'choices'     => [
+                1 => esc_html__('Show', 'municipio'),
+                0 => esc_html__('Hide', 'municipio'),
+            ],
+            'output'      => [
+                [
+                    'type'      => 'controller',
+                ]
+            ],
+        ]);
     }
 
     public static function getDefaultHeading(string $type): string
