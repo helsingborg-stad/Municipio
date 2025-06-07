@@ -5,6 +5,7 @@ namespace Municipio\Controller;
 use WP_Term;
 use WpService\WpService;
 use AcfService\AcfService;
+use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\Color;
@@ -63,7 +64,8 @@ class BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher
+        protected SiteSwitcher $siteSwitcher,
+        protected MainQueryUserGroupRestriction $mainQueryUserGroupRestriction
     ) {
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');

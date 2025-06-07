@@ -6,6 +6,7 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use WpService\WpService;
 use AcfService\AcfService;
+use Municipio\Admin\Private\MainQueryUserGroupRestriction;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 
 /**
@@ -23,7 +24,8 @@ class E401 extends \Municipio\Controller\BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher
+        protected SiteSwitcher $siteSwitcher,
+        protected MainQueryUserGroupRestriction $mainQueryUserGroupRestriction
     ) {
         $this->wpService->statusHeader(401);
 
