@@ -350,7 +350,7 @@ class BaseController
 
         //User group
         $this->data['userGroup'] = (
-            is_user_logged_in()
+            $this->wpService->isUserLoggedIn()
         ) ? (object) [
             'group'     => $this->userHelper->getUserGroup(),
             'url'       => $this->userHelper->getUserGroupUrl(),
