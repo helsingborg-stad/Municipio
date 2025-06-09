@@ -314,6 +314,7 @@ class Layout
             'logotype'           => __('Logotype', 'municipio'),
             'brand-text'         => __('Brand Text', 'municipio'),
             'user'               => __('Login/Logout', 'municipio'),
+            'userGroupUrl'       => __('User Group URL', 'municipio'),
         ];
 
         foreach ($allowedMenus as $menuSlug => $menuData) {

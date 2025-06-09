@@ -8,6 +8,7 @@ use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
 use Municipio\Helper\Color;
+use Municipio\Helper\User\User;
 // Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
@@ -63,7 +64,8 @@ class BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher
+        protected SiteSwitcher $siteSwitcher,
+        protected User $userHelper
     ) {
         //Store globals
         $this->globalToLocal('wp_query', 'wpQuery');
@@ -345,6 +347,15 @@ class BaseController
 
         //User role
         $this->data['userRole'] = $this->getUserRole();  //TODO: MOVE TO USER HELPER CLASS
+
+        //User group
+        $this->data['userGroup'] = (
+            $this->wpService->isUserLoggedIn()
+        ) ? (object) [
+            'group'     => $this->userHelper->getUserGroup(),
+            'url'       => $this->userHelper->getUserGroupUrl(),
+            'shortname' => $this->userHelper->getUserGroupShortname()
+        ] : null;
 
         //Show admin notices
         $this->data['showAdminNotices'] = $this->showAdminNotices(); //TODO: MOVE TO USER HELPER CLASS

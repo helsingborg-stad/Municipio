@@ -16,6 +16,7 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use WP_Post;
 use WP_Post_Type;
+use Municipio\Helper\User\User;
 
 /**
  * Class Template
@@ -43,6 +44,7 @@ class Template
         private MainQueryUserGroupRestriction $mainQueryUserGroupRestriction,
         private SiteSwitcher $siteSwitcher,
         private PostObjectFromWpPostFactoryInterface $postObjectFromWpPost,
+        private User $userHelper
     ) {
         //Init custom templates & views
         add_action('template_redirect', array($this, 'registerViewPaths'), 10);
@@ -448,7 +450,15 @@ class Template
             '3.0',
             'Municipio/blade/afterLoadController'
         );
-        return new $c['controllerClass']($this->menuBuilder, $this->menuDirector, $this->wpService, $this->acfService, $this->siteSwitcher);
+
+        return new $c['controllerClass'](
+            $this->menuBuilder,
+            $this->menuDirector,
+            $this->wpService,
+            $this->acfService,
+            $this->siteSwitcher,
+            $this->userHelper
+        );
     }
     /**
      * @param $view
