@@ -58,5 +58,3 @@
         @endlink
     @endgroup
 @endelement
-<?php 
-var_dump($userGroup); ?> 

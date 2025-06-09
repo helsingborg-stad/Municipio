@@ -134,6 +134,7 @@ add_action('init', function () use ($wpService) {
         'media-attachments'                          => 'group_650857c9f2cce',
         'hidden-validation'                          => 'group_654a2a57e6897',
         'user-group-url'                             => 'group_677e6a05e347c',
+        'user-group-shortname'                       => 'group_6846e4ecea40b',
         'post-status-conditional'                    => 'group_671241997f07d',
         'common-field-groups'                        => 'group_678e65a73edb3',
         'global-notices'                             => 'group_6798e1aebe3c6',

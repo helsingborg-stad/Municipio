@@ -351,9 +351,10 @@ class BaseController
         //User group
         $this->data['userGroup'] = (
             is_user_logged_in()
-        ) ? [
-            'name' => $this->userHelper->getUserGroup(),
-            'url' => $this->userHelper->getUserGroupUrl() 
+        ) ? (object) [
+            'group' => $this->userHelper->getUserGroup(),
+            'url' => $this->userHelper->getUserGroupUrl(),
+            'shortname' => $this->userHelper->getUserGroupShortname()
         ] : null;
 
         //Show admin notices

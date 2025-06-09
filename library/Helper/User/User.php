@@ -5,7 +5,7 @@ namespace Municipio\Helper\User;
 use AcfService\Contracts\GetField;
 use Municipio\Helper\Term\Contracts\CreateOrGetTermIdFromString;
 use Municipio\Helper\User\Config\UserConfigInterface;
-use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl};
+use Municipio\Helper\User\Contracts\{GetRedirectToGroupUrl, UserHasRole, GetUserGroup, GetUserGroupUrl, GetUserGroupUrlType, GetUserPrefersGroupUrl, GetUser, SetUserGroup, CanPreferGroupUrl, GetUserGroupShortname};
 use Municipio\Helper\User\FieldResolver\UserGroupUrl;
 use Municipio\Helper\SiteSwitcher\SiteSwitcher;
 use Municipio\UserGroup\Config\UserGroupConfigInterface;
@@ -26,7 +26,8 @@ class User implements
     GetUser,
     GetRedirectToGroupUrl,
     SetUserGroup,
-    CanPreferGroupUrl
+    CanPreferGroupUrl,
+    GetUserGroupShortname
 {
     /**
      * Constructor.
@@ -132,6 +133,40 @@ class User implements
         }
 
         return is_a($userGroup, 'WP_Term') ? $userGroup : null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserGroupShortname(?WP_Term $term = null, null|WP_User|int $user = null): ?string
+    {
+
+        $user = $this->getUser($user);
+
+        if (!$user) {
+            return null;
+        }
+
+        $term ??= $this->getUserGroup($user);
+
+        if (!$term) {
+            return null;
+        }
+
+        // Get the user group taxonomy
+        $taxonomy = $this->userGroupConfig->getUserGroupTaxonomy($user);
+
+        $shortname = $this->siteSwitcher->runInSite(
+            $this->wpService->getMainSiteId(),
+            function () use ($taxonomy, $term) {
+                return $this->acfService->getField(
+                    'user_group_shortname',
+                    $taxonomy . '_' . $term->term_id
+                ) ?: null;
+            }
+        );
+
+        return $shortname ?: null;
     }
 
     /**
