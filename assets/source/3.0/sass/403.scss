@@ -1,5 +1,5 @@
 .t-403 {
-    height: 80vh;
+    min-height: 80vh;
     display: grid; 
     align-items: center; 
     row-gap: calc(#{$base} * 4);
