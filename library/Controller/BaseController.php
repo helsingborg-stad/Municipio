@@ -352,8 +352,8 @@ class BaseController
         $this->data['userGroup'] = (
             is_user_logged_in()
         ) ? (object) [
-            'group' => $this->userHelper->getUserGroup(),
-            'url' => $this->userHelper->getUserGroupUrl(),
+            'group'     => $this->userHelper->getUserGroup(),
+            'url'       => $this->userHelper->getUserGroupUrl(),
             'shortname' => $this->userHelper->getUserGroupShortname()
         ] : null;
 

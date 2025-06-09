@@ -453,7 +453,7 @@ class Template
 
         return new $c['controllerClass'](
             $this->menuBuilder,
-            $this->menuDirector, 
+            $this->menuDirector,
             $this->wpService,
             $this->acfService,
             $this->siteSwitcher,
