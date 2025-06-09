@@ -841,7 +841,7 @@ class App
         /**
          * External content
          */
-        //$this->setupExternalContent();
+        $this->setupExternalContent();
     }
 
     /**
