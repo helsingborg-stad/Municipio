@@ -128,6 +128,7 @@ class App
             $mainQueryUserGroupRestriction,
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
             $this->getPostObjectFromWpPostFactory(),
+            $userHelper
         );
 
         /**
@@ -840,7 +841,7 @@ class App
         /**
          * External content
          */
-        $this->setupExternalContent();
+        //$this->setupExternalContent();
     }
 
     /**
