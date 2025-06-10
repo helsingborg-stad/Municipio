@@ -4,12 +4,19 @@ const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 let placeholderMarkup:HTMLElement|null = null
 
+declare const navSettings: {
+    nonce: any;
+}
+
 const fetchMarkup = async (url:string) => {
+    console.log("DJASKD")
     const response = await fetch(url , {
         method: 'GET',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
-            'credentials': 'same-origin'
+            'credentials': 'same-origin',
+            'X-WP-Nonce': navSettings.nonce
         },
     });
     
@@ -153,6 +160,6 @@ const init = async () => {
     }
 }
 
-export default (() => {
-    window.addEventListener('DOMContentLoaded', init);
-})();
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+});

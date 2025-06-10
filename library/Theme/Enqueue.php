@@ -317,6 +317,12 @@ class Enqueue
         //Load pdf generator
         wp_register_script('pdf-js', self::getAssetWithCacheBust('js/pdf.js'));
         wp_enqueue_script('pdf-js');
+
+        wp_register_script('nav-js', self::getAssetWithCacheBust('js/nav.js'));
+        wp_enqueue_script('nav-js');
+        wp_localize_script('nav-js', 'navSettings', array(
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
     }
 
     /**

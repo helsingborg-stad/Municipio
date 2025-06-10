@@ -1,5 +1,4 @@
 import Fab from './fab';
-import './nav';
 import './hide';
 import { initializeComments } from './comments';
 import { initializeLanguageMenu } from './languageMenu';
