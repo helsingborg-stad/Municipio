@@ -8,6 +8,7 @@ use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WpService\Contracts\AddQueryArg;
+use WpService\Contracts\GetPostMeta;
 use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
@@ -22,7 +23,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg $wpService,
+        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -33,6 +34,12 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function getPermalink(): string
     {
+        $seoRedirectMetaUrl = $this->withSwitchedBlog(fn() => $this->wpService->getPostMeta($this->postObject->getId(), 'redirect', true));
+
+        if (filter_var($seoRedirectMetaUrl, FILTER_VALIDATE_URL)) {
+            return $seoRedirectMetaUrl;
+        }
+
         $permalink = $this->postObject->getPermalink();
         $permalink = $this->addOriginIdentifiersToUrl($permalink);
         return $this->replaceOriginalSiteUrl($permalink);
