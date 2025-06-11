@@ -40,21 +40,26 @@ class File
     public static function fileExists($filePath, $expireFound = 0, $expireNotFound = 86400)
     {
         //Unique cache value
-        $uid = "municipio_file_exists_cache_" . md5($filePath);
+        $wpService = WpService::get();
+        $uid       = "municipio_file_exists_cache_" . md5($filePath);
 
         //If in cahce, found
-        if (wp_cache_get($uid)) {
-            return true;
+        if ($cachedValue = $wpService->wpCacheGet($uid)) {
+            if ($cachedValue === 'found') {
+                return true;
+            } elseif ($cachedValue === 'not_found') {
+                return false;
+            }
         }
 
         //If not in cache, look for it, if found cache.
         if (file_exists($filePath)) {
-            wp_cache_set($uid, true, '', $expireFound);
+            $wpService->wpCacheSet($uid, 'found', '', $expireFound);
             return true;
         }
 
         //Opsie, file not found
-        wp_cache_set($uid, false, '', $expireNotFound);
+        $wpService->wpCacheSet($uid, 'not_found', '', $expireNotFound);
         return false;
     }
 
