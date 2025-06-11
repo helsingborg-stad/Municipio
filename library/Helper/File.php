@@ -2,6 +2,12 @@
 
 namespace Municipio\Helper;
 
+/**
+ * File helper class to handle file operations such as checking existence,
+ * getting URLs, and retrieving image dimensions.
+ *
+ * @package Municipio\Helper
+ */
 class File
 {
     /**
