@@ -4,19 +4,18 @@ const SELECTOR_TOGGLE_BUTTON = '.js-async-children';
 const ATTRIBUTE_FETCH_URL = 'data-fetch-url';
 let placeholderMarkup:HTMLElement|null = null
 
-declare const navSettings: {
+declare const wpApiSettings: {
     nonce: any;
 }
 
 const fetchMarkup = async (url:string) => {
-    console.log("DJASKD")
     const response = await fetch(url , {
         method: 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
             'credentials': 'same-origin',
-            'X-WP-Nonce': navSettings.nonce
+            'X-WP-Nonce': wpApiSettings.nonce
         },
     });
     
