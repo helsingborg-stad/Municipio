@@ -6,6 +6,7 @@ use Municipio\Controller\Navigation\Config\MenuConfigInterface;
 use Municipio\Controller\Navigation\Helper\GetHiddenPostIds;
 use Municipio\Controller\Navigation\Helper\GetPageForPostTypeIds;
 use Municipio\Controller\Navigation\Helper\GetPostsByParent;
+use Municipio\Controller\Navigation\Helper\IsUserLoggedIn;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\CurrentPostId;
 use Municipio\Helper\GetGlobal;
@@ -137,12 +138,16 @@ class PageTreeAppendChildren implements MenuInterface
 
         $localWpdb = GetGlobal::getGlobal('wpdb');
 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
+            "post_status IN('publish', 'private')" : 
+            "post_status = 'publish'";
+
         $currentPostTypeChildren = $localWpdb->get_var(
             $localWpdb->prepare("
         SELECT ID
         FROM " . $localWpdb->posts . "
         WHERE post_parent = %d
-        AND post_status = 'publish'
+        AND post_status = " . $postStatus . "
         AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
         LIMIT 1
       ", $postId)
@@ -156,7 +161,7 @@ class PageTreeAppendChildren implements MenuInterface
                     SELECT ID
                     FROM " . $localWpdb->posts . "
                     WHERE post_parent = 0
-                    AND post_status = 'publish'
+                    AND post_status = " . $postStatus . "
                     AND post_type = %s
                     AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
                     LIMIT 1
