@@ -69,8 +69,8 @@ class GetPostsByParent
         if (!is_array($parent)) {
             $parent = [$parent];
         }
-
-        $postStatus = self::isUserLoggedIn() ? 
+        
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
             "post_status IN('publish', 'private')" : 
             "post_status = 'publish'";
 
@@ -101,16 +101,5 @@ class GetPostsByParent
 
         //Run query
         return (array) $resultSet;
-    }
-
-    private static function isUserLoggedIn(): bool
-    {
-        static $isUserLoggedIn = null;
-
-        if ($isUserLoggedIn === null) {
-            $isUserLoggedIn = is_user_logged_in();
-        }
-
-        return $isUserLoggedIn;
     }
 }
