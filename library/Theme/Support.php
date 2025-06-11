@@ -39,7 +39,7 @@ class Support
         $redirectFromAttachmentPageToFile   = (bool) (defined('ATTACHMENT_PAGE_REDIRECT') ? constant('ATTACHMENT_PAGE_REDIRECT') : true);
         $allowAttachmentPage                = (bool) (defined('ALLOW_ATTACHMENT_PAGE') ? constant('ALLOW_ATTACHMENT_PAGE') : false);
         
-        if ($redirectFromAttachmentPageToFile && is_attachment() && !is_search() && !is_archive()) {
+        if ($redirectFromAttachmentPageToFile && $this->isAttachment() && !is_search() && !is_archive()) {
             global $post;
             if ($post instanceof WP_Post) {
                 wp_redirect(wp_get_attachment_url($post->ID));
@@ -51,6 +51,20 @@ class Support
             global $wp_query;
             $wp_query->set_404();
         }
+    }
+
+    /**
+     * Checks if the current post is an attachment.
+     * 
+     * @return bool
+     */
+    public function isAttachment() : bool
+    {
+        global $post;
+        if ($post instanceof WP_Post) {
+            return $post->post_type === 'attachment';
+        }
+        return false;
     }
 
     /**
