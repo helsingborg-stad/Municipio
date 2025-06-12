@@ -32,16 +32,24 @@ class AppendArchiveMenuItem implements MenuInterface
     {
         $menu = $this->inner->getMenu();
 
-        $postType    = $this->wpService->getPostType(CurrentPostId::get());
-        $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
-
+        if ($this->wpService->isArchive()) {
+            $queriedObject = $this->wpService->getQueriedObject();
+            $postType = is_object($queriedObject) ? $queriedObject->name : null;
+        } else {
+            $postType = $this->wpService->getPostType(CurrentPostId::get());
+        }
+        
+        $archiveLink = $postType ? $this->wpService->getPostTypeArchiveLink($postType) : null;
+        
         if ($archiveLink) {
             $defaultLabel = __("Untitled page", 'municipio');
 
             if ($this->wpService->isArchive()) {
-                $label = $this->wpService->getQueriedObject()->label ?? $defaultLabel;
+                $queriedObj = $this->wpService->getQueriedObject();
+                    $label = $queriedObj->label ?? $defaultLabel;
             } else {
-                $label = $this->wpService->getPostTypeObject($postType)->label ?? $defaultLabel;
+                $postTypeObj = $this->wpService->getPostTypeObject($postType);
+                $label = $postTypeObj->label ?? $defaultLabel;
             }
 
             $menu['items'][] = [
