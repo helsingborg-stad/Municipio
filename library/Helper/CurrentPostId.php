@@ -15,7 +15,15 @@ class CurrentPostId
 
         // Page for post type archive mapping result
         if (is_post_type_archive()) {
-            if ($pageId = get_option('page_for_' . get_post_type())) {
+
+			$postType = get_post_type();
+			$queriedObject = get_queried_object();
+			
+			if (!$postType && is_object($queriedObject)) {
+				$postType = $queriedObject->name;
+			}
+
+            if ($pageId = get_option('page_for_' . $postType)) {
                 return self::$pageId = (int) $pageId;
             }
         }
