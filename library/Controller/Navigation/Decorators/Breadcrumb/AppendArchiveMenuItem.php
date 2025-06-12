@@ -30,13 +30,13 @@ class AppendArchiveMenuItem implements MenuInterface
      */
     public function getMenu(): array
     {
-        $menu = $this->inner->getMenu();
-        $postType = $this->wpService->getPostType(CurrentPostId::get());
+        $menu          = $this->inner->getMenu();
+        $postType      = $this->wpService->getPostType(CurrentPostId::get());
         $queriedObject = $this->wpService->getQueriedObject();
 
-        if ($this->wpService->isArchive() && is_object($queriedObject) ) {
+        if ($this->wpService->isArchive() && is_object($queriedObject)) {
             $postType = $queriedObject->name;
-        } 
+        }
 
         $archiveLink = $this->wpService->getPostTypeArchiveLink($postType);
 
