@@ -50,6 +50,17 @@ class GetOtherBlogIdTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($getOtherBlogId->getOtherBlogId());
     }
 
+    /**
+     * @testdox getOtherBlogId method returns null only post ID is set and no blog ID is provided
+     */
+    public function testGetOtherBlogIdReturnsNullWhenPostIdIsSetAndNoBlogIdIsProvided(): void
+    {
+        $wpService      = new FakeWpService(['isMultisite' => true, 'msIsSwitched' => false, 'getQueryVar' => $this->getQueryVarFake(null, 1)]);
+        $getOtherBlogId = new GetOtherBlogId($wpService);
+
+        $this->assertNull($getOtherBlogId->getOtherBlogId());
+    }
+
     private function getQueryVarFake(?int $blogId = null, ?int $postId = null): callable
     {
         return fn($var, $default) => match ($var) {

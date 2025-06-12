@@ -32,7 +32,7 @@ class GetOtherBlogId implements GetOtherBlogIdInterface
         $blogId = $this->wpService->getQueryVar(BlogIdQueryVar::BLOG_ID_QUERY_VAR, null);
         $postId = $this->wpService->getQueryVar('p', null);
 
-        if ($this->wpService->isMultiSite() && $postId) {
+        if ($this->wpService->isMultiSite() && !is_null($postId) && !is_null($blogId)) {
             return (int) $blogId;
         }
 
