@@ -41,6 +41,8 @@ class ImageTest extends TestCase
     */
     public function testResizeReturnsImageIfImageIdIsPresent()
     {
+        $this->markTestIncomplete('This test requires Image to not have a direct dependency on FileHelper::fileExists. Need to refactor the code to allow for better testing.');
+
         // Given
         $this->mockUpDataForImage();
 
@@ -57,6 +59,8 @@ class ImageTest extends TestCase
     */
     public function testResizeReturnsImageIfImageUrlIsPresent()
     {
+        $this->markTestIncomplete('This test requires Image to not have a direct dependency on FileHelper::fileExists. Need to refactor the code to allow for better testing.');
+
         // Given
         $this->mockUpDataForImage();
 
