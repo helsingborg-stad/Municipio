@@ -35,7 +35,8 @@ class Card
                         'module.manual-input.accordion',
                         'module.inlay.list',
                         'module.index',
-                        'module.text.box'
+                        'module.text.box',
+                        'module.files.list'
                     ]
                 ]
             ],
