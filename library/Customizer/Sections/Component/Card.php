@@ -10,9 +10,9 @@ class Card
     {
         KirkiField::addField([
             'type'     => 'select',
-            'settings' => 'mod_card_modifier',
+            'settings' => 'component_card_modifier',
             'label'    => esc_html__('Card', 'municipio'),
-            'description' => 'Affects every component wrapped by a card.',
+            'description' => 'Affects every title area wrapped by a card.',
             'section'  => $sectionID,
             'default'  => 'none',
             'priority' => 10,
@@ -36,7 +36,14 @@ class Card
                         'module.inlay.list',
                         'module.index',
                         'module.text.box',
-                        'module.files.list'
+                        'module.files.list',
+                        'module.script',
+                        'module.localevent.list',
+                        'module.contacts.card',
+                        'module.contacts.list',
+                        'sectionsSplit',
+                        'module.sections.split',
+                        'module.video'
                     ]
                 ]
             ],
