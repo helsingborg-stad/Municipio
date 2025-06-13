@@ -76,7 +76,8 @@
         "tomasvotruba/class-leak": "^2.0",
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
-        "phpstan/extension-installer": "^1.4"
+        "phpstan/extension-installer": "^1.4",
+        "helsingborg-stad/component-library": "dev-main"
     },
     "autoload": {
         "psr-4": {

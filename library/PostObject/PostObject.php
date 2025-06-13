@@ -3,6 +3,7 @@
 namespace Municipio\PostObject;
 
 use Municipio\PostObject\Icon\IconInterface;
+use Municipio\PostObject\Image\ImageInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WpService\Contracts\GetCurrentBlogId;
@@ -144,5 +145,13 @@ class PostObject implements PostObjectInterface
     public function getSchema(): BaseType
     {
         return new BaseType();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getImage(): ?ImageInterface
+    {
+        return null;
     }
 }

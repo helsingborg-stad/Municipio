@@ -13,4 +13,7 @@ npm-debug.log
 .phpunit.result.cache
 .coverage
 
+# Ommit folder where component-library gets installed in dev.
+wp-content
+
 *.*~
