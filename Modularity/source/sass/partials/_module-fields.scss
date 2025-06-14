@@ -1,0 +1,82 @@
+
+.acf-fields .acf-tab-wrap .acf-tab-group li a  {
+    font-size: 1.1em;
+}
+
+.acf-fields > .acf-field {
+
+    /* Style groups */
+
+    &.acf-field-group  {
+        padding-bottom: 30px;
+        padding-top: 25px;
+    }
+
+    &.acf-field-group:last-child {
+        padding-bottom: 15px;
+    }
+
+    &.acf-field-group {
+        border-top: 2px solid #e5e4e4;
+    }
+
+    /* Additional classes designed for groups */
+
+    &.modularity-ui-additional {
+        background: #fbfbfb;
+
+        &:before {
+            @include gradient(rgba(#000,.05), rgba(#000,0), vertical);
+            content: "";
+            width: 100%;
+            height: 20px;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    &.modularity-ui-header > .acf-label {
+        > label {
+            font-size: 1.2em;
+        }
+    }
+
+    &.modularity-ui-highlight > .acf-input > .acf-fields {
+        border-radius: 2px;
+        box-shadow: 0 0 5px rgba(#000,.1);
+    }
+
+    /* Image uploader */
+
+    .acf-image-uploader {
+        background: #fbfbfb;
+        display: block;
+        width: 150px;
+        height: 150px;
+        background: #eee;
+        line-height: 70px;
+        border: 1px solid #e5e4e4;
+        text-align: center;
+
+        .view.hide-if-value,
+        .view.hide-if-value p {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            line-height: 150px - 20px;
+
+            a.acf-button {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+                left: 5px;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,229 @@
+$color-primary: var(--color-primary, #ae0b05) !default;
+$color-primary-contrasting: var(--color-primary-contrasting, #fff) !default;
+$color-secondary: var(--color-secondary, #ec6701) !default;
+$color-secondary-contrasting: var(--color-secondary-contrasting, #fff) !default;
+
+@import "~@helsingborg-stad/openstreetmap/dist/main.css";
+
+.interactive-map {
+    position: relative;
+}
+
+.interactive-map .openstreetmap .leaflet-popup-content-wrapper {
+    border-radius: 3px;
+}
+
+// Marker
+@keyframes highlight-marker {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.interactive-map__highlighted-marker {
+    animation: highlight-marker 0.1s ease-in-out forwards;
+}
+
+// Marker info
+.interactive-map__marker-info-container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s ease-in-out;
+    z-index: 4000;
+    background-color: $color-secondary;
+    container-type: inline-size;
+    container-name: markerinfo;
+
+    &.is-open {
+        transform: scaleY(1);
+    }
+
+    @container markerinfo (max-width: 40rem) {
+        .interactive-map__marker-info {
+            width: 100%;
+            margin: 0;
+        }
+
+        .interactive-map__marker-content {
+            padding-right: 2rem;
+        }
+    }
+}
+
+.interactive-map__marker-info {
+    display: flex;
+    width: min(80%, 75rem);
+    gap: 1rem;
+    margin: 1rem 0;
+    background-color: white;
+    box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.45);
+    border-radius: 2px;
+    min-height: 8rem;
+}
+
+.interactive-map__marker-content {
+    padding: .5rem;
+    gap: 0.25rem;
+}
+
+.interactive-map__marker-info-image {
+    aspect-ratio: 1/1;
+    width: 8rem;
+    max-width: 8rem;
+    line-height: 0;
+
+    &:empty {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+    }
+}
+
+
+
+.interactive-map__popup-title {
+    font-size: 1rem;
+    text-align: center;
+}
+
+// Filter
+.interactive-map__filters-container {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    transform: scaleY(0);
+    opacity: 0;
+    transform-origin: bottom;
+    transition: 0.1s ease-in-out;
+    pointer-events: none;
+    z-index: 4000;
+    background-color: $color-secondary;
+
+    .interactive-map__filters-button-title {
+        padding-top: 1.5rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .interactive-map__filters-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        .interactive-map__filter-button + .interactive-map__filter-button {
+            margin-left: 0;
+        }
+    }
+
+    .interactive-map__filters-selects {
+        background-color: color-mix(in srgb, $color-secondary 97%, black);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        
+        .interactive-map__filter-select {
+            max-width: 15rem;
+        }
+    }
+
+    .interactive-map__filters-buttons,
+    .interactive-map__filters-selects {
+        transition: .2s ease-in-out;
+        transform: translateY(2rem);
+        padding-left: 2rem;
+        padding-right: 2rem;
+        &:has(.interactive-map__filter-button:not(.u-display--none)),
+        &:has(.interactive-map__filter-select) {
+            transform: translateY(0);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    
+        width: 100%;
+    }
+
+    .interactive-map__filters-button-title,
+    .interactive-map__filters-select-title,
+    .interactive-map__filter-button,
+    .interactive-map__filter-select {
+        transform: translateY(1rem);
+        transition: .2s ease-in-out;
+    }
+
+    &.is-open {
+        transform: scaleY(1);
+        opacity: 1;
+
+        & > * {
+            pointer-events: all;
+        }
+
+        .interactive-map__filters-button-title,
+        .interactive-map__filters-select-title,
+        .interactive-map__filter-button,
+        .interactive-map__filter-select {
+            transform: translateY(0);
+        }
+    }
+}
+
+
+.interactive-map__filter-icon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 5000;
+    padding: .5rem;
+    background-color: $color-primary-contrasting;
+    color: $color-primary;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    transition: transform .2s ease-in-out;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: scale(1);
+    width: unset;
+
+    &.c-icon.c-icon--size-lg:after {
+        display: block;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.interactive-map__filters-close-icon,
+.interactive-map__marker-info-close-icon {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.interactive-map__marker-info-container,
+.interactive-map__filters-container {
+    box-shadow: 0 -3px 10px -5px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,30 @@
+name: Test JS
+
+on:
+  push:
+    branches: [ 3.0/develop, master ]
+  pull_request:
+    branches: [ 3.0/develop, master ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run tests
+      run: npm test

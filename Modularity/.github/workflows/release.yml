@@ -1,0 +1,134 @@
+name: Bump version and create release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Create Release and bump version files
+      uses: helsingborg-stad/release-wp-plugin-action@1.0.2
+      with:
+        php-version: 8.3
+        node-version: 20.6.0
+  build-assets:
+    needs: ['release']
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Get latest release version
+        id: get-version
+        run: |
+          echo "LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update version in package.json
+        run: |
+          # Read the latest release version from environment variable
+          LATEST_VERSION="${{ env.LATEST_RELEASE }}"
+
+          # Update the "version" field in package.json using jq
+          jq --arg version "$LATEST_VERSION" '.version = $version' package.json > temp.json && mv temp.json package.json
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Inject access token in .npmrc
+        run: | 
+          echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+      - name: Run CI
+        if: ${{ hashFiles('package.json') != '' && hashFiles('package-lock.json') != '' }}
+        run: npm ci --no-progress --no-audit
+      - name: Run build
+        if: ${{ hashFiles('package-lock.json') != '' && hashFiles('gulp.js') == '' }}
+        run: npx --yes browserslist@latest --update-db && npm run build
+      - name: Publish npm package to GHCR
+        run: npm publish --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create assets zip
+        uses: thedoctor0/zip-release@0.7.5
+        if: ${{ hashFiles('dist/') != '' }}
+        with:
+          type: zip
+          filename: '../assets.zip'
+          directory: dist
+          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
+      - name: Upload Assets
+        uses: helsingborg-stad/upload-artifact@1.0.0
+        if: ${{ hashFiles('assets.zip') != '' }}
+        with:
+          artifact: "assets.zip"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          release: ${{ env.LATEST_RELEASE }}
+          repo: ${{ github.repository }}
+          artifact_mime_type: application/zip
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        if: ${{ hashFiles('composer.json') != '' }}
+        with:
+          tools: composer
+          php-version: '8.3'
+      
+      - name: Build PHP
+        if: ${{ hashFiles('composer.json') != '' }}
+        run: |
+          composer install --prefer-dist --no-progress --no-dev
+          composer dump-autoload
+
+      - name: Process removables
+        run: |
+          removables=('.git'
+            '.gitignore'
+            '.github'
+            '.gitattributes'
+            'build.php'
+            '.npmrc'
+            'composer.json'
+            'composer.lock'
+            'env-example'
+            'webpack.config.js'
+            'package-lock.json'
+            'package.json'
+            'phpunit.xml.dist'
+            'README.md'
+            'gulpfile.js'
+            './node_modules/'
+            './source/sass/'
+            './source/js/'
+            'LICENSE'
+            'babel.config.js'
+            'yarn.lock'
+          )
+          for item in ${removables[@]}; do rm -rf $item; done;
+
+      - name: Create release zip
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+          type: zip
+          filename: 'release.zip'
+          exclusions: '*.git* /*node_modules/* */source/sass/* */source/js/*'
+      
+      - name: Upload release
+        uses: helsingborg-stad/upload-artifact@1.0.0
+        with:
+          artifact: "release.zip"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          release: ${{ env.LATEST_RELEASE }}
+          repo: ${{ github.repository }}
+          artifact_mime_type: application/zip
