@@ -3,7 +3,8 @@
     "description": "A bootstrap theme for creating municipality sites.",
     "license": "MIT",
     "type": "wordpress-theme",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Kristoffer Svanmark",
@@ -77,7 +78,8 @@
         "phpstan/phpstan": "^2.1",
         "tomasvotruba/unused-public": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "helsingborg-stad/component-library": "dev-main"
+        "helsingborg-stad/component-library": "dev-main",
+        "helsingborg-stad/modularity": "dev-main"
     },
     "autoload": {
         "psr-4": {

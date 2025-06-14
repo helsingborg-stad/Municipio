@@ -2,11 +2,15 @@
 
 namespace Municipio\PostObject;
 
+use ComponentLibrary\Integrations\Image\Image;
+use ComponentLibrary\Integrations\Image\ImageInterface;
+use Municipio\Integrations\Component\ImageFocusResolver;
+use Municipio\Integrations\Component\ImageResolver;
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\Image\ImageInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\GetPostThumbnailId;
 use WpService\Contracts\WpGetPostTerms;
 
 /**
@@ -17,7 +21,7 @@ class PostObject implements PostObjectInterface
     /**
      * Constructor.
      */
-    public function __construct(private int $id, private GetCurrentBlogId|WpGetPostTerms $wpService)
+    public function __construct(private int $id, private GetCurrentBlogId|WpGetPostTerms|GetPostThumbnailId $wpService)
     {
     }
 
@@ -152,6 +156,13 @@ class PostObject implements PostObjectInterface
      */
     public function getImage(): ?ImageInterface
     {
-        return null;
+        $imageId = $this->wpService->getPostThumbnailId($this->getId());
+
+        return $imageId !== false ? Image::factory(
+            (int) $imageId,
+            [1920, false],
+            new ImageResolver(),
+            new ImageFocusResolver(['id' => $imageId])
+        ) : null;
     }
 }

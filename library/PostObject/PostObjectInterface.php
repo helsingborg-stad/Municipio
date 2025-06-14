@@ -2,9 +2,8 @@
 
 namespace Municipio\PostObject;
 
-use Municipio\ImageConvert\Contract\ImageContractInterface;
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\Image\ImageInterface;
 use Municipio\Schema\BaseType;
 
 interface PostObjectInterface

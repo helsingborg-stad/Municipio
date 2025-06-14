@@ -2,8 +2,8 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\PostObject\Icon\IconInterface;
-use Municipio\PostObject\Image\ImageInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 
