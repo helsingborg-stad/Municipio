@@ -1,0 +1,253 @@
+[{
+    "key": "group_614b3f1a751bf",
+    "title": "Hero",
+    "fields": [
+        {
+            "key": "field_614b3f1e6ed4a",
+            "label": "Byline",
+            "name": "mod_hero_byline",
+            "type": "text",
+            "instructions": "A clear byline, to say something else.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "wp_object": "",
+            "is_id": 0
+        },
+        {
+            "key": "field_63d78c4897632",
+            "label": "Meta",
+            "name": "mod_hero_meta",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_614b3f5a6ed4b",
+            "label": "Body",
+            "name": "mod_hero_body",
+            "type": "textarea",
+            "instructions": "A short and concise text about this site. What's it about? Maximum 500 characters.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": 500,
+            "rows": 4,
+            "new_lines": "",
+            "wp_object": ""
+        },
+        {
+            "key": "field_62c3f89f983b1",
+            "label": "Background type",
+            "name": "mod_hero_background_type",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "image": "Image",
+                "video": "Video"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_614b3f786ed4c",
+            "label": "Background image",
+            "name": "mod_hero_background_image",
+            "type": "focuspoint",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c3f89f983b1",
+                        "operator": "==",
+                        "value": "image"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "preview_size": "large",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": ""
+        },
+        {
+            "key": "field_62c3f8fa57719",
+            "label": "Background video",
+            "name": "mod_hero_background_video",
+            "type": "file",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c3f89f983b1",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4"
+        },
+        {
+            "key": "field_646f25456ea80",
+            "label": "Poster image",
+            "name": "mod_hero_poster_image",
+            "type": "image",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_62c3f89f983b1",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "acfe_thumbnail": 0,
+            "return_format": "array",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_614b43a186da4",
+            "label": "Size",
+            "name": "mod_hero_size",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "repeater_choices": 0,
+            "repeater_field": "",
+            "repeater_label_field": "",
+            "repeater_value_field": "",
+            "repeater_post_id": 0,
+            "repeater_display_value": 0,
+            "render_type": "",
+            "filter_context": "",
+            "share_option": 0,
+            "choices": {
+                "small": "Small",
+                "normal": "Normal",
+                "large": "Large"
+            },
+            "default_value": "normal",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "mod-hero"
+            }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/hero"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": "",
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+

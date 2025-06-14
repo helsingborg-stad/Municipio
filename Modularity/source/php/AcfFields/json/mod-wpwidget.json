@@ -1,0 +1,575 @@
+[{
+    "key": "group_5729f4d3e7c7a",
+    "title": "Wordpress Widget",
+    "fields": [
+        {
+            "layout": "horizontal",
+            "choices": {
+                "WP_Widget_Archives": "Arkiv",
+                "WP_Widget_Calendar": "Kalender",
+                "WP_Widget_Categories": "Kategorier",
+                "WP_Widget_Meta": "Meta",
+                "WP_Widget_Pages": "Sidor",
+                "WP_Widget_Recent_Comments": "Senaste kommentarerna",
+                "WP_Widget_Recent_Posts": "Senaste inl\u00e4ggen",
+                "WP_Widget_RSS": "RSS",
+                "WP_Widget_Search": "S\u00f6k",
+                "WP_Widget_Tag_Cloud": "Taggmoln"
+            },
+            "default_value": "",
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_572a06dd9d06c",
+            "label": "Widget Type",
+            "name": "mod_standard_widget_type",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "message": "There are no options available for this widget type.<br> <style>.acf-field-57309aa0b176d {background-color: #FFDFDF;}<\/style>",
+            "esc_html": 0,
+            "new_lines": "",
+            "key": "field_57309aa0b176d",
+            "label": "No options avabile",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Calendar"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Meta"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Search"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "layout": "horizontal",
+            "choices": [
+                "No",
+                "Yes"
+            ],
+            "default_value": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_5730a1f85e023",
+            "label": "Show number of items indicator",
+            "name": "wp_widget_archive_count",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Archives"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "layout": "horizontal",
+            "choices": [
+                "No",
+                "Yes"
+            ],
+            "default_value": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_57319d35a5915",
+            "label": "Show as dropdown list",
+            "name": "wp_widget_archive_dropdown",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Archives"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "layout": "horizontal",
+            "choices": [
+                "No",
+                "Yes"
+            ],
+            "default_value": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_57319e7e4900e",
+            "label": "Show number of category items indicator",
+            "name": "wp_widget_cat_count",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Categories"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33,333",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "layout": "horizontal",
+            "choices": [
+                "No",
+                "Yes"
+            ],
+            "default_value": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_5731aa7f0f0f8",
+            "label": "Show as hierarchial list",
+            "name": "wp_widget_cat_hierarchical",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Categories"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33,333",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "layout": "horizontal",
+            "choices": [
+                "No",
+                "Yes"
+            ],
+            "default_value": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "allow_null": 0,
+            "return_format": "value",
+            "key": "field_5731aaac9c7d2",
+            "label": "Show as dropdown",
+            "name": "wp_widget_cat_dropdown",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Categories"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33,333",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "post_title": "Titel",
+                "menu_order": "Menu order",
+                "ID": "Page ID"
+            },
+            "default_value": [],
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "key": "field_5731e69671076",
+            "label": "Sort by",
+            "name": "wp_widget_pages_sort_by",
+            "type": "select",
+            "instructions": "Select how to sort the pages",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Pages"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "disabled": 0,
+            "readonly": 0
+        },
+        {
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5731e78c71077",
+            "label": "Exclude",
+            "name": "wp_widget_pages_exclude",
+            "type": "text",
+            "instructions": "ID:s of pages to exclude. Separated by comma.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Pages"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 50,
+                "class": "",
+                "id": ""
+            },
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "default_value": 5,
+            "min": 1,
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5731e8cf25b42",
+            "label": "Number of comments to show",
+            "name": "wp_widget_comments_comments",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Recent_Comments"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "default_value": 5,
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5731e9c32cd95",
+            "label": "Number of posts to show",
+            "name": "wp_widget_posts_number",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Recent_Posts"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "default_value": "",
+            "placeholder": "",
+            "key": "field_5731ea87eae83",
+            "label": "RSS Url",
+            "name": "wp_widget_rss_url",
+            "type": "url",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_RSS"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": 5,
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "key": "field_5731ea9beae84",
+            "label": "Items to show",
+            "name": "wp_widget_rss_items",
+            "type": "number",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_RSS"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 25,
+                "class": "",
+                "id": ""
+            },
+            "readonly": 0,
+            "disabled": 0
+        },
+        {
+            "default_value": 0,
+            "message": "Yes, show summary",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "key": "field_5731eab4eae85",
+            "label": "Show summary",
+            "name": "wp_widget_rss_summary",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_RSS"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 25,
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": 0,
+            "message": "Yes, show author",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "key": "field_5731eaceeae86",
+            "label": "Visa f\u00f6rfattare",
+            "name": "wp_widget_rss_author",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_RSS"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 25,
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "default_value": 0,
+            "message": "Yes, show date",
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "key": "field_5731eae5eae87",
+            "label": "Show date",
+            "name": "wp_widget_rss_date",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_RSS"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": 25,
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "multiple": 0,
+            "allow_null": 0,
+            "choices": {
+                "category": "Kategorier",
+                "post_tag": "Taggar",
+                "link_category": "L\u00e4nkkategorier",
+                "listing-category": "Kategori",
+                "listing-places": "Plats",
+                "amne": "\u00c4mne"
+            },
+            "default_value": [],
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "key": "field_5731ebd018370",
+            "label": "Taxonomy",
+            "name": "wp_widget_tag_cloud_taxonomy",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_572a06dd9d06c",
+                        "operator": "==",
+                        "value": "WP_Widget_Tag_Cloud"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "disabled": 0,
+            "readonly": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "mod-wpwidget"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "permalink",
+        "the_content",
+        "excerpt",
+        "custom_fields",
+        "discussion",
+        "comments",
+        "revisions",
+        "slug",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": 1,
+    "description": "",
+    "modified": 1462889442,
+    "local": "php"
+}]
+

@@ -1,0 +1,174 @@
+@mixin arrow($direction: 'up', $border-width: 5px, $color: #000) {
+    width: 0;
+    height: 0;
+
+    @if ($direction == 'up') {
+        border-top: none;
+        border-right: $border-width solid transparent;
+        border-bottom: $border-width solid $color;
+        border-left: $border-width solid transparent;
+    } @else if ($direction == 'down') {
+        border-top: $border-width solid $color;
+        border-right: $border-width solid transparent;
+        border-bottom: none;
+        border-left: $border-width solid transparent;
+    } @else if ($direction == 'left') {
+        border-top: $border-width solid transparent;
+        border-right: $border-width solid $color;
+        border-bottom: $border-width solid transparent;
+        border-left: none;
+    } @else if ($direction == 'right') {
+        border-top: $border-width solid transparent;
+        border-right: none;
+        border-bottom: $border-width solid transparent;
+        border-left: $border-width solid $color;
+    }
+}
+
+%icon-button {
+	visibility: visible;
+	opacity: 1;
+
+	&.disabled {
+		visibility: hidden;
+		opacity: 0;
+	}
+}
+
+.post-type-mod-table {
+
+	table.dynaimic-table {
+		margin-bottom: 50px;
+	}
+
+	table.dynaimic-table > tbody > tr > td:not([class]) {
+		padding: 0;
+
+		input {
+			border: none;
+			padding: 8px 10px;
+			box-shadow: none;
+			line-height: 20px;
+		}
+	}
+
+	table.dynaimic-table > thead > tr > th > a.addcol.icon-button,
+	table.dynaimic-table > thead > tr > th > a.delcol.icon-button,
+	table.dynaimic-table > tbody > tr > td.remove > a.addrow.icon-button,
+	table.dynaimic-table > tbody > tr > td.remove > a.delrow.icon-button {
+		@extend %icon-button;
+	}
+
+	table.dynaimic-table > tbody > tr > td.remove > a.addrow.icon-button {
+		display: none;
+	}
+
+	table.dynaimic-table > tbody > tr:last-child:not(.ui-sortable-helper) > td.remove > a.addrow.icon-button {
+		display: block;
+		bottom: -50px;
+		right: 0;
+		text-indent: 0;
+		text-align: center;
+		text-decoration: none;
+		padding: 5px 3px;
+		color: #fff;
+		background-color: #0085ba;
+		box-shadow: none;
+		border-color: #0073aa #006799 #006799;
+		text-shadow: 0 -1px 1px #006799, 1px 0 1px #006799, 0 1px 1px #006799, -1px 0 1px #006799;
+		border-radius: 3px;
+
+		width: 75px;
+		background-image: none;
+
+		&:hover {
+			background-color: lighten(#0085ba, 3%);
+		}
+
+		&::after {
+			content: 'Add row';
+			margin-left: 5px;
+		}
+	}
+
+	table.dynaimic-table > tbody > tr:first-child > td:not([class]) {
+		padding: 0;
+
+		input {
+			background-color: #f4f4f4 !important;
+		}
+	}
+
+	table.dynaimic-table > tbody > tr:nth-child(odd) > td:not([class]) {
+		padding: 0;
+
+		input {
+			background-color: #f9f9f9;
+		}
+	}
+
+	table.dynaimic-table > tbody > tr > td {
+		position: relative;
+	}
+
+	.table-tools {
+		display: none;
+
+		* {
+			box-sizing: border-box;
+		}
+
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 999;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: -5px;
+			left: 50%;
+			transform: translateX(-50%);
+			@include arrow('up');
+		}
+
+		.mce-ico {
+			color: #fff;
+		}
+
+		ul {
+			float: left;
+			display: table;
+			background-color: #000;
+			border-radius: 3px;
+			overflow: hidden;
+			margin: 0;
+			padding: 3px;
+		}
+
+		li {
+			margin: 0;
+
+			display: table-cell;
+			text-align: center;
+			border-radius: 2px;
+			border: 1px solid transparent;
+
+			line-height: normal;
+    		padding: 0px 5px 4px 3px;
+
+		    font-size: 14px;
+		    overflow: visible;
+		    text-align: center;
+
+			&:hover {
+				background-color: #333;
+				border: 1px solid #4d4d4d;
+				cursor: pointer;
+			}
+		}
+	}
+
+}
+

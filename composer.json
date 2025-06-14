@@ -27,14 +27,25 @@
     "require": {
         "php": "^8.2",
         "composer/installers": "^1.0",
-        "symfony/polyfill-mbstring": "1.17.0",
-        "helsingborg-stad/acf-export-manager": ">=1.0.0",
-        "pragmarx/ia-arr": "^7.3",
-        "symfony/polyfill-php80": "^1.27",
+        "clark-nikdel-powell/post-type-select-for-acf": "dev-master",
         "dompdf/dompdf": "^2.0.4",
-        "helsingborg-stad/wpservice": "^2.0",
+        "enshrined/svg-sanitize": "dev-master",
+        "helsingborg-stad/acf-export-manager": ">=1.0.0",
+        "helsingborg-stad/acf-select-image-field": "1.6.1",
         "helsingborg-stad/acfservice": "^1.0.0",
-        "helsingborg-stad/schema-library": "^0.2"
+        "helsingborg-stad/schema-library": "^0.2",
+        "helsingborg-stad/wpservice": "^2.0",
+        "jeradin/acf-dynamic-table-field": "dev-master",
+        "jeradin/acf-website-field": "dev-master",
+        "johannheyne/advanced-custom-fields-table-field": "dev-master",
+        "landrok/language-detector": "dev-master",
+        "league/commonmark": "2.7.0",
+        "league/config": "1.1.1",
+        "ooksanen/acf-focuspoint": "^1.2.1",
+        "pragmarx/ia-arr": "^7.3",
+        "symfony/polyfill-mbstring": "1.17.0",
+        "symfony/polyfill-php80": "^1.27",
+        "wpackagist-plugin/acf-extended": "0.8.9.4"
     },
     "extra": {
         "installer-paths": {
@@ -80,7 +91,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Municipio\\": "library/"
+            "Municipio\\": "library/",
+            "Modularity\\": "Modularity/source/php/"
         }
     },
     "autoload-dev": {
