@@ -2,6 +2,12 @@
 
 namespace Municipio\MirroredPost\PostObject;
 
+use ComponentLibrary\Integrations\Image\Image;
+use ComponentLibrary\Integrations\Image\ImageInterface;
+use Municipio\Integrations\Component\BlogSwitchedImageFocusResolver;
+use Municipio\Integrations\Component\BlogSwitchedImageResolver;
+use Municipio\Integrations\Component\ImageFocusResolver;
+use Municipio\Integrations\Component\ImageResolver;
 use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\Decorators\AbstractPostObjectDecorator;
 use Municipio\PostObject\Icon\IconInterface;
@@ -9,6 +15,7 @@ use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
 use WpService\Contracts\AddQueryArg;
 use WpService\Contracts\GetPostMeta;
+use WpService\Contracts\GetPostThumbnailId;
 use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
@@ -23,7 +30,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta $wpService,
+        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta&GetPostThumbnailId $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -105,6 +112,20 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     public function getBlogId(): int
     {
         return $this->blogId;
+    }
+
+    public function getImage(): ?ImageInterface
+    {
+        return $this->withSwitchedBlog(function () {
+            $imageId = $this->wpService->getPostThumbnailId($this->getId());
+
+            return $imageId !== false ? Image::factory(
+                (int) $imageId,
+                [1920, false],
+                new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver()),
+                new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]))
+            ) : null;
+        });
     }
 
     /**
