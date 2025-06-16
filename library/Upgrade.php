@@ -20,7 +20,7 @@ use WpService\Contracts\DoAction;
  */
 class Upgrade
 {
-    private $dbVersion    = 39; //The db version we want to achive
+    private $dbVersion    = 40; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
