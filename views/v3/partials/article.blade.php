@@ -48,18 +48,15 @@
     )
 
     <!-- Featured image -->
-    @if ($displayFeaturedImage && $featuredImage && $featuredImage['src'])
+    @if ($displayFeaturedImage && !empty($post->getImage()))
         @section('article.featuredimage.before')@show
-        @if (!empty($featuredImage['src']))
             @image([
-                'src' => $featuredImage['src'],
-                'alt' => $featuredImage['alt'] ?? '',
+                'src' => $post->getImage(),
                 'caption' => $featuredImage['caption'],
                 'removeCaption' => !$displayFeaturedImageCaption,
                 'classList' => ['c-article__feature-image', 'u-box-shadow--1']
             ])
             @endimage
-        @endif
         @section('article.featuredimage.after')@show
     @endif
 

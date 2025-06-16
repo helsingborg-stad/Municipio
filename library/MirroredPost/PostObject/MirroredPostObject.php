@@ -2,8 +2,6 @@
 
 namespace Municipio\MirroredPost\PostObject;
 
-use ComponentLibrary\Integrations\Image\Image;
-use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\Integrations\Component\BlogSwitchedImageFocusResolver;
 use Municipio\Integrations\Component\BlogSwitchedImageResolver;
 use Municipio\Integrations\Component\ImageFocusResolver;
@@ -19,6 +17,8 @@ use WpService\Contracts\GetPostThumbnailId;
 use WpService\Contracts\GetSiteUrl;
 use WpService\Contracts\RestoreCurrentBlog;
 use WpService\Contracts\SwitchToBlog;
+use ComponentLibrary\Integrations\Image\{Image, ImageInterface};
+use WpService\Contracts\GetCurrentBlogId;
 
 /**
  * Decorator for fetching post data from another blog.
@@ -30,7 +30,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta&GetPostThumbnailId $wpService,
+        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta&GetPostThumbnailId&GetCurrentBlogId $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -116,16 +116,14 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
 
     public function getImage(): ?ImageInterface
     {
-        return $this->withSwitchedBlog(function () {
-            $imageId = $this->wpService->getPostThumbnailId($this->getId());
+        $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));
 
-            return $imageId !== false ? Image::factory(
-                (int) $imageId,
-                [1920, false],
-                new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver()),
-                new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]))
-            ) : null;
-        });
+        return $imageId !== false ? Image::factory(
+            (int) $imageId,
+            [1920, false],
+            new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver()),
+            new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]))
+        ) : null;
     }
 
     /**
@@ -133,7 +131,12 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     private function withSwitchedBlog(callable $callback): mixed
     {
+        if ((int)$this->wpService->getCurrentBlogId() === $this->blogId) {
+            return $callback();
+        }
+
         $this->wpService->switchToBlog($this->blogId);
+
         try {
             return $callback();
         } finally {
