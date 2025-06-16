@@ -16,6 +16,9 @@ class E404 extends \Municipio\Controller\BaseController
     {
         parent::init();
 
+        // Wrapper class
+        $wrapperClasses = ['t-404'];
+
         //Get local instance of wp_query
         $this->globalToLocal('wp_query', 'query');
 
@@ -35,9 +38,37 @@ class E404 extends \Municipio\Controller\BaseController
             'href'  => $this->data['archiveLink']
         ] : [];
 
-        $this->data['actionButtons']   = [];
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton($shouldLinkToArchive);
-        $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        $actionButtons = isset($this->data['customizer']->error404Buttons)
+            ? $this->data['customizer']->error404Buttons
+            : array_keys(\Municipio\Customizer\Sections\ErrorPages::getButtonChoices('404'));
+
+        $this->data['actionButtons'] = [];
+        if (in_array('return', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getReturnButton($shouldLinkToArchive);
+        }
+        if (in_array('home', $actionButtons)) {
+            $this->data['actionButtons'][] = \Municipio\Controller\Error\Buttons::getHomeButton();
+        }
+
+        //Image
+        $this->data['image'] = isset($this->data['customizer']->error404Image) && !empty($this->data['customizer']->error404Image)
+            ? $this->data['customizer']->error404Image
+            : false;
+
+        // Backdrop
+        $backdrop = isset($this->data['customizer']->error404Backdrop) 
+            ? $this->data['customizer']->error404Backdrop
+            : true;
+
+        // Extra wrapper classes
+        if ($this->data['image']) {
+            $wrapperClasses[] = 't-404--has-image';
+        }
+        if ($backdrop) {
+            $wrapperClasses[] = 't-404--has-error-backdrop';
+        }
+        $wrapperClasses = implode(' ', $wrapperClasses);
+        $this->data['wrapperClasses'] = $this->wpService->applyFilters('Municipio/404/WrapperClasses', $wrapperClasses);
     }
 
     /**
@@ -46,7 +77,10 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getHeading()
     {
-        return $this->wpService->applyFilters('Municipio/404/Heading', $this->wpService->__("Oops! The page you requested cannot be found.", 'municipio'), $this->getRequestedPostType());
+        $heading = isset($this->data['customizer']->error404Heading) && !empty($this->data['customizer']->error404Heading)
+            ? $this->data['customizer']->error404Heading
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultHeading('404');
+        return $this->wpService->applyFilters('Municipio/404/Heading', $this->wpService->__($heading, 'municipio'), $this->getRequestedPostType());
     }
 
     /**
@@ -55,7 +89,10 @@ class E404 extends \Municipio\Controller\BaseController
      */
     protected function getSubheading()
     {
-        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', $this->wpService->__("The %s you are looking for is either moved or removed.", 'municipio'), $this->getRequestedPostType()));
+        $subheading = isset($this->data['customizer']->error404Description) && !empty($this->data['customizer']->error404Description)
+            ? $this->data['customizer']->error404Description
+            : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('404');
+        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType()));
     }
 
     /**
