@@ -114,13 +114,16 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
         return $this->blogId;
     }
 
-    public function getImage(): ?ImageInterface
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
         $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));
 
+        $width = $width ?? 1920;
+        $height = $height ?? false;
+
         return $imageId !== false ? Image::factory(
             (int) $imageId,
-            [1920, false],
+            [$width, $height],
             new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver()),
             new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]))
         ) : null;
@@ -131,7 +134,9 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     private function withSwitchedBlog(callable $callback): mixed
     {
-        if ((int)$this->wpService->getCurrentBlogId() === $this->blogId) {
+        $currentBlog = $this->wpService->getCurrentBlogId();
+
+        if( $currentBlog === $this->blogId ) {
             return $callback();
         }
 
@@ -140,7 +145,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
         try {
             return $callback();
         } finally {
-            $this->wpService->restoreCurrentBlog();
+            $this->wpService->switchToBlog($currentBlog);
         }
     }
 }

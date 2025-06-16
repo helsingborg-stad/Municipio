@@ -154,13 +154,16 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getImage(): ?ImageInterface
+    public function getImage(int $width = null, ?int $height = null): ?ImageInterface
     {
         $imageId = $this->wpService->getPostThumbnailId($this->getId());
 
+        $width = $width ?? 1920;
+        $height = $height ?? false;
+
         return $imageId !== false ? Image::factory(
             (int) $imageId,
-            [1920, false],
+            [$width, $height],
             new ImageResolver(),
             new ImageFocusResolver(['id' => $imageId])
         ) : null;

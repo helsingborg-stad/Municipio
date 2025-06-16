@@ -147,8 +147,8 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getImage(): ?ImageInterface
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
-        return $this->postObject->getImage();
+        return $this->postObject->getImage($width, $height);
     }
 }
