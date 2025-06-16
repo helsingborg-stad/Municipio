@@ -11,14 +11,8 @@ use Municipio\PostObject\Decorators\AbstractPostObjectDecorator;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
-use WpService\Contracts\AddQueryArg;
-use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\GetPostThumbnailId;
-use WpService\Contracts\GetSiteUrl;
-use WpService\Contracts\RestoreCurrentBlog;
-use WpService\Contracts\SwitchToBlog;
 use ComponentLibrary\Integrations\Image\{Image, ImageInterface};
-use WpService\Contracts\GetCurrentBlogId;
+use WpService\WpService;
 
 /**
  * Decorator for fetching post data from another blog.
@@ -30,7 +24,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta&GetPostThumbnailId&GetCurrentBlogId $wpService,
+        private WpService $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -118,14 +112,14 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     {
         $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));
 
-        $width = $width ?? 1920;
+        $width  = $width ?? 1920;
         $height = $height ?? false;
 
         return $imageId !== false ? Image::factory(
             (int) $imageId,
             [$width, $height],
-            new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver()),
-            new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]))
+            new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver(), $this->wpService),
+            new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]), $this->wpService)
         ) : null;
     }
 
@@ -136,7 +130,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     {
         $currentBlog = $this->wpService->getCurrentBlogId();
 
-        if( $currentBlog === $this->blogId ) {
+        if ($currentBlog === $this->blogId) {
             return $callback();
         }
 

@@ -3,13 +3,15 @@
 namespace Municipio\Integrations\Component;
 
 use ComponentLibrary\Integrations\Image\ImageFocusResolverInterface;
+use WpService\Contracts\GetCurrentBlogId;
+use WpService\Contracts\SwitchToBlog;
 
 class BlogSwitchedImageFocusResolver implements ImageFocusResolverInterface
 {
   /**
    * Constructor
    */
-    public function __construct(private int $blogId, private ImageFocusResolverInterface $innerResolver)
+    public function __construct(private int $blogId, private ImageFocusResolverInterface $innerResolver, private GetCurrentBlogId&SwitchToBlog $wpService)
     {
     }
 
@@ -20,15 +22,29 @@ class BlogSwitchedImageFocusResolver implements ImageFocusResolverInterface
    */
     public function getFocusPoint(): array
     {
-        // Switch to the blog context
-        switch_to_blog($this->blogId);
+        return $this->maybeRunCallbackInSwitchedMode(fn() => $this->innerResolver->getFocusPoint());
+    }
 
-        // Get the focus point using the inner resolver
-        $focusPoint = $this->innerResolver->getFocusPoint();
+    /**
+     * Executes a callback, switching to the target blog if necessary.
+     *
+     * @param callable $callback
+     * @return mixed
+     */
+    private function maybeRunCallbackInSwitchedMode(callable $callback)
+    {
+        $originalBlogId = $this->wpService->getCurrentBlogId();
 
-        // Restore the original blog context
-        restore_current_blog();
+        if ($originalBlogId === $this->blogId) {
+            return $callback();
+        }
 
-        return $focusPoint;
+        $this->wpService->switchToBlog($this->blogId);
+
+        try {
+            return $callback();
+        } finally {
+            $this->wpService->switchToBlog($originalBlogId);
+        }
     }
 }
