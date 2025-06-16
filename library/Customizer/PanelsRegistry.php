@@ -71,7 +71,6 @@ class PanelsRegistry
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
-        self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
@@ -150,69 +149,6 @@ class PanelsRegistry
             ->setPriority(120)
             ->addSections($sections)
             ->register();
-    }
-
-    /* Module panel */
-    public static function registerModulePanel()
-    {
-        KirkiPanel::create()
-            ->setID('municipio_customizer_panel_design_module')
-            ->setTitle(esc_html__('Module Apperance', 'municipio'))
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_contacts')
-                    ->setTitle(esc_html__('Contacts', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-contacts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Contacts('municipio_customizer_section_mod_contacts'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_index')
-                    ->setTitle(esc_html__('Index', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-contacts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Index('municipio_customizer_section_mod_index'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_inlay')
-                    ->setTitle(esc_html__('Inlay list', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-inlaylist'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Inlay('municipio_customizer_section_mod_inlay'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_localevent')
-                    ->setTitle(esc_html__('Local Event', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-local-events'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\LocalEvent('municipio_customizer_section_mod_localevent'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_map')
-                    ->setTitle(esc_html__('Maps', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-map'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Map('municipio_customizer_section_mod_map'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_posts')
-                    ->setTitle(esc_html__('Posts', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-posts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Posts('municipio_customizer_section_mod_posts'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_script')
-                    ->setTitle(esc_html__('Script', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-script'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Script('municipio_customizer_section_mod_script'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_sections_split')
-                    ->setTitle(esc_html__('Sections Split', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-section-split'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\SectionsSplit('municipio_customizer_section_mod_sections_split'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_text')
-                    ->setTitle(esc_html__('Text', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-text'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Text('municipio_customizer_section_mod_text'))
-            )->register();
     }
 
     /* General panel */

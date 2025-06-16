@@ -19,7 +19,7 @@ use WpService\Contracts\GetThemeMod;
  */
 class Upgrade
 {
-    private $dbVersion    = 38; //The db version we want to achive
+    private $dbVersion    = 39; //The db version we want to achive
     private $dbVersionKey = 'municipio_db_version';
     private $db;
 
@@ -27,7 +27,7 @@ class Upgrade
      * App constructor.
      */
     public function __construct(
-        private GetThemeMod&GetPostTypes&AddAction $wpService,
+        private GetThemeMod&SetThemeMod&GetPostTypes&AddAction&DoAction $wpService,
         private UpdateField&GetField $acfService
     ) {
         //Development tools
@@ -745,6 +745,28 @@ class Upgrade
     {
         global $wpdb;
         $version = new \Municipio\Upgrade\V38\Version38($wpdb, new SchemaDataConfigService(WpService::get()), WpService::get());
+
+        try {
+            $version->upgradeToVersion();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Version 39
+     */
+    public function v_39(): bool
+    {
+        global $wpdb;
+        $version = new \Municipio\Upgrade\V39\Version39(
+            $wpdb,
+            WpService::get()
+        );
 
         try {
             $version->upgradeToVersion();
