@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Customizer\Sections;
+namespace Municipio\Customizer\Sections\Component;
 
 use Municipio\Helper\KirkiSwatches as KirkiSwatches;
 use Municipio\Customizer\KirkiField;

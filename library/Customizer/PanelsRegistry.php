@@ -71,11 +71,11 @@ class PanelsRegistry
 
         self::$registerInvoked = true;
         self::registerArchivePanel();
-        self::registerModulePanel();
         self::registerGeneralAppearancePanel();
         self::registerComponentAppearancePanel();
         self::registerNavMenusPanel();
         self::registerDesignLibraryPanel();
+        self::registerErrorPagesPanel();
     }
 
     public static function registerDesignLibraryPanel()
@@ -149,69 +149,6 @@ class PanelsRegistry
             ->setPriority(120)
             ->addSections($sections)
             ->register();
-    }
-
-    /* Module panel */
-    public static function registerModulePanel()
-    {
-        KirkiPanel::create()
-            ->setID('municipio_customizer_panel_design_module')
-            ->setTitle(esc_html__('Module Apperance', 'municipio'))
-            ->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_contacts')
-                    ->setTitle(esc_html__('Contacts', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-contacts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Contacts('municipio_customizer_section_mod_contacts'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_index')
-                    ->setTitle(esc_html__('Index', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-contacts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Index('municipio_customizer_section_mod_index'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_inlay')
-                    ->setTitle(esc_html__('Inlay list', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-inlaylist'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Inlay('municipio_customizer_section_mod_inlay'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_localevent')
-                    ->setTitle(esc_html__('Local Event', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-local-events'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\LocalEvent('municipio_customizer_section_mod_localevent'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_map')
-                    ->setTitle(esc_html__('Maps', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-map'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Map('municipio_customizer_section_mod_map'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_posts')
-                    ->setTitle(esc_html__('Posts', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-posts'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Posts('municipio_customizer_section_mod_posts'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_script')
-                    ->setTitle(esc_html__('Script', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-script'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Script('municipio_customizer_section_mod_script'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_sections_split')
-                    ->setTitle(esc_html__('Sections Split', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-section-split'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\SectionsSplit('municipio_customizer_section_mod_sections_split'))
-            )->addSection(
-                KirkiPanelSection::create()
-                    ->setID('municipio_customizer_section_mod_text')
-                    ->setTitle(esc_html__('Text', 'municipio'))
-                    ->setActiveCallback(fn() => post_type_exists('mod-text'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Module\Text('municipio_customizer_section_mod_text'))
-            )->register();
     }
 
     /* General panel */
@@ -336,14 +273,20 @@ class PanelsRegistry
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_component_button')
                     ->setTitle(esc_html__('Buttons', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Button('municipio_customizer_section_component_button'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Button('municipio_customizer_section_component_button'))
+            )
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_component_card')
+                    ->setTitle(esc_html__('Cards', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Card('municipio_customizer_section_component_card'))
             )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_component_openstreetmap')
                     ->setTitle(esc_html__('Open Street Map', 'municipio'))
                     ->setDescription(esc_html__('Settings for Open Street Maps.', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\OpenStreetMap('municipio_customizer_section_component_openstreetmap'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\OpenStreetMap('municipio_customizer_section_component_openstreetmap'))
             )
             ->addSubPanel(
                 KirkiPanel::create()
@@ -353,14 +296,14 @@ class PanelsRegistry
                         KirkiPanelSection::create()
                         ->setID('municipio_customizer_section_default_component_slider')
                         ->setTitle(esc_html__('Regular Slider', 'municipio'))
-                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\SliderDefault('municipio_customizer_section_default_component_slider'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderDefault('municipio_customizer_section_default_component_slider'))
                     )
                     ->addSection(
                         KirkiPanelSection::create()
                         ->setID('municipio_customizer_section_hero_component_slider')
                         ->setTitle(esc_html__('Hero slider', 'municipio'))
                         ->setDescription(esc_html__('Settings for the slider in the hero area.', 'municipio'))
-                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\SliderHero('municipio_customizer_section_hero_component_slider'))
+                        ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\SliderHero('municipio_customizer_section_hero_component_slider'))
                     )
             )
             ->addSubPanel(
@@ -371,38 +314,62 @@ class PanelsRegistry
                         KirkiPanelSection::create()
                             ->setID('municipio_customizer_section_component_footer_main')
                             ->setTitle(esc_html__('Main footer', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\FooterMain('municipio_customizer_section_component_footer_main'))
+                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\FooterMain('municipio_customizer_section_component_footer_main'))
                     )
                     ->addSection(
                         KirkiPanelSection::create()
                             ->setID('municipio_customizer_section_component_footer_subfooter')
                             ->setTitle(esc_html__('Sub footer', 'municipio'))
-                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\FooterSub('municipio_customizer_section_component_footer_subfooter'))
+                            ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\FooterSub('municipio_customizer_section_component_footer_subfooter'))
                     )
             )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_divider')
                     ->setTitle(esc_html__('Divider', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Divider('municipio_customizer_section_divider'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Divider('municipio_customizer_section_divider'))
             )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_hero')
                     ->setTitle(esc_html__('Hero', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Hero('municipio_customizer_section_hero'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Hero('municipio_customizer_section_hero'))
             )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_field')
                     ->setTitle(esc_html__('Field', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Field('municipio_customizer_section_field'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Field('municipio_customizer_section_field'))
             )
             ->addSection(
                 KirkiPanelSection::create()
                     ->setID('municipio_customizer_section_tags')
                     ->setTitle(esc_html__('Tags', 'municipio'))
-                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Tags('municipio_customizer_section_tags'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\Component\Tags('municipio_customizer_section_tags'))
+            )->register();
+    }
+
+    /* Error pages panel */
+    public static function registerErrorPagesPanel()
+    {
+        KirkiPanel::create()
+            ->setID('municipio_customizer_panel_error_pages_module')
+            ->setTitle(esc_html__('Error Pages', 'municipio'))
+            ->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_401')
+                    ->setTitle(esc_html__('401 Unauthorized', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_401', 401))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_403')
+                    ->setTitle(esc_html__('403 Forbidden', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_403', 403))
+            )->addSection(
+                KirkiPanelSection::create()
+                    ->setID('municipio_customizer_section_error_404')
+                    ->setTitle(esc_html__('404 Not found', 'municipio'))
+                    ->setFieldsCallback(fn() => new \Municipio\Customizer\Sections\ErrorPages('municipio_customizer_section_error_404', 404))
             )->register();
     }
 

@@ -1,12 +1,12 @@
 .t-401 {
-    height: 80vh;
+    min-height: 80vh;
     display: grid; 
     align-items: center; 
     row-gap: calc(#{$base} * 4);
     align-content: center;
     max-width: 800px;
   
-    &:after {
+    &--has-error-backdrop:after {
       position: absolute;
       bottom: 0; 
       right: 0;
