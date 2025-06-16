@@ -108,6 +108,9 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
         return $this->blogId;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
         $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));

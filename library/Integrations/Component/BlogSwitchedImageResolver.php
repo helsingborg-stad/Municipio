@@ -6,8 +6,20 @@ use ComponentLibrary\Integrations\Image\ImageResolverInterface;
 use WpService\Contracts\GetCurrentBlogId;
 use WpService\Contracts\SwitchToBlog;
 
+/**
+ * Class BlogSwitchedImageResolver
+ *
+ * This class resolves image URLs and alt text for a specific blog, switching to that blog context if necessary.
+ */
 class BlogSwitchedImageResolver implements ImageResolverInterface
 {
+    /**
+     * BlogSwitchedImageResolver constructor.
+     *
+     * @param int $blogId The ID of the blog to switch to.
+     * @param ImageResolverInterface $innerResolver The inner image resolver to delegate calls to.
+     * @param GetCurrentBlogId&SwitchToBlog $wpService The WordPress service for switching blogs.
+     */
     public function __construct(
         private int $blogId,
         private ImageResolverInterface $innerResolver,

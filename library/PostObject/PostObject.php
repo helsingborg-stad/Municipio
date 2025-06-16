@@ -158,7 +158,7 @@ class PostObject implements PostObjectInterface
     {
         $imageId = $this->wpService->getPostThumbnailId($this->getId());
 
-        $width = $width ?? 1920;
+        $width  = $width ?? 1920;
         $height = $height ?? false;
 
         return $imageId !== false ? Image::factory(

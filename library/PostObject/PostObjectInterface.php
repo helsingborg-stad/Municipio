@@ -114,9 +114,9 @@ interface PostObjectInterface
 
     /**
      * Get the post object image.
-     * 
+     *
      * This method retrieves the image associated with the post object.
-     * 
+     *
      * @param int|null $width The desired width of the image. If null, the original width is used.
      * @param int|null $height The desired height of the image. If null, the original height is used.
      *

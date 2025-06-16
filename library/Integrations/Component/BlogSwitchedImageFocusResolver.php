@@ -6,6 +6,11 @@ use ComponentLibrary\Integrations\Image\ImageFocusResolverInterface;
 use WpService\Contracts\GetCurrentBlogId;
 use WpService\Contracts\SwitchToBlog;
 
+/**
+ * Class BlogSwitchedImageFocusResolver
+ *
+ * This class resolves image focus points for a specific blog, switching to that blog context if necessary.
+ */
 class BlogSwitchedImageFocusResolver implements ImageFocusResolverInterface
 {
   /**

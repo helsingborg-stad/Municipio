@@ -152,7 +152,7 @@ class MirroredPostObjectTest extends TestCase
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => 'http://example.com',
             'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
-            'getCurrentBlogId' => 1,
+            'getCurrentBlogId'   => 1,
         ]);
     }
 }
