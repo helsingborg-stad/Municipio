@@ -7,10 +7,11 @@ use AcfService\Contracts\UpdateField;
 use Municipio\Config\Features\SchemaData\SchemaDataConfigService;
 use Municipio\Customizer\Applicators\Types\NullApplicator;
 use Municipio\Helper\WpService;
-use Municipio\Schema\Schema;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetPostTypes;
 use WpService\Contracts\GetThemeMod;
+use WpService\Contracts\SetThemeMod;
+use WpService\Contracts\DoAction;
 
 /**
  * Class App
