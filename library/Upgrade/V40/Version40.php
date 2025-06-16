@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Upgrade\V39;
+namespace Municipio\Upgrade\V40;
 
 use Municipio\Customizer\Applicators\Types\NullApplicator;
 use Municipio\Upgrade\VersionInterface;
