@@ -85,7 +85,7 @@ class OembedFilters
                 and removing the v parameter from the
                 query string.
                 */
-                $srcParsed['host'] = 'youtube.com';
+                $srcParsed['host'] = 'www.youtube.com';
 
                 if (isset($srcParsed['query'])) {
                     parse_str($srcParsed['query'], $query);
