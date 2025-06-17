@@ -3,8 +3,7 @@
     "description": "A bootstrap theme for creating municipality sites.",
     "license": "MIT",
     "type": "wordpress-theme",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Kristoffer Svanmark",
