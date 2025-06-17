@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject;
 
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\Schema\BaseType;
 
@@ -110,6 +111,18 @@ interface PostObjectInterface
      * @see https://developer.wordpress.org/reference/classes/wp_term/
      */
     public function getTerms(array $taxonomies): array;
+
+    /**
+     * Get the post object image.
+     *
+     * This method retrieves the image associated with the post object.
+     *
+     * @param int|null $width The desired width of the image. If null, the original width is used.
+     * @param int|null $height The desired height of the image. If null, the original height is used.
+     *
+     * @return ImageInterface|null The image associated with the post object, or null if not found.
+     */
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface;
 
     /**
      * Retrieve a value by its key.

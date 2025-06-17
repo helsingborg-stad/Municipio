@@ -2,6 +2,7 @@
 
 namespace Municipio\PostObject\Decorators;
 
+use ComponentLibrary\Integrations\Image\ImageInterface;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
@@ -141,5 +142,13 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     public function getTerms(array $taxonomies): array
     {
         return $this->postObject->getTerms($taxonomies);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
+    {
+        return $this->postObject->getImage($width, $height);
     }
 }

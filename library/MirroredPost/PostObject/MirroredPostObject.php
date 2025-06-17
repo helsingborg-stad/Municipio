@@ -2,16 +2,17 @@
 
 namespace Municipio\MirroredPost\PostObject;
 
+use Municipio\Integrations\Component\BlogSwitchedImageFocusResolver;
+use Municipio\Integrations\Component\BlogSwitchedImageResolver;
+use Municipio\Integrations\Component\ImageFocusResolver;
+use Municipio\Integrations\Component\ImageResolver;
 use Municipio\MirroredPost\Contracts\BlogIdQueryVar;
 use Municipio\PostObject\Decorators\AbstractPostObjectDecorator;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
-use WpService\Contracts\AddQueryArg;
-use WpService\Contracts\GetPostMeta;
-use WpService\Contracts\GetSiteUrl;
-use WpService\Contracts\RestoreCurrentBlog;
-use WpService\Contracts\SwitchToBlog;
+use ComponentLibrary\Integrations\Image\{Image, ImageInterface};
+use WpService\WpService;
 
 /**
  * Decorator for fetching post data from another blog.
@@ -23,7 +24,7 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
      */
     public function __construct(
         PostObjectInterface $postObject,
-        private SwitchToBlog&RestoreCurrentBlog&GetSiteUrl&AddQueryArg&GetPostMeta $wpService,
+        private WpService $wpService,
         private int $blogId
     ) {
         parent::__construct($postObject);
@@ -108,15 +109,40 @@ class MirroredPostObject extends AbstractPostObjectDecorator implements PostObje
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
+    {
+        $imageId = $this->withSwitchedBlog(fn () => $this->wpService->getPostThumbnailId($this->getId()));
+
+        $width  = $width ?? 1920;
+        $height = $height ?? false;
+
+        return $imageId !== false ? Image::factory(
+            (int) $imageId,
+            [$width, $height],
+            new BlogSwitchedImageResolver($this->getBlogId(), new ImageResolver(), $this->wpService),
+            new BlogSwitchedImageFocusResolver($this->getBlogId(), new ImageFocusResolver(['id' => $imageId]), $this->wpService)
+        ) : null;
+    }
+
+    /**
      * Executes a callback with the blog switched, restoring afterwards.
      */
     private function withSwitchedBlog(callable $callback): mixed
     {
+        $currentBlog = $this->wpService->getCurrentBlogId();
+
+        if ($currentBlog === $this->blogId) {
+            return $callback();
+        }
+
         $this->wpService->switchToBlog($this->blogId);
+
         try {
             return $callback();
         } finally {
-            $this->wpService->restoreCurrentBlog();
+            $this->wpService->switchToBlog($currentBlog);
         }
     }
 }

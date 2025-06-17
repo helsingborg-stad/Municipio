@@ -87,6 +87,7 @@ class MirroredPostFeature
         if ($otherBlogId === null) {
             return $postObject;
         }
+
         return new MirroredPostObject($postObject, $this->wpService, $otherBlogId);
     }
 

@@ -61,6 +61,7 @@ class MirroredPostObjectTest extends TestCase
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => fn($blogId = null) => $blogId === 2 ? 'http://other-site.com' : 'http://current-site.com',
             'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
+            'getCurrentBlogId'   => 1,
         ]);
         $decorator  = new MirroredPostObject($postObject, $wpService, 2);
 
@@ -80,8 +81,8 @@ class MirroredPostObjectTest extends TestCase
 
         $icon = $decorator->getIcon();
 
-        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
-        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
         $this->assertNull($icon);
     }
 
@@ -96,8 +97,8 @@ class MirroredPostObjectTest extends TestCase
 
         $schemaValue = $decorator->getSchemaProperty('some-property');
 
-        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
-        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertEquals(2, $wpService->methodCalls['switchToBlog'][0][0]);
+        $this->assertEquals(1, $wpService->methodCalls['switchToBlog'][1][0]);
         $this->assertEquals('schema-value', $schemaValue);
     }
 
@@ -113,8 +114,7 @@ class MirroredPostObjectTest extends TestCase
 
         $schemaData = $decorator->getSchema();
 
-        $this->assertCount(1, $wpService->methodCalls['switchToBlog']);
-        $this->assertCount(1, $wpService->methodCalls['restoreCurrentBlog']);
+        $this->assertCount(2, $wpService->methodCalls['switchToBlog']);
         $this->assertEquals($schema, $schemaData);
     }
 
@@ -152,6 +152,7 @@ class MirroredPostObjectTest extends TestCase
             'restoreCurrentBlog' => true,
             'getSiteUrl'         => 'http://example.com',
             'addQueryArg'        => fn($args, $url) => $url . '?' . http_build_query($args),
+            'getCurrentBlogId'   => 1,
         ]);
     }
 }
