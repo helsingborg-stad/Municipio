@@ -139,10 +139,10 @@ class IntermidiateImageHandler implements Hookable
         };
 
         $availableEditors = (
-            ($fileTypeMime === 'image/png') ? 
+            ($fileTypeMime === 'image/png') ?
             ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] :
             ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD']
-        ); 
+        );
 
         $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
     }
