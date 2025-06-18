@@ -69,20 +69,22 @@ class GetPostsByParent
         if (!is_array($parent)) {
             $parent = [$parent];
         }
-        
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
-            "post_status IN('publish', 'private')" : 
+
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
             "post_status = 'publish'";
+
+        $hiddenPostIds = implode(", ", GetHiddenPostIds::getHiddenPostIds());
 
         $parent = implode(", ", $parent);
 
         $sql = "
           SELECT ID, post_title, post_parent, post_type
-          FROM " . $localWpdb->posts . "
-          WHERE post_parent IN(" . $parent . ")
-          AND " . $postTypeSQL . "
-          AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
-          AND " . $postStatus . "
+          FROM {$localWpdb->posts}
+          WHERE post_parent IN({$parent})
+          AND {$postTypeSQL}
+          AND ID NOT IN({$hiddenPostIds})
+          AND {$postStatus}
           ORDER BY menu_order, post_title ASC
           LIMIT 3000
         ";
