@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper;
 
-use AcfService\Contracts\GetFieldObject;
+use AcfService\AcfService;
 
 /**
  * Class FieldMapper
@@ -17,7 +17,7 @@ class FieldMapper implements FieldMapperInterface
      * @param GetFieldObject $acfService
      */
     public function __construct(
-        private GetFieldObject $acfService
+        private AcfService $acfService
     ) {
     }
 
