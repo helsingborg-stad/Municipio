@@ -4,6 +4,7 @@ namespace Municipio\Controller\Navigation\Decorators\Menu;
 
 use Municipio\Controller\Navigation\Cache\NavigationRuntimeCache;
 use Municipio\Controller\Navigation\Config\MenuConfigInterface;
+use Municipio\Controller\Navigation\Helper\IsUserLoggedIn;
 use Municipio\Controller\Navigation\MenuInterface;
 use Municipio\Helper\GetGlobal;
 
@@ -70,16 +71,20 @@ class PageTreeAppendMenuItemsCustomTitle implements MenuInterface
 
         $localWpdb = GetGlobal::getGlobal('wpdb');
 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
+            "post_status = 'publish'";
+
         //Get meta
         $result = (array) $localWpdb->get_results(
             $localWpdb->prepare(
                 "
                 SELECT post_id, meta_value
-                FROM " . $localWpdb->postmeta . " as pm
-                JOIN " . $localWpdb->posts . " AS p ON pm.post_id = p.ID
+                FROM {$localWpdb->postmeta} AS pm
+                JOIN {$localWpdb->posts} AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value != ''
-                AND post_status = 'publish'
+                AND {$postStatus}
             ",
                 $metaKey
             )

@@ -32,6 +32,7 @@ class PageTreeAppendChildren implements MenuInterface
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
+
         if (empty($menu['items'])) {
             return $menu;
         }
@@ -91,7 +92,6 @@ class PageTreeAppendChildren implements MenuInterface
     {
         $structuredChildren      = [];
         $hasUnstructuredChildren = false;
-
         if (is_array($children) && !empty($children)) {
             foreach ($children as &$child) {
                 if (isset($menuItemsIdAsKey[$child['ID']])) {
@@ -135,19 +135,22 @@ class PageTreeAppendChildren implements MenuInterface
     {
         //Define to omit error
         $postTypeHasPosts = null;
-        $localWpdb        = GetGlobal::getGlobal('wpdb');
 
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
-            "post_status IN('publish', 'private')" :
+        $localWpdb = GetGlobal::getGlobal('wpdb');
+
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
+            "post_status IN('publish', 'private')" : 
             "post_status = 'publish'";
+
+        $hiddenPostIds = implode(", ", GetHiddenPostIds::getHiddenPostIds());
 
         $currentPostTypeChildren = $localWpdb->get_var(
             $localWpdb->prepare("
         SELECT ID
-        FROM " . $localWpdb->posts . "
+        FROM {$localWpdb->posts}
         WHERE post_parent = %d
-        AND " . $postStatus . "
-        AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
+        AND {$postStatus}
+        AND ID NOT IN({$hiddenPostIds})
         LIMIT 1
       ", $postId)
         );
@@ -158,11 +161,11 @@ class PageTreeAppendChildren implements MenuInterface
             $postTypeHasPosts = $localWpdb->get_var(
                 $localWpdb->prepare("
                     SELECT ID
-                    FROM " . $localWpdb->posts . "
+                    FROM {$localWpdb->posts}
                     WHERE post_parent = 0
-                    AND " . $postStatus . "
+                    AND {$postStatus}
                     AND post_type = %s
-                    AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
+                    AND ID NOT IN({$hiddenPostIds})
                     LIMIT 1
                 ", $pageForPostTypeIds[$postId])
             );

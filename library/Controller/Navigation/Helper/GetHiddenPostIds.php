@@ -4,6 +4,7 @@ namespace Municipio\Controller\Navigation\Helper;
 
 use Municipio\Controller\Navigation\Cache\NavigationWpCache;
 use Municipio\Helper\GetGlobal;
+use Municipio\Controller\Navigation\Helper\IsUserLoggedIn;
 
 /**
  * Get hidden post ids
@@ -34,16 +35,20 @@ class GetHiddenPostIds
 
         $localWpdb = GetGlobal::getGlobal('wpdb');
 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
+            "post_status = 'publish'";        
+
         //Get meta
         $hiddenPages = (array) $localWpdb->get_col(
             $localWpdb->prepare(
                 "
                 SELECT post_id
-                FROM " . $localWpdb->postmeta . " AS pm 
-                JOIN " . $localWpdb->posts . " AS p ON pm.post_id = p.ID
+                FROM {$localWpdb->postmeta} AS pm 
+                JOIN {$localWpdb->posts} AS p ON pm.post_id = p.ID
                 WHERE meta_key = %s
                 AND meta_value = '1'
-                AND post_status = 'publish'
+                AND {$postStatus}
             ",
                 $metaKey
             )
