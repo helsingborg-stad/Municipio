@@ -35,7 +35,7 @@ class PageTreeAppendChildren implements MenuInterface
         if (empty($menu['items'])) {
             return $menu;
         }
-        
+
         $menuItemsIdAsKey = $this->getIdStructuredMenuItems($menu['items']);
 
         $newMenuItems = [];
@@ -49,7 +49,6 @@ class PageTreeAppendChildren implements MenuInterface
             $menuItem['children'] = is_array($children) ?
             $this->processChildren($children, $menuItemsIdAsKey, $newMenuItems) :
             $children;
-
         }
 
         $menu['items'] = array_merge($menu['items'], $newMenuItems);
@@ -136,10 +135,10 @@ class PageTreeAppendChildren implements MenuInterface
     {
         //Define to omit error
         $postTypeHasPosts = null;
-        $localWpdb = GetGlobal::getGlobal('wpdb');
+        $localWpdb        = GetGlobal::getGlobal('wpdb');
 
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
-            "post_status IN('publish', 'private')" : 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
             "post_status = 'publish'";
 
         $currentPostTypeChildren = $localWpdb->get_var(
