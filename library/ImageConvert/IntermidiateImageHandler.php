@@ -80,6 +80,8 @@ class IntermidiateImageHandler implements Hookable
             return false;
         }
 
+        $this->setPreferedImageEditorByFiletype($image);
+
         $intermediateLocation = $image->getIntermidiateLocation(
             $this->config->intermidiateImageFormat()['suffix']
         );
@@ -116,6 +118,37 @@ class IntermidiateImageHandler implements Hookable
         return false;
     }
 
+    /**
+     * Set the preferred image editor based on the file type.
+     * This method checks available editors and prioritizes GD for PNG images.
+     *
+     * @param ImageContract $image
+     */
+    private function setPreferedImageEditorByFiletype(ImageContract $image): void
+    {
+        $filePath       = $image->getPath();
+        $fileNameSuffix = pathinfo($filePath, PATHINFO_EXTENSION);
+        $fileTypeMime   = match (strtolower($fileNameSuffix)) {
+            'png' => 'image/png',
+            default => false
+        };
+
+        $availableEditors = (
+            ($fileTypeMime === 'image/png') ? 
+            ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] :
+            ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD']
+        ); 
+
+        $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
+    }
+
+    /**
+     * Check if the image can be converted based on its existence, type, and size.
+     *
+     * @param ImageContract $image
+     * @param ImageConvertConfig $config
+     * @return bool
+     */
     private function canConvertImage(ImageContract $image, ImageConvertConfig $config): bool
     {
         //Get image details
