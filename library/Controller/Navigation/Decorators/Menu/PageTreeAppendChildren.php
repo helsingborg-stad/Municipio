@@ -32,7 +32,6 @@ class PageTreeAppendChildren implements MenuInterface
     public function getMenu(): array
     {
         $menu = $this->inner->getMenu();
-
         if (empty($menu['items'])) {
             return $menu;
         }
@@ -92,6 +91,7 @@ class PageTreeAppendChildren implements MenuInterface
     {
         $structuredChildren      = [];
         $hasUnstructuredChildren = false;
+
         if (is_array($children) && !empty($children)) {
             foreach ($children as &$child) {
                 if (isset($menuItemsIdAsKey[$child['ID']])) {
@@ -135,11 +135,10 @@ class PageTreeAppendChildren implements MenuInterface
     {
         //Define to omit error
         $postTypeHasPosts = null;
+        $localWpdb        = GetGlobal::getGlobal('wpdb');
 
-        $localWpdb = GetGlobal::getGlobal('wpdb');
-
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
-            "post_status IN('publish', 'private')" : 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
             "post_status = 'publish'";
 
         $currentPostTypeChildren = $localWpdb->get_var(
@@ -147,7 +146,7 @@ class PageTreeAppendChildren implements MenuInterface
         SELECT ID
         FROM " . $localWpdb->posts . "
         WHERE post_parent = %d
-        AND post_status = " . $postStatus . "
+        AND " . $postStatus . "
         AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
         LIMIT 1
       ", $postId)
@@ -161,7 +160,7 @@ class PageTreeAppendChildren implements MenuInterface
                     SELECT ID
                     FROM " . $localWpdb->posts . "
                     WHERE post_parent = 0
-                    AND post_status = " . $postStatus . "
+                    AND " . $postStatus . "
                     AND post_type = %s
                     AND ID NOT IN(" . implode(", ", GetHiddenPostIds::getHiddenPostIds()) . ")
                     LIMIT 1
