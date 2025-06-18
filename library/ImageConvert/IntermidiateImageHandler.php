@@ -80,6 +80,13 @@ class IntermidiateImageHandler implements Hookable
             return false;
         }
 
+        //Set in image processing limits
+        $this->increaseAllowedProcessingTime();
+        $this->increaseAllowedMemoryLimit();
+
+        //Switch to the preferred image editor based on file type
+        $this->setPreferedImageEditorByFiletype($image);
+
         $intermediateLocation = $image->getIntermidiateLocation(
             $this->config->intermidiateImageFormat()['suffix']
         );
@@ -116,6 +123,62 @@ class IntermidiateImageHandler implements Hookable
         return false;
     }
 
+    /**
+     * Set the preferred image editor based on the file type.
+     * This method checks available editors and prioritizes GD for PNG images.
+     *
+     * @param ImageContract $image
+     */
+    private function setPreferedImageEditorByFiletype(ImageContract $image): void
+    {
+        $filePath       = $image->getPath();
+        $fileNameSuffix = pathinfo($filePath, PATHINFO_EXTENSION);
+        $fileTypeMime   = match (strtolower($fileNameSuffix)) {
+            'png' => 'image/png',
+            default => false
+        };
+
+        $availableEditors = (
+            ($fileTypeMime === 'image/png') ?
+            ['WP_Image_Editor_GD', 'WP_Image_Editor_Imagick'] :
+            ['WP_Image_Editor_Imagick', 'WP_Image_Editor_GD']
+        );
+
+        $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
+    }
+
+    /**
+     * Increase the allowed processing time for image conversion.
+     * This may avoid timeout errors when processing large images.
+     */
+    private function increaseAllowedProcessingTime(): void
+    {
+        $maxExecutionTime = ini_get('max_execution_time');
+        if ($maxExecutionTime < 300) {
+            ini_set('max_execution_time', '300');
+        }
+    }
+
+    /**
+     * Increase the allowed memory limit for image processing.
+     * This may avoid memory exhaustion errors when processing large images.
+     */
+    private function increaseAllowedMemoryLimit(): void
+    {
+        // Increase the memory limit to handle larger images
+        $memoryLimit = ini_get('memory_limit');
+        if ($memoryLimit < '2048M') {
+            ini_set('memory_limit', '2048M');
+        }
+    }
+
+    /**
+     * Check if the image can be converted based on its existence, type, and size.
+     *
+     * @param ImageContract $image
+     * @param ImageConvertConfig $config
+     * @return bool
+     */
     private function canConvertImage(ImageContract $image, ImageConvertConfig $config): bool
     {
         //Get image details
@@ -156,52 +219,6 @@ class IntermidiateImageHandler implements Hookable
             return intval($size);
         }
         return filesize($sourceFilePath);
-    }
-
-    /**
-     * Get the value of a meta key from the metadata of an attachment.
-     *
-     * @param int $attachmentId The attachment ID.
-     * @param string $metaKey The meta key to search for.
-     *
-     * @return mixed The value of the meta key, or false if the key was not found.
-     */
-    private function getAttachmentMetaData($attachmentId, $metaKey): mixed
-    {
-        $metaData = $this->wpService->wpGetAttachmentMetadata($attachmentId);
-        if ($metaData !== false) {
-            if ($result = $this->searchKeyRecursively($metaKey, $metaData)) {
-                return $result;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Search for a key in a multidimensional array recursively.
-     *
-     * @param string $metaKey The key to search for.
-     * @param array $metaData The array to search in.
-     *
-     * @return mixed|null The value of the key if found, otherwise null.
-     */
-    private function searchKeyRecursively($metaKey, $metaData)
-    {
-        if (array_key_exists($metaKey, $metaData)) {
-            return $metaData[$metaKey];
-        }
-
-        foreach ($metaData as $key => $value) {
-            // If the value is an array, search recursively
-            if (is_array($value)) {
-                $result = $this->searchKeyRecursively($metaKey, $value);
-                if ($result !== null) {
-                    return $result;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**
