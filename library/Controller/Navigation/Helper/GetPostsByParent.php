@@ -69,9 +69,9 @@ class GetPostsByParent
         if (!is_array($parent)) {
             $parent = [$parent];
         }
-        
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
-            "post_status IN('publish', 'private')" : 
+
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
             "post_status = 'publish'";
 
         $hiddenPostIds = implode(", ", GetHiddenPostIds::getHiddenPostIds());

@@ -138,8 +138,8 @@ class PageTreeAppendChildren implements MenuInterface
 
         $localWpdb = GetGlobal::getGlobal('wpdb');
 
-        $postStatus = IsUserLoggedIn::isUserLoggedIn() ? 
-            "post_status IN('publish', 'private')" : 
+        $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
+            "post_status IN('publish', 'private')" :
             "post_status = 'publish'";
 
         $hiddenPostIds = implode(", ", GetHiddenPostIds::getHiddenPostIds());

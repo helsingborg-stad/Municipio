@@ -37,7 +37,7 @@ class GetHiddenPostIds
 
         $postStatus = IsUserLoggedIn::isUserLoggedIn() ?
             "post_status IN('publish', 'private')" :
-            "post_status = 'publish'";        
+            "post_status = 'publish'";
 
         //Get meta
         $hiddenPages = (array) $localWpdb->get_col(
