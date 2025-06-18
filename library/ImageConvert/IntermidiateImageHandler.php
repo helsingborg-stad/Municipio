@@ -80,6 +80,11 @@ class IntermidiateImageHandler implements Hookable
             return false;
         }
 
+        //Set in image processing limits
+        $this->increaseAllowedProcessingTime();
+        $this->increaseAllowedMemoryLimit();
+
+        //Switch to the preferred image editor based on file type
         $this->setPreferedImageEditorByFiletype($image);
 
         $intermediateLocation = $image->getIntermidiateLocation(
@@ -140,6 +145,31 @@ class IntermidiateImageHandler implements Hookable
         ); 
 
         $this->wpService->addFilter('wp_image_editors', fn() => $availableEditors);
+    }
+
+    /**
+     * Increase the allowed processing time for image conversion.
+     * This may avoid timeout errors when processing large images.
+     */
+    private function increaseAllowedProcessingTime(): void
+    {
+        $maxExecutionTime = ini_get('max_execution_time');
+        if ($maxExecutionTime < 300) {
+            ini_set('max_execution_time', '300');
+        }
+    }
+
+    /**
+     * Increase the allowed memory limit for image processing.
+     * This may avoid memory exhaustion errors when processing large images.
+     */
+    private function increaseAllowedMemoryLimit(): void
+    {
+        // Increase the memory limit to handle larger images
+        $memoryLimit = ini_get('memory_limit');
+        if ($memoryLimit < '2048M') {
+            ini_set('memory_limit', '2048M');
+        }
     }
 
     /**
