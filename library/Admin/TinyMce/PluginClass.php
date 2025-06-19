@@ -43,35 +43,35 @@ abstract class PluginClass
     * Check if the current user can edit Posts or Pages, and is using the Visual Editor
     * If so, add some filters so we can register our plugin
     */
-    public function setupTinymcePlugin()
+    public function setupTinyMcePlugin()
     {
         if (! current_user_can('edit_posts') && ! current_user_can('edit_pages')) {
             return;
         }
-
+        
         // Check if the logged in WordPress User has the Visual Editor enabled
         // If not, don't register our TinyMCE plugin
         if (get_user_option('rich_editing') !== 'true') {
             return;
         }
-
+        
         $this->init();
-
-        if (!$this->pluginSlug || !$this->pluginSlug) {
+        
+        if (!$this->pluginSlug) {
             return;
         }
-
+        
         //Change button row placement if buttonRow is defined
         if (isset($this->buttonRow) && is_numeric($this->buttonRow) && $this->buttonRow > 1) {
             $this->buttonFilter .= '_' . $this->buttonRow;
         }
-
+        
         //LocalizeData (if any)
         if (is_array($this->data) && !empty($this->data)) {
             add_action('admin_head', array($this, 'localizeScript'));
         }
 
-        add_filter('mce_external_plugins', array($this, 'addTinyMcePlugin'));
+        add_filter('mce_external_plugins', array($this, 'addTinyMcePlugin'), 20, 1);
         add_filter($this->buttonFilter, array($this, 'addTinymceToolbarButton' ));
     }
 
@@ -84,7 +84,7 @@ abstract class PluginClass
     public function addTinyMcePlugin($plugins)
     {
         $plugins[$this->pluginSlug] = get_template_directory_uri() . '/assets/dist/' .
-            \Municipio\Helper\CacheBust::name('js/mce.js');
+            \Municipio\Helper\CacheBust::name('js/mce-buttons.js');
 
         return $plugins;
     }
@@ -98,13 +98,14 @@ abstract class PluginClass
     */
     public function addTinymceToolbarButton($buttons)
     {
-        array_push($buttons, '', $this->pluginSlug);
+        array_push($buttons, $this->pluginSlug);
+
         return $buttons;
     }
 
     public function localizeScript()
     {
-        $output  = '<script type="text/javascript" atr="lol">';
+        $output  = '<script type="text/javascript">';
         $output .= 'var ' . $this->pluginSlug . ' = {';
 
         foreach ($this->data as $key => $value) {
