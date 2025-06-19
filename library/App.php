@@ -308,11 +308,11 @@ class App
          */
         new \Municipio\Customizer($this->wpService, $this->wpdb);
 
-        /**
-         * Block customizations
-         */
-        new \Municipio\Blocks\Columns();
 
+        /**
+         * Add custom search paths for core templates.
+         * This allows us to override core templates in the theme.
+         */
         add_filter('Modularity/CoreTemplatesSearchPaths', function ($paths) {
             $paths[] = get_stylesheet_directory() . '/views/v3';
             $paths[] = get_template_directory() . '/views/v3';
