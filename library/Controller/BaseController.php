@@ -2,20 +2,16 @@
 
 namespace Municipio\Controller;
 
-use WP_Term;
 use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\FormatObject;
 use Municipio\Helper\TranslatedLabels;
-use Municipio\Helper\Color;
 use Municipio\Helper\User\User;
-// Menu
 use Municipio\Controller\Navigation\Config\MenuConfig;
 use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use Municipio\Helper\CurrentPostId;
-use Municipio\Helper\Navigation;
-use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 
 /**
  * This class serves as the base controller for all controllers in the theme.
@@ -64,7 +60,7 @@ class BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher,
+        protected SiteSwitcherInterface $siteSwitcher,
         protected User $userHelper
     ) {
         //Store globals

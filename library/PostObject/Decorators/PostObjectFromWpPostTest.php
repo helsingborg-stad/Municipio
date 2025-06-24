@@ -10,6 +10,18 @@ use WpService\Implementations\FakeWpService;
 class PostObjectFromWpPostTest extends TestCase
 {
     /**
+     * @testdox getContent() returns content from WP_Post->post_content
+     */
+    public function testGetContentReturnsContentFromWpPostPostContent()
+    {
+        $wpPost               = new WP_Post([]);
+        $wpPost->post_content = 'Content';
+        $instance             = new PostObjectFromWpPost(new PostObject(1, new FakeWpService()), $wpPost, new FakeWpService());
+
+        $this->assertEquals('Content', $instance->getContent());
+    }
+
+    /**
      * @testdox Get comment count returns amount of comments
      */
     public function testGetCommentCountReturnsAmountOfComments()

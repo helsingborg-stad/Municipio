@@ -2,11 +2,8 @@
 
 namespace Municipio\Controller;
 
-use Municipio\Helper\Navigation;
-use Municipio\Helper\Archive;
 use Municipio\Helper\WP;
 use Municipio\PostObject\PostObjectInterface;
-use PhpParser\Node\Expr\Print_;
 use WP_Post;
 
 /**
@@ -38,11 +35,10 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['post']        = \Municipio\Helper\Post::preparePostObject($originalPostData, $this->data);
         $this->data['isBlogStyle'] = in_array($this->data['post']->postType, ['post', 'nyheter']) ? true : false;
 
-        $this->data['displayFeaturedImage']        = $this->displayFeaturedImageOnSinglePost($this->data['post']->id);
-        $this->data['displayFeaturedImageCaption'] = $this->displayFeaturedImageCaptionOnSinglePost($this->data['post']->id);
-        $this->data['showPageTitleOnOnePage']      = $this->showPageTitleOnOnePage($this->data['post']->id);
-
-        $this->data['featuredImage'] = $this->getFeaturedImage($this->data['post']->id, [1366, 910]);
+        $this->data['displayFeaturedImage']        = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageOnSinglePost($this->post->getId()));
+        $this->data['displayFeaturedImageCaption'] = $this->maybeRunInOtherSite(fn() => $this->displayFeaturedImageCaptionOnSinglePost($this->post->getId()));
+        $this->data['showPageTitleOnOnePage']      = $this->maybeRunInOtherSite(fn() => $this->showPageTitleOnOnePage($this->post->getId()));
+        $this->data['featuredImage']               = $this->maybeRunInOtherSite(fn () => $this->getFeaturedImage($this->post->getId(), [1366, 910]));
 
         //Signature options
         $this->data['signature'] = $this->getSignature(
@@ -94,6 +90,18 @@ class Singular extends \Municipio\Controller\BaseController
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
         return $this->data;
+    }
+
+    /**
+     * Run a callable in the context of the post's site.
+     *
+     * @param callable $callable The callable to run.
+     *
+     * @return mixed The result of the callable.
+     */
+    public function maybeRunInOtherSite(callable $callable): mixed
+    {
+        return $this->siteSwitcher->runInSite($this->post->getBlogId(), $callable);
     }
 
     /**
@@ -198,14 +206,16 @@ class Singular extends \Municipio\Controller\BaseController
         $displayPublish = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_published', 'option') ?? []);
         $displayUpdated = in_array($this->data['postType'], (array) $this->acfService->getField('show_date_updated', 'option') ?? []);
 
-        return (object) [
-            'avatar'    => ($displayAvatar ? $this->getAuthor($post->getId())->avatar : ""),
-            'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
-            'name'      => ($displayAuthor ? $this->getAuthor($post->getId())->name : ""),
-            'link'      => ($linkAuthor ? $this->getAuthor($post->getId())->link : ""),
-            'published' => ($displayPublish ? $post->getPublishedTime() : false),
-            'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
-        ];
+        return $this->maybeRunInOtherSite(function () use ($post, $displayAuthor, $displayAvatar, $linkAuthor, $displayPublish, $displayUpdated) {
+            return (object) [
+                'avatar'    => ($displayAvatar ? $this->getAuthor($post->getId())->avatar : ""),
+                'role'      => ($displayAuthor ? __("Author", 'municipio') : ""),
+                'name'      => ($displayAuthor ? $this->getAuthor($post->getId())->name : ""),
+                'link'      => ($linkAuthor ? $this->getAuthor($post->getId())->link : ""),
+                'published' => ($displayPublish ? $post->getPublishedTime() : false),
+                'updated'   => ($displayUpdated ? $post->getModifiedTime() : false),
+            ];
+        }, []);
     }
 
     /**

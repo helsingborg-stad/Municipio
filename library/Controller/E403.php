@@ -6,7 +6,7 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use WpService\WpService;
 use AcfService\AcfService;
-use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
 
 /**
@@ -28,7 +28,7 @@ class E403 extends \Municipio\Controller\BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher,
+        protected SiteSwitcherInterface $siteSwitcher,
         protected User $userHelper
     ) {
         $this->wpService->statusHeader(403);
@@ -93,7 +93,7 @@ class E403 extends \Municipio\Controller\BaseController
             : false;
 
         // Backdrop
-        $backdrop = isset($this->data['customizer']->error403Backdrop) 
+        $backdrop = isset($this->data['customizer']->error403Backdrop)
             ? $this->data['customizer']->error403Backdrop
             : true;
 
@@ -104,7 +104,7 @@ class E403 extends \Municipio\Controller\BaseController
         if ($backdrop) {
             $wrapperClasses[] = 't-403--has-error-backdrop';
         }
-        $wrapperClasses = implode(' ', $wrapperClasses);
+        $wrapperClasses               = implode(' ', $wrapperClasses);
         $this->data['wrapperClasses'] = $this->wpService->applyFilters('Municipio/403/WrapperClasses', $wrapperClasses);
     }
 

@@ -32,12 +32,12 @@ class GetOtherBlogId implements GetOtherBlogIdInterface
      */
     public function getOtherBlogId(): ?int
     {
-        if ($this->isInSwitchedState()) {
-            return $this->wpService->getCurrentBlogId();
-        }
-
         if ($this->isSinglePostFromOtherBlog()) {
             return (int) $this->getBlogIdFromQuery();
+        }
+
+        if ($this->isInSwitchedState()) {
+            return $this->wpService->getCurrentBlogId();
         }
 
         return null;

@@ -56,6 +56,14 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getContent(): string
+    {
+        return '';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPermalink(): string
     {
         return '';
