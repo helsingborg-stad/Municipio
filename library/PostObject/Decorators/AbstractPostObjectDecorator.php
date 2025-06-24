@@ -51,6 +51,14 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getContent(): string
+    {
+        return $this->postObject->getContent();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPermalink(): string
     {
         return $this->postObject->getPermalink();

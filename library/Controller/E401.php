@@ -6,7 +6,7 @@ use Municipio\Controller\Navigation\MenuBuilderInterface;
 use Municipio\Controller\Navigation\MenuDirector;
 use WpService\WpService;
 use AcfService\AcfService;
-use Municipio\Helper\SiteSwitcher\SiteSwitcher;
+use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
 
 /**
@@ -24,7 +24,7 @@ class E401 extends \Municipio\Controller\BaseController
         protected MenuDirector $menuDirector,
         protected WpService $wpService,
         protected AcfService $acfService,
-        protected SiteSwitcher $siteSwitcher,
+        protected SiteSwitcherInterface $siteSwitcher,
         protected User $userHelper
     ) {
         $this->wpService->statusHeader(401);
@@ -98,7 +98,7 @@ class E401 extends \Municipio\Controller\BaseController
             : false;
 
         // Backdrop
-        $backdrop = isset($this->data['customizer']->error401Backdrop) 
+        $backdrop = isset($this->data['customizer']->error401Backdrop)
             ? $this->data['customizer']->error401Backdrop
             : true;
 
@@ -109,7 +109,7 @@ class E401 extends \Municipio\Controller\BaseController
         if ($backdrop) {
             $wrapperClasses[] = 't-401--has-error-backdrop';
         }
-        $wrapperClasses = implode(' ', $wrapperClasses);
+        $wrapperClasses               = implode(' ', $wrapperClasses);
         $this->data['wrapperClasses'] = $this->wpService->applyFilters('Municipio/401/WrapperClasses', $wrapperClasses);
     }
 

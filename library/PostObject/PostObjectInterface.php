@@ -23,6 +23,13 @@ interface PostObjectInterface
     public function getTitle(): string;
 
     /**
+     * Get the post object content.
+     *
+     * @return string
+     */
+    public function getContent(): string;
+
+    /**
      * Get the post object excerpt.
      *
      * @return string

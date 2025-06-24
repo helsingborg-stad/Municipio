@@ -42,6 +42,14 @@ class PostObjectFromWpPost extends AbstractPostObjectDecorator implements PostOb
     /**
      * @inheritDoc
      */
+    public function getContent(): string
+    {
+        return $this->wpPost->post_content;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPermalink(): string
     {
         return $this->wpService->getPermalink($this->wpPost);
