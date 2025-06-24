@@ -92,6 +92,13 @@ class Singular extends \Municipio\Controller\BaseController
         return $this->data;
     }
 
+    /**
+     * Run a callable in the context of the post's site.
+     *
+     * @param callable $callable The callable to run.
+     *
+     * @return mixed The result of the callable.
+     */
     public function maybeRunInOtherSite(callable $callable): mixed
     {
         return $this->siteSwitcher->runInSite($this->post->getBlogId(), $callable);
