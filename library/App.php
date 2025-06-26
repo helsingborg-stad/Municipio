@@ -37,13 +37,16 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\ExternalContent\Taxonomy\RegisterTaxonomiesFromSourceConfig;
+use Municipio\PostObject\Decorators\PostObjectFromWpPost;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
+use Municipio\PostObject\PostObject;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\DisableStandardFieldsOnPostsWithSchemaType\DisableStandardFieldsOnPostsWithSchemaType;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
+use Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle\SetPostTitleFromSchemaTitle;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\UpdatePostNonceValidatorService;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
@@ -836,6 +839,11 @@ class App
             $this->schemaDataConfig,
             $this->wpService
         ))->addHooks();
+
+        /**
+         * Set post title from schema title.
+         */
+        (new SetPostTitleFromSchemaTitle($this->getSchemaObjectFromPostFactory(), $this->wpService))->addHooks();
 
         /**
          * Store form field values.
