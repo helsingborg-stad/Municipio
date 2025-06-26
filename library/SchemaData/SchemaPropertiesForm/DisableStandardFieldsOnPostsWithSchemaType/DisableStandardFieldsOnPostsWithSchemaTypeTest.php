@@ -63,6 +63,24 @@ class DisableStandardFieldsOnPostsWithSchemaTypeTest extends TestCase
         $this->assertContains('title', $this->wpService->methodCalls['registerPostType'][0][1]['supports']);
     }
 
+    /**
+     * @testdox disableStandardFields does not re-register post type if schema type does not match
+     */
+    public function testDisableStandardFieldsDoesNotReRegistersPostTypeIfSchemaTypeDoesNotMatch()
+    {
+        global $_wp_post_type_features;
+        $postType               = 'test_post_type';
+        $postTypeObject         = new WP_Post_Type([]);
+        $_wp_post_type_features = [ $postType => [ 'editor' => true, 'thumbnail' => true, 'title' => true ] ];
+
+        $this->schemaDataConfigService->method('tryGetSchemaTypeFromPostType')->with($postType)->willReturn('DifferentSchema');
+
+        $this->instance->disableStandardFields($postType, $postTypeObject);
+
+        $this->assertArrayNotHasKey('unregisterPostType', $this->wpService->methodCalls);
+        $this->assertArrayNotHasKey('registerPostType', $this->wpService->methodCalls);
+    }
+
 
     private function getSchemaDataConfigServiceMock(): TryGetSchemaTypeFromPostType|MockObject
     {
