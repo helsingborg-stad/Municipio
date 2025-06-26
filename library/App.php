@@ -41,8 +41,10 @@ use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
+use Municipio\SchemaData\SchemaPropertiesForm\DisableStandardFieldsOnPostsWithSchemaType\DisableStandardFieldsOnPostsWithSchemaType;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\FieldValue\RegisterFieldValue;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactory;
+use Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle\SetPostTitleFromSchemaTitle;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\UpdatePostNonceValidatorService;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
@@ -825,6 +827,21 @@ class App
             new FormFactory(new RegisterFieldValue($this->wpService), $this->wpService),
             $this->getPostObjectFromWpPostFactory(),
         ))->addHooks();
+
+        /**
+         * Disable standard fields like title, content etc on post types connected to certain schema types.
+         */
+        (new DisableStandardFieldsOnPostsWithSchemaType(
+            ['ExhibitionEvent'],
+            ['title', 'editor'],
+            $this->schemaDataConfig,
+            $this->wpService
+        ))->addHooks();
+
+        /**
+         * Set post title from schema title.
+         */
+        (new SetPostTitleFromSchemaTitle($this->getSchemaObjectFromPostFactory(), $this->wpService))->addHooks();
 
         /**
          * Store form field values.
