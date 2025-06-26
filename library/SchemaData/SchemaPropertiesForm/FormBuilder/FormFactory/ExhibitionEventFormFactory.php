@@ -11,6 +11,7 @@ use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GoogleMapField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\GroupField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\MultiSelectField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RepeaterField;
+use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\RequiredField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\StringField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TabField;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\Fields\TimeField;
@@ -42,7 +43,7 @@ class ExhibitionEventFormFactory implements FormFactoryInterface
     {
         return [
             new TabField('', $this->wpService->__('General Information', 'municipio')),
-            new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('name')),
+            new RequiredField(new StringField('name', $this->wpService->__('Name', 'municipio'), $schema->getProperty('name'))),
             new WysiwygField('description', $this->wpService->__('About the exhibition', 'municipio'), $schema->getProperty('description')),
             new GalleryField('image', $this->wpService->__('Gallery', 'municipio'), $schema->getProperty('image')),
             new TabField('', $this->wpService->__('Time & Location', 'municipio')),
