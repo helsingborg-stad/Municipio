@@ -48,18 +48,18 @@ class DisableStandardFieldsOnPostsWithSchemaType implements Hookable
      */
     public function disableStandardFields(string $postType, WP_Post_Type $postTypeObject): void
     {
-        static $loopPreventRegister = [];
-        $schemaType                 = $this->schemaDataConfigService->tryGetSchemaTypeFromPostType($postType);
+        static $processedPostTypes = [];
+        $schemaType                = $this->schemaDataConfigService->tryGetSchemaTypeFromPostType($postType);
 
-        if (!in_array($schemaType, $this->schemaTypes) || in_array($postType, $loopPreventRegister)) {
+        if (!in_array($schemaType, $this->schemaTypes) || in_array($postType, $processedPostTypes)) {
             return;
         }
 
         global $_wp_post_type_features;
-        $args                  = get_object_vars($postTypeObject);
-        $args['supports']      = $_wp_post_type_features[$postType] ?? [];
-        $args['supports']      = array_filter(array_keys($args['supports']), fn ($support) => !in_array($support, $this->postTypeFeaturesToDisable));
-        $loopPreventRegister[] = $postType;
+        $args                 = get_object_vars($postTypeObject);
+        $args['supports']     = $_wp_post_type_features[$postType] ?? [];
+        $args['supports']     = array_filter(array_keys($args['supports']), fn ($support) => !in_array($support, $this->postTypeFeaturesToDisable));
+        $processedPostTypes[] = $postType;
 
         $this->wpService->unregisterPostType($postType);
         $this->wpService->registerPostType($postType, $args);
