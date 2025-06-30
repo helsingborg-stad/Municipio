@@ -48,6 +48,9 @@ use Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle\SetPos
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\UpdatePostNonceValidatorService;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFromSchemaType;
+use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomyFactory;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
 /**
@@ -853,6 +856,20 @@ class App
             new FieldMapper($this->acfService),
             (new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertiesFromMappedFields\SchemaPropertiesFromMappedFieldsFactory())->create(),
             $this->getPostObjectFromWpPostFactory()
+        ))->addHooks();
+
+        /**
+         * Register taxonomies for active schema types.
+         */
+        (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomiesForActiveSchemaTypes(
+            (new SchemaTypesInUse($this->wpdb))->getSchemaTypesInUse(),
+            new SchemaToPostTypeResolver(
+                $this->acfService,
+                $this->wpService,
+                $this->wpService
+            ),
+            $this->wpService,
+            new TaxonomiesFromSchemaType(new TaxonomyFactory())
         ))->addHooks();
 
         /**
