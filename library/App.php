@@ -50,6 +50,7 @@ use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidati
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFromSchemaType;
 use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomyFactory;
+use Municipio\SchemaData\Taxonomy\TermFactory;
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
@@ -859,18 +860,11 @@ class App
         ))->addHooks();
 
         /**
-         * Register taxonomies for active schema types.
+         * Register taxonomies for active schema types and add terms to posts when updating schemaData.
          */
-        (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomiesForActiveSchemaTypes(
-            (new SchemaTypesInUse($this->wpdb))->getSchemaTypesInUse(),
-            new SchemaToPostTypeResolver(
-                $this->acfService,
-                $this->wpService,
-                $this->wpService
-            ),
-            $this->wpService,
-            new TaxonomiesFromSchemaType(new TaxonomyFactory())
-        ))->addHooks();
+        $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService, $this->wpService)), new SchemaTypesInUse($this->wpdb));
+        (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
+        (new \Municipio\SchemaData\Taxonomy\AddTermsToPostFromSchema($taxonomiesFactory, new TermFactory(), $this->wpService))->addHooks();
 
         /**
          * External content

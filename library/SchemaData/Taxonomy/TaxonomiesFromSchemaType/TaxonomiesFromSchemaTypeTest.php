@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
-use Municipio\Schema\JobPosting;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,10 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->instance = new TaxonomiesFromSchemaType($this->getTaxonomyFactory());
+        $this->instance = new TaxonomiesFromSchemaType(
+            $this->getTaxonomyFactory(),
+            $this->getSchemaToPostTypeResolver()
+        );
     }
 
     /**
@@ -57,5 +60,10 @@ class TaxonomiesFromSchemaTypeTest extends TestCase
     private function getTaxonomyFactory(): TaxonomyFactoryInterface|MockObject
     {
         return $this->createMock(TaxonomyFactoryInterface::class);
+    }
+
+    private function getSchemaToPostTypeResolver(): SchemaToPostTypeResolverInterface|MockObject
+    {
+        return $this->createMock(SchemaToPostTypeResolverInterface::class);
     }
 }

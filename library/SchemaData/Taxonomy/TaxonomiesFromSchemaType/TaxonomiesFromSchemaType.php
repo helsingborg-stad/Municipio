@@ -2,10 +2,14 @@
 
 namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
+
 class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
 {
-    public function __construct(private TaxonomyFactoryInterface $taxonomyFactory)
-    {
+    public function __construct(
+        private TaxonomyFactoryInterface $taxonomyFactory,
+        private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver
+    ) {
     }
 
     public function create(string $schemaType): array
@@ -49,6 +53,12 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         string $label,
         string $singularLabel,
     ): TaxonomyInterface {
-        return $this->taxonomyFactory->create($schemaType, $schemaProperty, $label, $singularLabel);
+        return $this->taxonomyFactory->create(
+            $schemaType,
+            $schemaProperty,
+            $this->schemaToPostTypeResolver->resolve($schemaType),
+            $label,
+            $singularLabel
+        );
     }
 }

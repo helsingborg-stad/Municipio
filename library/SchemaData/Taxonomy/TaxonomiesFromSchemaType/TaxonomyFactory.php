@@ -13,10 +13,11 @@ class TaxonomyFactory implements TaxonomyFactoryInterface
     public function create(
         string $schemaType,
         string $schemaProperty,
+        array $objectTypes,
         string $label,
         string $singularLabel,
         array $arguments = []
     ): TaxonomyInterface {
-        return new Taxonomy($schemaType, $schemaProperty, $label, $singularLabel, $arguments);
+        return new Taxonomy($schemaType, $schemaProperty, $objectTypes, $label, $singularLabel, $arguments);
     }
 }

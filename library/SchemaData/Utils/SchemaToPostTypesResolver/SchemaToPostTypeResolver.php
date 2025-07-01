@@ -3,7 +3,6 @@
 namespace Municipio\SchemaData\Utils\SchemaToPostTypesResolver;
 
 use AcfService\Contracts\GetField;
-use Generator;
 use WpService\Contracts\PostTypeExists;
 
 class SchemaToPostTypeResolver implements SchemaToPostTypeResolverInterface
@@ -15,13 +14,17 @@ class SchemaToPostTypeResolver implements SchemaToPostTypeResolverInterface
     /**
      * @inheritDoc
      */
-    public function resolve(string $schemaType): Generator
+    public function resolve(string $schemaType): array
     {
+        $postTypes = [];
+
         foreach ($this->acfService->getField('post_type_schema_types', 'option') ?: [] as $row) {
-            if (self::tryGetSchemaTypeFromRow($row) === $schemaType && $this->wpService->postTypeExists($row['post_type'])) {
-                yield $row['post_type'];
+            if ($this->tryGetSchemaTypeFromRow($row) === $schemaType) {
+                $postTypes[] = $row['post_type'];
             }
         }
+
+        return $postTypes;
     }
 
     /**
@@ -30,9 +33,9 @@ class SchemaToPostTypeResolver implements SchemaToPostTypeResolverInterface
      * @param array $row The row to check.
      * @return string|null The schema type if found, null otherwise.
      */
-    private static function tryGetSchemaTypeFromRow(array $row): ?string
+    private function tryGetSchemaTypeFromRow(array $row): ?string
     {
-        return self::isValidRow($row) ? $row['schema_type'] : null;
+        return $this->isValidRow($row) ? $row['schema_type'] : null;
     }
 
     /**
@@ -41,8 +44,12 @@ class SchemaToPostTypeResolver implements SchemaToPostTypeResolverInterface
      * @param array $row The row to check.
      * @return bool True if the row is valid, false otherwise.
      */
-    private static function isValidRow(array $row): bool
+    private function isValidRow(array $row): bool
     {
-        return isset($row['post_type'], $row['schema_type']) && is_string($row['post_type']) && is_string($row['schema_type']);
+        return
+            isset($row['post_type'], $row['schema_type']) &&
+            is_string($row['post_type']) &&
+            is_string($row['schema_type']) &&
+            $this->wpService->postTypeExists($row['post_type']);
     }
 }

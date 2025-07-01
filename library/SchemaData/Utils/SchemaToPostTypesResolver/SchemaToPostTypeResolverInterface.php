@@ -10,7 +10,7 @@ interface SchemaToPostTypeResolverInterface
      * Resolve the schema to a post type.
      *
      * @param string $schemaType The schema type.
-     * @return Generator<string> A generator yielding post types connected to the schema type.
+     * @return array<string> An array of post types connected to the schema type.
      */
-    public function resolve(string $schemaType): Generator;
+    public function resolve(string $schemaType): array;
 }

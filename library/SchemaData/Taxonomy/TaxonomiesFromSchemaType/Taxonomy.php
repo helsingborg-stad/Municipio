@@ -13,6 +13,7 @@ class Taxonomy implements TaxonomyInterface
     public function __construct(
         private string $schemaType,
         private string $schemaProperty,
+        private array $objectTypes,
         private string $label,
         private string $singularLabel,
         private array $arguments = []
@@ -27,10 +28,15 @@ class Taxonomy implements TaxonomyInterface
         return $this->getPreparedName();
     }
 
+    /**
+     * Prepares the taxonomy name based on the schema type and property.
+     *
+     * @return string
+     */
     private function getPreparedName(): string
     {
         // Prepend the schema object type to the schema object property.
-        $name = $this->schemaType . '_' . $this->schemaProperty;
+        $name = $this->getSchemaType() . '_' . $this->getSchemaProperty();
 
         // Replace . with underscore in the schema object property.
         $name = str_replace('.', '_', $name);
@@ -94,5 +100,29 @@ class Taxonomy implements TaxonomyInterface
             ],
             $this->arguments
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getObjectTypes(): array
+    {
+        return $this->objectTypes;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaType(): string
+    {
+        return $this->schemaType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSchemaProperty(): string
+    {
+        return $this->schemaProperty;
     }
 }

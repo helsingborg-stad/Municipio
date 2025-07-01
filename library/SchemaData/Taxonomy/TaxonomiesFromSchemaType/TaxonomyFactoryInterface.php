@@ -13,6 +13,7 @@ interface TaxonomyFactoryInterface
     public function create(
         string $schemaType,
         string $schemaProperty,
+        array $objectTypes,
         string $label,
         string $singularLabel,
         array $arguments = []
