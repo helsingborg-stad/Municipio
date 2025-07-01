@@ -62,7 +62,7 @@
 
 @section('sidebar-right')
 
-@if (!empty($post->tableOfContents))
+@if (!empty($post->getContentHeadings()))
     @paper(['id' => 'table-of-contents', 'padding' => '4', 'class' => 'u-margin__bottom--4'])
         
         @typography(['element' => 'h2', 'variant' => 'h2'])
@@ -70,7 +70,7 @@
         @endtypography
 
         @listing([
-            'list' => $post->tableOfContents,
+            'list' => $post->getContentHeadings(),
             'elementType' => 'ul',
             'class' => 'toc-list',
             'baseClass' => 'toc-item',

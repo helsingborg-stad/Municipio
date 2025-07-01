@@ -83,4 +83,25 @@ class TocPostObjectTest extends TestCase
 
         $this->assertFalse($result);
     }
+
+    /**
+     * @testdox getContentHeadings returns same data as getTableOfContents
+     */
+    public function testGetContentHeadingsReturnsSameDataAsGetTableOfContents(): void
+    {
+        $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
+        
+        $postObject = $this->createMock(PostObjectInterface::class);
+        $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
+        
+        $tocUtils = $this->createMock(TocUtilsInterface::class);
+        $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
+        
+        $wpService = new FakeWpService([]);
+
+        $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
+        
+        $this->assertEquals($expectedToc, $tocPostObject->getContentHeadings());
+        $this->assertEquals($tocPostObject->getTableOfContents(), $tocPostObject->getContentHeadings());
+    }
 }

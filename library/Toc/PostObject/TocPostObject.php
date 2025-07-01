@@ -59,6 +59,16 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     }
 
     /**
+     * Get the content headings for this post.
+     *
+     * @return array The table of contents data.
+     */
+    public function getContentHeadings(): array
+    {
+        return $this->getTableOfContents();
+    }
+
+    /**
      * Check if this post has a table of contents.
      *
      * @return bool True if the post has a table of contents, false otherwise.
