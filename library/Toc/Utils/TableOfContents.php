@@ -5,6 +5,7 @@ namespace Municipio\Toc\Utils;
 use DOMDocument;
 use DOMXPath;
 use DOMElement;
+use WpService\WpService;
 
 class TableOfContents
 {
@@ -17,10 +18,10 @@ class TableOfContents
      *
      * @param string $html The HTML content to parse for headings.
      */
-    public function __construct(private string $html)
+    public function __construct(private string $html, private WpService $wpService)
     {
-        $this->domObject = self::createDomFromHtml($html);
-        $this->headings = self::extractHeadingsFromHtml($this->domObject);
+        $this->domObject    = self::createDomFromHtml($html);
+        $this->headings     = self::extractHeadingsFromHtml($this->domObject, $wpService);
     }
 
     /**
@@ -74,7 +75,7 @@ class TableOfContents
      * @param DOMDocument $dom
      * @return array
      */
-    private static function extractHeadingsFromHtml(DOMDocument $dom): array
+    private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
     {
         $xpath = new DOMXPath($dom);
         $elements = $xpath->query('//h1 | //h2 | //h3 | //h4 | //h5 | //h6');
@@ -87,7 +88,7 @@ class TableOfContents
 
             $text = trim($el->textContent);
             $level = (int) substr($el->nodeName, 1);
-            $slug = self::generateSlug($text);
+            $slug = self::generateSlug($text, $wpService);
 
             $headings[] = compact('text', 'level', 'slug');
         }
@@ -159,9 +160,8 @@ class TableOfContents
      * @param string $text
      * @return string
      */
-    private static function generateSlug(string $text): string
-    {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $text)));
-        return self::ANCHOR_PREFIX . $slug;
+    private static function generateSlug(string $text, WpService $wpService): string
+    {   
+        return self::ANCHOR_PREFIX . $wpService->sanitizeTitle($text);
     }
 }

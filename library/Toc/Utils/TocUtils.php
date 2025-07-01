@@ -46,7 +46,7 @@ class TocUtils implements TocUtilsInterface
             return [];
         }
 
-        $tableOfContents = new TableOfContents($content);
+        $tableOfContents = new TableOfContents($content, $this->wpService);
         return $tableOfContents->getTableOfContents();
     }
 
@@ -59,7 +59,7 @@ class TocUtils implements TocUtilsInterface
             return $content;
         }
 
-        $tableOfContents = new TableOfContents($content);
+        $tableOfContents = new TableOfContents($content, $this->wpService);
         return $tableOfContents->getDocumentWithAnchors();
     }
 
