@@ -46,7 +46,7 @@ class SchemaToPostTypeResolverTest extends TestCase
         $wpServiceMock->method('postTypeExists')->willReturn(true);
 
         $resolver = new SchemaToPostTypeResolver($acfServiceMock, $wpServiceMock);
-        $result   = iterator_to_array($resolver->resolve('connected_schema_type'));
+        $result   = $resolver->resolve('connected_schema_type');
 
         $this->assertNotEmpty($result);
         $this->assertContains('post', $result);
