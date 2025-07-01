@@ -74,6 +74,44 @@ class BackwardsCompatiblePostObjectTest extends TestCase
         $this->assertNotEquals('http://example.com', @$result->permalink);
     }
 
+    /**
+     * @testdox delegates method calls to underlying post object
+     */
+    public function testDelegatesMethodCallsToUnderlyingPostObject()
+    {
+        // Create a mock that has a custom method
+        $postObject = $this->createMock(PostObjectInterface::class);
+        
+        // Use reflection or direct mock configuration to add the method
+        $postObjectWithMethod = new class implements PostObjectInterface {
+            public function getId(): int { return 1; }
+            public function getTitle(): string { return 'Test'; }
+            public function getContent(): string { return 'Content'; }
+            public function getExcerpt(): string { return 'Excerpt'; }
+            public function getPermalink(): string { return 'http://example.com'; }
+            public function getContentHeadings(): array { return ['heading1', 'heading2']; }
+            public function __get(string $name): mixed { return null; }
+        };
+
+        $result = new BackwardsCompatiblePostObject($postObjectWithMethod, (object) []);
+
+        $this->assertEquals(['heading1', 'heading2'], $result->getContentHeadings());
+    }
+
+    /**
+     * @testdox throws exception for non-existent methods
+     */
+    public function testThrowsExceptionForNonExistentMethods()
+    {
+        $postObject = $this->getPostObject();
+        $result = new BackwardsCompatiblePostObject($postObject, (object) []);
+
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method nonExistentMethod does not exist');
+
+        $result->nonExistentMethod();
+    }
+
     private function getPostObject(): PostObjectInterface|MockObject
     {
         return $this->createMock(PostObjectInterface::class);
