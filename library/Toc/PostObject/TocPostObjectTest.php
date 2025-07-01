@@ -31,7 +31,7 @@ class TocPostObjectTest extends TestCase
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
         
         $postObject = $this->createMock(PostObjectInterface::class);
-        $postObject->method('__get')->with('postContentFiltered')->willReturn('<h2>Test Heading</h2>');
+        $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
         
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
@@ -52,7 +52,7 @@ class TocPostObjectTest extends TestCase
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
         
         $postObject = $this->createMock(PostObjectInterface::class);
-        $postObject->method('__get')->with('postContentFiltered')->willReturn('<h2>Test Heading</h2>');
+        $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
         
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
@@ -71,7 +71,7 @@ class TocPostObjectTest extends TestCase
     public function testHasTableOfContentsReturnsFalseWhenNoTocExists(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
-        $postObject->method('__get')->with('postContentFiltered')->willReturn('<p>No headings here</p>');
+        $postObject->method('getContent')->willReturn('<p>No headings here</p>');
         
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn([]);
