@@ -863,7 +863,7 @@ class App
         /**
          * Register taxonomies for active schema types and add terms to posts when updating schemaData.
          */
-        $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService, $this->wpService)), new SchemaTypesInUse($this->wpdb));
+        $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)), new SchemaTypesInUse($this->wpdb));
         (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
         (new \Municipio\SchemaData\Taxonomy\AddTermsToPostFromSchema($taxonomiesFactory, new TermFactory(), $this->wpService))->addHooks();
 

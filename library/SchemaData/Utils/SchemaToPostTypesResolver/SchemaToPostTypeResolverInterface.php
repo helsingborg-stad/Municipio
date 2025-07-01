@@ -2,8 +2,6 @@
 
 namespace Municipio\SchemaData\Utils\SchemaToPostTypesResolver;
 
-use Generator;
-
 interface SchemaToPostTypeResolverInterface
 {
     /**
