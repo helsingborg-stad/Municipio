@@ -25,7 +25,7 @@ class SchemaToPostTypeResolverTest extends TestCase
     {
         $resolver = $this->createResolver();
         $result   = $resolver->resolve('unknown_schema_type');
-        $this->assertEmpty(iterator_to_array($result));
+        $this->assertEmpty($result);
     }
 
     /**
