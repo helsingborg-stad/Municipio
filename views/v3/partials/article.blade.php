@@ -77,9 +77,11 @@
         ])
         @endnotice
     @endif
+    
     @section('article.content')
-        {!! $postContentFiltered !!}
+        {!! $documentWithAnchors !!}
     @show
+
     @section('article.content.after')@show
 
     <!-- Terms -->

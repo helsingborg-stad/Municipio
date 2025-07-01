@@ -61,6 +61,26 @@
 @stop
 
 @section('sidebar-right')
+
+@if (!empty($tableOfContents))
+    @paper(['id' => 'table-of-contents', 'padding' => '4', 'class' => 'u-margin__bottom--4'])
+        
+        @typography(['element' => 'h2', 'variant' => 'h2'])
+            {{ __('Table of contents', 'municipio') }}
+        @endtypography
+
+        @listing([
+            'list' => $tableOfContents,
+            'elementType' => 'ul',
+            'class' => 'toc-list',
+            'baseClass' => 'toc-item',
+            'icon' => false,
+        ])
+        @endlisting
+    @endpaper
+@endif
+
+
 @if ($showSidebars)
     @if ($customizer->secondaryNavigationPosition == 'right')
         @if (!empty($secondaryMenu['items']))
