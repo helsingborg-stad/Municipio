@@ -892,13 +892,6 @@ class App
         (new AllowCronToEditPosts($this->wpService))->addHooks();
 
         /**
-         * Register taxonomies from source configurations.
-         */
-        foreach ($sourceConfigs as $sourceConfig) {
-            (new RegisterTaxonomiesFromSourceConfig($sourceConfig, $this->wpService))->registerTaxonomies();
-        }
-
-        /**
          * Setup cron jobs on config change.
          */
         (new \Municipio\ExternalContent\Cron\SetupCronJobsOnConfigChange($sourceConfigs, new WpCronJobManager('municipio_external_content_sync_', $this->wpService), $this->wpService))->addHooks();

@@ -14,13 +14,11 @@ use Municipio\ExternalContent\WpPostArgsFromSchemaObject\{
     PostTypeDecorator,
     SchemaDataDecorator,
     SourceIdDecorator,
-    TermsDecorator,
     ThumbnailDecorator,
     VerifyChecksum,
     WpPostArgsFromSchemaObject,
     WpPostArgsFromSchemaObjectInterface,
 };
-use Municipio\ExternalContent\WpTermFactory\WpTermFactoryInterface;
 use Municipio\Helper\WpService;
 
 /**
@@ -52,23 +50,11 @@ class Factory implements FactoryInterface
         $postArgsFromSchemaObject = new ThumbnailDecorator($postArgsFromSchemaObject, WpService::get());
         $postArgsFromSchemaObject = new SourceIdDecorator($this->sourceConfig->getId(), $postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new MetaPropertyValueDecorator($postArgsFromSchemaObject);
-        $postArgsFromSchemaObject = new TermsDecorator($this->sourceConfig->getTaxonomies(), $this->getWpTermFactory(), WpService::get(), $postArgsFromSchemaObject); // phpcs:ignore Generic.Files.LineLength.TooLong
         $postArgsFromSchemaObject = new EventDatesDecorator($postArgsFromSchemaObject);
 
         $postArgsFromSchemaObject = new AddChecksum($postArgsFromSchemaObject);
         $postArgsFromSchemaObject = new VerifyChecksum($postArgsFromSchemaObject, WpService::get());
 
         return $postArgsFromSchemaObject;
-    }
-
-    /**
-     * Retrieves an instance of WpTermFactoryInterface.
-     *
-     * @return WpTermFactoryInterface An instance of WpTermFactoryInterface.
-     */
-    private function getWpTermFactory(): WpTermFactoryInterface
-    {
-        $wpTermFactory = new \Municipio\ExternalContent\WpTermFactory\WpTermFactory();
-        return new \Municipio\ExternalContent\WpTermFactory\WpTermUsingSchemaObjectName($wpTermFactory);
     }
 }
