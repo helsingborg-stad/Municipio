@@ -36,8 +36,9 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getContent(): string
     {
         if ($this->contentWithAnchors === null) {
-            $originalContent = $this->postObject->getContent();
-            $this->contentWithAnchors = $this->tocUtils->getContentWithAnchors($originalContent);
+            // Get the filtered content from the original post object
+            $filteredContent = $this->postObject->__get('postContentFiltered') ?? $this->postObject->getContent();
+            $this->contentWithAnchors = $this->tocUtils->getContentWithAnchors($filteredContent);
         }
 
         return $this->contentWithAnchors;
@@ -51,8 +52,9 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getTableOfContents(): array
     {
         if ($this->tableOfContents === null) {
-            $originalContent = $this->postObject->getContent();
-            $this->tableOfContents = $this->tocUtils->getTableOfContents($originalContent);
+            // Get the filtered content from the original post object
+            $filteredContent = $this->postObject->__get('postContentFiltered') ?? $this->postObject->getContent();
+            $this->tableOfContents = $this->tocUtils->getTableOfContents($filteredContent);
         }
 
         return $this->tableOfContents;
@@ -80,6 +82,8 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
             'tableOfContents' => $this->getTableOfContents(),
             'documentWithAnchors' => $this->getContent(),
             'hasTableOfContents' => $this->hasTableOfContents(),
+            'postContentFiltered' => $this->getContent(),
+            'post_content_filtered' => $this->getContent(),
             default => parent::__get($name),
         };
     }

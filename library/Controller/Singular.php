@@ -89,13 +89,6 @@ class Singular extends \Municipio\Controller\BaseController
         //Get age of post
         $this->data['postAgeNotice'] = $this->getPostAgeNotice($this->data['post']);
 
-        // Table of contents
-        $tableOfContentsParser = new \Municipio\Controller\Utils\TableOfContents(
-            $this->data['post']->postContent
-        );
-        $this->data['tableOfContents'] = $tableOfContentsParser->getTableOfContents();
-        $this->data['documentWithAnchors'] = $tableOfContentsParser->getDocumentWithAhchors();
-
         return $this->data;
     }
 
