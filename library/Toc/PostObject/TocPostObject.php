@@ -12,7 +12,7 @@ use WpService\WpService;
  */
 class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInterface
 {
-    private ?array $tableOfContents = null;
+    private ?array $tableOfContents     = null;
     private ?string $contentWithAnchors = null;
 
     /**
@@ -36,11 +36,10 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getContent(): string
     {
         if ($this->contentWithAnchors === null) {
-            // Get the filtered content from the decorated post object
-            $filteredContent = $this->postObject->getContent();
-            $this->contentWithAnchors = $this->tocUtils->getContentWithAnchors($filteredContent);
+            $this->contentWithAnchors = $this->tocUtils->getContentWithAnchors(
+                $this->postObject->getContent()
+            );
         }
-
         return $this->contentWithAnchors;
     }
 
@@ -52,11 +51,10 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getTableOfContents(): array
     {
         if ($this->tableOfContents === null) {
-            // Get the filtered content from the decorated post object
-            $filteredContent = $this->postObject->getContent();
-            $this->tableOfContents = $this->tocUtils->getTableOfContents($filteredContent);
+            $this->tableOfContents = $this->tocUtils->getTableOfContents(
+                $this->postObject->getContent()
+            );
         }
-
         return $this->tableOfContents;
     }
 
@@ -68,23 +66,5 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function hasTableOfContents(): bool
     {
         return !empty($this->getTableOfContents());
-    }
-
-    /**
-     * Magic method to handle dynamic property access for backwards compatibility.
-     *
-     * @param string $name The property name.
-     * @return mixed The property value.
-     */
-    public function __get(string $name): mixed
-    {
-        return match ($name) {
-            'tableOfContents' => $this->getTableOfContents(),
-            'documentWithAnchors' => $this->getContent(),
-            'hasTableOfContents' => $this->hasTableOfContents(),
-            'postContentFiltered' => $this->getContent(),
-            'post_content_filtered' => $this->getContent(),
-            default => parent::__get($name),
-        };
     }
 }
