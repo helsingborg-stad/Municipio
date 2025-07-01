@@ -13,10 +13,6 @@ use WP_Term;
  */
 class TermFactory implements TermFactoryInterface
 {
-    public function __construct()
-    {
-    }
-
     /**
      * @inheritDoc
      */

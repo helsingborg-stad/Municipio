@@ -5,8 +5,18 @@ namespace Municipio\SchemaData\Utils\SchemaToPostTypesResolver;
 use AcfService\Contracts\GetField;
 use WpService\Contracts\PostTypeExists;
 
+/**
+ * Class SchemaToPostTypeResolver
+ * This class resolves the post types associated with a given schema type.
+ */
 class SchemaToPostTypeResolver implements SchemaToPostTypeResolverInterface
 {
+    /**
+     * SchemaToPostTypeResolver constructor.
+     *
+     * @param GetField $acfService The service to get ACF fields.
+     * @param PostTypeExists $wpService The service to check if a post type exists.
+     */
     public function __construct(private GetField $acfService, private PostTypeExists $wpService)
     {
     }

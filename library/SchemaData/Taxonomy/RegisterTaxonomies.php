@@ -7,6 +7,12 @@ use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactoryInte
 use WpService\Contracts\AddAction;
 use WpService\Contracts\RegisterTaxonomy;
 
+/**
+ * Class RegisterTaxonomies
+ *
+ * This class is responsible for registering taxonomies defined in the schema.
+ * It uses a factory to create taxonomies and registers them with WordPress.
+ */
 class RegisterTaxonomies implements Hookable
 {
     /**
@@ -18,11 +24,20 @@ class RegisterTaxonomies implements Hookable
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function addHooks(): void
     {
         $this->wpService->addAction('init', [$this, 'registerTaxonomies']);
     }
 
+    /**
+     * Registers taxonomies defined in the schema.
+     *
+     * This method retrieves all taxonomies created by the factory and registers them
+     * with WordPress using the wpService.
+     */
     public function registerTaxonomies(): void
     {
         foreach ($this->taxonomiesFactory->create() as $taxonomy) {

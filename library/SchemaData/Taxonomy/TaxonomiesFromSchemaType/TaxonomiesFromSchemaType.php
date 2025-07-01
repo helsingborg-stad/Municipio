@@ -4,14 +4,32 @@ namespace Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType;
 
 use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolverInterface;
 
+/**
+ * Class TaxonomiesFromSchemaType
+ *
+ * This class is responsible for creating taxonomies based on the schema type.
+ * It uses a factory to create taxonomies and a resolver to map schema types to post types.
+ */
 class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
 {
+    /**
+     * TaxonomiesFromSchemaType constructor.
+     *
+     * @param TaxonomyFactoryInterface $taxonomyFactory The factory to create taxonomies.
+     * @param SchemaToPostTypeResolverInterface $schemaToPostTypeResolver The resolver to map schema types to post types.
+     */
     public function __construct(
         private TaxonomyFactoryInterface $taxonomyFactory,
         private SchemaToPostTypeResolverInterface $schemaToPostTypeResolver
     ) {
     }
 
+    /**
+     * Create taxonomies based on the schema type.
+     *
+     * @param string $schemaType The schema type for which to create taxonomies.
+     * @return array An array of TaxonomyInterface objects.
+     */
     public function create(string $schemaType): array
     {
         return [
@@ -21,6 +39,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ][$schemaType] ?? [];
     }
 
+    /**
+     * Get taxonomies for JobPosting schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for JobPosting.
+     */
     private function getJobPostingTaxonomies(): array
     {
         return [
@@ -29,6 +52,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ];
     }
 
+    /**
+     * Get taxonomies for Event schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Event.
+     */
     private function getEventTaxonomies(): array
     {
         return [
@@ -37,6 +65,11 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ];
     }
 
+    /**
+     * Get taxonomies for Project schema type.
+     *
+     * @return array An array of TaxonomyInterface objects for Project.
+     */
     private function getProjectTaxonomies(): array
     {
         return [
@@ -47,6 +80,15 @@ class TaxonomiesFromSchemaType implements TaxonomiesFromSchemaTypeInterface
         ];
     }
 
+    /**
+     * Create a taxonomy based on the schema type and property.
+     *
+     * @param string $schemaType The schema type for the taxonomy.
+     * @param string $schemaProperty The schema property for the taxonomy.
+     * @param string $label The label for the taxonomy.
+     * @param string $singularLabel The singular label for the taxonomy.
+     * @return TaxonomyInterface The created taxonomy.
+     */
     private function createTaxonomy(
         string $schemaType,
         string $schemaProperty,
