@@ -13,17 +13,17 @@
     <!-- Title -->
     @section('article.title.before')@show
     @section('article.title')
-        @if ($postTitleFiltered || isset($callToActionItems['floating']))
+        @if ($post->getTitle() || isset($callToActionItems['floating']))
             @group([
                 'justifyContent' => 'space-between'
             ])
-                @if ($postTitleFiltered)
+                @if ($post->getTitle())
                     @typography([
                         'element' => 'h1', 
                         'variant' => 'h1', 
                         'id' => 'page-title',
                     ])
-                        {!! $postTitleFiltered !!}
+                        {!! $post->getTitle() !!}
                     @endtypography
                 @endif
                 @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
@@ -78,7 +78,7 @@
         @endnotice
     @endif
     @section('article.content')
-        {!! $post->postContentFiltered !!}
+        {!! $post->getContent() !!}
     @show
     @section('article.content.after')@show
 

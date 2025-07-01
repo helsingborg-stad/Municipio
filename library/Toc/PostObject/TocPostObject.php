@@ -36,8 +36,8 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getContent(): string
     {
         if ($this->contentWithAnchors === null) {
-            // Get the filtered content from the original post object
-            $filteredContent = $this->postObject->__get('postContentFiltered') ?? $this->postObject->getContent();
+            // Get the filtered content from the decorated post object
+            $filteredContent = $this->postObject->getContent();
             $this->contentWithAnchors = $this->tocUtils->getContentWithAnchors($filteredContent);
         }
 
@@ -52,8 +52,8 @@ class TocPostObject extends AbstractPostObjectDecorator implements PostObjectInt
     public function getTableOfContents(): array
     {
         if ($this->tableOfContents === null) {
-            // Get the filtered content from the original post object
-            $filteredContent = $this->postObject->__get('postContentFiltered') ?? $this->postObject->getContent();
+            // Get the filtered content from the decorated post object
+            $filteredContent = $this->postObject->getContent();
             $this->tableOfContents = $this->tocUtils->getTableOfContents($filteredContent);
         }
 
