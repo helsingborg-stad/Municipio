@@ -79,9 +79,7 @@
     @endif
     
     @section('article.content')
-        @article()
-            {!! $postContentFiltered !!}
-        @endarticle 
+        {!! $documentWithAnchors !!}
     @show
 
     @section('article.content.after')@show
