@@ -385,6 +385,11 @@ class App
          * Setup Mirrored Post
          */
         (new \Municipio\MirroredPost\MirroredPostFeature($this->wpService))->enable();
+
+        /**
+         * Setup Table of Contents
+         */
+        (new \Municipio\Toc\TocFeature($this->wpService))->enable();
     }
 
     /**

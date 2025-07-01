@@ -78,7 +78,7 @@
         @endnotice
     @endif
     @section('article.content')
-        {!! $postContentFiltered !!}
+        {!! $post->postContentFiltered !!}
     @show
     @section('article.content.after')@show
 
