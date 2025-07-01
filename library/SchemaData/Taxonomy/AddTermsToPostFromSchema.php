@@ -111,8 +111,6 @@ class AddTermsToPostFromSchema implements Hookable
     {
         $terms = array_map(fn($taxonomy) => $this->termFactory->create($taxonomy, $schema), $taxonomies);
 
-        $foo = 'bar';
-
         return array_merge(...array_map(static fn($item) => is_array($item) ? $item : [$item], $terms));
     }
 
