@@ -81,7 +81,7 @@ class TocUtils implements TocUtilsInterface
      */
     private function hasHeadings(string $content, int $minimumNumberOfHeadings = 1): bool
     {
-        preg_match_all('/<h[1-6][^>]*>.*?<\\/h[1-6]>/i', $content, $matches);
+        preg_match_all('/<h[2-4][^>]*>.*?<\\/h[2-4]>/i', $content, $matches);
         return count($matches[0]) >= $minimumNumberOfHeadings;
     }
 }

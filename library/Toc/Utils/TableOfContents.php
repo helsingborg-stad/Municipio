@@ -78,7 +78,7 @@ class TableOfContents
     private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
     {
         $xpath = new DOMXPath($dom);
-        $elements = $xpath->query('//h1 | //h2 | //h3 | //h4 | //h5 | //h6');
+        $elements = $xpath->query('//h2 | //h3 | //h4');
 
         $headings = [];
         foreach ($elements as $el) {
