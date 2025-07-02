@@ -2,6 +2,8 @@
  * Highlight elements based on URL hash matching a data attribute.
  */
 export class HashHighlightManager {
+  private static lastManualHashChange = 0;
+
   /**
    * Initialize the hash highlight system.
    * Finds all elements with `data-highlight-on-hash-match` and toggles
@@ -22,7 +24,6 @@ export class HashHighlightManager {
           item.classList.toggle(activeClass, shouldBeActive);
         });
       };
-
       window.addEventListener('hashchange', updateHighlights);
       updateHighlights(); // initial check
     });

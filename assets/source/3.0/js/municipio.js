@@ -16,4 +16,4 @@ initializeSessionManager();
 initializeComments();
 initializeCollapsibleSearch();
 initializeHashHighlightManager();
-initializeHashUpdateManager();
+initializeHashUpdateManager(8 * 10);
