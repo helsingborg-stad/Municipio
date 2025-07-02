@@ -64,6 +64,14 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getContentHeadings(): array 
+    {
+        return [];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPermalink(): string
     {
         return '';
@@ -162,7 +170,7 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getImage(int $width = null, ?int $height = null): ?ImageInterface
+    public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
         $imageId = $this->wpService->getPostThumbnailId($this->getId());
 
