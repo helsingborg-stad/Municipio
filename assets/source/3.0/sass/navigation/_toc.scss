@@ -1,0 +1,10 @@
+.s-nav-toc {
+  .c-nav__item .c-nav__toggle {
+    visibility: hidden;
+  }
+  .c-nav__item:hover {
+    .c-nav__toggle {
+      visibility: visible ;
+    }
+  } 
+}
