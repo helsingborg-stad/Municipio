@@ -311,7 +311,7 @@ class Post
                 $postObject
             );
         }
-
+        // To replace?
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 
