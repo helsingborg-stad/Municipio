@@ -6,7 +6,7 @@
  */
 export class HashUpdateManager {
   private static throttleTimeoutId: number | null = null;
-  private static throttleDelay = 50;
+  private static throttleDelay = 5;
 
   /**
    * Initialize hash update behavior based on focus/visibility of elements
