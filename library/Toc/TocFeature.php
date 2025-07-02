@@ -2,6 +2,7 @@
 
 namespace Municipio\Toc;
 
+use AcfService\AcfService;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Toc\PostObject\TocPostObject;
@@ -21,7 +22,7 @@ class TocFeature
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService)
+    public function __construct(private WpService $wpService, private AcfService $acfService)
     {
         $this->tocUtils = $this->createTocUtils();
     }
@@ -72,6 +73,9 @@ class TocFeature
      */
     private function createTocUtils(): TocUtils
     {
-        return new TocUtils($this->wpService);
+        return new TocUtils(
+            $this->wpService,
+            $this->acfService
+        );
     }
 }

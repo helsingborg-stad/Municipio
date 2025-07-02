@@ -116,6 +116,8 @@ class TableOfContents
         foreach ($elements as $i => $el) {
             if (isset($headings[$i]) && $el instanceof DOMElement) {
                 $el->setAttribute('id', $headings[$i]['slug']);
+                $el->setAttribute('data-update-hash-when-focused', '1');
+                $el->setAttribute('data-update-hash-value', $headings[$i]['slug']);
             }
         }
 
@@ -136,7 +138,23 @@ class TableOfContents
 
         $toc = $stack = [];
         foreach ($items as $item) {
-            $tocItem = ['label' => $item['text'], 'level' => $item['level'], 'href' => '#' . $item['slug'], 'children' => []];
+            $tocItem = [
+                'icon' => [
+                    'icon' => 'arrow_forward',
+                    'size' => 'sm',
+                    'filled' => true,
+                    'color' => 'primary'
+                ],
+                'label' => $item['text'], 
+                'level' => $item['level'], 
+                'href' => '#' . $item['slug'], 
+                'children' => [],
+                'attributeList' => [
+                    'data-highlight-on-hash-match' => $item['slug'],
+                    'data-highlight-on-hash-match-class' => 'is-current',
+                ]
+            ];
+
             while (!empty($stack) && $tocItem['level'] <= end($stack)['level']) {
                 array_pop($stack);
             }

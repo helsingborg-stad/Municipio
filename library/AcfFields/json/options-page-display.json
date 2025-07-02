@@ -16,15 +16,15 @@
                 "class": "",
                 "id": ""
             },
+            "message": "",
             "default_value": 0,
-            "message": "Show featured image in single template",
-            "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": ""
+            "ui_off_text": "",
+            "ui": 1
         },
         {
             "key": "field_67653d0291a3b",
-            "label": "Show image caption",
+            "label": "Image caption",
             "name": "post_single_show_featured_image_caption",
             "aria-label": "",
             "type": "true_false",
@@ -44,15 +44,15 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Show image caption in single template",
+            "message": "",
             "default_value": 0,
-            "ui": 0,
             "ui_on_text": "",
-            "ui_off_text": ""
+            "ui_off_text": "",
+            "ui": 1
         },
         {
             "key": "field_64f8759c6a2a2",
-            "label": "Show title",
+            "label": "Title (onepage)",
             "name": "post_one_page_show_title",
             "aria-label": "",
             "type": "true_false",
@@ -64,11 +64,31 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Show title in One Page template",
+            "message": "",
             "default_value": 0,
             "ui_on_text": "",
             "ui_off_text": "",
-            "ui": 0
+            "ui": 1
+        },
+        {
+            "key": "field_68651a9b0c6ac",
+            "label": "Table of contents",
+            "name": "post_table_of_contents",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
         }
     ],
     "location": [
@@ -83,8 +103,8 @@
     "menu_order": 0,
     "position": "side",
     "style": "default",
-    "label_placement": "top",
-    "instruction_placement": "label",
+    "label_placement": "left",
+    "instruction_placement": "field",
     "hide_on_screen": "",
     "active": true,
     "description": "",

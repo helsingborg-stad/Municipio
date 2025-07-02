@@ -5,15 +5,18 @@ namespace Municipio\Toc\Utils;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Toc\Utils\TableOfContents;
 use WpService\WpService;
+use AcfService\AcfService;
 
 class TocUtils implements TocUtilsInterface
 {
+    private const MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE = 3;
+
     /**
      * Constructor.
      *
      * @param WpService $wpService The WordPress service instance.
      */
-    public function __construct(private WpService $wpService)
+    public function __construct(private WpService $wpService, private AcfService $acfService)
     {
     }
 
@@ -33,8 +36,14 @@ class TocUtils implements TocUtilsInterface
             return false;
         }
 
+        //Check if get field 'toc' is set to true
+        $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postObject->getId(), false) ?? false;
+        if ($isEnabledOnPost === false) {
+            return false;
+        }
+
         // Check if content has headings
-        return $this->hasHeadings($content);
+        return $this->hasHeadings($content, self::MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE);
     }
 
     /**
@@ -64,13 +73,15 @@ class TocUtils implements TocUtilsInterface
     }
 
     /**
-     * Check if the content contains headings (h1-h6).
+     * Check if the content contains a minimum number of headings (h1-h6).
      *
      * @param string $content The content to check.
-     * @return bool True if content has headings, false otherwise.
+     * @param int $minimumNumberOfHeadings Minimum number of headings to consider as "has headings".
+     * @return bool True if content has at least the minimum number of headings, false otherwise.
      */
-    private function hasHeadings(string $content): bool
+    private function hasHeadings(string $content, int $minimumNumberOfHeadings = 1): bool
     {
-        return preg_match('/<h[1-6][^>]*>.*?<\/h[1-6]>/i', $content) === 1;
+        preg_match_all('/<h[1-6][^>]*>.*?<\\/h[1-6]>/i', $content, $matches);
+        return count($matches[0]) >= $minimumNumberOfHeadings;
     }
 }

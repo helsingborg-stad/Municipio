@@ -389,7 +389,10 @@ class App
         /**
          * Setup Table of Contents
          */
-        (new \Municipio\Toc\TocFeature($this->wpService))->enable();
+        (new \Municipio\Toc\TocFeature(
+            $this->wpService, 
+            $this->acfService)
+        )->enable();
     }
 
     /**
