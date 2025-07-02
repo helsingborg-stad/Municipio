@@ -62,23 +62,7 @@
 
 @section('sidebar-right')
 
-@if (!empty($post->getContentHeadings()))
-    @paper(['id' => 'table-of-contents', 'padding' => '4', 'class' => 'u-margin__bottom--4'])
-        
-        @typography(['element' => 'h2', 'variant' => 'h2'])
-            {{ __('Table of contents', 'municipio') }}
-        @endtypography
-
-        @listing([
-            'list' => $post->getContentHeadings(),
-            'elementType' => 'ul',
-            'class' => 'toc-list',
-            'baseClass' => 'toc-item',
-            'icon' => false,
-        ])
-        @endlisting
-    @endpaper
-@endif
+@include('partials.navigation.toc')
 
 @if ($showSidebars)
     @if ($customizer->secondaryNavigationPosition == 'right')
