@@ -87,10 +87,26 @@ class BackwardsCompatiblePostObjectTest extends TestCase
             public function getId(): int { return 1; }
             public function getTitle(): string { return 'Test'; }
             public function getContent(): string { return 'Content'; }
-            public function getExcerpt(): string { return 'Excerpt'; }
-            public function getPermalink(): string { return 'http://example.com'; }
             public function getContentHeadings(): array { return ['heading1', 'heading2']; }
-            public function __get(string $name): mixed { return null; }
+            public function getPermalink(): string { return 'http://example.com'; }
+            public function getCommentCount(): int { return 0; }
+            public function getPostType(): string { return 'post'; }
+            public function getIcon(): ?\Municipio\PostObject\Icon\IconInterface { return null; }
+            public function getBlogId(): int { return 1; }
+            public function getPublishedTime(bool $gmt = false): int { return time(); }
+            public function getModifiedTime(bool $gmt = false): int { return time(); }
+            public function getArchiveDateTimestamp(): ?int { return time(); }
+            public function getArchiveDateFormat(): string { return 'Y-m-d'; }
+            public function getSchemaProperty(string $property): mixed { return null; }
+            public function getSchema(): \Municipio\Schema\BaseType { 
+                return new class extends \Municipio\Schema\BaseType {
+                    public function getContext(): string|array { return []; }
+                    public function getType(): string { return 'TestType'; }
+                };
+            }
+            public function getTerms(array $taxonomies): array { return []; }
+            public function getImage(?int $width = null, ?int $height = null): ?\ComponentLibrary\Integrations\Image\ImageInterface { return null; }
+            public function __get(string $key): mixed { return null; }
         };
 
         $result = new BackwardsCompatiblePostObject($postObjectWithMethod, (object) []);

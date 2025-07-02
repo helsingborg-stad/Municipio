@@ -100,8 +100,8 @@ class PostObjectWithFilteredContentTest extends TestCase
         $decoratedPost = new PostObjectWithFilteredContent($postObject, $wpService);
         $result = $decoratedPost->getContent();
 
-        $this->assertStringContains('<p class="lead">Excerpt content</p>', $result);
-        $this->assertStringContains('<p class="content">Full content</p>', $result);
+        $this->assertStringContainsString('<p class="lead">Excerpt content</p>', $result);
+        $this->assertStringContainsString('<p class="content">Full content</p>', $result);
     }
 
     /**

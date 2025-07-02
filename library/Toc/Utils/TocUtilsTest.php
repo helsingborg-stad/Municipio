@@ -14,7 +14,7 @@ class TocUtilsTest extends TestCase
     public function testClassCanBeInstantiated(): void
     {
         $wpService = new FakeWpService([]);
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
 
         $this->assertInstanceOf(TocUtils::class, $tocUtils);
     }
@@ -27,7 +27,7 @@ class TocUtilsTest extends TestCase
         $wpService = new FakeWpService(['isSingular' => false]);
         $postObject = $this->createMock(PostObjectInterface::class);
         
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
         $result = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertFalse($result);
@@ -42,7 +42,7 @@ class TocUtilsTest extends TestCase
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('');
         
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
         $result = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertFalse($result);
@@ -57,22 +57,24 @@ class TocUtilsTest extends TestCase
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('<p>Just some paragraph text with no headings.</p>');
         
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
         $result = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertFalse($result);
     }
 
     /**
-     * @testdox shouldEnableToc returns true when content has headings
+     * @testdox shouldEnableToc returns true when content has minimum reqired headings
      */
     public function testShouldEnableTocReturnsTrueWhenContentHasHeadings(): void
     {
         $wpService = new FakeWpService(['isSingular' => true]);
         $postObject = $this->createMock(PostObjectInterface::class);
-        $postObject->method('getContent')->willReturn('<h2>A heading</h2><p>Some content</p>');
+        $postObject->method('getContent')->willReturn('<h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><h2>A heading</h2><p>Some content</p>');
         
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService(
+            ['getField' => true]
+        ));
         $result = $tocUtils->shouldEnableToc($postObject);
 
         $this->assertTrue($result);
@@ -84,7 +86,7 @@ class TocUtilsTest extends TestCase
     public function testGetTableOfContentsReturnsEmptyArrayForEmptyContent(): void
     {
         $wpService = new FakeWpService([]);
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
         
         $result = $tocUtils->getTableOfContents('');
 
@@ -97,7 +99,7 @@ class TocUtilsTest extends TestCase
     public function testGetContentWithAnchorsReturnsOriginalContentWhenEmpty(): void
     {
         $wpService = new FakeWpService([]);
-        $tocUtils = new TocUtils($wpService);
+        $tocUtils = new TocUtils($wpService, new \AcfService\Implementations\FakeAcfService());
         
         $result = $tocUtils->getContentWithAnchors('');
 
