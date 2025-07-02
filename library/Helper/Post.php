@@ -67,7 +67,9 @@ class Post
         );
 
         self::$runtimeCache[$cacheGroup][$cacheKey] = self::convertWpPostToPostObject($post);
-
+        
+        // TODO: maybe add filter here?
+        // Or are we going to solve it in some other way?
         return self::$runtimeCache[$cacheGroup][$cacheKey];
     }
 
@@ -309,7 +311,7 @@ class Post
                 $postObject
             );
         }
-
+        // To replace?
         return apply_filters('Municipio/Helper/Post/postObject', $postObject);
     }
 

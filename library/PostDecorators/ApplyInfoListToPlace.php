@@ -19,6 +19,8 @@ class ApplyInfoListToPlace implements PostDecorator
     {
         $post = $this->inner->apply($post);
 
+        // TODO: getSchema() doesnt work here
+        // Could possibly use getSchemaTypeFromPostType() helper. We need to use runtime cache to avoid multiple calls. In this file.
         if (empty($post->schemaObject) || $post->schemaObject->getType() !== 'Place') {
             return $post;
         }
@@ -35,6 +37,7 @@ class ApplyInfoListToPlace implements PostDecorator
             $list['website'] = $this->listingHelper::createListingItem(__('Visit website', 'municipio'), $fields['website'], ['src' => 'language']);
         }
 
+        // TODO: Doesnt run
         $post->placeInfo = apply_filters('Municipio/Controller/SingularPlace/listing', $list, $fields);
 
         return $post;
