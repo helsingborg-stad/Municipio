@@ -13,12 +13,12 @@
       ]
     ])
       @element(['element' => 'div', 'classList' => ['c-card__header']])
-       @typography(['element' => 'h4', 'variant' => 'h3', 'classList' => ['c-card__heading']])
+       @typography(['id' => 'table-of-contents-heading', 'element' => 'h4', 'variant' => 'h4'])
             {{ $lang->findOnPage }}
         @endtypography
       @endelement
 
-      <nav aria-label="{{ $lang->findOnPage }}">
+      <nav aria-labelledby="table-of-contents-heading">
           @nav([
               'id' => 'menu-toc',
               'items' => $post->getContentHeadings(),
