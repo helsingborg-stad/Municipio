@@ -184,6 +184,7 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
             return $this->postObject->{$name}(...$arguments);
         }
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
         throw new \BadMethodCallException("Method {$name} does not exist on " . static::class . " or its decorated objects");
     }
 }

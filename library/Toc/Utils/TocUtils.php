@@ -7,6 +7,11 @@ use Municipio\Toc\Utils\TableOfContents;
 use WpService\WpService;
 use AcfService\AcfService;
 
+/**
+ * Class TocUtils
+ *
+ * Provides utility functions for handling Table of Contents (TOC) features in WordPress posts.
+ */
 class TocUtils implements TocUtilsInterface
 {
     private const MINIMUM_NUMBER_OF_HEADINGS_TO_ENABLE_FEATURE = 3;

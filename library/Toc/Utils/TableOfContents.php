@@ -7,6 +7,13 @@ use DOMXPath;
 use DOMElement;
 use WpService\WpService;
 
+/**
+ * Class TableOfContents
+ *
+ * This class is responsible for generating a table of contents from HTML content.
+ * It extracts headings (h1–h6), generates unique slugs for them, and builds a nested
+ * structure that can be used for navigation.
+ */
 class TableOfContents
 {
     private const ANCHOR_PREFIX = 'toc-';
