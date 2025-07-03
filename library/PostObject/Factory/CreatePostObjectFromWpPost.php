@@ -16,6 +16,7 @@ use Municipio\PostObject\Decorators\{
     PostObjectArchiveDateFormat,
     PostObjectArchiveDateTimestamp,
     PostObjectFromWpPost,
+    PostObjectWithFilteredContent,
     PostObjectWithSchemaObject,
     PostObjectWithSeoRedirect
 };
@@ -48,6 +49,7 @@ class CreatePostObjectFromWpPost implements PostObjectFromWpPostFactoryInterface
 
         $postObject = new PostObject($post->ID, $this->wpService);
         $postObject = new PostObjectFromWpPost($postObject, $post, $this->wpService);
+        $postObject = new PostObjectWithFilteredContent($postObject, $this->wpService);
         $postObject = new PostObjectWithSeoRedirect($postObject, $this->wpService);
         $postObject = new PostObjectArchiveDateFormat($postObject, $this->getArchiveDateFormatResolver($postObject));
         $postObject = new PostObjectArchiveDateTimestamp($postObject, $this->getTimestampResolver($postObject));

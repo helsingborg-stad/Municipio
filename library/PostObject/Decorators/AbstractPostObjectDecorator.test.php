@@ -16,6 +16,17 @@ class AbstractPostObjectDecoratorTest extends TestCase
         $this->assertInstanceOf(AbstractPostObjectDecorator::class, $this->getInstance());
     }
 
+    /**
+     * @testdox throws exception for non-existent methods
+     */
+    public function testThrowsExceptionForNonExistentMethods()
+    {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method nonExistentMethod does not exist');
+
+        $this->getInstance()->nonExistentMethod();
+    }
+
     private function getInstance(): AbstractPostObjectDecorator
     {
         return new class ($this->getPostObject()) extends AbstractPostObjectDecorator {
