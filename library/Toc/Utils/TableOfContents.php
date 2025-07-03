@@ -17,6 +17,7 @@ use WpService\WpService;
 class TableOfContents
 {
     private const ANCHOR_PREFIX = 'toc-';
+    private const HEADING_SELECTOR = '/html/body/h2 | /html/body/h3 | /html/body/h4';
     private DOMDocument $domObject;
     private array $headings = [];
 
@@ -85,17 +86,18 @@ class TableOfContents
     private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
     {
         $xpath    = new DOMXPath($dom);
-        $elements = $xpath->query('//h2 | //h3 | //h4');
+        $elements = $xpath->query(self::HEADING_SELECTOR);
 
         $headings = [];
         foreach ($elements as $el) {
-            if (!$el instanceof DOMElement) {
-                continue;
-            }
 
             $text  = trim($el->textContent);
             $level = (int) substr($el->nodeName, 1);
             $slug  = self::generateSlug($text, $wpService);
+
+            if(empty($text) || empty($slug)) {
+                continue;
+            }
 
             $headings[] = compact('text', 'level', 'slug');
         }
@@ -118,7 +120,7 @@ class TableOfContents
         }
 
         $xpath    = new DOMXPath($dom);
-        $elements = $xpath->query('//h1 | //h2 | //h3 | //h4 | //h5 | //h6');
+        $elements = $xpath->query(self::HEADING_SELECTOR);
 
         foreach ($elements as $i => $el) {
             if (isset($headings[$i]) && $el instanceof DOMElement) {
