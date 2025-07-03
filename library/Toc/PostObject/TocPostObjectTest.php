@@ -15,8 +15,8 @@ class TocPostObjectTest extends TestCase
     public function testClassCanBeInstantiated(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
-        $wpService = new FakeWpService([]);
-        $tocUtils = $this->createMock(TocUtilsInterface::class);
+        $wpService  = new FakeWpService([]);
+        $tocUtils   = $this->createMock(TocUtilsInterface::class);
 
         $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
 
@@ -29,17 +29,17 @@ class TocPostObjectTest extends TestCase
     public function testGetTableOfContentsReturnsTocDataFromUtils(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
-        
+
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
-        
+
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
-        
+
         $wpService = new FakeWpService([]);
 
         $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
-        $result = $tocPostObject->getTableOfContents();
+        $result        = $tocPostObject->getTableOfContents();
 
         $this->assertEquals($expectedToc, $result);
     }
@@ -50,17 +50,17 @@ class TocPostObjectTest extends TestCase
     public function testHasTableOfContentsReturnsTrueWhenTocExists(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
-        
+
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
-        
+
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
-        
+
         $wpService = new FakeWpService([]);
 
         $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
-        $result = $tocPostObject->hasTableOfContents();
+        $result        = $tocPostObject->hasTableOfContents();
 
         $this->assertTrue($result);
     }
@@ -72,14 +72,14 @@ class TocPostObjectTest extends TestCase
     {
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('<p>No headings here</p>');
-        
+
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn([]);
-        
+
         $wpService = new FakeWpService([]);
 
         $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
-        $result = $tocPostObject->hasTableOfContents();
+        $result        = $tocPostObject->hasTableOfContents();
 
         $this->assertFalse($result);
     }
@@ -90,17 +90,17 @@ class TocPostObjectTest extends TestCase
     public function testGetContentHeadingsReturnsSameDataAsGetTableOfContents(): void
     {
         $expectedToc = [['label' => 'Test Heading', 'level' => 2, 'href' => '#test-heading', 'children' => []]];
-        
+
         $postObject = $this->createMock(PostObjectInterface::class);
         $postObject->method('getContent')->willReturn('<h2>Test Heading</h2>');
-        
+
         $tocUtils = $this->createMock(TocUtilsInterface::class);
         $tocUtils->method('getTableOfContents')->willReturn($expectedToc);
-        
+
         $wpService = new FakeWpService([]);
 
         $tocPostObject = new TocPostObject($postObject, $wpService, $tocUtils);
-        
+
         $this->assertEquals($expectedToc, $tocPostObject->getContentHeadings());
         $this->assertEquals($tocPostObject->getTableOfContents(), $tocPostObject->getContentHeadings());
     }

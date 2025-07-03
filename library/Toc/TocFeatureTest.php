@@ -41,14 +41,14 @@ class TocFeatureTest extends TestCase
     private function getAcfService(): FakeAcfService
     {
         return new FakeAcfService([
-            'getField' => true,
-            'getFields' => true,
-            'getFieldGroups' => true,
-            'getFieldGroup' => true,
+            'getField'         => true,
+            'getFields'        => true,
+            'getFieldGroups'   => true,
+            'getFieldGroup'    => true,
             'updateFieldGroup' => true,
             'deleteFieldGroup' => true,
-            'addAction' => true,
-            'addFilter' => true,
+            'addAction'        => true,
+            'addFilter'        => true,
         ]);
     }
 }

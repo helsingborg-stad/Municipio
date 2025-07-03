@@ -81,32 +81,90 @@ class BackwardsCompatiblePostObjectTest extends TestCase
     {
         // Create a mock that has a custom method
         $postObject = $this->createMock(PostObjectInterface::class);
-        
+
         // Use reflection or direct mock configuration to add the method
         $postObjectWithMethod = new class implements PostObjectInterface {
-            public function getId(): int { return 1; }
-            public function getTitle(): string { return 'Test'; }
-            public function getContent(): string { return 'Content'; }
-            public function getContentHeadings(): array { return ['heading1', 'heading2']; }
-            public function getPermalink(): string { return 'http://example.com'; }
-            public function getCommentCount(): int { return 0; }
-            public function getPostType(): string { return 'post'; }
-            public function getIcon(): ?\Municipio\PostObject\Icon\IconInterface { return null; }
-            public function getBlogId(): int { return 1; }
-            public function getPublishedTime(bool $gmt = false): int { return time(); }
-            public function getModifiedTime(bool $gmt = false): int { return time(); }
-            public function getArchiveDateTimestamp(): ?int { return time(); }
-            public function getArchiveDateFormat(): string { return 'Y-m-d'; }
-            public function getSchemaProperty(string $property): mixed { return null; }
-            public function getSchema(): \Municipio\Schema\BaseType { 
+            public function getId(): int
+            {
+                return 1;
+            }
+            public function getTitle(): string
+            {
+                return 'Test';
+            }
+            public function getContent(): string
+            {
+                return 'Content';
+            }
+            public function getContentHeadings(): array
+            {
+                return ['heading1', 'heading2'];
+            }
+            public function getPermalink(): string
+            {
+                return 'http://example.com';
+            }
+            public function getCommentCount(): int
+            {
+                return 0;
+            }
+            public function getPostType(): string
+            {
+                return 'post';
+            }
+            public function getIcon(): ?\Municipio\PostObject\Icon\IconInterface
+            {
+                return null;
+            }
+            public function getBlogId(): int
+            {
+                return 1;
+            }
+            public function getPublishedTime(bool $gmt = false): int
+            {
+                return time();
+            }
+            public function getModifiedTime(bool $gmt = false): int
+            {
+                return time();
+            }
+            public function getArchiveDateTimestamp(): ?int
+            {
+                return time();
+            }
+            public function getArchiveDateFormat(): string
+            {
+                return 'Y-m-d';
+            }
+            public function getSchemaProperty(string $property): mixed
+            {
+                return null;
+            }
+            public function getSchema(): \Municipio\Schema\BaseType
+            {
                 return new class extends \Municipio\Schema\BaseType {
-                    public function getContext(): string|array { return []; }
-                    public function getType(): string { return 'TestType'; }
+                    public function getContext(): string|array
+                    {
+                        return [];
+                    }
+                    public function getType(): string
+                    {
+                        return 'TestType';
+                    }
                 };
             }
-            public function getTerms(array $taxonomies): array { return []; }
-            public function getImage(?int $width = null, ?int $height = null): ?\ComponentLibrary\Integrations\Image\ImageInterface { return null; }
-            public function __get(string $key): mixed { return null; }
+            public function getTerms(array $taxonomies): array
+            {
+                return [];
+            }
+            public function getImage(?int $width = null, ?int $height = null): ?\ComponentLibrary\Integrations\Image\ImageInterface
+            {
+                return null;
+            }
+            public function __get(string $key): mixed
+            {
+                return null;
+            }
         };
 
         $result = new BackwardsCompatiblePostObject($postObjectWithMethod, (object) []);
@@ -120,7 +178,7 @@ class BackwardsCompatiblePostObjectTest extends TestCase
     public function testThrowsExceptionForNonExistentMethods()
     {
         $postObject = $this->getPostObject();
-        $result = new BackwardsCompatiblePostObject($postObject, (object) []);
+        $result     = new BackwardsCompatiblePostObject($postObject, (object) []);
 
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage('Method nonExistentMethod does not exist');

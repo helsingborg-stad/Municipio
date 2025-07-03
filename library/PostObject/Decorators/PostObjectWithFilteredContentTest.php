@@ -14,7 +14,7 @@ class PostObjectWithFilteredContentTest extends TestCase
     public function testClassCanBeInstantiated(): void
     {
         $postObject = $this->createMock(PostObjectInterface::class);
-        $wpService = new FakeWpService([]);
+        $wpService  = new FakeWpService([]);
 
         $decoratedPost = new PostObjectWithFilteredContent($postObject, $wpService);
 
@@ -26,7 +26,7 @@ class PostObjectWithFilteredContentTest extends TestCase
      */
     public function testGetContentAppliesWordPressContentFilters(): void
     {
-        $rawContent = '<p>Raw content</p>';
+        $rawContent      = '<p>Raw content</p>';
         $filteredContent = '<p class="filtered">Raw content</p>';
 
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -42,7 +42,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         ]);
 
         $decoratedPost = new PostObjectWithFilteredContent($postObject, $wpService);
-        $result = $decoratedPost->getContent();
+        $result        = $decoratedPost->getContent();
 
         $this->assertEquals($filteredContent, $result);
     }
@@ -52,7 +52,7 @@ class PostObjectWithFilteredContentTest extends TestCase
      */
     public function testGetTitleAppliesWordPressTitleFilters(): void
     {
-        $rawTitle = 'Raw Title';
+        $rawTitle      = 'Raw Title';
         $filteredTitle = 'Filtered Title';
 
         $postObject = $this->createMock(PostObjectInterface::class);
@@ -69,7 +69,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         ]);
 
         $decoratedPost = new PostObjectWithFilteredContent($postObject, $wpService);
-        $result = $decoratedPost->getTitle();
+        $result        = $decoratedPost->getTitle();
 
         $this->assertEquals($filteredTitle, $result);
     }
@@ -98,7 +98,7 @@ class PostObjectWithFilteredContentTest extends TestCase
         ]);
 
         $decoratedPost = new PostObjectWithFilteredContent($postObject, $wpService);
-        $result = $decoratedPost->getContent();
+        $result        = $decoratedPost->getContent();
 
         $this->assertStringContainsString('<p class="lead">Excerpt content</p>', $result);
         $this->assertStringContainsString('<p class="content">Full content</p>', $result);

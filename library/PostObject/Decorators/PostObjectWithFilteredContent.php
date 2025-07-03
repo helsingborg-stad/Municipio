@@ -11,7 +11,7 @@ use WpService\WpService;
 class PostObjectWithFilteredContent extends AbstractPostObjectDecorator implements PostObjectInterface
 {
     private ?string $filteredContent = null;
-    private ?string $filteredTitle = null;
+    private ?string $filteredTitle   = null;
 
     /**
      * Constructor.

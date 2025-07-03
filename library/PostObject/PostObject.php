@@ -64,7 +64,7 @@ class PostObject implements PostObjectInterface
     /**
      * @inheritDoc
      */
-    public function getContentHeadings(): array 
+    public function getContentHeadings(): array
     {
         return [];
     }

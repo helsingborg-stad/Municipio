@@ -20,8 +20,8 @@ class TableOfContents
      */
     public function __construct(private string $html, private WpService $wpService)
     {
-        $this->domObject    = self::createDomFromHtml($html);
-        $this->headings     = self::extractHeadingsFromHtml($this->domObject, $wpService);
+        $this->domObject = self::createDomFromHtml($html);
+        $this->headings  = self::extractHeadingsFromHtml($this->domObject, $wpService);
     }
 
     /**
@@ -77,7 +77,7 @@ class TableOfContents
      */
     private static function extractHeadingsFromHtml(DOMDocument $dom, WpService $wpService): array
     {
-        $xpath = new DOMXPath($dom);
+        $xpath    = new DOMXPath($dom);
         $elements = $xpath->query('//h2 | //h3 | //h4');
 
         $headings = [];
@@ -86,9 +86,9 @@ class TableOfContents
                 continue;
             }
 
-            $text = trim($el->textContent);
+            $text  = trim($el->textContent);
             $level = (int) substr($el->nodeName, 1);
-            $slug = self::generateSlug($text, $wpService);
+            $slug  = self::generateSlug($text, $wpService);
 
             $headings[] = compact('text', 'level', 'slug');
         }
@@ -110,7 +110,7 @@ class TableOfContents
             return $html;
         }
 
-        $xpath = new DOMXPath($dom);
+        $xpath    = new DOMXPath($dom);
         $elements = $xpath->query('//h1 | //h2 | //h3 | //h4 | //h5 | //h6');
 
         foreach ($elements as $i => $el) {
@@ -139,18 +139,18 @@ class TableOfContents
         $toc = $stack = [];
         foreach ($items as $item) {
             $tocItem = [
-                'icon' => [
-                    'icon' => 'arrow_forward',
-                    'size' => 'sm',
+                'icon'          => [
+                    'icon'   => 'arrow_forward',
+                    'size'   => 'sm',
                     'filled' => true,
-                    'color' => 'primary'
+                    'color'  => 'primary'
                 ],
-                'label' => $item['text'], 
-                'level' => $item['level'], 
-                'href' => '#' . $item['slug'], 
-                'children' => [],
+                'label'         => $item['text'],
+                'level'         => $item['level'],
+                'href'          => '#' . $item['slug'],
+                'children'      => [],
                 'attributeList' => [
-                    'data-highlight-on-hash-match' => $item['slug'],
+                    'data-highlight-on-hash-match'       => $item['slug'],
                     'data-highlight-on-hash-match-class' => 'is-current',
                 ]
             ];
@@ -160,12 +160,12 @@ class TableOfContents
             }
 
             if (empty($stack)) {
-                $toc[] = $tocItem;
+                $toc[]   = $tocItem;
                 $stack[] = &$toc[array_key_last($toc)];
             } else {
-                $parent = &$stack[array_key_last($stack)];
+                $parent               = &$stack[array_key_last($stack)];
                 $parent['children'][] = $tocItem;
-                $stack[] = &$parent['children'][array_key_last($parent['children'])];
+                $stack[]              = &$parent['children'][array_key_last($parent['children'])];
             }
         }
 
@@ -179,7 +179,7 @@ class TableOfContents
      * @return string
      */
     private static function generateSlug(string $text, WpService $wpService): string
-    {   
+    {
         return self::ANCHOR_PREFIX . $wpService->sanitizeTitle($text);
     }
 }
