@@ -27,6 +27,7 @@ class SchemaPropertiesFromMappedFieldsFactory implements SchemaPropertiesFromMap
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\UrlHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\IntHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\TextHandler(),
+                new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\MultiSelectHandler(),
             ]
         );
     }

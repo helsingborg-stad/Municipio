@@ -89,17 +89,6 @@
             @endiconSection__item
         @endif
 
-        @if(!empty($physicalAccessibilityFeatures))
-            @iconSection__item(['icon' => ['icon' => 'accessibility', 'size' => 'md']])
-                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->accessibilityTitle])
-                @element(['componentElement' => 'ul'])
-                    @foreach($physicalAccessibilityFeatures as $feature)
-                        @element(['componentElement' => 'li']){!! $feature !!}@endelement
-                    @endforeach
-                @endelement
-            @endiconSection__item
-        @endif
-
     @endiconSection
     
 @stop
@@ -151,7 +140,7 @@
         @endpaper
     @endif
 
-    @paper(['padding' => 2])
+    {{-- @paper(['padding' => 2])
         @collection()
                 @collection__item([])
                     @typography(['element' => 'h4'])
@@ -163,8 +152,20 @@
                         @endelement
                     @endif
                 @endcollection__item
+                @collection__item([])
+                    @if(!empty($physicalAccessibilityFeatures))
+                        @typography(['element' => 'h4'])
+                            {{$lang->accessibilityTitle}}
+                        @endtypography
+                        @element(['componentElement' => 'ul'])
+                            @foreach($physicalAccessibilityFeatures as $feature)
+                                @element(['componentElement' => 'li']){!! $feature !!}@endelement
+                            @endforeach
+                        @endelement
+                    @endif
+                @endcollection__item
         @endcollection
-    @endpaper
+    @endpaper --}}
 
 @stop
 

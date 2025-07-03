@@ -58,7 +58,12 @@ class ExhibitionEventFormFactory implements FormFactoryInterface
                     new GoogleMapField('geo', $this->wpService->__('Geo', 'municipio'), $schema->getProperty('location')?->getProperty('geo')),
                 ]
             ),
-            // TODO: Add description for location.
+            new MultiSelectField('physicalAccessibilityFeatures', $this->wpService->__('Physical Accessibility Features', 'municipio'), $schema->getProperty('physicalAccessibilityFeatures') ?? [], [
+                'AccessibleEntrance'   => $this->wpService->__('Accessible Entrance', 'municipio'),
+                'AccessibleParking'    => $this->wpService->__('Accessible Parking', 'municipio'),
+                'WheelchairAccessible' => $this->wpService->__('Wheelchair Accessible', 'municipio'),
+                'BrailleSignage'       => $this->wpService->__('Braille Signage', 'municipio'),
+            ]),
             new TabField('', $this->wpService->__('Opening Hours', 'municipio')),
             new RepeaterField(
                 'openingHoursSpecification',
