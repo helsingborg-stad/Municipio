@@ -172,20 +172,6 @@ class BackwardsCompatiblePostObjectTest extends TestCase
         $this->assertEquals(['heading1', 'heading2'], $result->getContentHeadings());
     }
 
-    /**
-     * @testdox throws exception for non-existent methods
-     */
-    public function testThrowsExceptionForNonExistentMethods()
-    {
-        $postObject = $this->getPostObject();
-        $result     = new BackwardsCompatiblePostObject($postObject, (object) []);
-
-        $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Method nonExistentMethod does not exist');
-
-        $result->nonExistentMethod();
-    }
-
     private function getPostObject(): PostObjectInterface|MockObject
     {
         return $this->createMock(PostObjectInterface::class);

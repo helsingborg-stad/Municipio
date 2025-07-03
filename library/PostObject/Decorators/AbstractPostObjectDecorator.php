@@ -167,4 +167,23 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     {
         return $this->postObject->getImage($width, $height);
     }
+
+
+    /**
+     * Magic method caller.
+     *
+     * Delegate method calls to the underlying post object if the method doesn't exist on this class.
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments): mixed
+    {
+        if (method_exists($this->postObject, $name)) {
+            return $this->postObject->{$name}(...$arguments);
+        }
+
+        throw new \BadMethodCallException("Method {$name} does not exist on " . static::class . " or its decorated objects");
+    }
 }
