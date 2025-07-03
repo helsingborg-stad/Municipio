@@ -9,6 +9,7 @@ use Municipio\Integrations\Component\ImageResolver;
 use Municipio\PostObject\Icon\IconInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\BaseType;
+use Municipio\Schema\Thing;
 use WpService\Contracts\GetCurrentBlogId;
 use WpService\Contracts\GetPostThumbnailId;
 use WpService\Contracts\WpGetPostTerms;
@@ -164,7 +165,7 @@ class PostObject implements PostObjectInterface
      */
     public function getSchema(): BaseType
     {
-        return new BaseType();
+        return new Thing();
     }
 
     /**
