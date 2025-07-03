@@ -34,13 +34,21 @@ class Columns
      */
     public function renderBlockColumns(string $content, array $block): string
     {
+        if (is_admin()) {
+            return $content;
+        }
+
         if (!$this->isBlock('core/columns', $block)) {
             return $content;
         }
 
         $gridClasses     = $this->createGridClassesArray($block['innerBlocks']);
-        $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
 
+        if(isset($_GET['noblockcol'])) {
+           return $content;
+        }
+
+        $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
         return '<div class="o-grid">' . "\n" . implode("\n", $modifiedColumns) . "\n" . '</div>';
     }
 
@@ -52,33 +60,40 @@ class Columns
      */
     private function processBlockColumns(string $content, array $gridClasses)
     {
-        //Load doc as string
         $doc = new \DOMDocument();
+        libxml_use_internal_errors(true); // Suppress HTML5 parsing warnings
         $doc->loadHTML('<?xml encoding="utf-8" ?>' . $content, LIBXML_NOERROR);
+        libxml_clear_errors();
 
-        //Get the columns and its contents
+        $xpath = new \DOMXPath($doc);
+        $elements = $xpath->query('//*[contains(concat(" ", normalize-space(@class), " "), " wp-block-column ")]');
+
         $modifiedColumns = [];
-        $index           = 0;
-        $elements        = $doc->getElementsByTagName('*');
-        if (!empty($elements) && is_object($elements)) {
-            foreach ($elements as $child) {
-                $class = $child->getAttribute('class');
-                if (strpos($class, 'wp-block-column') !== false && strpos($class, 'wp-block-columns') === false) {
-                    $child->setAttribute(
-                        'class',
-                        implode(
-                            ' ',
-                            [
-                                $gridClasses[$index],
-                                'o-grid-column-block',
-                                str_replace('wp-block-column', '', $class),
-                            ]
-                        )
-                    );
-                    $modifiedColumns[] = $child->c14n();
-                    $index++;
-                }
+        $index = 0;
+
+        foreach ($elements as $child) {
+            if (!($child instanceof \DOMElement)) {
+                continue;
             }
+
+            if ($index >= count($gridClasses)) {
+                break;
+            }
+
+            $class = $child->getAttribute('class');
+            $child->setAttribute(
+                'class',
+                implode(
+                    ' ',
+                    [
+                        $gridClasses[$index],
+                        'o-grid-column-block',
+                        str_replace('wp-block-column', '', $class),
+                    ]
+                )
+            );
+            $modifiedColumns[] = $child->C14N();
+            $index++;
         }
 
         return $modifiedColumns;
