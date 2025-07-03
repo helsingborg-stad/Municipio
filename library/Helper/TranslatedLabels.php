@@ -87,7 +87,7 @@ class TranslatedLabels
             'resetFacetting'         => __('Reset', 'municipio'),
             'password'               => __('Password', 'municipio'),
             'usernameOrEmailAddress' => __('Username or Email Address', 'municipio'),
-
+            'findOnPage'             => __('Find on page', 'municipio'),
         );
 
         return (object) array_merge($labels, $lang);

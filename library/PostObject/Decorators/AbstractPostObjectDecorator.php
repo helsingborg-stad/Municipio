@@ -59,6 +59,14 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     /**
      * @inheritDoc
      */
+    public function getContentHeadings(): array
+    {
+        return $this->postObject->getContentHeadings();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getPermalink(): string
     {
         return $this->postObject->getPermalink();
@@ -158,5 +166,25 @@ abstract class AbstractPostObjectDecorator implements PostObjectInterface
     public function getImage(?int $width = null, ?int $height = null): ?ImageInterface
     {
         return $this->postObject->getImage($width, $height);
+    }
+
+
+    /**
+     * Magic method caller.
+     *
+     * Delegate method calls to the underlying post object if the method doesn't exist on this class.
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments): mixed
+    {
+        if (method_exists($this->postObject, $name)) {
+            return $this->postObject->{$name}(...$arguments);
+        }
+
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+        throw new \BadMethodCallException("Method {$name} does not exist on " . static::class . " or its decorated objects");
     }
 }

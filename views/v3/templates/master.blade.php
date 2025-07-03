@@ -25,6 +25,9 @@
         </script>
     @endif
 
+    {{-- Styles. Use @push('styles') --}}
+    @stack('styles')
+
     {{-- Wordpress required call to wp_header() --}}
     {!! $wpHeader !!}
 

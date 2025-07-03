@@ -74,6 +74,23 @@ class BackwardsCompatiblePostObjectTest extends TestCase
         $this->assertNotEquals('http://example.com', @$result->permalink);
     }
 
+    /**
+     * @testdox delegates method calls to underlying post object
+     */
+    public function testDelegatesMethodCallsToUnderlyingPostObject()
+    {
+        // Create a mock that has a custom method
+        $postObject = $this->createMock(PostObjectInterface::class);
+
+        // Use reflection or direct mock configuration to add the method
+        $postObjectWithMethod = $this->createMock(PostObjectInterface::class);
+        $postObjectWithMethod->method('getContentHeadings')->willReturn(['heading1', 'heading2']);
+
+        $result = new BackwardsCompatiblePostObject($postObjectWithMethod, (object) []);
+
+        $this->assertEquals(['heading1', 'heading2'], $result->getContentHeadings());
+    }
+
     private function getPostObject(): PostObjectInterface|MockObject
     {
         return $this->createMock(PostObjectInterface::class);

@@ -61,6 +61,9 @@
 @stop
 
 @section('sidebar-right')
+
+@include('partials.navigation.toc')
+
 @if ($showSidebars)
     @if ($customizer->secondaryNavigationPosition == 'right')
         @if (!empty($secondaryMenu['items']))
