@@ -44,12 +44,10 @@ class Columns
 
         $gridClasses     = $this->createGridClassesArray($block['innerBlocks']);
 
-        if(isset($_GET['noblockcol'])) {
-           return $content;
-        }
-
-        $modifiedColumns = $this->processBlockColumns($content, $gridClasses);
-        return '<div class="o-grid">' . "\n" . implode("\n", $modifiedColumns) . "\n" . '</div>';
+        return '<div class="o-grid">' . "\n" . implode(
+            "\n", 
+            $this->processBlockColumns($content, $gridClasses) ?? []
+        ) . "\n" . '</div>';
     }
 
     /**
@@ -188,6 +186,6 @@ class Columns
             $stack[] = \Municipio\Helper\Html::createGridClass(4, 'lg');
         }
 
-        return implode(' ', $stack);
+        return implode(' ', array_unique($stack));
     }
 }
