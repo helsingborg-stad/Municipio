@@ -1,10 +1,10 @@
 .s-nav-toc {
-  .c-nav__item .c-nav__toggle {
-    visibility: hidden;
+  --c-nav-v-background-expanded: transparent;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &.c-nav .c-nav__item:not(.is-open) > .c-nav {
+    display: block !important;
+    padding-left: calc(var(--base, 8px) * 2);
   }
-  .c-nav__item:hover {
-    .c-nav__toggle {
-      visibility: visible ;
-    }
-  } 
 }

@@ -34,8 +34,7 @@
               'direction' => 'vertical',
               'context' => ['sidebar', 'municipio.sidebar', 'municipio.menu.toc'],
               'expandLabel' => $lang->expand,
-              'indentSubLevels' => true,
-              'includeToggle' => true
+              'indentSubLevels' => true
           ])
           @endnav
       </nav>

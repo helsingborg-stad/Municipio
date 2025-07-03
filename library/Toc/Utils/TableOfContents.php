@@ -17,7 +17,7 @@ use WpService\WpService;
 class TableOfContents
 {
     private const ANCHOR_PREFIX = 'toc-';
-    private const HEADING_SELECTOR = '/*/h2 | /*/h3 | /*/h4';
+    private const HEADING_SELECTOR = '/html/body/h2 | /html/body/h3 | /html/body/h4';
     private DOMDocument $domObject;
     private array $headings = [];
 
@@ -90,13 +90,14 @@ class TableOfContents
 
         $headings = [];
         foreach ($elements as $el) {
-            if (!$el instanceof DOMElement) {
-                continue;
-            }
 
             $text  = trim($el->textContent);
             $level = (int) substr($el->nodeName, 1);
             $slug  = self::generateSlug($text, $wpService);
+
+            if(empty($text) || empty($slug)) {
+                continue;
+            }
 
             $headings[] = compact('text', 'level', 'slug');
         }
