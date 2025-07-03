@@ -1,4 +1,4 @@
-@if (!empty($post->getContentHeadings()))
+@if (!empty($post) && !empty($post->getContentHeadings()))
     @card([
       'id' => 'table-of-contents', 
       'classList' => [
