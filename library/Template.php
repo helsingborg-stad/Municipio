@@ -51,7 +51,7 @@ class Template
         add_action('template_redirect', array($this, 'initCustomTemplates'), 10);
 
         // Initialize blade
-        add_action('template_redirect', array($this, 'initializeBlade'), 15);
+        add_action('template_redirect', array($this, 'initializeBlade'), 12);
 
         //Loads custom controllers and views
         add_action('template_redirect', array($this, 'addTemplateFilters'), 10);
@@ -466,6 +466,11 @@ class Template
      */
     public function renderView($view, $data = array())
     {
+        // Ensure blade engine is initialized before rendering
+        if ($this->bladeEngine === null) {
+            $this->initializeBlade();
+        }
+        
         try {
             $markup = $this->bladeEngine
                 ->makeView($view, array_merge($data, array('errorMessage' => false)), [], $this->viewPaths)
@@ -731,8 +736,13 @@ class Template
      */
     public function initializeBlade()
     {
+        // Prevent multiple initializations
+        if ($this->bladeEngine !== null) {
+            return;
+        }
+        
         $this->viewPaths   = $this->registerViewPaths();
-        $componentLibrary  = new Init([]);
+        $componentLibrary  = new Init($this->viewPaths);
         $this->bladeEngine = $componentLibrary->getEngine();
     }
 
