@@ -18,7 +18,6 @@ class SourceConfig implements SourceConfigInterface
      * @param string $automaticImportSchedule
      * @param string $schemaType
      * @param string $sourceType
-     * @param SourceTaxonomyConfigInterface[] $taxonomies
      * @param string $sourceJsonFilePath
      * @param string $sourceTypesenseApiKey
      * @param string $sourceTypesenseProtocol
@@ -31,7 +30,6 @@ class SourceConfig implements SourceConfigInterface
         private string $automaticImportSchedule,
         private string $schemaType,
         private string $sourceType,
-        private array $taxonomies,
         private string $sourceJsonFilePath,
         private string $sourceTypesenseApiKey,
         private string $sourceTypesenseProtocol,
@@ -72,14 +70,6 @@ class SourceConfig implements SourceConfigInterface
     public function getSourceType(): string
     {
         return $this->sourceType;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTaxonomies(): array
-    {
-        return $this->taxonomies;
     }
 
     /**

@@ -58,7 +58,7 @@ class SyncHandler implements Hookable
 
         // Cleanup only if a sync is triggered to trigger whole collection.
         if (is_null($postId)) {
-            $this->setupCleanup($sourceConfig, $postType);
+            $this->setupCleanup($postType);
         }
 
         // Apply filters before sync.
@@ -134,15 +134,13 @@ class SyncHandler implements Hookable
     /**
      * Sets up the cleanup process for the given source configuration and post type.
      *
-     * @param SourceConfigInterface $sourceConfig The source configuration to use for cleanup.
      * @param string $postType The post type to clean up.
      * @return void
      */
-    private function setupCleanup(SourceConfigInterface $sourceConfig, string $postType): void
+    private function setupCleanup(string $postType): void
     {
         (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
         (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
-        (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupTermsNoLongerInUse($sourceConfig, $this->wpService))->addHooks();
     }
 
     /**

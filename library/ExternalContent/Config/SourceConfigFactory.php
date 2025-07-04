@@ -19,7 +19,6 @@ class SourceConfigFactory
     private array $subFieldNames = [
         'post_type',
         'automatic_import_schedule',
-        'taxonomies',
         'source_type',
         'source_json_file_path',
         'source_typesense_api_key',
@@ -28,13 +27,6 @@ class SourceConfigFactory
         'source_typesense_port',
         'source_typesense_collection',
         'rules',
-    ];
-
-    private array $taxonomySubFieldNames = [
-        'from_schema_property',
-        'singular_name',
-        'name',
-        'hierarchical'
     ];
 
     private array $filterRulesSubFieldNames = [
@@ -83,7 +75,6 @@ class SourceConfigFactory
             $namedSettings['automatic_import_schedule'] ?? '',
             $schemaType,
             $namedSettings['source_type'] ?? '',
-            $this->getArrayOfSourceTaxonomyConfigs($schemaType, $namedSettings['taxonomies']),
             $namedSettings['source_json_file_path'] ?? '',
             $namedSettings['source_typesense_api_key'] ?? '',
             $namedSettings['source_typesense_protocol'] ?? '',
@@ -92,36 +83,6 @@ class SourceConfigFactory
             $namedSettings['source_typesense_collection'] ?? '',
             $this->getFilterDefinitionFromNamedSettings($namedSettings['rules']),
         );
-    }
-
-    /**
-     * Retrieves an array of source taxonomy configurations.
-     *
-     * @param array $taxonomies An array of taxonomies to get configurations for.
-     * @return array An array of source taxonomy configurations.
-     */
-    private function getArrayOfSourceTaxonomyConfigs(string $schemaType, array $taxonomies): array
-    {
-        if (empty($taxonomies)) {
-            return [];
-        }
-
-        $taxonomyConfigurations = array_map(function ($taxonomy) use ($schemaType) {
-
-            if (empty($taxonomy['from_schema_property']) || empty($taxonomy['name']) || empty($taxonomy['singular_name'])) {
-                return null;
-            }
-
-            return new SourceTaxonomyConfig(
-                $schemaType,
-                $taxonomy['from_schema_property'],
-                $taxonomy['name'],
-                $taxonomy['singular_name'],
-                in_array($taxonomy['hierarchical'], [1, true, '1', 'true'])
-            );
-        }, $taxonomies);
-
-        return array_filter($taxonomyConfigurations);
     }
 
     /**
@@ -155,9 +116,8 @@ class SourceConfigFactory
         }
 
         $options            = $this->fetchOptions($groupName, $nbrOfRows, $this->subFieldNames);
-        $taxonomyOptions    = $this->fetchTaxonomyOptions($groupName, $nbrOfRows, $options);
         $filterRulesOptions = $this->fetchFilterRulesOptions($groupName, $nbrOfRows, $options);
-        $settings           = array_merge($options, $taxonomyOptions, $filterRulesOptions);
+        $settings           = array_merge($options, $filterRulesOptions);
 
         return $this->buildNamedSettings($groupName, $nbrOfRows, $settings);
     }
@@ -194,37 +154,6 @@ class SourceConfigFactory
         }
 
         return $this->wpService->getOptions($optionNames);
-    }
-
-    /**
-     * Fetch taxonomy options from the database.
-     *
-     * @param string $groupName The group name.
-     * @param int $nbrOfRows The number of rows.
-     * @param array $options The options.
-     * @return array The fetched taxonomy options.
-     */
-    private function fetchTaxonomyOptions(string $groupName, int $nbrOfRows, array $options): array
-    {
-        $taxonomyOptionNames = [];
-
-        foreach (range(1, $nbrOfRows) as $row) {
-            $rowIndex          = $row - 1;
-            $nbrOfTaxonomyRows = intval($options["{$groupName}_{$rowIndex}_taxonomies"] ?? 0);
-
-            if ($nbrOfTaxonomyRows === 0) {
-                continue;
-            }
-
-            foreach (range(1, $nbrOfTaxonomyRows) as $taxonomyRow) {
-                $taxonomyRowIndex = $taxonomyRow - 1;
-                foreach ($this->taxonomySubFieldNames as $subFieldName) {
-                    $taxonomyOptionNames[] = "{$groupName}_{$rowIndex}_taxonomies_{$taxonomyRowIndex}_{$subFieldName}";
-                }
-            }
-        }
-
-        return $this->wpService->getOptions($taxonomyOptionNames);
     }
 
     /**
@@ -296,35 +225,9 @@ class SourceConfigFactory
             }
         }
 
-        $rowSettings['taxonomies'] = $this->buildTaxonomySettings($groupName, $rowIndex, $settings);
-        $rowSettings['rules']      = $this->buildFilterRulesSettings($groupName, $rowIndex, $settings);
+        $rowSettings['rules'] = $this->buildFilterRulesSettings($groupName, $rowIndex, $settings);
 
         return $rowSettings;
-    }
-
-    /**
-     * Build taxonomy settings.
-     *
-     * @param string $groupName The group name.
-     * @param int $rowIndex The row index.
-     * @param array $settings The settings.
-     * @return array The taxonomy settings.
-     */
-    private function buildTaxonomySettings(string $groupName, int $rowIndex, array $settings): array
-    {
-        $nbrOfTaxonomyRows = intval($settings["{$groupName}_{$rowIndex}_taxonomies"] ?? 0);
-        $taxonomies        = [];
-
-        if ($nbrOfTaxonomyRows === 0) {
-            return $taxonomies;
-        }
-
-        foreach (range(1, $nbrOfTaxonomyRows) as $taxonomyRow) {
-            $taxonomyRowIndex = $taxonomyRow - 1;
-            $taxonomies[]     = $this->buildSingleTaxonomy($groupName, $rowIndex, $taxonomyRowIndex, $settings);
-        }
-
-        return $taxonomies;
     }
 
     /**
@@ -350,29 +253,6 @@ class SourceConfigFactory
         }
 
         return $filterRules;
-    }
-
-    /**
-     * Build single taxonomy.
-     *
-     * @param string $groupName The group name.
-     * @param int $rowIndex The row index.
-     * @param int $taxonomyRowIndex The taxonomy row index.
-     * @param array $settings The settings.
-     * @return array The taxonomy.
-     */
-    private function buildSingleTaxonomy(string $groupName, int $rowIndex, int $taxonomyRowIndex, array $settings): array
-    {
-        $taxonomy = [];
-
-        foreach ($this->taxonomySubFieldNames as $subFieldName) {
-            $key = "{$groupName}_{$rowIndex}_taxonomies_{$taxonomyRowIndex}_{$subFieldName}";
-            if (isset($settings[$key])) {
-                $taxonomy[$subFieldName] = $settings[$key];
-            }
-        }
-
-        return $taxonomy;
     }
 
     /**

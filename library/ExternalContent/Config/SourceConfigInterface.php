@@ -28,13 +28,6 @@ interface SourceConfigInterface
     public function getAutomaticImportSchedule(): string;
 
     /**
-     * Get the taxonomies to import to
-     *
-     * @return \Municipio\ExternalContent\Config\SourceTaxonomyConfigInterface[]
-     */
-    public function getTaxonomies(): array;
-
-    /**
      * Get the source type
      *
      * @return string
