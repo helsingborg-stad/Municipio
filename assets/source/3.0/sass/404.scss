@@ -15,7 +15,7 @@
     color: #eee; 
     font-size: calc(100px + 20vw);
     content: '404'; 
-    z-index: $level-1;
+    z-index: -1;
     font-weight: bold;
     filter: blur(10px);
   }
