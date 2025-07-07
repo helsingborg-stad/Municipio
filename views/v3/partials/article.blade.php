@@ -47,6 +47,10 @@
         )
     )
 
+    <pre>
+        <?php print_r($post->getImage()); ?>
+    </pre>
+
     <!-- Featured image -->
     @if ($displayFeaturedImage && method_exists($post, 'getImage') && !empty($post->getImage()))
         @section('article.featuredimage.before')@show
