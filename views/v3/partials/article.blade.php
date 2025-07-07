@@ -54,7 +54,7 @@
                 'src' => $post->getImage(),
                 'caption' => $featuredImage['caption'],
                 'removeCaption' => !$displayFeaturedImageCaption,
-                'classList' => ['c-article__feature-image', 'u-box-shadow--1']
+                'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
             ])
             @endimage
         @section('article.featuredimage.after')@show
