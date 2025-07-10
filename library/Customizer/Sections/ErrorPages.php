@@ -13,7 +13,7 @@ class ErrorPages
             'settings' => 'error' . $type . '_heading',
             'label'    => esc_html__('Page heading', 'municipio'),
             'section'  => $sectionID,
-            'default'  => self::getDefaultHeading($type),
+            'default'  => '',
             'output'   => [
                 [
                     'type'      => 'controller',
@@ -26,7 +26,7 @@ class ErrorPages
             'settings' => 'error' . $type . '_description',
             'label'    => esc_html__('Description', 'municipio'),
             'section'  => $sectionID,
-            'default'  => self::getDefaultDescription($type),
+            'default'  => '',
             'output'   => [
                 [
                     'type'      => 'controller',
@@ -100,7 +100,7 @@ class ErrorPages
     {
         switch ($type) {
             case '404':
-                return esc_html__("The %s you are looking for is either moved or removed.", 'municipio');
+                return ucfirst(esc_html__("The %s you are looking for is either moved or removed.", 'municipio'));
             default:
                 return '';
         }
