@@ -43,7 +43,7 @@ class TocUtils implements TocUtilsInterface
 
         //Check if get field 'toc' is set to true
         $isEnabledOnPost = $this->acfService->getField('post_table_of_contents', $postObject->getId(), false) ?? false;
-        if ($isEnabledOnPost === false) {
+        if (empty($isEnabledOnPost)) {
             return false;
         }
 
