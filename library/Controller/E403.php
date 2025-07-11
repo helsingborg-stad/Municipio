@@ -129,7 +129,10 @@ class E403 extends \Municipio\Controller\BaseController
         $subheading = isset($this->data['customizer']->error403Description) && !empty($this->data['customizer']->error403Description)
             ? $this->data['customizer']->error403Description
             : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('403');
-        return $this->wpService->applyFilters('Municipio/403/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/403/Body', 
+            $this->wpService->__($subheading, 'municipio'),
+            ucfirst($this->getRequestedPostType())
+        );
     }
 
     /**
