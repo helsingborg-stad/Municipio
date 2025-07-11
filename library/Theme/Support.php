@@ -74,7 +74,30 @@ class Support
      */
     public function mimes($mimes)
     {
-        $mimes['svg'] = 'image/svg+xml';
+        $mimes['svg']  = 'image/svg+xml';
+        $mimes['dwg']  = 'image/vnd.dwg';
+        $mimes['dotx'] = 'application/vnd.openxmlformats-officedocument.wordprocessingml.template';
+        $mimes['docm'] = 'application/vnd.ms-word.document.macroEnabled.12';
+        $mimes['xlsm'] = 'application/vnd.ms-excel.sheet.macroEnabled.12';
+        $mimes['pptm'] = 'application/vnd.ms-powerpoint.presentation.macroEnabled.12';
+        $mimes['eps']  = 'application/postscript';
+        $mimes['psd']  = 'image/vnd.adobe.photoshop';
+        $mimes['ai']   = 'application/postscript';
+        $mimes['webp'] = 'image/webp';
+        $mimes['indd'] = 'application/x-indesign';
+        $mimes['idml'] = 'application/vnd.adobe.indesign-idml-package';
+        $mimes['otf']  = 'font/otf';
+        $mimes['ttf']  = 'font/ttf';
+        $mimes['woff'] = 'font/woff';
+        $mimes['woff2'] = 'font/woff2';
+        $mimes['json'] = 'application/json';
+        $mimes['ics']  = 'text/calendar';
+        $mimes['csv']  = 'text/csv';
+        $mimes['xml']  = 'application/xml';
+        $mimes['webm'] = 'video/webm';
+        $mimes['mp4']  = 'video/mp4';
+        $mimes['mp3']  = 'audio/mpeg';
+
         return $mimes;
     }
 
