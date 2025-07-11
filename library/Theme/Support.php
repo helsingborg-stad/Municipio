@@ -17,6 +17,7 @@ class Support
         add_action('init', array($this, 'removePostPostType'), 11);
 
         add_filter('upload_mimes', array($this, 'mimes'));
+        add_filter('wp_check_filetype_and_ext', [$this, 'allowMultipleDwgMimeTypes'], 10, 4);
 
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
@@ -99,6 +100,47 @@ class Support
         $mimes['mp3']  = 'audio/mpeg';
 
         return $mimes;
+    }
+
+    /**
+     * Allow multiple DWG mime types.
+     *
+     * @param array $data
+     * @param string $file
+     * @param string $filename
+     * @param array $mimes
+     * @return array
+     */
+    public function allowMultipleDwgMimeTypes($data, $file, $filename, $mimes)
+    {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        
+        if (strtolower($ext) === 'dwg') {
+            $allowedMimes = [
+                'image/vnd.dwg',
+                'application/acad',
+                'application/x-acad',
+                'application/autocad_dwg',
+                'image/x-dwg',
+                'application/dwg',
+                'application/x-dwg',
+                'application/x-autocad',
+                'drawing/dwg'
+            ];
+
+            // Get actual MIME type
+            $realMime = mime_content_type($file);
+
+            if (in_array($realMime, $allowedMimes, true)) {
+                return [
+                    'ext'  => 'dwg',
+                    'type' => 'image/vnd.dwg', // pick a consistent one for WP
+                    'proper_filename' => $filename,
+                ];
+            }
+        }
+
+        return $data;
     }
 
     /**
