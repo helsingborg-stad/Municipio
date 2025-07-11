@@ -18,6 +18,7 @@ class Support
 
         add_filter('upload_mimes', array($this, 'mimes'));
         add_filter('wp_check_filetype_and_ext', [$this, 'allowMultipleDwgMimeTypes'], 10, 4);
+        add_filter('wp_check_filetype_and_ext', [$this, 'allowMultipleDotxMimeTypes'], 10, 4);
 
         // Remove rest api links from head
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
@@ -100,6 +101,43 @@ class Support
         $mimes['mp3']  = 'audio/mpeg';
 
         return $mimes;
+    }
+
+    /**
+     * Allow multiple .dotx mime types.
+     *
+     * @param array $data
+     * @param string $file
+     * @param string $filename
+     * @param array $mimes
+     * @return array
+     */
+    public function allowMultipleDotxMimeTypes($data, $file, $filename, $mimes)
+    {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+        if (strtolower($ext) === 'dotx') {
+            $allowedMimes = [
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+                'application/octet-stream',
+                'application/zip',
+                'application/msword',
+                'application/x-dotx'
+            ];
+
+            $realMime = mime_content_type($file);
+
+            if (in_array($realMime, $allowedMimes, true)) {
+                return [
+                    'ext'  => 'dotx',
+                    'type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+                    'proper_filename' => $filename,
+                ];
+            }
+        }
+
+        return $data;
     }
 
     /**
