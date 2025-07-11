@@ -13,6 +13,7 @@ class Theme
             acf_add_options_sub_page(array(
                 'page_title'  => __('Theme Options', 'municipio'),
                 'menu_title'  => __('Theme Options', 'municipio'),
+                'menu_slug'   => 'acf-options-theme-options',
                 'parent_slug' => $themeOptionsParent,
                 'capability'  => $themeOptionsCapability,
                 'redirect'    => false,
