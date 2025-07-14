@@ -399,6 +399,21 @@ class App
             $this->acfService
         )
         )->enable();
+
+        /**
+         * Setup Accessibility Statement
+         */
+        $this->setupAccessibilityStatement();
+    }
+
+    /**
+     * Setup accessibility statement.
+     * @return void
+     */
+    public function setupAccessibilityStatement(): void
+    {
+        $accessibilityStatement = new \Municipio\AccessibilityStatement\AccessibilityStatement($this->wpService, $this->acfService);
+        $accessibilityStatement->addHooks();
     }
 
     /**
