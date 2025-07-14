@@ -412,7 +412,7 @@ class App
      */
     public function setupAccessibilityStatement(): void
     {
-        $accessibilityStatement = new \Municipio\AccessibilityStatement\AccessibilityStatement($this->wpService, $this->acfService);
+        $accessibilityStatement = new \Municipio\A11yStatement\A11yStatement($this->wpService, $this->acfService);
         $accessibilityStatement->addHooks();
     }
 
