@@ -24,15 +24,18 @@
       }
       
       &.open {
-        width: calc(100% - calc(var(--base, 8px) * 3.5));
+        width: calc(100% - (var(--base, 8px) * 1.6));
         opacity: 1;
 
         @media (min-width: 800px) {
+          width: calc(var(--base, 8px) * 40);
+        }
+
+        @media (min-width: 1000px) {
           width: calc(var(--base, 8px) * 50);
         }
 
         @media (max-width: 799px) {
-          width: calc(100% - (var(--base, 8px) * 1.6));
           right: calc(var(--base, 8px) * 0.8);
 
           #{$parent}__group {
@@ -55,6 +58,10 @@
         min-width: 0;
 
         @media (min-width: 800px) {
+          min-width: calc(var(--base, 8px) * 30);
+        }
+
+        @media (min-width: 1000px) {
           min-width: calc(var(--base, 8px) * 44);
         }
 
