@@ -27,9 +27,9 @@ class A11y extends \Municipio\Controller\BaseController
         protected SiteSwitcherInterface $siteSwitcher,
         protected User $userHelper
     ) {
-        $this->wpService->statusHeader(401);
+        $this->wpService->statusHeader(200);
 
-        $this->wpService->addFilter('wp_title', array($this, 'setup401Title'));
+        $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
 
         parent::__construct(
             $menuBuilder,
@@ -46,9 +46,9 @@ class A11y extends \Municipio\Controller\BaseController
      *
      * @return string
      */
-    public function setup401Title(): string
+    public function setupA11yTitle(): string
     {
-        return $this->wpService->applyFilters('Municipio/401/Title', 'Accessibility Statement - Municipio');
+        return $this->wpService->applyFilters('Municipio/A11y/Title', $this->getHeading());
     }
 
     /**
@@ -69,7 +69,12 @@ class A11y extends \Municipio\Controller\BaseController
         //Content
         $this->data['heading']    = $this->getHeading();
         $this->data['content']    = $this->getContent();
-       
+        $this->data['reviewDate'] = $this->getReviewDate();
+        $this->data['compliance'] = (object) [
+            'level'  => $this->complianceLevel(),
+            'label'  => $this->complianceLevelLabel(),
+            'color'  => $this->complianceLevelColor(),
+        ];
     }
 
     /**
@@ -80,7 +85,7 @@ class A11y extends \Municipio\Controller\BaseController
     {
         return $this->wpService->applyFilters(
             'Municipio/401/Heading',
-            $this->acfService->getField('heading', 'options-theme-404') ?: __('Accessibility Statement', 'municipio')
+            $this->acfService->getField('mun_a11ystatement_title', 'options') ?: __('Accessibility Statement', 'municipio')
         );
     }
 
@@ -90,12 +95,78 @@ class A11y extends \Municipio\Controller\BaseController
      */
     protected function getContent(): string
     {
-        $content = $this->acfService->getField('content', 'options-theme-404');
+        $content = $this->acfService->getField('mun_a11ystatement_preamble', 'options');
 
         if (empty($content)) {
-            $content = '<p>' . __('This is the accessibility statement for our website.', 'municipio') . '</p>';
+            $content = '<p>' . __('No accessability statement avabile.', 'municipio') . '</p>';
         }
 
         return $content;
+    }
+
+    /**
+     * Returns the review date
+     * @return  string
+     */
+    protected function getReviewDate(): string
+    {
+        $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
+
+        if (empty($reviewDate)) {
+            $reviewDate = __('No review date available.', 'municipio');
+        } else {
+            $reviewDate = date_i18n(get_option('date_format'), strtotime($reviewDate));
+        }
+
+        return $reviewDate;
+    }
+
+    /**
+     * Returns the compliance level
+     * @return  string
+     */
+    protected function complianceLevel(): string
+    {
+        return $this->acfService->getField('mun_a11ystatement_compliance_level', 'options');
+    }
+
+    /**
+     * Returns the compliance level label
+     * @return  string
+     */
+    protected function complianceLevelLabel(): string
+    {
+        $complianceLevel = $this->complianceLevel();
+
+        switch ($complianceLevel) {
+            case 'compliant':
+                return __('Compliant', 'municipio');
+            case 'partially_compliant':
+                return __('Partially compliant', 'municipio');
+            case 'non_compliant':
+                return __('Non compliant', 'municipio');
+            default:
+                return __('Unknown', 'municipio');
+        }
+    }
+
+    /**
+     * Returns the compliance level color
+     * @return  string
+     */
+    protected function complianceLevelColor(): string
+    {
+        $complianceLevel = $this->complianceLevel();
+
+        switch ($complianceLevel) {
+            case 'compliant':
+                return 'green';
+            case 'partially_compliant':
+                return 'yellow';
+            case 'non_compliant':
+                return 'red';
+            default:
+                return 'grey';
+        }
     }
 }

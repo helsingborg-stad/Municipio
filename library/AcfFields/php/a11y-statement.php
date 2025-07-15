@@ -8,7 +8,7 @@
         0 => array(
             'key' => 'field_687503c58663d',
             'label' => __('Title', 'municipio'),
-            'name' => 'min_a11ystatement_title',
+            'name' => 'mun_a11ystatement_title',
             'aria-label' => '',
             'type' => 'text',
             'instructions' => '',
@@ -28,7 +28,7 @@
         1 => array(
             'key' => 'field_6874ffb290ca3',
             'label' => __('Preamble', 'municipio'),
-            'name' => 'min_a11ystatement_preamble',
+            'name' => 'mun_a11ystatement_preamble',
             'aria-label' => '',
             'type' => 'wysiwyg',
             'instructions' => '',
@@ -48,7 +48,7 @@
         2 => array(
             'key' => 'field_68750436b56e0',
             'label' => __('Accessibility Compliance', 'municipio'),
-            'name' => 'min_a11ystatement_compliance_level',
+            'name' => 'mun_a11ystatement_compliance_level',
             'aria-label' => '',
             'type' => 'radio',
             'instructions' => '',
@@ -70,6 +70,24 @@
             'other_choice' => 0,
             'layout' => 'vertical',
             'save_other_choice' => 0,
+        ),
+        3 => array(
+            'key' => 'field_68761a4d09bb9',
+            'label' => __('Review Date', 'municipio'),
+            'name' => 'mun_a11ystatement_review_date',
+            'aria-label' => '',
+            'type' => 'date_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'display_format' => 'F j, Y',
+            'return_format' => 'F j, Y',
+            'first_day' => 1,
         ),
     ),
     'location' => array(
