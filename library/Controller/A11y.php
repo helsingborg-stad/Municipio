@@ -8,6 +8,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
+use Municipio\HooksRegistrar\Hookable;
 
 /**
  * 401 controller
@@ -28,8 +29,7 @@ class A11y extends \Municipio\Controller\BaseController
         protected User $userHelper
     ) {
         $this->wpService->statusHeader(200);
-
-        $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
+        $this->addHooks();
 
         parent::__construct(
             $menuBuilder,
@@ -39,6 +39,15 @@ class A11y extends \Municipio\Controller\BaseController
             $siteSwitcher,
             $userHelper
         );
+    }
+
+    /**
+     * Add hooks for the controller
+     */
+    public function addHooks()
+    {
+        $this->wpService->addFilter('wp_title', array($this, 'setupA11yTitle'));
+        $this->wpService->addFilter('Municipio/A11y/Content', array($this, 'filterA11yContentTemplateTags'));
     }
 
     /**
@@ -63,9 +72,6 @@ class A11y extends \Municipio\Controller\BaseController
         // Wrapper class
         $wrapperClasses = ['t-a11y'];
 
-        //Get local instance of wp_query
-        $this->globalToLocal('wp_query', 'query');
-
         //Content
         $this->data['heading']    = $this->getHeading();
         $this->data['content']    = $this->getContent();
@@ -74,7 +80,15 @@ class A11y extends \Municipio\Controller\BaseController
             'level'  => $this->complianceLevel(),
             'label'  => $this->complianceLevelLabel(),
             'color'  => $this->complianceLevelColor(),
+            'reference' => (object) [
+                'standard' => $this->acfService->getField('mun_a11ystatement_compliance_reference', 'options') ?: __('WCAG AA', 'municipio'),
+                'version'  => $this->acfService->getField('mun_a11ystatement_compliance_reference_version', 'options') ?: __('2.1', 'municipio'),
+            ],
         ];
+
+        // Build categories and issues
+        $this->data['categorizedIssues'] = $this->getKnownIssues();
+
     }
 
     /**
@@ -100,6 +114,8 @@ class A11y extends \Municipio\Controller\BaseController
         if (empty($content)) {
             $content = '<p>' . __('No accessability statement avabile.', 'municipio') . '</p>';
         }
+
+        $content = $this->wpService->applyFilters('Municipio/A11y/Content', $content);
 
         return $content;
     }
@@ -168,5 +184,109 @@ class A11y extends \Municipio\Controller\BaseController
             default:
                 return 'grey';
         }
+    }
+
+    /**
+     * Returns the template tags
+     * @return array
+     */
+    protected function getTemplateTags(): array
+    {
+        return [
+            'website_name' => $this->wpService->getBlogInfo('name'),
+            'website_domain' => function () {
+                $url    = $this->wpService->getBlogInfo('url');
+                $host   = parse_url($url, PHP_URL_HOST);
+                return $host ?: $url;
+            }
+        ];
+    }
+
+    /**
+     * Filter the content to replace template tags with their values.
+     * 
+     * Example usage: {{website_name}} will be replaced with the site name.
+     *
+     * @param string $content
+     * @return string
+     */
+    public function filterA11yContentTemplateTags(string $content): string
+    {
+        $templateTags = $this->getTemplateTags();
+        foreach ($templateTags as $key => $value) {
+            if (is_callable($value)) {
+                $value = $value();
+            }
+            $content = str_replace("{{{$key}}}", $value, $content);
+        }
+        return $content;
+    }
+
+    /**
+     * Get known issues from the ACF options, normalized by category.
+     * 
+     * @return array|null
+     */
+    private function getKnownIssues(?string $filterCategory = null): ?array
+    {
+        $rawIssues = $this->acfService->getField('mun_a11ystatement_known_issues', 'options');
+
+        if (empty($rawIssues) || !is_array($rawIssues)) {
+            return null;
+        }
+
+        $grouped = [];
+
+        foreach ($rawIssues as $issue) {
+            $category = $issue['category'] ?? null;
+
+            if (is_array($category) && isset($category['value'], $category['label'])) {
+                $key = $category['value'];
+                $label = $category['label'];
+            } elseif (is_string($category)) {
+                $key = $label = $category;
+            } else {
+                $key = $label = 'uncategorized';
+            }
+
+            if (!isset($grouped[$key])) {
+                $grouped[$key] = [
+                    'key' => $key,
+                    'label' => $label,
+                    'icon' => $this->getIconForCategory($key),
+                    'issues' => [],
+                ];
+            }
+
+            $grouped[$key]['issues'][] = [
+                'label' => $issue['label'] ?? '',
+            ];
+        }
+
+        if ($filterCategory !== null) {
+            return isset($grouped[$filterCategory]) ? [$grouped[$filterCategory]] : [];
+        }
+
+        return array_values($grouped);
+    }
+
+    /**
+     * Get the icon for a given category key.
+     * 
+     * @param string $categoryKey
+     * @return string
+     */
+    private function getIconForCategory(string $categoryKey): string
+    {
+        // Map category keys to icons
+        $icons = [
+            'vision' => 'visibility_off',
+            'color' => 'format_paint',
+            'mobility' => 'pan_tool_alt',
+            'hearing' => 'hearing',
+            'cognitive' => 'psychology',
+        ];
+
+        return $icons[$categoryKey] ?? 'accessibility_new';
     }
 }

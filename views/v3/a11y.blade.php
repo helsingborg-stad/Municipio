@@ -21,23 +21,40 @@
         {!! $content !!}
 
         @element(['classList' => 'u-display--flex u-flex--row u-align-items--center'])
-        
-            @if (!empty($reviewDate))
-                @paper(['padding' => 1])
-                    <strong>{{ __('Review date:', 'municipio') }}</strong> {{ $reviewDate }}
-                @endpaper
-            @endif
-
             @if($compliance)
                 @paper(['padding' => 1, 'classList' => ['u-margin__top--2']])
                     <strong>{{ __('Compliance level:', 'municipio') }}</strong> 
                     <span class="c-compliance-level c-compliance-level--{{ $compliance->color }}">
-                        {{ $compliance->label }}
+                        {{ $compliance->label }} with {{ $compliance->reference->standard }}, {{ $compliance->reference->version }}
                     </span>
                 @endpaper
             @endif
-
         @endelement 
+
+        @if (!empty($categorizedIssues) && is_array($categorizedIssues) && count($categorizedIssues) > 0)
+            @foreach($categorizedIssues as $key => $category)
+
+                @paper(['padding' => 2, 'classList' => ['u-margin__top--2']])
+                    @typography(['element' => 'h4', 'variant' => 'h4'])
+                        @icon(['icon' => $category['icon'] ?? ''])@endicon
+                        {{ $category['label'] }}
+                    @endtypography
+                    @element(['classList' => 'u-margin__top--2'])
+                        <ul>
+                            @foreach ($category['issues'] as $issue)
+                                <li>{{ $issue['label'] }}</li>
+                            @endforeach
+                        </ul>
+                    @endelement
+                @endpaper
+            @endforeach
+        @endif
+
+         @if (!empty($reviewDate))
+            @typography(['element' => 'p', 'variant' => 'meta'])
+                <strong>{{ __('Review date:', 'municipio') }}</strong> {{ $reviewDate }}
+            @endtypography
+        @endif
 
     @endelement
 @stop
