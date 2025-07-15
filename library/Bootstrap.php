@@ -138,6 +138,7 @@ add_action('init', function () use ($wpService) {
         'post-status-conditional'                    => 'group_671241997f07d',
         'common-field-groups'                        => 'group_678e65a73edb3',
         'global-notices'                             => 'group_6798e1aebe3c6',
+        'a11y-statement'                             => 'group_6874ffb12b42d',
     ));
 
     $acfExportManager->autoExport($autoExportIds);

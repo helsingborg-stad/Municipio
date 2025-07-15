@@ -1,0 +1,249 @@
+[{
+    "key": "group_6874ffb12b42d",
+    "title": "Accessibility Statement",
+    "fields": [
+        {
+            "key": "field_687503c58663d",
+            "label": "Title",
+            "name": "mun_a11ystatement_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6874ffb290ca3",
+            "label": "Content",
+            "name": "mun_a11ystatement_preamble",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Use {{website_name}} to display the currentwebsites name. Use {{website_domain}} to display the current websites domain.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_68750436b56e0",
+            "label": "Accessibility Compliance",
+            "name": "mun_a11ystatement_compliance_level",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "compliant": "Compliant",
+                "partially_compliant": "Partially Compliant",
+                "not_compliant": "Not compliant"
+            },
+            "default_value": "not_compliant",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_68762ea6a1c68",
+            "label": "Accessibility Reference",
+            "name": "mun_a11ystatement_compliance_reference",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "wcaga": "WCAG A",
+                "wcagaa": "WCAG AA",
+                "wcagaaa": "WCAG AAA"
+            },
+            "default_value": "wcagaa",
+            "return_format": "label",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_68762f33be425",
+            "label": "Accessibility Reference Version",
+            "name": "mun_a11ystatement_compliance_reference_version",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1.0": "1.0 (1999)",
+                "2.0": "2.0 (2008)",
+                "2.1": "2.1 (2018)",
+                "2.2": "2.2 (2023)",
+                "3.0": "3.0 (Unreleased)"
+            },
+            "default_value": "2.1",
+            "return_format": "label",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_68761a4d09bb9",
+            "label": "Review Date",
+            "name": "mun_a11ystatement_review_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "F j, Y",
+            "return_format": "F j, Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_68763f7edab51",
+            "label": "Known Issues",
+            "name": "mun_a11ystatement_known_issues",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add all known issues on this website.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "acfe_repeater_stylised_button": 1,
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add known issue",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_68763ffc75441",
+                    "label": "Label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_68763f7edab51"
+                },
+                {
+                    "key": "field_6876400775442",
+                    "label": "category",
+                    "name": "category",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "vision": "Low Vision or Blindness",
+                        "color": "Color Vision Deficiency",
+                        "mobility": "Mobility Impairment",
+                        "motor": "Fine Motor or Strength Impairment",
+                        "hearing": "Hearing Loss or Deafness",
+                        "cognitive": "Cognitive or Learning Impairment"
+                    },
+                    "default_value": false,
+                    "return_format": "array",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "allow_custom": 0,
+                    "search_placeholder": "",
+                    "parent_repeater": "field_68763f7edab51"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "a11ystatement"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
