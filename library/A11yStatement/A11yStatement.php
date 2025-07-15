@@ -14,7 +14,7 @@ class A11yStatement implements Hookable
 
     public function addHooks(): void
     {
-        $this->wpService->addAction('admin_menu', [$this, 'registerOptionsPage']);
+        $this->wpService->addAction('init', [$this, 'registerOptionsPage']);
         $this->wpService->addAction('init', [$this, 'registerFrontendPage']);
     }
 
@@ -29,7 +29,7 @@ class A11yStatement implements Hookable
             'page_title'      => __('Accessibility Statement', 'municipio'),
             'menu_title'      => __('Accessibility Statement', 'municipio'),
             'menu_slug'       => 'a11ystatement',
-            'capability'      => 'manage_options',
+            'capability'      => 'edit_posts',
             'redirect'        => true,
             'update_button'   => __('Update', 'municipio'),
             'updated_message' => __('The accessibility statement has been updated.', 'municipio'),
@@ -54,21 +54,36 @@ class A11yStatement implements Hookable
      */
     public function registerFrontendPage() : void
     {
+        $slug = $this->getFrontendPageSlug();
+
+        // Add rewrite rule
         $this->wpService->addRewriteRule(
-            $this->getFrontendPageSlug(),
-            'index.php?pagename=' . $this->getFrontendPageSlug(),
+            '^' . $slug . '/?$',
+            'index.php?a11y_statement=1',
             'top'
         );
 
+        // Register query var
         $this->wpService->addFilter('query_vars', function ($vars) {
             $vars[] = 'a11y_statement';
             return $vars;
         });
 
-        $this->wpService->addAction('template_redirect', function () {
+        // Use template_include to render a real template
+        $this->wpService->addFilter('template_include', function ($template) {
             if (get_query_var('a11y_statement')) {
-                include get_template_directory() . '/templates/a11y-statement.php';
-                exit;
+                return 'a11y';
+            }
+            return $template;
+        });
+
+        // Auto-flush rewrite rules if our custom rule isn't present
+        $this->wpService->addAction('wp_loaded', function () use ($slug) {
+            $rules = get_option('rewrite_rules');
+            $expectedRule = '^' . $slug . '/?$';
+
+            if (!isset($rules[$expectedRule])) {
+                flush_rewrite_rules();
             }
         });
     }

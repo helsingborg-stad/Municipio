@@ -3,9 +3,9 @@
     "title": "Accessibility Statement",
     "fields": [
         {
-            "key": "field_6874ffb290ca3",
-            "label": "",
-            "name": "",
+            "key": "field_687503c58663d",
+            "label": "Title",
+            "name": "min_a11ystatement_title",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -21,6 +21,52 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_6874ffb290ca3",
+            "label": "Preamble",
+            "name": "min_a11ystatement_preamble",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_68750436b56e0",
+            "label": "Accessibility Compliance",
+            "name": "min_a11ystatement_compliance_level",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "compliant": "Compliant",
+                "partially_compliant": "Partially Compliant",
+                "not_compliant": "Not compliant"
+            },
+            "default_value": "not_compliant",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
         }
     ],
     "location": [
@@ -28,7 +74,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "global-notices"
+                "value": "a11ystatement"
             }
         ]
     ],

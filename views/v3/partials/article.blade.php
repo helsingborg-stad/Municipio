@@ -13,7 +13,7 @@
     <!-- Title -->
     @section('article.title.before')@show
     @section('article.title')
-        @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
+        @if ((is_object($post) && method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
             @group([
                 'justifyContent' => 'space-between'
             ])
@@ -78,7 +78,7 @@
         @endnotice
     @endif
     @section('article.content')
-        {!! method_exists($post, 'getContent') ? $post->getContent() : $post->post_content !!}
+        {!! is_object($post) && method_exists($post, 'getContent') ? $post->getContent() : $post->post_content !!}
     @show
     @section('article.content.after')@show
 
