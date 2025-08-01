@@ -405,7 +405,11 @@ class BaseController
 
             add_filter('ComponentLibrary/Component/Lang', function ($obj) {
                 $lang = [
-                    'visit' => __('Visit', 'municipio'),
+                    'visit'  => __('Visit', 'municipio'),
+                    'videos' => __('Videos', 'municipio'),
+                    'audios' => __('Audios', 'municipio'),
+                    'images' => __('Images', 'municipio'),
+                    'allowedFiles' => __('Allowed files', 'municipio'),
                 ];
 
                 return (object) array_merge((array) $obj, $lang);
