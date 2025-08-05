@@ -1,0 +1,32 @@
+<?php
+
+namespace Municipio\Upgrade\Version;
+
+class V29 implements \Municipio\Upgrade\VersionInterface
+{
+    /**
+     * @inheritDoc
+     */
+    public function upgradeToVersion(): void
+    {
+        $args = [
+            'posts_per_page' => -1,
+            'meta_key'       => 'location',
+            'post_type'      => 'any',
+            'post_status'    => 'publish'
+        ];
+
+        $posts = get_posts($args);
+        if (!empty($posts) && is_array($posts)) {
+            foreach ($posts as $post) {
+                $schemaField = get_field('schema', $post->ID) ?? [];
+                if (is_array($schemaField)) {
+                    $locationField      = get_post_meta($post->ID, 'location', true);
+                    $schemaField['geo'] = !empty($schemaField['geo']) ? $schemaField['geo'] : $locationField;
+
+                    update_field('schema', $schemaField, $post->ID);
+                }
+            }
+        }
+    }
+}
