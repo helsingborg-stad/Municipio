@@ -80,7 +80,8 @@ class App
         /**
          * Upgrade
          */
-        new \Municipio\Upgrade($this->wpService, $this->acfService);
+        $upgradeInstance = new \Municipio\Upgrade($this->wpService, $this->acfService);
+        new WpCli($upgradeInstance, $this->wpService);
 
 
         /**
