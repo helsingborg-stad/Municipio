@@ -2,9 +2,11 @@
 
 namespace Municipio\Upgrade\Version;
 
+use WpService\WpService;
+
 class V26 implements \Municipio\Upgrade\VersionInterface
 {
-    public function __construct(private \wpdb $db)
+    public function __construct(private \wpdb $db, private WpService $wpService)
     {
         // Initialization code if needed
     }

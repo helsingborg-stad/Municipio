@@ -4,7 +4,7 @@ namespace Municipio\Upgrade\Version;
 
 use WpService\WpService;
 
-class V21 implements \Municipio\Upgrade\VersionInterface
+class V34 implements \Municipio\Upgrade\VersionInterface
 {
     public function __construct(private \wpdb $db, private WpService $wpService)
     {
@@ -16,10 +16,9 @@ class V21 implements \Municipio\Upgrade\VersionInterface
      */
     public function upgradeToVersion(): void
     {
-        if ($logotype = get_option('options_footer_logotype')) {
-            set_theme_mod('footer_logotype', $logotype);
+        $header = get_theme_mod('header_apperance');
+        if ($header == 'casual') {
+            set_theme_mod('header_width', 'wide');
         }
-
-        delete_option('options_footer_logotype');
     }
 }
