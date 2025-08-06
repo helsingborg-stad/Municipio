@@ -6,6 +6,11 @@ use Municipio\Upgrade\Version\Helper\MigrateThemeMod;
 
 class V25 implements \Municipio\Upgrade\VersionInterface
 {
+    public function __construct(private \wpdb $db)
+    {
+        // Initialization code if needed
+    }
+
     /**
      * @inheritDoc
      */

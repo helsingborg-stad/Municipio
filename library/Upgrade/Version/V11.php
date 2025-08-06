@@ -6,6 +6,11 @@ use Municipio\Upgrade\Version\Helper\DeleteThemeMod;
 
 class V11 implements \Municipio\Upgrade\VersionInterface
 {
+    public function __construct(private \wpdb $db)
+    {
+        // Initialization code if needed
+    }
+
     /**
      * @inheritDoc
      */

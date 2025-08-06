@@ -7,6 +7,11 @@ use Municipio\Upgrade\Version\Helper\MigrateAcfOptionToThemeMod;
 
 class V22 implements \Municipio\Upgrade\VersionInterface
 {
+    public function __construct(private \wpdb $db)
+    {
+        // Initialization code if needed
+    }
+
     /**
      * @inheritDoc
      */

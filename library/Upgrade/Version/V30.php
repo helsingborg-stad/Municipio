@@ -4,6 +4,11 @@ namespace Municipio\Upgrade\Version;
 
 class V30 implements \Municipio\Upgrade\VersionInterface
 {
+    public function __construct(private \wpdb $db)
+    {
+        // Initialization code if needed
+    }
+
     /**
      * @inheritDoc
      */
