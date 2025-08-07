@@ -23,10 +23,17 @@
         @element(['classList' => 'u-display--flex u-flex--row u-align-items--center'])
             @if($compliance)
                 @paper(['padding' => 1, 'classList' => ['u-margin__top--2']])
-                    <strong>{{ __('Compliance level:', 'municipio') }}</strong> 
-                    <span class="c-compliance-level c-compliance-level--{{ $compliance->color }}">
-                        {{ $compliance->label }} with {{ $compliance->reference->standard }}, {{ $compliance->reference->version }}
-                    </span>
+                    @element([
+                        'componentElement' => 'strong',
+                    ])
+                        {{ $lang->complianceLevel }}:
+                    @endelement
+                    @element([
+                        'componentElement' => 'span',
+                        'classList' => [$compliance->color],
+                    ])
+                        {{ $compliance->label }} {{ $lang->with }} {{ $compliance->reference->standard }}, {{ $compliance->reference->version }}
+                    @endelement
                 @endpaper
             @endif
         @endelement 
@@ -52,7 +59,10 @@
 
          @if (!empty($reviewDate))
             @typography(['element' => 'p', 'variant' => 'meta'])
-                <strong>{{ __('Review date:', 'municipio') }}</strong> {{ $reviewDate }}
+                @element(['componentElement' => 'strong'])
+                    {{ $lang->reviewDate }}: 
+                @endelement
+                {{ $reviewDate }}
             @endtypography
         @endif
 
