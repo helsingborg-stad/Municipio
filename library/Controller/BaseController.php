@@ -410,6 +410,7 @@ class BaseController
                     'audios' => __('Audios', 'municipio'),
                     'images' => __('Images', 'municipio'),
                     'allowedFiles' => __('Allowed files', 'municipio'),
+                    'maximumSize' => __('Maximum size', 'municipio'),
                     'followingFilesCouldNotBeUploaded' => __('Following files could not be uploaded', 'municipio')
                 ];
 
