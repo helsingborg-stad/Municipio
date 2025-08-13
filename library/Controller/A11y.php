@@ -12,7 +12,7 @@ use Municipio\Helper\User\User;
 /**
  * 401 controller
  */
-class A11y extends \Municipio\Controller\BaseController
+class A11y extends \Municipio\Controller\Singular
 {
     public $query;
     public $view = 'a11y';
@@ -69,19 +69,19 @@ class A11y extends \Municipio\Controller\BaseController
 
         parent::init();
 
-        // Wrapper class
-        $wrapperClasses = ['t-a11y'];
-
         // Language
         $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
-            [
-                'complianceLevel'                   => __('Accessibility Compliance', 'municipio'),
-                'complaint'                         => __('Compliant', 'municipio'),
-                'partiallyComplaint'                => __('Partially compliant', 'municipio'),
-                'notCompliant'                      => __('Not compliant', 'municipio'),
-                'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
-                'reviewDate'                        => __('Last reviewed', 'municipio'),
-            ]
+            array_merge(
+                [
+                    'complianceLevel'                   => __('Accessibility Compliance', 'municipio'),
+                    'complaint'                         => __('Compliant', 'municipio'),
+                    'partiallyComplaint'                => __('Partially compliant', 'municipio'),
+                    'notCompliant'                      => __('Not compliant', 'municipio'),
+                    'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
+                    'reviewDate'                        => __('Last reviewed', 'municipio'),
+                ],
+                (array) $this->data['lang'] ?? []
+            )
         );
 
         //Content
@@ -299,13 +299,13 @@ class A11y extends \Municipio\Controller\BaseController
 
         switch ($complianceLevel) {
             case 'compliant':
-                return $this->data['lang']->complaint;
+                return $this->data['lang']->complaint ?? '';
             case 'partially_compliant':
-                return $this->data['lang']->partiallyComplaint;
+                return $this->data['lang']->partiallyComplaint ?? '';
             case 'not_compliant':
-                return $this->data['lang']->notCompliant;
+                return $this->data['lang']->notCompliant ?? '';
             default:
-                return $this->data['lang']->unknown;
+                return $this->data['lang']->unknown ?? '';
         }
     }
 
