@@ -1,0 +1,50 @@
+[{
+    "key": "group_689c4def19f8e",
+    "title": "Accessibility Statement Url",
+    "fields": [
+        {
+            "key": "field_689c4df0b4e2e",
+            "label": "View Accessability Statement",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<a href=\"https:\/\/dev.local.municipio.tech\/accessibility-statement\" target=\"_blank\" class=\"button button-secondary button-large\">View Accessibility Statement<\/a>",
+            "new_lines": "",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "a11ystatement"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": ""
+}]
+
