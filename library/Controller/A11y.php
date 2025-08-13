@@ -8,7 +8,6 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
-use Municipio\HooksRegistrar\Hookable;
 
 /**
  * 401 controller
@@ -16,6 +15,7 @@ use Municipio\HooksRegistrar\Hookable;
 class A11y extends \Municipio\Controller\BaseController
 {
     public $query;
+    public $view = 'a11y';
 
     /**
      * Constructor
@@ -76,13 +76,24 @@ class A11y extends \Municipio\Controller\BaseController
         $this->data['heading']    = $this->getHeading();
         $this->data['content']    = $this->getContent();
         $this->data['reviewDate'] = $this->getReviewDate();
+        $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
+            [
+                'complianceLevel'                   => __('Compliance Level', 'municipio'),
+                'complaint'                         => __('Compliant', 'municipio'),
+                'partiallyComplaint'                => __('Partially Compliant', 'municipio'),
+                'notCompliant'                      => __('Not Compliant', 'municipio'),
+                'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
+                'reviewDate'                        => __('Review Date', 'municipio'),
+            ]
+        );
+        
         $this->data['compliance'] = (object) [
             'level'  => $this->complianceLevel(),
             'label'  => $this->complianceLevelLabel(),
-            'color'  => $this->complianceLevelColor(),
+            'color'  => $this->complianceLevelColorClass(),
             'reference' => (object) [
-                'standard' => $this->acfService->getField('mun_a11ystatement_compliance_reference', 'options') ?: __('WCAG AA', 'municipio'),
-                'version'  => $this->acfService->getField('mun_a11ystatement_compliance_reference_version', 'options') ?: __('2.1', 'municipio'),
+                'standard' => $this->acfService->getField('mun_a11ystatement_compliance_reference', 'options') ?: 'WCAG AA',
+                'version'  => $this->acfService->getField('mun_a11ystatement_compliance_reference_version', 'options') ?: '2.1',
             ],
         ];
 
@@ -112,7 +123,7 @@ class A11y extends \Municipio\Controller\BaseController
         $content = $this->acfService->getField('mun_a11ystatement_preamble', 'options');
 
         if (empty($content)) {
-            $content = '<p>' . __('No accessability statement avabile.', 'municipio') . '</p>';
+            $content = '<p>' . $this->data['lang']->noAccessibilityStatementAvailable . '.' . '</p>';
         }
 
         $content = $this->wpService->applyFilters('Municipio/A11y/Content', $content);
@@ -156,13 +167,13 @@ class A11y extends \Municipio\Controller\BaseController
 
         switch ($complianceLevel) {
             case 'compliant':
-                return __('Compliant', 'municipio');
+                return $this->data['lang']->complaint;
             case 'partially_compliant':
-                return __('Partially compliant', 'municipio');
-            case 'non_compliant':
-                return __('Non compliant', 'municipio');
+                return $this->data['lang']->partiallyComplaint;
+            case 'not_compliant':
+                return $this->data['lang']->notCompliant;
             default:
-                return __('Unknown', 'municipio');
+                return $this->data['lang']->unknown;
         }
     }
 
@@ -170,19 +181,19 @@ class A11y extends \Municipio\Controller\BaseController
      * Returns the compliance level color
      * @return  string
      */
-    protected function complianceLevelColor(): string
+    protected function complianceLevelColorClass(): string
     {
         $complianceLevel = $this->complianceLevel();
 
         switch ($complianceLevel) {
             case 'compliant':
-                return 'green';
+                return 'u-color__text--success';
             case 'partially_compliant':
-                return 'yellow';
-            case 'non_compliant':
-                return 'red';
+                return 'u-color__text--warning';
+            case 'not_compliant':
+                return 'u-color__text--danger';
             default:
-                return 'grey';
+                return 'u-color__text--dark';
         }
     }
 
