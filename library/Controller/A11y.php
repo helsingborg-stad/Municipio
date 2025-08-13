@@ -72,25 +72,37 @@ class A11y extends \Municipio\Controller\BaseController
         // Wrapper class
         $wrapperClasses = ['t-a11y'];
 
+        // Language
+        $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
+            [
+                'complianceLevel'                   => __('Accessibility Compliance', 'municipio'),
+                'complaint'                         => __('Compliant', 'municipio'),
+                'partiallyComplaint'                => __('Partially compliant', 'municipio'),
+                'notCompliant'                      => __('Not compliant', 'municipio'),
+                'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
+                'reviewDate'                        => __('Last reviewed', 'municipio'),
+            ]
+        );
+
         //Content
         $this->data['heading']    = $this->getHeading();
         $this->data['content']    = $this->getContent();
-        $this->data['reviewDate'] = $this->getReviewDate();
-        $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
-            [
-                'complianceLevel'                   => __('Compliance Level', 'municipio'),
-                'complaint'                         => __('Compliant', 'municipio'),
-                'partiallyComplaint'                => __('Partially Compliant', 'municipio'),
-                'notCompliant'                      => __('Not Compliant', 'municipio'),
-                'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
-                'reviewDate'                        => __('Review Date', 'municipio'),
-            ]
-        );
+
+        // Review
+        $this->data['review'] = (object) [
+            'date'   => $this->getReviewDate(),
+            'status' => $this->getReviewStatus(),
+            'icon'   => $this->getReviewStatusIcon(),
+            'label'  => $this->getReviewStatusLabel(),
+            'class'  => $this->getReviewStatusClassList(),
+        ];
         
+        // Compliance
         $this->data['compliance'] = (object) [
-            'level'  => $this->complianceLevel(),
-            'label'  => $this->complianceLevelLabel(),
-            'color'  => $this->complianceLevelColorClass(),
+            'level'  => $this->getComplianceLevel(),
+            'label'  => $this->getComplianceLevelLabel(),
+            'icon'   => $this->getComplianceLevelIcon(),
+            'class'  => $this->getComplianceLevelClassList(),
             'reference' => (object) [
                 'standard' => $this->acfService->getField('mun_a11ystatement_compliance_reference', 'options') ?: 'WCAG AA',
                 'version'  => $this->acfService->getField('mun_a11ystatement_compliance_reference_version', 'options') ?: '2.1',
@@ -100,6 +112,121 @@ class A11y extends \Municipio\Controller\BaseController
         // Build categories and issues
         $this->data['categorizedIssues'] = $this->getKnownIssues();
 
+    }
+
+    /**
+     * Get the review date from ACF options.
+     * Returns the date formatted according to the site's date format setting.
+     * Returns null if no review date is set.
+     */
+    private function getReviewDate(): ?string
+    {
+        $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
+
+        if (empty($reviewDate)) {
+            return null;
+        }
+
+        return date_i18n(get_option('date_format'), strtotime($reviewDate));
+    }
+
+    /* 
+    * Get the review status, a review should be done at least once a year 
+    * Returns one of the following:
+    * - ok:             recently reviewed
+    * - near_deadline:  review should be done within 3 months
+    * - overdue:        review is overdue
+    */
+    private function getReviewStatus(): string
+    {
+        $reviewDate = $this->getReviewDate();
+        $reviewTimestamp        = strtotime($reviewDate);
+        $currentTimestamp       = time();
+        $oneYearInSeconds       = YEAR_IN_SECONDS;
+        $threeMonthsInSeconds   = MONTH_IN_SECONDS * 3; 
+
+        if ($reviewTimestamp > $currentTimestamp - $oneYearInSeconds) {
+            return 'ok';
+        } elseif ($reviewTimestamp > $currentTimestamp - $oneYearInSeconds - $threeMonthsInSeconds) {
+            return 'near_deadline';
+        }
+        
+        return 'overdue';
+    }
+
+    /**
+     * Get the icon for the review status.
+     * Returns an icon class based on the review status.
+     * 
+     * @return string
+     */
+    private function getReviewStatusIcon(): string
+    {
+        $status = $this->getReviewStatus();
+
+        switch ($status) {
+            case 'ok':
+                return 'check_circle';
+            case 'near_deadline':
+                return 'warning';
+            case 'overdue':
+                return 'error';
+            default:
+                return 'help';
+        }
+    }
+
+    /**
+     * Get the review status label.
+     * Returns a translated label based on the review status.
+     * 
+     * @return string
+     */
+    private function getReviewStatusLabel(): string
+    {
+        $status = $this->getReviewStatus();
+
+        switch ($status) {
+            case 'ok':
+                return __('Recently reviewed', 'municipio');
+            case 'near_deadline':
+                return __('Review due soon', 'municipio');
+            case 'overdue':
+                return __('Review overdue', 'municipio');
+            default:
+                return __('Unknown review status', 'municipio');
+        }
+    }
+
+    /**
+     * Get the class list for the review status.
+     * Returns an array of classes based on the review status.
+     * 
+     * @return array
+     */
+    private function getReviewStatusClassList(): array
+    {
+        $status = $this->getReviewStatus();
+
+        switch ($status) {
+            case 'ok':
+                $reviewStatusClassList = ['u-color__bg--success', 'u-color__text--darkest'];
+                break;
+            case 'near_deadline':
+                $reviewStatusClassList = ['u-color__bg--warning', 'u-color__text--darkest'];
+                break;
+            case 'overdue':
+                $reviewStatusClassList = ['u-color__bg--danger', 'u-color__text--darkest'];
+                break;
+            default:
+                $reviewStatusClassList = ['u-color__bg--dark', 'u-color__text--lightest'];
+        }
+
+        return array_merge(
+            ['t-a11y-pill'],
+            $reviewStatusClassList,
+            [$status]
+        );
     }
 
     /**
@@ -131,39 +258,44 @@ class A11y extends \Municipio\Controller\BaseController
         return $content;
     }
 
-    /**
-     * Returns the review date
-     * @return  string
-     */
-    protected function getReviewDate(): string
-    {
-        $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
-
-        if (empty($reviewDate)) {
-            $reviewDate = __('No review date available.', 'municipio');
-        } else {
-            $reviewDate = date_i18n(get_option('date_format'), strtotime($reviewDate));
-        }
-
-        return $reviewDate;
-    }
+    
 
     /**
      * Returns the compliance level
      * @return  string
      */
-    protected function complianceLevel(): string
+    protected function getComplianceLevel(): string
     {
-        return $this->acfService->getField('mun_a11ystatement_compliance_level', 'options');
+        return $this->acfService->getField('mun_a11ystatement_compliance_level', 'options') ?: 'unknown';
+    }
+
+    /**
+     * Returns the compliance level icon
+     * @return  string
+     */
+    protected function getComplianceLevelIcon(): string
+    {
+        $complianceLevel = $this->getComplianceLevel();
+
+        switch ($complianceLevel) {
+            case 'compliant':
+                return 'accessible';
+            case 'partially_compliant':
+                return 'wheelchair_pickup';
+            case 'not_compliant':
+                return 'not_accessible';
+            default:
+                return 'help';
+        }
     }
 
     /**
      * Returns the compliance level label
      * @return  string
      */
-    protected function complianceLevelLabel(): string
+    protected function getComplianceLevelLabel(): string
     {
-        $complianceLevel = $this->complianceLevel();
+        $complianceLevel = $this->getComplianceLevel();
 
         switch ($complianceLevel) {
             case 'compliant':
@@ -178,23 +310,32 @@ class A11y extends \Municipio\Controller\BaseController
     }
 
     /**
-     * Returns the compliance level color
-     * @return  string
+     * Returns the compliance level classlist
+     * @return  array
      */
-    protected function complianceLevelColorClass(): string
+    protected function getComplianceLevelClassList(): array
     {
-        $complianceLevel = $this->complianceLevel();
+        $complianceLevel = $this->getComplianceLevel();
 
         switch ($complianceLevel) {
             case 'compliant':
-                return 'u-color__text--success';
+                $complianceLevelClassList = ['u-color__bg--success'];
+                break;
             case 'partially_compliant':
-                return 'u-color__text--warning';
+                $complianceLevelClassList = ['u-color__bg--warning'];
+                break;
             case 'not_compliant':
-                return 'u-color__text--danger';
+                $complianceLevelClassList = ['u-color__bg--danger'];
+                break;
             default:
-                return 'u-color__text--dark';
+                $complianceLevelClassList = ['u-color__bg--dark'];
         }
+
+        return array_merge(
+            ['u-color__text--darkest', 't-a11y-pill'],
+            $complianceLevelClassList,
+            [$complianceLevel]
+        );
     }
 
     /**

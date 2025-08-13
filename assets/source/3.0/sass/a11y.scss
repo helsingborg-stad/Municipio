@@ -1,3 +1,5 @@
+
+/* Accessibility warnings */
 body.user-can-upload_files {
   [data-a11y-error]:after {
     content: "[ ! ] " attr(data-a11y-error);
@@ -11,5 +13,33 @@ body.user-can-upload_files {
     border-radius: 3px;
     border: 1px solid #fff;
     line-height: 1.6em;
+  }
+}
+
+/* Accessability page styles */
+.t-a11y-page {
+  .t-a11y-pill {
+    cursor: help;
+    position: relative;
+    display: inline-block;
+    padding: calc(var(--base, 8px) / 4) calc(var(--base, 8px));
+    border-radius: var(--border-radius-md, 4px);
+    margin-right: 0.5em;
+    color: #fff;
+
+    &::before {
+      content: "";
+      @include cover();
+      background: rgba(#fff, 0.5);
+      z-index: $level-1;
+    }
+
+    span {
+      position: relative;
+      z-index: $level-2;
+      display: flex;
+      align-items: center;
+      gap: calc(var(--base, 8px) / 2);
+    }
   }
 }
