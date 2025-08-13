@@ -163,6 +163,9 @@ class Images
         $url          = self::sanitizeRequestUrl($image->getAttribute('src'));
         $attachmentId = attachment_url_to_postid($url);
 
+        $classes = $image->parentNode instanceof \DOMElement ? explode(' ', $image->parentNode->getAttribute('class') ?? []) : [];
+
+
         //Handle as know local image (in wp database)
         if (is_numeric($attachmentId) && !empty($attachmentId)) {
             //Width
@@ -181,7 +184,7 @@ class Images
                 $html = render_blade_view('partials.content.image', [
                     'src'              => $imageSrc[0],
                     'caption'          => $captionText,
-                    'classList'        => explode(' ', $image->getAttribute('class') ?? []),
+                    'classList'        => $classes,
                     'imgAttributeList' => [
                         'parsed' => true,
                     ],
@@ -201,7 +204,7 @@ class Images
                 'src'              => $url,
                 'alt'              => $altText,
                 'caption'          => $captionText,
-                'classList'        => explode(' ', $image->getAttribute('class') ?? []),
+                'classList'        => $classes,
                 'imgAttributeList' => [
                     'parsed' => true
                 ],
@@ -218,8 +221,7 @@ class Images
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
 
             if ($newNode instanceof \DOMElement) {
-                $target = $element->parentNode;
-                $target->parentNode->replaceChild($newNode, $target);
+                $element->parentNode->parentNode->replaceChild($newNode, $element->parentNode);
             }
         }
     }
