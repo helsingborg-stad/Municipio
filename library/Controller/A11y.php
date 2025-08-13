@@ -119,12 +119,16 @@ class A11y extends \Municipio\Controller\Singular
      * Returns the date formatted according to the site's date format setting.
      * Returns null if no review date is set.
      */
-    private function getReviewDate(): ?string
+    private function getReviewDate($readable = true): ?string
     {
         $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
 
         if (empty($reviewDate)) {
             return null;
+        }
+
+        if (!$readable) {
+            return strtotime($reviewDate);
         }
 
         return date_i18n(get_option('date_format'), strtotime($reviewDate));
@@ -139,20 +143,25 @@ class A11y extends \Municipio\Controller\Singular
     */
     private function getReviewStatus(): string
     {
-        $reviewDate = $this->getReviewDate();
-        $reviewTimestamp        = strtotime($reviewDate);
-        $currentTimestamp       = time();
-        $oneYearInSeconds       = YEAR_IN_SECONDS;
-        $threeMonthsInSeconds   = MONTH_IN_SECONDS * 3; 
+        $reviewTimestamp      = $this->getReviewDate(false);
+        $currentTimestamp     = strtotime('today midnight');
 
-        if ($reviewTimestamp > $currentTimestamp - $oneYearInSeconds) {
-            return 'ok';
-        } elseif ($reviewTimestamp > $currentTimestamp - $oneYearInSeconds - $threeMonthsInSeconds) {
+        $oneYearInSeconds     = YEAR_IN_SECONDS;
+        $threeMonthsInSeconds = MONTH_IN_SECONDS * 3;
+
+        $elapsedTime = $currentTimestamp - $reviewTimestamp;
+
+        if ($elapsedTime >= $oneYearInSeconds) {
+            return 'overdue';
+        }
+
+        if ($elapsedTime >= ($oneYearInSeconds - $threeMonthsInSeconds)) {
             return 'near_deadline';
         }
-        
-        return 'overdue';
+
+        return 'ok';
     }
+
 
     /**
      * Get the icon for the review status.
