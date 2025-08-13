@@ -25,6 +25,24 @@ class A11yStatement implements Hookable
         $this->wpService->addAction('init', [$this, 'registerOptionsPage']);
         $this->wpService->addAction('init', [$this, 'registerFrontendPage']);
         $this->wpService->addFilter('acf/load_field/key=field_689c4df0b4e2e', [$this, 'loadA11yStatementUrlField']);
+        $this->wpService->addAction('wp_head', [$this, 'addSchemaTag']);
+    }
+
+    /**
+     * Add schema tag for the accessibility statement.
+     *
+     * @return void
+     */
+    public function addSchemaTag(): void
+    {
+        $schemaData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'accessibilitySummary' => $this->getFullStatementUrl(),
+            'name' => $this->wpService->__('Accessibility Statement', 'municipio'),
+            'description' => $this->wpService->__('This is the accessibility statement for our website.', 'municipio'),
+        ];
+        echo '<script type="application/ld+json">' . json_encode($schemaData) . '</script>';
     }
 
     /**
@@ -54,11 +72,9 @@ class A11yStatement implements Hookable
      */
     public function loadA11yStatementUrlField(array $field): array
     {
-        $fullStatementUrl = $this->wpService->homeUrl() . '/' . $this->getFrontendPageSlug();
-
         $field['message'] = str_replace(
             '{{a11y_page_url}}',
-            $fullStatementUrl,
+            $this->getFullStatementUrl(),
             $field['message']
         );
 
@@ -113,5 +129,17 @@ class A11yStatement implements Hookable
                 $this->wpService->flushRewriteRules();
             }
         });
+    }
+
+    /**
+     * Get the full URL for the accessibility statement.
+     *
+     * @return string
+     */
+    private function getFullStatementUrl(): string
+    {
+        return $this->wpService->homeUrl(
+            $this->getFrontendPageSlug()
+        );
     }
 }
