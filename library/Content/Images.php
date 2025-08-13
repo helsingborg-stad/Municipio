@@ -217,8 +217,9 @@ class Images
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
 
-            if ($newNode instanceof \DOMElement && $element->parentNode instanceof \DOMElement) {
-                $element->parentNode->replaceChild($newNode, $element);
+            if ($newNode instanceof \DOMElement) {
+                $target = $element->parentNode;
+                $target->parentNode->replaceChild($newNode, $target);
             }
         }
     }
