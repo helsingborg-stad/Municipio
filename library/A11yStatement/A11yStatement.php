@@ -53,13 +53,13 @@ class A11yStatement implements Hookable
     public function registerOptionsPage(): void
     {
         $this->acfService->addOptionsPage([
-            'page_title'      => __('Accessibility Statement', 'municipio'),
-            'menu_title'      => __('Accessibility Statement', 'municipio'),
+            'page_title'      => $this->wpService->__('Accessibility Statement', 'municipio'),
+            'menu_title'      => $this->wpService->__('Accessibility Statement', 'municipio'),
             'menu_slug'       => 'a11ystatement',
             'capability'      => 'edit_posts',
             'redirect'        => true,
-            'update_button'   => __('Update', 'municipio'),
-            'updated_message' => __('The accessibility statement has been updated.', 'municipio'),
+            'update_button'   => $this->wpService->__('Update', 'municipio'),
+            'updated_message' => $this->wpService->__('The accessibility statement has been updated.', 'municipio'),
             'parent_slug'     => 'options-general.php',
         ]);
     }
