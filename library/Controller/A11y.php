@@ -31,7 +31,7 @@ enum ReviewStatus {
             self::OK => $wpService->__('Recently reviewed', 'municipio'),
             self::NearDeadline => $wpService->__('Review due soon', 'municipio'),
             self::Overdue => $wpService->__('Review overdue', 'municipio'),
-            default => $wpService->__('Unknown review status', 'municipio'),
+            default => '',
         };
     }
 }
@@ -58,7 +58,7 @@ enum ComplianceLevel {
             self::Compliant => $wpService->__('Compliant', 'municipio'),
             self::PartiallyCompliant => $wpService->__('Partially compliant', 'municipio'),
             self::NotCompliant => $wpService->__('Not compliant', 'municipio'),
-            default => $wpService->__('Unknown compliance level', 'municipio'),
+            default => '',
         };
     }
 }
