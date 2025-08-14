@@ -73,12 +73,12 @@ class A11y extends \Municipio\Controller\Singular
         $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
             array_merge(
                 [
-                    'complianceLevel'                   => __('Accessibility Compliance', 'municipio'),
-                    'complaint'                         => __('Compliant', 'municipio'),
-                    'partiallyComplaint'                => __('Partially compliant', 'municipio'),
-                    'notCompliant'                      => __('Not compliant', 'municipio'),
-                    'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
-                    'reviewDate'                        => __('Last reviewed', 'municipio'),
+                    'complianceLevel'                   => $this->wpService->__('Accessibility Compliance', 'municipio'),
+                    'complaint'                         => $this->wpService->__('Compliant', 'municipio'),
+                    'partiallyComplaint'                => $this->wpService->__('Partially compliant', 'municipio'),
+                    'notCompliant'                      => $this->wpService->__('Not compliant', 'municipio'),
+                    'noAccessibilityStatementAvailable' => $this->wpService->__('No accessibility statement available.', 'municipio'),
+                    'reviewDate'                        => $this->wpService->__('Last reviewed', 'municipio'),
                 ],
                 (array) $this->data['lang'] ?? []
             )
