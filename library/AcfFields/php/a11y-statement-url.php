@@ -21,7 +21,7 @@ if (function_exists('acf_add_local_field_group')) {
                 'class' => '',
                 'id' => '',
             ),
-            'message' => __('<a href="https://dev.local.municipio.tech/accessibility-statement" target="_blank" class="button button-secondary button-large">View Accessibility Statement</a>', 'municipio'),
+            'message' => __('<a href="{{a11y_page_url}}" target="_blank" class="button button-secondary button-large">View Accessibility Statement</a>', 'municipio'),
             'new_lines' => '',
             'esc_html' => 0,
         ),
