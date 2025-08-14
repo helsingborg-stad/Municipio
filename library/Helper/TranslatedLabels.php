@@ -15,7 +15,7 @@ class TranslatedLabels
      *
      * @return object
      */
-    public static function getLang($labels = [])
+    public static function getLang($labels = []): object
     {
         $lang = array(
             'goToHomepage'           => __("Go to homepage", 'municipio'),
@@ -66,6 +66,7 @@ class TranslatedLabels
             'by'                     => __('Published by', 'municipio'),
             'on'                     => __('on', 'municipio'),
             'of'                     => __('of', 'municipio'),
+            'with'                   => __('with', 'municipio'),
             'filterBtn'              => __('Filter', 'municipio'),
             'resetFilterBtn'         => __('Reset filter', 'municipio'),
             'noResult'               => __('No items found.', 'municipio'),
@@ -88,6 +89,7 @@ class TranslatedLabels
             'password'               => __('Password', 'municipio'),
             'usernameOrEmailAddress' => __('Username or Email Address', 'municipio'),
             'findOnPage'             => __('Find on page', 'municipio'),
+            'unknown'                => __('Unknown', 'municipio'),
         );
 
         return (object) array_merge($labels, $lang);

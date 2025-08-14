@@ -39,6 +39,7 @@ module.exports = {
         'css/acf': './assets/source/3.0/sass/admin/acf.scss',
         'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
         'css/general': './assets/source/3.0/sass/admin/general.scss',
+        'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
 
         /* Login css */
         'css/login': './assets/source/3.0/sass/admin/login.scss',
