@@ -1,13 +1,15 @@
 <?php 
 
-if (function_exists('acf_add_local_field_group')) {
-    acf_add_local_field_group(array(
+
+if (function_exists('acf_add_local_field_group')) {
+
+    acf_add_local_field_group(array(
     'key' => 'group_689c4def19f8e',
     'title' => __('Accessibility Statement Url', 'municipio'),
     'fields' => array(
         0 => array(
             'key' => 'field_689c4df0b4e2e',
-            'label' => __('View Accessability Statement', 'municipio'),
+            'label' => __('View Accessibility Statement', 'municipio'),
             'name' => '',
             'aria-label' => '',
             'type' => 'message',
@@ -50,4 +52,5 @@
     'acfe_meta' => '',
     'acfe_note' => '',
 ));
-}
+
+}

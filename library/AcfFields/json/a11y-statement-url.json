@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_689c4df0b4e2e",
-            "label": "View Accessability Statement",
+            "label": "View Accessibility Statement",
             "name": "",
             "aria-label": "",
             "type": "message",
@@ -47,4 +47,4 @@
     "acfe_meta": "",
     "acfe_note": ""
 }]
-
+
