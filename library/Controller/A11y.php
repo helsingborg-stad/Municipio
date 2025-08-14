@@ -10,7 +10,7 @@ use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
 
 /**
- * 401 controller
+ * A11y controller
  */
 class A11y extends \Municipio\Controller\Singular
 {
