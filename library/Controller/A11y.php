@@ -9,6 +9,60 @@ use AcfService\AcfService;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 use Municipio\Helper\User\User;
 
+enum ReviewStatus {
+    case OK;
+    case NearDeadline;
+    case Overdue;
+    case Unknown;
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::OK => 'check_circle',
+            self::NearDeadline => 'warning',
+            self::Overdue => 'error',
+            default => 'help',
+        };
+    }
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::OK => __('Recently reviewed', 'municipio'),
+            self::NearDeadline => __('Review due soon', 'municipio'),
+            self::Overdue => __('Review overdue', 'municipio'),
+            default => __('Unknown review status', 'municipio'),
+        };
+    }
+}
+
+enum ComplianceLevel {
+    case Compliant;
+    case PartiallyCompliant;
+    case NotCompliant;
+    case Unknown;
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::Compliant => 'accessible',
+            self::PartiallyCompliant => 'wheelchair_pickup',
+            self::NotCompliant => 'not_accessible',
+            default => 'help',
+        };
+    }
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Compliant => __('Compliant', 'municipio'),
+            self::PartiallyCompliant => __('Partially compliant', 'municipio'),
+            self::NotCompliant => __('Not compliant', 'municipio'),
+            default => __('Unknown compliance level', 'municipio'),
+        };
+    }
+}
+
 /**
  * 401 controller
  */
@@ -119,7 +173,7 @@ class A11y extends \Municipio\Controller\Singular
      * Returns the date formatted according to the site's date format setting.
      * Returns null if no review date is set.
      */
-    private function getReviewDate($readable = true): ?string
+    private function getReviewDate(bool $readable = true): ?string
     {
         $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
 
@@ -131,7 +185,7 @@ class A11y extends \Municipio\Controller\Singular
             return strtotime($reviewDate);
         }
 
-        return date_i18n(get_option('date_format'), strtotime($reviewDate));
+        return date_i18n($this->wpService->getOption('date_format'), strtotime($reviewDate));
     }
 
     /* 
@@ -141,7 +195,7 @@ class A11y extends \Municipio\Controller\Singular
     * - near_deadline:  review should be done within 3 months
     * - overdue:        review is overdue
     */
-    private function getReviewStatus(): string
+    private function getReviewStatus(): ReviewStatus
     {
         $reviewTimestamp      = $this->getReviewDate(false);
         $currentTimestamp     = strtotime('today midnight');
@@ -149,17 +203,21 @@ class A11y extends \Municipio\Controller\Singular
         $oneYearInSeconds     = YEAR_IN_SECONDS;
         $threeMonthsInSeconds = MONTH_IN_SECONDS * 3;
 
+        if ($reviewTimestamp === null) {
+            return ReviewStatus::Unknown;
+        }
+
         $elapsedTime = $currentTimestamp - $reviewTimestamp;
 
         if ($elapsedTime >= $oneYearInSeconds) {
-            return 'overdue';
+            return ReviewStatus::Overdue;
         }
 
         if ($elapsedTime >= ($oneYearInSeconds - $threeMonthsInSeconds)) {
-            return 'near_deadline';
+            return ReviewStatus::NearDeadline;
         }
 
-        return 'ok';
+        return ReviewStatus::OK;
     }
 
 
@@ -172,17 +230,7 @@ class A11y extends \Municipio\Controller\Singular
     private function getReviewStatusIcon(): string
     {
         $status = $this->getReviewStatus();
-
-        switch ($status) {
-            case 'ok':
-                return 'check_circle';
-            case 'near_deadline':
-                return 'warning';
-            case 'overdue':
-                return 'error';
-            default:
-                return 'help';
-        }
+        return $status->getIcon();
     }
 
     /**
@@ -194,17 +242,7 @@ class A11y extends \Municipio\Controller\Singular
     private function getReviewStatusLabel(): string
     {
         $status = $this->getReviewStatus();
-
-        switch ($status) {
-            case 'ok':
-                return __('Recently reviewed', 'municipio');
-            case 'near_deadline':
-                return __('Review due soon', 'municipio');
-            case 'overdue':
-                return __('Review overdue', 'municipio');
-            default:
-                return __('Unknown review status', 'municipio');
-        }
+        return $status->getLabel();
     }
 
     /**
@@ -217,24 +255,17 @@ class A11y extends \Municipio\Controller\Singular
     {
         $status = $this->getReviewStatus();
 
-        switch ($status) {
-            case 'ok':
-                $reviewStatusClassList = ['u-color__bg--success', 'u-color__text--darkest'];
-                break;
-            case 'near_deadline':
-                $reviewStatusClassList = ['u-color__bg--warning', 'u-color__text--darkest'];
-                break;
-            case 'overdue':
-                $reviewStatusClassList = ['u-color__bg--danger', 'u-color__text--darkest'];
-                break;
-            default:
-                $reviewStatusClassList = ['u-color__bg--dark', 'u-color__text--lightest'];
-        }
+        $reviewStatusClassList = match ($status) {
+            ReviewStatus::OK => ['u-color__bg--success', 'u-color__text--darkest'],
+            ReviewStatus::NearDeadline => ['u-color__bg--warning', 'u-color__text--darkest'],
+            ReviewStatus::Overdue => ['u-color__bg--danger', 'u-color__text--darkest'],
+            default => ['u-color__bg--dark', 'u-color__text--lightest'],
+        };
 
         return array_merge(
             ['t-a11y-pill'],
             $reviewStatusClassList,
-            [$status]
+            [$status->name]
         );
     }
 
@@ -271,11 +302,18 @@ class A11y extends \Municipio\Controller\Singular
 
     /**
      * Returns the compliance level
-     * @return  string
+     * @return  ComplianceLevel
      */
-    protected function getComplianceLevel(): string
+    protected function getComplianceLevel(): ComplianceLevel
     {
-        return $this->acfService->getField('mun_a11ystatement_compliance_level', 'options') ?: 'unknown';
+        $value = $this->acfService->getField('mun_a11ystatement_compliance_level', 'options') ?: 'unknown';
+
+        return match ($value) {
+            'compliant' => ComplianceLevel::Compliant,
+            'partially_compliant' => ComplianceLevel::PartiallyCompliant,
+            'not_compliant' => ComplianceLevel::NotCompliant,
+            default => ComplianceLevel::Unknown,
+        };
     }
 
     /**
@@ -285,17 +323,7 @@ class A11y extends \Municipio\Controller\Singular
     protected function getComplianceLevelIcon(): string
     {
         $complianceLevel = $this->getComplianceLevel();
-
-        switch ($complianceLevel) {
-            case 'compliant':
-                return 'accessible';
-            case 'partially_compliant':
-                return 'wheelchair_pickup';
-            case 'not_compliant':
-                return 'not_accessible';
-            default:
-                return 'help';
-        }
+        return $complianceLevel->getIcon();
     }
 
     /**
@@ -306,16 +334,12 @@ class A11y extends \Municipio\Controller\Singular
     {
         $complianceLevel = $this->getComplianceLevel();
 
-        switch ($complianceLevel) {
-            case 'compliant':
-                return $this->data['lang']->complaint ?? '';
-            case 'partially_compliant':
-                return $this->data['lang']->partiallyComplaint ?? '';
-            case 'not_compliant':
-                return $this->data['lang']->notCompliant ?? '';
-            default:
-                return $this->data['lang']->unknown ?? '';
-        }
+        return match ($complianceLevel) {
+            ComplianceLevel::Compliant => $this->data['lang']->complaint ?? '',
+            ComplianceLevel::PartiallyCompliant => $this->data['lang']->partiallyComplaint ?? '',
+            ComplianceLevel::NotCompliant => $this->data['lang']->notCompliant ?? '',
+            default => $this->data['lang']->unknown ?? '',
+        };
     }
 
     /**
@@ -326,24 +350,17 @@ class A11y extends \Municipio\Controller\Singular
     {
         $complianceLevel = $this->getComplianceLevel();
 
-        switch ($complianceLevel) {
-            case 'compliant':
-                $complianceLevelClassList = ['u-color__bg--success'];
-                break;
-            case 'partially_compliant':
-                $complianceLevelClassList = ['u-color__bg--warning'];
-                break;
-            case 'not_compliant':
-                $complianceLevelClassList = ['u-color__bg--danger'];
-                break;
-            default:
-                $complianceLevelClassList = ['u-color__bg--dark'];
-        }
+        $complianceLevelClassList = match ($complianceLevel) {
+            ComplianceLevel::Compliant => ['u-color__bg--success'],
+            ComplianceLevel::PartiallyCompliant => ['u-color__bg--warning'],
+            ComplianceLevel::NotCompliant => ['u-color__bg--danger'],
+            default => ['u-color__bg--dark'],
+        };
 
         return array_merge(
             ['u-color__text--darkest', 't-a11y-pill'],
             $complianceLevelClassList,
-            [$complianceLevel]
+            [$complianceLevel->name]
         );
     }
 
