@@ -24,7 +24,7 @@
         @element(['classList' => 'u-display--flex u-flex--row u-align-items--center'])
             
             {{-- Compliance level information --}}
-            @if($compliance)
+            @if($compliance && $compliance->label)
                 @element([
                     'componentElement' => 'span', 
                     'attributeList' => [
@@ -41,7 +41,7 @@
             @endif
 
             {{-- Review date information --}}
-            @if($review)
+            @if($review && $review->date)
                 @element([
                     'componentElement' => 'span', 
                     'attributeList' => [
