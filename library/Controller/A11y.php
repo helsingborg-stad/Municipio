@@ -246,7 +246,7 @@ class A11y extends \Municipio\Controller\Singular
     {
         return $this->wpService->applyFilters(
             'Municipio/401/Heading',
-            $this->acfService->getField('mun_a11ystatement_title', 'options') ?: __('Accessibility Statement', 'municipio')
+            $this->acfService->getField('mun_a11ystatement_title', 'options') ?: $this->wpService->__('Accessibility Statement', 'municipio')
         );
     }
 
