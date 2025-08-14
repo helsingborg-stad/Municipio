@@ -1,14 +1,17 @@
 @extends('templates.single', ['showSidebars' => false, 'centerContent' => true])
 
+@section('hero-top-sidebar')
+    @hero([
+        "image" => $post->getImage(),
+        "size" => "normal",
+        "classList" => ["u-margin__bottom--4"],
+    ])
+    @endhero
+@stop
+
 @section('article.content')
 
     @section('article.title.before')
-        @hero([
-            "image" => $post->getImage(),
-            "size" => "normal",
-            "classList" => ["u-margin__bottom--4"],
-        ])
-        @endhero
         @if($eventIsInThePast)
             @notice([
                 'type' => 'warning',
