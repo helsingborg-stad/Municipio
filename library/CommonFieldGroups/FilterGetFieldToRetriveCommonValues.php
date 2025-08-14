@@ -105,28 +105,40 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         $optionKey       = "options_" . $field['name'];
         $acfFieldMetaKey = "_options_" . $field['name'];
 
-        // Fetch main value and ACF metadata key
-        $this->fieldsKeyValueStore[$optionKey]       = $this->wpService->getOption($optionKey);
+        // Fetch ACF metadata key (always needed for field configuration)
         $this->fieldsKeyValueStore[$acfFieldMetaKey] = $this->wpService->getOption($acfFieldMetaKey);
 
-        // Handle true/false fields (convert to bool)
-        if ($field['type'] === "true_false" && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
-            $this->fieldsKeyValueStore[$optionKey] = (bool) $this->fieldsKeyValueStore[$optionKey];
-        }
-
-        // Handle subfields for repeaters or similar structures
-        if (!empty($field['sub_fields']) && is_numeric($this->fieldsKeyValueStore[$optionKey])) {
-            $this->wpService->addFilter('acf/pre_format_value', function ($null, $value, $postId, $field, $escape_html) use ($baseKey) {
-                if (!in_array($postId, ['options', 'option'])) {
+        // For fields with subfields (repeaters), we need to handle them differently
+        if (!empty($field['sub_fields'])) {
+            // Get raw value for repeater count
+            $this->fieldsKeyValueStore[$optionKey] = $this->wpService->getOption($optionKey);
+            
+            if (is_numeric($this->fieldsKeyValueStore[$optionKey])) {
+                $this->wpService->addFilter('acf/pre_format_value', function ($null, $value, $postId, $field, $escape_html) use ($baseKey) {
+                    if (!in_array($postId, ['options', 'option'])) {
+                        return $null;
+                    }
+                    if ($field['name'] == $baseKey) {
+                        return $value;
+                    }
                     return $null;
-                }
-                if ($field['name'] == $baseKey) {
-                    return $value;
-                }
-                return $null;
-            }, 10, 5);
+                }, 10, 5);
 
-            $this->processSubFields($field, $optionKey);
+                $this->processSubFields($field, $optionKey);
+            }
+        } else {
+            // For simple fields, use ACF's getField to respect return_format
+            // We're already in the main site context via runInSite()
+            $getField = $this->acfService->getField ?? 'get_field';
+            $formattedValue = $getField($field['name'], 'option');
+            
+            // Store the formatted value instead of the raw value
+            $this->fieldsKeyValueStore[$optionKey] = $formattedValue;
+
+            // Handle true/false fields (convert to bool) - only if we got a numeric value
+            if ($field['type'] === "true_false" && is_numeric($formattedValue)) {
+                $this->fieldsKeyValueStore[$optionKey] = (bool) $formattedValue;
+            }
         }
     }
 
