@@ -64,7 +64,7 @@ enum ComplianceLevel {
 }
 
 /**
- * 401 controller
+ * A11y controller
  */
 class A11y extends \Municipio\Controller\Singular
 {
@@ -105,7 +105,7 @@ class A11y extends \Municipio\Controller\Singular
     }
 
     /**
-     * Setup 401 title
+     * Setup A11y title
      *
      * @return string
      */
@@ -127,12 +127,12 @@ class A11y extends \Municipio\Controller\Singular
         $this->data['lang'] = \Municipio\Helper\TranslatedLabels::getLang(
             array_merge(
                 [
-                    'complianceLevel'                   => __('Accessibility Compliance', 'municipio'),
-                    'complaint'                         => __('Compliant', 'municipio'),
-                    'partiallyComplaint'                => __('Partially compliant', 'municipio'),
-                    'notCompliant'                      => __('Not compliant', 'municipio'),
-                    'noAccessibilityStatementAvailable' => __('No accessibility statement available.', 'municipio'),
-                    'reviewDate'                        => __('Last reviewed', 'municipio'),
+                    'complianceLevel'                   => $this->wpService->__('Accessibility Compliance', 'municipio'),
+                    'complaint'                         => $this->wpService->__('Compliant', 'municipio'),
+                    'partiallyComplaint'                => $this->wpService->__('Partially compliant', 'municipio'),
+                    'notCompliant'                      => $this->wpService->__('Not compliant', 'municipio'),
+                    'noAccessibilityStatementAvailable' => $this->wpService->__('No accessibility statement available.', 'municipio'),
+                    'reviewDate'                        => $this->wpService->__('Last reviewed', 'municipio'),
                 ],
                 (array) $this->data['lang'] ?? []
             )
@@ -277,7 +277,7 @@ class A11y extends \Municipio\Controller\Singular
     {
         return $this->wpService->applyFilters(
             'Municipio/401/Heading',
-            $this->acfService->getField('mun_a11ystatement_title', 'options') ?: __('Accessibility Statement', 'municipio')
+            $this->acfService->getField('mun_a11ystatement_title', 'options') ?: $this->wpService->__('Accessibility Statement', 'municipio')
         );
     }
 
