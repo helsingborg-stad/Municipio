@@ -51,7 +51,7 @@ class A11y extends \Municipio\Controller\Singular
     }
 
     /**
-     * Setup 401 title
+     * Setup A11y title
      *
      * @return string
      */
