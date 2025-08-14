@@ -129,8 +129,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         } else {
             // For simple fields, use ACF's getField to respect return_format
             // We're already in the main site context via runInSite()
-            $getField = $this->acfService->getField ?? 'get_field';
-            $formattedValue = $getField($field['name'], 'option');
+            $formattedValue = $this->acfService->getField($field['name'], 'option');
             
             // Store the formatted value instead of the raw value
             $this->fieldsKeyValueStore[$optionKey] = $formattedValue;
