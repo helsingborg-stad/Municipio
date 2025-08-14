@@ -173,7 +173,7 @@ class A11y extends \Municipio\Controller\Singular
      * Returns the date formatted according to the site's date format setting.
      * Returns null if no review date is set.
      */
-    private function getReviewDate(bool $readable = true): ?string
+    private function getReviewDate(bool $readable = true): null|int|string
     {
         $reviewDate = $this->acfService->getField('mun_a11ystatement_review_date', 'options');
 
@@ -182,10 +182,10 @@ class A11y extends \Municipio\Controller\Singular
         }
 
         if (!$readable) {
-            return strtotime($reviewDate);
+            return (int) strtotime($reviewDate);
         }
 
-        return date_i18n($this->wpService->getOption('date_format'), strtotime($reviewDate));
+        return (string) date_i18n($this->wpService->getOption('date_format'), strtotime($reviewDate));
     }
 
     /* 
