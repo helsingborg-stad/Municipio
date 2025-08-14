@@ -9,6 +9,8 @@ use Municipio\ImageConvert\Contract\ImageContractInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
+use Modularity\Integrations\Component\ImageResolver;
+use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
 
 /**
  * Class SingularExhibitionEvent
@@ -210,9 +212,12 @@ class SingularExhibitionEvent extends Singular
      */
     private function getImageAttributes(ImageObject $image): array
     {
+        $smallContract = ImageComponentContract::factory($image->getProperty('@id'), [450, 280], new ImageResolver());
+        $largeContract = ImageComponentContract::factory($image->getProperty('@id'), [768, 432], new ImageResolver());
+
         return [
-            'largeImage' => $image->getProperty('url'),
-            'smallImage' => wp_get_attachment_image_src($image->getProperty('@id'))[0] ,
+            'largeImage' => $largeContract->getUrl(),
+            'smallImage' => $smallContract->getUrl(),
             'alt'        => 'foo',
             'caption'    => null
         ];
