@@ -98,6 +98,11 @@ class A11yStatement implements Hookable
      */
     public function registerFrontendPage() : void
     {
+        //Enabled
+        if($this->acfService->getField('mun_a11ystatement_enabled', 'options') === false) {
+            return;
+        }
+
         $slug = $this->getFrontendPageSlug();
 
         // Add rewrite rule

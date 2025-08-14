@@ -6,6 +6,26 @@
     'title' => __('Accessibility Statement', 'municipio'),
     'fields' => array(
         0 => array(
+            'key' => 'field_689dca9c2c35f',
+            'label' => __('Enable', 'municipio'),
+            'name' => 'mun_a11ystatement_enabled',
+            'aria-label' => '',
+            'type' => 'true_false',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'message' => __('By enabling this; The page will be accessible for visitors.', 'municipio'),
+            'default_value' => 1,
+            'ui_on_text' => '',
+            'ui_off_text' => '',
+            'ui' => 1,
+        ),
+        1 => array(
             'key' => 'field_687503c58663d',
             'label' => __('Title', 'municipio'),
             'name' => 'mun_a11ystatement_title',
@@ -25,7 +45,7 @@
             'prepend' => '',
             'append' => '',
         ),
-        1 => array(
+        2 => array(
             'key' => 'field_6874ffb290ca3',
             'label' => __('Content', 'municipio'),
             'name' => 'mun_a11ystatement_preamble',
@@ -45,7 +65,7 @@
             'media_upload' => 1,
             'delay' => 0,
         ),
-        2 => array(
+        3 => array(
             'key' => 'field_68750436b56e0',
             'label' => __('Accessibility Compliance', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_level',
@@ -71,7 +91,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        3 => array(
+        4 => array(
             'key' => 'field_68762ea6a1c68',
             'label' => __('Accessibility Reference', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_reference',
@@ -97,7 +117,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        4 => array(
+        5 => array(
             'key' => 'field_68762f33be425',
             'label' => __('Accessibility Reference Version', 'municipio'),
             'name' => 'mun_a11ystatement_compliance_reference_version',
@@ -125,7 +145,7 @@
             'layout' => 'vertical',
             'save_other_choice' => 0,
         ),
-        5 => array(
+        6 => array(
             'key' => 'field_68761a4d09bb9',
             'label' => __('Review Date', 'municipio'),
             'name' => 'mun_a11ystatement_review_date',
@@ -139,11 +159,11 @@
                 'class' => '',
                 'id' => '',
             ),
-            'display_format' => 'F j, Y',
-            'return_format' => 'F j, Y',
+            'display_format' => 'Y-m-d',
+            'return_format' => 'Y-m-d',
             'first_day' => 1,
         ),
-        6 => array(
+        7 => array(
             'key' => 'field_68763f7edab51',
             'label' => __('Known Issues', 'municipio'),
             'name' => 'mun_a11ystatement_known_issues',

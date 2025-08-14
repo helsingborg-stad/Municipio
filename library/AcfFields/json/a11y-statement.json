@@ -3,6 +3,26 @@
     "title": "Accessibility Statement",
     "fields": [
         {
+            "key": "field_689dca9c2c35f",
+            "label": "Enable",
+            "name": "mun_a11ystatement_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "By enabling this; The page will be accessible for visitors.",
+            "default_value": 1,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
             "key": "field_687503c58663d",
             "label": "Title",
             "name": "mun_a11ystatement_title",
@@ -136,8 +156,8 @@
                 "class": "",
                 "id": ""
             },
-            "display_format": "F j, Y",
-            "return_format": "F j, Y",
+            "display_format": "Y-m-d",
+            "return_format": "Y-m-d",
             "first_day": 1
         },
         {

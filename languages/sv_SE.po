@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Municipio\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/municipio\n"
 "POT-Creation-Date: 2025-08-14 12:36+0200\n"
-"PO-Revision-Date: 2025-08-14 12:44+0200\n"
+"PO-Revision-Date: 2025-08-14 13:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: Svenska\n"
 "Language: sv_SE\n"
@@ -7461,31 +7461,27 @@ msgstr "API-resurs"
 
 #: library/Controller/A11y.php:31
 msgid "Recently reviewed"
-msgstr ""
+msgstr "Granskad nyligen"
 
 #: library/Controller/A11y.php:32
 msgid "Review due soon"
-msgstr ""
+msgstr "Granskning krävs snart"
 
 #: library/Controller/A11y.php:33
-#, fuzzy
-#| msgid "view_module"
 msgid "Review overdue"
-msgstr "view_module"
+msgstr "Granskning har passerat tidsfrist"
 
 #: library/Controller/A11y.php:59 library/Controller/A11y.php:132
 msgid "Partially compliant"
-msgstr ""
+msgstr "Uppfyller delvis kraven"
 
 #: library/Controller/A11y.php:134
 msgid "No accessibility statement available."
-msgstr ""
+msgstr "Tillgänglighetsredogörelse saknas. "
 
 #: library/Controller/A11y.php:135
-#, fuzzy
-#| msgid "streetview"
 msgid "Last reviewed"
-msgstr "streetview"
+msgstr "Senaste bedömningen gjord"
 
 #: library/Controller/Archive.php:504
 msgid "Select"
@@ -7565,14 +7561,12 @@ msgid "View page"
 msgstr "Visa sida"
 
 #: library/Controller/Singular.php:67
-#, fuzzy
-#| msgid "reply"
 msgid "Reply"
-msgstr "reply"
+msgstr "Svara"
 
 #: library/Controller/Singular.php:68
 msgid "Log in to Reply"
-msgstr ""
+msgstr "Logga in för att svara"
 
 #: library/Controller/Singular.php:352
 #, php-format
@@ -7807,13 +7801,11 @@ msgstr "Evenemang"
 
 #: library/Customizer.php:55
 msgid "Kirki Customizer framework is required"
-msgstr ""
+msgstr "Kirki Customizer ramverket krävs. "
 
 #: library/Customizer.php:56
-#, fuzzy
-#| msgid "Please fill in all required fields."
 msgid "Plugin install required"
-msgstr "Vänligen fyll i alla obligatoriska fält."
+msgstr "Ett tilläg måste installeras. "
 
 #: library/Customizer.php:59
 msgid "Install plugin"
@@ -8023,24 +8015,20 @@ msgid "Field"
 msgstr "Formulär & Fält"
 
 #: library/Customizer/PanelsRegistry.php:357
-#, fuzzy
-#| msgid "Below Pages"
 msgid "Error Pages"
-msgstr "Under sidor"
+msgstr "Felsidor"
 
 #: library/Customizer/PanelsRegistry.php:361
 msgid "401 Unauthorized"
-msgstr ""
+msgstr "401 Obehörig"
 
 #: library/Customizer/PanelsRegistry.php:366
 msgid "403 Forbidden"
-msgstr ""
+msgstr "403 Förbjuden"
 
 #: library/Customizer/PanelsRegistry.php:371
-#, fuzzy
-#| msgid "No %s found"
 msgid "404 Not found"
-msgstr "Inga %s hittades"
+msgstr "404 Kan inte hittas"
 
 #: library/Customizer/PanelsRegistry.php:384
 msgid "Behaviour"
@@ -8467,50 +8455,36 @@ msgid "White"
 msgstr "Vit"
 
 #: library/Customizer/Sections/Colors.php:634
-#, fuzzy
-#| msgid "Additional CSS"
 msgid "Additional colors"
-msgstr "Extra CSS"
+msgstr "Extra färger"
 
 #: library/Customizer/Sections/Colors.php:635
 msgid "These colors are used by various color pickers throughout the theme."
-msgstr ""
+msgstr "Dom här färgerna placeras i flera färgväljare på webbplatsen. "
 
 #: library/Customizer/Sections/Colors.php:641
-#, fuzzy
-#| msgid "Color 1"
 msgid "Color #1"
 msgstr "Färg 1"
 
 #: library/Customizer/Sections/Colors.php:642
-#, fuzzy
-#| msgid "Color 2"
 msgid "Color #2"
 msgstr "Färg 2"
 
 #: library/Customizer/Sections/Colors.php:643
-#, fuzzy
-#| msgid "Color 3"
 msgid "Color #3"
 msgstr "Färg 3"
 
 #: library/Customizer/Sections/Colors.php:644
-#, fuzzy
-#| msgid "Color 4"
 msgid "Color #4"
 msgstr "Färg 4"
 
 #: library/Customizer/Sections/Colors.php:645
-#, fuzzy
-#| msgid "Color 5"
 msgid "Color #5"
 msgstr "Färg 5"
 
 #: library/Customizer/Sections/Colors.php:646
-#, fuzzy
-#| msgid "Color 1"
 msgid "Color #6"
-msgstr "Färg 1"
+msgstr "Färg 6"
 
 #: library/Customizer/Sections/Component/Button.php:18
 msgid "Primary button colors"
@@ -8896,12 +8870,12 @@ msgstr "Färg för behållare"
 #: library/Customizer/Sections/Component/SliderDefault.php:89
 #: library/Customizer/Sections/Component/SliderHero.php:46
 msgid "Transparent"
-msgstr ""
+msgstr "Genomskinlig"
 
 #: library/Customizer/Sections/Component/SliderDefault.php:90
 #: library/Customizer/Sections/Component/SliderHero.php:47
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: library/Customizer/Sections/Component/SliderDefault.php:138
 #: library/Customizer/Sections/Component/SliderHero.php:91
@@ -8949,48 +8923,37 @@ msgstr ""
 "baserat på värdet."
 
 #: library/Customizer/Sections/ErrorPages.php:14
-#, fuzzy
-#| msgid "Popup heading"
 msgid "Page heading"
-msgstr "Popuprubrik"
+msgstr "Rubrik"
 
 #: library/Customizer/Sections/ErrorPages.php:40
-#, fuzzy
-#| msgid "image"
 msgid "Image"
-msgstr "image"
+msgstr "Bild"
 
 #: library/Customizer/Sections/ErrorPages.php:41
-#, fuzzy
-#| msgid "Display settings"
 msgid "Displays above the heading"
-msgstr "Visningsinställningar"
+msgstr "Visas ovanför rubrik"
 
 #: library/Customizer/Sections/ErrorPages.php:55
-#, fuzzy
-#| msgid "What taxonomies should be displayed?"
 msgid "What actions button to display"
-msgstr "Vilka taxonomier ska visas?"
+msgstr "Vilka knappar att visa"
 
 #: library/Customizer/Sections/ErrorPages.php:69
 msgid "Error code backdrop"
-msgstr ""
+msgstr "Bakgrund för felsidor"
 
 #: library/Customizer/Sections/ErrorPages.php:70
 msgid "Display a faint backdrop with error code "
-msgstr ""
+msgstr "Visa en diskret felkod som bakgrund"
 
 #: library/Customizer/Sections/ErrorPages.php:89
-#, fuzzy
 msgid "This post is password protected, please log in to view this post."
 msgstr ""
-"Det här innehållet är lösenordsskyddat. För att visa det, måste du ange "
-"lösenordet:"
+"Det här innehållet är lösenordsskyddat. För att visa det, måste du logga in. "
 
 #: library/Customizer/Sections/ErrorPages.php:91
-#, fuzzy
 msgid "Your user group do not have access to view this post."
-msgstr "Du har inte rätt behörighet för att redigera det här inlägget."
+msgstr "Din användargrupp har inte tillgång till att visa det här inlägget."
 
 #: library/Customizer/Sections/ErrorPages.php:93
 msgid "Oops! The page you requested cannot be found."
@@ -9003,22 +8966,16 @@ msgstr ""
 "Sidan %s som du letade efter har antagligen flyttats eller blivit borttagen."
 
 #: library/Customizer/Sections/ErrorPages.php:112
-#, fuzzy
-#| msgid "Print this page"
 msgid "Previous page"
-msgstr "Skriv ut den här sidan"
+msgstr "Förgående sida"
 
 #: library/Customizer/Sections/ErrorPages.php:113
-#, fuzzy
-#| msgid "frontpage"
 msgid "To front page"
-msgstr "frontpage"
+msgstr "Till startsidan"
 
 #: library/Customizer/Sections/ErrorPages.php:114
-#, fuzzy
-#| msgid "Light button"
 msgid "Login button"
-msgstr "Ljus knapp"
+msgstr "Inloggningsknapp"
 
 #: library/Customizer/Sections/General.php:14
 msgid "Secondary navigation position"
@@ -9026,7 +8983,7 @@ msgstr "Positionering av sekundärmeny"
 
 #: library/Customizer/Sections/General.php:21
 msgid "Hidden"
-msgstr ""
+msgstr "Dold"
 
 #: library/Customizer/Sections/General.php:31
 msgid "Show emblem in hero"
@@ -9066,13 +9023,11 @@ msgstr "Marginal inaktiverad"
 
 #: library/Customizer/Sections/Header/Layout.php:22
 msgid "Upper main area"
-msgstr ""
+msgstr "Övre huvudyta"
 
 #: library/Customizer/Sections/Header/Layout.php:46
-#, fuzzy
-#| msgid "Footer area"
 msgid "Lower main area"
-msgstr "Sidfot"
+msgstr "Nedre huvudyta"
 
 #: library/Customizer/Sections/Header/Layout.php:69
 msgid "Enable responsive order"
@@ -9084,11 +9039,11 @@ msgstr "Möjliggör olika ordningar för mobil och desktop."
 
 #: library/Customizer/Sections/Header/Layout.php:94
 msgid "Upper main area (Responsive)"
-msgstr ""
+msgstr "Övre huvudyta (reponsiv)"
 
 #: library/Customizer/Sections/Header/Layout.php:123
 msgid "Lower main area (Responsive)"
-msgstr ""
+msgstr "Nedre huvudyta (respons)"
 
 #: library/Customizer/Sections/Header/Layout.php:174
 msgid "Apperance"
@@ -9373,14 +9328,12 @@ msgid "The actual text will still be shown in a tooltip when hovered."
 msgstr "Hela texten kommer att visas i en tipbox om den inte får plats. "
 
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:43
-#, fuzzy
-#| msgid "Show image caption"
 msgid "Show home icon"
-msgstr "Visa bildtext"
+msgstr "Visa hemikon"
 
 #: library/Customizer/Sections/Menu/Breadcrumbs.php:59
 msgid "Show prefix usually used for screen readers only (eg. you are here)"
-msgstr ""
+msgstr "Visa prefix (vanligtvis använda av skärmläsare)"
 
 #: library/Customizer/Sections/Menu/Colors.php:13
 msgid "Sidebar navigation"
@@ -9746,21 +9699,15 @@ msgid "Hero on frontpage"
 msgstr "Hero på startsidan"
 
 #: library/Customizer/Sections/Search.php:134
-#, fuzzy
-#| msgid "Header on sub pages"
 msgid "Header on sub pages (desktop)"
 msgstr "Sidhuvud på undersidor"
 
 #: library/Customizer/Sections/Search.php:135
-#, fuzzy
-#| msgid "Header on frontpage"
 msgid "Header on frontpage (desktop)"
 msgstr "Sidhuvud på startsidan"
 
 #: library/Customizer/Sections/Search.php:136
 #: library/Customizer/Sections/Search.php:137
-#, fuzzy
-#| msgid "Header on frontpage"
 msgid "Header on frontpage (mobile)"
 msgstr "Sidhuvud på startsidan"
 
@@ -9885,11 +9832,11 @@ msgstr "Globala notiser har sparats."
 
 #: library/Helper/Image.php:138
 msgid "File not found when setting sideloaded identifier."
-msgstr ""
+msgstr "Filen hittades inte när sidladdad identifierare angavs."
 
 #: library/Helper/Image.php:144
 msgid "Could not generate sideloaded identifier for file."
-msgstr ""
+msgstr "Kunde inte generera sidladdad identifierare för filen."
 
 #: library/Helper/KirkiConditional.php:35
 msgid "Tailor"
@@ -10065,10 +10012,8 @@ msgid "of"
 msgstr "av"
 
 #: library/Helper/TranslatedLabels.php:69
-#, fuzzy
-#| msgid "open_with"
 msgid "with"
-msgstr "open_with"
+msgstr "Med"
 
 #: library/Helper/TranslatedLabels.php:70
 #: library/Helper/TranslatedLabels.php:84
@@ -10177,40 +10122,32 @@ msgstr "Hantering av personlig data"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:42
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/ExhibitionEventFormFactory.php:45
-#, fuzzy
-#| msgid "Information"
 msgid "General Information"
-msgstr "Information"
+msgstr "Generell information"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:45
-#, fuzzy
-#| msgid "Status"
 msgid "Event Status"
-msgstr "Status"
+msgstr "Evenemangsstatus"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:46
-#, fuzzy
-#| msgid "schedule"
 msgid "Event Scheduled"
-msgstr "schedule"
+msgstr "Evenemanget schemalagt"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:47
 msgid "Event Postponed"
-msgstr ""
+msgstr "Evenemanget uppskjutet"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:48
 msgid "Event Cancelled"
-msgstr ""
+msgstr "Evenemanget inställt"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:49
 msgid "Event Moved Online"
-msgstr ""
+msgstr "Evenemanget flyttat online"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:50
-#, fuzzy
-#| msgid "schedule"
 msgid "Event Rescheduled"
-msgstr "schedule"
+msgstr "Evenemanget är ombokat"
 
 #: library/SchemaData/SchemaPropertiesForm/FormBuilder/FormFactory/EventFormFactory.php:52
 msgid "Event Attendance Mode"
@@ -11024,10 +10961,8 @@ msgstr "Ny titel"
 
 #: library/Widget/Source/BaseWidget.php:121
 #: library/Widget/Source/WidgetTemplate.php:258
-#, fuzzy
-#| msgid "Title"
 msgid "Title:"
-msgstr "Rubrik"
+msgstr "Rubrik:"
 
 #: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:364
 msgid "Export with AcfExportManager"
