@@ -25,13 +25,13 @@ enum ReviewStatus {
         };
     }
 
-    public function getLabel(): string
+    public function getLabel(WpService $wpService): string
     {
         return match ($this) {
-            self::OK => __('Recently reviewed', 'municipio'),
-            self::NearDeadline => __('Review due soon', 'municipio'),
-            self::Overdue => __('Review overdue', 'municipio'),
-            default => __('Unknown review status', 'municipio'),
+            self::OK => $wpService->__('Recently reviewed', 'municipio'),
+            self::NearDeadline => $wpService->__('Review due soon', 'municipio'),
+            self::Overdue => $wpService->__('Review overdue', 'municipio'),
+            default => $wpService->__('Unknown review status', 'municipio'),
         };
     }
 }
@@ -52,13 +52,13 @@ enum ComplianceLevel {
         };
     }
 
-    public function getLabel(): string
+    public function getLabel(WpService $wpService): string
     {
         return match ($this) {
-            self::Compliant => __('Compliant', 'municipio'),
-            self::PartiallyCompliant => __('Partially compliant', 'municipio'),
-            self::NotCompliant => __('Not compliant', 'municipio'),
-            default => __('Unknown compliance level', 'municipio'),
+            self::Compliant => $wpService->__('Compliant', 'municipio'),
+            self::PartiallyCompliant => $wpService->__('Partially compliant', 'municipio'),
+            self::NotCompliant => $wpService->__('Not compliant', 'municipio'),
+            default => $wpService->__('Unknown compliance level', 'municipio'),
         };
     }
 }
@@ -242,7 +242,7 @@ class A11y extends \Municipio\Controller\Singular
     private function getReviewStatusLabel(): string
     {
         $status = $this->getReviewStatus();
-        return $status->getLabel();
+        return $status->getLabel($this->wpService);
     }
 
     /**
@@ -338,7 +338,7 @@ class A11y extends \Municipio\Controller\Singular
             ComplianceLevel::Compliant => $this->data['lang']->complaint ?? '',
             ComplianceLevel::PartiallyCompliant => $this->data['lang']->partiallyComplaint ?? '',
             ComplianceLevel::NotCompliant => $this->data['lang']->notCompliant ?? '',
-            default => $this->data['lang']->unknown ?? '',
+            default => $complianceLevel->getLabel($this->wpService),
         };
     }
 
