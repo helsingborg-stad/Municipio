@@ -57,14 +57,6 @@ class SourceConfigWithUniqueId implements SourceConfigInterface
     /**
      * @inheritDoc
      */
-    public function getTaxonomies(): array
-    {
-        return $this->inner->getTaxonomies();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getSourceJsonFilePath(): string
     {
         return $this->inner->getSourceJsonFilePath();

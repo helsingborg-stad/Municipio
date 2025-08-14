@@ -54,14 +54,6 @@ class SourceConfigWithCustomFilterDefinition implements SourceConfigInterface
     /**
      * @inheritDoc
      */
-    public function getTaxonomies(): array
-    {
-        return $this->inner->getTaxonomies();
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function getSourceType(): string
     {
         return $this->inner->getSourceType();

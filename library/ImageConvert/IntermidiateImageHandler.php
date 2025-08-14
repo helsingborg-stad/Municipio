@@ -185,6 +185,11 @@ class IntermidiateImageHandler implements Hookable
         $sourceFilePath = $image->getPath();
         $sourceFileId   = $image->getId();
 
+        //The id cannot be empty or negative
+        if (empty($sourceFileId) || $sourceFileId < 0) {
+            return false;
+        }
+
         // The Source file must exist
         if (!\Municipio\Helper\File::fileExists($sourceFilePath)) {
             return false;

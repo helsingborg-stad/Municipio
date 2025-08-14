@@ -92,7 +92,10 @@ class E404 extends \Municipio\Controller\BaseController
         $subheading = isset($this->data['customizer']->error404Description) && !empty($this->data['customizer']->error404Description)
             ? $this->data['customizer']->error404Description
             : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('404');
-        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType()));
+        return str_replace("%s", $this->getRequestedPostType(), $this->wpService->applyFilters('Municipio/404/Body', 
+            $this->wpService->__($subheading, 'municipio'), 
+            ucfirst($this->getRequestedPostType()))
+        );
     }
 
     /**

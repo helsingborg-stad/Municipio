@@ -627,5 +627,56 @@ class Colors
                 ],
             ],
         ]);
+
+        KirkiField::addField([
+            'type'        => 'multicolor',
+            'settings'    => 'color_palette_additional',
+            'label'       => esc_html__('Additional colors', 'municipio'),
+            'description' => esc_html__('These colors are used by various color pickers throughout the theme.', 'municipio'),
+            'section'     => $sectionID,
+            'priority'    => 10,
+            'transport'   => 'auto',
+            'alpha'       => false,
+            'choices'     => [
+                'additional_color_1' => esc_html__('Color #1', 'municipio'),
+                'additional_color_2' => esc_html__('Color #2', 'municipio'),
+                'additional_color_3' => esc_html__('Color #3', 'municipio'),
+                'additional_color_4' => esc_html__('Color #4', 'municipio'),
+                'additional_color_5' => esc_html__('Color #5', 'municipio'),
+                'additional_color_6' => esc_html__('Color #6', 'municipio'),
+            ],
+            'output'      => [
+                [
+                    'choice'   => 'additional_color_1',
+                    'element'  => ':root',
+                    'property' => '--color-additional-1',
+                ],
+                [
+                    'choice'   => 'additional_color_2',
+                    'element'  => ':root',
+                    'property' => '--color-additional-2',
+                ],
+                [
+                    'choice'   => 'additional_color_3',
+                    'element'  => ':root',
+                    'property' => '--color-additional-3',
+                ],
+                [
+                    'choice'   => 'additional_color_4',
+                    'element'  => ':root',
+                    'property' => '--color-additional-4',
+                ],
+                [
+                    'choice'   => 'additional_color_5',
+                    'element'  => ':root',
+                    'property' => '--color-additional-5',
+                ],
+                [
+                    'choice'   => 'additional_color_6',
+                    'element'  => ':root',
+                    'property' => '--color-additional-6',
+                ],
+            ],
+        ]);
     }
 }

@@ -13,17 +13,17 @@
     <!-- Title -->
     @section('article.title.before')@show
     @section('article.title')
-        @if ($post->getTitle() || isset($callToActionItems['floating']))
+        @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) || isset($callToActionItems['floating']))
             @group([
                 'justifyContent' => 'space-between'
             ])
-                @if ($post->getTitle())
+                @if ((method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title))
                     @typography([
                         'element' => 'h1', 
                         'variant' => 'h1', 
                         'id' => 'page-title',
                     ])
-                        {!! $post->getTitle() !!}
+                        {!! (method_exists($post, 'getTitle') ? $post->getTitle() : $post->post_title) !!}
                     @endtypography
                 @endif
                 @if (!empty($callToActionItems['floating']['icon']) && !empty($callToActionItems['floating']['wrapper']))
@@ -48,13 +48,13 @@
     )
 
     <!-- Featured image -->
-    @if ($displayFeaturedImage && !empty($post->getImage()))
+    @if ($displayFeaturedImage && method_exists($post, 'getImage') && !empty($post->getImage()))
         @section('article.featuredimage.before')@show
             @image([
                 'src' => $post->getImage(),
                 'caption' => $featuredImage['caption'],
                 'removeCaption' => !$displayFeaturedImageCaption,
-                'classList' => ['c-article__feature-image', 'u-box-shadow--1']
+                'classList' => ['c-article__feature-image', 'u-box-shadow--1', 'u-margin__top--2'],
             ])
             @endimage
         @section('article.featuredimage.after')@show
@@ -78,7 +78,7 @@
         @endnotice
     @endif
     @section('article.content')
-        {!! $post->getContent() !!}
+        {!! method_exists($post, 'getContent') ? $post->getContent() : $post->post_content !!}
     @show
     @section('article.content.after')@show
 

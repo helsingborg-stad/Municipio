@@ -134,7 +134,10 @@ class E401 extends \Municipio\Controller\BaseController
         $subheading = isset($this->data['customizer']->error401Description) && !empty($this->data['customizer']->error401Description)
             ? $this->data['customizer']->error401Description
             : \Municipio\Customizer\Sections\ErrorPages::getDefaultDescription('401');
-        return $this->wpService->applyFilters('Municipio/401/Body', $this->wpService->__($subheading, 'municipio'), $this->getRequestedPostType());
+        return $this->wpService->applyFilters('Municipio/401/Body', 
+            $this->wpService->__($subheading, 'municipio'), 
+            ucfirst($this->getRequestedPostType())
+        );
     }
 
     /**

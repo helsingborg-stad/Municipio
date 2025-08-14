@@ -10,10 +10,11 @@ export class HashUpdateManager {
 
     document.addEventListener('DOMContentLoaded', () => {
       const elements = document.querySelectorAll<HTMLElement>('[data-update-hash-when-focused]');
-      if (!elements.length) return;
-
-      this.handleIntersect();
-
+      
+      if (!elements.length) {
+        return;
+      }
+      
       window.addEventListener('scroll', () => this.handleIntersect());
       window.addEventListener('resize', () => this.handleIntersect());
     });

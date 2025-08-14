@@ -48,7 +48,12 @@ use Municipio\SchemaData\SchemaPropertiesForm\SetPostTitleFromSchemaTitle\SetPos
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\FieldMapper\FieldMapper;
 use Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\NonceValidation\UpdatePostNonceValidatorService;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
+use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFromSchemaType;
+use Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomyFactory;
+use Municipio\SchemaData\Taxonomy\TermFactory;
+use Municipio\SchemaData\Utils\SchemaToPostTypesResolver\SchemaToPostTypeResolver;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
+use WpCronService\WpCronJob\WpCronJob;
 
 /**
  * Class App
@@ -273,6 +278,7 @@ class App
         new \Municipio\Admin\Options\AttachmentConsent();
 
         new \Municipio\Admin\Acf\PrefillIconChoice($this->wpService);
+        new \Municipio\Admin\Acf\PrefillColor($this->wpService);
         new \Municipio\Admin\Acf\ImageAltTextValidation();
 
         new \Municipio\Admin\Roles\General($this->wpService);
@@ -865,6 +871,19 @@ class App
         ))->addHooks();
 
         /**
+         * Register taxonomies for active schema types and add terms to posts when updating schemaData.
+         */
+        $taxonomiesFactory = new \Municipio\SchemaData\Taxonomy\TaxonomiesFromSchemaType\TaxonomiesFactory(new TaxonomiesFromSchemaType(new TaxonomyFactory(), new SchemaToPostTypeResolver($this->acfService, $this->wpService)), new SchemaTypesInUse($this->wpdb));
+        (new \Municipio\SchemaData\Taxonomy\RegisterTaxonomies($taxonomiesFactory, $this->wpService))->addHooks();
+        (new \Municipio\SchemaData\Taxonomy\AddTermsToPostFromSchema($taxonomiesFactory, new TermFactory(), $this->wpService))->addHooks();
+
+        /**
+         * Clean up unused terms from external content taxonomies.
+         */
+        $cleanupUnusedTerms = new \Municipio\SchemaData\Taxonomy\CleanupUnusedTerms($taxonomiesFactory, $this->wpService);
+        (new WpCronJobManager('municipio_schemadata_', $this->wpService))->register(new WpCronJob('cleanup_unused_terms', time(), 'hourly', [$cleanupUnusedTerms, 'cleanupUnusedTerms'], []));
+
+        /**
          * External content
          */
         $this->setupExternalContent();
@@ -888,13 +907,6 @@ class App
          * Allow cron to edit posts.
          */
         (new AllowCronToEditPosts($this->wpService))->addHooks();
-
-        /**
-         * Register taxonomies from source configurations.
-         */
-        foreach ($sourceConfigs as $sourceConfig) {
-            (new RegisterTaxonomiesFromSourceConfig($sourceConfig, $this->wpService))->registerTaxonomies();
-        }
 
         /**
          * Setup cron jobs on config change.

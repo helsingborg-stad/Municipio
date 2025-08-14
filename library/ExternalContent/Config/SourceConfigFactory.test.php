@@ -69,41 +69,7 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertContains('source_typesense_port', $subFieldNames);
         $this->assertContains('source_typesense_collection', $subFieldNames);
         $this->assertContains('automatic_import_schedule', $subFieldNames);
-        $this->assertContains('taxonomies', $subFieldNames);
         $this->assertContains('rules', $subFieldNames);
-    }
-
-    /**
-     * @testdox ACF json taxonomies field contains expected sub fields
-     */
-    public function testAcfConfigContainsExpectedTaxonomiesSubFields()
-    {
-        $json                    = $this->getAcfFields();
-        $fields                  = $json[0]['fields'];
-        $subFields               = $fields[0]['sub_fields'];
-        $taxonomiesField         = array_values(array_filter($subFields, fn($subField) => $subField['name'] === 'taxonomies'));
-        $taxonomiesSubFieldNames = array_map(fn($subField) => $subField['name'], $taxonomiesField[0]['sub_fields']);
-
-        $this->assertContains('from_schema_property', $taxonomiesSubFieldNames);
-        $this->assertContains('singular_name', $taxonomiesSubFieldNames);
-        $this->assertContains('name', $taxonomiesSubFieldNames);
-        $this->assertContains('hierarchical', $taxonomiesSubFieldNames);
-    }
-
-    /**
-     * @testdox ACF json taxonomies field contains expected filter sub fields
-     */
-    public function testAcfConfigContainsExpectedTaxonomiesFilterSubFields()
-    {
-        $json               = $this->getAcfFields();
-        $fields             = $json[0]['fields'];
-        $subFields          = $fields[0]['sub_fields'];
-        $rulesField         = array_values(array_filter($subFields, fn($subField) => $subField['name'] === 'rules'));
-        $rulesSubFieldNames = array_map(fn($subField) => $subField['name'], $rulesField[0]['sub_fields']);
-
-        $this->assertContains('property_path', $rulesSubFieldNames);
-        $this->assertContains('operator', $rulesSubFieldNames);
-        $this->assertContains('value', $rulesSubFieldNames);
     }
 
     /**
@@ -132,7 +98,6 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals([
             'options_external_content_sources_0_post_type',
             'options_external_content_sources_0_automatic_import_schedule',
-            'options_external_content_sources_0_taxonomies',
             'options_external_content_sources_0_source_type',
             'options_external_content_sources_0_source_json_file_path',
             'options_external_content_sources_0_source_typesense_api_key',
@@ -145,19 +110,11 @@ class SourceConfigFactoryTest extends TestCase
         ], $wpService->methodCalls['getOptions'][0][0]);
 
         $this->assertEquals([
-            'options_external_content_sources_0_taxonomies_0_from_schema_property',
-            'options_external_content_sources_0_taxonomies_0_singular_name',
-            'options_external_content_sources_0_taxonomies_0_name',
-            'options_external_content_sources_0_taxonomies_0_hierarchical',
-
-        ], $wpService->methodCalls['getOptions'][1][0]);
-
-        $this->assertEquals([
             'options_external_content_sources_0_rules_0_property_path',
             'options_external_content_sources_0_rules_0_operator',
             'options_external_content_sources_0_rules_0_value',
 
-        ], $wpService->methodCalls['getOptions'][2][0]);
+        ], $wpService->methodCalls['getOptions'][1][0]);
     }
 
     /**
@@ -179,13 +136,9 @@ class SourceConfigFactoryTest extends TestCase
         $this->assertEquals('test_host', $sourceConfigs[0]->getSourceTypesenseHost());
         $this->assertEquals('test_port', $sourceConfigs[0]->getSourceTypesensePort());
         $this->assertEquals('test_collection', $sourceConfigs[0]->getSourceTypesenseCollection());
-        $this->assertEquals('test_from_schema_property', $sourceConfigs[0]->getTaxonomies()[0]->getFromSchemaProperty());
-        $this->assertEquals('test_singular_name', $sourceConfigs[0]->getTaxonomies()[0]->getSingularName());
-        $this->assertEquals('test_schema_type_test_from_schem', $sourceConfigs[0]->getTaxonomies()[0]->getName());
         $this->assertEquals('test_property_path', $sourceConfigs[0]->getFilterDefinition()->getRuleSets()[0]->getRules()[0]->getPropertyPath());
         $this->assertEquals(Operator::EQUALS, $sourceConfigs[0]->getFilterDefinition()->getRuleSets()[0]->getRules()[0]->getOperator());
         $this->assertEquals('test_value', $sourceConfigs[0]->getFilterDefinition()->getRuleSets()[0]->getRules()[0]->getValue());
-        $this->assertEquals(true, $sourceConfigs[0]->getTaxonomies()[0]->isHierarchical());
     }
 
     /**
@@ -225,24 +178,20 @@ class SourceConfigFactoryTest extends TestCase
     private function getTestAcfData(): array
     {
         return [
-            'options_external_content_sources_0_post_type'                         => 'test_post_type',
-            'options_external_content_sources_0_automatic_import_schedule'         => 'test_schedule',
-            'options_external_content_sources_0_taxonomies'                        => '1',
-            'options_external_content_sources_0_source_type'                       => 'test_source_type',
-            'options_external_content_sources_0_source_json_file_path'             => 'test_json_file_path',
-            'options_external_content_sources_0_source_typesense_api_key'          => 'test_api_key',
-            'options_external_content_sources_0_source_typesense_protocol'         => 'test_protocol',
-            'options_external_content_sources_0_source_typesense_host'             => 'test_host',
-            'options_external_content_sources_0_source_typesense_port'             => 'test_port',
-            'options_external_content_sources_0_source_typesense_collection'       => 'test_collection',
-            'options_external_content_sources_0_taxonomies_0_from_schema_property' => 'test_from_schema_property',
-            'options_external_content_sources_0_taxonomies_0_singular_name'        => 'test_singular_name',
-            'options_external_content_sources_0_taxonomies_0_name'                 => 'test_name',
-            'options_external_content_sources_0_taxonomies_0_hierarchical'         => true,
-            'options_external_content_sources_0_rules'                             => '1',
-            'options_external_content_sources_0_rules_0_property_path'             => 'test_property_path',
-            'options_external_content_sources_0_rules_0_operator'                  => 'test_operator',
-            'options_external_content_sources_0_rules_0_value'                     => 'test_value',
+            'options_external_content_sources_0_post_type'                   => 'test_post_type',
+            'options_external_content_sources_0_automatic_import_schedule'   => 'test_schedule',
+            'options_external_content_sources_0_taxonomies'                  => '1',
+            'options_external_content_sources_0_source_type'                 => 'test_source_type',
+            'options_external_content_sources_0_source_json_file_path'       => 'test_json_file_path',
+            'options_external_content_sources_0_source_typesense_api_key'    => 'test_api_key',
+            'options_external_content_sources_0_source_typesense_protocol'   => 'test_protocol',
+            'options_external_content_sources_0_source_typesense_host'       => 'test_host',
+            'options_external_content_sources_0_source_typesense_port'       => 'test_port',
+            'options_external_content_sources_0_source_typesense_collection' => 'test_collection',
+            'options_external_content_sources_0_rules'                       => '1',
+            'options_external_content_sources_0_rules_0_property_path'       => 'test_property_path',
+            'options_external_content_sources_0_rules_0_operator'            => 'test_operator',
+            'options_external_content_sources_0_rules_0_value'               => 'test_value',
         ];
     }
 }
