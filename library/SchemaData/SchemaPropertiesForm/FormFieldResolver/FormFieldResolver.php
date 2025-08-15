@@ -39,8 +39,8 @@ class FormFieldResolver implements FormFieldResolverInterface
         $resolver = new EmptyField();
         $resolver = new FieldWithIdentifiers($this->propertyName, $resolver);
         $resolver = new FieldWithValue($this->acfService, $this->propertyName, $resolver);
-        $resolver = new DateTimeField($this->acceptedPropertyTypes, $resolver);
         $resolver = new StringField($this->acceptedPropertyTypes, $resolver);
+        $resolver = new DateTimeField($this->acceptedPropertyTypes, $resolver);
         $resolver = new GeoCoordinatesField($this->acceptedPropertyTypes, $resolver);
 
         return $resolver->resolve();
