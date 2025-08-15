@@ -131,7 +131,12 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
             // We're already in the main site context via runInSite()
             $formattedValue = $this->acfService->getField($field['name'], 'option');
             
-            // Store the formatted value instead of the raw value
+            // If getField returns null, fallback to raw value from getOption
+            if ($formattedValue === null) {
+                $formattedValue = $this->wpService->getOption($optionKey);
+            }
+
+            // Store the formatted value (or fallback raw value) instead of the raw value
             $this->fieldsKeyValueStore[$optionKey] = $formattedValue;
 
             // Handle true/false fields (convert to bool) - only if we got a numeric value
