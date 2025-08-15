@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<a href=\"https:\/\/dev.local.municipio.tech\/accessibility-statement\" target=\"_blank\" class=\"button button-secondary button-large\">View Accessibility Statement<\/a>",
+            "message": "<a href=\"{{a11y_page_url}}\" target=\"_blank\" class=\"button button-secondary button-large\">View Accessibility Statement<\/a>",
             "new_lines": "",
             "esc_html": 0
         }
