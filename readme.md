@@ -20,30 +20,38 @@ Municipio requires [ACF PRO](https://www.advancedcustomfields.com/pro/).
 ## Coding standards
 For PHP, use PSR-2 and PSR-4 where applicable.
 
-## Gulp
-You can use Gulp to compile, concatenate and minify SASS and JavaScript.
-The compiling of SASS will also automatically add vendor-prefixes where needed.
+## Build System (Vite)
+Municipio uses Vite for modern, fast asset building. Vite provides better performance, simpler configuration, and excellent ES module support.
 
-To compile both js and sass and start the "watch" task run the following command from the theme directory:
+### Development
+To start the development server with file watching:
 ```
-$ gulp
+$ npm run dev
 ```
 
-## We added support for webpack
-Webpack is a bit faster than gulp. So if you prefer to use webpack instead of gulp, just run the following command:
+To build assets for development:
+```
+$ npm run build:dev
+```
+
+To watch and rebuild assets automatically during development:
 ```
 $ npm run watch
 ```
-or just for a single build:
+
+### Production
+To build optimized assets for production:
 ```
 $ npm run build
 ```
 
 ## NPM scripts
 
-* **watch**: Run webpack in watch mode. To be used when working on client side code like scss,js,ts...
-* **build:dev**: Build assets with the development flag.
-* **build**: Build assets for production.
+* **dev**: Start Vite development server
+* **watch**: Build assets in watch mode for development
+* **build:dev**: Build assets for development
+* **build**: Build assets for production with optimization and cache-busting
+* **test**: Run Jest tests with coverage
 * **i18n:update**: Updates languages/municipio.pot and languages/sv_SE.po from source files. Run this when translatable strings have been added/updated. **Requires wp-cli**.
 * **i18n:build**: Updates languages/municipio.mo .po file. Run this when changes have been made to the corresponding .po file. **Requires wp-cli**.
 
