@@ -5,11 +5,15 @@ const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m =>
 
 // Entry points configuration matching the original webpack config
 const entries = {
+  'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
   'js/styleguide': './assets/source/3.0/js/styleguide.js',
+  'css/municipio': './assets/source/3.0/sass/main.scss',
   'js/municipio': './assets/source/3.0/js/municipio.js',
   'js/instantpage': './node_modules/instant.page/instantpage.js',
   'js/mce-buttons': './assets/source/3.0/mce-js/mce-buttons.js',
   'js/mce-table': './assets/source/3.0/mce-js/mce-table.js',
+  'css/mce': './assets/source/3.0/sass/mce.scss',
+  'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
   'js/pdf': './assets/source/3.0/js/pdf.ts',
   'js/nav': './assets/source/3.0/js/nav.ts',
 
@@ -25,9 +29,31 @@ const entries = {
   'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
   'js/event-source-progress': './assets/source/3.0/js/admin/eventSourceProgress/index.ts',
 
+  /* Admin css */
+  'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+  'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
+  'css/general': './assets/source/3.0/sass/admin/general.scss',
+  'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
+
+  /* Login css */
+  'css/login': './assets/source/3.0/sass/admin/login.scss',
+
   /* Legacy 2.0  */
   'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
   'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
+
+  /* Icons */
+  'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
+  'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
+  'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
+
+  'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+  'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+  'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
+
+  'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
+  'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
+  'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
 }
 
 // Custom plugin to generate icon data (replaces webpack plugin)
@@ -82,11 +108,36 @@ function iconGeneratorPlugin() {
 function rawPlugin() {
   return {
     name: 'raw',
+    resolveId(id, importer) {
+      if (id.includes('!!raw-loader!') && id.endsWith('?raw')) {
+        // Extract the actual file path from !!raw-loader!./file.css?raw
+        const filePath = id.replace('!!raw-loader!', '').replace('?raw', '');
+        
+        // If it's a relative path, resolve it relative to the importer
+        if (filePath.startsWith('./') && importer) {
+          const path = require('path');
+          const resolvedPath = path.resolve(path.dirname(importer), filePath);
+          return resolvedPath + '?raw';
+        }
+        
+        return filePath + '?raw';
+      }
+      if (id.endsWith('?raw')) {
+        return id;
+      }
+    },
     load(id) {
       if (id.endsWith('?raw')) {
+        // Remove the ?raw suffix to get the actual file path
         const filePath = id.replace('?raw', '');
-        const content = fs.readFileSync(filePath, 'utf8');
-        return `export default ${JSON.stringify(content)};`;
+        
+        try {
+          const content = fs.readFileSync(filePath, 'utf8');
+          return `export default ${JSON.stringify(content)};`;
+        } catch (err) {
+          console.warn(`Could not load raw file: ${filePath}`, err.message);
+          return `export default "";`;
+        }
       }
     }
   }
@@ -100,11 +151,12 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       rollupOptions: {
         input: entries,
-        external: ['jquery', 'tinymce'],
+        external: ['jquery', 'tinymce', /^@helsingborg-stad\/styleguide/],
         output: {
           globals: {
             jquery: 'jQuery',
-            tinymce: 'tinymce'
+            tinymce: 'tinymce',
+            '@helsingborg-stad/styleguide': 'HbgStyleguide'
           },
           entryFileNames: isProduction ? '[name].[hash].js' : '[name].js',
           chunkFileNames: isProduction ? '[name].[hash].js' : '[name].js',

@@ -15,7 +15,7 @@ module.exports = {
       ]
     }]
   },
-  moduleNameMapping: {
+  moduleNameMapper: {
     "^!!raw-loader!(.*)$": "<rootDir>/jest-raw-loader.js"
   },
   transformIgnorePatterns: [
