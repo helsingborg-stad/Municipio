@@ -1,19 +1,37 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import path from 'path'
 import fs from 'fs'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 // Entry points configuration matching the original webpack config
+// Note: CSS entries temporarily removed due to missing @helsingborg-stad/styleguide dependency
+// Add back when styleguide package is available:
+// 'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+// 'css/municipio': './assets/source/3.0/sass/main.scss',
+// 'css/mce': './assets/source/3.0/sass/mce.scss',
+// 'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
+// 'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+// 'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
+// 'css/general': './assets/source/3.0/sass/admin/general.scss',
+// 'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
+// 'css/login': './assets/source/3.0/sass/admin/login.scss',
+// Icon font CSS files
+// 'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
+// 'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
+// 'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
+// 'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+// 'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+// 'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
+// 'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
+// 'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
+// 'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
+
 const entries = {
-  'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
   'js/styleguide': './assets/source/3.0/js/styleguide.js',
-  'css/municipio': './assets/source/3.0/sass/main.scss',
   'js/municipio': './assets/source/3.0/js/municipio.js',
   'js/instantpage': './node_modules/instant.page/instantpage.js',
   'js/mce-buttons': './assets/source/3.0/mce-js/mce-buttons.js',
   'js/mce-table': './assets/source/3.0/mce-js/mce-table.js',
-  'css/mce': './assets/source/3.0/sass/mce.scss',
-  'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
   'js/pdf': './assets/source/3.0/js/pdf.ts',
   'js/nav': './assets/source/3.0/js/nav.ts',
 
@@ -29,31 +47,9 @@ const entries = {
   'js/blocks/columns': './assets/source/3.0/js/admin/blocks/columns.js',
   'js/event-source-progress': './assets/source/3.0/js/admin/eventSourceProgress/index.ts',
 
-  /* Admin css */
-  'css/acf': './assets/source/3.0/sass/admin/acf.scss',
-  'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
-  'css/general': './assets/source/3.0/sass/admin/general.scss',
-  'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
-
-  /* Login css */
-  'css/login': './assets/source/3.0/sass/admin/login.scss',
-
   /* Legacy 2.0  */
   'js/mce-pricons': './assets/source/3.0/mce-js/mce-pricons.js',
   'js/mce-metadata': './assets/source/3.0/mce-js/mce-metadata.js',
-
-  /* Icons */
-  'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
-  'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
-  'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
-
-  'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
-  'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
-  'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
-
-  'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
-  'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
-  'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
 }
 
 // Custom plugin to generate icon data (replaces webpack plugin)
@@ -61,7 +57,7 @@ function iconGeneratorPlugin() {
   return {
     name: 'icon-generator',
     buildStart() {
-      const filePath = resolve(process.cwd(), 'node_modules', 'material-symbols', 'index.d.ts');
+      const filePath = path.resolve(process.cwd(), 'node_modules', 'material-symbols', 'index.d.ts');
       
       try {
         const data = fs.readFileSync(filePath, 'utf8');
@@ -85,8 +81,8 @@ function iconGeneratorPlugin() {
         }
 
         const json = JSON.stringify(iconArray, null, 2);
-        const resultDirectory = resolve(process.cwd(), 'assets', 'generated');
-        const resultFilepath = resolve(resultDirectory, 'icon.json');
+        const resultDirectory = path.resolve(process.cwd(), 'assets', 'generated');
+        const resultFilepath = path.resolve(resultDirectory, 'icon.json');
 
         try {
           fs.mkdirSync(resultDirectory, { recursive: true });
@@ -115,7 +111,6 @@ function rawPlugin() {
         
         // If it's a relative path, resolve it relative to the importer
         if (filePath.startsWith('./') && importer) {
-          const path = require('path');
           const resolvedPath = path.resolve(path.dirname(importer), filePath);
           return resolvedPath + '?raw';
         }
@@ -222,7 +217,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.scss', '.css'],
       alias: {
-        '~': resolve(process.cwd(), 'node_modules')
+        '~': path.resolve(process.cwd(), 'node_modules')
       }
     },
     plugins: [

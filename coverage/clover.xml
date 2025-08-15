@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1755264601927" clover="3.2.0">
-  <project timestamp="1755264601927" name="All files">
+<coverage generated="1755265212679" clover="3.2.0">
+  <project timestamp="1755265212679" name="All files">
     <metrics statements="78" coveredstatements="41" conditionals="16" coveredconditionals="7" methods="26" coveredmethods="13" elements="120" coveredelements="61" complexity="0" loc="78" ncloc="78" packages="3" files="5" classes="5"/>
     <package name="Municipio">
       <metrics statements="11" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
