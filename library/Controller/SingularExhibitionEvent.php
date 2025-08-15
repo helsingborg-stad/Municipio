@@ -11,6 +11,10 @@ use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
 use Modularity\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
+use Municipio\Schema\Event;
+use Municipio\Schema\ExhibitionEvent;
+use Municipio\Schema\Schema;
+use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString;
 
 /**
  * Class SingularExhibitionEvent
@@ -46,8 +50,35 @@ class SingularExhibitionEvent extends Singular
         $this->data['openingHoursSpecification']        = $event->getProperty('openingHoursSpecification') ?? [];
         $this->data['specialOpeningHoursSpecification'] = $event->getProperty('specialOpeningHoursSpecification') ?? [];
         $this->data['galleryComponentAttributes']       = $this->getGalleryComponentAttributes();
+        $this->data['openingHours']                     = $this->getOpeningHours($event->getProperty('location')?->getProperty('openingHoursSpecification') ?? []);
+        $this->data['specialOpeningHours']              = $this->getOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? []);
 
         $this->trySetHttpStatusHeader($event);
+    }
+
+    private function getOpeningHours(array $openingHours): ?array
+    {
+        if (empty($openingHours)) {
+            return null;
+        }
+
+        $converter    = new OpeningHoursSpecificationToString();
+        $openingHours = is_array($openingHours) ? $openingHours : [$openingHours];
+        $openingHours = array_map(
+            function ($item) {
+                return Schema::openingHoursSpecification()
+                    ->setProperty('name', $item['name'] ?? null)
+                    ->setProperty('dayOfWeek', $item['dayOfWeek'] ?? null)
+                    ->setProperty('opens', $item['opens'] ?? null)
+                    ->setProperty('closes', $item['closes'] ?? null);
+            },
+            $openingHours
+        );
+
+        $formatted = array_map(fn($spec) => $converter->convert($spec), $openingHours);
+        $flattened = array_merge(...$formatted);
+
+        return $flattened;
     }
 
     /**

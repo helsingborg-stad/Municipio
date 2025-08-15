@@ -23,6 +23,7 @@ class SchemaPropertiesFromMappedFieldsFactory implements SchemaPropertiesFromMap
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\GeoCoordinatesHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\EmailHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\DateTimeHandler(),
+                new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\TimeHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\DateHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\UrlHandler(),
                 new \Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues\SchemaPropertyHandler\IntHandler(),

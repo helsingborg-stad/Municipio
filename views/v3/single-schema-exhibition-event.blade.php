@@ -97,7 +97,6 @@
 @stop
 
 @section('sidebar.right-sidebar.before')
-    
     @paper(['padding' => 2])
         @collection()
             @collection__item([])
@@ -109,9 +108,37 @@
                 @endtypography
             @endcollection__item
         @endcollection
-    @endpaper
 
-    @paper(['padding' => 2])
+        @if(!empty($openingHours))
+            @collection()
+                @collection__item([])
+                    @typography(['element' => 'h4'])
+                        Öppettider
+                    @endtypography
+                    @typography([])
+                        @foreach ($openingHours as $line)
+                            {!! $line !!}
+                        @endforeach
+                    @endtypography
+                @endcollection__item
+            @endcollection
+        @endif
+
+        @if(!empty($specialOpeningHours))
+            @collection()
+                @collection__item([])
+                    @typography(['element' => 'h4'])
+                        Avvikande öppettider
+                    @endtypography
+                    @typography([])
+                        @foreach ($specialOpeningHours as $line)
+                            {!! $line !!}
+                        @endforeach
+                    @endtypography
+                @endcollection__item
+            @endcollection
+        @endif
+
         @collection(['classList' => ['u-display--flex']])
             @collection__item()
                 @typography(['element' => 'h4'])
@@ -122,11 +149,9 @@
                 @endtypography
             @endcollection__item
         @endcollection
-    @endpaper
 
 
-    @if(!empty($priceListItems))
-        @paper(['padding' => 2])
+        @if(!empty($priceListItems))
             @collection()
                     @collection__item([])
                         @typography(['element' => 'h4'])
@@ -140,8 +165,8 @@
                         @endforeach
                     @endcollection__item
             @endcollection
-        @endpaper
-    @endif
+        @endif
+    @endpaper
 
     {{-- @paper(['padding' => 2])
         @collection()
