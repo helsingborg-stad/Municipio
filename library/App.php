@@ -471,8 +471,13 @@ class App
         $disableFieldsThatAreCommonlyManagedOnSubsites = new \Municipio\CommonFieldGroups\DisableFieldsThatAreCommonlyManagedOnSubsites($this->wpService, $this->acfService, $siteSwitcher, $config);
         $disableFieldsThatAreCommonlyManagedOnSubsites->addHooks();
 
+        //SubField Resolvers
+        $subFieldValueResolver = new \Municipio\CommonFieldGroups\SubFieldValueResolver\NullResolver();
+        $subFieldValueResolver = new \Municipio\CommonFieldGroups\SubFieldValueResolver\ResolveFromGetOption($this->wpService, $subFieldValueResolver);
+        $subFieldValueResolver = new \Municipio\CommonFieldGroups\SubFieldValueResolver\ResolveValueFromSelectFieldThatReturnsBothLabelAndValue($this->wpService, $subFieldValueResolver);
+
         //Modify field choices
-        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonFieldGroups\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config);
+        $filterGetFieldToRetriveCommonValues = new \Municipio\CommonFieldGroups\FilterGetFieldToRetriveCommonValues($this->wpService, $this->acfService, $siteSwitcher, $config, $subFieldValueResolver);
         $filterGetFieldToRetriveCommonValues->addHooks();
     }
 

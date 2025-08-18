@@ -7,6 +7,7 @@ use WpService\WpService;
 use AcfService\AcfService;
 use Municipio\HooksRegistrar\Hookable;
 use Municipio\CommonFieldGroups\CommonFieldGroupsConfigInterface;
+use Municipio\CommonFieldGroups\SubFieldValueResolver\SubFieldValueResolverInterface;
 use Municipio\Helper\SiteSwitcher\SiteSwitcherInterface;
 
 /**
@@ -29,7 +30,8 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         private WpService $wpService,
         private AcfService $acfService,
         private SiteSwitcherInterface $siteSwitcher,
-        private CommonFieldGroupsConfigInterface $config
+        private CommonFieldGroupsConfigInterface $config,
+        private SubFieldValueResolverInterface $subFieldValueResolver
     ) {
     }
 
@@ -145,7 +147,7 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
         foreach ($field['sub_fields'] as $subField) {
             for ($i = 0; $i < $numberOfEntries; $i++) {
                 $subFieldKey                       = $optionKey . "_" . $i . "_" . $subField['name'];
-                $subFieldValue                     = $this->wpService->getOption($subFieldKey);
+                $subFieldValue                     = $this->subFieldValueResolver->resolve($subField, $subFieldKey);
                 $fieldArray[$i][$subField['name']] = $subFieldValue;
 
                 $this->fieldsKeyValueStore[$subFieldKey] = $subFieldValue;
