@@ -36,9 +36,6 @@ class SingularExhibitionEvent extends Singular
         $this->data['placeName']                        = $this->getPlaceName($event->getProperty('location'));
         $this->data['placeAddress']                     = $this->getPlaceAddress($event->getProperty('location'));
         $this->data['priceListItems']                   = $this->getPriceList();
-        $this->data['occassion']                        = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
-        $this->data['bookingLink']                      = $this->getBookingLink();
-        $this->data['organizers']                       = $this->getOrganizers();
         $this->data['physicalAccessibilityFeatures']    = $this->getPhysicalAccessibilityFeaturesList($this->post->getSchemaProperty('physicalAccessibilityFeatures'));
         $this->data['eventIsInThePast']                 = $this->eventIsInThePast();
         $this->data['openingHoursSpecification']        = $event->getProperty('openingHoursSpecification') ?? [];
@@ -73,28 +70,6 @@ class SingularExhibitionEvent extends Singular
     private function getPlaceAddress(?Place $place): ?string
     {
         return $place?->getProperty('geo')?->getProperty('address') ?? null;
-    }
-
-    /**
-     * Get the booking link from the event schema.
-     *
-     * @return string|null
-     */
-    private function getBookingLink(): ?string
-    {
-        $offers = $this->post->getSchemaProperty('offers');
-        return $offers[0]['url'] ?? null;
-    }
-
-    /**
-     * Get the organizers from the event schema.
-     *
-     * @return array
-     */
-    private function getOrganizers(): array
-    {
-        $organizers = $this->post->getSchemaProperty('organizer') ?? [];
-        return !is_array($organizers) ? [$organizers] : $organizers;
     }
 
     /**
@@ -142,20 +117,17 @@ class SingularExhibitionEvent extends Singular
      */
     private function populateLanguageObject(): void
     {
-        $lang                     = $this->data['lang'];
-        $wp                       = $this->wpService;
-        $lang->description        = $wp->__('Description', 'municipio');
-        $lang->addToCalendar      = $wp->__('Add to calendar', 'municipio');
-        $lang->bookingTitle       = $wp->__('Tickets & registration', 'municipio');
-        $lang->bookingButton      = $wp->__('Go to booking page', 'municipio');
-        $lang->bookingDisclaimer  = $wp->__('Tickets are sold according to the reseller.', 'municipio');
-        $lang->occassionsTitle    = $wp->__('Date and time', 'municipio');
-        $lang->moreOccassions     = $wp->__('Other occassions', 'municipio');
-        $lang->placeTitle         = $wp->__('Place', 'municipio');
-        $lang->priceTitle         = $wp->__('Price', 'municipio');
-        $lang->organizersTitle    = $wp->__('Organizers', 'municipio');
-        $lang->accessibilityTitle = $wp->__('Accessibility', 'municipio');
-        $lang->expiredEventNotice = $wp->__('This event has already taken place.', 'municipio');
+        $lang                           = $this->data['lang'];
+        $wp                             = $this->wpService;
+        $lang->placeTitle               = $wp->__('Place', 'municipio');
+        $lang->expiredEventNoticeLabel  = $wp->__('This event has already taken place.', 'municipio');
+        $lang->dateLabel                = $wp->__('Date', 'municipio');
+        $lang->openingHoursLabel        = $wp->__('Opening hours', 'municipio');
+        $lang->specialOpeningHoursLabel = $wp->__('Special opening hours', 'municipio');
+        $lang->entranceLabel            = $wp->__('Entrance', 'municipio');
+        $lang->accessibilityLabel       = $wp->__('Accessibility', 'municipio');
+        $lang->findUsLabel              = $wp->__('Find us', 'municipio');
+        $lang->galleryLabel             = $wp->__('Gallery', 'municipio');
     }
 
     /**
@@ -171,28 +143,6 @@ class SingularExhibitionEvent extends Singular
         }
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
         return $googleMapsUrl . urlencode($place['geo']['address']);
-    }
-
-    /**
-     * Get the occasion text from the event schema.
-     *
-     * @param DateTime|null $startDate
-     * @param DateTime|null $endDate
-     * @return string
-     */
-    public function getOccassionText(?DateTime $startDate, ?DateTime $endDate): string
-    {
-        if (!$startDate || !$endDate) {
-            return '';
-        }
-
-        $startDateTimestamp = $startDate->getTimestamp();
-        $endDateTimestamp   = $endDate->getTimestamp();
-
-        $start = ucfirst($this->wpService->dateI18n('j M', $startDateTimestamp));
-        $end   = ucfirst($this->wpService->dateI18n('j M Y', $endDateTimestamp));
-
-        return "{$start} - {$end}";
     }
 
     /**

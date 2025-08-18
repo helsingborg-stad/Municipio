@@ -26,73 +26,6 @@
     @stop
     
     {!!$post->getSchemaProperty('description')!!}
-
-    @iconSection()
-
-        @if(!empty($organizers))
-            
-            @iconSection__item(['icon' => ['icon' => 'group', 'size' => 'md']])
-                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->organizersTitle])
-                @foreach($organizers as $organizer)
-                    @if(!empty($organizer['name'])) 
-                        
-                        @element([])
-                            @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--2']]){!!$organizer['name']!!}@endtypography
-
-                            @if(!empty($organizer['url']))
-                                @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
-                                    @icon(['icon' => 'language'])@endicon @link(['href' => $organizer['url']]) {!!$organizer['url']!!} @endlink
-                                @endelement
-                            @endif
-                            
-                            @if(!empty($organizer['email']))
-                                @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
-                                    @icon(['icon' => 'email'])@endicon @link(['href' => 'mailto:'.$organizer['email']]) {!!$organizer['email']!!} @endlink
-                                @endelement
-                            @endif
-                            @if(!empty($organizer['telephone']))
-                                @element(['classList' => ['u-width--100', 'u-truncate']])
-                                    @icon(['icon' => 'phone'])@endicon @link(['href' => 'tel:'.$organizer['telephone']]) {!!$organizer['telephone']!!} @endlink
-                                @endelement
-                            @endif
-                        @endelement
-
-                    @endif
-                @endforeach
-            @endiconSection__item
-        @endif  
-
-        @if(!empty($occassions))
-            @iconSection__item(['icon' => ['icon' => 'calendar_month', 'size' => 'md']])
-                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->moreOccassions])
-                @element(['componentElement' => 'ul'])
-                    @foreach($occassions as $occassion)
-                        @element(['componentElement' => 'li'])
-                            @typography(){!!$occassion!!}@endtypography
-                        @endelement
-                    @endforeach
-                @endelement
-            @endiconSection__item
-        @endif
-
-        @if(!empty($bookingLink) && !$eventIsInThePast)
-            @iconSection__item(['icon' => ['icon' => 'local_activity', 'size' => 'md']])
-                @include('partials.post.schema.event.icon-section-header', ['header' => $lang->bookingTitle])
-                @button([
-                    'href' => $bookingLink,
-                    'color' => 'primary',
-                    'style' => 'filled',
-                    'size' => 'md',
-                    'icon' => 'arrow_forward',
-                    'fullWidth' => true,
-                    'text' => $lang->bookingButton,
-                ])
-                @endbutton
-                @element(['componentElement' => 'small']){!!$lang->bookingDisclaimer!!}@endelement
-            @endiconSection__item
-        @endif
-
-    @endiconSection
     
 @stop
 
@@ -101,7 +34,7 @@
         @collection()
             @collection__item([])
                 @typography(['element' => 'h4'])
-                    Datum
+                    {!! $lang->dateLabel !!}
                 @endtypography
                 @typography([])
                     {!!$occassion!!}
@@ -113,7 +46,7 @@
             @collection()
                 @collection__item([])
                     @typography(['element' => 'h4'])
-                        Öppettider
+                        {!! $lang->openingHoursLabel !!}
                     @endtypography
                     @typography([])
                         @foreach ($openingHours as $line)
@@ -128,7 +61,7 @@
             @collection()
                 @collection__item([])
                     @typography(['element' => 'h4'])
-                        Avvikande öppettider
+                        {!! $lang->specialOpeningHoursLabel !!}
                     @endtypography
                     @typography([])
                         @foreach ($specialOpeningHours as $line)
@@ -155,7 +88,7 @@
             @collection()
                     @collection__item([])
                         @typography(['element' => 'h4'])
-                            Entré
+                            {!! $lang->entranceLabel !!}
                         @endtypography
                         @foreach ($priceListItems as $priceListItem)
                             @element([])
@@ -171,7 +104,7 @@
             @collection()
                     @collection__item([])
                         @typography(['element' => 'h4'])
-                            Tillgänglighet
+                            {!! $lang->accessibilityLabel !!}
                         @endtypography
                         @typography([])
                             {!! $physicalAccessibilityFeatures !!}
@@ -184,7 +117,7 @@
             @collection()
                     @collection__item([])
                         @typography(['element' => 'h4'])
-                            Hitta hit
+                            {!! $lang->findUsLabel !!}
                         @endtypography
                         @link(['href' => $placeUrl, 'target' => '_blank'])
                             {!!$placeAddress!!}
@@ -199,7 +132,7 @@
 
 @section('below')
     @typography(['element' => 'h3'])
-        Galleri
+        {!! $lang->galleryLabel !!}
     @endtypography
     @if(!empty($galleryComponentAttributes))
         @gallery($galleryComponentAttributes)@endgallery
