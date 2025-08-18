@@ -26,6 +26,9 @@ class FilterGetFieldToRetriveCommonValues implements Hookable
     private array $fieldsToFilter      = [];
     private array $fieldsKeyValueStore = [];
 
+    /**
+     * Constructor.
+     */
     public function __construct(
         private WpService $wpService,
         private AcfService $acfService,
