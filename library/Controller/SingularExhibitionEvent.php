@@ -3,13 +3,13 @@
 namespace Municipio\Controller;
 
 use DateTime;
-use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
+use Municipio\Schema\Schema;
 use Modularity\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
-use Municipio\Schema\Schema;
+use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
 use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString;
 
 /**
@@ -115,7 +115,7 @@ class SingularExhibitionEvent extends Singular
             'specialOpeningHoursLabel' => ['Special opening hours', 'municipio'],
             'entranceLabel'            => ['Entrance', 'municipio'],
             'accessibilityLabel'       => ['Accessibility', 'municipio'],
-            'findUsLabel'              => ['Find us', 'municipio'],
+            'directionsLabel'          => ['Directions', 'municipio'],
             'galleryLabel'             => ['Gallery', 'municipio'],
         ];
 

@@ -117,7 +117,7 @@
             @collection()
                     @collection__item([])
                         @typography(['element' => 'h4'])
-                            {!! $lang->findUsLabel !!}
+                            {!! $lang->directionsLabel !!}
                         @endtypography
                         @link(['href' => $placeUrl, 'target' => '_blank'])
                             {!!$placeAddress!!}
