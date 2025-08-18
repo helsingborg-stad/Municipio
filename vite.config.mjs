@@ -3,30 +3,27 @@ import path from 'path'
 import fs from 'fs'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
-// Entry points configuration matching the original webpack config
-// Note: CSS entries temporarily removed due to missing @helsingborg-stad/styleguide dependency
-// Add back when styleguide package is available:
-// 'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
-// 'css/municipio': './assets/source/3.0/sass/main.scss',
-// 'css/mce': './assets/source/3.0/sass/mce.scss',
-// 'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
-// 'css/acf': './assets/source/3.0/sass/admin/acf.scss',
-// 'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
-// 'css/general': './assets/source/3.0/sass/admin/general.scss',
-// 'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
-// 'css/login': './assets/source/3.0/sass/admin/login.scss',
-// Icon font CSS files
-// 'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
-// 'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
-// 'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
-// 'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
-// 'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
-// 'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
-// 'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
-// 'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
-// 'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
-
 const entries = {
+  'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+  'css/municipio': './assets/source/3.0/sass/main.scss',
+  'css/mce': './assets/source/3.0/sass/mce.scss',
+  'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
+  'css/acf': './assets/source/3.0/sass/admin/acf.scss',
+  'css/header-flexible': './assets/source/3.0/sass/admin/header-flexible.scss',
+  'css/general': './assets/source/3.0/sass/admin/general.scss',
+  'css/a11y': './assets/source/3.0/sass/admin/a11y.scss',
+  'css/login': './assets/source/3.0/sass/admin/login.scss',
+
+  'fonts/material/light/sharp': './assets/source/3.0/sass/icons/light/sharp.scss',
+  'fonts/material/light/outlined': './assets/source/3.0/sass/icons/light/outlined.scss',
+  'fonts/material/light/rounded': './assets/source/3.0/sass/icons/light/rounded.scss',
+  'fonts/material/medium/sharp': './assets/source/3.0/sass/icons/medium/sharp.scss',
+  'fonts/material/medium/outlined': './assets/source/3.0/sass/icons/medium/outlined.scss',
+  'fonts/material/medium/rounded': './assets/source/3.0/sass/icons/medium/rounded.scss',
+  'fonts/material/bold/sharp': './assets/source/3.0/sass/icons/bold/sharp.scss',
+  'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
+  'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
+
   'js/styleguide': './assets/source/3.0/js/styleguide.js',
   'js/municipio': './assets/source/3.0/js/municipio.js',
   'js/instantpage': './node_modules/instant.page/instantpage.js',
