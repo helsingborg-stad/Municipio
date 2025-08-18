@@ -166,34 +166,34 @@
                     @endcollection__item
             @endcollection
         @endif
-    @endpaper
-
-    {{-- @paper(['padding' => 2])
-        @collection()
-                @collection__item([])
-                    @typography(['element' => 'h4'])
-                        Planera ditt besök
-                    @endtypography
-                    @if(!empty($placeUrl))
-                        @element(['classList' => ['u-width--100', 'u-truncate', 'u-margin__bottom--1']])
-                            @icon(['icon' => 'language'])@endicon @link(['href' => $placeUrl]) Hitta hit @endlink
-                        @endelement
-                    @endif
-                @endcollection__item
-                @collection__item([])
-                    @if(!empty($physicalAccessibilityFeatures))
+        
+        @if(!empty($physicalAccessibilityFeatures))
+            @collection()
+                    @collection__item([])
                         @typography(['element' => 'h4'])
-                            {{$lang->accessibilityTitle}}
+                            Tillgänglighet
                         @endtypography
-                        @element(['componentElement' => 'ul'])
-                            @foreach($physicalAccessibilityFeatures as $feature)
-                                @element(['componentElement' => 'li']){!! $feature !!}@endelement
-                            @endforeach
-                        @endelement
-                    @endif
-                @endcollection__item
-        @endcollection
-    @endpaper --}}
+                        @typography([])
+                            {!! $physicalAccessibilityFeatures !!}
+                        @endtypography
+                    @endcollection__item
+            @endcollection
+        @endif
+        
+        @if(!empty($placeUrl) && !empty($placeAddress))
+            @collection()
+                    @collection__item([])
+                        @typography(['element' => 'h4'])
+                            Hitta hit
+                        @endtypography
+                        @link(['href' => $placeUrl, 'target' => '_blank'])
+                            {!!$placeAddress!!}
+                        @endlink
+                    @endcollection__item
+            @endcollection
+        @endif
+    
+    @endpaper
 
 @stop
 

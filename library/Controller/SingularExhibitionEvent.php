@@ -4,15 +4,11 @@ namespace Municipio\Controller;
 
 use DateTime;
 use Municipio\Controller\SingularEvent\Contracts\PriceListItemInterface;
-use Municipio\ImageConvert\Contract\ImageContract;
-use Municipio\ImageConvert\Contract\ImageContractInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\ImageObject;
 use Municipio\Schema\Place;
 use Modularity\Integrations\Component\ImageResolver;
 use ComponentLibrary\Integrations\Image\Image as ImageComponentContract;
-use Municipio\Schema\Event;
-use Municipio\Schema\ExhibitionEvent;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\Utils\OpeningHoursSpecificationToString\OpeningHoursSpecificationToString;
 
@@ -39,13 +35,13 @@ class SingularExhibitionEvent extends Singular
         $this->data['displayFeaturedImage']             = false;
         $this->data['placeUrl']                         = $this->getPlaceUrl($event->getProperty('location'));
         $this->data['placeName']                        = $event->getProperty('location')['name'] ?? $event->getProperty('location')['address'] ?? null;
-        $this->data['placeAddress']                     = $event->getProperty('location')['address'] ?? null;
+        $this->data['placeAddress']                     = $event->getProperty('location')?->getProperty('geo')?->getProperty('address') ?? null;
         $this->data['priceListItems']                   = $this->getPriceList();
         $this->data['occassion']                        = $this->getOccassionText($event->getProperty('startDate'), $event->getProperty('endDate'));
         $this->data['bookingLink']                      = $this->post->getSchemaProperty('offers')[0]['url'] ?? null;
         $this->data['organizers']                       = $this->post->getSchemaProperty('organizer') ?? [];
         $this->data['organizers']                       = !is_array($this->data['organizers']) ? [$this->data['organizers']] : $this->data['organizers'];
-        $this->data['physicalAccessibilityFeatures']    = $this->post->getSchemaProperty('physicalAccessibilityFeatures') ?? null;
+        $this->data['physicalAccessibilityFeatures']    = $this->getPhysicalAccessibilityFeaturesList($this->post->getSchemaProperty('physicalAccessibilityFeatures'));
         $this->data['eventIsInThePast']                 = $this->eventIsInThePast();
         $this->data['openingHoursSpecification']        = $event->getProperty('openingHoursSpecification') ?? [];
         $this->data['specialOpeningHoursSpecification'] = $event->getProperty('specialOpeningHoursSpecification') ?? [];
@@ -54,6 +50,15 @@ class SingularExhibitionEvent extends Singular
         $this->data['specialOpeningHours']              = $this->getOpeningHours($event->getProperty('location')?->getProperty('specialOpeningHoursSpecification') ?? []);
 
         $this->trySetHttpStatusHeader($event);
+    }
+
+    private function getPhysicalAccessibilityFeaturesList(?array $features): ?string
+    {
+        if (empty($features)) {
+            return null;
+        }
+
+        return implode(', ', $features);
     }
 
     private function getOpeningHours(array $openingHours): ?array
@@ -105,19 +110,14 @@ class SingularExhibitionEvent extends Singular
      *
      * @return string
      */
-    public function getPlaceUrl(?Place $place = null): string
+    public function getPlaceUrl(?Place $place = null): ?string
     {
         if (!$place) {
-            return '';
+            return null;
         }
 
-        $placeName    = $place['name'] ?? $place['address'] ?? '';
-        $placeAddress = $place['address'] ?? '';
-
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=';
-        $placeLink     = $googleMapsUrl . urlencode($placeName . ', ' . $placeAddress);
-
-        return $placeLink;
+        return $googleMapsUrl . urlencode($place['geo']['address']);
     }
 
     /**
