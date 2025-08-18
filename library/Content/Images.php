@@ -70,6 +70,7 @@ class Images
             }
             $linkedImage = $link->firstChild;
             if (self::isSelfLinked($link, $linkedImage)) {
+                $linkedImage->setAttribute('parsed', '1');
                 $captionText = self::extractCaption($link->parentNode);
                 $altText     = $linkedImage->getAttribute('alt') ?: $captionText;
                 self::replaceWithBladeTemplate($dom, $link, $linkedImage, $altText, $captionText);
@@ -220,7 +221,11 @@ class Images
         if (is_string($html) && !empty($html)) {
             $newNode = \Municipio\Helper\FormatObject::createNodeFromString($dom, $html);
 
-            if ($newNode instanceof \DOMElement) {
+            if (
+                $newNode instanceof \DOMElement &&
+                $element->parentNode instanceof \DOMElement &&
+                $element->parentNode->parentNode instanceof \DOMElement
+            ) {
                 $element->parentNode->parentNode->replaceChild($newNode, $element->parentNode);
             }
         }
