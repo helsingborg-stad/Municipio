@@ -20,7 +20,7 @@
             undo
         @endelement
     </a>
-    <a style="color: black;" href="{!! get_delete_post_link($post->ID, '', true) !!}" onclick="return confirm('Are you sure you want to permanently delete this post?');">
+    <a style="color: black;" href="{!! get_delete_post_link($post->ID, '', true) !!}" onclick="return confirm('{{ $lang['confirmDelete'] }}');">
         @element([
             'componentElement' => 'span',
             'classList' => [

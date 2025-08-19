@@ -34,6 +34,7 @@ class TrashPage implements Hookable
         $lang = [
             'trashedMedia' => __('Trashed media', 'municipio'),
             'noTrashedMedia' => __('No trashed media.', 'municipio'),
+            'confirmDelete' => __('Are you sure you want to permanently delete this post?', 'municipio')
         ];
 
         $trashedMedia = new WP_Query([
