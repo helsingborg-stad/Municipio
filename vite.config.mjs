@@ -185,7 +185,10 @@ export default defineConfig(({ mode }) => {
         input: entries,
         external: ['jquery', 'tinymce'],
         output: {
-          manualChunks: undefined, // Disable code splitting to prevent module imports
+          manualChunks: (id, { getModuleInfo, getModuleIds }) => {
+            // Force all modules to be inlined - don't create shared chunks
+            return null;
+          },
           globals: {
             jquery: 'jQuery',
             tinymce: 'tinymce'
@@ -227,6 +230,9 @@ export default defineConfig(({ mode }) => {
             }
             return 'assets/[name].[hash].[ext]'
           }
+        },
+        treeshake: {
+          moduleSideEffects: false
         }
       },
       minify: isProduction ? 'esbuild' : false,
