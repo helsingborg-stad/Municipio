@@ -297,7 +297,9 @@ class Enqueue
         wp_enqueue_script('pre-styleguide-js');
 
         //Load local styleguide js
-        wp_register_script('styleguide-js', self::getAsset('js/styleguide.js'));
+        wp_register_script('styleguide-js', self::getAsset('js/styleguide.js'), [], null, [
+            'module'  => 'true',
+        ]);
         wp_enqueue_script('styleguide-js');
 
         //Load local municipio js

@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite'
 import path from 'path'
 import fs from 'fs'
+import copy from 'rollup-plugin-copy'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
-  'css/styleguide': './assets/source/3.0/sass/styleguide.scss',
+  'css/styleguide': '', // will be filled by plugin
+  'js/styleguide': '', // will be filled by plugin
+
   'css/municipio': './assets/source/3.0/sass/main.scss',
   'css/mce': './assets/source/3.0/sass/mce.scss',
   'css/blockeditor': './assets/source/3.0/sass/blockeditor.scss',
@@ -24,7 +27,6 @@ const entries = {
   'fonts/material/bold/outlined': './assets/source/3.0/sass/icons/bold/outlined.scss',
   'fonts/material/bold/rounded': './assets/source/3.0/sass/icons/bold/rounded.scss',
 
-  'js/styleguide': './assets/source/3.0/js/styleguide.js',
   'js/municipio': './assets/source/3.0/js/municipio.js',
   'js/instantpage': './node_modules/instant.page/instantpage.js',
   'js/mce-buttons': './assets/source/3.0/mce-js/mce-buttons.js',
@@ -135,6 +137,27 @@ function rawPlugin() {
   }
 }
 
+function styleguideEntryResolver(entries) {
+  return {
+    name: 'styleguide-entry-resolver',
+    buildStart() {
+      // Resolve JS
+      const jsFiles = fs.readdirSync('node_modules/@helsingborg-stad/styleguide/dist/js');
+      const jsFile = jsFiles.find(f => f.startsWith('styleguide-js') && f.endsWith('.js'));
+      if (jsFile) {
+        entries['js/styleguide'] = path.resolve('node_modules/@helsingborg-stad/styleguide/dist/js', jsFile);
+      }
+
+      // Resolve CSS
+      const cssFiles = fs.readdirSync('node_modules/@helsingborg-stad/styleguide/dist/css');
+      const cssFile = cssFiles.find(f => f.startsWith('styleguide-css') && f.endsWith('.css'));
+      if (cssFile) {
+        entries['css/styleguide'] = path.resolve('node_modules/@helsingborg-stad/styleguide/dist/css', cssFile);
+      }
+    }
+  }
+}
+
 export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production'
   return {
@@ -143,13 +166,11 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       rollupOptions: {
         input: entries,
-        external: ['jquery', 'tinymce', /^@helsingborg-stad\/styleguide/],
+        external: ['jquery', 'tinymce'],
         output: {
-          format: 'iife',
           globals: {
             jquery: 'jQuery',
-            tinymce: 'tinymce',
-            '@helsingborg-stad/styleguide': 'HbgStyleguide'
+            tinymce: 'tinymce'
           },
           entryFileNames: isProduction ? '[name].[hash].js' : '[name].js',
           chunkFileNames: isProduction ? '[name].[hash].js' : '[name].js',
@@ -222,7 +243,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       manifestPlugin('manifest.json'),
       iconGeneratorPlugin(),
-      rawPlugin()
+      rawPlugin(),
+      styleguideEntryResolver(entries)
     ]
   }
 })
