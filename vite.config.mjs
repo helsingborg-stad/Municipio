@@ -44,11 +44,7 @@ const entries = {
   'js/widgets-area-hider': './assets/source/js/admin/widgetsAreaHider.js',
   'js/customizer-error-handling': './assets/source/js/admin/customizerErrorHandling.ts',
   'js/blocks/columns': './assets/source/js/admin/blocks/columns.js',
-  'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts',
-
-  /* Legacy 2.0  */
-  'js/mce-pricons': './assets/source/mce-js/mce-pricons.js',
-  'js/mce-metadata': './assets/source/mce-js/mce-metadata.js',
+  'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts'
 }
 
 // Custom plugin to generate icon data (replaces webpack plugin)
