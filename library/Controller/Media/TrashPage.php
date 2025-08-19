@@ -3,13 +3,11 @@
 namespace Municipio\Controller\Media;
 
 use Municipio\HooksRegistrar\Hookable;
-
 use WpService\Contracts\{
     AddAction,
     AddMediaPage,
     WpResetPostdata
 };
-
 use WP_Query;
 
 class TrashPage implements Hookable
