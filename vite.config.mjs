@@ -145,6 +145,7 @@ export default defineConfig(({ mode }) => {
         input: entries,
         external: ['jquery', 'tinymce', /^@helsingborg-stad\/styleguide/],
         output: {
+          format: 'iife',
           globals: {
             jquery: 'jQuery',
             tinymce: 'tinymce',

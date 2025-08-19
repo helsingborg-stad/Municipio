@@ -10,15 +10,13 @@ use Throwable;
  */
 class Enqueue
 {
+    private const ASSETS_DIST_PATH = '/assets/dist/';
+
     /**
      * Enqueue constructor.
      */
     public function __construct()
     {
-        if (!defined('ASSETS_DIST_PATH')) {
-            define('ASSETS_DIST_PATH', '/assets/dist/');
-        }
-  
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'style'), 5);
         add_action('wp_enqueue_scripts', array($this, 'icons'), 5);
@@ -68,9 +66,11 @@ class Enqueue
     /**
      * Get cache-busted asset file url.
      */
-    private static function getAssetWithCacheBust(string $file): string
+    private static function getAsset(string $file): string
     {
-        return get_template_directory_uri() . ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name($file);
+        return get_template_directory_uri() . self::ASSETS_DIST_PATH . \Municipio\Helper\CacheBust::name(
+            $file
+        );
     }
 
     /**
@@ -81,7 +81,7 @@ class Enqueue
     {
         wp_enqueue_script(
             'design-share-js',
-            self::getAssetWithCacheBust('js/design-share.js'),
+            self::getAsset('js/design-share.js'),
             array('jquery', 'customize-controls'),
             false,
             true
@@ -89,7 +89,7 @@ class Enqueue
 
         wp_enqueue_script(
             'customizer-flexible-header',
-            self::getAssetWithCacheBust('js/customizer-flexible-header.js'),
+            self::getAsset('js/customizer-flexible-header.js'),
             array('jquery', 'customize-controls'),
             false,
             true
@@ -113,7 +113,7 @@ class Enqueue
 
         wp_enqueue_script(
             'customizer-error-handling',
-            self::getAssetWithCacheBust('js/customizer-error-handling.js'),
+            self::getAsset('js/customizer-error-handling.js'),
             array('jquery', 'customize-controls'),
             false,
             true
@@ -126,13 +126,13 @@ class Enqueue
      */
     public function adminStyle()
     {
-        wp_register_style('acf-css', self::getAssetWithCacheBust('css/acf.css'));
+        wp_register_style('acf-css', self::getAsset('css/acf.css'));
         wp_enqueue_style('acf-css');
 
-        wp_register_style('general-css', self::getAssetWithCacheBust('css/general.css'));
+        wp_register_style('general-css', self::getAsset('css/general.css'));
         wp_enqueue_style('general-css');
 
-        wp_register_style('a11y-css', self::getAssetWithCacheBust('css/a11y.css'));
+        wp_register_style('a11y-css', self::getAsset('css/a11y.css'));
         wp_enqueue_style('a11y-css');
     }
 
@@ -142,7 +142,7 @@ class Enqueue
      */
     public function customizerScripts()
     {
-        wp_register_style('header-flexible', self::getAssetWithCacheBust('css/header-flexible.css'));
+        wp_register_style('header-flexible', self::getAsset('css/header-flexible.css'));
         wp_enqueue_style('header-flexible');
     }
 
@@ -156,7 +156,7 @@ class Enqueue
         if ($pagenow == 'options-reading.php') {
             wp_enqueue_script(
                 'options-reading',
-                self::getAssetWithCacheBust('js/options-reading.js'),
+                self::getAsset('js/options-reading.js'),
                 array('jquery'),
                 null,
                 true
@@ -165,7 +165,7 @@ class Enqueue
 
         wp_enqueue_script(
             'user-group-visibility',
-            self::getAssetWithCacheBust('js/user-group-visibility.js'),
+            self::getAsset('js/user-group-visibility.js'),
             array(),
             false,
             true
@@ -173,7 +173,7 @@ class Enqueue
 
         wp_enqueue_script(
             'hidden-post-status-conditional',
-            self::getAssetWithCacheBust('js/hidden-post-status-conditional.js'),
+            self::getAsset('js/hidden-post-status-conditional.js'),
             array('acf-input', 'jquery'),
             false,
             true
@@ -181,7 +181,7 @@ class Enqueue
 
         wp_enqueue_script(
             'event-source-progress',
-            self::getAssetWithCacheBust('js/event-source-progress.js'),
+            self::getAsset('js/event-source-progress.js'),
             array(),
             false,
             true
@@ -195,11 +195,11 @@ class Enqueue
     public function gutenbergStyle()
     {
         // Load styleguide css
-        wp_register_style('styleguide-css', self::getAssetWithCacheBust('css/styleguide.css'));
+        wp_register_style('styleguide-css', self::getAsset('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
-        wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
+        wp_register_style('municipio-css', self::getAsset('css/municipio.css'));
         wp_enqueue_style('municipio-css');
     }
 
@@ -210,11 +210,11 @@ class Enqueue
     public function style()
     {
         // Load styleguide css
-        wp_register_style('styleguide-css', self::getAssetWithCacheBust('css/styleguide.css'));
+        wp_register_style('styleguide-css', self::getAsset('css/styleguide.css'));
         wp_enqueue_style('styleguide-css');
 
         // Load local municipio css
-        wp_register_style('municipio-css', self::getAssetWithCacheBust('css/municipio.css'));
+        wp_register_style('municipio-css', self::getAsset('css/municipio.css'));
         wp_enqueue_style('municipio-css');
     }
 
@@ -235,7 +235,7 @@ class Enqueue
             '600' => 'bold',
         ];
 
-        wp_register_style('material-symbols', self::getAssetWithCacheBust(
+        wp_register_style('material-symbols', self::getAsset(
             sprintf(
                 'fonts/material/%s/%s.css',
                 $weightTranslationTable[$weight] ?? 'medium',
@@ -297,17 +297,17 @@ class Enqueue
         wp_enqueue_script('pre-styleguide-js');
 
         //Load local styleguide js
-        wp_register_script('styleguide-js', self::getAssetWithCacheBust('js/styleguide.js'));
+        wp_register_script('styleguide-js', self::getAsset('js/styleguide.js'));
         wp_enqueue_script('styleguide-js');
 
         //Load local municipio js
-        wp_register_script('municipio-js', self::getAssetWithCacheBust('js/municipio.js'), array('wp-api-request'));
+        wp_register_script('municipio-js', self::getAsset('js/municipio.js'), array('wp-api-request'));
         wp_enqueue_script('municipio-js');
 
         //Load instant page
         wp_register_script(
             'instantpage-js',
-            self::getAssetWithCacheBust('js/instantpage.js'),
+            self::getAsset('js/instantpage.js'),
             [],
             null,
             [
@@ -318,10 +318,10 @@ class Enqueue
         wp_enqueue_script('instantpage-js');
 
         //Load pdf generator
-        wp_register_script('pdf-js', self::getAssetWithCacheBust('js/pdf.js'));
+        wp_register_script('pdf-js', self::getAsset('js/pdf.js'));
         wp_enqueue_script('pdf-js');
 
-        wp_register_script('nav-js', self::getAssetWithCacheBust('js/nav.js'));
+        wp_register_script('nav-js', self::getAsset('js/nav.js'));
         wp_enqueue_script('nav-js');
     }
 
