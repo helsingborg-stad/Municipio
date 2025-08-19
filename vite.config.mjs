@@ -5,12 +5,14 @@ import copy from 'rollup-plugin-copy'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
-  'css/styleguide': '', // will be filled by plugin
-  'js/styleguide': '', // will be filled by plugin
+  // Styleguide entries - temporarily disabled until package is available
+  // 'css/styleguide': '', // will be filled by plugin
+  // 'js/styleguide': '', // will be filled by plugin
 
-  'css/municipio': './assets/source/sass/main.scss',
+  // Core CSS entries - temporarily disabled due to styleguide dependencies
+  // 'css/municipio': './assets/source/sass/main.scss',
   'css/mce': './assets/source/sass/mce.scss',
-  'css/blockeditor': './assets/source/sass/blockeditor.scss',
+  // 'css/blockeditor': './assets/source/sass/blockeditor.scss', // depends on styleguide
   'css/acf': './assets/source/sass/admin/acf.scss',
   'css/header-flexible': './assets/source/sass/admin/header-flexible.scss',
   'css/general': './assets/source/sass/admin/general.scss',
@@ -137,18 +139,36 @@ function styleguideEntryResolver(entries) {
   return {
     name: 'styleguide-entry-resolver',
     buildStart() {
-      // Resolve JS
-      const jsFiles = fs.readdirSync('node_modules/@helsingborg-stad/styleguide/dist/js');
-      const jsFile = jsFiles.find(f => f.startsWith('styleguide-js') && f.endsWith('.js'));
-      if (jsFile) {
-        entries['js/styleguide'] = path.resolve('node_modules/@helsingborg-stad/styleguide/dist/js', jsFile);
-      }
+      try {
+        const styleguideJsDir = 'node_modules/@helsingborg-stad/styleguide/dist/js';
+        const styleguideCssDir = 'node_modules/@helsingborg-stad/styleguide/dist/css';
+        
+        // Check if styleguide package exists
+        if (fs.existsSync(styleguideJsDir) && fs.existsSync(styleguideCssDir)) {
+          // Resolve JS
+          const jsFiles = fs.readdirSync(styleguideJsDir);
+          const jsFile = jsFiles.find(f => f.startsWith('styleguide-js') && f.endsWith('.js'));
+          if (jsFile) {
+            entries['js/styleguide'] = path.resolve(styleguideJsDir, jsFile);
+          }
 
-      // Resolve CSS
-      const cssFiles = fs.readdirSync('node_modules/@helsingborg-stad/styleguide/dist/css');
-      const cssFile = cssFiles.find(f => f.startsWith('styleguide-css') && f.endsWith('.css'));
-      if (cssFile) {
-        entries['css/styleguide'] = path.resolve('node_modules/@helsingborg-stad/styleguide/dist/css', cssFile);
+          // Resolve CSS
+          const cssFiles = fs.readdirSync(styleguideCssDir);
+          const cssFile = cssFiles.find(f => f.startsWith('styleguide-css') && f.endsWith('.css'));
+          if (cssFile) {
+            entries['css/styleguide'] = path.resolve(styleguideCssDir, cssFile);
+          }
+        } else {
+          console.warn('Styleguide package not found, skipping styleguide entries');
+          // Remove styleguide entries when package is not available
+          delete entries['js/styleguide'];
+          delete entries['css/styleguide'];
+        }
+      } catch (err) {
+        console.warn('Error resolving styleguide entries:', err.message);
+        // Remove empty styleguide entries if they can't be resolved
+        delete entries['js/styleguide'];
+        delete entries['css/styleguide'];
       }
     }
   }
@@ -160,10 +180,12 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'assets/dist',
       emptyOutDir: true,
+      lib: false, // Disable lib mode to avoid ES modules
       rollupOptions: {
         input: entries,
         external: ['jquery', 'tinymce'],
         output: {
+          manualChunks: undefined, // Disable code splitting to prevent module imports
           globals: {
             jquery: 'jQuery',
             tinymce: 'tinymce'
@@ -178,26 +200,29 @@ export default defineConfig(({ mode }) => {
             if (assetInfo.name?.match(/\.(woff2?|ttf|eot|svg|otf)$/)) {
               const name = assetInfo.name;
               if (name.includes('material-symbols')) {
-                // Extract weight information from path
+                // Extract weight information from source path context  
                 const source = assetInfo.source || '';
-                const weightMap = {
-                  'font-200': 'light',
-                  'font-400': 'medium', 
-                  'font-600': 'bold',
-                };
                 
-                // Try to determine weight from filename or use unknown
-                let weight = 'unknown';
-                for (const [key, value] of Object.entries(weightMap)) {
-                  if (name.includes(key)) {
-                    weight = value;
-                    break;
-                  }
+                // Extract weight and style from filename
+                let weight = 'medium'; // default
+                let style = 'sharp'; // default
+                
+                if (name.includes('-200') || this.facadeModuleId?.includes('font-200')) {
+                  weight = 'light';
+                } else if (name.includes('-400') || this.facadeModuleId?.includes('font-400')) {
+                  weight = 'medium';
+                } else if (name.includes('-600') || this.facadeModuleId?.includes('font-600')) {
+                  weight = 'bold';
                 }
                 
-                const baseName = name.replace(/^material-symbols-/, '').replace(/\.[^.]+$/, '');
+                if (name.includes('outlined')) {
+                  style = 'outlined';
+                } else if (name.includes('rounded')) {
+                  style = 'rounded';
+                }
+                
                 const ext = name.split('.').pop();
-                return `fonts/material/${weight}/${baseName}.[hash].${ext}`;
+                return `fonts/material/${weight}/${style}.[hash].${ext}`;
               }
             }
             return 'assets/[name].[hash].[ext]'
@@ -240,7 +265,25 @@ export default defineConfig(({ mode }) => {
       manifestPlugin('manifest.json'),
       iconGeneratorPlugin(),
       rawPlugin(),
-      styleguideEntryResolver(entries)
+      styleguideEntryResolver(entries),
+      // Plugin to copy material symbol fonts to avoid resolution issues
+      copy({
+        targets: [
+          {
+            src: 'node_modules/@material-symbols/font-200/*.woff2',
+            dest: 'assets/dist/fonts/material/light/'
+          },
+          {
+            src: 'node_modules/@material-symbols/font-400/*.woff2', 
+            dest: 'assets/dist/fonts/material/medium/'
+          },
+          {
+            src: 'node_modules/@material-symbols/font-600/*.woff2',
+            dest: 'assets/dist/fonts/material/bold/'
+          }
+        ],
+        hook: 'writeBundle'
+      })
     ]
   }
 })
