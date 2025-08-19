@@ -1,3 +1,3 @@
 @use "sass:math";
-@forward "@splidejs/splide/src/css/core/index.scss";
-@import "@helsingborg-stad/styleguide/source/sass/styleguide";
+@use "@splidejs/splide/dist/css/splide-core.min.css";
+@use "@helsingborg-stad/styleguide/source/sass/styleguide";

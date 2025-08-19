@@ -1,3 +1,5 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 $t-search-modal-breakpoint: 600px;
 
 .t-search-modal {
@@ -12,16 +14,16 @@ $t-search-modal-breakpoint: 600px;
   }
 
   &__form {
-    padding: calc($base * 2);
+    padding: calc(variables.$base * 2);
     display: grid;
     grid-template-areas: 
       "label"
       "field"
       "submit";
-    gap: calc($base * 1.5) 0;
+    gap: calc(variables.$base * 1.5) 0;
 
     > * {
-      filter: $drop-shadow-2;
+      filter: variables.$drop-shadow-2;
     }
   }
 
@@ -86,14 +88,14 @@ $t-search-modal-breakpoint: 600px;
 
     .t-search-modal__field,
     .t-search-modal__field * {
-      border-top-left-radius: $border-radius-sm;
-      border-bottom-left-radius: $border-radius-sm;
+      border-top-left-radius: variables.$border-radius-sm;
+      border-bottom-left-radius: variables.$border-radius-sm;
     }
 
     .t-search-modal__submit,
     .t-search-modal__submit * {
-      border-top-right-radius: $border-radius-sm;
-      border-bottom-right-radius: $border-radius-sm;
+      border-top-right-radius: variables.$border-radius-sm;
+      border-bottom-right-radius: variables.$border-radius-sm;
     }
   }
 }

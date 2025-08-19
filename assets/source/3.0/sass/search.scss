@@ -1,4 +1,6 @@
-$search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-radius, $border-radius-xs)) !default;
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+$search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-radius, variables.$border-radius-xs)) !default;
   
 #sidebar-slider-area--container {
   position: relative;
@@ -18,7 +20,7 @@ $search-border-radius: var(--c-search-form-border-radius, var(--c-field-border-r
     width:clamp(min(100%, 600px), 30%, max(30%, 600px));
     transform: translate(-50%, -50%);
     z-index: 3000;
-    color: $color-darker;
+    color: variables.$color-darker;
     left: 50%;
 
     &.c-form--centered {

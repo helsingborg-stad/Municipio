@@ -1,33 +1,36 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 /* Colors */
 $c-quicklinks-background-color: var(--c-quicklinks-background-color, transparent) !default;
-$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, $color-white) !default;
+$c-quicklinks-background-sticky-color: var(--c-quicklinks-sticky-background-color, variables.$color-white) !default;
 $c-quicklinks-icon-color: var(--c-quicklinks-icon-color);
 $c-quicklinks-icon-background-color: var(--c-quicklinks-icon-background-color) !default;
 $c-quicklinks-text-color: var(--c-quicklinks-text-color);
-$c-quicklinks-font: var(--c-quicklinks-font, $font-family-base) !default;
+$c-quicklinks-font: var(--c-quicklinks-font, variables.$font-family-base) !default;
 
 /* Gap */
 $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #quicklinks-header {
-    z-index: $level-5;
+    z-index: variables.$level-5;
     font-family: $c-quicklinks-font;
-    margin-bottom: calc($base * 5);
+    margin-bottom: calc(variables.$base * 5);
     
     &.c-header, .c-header__menu {
         background-color: #{$c-quicklinks-background-color};
     }
 
     &.c-header--primary {
-        --c-quicklinks-background-color: #{$color-white};
+        --c-quicklinks-background-color: #{variables.$color-white};
     }
 
     &.c-header--secondary {
-        --c-quicklinks-background-color: #{$color-secondary};
+        --c-quicklinks-background-color: #{variables.$color-secondary};
     }
 
     &.c-header--font-heading {
-        --c-quicklinks-font: #{$font-family-heading};
+        --c-quicklinks-font: #{variables.$font-family-heading};
     }
 
     &.c-header--sticky {
@@ -37,7 +40,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
     .c-nav {
         justify-content: space-evenly;
-        gap: calc($base * $c-quicklinks-gap);
+        gap: calc(variables.$base * $c-quicklinks-gap);
 
         .c-nav__link {
 
@@ -56,10 +59,10 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     .c-icon {
         color: #{$c-quicklinks-icon-color};
         background-color: #{$c-quicklinks-icon-background-color};
-        padding: calc($base * 1.5);
+        padding: calc(variables.$base * 1.5);
         aspect-ratio: 1/1;
         border-radius: 50%;
-        filter: $drop-shadow-2;
+        filter: variables.$drop-shadow-2;
     }
     
     .c-nav__link {
@@ -67,14 +70,14 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     }
 
     &.c-header--column {
-        padding: calc($base * .5) 0;
+        padding: calc(variables.$base * .5) 0;
 
         .c-nav > li {
             flex: 1 0;
         }
 
         .c-nav {
-            max-width: calc($base * 100);
+            max-width: calc(variables.$base * 100);
             margin-left: auto;
             margin-right: auto;
         }
@@ -109,21 +112,21 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
     &.c-header--overflow-top {
         transform: translateY(0px);
 
-        @include mq('md') {
+        @include mq.mq('md') {
             transform: translateY(-50%);
 
             &.c-header--sticky {
-                top: calc($base * 6.5);
+                top: calc(variables.$base * 6.5);
             }
         }
     }
 
-    @include mq('sm') {
+    @include mq.mq('sm') {
         &.c-header.c-header--sticky {
             position: sticky;
 
             &.c-header--column {
-                padding: calc($base * 2) 0 calc($base * .5) 0;
+                padding: calc(variables.$base * 2) 0 calc(variables.$base * .5) 0;
             }
             
             &.is-stuck .c-header__menu {
@@ -135,7 +138,7 @@ $c-quicklinks-gap: var(--c-quicklinks-gap, 2) !default;
 
 #main-content {
     #quicklinks-header.c-header--sticky .c-header__menu {
-        @include mq('sm') {
+        @include mq.mq('sm') {
             border-radius: 0;
             position: relative;
             left: 50%;

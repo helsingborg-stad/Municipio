@@ -1,3 +1,6 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/cover";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 
 /* Accessibility warnings */
 body.user-can-upload_files {
@@ -29,14 +32,14 @@ body.user-can-upload_files {
 
     &::before {
       content: "";
-      @include cover();
+      @include cover.cover();
       background: rgba(#fff, 0.5);
-      z-index: $level-1;
+      z-index: variables.$level-1;
     }
 
     span {
       position: relative;
-      z-index: $level-2;
+      z-index: variables.$level-2;
       display: flex;
       align-items: center;
       gap: calc(var(--base, 8px) / 2);

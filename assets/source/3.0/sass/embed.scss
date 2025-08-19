@@ -1,3 +1,5 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/ratio";
+
 .embed {
 	overflow: hidden;
 	position: relative;
@@ -6,11 +8,11 @@
 
 	&.embed__ratio {
 		&--1-1 {
-			@include ratio(1, 1, false);
+			@include ratio.ratio(1, 1, false);
 		}
 
 		&--16-9 {
-			@include ratio(16, 9, false);
+			@include ratio.ratio(16, 9, false);
 		}
 
 	}

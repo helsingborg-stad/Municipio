@@ -1,10 +1,13 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/list";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .site-footer {
-    background-color: $color-white; 
+    background-color: variables.$color-white; 
 }
 
 .site-footer {
     ul.menu {
-        @include unlist();
+        @include list.unlist();
         padding: 0;
         margin: 0;
     }

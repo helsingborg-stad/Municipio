@@ -1,17 +1,21 @@
+@use "sass:map";
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .c-header.c-header--business {
 
     .c-header__menu.c-header__menu--primary {
-        padding-top: map-get($spacers, "3");
-        padding-bottom: map-get($spacers, "3");
+        padding-top: map.get(variables.$spacers, "3");
+        padding-bottom: map.get(variables.$spacers, "3");
 
-        @include mq('xs') {
-            padding-top: map-get($spacers, "2");
-            padding-bottom: map-get($spacers, "2"); 
+        @include mq.mq('xs') {
+            padding-top: map.get(variables.$spacers, "2");
+            padding-bottom: map.get(variables.$spacers, "2"); 
         }
     }
     
     .c-header__menu.c-header__menu--secondary {
-        background-color: $color-primary;
+        background-color: variables.$color-primary;
 
         .c-nav--depth-0 > .c-nav__item > .c-nav__link {
             color: white;

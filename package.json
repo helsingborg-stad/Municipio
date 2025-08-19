@@ -37,10 +37,11 @@
         "@babel/core": "^7.28.3",
         "@babel/preset-env": "^7.28.3",
         "@babel/preset-typescript": "^7.27.1",
+        "@helsingborg-stad/styleguide": "file:../../../../styleguide",
         "@jest/globals": "^29.7.0",
-        "@material-symbols/font-200": "^0.27.0",
-        "@material-symbols/font-400": "^0.27.0",
-        "@material-symbols/font-600": "^0.27.0",
+        "@material-symbols/font-200": "^0.34.1",
+        "@material-symbols/font-400": "^0.34.1",
+        "@material-symbols/font-600": "^0.34.1",
         "@splidejs/splide": "^4.1.4",
         "@types/jest": "^29.5.14",
         "autoprefixer": "^10.4.20",
@@ -52,7 +53,7 @@
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
         "jquery": "^3.6.0",
-        "material-symbols": "^0.27.0",
+        "material-symbols": "^0.34.1",
         "object-fit-images": "^3.2.4",
         "postcss": "^8.5.1",
         "postcss-object-fit-images": "^1.1.2",
@@ -62,9 +63,6 @@
         "typescript": "^5.9.2",
         "vite": "^7.1.2",
         "vite-plugin-simple-manifest": "^1.0.2"
-    },
-    "optionalDependencies": {
-        "@helsingborg-stad/styleguide": "^0.11.333"
     },
     "browser": {
         "child_process": false

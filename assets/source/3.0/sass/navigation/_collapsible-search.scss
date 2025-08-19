@@ -1,3 +1,5 @@
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .site-header {
   .collapsible-search-form {
     $parent: &;
@@ -15,7 +17,7 @@
       display: flex;
       padding: calc(var(--base, 8px) * .5);
       overflow: hidden;
-      z-index: $level-7;
+      z-index: variables.$level-7;
       opacity: 0;
 
       @media (max-width: 799px) {
@@ -82,9 +84,9 @@
         }
 
         &__inner {
-          background-color: $color-white;
+          background-color: variables.$color-white;
           border-radius: calc(var(--base, 8px) * 6);
-          background-color: $color-white;
+          background-color: variables.$color-white;
           border: 2px solid var(--c-button-primary-color);
         }
       }
@@ -117,13 +119,13 @@
       appearance: none;
       background: transparent;
       border: none;
-      background-color: $color-secondary-light;
+      background-color: variables.$color-secondary-light;
       outline-width: 3px;
       border-top-right-radius: calc(var(--base, 8px) * 6);
       border-bottom-right-radius: calc(var(--base, 8px) * 6);
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      color: $color-black;
+      color: variables.$color-black;
       position: relative;
       cursor: pointer;
       z-index: -1;
@@ -135,7 +137,7 @@
         height: 100%;
         display: block;
         position: absolute;
-        background-color: $color-secondary-light;
+        background-color: variables.$color-secondary-light;
         inset: 0 100% 0 auto;
         z-index: -1;
       }

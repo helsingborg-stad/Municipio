@@ -1,4 +1,6 @@
-$page-title-color: var(--page-title-color, $color-primary) !default;
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
+$page-title-color: var(--page-title-color, variables.$color-primary) !default;
 
 h1#page-title {
     color: $page-title-color;

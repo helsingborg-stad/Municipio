@@ -1,8 +1,12 @@
+@use "sass:map";
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .t-block-container {
 
     &.t-block-button {
         flex-wrap: wrap;
-        gap: calc(#{$base}*2);
+        gap: calc(#{variables.$base}*2);
         margin: auto;
         display: flex;
 
@@ -70,7 +74,7 @@
         align-self: flex-end;
     }
 
-    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+    @include mq.mq(map.get(variables.$breakpoints-map, "xs"), map.get(variables.$breakpoints-map, "md")) {
         flex-basis: 100% !important; // Override inline style.
     }
 }

@@ -1,8 +1,11 @@
+@use "@helsingborg-stad/styleguide/source/sass/mixin/mq";
+@use "@helsingborg-stad/styleguide/source/sass/setting/variables";
+
 .t-403 {
     min-height: 80vh;
     display: grid; 
     align-items: center; 
-    row-gap: calc(#{$base} * 4);
+    row-gap: calc(#{variables.$base} * 4);
     align-content: center;
     max-width: 800px;
   
@@ -19,21 +22,21 @@
     }
   
     .c-typhography--403-heading {
-      z-index: $level-2;
-      color: $color-primary;
+      z-index: variables.$level-2;
+      color: variables.$color-primary;
   
-      @include mq(md) {
+      @include mq.mq(md) {
         font-size: 3rem;
       }
     }
   
     .c-typhography--403-subheading {
-      z-index: $level-2;
+      z-index: variables.$level-2;
       font-size: 1.2rem;
     }
   
     .t-403__buttons {
-      z-index: $level-2;
+      z-index: variables.$level-2;
     }
   
   }

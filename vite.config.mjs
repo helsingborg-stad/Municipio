@@ -196,6 +196,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
+          quietDeps: true, // Remove when issue is resolved: https://github.com/marella/material-symbols/issues/44
           api: 'modern-compiler',
           includePaths: ['node_modules', 'assets/source'],
           importers: [
