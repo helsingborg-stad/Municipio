@@ -5,14 +5,12 @@ import copy from 'rollup-plugin-copy'
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 const entries = {
-  // Styleguide entries - temporarily disabled until package is available
-  // 'css/styleguide': '', // will be filled by plugin
-  // 'js/styleguide': '', // will be filled by plugin
+  'css/styleguide': '', // will be filled by plugin
+  'js/styleguide': '', // will be filled by plugin
 
-  // Core CSS entries - temporarily disabled due to styleguide dependencies
-  // 'css/municipio': './assets/source/sass/main.scss',
+  'css/municipio': './assets/source/sass/main.scss',
   'css/mce': './assets/source/sass/mce.scss',
-  // 'css/blockeditor': './assets/source/sass/blockeditor.scss', // depends on styleguide
+  'css/blockeditor': './assets/source/sass/blockeditor.scss', // depends on styleguide
   'css/acf': './assets/source/sass/admin/acf.scss',
   'css/header-flexible': './assets/source/sass/admin/header-flexible.scss',
   'css/general': './assets/source/sass/admin/general.scss',
