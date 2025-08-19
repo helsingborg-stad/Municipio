@@ -517,7 +517,6 @@ class App
     {
         (new \Municipio\Controller\Media\TrashPage($this->wpService))->addHooks();
         (new \Municipio\Controller\Media\MoveToTrash($this->wpService))->addHooks();
-        (new \Municipio\Controller\Media\RestoreMedia($this->wpService))->addHooks();
     }
 
     /**
