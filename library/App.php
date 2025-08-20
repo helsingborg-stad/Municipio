@@ -117,7 +117,11 @@ class App
             $this->schemaDataConfig,
             $mainQueryUserGroupRestriction,
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
-            $this->getPostObjectFromWpPostFactory(),
+            new CreatePostObjectFromWpPost(
+                $this->wpService,
+                $this->acfService,
+                $this->getSchemaObjectFromPostFactory()
+            ),
             $userHelper
         );
 
@@ -814,19 +818,5 @@ class App
             $getSchemaPropertiesWithParamTypes,
             new SchemaPropertyValueSanitizer()
         ))->create();
-    }
-
-    /**
-     * Get the post object from WP post factory.
-     *
-     * @return PostObjectFromWpPostFactoryInterface
-     */
-    private function getPostObjectFromWpPostFactory(): PostObjectFromWpPostFactoryInterface
-    {
-        return new CreatePostObjectFromWpPost(
-            $this->wpService,
-            $this->acfService,
-            $this->getSchemaObjectFromPostFactory()
-        );
     }
 }
