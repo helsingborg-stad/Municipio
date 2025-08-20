@@ -14,7 +14,7 @@ class SourceConfigFactoryTest extends TestCase
      */
     public function testClassExists()
     {
-        $this->assertTrue(class_exists('Municipio\ExternalContent\Config\SourceConfigFactory'));
+        $this->assertTrue(class_exists('Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory'));
     }
 
     /**

@@ -117,7 +117,7 @@ class SyncHandler implements Hookable
      */
     private function getSourceReader(SourceConfigInterface $sourceConfig): SourceReaderInterface
     {
-        return (new \Municipio\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
+        return (new \Municipio\SchemaData\ExternalContent\SourceReaders\Factories\SourceReaderFromConfig())->create($sourceConfig);
     }
 
     /**
@@ -128,7 +128,7 @@ class SyncHandler implements Hookable
      */
     private function getPostFactory(SourceConfigInterface $sourceConfig): WpPostArgsFromSchemaObjectInterface
     {
-        return (new \Municipio\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();
+        return (new \Municipio\SchemaData\ExternalContent\WpPostArgsFromSchemaObject\Factory\Factory($sourceConfig))->create();
     }
 
     /**
@@ -139,8 +139,8 @@ class SyncHandler implements Hookable
      */
     private function setupCleanup(string $postType): void
     {
-        (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
-        (new \Municipio\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupPostsNoLongerInSource($postType, $this->wpService))->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\Cleanup\CleanupAttachmentsNoLongerInUse($this->wpService, $GLOBALS['wpdb']))->addHooks();
     }
 
     /**
@@ -172,7 +172,7 @@ class SyncHandler implements Hookable
      */
     private function applyFiltersBeforeSync(): void
     {
-        (new \Municipio\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
+        (new \Municipio\SchemaData\ExternalContent\SyncHandler\FilterBeforeSync\FilterOutDuplicateObjectById())->addHooks();
     }
 
     /**

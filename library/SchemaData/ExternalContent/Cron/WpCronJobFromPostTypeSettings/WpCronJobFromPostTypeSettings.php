@@ -15,7 +15,7 @@ class WpCronJobFromPostTypeSettings implements WpCronJobInterface
     /**
      * WpCronJobFromPostTypeSettings constructor.
      *
-     * @param \Municipio\ExternalContent\Config\SourceConfigInterface $sourceConfig
+     * @param \Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface $sourceConfig
      * @param DoAction $wpService
      */
     public function __construct(

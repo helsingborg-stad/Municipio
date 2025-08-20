@@ -12,7 +12,7 @@ class PageRowActionsSyncButtonTest extends TestCase
      */
     public function testClassExists()
     {
-        $this->assertTrue(class_exists(\Municipio\ExternalContent\UI\PageRowActionsSyncButton::class));
+        $this->assertTrue(class_exists(\Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton::class));
     }
 
     /**
@@ -20,7 +20,7 @@ class PageRowActionsSyncButtonTest extends TestCase
      */
     public function testAddSyncButtonReturnsAnArray()
     {
-        $pageRowActionsSyncButton = new \Municipio\ExternalContent\UI\PageRowActionsSyncButton([], new \WpService\Implementations\FakeWpService());
+        $pageRowActionsSyncButton = new \Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton([], new \WpService\Implementations\FakeWpService());
         $this->assertIsArray($pageRowActionsSyncButton->addSyncButton([], new WP_Post([])));
     }
 
@@ -30,7 +30,7 @@ class PageRowActionsSyncButtonTest extends TestCase
     public function testFiltersAreAddedForBothPageRowActionsAndPostRowActions()
     {
         $wpService                = new \WpService\Implementations\FakeWpService(['currentUserCan' => true, 'addFilter' => true]);
-        $pageRowActionsSyncButton = new \Municipio\ExternalContent\UI\PageRowActionsSyncButton([], $wpService);
+        $pageRowActionsSyncButton = new \Municipio\SchemaData\ExternalContent\UI\PageRowActionsSyncButton([], $wpService);
 
         $pageRowActionsSyncButton->addHooks();
 

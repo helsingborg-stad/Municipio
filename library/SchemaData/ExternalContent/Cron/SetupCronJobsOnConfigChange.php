@@ -17,7 +17,7 @@ use WpService\Contracts\DoAction;
 class SetupCronJobsOnConfigChange implements Hookable
 {
     /**
-     * @param use \Municipio\ExternalContent\Config\SourceConfigInterface[] $sourceConfigs
+     * @param use \Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface[] $sourceConfigs
      * @param WpCronJobManagerInterface $cronJobsManager
      * @param AddAction&DoAction $wpService
      */
