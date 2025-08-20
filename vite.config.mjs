@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import babel from 'vite-plugin-babel'
 import path from 'path'
 import fs from 'fs'
 import copy from 'rollup-plugin-copy'
@@ -270,6 +271,12 @@ export default defineConfig(({ mode }) => {
       iconGeneratorPlugin(),
       rawPlugin(),
       styleguideEntryResolver(entries),
+      babel({
+        babelConfig: {
+          presets: ['@babel/preset-env'],
+          plugins: []
+        }
+      }),
       // Plugin to copy material symbol fonts to avoid resolution issues
       copy({
         targets: [
