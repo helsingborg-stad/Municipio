@@ -5,7 +5,7 @@ namespace Municipio\SchemaData\ExternalContent;
 use AcfService\AcfService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigFactory as ConfigSourceConfigFactory;
 use Municipio\SchemaData\ExternalContent\Cron\AllowCronToEditPosts;
 use Municipio\SchemaData\ExternalContent\ModifyPostTypeArgs\DisableEditingOfPostTypeUsingExternalContentSource;

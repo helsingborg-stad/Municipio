@@ -5,7 +5,7 @@ namespace Municipio\SchemaData;
 use AcfService\AcfService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
 use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\HooksRegistrar\HooksRegistrarInterface;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;

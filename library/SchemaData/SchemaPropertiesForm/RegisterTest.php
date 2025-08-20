@@ -3,7 +3,7 @@
 namespace Municipio\SchemaData\SchemaPropertiesForm;
 
 use AcfService\Contracts\AddLocalFieldGroup;
-use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;

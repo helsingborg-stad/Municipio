@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\Config;
 
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
 use PHPUnit\Framework\TestCase;
 use WpService\Implementations\FakeWpService;

@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\SchemaPropertiesForm\StoreFormFieldValues;
 
-use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\PostObject\PostObjectInterface;
 use Municipio\Schema\Schema;

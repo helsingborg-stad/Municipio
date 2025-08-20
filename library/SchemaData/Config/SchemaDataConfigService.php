@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Config\Features\SchemaData;
+namespace Municipio\SchemaData\Config;
 
 use WpService\Contracts\GetOption;
 use WpService\Contracts\GetOptions;

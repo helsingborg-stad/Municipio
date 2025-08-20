@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Config\Features\SchemaData\Contracts;
+namespace Municipio\SchemaData\Config\Contracts;
 
 interface TryGetSchemaTypeFromPostType
 {

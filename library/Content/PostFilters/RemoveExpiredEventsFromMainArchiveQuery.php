@@ -2,7 +2,7 @@
 
 namespace Municipio\Content\PostFilters;
 
-use Municipio\Config\Features\SchemaData\Contracts\TryGetSchemaTypeFromPostType;
+use Municipio\SchemaData\Config\Contracts\TryGetSchemaTypeFromPostType;
 use Municipio\HooksRegistrar\Hookable;
 use WP_Query;
 use WpService\Contracts\AddAction;

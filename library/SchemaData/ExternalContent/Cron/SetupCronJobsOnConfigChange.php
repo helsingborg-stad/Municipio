@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\Cron;
 
-use Municipio\Config\Features\ExternalContent\ExternalContentConfigInterface;
+use Municipio\SchemaData\Config\Features\ExternalContent\ExternalContentConfigInterface;
 use Municipio\SchemaData\ExternalContent\Cron\WpCronJobFromPostTypeSettings\WpCronJobFromPostTypeSettings;
 use Municipio\HooksRegistrar\Hookable;
 use WpCronService\WpCronJobManagerInterface;

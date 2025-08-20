@@ -2,9 +2,9 @@
 
 namespace Municipio\SchemaData\ExternalContent\Cron\WpCronJobFromPostTypeSettings;
 
-use Municipio\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
-use Municipio\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
-use Municipio\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
+use Municipio\SchemaData\Config\Features\ExternalContent\ExternalContentPostTypeSettings\ExternalContentPostTypeSettingsInterface;
+use Municipio\SchemaData\Config\Features\ExternalContent\SourceConfig\TypesenseSourceConfigInterface;
+use Municipio\SchemaData\Config\Features\ExternalContent\SourceConfig\JsonSourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Config\SourceConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition;
 use PHPUnit\Framework\TestCase;

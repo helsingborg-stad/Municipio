@@ -11,7 +11,7 @@ use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
 use Municipio\BrandedEmails\HtmlTemplate\DefaultHtmlTemplate;
 use Municipio\Comment\OptionalDisableDiscussionFeature;
 use Municipio\Comment\OptionalHideDiscussionWhenLoggedOut;
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\Content\ResourceFromApi\Api\ResourceFromApiRestController;
 use Municipio\Content\ResourceFromApi\Modifiers\HooksAdder;
 use Municipio\Content\ResourceFromApi\Modifiers\ModifiersHelper;

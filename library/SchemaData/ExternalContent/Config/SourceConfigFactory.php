@@ -2,7 +2,7 @@
 
 namespace Municipio\SchemaData\ExternalContent\Config;
 
-use Municipio\Config\Features\SchemaData\SchemaDataConfigInterface;
+use Municipio\SchemaData\Config\SchemaDataConfigInterface;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\Enums\Operator;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\FilterDefinition;
 use Municipio\SchemaData\ExternalContent\Filter\FilterDefinition\Contracts\FilterDefinition as FilterDefinitionInterface;

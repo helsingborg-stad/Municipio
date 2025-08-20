@@ -1,6 +1,6 @@
 <?php
 
-namespace Municipio\Config\Contracts;
+namespace Municipio\SchemaData\Config\Contracts;
 
 interface GetEnabledPostTypes
 {

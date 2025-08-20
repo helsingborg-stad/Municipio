@@ -4,7 +4,7 @@ namespace Municipio;
 
 use AcfService\Contracts\GetField;
 use AcfService\Contracts\UpdateField;
-use Municipio\Config\Features\SchemaData\SchemaDataConfigService;
+use Municipio\SchemaData\Config\SchemaDataConfigService;
 use Municipio\Customizer\Applicators\Types\NullApplicator;
 use Municipio\Helper\WpService;
 use WpService\Contracts\AddAction;
