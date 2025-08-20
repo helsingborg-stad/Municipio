@@ -5,7 +5,6 @@ namespace Municipio;
 use AcfService\AcfService;
 use HelsingborgStad\BladeService\BladeService;
 use Municipio\AcfFieldContentModifiers\AcfFieldContentModifierRegistrarInterface;
-use Municipio\AcfFieldContentModifiers\Modifiers\ModifyFieldChoices;
 use Municipio\Api\RestApiEndpointsRegistry;
 use Municipio\BrandedEmails\ApplyMailHtmlTemplate;
 use Municipio\BrandedEmails\HtmlTemplate\Config\HtmlTemplateConfigService;
@@ -31,10 +30,8 @@ use WpService\WpService;
 use Municipio\Helper\User\Config\UserConfig;
 use Municipio\Helper\User\User;
 use Municipio\PostObject\Factory\CreatePostObjectFromWpPost;
-use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\SchemaData\SchemaDataFeature;
 use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostFactory;
-use Municipio\SchemaData\SchemaObjectFromPost\SchemaObjectFromPostInterface;
 use Municipio\SchemaData\SchemaPropertyValueSanitizer\SchemaPropertyValueSanitizer;
 use Municipio\SchemaData\Utils\SchemaTypesInUse;
 
