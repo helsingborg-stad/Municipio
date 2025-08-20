@@ -31,7 +31,7 @@ class SourceConfigFactoryTest extends TestCase
      */
     public function testAcfConfig()
     {
-        $acfJsonFile = __DIR__ . '/../../AcfFields/json/external-content-settings.json';
+        $acfJsonFile = __DIR__ . '/../../../AcfFields/json/external-content-settings.json';
 
         $this->assertFileExists($acfJsonFile);
     }
@@ -172,7 +172,7 @@ class SourceConfigFactoryTest extends TestCase
 
     private function getAcfFields(): array
     {
-        return json_decode(file_get_contents(__DIR__ . '/../../AcfFields/json/external-content-settings.json'), true);
+        return json_decode(file_get_contents(__DIR__ . '/../../../AcfFields/json/external-content-settings.json'), true);
     }
 
     private function getTestAcfData(): array
