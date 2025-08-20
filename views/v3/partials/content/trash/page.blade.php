@@ -23,5 +23,3 @@
     @endforeach
     @endelement
 @endelement
-
-@include('partials.content.trash.style')

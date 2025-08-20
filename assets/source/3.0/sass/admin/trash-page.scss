@@ -1,9 +1,9 @@
-<style>
+.municipio-trash-page {
     .municipio-trash-page__posts {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 8.25rem);
-        gap: 1.25rem;
-    }
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 8.25rem);
+            gap: 1.25rem;
+        }
 
     .municipio-trash-page__post {
         width: 8.25rem;
@@ -28,6 +28,10 @@
         width: 100%;
     }
 
+    .municipio-trash-page__post-title {
+        word-break: break-word;
+    }
+
     .municipio-trash-page__post-action-icon {
         background-color: white;
         border-radius: 50%;
@@ -46,4 +50,4 @@
     .municipio-trash-page__post-image .c-image__image-wrapper {
         line-height: 0;
     }
-</style>
+}

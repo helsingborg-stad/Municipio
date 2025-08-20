@@ -27,6 +27,9 @@
         ])
     @endelement
     @typography([
+        'classList' => [
+            'municipio-trash-page__post-title'
+        ],
         'attributeList' => [
             'style' => 'margin: 0;'
         ]
