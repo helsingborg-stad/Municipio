@@ -9,6 +9,7 @@ use Municipio\PostObject\Factory\PostObjectFromWpPostFactoryInterface;
 use Municipio\Schema\BaseType;
 use Municipio\Schema\Schema;
 use Municipio\SchemaData\SchemaPropertiesForm\FormBuilder\FormFactory\FormFactoryInterface;
+use WP_Post;
 use WpService\Contracts\AddAction;
 use WpService\Contracts\GetCurrentScreen;
 use WpService\Contracts\GetPost;
@@ -62,7 +63,10 @@ class Register implements Hookable
     {
         if ($postId = $this->getPostIdFromRequest()) {
             $post = $this->wpService->getPost($postId);
-            return $this->postObjectFactory->create($post)->getSchema();
+
+            if (is_a($post, WP_Post::class)) {
+                return $this->postObjectFactory->create($post)->getSchema();
+            }
         }
 
         return Schema::{strtolower($this->getSchemaType())}();
