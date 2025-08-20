@@ -111,7 +111,6 @@ class App
             $menuDirector,
             $this->acfService,
             $this->wpService,
-            $this->schemaDataConfig,
             $mainQueryUserGroupRestriction,
             new \Municipio\Helper\SiteSwitcher\SiteSwitcher($this->wpService, $this->acfService),
             new CreatePostObjectFromWpPost(
