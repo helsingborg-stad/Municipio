@@ -61,6 +61,8 @@ class Enqueue
 
         // Do not load Gravity Forms scripts in the footer unless you want to work the weekend
         add_filter('gform_init_scripts_footer', '__return_false');
+
+        // Removed ad-hoc type="module" filter; handled via script registration array.
     }
 
     /**
@@ -296,35 +298,25 @@ class Enqueue
 
         wp_enqueue_script('pre-styleguide-js');
 
-        //Load local styleguide js
-        wp_register_script('styleguide-js', self::getAsset('js/styleguide.js'), [], null, [
-            'module'  => 'true',
-        ]);
-        wp_enqueue_script('styleguide-js');
+        // Load local styleguide js
+        wp_register_script_module('styleguide-js', self::getAsset('js/styleguide.js'));
+        wp_enqueue_script_module('styleguide-js');
 
-        //Load local municipio js
-        wp_register_script('municipio-js', self::getAsset('js/municipio.js'), array('wp-api-request'));
-        wp_enqueue_script('municipio-js');
+        // Load local municipio js
+        wp_register_script_module('municipio-js', self::getAsset('js/municipio.js'), array('wp-api-request'));
+        wp_enqueue_script_module('municipio-js');
 
-        //Load instant page
-        wp_register_script(
-            'instantpage-js',
-            self::getAsset('js/instantpage.js'),
-            [],
-            null,
-            [
-                'strategy'  => 'defer',
-                'in_footer' => true
-            ]
-        );
-        wp_enqueue_script('instantpage-js');
+        // Load instant page
+        wp_register_script_module('instantpage-js', self::getAsset('js/instantpage.js'));
+        wp_enqueue_script_module('instantpage-js');
 
-        //Load pdf generator
-        wp_register_script('pdf-js', self::getAsset('js/pdf.js'));
-        wp_enqueue_script('pdf-js');
+        // Load pdf generator
+        wp_register_script_module('pdf-js', self::getAsset('js/pdf.js'));
+        wp_enqueue_script_module('pdf-js');
 
-        wp_register_script('nav-js', self::getAsset('js/nav.js'));
-        wp_enqueue_script('nav-js');
+        //Nav js
+        wp_register_script_module('nav-js', self::getAsset('js/nav.js'));
+        wp_enqueue_script_module('nav-js');
     }
 
     /**

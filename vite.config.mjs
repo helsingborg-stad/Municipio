@@ -48,51 +48,49 @@ const entries = {
   'js/event-source-progress': './assets/source/js/admin/eventSourceProgress/index.ts'
 }
 
-// Custom plugin to generate icon data (replaces webpack plugin)
-function iconGeneratorPlugin() {
+function convertIconManifestPlugin() {
   return {
     name: 'icon-generator',
     buildStart() {
-      const filePath = path.resolve(process.cwd(), 'node_modules', 'material-symbols', 'index.d.ts');
-
       try {
-        const data = fs.readFileSync(filePath, 'utf8');
-
-        const [startIndex, endIndex] = [
-          data.indexOf('['),
-          data.indexOf(']')
-        ];
-
-        if (startIndex === -1 || endIndex === -1) {
-          console.error('Could not parse source file. Source file malformed.');
-          return;
-        }
-
-        let iconArray = [];
-        try {
-          iconArray = JSON.parse(data.substring(startIndex, endIndex + 1));
-        } catch (parseError) {
-          console.error(`Error parsing icon data: ${parseError}`);
-          return;
-        }
-
-        const json = JSON.stringify(iconArray, null, 2);
-        const resultDirectory = path.resolve(process.cwd(), 'assets', 'generated');
-        const resultFilepath = path.resolve(resultDirectory, 'icon.json');
-
-        try {
-          fs.mkdirSync(resultDirectory, { recursive: true });
-          fs.writeFileSync(resultFilepath, json);
-          console.log('Generated icon.json successfully');
-        } catch (err) {
-          console.error(err);
-        }
+        const rawData = readData();
+        const validData = validateData(rawData);
+        const transformedData = transformData(validData);
+        writeData(transformedData);
+        console.log('Generated icon.json successfully');
       } catch (err) {
-        if (err.code !== 'ENOENT') {
-          console.error(`Error reading icon file: ${filePath} [${err}]`);
-        }
+        if (err.code !== 'ENOENT') console.error('Error generating icons:', err);
       }
     }
+  }
+
+  function readData() {
+    const sourcePath = path.resolve(process.cwd(), 'node_modules/material-symbols/index.d.ts');
+    return fs.readFileSync(sourcePath, 'utf8');
+  }
+
+  function validateData(data) {
+    // Match only the first array assigned to a variable (typical in d.ts files)
+    const match = data.match(/=\s*(\[[^\]]*\])/s);
+    if (!match) throw new Error('Could not parse icon data. Source file malformed.');
+
+    try {
+      return JSON.parse(match[1]); // Use only the captured array
+    } catch (err) {
+      throw new Error(`Error parsing icon data: ${err.message}`);
+    }
+  }
+
+  function transformData(icons) {
+    // Example: we could filter, sort, or restructure icons here
+    return icons.sort(); // simple alphabetical sort
+  }
+
+  function writeData(icons) {
+    const outputDir = path.resolve(process.cwd(), 'assets/generated');
+    fs.mkdirSync(outputDir, { recursive: true });
+    const outputPath = path.resolve(outputDir, 'icon.json');
+    fs.writeFileSync(outputPath, JSON.stringify(icons, null, 2));
   }
 }
 
@@ -233,31 +231,8 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       manifestPlugin('manifest.json'),
-      iconGeneratorPlugin(),
+      convertIconManifestPlugin(),
       rawPlugin(),
-      babel({
-        babelConfig: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                // Example: cover older browsers, including IE 11
-                targets: {
-                  ie: '11',
-                  edge: '18',
-                  firefox: '60',
-                  chrome: '49',
-                  safari: '11'
-                },
-                useBuiltIns: 'usage', // adds only the needed polyfills
-                corejs: 3             // make sure core-js@3 is installed
-              }
-            ]
-          ],
-          plugins: []
-        }
-      }),
-      // Plugin to copy material symbol fonts to avoid resolution issues
       copy({
         targets: [
           {
